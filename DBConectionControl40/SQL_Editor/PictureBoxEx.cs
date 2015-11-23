@@ -1,0 +1,39 @@
+// -------------------------------------------------------
+// SqlBuilder by ElmüSoft
+// www.netcult.ch/elmue
+// www.codeproject.com/KB/database/SqlBuilder.aspx
+// -------------------------------------------------------
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace SqlBuilder.Controls
+{
+	/// <summary>
+	/// The stupid .NET Picturebox does not allow to set a SystemIcon
+	/// Converting an icon to a bitmap and painting it afterwards looks very ugly !
+	/// </summary>
+	public class PictureBoxEx : PictureBox
+	{
+		Icon mi_Icon = null;
+
+		public Icon Icon
+		{
+			set { mi_Icon = value; }
+		}
+
+		protected override void OnPaintBackground(PaintEventArgs e)
+		{
+			e.Graphics.FillRectangle(new SolidBrush(this.BackColor), this.ClientRectangle);
+		}
+
+		protected override void OnPaint(PaintEventArgs e)
+		{
+			if (mi_Icon != null)
+				e.Graphics.DrawIcon(mi_Icon, this.ClientRectangle);
+			else 
+				base.OnPaint (e);
+		}
+	}
+}

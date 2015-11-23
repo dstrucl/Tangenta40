@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{322AF3BF-B609-477D-9D2B-39A9BBBBC721}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DBConnectionControl40</RootNamespace>
+    <AssemblyName>DBConnectionControl40</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+    <ApplicationIcon>Resources\ConnectionDialog.ico</ApplicationIcon>
+    <Win32Resource>
+    </Win32Resource>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLite.Designer, Version=1.0.88.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\SQLite.Designer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.88.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.88.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConnectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectionDialog.Designer.cs">
+      <DependentUpon>ConnectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Connections_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Connections_Form.Designer.cs">
+      <DependentUpon>Connections_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Connection_Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Connection_Control.Designer.cs">
+      <DependentUpon>Connection_Control.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateDataBaseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateMySQLDataBase_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateMySQLDataBase_Form.Designer.cs">
+      <DependentUpon>CreateMySQLDataBase_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crypt.cs" />
+    <Compile Include="dbg.cs" />
+    <Compile Include="DBSettings.cs" />
+    <Compile Include="Defaults.cs" />
+    <Compile Include="DynSettings.cs" />
+    <Compile Include="conData_MYSQL.cs" />
+    <Compile Include="Properties\Resources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RDBconParam.cs" />
+    <Compile Include="SQLiteConnectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQLiteConnectionDialog.Designer.cs">
+      <DependentUpon>SQLiteConnectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="conData_SQLITE.cs" />
+    <Compile Include="SQL_Editor\frmBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQL_Editor\frmEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQL_Editor\frmFind.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQL_Editor\frmMsgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQL_Editor\frmWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQL_Editor\Functions.cs" />
+    <Compile Include="GetConnections.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="SQL_Editor\PictureBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Process_CreateDatabase_Timer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQL_Editor\Recycler.cs" />
+    <Compile Include="SQL_Editor\RichTextBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SQL_Editor\RichTextBoxParser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SQL_Editor\RtfHtmlBuilder.cs" />
+    <Compile Include="Select_DataBase_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Select_DataBase_Form.Designer.cs">
+      <DependentUpon>Select_DataBase_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Select_DataSource_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Select_DataSource_Form.Designer.cs">
+      <DependentUpon>Select_DataSource_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlParser.cs" />
+    <Compile Include="DBConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DBConnection.Designer.cs">
+      <DependentUpon>DBConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SQL_Connection.cs" />
+    <Compile Include="conData_MSSQL.cs" />
+    <Compile Include="SQL_Editor\StackEx.cs" />
+    <Compile Include="SQL_Editor\StatusInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TestConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestConnectionForm.Designer.cs">
+      <DependentUpon>TestConnectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextBoxDialog_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextBoxDialog_Form.Designer.cs">
+      <DependentUpon>TextBoxDialog_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View_AccessRights_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View_AccessRights_Form.Designer.cs">
+      <DependentUpon>View_AccessRights_Form.cs</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ConnectionDialog.resx">
+      <DependentUpon>ConnectionDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateDataBaseDialog.resx">
+      <DependentUpon>CreateDataBaseDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateMySQLDataBase_Form.resx">
+      <DependentUpon>CreateMySQLDataBase_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Process_CreateDatabase_Timer.resx">
+      <DependentUpon>Process_CreateDatabase_Timer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select_DataBase_Form.resx">
+      <DependentUpon>Select_DataBase_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select_DataSource_Form.resx">
+      <DependentUpon>Select_DataSource_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SQLiteConnectionDialog.resx">
+      <DependentUpon>SQLiteConnectionDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestConnectionForm.resx">
+      <DependentUpon>TestConnectionForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextBoxDialog_Form.resx">
+      <DependentUpon>TextBoxDialog_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View_AccessRights_Form.resx">
+      <DependentUpon>View_AccessRights_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ComboBox_Recent\ComboBox_Recent.csproj">
+      <Project>{0F0AFE83-5E47-49CF-888A-79A03FA71321}</Project>
+      <Name>ComboBox_Recent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBConnectionControl_Settings\DBConnectionControl_Settings.csproj">
+      <Project>{E5865963-2DC3-4F0D-B80C-76A1092E43E4}</Project>
+      <Name>DBConnectionControl_Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DigitalRune.Windows.TextEditor\DigitalRune.Windows.TextEditor.csproj">
+      <Project>{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}</Project>
+      <Name>DigitalRune.Windows.TextEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageControl\LanguageControl.csproj">
+      <Project>{949968F4-DD18-406E-93A5-9EA7BEFCD0B0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogFile\LogFile.csproj">
+      <Project>{6B46E1F3-1818-4AF1-B63F-19E31C6B6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SearchLocalNetworkControl4\SearchLocalNetwork.csproj">
+      <Project>{1614095B-FC53-4CD6-BFAE-1D2D2ED81332}</Project>
+      <Name>SearchLocalNetwork</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Connections_Form.resx">
+      <DependentUpon>Connections_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Connection_Control.resx">
+      <DependentUpon>Connection_Control.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SQL_Editor\frmBaseForm.resx">
+      <DependentUpon>frmBaseForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SQL_Editor\frmEditor.resx">
+      <DependentUpon>frmEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SQL_Editor\frmFind.resx">
+      <DependentUpon>frmFind.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SQL_Editor\frmMsgBox.resx">
+      <DependentUpon>frmMsgBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SQL_Editor\frmWait.resx">
+      <DependentUpon>frmWait.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ConnectionDialog.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CreateDataBase.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBConnectionControl.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_opened.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon_SelectServer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SQLServerConnection.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TestConnectionIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ViewAccessRights.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
