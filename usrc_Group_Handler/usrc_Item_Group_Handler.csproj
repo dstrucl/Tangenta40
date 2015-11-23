@@ -58,11 +58,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\LogFile\LogFile.csproj">
+    <ProjectReference Include="..\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
