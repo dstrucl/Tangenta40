@@ -1,0 +1,13 @@
+﻿<Window x:Class="uwpf_GUI.Price_Undefined_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Price_Item_Undefined" Height="504" Width="634" WindowStartupLocation="CenterScreen">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,10,2,2">
+        <DataGrid x:Name="dgvx_PriceUndefinedItem" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,56">
+        </DataGrid>
+        <Button x:Name="btn_Edit" Content="Button" HorizontalAlignment="Left" Height="32" Margin="10,420,0,0" VerticalAlignment="Top" Width="141" Click="btn_Edit_Click">
+        </Button>
+        <Button x:Name="btn_Cancel" Content="Button" HorizontalAlignment="Left" Height="32" Margin="194,420,0,0" VerticalAlignment="Top" Width="141" Click="btn_Cancel_Click"/>
+    </Grid>
+
+</Window>
