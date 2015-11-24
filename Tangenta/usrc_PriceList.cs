@@ -1,0 +1,114 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using LanguageControl;
+
+namespace Tangenta
+{
+    public partial class usrc_PriceList : UserControl
+    {
+        int xPriceList_Count = 0;
+        public long m_Currency_ID = 0;
+
+        public xPriceList m_xPriceList = null;
+
+        public usrc_PriceList()
+        {
+            InitializeComponent();
+            lbl_PriceList.Text = lngRPM.s_PriceList.s + ":";
+        }
+
+        public long ID
+        {
+            get
+            {
+                object o_ID = cmb_PriceListType.SelectedValue;
+                if (o_ID.GetType() == typeof(long))
+                {
+                    return (long)o_ID;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:PriceList_ID is not selected!");
+                    return -1;
+                }
+            }
+        }
+
+        internal bool Init(long Currency_ID,ref string Err)
+        {
+            m_Currency_ID = Currency_ID;
+            if (m_xPriceList == null)
+            {
+                m_xPriceList = new xPriceList();
+            }
+
+            if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
+            {
+                if (xPriceList_Count > 0)
+                {
+                    this.cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
+                    this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
+                    this.cmb_PriceListType.ValueMember = "xPriceList_ID";
+                }
+                else
+                {
+                    if (MessageBox.Show(this, lngRPM.s_NoPriceList_AskToCreatePriceList.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    {
+                        Form_PriceList_Edit PriceListType_Edit_dlg = new Form_PriceList_Edit(false);
+                        if (PriceListType_Edit_dlg.ShowDialog()== DialogResult.OK)
+                        {
+                            if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
+                            {
+                                if (xPriceList_Count > 0)
+                                {
+                                    this.cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
+                                    this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
+                                    this.cmb_PriceListType.ValueMember = "xPriceList_ID";
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show(Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show(Err);
+                return false;
+            }
+        }
+
+        private void btn_PriceListType_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            Control pctrl = null;
+            if (this.Parent!=null)
+            { 
+                pctrl = this.Parent;
+                pctrl.Cursor = Cursors.WaitCursor; 
+            }
+
+            Program.PriceList_Edit(m_Currency_ID, cmb_PriceListType, m_xPriceList, false);
+            this.Cursor = Cursors.Arrow;
+            if (pctrl != null)
+            {
+                pctrl.Cursor = Cursors.Arrow;
+            }
+        }
+    }
+}
