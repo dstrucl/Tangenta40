@@ -89,7 +89,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tangenta40\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
+    <ProjectReference Include="..\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
       <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
       <Name>usrc_Item_PageHandler</Name>
     </ProjectReference>

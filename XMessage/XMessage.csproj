@@ -56,7 +56,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tangenta40\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>

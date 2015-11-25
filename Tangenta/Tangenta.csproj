@@ -845,67 +845,67 @@
     <Compile Include="xUnitList.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tangenta40\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
+    <ProjectReference Include="..\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>BlagajnaDataBaseDef</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\BlagajnaTableClass\BlagajnaTableClass.csproj">
+    <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>BlagajnaTableClass</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\ComboBox_Recent\ComboBox_Recent.csproj">
+    <ProjectReference Include="..\ComboBox_Recent\ComboBox_Recent.csproj">
       <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
       <Name>ComboBox_Recent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\CommandLineHelp\CommandLineHelp.csproj">
+    <ProjectReference Include="..\CommandLineHelp\CommandLineHelp.csproj">
       <Project>{5c02a9ff-0e40-4f63-89c5-8afcd9d4869d}</Project>
       <Name>CommandLineHelp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\DataGridView_2xls\DataGridView_2xls.csproj">
+    <ProjectReference Include="..\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\DBConectionControl40\DBConnectionControl40.csproj">
+    <ProjectReference Include="..\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\DBSync\DBSync.csproj">
+    <ProjectReference Include="..\DBSync\DBSync.csproj">
       <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
       <Name>DBSync</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\DBTypes\DBTypes.csproj">
+    <ProjectReference Include="..\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\LogFile\LogFile.csproj">
+    <ProjectReference Include="..\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\ProgramDiagnostic\ProgramDiagnostic.csproj">
+    <ProjectReference Include="..\ProgramDiagnostic\ProgramDiagnostic.csproj">
       <Project>{88f14aad-b6bc-415a-9195-c3314addea6f}</Project>
       <Name>ProgramDiagnostic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\SQLTableControl\SQLTableControl.csproj">
+    <ProjectReference Include="..\SQLTableControl\SQLTableControl.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
+    <ProjectReference Include="..\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
       <Project>{AE38E7C4-AC11-4E43-9DE3-364533FCC83B}</Project>
       <Name>usrc_Item_Group_Handler</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\usrc_Help\usrc_Help.csproj">
+    <ProjectReference Include="..\usrc_Help\usrc_Help.csproj">
       <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
       <Name>usrc_Help</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
+    <ProjectReference Include="..\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
       <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
       <Name>usrc_Item_PageHandler</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tangenta40\uwpf_GUI\uwpfGUI.csproj">
+    <ProjectReference Include="..\uwpf_GUI\uwpfGUI.csproj">
       <Project>{f0cc2d06-fa8d-4b08-8b7c-9e0e03babdc3}</Project>
       <Name>uwpfGUI</Name>
     </ProjectReference>
