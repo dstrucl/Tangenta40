@@ -34,5 +34,861 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
                 this["MessageBox_Length"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<schema xmlns=\"http://www.w3.org/2001/XML" +
+            "Schema\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:ds=\"http://www.w3.org/" +
+            "2000/09/xmldsig#\" xmlns:fu=\"http://www.fu.gov.si/\" targetNamespace=\"http://www.f" +
+            "u.gov.si/\" elementFormDefault=\"qualified\">\r\n\t<import namespace=\"http://www.w3.or" +
+            "g/2000/09/xmldsig#\" schemaLocation=\"http://www.w3.org/TR/2002/REC-xmldsig-core-2" +
+            "0020212/xmldsig-core-schema.xsd\"/>\r\n\t<element name=\"InvoiceListRequest\">\r\n\t\t<ann" +
+            "otation>\r\n\t\t\t<documentation>Vsebina in oblika sporočila s podatki o računu. / " +
+            "Content and form of the message with data about the invoice.</documentation>\r\n\t\t" +
+            "</annotation>\r\n\t\t<complexType>\r\n\t\t\t<sequence>\r\n\t\t\t\t<element name=\"Header\" type=\"" +
+            "fu:HeaderType\">\r\n\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t<documentation>Glava sporočila / Mess" +
+            "age header</documentation>\r\n\t\t\t\t\t</annotation>\r\n\t\t\t\t</element>\r\n\t\t\t\t<element nam" +
+            "e=\"InvoiceList\">\r\n\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t<documentation>Seznam računov</docume" +
+            "ntation>\r\n\t\t\t\t\t</annotation>\r\n\t\t\t\t\t<complexType>\r\n\t\t\t\t\t\t<sequence minOccurs=\"2\" " +
+            "maxOccurs=\"500\">\r\n\t\t\t\t\t\t\t<element name=\"RecordInfo\">\r\n\t\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t" +
+            "\t\t\t\t\t<documentation>Posamezni zapis</documentation>\r\n\t\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t" +
+            "\t\t\t\t<complexType>\r\n\t\t\t\t\t\t\t\t\t<sequence>\r\n\t\t\t\t\t\t\t\t\t\t<element name=\"RecordNumber\" t" +
+            "ype=\"integer\">\r\n\t\t\t\t\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<documentation>Zaporedna št" +
+            "evilka zapisa</documentation>\r\n\t\t\t\t\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t\t\t\t\t</element>\r\n\t" +
+            "\t\t\t\t\t\t\t\t\t<element name=\"Invoice\" type=\"fu:InvoiceType\">\r\n\t\t\t\t\t\t\t\t\t\t\t<annotation>" +
+            "\r\n\t\t\t\t\t\t\t\t\t\t\t\t<documentation>Vpišejo se podatki o računu, ki je izdan z uporabo " +
+            "elektronske naprave. / Data are entered about the invoice, which is issued with " +
+            "usage of the electronic device.</documentation>\r\n\t\t\t\t\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t" +
+            "\t\t\t\t\t</element>\r\n\t\t\t\t\t\t\t\t\t</sequence>\r\n\t\t\t\t\t\t\t\t</complexType>\r\n\t\t\t\t\t\t\t</element>" +
+            "\r\n\t\t\t\t\t\t</sequence>\r\n\t\t\t\t\t</complexType>\r\n\t\t\t\t</element>\r\n\t\t\t\t<element ref=\"ds:S" +
+            "ignature\"/>\r\n\t\t\t</sequence>\r\n\t\t\t<attribute name=\"Id\" type=\"string\">\r\n\t\t\t\t<annota" +
+            "tion>\r\n\t\t\t\t\t<documentation>Atribut za potrebe digitalnega podpisa. V njem imamo " +
+            "id, ki se veže na digitalni podpis. / Attribute for needs of the digital signatu" +
+            "re. In it we have id, which is linked to the digital signature.</documentation>\r" +
+            "\n\t\t\t\t</annotation>\r\n\t\t\t</attribute>\r\n\t\t</complexType>\r\n\t</element>\r\n\t<element na" +
+            "me=\"InvoiceListResponse\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Odgovor za oddajo r" +
+            "ačuna. / Response for submitting the invoice.</documentation>\r\n\t\t</annotation>\r" +
+            "\n\t\t<complexType>\r\n\t\t\t<sequence>\r\n\t\t\t\t<element name=\"Header\" type=\"fu:HeaderRespo" +
+            "nseType\"/>\r\n\t\t\t\t<element name=\"InvoiceListReply\" minOccurs=\"0\">\r\n\t\t\t\t\t<complexTy" +
+            "pe>\r\n\t\t\t\t\t\t<sequence minOccurs=\"2\" maxOccurs=\"500\">\r\n\t\t\t\t\t\t\t<element name=\"Recor" +
+            "dReply\">\r\n\t\t\t\t\t\t\t\t<complexType>\r\n\t\t\t\t\t\t\t\t\t<sequence>\r\n\t\t\t\t\t\t\t\t\t\t<element name=\"R" +
+            "ecordNumber\" type=\"integer\">\r\n\t\t\t\t\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<documentatio" +
+            "n>Zaporedna številka zapisa</documentation>\r\n\t\t\t\t\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t\t\t\t" +
+            "\t</element>\r\n\t\t\t\t\t\t\t\t\t\t<element name=\"ProtectedID\">\r\n\t\t\t\t\t\t\t\t\t\t\t<annotation>\r\n\t\t" +
+            "\t\t\t\t\t\t\t\t\t\t<documentation>ZOI, ki je povezan s tem zapisom.</documentation>\r\n\t\t\t\t" +
+            "\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t\t\t\t\t\t<simpleType>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<restriction base=\"st" +
+            "ring\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t<length value=\"32\"/>\r\n\t\t\t\t\t\t\t\t\t\t\t\t</restriction>\r\n\t\t\t\t\t\t\t\t\t" +
+            "\t\t</simpleType>\r\n\t\t\t\t\t\t\t\t\t\t</element>\r\n\t\t\t\t\t\t\t\t\t\t<element name=\"UniqueInvoiceID\"" +
+            " type=\"fu:UUIDType\">\r\n\t\t\t\t\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t\t\t\t\t<documentation>Enkrat" +
+            "ni identifikator sporočila. / Unique identifier of the message.</documentation>\r" +
+            "\n\t\t\t\t\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t\t\t\t\t</element>\r\n\t\t\t\t\t\t\t\t\t</sequence>\r\n\t\t\t\t\t\t\t\t<" +
+            "/complexType>\r\n\t\t\t\t\t\t\t</element>\r\n\t\t\t\t\t\t</sequence>\r\n\t\t\t\t\t</complexType>\r\n\t\t\t\t</" +
+            "element>\r\n\t\t\t\t<element name=\"Error\" type=\"fu:ErrorType\" minOccurs=\"0\"/>\r\n\t\t\t\t<el" +
+            "ement ref=\"ds:Signature\" minOccurs=\"0\"/>\r\n\t\t\t</sequence>\r\n\t\t\t<attribute name=\"Id" +
+            "\" type=\"string\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Atribut za potrebe digit" +
+            "alnega podpisa. V njem imamo id, ki se veže na digitalni podpis./ Attribute for " +
+            "needs of the digital signature. In it we have id, which is linked to the digital" +
+            " signature.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</attribute>\r\n\t\t</complexType" +
+            ">\r\n\t</element>\r\n\t<complexType name=\"InvoiceType\">\r\n\t\t<annotation>\r\n\t\t\t<documenta" +
+            "tion>Račun / Invoice</documentation>\r\n\t\t</annotation>\r\n\t\t<sequence>\r\n\t\t\t<element" +
+            " name=\"TaxNumber\" type=\"fu:TaxNumberType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<ann" +
+            "otation>\r\n\t\t\t\t\t<documentation>Vpiše se davčna številka zavezanca, ki je izdal ra" +
+            "čun. / The tax number of the person liable, who has issued the invoice, is enter" +
+            "ed.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"IssueDa" +
+            "teTime\" type=\"fu:dateTime\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t" +
+            "<documentation>Vpiše se datum in čas izdaje računa, ki je naveden na računu. Pod" +
+            "atek se vpiše v formatu LLLL-MM-DDTUU:MM:SS. / Date and time of issuing the invo" +
+            "ice, which is stated on the invoice, are entered. The data is entered in the fol" +
+            "lowing format YYYY-MM-DDTHH:MM:SS.\r\n</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</el" +
+            "ement>\r\n\t\t\t<element name=\"NumberingStructure\" type=\"fu:NumberingStructureType\" m" +
+            "inOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se ozna" +
+            "ka načina dodeljevanja številk računom: C – centralno na nivoju poslovnega prost" +
+            "ora, B – po posamezni elektronski napravi (blagajna) Oznaka pojasnjuje na kakšen" +
+            " način se računom dodeljujejo številke. Številke računov se lahko dodeljujejo ce" +
+            "ntralno na nivoju poslovnega prostora ali posamično na elektronski napravi za iz" +
+            "dajanje računov. / The mark is entered for the method of assigning numbers to in" +
+            "voices: C - centrally at the level of business premises, B - per individual elec" +
+            "tronic device (cash register). The mark explains the method for assigning number" +
+            "s to invoices. Invoice numbers may be assigned centrally at the level of busines" +
+            "s premises or individually on the electronic device for issuing invoices.</docum" +
+            "entation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"InvoiceIdentifier" +
+            "\" type=\"fu:IdentifierType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t" +
+            "<documentation>Vpiše se številka izdanega računa. Vpiše se tudi številka dokumen" +
+            "ta, ki spreminja prvotni račun (dobropis, storno,…) v primeru izvajanja postopka" +
+            " potrjevanja naknadne spremembe podatkov na računu, ki spreminja prvoten račun i" +
+            "n se nanj nedvoumno nanaša. Številka računa je sestavljena iz treh delov: oznaka" +
+            " poslovnega prostora; oznaka elektronske naprave za izdajanje računov; zaporedna" +
+            " številka računa. Številka računa se na računu navede v naslednji obliki: oznaka" +
+            " poslovnega prostora-oznaka elektronske naprave-zaporedna številka računa. Prime" +
+            "r: TRGOVINA1-BLAG2-1234 Podatki se vpisujejo ločeno. / The number of the issued " +
+            "invoice is entered. The number of the document is also entered, which changes th" +
+            "e original invoice (credit, reversing, etc.) in cases of performing the procedur" +
+            "e for verification of subsequent changes of data on the invoice, which changes t" +
+            "he original invoice and refers to it with reasonable certainty. The invoice numb" +
+            "er includes three parts: mark of business premises; mark of the electronic devic" +
+            "e for issuing invoices; sequence number of the invoice. The invoice number is st" +
+            "ated on the invoice in the following form: mark of business premises-mark of the" +
+            " electronic device-sequence invoice number. Example: TRGOVINA1-BLAG2-1234. Data " +
+            "are entered separately.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<e" +
+            "lement name=\"CustomerVATNumber\" type=\"fu:CustomerVATType\" minOccurs=\"0\" maxOccur" +
+            "s=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se davčna številka oziroma i" +
+            "dentifikacijska številka za namene DDV kupca oziroma naročnika v primeru, ko so " +
+            "ti podatki v skladu z davčnimi predpisi navedeni na računu. Podatek se vpiše, če" +
+            " je naveden na računu. / The tax number is entered or identification number for " +
+            "VAT purposes of the buyer or ordering party in cases when these data are stated " +
+            "on the invoice in accordance with tax regulations.</documentation>\r\n\t\t\t\t</annota" +
+            "tion>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"InvoiceAmount\" type=\"fu:AmountType\" minO" +
+            "ccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vnese se skupni " +
+            "znesek računa. Vpiše se znesek računa skupaj z DDV in ostalimi davki/dajatvami, " +
+            "zmanjšan za zneske popustov. Decimalno ločilo je pika. / The total amount of the" +
+            " invoice is entered. The amount of the invoice is entered together with VAT and " +
+            "other taxes/duties, decreased for amounts of discounts. The decimal separator is" +
+            " a dot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"Ret" +
+            "urnsAmount\" type=\"fu:AmountType\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r" +
+            "\n\t\t\t\t\t<documentation>Vpiše se znesek povračil na računu, ki se priznajo kupcu (n" +
+            "pr. na podlagi dobropisa za vračilo embalaže). Podatek se vpiše le, če na računu" +
+            " obstajajo povračila. Decimalno ločilo je pika. / The amount of refunds on the i" +
+            "nvoice, which are recognized to the buyer (e.g. on the basis of credit for retur" +
+            "ning packaging), is entered. The data is entered only if there are refunds on th" +
+            "e invoice. The decimal separator is a dot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t" +
+            "\t\t</element>\r\n\t\t\t<element name=\"PaymentAmount\" type=\"fu:AmountType\" minOccurs=\"1" +
+            "\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se znesek računa z" +
+            "a plačilo. Decimalno ločilo je pika. / The amount of the invoice for payment is " +
+            "entered. The decimal separator is a dot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t" +
+            "</element>\r\n\t\t\t<element name=\"TaxesPerSeller\" type=\"fu:TaxesPerSellerType\" maxOc" +
+            "curs=\"1000\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se vrednost osnov po v" +
+            "rsti davka ali dajatve, razdeljeno po davčnih stopnjah, in pripadajoči davek ali" +
+            " dajatev, vrednost dobav na podlagi posebnih ureditev, dobav pri katerih je plač" +
+            "nik DDV kupec blaga ali naročnik storitve, oproščenih dobav in neobdavčljivih do" +
+            "bav, ločeno po davčnih številkah davčnih zavezancev. / The value is entered for " +
+            "bases according to types of taxes or duties, separated per tax rates, and associ" +
+            "ated taxes or duties, value of supplies on the basis of special arrangements, su" +
+            "pplies where the payer of VAT is the buyer of goods or party ordering services, " +
+            "exempt supplies and non-taxable supplies, separated according to tax numbers of " +
+            "taxpayers.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"" +
+            "OperatorTaxNumber\" type=\"fu:TaxNumberType\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t\t\t\t<an" +
+            "notation>\r\n\t\t\t\t\t<documentation>Vpiše še davčna številka fizične osebe (operaterj" +
+            "a), ki izda račun z uporabo elektronske naprave za izdajanje računov. V primeru " +
+            "izdaje računa preko samopostrežnih elektronskih naprav oziroma ko se račun izda " +
+            "brez prisotnosti fizične osebe, se vpiše davčna številka zavezanca. Če oseba nim" +
+            "a slovenske davčne številke, se podatek ne vpisuje. / The tax number is entered " +
+            "of the individual (operator), who issues the invoice with the usage of the elect" +
+            "ronic device for issuing invoices. In cases of issuing invoices via self-service" +
+            " electronic devices or when invoices are issued without the presence of individu" +
+            "als, the tax number of the person liable is entered. The data is not entered if " +
+            "the person has no Slovene tax number.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</e" +
+            "lement>\r\n\t\t\t<element name=\"ForeignOperator\" type=\"boolean\" minOccurs=\"0\" maxOccu" +
+            "rs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se true, če fizična oseba (" +
+            "operater), ki izda račun z uporabo elektronske naprave, nima slovenske davčne št" +
+            "evilke, drugače false (1 - true, 0 – false). / You enter »true« if the individua" +
+            "l (operator), who issues the invoice with the usage of the electronic device, ha" +
+            "s no Slovene tax number, otherwise »false« (1 – true, 0 – false).</documentation" +
+            ">\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"ProtectedID\" minOccurs=\"1" +
+            "\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se zaščitna oznaka" +
+            " izdajatelja računa. Zaščitna oznaka je sestavljena iz 32 znakov v heksadecimaln" +
+            "em formatu. Primer: 8202f0f963e37a2258b034cf8ae7bbc1. / The protective mark of t" +
+            "he invoice issuer is entered. The protective mark includes 32 characters in the " +
+            "hexadecimal notation. Example: 8202f0f963e37a2258b034cf8ae7bbc1.</documentation>" +
+            "\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<restriction base=\"string\">\r\n\t\t\t\t\t\t<" +
+            "length value=\"32\"/>\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t\t\t</element>\r\n\t\t\t<" +
+            "element name=\"SubsequentSubmit\" type=\"boolean\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t\t\t" +
+            "\t<annotation>\r\n\t\t\t\t\t<documentation>Naknadno posredovani račun je račun, ki je bi" +
+            "l izdan brez enkratne identifikacijske oznake računa – EOR  (npr. zaradi prekini" +
+            "tve elektronske povezave z davčnim organom). Vpiše se true, če je račun naknadno" +
+            " posredovan davčnemu organu, drugače false (1 – true, 0 – false). / Subsequently" +
+            " submitted invoices are invoices, which have been issued without the unique iden" +
+            "tification invoice mark – EOR (e.g. due to disconnections of electronic connecti" +
+            "ons with the tax authority). If the invoice is subsequently submitted to the tax" +
+            " authority, »true« is entered, otherwise »false« (1 – true, 0 – false).</documen" +
+            "tation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"ReferenceInvoice\" m" +
+            "inOccurs=\"0\" maxOccurs=\"1000\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Račun iz " +
+            "elektronske naprave, ki se spreminja.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<c" +
+            "omplexType>\r\n\t\t\t\t\t<sequence>\r\n\t\t\t\t\t\t<element name=\"ReferenceInvoiceIdentifier\" t" +
+            "ype=\"fu:IdentifierType\">\r\n\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<documentation>Vpiše se š" +
+            "tevilka prvotnega računa v primeru naknadne spremembe podatkov na prvotnem račun" +
+            "u, če je bil prvoten račun izdan preko elektronske naprave. Zavezanec izvaja pos" +
+            "topek potrjevanja računov tudi za vse naknadne spremembe podatkov na računu, ki " +
+            "spreminjajo prvoten račun in se nanj nedvoumno nanašajo. Podatek se vpiše v prim" +
+            "eru, če se z računom, izdanim preko elektronske naprave, spreminja prvoten račun" +
+            ", ki je bil izdan preko elektronske naprave. Za vpis številke računa, ki se spre" +
+            "minja, veljajo enaka pravila kot pri vpisu številke računa. Številka računa je s" +
+            "estavljena iz treh delov: oznaka poslovnega prostora, oznaka elektronske naprave" +
+            " za izdajanje računov, zaporedna številka računa. Številka računa se na računu n" +
+            "avede v naslednji obliki: oznaka poslovnega prostora-oznaka elektronske naprave-" +
+            "zaporedna številka računa Primer: TRGOVINA1-BLAG2-1234 Podatki se vpisujejo loče" +
+            "no. / The number of the original invoice is entered in cases of subsequent chang" +
+            "es of data on the original invoice if the original invoice has been issued via t" +
+            "he electronic device. The person liable conducts the procedure for verification " +
+            "of invoices also for all subsequent changes of data on the invoice, which change" +
+            " the original invoice and they refer to it with reasonable certainty. The data i" +
+            "s entered in cases if the original invoice, which has been issued via the electr" +
+            "onic device, changes with the invoice, issued via the electronic device. Rules f" +
+            "or entry of the invoice number, which is changed, are the same as those for entr" +
+            "y of the invoice number. The invoice number includes three parts: mark of busine" +
+            "ss premises; mark of the electronic device for issuing invoices; sequence number" +
+            " of the invoice. The invoice number is stated on the invoice in the following fo" +
+            "rm: mark of business premises-mark of the electronic device- sequence invoice nu" +
+            "mber. Example: TRGOVINA1-BLAG2-1234. Data are entered separately.</documentation" +
+            ">\r\n\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r\n\t\t\t\t\t\t<element name=\"ReferenceInvoice" +
+            "IssueDateTime\" type=\"fu:dateTime\">\r\n\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<documentation>" +
+            "Vpiše se datum in čas izdaje prvotnega računa v primeru naknadne spremembe podat" +
+            "kov na prvotnem računu, če je bil prvoten račun izdan preko elektronske naprave." +
+            " Podatek se vpiše v primeru, če se z računom, izdanim preko elektronske naprave," +
+            " spreminja prvoten račun, ki je bil izdan preko elektronske naprave. Podatek se " +
+            "vpiše v formatu LLLL-MM-DDTUU:MM:SS. / Date and time are entered of issuing the " +
+            "original invoice in cases of subsequent changes of data on the original invoice " +
+            "if the original invoice has been issued via the electronic device. The data is e" +
+            "ntered in cases if the original invoice, which has been issued via the electroni" +
+            "c device, is changed with the invoice, issued via the electronic device. The dat" +
+            "a is entered in the following format YYYY-MM-DDTHH:MM:SS.</documentation>\r\n\t\t\t\t\t" +
+            "\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r\n\t\t\t\t\t</sequence>\r\n\t\t\t\t</complexType>\r\n\t\t\t</el" +
+            "ement>\r\n\t\t\t<element name=\"ReferenceSalesBook\" minOccurs=\"0\" maxOccurs=\"1000\">\r\n\t" +
+            "\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Številka računa iz vezane knjige računov, k" +
+            "i se spreminja; številka seta računa iz vezane knjige računov, ki se spreminja; " +
+            "serijska številka vezane knjige računov iz katere je bil izdan račun, ki se spre" +
+            "minja; datum izdaje računa iz vezane knjige računov, ki se spreminja. / The numb" +
+            "er is entered of the issued invoice from the pre-numbered invoice book, which is" +
+            " changed, if the original invoice has been issued from the pre-numbered invoice " +
+            "book; number of the invoice from the pre-numbered invoice book, which is changed" +
+            "; number of the invoice set (original invoice + its two copies) from the pre-num" +
+            "bered invoice book, which is changed; serial number of the pre-numbered invoice " +
+            "book, from which the invoice, which is changed, has been issued; date of issuing" +
+            " the invoice from the pre-numbered invoice book, which is changed.</documentatio" +
+            "n>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<complexType>\r\n\t\t\t\t\t<sequence>\r\n\t\t\t\t\t\t<element name=\"" +
+            "ReferenceSalesBookIdentifier\" type=\"fu:SalesBookIdentifierType\">\r\n\t\t\t\t\t\t\t<annota" +
+            "tion>\r\n\t\t\t\t\t\t\t\t<documentation>Številka računa iz vezane knjige računov, ki se sp" +
+            "reminja; številka seta računa iz vezane knjige računov, ki se spreminja; serijsk" +
+            "a številka vezane knjige računov iz katere je bil izdan račun, ki se spreminja. " +
+            "/ The number is entered of the issued invoice from the pre-numbered invoice book" +
+            ", which is changed, if the original invoice has been issued from the pre-numbere" +
+            "d invoice book; number of the invoice from the pre-numbered invoice book, which " +
+            "is changed; number of the invoice set (original invoice + its two copies) from t" +
+            "he pre-numbered invoice book, which is changed; serial number of the pre-numbere" +
+            "d invoice book, from which the invoice, which is changed, has been issued.</docu" +
+            "mentation>\r\n\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r\n\t\t\t\t\t\t<element name=\"Referen" +
+            "ceSalesBookIssueDate\" type=\"date\">\r\n\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<documentation>" +
+            "Vpiše se datum izdaje prvotnega računa iz vezane knjige računov, ki se spreminja" +
+            ", če je bil prvoten račun izdan iz vezane knjige računov. Podatek se vpiše v for" +
+            "matu LLLL-MM-DD. Podatek se vpiše v primeru, če se z računom, izdanim preko elek" +
+            "tronske naprave, spreminja prvoten račun, ki je bil izdan iz vezane knjige račun" +
+            "ov. / The issuing date is entered for the original invoice from the pre-numbered" +
+            " invoice book, which is changed if the original invoice has been issued from the" +
+            " pre-numbered invoice book. The data is entered in the following format: YYYY-MM" +
+            "-DD. The data is entered in cases when the original invoice, which has been issu" +
+            "ed from the pre-numbered invoice book, is changed with the invoice, issued via t" +
+            "he electronic device.</documentation>\r\n\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r\n\t" +
+            "\t\t\t\t</sequence>\r\n\t\t\t\t</complexType>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"SpecialNot" +
+            "es\" minOccurs=\"0\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>R_3.20 Vpišejo se more" +
+            "bitne druge oznake, ki podrobneje pojasnjujejo zapise v zvezi z vsebino izdanih " +
+            "računov in njihove spremembe. / Potential other marks are entered, which explain" +
+            " in detail the records in connection with the content of invoices issued and the" +
+            "ir changes.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<restrict" +
+            "ion base=\"string\">\r\n\t\t\t\t\t\t<minLength value=\"1\"/>\r\n\t\t\t\t\t\t<maxLength value=\"1000\"/" +
+            ">\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t\t\t</element>\r\n\t\t</sequence>\r\n\t</comp" +
+            "lexType>\r\n\t<simpleType name=\"UUIDType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Enkra" +
+            "tni identifikator sporočila. Vsako sporočilo mora imeti enkratno identifikacijsk" +
+            "o oznako. Enako velja tudi pri pošiljanju sporočila, ki se zaradi napake pošilja" +
+            " ponovno. / Unique identifier of the message. Every message shall have the uniqu" +
+            "e identification mark. The same is valid also for sending messages, which are re" +
+            "sent due to errors.</documentation>\r\n\t\t</annotation>\r\n\t\t<restriction base=\"strin" +
+            "g\">\r\n\t\t\t<pattern value=\"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]" +
+            "{4}-[a-fA-F0-9]{12}\"/>\r\n\t\t</restriction>\r\n\t</simpleType>\r\n\t<simpleType name=\"Clo" +
+            "singTagType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Zaprtje poslovnega prostora / C" +
+            "losure of business premises</documentation>\r\n\t\t</annotation>\r\n\t\t<restriction bas" +
+            "e=\"string\">\r\n\t\t\t<enumeration value=\"Z\"/>\r\n\t\t</restriction>\r\n\t</simpleType>\r\n\t<co" +
+            "mplexType name=\"HeaderType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Glava sporočila" +
+            " / Message header</documentation>\r\n\t\t</annotation>\r\n\t\t<sequence>\r\n\t\t\t<element na" +
+            "me=\"MessageID\" type=\"fu:UUIDType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>" +
+            "\r\n\t\t\t\t\t<documentation>Enkratni identifikator sporočila. Vsako sporočilo mora ime" +
+            "ti enkratno identifikacijsko oznako. Enako velja tudi pri pošiljanju sporočila, " +
+            "ki se zaradi napake pošilja ponovno. / Unique identifier of the message. Every m" +
+            "essage shall have the unique identification mark. The same is valid also for sen" +
+            "ding messages, which are resent due to errors. </documentation>\r\n\t\t\t\t</annotatio" +
+            "n>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"DateTime\" type=\"fu:dateTime\" minOccurs=\"1\" " +
+            "maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Datum in čas pošiljanja sp" +
+            "oročila. LLLL-MM-DDTUU:MM:SS. / Date and time of sending the message YYYY-MM-DDT" +
+            "HH:MM:SS</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t</sequence>\r\n\t</co" +
+            "mplexType>\r\n\t<complexType name=\"HeaderResponseType\">\r\n\t\t<annotation>\r\n\t\t\t<docume" +
+            "ntation>Glava sporočila / Message header</documentation>\r\n\t\t</annotation>\r\n\t\t<se" +
+            "quence>\r\n\t\t\t<element name=\"MessageID\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Id" +
+            "entifikator sporočila / Identifier of the message</documentation>\r\n\t\t\t\t</annotat" +
+            "ion>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<restriction base=\"string\">\r\n\t\t\t\t\t\t<minLength value" +
+            "=\"0\"/>\r\n\t\t\t\t\t\t<maxLength value=\"36\"/>\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t" +
+            "\t\t</element>\r\n\t\t\t<element name=\"DateTime\" type=\"fu:dateTime\">\r\n\t\t\t\t<annotation>\r" +
+            "\n\t\t\t\t\t<documentation>Datum in čas pošiljanja sporočila. LLLL-MM-DDTUU:MM:SS. /" +
+            " Date and time of sending the message</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</e" +
+            "lement>\r\n\t\t</sequence>\r\n\t</complexType>\r\n\t<simpleType name=\"TaxNumberType\">\r\n\t\t<" +
+            "annotation>\r\n\t\t\t<documentation>Davčna številka / Tax number</documentation>\r\n\t\t<" +
+            "/annotation>\r\n\t\t<restriction base=\"positiveInteger\">\r\n\t\t\t<pattern value=\".{8}\"/>" +
+            "\r\n\t\t</restriction>\r\n\t</simpleType>\r\n\t<simpleType name=\"NumberingStructureType\">\r" +
+            "\n\t\t<annotation>\r\n\t\t\t<documentation>Vpiše se oznaka načina dodeljevanja številk r" +
+            "ačunom: C – centralno na nivoju poslovnega prostora, B – po posamezni elektronsk" +
+            "i napravi (blagajna) Oznaka pojasnjuje na kakšen način se računom dodeljujejo št" +
+            "evilke. Številke računov se lahko dodeljujejo centralno na nivoju poslovnega pro" +
+            "stora ali posamično na elektronski napravi za izdajanje računov. / The mark is e" +
+            "ntered for the method of assigning numbers to invoices: C - centrally at the lev" +
+            "el of business premises, B - per individual electronic device (cash register). T" +
+            "he mark explains the method for assigning numbers to invoices. Invoice numbers m" +
+            "ay be assigned centrally at the level of business premises or individually on th" +
+            "e electronic device for issuing invoices.</documentation>\r\n\t\t</annotation>\r\n\t\t<r" +
+            "estriction base=\"string\">\r\n\t\t\t<enumeration value=\"B\"/>\r\n\t\t\t<enumeration value=\"C" +
+            "\"/>\r\n\t\t</restriction>\r\n\t</simpleType>\r\n\t<complexType name=\"IdentifierType\">\r\n\t\t<" +
+            "annotation>\r\n\t\t\t<documentation>Številka računa / Number of the invoice</document" +
+            "ation>\r\n\t\t</annotation>\r\n\t\t<sequence>\r\n\t\t\t<element name=\"BusinessPremiseID\" type" +
+            "=\"fu:BusinessPremiseIDType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t" +
+            "\t<documentation>Oznaka poslovnega prostora. Vsebuje lahko samo črke in številke:" +
+            " 0-9, a-z, A-Z. / Mark of business premises. It may include only the following l" +
+            "etters and numbers: 0-9, a-z, A-Z.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</elem" +
+            "ent>\r\n\t\t\t<element name=\"ElectronicDeviceID\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<a" +
+            "nnotation>\r\n\t\t\t\t\t<documentation>Oznaka elektronske naprave. Vsebuje lahko samo č" +
+            "rke in številke: 0-9, a-z, A-Z. / Mark of the electronic device. It may include " +
+            "only the following letters and numbers: 0-9, a-z, A-Z.</documentation>\r\n\t\t\t\t</an" +
+            "notation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<restriction base=\"fu:ElectronicDeviceIDType\">" +
+            "\r\n\t\t\t\t\t\t<maxLength value=\"20\"/>\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t\t\t</el" +
+            "ement>\r\n\t\t\t<element name=\"InvoiceNumber\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<anno" +
+            "tation>\r\n\t\t\t\t\t<documentation>Zaporedna številka računa. Vsebuje lahko samo štev" +
+            "ilke 0-9. Niso dovoljene vodilne ničle. / Sequence number of the invoice. It may" +
+            " include only numbers 0-9. Zeros cannot be on the first place.</documentation>\r\n" +
+            "\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<restriction base=\"string\">\r\n\t\t\t\t\t\t<ma" +
+            "xLength value=\"20\"/>\r\n\t\t\t\t\t\t<minLength value=\"1\"/>\r\n\t\t\t\t\t\t<pattern value=\"\\d*\"/>" +
+            "\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t\t\t</element>\r\n\t\t</sequence>\r\n\t</compl" +
+            "exType>\r\n\t<complexType name=\"SalesBookIdentifierType\">\r\n\t\t<annotation>\r\n\t\t\t<docu" +
+            "mentation>Številka računa / Number of the invoice</documentation>\r\n\t\t</annotatio" +
+            "n>\r\n\t\t<sequence>\r\n\t\t\t<element name=\"InvoiceNumber\" minOccurs=\"1\" maxOccurs=\"1\">\r" +
+            "\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se številka računa, izdanega iz vez" +
+            "ane knjige računov. / The number of the invoice is entered, issued from the pre-" +
+            "numbered invoice book.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t" +
+            "\t\t<restriction base=\"string\">\r\n\t\t\t\t\t\t<minLength value=\"1\"/>\r\n\t\t\t\t\t\t<maxLength va" +
+            "lue=\"20\"/>\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t\t\t</element>\r\n\t\t\t<element n" +
+            "ame=\"SetNumber\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentat" +
+            "ion>Številka seta računa iz vezane knjige računov, ki se spreminja / Number of t" +
+            "he invoice set (original invoice + its two copies) from the pre-numbered invoice" +
+            " book, which is changed.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t" +
+            "\t\t\t\t<restriction base=\"string\">\r\n\t\t\t\t\t\t<length value=\"2\"/>\r\n\t\t\t\t\t</restriction>\r" +
+            "\n\t\t\t\t</simpleType>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"SerialNumber\" minOccurs=\"1\"" +
+            " maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se serijska številk" +
+            "a vezane knjige računov iz katere je bil izdan račun, ki se spreminja, če je bil" +
+            " prvoten račun izdan iz vezane knjige računov. / The serial number is entered of" +
+            " the pre-numbered invoice book, from which the invoice, which is changed, has be" +
+            "en issued if the original invoice has been issued from the pre-numbered invoice " +
+            "book.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<restriction ba" +
+            "se=\"string\">\r\n\t\t\t\t\t\t<length value=\"12\"/>\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>" +
+            "\r\n\t\t\t</element>\r\n\t\t</sequence>\r\n\t</complexType>\r\n\t<simpleType name=\"BusinessPrem" +
+            "iseIDType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Oznaka poslovnega prostora / Mark" +
+            " of business premises</documentation>\r\n\t\t</annotation>\r\n\t\t<restriction base=\"str" +
+            "ing\">\r\n\t\t\t<minLength value=\"1\"/>\r\n\t\t\t<maxLength value=\"20\"/>\r\n\t\t\t<pattern value=" +
+            "\"[0-9a-zA-Z]{1,20}\"/>\r\n\t\t</restriction>\r\n\t</simpleType>\r\n\t<simpleType name=\"Elec" +
+            "tronicDeviceIDType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Oznaka elektronske napra" +
+            "ve / Mark of the electronic device</documentation>\r\n\t\t</annotation>\r\n\t\t<restrict" +
+            "ion base=\"string\">\r\n\t\t\t<maxLength value=\"20\"/>\r\n\t\t\t<minLength value=\"1\"/>\r\n\t\t\t<p" +
+            "attern value=\"[0-9a-zA-Z]{1,20}\"/>\r\n\t\t</restriction>\r\n\t</simpleType>\r\n\t<simpleTy" +
+            "pe name=\"CustomerVATType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Davčna številka oz" +
+            "iroma identifikacijska oznaka za namene DDV kupca / Tax number or identification" +
+            " mark for VAT purposes of the buyer</documentation>\r\n\t\t</annotation>\r\n\t\t<restric" +
+            "tion base=\"string\">\r\n\t\t\t<minLength value=\"1\"/>\r\n\t\t\t<maxLength value=\"20\"/>\r\n\t\t</" +
+            "restriction>\r\n\t</simpleType>\r\n\t<simpleType name=\"TaxRateType\">\r\n\t\t<annotation>\r\n" +
+            "\t\t\t<documentation>Vrednost davčne stopnje. / Value of the tax rate</documentatio" +
+            "n>\r\n\t\t</annotation>\r\n\t\t<restriction base=\"decimal\">\r\n\t\t\t<totalDigits value=\"7\"/>" +
+            "\r\n\t\t\t<fractionDigits value=\"2\"/>\r\n\t\t</restriction>\r\n\t</simpleType>\r\n\t<simpleType" +
+            " name=\"TaxableAmountType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Znesek davčne osno" +
+            "ve (po zmanjšanju za popuste). / Amount of the tax base (after reduction for dis" +
+            "counts)</documentation>\r\n\t\t</annotation>\r\n\t\t<restriction base=\"decimal\">\r\n\t\t\t<to" +
+            "talDigits value=\"16\"/>\r\n\t\t\t<fractionDigits value=\"2\"/>\r\n\t\t</restriction>\r\n\t</sim" +
+            "pleType>\r\n\t<complexType name=\"VATType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Vpiše" +
+            "jo se podatki o DDV. / Data about VAT are entered.</documentation>\r\n\t\t</annotati" +
+            "on>\r\n\t\t<sequence>\r\n\t\t\t<element name=\"TaxRate\" type=\"fu:TaxRateType\" minOccurs=\"1" +
+            "\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vrednost davčne stopnje." +
+            " Decimalno ločilo je pika. / Value of the tax rate. The decimal separator is a d" +
+            "ot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"Taxable" +
+            "Amount\" type=\"fu:TaxableAmountType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotatio" +
+            "n>\r\n\t\t\t\t\t<documentation>Znesek davčne osnove (po zmanjšanju za popuste). Decimal" +
+            "no ločilo je pika. / Amount of the tax base (after reduction for discounts). The" +
+            " decimal separator is a dot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n" +
+            "\t\t\t<element name=\"TaxAmount\" type=\"fu:TaxAmountType\" minOccurs=\"1\" maxOccurs=\"1\"" +
+            ">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Znesek davka. Decimalno ločilo je pika." +
+            " / Amount of tax. The decimal separator is a dot.</documentation>\r\n\t\t\t\t</annotat" +
+            "ion>\r\n\t\t\t</element>\r\n\t\t</sequence>\r\n\t</complexType>\r\n\t<complexType name=\"FlatRat" +
+            "eCompensationType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Vpišejo se podatki o pavš" +
+            "alnem nadomestilu. / Data about the flat-rate compensation are entered.</documen" +
+            "tation>\r\n\t\t</annotation>\r\n\t\t<sequence>\r\n\t\t\t<element name=\"FlatRateRate\" type=\"fu" +
+            ":TaxRateType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentatio" +
+            "n>Vrednost stopnje pavšalnega nadomestila. Decimalno ločilo je pika. / Value of " +
+            "the flat-rate compensation\'s rate. The decimal separator is a dot.</documentatio" +
+            "n>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"FlatRateTaxableAmount\" t" +
+            "ype=\"fu:TaxableAmountType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t" +
+            "<documentation>Osnova oziroma vrednost od katere se obračuna znesek pavšalnega n" +
+            "adomestila (po zmanjšanju za popuste). Decimalno ločilo je pika. / The base or v" +
+            "alue from which the amount of the flat-rate compensation is settled (after reduc" +
+            "tion for discounts). The decimal separator is a dot.</documentation>\r\n\t\t\t\t</anno" +
+            "tation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"FlatRateAmount\" type=\"fu:TaxAmountType" +
+            "\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Znesek pav" +
+            "šalnega nadomestila. Decimalno ločilo je pika. / Amount of the flat-rate compens" +
+            "ation. The decimal separator is a dot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</" +
+            "element>\r\n\t\t</sequence>\r\n\t</complexType>\r\n\t<complexType name=\"TaxesPerSellerType" +
+            "\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Vpiše se skupni znesek ostalih davkov ozir" +
+            "oma dajatev (razen DDV), ki so na računu. / The total amount is entered of other" +
+            " taxes or duties (except VAT), which are on the invoice.</documentation>\r\n\t\t</an" +
+            "notation>\r\n\t\t<sequence>\r\n\t\t\t<element name=\"SellerTaxNumber\" type=\"fu:TaxNumberTy" +
+            "pe\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se" +
+            " davčna številka davčnega zavezanca, v imenu in za račun katerega je bil izdan r" +
+            "ačun, če je račun izdan v tujem imenu in za tuj račun oziroma če je račun izdal " +
+            "prejemnik računa v imenu in za račun dobavitelja. Če račun ni bil izdan v tujem " +
+            "imenu in za tuj račun, se podatek ne vpisuje. / The tax number of the taxpayer i" +
+            "s entered in the name of and on behalf of whose the invoice has been issued, if " +
+            "the invoice has been issued in the name of and on behalf of another person or if" +
+            " the invoice has been issued by the recipient of the invoice in the name of and " +
+            "on behalf of the supplier. If the invoice has not been issued in the name of and" +
+            " on behalf of another person, the data is not entered.</documentation>\r\n\t\t\t\t</an" +
+            "notation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"VAT\" type=\"fu:VATType\" minOccurs=\"0\"" +
+            " maxOccurs=\"unbounded\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpišejo se podatk" +
+            "i o DDV. Podatek se posreduje le, če račun vsebuje znesek obračunanega DDV. Poda" +
+            "tek je sestavljen iz davčne stopnje, davčne osnove in zneska davka. Za davčne st" +
+            "opnje lahko obstaja seznam davčnih stopenj pri davčnemu organu. / Data about VAT" +
+            " are entered. The data is submitted only if the invoice  includes the amount of " +
+            "VAT settled. The data consists of the tax rate, tax base and amount of tax. The " +
+            "tax authority may have a list of tax rates.</d")]
+        public string FVI_ManyInvoices {
+            get {
+                return ((string)(this["FVI_ManyInvoices"]));
+            }
+            set {
+                this["FVI_ManyInvoices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<schema xmlns=\"http://www.w3.org/2001/XML" +
+            "Schema\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:ds=\"http://www.w3.org/" +
+            "2000/09/xmldsig#\" xmlns:fu=\"http://www.fu.gov.si/\" targetNamespace=\"http://www.f" +
+            "u.gov.si/\" elementFormDefault=\"qualified\">\r\n\t<import namespace=\"http://www.w3.or" +
+            "g/2000/09/xmldsig#\" schemaLocation=\"http://www.w3.org/TR/2002/REC-xmldsig-core-2" +
+            "0020212/xmldsig-core-schema.xsd\"/>\r\n\t<element name=\"InvoiceRequest\">\r\n\t\t<annotat" +
+            "ion>\r\n\t\t\t<documentation>Vsebina in oblika sporočila s podatki o računu. / Cont" +
+            "ent and form of the message with data about the invoice.</documentation>\r\n\t\t</an" +
+            "notation>\r\n\t\t<complexType>\r\n\t\t\t<sequence>\r\n\t\t\t\t<element name=\"Header\" type=\"fu:H" +
+            "eaderType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t<documentation" +
+            ">Glava sporočila / Message header</documentation>\r\n\t\t\t\t\t</annotation>\r\n\t\t\t\t</el" +
+            "ement>\r\n\t\t\t\t<choice>\r\n\t\t\t\t\t<element name=\"Invoice\" type=\"fu:InvoiceType\" minOccu" +
+            "rs=\"0\" maxOccurs=\"1\">\r\n\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t<documentation>Vpišejo se poda" +
+            "tki o računu, ki je izdan z uporabo elektronske naprave. / Data are entered abou" +
+            "t the invoice, which is issued with usage of the electronic device.</documentati" +
+            "on>\r\n\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t</element>\r\n\t\t\t\t\t<element name=\"SalesBookInvoice\"" +
+            " type=\"fu:SalesBookType\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t" +
+            "\t\t<documentation>Vpiše se davčna številka zavezanca, ki je izdal račun. / The ta" +
+            "x number of the person liable, who has issued the invoice, is entered.</document" +
+            "ation>\r\n\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t</element>\r\n\t\t\t\t</choice>\r\n\t\t\t\t<element ref=\"d" +
+            "s:Signature\" minOccurs=\"1\" maxOccurs=\"1\"/>\r\n\t\t\t</sequence>\r\n\t\t\t<attribute name=\"" +
+            "Id\" type=\"string\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Atribut za potrebe dig" +
+            "italnega podpisa. V njem imamo id, ki se veže na digitalni podpis. / Attribute f" +
+            "or needs of the digital signature. In it we have id, which is linked to the digi" +
+            "tal signature.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</attribute>\r\n\t\t</complexT" +
+            "ype>\r\n\t</element>\r\n\t<element name=\"InvoiceResponse\">\r\n\t\t<annotation>\r\n\t\t\t<docume" +
+            "ntation>Odgovor za oddajo računa. / Response for submitting the invoice.</docum" +
+            "entation>\r\n\t\t</annotation>\r\n\t\t<complexType>\r\n\t\t\t<sequence>\r\n\t\t\t\t<element name=\"H" +
+            "eader\" type=\"fu:HeaderResponseType\"/>\r\n\t\t\t\t<element name=\"UniqueInvoiceID\" type=" +
+            "\"fu:UUIDType\" minOccurs=\"0\">\r\n\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t<documentation>Enkratni i" +
+            "dentifikator sporočila. / Unique identifier of the message.</documentation>\r\n\t\t\t" +
+            "\t\t</annotation>\r\n\t\t\t\t</element>\r\n\t\t\t\t<element name=\"Error\" type=\"fu:ErrorType\" m" +
+            "inOccurs=\"0\"/>\r\n\t\t\t\t<element ref=\"ds:Signature\" minOccurs=\"0\"/>\r\n\t\t\t</sequence>\r" +
+            "\n\t\t\t<attribute name=\"Id\" type=\"string\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>A" +
+            "tribut za potrebe digitalnega podpisa. V njem imamo id, ki se veže na digitalni " +
+            "podpis./ Attribute for needs of the digital signature. In it we have id, which i" +
+            "s linked to the digital signature.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</attr" +
+            "ibute>\r\n\t\t</complexType>\r\n\t</element>\r\n\t<element name=\"BusinessPremiseRequest\">\r" +
+            "\n\t\t<annotation>\r\n\t\t\t<documentation>Vsebina in oblika sporočila s podatki o poslo" +
+            "vnem prostoru zavezanca. / Content and form of the message with data about busin" +
+            "ess premises of the person liable.</documentation>\r\n\t\t</annotation>\r\n\t\t<complexT" +
+            "ype>\r\n\t\t\t<sequence>\r\n\t\t\t\t<element name=\"Header\" type=\"fu:HeaderType\" minOccurs=\"" +
+            "1\" maxOccurs=\"1\"/>\r\n\t\t\t\t<element name=\"BusinessPremise\" type=\"fu:BusinessPremise" +
+            "Type\" minOccurs=\"1\" maxOccurs=\"1\"/>\r\n\t\t\t\t<element ref=\"ds:Signature\" minOccurs=\"" +
+            "1\" maxOccurs=\"1\"/>\r\n\t\t\t</sequence>\r\n\t\t\t<attribute name=\"Id\" type=\"string\">\r\n\t\t\t\t" +
+            "<annotation>\r\n\t\t\t\t\t<documentation>Atribut za potrebe digitalnega podpisa. V njem" +
+            " imamo id, ki se veže na digitalni podpis. / Attribute for needs of the digital " +
+            "signature. In it we have id, which is linked to the digital signature.</document" +
+            "ation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</attribute>\r\n\t\t</complexType>\r\n\t</element>\r\n\t<ele" +
+            "ment name=\"BusinessPremiseResponse\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Odgovor " +
+            "na zahtevo poslovnega prostora. / Response for submitting the business premise.<" +
+            "/documentation>\r\n\t\t</annotation>\r\n\t\t<complexType>\r\n\t\t\t<sequence>\r\n\t\t\t\t<element n" +
+            "ame=\"Header\" type=\"fu:HeaderResponseType\"/>\r\n\t\t\t\t<element name=\"Error\" type=\"fu:" +
+            "ErrorType\" minOccurs=\"0\"/>\r\n\t\t\t\t<element ref=\"ds:Signature\" minOccurs=\"0\" maxOcc" +
+            "urs=\"1\"/>\r\n\t\t\t</sequence>\r\n\t\t\t<attribute name=\"Id\" type=\"string\">\r\n\t\t\t\t<annotati" +
+            "on>\r\n\t\t\t\t\t<documentation>Atribut za potrebe digitalnega podpisa. V njem imamo id" +
+            ", ki se veže na digitalni podpis. / Attribute for needs of the digital signature" +
+            ". In it we have id, which is linked to the digital signature.</documentation>\r\n\t" +
+            "\t\t\t</annotation>\r\n\t\t\t</attribute>\r\n\t\t</complexType>\r\n\t</element>\r\n\t<complexType " +
+            "name=\"BusinessPremiseType\">\r\n\t\t<annotation>\r\n\t\t\t<documentation>Poslovni prostor " +
+            "/ Business premises</documentation>\r\n\t\t</annotation>\r\n\t\t<sequence>\r\n\t\t\t<element " +
+            "name=\"TaxNumber\" type=\"fu:TaxNumberType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<anno" +
+            "tation>\r\n\t\t\t\t\t<documentation>Davčna številka zavezanca, ki izdaja račune / Tax n" +
+            "umber of the person liable, who issues invoices</documentation>\r\n\t\t\t\t</annotatio" +
+            "n>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"BusinessPremiseID\" type=\"fu:BusinessPremise" +
+            "IDType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiš" +
+            "e se oznaka poslovnega prostora v katerem zavezanec izdaja račune pri gotovinske" +
+            "m poslovanju. Oznaka je lahko sestavljena iz številk in črk 0-9, a-z, A-Z. Oznak" +
+            "a mora biti enaka kot tista, ki je navedena na računih. Oznaka je enkratna na ni" +
+            "voju zavezanca. / The mark is entered of business premises, in which the person " +
+            "liable issues invoices in cash operations. The mark may include the following nu" +
+            "mber and letters: 0-9, a-z, A-Z. The mark shall be the same as the mark, stated " +
+            "on invoices. The mark is unique at the level of the person liable.</documentatio" +
+            "n>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"BPIdentifier\" type=\"fu:B" +
+            "PIdentifierType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documenta" +
+            "tion>Vpišejo se podatki o nepremičnem ali premičnem poslovnem prostoru. / Data a" +
+            "re entered about immovable or movable business premises.</documentation>\r\n\t\t\t\t</" +
+            "annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"ValidityDate\" type=\"fu:date\">\r\n\t\t\t" +
+            "\t<annotation>\r\n\t\t\t\t\t<documentation>Datum začetka veljavnosti podatkov o poslovne" +
+            "m prostoru, ki se posredujejo. Podatek se vpiše v obliki: LLLL-MM-DD. / The date" +
+            " when data about business premises, which are submitted, become valid. DD / The " +
+            "data is entered in the following form: YYYY-MM-DD.</documentation>\r\n\t\t\t\t</annota" +
+            "tion>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"ClosingTag\" type=\"fu:ClosingTagType\" min" +
+            "Occurs=\"0\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se podatek o zaprtju po" +
+            "slovnega prostora, če gre za trajno zaprtje. Možna je vrednost »Z«. Po zaprtju v" +
+            " tem poslovnem prostoru ni več možno izdajati računov in računov z oznako tega p" +
+            "oslovnega prostora ni več možno posredovati davčnemu organu. / The data is enter" +
+            "ed about the closure of business premises if the closure is permanent. The possi" +
+            "ble value is »Z«. After closure issuing invoices is not possible anymore in thes" +
+            "e business premises and it is not possible to submit invoices to the tax authori" +
+            "ty with the mark of these business premises.</documentation>\r\n\t\t\t\t</annotation>\r" +
+            "\n\t\t\t</element>\r\n\t\t\t<element name=\"SoftwareSupplier\" type=\"fu:SoftwareSupplierTyp" +
+            "e\" maxOccurs=\"1000\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se podatek o p" +
+            "roizvajalcu  ali vzdrževalcu programske opreme za izdajanje računov. Vpiše se ed" +
+            "en od podatkov: 1. Davčna številka pravne ali fizične osebe / proizvajalca ali v" +
+            "zdrževalca programske opreme s sedežem v Sloveniji  in 2. Naziv in naslov proizv" +
+            "ajalca ali vzdrževalca programske opreme, ki nima sedeža v Sloveniji. / The data" +
+            " is entered about the producer or software maintenance provider for issuing invo" +
+            "ices. One of the following data is entered: 1. tax number of a legal entity or a" +
+            "n individual – producer or software maintenance provider established in Slovenia" +
+            " and 2. title and address of the producer or software maintenance provider not e" +
+            "stablished in Slovenia.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<e" +
+            "lement name=\"SpecialNotes\" minOccurs=\"0\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation" +
+            ">Vpišejo se morebitne druge oznake, ki podrobneje pojasnjujejo zapise v zvezi z " +
+            "vsebino podatkov o poslovnem prostoru. / Any other potential marks are entered, " +
+            "which explain in detail the records in connection with the content of data about" +
+            " business premises.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<" +
+            "restriction base=\"string\">\r\n\t\t\t\t\t\t<minLength value=\"1\"/>\r\n\t\t\t\t\t\t<maxLength value" +
+            "=\"1000\"/>\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t\t\t</element>\r\n\t\t</sequence>\r" +
+            "\n\t</complexType>\r\n\t<complexType name=\"InvoiceType\">\r\n\t\t<annotation>\r\n\t\t\t<documen" +
+            "tation>Račun / Invoice</documentation>\r\n\t\t</annotation>\r\n\t\t<sequence>\r\n\t\t\t<eleme" +
+            "nt name=\"TaxNumber\" type=\"fu:TaxNumberType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<a" +
+            "nnotation>\r\n\t\t\t\t\t<documentation>Vpiše se davčna številka zavezanca, ki je izdal " +
+            "račun. / The tax number of the person liable, who has issued the invoice, is ent" +
+            "ered.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"Issue" +
+            "DateTime\" type=\"fu:dateTime\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t" +
+            "\t\t<documentation>Vpiše se datum in čas izdaje računa, ki je naveden na računu. P" +
+            "odatek se vpiše v formatu LLLL-MM-DDTUU:MM:SS. / Date and time of issuing the in" +
+            "voice, which is stated on the invoice, are entered. The data is entered in the f" +
+            "ollowing format YYYY-MM-DDTHH:MM:SS.\r\n</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</" +
+            "element>\r\n\t\t\t<element name=\"NumberingStructure\" type=\"fu:NumberingStructureType\"" +
+            " minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se oz" +
+            "naka načina dodeljevanja številk računom: C – centralno na nivoju poslovnega pro" +
+            "stora, B – po posamezni elektronski napravi (blagajna) Oznaka pojasnjuje na kakš" +
+            "en način se računom dodeljujejo številke. Številke računov se lahko dodeljujejo " +
+            "centralno na nivoju poslovnega prostora ali posamično na elektronski napravi za " +
+            "izdajanje računov. / The mark is entered for the method of assigning numbers to " +
+            "invoices: C - centrally at the level of business premises, B - per individual el" +
+            "ectronic device (cash register). The mark explains the method for assigning numb" +
+            "ers to invoices. Invoice numbers may be assigned centrally at the level of busin" +
+            "ess premises or individually on the electronic device for issuing invoices.</doc" +
+            "umentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"InvoiceIdentifi" +
+            "er\" type=\"fu:IdentifierType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t" +
+            "\t\t<documentation>Vpiše se številka izdanega računa. Vpiše se tudi številka dokum" +
+            "enta, ki spreminja prvotni račun (dobropis, storno,…) v primeru izvajanja postop" +
+            "ka potrjevanja naknadne spremembe podatkov na računu, ki spreminja prvoten račun" +
+            " in se nanj nedvoumno nanaša. Številka računa je sestavljena iz treh delov: ozna" +
+            "ka poslovnega prostora; oznaka elektronske naprave za izdajanje računov; zapored" +
+            "na številka računa. Številka računa se na računu navede v naslednji obliki: ozna" +
+            "ka poslovnega prostora-oznaka elektronske naprave-zaporedna številka računa. Pri" +
+            "mer: TRGOVINA1-BLAG2-1234 Podatki se vpisujejo ločeno. / The number of the issue" +
+            "d invoice is entered. The number of the document is also entered, which changes " +
+            "the original invoice (credit, reversing, etc.) in cases of performing the proced" +
+            "ure for verification of subsequent changes of data on the invoice, which changes" +
+            " the original invoice and refers to it with reasonable certainty. The invoice nu" +
+            "mber includes three parts: mark of business premises; mark of the electronic dev" +
+            "ice for issuing invoices; sequence number of the invoice. The invoice number is " +
+            "stated on the invoice in the following form: mark of business premises-mark of t" +
+            "he electronic device-sequence invoice number. Example: TRGOVINA1-BLAG2-1234. Dat" +
+            "a are entered separately.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t" +
+            "<element name=\"CustomerVATNumber\" type=\"fu:CustomerVATType\" minOccurs=\"0\" maxOcc" +
+            "urs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se davčna številka oziroma" +
+            " identifikacijska številka za namene DDV kupca oziroma naročnika v primeru, ko s" +
+            "o ti podatki v skladu z davčnimi predpisi navedeni na računu. Podatek se vpiše, " +
+            "če je naveden na računu. / The tax number is entered or identification number fo" +
+            "r VAT purposes of the buyer or ordering party in cases when these data are state" +
+            "d on the invoice in accordance with tax regulations.</documentation>\r\n\t\t\t\t</anno" +
+            "tation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"InvoiceAmount\" type=\"fu:AmountType\" mi" +
+            "nOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vnese se skupn" +
+            "i znesek računa. Vpiše se znesek računa skupaj z DDV in ostalimi davki/dajatvami" +
+            ", zmanjšan za zneske popustov. Decimalno ločilo je pika. / The total amount of t" +
+            "he invoice is entered. The amount of the invoice is entered together with VAT an" +
+            "d other taxes/duties, decreased for amounts of discounts. The decimal separator " +
+            "is a dot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"R" +
+            "eturnsAmount\" type=\"fu:AmountType\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation" +
+            ">\r\n\t\t\t\t\t<documentation>Vpiše se znesek povračil na računu, ki se priznajo kupcu " +
+            "(npr. na podlagi dobropisa za vračilo embalaže). Podatek se vpiše le, če na raču" +
+            "nu obstajajo povračila. Decimalno ločilo je pika. / The amount of refunds on the" +
+            " invoice, which are recognized to the buyer (e.g. on the basis of credit for ret" +
+            "urning packaging), is entered. The data is entered only if there are refunds on " +
+            "the invoice. The decimal separator is a dot.</documentation>\r\n\t\t\t\t</annotation>\r" +
+            "\n\t\t\t</element>\r\n\t\t\t<element name=\"PaymentAmount\" type=\"fu:AmountType\" minOccurs=" +
+            "\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se znesek računa" +
+            " za plačilo. Decimalno ločilo je pika. / The amount of the invoice for payment i" +
+            "s entered. The decimal separator is a dot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t" +
+            "\t\t</element>\r\n\t\t\t<element name=\"TaxesPerSeller\" type=\"fu:TaxesPerSellerType\" max" +
+            "Occurs=\"1000\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se vrednost osnov po" +
+            " vrsti davka ali dajatve, razdeljeno po davčnih stopnjah, in pripadajoči davek a" +
+            "li dajatev, vrednost dobav na podlagi posebnih ureditev, dobav pri katerih je pl" +
+            "ačnik DDV kupec blaga ali naročnik storitve, oproščenih dobav in neobdavčljivih " +
+            "dobav, ločeno po davčnih številkah davčnih zavezancev. / The value is entered fo" +
+            "r bases according to types of taxes or duties, separated per tax rates, and asso" +
+            "ciated taxes or duties, value of supplies on the basis of special arrangements, " +
+            "supplies where the payer of VAT is the buyer of goods or party ordering services" +
+            ", exempt supplies and non-taxable supplies, separated according to tax numbers o" +
+            "f taxpayers.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name" +
+            "=\"OperatorTaxNumber\" type=\"fu:TaxNumberType\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t\t\t\t<" +
+            "annotation>\r\n\t\t\t\t\t<documentation>Vpiše še davčna številka fizične osebe (operate" +
+            "rja), ki izda račun z uporabo elektronske naprave za izdajanje računov. V primer" +
+            "u izdaje računa preko samopostrežnih elektronskih naprav oziroma ko se račun izd" +
+            "a brez prisotnosti fizične osebe, se vpiše davčna številka zavezanca. Če oseba n" +
+            "ima slovenske davčne številke, se podatek ne vpisuje. / The tax number is entere" +
+            "d of the individual (operator), who issues the invoice with the usage of the ele" +
+            "ctronic device for issuing invoices. In cases of issuing invoices via self-servi" +
+            "ce electronic devices or when invoices are issued without the presence of indivi" +
+            "duals, the tax number of the person liable is entered. The data is not entered i" +
+            "f the person has no Slovene tax number.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t<" +
+            "/element>\r\n\t\t\t<element name=\"ForeignOperator\" type=\"boolean\" minOccurs=\"0\" maxOc" +
+            "curs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se true, če fizična oseba" +
+            " (operater), ki izda račun z uporabo elektronske naprave, nima slovenske davčne " +
+            "številke, drugače false (1 - true, 0 – false). / You enter »true« if the individ" +
+            "ual (operator), who issues the invoice with the usage of the electronic device, " +
+            "has no Slovene tax number, otherwise »false« (1 – true, 0 – false).</documentati" +
+            "on>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"ProtectedID\" minOccurs=" +
+            "\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se zaščitna ozna" +
+            "ka izdajatelja računa. Zaščitna oznaka je sestavljena iz 32 znakov v heksadecima" +
+            "lnem formatu. Primer: 8202f0f963e37a2258b034cf8ae7bbc1. / The protective mark of" +
+            " the invoice issuer is entered. The protective mark includes 32 characters in th" +
+            "e hexadecimal notation. Example: 8202f0f963e37a2258b034cf8ae7bbc1.</documentatio" +
+            "n>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<restriction base=\"string\">\r\n\t\t\t\t\t" +
+            "\t<length value=\"32\"/>\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t\t\t</element>\r\n\t\t" +
+            "\t<element name=\"SubsequentSubmit\" type=\"boolean\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t" +
+            "\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Naknadno posredovani račun je račun, ki je " +
+            "bil izdan brez enkratne identifikacijske oznake računa – EOR  (npr. zaradi preki" +
+            "nitve elektronske povezave z davčnim organom). Vpiše se true, če je račun naknad" +
+            "no posredovan davčnemu organu, drugače false (1 – true, 0 – false). / Subsequent" +
+            "ly submitted invoices are invoices, which have been issued without the unique id" +
+            "entification invoice mark – EOR (e.g. due to disconnections of electronic connec" +
+            "tions with the tax authority). If the invoice is subsequently submitted to the t" +
+            "ax authority, »true« is entered, otherwise »false« (1 – true, 0 – false).</docum" +
+            "entation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"ReferenceInvoice\"" +
+            " minOccurs=\"0\" maxOccurs=\"1000\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Račun i" +
+            "z elektronske naprave, ki se spreminja.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t" +
+            "<complexType>\r\n\t\t\t\t\t<sequence>\r\n\t\t\t\t\t\t<element name=\"ReferenceInvoiceIdentifier\"" +
+            " type=\"fu:IdentifierType\">\r\n\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<documentation>Vpiše se" +
+            " številka prvotnega računa v primeru naknadne spremembe podatkov na prvotnem rač" +
+            "unu, če je bil prvoten račun izdan preko elektronske naprave. Zavezanec izvaja p" +
+            "ostopek potrjevanja računov tudi za vse naknadne spremembe podatkov na računu, k" +
+            "i spreminjajo prvoten račun in se nanj nedvoumno nanašajo. Podatek se vpiše v pr" +
+            "imeru, če se z računom, izdanim preko elektronske naprave, spreminja prvoten rač" +
+            "un, ki je bil izdan preko elektronske naprave. Za vpis številke računa, ki se sp" +
+            "reminja, veljajo enaka pravila kot pri vpisu številke računa. Številka računa je" +
+            " sestavljena iz treh delov: oznaka poslovnega prostora, oznaka elektronske napra" +
+            "ve za izdajanje računov, zaporedna številka računa. Številka računa se na računu" +
+            " navede v naslednji obliki: oznaka poslovnega prostora-oznaka elektronske naprav" +
+            "e-zaporedna številka računa Primer: TRGOVINA1-BLAG2-1234 Podatki se vpisujejo lo" +
+            "čeno. / The number of the original invoice is entered in cases of subsequent cha" +
+            "nges of data on the original invoice if the original invoice has been issued via" +
+            " the electronic device. The person liable conducts the procedure for verificatio" +
+            "n of invoices also for all subsequent changes of data on the invoice, which chan" +
+            "ge the original invoice and they refer to it with reasonable certainty. The data" +
+            " is entered in cases if the original invoice, which has been issued via the elec" +
+            "tronic device, changes with the invoice, issued via the electronic device. Rules" +
+            " for entry of the invoice number, which is changed, are the same as those for en" +
+            "try of the invoice number. The invoice number includes three parts: mark of busi" +
+            "ness premises; mark of the electronic device for issuing invoices; sequence numb" +
+            "er of the invoice. The invoice number is stated on the invoice in the following " +
+            "form: mark of business premises-mark of the electronic device- sequence invoice " +
+            "number. Example: TRGOVINA1-BLAG2-1234. Data are entered separately.</documentati" +
+            "on>\r\n\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r\n\t\t\t\t\t\t<element name=\"ReferenceInvoi" +
+            "ceIssueDateTime\" type=\"fu:dateTime\">\r\n\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<documentatio" +
+            "n>Vpiše se datum in čas izdaje prvotnega računa v primeru naknadne spremembe pod" +
+            "atkov na prvotnem računu, če je bil prvoten račun izdan preko elektronske naprav" +
+            "e. Podatek se vpiše v primeru, če se z računom, izdanim preko elektronske naprav" +
+            "e, spreminja prvoten račun, ki je bil izdan preko elektronske naprave. Podatek s" +
+            "e vpiše v formatu LLLL-MM-DDTUU:MM:SS. / Date and time are entered of issuing th" +
+            "e original invoice in cases of subsequent changes of data on the original invoic" +
+            "e if the original invoice has been issued via the electronic device. The data is" +
+            " entered in cases if the original invoice, which has been issued via the electro" +
+            "nic device, is changed with the invoice, issued via the electronic device. The d" +
+            "ata is entered in the following format YYYY-MM-DDTHH:MM:SS.</documentation>\r\n\t\t\t" +
+            "\t\t\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r\n\t\t\t\t\t</sequence>\r\n\t\t\t\t</complexType>\r\n\t\t\t</" +
+            "element>\r\n\t\t\t<element name=\"ReferenceSalesBook\" minOccurs=\"0\" maxOccurs=\"1000\">\r" +
+            "\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Številka računa iz vezane knjige računov," +
+            " ki se spreminja; številka seta računa iz vezane knjige računov, ki se spreminja" +
+            "; serijska številka vezane knjige računov iz katere je bil izdan račun, ki se sp" +
+            "reminja; datum izdaje računa iz vezane knjige računov, ki se spreminja. / The nu" +
+            "mber is entered of the issued invoice from the pre-numbered invoice book, which " +
+            "is changed, if the original invoice has been issued from the pre-numbered invoic" +
+            "e book; number of the invoice from the pre-numbered invoice book, which is chang" +
+            "ed; number of the invoice set (original invoice + its two copies) from the pre-n" +
+            "umbered invoice book, which is changed; serial number of the pre-numbered invoic" +
+            "e book, from which the invoice, which is changed, has been issued; date of issui" +
+            "ng the invoice from the pre-numbered invoice book, which is changed.</documentat" +
+            "ion>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<complexType>\r\n\t\t\t\t\t<sequence>\r\n\t\t\t\t\t\t<element name" +
+            "=\"ReferenceSalesBookIdentifier\" type=\"fu:SalesBookIdentifierType\">\r\n\t\t\t\t\t\t\t<anno" +
+            "tation>\r\n\t\t\t\t\t\t\t\t<documentation>Številka računa iz vezane knjige računov, ki se " +
+            "spreminja; številka seta računa iz vezane knjige računov, ki se spreminja; serij" +
+            "ska številka vezane knjige računov iz katere je bil izdan račun, ki se spreminja" +
+            ". / The number is entered of the issued invoice from the pre-numbered invoice bo" +
+            "ok, which is changed, if the original invoice has been issued from the pre-numbe" +
+            "red invoice book; number of the invoice from the pre-numbered invoice book, whic" +
+            "h is changed; number of the invoice set (original invoice + its two copies) from" +
+            " the pre-numbered invoice book, which is changed; serial number of the pre-numbe" +
+            "red invoice book, from which the invoice, which is changed, has been issued.</do" +
+            "cumentation>\r\n\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r\n\t\t\t\t\t\t<element name=\"Refer" +
+            "enceSalesBookIssueDate\" type=\"date\">\r\n\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<documentatio" +
+            "n>Vpiše se datum izdaje prvotnega računa iz vezane knjige računov, ki se spremin" +
+            "ja, če je bil prvoten račun izdan iz vezane knjige računov. Podatek se vpiše v f" +
+            "ormatu LLLL-MM-DD. Podatek se vpiše v primeru, če se z računom, izdanim preko el" +
+            "ektronske naprave, spreminja prvoten račun, ki je bil izdan iz vezane knjige rač" +
+            "unov. / The issuing date is entered for the original invoice from the pre-number" +
+            "ed invoice book, which is changed if the original invoice has been issued from t" +
+            "he pre-numbered invoice book. The data is entered in the following format: YYYY-" +
+            "MM-DD. The data is entered in cases when the original invoice, which has been is" +
+            "sued from the pre-numbered invoice book, is changed with the invoice, issued via" +
+            " the electronic device.</documentation>\r\n\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r" +
+            "\n\t\t\t\t\t</sequence>\r\n\t\t\t\t</complexType>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"SpecialN" +
+            "otes\" minOccurs=\"0\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>R_3.20 Vpišejo se mo" +
+            "rebitne druge oznake, ki podrobneje pojasnjujejo zapise v zvezi z vsebino izdani" +
+            "h računov in njihove spremembe. / Potential other marks are entered, which expla" +
+            "in in detail the records in connection with the content of invoices issued and t" +
+            "heir changes.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<simpleType>\r\n\t\t\t\t\t<restri" +
+            "ction base=\"string\">\r\n\t\t\t\t\t\t<minLength value=\"1\"/>\r\n\t\t\t\t\t\t<maxLength value=\"1000" +
+            "\"/>\r\n\t\t\t\t\t</restriction>\r\n\t\t\t\t</simpleType>\r\n\t\t\t</element>\r\n\t\t</sequence>\r\n\t</co" +
+            "mplexType>\r\n\t<complexType name=\"SalesBookType\">\r\n\t\t<annotation>\r\n\t\t\t<documentati" +
+            "on>Račun – vezana knjiga računov / Invoice – pre-numbered invoice book</document" +
+            "ation>\r\n\t\t</annotation>\r\n\t\t<sequence>\r\n\t\t\t<element name=\"TaxNumber\" type=\"fu:Tax" +
+            "NumberType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>" +
+            "Vpiše se davčna številka zavezanca, ki je izdal račun. / The tax number of the p" +
+            "erson liable, who has issued the invoice, is entered.</documentation>\r\n\t\t\t\t</ann" +
+            "otation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"IssueDate\" type=\"fu:date\" minOccurs=\"" +
+            "1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se datum izdaje r" +
+            "ačuna, ki je naveden na računu. Podatek se vpiše v formatu LLLL-MM-DD. / The dat" +
+            "e of issuing the invoice, which is stated on the invoice, is entered. The data i" +
+            "s entered in the following format: YYYY-MM-DD.</documentation>\r\n\t\t\t\t</annotation" +
+            ">\r\n\t\t\t</element>\r\n\t\t\t<element name=\"SalesBookIdentifier\" type=\"fu:SalesBookIdent" +
+            "ifierType\" minOccurs=\"0\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se števil" +
+            "ka računa, izdanega iz vezane knjige računov.Vpiše se tudi številka dokumenta, k" +
+            "i spreminja prvotni račun (dobropis, storno,…), v primeru izvajanja postopka pot" +
+            "rjevanja naknadne spremembe podatkov na računu, ki spreminja prvoten račun in se" +
+            " nanj nedvoumno nanaša. / The number of the invoice is entered, issued from the " +
+            "pre-numbered invoice book. The number of the document is also entered, which cha" +
+            "nges the original invoice (credit, reversing, etc.) in cases of performing the p" +
+            "rocedure for verification of subsequent changes of data on the invoice, which ch" +
+            "anges the original invoice and refers to it with reasonable certainty.</document" +
+            "ation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"BusinessPremiseID\" t" +
+            "ype=\"fu:BusinessPremiseIDType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t" +
+            "\t\t\t\t<documentation>Vpiše se oznaka poslovnega prostora v katerem je bil izdan ra" +
+            "čun iz vezane knjige računov. Oznaka poslovnega prostora mora biti enaka oznaki," +
+            " ki je bila posredovana v okviru podatkov o poslovnih prostorih. Vsebuje lahko s" +
+            "amo črke in številke: 0-9, a-z, A-Z. / The mark of business premises is entered," +
+            " in which the invoice has been issued from the pre-numbered invoice book. The ma" +
+            "rk of business premises shall be the same as the mark, which has been submitted " +
+            "within data about business premises. It may include only the following letters a" +
+            "nd numbers: 0-9, a-z, A-Z.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t" +
+            "\t<element name=\"CustomerVATNumber\" type=\"fu:CustomerVATType\" minOccurs=\"0\" maxOc" +
+            "curs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vpiše se davčna številka ozirom" +
+            "a identifikacijska številka za namene DDV kupca oziroma naročnika v primeru, ko " +
+            "so ti podatki v skladu z davčnimi predpisi navedeni na računu. Podatek se vpiše," +
+            " če je naveden na računu. / The tax number is entered or identification number f" +
+            "or VAT purposes of the buyer or ordering party in cases when these data are in a" +
+            "ccordance with tax regulations stated on the invoice. The data is entered if it " +
+            "is stated on the invoice.\r\n</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t" +
+            "\t\t<element name=\"InvoiceAmount\" type=\"fu:AmountType\" minOccurs=\"1\" maxOccurs=\"1\"" +
+            ">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vnese se skupni znesek računa. Vpiše se" +
+            " znesek računa skupaj z DDV in ostalimi davki/dajatvami, zmanjšan za zneske popu" +
+            "stov. Decimalno ločilo je pika. / The total amount of the invoice is entered. Th" +
+            "e amount of the invoice is entered together with VAT and other taxes/duties, dec" +
+            "reased for amounts of discounts. The decimal separator is a dot.</documentation>" +
+            "\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"ReturnsAmount\" type=\"fu:Am" +
+            "ountType\" minOccurs=\"0\" maxOccurs=\"1\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Vp" +
+            "iše se znesek povračil na računu, ki se priznajo kupcu (npr. na podlagi dobropis" +
+            "a za vračilo embalaže). Podatek se vpiše le, če na računu obstajajo povračila. D" +
+            "ecimalno ločilo je pika. / The amount of refunds on the invoice is entered, whic" +
+            "h are recognized to the buyer (e.g. on the credit basis for returning packaging)" +
+            ". The data is entered only if there are refunds on the invoice. The decimal sepa" +
+            "rator is a dot.</documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element n" +
+            "ame=\"PaymentAmount\" type=\"fu:AmountType\" minOccurs=\"1\" maxOccurs=\"1\">\r\n\t\t\t\t<anno" +
+            "tation>\r\n\t\t\t\t\t<documentation>Vpiše se znesek računa za plačilo. Decimalno ločilo" +
+            " je pika. / The invoice amount for payment is entered. The decimal separator is " +
+            "a dot. </documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"Tax" +
+            "esPerSeller\" type=\"fu:TaxesPerSellerType\" maxOccurs=\"1000\">\r\n\t\t\t\t<annotation>\r\n\t" +
+            "\t\t\t\t<documentation>Vpiše se vrednost osnov po vrsti davka ali dajatve, razdeljen" +
+            "o po davčnih stopnjah, in pripadajoči davek ali dajatev, vrednost dobav na podla" +
+            "gi posebnih ureditev, dobav pri katerih je plačnik DDV kupec blaga ali naročnik " +
+            "storitve, oproščenih dobav in neobdavčljivih dobav, ločeno po davčnih številkah " +
+            "davčnih zavezancev. / The value of bases is entered according to the type of tax" +
+            "es or duties, divided according to tax rates, and associated taxes or duties, va" +
+            "lue of supplies on the basis of special arrangements, supplies where the payer o" +
+            "f VAT is the buyer of goods or party ordering services, exempt supplies and non-" +
+            "taxable supplies, divided according to tax numbers of taxpayers.</documentation>" +
+            "\r\n\t\t\t\t</annotation>\r\n\t\t\t</element>\r\n\t\t\t<element name=\"ReferenceSalesBook\" minOcc" +
+            "urs=\"0\" maxOccurs=\"1000\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<documentation>Številka računa" +
+            " iz vezane knjige računov, ki se spreminja; številka seta računa iz vezane knjig" +
+            "e računov, ki se spreminja; serijska številka vezane knjige računov iz katere je" +
+            " bil izdan račun, ki se spreminja; datum izdaje računa iz vezane knjige računov," +
+            " ki se spreminja. / Number of the invoice from the pre-numbered invoice book, wh" +
+            "ich is changed; number of the invoice set (original invoice + its two copies) fr" +
+            "om the pre-numbered invoice book, which is changed; serial number of the pre-num" +
+            "bered invoice book, from which the invoice has been issued, which is changed; da" +
+            "te of issuing the invoice from the pre-numbered invoice book, which is changed.<" +
+            "/documentation>\r\n\t\t\t\t</annotation>\r\n\t\t\t\t<complexType>\r\n\t\t\t\t\t<sequence>\r\n\t\t\t\t\t\t<e" +
+            "lement name=\"ReferenceSalesBookIdentifier\" type=\"fu:SalesBookIdentifierType\">\r\n\t" +
+            "\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<documentation>Številka računa iz vezane knjige raču" +
+            "nov, ki se spreminja; številka seta računa iz vezane knjige računov, ki se sprem" +
+            "inja; serijska številka vezane knjige računov iz katere je bil izdan račun, ki s" +
+            "e spreminja. / Number of the invoice from the pre-numbered invoice book, which i" +
+            "s changed; number of the invoice set (original invoice + its two copies) from th" +
+            "e pre-numbered invoice book, which is changed; serial number of the pre-numbered" +
+            " invoice book, from which the invoice has been issued, which is changed.</docume" +
+            "ntation>\r\n\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t\t</element>\r\n\t\t\t\t\t\t<element name=\"Reference" +
+            "SalesBookIssueDate\" type=\"date\">\r\n\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<documentation>Vp" +
+            "iše se datum izdaje prvotnega računa iz vezane knjige računov, ki se spreminja, " +
+            "če se spreminja prvoten račun izdan iz vezane knjige računov. Podatek se vpiše v" +
+            " formatu LLLL-MM-DD. Podatek se vpiše v primeru, če se z računom, izdanim iz vez" +
+            "ane knjige računov, spreminja prvoten račun, ki je bil izdan iz vezane knjige ra" +
+            "čunov. / The date is entered of issuing the original invoice from the pre-number" +
+            "ed invoice book, which is changed, if the original invoice is changed issued fro" +
+            "m the pre-numbered invoice book. The data is written in the following format: YY" +
+            "YY-MM-DD. The data is entered in cases when the original invoice, which has been" +
+            " issued from the pre-numbered invoice book, is changed with the invoice, issued " +
+            "from the pre-numbered invoice book.</documentation>\r\n\t\t\t\t\t\t\t</annotation>\r\n\t\t\t\t\t" +
+            "\t</element>\r\n\t\t\t\t\t</sequence>\r\n\t\t\t\t</complexType>\r\n\t\t\t</element>\r\n\t\t\t<element na" +
+            "me=\"ReferenceInvoice\" minOccurs=\"0\" maxOccurs=\"1000\">\r\n\t\t\t\t<annotation>\r\n\t\t\t\t\t<d" +
+            "ocumentation>Račun iz elektronske naprave, ki se spreminja. / Number of the inv" +
+            "oice, issued via the electronic device, which is changed </documentation>\r\n\t\t\t\t<" +
+            "/annotation>\r\n\t\t\t\t<complexType>\r\n\t\t\t\t\t<sequence>\r\n\t\t\t\t\t\t<element name=\"Reference" +
+            "InvoiceIdentifier\" type=\"fu:IdentifierType\">\r\n\t\t\t\t\t\t\t<annotation>\r\n\t\t\t\t\t\t\t\t<docu" +
+            "mentation>Vpiše se številka prvotnega računa v")]
+        public string FVI_SingleInvoices {
+            get {
+                return ((string)(this["FVI_SingleInvoices"]));
+            }
+            set {
+                this["FVI_SingleInvoices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns" +
+            ":fu=\"http://www.fu.gov.si/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <fu" +
+            ":EchoRequest>test 1</fu:EchoRequest>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>")]
+        public string FVI_ECHO {
+            get {
+                return ((string)(this["FVI_ECHO"]));
+            }
+            set {
+                this["FVI_ECHO"] = value;
+            }
+        }
     }
 }

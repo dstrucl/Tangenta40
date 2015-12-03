@@ -24,8 +24,8 @@ namespace FiscalVerificationOfInvoices_SLO
         private void Run(object ousrc_FVI_SLO_MessageBox )
         {
             usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox = (usrc_FVI_SLO_MessageBox)ousrc_FVI_SLO_MessageBox;
-            Thread_FVI_Message fvi_message = new Thread_FVI_Message(Thread_FVI_Message.eMessage.NONE,null);
-            usrc_FVI_SLO_Message xusrc_FVI_SLO_Message = new usrc_FVI_SLO_Message(usrc_FVI_SLO_Message.eMessage.Thread_FVI_START, null);
+            Thread_FVI_Message fvi_message = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.NONE,null);
+            usrc_FVI_SLO_Message xusrc_FVI_SLO_Message = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.Thread_FVI_START, null);
             xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
             for (;;)
             {
@@ -35,16 +35,24 @@ namespace FiscalVerificationOfInvoices_SLO
                         switch (fvi_message.Message)
                         {
                             case Thread_FVI_Message.eMessage.POST_ECHO:
+                                MessageBox.Show("Communicate with DURS to send ECHO:Message_ID=" + fvi_message.Message_ID.ToString() + ";xml=" + fvi_message.XML_Data);
+                                MessageBox.Show("Communicate ECHO...");
+                                MessageBox.Show("DURS Response ECHO returned xml = <A>123</A>");
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, "<A>123</A>");
+                                xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 return;
 
-                            case Thread_FVI_Message.eMessage.POST_INVOICE:
+                            case Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE:
+                                break;
+
+                            case Thread_FVI_Message.eMessage.POST_MANY_INVOICES:
                                 break;
 
                             case Thread_FVI_Message.eMessage.POST_PP:
                                 break; 
 
                             case Thread_FVI_Message.eMessage.END:
-                                xusrc_FVI_SLO_Message.Set(usrc_FVI_SLO_Message.eMessage.Thread_FVI_END, null);
+                                xusrc_FVI_SLO_Message.Set(0,usrc_FVI_SLO_Message.eMessage.Thread_FVI_END, null);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 return;
                         }
@@ -57,8 +65,8 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public bool End(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox)
         {
-            usrc_FVI_SLO_Message xusrc_FVI_SLO_Message_END = new usrc_FVI_SLO_Message(usrc_FVI_SLO_Message.eMessage.NONE, null);
-            Thread_FVI_Message fvi_message_END = new Thread_FVI_Message(Thread_FVI_Message.eMessage.END, null);
+            usrc_FVI_SLO_Message xusrc_FVI_SLO_Message_END = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.NONE, null);
+            Thread_FVI_Message fvi_message_END = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.END, null);
             message_box.Post(fvi_message_END);
             long StartTicks = DateTime.Now.Ticks;
             for (;;)

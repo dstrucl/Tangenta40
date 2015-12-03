@@ -31,6 +31,9 @@
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_End = new System.Windows.Forms.Button();
+            this.txt_Response_ECHO_xml = new System.Windows.Forms.TextBox();
+            this.lbl_Response_ECHO = new System.Windows.Forms.Label();
+            this.btn_Send_ECHO = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // usrc_FVI_SLO1
@@ -40,6 +43,7 @@
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
             this.usrc_FVI_SLO1.Size = new System.Drawing.Size(39, 26);
             this.usrc_FVI_SLO1.TabIndex = 0;
+            this.usrc_FVI_SLO1.Response_ECHO += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.delegate_Response_ECHO(this.usrc_FVI_SLO1_Response_ECHO);
             // 
             // btn_Start
             // 
@@ -61,11 +65,42 @@
             this.btn_End.UseVisualStyleBackColor = true;
             this.btn_End.Click += new System.EventHandler(this.btn_End_Click);
             // 
+            // txt_Response_ECHO_xml
+            // 
+            this.txt_Response_ECHO_xml.Location = new System.Drawing.Point(13, 73);
+            this.txt_Response_ECHO_xml.Multiline = true;
+            this.txt_Response_ECHO_xml.Name = "txt_Response_ECHO_xml";
+            this.txt_Response_ECHO_xml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txt_Response_ECHO_xml.Size = new System.Drawing.Size(580, 427);
+            this.txt_Response_ECHO_xml.TabIndex = 3;
+            // 
+            // lbl_Response_ECHO
+            // 
+            this.lbl_Response_ECHO.AutoSize = true;
+            this.lbl_Response_ECHO.Location = new System.Drawing.Point(14, 52);
+            this.lbl_Response_ECHO.Name = "lbl_Response_ECHO";
+            this.lbl_Response_ECHO.Size = new System.Drawing.Size(88, 13);
+            this.lbl_Response_ECHO.TabIndex = 4;
+            this.lbl_Response_ECHO.Text = "Response ECHO";
+            // 
+            // btn_Send_ECHO
+            // 
+            this.btn_Send_ECHO.Location = new System.Drawing.Point(282, 12);
+            this.btn_Send_ECHO.Name = "btn_Send_ECHO";
+            this.btn_Send_ECHO.Size = new System.Drawing.Size(90, 25);
+            this.btn_Send_ECHO.TabIndex = 5;
+            this.btn_Send_ECHO.Text = "SEND ECHO";
+            this.btn_Send_ECHO.UseVisualStyleBackColor = true;
+            this.btn_Send_ECHO.Click += new System.EventHandler(this.btn_Send_ECHO_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(529, 419);
+            this.ClientSize = new System.Drawing.Size(606, 704);
+            this.Controls.Add(this.btn_Send_ECHO);
+            this.Controls.Add(this.lbl_Response_ECHO);
+            this.Controls.Add(this.txt_Response_ECHO_xml);
             this.Controls.Add(this.btn_End);
             this.Controls.Add(this.btn_Start);
             this.Controls.Add(this.usrc_FVI_SLO1);
@@ -73,6 +108,7 @@
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -81,6 +117,9 @@
         private FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO usrc_FVI_SLO1;
         private System.Windows.Forms.Button btn_Start;
         private System.Windows.Forms.Button btn_End;
+        private System.Windows.Forms.TextBox txt_Response_ECHO_xml;
+        private System.Windows.Forms.Label lbl_Response_ECHO;
+        private System.Windows.Forms.Button btn_Send_ECHO;
     }
 }
 

@@ -26,7 +26,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 m_obuff = new Thread_FVI_Message[m_Length] ;
                 for (int i=0;i< m_Length;i++)
                 {
-                    Thread_FVI_Message mfvi = new Thread_FVI_Message(Thread_FVI_Message.eMessage.NONE,null);
+                    Thread_FVI_Message mfvi = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.NONE,null);
                     m_obuff[i] = mfvi;
                 }
             }
@@ -46,6 +46,7 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 m_obuff[pIn].Message = msg.Message;
                 m_obuff[pIn].XML_Data = msg.XML_Data;
+                m_obuff[pIn].Message_ID = msg.Message_ID;
                 pIn = pInNext;
                 return true;
             }
@@ -67,6 +68,7 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 msg.Message = m_obuff[pOut].Message;
                 msg.XML_Data = m_obuff[pOut].XML_Data;
+                msg.Message_ID = m_obuff[pOut].Message_ID;
                 m_obuff[pOut].Message = Thread_FVI_Message.eMessage.NONE;
                 m_obuff[pOut].XML_Data = null;
                 pOut = Next(pOut);

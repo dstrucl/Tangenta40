@@ -12,12 +12,25 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class usrc_FVI_SLO : UserControl
     {
+
+        public delegate void delegate_Response_SingleInvoice(long Message_ID, string xml);
+        public delegate void delegate_Response_ManyInvoices(long Message_ID, string xml);
+        public delegate void delegate_Response_PP(long Message_ID, string xml);
+        public delegate void delegate_Response_ECHO(long Message_ID, string xml);
+
+        public event delegate_Response_SingleInvoice Response_SingleInvoice = null;
+        public event delegate_Response_ManyInvoices Response_ManyInvoices = null;
+        public event delegate_Response_PP Response_PP = null;
+        public event delegate_Response_ECHO Response_ECHO = null;
+
+        
+
         private bool bRun = false;
         internal usrc_FVI_SLO_MessageBox message_box = null;
 
         private Thread_FVI thread_fvi = new Thread_FVI();
 
-        private usrc_FVI_SLO_Message message = new usrc_FVI_SLO_Message(usrc_FVI_SLO_Message.eMessage.NONE, null);
+        private usrc_FVI_SLO_Message message = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.NONE, null);
 
         private int m_message_box_length = 100;
 
@@ -37,6 +50,7 @@ namespace FiscalVerificationOfInvoices_SLO
         {
         }
 
+
         public bool Start()
         {
             if (!bRun)
@@ -51,6 +65,33 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 return false;
             }
+        }
+
+        public Result_MessageBox_Post Send_SingleInvoice(long Message_ID,string xml)
+        {
+            Thread_FVI_Message msg = new Thread_FVI_Message(Message_ID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
+            return thread_fvi.message_box.Post(msg);
+
+        }
+
+        public Result_MessageBox_Post Send_ManyInvoices(long Message_ID, string xml)
+        {
+            Thread_FVI_Message msg = new Thread_FVI_Message(Message_ID, Thread_FVI_Message.eMessage.POST_MANY_INVOICES, xml);
+            return thread_fvi.message_box.Post(msg);
+
+        }
+
+        public Result_MessageBox_Post Send_PP(long Message_ID, string xml)
+        {
+            Thread_FVI_Message msg = new Thread_FVI_Message(Message_ID, Thread_FVI_Message.eMessage.POST_PP, xml);
+            return thread_fvi.message_box.Post(msg);
+
+        }
+
+        public Result_MessageBox_Post Send_Echo(long Message_ID, string xml)
+        {
+            Thread_FVI_Message msg = new Thread_FVI_Message(Message_ID, Thread_FVI_Message.eMessage.POST_ECHO, xml);
+            return thread_fvi.message_box.Post(msg);
         }
 
         public bool End()
@@ -86,12 +127,31 @@ namespace FiscalVerificationOfInvoices_SLO
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO:
+                            if (Response_ECHO!=null)
+                            {
+                                Response_ECHO(message.Message_ID, message.XML_Data);
+                            }
                             break;
 
-                        case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_INVOICE:
+                        case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE:
+                            if (Response_SingleInvoice!=null)
+                            {
+                                Response_SingleInvoice(message.Message_ID, message.XML_Data);
+                            }
+                            break;
+
+                        case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_MANY_INVOICES:
+                            if (Response_ManyInvoices!=null)
+                            {
+                                Response_ManyInvoices(message.Message_ID, message.XML_Data);
+                            }
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_PP:
+                            if (Response_PP != null)
+                            {
+                                Response_PP(message.Message_ID, message.XML_Data);
+                            }
                             break;
                     }
                     break;

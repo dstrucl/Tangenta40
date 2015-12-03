@@ -61,6 +61,48 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:fu=&quot;http://www.fu.gov.si/&quot;&gt;
+        ///   &lt;soapenv:Header/&gt;
+        ///   &lt;soapenv:Body&gt;
+        ///      &lt;fu:EchoRequest&gt;test 1&lt;/fu:EchoRequest&gt;
+        ///   &lt;/soapenv:Body&gt;
+        ///&lt;/soapenv:Envelope&gt;.
+        /// </summary>
+        internal static string FVI_ECHO {
+            get {
+                return ResourceManager.GetString("FVI_ECHO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;schema xmlns=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ds=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xmlns:fu=&quot;http://www.fu.gov.si/&quot; targetNamespace=&quot;http://www.fu.gov.si/&quot; elementFormDefault=&quot;qualified&quot;&gt;
+        ///	&lt;import namespace=&quot;http://www.w3.org/2000/09/xmldsig#&quot; schemaLocation=&quot;http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd&quot;/&gt;
+        ///	&lt;element name=&quot;InvoiceListRequest&quot;&gt;
+        ///		&lt;annotation&gt;
+        ///			&lt;documentation&gt;Vse [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FVI_ManyInvoices {
+            get {
+                return ResourceManager.GetString("FVI_ManyInvoices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;schema xmlns=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:ds=&quot;http://www.w3.org/2000/09/xmldsig#&quot; xmlns:fu=&quot;http://www.fu.gov.si/&quot; targetNamespace=&quot;http://www.fu.gov.si/&quot; elementFormDefault=&quot;qualified&quot;&gt;
+        ///	&lt;import namespace=&quot;http://www.w3.org/2000/09/xmldsig#&quot; schemaLocation=&quot;http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd&quot;/&gt;
+        ///	&lt;element name=&quot;InvoiceRequest&quot;&gt;
+        ///		&lt;annotation&gt;
+        ///			&lt;documentation&gt;Vsebina [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FVI_SingleInvoice {
+            get {
+                return ResourceManager.GetString("FVI_SingleInvoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap TAX_Office_Connection_OK {

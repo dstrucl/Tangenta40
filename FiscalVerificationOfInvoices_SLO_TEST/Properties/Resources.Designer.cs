@@ -59,5 +59,19 @@ namespace FiscalVerificationOfInvoices_SLO_TEST.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:fu=&quot;http://www.fu.gov.si/&quot;&gt;
+        ///   &lt;soapenv:Header/&gt;
+        ///   &lt;soapenv:Body&gt;
+        ///      &lt;fu:EchoRequest&gt;test 1&lt;/fu:EchoRequest&gt;
+        ///   &lt;/soapenv:Body&gt;
+        ///&lt;/soapenv:Envelope&gt;.
+        /// </summary>
+        internal static string FVI_ECHO {
+            get {
+                return ResourceManager.GetString("FVI_ECHO", resourceCulture);
+            }
+        }
     }
 }
