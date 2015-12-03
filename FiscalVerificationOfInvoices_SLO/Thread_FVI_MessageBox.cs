@@ -7,49 +7,63 @@ using System.Threading.Tasks;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
+    public enum Result_MessageBox_Get { OK,TIMEOUT,EMPTY};
+    public enum Result_MessageBox_Post { OK, TIMEOUT, FULL };
+
     public class Thread_FVI_MessageBox
     {
         private Mutex myMutex = new Mutex();
 
-        private List<Thread_FVI_Message> Message_List = new List<Thread_FVI_Message>();
+        private CircularBuffer_Thread_FVI_Message message_buff = null;
 
-        public bool Get(ref Thread_FVI_Message Message)
+        public Thread_FVI_MessageBox(int Length)
         {
-            bool bRet = false;
+            message_buff = new CircularBuffer_Thread_FVI_Message(Length);
+        }
+
+        public Result_MessageBox_Get Get(ref Thread_FVI_Message Message)
+        {
+            Result_MessageBox_Get res = Result_MessageBox_Get.TIMEOUT;
             if (myMutex.WaitOne(3000))
             {
-                if (Message_List.Count>0)
+                if (message_buff.Get(ref Message))
                 {
-                    Message.Message = Message_List[0].Message;
-                    Message.XML_Data = Message_List[0].XML_Data;
-                    Message_List.RemoveAt(0);
-                    bRet = true;
+                    res = Result_MessageBox_Get.OK;
+                }
+                else
+                {
+                    res = Result_MessageBox_Get.EMPTY;
                 }
                 myMutex.ReleaseMutex();
             }
             else
             {
                 //Timeout !
-                return false;
+                res = Result_MessageBox_Get.TIMEOUT;
             }
-            return bRet;
+            return res;
         }
 
-        public bool Post(Thread_FVI_Message Message)
+        public Result_MessageBox_Post Post(Thread_FVI_Message Message)
         {
-            bool bRet = false;
+            Result_MessageBox_Post res = Result_MessageBox_Post.TIMEOUT; 
             if (myMutex.WaitOne(3000))
             {
-                Message_List.Add(Message);
-                bRet = true; 
+                if (message_buff.PutIn(Message))
+                {
+                    res = Result_MessageBox_Post.OK;
+                }
+                else
+                {
+                    res = Result_MessageBox_Post.FULL;
+                }
                 myMutex.ReleaseMutex();
             }
             else
             {
-
-                return false;
+                res = Result_MessageBox_Post.TIMEOUT;
             }
-            return bRet;
+            return res;
         }
 
     }

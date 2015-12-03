@@ -45,7 +45,7 @@
             // 
             // timer_MessagePump
             // 
-            this.timer_MessagePump.Enabled = true;
+            this.timer_MessagePump.Enabled = false;
             this.timer_MessagePump.Tick += new System.EventHandler(this.timer_MessagePump_Tick);
             // 
             // usrc_FVI_SLO

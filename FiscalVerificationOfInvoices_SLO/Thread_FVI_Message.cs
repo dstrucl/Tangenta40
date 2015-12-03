@@ -18,6 +18,10 @@ namespace FiscalVerificationOfInvoices_SLO
             Message = xMessage;
             XML_Data = xml_data;
         }
-
+        public void Set(eMessage xMessage, string xml_data)
+        {
+            Message = xMessage;
+            XML_Data = xml_data;
+        }
     }
 }
