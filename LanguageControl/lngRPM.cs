@@ -10,6 +10,12 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_YouMustEnterYourCompanyData = new ltext("You must enter your organisation data. Without organisation data program can not run!", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati!");
+
+        public static ltext s_YouDidNotEnterYourCompanyData = new ltext("You did not enter your organisation data. Without organisation data program can not run! Program will end? ", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati! Program se konča ?");
+
+        public static ltext s_YouDidNotWriteDataToDB_SaveData_YesOrNo = new ltext("Write to Data Base.\r\n(Press Yes or No)?", "Vpišem podatke v podatkovno bazo?\r\n(Pritisni gumb Da ali Ne) ?");
+
         public static ltext s_PurchasePriceInfoText = new ltext("Item:%s1  Purchase Price  = %s2", "Artikel/Storitev:%s1 Nabavna cena = %s2");
         public static ltext s_btn_PurchasePriceInfo = new ltext("Purchase Price Info", "Informacija o nabavni ceni");
         public static ltext s_ExtraDiscountMakesLowerPriceThan_PurchasePrice = new ltext("Retail price %s1 with discount %s2 is %s3 and is smaller or equal to purchase price %s4. Do you agree ?", "Cena %s1 s popustom %s2 znaša %s3 in je manjša ali enaka nabavni ceni %s4. Soglašate ?");
@@ -309,7 +315,7 @@ namespace LanguageControl
                                                                  "Število tabel v podatkovni bazi : ");
         public static ltext s_WaitToCreate_Tables = new ltext("Wait to create tables in database",
                                                                "Počakajte, da se naredijo tabele v podatkovni bazi");
-        public static ltext s_Copyright_Logina = new ltext("This program is property of Logina d.o.o. All right reserved.", "Ta program je last podjetja Logina d.o.o. Vse pravice so pridržane.");
+        public static ltext s_Copyright_Tangenta = new ltext("This program is property of Tangenta d.o.o. All right reserved.", "Ta program je last podjetja Tangenta d.o.o. Vse pravice so pridržane.");
          
         public static ltext s_Stock_ID = new ltext("Stock ID",
                                                    "ID v Zalogah");

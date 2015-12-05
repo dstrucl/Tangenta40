@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DBConnection")]
+[assembly: AssemblyTitle("Country")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Tangenta d.o.o.")]
-[assembly: AssemblyProduct("DBConnection")]
-[assembly: AssemblyCopyright("Copyright Tangenta d.o.o. ©  2012")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Country")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("661ee82e-79e5-407d-bdac-0f90c532d698")]
+[assembly: Guid("1562473f-cfcb-4dfd-81ba-153988dc2d25")]
 
 // Version information for an assembly consists of the following four values:
 //

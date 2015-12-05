@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Xml.Schema;
+using System.Xml;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class usrc_FVI_SLO : UserControl
     {
+        DataSet ds_Invoice = new DataSet();
 
         public delegate void delegate_Response_SingleInvoice(long Message_ID, string xml);
         public delegate void delegate_Response_ManyInvoices(long Message_ID, string xml);
@@ -44,10 +48,6 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             InitializeComponent();
             btn_FVI.Enabled = false;
-        }
-
-        private void usrc_FVI_SLO_Load(object sender, EventArgs e)
-        {
         }
 
 
@@ -161,6 +161,60 @@ namespace FiscalVerificationOfInvoices_SLO
                     break;
 
             }
+        }
+
+        private void ShowCompileError(object sender, ValidationEventArgs e)
+        {
+            MessageBox.Show("Validation Error: {0}"+e.Message+"\r\nExcpetion="+e.Exception);
+        }
+
+
+        private void usrc_FVI_SLO_Load(object sender, EventArgs e)
+        {
+            //string xml_schema = Properties.Resources.FVI_SingleInvoice;
+            //StringReader theReader = new StringReader(xml_schema);
+            FileStream fs;
+            XmlSchema schema;
+            try
+            {
+                //fs = new FileStream("C:\\Users\\Damjan\\Source\\Repos\\FiscalVerificationOfInvoices_SLO\\Resources\\FVI_SingleInvoice.xsd", FileMode.Open);
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.DtdProcessing = DtdProcessing.Ignore;
+                settings.ValidationType = ValidationType.DTD;
+
+                XmlReader reader = XmlReader.Create("C:\\Users\\Damjan\\Source\\Repos\\FiscalVerificationOfInvoices_SLO\\Resources\\FVI_SingleInvoice.xsd", settings);
+
+                schema = XmlSchema.Read(reader, new ValidationEventHandler(ShowCompileError));
+
+                XmlSchemaSet schemaSet = new XmlSchemaSet();
+                schemaSet.ValidationEventHandler += new ValidationEventHandler(ShowCompileError);
+                schemaSet.Add(schema);
+                schemaSet.Compile();
+
+                XmlSchema compiledSchema = null;
+
+                foreach (XmlSchema schema1 in schemaSet.Schemas())
+                {
+                    compiledSchema = schema1;
+                }
+
+                schema = compiledSchema;
+
+                if (schema.IsCompiled)
+                {
+                    // Schema is successfully compiled. 
+                    // Do something with it here.
+
+                }
+            }
+            catch (XmlSchemaException ex)
+            {
+                
+            }
+
+
+
+            ds_Invoice.ReadXmlSchema("C:\\Users\\Damjan\\Source\\Repos\\FiscalVerificationOfInvoices_SLO\\Resources\\FVI_SingleInvoice.xsd");
         }
     }
 }

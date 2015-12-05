@@ -16,7 +16,7 @@ namespace SQLTableControl
         {
             InitializeComponent();
             this.Text = lngRPM.s_WaitToCreate_Tables.s;
-            this.lbl_CopyRight.Text = lngRPM.s_Copyright_Logina.s;
+            this.lbl_CopyRight.Text = lngRPM.s_Copyright_Tangenta.s;
             this.lbl_CopyRight.BackColor = Color.Transparent;
             this.lbl_Info.Text = lngRPM.s_NumberOfTabelsToCreate.s + Tables_Count.ToString();
         }

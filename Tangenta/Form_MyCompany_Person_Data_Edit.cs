@@ -84,14 +84,50 @@ namespace Tangenta
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            Close();
-            DialogResult = DialogResult.OK;
+            if (usrc_EditRow.Changed)
+            {
+                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
+                {
+                    Close();
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    Close();
+                    DialogResult = DialogResult.OK;
+                }
+            }
+            else
+            {
+                if (dt_my_company.Rows.Count > 0)
+                {
+                    Close();
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourCompanyData, "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                }
+            }
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            Close();
-            DialogResult = DialogResult.Cancel;
+
+            if (dt_my_company.Rows.Count > 0)
+            {
+                Close();
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotEnterYourCompanyData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    Close();
+                    DialogResult = DialogResult.Cancel;
+                }
+            }
+            
         }
 
         internal bool Edit_OrganisationData()

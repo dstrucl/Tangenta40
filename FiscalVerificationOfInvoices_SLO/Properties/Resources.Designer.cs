@@ -103,6 +103,27 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;!DOCTYPE schema PUBLIC &quot;-//W3C//DTD XMLSchema 200102//EN&quot; &quot;http://www.w3.org/2001/XMLSchema.dtd&quot; [
+        ///   &lt;!ATTLIST schema 
+        ///     xmlns:ds CDATA #FIXED &quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;
+        ///   &lt;!ENTITY dsig &apos;http://www.w3.org/2000/09/xmldsig#&apos;&gt;
+        ///   &lt;!ENTITY % p &apos;&apos;&gt;
+        ///   &lt;!ENTITY % s &apos;&apos;&gt;
+        ///  ]&gt;
+        ///&lt;!-- Schema for XML Signatures
+        ///    http://www.w3.org/2000/09/xmldsig#
+        ///    $Revision: 1.1 $ on $Date: 2012/09/17 13:13:02 $ by $Author: s30zepu $
+        ///
+        ///    Copyright 2001 The Intern [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FVI_xmldsig_core_schema {
+            get {
+                return ResourceManager.GetString("FVI_xmldsig_core_schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap TAX_Office_Connection_OK {

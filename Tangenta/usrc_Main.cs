@@ -46,6 +46,7 @@ namespace Tangenta
                     {
                         if (Program.bStartup && Err == null)
                         {
+
                             XMessage.Box.Show(Program.MainForm, lngRPM.s_No_CompanyData, "!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information, System.Windows.Forms.MessageBoxDefaultButton.Button1);
                             Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person))));
                             if (edt_my_company_person_dlg.ShowDialog() == DialogResult.OK)
@@ -61,7 +62,7 @@ namespace Tangenta
                             }
                             else
                             {
-                                return true;
+                                return false;
                             }
                         }
 

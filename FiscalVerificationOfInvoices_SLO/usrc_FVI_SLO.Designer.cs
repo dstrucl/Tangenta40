@@ -45,7 +45,6 @@
             // 
             // timer_MessagePump
             // 
-            this.timer_MessagePump.Enabled = false;
             this.timer_MessagePump.Tick += new System.EventHandler(this.timer_MessagePump_Tick);
             // 
             // usrc_FVI_SLO
@@ -55,6 +54,7 @@
             this.Controls.Add(this.btn_FVI);
             this.Name = "usrc_FVI_SLO";
             this.Size = new System.Drawing.Size(33, 26);
+            this.Load += new System.EventHandler(this.usrc_FVI_SLO_Load);
             this.ResumeLayout(false);
 
         }

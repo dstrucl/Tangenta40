@@ -1657,6 +1657,316 @@
 	&lt;/simpleType&gt;
 &lt;/schema&gt;</value>
   </data>
+  <data name="FVI_xmldsig_core_schema" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE schema PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd" [
+   &lt;!ATTLIST schema 
+     xmlns:ds CDATA #FIXED "http://www.w3.org/2000/09/xmldsig#"&gt;
+   &lt;!ENTITY dsig 'http://www.w3.org/2000/09/xmldsig#'&gt;
+   &lt;!ENTITY % p ''&gt;
+   &lt;!ENTITY % s ''&gt;
+  ]&gt;
+&lt;!-- Schema for XML Signatures
+    http://www.w3.org/2000/09/xmldsig#
+    $Revision: 1.1 $ on $Date: 2012/09/17 13:13:02 $ by $Author: s30zepu $
+
+    Copyright 2001 The Internet Society and W3C (Massachusetts Institute
+    of Technology, Institut National de Recherche en Informatique et en
+    Automatique, Keio University). All Rights Reserved.
+    http://www.w3.org/Consortium/Legal/
+
+    This document is governed by the W3C Software License [1] as described
+    in the FAQ [2].
+
+    [1] http://www.w3.org/Consortium/Legal/copyright-software-19980720
+    [2] http://www.w3.org/Consortium/Legal/IPR-FAQ-20000620.html#DTD
+--&gt;
+&lt;schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.w3.org/2000/09/xmldsig#" version="0.1" elementFormDefault="qualified"&gt; 
+
+&lt;!-- Basic Types Defined for Signatures --&gt;
+
+&lt;simpleType name="CryptoBinary"&gt;
+  &lt;restriction base="base64Binary"&gt;
+  &lt;/restriction&gt;
+&lt;/simpleType&gt;
+
+&lt;!-- Start Signature --&gt;
+
+&lt;element name="Signature" type="ds:SignatureType"/&gt;
+&lt;complexType name="SignatureType"&gt;
+  &lt;sequence&gt; 
+    &lt;element ref="ds:SignedInfo"/&gt; 
+    &lt;element ref="ds:SignatureValue"/&gt; 
+    &lt;element ref="ds:KeyInfo" minOccurs="0"/&gt; 
+    &lt;element ref="ds:Object" minOccurs="0" maxOccurs="unbounded"/&gt; 
+  &lt;/sequence&gt;  
+  &lt;attribute name="Id" type="ID" use="optional"/&gt;
+&lt;/complexType&gt;
+
+  &lt;element name="SignatureValue" type="ds:SignatureValueType"/&gt; 
+  &lt;complexType name="SignatureValueType"&gt;
+    &lt;simpleContent&gt;
+      &lt;extension base="base64Binary"&gt;
+        &lt;attribute name="Id" type="ID" use="optional"/&gt;
+      &lt;/extension&gt;
+    &lt;/simpleContent&gt;
+  &lt;/complexType&gt;
+
+&lt;!-- Start SignedInfo --&gt;
+
+&lt;element name="SignedInfo" type="ds:SignedInfoType"/&gt;
+&lt;complexType name="SignedInfoType"&gt;
+  &lt;sequence&gt; 
+    &lt;element ref="ds:CanonicalizationMethod"/&gt; 
+    &lt;element ref="ds:SignatureMethod"/&gt; 
+    &lt;element ref="ds:Reference" maxOccurs="unbounded"/&gt; 
+  &lt;/sequence&gt;  
+  &lt;attribute name="Id" type="ID" use="optional"/&gt; 
+&lt;/complexType&gt;
+
+  &lt;element name="CanonicalizationMethod" type="ds:CanonicalizationMethodType"/&gt; 
+  &lt;complexType name="CanonicalizationMethodType" mixed="true"&gt;
+    &lt;sequence&gt;
+      &lt;any namespace="##any" minOccurs="0" maxOccurs="unbounded"/&gt;
+      &lt;!-- (0,unbounded) elements from (1,1) namespace --&gt;
+    &lt;/sequence&gt;
+    &lt;attribute name="Algorithm" type="anyURI" use="required"/&gt; 
+  &lt;/complexType&gt;
+
+  &lt;element name="SignatureMethod" type="ds:SignatureMethodType"/&gt;
+  &lt;complexType name="SignatureMethodType" mixed="true"&gt;
+    &lt;sequence&gt;
+      &lt;element name="HMACOutputLength" minOccurs="0" type="ds:HMACOutputLengthType"/&gt;
+      &lt;any namespace="##other" minOccurs="0" maxOccurs="unbounded"/&gt;
+      &lt;!-- (0,unbounded) elements from (1,1) external namespace --&gt;
+    &lt;/sequence&gt;
+    &lt;attribute name="Algorithm" type="anyURI" use="required"/&gt; 
+  &lt;/complexType&gt;
+
+&lt;!-- Start Reference --&gt;
+
+&lt;element name="Reference" type="ds:ReferenceType"/&gt;
+&lt;complexType name="ReferenceType"&gt;
+  &lt;sequence&gt; 
+    &lt;element ref="ds:Transforms" minOccurs="0"/&gt; 
+    &lt;element ref="ds:DigestMethod"/&gt; 
+    &lt;element ref="ds:DigestValue"/&gt; 
+  &lt;/sequence&gt;
+  &lt;attribute name="Id" type="ID" use="optional"/&gt; 
+  &lt;attribute name="URI" type="anyURI" use="optional"/&gt; 
+  &lt;attribute name="Type" type="anyURI" use="optional"/&gt; 
+&lt;/complexType&gt;
+
+  &lt;element name="Transforms" type="ds:TransformsType"/&gt;
+  &lt;complexType name="TransformsType"&gt;
+    &lt;sequence&gt;
+      &lt;element ref="ds:Transform" maxOccurs="unbounded"/&gt;  
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+
+  &lt;element name="Transform" type="ds:TransformType"/&gt;
+  &lt;complexType name="TransformType" mixed="true"&gt;
+    &lt;choice minOccurs="0" maxOccurs="unbounded"&gt; 
+      &lt;any namespace="##other" processContents="lax"/&gt;
+      &lt;!-- (1,1) elements from (0,unbounded) namespaces --&gt;
+      &lt;element name="XPath" type="string"/&gt; 
+    &lt;/choice&gt;
+    &lt;attribute name="Algorithm" type="anyURI" use="required"/&gt; 
+  &lt;/complexType&gt;
+
+&lt;!-- End Reference --&gt;
+
+&lt;element name="DigestMethod" type="ds:DigestMethodType"/&gt;
+&lt;complexType name="DigestMethodType" mixed="true"&gt; 
+  &lt;sequence&gt;
+    &lt;any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/&gt;
+  &lt;/sequence&gt;    
+  &lt;attribute name="Algorithm" type="anyURI" use="required"/&gt; 
+&lt;/complexType&gt;
+
+&lt;element name="DigestValue" type="ds:DigestValueType"/&gt;
+&lt;simpleType name="DigestValueType"&gt;
+  &lt;restriction base="base64Binary"/&gt;
+&lt;/simpleType&gt;
+
+&lt;!-- End SignedInfo --&gt;
+
+&lt;!-- Start KeyInfo --&gt;
+
+&lt;element name="KeyInfo" type="ds:KeyInfoType"/&gt; 
+&lt;complexType name="KeyInfoType" mixed="true"&gt;
+  &lt;choice maxOccurs="unbounded"&gt;     
+    &lt;element ref="ds:KeyName"/&gt; 
+    &lt;element ref="ds:KeyValue"/&gt; 
+    &lt;element ref="ds:RetrievalMethod"/&gt; 
+    &lt;element ref="ds:X509Data"/&gt; 
+    &lt;element ref="ds:PGPData"/&gt; 
+    &lt;element ref="ds:SPKIData"/&gt;
+    &lt;element ref="ds:MgmtData"/&gt;
+    &lt;any processContents="lax" namespace="##other"/&gt;
+    &lt;!-- (1,1) elements from (0,unbounded) namespaces --&gt;
+  &lt;/choice&gt;
+  &lt;attribute name="Id" type="ID" use="optional"/&gt; 
+&lt;/complexType&gt;
+
+  &lt;element name="KeyName" type="string"/&gt;
+  &lt;element name="MgmtData" type="string"/&gt;
+
+  &lt;element name="KeyValue" type="ds:KeyValueType"/&gt; 
+  &lt;complexType name="KeyValueType" mixed="true"&gt;
+   &lt;choice&gt;
+     &lt;element ref="ds:DSAKeyValue"/&gt;
+     &lt;element ref="ds:RSAKeyValue"/&gt;
+     &lt;any namespace="##other" processContents="lax"/&gt;
+   &lt;/choice&gt;
+  &lt;/complexType&gt;
+
+  &lt;element name="RetrievalMethod" type="ds:RetrievalMethodType"/&gt; 
+  &lt;complexType name="RetrievalMethodType"&gt;
+    &lt;sequence&gt;
+      &lt;element ref="ds:Transforms" minOccurs="0"/&gt; 
+    &lt;/sequence&gt;  
+    &lt;attribute name="URI" type="anyURI"/&gt;
+    &lt;attribute name="Type" type="anyURI" use="optional"/&gt;
+  &lt;/complexType&gt;
+
+&lt;!-- Start X509Data --&gt;
+
+&lt;element name="X509Data" type="ds:X509DataType"/&gt; 
+&lt;complexType name="X509DataType"&gt;
+  &lt;sequence maxOccurs="unbounded"&gt;
+    &lt;choice&gt;
+      &lt;element name="X509IssuerSerial" type="ds:X509IssuerSerialType"/&gt;
+      &lt;element name="X509SKI" type="base64Binary"/&gt;
+      &lt;element name="X509SubjectName" type="string"/&gt;
+      &lt;element name="X509Certificate" type="base64Binary"/&gt;
+      &lt;element name="X509CRL" type="base64Binary"/&gt;
+      &lt;any namespace="##other" processContents="lax"/&gt;
+    &lt;/choice&gt;
+  &lt;/sequence&gt;
+&lt;/complexType&gt;
+
+&lt;complexType name="X509IssuerSerialType"&gt; 
+  &lt;sequence&gt; 
+    &lt;element name="X509IssuerName" type="string"/&gt; 
+    &lt;element name="X509SerialNumber" type="integer"/&gt; 
+  &lt;/sequence&gt;
+&lt;/complexType&gt;
+
+&lt;!-- End X509Data --&gt;
+
+&lt;!-- Begin PGPData --&gt;
+
+&lt;element name="PGPData" type="ds:PGPDataType"/&gt; 
+&lt;complexType name="PGPDataType"&gt; 
+  &lt;choice&gt;
+    &lt;sequence&gt;
+      &lt;element name="PGPKeyID" type="base64Binary"/&gt; 
+      &lt;element name="PGPKeyPacket" type="base64Binary" minOccurs="0"/&gt; 
+      &lt;any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/&gt;
+    &lt;/sequence&gt;
+    &lt;sequence&gt;
+      &lt;element name="PGPKeyPacket" type="base64Binary"/&gt; 
+      &lt;any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/&gt;
+    &lt;/sequence&gt;
+  &lt;/choice&gt;
+&lt;/complexType&gt;
+
+&lt;!-- End PGPData --&gt;
+
+&lt;!-- Begin SPKIData --&gt;
+
+&lt;element name="SPKIData" type="ds:SPKIDataType"/&gt; 
+&lt;complexType name="SPKIDataType"&gt;
+  &lt;sequence maxOccurs="unbounded"&gt;
+    &lt;element name="SPKISexp" type="base64Binary"/&gt;
+    &lt;any namespace="##other" processContents="lax" minOccurs="0"/&gt;
+  &lt;/sequence&gt;
+&lt;/complexType&gt; 
+
+&lt;!-- End SPKIData --&gt;
+
+&lt;!-- End KeyInfo --&gt;
+
+&lt;!-- Start Object (Manifest, SignatureProperty) --&gt;
+
+&lt;element name="Object" type="ds:ObjectType"/&gt; 
+&lt;complexType name="ObjectType" mixed="true"&gt;
+  &lt;sequence minOccurs="0" maxOccurs="unbounded"&gt;
+    &lt;any namespace="##any" processContents="lax"/&gt;
+  &lt;/sequence&gt;
+  &lt;attribute name="Id" type="ID" use="optional"/&gt; 
+  &lt;attribute name="MimeType" type="string" use="optional"/&gt; &lt;!-- add a grep facet --&gt;
+  &lt;attribute name="Encoding" type="anyURI" use="optional"/&gt; 
+&lt;/complexType&gt;
+
+&lt;element name="Manifest" type="ds:ManifestType"/&gt; 
+&lt;complexType name="ManifestType"&gt;
+  &lt;sequence&gt;
+    &lt;element ref="ds:Reference" maxOccurs="unbounded"/&gt; 
+  &lt;/sequence&gt;
+  &lt;attribute name="Id" type="ID" use="optional"/&gt; 
+&lt;/complexType&gt;
+
+&lt;element name="SignatureProperties" type="ds:SignaturePropertiesType"/&gt; 
+&lt;complexType name="SignaturePropertiesType"&gt;
+  &lt;sequence&gt;
+    &lt;element ref="ds:SignatureProperty" maxOccurs="unbounded"/&gt; 
+  &lt;/sequence&gt;
+  &lt;attribute name="Id" type="ID" use="optional"/&gt; 
+&lt;/complexType&gt;
+
+   &lt;element name="SignatureProperty" type="ds:SignaturePropertyType"/&gt; 
+   &lt;complexType name="SignaturePropertyType" mixed="true"&gt;
+     &lt;choice maxOccurs="unbounded"&gt;
+       &lt;any namespace="##other" processContents="lax"/&gt;
+       &lt;!-- (1,1) elements from (1,unbounded) namespaces --&gt;
+     &lt;/choice&gt;
+     &lt;attribute name="Target" type="anyURI" use="required"/&gt; 
+     &lt;attribute name="Id" type="ID" use="optional"/&gt; 
+   &lt;/complexType&gt;
+
+&lt;!-- End Object (Manifest, SignatureProperty) --&gt;
+
+&lt;!-- Start Algorithm Parameters --&gt;
+
+&lt;simpleType name="HMACOutputLengthType"&gt;
+  &lt;restriction base="integer"/&gt;
+&lt;/simpleType&gt;
+
+&lt;!-- Start KeyValue Element-types --&gt;
+
+&lt;element name="DSAKeyValue" type="ds:DSAKeyValueType"/&gt;
+&lt;complexType name="DSAKeyValueType"&gt;
+  &lt;sequence&gt;
+    &lt;sequence minOccurs="0"&gt;
+      &lt;element name="P" type="ds:CryptoBinary"/&gt;
+      &lt;element name="Q" type="ds:CryptoBinary"/&gt;
+    &lt;/sequence&gt;
+    &lt;element name="G" type="ds:CryptoBinary" minOccurs="0"/&gt;
+    &lt;element name="Y" type="ds:CryptoBinary"/&gt;
+    &lt;element name="J" type="ds:CryptoBinary" minOccurs="0"/&gt;
+    &lt;sequence minOccurs="0"&gt;
+      &lt;element name="Seed" type="ds:CryptoBinary"/&gt;
+      &lt;element name="PgenCounter" type="ds:CryptoBinary"/&gt;
+    &lt;/sequence&gt;
+  &lt;/sequence&gt;
+&lt;/complexType&gt;
+
+&lt;element name="RSAKeyValue" type="ds:RSAKeyValueType"/&gt;
+&lt;complexType name="RSAKeyValueType"&gt;
+  &lt;sequence&gt;
+    &lt;element name="Modulus" type="ds:CryptoBinary"/&gt; 
+    &lt;element name="Exponent" type="ds:CryptoBinary"/&gt; 
+  &lt;/sequence&gt;
+&lt;/complexType&gt; 
+
+&lt;!-- End KeyValue Element-types --&gt;
+
+&lt;!-- End Signature --&gt;
+
+&lt;/schema&gt;</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="TAX_Office_Connection_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TAX_Office_Connection_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
