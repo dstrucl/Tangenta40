@@ -49,7 +49,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.08";
+        public const string VERSION = "1.09";
         public Settings Settings = null;
 
         /* 1 */
@@ -561,8 +561,12 @@ namespace BlagajnaDataBaseDef
 
             /* 10 */
             t_cState_Person = new SQLTable((Object)new cState_Person(),"cstper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cState_Person);
+            t_cState_Person.SetInputControls = m_ISO_3166_Table.SetInputControls;
             t_cState_Person.AddColumn((Object)mt.m_cState_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new ltext( "State", "Država") );
+            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "State", "Država") );
+            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a2", "ISO_3166 a2"));
+            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a3", "ISO_3166 a3"));
+            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 num", "ISO_3166 št."));
             m_DBTables.items.Add(t_cState_Person);
 
             /* 11 */
@@ -610,8 +614,12 @@ namespace BlagajnaDataBaseDef
 
             /* 17 */
             t_cState_Org = new SQLTable((Object)new cState_Org(),"cstorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cState_Org);
+            t_cState_Org.SetInputControls = m_ISO_3166_Table.SetInputControls;
             t_cState_Org.AddColumn((Object)mt.m_cState_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new ltext( "State", "Država") );
+            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "State", "Država") );
+            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a2", "ISO_3166 a2"));
+            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a3", "ISO_3166 a3"));
+            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 num", "ISO_3166 št."));
             m_DBTables.items.Add(t_cState_Org);
 
             /* 18 */
@@ -1066,6 +1074,9 @@ namespace BlagajnaDataBaseDef
             t_Atom_cState_Person = new SQLTable((Object)new Atom_cState_Person(),"astper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cState_Person);
             t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "State", "Država") );
+            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.State_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a2", "ISO_3166 a3"));
+            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.State_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a3", "ISO_3166 a3"));
+            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.State_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 num", "ISO_3166 št."));
             m_DBTables.items.Add(t_Atom_cState_Person);
 
         /* 73 */
@@ -1102,6 +1113,9 @@ namespace BlagajnaDataBaseDef
             t_Atom_cState_Org = new SQLTable((Object)new Atom_cState_Org(), "astorg",Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cState_Org);
             t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "State", "Država") );
+            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a2", "ISO_3166 a3"));
+            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a3", "ISO_3166 a3"));
+            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 num", "ISO_3166 št."));
             m_DBTables.items.Add(t_Atom_cState_Org);
 
 

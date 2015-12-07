@@ -16,14 +16,22 @@ namespace Tangenta
         public string_v ZIP_v = null;
         public string_v City_v = null;
         public string_v State_v = null;
+        public string_v State_ISO_3166_a2_v = null;
+        public string_v State_ISO_3166_a3_v = null;
+        public short_v State_ISO_3166_num_v = null;
         public string_v Country_v = null;
 
         public long ID = -1;
+
         public string StreetName   {  get  {  return StreetName_v.vs; }  }
         public string HouseNumber  { get { return HouseNumber_v.vs; } }
         public string ZIP          { get { return ZIP_v.vs; } }
         public string City { get { return City_v.vs; } }
         public string State { get { return State_v.vs; } }
+        public string State_ISO_3166_a2 { get { return State_ISO_3166_a2_v.vs; } }
+        public string State_ISO_3166_a3 { get { return State_ISO_3166_a3_v.vs; } }
+        public short State_ISO_3166_num { get { return State_ISO_3166_num_v.v; } }
+
         public string Country {
                         get {
                                 return Country_v.vs;
@@ -40,6 +48,10 @@ namespace Tangenta
             pa.City_v = string_v.Copy(this.City_v);
             pa.State_v = string_v.Copy(this.State_v);
             pa.Country_v = string_v.Copy(this.Country_v);
+            pa.State_ISO_3166_a2_v = string_v.Copy(this.State_ISO_3166_a2_v);
+            pa.State_ISO_3166_a3_v = string_v.Copy(this.State_ISO_3166_a3_v);
+            pa.State_ISO_3166_num_v = short_v.Copy(this.State_ISO_3166_num_v);
+
             return pa;
         }
 
@@ -107,7 +119,9 @@ namespace Tangenta
                                         }
                                         else if (c.Name.Equals("State"))
                                         {
-                                            if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, State, ref col.fKey.reference_ID))
+                                            if (!GetAddressElementID(col.fKey.fTable.TableName, new string[] { "State", "State_ISO_3166_a2", "State_ISO_3166_a3", "State_ISO_3166_num" },
+                                                                                                new object[] { State , State_ISO_3166_a2 , State_ISO_3166_a3, State_ISO_3166_num },
+                                                                                                ref col.fKey.reference_ID))
                                             {
                                                 return false;
                                             }
@@ -225,16 +239,147 @@ namespace Tangenta
             }
         }
 
-        private bool GetAddressElementID(string AddressElement_TableName, string AddressElement_ColumnName, string sValue, ref ID_v iD_v)
+        private bool GetAddressElementID(string AddressElement_TableName, string[] AddressElement_ColumnNames, object[] oValues, ref ID_v iD_v)
+        {
+        string Err = null;
+        DataTable dt = new DataTable();
+        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+        string sql = null;
+        string sql_Condtition = null;
+        string sql_insert_Columns = null;
+        string sql_insert_Values = null;
+
+        if (AddressElement_ColumnNames.Length != oValues.Length)
+        {
+            LogFile.Error.Show("ERROR:Adress:GetAddressElementID:(AddressElement_ColumnNames.Length != oValues.Length)!");
+            return false;
+        }
+        int i;
+        string sql_pref = "select ID from " + AddressElement_TableName + " where ";
+        for (i = 0; i < AddressElement_ColumnNames.Length; i++)
+        {
+            string sparname = "@par_" + AddressElement_TableName + "_" + AddressElement_ColumnNames[i];
+            object oValue = oValues[i];
+            if (oValue != null)
+            {
+                SQL_Parameter par = null;
+                if (oValue is string)
+                {
+                    par = new SQL_Parameter(sparname, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ((string)oValue));
+                    lpar.Add(par);
+                }
+                else if (oValue is short)
+                {
+                    par = new SQL_Parameter(sparname, SQL_Parameter.eSQL_Parameter.Smallint, false, ((short)oValue));
+                    lpar.Add(par);
+
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:Address:GetAddressElementID:Err=type=" + oValue.GetType().ToString() + " not implemented!");
+                    return false;
+                }
+
+                lpar.Add(par);
+                if (sql_Condtition == null)
+                {
+                    sql_Condtition = " (" + AddressElement_ColumnNames[i] + " = " + sparname + ") ";
+                }
+                else
+                {
+                    sql_Condtition = " and (" + AddressElement_ColumnNames[i] + " = " + sparname + ")";
+                }
+
+                if (sql_insert_Columns == null)
+                {
+                    sql_insert_Columns = AddressElement_ColumnNames[i];
+                    sql_insert_Values = sparname;
+                }
+                else
+                {
+                    sql_insert_Columns += "," + AddressElement_ColumnNames[i];
+                    sql_insert_Values += "," + sparname;
+                }
+            }
+            else
+            {
+                iD_v = null;
+                return true;
+            }
+        }
+
+        if (sql_Condtition != null)
+        {
+            if (sql_Condtition.Length >0)
+            {
+                sql = sql_pref + sql_Condtition;
+                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (iD_v == null)
+                        {
+                            iD_v = new ID_v();
+                        }
+                        iD_v.v = (long)dt.Rows[0]["ID"];
+                        return true;
+                    }
+                    else
+                    {
+                        // insert
+                        sql = "insert into " + AddressElement_TableName + "(" + sql_insert_Columns + ") values (" + sql_insert_Values + ")";
+                        long id = -1;
+                        object oret = new object();
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, AddressElement_TableName))
+                        {
+                            if (iD_v == null)
+                            {
+                                iD_v = new ID_v();
+                            }
+                            iD_v.v = id;
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:PostAddress:GetAddressElementID:sql=" + sql + "\r\n" + Err);
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:PostAddress:GetAddressElementID:" + sql + "\r\n" + Err);
+                    return false;
+                }
+            }
+        }
+        LogFile.Error.Show("ERROR:PostAddress:GetAddressElementID:sql_Condtition not defined!");
+        return false;
+    }
+
+    private bool GetAddressElementID(string AddressElement_TableName, string AddressElement_ColumnName, object oValue, ref ID_v iD_v)
         {
             string Err = null;
             DataTable dt = new DataTable();
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string sql = null;
             string sparname = "@par_" + AddressElement_TableName + "_" + AddressElement_ColumnName;
-            if (sValue != null)
+            if (oValue != null)
             {
-                SQL_Parameter par = new SQL_Parameter(sparname, SQL_Parameter.eSQL_Parameter.Nvarchar, false, sValue);
+                SQL_Parameter par = null;
+                if (oValue is string)
+                {
+                    par = new SQL_Parameter(sparname, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ((string)oValue));
+                }
+                else if (oValue is short)
+                {
+                    par = new SQL_Parameter(sparname, SQL_Parameter.eSQL_Parameter.Smallint, false, ((short)oValue));
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:Address:GetAddressElementID:Err=type=" + oValue.GetType().ToString() + " not implemented!");
+                }
+                
                 lpar.Add(par);
                 sql = "select ID from " + AddressElement_TableName + " where " + AddressElement_ColumnName + " = " + sparname;
             }

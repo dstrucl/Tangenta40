@@ -18,6 +18,10 @@ namespace SQLTableControl
 
     public partial class SQLTable
     {
+        public delegate bool delegate_SetInputControls(SQLTable tbl);
+
+        public delegate_SetInputControls SetInputControls = null;
+
         public const string VIEW_TableName2ColumnName_SEPARATOR = "_$$";
 
         public const string VIEW_TableName_SEPARATOR = "_$_";
@@ -130,6 +134,7 @@ namespace SQLTableControl
             }
         }
 
+
         public string TableName = "";
 
         public string TableName_Abbreviation = null;
@@ -232,6 +237,7 @@ namespace SQLTableControl
         public SQLTable(SQLTable srcTbl)
         {
             InitColors();
+            this.SetInputControls = srcTbl.SetInputControls;
             NoOfColumns = srcTbl.NoOfColumns;
             objTable = srcTbl.objTable;
             if (m_Table_View == null)
@@ -267,6 +273,7 @@ namespace SQLTableControl
         public SQLTable(SQLTable srcTbl,SQLTable DBm_owner_Tabel,List<SQLTable> lTable)  // This constructor is used for DBm_Image and DBm_Document
         {
             InitColors();
+            this.SetInputControls = srcTbl.SetInputControls;
             NoOfColumns = srcTbl.NoOfColumns;
             objTable = srcTbl.objTable;
             m_Table_View = null;

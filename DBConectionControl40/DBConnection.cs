@@ -620,16 +620,29 @@ namespace DBConnectionControl40
         {
             try
             {
-                string serverversion = null;
-                System.Data.SQLite.SQLiteFactory factory = System.Data.SQLite.SQLiteFactory.Instance;
-                DbConnection connection = factory.CreateConnection();
-                connection.ConnectionString = ConnectionString;
-                connection.Open();
-                serverversion = connection.ServerVersion;
-                tables = connection.GetSchema("Tables");
-                columns = connection.GetSchema("Columns");
-                connection.Close();
-                return true;
+                if ((tables != null) && (columns != null))
+                {
+                    return true;
+                }
+                else
+                {
+                    string serverversion = null;
+                    System.Data.SQLite.SQLiteFactory factory = System.Data.SQLite.SQLiteFactory.Instance;
+                    DbConnection connection = factory.CreateConnection();
+                    connection.ConnectionString = ConnectionString;
+                    connection.Open();
+                    serverversion = connection.ServerVersion;
+                    if (tables == null)
+                    {
+                        tables = connection.GetSchema("Tables");
+                    }
+                    if (columns == null)
+                    {
+                        columns = connection.GetSchema("Columns");
+                    }
+                    connection.Close();
+                    return true;
+                }
             }
             catch (Exception ex)
             {
@@ -3869,6 +3882,61 @@ namespace DBConnectionControl40
                 return false;
             }
         }
+
+        public bool TableExists(string TableName, ref string csError)
+        {
+            //string strTableNameAndSchema = " SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '"+tbl.TableName+"'";
+            //string strCheckTable =   m_strSQLUseDatabase + String.Format(
+            //      "IF OBJECT_ID('{0}', 'U') IS NOT NULL SELECT 'true' ELSE SELECT 'false' ",strTableNameAndSchema
+            //      );
+            string strCheckTable = null;
+            switch (DBType)
+            {
+                case DBConnection.eDBType.MYSQL:
+                    strCheckTable = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '" + this.DataBase + "' AND table_name = '" + TableName + "';";
+                    break;
+                case DBConnection.eDBType.MSSQL:
+                    strCheckTable = "\nUSE " + this.DataBase + "\n IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME='" + TableName + "') SELECT 1 AS res ELSE SELECT 0 AS res";
+                    break;
+                case DBConnection.eDBType.SQLITE:
+                    strCheckTable = "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = '" + TableName + "'";
+                    break;
+            }
+            StringBuilder strB_CheckTable = new StringBuilder(strCheckTable);
+            int i = 0;
+            Object ObjRet = new Object();
+            if (this.ExecuteQuerySQL(strB_CheckTable, null, ref i, ref ObjRet, ref csError, TableName))
+            {
+                if (ObjRet.GetType() == typeof(int))
+                {
+                    i = (int)ObjRet;
+                    if (i == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        csError = lngConn.s_Error.s + ": " + lngConn.sTableIsMissing.s + ":" + TableName;
+                        return false;
+                    }
+                }
+                else if (ObjRet.GetType() == typeof(long))
+                {
+                    long l;
+                    l = (long)ObjRet;
+                    if (l == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }
 

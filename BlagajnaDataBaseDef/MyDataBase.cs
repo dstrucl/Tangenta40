@@ -10,13 +10,16 @@ using SQLTableControl;
 using LanguageControl;
 using BlagajnaTableClass;
 using DBTypes;
+using State_ISO_3166;
 
 namespace BlagajnaDataBaseDef
 {
     public partial class MyDataBase_Blagajna
     {
 
-//        public DBTypes.SQL_Database_Tables_Definition mt_DB;
+        //        public DBTypes.SQL_Database_Tables_Definition mt_DB;
+
+        public ISO_3166_Table m_ISO_3166_Table = new ISO_3166_Table();
 
         public BlagajnaTableClass.SQL_Database_Tables_Definition mt;
 

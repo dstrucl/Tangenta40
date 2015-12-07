@@ -431,12 +431,25 @@ namespace SQLTableControl
 
         void btnSelect_Click(object sender, EventArgs e)
         {
-            m_EditTable_Assistant_Form = new EditTable_Assistant_Form(this, pSQL_Table,ID_v, m_DBTables, Cursor.Position.X + btnSelect.Width, Cursor.Position.Y - btnSelect.Height);
-            if (m_EditTable_Assistant_Form.ShowDialog() == DialogResult.OK)
+            if (this.pSQL_Table.SetInputControls != null)
             {
-                if (DifferentToIndexInitialValue())
+                if (this.pSQL_Table.SetInputControls(this.pSQL_Table))
                 {
-                    SetEvent_IndexChanged(this.pSQL_Table, this);
+                    if (DifferentToIndexInitialValue())
+                    {
+                        SetEvent_IndexChanged(this.pSQL_Table, this);
+                    }
+                }
+            }
+            else
+            {
+                m_EditTable_Assistant_Form = new EditTable_Assistant_Form(this, pSQL_Table, ID_v, m_DBTables, Cursor.Position.X + btnSelect.Width, Cursor.Position.Y - btnSelect.Height);
+                if (m_EditTable_Assistant_Form.ShowDialog() == DialogResult.OK)
+                {
+                    if (DifferentToIndexInitialValue())
+                    {
+                        SetEvent_IndexChanged(this.pSQL_Table, this);
+                    }
                 }
             }
         }

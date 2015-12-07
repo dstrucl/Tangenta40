@@ -10,6 +10,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_Form_Select_State_ISO_3166_Title = new ltext("Select Country", "Izberite Državo");
         public static ltext s_YouMustEnterYourCompanyData = new ltext("You must enter your organisation data. Without organisation data program can not run!", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati!");
 
         public static ltext s_YouDidNotEnterYourCompanyData = new ltext("You did not enter your organisation data. Without organisation data program can not run! Program will end? ", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati! Program se konča ?");

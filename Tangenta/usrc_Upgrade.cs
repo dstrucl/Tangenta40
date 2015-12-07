@@ -48,7 +48,10 @@ namespace Tangenta
                                         {
                                             if (UpgradeDB_1_07_to_1_08())
                                             {
-                                                return true;
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
                                             }
                                         }
                                     }
@@ -76,7 +79,10 @@ namespace Tangenta
                                         {
                                             if (UpgradeDB_1_07_to_1_08())
                                             {
-                                                return true;
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
                                             }
                                         }
                                     }
@@ -101,7 +107,10 @@ namespace Tangenta
                                         {
                                             if (UpgradeDB_1_07_to_1_08())
                                             {
-                                                return true;
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
                                             }
                                         }
                                     }
@@ -123,7 +132,10 @@ namespace Tangenta
                                         {
                                             if (UpgradeDB_1_07_to_1_08())
                                             {
-                                                return true;
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
                                             }
                                         }
                                     }
@@ -142,7 +154,10 @@ namespace Tangenta
                                         {
                                             if (UpgradeDB_1_07_to_1_08())
                                             {
-                                                return true;
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
                                             }
                                         }
                                     }
@@ -158,7 +173,10 @@ namespace Tangenta
                                         {
                                             if (UpgradeDB_1_07_to_1_08())
                                             {
-                                                return true;
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
                                             }
                                         }
                                     }
@@ -171,7 +189,10 @@ namespace Tangenta
                                         {
                                             if (UpgradeDB_1_07_to_1_08())
                                             {
-                                                return true;
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
                                             }
                                         }
                                     }
@@ -181,12 +202,25 @@ namespace Tangenta
                                         {
                                             if (UpgradeDB_1_07_to_1_08())
                                             {
-                                                return true;
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
                                             }
                                         }
                                         else
                                         {
-                                            MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                            if (sOldDBVersion.Equals("1.08"))
+                                            {
+                                                if (UpgradeDB_1_08_to_1_09())
+                                                {
+                                                    return true;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                            }
                                         }
                                     }
                                 }
@@ -198,6 +232,58 @@ namespace Tangenta
             }
             return false;
         }
+
+        private bool UpgradeDB_1_08_to_1_09()
+        {
+            string Err = null;
+            string sql = null;
+            string[] stables = new string[] { "Atom_cState_Org", "Atom_cState_Person", "cState_Org", "cState_Person" };
+            foreach (string stbl in stables)
+            {
+                if (DBSync.DBSync.TableExists(stbl, ref Err))
+                {
+                    sql = @"PRAGMA foreign_keys = OFF;
+                    DROP TABLE "+ stbl + @";
+                    CREATE TABLE "+ stbl + @"
+                      (
+                      'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                      'State' varchar(264) UNIQUE  NOT NULL UNIQUE,
+                      'State_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
+                      'State_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
+                      'State_ISO_3166_num' smallint NOT NULL UNIQUE
+                      );
+                    Insert into "+stbl+@" (State,State_ISO_3166_a2,State_ISO_3166_a3,State_ISO_3166_num)values('Slovenija','SI','SVN',705);
+                    PRAGMA foreign_keys = ON;";
+                }
+                else
+                {
+                    sql = @"PRAGMA foreign_keys = OFF;
+                    CREATE TABLE "+ stbl + @"
+                      (
+                      'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                      'State' varchar(264) UNIQUE  NOT NULL UNIQUE,
+                      'State_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
+                      'State_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
+                      'State_ISO_3166_num' smallint NOT NULL UNIQUE
+                      );
+                    Insert into "+ stbl + @" (State,State_ISO_3166_a2,State_ISO_3166_a3,State_ISO_3166_num)values('Slovenija','SI','SVN',705);
+                    PRAGMA foreign_keys = ON;";
+                }
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                   continue;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_08_to_1_09:sql = " + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            Set_DatBase_Version("1.09");
+            return true;
+
+        }
+
         private bool UpgradeDB_1_07_to_1_08()
         {
             if (UpgradeDB_1_07_to_1_08_Change_Table_Person())

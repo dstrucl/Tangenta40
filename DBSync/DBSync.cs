@@ -37,7 +37,7 @@ namespace DBSync
         }
 
 
-        public static bool Init(Form parentform, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,bool bShowDialog)
+        public static bool Init(Form parentform, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,bool bShowDialog,bool bChangeConnection)
         {
             string Err = null;
             if (DB_for_Blagajna == null)
@@ -52,7 +52,7 @@ namespace DBSync
             {
                 my_StartupWindowThread.Message(lngRPM.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
 
-                if (m_SQLite_Support.Get(parentform, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB"))
+                if (m_SQLite_Support.Get(parentform, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection))
                 {
                     my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
@@ -269,6 +269,11 @@ namespace DBSync
                 return " limit " + p.ToString() + " ";
             }
 
+        }
+
+        public static bool TableExists(string table_name, ref string err)
+        {
+            return DB_for_Blagajna.m_DBTables.m_con.TableExists(table_name, ref err);
         }
     }
 }

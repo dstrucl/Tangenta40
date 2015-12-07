@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Country
+namespace State_ISO_3166
 {
-    public class Country_ISO_3166
+    public class ISO_3166
     {
 
         private string m_Name = null;
@@ -21,20 +21,20 @@ namespace Country
         {
             get { return m_Name; }
         }
-        private string Country_A2
+        public string Country_A2
         {
             get { return m_A2; }
         }
-        private string Country_A3
+        public string Country_A3
         {
             get { return m_A3; }
         }
-        private int Country_Numbe
+        public int Country_Number
         {
             get {return m_Number;}
         }
 
-        public Country_ISO_3166(string xName,string xA2,string xA3, int xNumber,string xISO_STANDARD,string Slo_name)
+        public ISO_3166(string xName,string xA2,string xA3, int xNumber,string xISO_STANDARD,string Slo_name)
         {
             m_Name = xName;
             m_A2 = xA2;

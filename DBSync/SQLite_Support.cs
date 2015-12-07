@@ -29,13 +29,11 @@ namespace DBSync
             return false;
         }
 
-        public bool Get(Form MainForm, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName)
+        public bool Get(Form MainForm, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection)
         {
 
             //string IniFileFolder = Settings.IniFileFolder;
             //string IniFileFolder = Properties.Settings.Default.IniFileFolder;
-
-
             if (!FolderExists(IniFileFolder))
             {
                 IniFileFolder = Application.UserAppDataPath;
@@ -43,27 +41,45 @@ namespace DBSync
                 {
                     IniFileFolder += '\\';
                 }
-               
             }
+
 
             if (DBSync.LocalDB_data_SQLite == null)
             {
                 DBSync.LocalDB_data_SQLite = new LocalDB_data(inifile_prefix, 1, DataBaseName, false);
             }
 
-
-            if (DBSync.DB_for_Blagajna.m_DBTables.MakeDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite))
+            if (bChangeConnection)
             {
-                if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                if (DBSync.DB_for_Blagajna.m_DBTables.CreateNewDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite,true))
                 {
-                    LogFile.Error.Show(Err);
+                    if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                    {
+                        LogFile.Error.Show(Err);
+                    }
+                    return true;
                 }
-                return true;
+                else
+                {
+                    Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                    return false;
+                }
             }
             else
-            {
-                Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
-                return false;
+            { 
+                if (DBSync.DB_for_Blagajna.m_DBTables.MakeDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite))
+                {
+                    if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
+                    {
+                        LogFile.Error.Show(Err);
+                    }
+                    return true;
+                }
+                else
+                {
+                    Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                    return false;
+                }
             }
         }
 

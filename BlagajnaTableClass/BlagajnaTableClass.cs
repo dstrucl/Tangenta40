@@ -332,6 +332,21 @@ namespace BlagajnaTableClass
 
     }
 
+    public class State_ISO_3166_a2:DB_varchar_5
+    {
+
+    }
+
+    public class State_ISO_3166_a3 : DB_varchar_5
+    {
+
+    }
+
+    public class State_ISO_3166_num : DB_smallInt
+    {
+
+    }
+
     public class cFirstName
     {
         public ID ID = new ID();
@@ -439,6 +454,9 @@ namespace BlagajnaTableClass
     {
         public ID ID = new ID();
         public State State = new State();
+        public State_ISO_3166_a2 State_ISO_3166_a2 = new State_ISO_3166_a2();
+        public State_ISO_3166_a3 State_ISO_3166_a3 = new State_ISO_3166_a3();
+        public State_ISO_3166_num State_ISO_3166_num = new State_ISO_3166_num();
     }
 
     public class cCountry_Person
@@ -476,6 +494,9 @@ namespace BlagajnaTableClass
     {
         public ID ID = new ID();
         public State State = new State();
+        public State_ISO_3166_a2 State_ISO_3166_a2 = new State_ISO_3166_a2();
+        public State_ISO_3166_a3 State_ISO_3166_a3 = new State_ISO_3166_a3();
+        public State_ISO_3166_num State_ISO_3166_num = new State_ISO_3166_num();
     }
 
     public class Atom_cCountry_Person
@@ -621,6 +642,9 @@ namespace BlagajnaTableClass
     {
         public ID ID = new ID();
         public State State = new State();
+        public State_ISO_3166_a2 State_ISO_3166_a2 = new State_ISO_3166_a2();
+        public State_ISO_3166_a3 State_ISO_3166_a3 = new State_ISO_3166_a3();
+        public State_ISO_3166_num State_ISO_3166_num = new State_ISO_3166_num();
     }
 
     public class cCountry_Org
@@ -658,6 +682,9 @@ namespace BlagajnaTableClass
     {
         public ID ID = new ID();
         public State State = new State();
+        public State_ISO_3166_a2 State_ISO_3166_a2 = new State_ISO_3166_a2();
+        public State_ISO_3166_a3 State_ISO_3166_a3 = new State_ISO_3166_a3();
+        public State_ISO_3166_num State_ISO_3166_num = new State_ISO_3166_num();
     }
 
     public class Atom_cCountry_Org

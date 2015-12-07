@@ -270,7 +270,6 @@
     <Compile Include="f_Journal_Invoice.cs" />
     <Compile Include="f_Atom_Office.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />
-    <Compile Include="f_State.cs" />
     <Compile Include="f_WorkingPlace.cs" />
     <Compile Include="Item_Data.cs" />
     <Compile Include="JOURNAL_ProformaInvoice_Type_definitions.cs" />

@@ -121,7 +121,7 @@ namespace Tangenta
 
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
-            bool bResult = DBSync.DBSync.Init(this, m_XmlFileName, IniFileFolder, ref sDBType,false);
+            bool bResult = DBSync.DBSync.Init(this, m_XmlFileName, IniFileFolder, ref sDBType,false,Program.bChangeConnection);
 
             Properties.Settings.Default.IniFileFolder = IniFileFolder;
 

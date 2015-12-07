@@ -65,7 +65,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiscalVerificationOfInvoice
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidXSD", "ValidXSD\ValidXSD.csproj", "{C6E854B5-6C3D-4CA3-97E6-AA88C86339A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Country_ISO_3166", "Country\Country_ISO_3166.csproj", "{1562473F-CFCB-4DFD-81BA-153988DC2D25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "State_ISO_3166", "Country\State_ISO_3166.csproj", "{1562473F-CFCB-4DFD-81BA-153988DC2D25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

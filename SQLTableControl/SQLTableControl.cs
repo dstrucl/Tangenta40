@@ -25,6 +25,9 @@ namespace SQLTableControl
         public SQLTable.delegate_GetInputControlRandomData m_dControlRandomData;
         public SQLTable.delegate_CheckRandomParamSettings m_dCheckRandomParamSettings;
 
+        DataTable SQLite_tables = null;
+        DataTable SQLite_columns_table = null;
+
         public List<SQLTable> items = new List<SQLTable>();
 
         public List<DataBaseView> SQL_DataBase_VIEW_List = new List<DataBaseView>();
@@ -554,9 +557,7 @@ namespace SQLTableControl
 
                 case DBConnection.eDBType.SQLITE:
                     {
-                        DataTable tables = new DataTable();
-                        DataTable columns_table = new DataTable();
-                        if (m_con.SQLiteTableInfo(ref tables, ref columns_table, ref csError))
+                        if (m_con.SQLiteTableInfo(ref SQLite_tables, ref SQLite_columns_table, ref csError))
                         {
 
                             int i;
@@ -564,7 +565,7 @@ namespace SQLTableControl
                             for (i = 0; i < iCount; i++)
                             {
                                 string column_name = tbl.Column[i].Name;
-                                if (!FindColumnInTable(tbl, columns_table, column_name))
+                                if (!FindColumnInTable(tbl, SQLite_columns_table, column_name))
                                 {
                                     csError += csNewLine + "Column with name:\"" + column_name + "\" does not exist in table:\"" + tbl.TableName + "\"";
                                     csNewLine = "\r\n";
@@ -1250,7 +1251,7 @@ namespace SQLTableControl
             return m_con.CheckConnection(DB_Param);
         }
 
-        public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param)
+        public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param, bool bNoDataBaseCheck)
         {
             while (true)
             {
@@ -1291,6 +1292,10 @@ namespace SQLTableControl
                                 }
                             }
                         }
+                    }
+                    if (bNoDataBaseCheck)
+                    {
+                        return true;
                     }
                     string csError = null;
                     enumDataBaseCheckResult eRes = DataBaseCheck(ref csError);
