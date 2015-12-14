@@ -85,6 +85,9 @@ namespace Tangenta
                                               cZIP_Org.ZIP,
                                               cCity_Org.City,
                                               cState_Org.State,
+                                              cState_Org.State_ISO_3166_a2,
+                                              cState_Org.State_ISO_3166_a3,
+                                              cState_Org.State_ISO_3166_num,
                                               cCountry_Org.Country,
                                               myorg.Tax_ID,
                                               myorg.Registration_ID,
@@ -155,6 +158,9 @@ namespace Tangenta
                                         if (dt_myCompany_Person.Rows[0]["State"].GetType() == typeof(string))
                                         {
                                             myOrg.Address_v.State_v = func.set_string(dt_myCompany_Person.Rows[0]["State"]);
+                                            myOrg.Address_v.State_ISO_3166_a2_v = func.set_string(dt_myCompany_Person.Rows[0]["State_ISO_3166_a2"]);
+                                            myOrg.Address_v.State_ISO_3166_a3_v = func.set_string(dt_myCompany_Person.Rows[0]["State_ISO_3166_a3"]);
+                                            myOrg.Address_v.State_ISO_3166_num_v = func.set_short(dt_myCompany_Person.Rows[0]["State_ISO_3166_num"]);
                                             if (dt_myCompany_Person.Rows[0]["Country"].GetType() == typeof(string))
                                             {
                                                 myOrg.Address_v.Country_v = func.set_string(dt_myCompany_Person.Rows[0]["Country"]);

@@ -27,7 +27,7 @@ namespace Tangenta
         public string HouseNumber  { get { return HouseNumber_v.vs; } }
         public string ZIP          { get { return ZIP_v.vs; } }
         public string City { get { return City_v.vs; } }
-        public string State { get { return State_v.vs; } }
+        public string State             { get { return State_v.vs; } }
         public string State_ISO_3166_a2 { get { return State_ISO_3166_a2_v.vs; } }
         public string State_ISO_3166_a3 { get { return State_ISO_3166_a3_v.vs; } }
         public short State_ISO_3166_num { get { return State_ISO_3166_num_v.v; } }
@@ -119,8 +119,9 @@ namespace Tangenta
                                         }
                                         else if (c.Name.Equals("State"))
                                         {
-                                            if (!GetAddressElementID(col.fKey.fTable.TableName, new string[] { "State", "State_ISO_3166_a2", "State_ISO_3166_a3", "State_ISO_3166_num" },
-                                                                                                new object[] { State , State_ISO_3166_a2 , State_ISO_3166_a3, State_ISO_3166_num },
+                                            string tbl_name = col.fKey.fTable.TableName;
+                                            if (!GetAddressElementID(tbl_name, new string[] { "State", "State_ISO_3166_a2", "State_ISO_3166_a3", "State_ISO_3166_num" },
+                                                                                                new object[] { State, State_ISO_3166_a2 , State_ISO_3166_a3, State_ISO_3166_num },
                                                                                                 ref col.fKey.reference_ID))
                                             {
                                                 return false;
@@ -280,14 +281,13 @@ namespace Tangenta
                     return false;
                 }
 
-                lpar.Add(par);
                 if (sql_Condtition == null)
                 {
                     sql_Condtition = " (" + AddressElement_ColumnNames[i] + " = " + sparname + ") ";
                 }
                 else
                 {
-                    sql_Condtition = " and (" + AddressElement_ColumnNames[i] + " = " + sparname + ")";
+                    sql_Condtition += " and (" + AddressElement_ColumnNames[i] + " = " + sparname + ")";
                 }
 
                 if (sql_insert_Columns == null)
