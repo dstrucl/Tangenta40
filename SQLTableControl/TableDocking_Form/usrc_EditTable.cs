@@ -32,6 +32,9 @@ namespace SQLTableControl.TableDocking_Form
 
         public delegate void delegate_FillTable(SQLTable m_tbl);
 
+        public delegate void delegate_dgvx_DataError(object sender, DataGridViewDataErrorEventArgs e);
+        public event delegate_dgvx_DataError dgvx_DataError = null;
+
         public event usrc_EditRow.delegate_after_FillDataInputControl after_FillDataInputControl = null; 
 
         public event delegate_FillTable FillTable = null;
@@ -487,6 +490,14 @@ namespace SQLTableControl.TableDocking_Form
             if (after_FillDataInputControl!=null)
             {
                 after_FillDataInputControl(m_tbl, ID);
+            }
+        }
+
+        private void dgvx_Table_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (dgvx_DataError!=null)
+            {
+                dgvx_DataError(sender, e);
             }
         }
     }

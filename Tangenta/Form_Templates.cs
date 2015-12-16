@@ -195,5 +195,9 @@ namespace Tangenta
             }
         }
 
+        private void usrc_EditTable_dgvx_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }
