@@ -29,25 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Print_A4));
-            this.m_usrc_Invoice_Preview = new Tangenta.usrc_Invoice_Preview();
             this.lbl_Template = new System.Windows.Forms.Label();
             this.txt_Template = new System.Windows.Forms.TextBox();
             this.btn_Select_Template = new System.Windows.Forms.Button();
             this.btn_EditTemplates = new System.Windows.Forms.Button();
+            this.m_usrc_Invoice_Preview = new Tangenta.usrc_Invoice_Preview();
             this.SuspendLayout();
-            // 
-            // m_usrc_Invoice_Preview
-            // 
-            this.m_usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_Invoice_Preview.AutoScroll = true;
-            this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(1, 42);
-            this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
-            this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(923, 560);
-            this.m_usrc_Invoice_Preview.TabIndex = 0;
             // 
             // lbl_Template
             // 
@@ -75,6 +62,7 @@
             this.btn_Select_Template.Size = new System.Drawing.Size(60, 29);
             this.btn_Select_Template.TabIndex = 3;
             this.btn_Select_Template.UseVisualStyleBackColor = true;
+            this.btn_Select_Template.Click += new System.EventHandler(this.btn_Select_Template_Click);
             // 
             // btn_EditTemplates
             // 
@@ -85,6 +73,19 @@
             this.btn_EditTemplates.TabIndex = 4;
             this.btn_EditTemplates.UseVisualStyleBackColor = true;
             this.btn_EditTemplates.Click += new System.EventHandler(this.btn_EditTemplates_Click);
+            // 
+            // m_usrc_Invoice_Preview
+            // 
+            this.m_usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_usrc_Invoice_Preview.AutoScroll = true;
+            this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(1, 42);
+            this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
+            this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(923, 560);
+            this.m_usrc_Invoice_Preview.TabIndex = 0;
             // 
             // Form_Print_A4
             // 
@@ -99,6 +100,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Print_A4";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.Form_Print_A4_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -740,6 +740,19 @@ namespace SQLTableControl
             return false;
         }
 
+        internal bool xDocument_Hash_Changed()
+        {
+            foreach (Column col in Column)
+            {
+                if (col.Name.Equals("xDocument_Hash"))
+                {
+                    return col.InputControl.Changed;
+                }
+            }
+            LogFile.Error.Show("ERROR:xDocument_Hash_Changed:Column xDocument_Hash not found");
+            return false;
+        }
+
         public void FillTable(SQLTable.delegate_FillTable myFill)
         {
             foreach (Column col in Column)

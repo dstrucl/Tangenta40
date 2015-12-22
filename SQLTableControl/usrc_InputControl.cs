@@ -212,7 +212,28 @@ namespace SQLTableControl
                         pic_Changed.Changed = true;
                         if (ObjectChanged != null)
                         {
-                            ObjectChanged(this.m_ParentTbl,this);
+                            ObjectChanged(this.m_ParentTbl, this);
+                        }
+                    }
+                    else
+                    {
+                        bManualyChanged = false;
+                        pic_Changed.Changed = false;
+                        if (ObjectChanged != null)
+                        {
+                            ObjectChanged(this.m_ParentTbl, this);
+                        }
+                    }
+                }
+                else if (Document_Box != null)
+                {
+                    if (this.m_col.ownerTable.xDocument_Hash_Changed())
+                    {
+                        bManualyChanged = true;
+                        pic_Changed.Changed = true;
+                        if (ObjectChanged != null)
+                        {
+                            ObjectChanged(this.m_ParentTbl, this);
                         }
                     }
                     else
@@ -286,7 +307,7 @@ namespace SQLTableControl
                                     return false;
                                 }
                                 break;
-
+                                //30000 - 0013505055
                             case Column.eStyle.RadioButtons:
                                 if (ObjectInitialValue.GetType() == typeof(bool))
                                 {
@@ -1104,7 +1125,7 @@ namespace SQLTableControl
                     break;
 
                 case Globals.eDBType.DB_Document:
-                    Document_Box = new InputControl_DocumentBox();
+                    Document_Box = new InputControl_DocumentBox(this);
                     Document_Box.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                     Document_Box.Top = usrc_lbl.Top;
                     if (btnFolderSelect!=null)
@@ -1675,7 +1696,7 @@ namespace SQLTableControl
             else if (basetype == typeof(DB_Document))
             {
                 DB_Document xDB_Document = (DB_Document)Obj;
-                Document_Box.Data = xDB_Document.val;
+                Document_Box.Data = Globals.Decompress(xDB_Document.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_264))
@@ -1956,7 +1977,7 @@ namespace SQLTableControl
                 }
                 else if (this.Document_Box != null)
                 {
-                    Document_Box.Data = (byte[])Value;
+                    Document_Box.Data = Globals.Decompress((byte[])Value);
                     Document_Box.BackColor = ColorDefined;
                     return true;
                 }
@@ -2250,7 +2271,7 @@ namespace SQLTableControl
                 if (Document_Box != null)
                 {
                     //Func.ImageStore = (Image) Picture.Image.Clone();
-                    xDB_Document.val = (Byte[])Document_Box.Data.Clone();
+                    xDB_Document.val = Globals.Compress((byte[])Document_Box.Data.Clone());
                     objret =xDB_Document.val;
                     eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varbinary;
                 }
@@ -2788,6 +2809,21 @@ namespace SQLTableControl
             else
             {
                 LogFile.Error.Show("ERROR:Set_Image_Gash:txtBox==null!");
+            }
+        }
+
+        internal void Set_xDocument_Hash(string hash)
+        {
+            if (txtBox != null)
+            {
+                txtBox.Text = hash;
+                txtBox.ReadOnly = true;
+                this.bManualyChanged = false;
+                Defined = true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Set_xDocument_Hash:txtBox==null!");
             }
         }
 
