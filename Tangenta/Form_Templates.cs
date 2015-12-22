@@ -186,7 +186,6 @@ namespace Tangenta
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Item"))
             {
-                
                 return false;
             }
             else
@@ -195,5 +194,9 @@ namespace Tangenta
             }
         }
 
+        private void usrc_EditTable_dgvx_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

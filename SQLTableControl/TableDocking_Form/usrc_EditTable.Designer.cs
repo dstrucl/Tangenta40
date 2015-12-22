@@ -99,6 +99,7 @@
             this.dgvx_Table.Size = new System.Drawing.Size(481, 622);
             this.dgvx_Table.TabIndex = 0;
             this.dgvx_Table.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvx_Table_CellFormatting);
+            this.dgvx_Table.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvx_Table_DataError);
             // 
             // usrc_EditTable
             // 
