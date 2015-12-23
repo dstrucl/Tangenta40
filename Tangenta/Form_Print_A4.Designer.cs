@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using DBTypes;
+
+namespace Tangenta
 {
     partial class Form_Print_A4
     {

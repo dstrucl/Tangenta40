@@ -271,6 +271,8 @@
     <Compile Include="f_Atom_Office.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />
     <Compile Include="f_WorkingPlace.cs" />
+    <Compile Include="InvoiceCreateFromTemplate.cs" />
+    <Compile Include="InvoiceCreateToken.cs" />
     <Compile Include="Item_Data.cs" />
     <Compile Include="JOURNAL_ProformaInvoice_Type_definitions.cs" />
     <Compile Include="Form_OrganisationAccount_Edit.cs">

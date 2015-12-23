@@ -1,4 +1,5 @@
 ﻿using BlagajnaTableClass;
+using DBTypes;
 using LanguageControl;
 using SQLTableControl;
 using System;
@@ -20,11 +21,28 @@ namespace Tangenta
         public string Default_Tamplate = null;
         public byte[] Doc = null;
 
-        public Form_Print_A4()
+        private usrc_Print usrc_Print;
+        private usrc_Payment.ePaymentType paymentType;
+        private string sPaymentMethod;
+        private string sAmountReceived;
+        private string sToReturn;
+        private DateTime_v issue_time;
+
+
+        public Form_Print_A4(usrc_Print usrc_Print, usrc_Payment.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             InitializeComponent();
+
+            this.usrc_Print = usrc_Print;
+            this.paymentType = paymentType;
+            this.sPaymentMethod = sPaymentMethod;
+            this.sAmountReceived = sAmountReceived;
+            this.sToReturn = sToReturn;
+            this.issue_time = issue_time;
+
             lngRPM.s_Template.Text(lbl_Template, ":");
         }
+
 
         private void btn_EditTemplates_Click(object sender, EventArgs e)
         {
@@ -105,7 +123,14 @@ namespace Tangenta
                         {
                             xDocument = (byte[])((byte[])o_doc).Clone();
                         }
-                        m_usrc_Invoice_Preview.Init(xDocument);
+
+        //private usrc_Print usrc_Print;
+        //private usrc_Payment.ePaymentType paymentType;
+        //private string sPaymentMethod;
+        //private string sAmountReceived;
+        //private string sToReturn;
+        //private DateTime_v issue_time;
+                        m_usrc_Invoice_Preview.Init(xDocument, usrc_Print, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                         return true;
                     }
                 }
@@ -160,7 +185,7 @@ namespace Tangenta
                         {
                             xDocument = (byte[])((byte[])o_doc).Clone();
                         }
-                        m_usrc_Invoice_Preview.Init(xDocument);
+                        m_usrc_Invoice_Preview.Init(xDocument, usrc_Print, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                         return true;
                     }
                     return true;

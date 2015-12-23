@@ -15,6 +15,12 @@ namespace Tangenta
 {
     public partial class usrc_Print : UserControl
     {
+
+
+
+
+
+
         private string m_PrinterName = null;
         private string m_PaperName = null;
         public string PrinterName
@@ -73,7 +79,7 @@ namespace Tangenta
         public string Currency_Symbol = null;
         public int Currency_DecimalPlaces = -1;
 
-        InvoiceDB m_InvoiceDB = null;
+        public InvoiceDB m_InvoiceDB = null;
         public int FinancialYear = -1;
         public int NumberInFinancialYear = -1;
         public decimal GrossSum = 0;
@@ -88,6 +94,7 @@ namespace Tangenta
         public string Organisation_City = null;
         public string Organisation_State = null;
         public string Organisation_Country = null;
+        public string OfficeName = null;
         public string HomePage = null;
         public string Email = null;
 
@@ -173,6 +180,7 @@ namespace Tangenta
                         {
                             Organisation_Registration_ID = (string)o_Organisation_Registration_ID;
                         }
+                        OfficeName = (string)dt_ProformaInvoice.Rows[0]["Atom_Office_Name"];
 
                         Organisation_StreetName = (string)dt_ProformaInvoice.Rows[0]["StreetName"];
                         Organisation_HouseNumber = (string)dt_ProformaInvoice.Rows[0]["HouseNumber"];
@@ -287,7 +295,7 @@ namespace Tangenta
             }
             else
             {
-                Form_Print_A4 print_A4_dlg = new Form_Print_A4();
+                Form_Print_A4 print_A4_dlg = new Form_Print_A4(this,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                 print_A4_dlg.ShowDialog();
             }
         }
