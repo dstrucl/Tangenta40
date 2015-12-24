@@ -365,8 +365,7 @@ namespace Tangenta.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-serif; 
-        ///        font-size [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_inv1_A4 {
             get {
@@ -457,8 +456,7 @@ namespace Tangenta.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-serif; 
-        ///        font-size [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_pinv1_A4 {
             get {
@@ -549,8 +547,7 @@ namespace Tangenta.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-serif; 
-        ///        font-size [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_inv1_A4 {
             get {
@@ -641,8 +638,7 @@ namespace Tangenta.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-serif; 
-        ///        font-size [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_pinv1_A4 {
             get {
@@ -904,6 +900,16 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Bitmap RemoveFromBoxToFactory {
             get {
                 object obj = ResourceManager.GetObject("RemoveFromBoxToFactory", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SaveHtml {
+            get {
+                object obj = ResourceManager.GetObject("SaveHtml", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

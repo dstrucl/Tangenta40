@@ -31,6 +31,7 @@
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.m_webBrowser = new System.Windows.Forms.WebBrowser();
             this.btn_Print = new System.Windows.Forms.Button();
+            this.btn_SaveAs = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // m_webBrowser
@@ -47,12 +48,22 @@
             // btn_Print
             // 
             this.btn_Print.Image = global::Tangenta.Properties.Resources.Print;
-            this.btn_Print.Location = new System.Drawing.Point(3, 3);
+            this.btn_Print.Location = new System.Drawing.Point(89, 3);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(69, 39);
             this.btn_Print.TabIndex = 3;
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
+            // 
+            // btn_SaveAs
+            // 
+            this.btn_SaveAs.Image = global::Tangenta.Properties.Resources.SaveHtml;
+            this.btn_SaveAs.Location = new System.Drawing.Point(3, 3);
+            this.btn_SaveAs.Name = "btn_SaveAs";
+            this.btn_SaveAs.Size = new System.Drawing.Size(69, 39);
+            this.btn_SaveAs.TabIndex = 4;
+            this.btn_SaveAs.UseVisualStyleBackColor = true;
+            this.btn_SaveAs.Click += new System.EventHandler(this.btn_SaveAs_Click);
             // 
             // usrc_Invoice_Preview
             // 
@@ -60,6 +71,7 @@
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Controls.Add(this.btn_SaveAs);
             this.Controls.Add(this.btn_Print);
             this.Controls.Add(this.m_webBrowser);
             this.Name = "usrc_Invoice_Preview";
@@ -73,5 +85,6 @@
         private System.Windows.Forms.PageSetupDialog pageSetupDialog1;
         private System.Windows.Forms.WebBrowser m_webBrowser;
         private System.Windows.Forms.Button btn_Print;
+        private System.Windows.Forms.Button btn_SaveAs;
     }
 }

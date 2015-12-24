@@ -102,5 +102,16 @@ namespace Tangenta
         {
             m_webBrowser.ShowPrintDialog();
         }
+
+        private void btn_SaveAs_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            DialogResult dres = sfd.ShowDialog();
+            if (dres == DialogResult.OK)
+            {
+                string sFileName = sfd.FileName;
+                System.IO.File.WriteAllText(sFileName, this.m_webBrowser.DocumentText, Encoding.UTF8);
+            }
+        }
     }
 }

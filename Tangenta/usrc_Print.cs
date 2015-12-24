@@ -114,8 +114,8 @@ namespace Tangenta
         {
             string sql = @"select
                                  inv.ID as Invoice_ID,
-                                 ProformaInvoice.FinancialYear,
-                                 ProformaInvoice.NumberInFinancialYear,
+                                 pi.FinancialYear,
+                                 pi.NumberInFinancialYear,
                                  mpay.PaymentType,
                                  GrossSum,
                                  TaxSum,
@@ -141,14 +141,14 @@ namespace Tangenta
                                  Atom_Logo.Description as Logo_Description
                                  from JOURNAL_ProformaInvoice 
                                  inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
-                                 inner join ProformaInvoice on JOURNAL_ProformaInvoice.ProformaInvoice_ID = ProformaInvoice.ID
+                                 inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
                                  inner join Atom_myCompany_Person on Atom_WorkPeriod.Atom_myCompany_Person_ID = Atom_myCompany_Person.ID
                                  inner join Atom_Office on Atom_myCompany_Person.Atom_Office_ID = Atom_Office.ID
                                  inner join Atom_myCompany on Atom_Office.Atom_myCompany_ID = Atom_myCompany.ID
                                  inner join Atom_OrganisationData on Atom_myCompany.Atom_OrganisationData_ID = Atom_OrganisationData.ID
                                  inner join Atom_Organisation on Atom_OrganisationData.Atom_Organisation_ID = Atom_Organisation.ID
-                                 left join Invoice inv on ProformaInvoice.Invoice_ID = inv.ID
+                                 left join Invoice inv on pi.Invoice_ID = inv.ID
                                  left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
                                  left join cOrgTYPE on Atom_OrganisationData.cOrgTYPE_ID = cOrgTYPE.ID
                                  left join Atom_cAddress_Org on Atom_OrganisationData.Atom_cAddress_Org_ID = Atom_cAddress_Org.ID
@@ -161,7 +161,7 @@ namespace Tangenta
                                  left join cHomePage_Org on Atom_OrganisationData.cHomePage_Org_ID = cHomePage_Org.ID
                                  left join cEmail_Org on Atom_OrganisationData.cEmail_Org_ID = cEmail_Org.ID
                                  left join Atom_Logo on Atom_OrganisationData.Atom_Logo_ID = Atom_Logo.ID
-                                 where ProformaInvoice.ID = " + ProformaInvoice_ID.ToString();
+                                 where pi.ID = " + ProformaInvoice_ID.ToString();
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))

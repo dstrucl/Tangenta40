@@ -16,6 +16,10 @@ namespace Tangenta
 {
     public partial class usrc_SimpleItemMan : UserControl
     {
+
+        private DataGridViewTextBoxColumn col_Discount = null;
+        private DataGridViewTextBoxColumn dgv_total_discount_column = null;
+
         private int idgv_SimpleItems_Width_default = -1;
         long m_PriceList_id = -1;
         DataTable dt_Group = new DataTable();
@@ -520,18 +524,21 @@ namespace Tangenta
 
         internal void SetViewButtons()
         {
-            if ((Layout == eLayout.DRAFT)||(Layout == eLayout.NONE))
+            if ((Layout == eLayout.DRAFT) || (Layout == eLayout.NONE))
             {
                 if (Layout == eLayout.DRAFT)
-                { 
+                {
                     this.dgv_SelectedSimpleItems.Columns.Remove(column_SelectedSimpleItem_btn_discount);
                     this.dgv_SelectedSimpleItems.Columns.Remove(column_SelectedSimpleItem_btn_deselect);
                 }
-                DataGridViewTextBoxColumn dgv_discount_column = null;
-                dgv_discount_column = new DataGridViewTextBoxColumn();
-                dgv_discount_column.Name = column_total_discount;
-                dgv_discount_column.HeaderText = lngRPM.s_TotalDiscount.s;
-                this.dgv_SelectedSimpleItems.Columns.Add(dgv_discount_column);
+
+                if (dgv_total_discount_column == null)
+                {
+                    dgv_total_discount_column = new DataGridViewTextBoxColumn();
+                    dgv_total_discount_column.Name = column_total_discount;
+                    dgv_total_discount_column.HeaderText = lngRPM.s_TotalDiscount.s;
+                    this.dgv_SelectedSimpleItems.Columns.Add(dgv_total_discount_column);
+                }
                 this.dgv_SelectedSimpleItems.Columns[DBtcn.column_SelectedSimpleItemPriceDiscount].Visible = true;
                 this.dgv_SelectedSimpleItems.Columns[DBtcn.column_SelectedSimpleItem_ExtraDiscount].Visible = true;
 
@@ -540,12 +547,14 @@ namespace Tangenta
                 this.dgv_SelectedSimpleItems.Columns[column_total_discount].HeaderText = lngRPM.s_TotalDiscount.s;
                 Layout = eLayout.VIEW;
             }
-            DataGridViewTextBoxColumn col_Discount = null;
-            col_Discount = new DataGridViewTextBoxColumn();
-            col_Discount.HeaderText = "";
-            col_Discount.Name = column_SelectedSimpleItem_btn_discount;
-            col_Discount.Width = 32;
-            this.dgv_SelectedSimpleItems.Columns.Insert(4, col_Discount);
+            if (col_Discount == null)
+            { 
+                col_Discount = new DataGridViewTextBoxColumn();
+                col_Discount.HeaderText = lngRPM.s_Discount.s;
+                col_Discount.Name = column_SelectedSimpleItem_btn_discount;
+                col_Discount.Width = 32;
+                this.dgv_SelectedSimpleItems.Columns.Insert(4, col_Discount);
+            }
         }
 
         internal void Set_dgv_SelectedSimpleItems()

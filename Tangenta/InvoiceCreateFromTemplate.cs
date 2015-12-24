@@ -131,6 +131,9 @@ namespace Tangenta
             CustomerAddress_ZIP.Set(null);
             CustomerAddress_City.Set(null);
             CustomerEmail.Set(null);
+
+
+
             string stime = m_usrc_Print.PrintDate_Day.ToString() + "."
                            + m_usrc_Print.PrintDate_Month.ToString() + "."
                            + m_usrc_Print.PrintDate_Year.ToString() + " "
@@ -228,11 +231,21 @@ namespace Tangenta
                                 ExtraDiscount = (decimal)oExtraDiscount;
                             }
 
+                            string CurrencySymbol = null;
+                            object oCurrencySymbol = dr["Atom_Currency_Symbol"];
+                            if (oCurrencySymbol is string)
+                            {
+                                CurrencySymbol = (string)oCurrencySymbol;
+                            }
+
+                            if (CurrencySymbol!=null)
+                            {
+                                Currency.Set(CurrencySymbol);
+                            }
 
                             ItemName.Set(SimpleItem_name);
                             PricePerUnit.Set(RetailSimpleItemPrice.ToString());
 
-                            Currency.Set("€");
                             Unit.Set("");
                             Quantity.Set(iQuantity.ToString());
                             TaxationRate.Set(((decimal)dr["Atom_Taxation_Rate"]).ToString());
@@ -252,10 +265,12 @@ namespace Tangenta
                             {
                             }
 
-                            NetPrice.Set(RetailSimpleItemPriceWithDiscount.ToString());
                             Tax.Set(TaxPrice.ToString());
-                            decimal price_with_tax = RetailSimpleItemPriceWithDiscount + TaxPrice;
-                            PriceWithTax.Set(price_with_tax.ToString());
+
+                            decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
+                            PriceWithTax.Set(RetailSimpleItemPriceWithDiscount.ToString());
+
+                            NetPrice.Set(price_without_tax.ToString());
 
                             string sRow = tr_RowTemplate.Replace(ItemName.lt.s, ItemName.replacement);
                             sRow = sRow.Replace(PricePerUnit.lt.s, PricePerUnit.replacement);
@@ -361,6 +376,8 @@ namespace Tangenta
                             {
                             }
                         }
+
+                        html_doc_text = html_doc_text.Replace(Currency.lt.s, Currency.replacement);
 
                         SumNetPrice.Set(m_usrc_Print.NetSum.ToString());
                         html_doc_text = html_doc_text.Replace(SumNetPrice.lt.s, SumNetPrice.replacement);
