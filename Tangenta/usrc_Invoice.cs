@@ -58,7 +58,7 @@ namespace Tangenta
 
         private decimal GrossSum = 0;
         private decimal NetSum = 0;
-        private TaxSum TaxSum = null;
+        private StaticLib.TaxSum TaxSum = null;
 
 
         private bool chk_Storno_CanBe_ManualyChanged = true;
@@ -991,7 +991,7 @@ namespace Tangenta
 
 
             TaxSum = null;
-            TaxSum = new TaxSum();
+            TaxSum = new StaticLib.TaxSum();
 
             foreach (DataRow dr in this.usrc_SimpleItemMan.dt_SelectedSimpleItem.Rows)
             {

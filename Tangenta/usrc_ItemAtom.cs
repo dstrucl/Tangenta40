@@ -184,7 +184,7 @@ namespace Tangenta
             set_offset(ioffs);
 
 
-            decimal TotalDiscount = Program.TotalDiscount(Discount, ExtraDiscount);
+            decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount,Program.Get_BaseCurrency_DecimalPlaces());
 
             if (TotalDiscount > 0)
             {
@@ -281,7 +281,7 @@ namespace Tangenta
                 {
                     decimal_places = Program.BaseCurrency.DecimalPlaces;
                 }
-                Program.CalculatePrice(RetailPricePerUnit, dquantity_all, Discount, ExtraDiscount, TaxRate, ref RetailPriceWithDiscount, ref TaxPrice, ref NetPrice, decimal_places);
+                StaticLib.Func.CalculatePrice(RetailPricePerUnit, dquantity_all, Discount, ExtraDiscount, TaxRate, ref RetailPriceWithDiscount, ref TaxPrice, ref NetPrice, decimal_places);
             }
         }
 

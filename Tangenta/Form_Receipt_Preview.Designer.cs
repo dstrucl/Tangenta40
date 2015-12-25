@@ -72,6 +72,7 @@
             this.usrc_Invoice_Preview.AutoScroll = true;
             this.usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.usrc_Invoice_Preview.html_doc_text = "Document Template not set";
             this.usrc_Invoice_Preview.Location = new System.Drawing.Point(3, 3);
             this.usrc_Invoice_Preview.Name = "usrc_Invoice_Preview";
             this.usrc_Invoice_Preview.Size = new System.Drawing.Size(352, 1162);
@@ -105,6 +106,8 @@
             // 
             this.m_usrc_Print.Location = new System.Drawing.Point(-3, 4);
             this.m_usrc_Print.Name = "m_usrc_Print";
+            this.m_usrc_Print.PaperName = null;
+            this.m_usrc_Print.PrinterName = null;
             this.m_usrc_Print.Size = new System.Drawing.Size(555, 50);
             this.m_usrc_Print.TabIndex = 11;
             // 

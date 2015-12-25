@@ -30,6 +30,7 @@
         {
             this.btn_Exit = new System.Windows.Forms.Button();
             this.m_usrc_Help = new usrc_Help.usrc_Help();
+            this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.m_usrc_DBSettings = new Tangenta.usrc_DBSettings();
             this.m_usrc_InvoiceMan = new Tangenta.usrc_InvoiceMan();
             this.SuspendLayout();
@@ -52,6 +53,15 @@
             this.m_usrc_Help.Name = "m_usrc_Help";
             this.m_usrc_Help.Size = new System.Drawing.Size(40, 32);
             this.m_usrc_Help.TabIndex = 5;
+            // 
+            // usrc_FVI_SLO1
+            // 
+            this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_FVI_SLO1.Location = new System.Drawing.Point(637, 0);
+            this.usrc_FVI_SLO1.MessageBox_Length = 100;
+            this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
+            this.usrc_FVI_SLO1.Size = new System.Drawing.Size(40, 32);
+            this.usrc_FVI_SLO1.TabIndex = 6;
             // 
             // m_usrc_DBSettings
             // 
@@ -76,6 +86,7 @@
             // usrc_Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_FVI_SLO1);
             this.Controls.Add(this.m_usrc_Help);
             this.Controls.Add(this.m_usrc_DBSettings);
             this.Controls.Add(this.btn_Exit);
@@ -92,5 +103,6 @@
         private System.Windows.Forms.Button btn_Exit;
         private usrc_DBSettings m_usrc_DBSettings;
         private usrc_Help.usrc_Help m_usrc_Help;
+        public FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO usrc_FVI_SLO1;
     }
 }

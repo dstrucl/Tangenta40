@@ -1007,7 +1007,7 @@ private bool Find_Atom_SimpleItem_Name_ID(string Atom_SimpleItem_Name,ref long A
                 lpar.Add(par_ExtraDiscount);
 
                 decimal dQuantity = Convert.ToDecimal(iCount);
-                Program.CalculatePrice(RetailSimpleItemPrice,dQuantity, Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice, ref PriceWithoutTax, decimal_places);
+                StaticLib.Func.CalculatePrice(RetailSimpleItemPrice,dQuantity, Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice, ref PriceWithoutTax, decimal_places);
 
                                 
 

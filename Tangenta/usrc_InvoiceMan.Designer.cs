@@ -77,7 +77,7 @@
             // 
             this.cmb_FinancialYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_FinancialYear.FormattingEnabled = true;
-            this.cmb_FinancialYear.Location = new System.Drawing.Point(349, 2);
+            this.cmb_FinancialYear.Location = new System.Drawing.Point(324, 2);
             this.cmb_FinancialYear.Name = "cmb_FinancialYear";
             this.cmb_FinancialYear.Size = new System.Drawing.Size(80, 28);
             this.cmb_FinancialYear.TabIndex = 27;
@@ -86,7 +86,7 @@
             // 
             this.lbl_FinancialYear.AutoSize = true;
             this.lbl_FinancialYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lbl_FinancialYear.Location = new System.Drawing.Point(292, 6);
+            this.lbl_FinancialYear.Location = new System.Drawing.Point(273, 6);
             this.lbl_FinancialYear.Name = "lbl_FinancialYear";
             this.lbl_FinancialYear.Size = new System.Drawing.Size(45, 20);
             this.lbl_FinancialYear.TabIndex = 28;
@@ -111,9 +111,9 @@
             this.rdb_Items.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_Items.Image = global::Tangenta.Properties.Resources.EditInvoice;
             this.rdb_Items.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rdb_Items.Location = new System.Drawing.Point(477, 1);
+            this.rdb_Items.Location = new System.Drawing.Point(419, -3);
             this.rdb_Items.Name = "rdb_Items";
-            this.rdb_Items.Size = new System.Drawing.Size(68, 31);
+            this.rdb_Items.Size = new System.Drawing.Size(68, 34);
             this.rdb_Items.TabIndex = 29;
             this.rdb_Items.TabStop = true;
             this.rdb_Items.UseVisualStyleBackColor = true;
@@ -124,9 +124,9 @@
             this.rdb_ItemsAndProformaInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_ItemsAndProformaInvoices.Image = global::Tangenta.Properties.Resources.EditAndViewInvoice;
             this.rdb_ItemsAndProformaInvoices.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rdb_ItemsAndProformaInvoices.Location = new System.Drawing.Point(553, 1);
+            this.rdb_ItemsAndProformaInvoices.Location = new System.Drawing.Point(491, -3);
             this.rdb_ItemsAndProformaInvoices.Name = "rdb_ItemsAndProformaInvoices";
-            this.rdb_ItemsAndProformaInvoices.Size = new System.Drawing.Size(71, 31);
+            this.rdb_ItemsAndProformaInvoices.Size = new System.Drawing.Size(71, 34);
             this.rdb_ItemsAndProformaInvoices.TabIndex = 30;
             this.rdb_ItemsAndProformaInvoices.TabStop = true;
             this.rdb_ItemsAndProformaInvoices.UseVisualStyleBackColor = true;
@@ -137,9 +137,9 @@
             this.rdb_ProformaInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_ProformaInvoices.Image = global::Tangenta.Properties.Resources.ViewInvoice;
             this.rdb_ProformaInvoices.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rdb_ProformaInvoices.Location = new System.Drawing.Point(637, 1);
+            this.rdb_ProformaInvoices.Location = new System.Drawing.Point(570, -3);
             this.rdb_ProformaInvoices.Name = "rdb_ProformaInvoices";
-            this.rdb_ProformaInvoices.Size = new System.Drawing.Size(76, 31);
+            this.rdb_ProformaInvoices.Size = new System.Drawing.Size(76, 34);
             this.rdb_ProformaInvoices.TabIndex = 31;
             this.rdb_ProformaInvoices.TabStop = true;
             this.rdb_ProformaInvoices.UseVisualStyleBackColor = true;

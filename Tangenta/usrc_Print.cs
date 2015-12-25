@@ -84,7 +84,7 @@ namespace Tangenta
         public int NumberInFinancialYear = -1;
         public decimal GrossSum = 0;
         public decimal taxsum = 0;
-        public TaxSum taxSum = null;
+        public StaticLib.TaxSum taxSum = null;
         public decimal NetSum = 0;
         public string Organisation_Tax_ID = null;
         public string Organisation_Registration_ID = null;
@@ -97,6 +97,9 @@ namespace Tangenta
         public string OfficeName = null;
         public string HomePage = null;
         public string Email = null;
+        private long_v Atom_Customer_Org_ID = null;
+        private long_v Atom_Customer_Person_ID = null;
+
 
         float cx_paper_in_inch = 0;
         float cy_paper_in_inch = 0;
@@ -138,7 +141,9 @@ namespace Tangenta
                                  Atom_myCompany_Person.Job,
                                  Atom_Logo.Image_Hash as Logo_Hash,
                                  Atom_Logo.Image_Data as Logo_Data,
-                                 Atom_Logo.Description as Logo_Description
+                                 Atom_Logo.Description as Logo_Description,
+                                 acusorg.ID as Atom_Customer_Org_ID,
+                                 acusper.ID as Atom_Customer_Person_ID
                                  from JOURNAL_ProformaInvoice 
                                  inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
                                  inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
@@ -161,6 +166,8 @@ namespace Tangenta
                                  left join cHomePage_Org on Atom_OrganisationData.cHomePage_Org_ID = cHomePage_Org.ID
                                  left join cEmail_Org on Atom_OrganisationData.cEmail_Org_ID = cEmail_Org.ID
                                  left join Atom_Logo on Atom_OrganisationData.Atom_Logo_ID = Atom_Logo.ID
+                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
+                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
                                  where pi.ID = " + ProformaInvoice_ID.ToString();
 
             string Err = null;
@@ -256,6 +263,8 @@ namespace Tangenta
                         {
                             Email = null;
                         }
+
+
 
                         if (m_InvoiceDB.Read_Atom_Price_SimpleItem_Table(ProformaInvoice_ID, ref dt_Atom_Price_SimpleItem))
                         {
@@ -388,7 +397,7 @@ namespace Tangenta
                                    //Select Emphasized Printing - Pg. 3-14;                    //Cancel Emphasized Printing - Pg. 3-14
 
                 taxSum = null;
-                taxSum = new TaxSum();
+                taxSum = new StaticLib.TaxSum();
 
                 foreach (DataRow dr in dt_Atom_Price_SimpleItem.Rows)
                 {
@@ -451,7 +460,7 @@ namespace Tangenta
 
                     Program.ReceiptPrinter.wr_Paragraph(SimpleItem_name);
                     Program.ReceiptPrinter.wr_String("Cena za enoto" + HT + RetailSimpleItemPrice.ToString() + " EUR\n");
-                    decimal TotalDiscount = Program.TotalDiscount(Discount, ExtraDiscount);
+                    decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount,Program.Get_BaseCurrency_DecimalPlaces());
                     decimal TotalDiscountPercent = TotalDiscount * 100;
                     if (TotalDiscountPercent > 0)
                     {
@@ -539,7 +548,7 @@ namespace Tangenta
                     decimal ExtraDiscount = appisd.ExtraDiscount.v;
 
 
-                    decimal TotalDiscount = Program.TotalDiscount(Discount, ExtraDiscount);
+                    decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount,Program.Get_BaseCurrency_DecimalPlaces());
                     decimal TotalDiscountPercent = TotalDiscount * 100;
                     if (TotalDiscountPercent > 0)
                     {
@@ -555,7 +564,7 @@ namespace Tangenta
 
                     int decimal_places = appisd.Atom_Currency_DecimalPlaces.v;
 
-                    Program.CalculatePrice(RetailPricePerUnit, dQuantity, Discount, ExtraDiscount, Atom_Taxation_Rate, ref RetailItemsPriceWithDiscount, ref ItemsTaxPrice, ref ItemsNetPrice, decimal_places);
+                    StaticLib.Func.CalculatePrice(RetailPricePerUnit, dQuantity, Discount, ExtraDiscount, Atom_Taxation_Rate, ref RetailItemsPriceWithDiscount, ref ItemsTaxPrice, ref ItemsNetPrice, decimal_places);
 
                     if (TotalDiscountPercent > 0)
                     {
@@ -579,7 +588,7 @@ namespace Tangenta
                 }
                 Program.ReceiptPrinter.wr_LineDelimeter();
 
-                foreach (Tax tax in taxSum.TaxList)
+                foreach (StaticLib.Tax tax in taxSum.TaxList)
                 {
                     Program.ReceiptPrinter.wr_String(tax.Name +  HT + HT + "" + tax.Sum.ToString() + " EUR\n");
                 }

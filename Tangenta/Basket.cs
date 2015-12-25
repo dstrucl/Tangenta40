@@ -421,7 +421,7 @@ namespace Tangenta
             return null;
         }
 
-        public void GetPriceSum(ref decimal dsum_GrossSum_Basket, ref decimal dsum_TaxSum_Basket, ref decimal dsum_NetSum, ref TaxSum TaxSum)
+        public void GetPriceSum(ref decimal dsum_GrossSum_Basket, ref decimal dsum_TaxSum_Basket, ref decimal dsum_NetSum, ref StaticLib.TaxSum TaxSum)
         {
             foreach (object o in this.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
             {
@@ -429,7 +429,7 @@ namespace Tangenta
                 decimal RetailPriceWithDisount = 0;
                 decimal tax_price=0;
                 decimal net_price=0;
-                Program.CalculatePrice(((Atom_ProformaInvoice_Price_Item_Stock_Data)o).RetailPricePerUnit.v,
+                StaticLib.Func.CalculatePrice(((Atom_ProformaInvoice_Price_Item_Stock_Data)o).RetailPricePerUnit.v,
                                         dQuantity,
                                         ((Atom_ProformaInvoice_Price_Item_Stock_Data)o).Discount.v,
                                         ((Atom_ProformaInvoice_Price_Item_Stock_Data)o).ExtraDiscount.v,

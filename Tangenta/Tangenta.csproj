@@ -271,8 +271,6 @@
     <Compile Include="f_Atom_Office.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />
     <Compile Include="f_WorkingPlace.cs" />
-    <Compile Include="InvoiceCreateFromTemplate.cs" />
-    <Compile Include="InvoiceCreateToken.cs" />
     <Compile Include="Item_Data.cs" />
     <Compile Include="JOURNAL_ProformaInvoice_Type_definitions.cs" />
     <Compile Include="Form_OrganisationAccount_Edit.cs">
@@ -879,6 +877,10 @@
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
+      <Project>{61CA81C7-7F82-4744-A8DE-FBE9972E7EE8}</Project>
+      <Name>FiscalVerificationOfInvoices_SLO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
@@ -894,6 +896,10 @@
     <ProjectReference Include="..\SQLTableControl\SQLTableControl.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StaticLib\StaticLib.csproj">
+      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
+      <Name>StaticLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
       <Project>{AE38E7C4-AC11-4E43-9DE3-364533FCC83B}</Project>
@@ -914,6 +920,10 @@
     <ProjectReference Include="..\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XML_or_HTML_invoice_from_template\XML_or_HTML_invoice_from_template.csproj">
+      <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
+      <Name>XML_or_HTML_invoice_from_template</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

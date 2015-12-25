@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tangenta
+namespace XML_or_HTML_invoice_from_template
 {
-    public class InvoiceCreateToken
+    public class InvoiceTemplateToken
     {
         public string replacement;
         public ltext lt = null;
-        public InvoiceCreateToken(string[] TokenInLanguage, string Replacement)
+        public InvoiceTemplateToken(string[] TokenInLanguage, string Replacement)
         {
             lt = new ltext();
             lt.sText = TokenInLanguage;

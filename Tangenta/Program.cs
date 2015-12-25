@@ -11,6 +11,7 @@ using System.Threading;
 using System.Diagnostics;
 using DBConnectionControl40;
 using DBTypes;
+using FiscalVerificationOfInvoices_SLO;
 
 namespace Tangenta
 {
@@ -35,7 +36,7 @@ namespace Tangenta
         public static string IniFileName = "Tangenta.ini";
         public static string IniFolder = "";
         public static string IniFile = "";
-
+        public static usrc_FVI_SLO usrc_FVI_SLO1 = null;
 
         internal static long Office_ID = -1;
         internal static long WorkingPlace_ID = -1;
@@ -118,6 +119,8 @@ namespace Tangenta
         internal static bool bRS232Monitor = false;
         public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
         public static Color Color_Stock = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+        internal static bool b_FVI_SLO = true;
+
         //public static int iGDIcUser100;
         //public static int iGDIcUser101;
         //public static int iGDIcUser102;
@@ -317,23 +320,7 @@ namespace Tangenta
 
         }
 
-        internal static void CalculatePrice(decimal RetailPricePerUnit,decimal dQuantity, decimal Discount, decimal ExtraDiscount,decimal Taxation_Rate, ref decimal RetailPriceWithDiscount, ref decimal TaxPrice, ref decimal RetailPriceWithDiscount_WithoutTax,int decimal_places)
-        {
-            decimal RetailPrice = RetailPricePerUnit * dQuantity;
-            decimal xRetailPricePerUnit = decimal.Round(RetailPrice - RetailPrice * Discount, decimal_places);
 
-            RetailPriceWithDiscount = decimal.Round(xRetailPricePerUnit - xRetailPricePerUnit * ExtraDiscount, decimal_places);
-
-            TaxPrice = decimal.Round(RetailPriceWithDiscount * ((Taxation_Rate)/(1 + Taxation_Rate)), decimal_places);
-
-            RetailPriceWithDiscount_WithoutTax = RetailPriceWithDiscount - TaxPrice;
-
-        }
-
-        internal static decimal TotalDiscount(decimal Discount, decimal ExtraDiscount)
-        {
-           return decimal.Round(1 - (1 - Discount) * (1 - ExtraDiscount), Get_BaseCurrency_DecimalPlaces());
-        }
 
         internal static void PriceList_Edit(long m_Currency_ID, ComboBox cmb_PriceListType, xPriceList m_xPriceList,bool bEditUndefined)
         {

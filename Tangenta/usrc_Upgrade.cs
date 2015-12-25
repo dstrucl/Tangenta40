@@ -606,7 +606,7 @@ namespace Tangenta
                             decimal_places = Program.BaseCurrency.DecimalPlaces;
                         }
                         //RetailSimpleItemPriceAll has allready price for all quantity so dQunatity = 1
-                        Program.CalculatePrice(RetailSimpleItemPriceAll, 1, Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount_Calculated, ref TaxPrice, ref RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax, decimal_places);
+                        StaticLib.Func.CalculatePrice(RetailSimpleItemPriceAll, 1, Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount_Calculated, ref TaxPrice, ref RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax, decimal_places);
                         string spar_TaxPrice = "@par_TaxPrice";
                         SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
                         lpar.Add(par_TaxPrice);
@@ -816,7 +816,7 @@ namespace Tangenta
                             decimal_places = Program.BaseCurrency.DecimalPlaces;
                         }
                         decimal dQuantity = Convert.ToDecimal(iQuantity);
-                        Program.CalculatePrice(RetailSimpleItemPriceAll, dQuantity,Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount_Calculated, ref TaxPrice, ref RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax, decimal_places);
+                        StaticLib.Func.CalculatePrice(RetailSimpleItemPriceAll, dQuantity,Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount_Calculated, ref TaxPrice, ref RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax, decimal_places);
                         string spar_TaxPrice = "@par_TaxPrice";
                         SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
                         lpar.Add(par_TaxPrice);

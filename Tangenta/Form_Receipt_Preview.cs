@@ -51,7 +51,17 @@ namespace Tangenta
             }
         }
 
-
+        private void Print(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        {
+            if (ePaymentType == usrc_Payment.ePaymentType.CASH)
+            {
+                m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+            }
+            else
+            {
+                m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, null, null, issue_time);
+            }
+        }
 
         private void usrc_Payment_DoPrint(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
@@ -62,13 +72,15 @@ namespace Tangenta
                 m_usrc_Print.NumberInFinancialYear = xNumberInFinancialYear;
                 if (m_InvoiceDB.m_CurrentInvoice.SetInvoiceTime(issue_time))
                 {
-                    if (ePaymentType == usrc_Payment.ePaymentType.CASH)
+                    
+                    if (Program.b_FVI_SLO)
                     {
-                        m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        Program.usrc_FVI_SLO1.Get_FVI_SLO_Confirmation(GetPaymentTypeString(ePaymentType), sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     }
                     else
                     {
-                        m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, null, null, issue_time);
+                        Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     }
                     m_ePaymentType = ePaymentType;
                     m_sPaymentMethod = sPaymentMethod;
@@ -76,8 +88,26 @@ namespace Tangenta
                     m_sToReturn = sToReturn;
                     DialogResult = System.Windows.Forms.DialogResult.OK;
                     this.Close();
+
                 }
             }
+        }
+
+        private string GetPaymentTypeString(usrc_Payment.ePaymentType ePaymentType)
+        {
+          switch (ePaymentType)
+            {
+                case usrc_Payment.ePaymentType.CASH:
+                    return "cash";
+                case usrc_Payment.ePaymentType.PAYMENT_CARD:
+                    return "payment_card";
+                case usrc_Payment.ePaymentType.NONE:
+                    return "none";
+                case usrc_Payment.ePaymentType.ALLREADY_PAID:
+                    return "allready_paid";
+                    break;
+            }
+            return null;
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)

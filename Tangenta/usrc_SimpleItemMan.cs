@@ -79,6 +79,9 @@ namespace Tangenta
             dt_SelectedSimpleItem.Clear();
             dt_SelectedSimpleItem.Columns.Clear();
 
+            col_Discount = null;
+            dgv_total_discount_column = null;
+
             dt_SelectedSimpleItem.Columns.Add(DBtcn.column_SelectedSimpleItem_dt_SimpleItem_Index, DBtcn.column_SelectedSimpleItem_dt_SimpleItem_Index_TYPE);
             dt_SelectedSimpleItem.Columns.Add(DBtcn.column_Selected_Atom_Price_SimpleItem_ID, DBtcn.column_Selected_Atom_Price_SimpleItem_ID_TYPE);
             dt_SelectedSimpleItem.Columns.Add(DBtcn.column_SelectedSimpleItemName, DBtcn.column_SelectedSimpleItemName_TYPE);

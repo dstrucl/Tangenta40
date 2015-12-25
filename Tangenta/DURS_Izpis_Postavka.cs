@@ -155,7 +155,7 @@ namespace Tangenta
                 decimal calc_RetailPriceWithDiscount = 0;
                 decimal calc_NetPrice = 0;
                 decimal TaxPrice = 0;
-                Program.CalculatePrice((decimal)dr[ic_RetailSimpleItemPrice], dQuantity, (decimal)dr[ic_Discount], (decimal)dr[ic_ExtraDiscount], (decimal)dr[ic_Rate], ref calc_RetailPriceWithDiscount, ref TaxPrice, ref calc_NetPrice, 2);
+                StaticLib.Func.CalculatePrice((decimal)dr[ic_RetailSimpleItemPrice], dQuantity, (decimal)dr[ic_Discount], (decimal)dr[ic_ExtraDiscount], (decimal)dr[ic_Rate], ref calc_RetailPriceWithDiscount, ref TaxPrice, ref calc_NetPrice, 2);
                 decimal PricePerUnit = decimal.Round(calc_RetailPriceWithDiscount / dQuantity, 2);
                 dp.po11_Cena_blaga_oziroma_storitve_na_enoto_mere_skupaj_z_DDV = fs.Decimal2String(PricePerUnit, 2);
 
@@ -248,7 +248,7 @@ namespace Tangenta
                 decimal calc_RetailPriceWithDiscount = 0;
                 decimal calc_NetPrice = 0;
                 decimal TaxPrice = 0;
-                Program.CalculatePrice((decimal)dr[ici_RetailPricePerUnit], dQuantity, (decimal)dr[ici_Discount], (decimal)dr[ici_ExtraDiscount], (decimal)dr[ici_Rate], ref calc_RetailPriceWithDiscount, ref TaxPrice, ref calc_NetPrice, 2);
+                StaticLib.Func.CalculatePrice((decimal)dr[ici_RetailPricePerUnit], dQuantity, (decimal)dr[ici_Discount], (decimal)dr[ici_ExtraDiscount], (decimal)dr[ici_Rate], ref calc_RetailPriceWithDiscount, ref TaxPrice, ref calc_NetPrice, 2);
                 decimal PricePerUnit = decimal.Round(calc_RetailPriceWithDiscount / dQuantity, 2);
                 dp.po11_Cena_blaga_oziroma_storitve_na_enoto_mere_skupaj_z_DDV = fs.Decimal2String(PricePerUnit, 2);
 

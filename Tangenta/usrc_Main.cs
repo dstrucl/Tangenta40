@@ -27,6 +27,7 @@ namespace Tangenta
         public usrc_Main()
         {
             InitializeComponent();
+            Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
         }
 
         internal bool Init(Form main_Form)

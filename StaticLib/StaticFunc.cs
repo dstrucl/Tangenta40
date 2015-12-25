@@ -158,6 +158,12 @@ namespace StaticLib
             }
         }
 
+        public static decimal TotalDiscount(decimal Discount, decimal ExtraDiscount,int decimal_places)
+        {
+            return decimal.Round(1 - (1 - Discount) * (1 - ExtraDiscount), decimal_places);
+        }
+
+
         public static int GetMaxStringLength(Type myType)
         {
             DBtypes DBtypes = new DBtypes();
@@ -435,6 +441,18 @@ namespace StaticLib
                 return "Unknown Image Format!";
         }
 
+        public static void CalculatePrice(decimal RetailPricePerUnit, decimal dQuantity, decimal Discount, decimal ExtraDiscount, decimal Taxation_Rate, ref decimal RetailPriceWithDiscount, ref decimal TaxPrice, ref decimal RetailPriceWithDiscount_WithoutTax, int decimal_places)
+        {
+            decimal RetailPrice = RetailPricePerUnit * dQuantity;
+            decimal xRetailPricePerUnit = decimal.Round(RetailPrice - RetailPrice * Discount, decimal_places);
+
+            RetailPriceWithDiscount = decimal.Round(xRetailPricePerUnit - xRetailPricePerUnit * ExtraDiscount, decimal_places);
+
+            TaxPrice = decimal.Round(RetailPriceWithDiscount * ((Taxation_Rate) / (1 + Taxation_Rate)), decimal_places);
+
+            RetailPriceWithDiscount_WithoutTax = RetailPriceWithDiscount - TaxPrice;
+
+        }
 
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace FiscalVerificationOfInvoices_SLO
+﻿using System;
+
+namespace FiscalVerificationOfInvoices_SLO
 {
     partial class usrc_FVI_SLO
     {
@@ -63,5 +65,7 @@
 
         private System.Windows.Forms.Button btn_FVI;
         private System.Windows.Forms.Timer timer_MessagePump;
+
+       
     }
 }

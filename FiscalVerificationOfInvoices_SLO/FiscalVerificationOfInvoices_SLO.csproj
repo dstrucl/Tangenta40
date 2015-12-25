@@ -111,6 +111,12 @@
   <ItemGroup>
     <None Include="Resources\TAX_Office_Connection_OK.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBTypes\DBTypes.csproj">
+      <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

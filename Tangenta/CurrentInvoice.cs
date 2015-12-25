@@ -205,7 +205,7 @@ namespace Tangenta
                     if (Stock_ID != null)
                     {
                         decimal dquantity = stock_data.dQuantity.v;
-                        Program.CalculatePrice(appisd.RetailPricePerUnit.v, dquantity, appisd.Discount.v, appisd.ExtraDiscount.v, appisd.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
+                        StaticLib.Func.CalculatePrice(appisd.RetailPricePerUnit.v, dquantity, appisd.Discount.v, appisd.ExtraDiscount.v, appisd.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
                         SQL_Parameter par_dQuantity = null;
                         par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, dquantity);
                         lpar.Add(par_dQuantity);
@@ -218,7 +218,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        Program.CalculatePrice(appisd.RetailPricePerUnit.v, dQuantity_from_factory, appisd.Discount.v, appisd.ExtraDiscount.v, appisd.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
+                        StaticLib.Func.CalculatePrice(appisd.RetailPricePerUnit.v, dQuantity_from_factory, appisd.Discount.v, appisd.ExtraDiscount.v, appisd.Atom_Taxation_Rate.v, ref RetailPriceWithDiscount, ref TaxPrice, ref RetailPriceWithDiscount_WithoutTax, decimal_places);
                         SQL_Parameter par_dQuantity = null;
                         par_dQuantity = new SQL_Parameter(spar_dQuantity, SQL_Parameter.eSQL_Parameter.Decimal, false, dQuantity_from_factory);
                         lpar.Add(par_dQuantity);

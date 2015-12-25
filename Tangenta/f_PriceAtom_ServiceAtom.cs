@@ -60,7 +60,7 @@ namespace Tangenta
 
                                     decimal dQuantity = Convert.ToDecimal(Quantity);
 
-                                    Program.CalculatePrice(RetailSimpleItemPrice, dQuantity, Discount, ExtraDiscount, taxRate, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice, ref PriceWithoutTax, decimal_places);
+                                    StaticLib.Func.CalculatePrice(RetailSimpleItemPrice, dQuantity, Discount, ExtraDiscount, taxRate, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice, ref PriceWithoutTax, decimal_places);
 
                                   
                                     //decimal xRetailSimpleItemPriceWithDiscount =  decimal.Round((RetailSimpleItemPrice - RetailSimpleItemPrice * Discount),decimal_places);
