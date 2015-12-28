@@ -49,6 +49,7 @@ namespace Tangenta
         public DBTablesAndColumnNames DBtcn = null;
 
         public InvoiceDB m_InvoiceDB = null;
+        public InvoiceData m_InvoiceData = null;
 
         public xTaxationList m_xTaxationList = null;
 
@@ -1110,21 +1111,28 @@ namespace Tangenta
                             // print draft invoice
                             if (UpdateInvoicePriceInDraft())
                             {
-                                Form_Receipt_Preview receipt_preview_frm = new Form_Receipt_Preview(m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID, m_InvoiceDB, myCompany_Person_id);
-                                if (receipt_preview_frm.ShowDialog() == DialogResult.OK)
+                                m_InvoiceData = new InvoiceData(m_InvoiceDB, m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID);
+                                if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                                 {
-                                    if (aa_ProformaInvoiceSaved != null)
+                                    Form_Payment payment_frm = new Form_Payment(m_InvoiceData);
+                                    if (payment_frm.ShowDialog() == DialogResult.OK)
                                     {
-                                        aa_ProformaInvoiceSaved(m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID);
+                                        if (aa_ProformaInvoiceSaved != null)
+                                        {
+                                            aa_ProformaInvoiceSaved(m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID);
+                                        }
                                     }
                                 }
                             }
                         }
                         else
                         {
-                            // print invoice if you wish
-                            Form_Receipt_Preview receipt_preview_frm = new Form_Receipt_Preview(m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID, m_InvoiceDB, myCompany_Person_id);
-                            receipt_preview_frm.ShowDialog();
+                            m_InvoiceData = new InvoiceData(m_InvoiceDB, m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID);
+                            if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
+                            { // print invoice if you wish
+                                Form_Payment payment_frm = new Form_Payment(m_InvoiceData);
+                                payment_frm.ShowDialog();
+                            }
                         }
                     }
                 }

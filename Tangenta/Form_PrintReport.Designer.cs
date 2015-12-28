@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintReport));
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.m_usrc_Print = new Tangenta.usrc_Print();
+            this.m_usrc_Print = new Tangenta.usrc_Printer();
             this.lbl_From_To = new System.Windows.Forms.Label();
             this.btn_DURS_output = new System.Windows.Forms.Button();
             this.btn_XML_export = new System.Windows.Forms.Button();
@@ -129,7 +129,7 @@
 
         #endregion
 
-        private usrc_Print m_usrc_Print;
+        private usrc_Printer m_usrc_Print;
         private System.Windows.Forms.Button btn_Print;
         private System.Windows.Forms.Button btn_Cancel;
         internal System.Windows.Forms.Label lbl_From_To;

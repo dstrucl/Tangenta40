@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_Receipt_Preview
+    partial class Form_Payment
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@
             this.usrc_Invoice_Preview = new Tangenta.usrc_Invoice_Preview();
             this.m_usrc_PrintExistingInvoice = new Tangenta.usrc_PrintExistingInvoice();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.m_usrc_Print = new Tangenta.usrc_Print();
+            this.m_usrc_Print = new Tangenta.usrc_Printer();
             this.m_usrc_Payment = new Tangenta.usrc_Payment();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -42,8 +42,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Location = new System.Drawing.Point(-1, 12);
@@ -66,8 +66,8 @@
             // 
             // usrc_Invoice_Preview
             // 
-            this.usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Invoice_Preview.AutoScroll = true;
             this.usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -80,7 +80,7 @@
             // 
             // m_usrc_PrintExistingInvoice
             // 
-            this.m_usrc_PrintExistingInvoice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.m_usrc_PrintExistingInvoice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_PrintExistingInvoice.ForeColor = System.Drawing.Color.Red;
             this.m_usrc_PrintExistingInvoice.Location = new System.Drawing.Point(17, 61);
@@ -113,8 +113,8 @@
             // 
             // m_usrc_Payment
             // 
-            this.m_usrc_Payment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.m_usrc_Payment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_Payment.ForeColor = System.Drawing.Color.Coral;
             this.m_usrc_Payment.Location = new System.Drawing.Point(3, 61);
@@ -146,7 +146,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private usrc_Payment m_usrc_Payment;
         internal usrc_Invoice_Preview usrc_Invoice_Preview;
-        private usrc_Print m_usrc_Print;
+        private usrc_Printer m_usrc_Print;
         private System.Windows.Forms.Button btn_Cancel;
         private usrc_PrintExistingInvoice m_usrc_PrintExistingInvoice;
     }

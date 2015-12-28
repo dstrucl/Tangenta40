@@ -11,7 +11,7 @@ namespace UniversalInvoice
     {
         public string replacement;
         public ltext lt = null;
-        public TemplateToken(ltext token_prefix,string[] TokenInLanguage, string Replacement)
+        public TemplateToken(ltext token_prefix,string[] TokenInLanguage, object Replacement)
         {
             lt = new ltext();
             lt.sText = TokenInLanguage;
@@ -25,12 +25,28 @@ namespace UniversalInvoice
                     {
                         if (TokenInLanguage[i].Length > 3)
                         {
-                            TokenInLanguage[i] = TokenInLanguage[i].Insert(2, token_prefix.sText[i]);
+                            string token = null;
+                            if (token_prefix!= null)
+                            {
+                                token = "@@" + token_prefix.sText[i] + TokenInLanguage[i];
+                            }
+                            else
+                            {
+                                token = "@@" + TokenInLanguage[i];
+                            }
                         }
                     }
                 }
             }
-            replacement = Replacement;
+
+            if (Replacement is string)
+            {
+                replacement = (string) Replacement;
+            }
+            else
+            {
+                replacement = null;
+            }
         }
 
         internal void Set(string v)

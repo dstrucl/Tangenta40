@@ -129,8 +129,8 @@ namespace Tangenta
                             JOURNAL_ProformaInvoice_$_pinv_$$Discount,
                             JOURNAL_ProformaInvoice_$_pinv_$$EndSum,
                             JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$UserName,
-                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$FirstName,
-                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$LastName,
+                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName
                             JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
                             JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID
                             from JOURNAL_ProformaInvoice_VIEW " + cond +" and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID + " order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";

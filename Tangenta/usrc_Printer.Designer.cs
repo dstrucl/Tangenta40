@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class usrc_Print
+    partial class usrc_Printer
     {
         /// <summary> 
         /// Required designer variable.

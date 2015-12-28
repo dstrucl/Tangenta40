@@ -49,7 +49,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.09";
+        public const string VERSION = "1.10";
         public Settings Settings = null;
 
         /* 1 */
@@ -500,6 +500,14 @@ namespace BlagajnaDataBaseDef
         /* 172 */
         public SQLTable t_doc_page_type = null;
 
+        /* 173 */
+        public SQLTable t_FVI_SLO_RealEstateBP = null;
+
+        /* 174 */
+        public SQLTable t_FVI_SLO_Response = null;
+
+
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -918,8 +926,7 @@ namespace BlagajnaDataBaseDef
             t_Atom_myCompany_Person = new SQLTable((Object)new Atom_myCompany_Person(),"amcper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_myCompany_Person);
             t_Atom_myCompany_Person.AddColumn((Object)mt.m_Atom_myCompany_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Atom_myCompany_Person.AddColumn((Object)mt.m_Atom_myCompany_Person.UserName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "UserName", "Uporabniško ime") );
-            t_Atom_myCompany_Person.AddColumn((Object)mt.m_Atom_myCompany_Person.FirstName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "First Name", "Ime") );            
-            t_Atom_myCompany_Person.AddColumn((Object)mt.m_Atom_myCompany_Person.LastName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Last Name", "Priimek") );
+            t_Atom_myCompany_Person.AddColumn((Object)mt.m_Atom_myCompany_Person.m_Atom_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Person arh ID", "Oseba arh ID") );            
             t_Atom_myCompany_Person.AddColumn((Object)mt.m_Atom_myCompany_Person.m_Atom_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "My Company arh ID", "Podjetje arh ID") );
             t_Atom_myCompany_Person.AddColumn((Object)mt.m_Atom_myCompany_Person.Job, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Job", "Delovno mesto") );            
             t_Atom_myCompany_Person.AddColumn((Object)mt.m_Atom_myCompany_Person.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Description", "Opis") );            
@@ -1914,6 +1921,32 @@ namespace BlagajnaDataBaseDef
             t_doc_page_type.AddColumn((Object)mt.m_doc_page_type.Width, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Page width (mm)", "Širina strani (mm)"));
             t_doc_page_type.AddColumn((Object)mt.m_doc_page_type.Height, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Page height (mm)", "Višina strani (mm)"));
             m_DBTables.items.Add(t_doc_page_type);
+
+
+         /* 173 */
+            t_FVI_SLO_RealEstateBP = new SQLTable((Object)new FVI_SLO_RealEstateBP(), "fvislore", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_FVI_SLO_RealEstateBP);
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office ID", "Poslovna enota ID"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.BuildingNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("BuildingNumber", "Številka stavbe"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.BuildingSectionNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("BuildingSectionNumber", "Številka dela stavbe"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.Community, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Community", "Naselje"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.CadastralNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("CadastralNumber", "Številka katastrske občine"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.ValidityDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ValidityDate", "Datum začetka veljavnosti podatkov"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.ClosingTag, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ClosingTag", "ZaprtjePoslovnegaProstora"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.SoftwareSupplier_TaxNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SW supplier tax number", "Davčna številka dobavitelja programske opreme ali vzdrževalca"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.PremiseType, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Premise Type", "Vrsta poslovnega prostora"));
+            m_DBTables.items.Add(t_FVI_SLO_RealEstateBP);
+
+
+        /* 174 */
+            t_FVI_SLO_Response = new SQLTable((Object)new FVI_SLO_Response(), "fvisloresp", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_FVI_SLO_Response); ;
+            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.m_Invoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
+            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.MessageID, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Message ID", "Transakcija ID"));
+            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.UniqueInvoiceID, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("UniqueInvoiceID", "Enkratna identifikacijska oznaka računa"));
+            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.Response_DateTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Response Time", "Čas odgovora"));
+            m_DBTables.items.Add(t_FVI_SLO_Response);
+
         }
     }
  }

@@ -21,19 +21,8 @@ namespace UniversalInvoice
         public string CardNumber = null;
         public string CardType = null;
         public byte[] PersonImage = null;
-        Address Address = null;
-
-        public TemplateToken tGender;
-        public TemplateToken tFirstName;
-        public TemplateToken tLastName;
-        public TemplateToken tDateOfBirth;
-        public TemplateToken tTaxID;
-        public TemplateToken tRegistration_ID;
-        public TemplateToken tMobilePhoneNumber;
-        public TemplateToken tPhoneNumber;
-        public TemplateToken tEmail;
-        public TemplateToken tCardNumber;
-        public TemplateToken tCardType;
+        public Address Address = null;
+        public PersonToken token = null;
 
 
         public Person(ltext token_prefix,
@@ -76,18 +65,20 @@ namespace UniversalInvoice
                                            _City,
                                            _State,
                                            _Country);
+            token = new PersonToken(token_prefix,
+                                    Gender,
+                                    FirstName,
+                                    LastName,
+                                    DateOfBirth,
+                                    Tax_ID,
+                                    Registration_ID,
+                                    MobilePhoneNumber,
+                                    PhoneNumber,
+                                    Email,
+                                    CardNumber,
+                                    CardType);
 
-            tGender = new TemplateToken(token_prefix, new string[] { "@@_Gender", "@@_Spol" }, DBTypes.func.GenderAsString(Gender));
-            tFirstName = new TemplateToken(token_prefix, new string[] { "@@_FirstName", "@@_Ime" }, FirstName);
-            tLastName = new TemplateToken(token_prefix, new string[] { "@@_LastName", "@@_Priimek" }, LastName);
-            tDateOfBirth = new TemplateToken(token_prefix, new string[] { "@@_DateOfBirth", "@@_DatumRojstva" },DBTypes.func.Get_DATE_dd_mm_yyyy(DateOfBirth));
-            tTaxID = new TemplateToken(token_prefix, new string[] { "@@_Tax_ID", "@@_DavčnaŠtevilka" }, Tax_ID);
-            tRegistration_ID = new TemplateToken(token_prefix, new string[] { "@@_tRegistration_ID", "@@_MatičnaŠtevilka" }, Registration_ID);
-            tMobilePhoneNumber = new TemplateToken(token_prefix, new string[] { "@@_MobilePhoneNumber", "@@_MobilniTelefonŠtevilka" }, MobilePhoneNumber);
-            tPhoneNumber = new TemplateToken(token_prefix, new string[] { "@@_PhoneNumber", "@@_TelefonskaŠtevilka" }, PhoneNumber);
-            tEmail = new TemplateToken(token_prefix, new string[] { "@@_Email", "@@_Email" }, Email);
-            tCardNumber = new TemplateToken(token_prefix, new string[] { "@@_CardNumber", "@@_ŠtevilkaKartice" }, CardNumber);
-            tCardType = new TemplateToken(token_prefix, new string[] { "@@_CardType", "@@_VrstaKartice" }, CardType);
+
 
     }
 }

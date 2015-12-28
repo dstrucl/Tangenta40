@@ -21,7 +21,7 @@ namespace Tangenta
         public string Default_Tamplate = null;
         public byte[] Doc = null;
 
-        private usrc_Print usrc_Print;
+        private usrc_Printer usrc_Print;
         private usrc_Payment.ePaymentType paymentType;
         private string sPaymentMethod;
         private string sAmountReceived;
@@ -29,7 +29,7 @@ namespace Tangenta
         private DateTime_v issue_time;
 
 
-        public Form_Print_A4(usrc_Print usrc_Print, usrc_Payment.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public Form_Print_A4(usrc_Printer usrc_Print, usrc_Payment.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             InitializeComponent();
 

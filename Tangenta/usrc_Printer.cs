@@ -13,12 +13,8 @@ using DBTypes;
 
 namespace Tangenta
 {
-    public partial class usrc_Print : UserControl
+    public partial class usrc_Printer : UserControl
     {
-
-
-
-
 
 
         private string m_PrinterName = null;
@@ -57,10 +53,6 @@ namespace Tangenta
 
         public string HT = "\x09"; //CarriageReturn
         private long myCompany_Person_ID = -1;
-        public DataTable dt_ProformaInvoice = new DataTable();
-        public DataTable dt_Atom_Price_SimpleItem = new DataTable();
-        public long ProformaInvoice_ID = -1;
-        public long Invoice_ID = -1;
         [DllImport("gdi32.dll")]
         static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
 
@@ -71,28 +63,7 @@ namespace Tangenta
         public byte[] Logo_Data = null;
         public string Logo_Description = null;
 
-        public UniversalInvoice.Organisation MyOrganisation = null;
-        public UniversalInvoice.Organisation CustomerOrganisation = null;
-        public UniversalInvoice.Person CustomerPerson = null;
 
-        public  object Customer
-        {
-            get
-            {
-                if (CustomerOrganisation != null)
-                {
-                    return CustomerOrganisation;
-                }
-                else  if (CustomerPerson != null)
-                {
-                    return CustomerPerson;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
 
         public int PrintDate_Day = 0;
         public int PrintDate_Month = 0;
@@ -101,13 +72,9 @@ namespace Tangenta
         public string Currency_Symbol = null;
         public int Currency_DecimalPlaces = -1;
 
-        public InvoiceDB m_InvoiceDB = null;
-        public int FinancialYear = -1;
-        public int NumberInFinancialYear = -1;
-        public decimal GrossSum = 0;
-        public decimal taxsum = 0;
+        public InvoiceData m_InvoiceData = null;
         public StaticLib.TaxSum taxSum = null;
-        public decimal NetSum = 0;
+        
         private long_v Atom_Customer_Org_ID = null;
         private long_v Atom_Customer_Person_ID = null;
 
@@ -119,153 +86,12 @@ namespace Tangenta
         int cy_paper_on_screen_in_pixels = 0;
 
 
-        public usrc_Print()
+        public usrc_Printer()
         {
             InitializeComponent();
         }
 
-        internal bool Read_ProformaInvoice()
-        {
-            string sql = @"select
-                                 inv.ID as Invoice_ID,
-                                 pi.FinancialYear,
-                                 pi.NumberInFinancialYear,
-                                 mpay.PaymentType,
-                                 GrossSum,
-                                 TaxSum,
-                                 NetSum,
-                                 Atom_Organisation.Name,
-                                 Atom_Organisation.Tax_ID,
-                                 Atom_Organisation.Registration_ID,
-                                 Atom_cStreetName_Org.StreetName,
-                                 Atom_cHouseNumber_Org.HouseNumber,
-                                 Atom_cCity_Org.City,
-                                 Atom_cZIP_Org.ZIP,
-                                 Atom_cState_Org.State,
-                                 Atom_cCountry_Org.Country,
-                                 cEmail_Org.Email,
-                                 cHomePage_Org.HomePage,
-                                 cPhoneNumber_Org.PhoneNumber,
-                                 cFaxNumber_Org.FaxNumber,
-                                 Atom_OrganisationData.BankName,
-                                 Atom_OrganisationData.TRR,
-                                 Atom_Office.Name as Atom_Office_Name,
-                                 Atom_myCompany_Person.UserName,
-                                 Atom_myCompany_Person.FirstName,
-                                 Atom_myCompany_Person.LastName,
-                                 Atom_myCompany_Person.Job,
-                                 Atom_Logo.Image_Hash as Logo_Hash,
-                                 Atom_Logo.Image_Data as Logo_Data,
-                                 Atom_Logo.Description as Logo_Description,
-                                 acusorg.ID as Atom_Customer_Org_ID,
-                                 acusper.ID as Atom_Customer_Person_ID
-                                 from JOURNAL_ProformaInvoice 
-                                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
-                                 inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
-                                 inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
-                                 inner join Atom_myCompany_Person on Atom_WorkPeriod.Atom_myCompany_Person_ID = Atom_myCompany_Person.ID
-                                 inner join Atom_Office on Atom_myCompany_Person.Atom_Office_ID = Atom_Office.ID
-                                 inner join Atom_myCompany on Atom_Office.Atom_myCompany_ID = Atom_myCompany.ID
-                                 inner join Atom_OrganisationData on Atom_myCompany.Atom_OrganisationData_ID = Atom_OrganisationData.ID
-                                 inner join Atom_Organisation on Atom_OrganisationData.Atom_Organisation_ID = Atom_Organisation.ID
-                                 left join Invoice inv on pi.Invoice_ID = inv.ID
-                                 left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
-                                 left join cOrgTYPE on Atom_OrganisationData.cOrgTYPE_ID = cOrgTYPE.ID
-                                 left join Atom_cAddress_Org on Atom_OrganisationData.Atom_cAddress_Org_ID = Atom_cAddress_Org.ID
-                                 left join Atom_cStreetName_Org on Atom_cAddress_Org.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
-                                 left join Atom_cHouseNumber_Org on Atom_cAddress_Org.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
-                                 left join Atom_cCity_Org on Atom_cAddress_Org.Atom_cCity_Org_ID = Atom_cCity_Org.ID
-                                 left join Atom_cZIP_Org on Atom_cAddress_Org.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                                 left join Atom_cState_Org on Atom_cAddress_Org.Atom_cState_Org_ID = Atom_cState_Org.ID
-                                 left join Atom_cCountry_Org on Atom_cAddress_Org.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
-                                 left join cHomePage_Org on Atom_OrganisationData.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cEmail_Org on Atom_OrganisationData.cEmail_Org_ID = cEmail_Org.ID
-                                 left join cHomePage_Org on Atom_OrganisationData.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cFaxNumber_Org on Atom_OrganisationData.cFaxNumber_Org_ID = cFaxNumber_Org.ID
-                                 left join cPhoneNumber_Org on Atom_OrganisationData.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
-                                 left join cOrgTYPE on Atom_OrganisationData.cOrgTYPE_ID = cOrgTYPE.ID
-                                 left join Atom_Logo on Atom_OrganisationData.Atom_Logo_ID = Atom_Logo.ID
-                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
-                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                 where pi.ID = " + ProformaInvoice_ID.ToString();
 
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
-            {
-                if (dt_ProformaInvoice.Rows.Count == 1)
-                {
-                    try
-                    {
-                        GrossSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
-                        taxsum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
-                        NetSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
-                        ltext ltMy = new ltext("My", "Moja");
-                        MyOrganisation = new UniversalInvoice.Organisation(ltMy,DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Atom_Office_Name"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["BankName"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["TRR"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Email"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["HomePage"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["PhoneNumber"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["FaxNumber"]),
-                                                                   DBTypes.func._set_byte_array(dt_ProformaInvoice.Rows[0]["Logo_Data"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["StreetName"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["HouseNumber"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["ZIP"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["City"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["State"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Country"]));
-
-
-                        Invoice_ID = DBTypes.func._set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
-                        FinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
-                        NumberInFinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
-
-                        object oAtom_Customer_Org_ID = dt_ProformaInvoice.Rows[0]["Atom_Customer_Org_ID"];
-                        ltext lt_Customer = new ltext("Customer", "Stranka");
-                        if (oAtom_Customer_Org_ID is long)
-                        {
-                            long Atom_Customer_Org_ID = (long)oAtom_Customer_Org_ID;
-                            CustomerOrganisation = f_Atom_OrganisationData.GetData(lt_Customer,Atom_Customer_Org_ID);
-                        }
-                        else if (dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
-                        {
-                            long Atom_Customer_Person_ID = (long)dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"];
-                            CustomerPerson = f_Atom_Person.GetData(lt_Customer, Atom_Customer_Person_ID);
-                        }
-
-
-                        if (m_InvoiceDB.Read_Atom_Price_SimpleItem_Table(ProformaInvoice_ID, ref dt_Atom_Price_SimpleItem))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_ProformaInvoice:Exception=" + ex.Message);
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_ProformaInvoice:dt_ProformaInvoice.Rows.Count != 1! for ProformaInvoice_ID=" + ProformaInvoice_ID.ToString() + "!\r\nsql = " + sql);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_ProformaInvoice:Err=" + Err);
-                return false;
-            }
-
-        }
 
         internal void Print_Receipt(usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
@@ -327,37 +153,37 @@ namespace Tangenta
                 }
 
                 Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
-                Program.ReceiptPrinter.wr_Paragraph(MyOrganisation.Name);
-                Program.ReceiptPrinter.wr_Paragraph(MyOrganisation.Address.StreetName + " " + MyOrganisation.Address.HouseNumber);
-                Program.ReceiptPrinter.wr_Paragraph(MyOrganisation.Address.ZIP + " " + MyOrganisation.Address.City);
-                if (MyOrganisation.HomePage != null)
+                Program.ReceiptPrinter.wr_Paragraph(m_InvoiceData.MyOrganisation.Name);
+                Program.ReceiptPrinter.wr_Paragraph(m_InvoiceData.MyOrganisation.Address.StreetName + " " + m_InvoiceData.MyOrganisation.Address.HouseNumber);
+                Program.ReceiptPrinter.wr_Paragraph(m_InvoiceData.MyOrganisation.Address.ZIP + " " + m_InvoiceData.MyOrganisation.Address.City);
+                if (m_InvoiceData.MyOrganisation.HomePage != null)
                 {
-                    if (MyOrganisation.HomePage.Length > 0)
+                    if (m_InvoiceData.MyOrganisation.HomePage.Length > 0)
                     {
                         Program.ReceiptPrinter.wr_String("Domača stran:");
                         Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
-                        Program.ReceiptPrinter.wr_String(MyOrganisation.HomePage);
+                        Program.ReceiptPrinter.wr_String(m_InvoiceData.MyOrganisation.HomePage);
                         Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
                         Program.ReceiptPrinter.wr_NewLine();
                         ;
                     }
                 }
-                if (MyOrganisation.Email != null)
+                if (m_InvoiceData.MyOrganisation.Email != null)
                 {
-                    if (MyOrganisation.Email.Length > 0)
+                    if (m_InvoiceData.MyOrganisation.Email.Length > 0)
                     {
                         Program.ReceiptPrinter.wr_String("EPOŠTA:");
                         Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
-                        Program.ReceiptPrinter.wr_String(MyOrganisation.Email);
+                        Program.ReceiptPrinter.wr_String(m_InvoiceData.MyOrganisation.Email);
                         Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
                     }
                 }
                 Program.ReceiptPrinter.wr_NewLine();
-                Program.ReceiptPrinter.wr_Paragraph("Davčna Številka:" + MyOrganisation.Tax_ID);
+                Program.ReceiptPrinter.wr_Paragraph("Davčna Številka:" + m_InvoiceData.MyOrganisation.Tax_ID);
                 Program.ReceiptPrinter.wr_NewLine(2);
                 //buffer = buffer + "\x1b\x1d\x61\x0";             //Left Alignment - Refer to Pg. 3-29
                 Program.ReceiptPrinter.wr_SetHorizontalTabPositions(new byte[] { 2, 0x10, 0x22 });
-                Program.ReceiptPrinter.wr_Paragraph("Številka računa: " + FinancialYear.ToString() + "/" + NumberInFinancialYear.ToString());
+                Program.ReceiptPrinter.wr_Paragraph("Številka računa: " + m_InvoiceData.FinancialYear.ToString() + "/" + m_InvoiceData.NumberInFinancialYear.ToString());
                 Program.ReceiptPrinter.wr_Paragraph("Datum:" + PrintDate_Day.ToString() + "." + PrintDate_Month.ToString() + "." + PrintDate_Year.ToString() + "\x9" + " Čas:" + PrintDate_Hour.ToString() + ":" + PrintDate_Min.ToString());      //Moving Horizontal Tab - Pg. 3-26
                 Program.ReceiptPrinter.wr_LineDelimeter();
                 Program.ReceiptPrinter.wr_BoldOn();
@@ -371,7 +197,7 @@ namespace Tangenta
                 taxSum = null;
                 taxSum = new StaticLib.TaxSum();
 
-                foreach (DataRow dr in dt_Atom_Price_SimpleItem.Rows)
+                foreach (DataRow dr in m_InvoiceData.dt_Atom_Price_SimpleItem.Rows)
                 {
                     object o_SimpleItem_name = dr["Name"];
                     string SimpleItem_name = null;
@@ -497,7 +323,7 @@ namespace Tangenta
                 //Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces
                 Program.ReceiptPrinter.wr_NewLine();
 
-                foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisd in this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
+                foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisd in m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
                 {
                     string Item_UniqueName = appisd.Atom_Item_UniqueName.v;
 
@@ -565,9 +391,9 @@ namespace Tangenta
                     Program.ReceiptPrinter.wr_String(tax.Name +  HT + HT + "" + tax.Sum.ToString() + " EUR\n");
                 }
                 
-                Program.ReceiptPrinter.wr_String("Brez davka " +  HT + HT + "" + this.NetSum.ToString() + " EUR\n");
+                Program.ReceiptPrinter.wr_String("Brez davka " +  HT + HT + "" + m_InvoiceData.NetSum.ToString() + " EUR\n");
                 //buffer += "\x1B" + "G" + "\xFF";
-                Program.ReceiptPrinter.wr_String("Skupaj " + HT + HT + this.GrossSum.ToString() + " EUR\n"); 
+                Program.ReceiptPrinter.wr_String("Skupaj " + HT + HT + m_InvoiceData.GrossSum.ToString() + " EUR\n"); 
                 //buffer += "\x1B" + "G" + "\x00\n";
                 if (PaymentType != usrc_Payment.ePaymentType.NONE)
                 { 
@@ -589,21 +415,19 @@ namespace Tangenta
 
                 string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
                 string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
-                f_Journal_ProformaInvoice.Write(ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description,null, ref journal_proformainvoice_id);
+                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description,null, ref journal_proformainvoice_id);
             }
             catch (Exception ex)
             {
                 string s_journal_invoice_type = lngRPM.s_journal_invoice_type_PrintError.s + Program.ReceiptPrinter.PrinterName+ "\nErr="+ex.Message;
                 string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
-                f_Journal_ProformaInvoice.Write(ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description,null, ref journal_proformainvoice_id);
+                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description,null, ref journal_proformainvoice_id);
             }
         }
 
-        public bool Init(long xProformaInvoice_ID, InvoiceDB x_InvoiceDB,long xmyCompany_Person_ID)
+        public bool Init(InvoiceData x_InvoiceData)
         {
-            myCompany_Person_ID = xmyCompany_Person_ID;
-            ProformaInvoice_ID = xProformaInvoice_ID;
-            m_InvoiceDB = x_InvoiceDB;
+            m_InvoiceData = x_InvoiceData;
             lbl_PrinterName.Text = lngRPM.s_Printer.s;
             PrinterName = Program.ReceiptPrinter.printer_settings.PrinterName;
             lbl_PaperName.Text = lngRPM.s_PaperName.s + ":";
@@ -632,17 +456,6 @@ namespace Tangenta
                 cy_paper_in_inch = ((float)iHeight_inHoundreths_of_Inch) / ((float)100);
                 cy_paper_on_screen_in_pixels = (int)(cy_paper_in_inch * getScalingFactorY());
                 //this.pnl_paper.Height = cy_paper_on_screen_in_pixels;
-                if ((x_InvoiceDB!=null)&&(xProformaInvoice_ID>=0))
-                { 
-                    if (Read_ProformaInvoice())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
                 return true;
 
             }
@@ -667,25 +480,25 @@ namespace Tangenta
 
         internal int Get_CurrencyD_DecimalPlaces()
         {
-            if (dt_Atom_Price_SimpleItem.Rows.Count > 0)
+            if (m_InvoiceData.dt_Atom_Price_SimpleItem.Rows.Count > 0)
             {
-                object o_Currency_DecimalPlaces = dt_Atom_Price_SimpleItem.Rows[0]["Atom_Currency_DecimalPlaces"];
+                object o_Currency_DecimalPlaces = m_InvoiceData.dt_Atom_Price_SimpleItem.Rows[0]["Atom_Currency_DecimalPlaces"];
                 if (o_Currency_DecimalPlaces.GetType() == typeof(int))
                 {
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count >0)
+            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count >0)
             {
-                object o_Data = this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
+                object o_Data = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
                 if (o_Data is Atom_ProformaInvoice_Price_Item_Stock_Data)
                 {
                     return (int)((Atom_ProformaInvoice_Price_Item_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;
                 }
             }
-            if (this.m_InvoiceDB.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows.Count > 0)
+            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows.Count > 0)
             {
-                object o_Currency_DecimalPlaces = this.m_InvoiceDB.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
+                object o_Currency_DecimalPlaces = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
                 if (o_Currency_DecimalPlaces.GetType() == typeof(int))
                 {
                     return (int)o_Currency_DecimalPlaces;

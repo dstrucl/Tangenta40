@@ -16,7 +16,7 @@ namespace Tangenta
     public partial class usrc_Invoice_Preview : UserControl
     {
         private byte[] m_Doc = null;
-        private usrc_Print m_usrc_Print;
+        private usrc_Printer m_usrc_Print;
         private usrc_Payment.ePaymentType m_paymentType;
         private string m_sPaymentMethod;
         private string m_sAmountReceived;
@@ -65,11 +65,11 @@ namespace Tangenta
         public usrc_Invoice_Preview()
         {
             InitializeComponent();
-
+            lngRPM.s_btn_Tokens.Text(btn_Tokens);
             //string html_doc = Properties.Resources.html_doc;
 
         }
-        public bool Init(byte[] xdoc, usrc_Print xusrc_Print, usrc_Payment.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public bool Init(byte[] xdoc, usrc_Printer xusrc_Print, usrc_Payment.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             m_Doc = xdoc;
             m_usrc_Print = xusrc_Print;
@@ -92,7 +92,7 @@ namespace Tangenta
             int j = 0;
             for (i = start_index; i < end_index; i++)
             {
-                DataRow dr = m_usrc_Print.dt_Atom_Price_SimpleItem.Rows[j];
+                DataRow dr = m_usrc_Print.m_InvoiceData.dt_Atom_Price_SimpleItem.Rows[j];
                 object o_SimpleItem_name = dr["Name"];
                 string SimpleItem_name = null;
                 if (o_SimpleItem_name.GetType() == typeof(string))
@@ -201,7 +201,7 @@ namespace Tangenta
             int j = 0;
             for (i = start_index; i < end_index; i++)
             {
-                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_usrc_Print.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
+                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_usrc_Print.m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
 
                 string Item_UniqueName = appisd.Atom_Item_UniqueName.v;
 
@@ -267,8 +267,8 @@ namespace Tangenta
         private string CreateHTMLInvoiceFromTemplate(string html_doc_text, string payment_type)
         {
 
-            int iCountSimpleItemsSold = m_usrc_Print.dt_Atom_Price_SimpleItem.Rows.Count;
-            int iCountItemsSold = m_usrc_Print.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
+            int iCountSimpleItemsSold = m_usrc_Print.m_InvoiceData.dt_Atom_Price_SimpleItem.Rows.Count;
+            int iCountItemsSold = m_usrc_Print.m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
 
             UniversalInvoice.ItemSold[] ItemsSold = new UniversalInvoice.ItemSold[iCountSimpleItemsSold+ iCountItemsSold];
 
@@ -276,7 +276,7 @@ namespace Tangenta
             Fill_SoldItemsData(ref ItemsSold, iCountSimpleItemsSold, iCountItemsSold);
 
 
-            UniversalInvoice.InvoiceTemplate invt = new UniversalInvoice.InvoiceTemplate(m_usrc_Print.MyOrganisation, m_usrc_Print.CustomerOrganisation);
+            UniversalInvoice.InvoiceTemplate invt = new UniversalInvoice.InvoiceTemplate(m_usrc_Print.m_InvoiceData.MyOrganisation, m_usrc_Print.m_InvoiceData.CustomerOrganisation);
 
             if (m_issue_time != null)
             {
@@ -288,19 +288,19 @@ namespace Tangenta
             }
 
             return invt.CreateHTML(ref html_doc_text,
-                                   m_usrc_Print.FinancialYear,
-                                   m_usrc_Print.NumberInFinancialYear,
-                                   m_usrc_Print.MyOrganisation,
+                                   m_usrc_Print.m_InvoiceData.FinancialYear,
+                                   m_usrc_Print.m_InvoiceData.NumberInFinancialYear,
+                                   m_usrc_Print.m_InvoiceData.MyOrganisation,
                                    "Blagajna1", //Organisation casshier
-                                   m_usrc_Print.Customer,
+                                   m_usrc_Print.m_InvoiceData.Customer,
                                    m_usrc_Print.PrintDate_Day,
                                    m_usrc_Print.PrintDate_Month,
                                    m_usrc_Print.PrintDate_Year,
                                    m_usrc_Print.PrintDate_Hour,
                                    m_usrc_Print.PrintDate_Min,
                                    ItemsSold,
-                                   m_usrc_Print.NetSum,
-                                   m_usrc_Print.GrossSum,
+                                   m_usrc_Print.m_InvoiceData.NetSum,
+                                   m_usrc_Print.m_InvoiceData.GrossSum,
                                    payment_type,
                                    Program.Get_BaseCurrency_DecimalPlaces());
         
@@ -320,6 +320,12 @@ namespace Tangenta
                 string sFileName = sfd.FileName;
                 System.IO.File.WriteAllText(sFileName, this.m_webBrowser.DocumentText, Encoding.UTF8);
             }
+        }
+
+        private void btn_Tokens_Click(object sender, EventArgs e)
+        {
+            Form_TemplateTokens frm_tokens = new Form_TemplateTokens(m_usrc_Print.m_InvoiceData);
+            frm_tokens.ShowDialog();
         }
     }
 }

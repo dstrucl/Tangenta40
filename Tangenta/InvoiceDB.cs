@@ -125,8 +125,8 @@ namespace Tangenta
 
 
  string sql_GetDraft = @"Select
-                        JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$FirstName,
-                        JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$LastName,
+                        JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                        JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$Job,
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$UserName,
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$Description,

@@ -52,8 +52,8 @@ namespace Tangenta
                                     JOURNAL_ProformaInvoice_$_pinv_$$NetSum,
                                     JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acfn_$$FirstName,
                                     JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acln_$$LastName,
-                                    JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$FirstName,
-                                    JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$LastName
+                                    JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                                    JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName
                                     from JOURNAL_ProformaInvoice_VIEW where JOURNAL_ProformaInvoice_$_pinv_$$ID = " + ProformaInvoice_ID.ToString() + " order by ID desc";
             dt.Clear();
             string Err = null;
@@ -62,8 +62,8 @@ namespace Tangenta
                 dgvx_Journal_InvoicePrint.DataSource = dt;
                 SQLTableControl.SQLTable tbl = new SQLTableControl.SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(JOURNAL_ProformaInvoice)));
                 tbl.SetVIEW_DataGridViewImageColumns_Headers(dgvx_Journal_InvoicePrint, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
-                dgvx_Journal_InvoicePrint.Columns["JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$FirstName"].HeaderText = lngRPM.s_FirstNameOfPersonThatPrintedInvoice.s;
-                dgvx_Journal_InvoicePrint.Columns["JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$FirstName"].HeaderText = lngRPM.s_LastNameOfPersonThatPrintedInvoice.s;
+                dgvx_Journal_InvoicePrint.Columns["JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"].HeaderText = lngRPM.s_FirstNameOfPersonThatPrintedInvoice.s;
+                dgvx_Journal_InvoicePrint.Columns["JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"].HeaderText = lngRPM.s_LastNameOfPersonThatPrintedInvoice.s;
                 if (dt.Rows.Count>0)
                 {
                     if (dt.Rows[0]["JOURNAL_ProformaInvoice_$$EventTime"] is DateTime)

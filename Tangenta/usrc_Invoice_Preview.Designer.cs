@@ -32,6 +32,7 @@
             this.m_webBrowser = new System.Windows.Forms.WebBrowser();
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_SaveAs = new System.Windows.Forms.Button();
+            this.btn_Tokens = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // m_webBrowser
@@ -65,12 +66,23 @@
             this.btn_SaveAs.UseVisualStyleBackColor = true;
             this.btn_SaveAs.Click += new System.EventHandler(this.btn_SaveAs_Click);
             // 
+            // btn_Tokens
+            // 
+            this.btn_Tokens.Location = new System.Drawing.Point(233, 3);
+            this.btn_Tokens.Name = "btn_Tokens";
+            this.btn_Tokens.Size = new System.Drawing.Size(258, 25);
+            this.btn_Tokens.TabIndex = 5;
+            this.btn_Tokens.Text = "button1";
+            this.btn_Tokens.UseVisualStyleBackColor = true;
+            this.btn_Tokens.Click += new System.EventHandler(this.btn_Tokens_Click);
+            // 
             // usrc_Invoice_Preview
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Controls.Add(this.btn_Tokens);
             this.Controls.Add(this.btn_SaveAs);
             this.Controls.Add(this.btn_Print);
             this.Controls.Add(this.m_webBrowser);
@@ -86,5 +98,6 @@
         private System.Windows.Forms.WebBrowser m_webBrowser;
         private System.Windows.Forms.Button btn_Print;
         private System.Windows.Forms.Button btn_SaveAs;
+        private System.Windows.Forms.Button btn_Tokens;
     }
 }

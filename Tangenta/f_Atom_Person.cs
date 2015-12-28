@@ -7,7 +7,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UniversalInvoice;
 
 namespace Tangenta
 {
@@ -43,7 +42,7 @@ namespace Tangenta
             }
 
             long_v Atom_cFirstName_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cFirstName", "FirstName", FirstName_v, ref  Atom_cFirstName_ID_v))
+            if (!fs.Get_string_table_ID("Atom_cFirstName", "FirstName", FirstName_v, ref Atom_cFirstName_ID_v))
             {
                 return false;
             }
@@ -55,7 +54,7 @@ namespace Tangenta
             }
 
             long_v Atom_cLastName_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cLastName", "LastName", LastName_v, ref  Atom_cLastName_ID_v))
+            if (!fs.Get_string_table_ID("Atom_cLastName", "LastName", LastName_v, ref Atom_cLastName_ID_v))
             {
                 return false;
             }
@@ -89,7 +88,7 @@ namespace Tangenta
 
 
             long_v Atom_cGsmNumber_Person_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cGsmNumber_Person", "GsmNumber", GsmNumber_v, ref  Atom_cGsmNumber_Person_ID_v))
+            if (!fs.Get_string_table_ID("Atom_cGsmNumber_Person", "GsmNumber", GsmNumber_v, ref Atom_cGsmNumber_Person_ID_v))
             {
                 return false;
 
@@ -102,7 +101,7 @@ namespace Tangenta
             }
 
             long_v Atom_cPhoneNumber_Person_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cPhoneNumber_Person", "PhoneNumber", PhoneNumber_v, ref  Atom_cPhoneNumber_Person_ID_v))
+            if (!fs.Get_string_table_ID("Atom_cPhoneNumber_Person", "PhoneNumber", PhoneNumber_v, ref Atom_cPhoneNumber_Person_ID_v))
             {
                 return false;
 
@@ -115,7 +114,7 @@ namespace Tangenta
             }
 
             long_v Atom_cEmail_Person_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cEmail_Person", "Email", Email_v, ref  Atom_cEmail_Person_ID_v))
+            if (!fs.Get_string_table_ID("Atom_cEmail_Person", "Email", Email_v, ref Atom_cEmail_Person_ID_v))
             {
                 return false;
 
@@ -155,7 +154,7 @@ namespace Tangenta
 
 
             long_v Atom_cCardType_Person_ID_v = null;
-            if (!fs.Get_string_table_ID("Atom_cCardType_Person", "CardType", CardType_v, ref  Atom_cCardType_Person_ID_v))
+            if (!fs.Get_string_table_ID("Atom_cCardType_Person", "CardType", CardType_v, ref Atom_cCardType_Person_ID_v))
             {
                 return false;
 
@@ -266,7 +265,7 @@ namespace Tangenta
             }
         }
 
-        public static UniversalInvoice.Person GetData(ltext token_prefix,long Atom_Person_ID)
+        public static UniversalInvoice.Person GetData(ltext token_prefix, long Atom_Person_ID)
         {
             string Err = null;
             UniversalInvoice.Person univ_per = null;
@@ -295,7 +294,7 @@ namespace Tangenta
             {
                 if (dt.Rows.Count > 0)
                 {
-                    univ_per = new UniversalInvoice.Person(token_prefix,DBTypes.func._set_bool(dt.Rows[0]["Atom_Person_$$Gender"]),
+                    univ_per = new UniversalInvoice.Person(token_prefix, DBTypes.func._set_bool(dt.Rows[0]["Atom_Person_$$Gender"]),
                                                          DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acfn_$$FirstName"]),
                                                          DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acln_$$LastName"]),
                                                          DBTypes.func._set_DateTime(dt.Rows[0]["Atom_Person_$$DateOfBirth"]),
@@ -325,8 +324,6 @@ namespace Tangenta
                 LogFile.Error.Show("ERROR:f_Atom_Person:GetData:sql=" + sql + "\r\nErr=" + Err);
             }
             return null;
-
-
         }
     }
 }

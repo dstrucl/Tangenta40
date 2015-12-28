@@ -7,6 +7,9 @@ namespace LanguageControl
 {
     public static class lngTName
     {
+        
+        public static ltext lngt_t_FVI_SLO_Response = new ltext("FVI Response", "Overovljanje računov pri davčni upravi");
+        public static ltext lngt_t_FVI_SLO_RealEstateBP = new ltext("Business premises", "Davčni podatki o poslovnem prostoru");
         public static ltext lngt_t_doc_page_type = new ltext("Document page type", "Oblika strani dokumenta");
         public static ltext lngt_t_Language = new ltext("Language", "Jezik");
         public static ltext lngt_t_JOURNAL_doc = new ltext("Document journal", "Dnevnik dokumenta");

@@ -224,7 +224,7 @@ namespace Tangenta
                                 ref string BankName,
                                 ref string BankAccount,
                                 ref string Logo_Hash,
-                                ref Image  LogoImage,
+                                ref Image LogoImage,
                                 ref string Logo_Description
                                 )
         {
@@ -251,7 +251,7 @@ namespace Tangenta
                                 Atom_OrganisationData_$_alogo.Description AS Atom_OrganisationData_$_alogo_$$Description
                                 from Atom_OrganisationData_VIEW where Atom_OrganisationData_$_aorg_$$ID = " + Atom_Organisation_ID.ToString();
             DataTable dt = new DataTable();
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql,null , ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
@@ -287,7 +287,7 @@ namespace Tangenta
             return false;
         }
 
-        public static UniversalInvoice.Organisation GetData(ltext token_prefix,long Atom_Organisation_ID)
+        public static UniversalInvoice.Organisation GetData(ltext token_prefix, long Atom_Organisation_ID)
         {
             string Err = null;
             UniversalInvoice.Organisation univ_org = null;
@@ -317,7 +317,7 @@ namespace Tangenta
             {
                 if (dt.Rows.Count > 0)
                 {
-                    univ_org = new UniversalInvoice.Organisation(token_prefix,DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Name"]),
+                    univ_org = new UniversalInvoice.Organisation(token_prefix, DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Name"]),
                                                          DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Tax_ID"]),
                                                          DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Registration_ID"]),
                                                          null,
@@ -348,6 +348,6 @@ namespace Tangenta
             }
             return null;
         }
-
     }
+
 }

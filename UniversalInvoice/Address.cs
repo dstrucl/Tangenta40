@@ -16,12 +16,7 @@ namespace UniversalInvoice
         public string State = null;
         public string Country = null;
 
-        public TemplateToken tStreet = null;
-        public TemplateToken tHouseNumber = null;
-        public TemplateToken tZIP = null;
-        public TemplateToken tCity = null;
-        public TemplateToken tState = null;
-        public TemplateToken tCountry = null;
+        public AddressToken token = null;
 
 
         public Address(ltext token_prefix,
@@ -40,13 +35,17 @@ namespace UniversalInvoice
             City = _City;
             State = _State;
             Country = _Country;
+            ltext ltAddress_prefix = new ltext(token_prefix.sText[0] + "_Address", token_prefix.sText[1] + "_Naslov");
+            token = new AddressToken(ltAddress_prefix,
+                                    StreetName,
+                                    HouseNumber,
+                                    ZIP,
+                                    City,
+                                    State,
+                                    Country
+                                    );
 
-            tStreet = new TemplateToken(token_prefix, new string[] { "@@_Street", "@@_Cesta" }, null);
-            tHouseNumber = new TemplateToken(token_prefix,new string[] { "@@_HouseNumber", "@@_HišnaŠtevilka" }, null);
-            tZIP = new TemplateToken(token_prefix,new string[] { "@@_ZIP", "@@_Pošta" }, null);
-            tCity = new TemplateToken(token_prefix, new string[] { "@@_City", "@@_Kraj" }, null);
-            tState = new TemplateToken(token_prefix, new string[] { "@@_State", "@@_Država" }, null);
-            tCountry = new TemplateToken(token_prefix, new string[] { "@@_Country", "@@_Dežela" }, null);
+            
         }
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{1494CE99-385C-42CC-8FFF-75597007DA72}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XML_or_HTML_invoice_from_template</RootNamespace>
-    <AssemblyName>XML_or_HTML_invoice_from_template</AssemblyName>
+    <RootNamespace>UniversalInvoice</RootNamespace>
+    <AssemblyName>UniversalInvoice</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -42,9 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="AddressToken.cs" />
     <Compile Include="InvoiceTemplate.cs" />
     <Compile Include="Organisation.cs" />
+    <Compile Include="OrganisationToken.cs" />
     <Compile Include="Person.cs" />
+    <Compile Include="PersonToken.cs" />
     <Compile Include="TemplateToken.cs" />
     <Compile Include="ItemSold.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
