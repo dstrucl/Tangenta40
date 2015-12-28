@@ -78,23 +78,21 @@ namespace Tangenta
             m_sAmountReceived = sAmountReceived;
             m_sToReturn = sToReturn;
             m_issue_time = issue_time;
-            string s = CreateHTMLInvoiceFromTemplate(html_doc_text);
+            string s = CreateHTMLInvoiceFromTemplate(html_doc_text,Program.GetPaymentTypeString(xpaymentType));
 
             this.m_webBrowser.DocumentText = s;
             this.m_webBrowser.Refresh();
             return true;
         }
 
-
-
-        public void Fill_SoldSimpeItemsData(ref XML_or_HTML_invoice_from_template.SimpleItemSold[] SimpleItemsSold)
-
+        public void Fill_SoldSimpleItemsData(ref UniversalInvoice.ItemSold[] ItemsSold, int start_index,int count)
         {
-            SimpleItemsSold = new XML_or_HTML_invoice_from_template.SimpleItemSold[m_usrc_Print.dt_Atom_Price_SimpleItem.Rows.Count];
             int i;
-            for (i = 0; i < SimpleItemsSold.Length; i++)
+            int end_index = start_index + count;
+            int j = 0;
+            for (i = start_index; i < end_index; i++)
             {
-                DataRow dr = m_usrc_Print.dt_Atom_Price_SimpleItem.Rows[i];
+                DataRow dr = m_usrc_Print.dt_Atom_Price_SimpleItem.Rows[j];
                 object o_SimpleItem_name = dr["Name"];
                 string SimpleItem_name = null;
                 if (o_SimpleItem_name.GetType() == typeof(string))
@@ -137,6 +135,8 @@ namespace Tangenta
                     iQuantity = (int)oQuantity;
                 }
 
+                decimal dQuantity = Convert.ToDecimal(iQuantity);
+                
                 decimal Discount = 0;
                 object oDiscount = dr["Discount"];
                 if (oDiscount is decimal)
@@ -158,9 +158,6 @@ namespace Tangenta
                     CurrencySymbol = (string)oCurrencySymbol;
                 }
 
-
-
-
                 decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
                 decimal TotalDiscountPercent = TotalDiscount * 100;
                 if (TotalDiscountPercent > 0)
@@ -177,32 +174,34 @@ namespace Tangenta
 
                 decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
 
-                SimpleItemsSold[i] = new XML_or_HTML_invoice_from_template.SimpleItemSold(SimpleItem_name,
-                                                                                          RetailSimpleItemPrice,
-                                                                                          RetailSimpleItemPriceWithDiscount,
-                                                                                          TaxationName,
-                                                                                          iQuantity,
-                                                                                          Discount,
-                                                                                          ExtraDiscount,
-                                                                                          CurrencySymbol,
-                                                                                          (decimal)dr["Atom_Taxation_Rate"],
-                                                                                          TotalDiscount,
-                                                                                          price_without_tax,
-                                                                                          TaxPrice,
-                                                                                          RetailSimpleItemPriceWithDiscount);
-
+                ItemsSold[i] = new UniversalInvoice.ItemSold(SimpleItem_name,
+                                                                              RetailSimpleItemPrice,
+                                                                              "", /* Unit Name not defined */
+                                                                              RetailSimpleItemPriceWithDiscount,
+                                                                              TaxationName,
+                                                                              dQuantity,
+                                                                              Discount,
+                                                                              ExtraDiscount,
+                                                                              CurrencySymbol,
+                                                                              (decimal)dr["Atom_Taxation_Rate"],
+                                                                              TotalDiscount,
+                                                                              price_without_tax,
+                                                                              TaxPrice,
+                                                                              RetailSimpleItemPriceWithDiscount);
+                j++;
             }
 
         }
 
-        public void Fill_SoldItemsData(ref XML_or_HTML_invoice_from_template.ItemSold[] ItemsSold)
+        public void Fill_SoldItemsData(ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
         {
 
-            ItemsSold = new XML_or_HTML_invoice_from_template.ItemSold[m_usrc_Print.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count];
             int i;
-            for (i = 0; i < ItemsSold.Length; i++)
+            int end_index = start_index + count;
+            int j = 0;
+            for (i = start_index; i < end_index; i++)
             {
-                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_usrc_Print.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[i];
+                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_usrc_Print.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
 
                 string Item_UniqueName = appisd.Atom_Item_UniqueName.v;
 
@@ -245,7 +244,7 @@ namespace Tangenta
 
                 decimal TaxPrice = appisd.TaxPrice.v;
 
-                ItemsSold[i] = new XML_or_HTML_invoice_from_template.ItemSold(Item_UniqueName,
+                ItemsSold[i] = new UniversalInvoice.ItemSold(Item_UniqueName,
                                                                               RetailPricePerUnit,
                                                                               appisd.Atom_Unit_Name.vs,
                                                                               RetailItemPriceWithDiscount,
@@ -260,47 +259,49 @@ namespace Tangenta
                                                                               ItemsTaxPrice,
                                                                               RetailItemsPriceWithDiscount
                                                                               );
+                j++;
             }
 
         }
 
-        private string CreateHTMLInvoiceFromTemplate(string html_doc_text)
+        private string CreateHTMLInvoiceFromTemplate(string html_doc_text, string payment_type)
         {
-            XML_or_HTML_invoice_from_template.SimpleItemSold[] SimpleItemsSold = null;
-            XML_or_HTML_invoice_from_template.ItemSold[] ItemsSold = null;
 
-            Fill_SoldSimpeItemsData(ref SimpleItemsSold);
-            Fill_SoldItemsData(ref ItemsSold);
-            XML_or_HTML_invoice_from_template.InvoiceCreateFromTemplate invt = new XML_or_HTML_invoice_from_template.InvoiceCreateFromTemplate();
+            int iCountSimpleItemsSold = m_usrc_Print.dt_Atom_Price_SimpleItem.Rows.Count;
+            int iCountItemsSold = m_usrc_Print.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
+
+            UniversalInvoice.ItemSold[] ItemsSold = new UniversalInvoice.ItemSold[iCountSimpleItemsSold+ iCountItemsSold];
+
+            Fill_SoldSimpleItemsData(ref ItemsSold,0, iCountSimpleItemsSold);
+            Fill_SoldItemsData(ref ItemsSold, iCountSimpleItemsSold, iCountItemsSold);
+
+
+            UniversalInvoice.InvoiceTemplate invt = new UniversalInvoice.InvoiceTemplate(m_usrc_Print.MyOrganisation, m_usrc_Print.CustomerOrganisation);
+
+            if (m_issue_time != null)
+            {
+                m_usrc_Print.PrintDate_Day = m_issue_time.v.Day;
+                m_usrc_Print.PrintDate_Month = m_issue_time.v.Month;
+                m_usrc_Print.PrintDate_Year = m_issue_time.v.Year;
+                m_usrc_Print.PrintDate_Hour = m_issue_time.v.Hour;
+                m_usrc_Print.PrintDate_Min = m_issue_time.v.Minute;
+            }
+
             return invt.CreateHTML(ref html_doc_text,
                                    m_usrc_Print.FinancialYear,
                                    m_usrc_Print.NumberInFinancialYear,
-                                   m_usrc_Print.Organisation_Name,
-                                   m_usrc_Print.Organisation_StreetName,
-                                   m_usrc_Print.Organisation_HouseNumber,
-                                   m_usrc_Print.Organisation_ZIP,
-                                   m_usrc_Print.Organisation_City,
-                                   m_usrc_Print.Organisation_Tax_ID,
-                                   m_usrc_Print.Organisation_Registration_ID,
-                                   m_usrc_Print.OfficeName,
-                                   m_usrc_Print.Email,
-                                   m_usrc_Print.HomePage,
-                                   "Blagajna1",
-                                   "",
-                                   "",
-                                   "",
-                                   "",
-                                   "",
-                                   "",
+                                   m_usrc_Print.MyOrganisation,
+                                   "Blagajna1", //Organisation casshier
+                                   m_usrc_Print.Customer,
                                    m_usrc_Print.PrintDate_Day,
                                    m_usrc_Print.PrintDate_Month,
                                    m_usrc_Print.PrintDate_Year,
                                    m_usrc_Print.PrintDate_Hour,
                                    m_usrc_Print.PrintDate_Min,
-                                   SimpleItemsSold,
                                    ItemsSold,
                                    m_usrc_Print.NetSum,
                                    m_usrc_Print.GrossSum,
+                                   payment_type,
                                    Program.Get_BaseCurrency_DecimalPlaces());
         
     }

@@ -1,11 +1,13 @@
 ﻿using DBConnectionControl40;
 using DBTypes;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniversalInvoice;
 
 namespace Tangenta
 {
@@ -264,5 +266,67 @@ namespace Tangenta
             }
         }
 
+        public static UniversalInvoice.Person GetData(ltext token_prefix,long Atom_Person_ID)
+        {
+            string Err = null;
+            UniversalInvoice.Person univ_per = null;
+            string sql = @"select 
+                            Atom_Person_$$Gender,
+                            Atom_Person_$_acfn_$$FirstName,
+                            Atom_Person_$_acln_$$LastName,
+                            Atom_Person_$$DateOfBirth,
+                            Atom_Person_$$Tax_ID,
+                            Atom_Person_$$Registration_ID,
+                            Atom_Person_$_agsmnper_$$GsmNumber,
+                            Atom_Person_$_aphnnper_$$PhoneNumber,
+                            Atom_Person_$_aemailper_$$Email,
+                            Atom_Person_$_acadrper_$_astrnper_$$StreetName,
+                            Atom_Person_$_acadrper_$_ahounper_$$HouseNumber,
+                            Atom_Person_$_acadrper_$_acitper_$$City,
+                            Atom_Person_$_acadrper_$_azipper_$$ZIP,
+                            Atom_Person_$_acadrper_$_astper_$$State,
+                            Atom_Person_$_acadrper_$_acouper_$$Country,
+                            Atom_Person_$$CardNumber,
+                            Atom_Person_$_acardtper_$$CardType,
+                            Atom_Person_$_aperimg_$$Image_Data
+                                from Atom_Person_VIEW where ID = " + Atom_Person_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    univ_per = new UniversalInvoice.Person(token_prefix,DBTypes.func._set_bool(dt.Rows[0]["Atom_Person_$$Gender"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acfn_$$FirstName"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acln_$$LastName"]),
+                                                         DBTypes.func._set_DateTime(dt.Rows[0]["Atom_Person_$$DateOfBirth"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$$Tax_ID"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$$Registration_ID"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_agsmnper_$$GsmNumber"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_aphnnper_$$PhoneNumber"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_aemailper_$$Email"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$$CardNumber"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acardtper_$$CardType"]),
+                                                         DBTypes.func._set_byte_array(dt.Rows[0]["Atom_Person_$_aperimg_$$Image_Data"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_astrnper_$$StreetName"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_ahounper_$$HouseNumber"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_azipper_$$ZIP"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acitper_$$City"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_astper_$$State"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acouper_$$Country"]));
+                    return univ_per;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_Person:GetData:sql=" + sql + "\r\nErr=" + Err);
+            }
+            return null;
+
+
+        }
     }
 }

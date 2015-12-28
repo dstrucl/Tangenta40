@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XML_or_HTML_invoice_from_template
+namespace UniversalInvoice
 {
     public class ItemSold
     {
-        public string Item_UniqueName;
+        public string Item_Name;
         public decimal RetailPricePerUnit;
         public string UnitName;
         public decimal RetailPricePerUnitWithDiscount;
@@ -23,7 +23,7 @@ namespace XML_or_HTML_invoice_from_template
         public decimal TaxPrice;
         public decimal PriceWithTax;
 
-        public ItemSold(string _Item_UniqueName,
+        public ItemSold(string _Item_Name,
                             decimal _RetailPricePerUnit,
                             string _UnitName,
                             decimal _RetailPricePerUnitWithDiscount,
@@ -38,7 +38,7 @@ namespace XML_or_HTML_invoice_from_template
                             decimal _TaxPrice,
                             decimal _PriceWithTax)
         {
-            Item_UniqueName = _Item_UniqueName;
+            Item_Name = _Item_Name;
             RetailPricePerUnit = _RetailPricePerUnit;
             UnitName = _UnitName;
             RetailPricePerUnitWithDiscount = _RetailPricePerUnitWithDiscount;

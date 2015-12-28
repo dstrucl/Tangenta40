@@ -141,13 +141,7 @@ namespace Tangenta
             return ms.ToArray();
         }
 
-        public static Image byteArrayToImage(byte[] byteArrayIn)
-        {
-            MemoryStream ms = new MemoryStream(byteArrayIn);
-            Image returnImage = Image.FromStream(ms);
-            return returnImage;
-        }
-
+      
 
         public static int Get_BaseCurrency_DecimalPlaces()
         {
@@ -436,6 +430,23 @@ namespace Tangenta
                 return true;
             }
             return false;
+        }
+
+        internal static string GetPaymentTypeString(usrc_Payment.ePaymentType ePaymentType)
+        {
+            switch (ePaymentType)
+            {
+                case usrc_Payment.ePaymentType.CASH:
+                    return "cash";
+                case usrc_Payment.ePaymentType.PAYMENT_CARD:
+                    return "payment_card";
+                case usrc_Payment.ePaymentType.NONE:
+                    return "none";
+                case usrc_Payment.ePaymentType.ALLREADY_PAID:
+                    return "allready_paid";
+                    break;
+            }
+            return null;
         }
     }
 

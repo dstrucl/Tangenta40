@@ -67,7 +67,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidXSD", "ValidXSD\ValidX
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "State_ISO_3166", "Country\State_ISO_3166.csproj", "{1562473F-CFCB-4DFD-81BA-153988DC2D25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_or_HTML_invoice_from_template", "XML_or_HTML_invoice_from_template\XML_or_HTML_invoice_from_template.csproj", "{1494CE99-385C-42CC-8FFF-75597007DA72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalInvoice", "UniversalInvoice\UniversalInvoice.csproj", "{1494CE99-385C-42CC-8FFF-75597007DA72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

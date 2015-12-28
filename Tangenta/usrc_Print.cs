@@ -70,8 +70,30 @@ namespace Tangenta
         public int PrintDate_Sec = 0;
         public byte[] Logo_Data = null;
         public string Logo_Description = null;
-        public string Organisation_Name = null;
-        
+
+        public UniversalInvoice.Organisation MyOrganisation = null;
+        public UniversalInvoice.Organisation CustomerOrganisation = null;
+        public UniversalInvoice.Person CustomerPerson = null;
+
+        public  object Customer
+        {
+            get
+            {
+                if (CustomerOrganisation != null)
+                {
+                    return CustomerOrganisation;
+                }
+                else  if (CustomerPerson != null)
+                {
+                    return CustomerPerson;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public int PrintDate_Day = 0;
         public int PrintDate_Month = 0;
         public int PrintDate_Year = 0;
@@ -86,17 +108,6 @@ namespace Tangenta
         public decimal taxsum = 0;
         public StaticLib.TaxSum taxSum = null;
         public decimal NetSum = 0;
-        public string Organisation_Tax_ID = null;
-        public string Organisation_Registration_ID = null;
-        public string Organisation_ZIP = null;
-        public string Organisation_StreetName = null;
-        public string Organisation_HouseNumber = null;
-        public string Organisation_City = null;
-        public string Organisation_State = null;
-        public string Organisation_Country = null;
-        public string OfficeName = null;
-        public string HomePage = null;
-        public string Email = null;
         private long_v Atom_Customer_Org_ID = null;
         private long_v Atom_Customer_Person_ID = null;
 
@@ -132,8 +143,12 @@ namespace Tangenta
                                  Atom_cZIP_Org.ZIP,
                                  Atom_cState_Org.State,
                                  Atom_cCountry_Org.Country,
-                                 cHomePage_Org.HomePage,
                                  cEmail_Org.Email,
+                                 cHomePage_Org.HomePage,
+                                 cPhoneNumber_Org.PhoneNumber,
+                                 cFaxNumber_Org.FaxNumber,
+                                 Atom_OrganisationData.BankName,
+                                 Atom_OrganisationData.TRR,
                                  Atom_Office.Name as Atom_Office_Name,
                                  Atom_myCompany_Person.UserName,
                                  Atom_myCompany_Person.FirstName,
@@ -165,6 +180,10 @@ namespace Tangenta
                                  left join Atom_cCountry_Org on Atom_cAddress_Org.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
                                  left join cHomePage_Org on Atom_OrganisationData.cHomePage_Org_ID = cHomePage_Org.ID
                                  left join cEmail_Org on Atom_OrganisationData.cEmail_Org_ID = cEmail_Org.ID
+                                 left join cHomePage_Org on Atom_OrganisationData.cHomePage_Org_ID = cHomePage_Org.ID
+                                 left join cFaxNumber_Org on Atom_OrganisationData.cFaxNumber_Org_ID = cFaxNumber_Org.ID
+                                 left join cPhoneNumber_Org on Atom_OrganisationData.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
+                                 left join cOrgTYPE on Atom_OrganisationData.cOrgTYPE_ID = cOrgTYPE.ID
                                  left join Atom_Logo on Atom_OrganisationData.Atom_Logo_ID = Atom_Logo.ID
                                  left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
                                  left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
@@ -177,93 +196,45 @@ namespace Tangenta
                 {
                     try
                     {
-                        GrossSum = (decimal)dt_ProformaInvoice.Rows[0]["GrossSum"];
-                        taxsum = (decimal)dt_ProformaInvoice.Rows[0]["TaxSum"];
-                        NetSum = (decimal)dt_ProformaInvoice.Rows[0]["NetSum"];
-                        Organisation_Name = (string)dt_ProformaInvoice.Rows[0]["Name"];
-                        Organisation_Tax_ID = (string)dt_ProformaInvoice.Rows[0]["Tax_ID"];
-                        object o_Organisation_Registration_ID = dt_ProformaInvoice.Rows[0]["Registration_ID"];
-                        if (o_Organisation_Registration_ID.GetType() == typeof(string))
-                        {
-                            Organisation_Registration_ID = (string)o_Organisation_Registration_ID;
-                        }
-                        OfficeName = (string)dt_ProformaInvoice.Rows[0]["Atom_Office_Name"];
+                        GrossSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
+                        taxsum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
+                        NetSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
+                        ltext ltMy = new ltext("My", "Moja");
+                        MyOrganisation = new UniversalInvoice.Organisation(ltMy,DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Atom_Office_Name"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["BankName"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["TRR"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Email"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["HomePage"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["PhoneNumber"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["FaxNumber"]),
+                                                                   DBTypes.func._set_byte_array(dt_ProformaInvoice.Rows[0]["Logo_Data"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["StreetName"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["HouseNumber"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["ZIP"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["City"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["State"]),
+                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Country"]));
 
-                        Organisation_StreetName = (string)dt_ProformaInvoice.Rows[0]["StreetName"];
-                        Organisation_HouseNumber = (string)dt_ProformaInvoice.Rows[0]["HouseNumber"];
-                        Organisation_ZIP = (string)dt_ProformaInvoice.Rows[0]["ZIP"];
 
-                        Organisation_City = (string)dt_ProformaInvoice.Rows[0]["City"];
-                        Organisation_State = (string)dt_ProformaInvoice.Rows[0]["State"];
-                        object oCountry = dt_ProformaInvoice.Rows[0]["Country"];
-                        if (oCountry.GetType() == typeof(string))
-                        {
-                            Organisation_Country = (string)oCountry;
-                        }
-                        else
-                        {
-                            Organisation_Country = null;
-                        }
-                        object oLogo_Data = dt_ProformaInvoice.Rows[0]["Logo_Data"];
-                        if (oLogo_Data is byte[])
-                        {
-                            Logo_Data = (byte[])oLogo_Data;
-                        }
-                        else
-                        {
-                            Logo_Data = null;
-                        }
+                        Invoice_ID = DBTypes.func._set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
+                        FinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
+                        NumberInFinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
 
-                        object oInvoice_ID = dt_ProformaInvoice.Rows[0]["Invoice_ID"];
-                        if (oInvoice_ID is long)
+                        object oAtom_Customer_Org_ID = dt_ProformaInvoice.Rows[0]["Atom_Customer_Org_ID"];
+                        ltext lt_Customer = new ltext("Customer", "Stranka");
+                        if (oAtom_Customer_Org_ID is long)
                         {
-                            Invoice_ID = (long)oInvoice_ID;
+                            long Atom_Customer_Org_ID = (long)oAtom_Customer_Org_ID;
+                            CustomerOrganisation = f_Atom_OrganisationData.GetData(lt_Customer,Atom_Customer_Org_ID);
                         }
-                        else
+                        else if (dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
                         {
-                            Invoice_ID = -1;
+                            long Atom_Customer_Person_ID = (long)dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"];
+                            CustomerPerson = f_Atom_Person.GetData(lt_Customer, Atom_Customer_Person_ID);
                         }
-
-                        object oFinancialYear = dt_ProformaInvoice.Rows[0]["FinancialYear"];
-                        if (oFinancialYear is int)
-                        {
-                            FinancialYear = (int)oFinancialYear;
-                        }
-                        else
-                        {
-                            FinancialYear = -1;
-                        }
-
-                        object oNumberInFinancialYear = dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"];
-                        if (oNumberInFinancialYear is int)
-                        {
-                            NumberInFinancialYear = (int)oNumberInFinancialYear;
-                        }
-                        else
-                        {
-                            NumberInFinancialYear = -1;
-                        }
-
-                        object oHomePage = dt_ProformaInvoice.Rows[0]["HomePage"];
-                        if (oHomePage is string)
-                        {
-                            HomePage = (string)oHomePage;
-                        }
-                        else
-                        {
-                            HomePage = null;
-                        }
-
-                        object oEmail = dt_ProformaInvoice.Rows[0]["Email"];
-                        if (oEmail is string)
-                        {
-                            Email = (string)oEmail;
-                        }
-                        else
-                        {
-                            Email = null;
-                        }
-
 
 
                         if (m_InvoiceDB.Read_Atom_Price_SimpleItem_Table(ProformaInvoice_ID, ref dt_Atom_Price_SimpleItem))
@@ -274,6 +245,7 @@ namespace Tangenta
                         {
                             return false;
                         }
+
                     }
                     catch (Exception ex)
                     {
@@ -355,33 +327,33 @@ namespace Tangenta
                 }
 
                 Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
-                Program.ReceiptPrinter.wr_Paragraph(Organisation_Name);
-                Program.ReceiptPrinter.wr_Paragraph(Organisation_StreetName + " " + Organisation_HouseNumber);
-                Program.ReceiptPrinter.wr_Paragraph(Organisation_ZIP + " " + Organisation_City);
-                if (HomePage != null)
+                Program.ReceiptPrinter.wr_Paragraph(MyOrganisation.Name);
+                Program.ReceiptPrinter.wr_Paragraph(MyOrganisation.Address.StreetName + " " + MyOrganisation.Address.HouseNumber);
+                Program.ReceiptPrinter.wr_Paragraph(MyOrganisation.Address.ZIP + " " + MyOrganisation.Address.City);
+                if (MyOrganisation.HomePage != null)
                 {
-                    if (HomePage.Length > 0)
+                    if (MyOrganisation.HomePage.Length > 0)
                     {
                         Program.ReceiptPrinter.wr_String("Domača stran:");
                         Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
-                        Program.ReceiptPrinter.wr_String(HomePage);
+                        Program.ReceiptPrinter.wr_String(MyOrganisation.HomePage);
                         Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
                         Program.ReceiptPrinter.wr_NewLine();
                         ;
                     }
                 }
-                if (Email != null)
+                if (MyOrganisation.Email != null)
                 {
-                    if (Email.Length > 0)
+                    if (MyOrganisation.Email.Length > 0)
                     {
                         Program.ReceiptPrinter.wr_String("EPOŠTA:");
                         Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
-                        Program.ReceiptPrinter.wr_String(Email);
+                        Program.ReceiptPrinter.wr_String(MyOrganisation.Email);
                         Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
                     }
                 }
                 Program.ReceiptPrinter.wr_NewLine();
-                Program.ReceiptPrinter.wr_Paragraph("Davčna Številka:" + Organisation_Tax_ID);
+                Program.ReceiptPrinter.wr_Paragraph("Davčna Številka:" + MyOrganisation.Tax_ID);
                 Program.ReceiptPrinter.wr_NewLine(2);
                 //buffer = buffer + "\x1b\x1d\x61\x0";             //Left Alignment - Refer to Pg. 3-29
                 Program.ReceiptPrinter.wr_SetHorizontalTabPositions(new byte[] { 2, 0x10, 0x22 });

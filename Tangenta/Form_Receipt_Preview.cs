@@ -75,7 +75,7 @@ namespace Tangenta
                     
                     if (Program.b_FVI_SLO)
                     {
-                        Program.usrc_FVI_SLO1.Get_FVI_SLO_Confirmation(GetPaymentTypeString(ePaymentType), sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        Program.usrc_FVI_SLO1.Get_FVI_SLO_Confirmation(Program.GetPaymentTypeString(ePaymentType), sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                         Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     }
                     else
@@ -93,22 +93,7 @@ namespace Tangenta
             }
         }
 
-        private string GetPaymentTypeString(usrc_Payment.ePaymentType ePaymentType)
-        {
-          switch (ePaymentType)
-            {
-                case usrc_Payment.ePaymentType.CASH:
-                    return "cash";
-                case usrc_Payment.ePaymentType.PAYMENT_CARD:
-                    return "payment_card";
-                case usrc_Payment.ePaymentType.NONE:
-                    return "none";
-                case usrc_Payment.ePaymentType.ALLREADY_PAID:
-                    return "allready_paid";
-                    break;
-            }
-            return null;
-        }
+
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
@@ -148,7 +133,6 @@ namespace Tangenta
                     }
                 }
             }
-
         }
     }
 }
