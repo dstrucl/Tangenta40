@@ -201,37 +201,92 @@ namespace Tangenta
         public string GetAllTokens()
         {
             string s = "";
-            foreach (UniversalInvoice.TemplateToken tt in  MyOrganisation.token.list)
+
+            ltext ltMy = new ltext("My", "Moja");
+            UniversalInvoice.Organisation xMyOrganisation = new UniversalInvoice.Organisation(ltMy, 
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null);
+
+
+            foreach (UniversalInvoice.TemplateToken tt in xMyOrganisation.token.list)
             {
                 s += "\r\n" + tt.lt.s;
             }
 
-            foreach (UniversalInvoice.TemplateToken tt in MyOrganisation.Address.token.list)
+            foreach (UniversalInvoice.TemplateToken tt in xMyOrganisation.Address.token.list)
             {
                 s += "\r\n" + tt.lt.s;
             }
 
-            if (CustomerOrganisation != null)
+            ltext ltCustomer = new ltext("Customer", "Stranka");
+            UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(ltCustomer, 
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null);
+
+            foreach (UniversalInvoice.TemplateToken tt in xCustomerOrganisation.token.list)
             {
-                foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.token.list)
-                {
-                    s += "\r\n" + tt.lt.s;
-                }
-                foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.Address.token.list)
-                {
-                    s += "\r\n" + tt.lt.s;
-                }
+                s += "\r\n" + tt.lt.s;
             }
-            if (CustomerPerson != null)
+            foreach (UniversalInvoice.TemplateToken tt in xCustomerOrganisation.Address.token.list)
             {
-                foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.token.list)
-                {
-                    s += "\r\n" + tt.lt.s;
-                }
-                foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.Address.token.list)
-                {
-                    s += "\r\n" + tt.lt.s;
-                }
+                s += "\r\n" + tt.lt.s;
+            }
+
+            UniversalInvoice.Person xCustomerPerson = new UniversalInvoice.Person(ltCustomer,false,
+                                                       null,
+                                                       null,
+                                                       DateTime.MinValue,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null,
+                                                       null);
+            foreach (UniversalInvoice.TemplateToken tt in xCustomerPerson.token.list)
+            {
+                s += "\r\n" + tt.lt.s;
+            }
+            foreach (UniversalInvoice.TemplateToken tt in xCustomerPerson.Address.token.list)
+            {
+                s += "\r\n" + tt.lt.s;
             }
             return s;
         }

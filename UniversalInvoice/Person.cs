@@ -58,14 +58,14 @@ namespace UniversalInvoice
             CardNumber = _CardNumber;
             CardType = _CardType;
             PersonImage = _PersonImage;
-            ltext token_prefix_Address = new ltext(token_prefix.sText[0] + "_Person", token_prefix.sText[0] + "_Oseba");
-            Address = new Address(token_prefix_Address,_StreetName,
+            ltext token_prefix_Person = new ltext(token_prefix.sText[0] + "_Person", token_prefix.sText[0] + "_Oseba");
+            Address = new Address(token_prefix_Person, _StreetName,
                                            _HouseNumber,
                                            _ZIP,
                                            _City,
                                            _State,
                                            _Country);
-            token = new PersonToken(token_prefix,
+            token = new PersonToken(token_prefix_Person,
                                     Gender,
                                     FirstName,
                                     LastName,

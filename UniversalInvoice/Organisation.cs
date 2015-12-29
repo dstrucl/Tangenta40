@@ -57,15 +57,15 @@ namespace UniversalInvoice
             PhoneNumber =           _PhoneNumber;
             FaxNumber =             _FaxNumber;
             Logo_Data =             _Logo_Data;
-            ltext token_prefix_Address = new ltext(token_prefix.sText[0] + "_Organisation", token_prefix.sText[1] + "_Organizacija");
-            Address = new Address(token_prefix_Address,StreetName,
+            ltext token_prefix_Organisation = new ltext(token_prefix.sText[0] + "_Organisation", token_prefix.sText[1] + "_Organizacija");
+            Address = new Address(token_prefix_Organisation, StreetName,
                                     HouseNumber,
                                     ZIP,
                                     City,
                                     State,
                                     Country);
 
-            token = new OrganisationToken(token_prefix,
+            token = new OrganisationToken(token_prefix_Organisation,
                                             Name,
                                             Tax_ID,
                                             Registration_ID,

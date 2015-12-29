@@ -23,18 +23,16 @@ namespace UniversalInvoice
                 {
                     if (TokenInLanguage[i] != null)
                     {
-                        if (TokenInLanguage[i].Length > 3)
+                        string token = null;
+                        if (token_prefix!= null)
                         {
-                            string token = null;
-                            if (token_prefix!= null)
-                            {
-                                token = "@@" + token_prefix.sText[i] + TokenInLanguage[i];
-                            }
-                            else
-                            {
-                                token = "@@" + TokenInLanguage[i];
-                            }
+                            token = "@@" + token_prefix.sText[i] + "_"+ TokenInLanguage[i];
                         }
+                        else
+                        {
+                            token = "@@" + TokenInLanguage[i];
+                        }
+                        lt.sText[i] = token;
                     }
                 }
             }

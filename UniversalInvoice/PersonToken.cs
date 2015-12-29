@@ -49,6 +49,7 @@ namespace UniversalInvoice
             tCardNumber = new TemplateToken(token_prefix, new string[] { "CardNumber", "ŠtevilkaKartice" }, CardNumber);
             tCardType = new TemplateToken(token_prefix, new string[] { "CardType", "VrstaKartice" }, CardType);
 
+            list = new List<TemplateToken>();
             list.Add(tGender);
             list.Add(tFirstName);
             list.Add(tLastName);

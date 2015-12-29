@@ -17,6 +17,8 @@ namespace Tangenta
         {
             InitializeComponent();
             m_InvoiceData = xInvoiceData;
+
+
             this.txt_Tokens.Text = m_InvoiceData.GetAllTokens();
         }
 
