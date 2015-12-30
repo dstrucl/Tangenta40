@@ -12,28 +12,24 @@ using DBTypes;
 
 namespace Tangenta
 {
-    public partial class Form_Receipt_Preview : Form
+    public partial class Form_Payment : Form
     {
-        InvoiceDB m_InvoiceDB = null;
-        long ProformaInvoice_ID = -1;
-        long myCompany_Person_ID = -1;
+        InvoiceData m_InvoiceData = null;
         public usrc_Payment.ePaymentType m_ePaymentType = usrc_Payment.ePaymentType.NONE;
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
 
-        public Form_Receipt_Preview( long xProformaInvoice_ID, InvoiceDB x_InvoiceDB, long xmyCompany_Person_ID)
+        public Form_Payment(InvoiceData InvoiceData)
         {
             InitializeComponent();
 
-            ProformaInvoice_ID = xProformaInvoice_ID;
-            m_InvoiceDB = x_InvoiceDB;
-            myCompany_Person_ID = xmyCompany_Person_ID;
+            m_InvoiceData = InvoiceData;
             this.Text = lngRPM.s_PaymentAndPrint.s;
             this.btn_Cancel.Text = lngRPM.s_Cancel.s;
-            if (m_InvoiceDB.m_CurrentInvoice.Exist)
+            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Exist)
             {
-                if (m_InvoiceDB.m_CurrentInvoice.bDraft)
+                if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.bDraft)
                 {
                     m_usrc_Payment.Visible = true;
                     m_usrc_PrintExistingInvoice.Visible = false;
@@ -51,24 +47,36 @@ namespace Tangenta
             }
         }
 
-
+        private void Print(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        {
+            if (ePaymentType == usrc_Payment.ePaymentType.CASH)
+            {
+                m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+            }
+            else
+            {
+                m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, null, null, issue_time);
+            }
+        }
 
         private void usrc_Payment_DoPrint(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             long ProformaInvoice_ID = -1;
             int xNumberInFinancialYear = -1;
-            if (this.m_InvoiceDB.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear))
+            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear))
             {
-                m_usrc_Print.NumberInFinancialYear = xNumberInFinancialYear;
-                if (m_InvoiceDB.m_CurrentInvoice.SetInvoiceTime(issue_time))
+                m_InvoiceData.NumberInFinancialYear = xNumberInFinancialYear;
+                if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.SetInvoiceTime(issue_time))
                 {
-                    if (ePaymentType == usrc_Payment.ePaymentType.CASH)
+                    
+                    if (Program.b_FVI_SLO)
                     {
-                        m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        Program.usrc_FVI_SLO1.Get_FVI_SLO_Confirmation(Program.GetPaymentTypeString(ePaymentType), sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     }
                     else
                     {
-                        m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, null, null, issue_time);
+                        Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     }
                     m_ePaymentType = ePaymentType;
                     m_sPaymentMethod = sPaymentMethod;
@@ -76,9 +84,12 @@ namespace Tangenta
                     m_sToReturn = sToReturn;
                     DialogResult = System.Windows.Forms.DialogResult.OK;
                     this.Close();
+
                 }
             }
         }
+
+
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
@@ -93,11 +104,11 @@ namespace Tangenta
 
         private void Form_Receipt_Preview_Load(object sender, EventArgs e)
         {
-            if (m_usrc_Print.Init(ProformaInvoice_ID, m_InvoiceDB, myCompany_Person_ID))
+            if (m_usrc_Print.Init(m_InvoiceData))
             {
-                if ((m_InvoiceDB.m_CurrentInvoice.bDraft))
+                if ((m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.bDraft))
                 {
-                    if (m_usrc_Payment.Init(m_InvoiceDB.m_CurrentInvoice.Invoice_ID, m_usrc_Print.Get_CurrencyD_DecimalPlaces(), m_usrc_Print.GrossSum))
+                    if (m_usrc_Payment.Init(m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Invoice_ID, m_usrc_Print.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
                     {
                         //splitContainer1.Panel1Collapsed = true;
                         return;
@@ -110,15 +121,14 @@ namespace Tangenta
                 }
                 else
                 {
-                    string sInvoiceNumber = m_InvoiceDB.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_InvoiceDB.m_CurrentInvoice.NumberInFinancialYear.ToString();
-                    if (m_usrc_PrintExistingInvoice.Init(m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID, sInvoiceNumber))
+                    string sInvoiceNumber = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_InvoiceData.NumberInFinancialYear.ToString();
+                    if (m_usrc_PrintExistingInvoice.Init(m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID, sInvoiceNumber))
                     {
                         //splitContainer1.Panel1Collapsed = true;
                         return;
                     }
                 }
             }
-
         }
     }
 }

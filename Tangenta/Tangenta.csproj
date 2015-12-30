@@ -108,8 +108,8 @@
     <Compile Include="Form_Print_A4.Designer.cs">
       <DependentUpon>Form_Print_A4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Receipt_Preview.Designer.cs">
-      <DependentUpon>Form_Receipt_Preview.cs</DependentUpon>
+    <Compile Include="Form_Payment.Designer.cs">
+      <DependentUpon>Form_Payment.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_SimpleItemGroups_Edit.cs">
       <SubType>Form</SubType>
@@ -134,6 +134,12 @@
     </Compile>
     <Compile Include="Form_Stock_Address_Edit.Designer.cs">
       <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_TemplateTokens.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_TemplateTokens.Designer.cs">
+      <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_TermsOfPayment_Edit.cs">
       <SubType>Form</SubType>
@@ -255,6 +261,7 @@
     <Compile Include="f_Atom_Customer_Person.cs" />
     <Compile Include="f_Atom_Logo.cs" />
     <Compile Include="f_Atom_OrganisationData.cs" />
+    <Compile Include="f_Atom_Person.cs" />
     <Compile Include="f_doc.cs" />
     <Compile Include="f_doc_page_type.cs" />
     <Compile Include="f_doc_type.cs" />
@@ -262,7 +269,6 @@
     <Compile Include="f_Language.cs" />
     <Compile Include="f_Office.cs" />
     <Compile Include="f_Atom_Organisation.cs" />
-    <Compile Include="f_Atom_Person.cs" />
     <Compile Include="f_Atom_WorkPeriod.cs" />
     <Compile Include="f_Atom_WorkPeriod_Type.cs" />
     <Compile Include="f_Atom_WorkingPlace.cs" />
@@ -271,6 +277,7 @@
     <Compile Include="f_Atom_Office.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />
     <Compile Include="f_WorkingPlace.cs" />
+    <Compile Include="InvoiceData.cs" />
     <Compile Include="Item_Data.cs" />
     <Compile Include="JOURNAL_ProformaInvoice_Type_definitions.cs" />
     <Compile Include="Form_OrganisationAccount_Edit.cs">
@@ -319,7 +326,7 @@
     </Compile>
     <Compile Include="Printer.cs" />
     <Compile Include="ProformaInvoice_Connection_Class.cs" />
-    <Compile Include="Form_Receipt_Preview.cs">
+    <Compile Include="Form_Payment.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_PaymentCash.cs">
@@ -399,11 +406,11 @@
     <Compile Include="usrc_Payment.Designer.cs">
       <DependentUpon>usrc_Payment.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Print.cs">
+    <Compile Include="usrc_Printer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_Print.Designer.cs">
-      <DependentUpon>usrc_Print.cs</DependentUpon>
+    <Compile Include="usrc_Printer.Designer.cs">
+      <DependentUpon>usrc_Printer.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_PurchasePriceList_Edit.cs">
       <SubType>UserControl</SubType>
@@ -529,8 +536,8 @@
     <EmbeddedResource Include="Form_Print_A4.resx">
       <DependentUpon>Form_Print_A4.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Receipt_Preview.resx">
-      <DependentUpon>Form_Receipt_Preview.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Payment.resx">
+      <DependentUpon>Form_Payment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SimpleItemGroups_Edit.resx">
       <DependentUpon>Form_SimpleItemGroups_Edit.cs</DependentUpon>
@@ -543,6 +550,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Stock_Address_Edit.resx">
       <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_TemplateTokens.resx">
+      <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_TermsOfPayment_Edit.resx">
       <DependentUpon>Form_TermsOfPayment_Edit.cs</DependentUpon>
@@ -656,8 +666,8 @@
     <EmbeddedResource Include="usrc_Payment.resx">
       <DependentUpon>usrc_Payment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Print.resx">
-      <DependentUpon>usrc_Print.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_Printer.resx">
+      <DependentUpon>usrc_Printer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PurchasePriceList_Edit.resx">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
@@ -881,6 +891,10 @@
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
+      <Project>{61CA81C7-7F82-4744-A8DE-FBE9972E7EE8}</Project>
+      <Name>FiscalVerificationOfInvoices_SLO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
@@ -896,6 +910,14 @@
     <ProjectReference Include="..\SQLTableControl\SQLTableControl.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StaticLib\StaticLib.csproj">
+      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
+      <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
+      <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
+      <Name>UniversalInvoice</Name>
     </ProjectReference>
     <ProjectReference Include="..\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
       <Project>{AE38E7C4-AC11-4E43-9DE3-364533FCC83B}</Project>
@@ -1115,6 +1137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\SaveHtml.bmp" />
     <None Include="Resources\SelectRow.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

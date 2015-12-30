@@ -125,8 +125,8 @@ namespace Tangenta
 
 
  string sql_GetDraft = @"Select
-                        JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$FirstName,
-                        JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$LastName,
+                        JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                        JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$Job,
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$UserName,
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$Description,
@@ -1007,7 +1007,7 @@ private bool Find_Atom_SimpleItem_Name_ID(string Atom_SimpleItem_Name,ref long A
                 lpar.Add(par_ExtraDiscount);
 
                 decimal dQuantity = Convert.ToDecimal(iCount);
-                Program.CalculatePrice(RetailSimpleItemPrice,dQuantity, Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice, ref PriceWithoutTax, decimal_places);
+                StaticLib.Func.CalculatePrice(RetailSimpleItemPrice,dQuantity, Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice, ref PriceWithoutTax, decimal_places);
 
                                 
 

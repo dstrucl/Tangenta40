@@ -15,6 +15,9 @@ namespace SQLTableControl.TableDocking_Form
     {
         public long Identity = -1;
 
+        public delegate void delegate_dgvx_DataError(object sender, DataGridViewDataErrorEventArgs e);
+
+
         public delegate bool delegate_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, SQLTableControl.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction);
 
         public delegate void delegate_before_New(SQLTable m_tbl, ref bool bCancel);
@@ -32,7 +35,6 @@ namespace SQLTableControl.TableDocking_Form
 
         public delegate void delegate_FillTable(SQLTable m_tbl);
 
-        public delegate void delegate_dgvx_DataError(object sender, DataGridViewDataErrorEventArgs e);
         public event delegate_dgvx_DataError dgvx_DataError = null;
 
         public event usrc_EditRow.delegate_after_FillDataInputControl after_FillDataInputControl = null; 

@@ -397,7 +397,7 @@ namespace Tangenta
 
         private void Set_btn_Discount_Text()
         {
-            decimal TotalDiscount = Program.TotalDiscount(this.m_Item_Data.Price_Item_Discount.v, ExtraDiscount);
+            decimal TotalDiscount = StaticLib.Func.TotalDiscount(this.m_Item_Data.Price_Item_Discount.v, ExtraDiscount,Program.Get_BaseCurrency_DecimalPlaces());
             this.btn_Discount.Text = decimal.Round((TotalDiscount * 100), Program.Get_BaseCurrency_DecimalPlaces()).ToString();
         }
 
@@ -413,7 +413,7 @@ namespace Tangenta
             {
                 decimal_places = Program.BaseCurrency.DecimalPlaces;
             }
-            Program.CalculatePrice(m_Item_Data.RetailPricePerUnit.v, this.dQuantity, m_Item_Data.Price_Item_Discount.v, ExtraDiscount, m_Item_Data.Taxation_Rate.v, ref RetailPriceWithDiscount, ref  TaxPrice, ref  RetailPriceWithDiscount_WithoutTax, decimal_places);
+            StaticLib.Func.CalculatePrice(m_Item_Data.RetailPricePerUnit.v, this.dQuantity, m_Item_Data.Price_Item_Discount.v, ExtraDiscount, m_Item_Data.Taxation_Rate.v, ref RetailPriceWithDiscount, ref  TaxPrice, ref  RetailPriceWithDiscount_WithoutTax, decimal_places);
             decimal EndPrice = decimal.Round(RetailPriceWithDiscount, Program.Get_BaseCurrency_DecimalPlaces());
             this.txt_Price.Text = EndPrice.ToString();
         }

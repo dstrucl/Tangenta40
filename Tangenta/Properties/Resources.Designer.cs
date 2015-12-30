@@ -341,6 +341,44 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;fu:BusinessPremiseRequest xmlns:fu=&quot;http://www.fu.gov.si/&quot; Id=&quot;test&quot;&gt;
+        ///	&lt;fu:BusinessPremise&gt;
+        ///		&lt;fu:TaxNumber&gt;@@DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
+        ///		&lt;fu:BusinessPremiseID&gt;@@PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
+        ///		&lt;fu:BPIdentifier&gt;
+        ///			&lt;fu:RealEstateBP&gt;
+        ///				&lt;fu:PropertyID&gt;
+        ///					&lt;fu:CadastralNumber&gt;@@KatastrskaŠtevilkaPoslovneEnote&lt;/fu:CadastralNumber&gt;
+        ///					&lt;fu:BuildingNumber&gt;@@ŠtevilkaStavbe&lt;/fu:BuildingNumber&gt;
+        ///					&lt;fu:BuildingSectionNumber&gt;@ŠtevilkaDelaStavbe&lt;/fu:BuildingSect [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FVI_SLO_BussinesPremises {
+            get {
+                return ResourceManager.GetString("FVI_SLO_BussinesPremises", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;fu:InvoiceRequest xmlns:fu=&quot;http://www.fu.gov.si/&quot; Id=&quot;test&quot;&gt;
+        ///	&lt;fu:Invoice&gt;
+        ///		&lt;fu:TaxNumber&gt;@@DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
+        ///		&lt;fu:IssueDateTime&gt;@@Datum_izdaje_računa&lt;/fu:IssueDateTime&gt;
+        ///		&lt;fu:NumberingStructure&gt;B&lt;/fu:NumberingStructure&gt;
+        ///		&lt;fu:InvoiceIdentifier&gt;
+        ///			&lt;fu:BusinessPremiseID&gt;@@PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
+        ///			&lt;fu:ElectronicDeviceID&gt;@@OznakaBlagajne&lt;/fu:ElectronicDeviceID&gt;
+        ///			&lt;fu:InvoiceNumber&gt;@@ObračunskoLeto/@@ŠtevilkaRačuna&lt;/fu:InvoiceNumber&gt;
+        ///		&lt;/fu [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FVI_SLO_Invoice {
+            get {
+                return ResourceManager.GetString("FVI_SLO_Invoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///&lt;html lang=&quot;en&quot;&gt;
         ///  &lt;head&gt;
@@ -365,8 +403,7 @@ namespace Tangenta.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-serif; 
-        ///        font-size [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_inv1_A4 {
             get {
@@ -457,8 +494,7 @@ namespace Tangenta.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-serif; 
-        ///        font-size [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_pinv1_A4 {
             get {
@@ -549,8 +585,7 @@ namespace Tangenta.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-serif; 
-        ///        font-size [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_inv1_A4 {
             get {
@@ -641,8 +676,7 @@ namespace Tangenta.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-serif; 
-        ///        font-size [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_pinv1_A4 {
             get {
@@ -904,6 +938,16 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Bitmap RemoveFromBoxToFactory {
             get {
                 object obj = ResourceManager.GetObject("RemoveFromBoxToFactory", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SaveHtml {
+            get {
+                object obj = ResourceManager.GetObject("SaveHtml", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

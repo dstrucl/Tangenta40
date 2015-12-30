@@ -7,14 +7,15 @@ using DBConnectionControl40;
 using System.Windows.Forms;
 using LanguageControl;
 using System.Drawing;
-
-
+using System.IO;
+using System.IO.Compression;
 
 namespace SQLTableControl
 {
 
     public static class Globals
     {
+        public const int BUFFER_SIZE = 64 * 1024;
         public delegate void delegate_SetControls(SQLTable tbl);
 
         public enum eDBType
@@ -57,6 +58,42 @@ namespace SQLTableControl
             return s;
 
         }
+
+        public static byte[] Compress(byte[] inputData)
+        {
+            if (inputData == null)
+                throw new ArgumentNullException("inputData must be non-null");
+
+            using (var compressIntoMs = new MemoryStream())
+            {
+                using (var gzs = new BufferedStream(new GZipStream(compressIntoMs,
+                 CompressionMode.Compress), BUFFER_SIZE))
+                {
+                    gzs.Write(inputData, 0, inputData.Length);
+                }
+                return compressIntoMs.ToArray();
+            }
+        }
+
+        public static byte[] Decompress(byte[] inputData)
+        {
+            if (inputData == null)
+                throw new ArgumentNullException("inputData must be non-null");
+
+            using (var compressedMs = new MemoryStream(inputData))
+            {
+                using (var decompressedMs = new MemoryStream())
+                {
+                    using (var gzs = new BufferedStream(new GZipStream(compressedMs,
+                     CompressionMode.Decompress), BUFFER_SIZE))
+                    {
+                        gzs.CopyTo(decompressedMs);
+                    }
+                    return decompressedMs.ToArray();
+                }
+            }
+        }
+
 
         public static Image Image_SelectRow
         {

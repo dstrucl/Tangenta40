@@ -165,38 +165,6 @@ namespace Tangenta
                                         sval_UserName = "null";
                                     }
 
-                                    string scond_FirstName = null;
-                                    string sval_FirstName = "null";
-                                    if (FirstName_v != null)
-                                    {
-                                        string spar_FirstName = "@par_FirstName";
-                                        SQL_Parameter par_FirstName = new SQL_Parameter(spar_FirstName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FirstName_v.v);
-                                        lpar.Add(par_FirstName);
-                                        scond_FirstName = "FirstName = " + spar_FirstName;
-                                        sval_FirstName = spar_FirstName;
-                                    }
-                                    else
-                                    {
-                                        scond_FirstName = "FirstName is null";
-                                        sval_FirstName = "null";
-                                    }
-
-                                    string scond_LastName = null;
-                                    string sval_LastName = "null";
-                                    if (LastName_v != null)
-                                    {
-                                        string spar_LastName = "@par_LastName";
-                                        SQL_Parameter par_LastName = new SQL_Parameter(spar_LastName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, LastName_v.v);
-                                        lpar.Add(par_LastName);
-                                        scond_LastName = "LastName = " + spar_LastName;
-                                        sval_LastName = spar_LastName;
-                                    }
-                                    else
-                                    {
-                                        scond_LastName = "LastName is null";
-                                        sval_LastName = "null";
-                                    }
-
                                     string scond_Atom_Office_ID = null;
                                     string sval_Atom_Office_ID = "null";
                                     if (Atom_Office_ID >= 0)
@@ -212,6 +180,24 @@ namespace Tangenta
                                         scond_Atom_Office_ID = "Atom_Office_ID is null";
                                         sval_Atom_Office_ID = "null";
                                     }
+
+                                    string scond_Atom_Person_ID = null;
+                                    string sval_Atom_Person_ID = "null";
+                                    if (Atom_Person_ID !=null)
+                                    {
+                                        string spar_Atom_Person_ID = "@par_Atom_Person_ID";
+                                        SQL_Parameter par_Atom_Person_ID = new SQL_Parameter(spar_Atom_Person_ID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Atom_Person_ID.v);
+                                        lpar.Add(par_Atom_Person_ID);
+                                        scond_Atom_Person_ID = "Atom_Person_ID = " + spar_Atom_Person_ID;
+                                        sval_Atom_Person_ID = spar_Atom_Person_ID;
+                                    }
+                                    else
+                                    {
+                                        scond_Atom_Person_ID = "Atom_Person_ID is null";
+                                        sval_Atom_Person_ID = "null";
+                                    }
+
+
                                     string scond_Job = null;
                                     string sval_Job = "null";
                                     if (Job_v != null)
@@ -243,7 +229,7 @@ namespace Tangenta
                                         sval_Description = "null";
                                     }
 
-                                    sql = @"select ID from atom_mycompany_person where ("+scond_UserName+") and ("+scond_FirstName+")and("+scond_LastName+") and ("+scond_Atom_Office_ID+")and("+scond_Job+")and("+scond_Description+")";
+                                    sql = @"select ID from atom_mycompany_person where ("+scond_UserName+") and ("+scond_Atom_Office_ID+ ") and (" + scond_Atom_Person_ID + ")and(" + scond_Job+")and("+scond_Description+")";
                                     dt.Clear();
                                     dt.Columns.Clear();
                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -255,7 +241,7 @@ namespace Tangenta
                                         }
                                         else
                                         {
-                                            sql = @"insert into  atom_mycompany_person (UserName,FirstName,LastName,Atom_Office_ID,Job,Description)values("+sval_UserName+","+sval_FirstName+","+sval_LastName+","+sval_Atom_Office_ID+","+sval_Job+","+sval_Description+")";
+                                            sql = @"insert into  atom_mycompany_person (UserName,Atom_Office_ID,Atom_Person_ID,Job,Description)values(" + sval_UserName+","+sval_Atom_Office_ID+"," + sval_Atom_Person_ID + "," + sval_Job+","+sval_Description+")";
                                             dt.Clear();
                                             dt.Columns.Clear();
                                             object oret = null;

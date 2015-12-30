@@ -40,6 +40,7 @@
             this.btn_Open.TabIndex = 0;
             this.btn_Open.Text = "Open";
             this.btn_Open.UseVisualStyleBackColor = true;
+            this.btn_Open.Click += new System.EventHandler(this.btn_Open_Click);
             // 
             // btn_SaveAs
             // 

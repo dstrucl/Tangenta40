@@ -155,6 +155,51 @@ namespace BlagajnaTableClass
     {
     }
 
+    public class Community:DB_varchar_250
+    {
+
+    }
+
+    public class CadastralNumber:DB_Int32
+    {
+
+    }
+
+    public class BuildingNumber : DB_Int32
+    {
+
+    }
+
+    public class BuildingSectionNumber:DB_Int32
+    {
+
+    }
+
+    public class PremiseType:DB_varchar_5
+    {
+
+    }
+
+    public class ValidityDate:DB_DateTime
+    {
+
+    }
+
+    public class ClosingTag : DB_varchar_5
+    {
+
+    }
+
+    public class SoftwareSupplier_TaxNumber: DB_varchar_10
+    {
+
+    }
+
+    public class SpecialNotes:DB_varchar_2000
+    {
+
+    }
+
     public class Name:DB_varchar_264
     {
     }
@@ -974,6 +1019,8 @@ namespace BlagajnaTableClass
         public Name Name = new Name();
     }
 
+
+
     public class Office_Data
     {
         public ID ID = new ID();
@@ -1042,12 +1089,12 @@ namespace BlagajnaTableClass
     {
         public ID ID = new ID();
         public Atom_Office m_Atom_Office = new Atom_Office();
-        public FirstName FirstName = new FirstName();
-        public LastName LastName = new LastName();
+        public Atom_Person m_Atom_Person = new Atom_Person();
         public UserName UserName = new UserName();
         public Job Job = new Job();
         public Description Description = new Description();
     }
+
 
     public class Atom_WorkingPlace
     {
@@ -1949,6 +1996,45 @@ namespace BlagajnaTableClass
         public bDefault bDefault = new bDefault();
     }
 
+    public class FVI_SLO_RealEstateBP
+    {
+        public ID ID = new ID();
+        public Office m_Office = new Office();
+        public Community Community = new Community();
+        public CadastralNumber CadastralNumber = new CadastralNumber();
+        public BuildingNumber BuildingNumber = new BuildingNumber();
+        public BuildingSectionNumber BuildingSectionNumber = new BuildingSectionNumber();
+        public PremiseType PremiseType = new PremiseType();
+        public ValidityDate ValidityDate = new ValidityDate();
+        public ClosingTag ClosingTag = new ClosingTag();
+        public SoftwareSupplier_TaxNumber SoftwareSupplier_TaxNumber = new SoftwareSupplier_TaxNumber();
+        public SpecialNotes SpecialNotes = new SpecialNotes();
+    }
+
+    public class Response_DateTime : DB_DateTime
+    {
+
+    }
+
+    public class MessageID:DB_varchar_45
+    {
+
+    }
+
+    public class UniqueInvoiceID:DB_varchar_45
+    {
+
+    }
+
+    public class FVI_SLO_Response
+    {
+        public ID ID = new ID();
+        public Invoice m_Invoice = new Invoice();
+        public Response_DateTime Response_DateTime = new Response_DateTime();
+        public MessageID MessageID = new MessageID();
+        public UniqueInvoiceID UniqueInvoiceID = new UniqueInvoiceID();
+    }
+
 
     public class SQL_Database_Tables_Definition
     {
@@ -2439,6 +2525,12 @@ namespace BlagajnaTableClass
 
         /* 172 */
         public doc_page_type m_doc_page_type = new doc_page_type();
+
+        /* 173 */
+        public FVI_SLO_RealEstateBP m_FVI_SLO_RealEstateBP = new FVI_SLO_RealEstateBP();
+
+        /* 174 */
+        public FVI_SLO_Response m_FVI_SLO_Response = new FVI_SLO_Response();
 
     }
 }

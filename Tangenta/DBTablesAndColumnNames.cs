@@ -142,8 +142,7 @@ namespace Tangenta
 
         public string colAtom_myCompany_Person_Atom_myCompany_ID;
         public string colAtom_myCompany_Person_as_Atom_myCompany_ID;
-        public string colAtom_myCompany_Person_FirstName;
-        public string colAtom_myCompany_Person_LastName;
+        public string colAtom_myCompany_Person_as_Atom_Person_ID;
         public string colAtom_myCompany_Person_Job;
         public string colAtom_myCompany_Person_UserName;
         public string colAtom_myCompany_Person_Description;
@@ -334,8 +333,7 @@ namespace Tangenta
 
              colAtom_myCompany_Person_Atom_myCompany_ID = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.m_Atom_Office.ID.GetType());
              colAtom_myCompany_Person_as_Atom_myCompany_ID = stbl_Atom_myCompany_Person_TableName + "_" + GetName(td.m_Atom_myCompany_Person.m_Atom_Office.ID.GetType());
-             colAtom_myCompany_Person_FirstName = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.FirstName.GetType());
-             colAtom_myCompany_Person_LastName = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.LastName.GetType());
+            colAtom_myCompany_Person_as_Atom_Person_ID = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.m_Atom_Person.ID.GetType());
              colAtom_myCompany_Person_Job = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.Job.GetType());
              colAtom_myCompany_Person_UserName = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.UserName.GetType());
              colAtom_myCompany_Person_Description = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.Description.GetType());

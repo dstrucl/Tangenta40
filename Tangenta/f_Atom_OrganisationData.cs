@@ -1,10 +1,12 @@
 ﻿using BlagajnaTableClass;
 using DBConnectionControl40;
 using DBTypes;
+using LanguageControl;
 using SQLTableControl;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -165,7 +167,7 @@ namespace Tangenta
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (Atom_OrganisationData_ID_v== null)
+                        if (Atom_OrganisationData_ID_v == null)
                         {
                             Atom_OrganisationData_ID_v = new long_v();
                         }
@@ -195,11 +197,157 @@ namespace Tangenta
                             Atom_OrganisationData_ID_v.v = Atom_OrganisationData_ID;
                             return true;
                         }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:f_Atom_OrganisationData:Get:sql=" + sql_insert + "\r\nErr=" + Err);
+                        }
                     }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_Atom_OrganisationData:Get:sql=" + sql_select + "\r\nErr=" + Err);
                 }
             }
             return false;
         }
 
+        public static bool GetData(long Atom_Organisation_ID,
+                                ref string Name,
+                                ref string Tax_ID,
+                                ref string Registration_ID,
+                                ref UniversalInvoice.Address Address,
+                                ref string PhoneNumber,
+                                ref string FaxNumber,
+                                ref string Email,
+                                ref string HomePage,
+                                ref string OrganisationType,
+                                ref string BankName,
+                                ref string BankAccount,
+                                ref string Logo_Hash,
+                                ref Image LogoImage,
+                                ref string Logo_Description
+                                )
+        {
+            string Err = null;
+            string sql = @"select 
+                            Atom_OrganisationData_$_aorg_$$Name,
+                                Atom_OrganisationData_$_aorg_$$Tax_ID,
+                                Atom_OrganisationData_$_aorg_$$Registration_ID,
+                                Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName,
+                                Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber,
+                                Atom_OrganisationData_$_acadrorg_$_acitorg_$$City,
+                                Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP,
+                                Atom_OrganisationData_$_acadrorg_$_astorg_$$State,
+                                Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country,
+                                Atom_OrganisationData_$_cphnnorg_$$PhoneNumber,
+                                Atom_OrganisationData_$_cfaxnorg_$$FaxNumber,
+                                Atom_OrganisationData_$_cemailorg_$$Email,
+                                Atom_OrganisationData_$_chomepgorg_$$HomePage,
+                                Atom_OrganisationData_$_orgt_$$OrganisationTYPE,
+                                Atom_OrganisationData_$$BankName,
+                                Atom_OrganisationData_$$TRR,
+                                Atom_OrganisationData_$_alogo.Image_Hash AS Atom_OrganisationData_$_alogo_$$Image_Hash,
+                                Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data,
+                                Atom_OrganisationData_$_alogo.Description AS Atom_OrganisationData_$_alogo_$$Description
+                                from Atom_OrganisationData_VIEW where Atom_OrganisationData_$_aorg_$$ID = " + Atom_Organisation_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    Name = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Name"]);
+                    Tax_ID = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Tax_ID"]);
+                    Registration_ID = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Registration_ID"]);
+                    Address.StreetName = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName"]);
+                    Address.HouseNumber = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]);
+                    Address.City = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acitorg_$$City"]);
+                    Address.ZIP = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP"]);
+                    Address.State = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$State"]);
+                    Address.Country = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country"]);
+                    PhoneNumber = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cphnnorg_$$PhoneNumber"]);
+                    FaxNumber = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cfaxnorg_$$FaxNumber"]);
+                    Email = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cemailorg_$$Email"]);
+                    HomePage = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_chomepgorg_$$HomePage"]);
+                    OrganisationType = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_orgt_$$OrganisationTYPE"]);
+                    BankName = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$$BankName"]);
+                    BankAccount = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$$TRR"]);
+                    Logo_Hash = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Hash AS Atom_OrganisationData_$_alogo_$$Image_Hash"]);
+                    LogoImage = DBTypes.func._set_Image(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data"]);
+                    Logo_Description = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_alogo.Description AS Atom_OrganisationData_$_alogo_$$Description"]);
+                    return true;
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_OrganisationData:GetData:sql=" + sql + "\r\nErr=" + Err);
+            }
+            return false;
+        }
+
+        public static UniversalInvoice.Organisation GetData(ltext token_prefix, long Atom_Organisation_ID)
+        {
+            string Err = null;
+            UniversalInvoice.Organisation univ_org = null;
+            string sql = @"select 
+                            Atom_OrganisationData_$_aorg_$$Name,
+                                Atom_OrganisationData_$_aorg_$$Tax_ID,
+                                Atom_OrganisationData_$_aorg_$$Registration_ID,
+                                Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName,
+                                Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber,
+                                Atom_OrganisationData_$_acadrorg_$_acitorg_$$City,
+                                Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP,
+                                Atom_OrganisationData_$_acadrorg_$_astorg_$$State,
+                                Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country,
+                                Atom_OrganisationData_$_cphnnorg_$$PhoneNumber,
+                                Atom_OrganisationData_$_cfaxnorg_$$FaxNumber,
+                                Atom_OrganisationData_$_cemailorg_$$Email,
+                                Atom_OrganisationData_$_chomepgorg_$$HomePage,
+                                Atom_OrganisationData_$_orgt_$$OrganisationTYPE,
+                                Atom_OrganisationData_$$BankName,
+                                Atom_OrganisationData_$$TRR,
+                                Atom_OrganisationData_$_alogo.Image_Hash AS Atom_OrganisationData_$_alogo_$$Image_Hash,
+                                Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data,
+                                Atom_OrganisationData_$_alogo.Description AS Atom_OrganisationData_$_alogo_$$Description
+                                from Atom_OrganisationData_VIEW where Atom_OrganisationData_$_aorg_$$ID = " + Atom_Organisation_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    univ_org = new UniversalInvoice.Organisation(token_prefix, DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Name"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Tax_ID"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Registration_ID"]),
+                                                         null,
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$$BankName"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$$TRR"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cemailorg_$$Email"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_chomepgorg_$$HomePage"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cphnnorg_$$PhoneNumber"]),
+                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cfaxnorg_$$FaxNumber"]),
+                                                         DBTypes.func._set_byte_array(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data"]),
+
+                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName"]),
+                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]),
+                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP"]),
+                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acitorg_$$City"]),
+                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$State"]),
+                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country"]));
+                    return univ_org;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_OrganisationData:GetData:sql=" + sql + "\r\nErr=" + Err);
+            }
+            return null;
+        }
     }
+
 }

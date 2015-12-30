@@ -81,6 +81,7 @@
     <Compile Include="Form_complex_text_edit.Designer.cs">
       <DependentUpon>Form_complex_text_edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="lngToken.cs" />
     <Compile Include="ltext.cs" />
     <Compile Include="Form_ltext_Edit.cs">
       <SubType>Form</SubType>

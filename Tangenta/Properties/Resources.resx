@@ -1569,4 +1569,63 @@
 &lt;/body&gt;
 &lt;/html&gt;</value>
   </data>
+  <data name="SaveHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveHtml.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FVI_SLO_BussinesPremises" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fu:BusinessPremiseRequest xmlns:fu="http://www.fu.gov.si/" Id="test"&gt;
+	&lt;fu:BusinessPremise&gt;
+		&lt;fu:TaxNumber&gt;@@DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
+		&lt;fu:BusinessPremiseID&gt;@@PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
+		&lt;fu:BPIdentifier&gt;
+			&lt;fu:RealEstateBP&gt;
+				&lt;fu:PropertyID&gt;
+					&lt;fu:CadastralNumber&gt;@@KatastrskaŠtevilkaPoslovneEnote&lt;/fu:CadastralNumber&gt;
+					&lt;fu:BuildingNumber&gt;@@ŠtevilkaStavbe&lt;/fu:BuildingNumber&gt;
+					&lt;fu:BuildingSectionNumber&gt;@ŠtevilkaDelaStavbe&lt;/fu:BuildingSectionNumber&gt;
+				&lt;/fu:PropertyID&gt;
+				&lt;fu:Address&gt;
+					&lt;fu:Street&gt;@@Blagajna_Naslov_Cesta&lt;/fu:Street&gt;
+					&lt;fu:HouseNumber&gt;@@Blagajna_Naslov_Hišna_Številka&lt;/fu:HouseNumber&gt;
+					&lt;fu:HouseNumberAdditional&gt;@@Blagajna_Naslov_Hišna_Številka_Dodatek&lt;/fu:HouseNumberAdditional&gt;
+					&lt;fu:Community&gt;@@Blagajna_Naslov_Krajevna_skupnost&lt;/fu:Community&gt;
+					&lt;fu:City&gt;@@Blagajna_Naslov_Kraj&lt;/fu:City&gt;
+					&lt;fu:PostalCode&gt;@@Blagajna_Naslov_Kraj&lt;/fu:PostalCode&gt;
+				&lt;/fu:Address&gt;
+			&lt;/fu:RealEstateBP&gt;
+		&lt;/fu:BPIdentifier&gt;
+		&lt;fu:ValidityDate&gt;@@DatumVeljavnosti&lt;/fu:ValidityDate&gt;
+		&lt;fu:SoftwareSupplier&gt;
+			&lt;fu:TaxNumber&gt;89304489&lt;/fu:TaxNumber&gt;
+		&lt;/fu:SoftwareSupplier&gt;
+		&lt;fu:SpecialNotes&gt;Prijava poslovnega prostora&lt;/fu:SpecialNotes&gt;
+	&lt;/fu:BusinessPremise&gt;
+&lt;/fu:BusinessPremiseRequest&gt;</value>
+  </data>
+  <data name="FVI_SLO_Invoice" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fu:InvoiceRequest xmlns:fu="http://www.fu.gov.si/" Id="test"&gt;
+	&lt;fu:Invoice&gt;
+		&lt;fu:TaxNumber&gt;@@DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
+		&lt;fu:IssueDateTime&gt;@@Datum_izdaje_računa&lt;/fu:IssueDateTime&gt;
+		&lt;fu:NumberingStructure&gt;B&lt;/fu:NumberingStructure&gt;
+		&lt;fu:InvoiceIdentifier&gt;
+			&lt;fu:BusinessPremiseID&gt;@@PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
+			&lt;fu:ElectronicDeviceID&gt;@@OznakaBlagajne&lt;/fu:ElectronicDeviceID&gt;
+			&lt;fu:InvoiceNumber&gt;@@ObračunskoLeto/@@ŠtevilkaRačuna&lt;/fu:InvoiceNumber&gt;
+		&lt;/fu:InvoiceIdentifier&gt;
+		&lt;fu:InvoiceAmount&gt;@@Cena_z_DDV&lt;/fu:InvoiceAmount&gt;
+		&lt;fu:PaymentAmount&gt;@@Cena_z_DDV&lt;/fu:PaymentAmount&gt;
+		&lt;fu:TaxesPerSeller&gt;
+			&lt;fu:VAT&gt;
+				&lt;fu:TaxRate&gt;@@DavčnaStopnja&lt;/fu:TaxRate&gt;
+				&lt;fu:TaxableAmount&gt;@@Cena_Brez_DDV&lt;/fu:TaxableAmount&gt;
+				&lt;fu:TaxAmount&gt;@@Davek&lt;/fu:TaxAmount&gt;
+			&lt;/fu:VAT&gt;
+		&lt;/fu:TaxesPerSeller&gt;
+		&lt;fu:OperatorTaxNumber&gt;@@DavčnaŠtevilkaOsebeKiJeIzdalaRačun&lt;/fu:OperatorTaxNumber&gt;
+	&lt;/fu:Invoice&gt;
+&lt;/fu:InvoiceRequest&gt;</value>
+  </data>
 </root>

@@ -20,7 +20,7 @@ namespace Tangenta
         DataTable dt_Item = new DataTable();
         SQLTableControl.DBTableControl dbTables = null;
         SQLTable tbl = null;
-        long_v ID_v = null;
+        public long_v ID_v = null;
         string ColumnOrderBy = "";
         private bool m_bChanged = false;
 
@@ -108,6 +108,7 @@ namespace Tangenta
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
+
             if (usrc_EditTable.Changed)
             {
                 if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
@@ -115,8 +116,19 @@ namespace Tangenta
                     usrc_EditTable.Save();
                 }
             }
+
+            long id = usrc_EditTable.Identity;
+
+            if (ID_v == null)
+            {
+                ID_v = new long_v();
+            }
+
+            ID_v.v = id;
+
             this.Close();
-            DialogResult = DialogResult.Yes;
+            DialogResult = DialogResult.OK;
+
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -186,7 +198,6 @@ namespace Tangenta
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Item"))
             {
-                
                 return false;
             }
             else

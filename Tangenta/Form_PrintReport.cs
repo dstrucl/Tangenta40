@@ -28,7 +28,7 @@ namespace Tangenta
 
         private void Form_PrintReport_Load(object sender, EventArgs e)
         {
-            this.m_usrc_Print.Init(-1, null, -1);
+            this.m_usrc_Print.Init(null);
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)

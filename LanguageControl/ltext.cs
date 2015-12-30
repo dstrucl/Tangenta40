@@ -48,6 +48,33 @@ namespace LanguageControl
             }
         }
 
+        public ltext AddAtTheEnd(ltext st_Address)
+        {
+            int i = 0;
+            ltext lt = null;
+            int iCount = this.sText.Count();
+            for (i=0;i< iCount;i++)
+            {
+                if (this.sText[i]!=null)
+                {
+                    if (lt==null)
+                    {
+                        lt = new ltext();
+                    }
+                    lt.sText[i] = this.sText[i];
+                    if (st_Address.sText[i]!=null)
+                    {
+                        lt.sText[i] = this.sText[i] + "_" + st_Address.sText[i];
+                    }
+                    else
+                    {
+                        lt.sText[i] = this.sText[i];
+                    }
+                }
+            }
+            return lt;
+        }
+
         public string GetText(int i)
         {
             if (complex_text_list == null)
