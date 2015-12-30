@@ -57,7 +57,8 @@ namespace UniversalInvoice
             PhoneNumber =           _PhoneNumber;
             FaxNumber =             _FaxNumber;
             Logo_Data =             _Logo_Data;
-            ltext token_prefix_Organisation = new ltext(token_prefix.sText[0] + "_Organisation", token_prefix.sText[1] + "_Organizacija");
+
+            ltext token_prefix_Organisation = token_prefix.AddAtTheEnd(lngToken.st_Organisation);
             Address = new Address(token_prefix_Organisation, StreetName,
                                     HouseNumber,
                                     ZIP,

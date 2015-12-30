@@ -58,7 +58,7 @@ namespace UniversalInvoice
             CardNumber = _CardNumber;
             CardType = _CardType;
             PersonImage = _PersonImage;
-            ltext token_prefix_Person = new ltext(token_prefix.sText[0] + "_Person", token_prefix.sText[0] + "_Oseba");
+            ltext token_prefix_Person = token_prefix.AddAtTheEnd(lngToken.st_Person);
             Address = new Address(token_prefix_Person, _StreetName,
                                            _HouseNumber,
                                            _ZIP,
@@ -77,8 +77,6 @@ namespace UniversalInvoice
                                     Email,
                                     CardNumber,
                                     CardType);
-
-
 
     }
 }

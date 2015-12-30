@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LanguageControl;
 
 namespace UniversalInvoice
 {
@@ -23,20 +24,24 @@ namespace UniversalInvoice
         public decimal TaxPrice;
         public decimal PriceWithTax;
 
-        public ItemSold(string _Item_Name,
-                            decimal _RetailPricePerUnit,
-                            string _UnitName,
-                            decimal _RetailPricePerUnitWithDiscount,
-                            string _TaxationName,
-                            decimal _dQuantity,
-                            decimal _Discount,
-                            decimal _ExtraDiscount,
-                            string _CurrencySymbol,
-                            decimal _TaxationRate,
-                            decimal _TotalDiscount,
-                            decimal _NetPrice,
-                            decimal _TaxPrice,
-                            decimal _PriceWithTax)
+       
+        public ItemSoldToken token = null;
+
+        public ItemSold(ltext token_prefix,
+                        string _Item_Name,
+                        decimal _RetailPricePerUnit,
+                        string _UnitName,
+                        decimal _RetailPricePerUnitWithDiscount,
+                        string _TaxationName,
+                        decimal _dQuantity,
+                        decimal _Discount,
+                        decimal _ExtraDiscount,
+                        string _CurrencySymbol,
+                        decimal _TaxationRate,
+                        decimal _TotalDiscount,
+                        decimal _NetPrice,
+                        decimal _TaxPrice,
+                        decimal _PriceWithTax)
         {
             Item_Name = _Item_Name;
             RetailPricePerUnit = _RetailPricePerUnit;
@@ -52,6 +57,24 @@ namespace UniversalInvoice
             NetPrice = _NetPrice;
             TaxPrice = _TaxPrice;
             PriceWithTax = _PriceWithTax;
-        }
+            ltext token_ItemSold = token_prefix.AddAtTheEnd(lngToken.st_Item);
+            token = new ItemSoldToken(token_ItemSold,
+                                    _Item_Name,
+                                    _RetailPricePerUnit,
+                                    _UnitName,
+                                    _RetailPricePerUnitWithDiscount,
+                                    _TaxationName,
+                                    _dQuantity,
+                                    _Discount,
+                                    _ExtraDiscount,
+                                    _CurrencySymbol,
+                                    _TaxationRate,
+                                    _TotalDiscount,
+                                    _NetPrice,
+                                    _TaxPrice,
+                                    _PriceWithTax);
+
+
     }
+}
 }

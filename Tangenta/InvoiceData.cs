@@ -84,14 +84,18 @@ namespace Tangenta
                                  aorgd.BankName,
                                  aorgd.TRR,
                                  aoff.Name as Atom_Office_Name,
-                                 amcp.UserName,
-                                 amcp.Job,
+                                 apfn.FirstName as My_Organisation_Person_FirstName,
+                                 apln.LastName as My_Organisation_Person_LastName,
+                                 ap.Tax_ID as My_Organisation_Tax_ID,
+                                 ap.CardNumber,
+                                 amcp.UserName as My_Organisation_Person_UserName,
+                                 amcp.Job as My_Organisation_Job,
                                  Atom_Logo.Image_Hash as Logo_Hash,
                                  Atom_Logo.Image_Data as Logo_Data,
                                  Atom_Logo.Description as Logo_Description,
                                  acusorg.ID as Atom_Customer_Org_ID,
-                                 acusper.ID as Atom_Customer_Person_ID                                 
-                                 from JOURNAL_ProformaInvoice 
+                                 acusper.ID as Atom_Customer_Person_ID
+                                 from JOURNAL_ProformaInvoice
                                  inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
                                  inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
@@ -102,6 +106,8 @@ namespace Tangenta
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                  left join Invoice inv on pi.Invoice_ID = inv.ID
+                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
+                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                  left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
                                  left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
                                  left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
@@ -202,6 +208,12 @@ namespace Tangenta
         {
             string s = "";
 
+            UniversalInvoice.InvoiceToken xInvoiceToken = new UniversalInvoice.InvoiceToken();
+            foreach (UniversalInvoice.TemplateToken tt in xInvoiceToken.list)
+            {
+                s += "\r\n" + tt.lt.s;
+            }
+
             ltext ltMy = new ltext("My", "Moja");
             UniversalInvoice.Organisation xMyOrganisation = new UniversalInvoice.Organisation(ltMy, 
                                                        null,
@@ -288,6 +300,7 @@ namespace Tangenta
             {
                 s += "\r\n" + tt.lt.s;
             }
+
             return s;
         }
 

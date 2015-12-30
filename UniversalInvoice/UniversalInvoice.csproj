@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="AddressToken.cs" />
+    <Compile Include="InvoiceToken.cs" />
     <Compile Include="InvoiceTemplate.cs" />
+    <Compile Include="ItemSoldToken.cs" />
     <Compile Include="Organisation.cs" />
     <Compile Include="OrganisationToken.cs" />
     <Compile Include="Person.cs" />

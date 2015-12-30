@@ -35,7 +35,7 @@ namespace UniversalInvoice
             City = _City;
             State = _State;
             Country = _Country;
-            ltext ltAddress_prefix = new ltext(token_prefix.sText[0] + "_Address", token_prefix.sText[1] + "_Naslov");
+            ltext ltAddress_prefix = token_prefix.AddAtTheEnd(lngToken.st_Address);
             token = new AddressToken(ltAddress_prefix,
                                     StreetName,
                                     HouseNumber,
