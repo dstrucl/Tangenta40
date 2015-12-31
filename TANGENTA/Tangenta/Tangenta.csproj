@@ -1,0 +1,1147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{662FD7D1-52B0-4473-B0B2-B7D35D610FB2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tangenta</RootNamespace>
+    <AssemblyName>Tangenta</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Blagajna_Icon.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Excell_Export, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="StarIO, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StarIO_dll\StarIO.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Address.cs" />
+    <Compile Include="Atom_ProformaInvoice_Price_Item_Stock.cs" />
+    <Compile Include="Basket.cs" />
+    <Compile Include="Columns_Price_Item_Stock.cs" />
+    <Compile Include="Database_Upgrade_WindowsForm_Thread.cs" />
+    <Compile Include="DURS_Izpis_Postavka.cs" />
+    <Compile Include="EscPos_RP58 .cs" />
+    <Compile Include="EscPos_RP80.cs" />
+    <Compile Include="EscPos_Star_TSP100.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Form_CodeTables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_CodeTables.Designer.cs">
+      <DependentUpon>Form_CodeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Expiry_Check.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Expiry_Check.Designer.cs">
+      <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Templates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Templates.Designer.cs">
+      <DependentUpon>Form_Templates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_OrganisationAccount_Edit.Designer.cs">
+      <DependentUpon>Form_OrganisationAccount_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Print_A4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Print_A4.Designer.cs">
+      <DependentUpon>Form_Print_A4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Payment.Designer.cs">
+      <DependentUpon>Form_Payment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SimpleItemGroups_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SimpleItemGroups_Edit.Designer.cs">
+      <DependentUpon>Form_SimpleItemGroups_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ItemGroups_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ItemGroups_Edit.Designer.cs">
+      <DependentUpon>Form_ItemGroups_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Logo_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Logo_Edit.Designer.cs">
+      <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Stock_Address_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Stock_Address_Edit.Designer.cs">
+      <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_TemplateTokens.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_TemplateTokens.Designer.cs">
+      <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_TermsOfPayment_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_TermsOfPayment_Edit.Designer.cs">
+      <DependentUpon>Form_TermsOfPayment_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DBSettings_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DBSettings_Edit.Designer.cs">
+      <DependentUpon>Form_DBSettings_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Warranty_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Warranty_Edit.Designer.cs">
+      <DependentUpon>Form_Warranty_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Expiry_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Expiry_Edit.Designer.cs">
+      <DependentUpon>Form_Expiry_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_WorkingPlace_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_WorkingPlace_Edit.Designer.cs">
+      <DependentUpon>Form_WorkingPlace_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Unit_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Unit_Edit.Designer.cs">
+      <DependentUpon>Form_Unit_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Customer_Org_Edit.Designer.cs">
+      <DependentUpon>Form_Customer_Org_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Customer_Person_Edit.Designer.cs">
+      <DependentUpon>Form_Customer_Person_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DURS_FilesPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DURS_FilesPreview.Designer.cs">
+      <DependentUpon>Form_DURS_FilesPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DURS_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DURS_output.Designer.cs">
+      <DependentUpon>Form_DURS_output.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Customer_Assign.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Customer_Assign.Designer.cs">
+      <DependentUpon>Form_Customer_Assign.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PrintReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PrintReport.Designer.cs">
+      <DependentUpon>Form_PrintReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_from_Stock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_from_Stock.Designer.cs">
+      <DependentUpon>Form_Select_from_Stock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_TimeSpan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_TimeSpan.Designer.cs">
+      <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Storno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Storno.Designer.cs">
+      <DependentUpon>Form_Storno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Currency_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Currency_Edit.Designer.cs">
+      <DependentUpon>Form_Currency_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_FilesPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_FilesPreview.Designer.cs">
+      <DependentUpon>Form_VODxml_OPAL_FilesPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_VODxml_OPAL_output.Designer.cs">
+      <DependentUpon>Form_VODxml_OPAL_output.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_XML_FilesPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_XML_FilesPreview.Designer.cs">
+      <DependentUpon>Form_XML_FilesPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_XML_output.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_XML_output.Designer.cs">
+      <DependentUpon>Form_XML_output.cs</DependentUpon>
+    </Compile>
+    <Compile Include="f_Atom_cAddress_Org.cs" />
+    <Compile Include="f_Atom_Computer.cs" />
+    <Compile Include="f_Atom_Customer_Org.cs" />
+    <Compile Include="f_Atom_Customer_Person.cs" />
+    <Compile Include="f_Atom_Logo.cs" />
+    <Compile Include="f_Atom_OrganisationData.cs" />
+    <Compile Include="f_Atom_Person.cs" />
+    <Compile Include="f_doc.cs" />
+    <Compile Include="f_doc_page_type.cs" />
+    <Compile Include="f_doc_type.cs" />
+    <Compile Include="f_JOURNAL_Stock.cs" />
+    <Compile Include="f_Language.cs" />
+    <Compile Include="f_Office.cs" />
+    <Compile Include="f_Atom_Organisation.cs" />
+    <Compile Include="f_Atom_WorkPeriod.cs" />
+    <Compile Include="f_Atom_WorkPeriod_Type.cs" />
+    <Compile Include="f_Atom_WorkingPlace.cs" />
+    <Compile Include="f_Journal_ProformaInvoice.cs" />
+    <Compile Include="f_Journal_Invoice.cs" />
+    <Compile Include="f_Atom_Office.cs" />
+    <Compile Include="f_PurchasePrice_Item.cs" />
+    <Compile Include="f_WorkingPlace.cs" />
+    <Compile Include="InvoiceData.cs" />
+    <Compile Include="Item_Data.cs" />
+    <Compile Include="JOURNAL_ProformaInvoice_Type_definitions.cs" />
+    <Compile Include="Form_OrganisationAccount_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PersonAccount_Edit .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PersonAccount_Edit .Designer.cs">
+      <DependentUpon>Form_PersonAccount_Edit .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_OrganisationData_Edi .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_OrganisationData_Edi .Designer.cs">
+      <DependentUpon>Form_OrganisationData_Edi .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PersonData_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PersonData_Edit.Designer.cs">
+      <DependentUpon>Form_PersonData_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Customer_Org_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="f_CurrencyAtom.cs" />
+    <Compile Include="f_Atom_myCompany.cs" />
+    <Compile Include="f_Atom_myCompany_Person.cs" />
+    <Compile Include="f_PriceAtom_ServiceAtom.cs" />
+    <Compile Include="f_PriceList.cs" />
+    <Compile Include="f_PriceListAtom.cs" />
+    <Compile Include="f_SimpleItemAtom.cs" />
+    <Compile Include="f_SimpleItemAtom_Image.cs" />
+    <Compile Include="f_SimpleItemAtom_Name.cs" />
+    <Compile Include="fs.cs" />
+    <Compile Include="f_TaxationAtom.cs" />
+    <Compile Include="Form_Customer_Person_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PriceList_NotComplete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PriceList_NotComplete.Designer.cs">
+      <DependentUpon>Form_PriceList_NotComplete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Printer.cs" />
+    <Compile Include="ProformaInvoice_Connection_Class.cs" />
+    <Compile Include="Form_Payment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PaymentCash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PaymentCash.Designer.cs">
+      <DependentUpon>Form_PaymentCash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Return_to_shop_shelf_data.cs" />
+    <Compile Include="ShopShelf.cs" />
+    <Compile Include="Stock_Data.cs" />
+    <Compile Include="Form_StockItem_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_StockItem_Edit.Designer.cs">
+      <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SumPayment.cs" />
+    <Compile Include="TaxSum.cs" />
+    <Compile Include="usrc_checkmark.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_checkmark.Designer.cs">
+      <DependentUpon>usrc_checkmark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_CodeTables.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_CodeTables.Designer.cs">
+      <DependentUpon>usrc_CodeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Customer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Customer.Designer.cs">
+      <DependentUpon>usrc_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_DBSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_DBSettings.Designer.cs">
+      <DependentUpon>usrc_DBSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_InvoiceMan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_InvoiceMan.Designer.cs">
+      <DependentUpon>usrc_InvoiceMan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_InvoiceTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_InvoiceTable.Designer.cs">
+      <DependentUpon>usrc_InvoiceTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Invoice_Preview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Invoice_Preview.Designer.cs">
+      <DependentUpon>usrc_Invoice_Preview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Main.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Main.Designer.cs">
+      <DependentUpon>usrc_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_PrintExistingInvoice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_PrintExistingInvoice.Designer.cs">
+      <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Payment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Payment.Designer.cs">
+      <DependentUpon>usrc_Payment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Printer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Printer.Designer.cs">
+      <DependentUpon>usrc_Printer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_PurchasePriceList_Edit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_PurchasePriceList_Edit.Designer.cs">
+      <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Upgrade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Upgrade.Designer.cs">
+      <DependentUpon>usrc_Upgrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uwpf_UndefinedPriceForItem.xaml.cs">
+      <DependentUpon>uwpf_UndefinedPriceForItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShopShelf_Source.cs" />
+    <Compile Include="xCurrencyList.cs" />
+    <Compile Include="Form_PriceList_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PriceList_Edit.Designer.cs">
+      <DependentUpon>Form_PriceList_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Select_DefaultCurrency.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Select_DefaultCurrency.Designer.cs">
+      <DependentUpon>Form_Select_DefaultCurrency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Stock_AvoidStock_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Stock_AvoidStock_Edit.Designer.cs">
+      <DependentUpon>Form_Stock_AvoidStock_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_ItemAtom_View.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ItemAtom_View.Designer.cs">
+      <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>
+    </Compile>
+    <Compile Include="myCompany.cs" />
+    <Compile Include="Form_Taxation_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Taxation_Edit.Designer.cs">
+      <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemAtom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemAtom.Designer.cs">
+      <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBTablesAndColumnNames.cs" />
+    <Compile Include="CurrentInvoice.cs" />
+    <Compile Include="Employees.cs" />
+    <Compile Include="InvoiceDB.cs" />
+    <Compile Include="Form_Discount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Discount.Designer.cs">
+      <DependentUpon>Form_Discount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Stock_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Stock_Edit.Designer.cs">
+      <DependentUpon>Form_Stock_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Item_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Item_Edit.Designer.cs">
+      <DependentUpon>Form_Item_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleDB_Data.cs" />
+    <Compile Include="Form_SimpleItem_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SimpleItem_Edit.Designer.cs">
+      <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataGridViewButtonImageCell.cs" />
+    <Compile Include="DataGridViewButtonImageColumn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataGridViewImageButtonSelectCell.cs" />
+    <Compile Include="Form_Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Settings.Designer.cs">
+      <DependentUpon>Form_Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_MyCompany_Person_Data_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_MyCompany_Person_Data_Edit.Designer.cs">
+      <DependentUpon>Form_MyCompany_Person_Data_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form_CodeTables.resx">
+      <DependentUpon>Form_CodeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Expiry_Check.resx">
+      <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Templates.resx">
+      <DependentUpon>Form_Templates.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_OrganisationAccount_Edit.resx">
+      <DependentUpon>Form_OrganisationAccount_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Print_A4.resx">
+      <DependentUpon>Form_Print_A4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Payment.resx">
+      <DependentUpon>Form_Payment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SimpleItemGroups_Edit.resx">
+      <DependentUpon>Form_SimpleItemGroups_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ItemGroups_Edit.resx">
+      <DependentUpon>Form_ItemGroups_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Logo_Edit.resx">
+      <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Stock_Address_Edit.resx">
+      <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_TemplateTokens.resx">
+      <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_TermsOfPayment_Edit.resx">
+      <DependentUpon>Form_TermsOfPayment_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DBSettings_Edit.resx">
+      <DependentUpon>Form_DBSettings_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Warranty_Edit.resx">
+      <DependentUpon>Form_Warranty_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Expiry_Edit.resx">
+      <DependentUpon>Form_Expiry_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_WorkingPlace_Edit.resx">
+      <DependentUpon>Form_WorkingPlace_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Unit_Edit.resx">
+      <DependentUpon>Form_Unit_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Customer_Org_Edit.resx">
+      <DependentUpon>Form_Customer_Org_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Customer_Person_Edit.resx">
+      <DependentUpon>Form_Customer_Person_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DURS_FilesPreview.resx">
+      <DependentUpon>Form_DURS_FilesPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DURS_output.resx">
+      <DependentUpon>Form_DURS_output.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Customer_Assign.resx">
+      <DependentUpon>Form_Customer_Assign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PrintReport.resx">
+      <DependentUpon>Form_PrintReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_from_Stock.resx">
+      <DependentUpon>Form_Select_from_Stock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_TimeSpan.resx">
+      <DependentUpon>Form_Select_TimeSpan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Storno.resx">
+      <DependentUpon>Form_Storno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Currency_Edit.resx">
+      <DependentUpon>Form_Currency_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_VODxml_OPAL_FilesPreview.resx">
+      <DependentUpon>Form_VODxml_OPAL_FilesPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_VODxml_OPAL_output.resx">
+      <DependentUpon>Form_VODxml_OPAL_output.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_XML_FilesPreview.resx">
+      <DependentUpon>Form_XML_FilesPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_XML_output.resx">
+      <DependentUpon>Form_XML_output.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PersonAccount_Edit .resx">
+      <DependentUpon>Form_PersonAccount_Edit .cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_OrganisationData_Edi .resx">
+      <DependentUpon>Form_OrganisationData_Edi .cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PersonData_Edit.resx">
+      <DependentUpon>Form_PersonData_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PriceList_NotComplete.resx">
+      <DependentUpon>Form_PriceList_NotComplete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PaymentCash.resx">
+      <DependentUpon>Form_PaymentCash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_StockItem_Edit.resx">
+      <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_checkmark.resx">
+      <DependentUpon>usrc_checkmark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_CodeTables.resx">
+      <DependentUpon>usrc_CodeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Customer.resx">
+      <DependentUpon>usrc_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_DBSettings.resx">
+      <DependentUpon>usrc_DBSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_InvoiceMan.resx">
+      <DependentUpon>usrc_InvoiceMan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_InvoiceTable.resx">
+      <DependentUpon>usrc_InvoiceTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Invoice_Preview.resx">
+      <DependentUpon>usrc_Invoice_Preview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Main.resx">
+      <DependentUpon>usrc_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_PrintExistingInvoice.resx">
+      <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Payment.resx">
+      <DependentUpon>usrc_Payment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Printer.resx">
+      <DependentUpon>usrc_Printer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_PurchasePriceList_Edit.resx">
+      <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PriceList_Edit.resx">
+      <DependentUpon>Form_PriceList_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Select_DefaultCurrency.resx">
+      <DependentUpon>Form_Select_DefaultCurrency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Stock_AvoidStock_Edit.resx">
+      <DependentUpon>Form_Stock_AvoidStock_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_ItemAtom_View.resx">
+      <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Taxation_Edit.resx">
+      <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemAtom.resx">
+      <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Discount.resx">
+      <DependentUpon>Form_Discount.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Stock_Edit.resx">
+      <DependentUpon>Form_Stock_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Item_Edit.resx">
+      <DependentUpon>Form_Item_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SimpleItem_Edit.resx">
+      <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Settings.resx">
+      <DependentUpon>Form_Settings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_MyCompany_Person_Data_Edit.resx">
+      <DependentUpon>Form_MyCompany_Person_Data_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_StartupWindow.resx">
+      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Invoice.resx">
+      <DependentUpon>usrc_Invoice.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Item.resx">
+      <DependentUpon>usrc_Item.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemAtomsList.resx">
+      <DependentUpon>usrc_ItemAtomsList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemAtom_View.resx">
+      <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemList.resx">
+      <DependentUpon>usrc_ItemList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_ItemMan.resx">
+      <DependentUpon>usrc_ItemMan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_PriceList.resx">
+      <DependentUpon>usrc_PriceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_PriceList_Edit.resx">
+      <DependentUpon>usrc_PriceList_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Price_ItemOrService.resx">
+      <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_SimpleItemMan.resx">
+      <DependentUpon>usrc_SimpleItemMan.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="usrc_Upgrade.resx">
+      <DependentUpon>usrc_Upgrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Form_StartupWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_StartupWindow.designer.cs">
+      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StartupWindowThread.cs" />
+    <Compile Include="usrc_Invoice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Invoice.Designer.cs">
+      <DependentUpon>usrc_Invoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Item.Designer.cs">
+      <DependentUpon>usrc_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemAtomsList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemAtomsList.Designer.cs">
+      <DependentUpon>usrc_ItemAtomsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemAtom_View.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemAtom_View.Designer.cs">
+      <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemList.Designer.cs">
+      <DependentUpon>usrc_ItemList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_ItemMan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_ItemMan.Designer.cs">
+      <DependentUpon>usrc_ItemMan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_PriceList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_PriceList.Designer.cs">
+      <DependentUpon>usrc_PriceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_PriceList_Edit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_PriceList_Edit.Designer.cs">
+      <DependentUpon>usrc_PriceList_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Price_ItemOrService.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Price_ItemOrService.Designer.cs">
+      <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_SimpleItemMan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_SimpleItemMan.Designer.cs">
+      <DependentUpon>usrc_SimpleItemMan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XML_Izpis_Postavka.cs" />
+    <Compile Include="xPriceList.cs" />
+    <Compile Include="xTaxation.cs" />
+    <Compile Include="xUnitList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
+      <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
+      <Name>ComboBox_Recent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\CommandLineHelp\CommandLineHelp.csproj">
+      <Project>{5c02a9ff-0e40-4f63-89c5-8afcd9d4869d}</Project>
+      <Name>CommandLineHelp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+      <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
+      <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
+      <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
+      <Name>usrc_Item_Group_Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\usrc_Help\usrc_Help.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>usrc_Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
+      <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
+      <Name>usrc_Item_PageHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\XMessage\XMessage.csproj">
+      <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
+      <Name>XMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\DBConectionControl40\DBConnectionControl40.csproj">
+      <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
+      <Name>DBConnectionControl40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\DBSync\DBSync.csproj">
+      <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
+      <Name>DBSync</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\DBTypes\DBTypes.csproj">
+      <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\SQLTableControl\SQLTableControl.csproj">
+      <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
+      <Name>SQLTableControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
+      <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
+      <Name>FiscalVerificationOfInvoices_SLO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StaticLib\StaticLib.csproj">
+      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
+      <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\ProgramDiagnostic\ProgramDiagnostic.csproj">
+      <Project>{88f14aad-b6bc-415a-9195-c3314addea6f}</Project>
+      <Name>ProgramDiagnostic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
+      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
+      <Name>BlagajnaDataBaseDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>BlagajnaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
+      <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
+      <Name>UniversalInvoice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uwpf_GUI\uwpfGUI.csproj">
+      <Project>{f0cc2d06-fa8d-4b08-8b7c-9e0e03babdc3}</Project>
+      <Name>uwpfGUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditAndViewInvoice.bmp" />
+    <None Include="Resources\EditDataBase.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectService.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectServiceHot.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectServiceDisabled.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeSelectService1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeSelectServiceDisabled.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DiscountDisabled.bmp" />
+    <None Include="Resources\DiscountHot.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MyCompany.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_NoStock.bmp" />
+    <None Include="Resources\Item_Stock.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Manikira.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nega Obraza.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pedikira.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VITAMIN PACKUNG.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VITAMIN SUPREME.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Active Concentrate Repair Complex.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Beautipharm Self Bronzer.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Discount_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_Stock_Return.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_NoStock_Return.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shopping_Basket.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RemoveFromBox.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stock_EditForm.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Item_EditForm_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ItemAtom_ViewForm_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blagajna_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RemoveFromBoxToFactory.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 30 HIGH.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 20 MEDIUM.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 12 BASIC.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Currency_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PriceList.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tax_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NoStock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark_No.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cash.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ToPrint.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer %281%29.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="uwpf_UndefinedPriceForItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBSettings.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UpgradeDataBase.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ViewInvoice.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TimeSpan.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectTimeSpan.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PrintIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CustomerOnInvoice.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RemoveAll.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ItemStock_Edit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WorkingPlace.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Units.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Expiry.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Warranty.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TermsOfPayment.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StockPlaces.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings_in_DB.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CompanyLogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CodeTables.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ItemGroups.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SimpleItemGroups.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\SaveHtml.bmp" />
+    <None Include="Resources\SelectRow.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
