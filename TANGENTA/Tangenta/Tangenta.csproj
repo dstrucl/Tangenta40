@@ -867,6 +867,10 @@
       <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
       <Name>usrc_Item_Group_Handler</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\usrc_Help\usrc_Help.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>usrc_Help</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CONTROLS\usrc_Item_PageHandler\usrc_Item_PageHandler.csproj">
       <Project>{309c0f02-a471-4de2-844f-eee0b58a05bf}</Project>
       <Name>usrc_Item_PageHandler</Name>
@@ -918,6 +922,10 @@
     <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>BlagajnaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
+      <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
+      <Name>UniversalInvoice</Name>
     </ProjectReference>
     <ProjectReference Include="..\uwpf_GUI\uwpfGUI.csproj">
       <Project>{f0cc2d06-fa8d-4b08-8b7c-9e0e03babdc3}</Project>
