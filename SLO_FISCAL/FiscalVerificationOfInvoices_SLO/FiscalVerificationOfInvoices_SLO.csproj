@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{61CA81C7-7F82-4744-A8DE-FBE9972E7EE8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FiscalVerificationOfInvoices_SLO</RootNamespace>
+    <AssemblyName>FiscalVerificationOfInvoices_SLO</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CircularBuffer_usrc_FVI_SLO_Message.cs" />
+    <Compile Include="CircularBuffer_Thread_FVI_Message.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Thread_FVI.cs" />
+    <Compile Include="Thread_FVI_Message.cs" />
+    <Compile Include="Thread_FVI_MessageBox.cs" />
+    <Compile Include="usrc_FVI_SLO.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_FVI_SLO.Designer.cs">
+      <DependentUpon>usrc_FVI_SLO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_FVI_SLO_Message.cs" />
+    <Compile Include="usrc_FVI_SLO_MessageBox.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_FVI_SLO.resx">
+      <DependentUpon>usrc_FVI_SLO.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\TAX_Office_Transmission_0.bmp" />
+    <None Include="Resources\TAX_Office_Transmission_1.bmp" />
+    <None Include="Resources\TAX_Office_Transmission_2.bmp" />
+    <None Include="Resources\TAX_Office_Transmission_3.bmp" />
+    <None Include="Resources\TAX_Office_Transmission_6.bmp" />
+    <None Include="Resources\TAX_Office_Transmission_7.bmp" />
+    <None Include="Resources\TAX_Office_Transmission_8.bmp" />
+    <None Include="Resources\TAX_Office_Transmission_9.bmp" />
+    <None Include="Resources\TAX_Office_Transmission_OK.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TAX_Office_Transmission_4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TAX_Office_Transmission_10.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TAX_Office_Connection_OK.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\TAX_Office_Transmission_ERROR.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SLOTaxService\SLOTaxService.csproj">
+      <Project>{b2f0a646-91f9-4ddb-aadd-f7a8c1d97fd7}</Project>
+      <Name>SLOTaxService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3B62990E-C7E0-4748-B1EA-B977FD596021}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DB</RootNamespace>
+    <AssemblyName>DB</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DBSync.cs" />
+    <Compile Include="Form_GetDBType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_GetDBType.Designer.cs">
+      <DependentUpon>Form_GetDBType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DBmanager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DBmanager.Designer.cs">
+      <DependentUpon>Form_DBmanager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_StartupWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_StartupWindow.designer.cs">
+      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SQLite_Support.cs" />
+    <Compile Include="StartupWindowThread.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\POS\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
+      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
+      <Name>BlagajnaDataBaseDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\POS\BlagajnaTableClass\BlagajnaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>BlagajnaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBConectionControl40\DBConnectionControl40.csproj">
+      <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
+      <Name>DBConnectionControl40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBConnectionControl_Settings\DBConnectionControl_Settings.csproj">
+      <Project>{e5865963-2dc3-4f0d-b80c-76a1092e43e4}</Project>
+      <Name>DBConnectionControl_Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SQLTableControl\SQLTableControl.csproj">
+      <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
+      <Name>SQLTableControl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form_GetDBType.resx">
+      <DependentUpon>Form_GetDBType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_DBmanager.resx">
+      <DependentUpon>Form_DBmanager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_StartupWindow.resx">
+      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DBType.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

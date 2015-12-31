@@ -1,0 +1,593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9E74DCDB-34E6-41CB-B677-C9A0D6C4C10D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SQLTableControl</RootNamespace>
+    <AssemblyName>SQLTableControl</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Excell_Export, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ASet.cs" />
+    <Compile Include="CreateTables_WindowsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateTables_WindowsForm.Designer.cs">
+      <DependentUpon>CreateTables_WindowsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateTables_WindowsForm_Thread.cs" />
+    <Compile Include="DataBaseView.cs" />
+    <Compile Include="DefWinowsPos.cs" />
+    <Compile Include="Document_Box.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form_Currency_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Currency_Edit.Designer.cs">
+      <DependentUpon>Form_Currency_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Taxation_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Taxation_Edit.Designer.cs">
+      <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IndexBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InputControl_DataBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InputControl_DataBox.Designer.cs">
+      <DependentUpon>InputControl_DataBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputControl_Document.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InputControl_Document.Designer.cs">
+      <DependentUpon>InputControl_Document.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pic_Changed.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SQL_Table.Insert.cs" />
+    <Compile Include="JoinList_for_SQLView_InDataBase.cs" />
+    <Compile Include="MyControl.cs" />
+    <Compile Include="Picture_Box.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ResizeImage_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResizeImage_Form.Designer.cs">
+      <DependentUpon>ResizeImage_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SQLTable.DeleteRows.cs" />
+    <Compile Include="SQLTable.SQLView.InDatabase.cs" />
+    <Compile Include="SQLTable.Update.cs" />
+    <Compile Include="SQLTableControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SQLTableControl.Designer.cs">
+      <DependentUpon>SQLTableControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\myPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\SelectID_Table_Assistant_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\SelectID_Table_Assistant_Form.Designer.cs">
+      <DependentUpon>SelectID_Table_Assistant_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\EditTable_Assistant_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\EditTable_Assistant_Form.Designer.cs">
+      <DependentUpon>EditTable_Assistant_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\SelectViewListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\SelectView_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\SelectView_Form.Designer.cs">
+      <DependentUpon>SelectView_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\CreateView_Form.CurViewXml.cs" />
+    <Compile Include="SQLTable.SQLView.cs" />
+    <Compile Include="Column.cs" />
+    <Compile Include="Col_class.cs" />
+    <Compile Include="DefineView_GroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EditControl.cs" />
+    <Compile Include="ForeignKey.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="GraphicsExtension.cs" />
+    <Compile Include="InsertData_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertData_Form.Designer.cs">
+      <DependentUpon>InsertData_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyTabControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SourceText.cs" />
+    <Compile Include="SQLTable.Select.cs" />
+    <Compile Include="SQL_Table.CreateInputControls.cs" />
+    <Compile Include="SQL_Table.Create_DefineView_InputControls.cs" />
+    <Compile Include="SQL_Table.FillData.cs" />
+    <Compile Include="SQL_Table.cs" />
+    <Compile Include="SQL_Table.GetTableData.cs" />
+    <Compile Include="DefineView_InputControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\CreateView_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\CreateView_Form.Designer.cs">
+      <DependentUpon>CreateView_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\DataTable_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\DataTable_Form.Designer.cs">
+      <DependentUpon>DataTable_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\EditTable_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\EditTable_Form.Designer.cs">
+      <DependentUpon>EditTable_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\SaveView_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\SaveView_Form.Designer.cs">
+      <DependentUpon>SaveView_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\TableDockingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\TableDockingForm.Designer.cs">
+      <DependentUpon>TableDockingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\TableView_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\TableView_Form.Designer.cs">
+      <DependentUpon>TableView_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\TextEditorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\TextEditorDialog.Designer.cs">
+      <DependentUpon>TextEditorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\usrc_EditRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\usrc_EditRow.Designer.cs">
+      <DependentUpon>usrc_EditRow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableDocking_Form\usrc_EditTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TableDocking_Form\usrc_EditTable.Designer.cs">
+      <DependentUpon>usrc_EditTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableNames.cs" />
+    <Compile Include="UniqueNames.cs" />
+    <Compile Include="usrc_CheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="usrc_InputControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_InputControl.Designer.cs">
+      <DependentUpon>usrc_InputControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_InputControl_DateTimePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_InputControl_DateTimePicker.Designer.cs">
+      <DependentUpon>usrc_InputControl_DateTimePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_InputControl_Label.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_InputControl_Label.Designer.cs">
+      <DependentUpon>usrc_InputControl_Label.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_myGroupBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_myGroupBox.Designer.cs">
+      <DependentUpon>usrc_myGroupBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_NumericUpDown.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_NumericUpDown.Designer.cs">
+      <DependentUpon>usrc_NumericUpDown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_RadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="usrc_RowReferencedFromTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_RowReferencedFromTable.Designer.cs">
+      <DependentUpon>usrc_RowReferencedFromTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_RowReferencedFromTable_List_Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="usrc_RowReferencedFromTable_List_Dialog.Designer.cs">
+      <DependentUpon>usrc_RowReferencedFromTable_List_Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xml.cs" />
+    <Compile Include="Tools\ParseErrorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\ParseErrorDialog.designer.cs">
+      <DependentUpon>ParseErrorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Virtual Secretary\VirtualSecretary_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Virtual Secretary\VirtualSecretary_Form.Designer.cs">
+      <DependentUpon>VirtualSecretary_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Virtual Secretary\VirtualSecretary_Thread.cs" />
+    <Compile Include="Virtual Secretary\WaitRandomDataParamSettingsDialogClosed_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Virtual Secretary\WaitRandomDataParamSettingsDialogClosed_Form.Designer.cs">
+      <DependentUpon>WaitRandomDataParamSettingsDialogClosed_Form.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CONTROLS\Crom.Controls\Crom.Controls.csproj">
+      <Project>{F2999C1D-BED3-4D47-A8AC-8027334ECDC1}</Project>
+      <Name>Crom.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+      <Project>{3A0F6691-D8D0-4005-902A-215DA5F671B4}</Project>
+      <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBConectionControl40\DBConnectionControl40.csproj">
+      <Project>{322AF3BF-B609-477D-9D2B-39A9BBBBC721}</Project>
+      <Name>DBConnectionControl40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBTypes\DBTypes.csproj">
+      <Project>{3C726999-1AD1-4321-8D63-D1136A3F071C}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\DigitalRune.Windows.TextEditor\DigitalRune.Windows.TextEditor.csproj">
+      <Project>{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}</Project>
+      <Name>DigitalRune.Windows.TextEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968F4-DD18-406E-93A5-9EA7BEFCD0B0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6B46E1F3-1818-4AF1-B63F-19E31C6B6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StaticLib\StaticLib.csproj">
+      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
+      <Name>StaticLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form_Currency_Edit.resx">
+      <DependentUpon>Form_Currency_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Taxation_Edit.resx">
+      <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControl_DataBox.resx">
+      <DependentUpon>InputControl_DataBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputControl_Document.resx">
+      <DependentUpon>InputControl_Document.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InsertData_Form.resx">
+      <DependentUpon>InsertData_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResizeImage_Form.resx">
+      <DependentUpon>ResizeImage_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\DefPictureImage.bmp" />
+    <None Include="Resources\IconMinus.ico" />
+    <EmbeddedResource Include="CreateTables_WindowsForm.resx">
+      <DependentUpon>CreateTables_WindowsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\IconPlus.ico" />
+    <EmbeddedResource Include="TableDocking_Form\SelectID_Table_Assistant_Form.resx">
+      <DependentUpon>SelectID_Table_Assistant_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\EditTable_Assistant_Form.resx">
+      <DependentUpon>EditTable_Assistant_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\SelectView_Form.resx">
+      <DependentUpon>SelectView_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\CreateView_Form.resx">
+      <DependentUpon>CreateView_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\DataTable_Form.resx">
+      <DependentUpon>DataTable_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\EditTable_Form.resx">
+      <DependentUpon>EditTable_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\SaveView_Form.resx">
+      <DependentUpon>SaveView_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\TableDockingForm.resx">
+      <DependentUpon>TableDockingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\TableView_Form.resx">
+      <DependentUpon>TableView_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\TextEditorDialog.resx">
+      <DependentUpon>TextEditorDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\usrc_EditRow.resx">
+      <DependentUpon>usrc_EditRow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableDocking_Form\usrc_EditTable.resx">
+      <DependentUpon>usrc_EditTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ParseErrorDialog.Designer.resx">
+      <DependentUpon>ParseErrorDialog.designer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_InputControl.resx">
+      <DependentUpon>usrc_InputControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_InputControl_DateTimePicker.resx">
+      <DependentUpon>usrc_InputControl_DateTimePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_InputControl_Label.resx">
+      <DependentUpon>usrc_InputControl_Label.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_myGroupBox.resx">
+      <DependentUpon>usrc_myGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_NumericUpDown.resx">
+      <DependentUpon>usrc_NumericUpDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_RowReferencedFromTable.resx">
+      <DependentUpon>usrc_RowReferencedFromTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_RowReferencedFromTable_List_Dialog.resx">
+      <DependentUpon>usrc_RowReferencedFromTable_List_Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Virtual Secretary\VirtualSecretary_Form.resx">
+      <DependentUpon>VirtualSecretary_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Virtual Secretary\WaitRandomDataParamSettingsDialogClosed_Form.resx">
+      <DependentUpon>WaitRandomDataParamSettingsDialogClosed_Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableDockingForm_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SmallEditIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DataView_FormIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jim_carrey_typing_grande.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JimCarreySleeps.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\JimCarreyWaits2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectViewIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveViewIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SQLTabelControlIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SmallFolderIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FlipHorizontal.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FlipVertical.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rotate90_contra_clockwise.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rotate90clockwise.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Unique.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectRow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Down.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ObjectChanged.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EditTable_Assistant_Form_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Warning_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ObjectNotChanged.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenFile.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
