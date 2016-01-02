@@ -252,10 +252,18 @@
       <DependentUpon>Form_XML_output.cs</DependentUpon>
     </Compile>
     <Compile Include="f_Atom_cAddress_Org.cs" />
+    <Compile Include="f_Atom_cCity_Org.cs" />
+    <Compile Include="f_Atom_cCountry_Org.cs" />
+    <Compile Include="f_Atom_cHouseNumber_Org.cs" />
     <Compile Include="f_Atom_Computer.cs" />
+    <Compile Include="f_Atom_cState_Org.cs" />
+    <Compile Include="f_Atom_cStreetName_Org.cs" />
     <Compile Include="f_Atom_Customer_Org.cs" />
     <Compile Include="f_Atom_Customer_Person.cs" />
+    <Compile Include="f_Atom_cZIP_Org.cs" />
+    <Compile Include="f_Atom_FVI_SLO_RealEstateBP.cs" />
     <Compile Include="f_Atom_Logo.cs" />
+    <Compile Include="f_Atom_Office_Data.cs" />
     <Compile Include="f_Atom_OrganisationData.cs" />
     <Compile Include="f_Atom_Person.cs" />
     <Compile Include="f_doc.cs" />

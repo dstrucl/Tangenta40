@@ -28,12 +28,28 @@ namespace Tangenta
         private bool InitDataTable(long ID)
         {
             dt_my_company.Clear();
-            string sql = @"select * from myCompany_Person_VIEW";
+            string sql = null;
+            if (Program.b_FVI_SLO)
+            {
+                sql = @"select * from FVI_SLO_RealEstateBP_VIEW";
+            }
+            else
+            {
+                sql = @"select * from Atom_myCompany_Person_VIEW";
+            }
+
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_my_company,sql,ref Err))
             {
                 dgvx_MyCompany.DataSource = dt_my_company;
                 tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_MyCompany, dbTables);
+                foreach (DataGridViewColumn dgvc in dgvx_MyCompany.Columns)
+                {
+                    if (dgvc.HeaderText.Equals("ID"))
+                    {
+                        dgvc.Visible = false;
+                    }
+                }
                 return true;
             }
             else
@@ -45,6 +61,7 @@ namespace Tangenta
 
         private bool Init()
         {
+            Cursor = Cursors.WaitCursor;
             if (InitDataTable(-1))
             {
                 usrc_EditRow.Init(dbTables, tbl, null,false);
@@ -53,10 +70,12 @@ namespace Tangenta
                     long Identity = (long)dt_my_company.Rows[0]["ID"];
                     usrc_EditRow.ShowTableRow(Identity);
                 }
+                Cursor = Cursors.Arrow;
                 return true;
             }
             else
             {
+                Cursor = Cursors.Arrow;
                 return false;
             }
 

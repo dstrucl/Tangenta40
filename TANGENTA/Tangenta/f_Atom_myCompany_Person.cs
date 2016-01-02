@@ -15,8 +15,9 @@ namespace Tangenta
 {
     public static class f_Atom_myCompany_Person
     {
-        internal static myOrg.enum_GetCompany_Person_Data Get(long myCompany_Person_ID, ref long Atom_myCompany_Person_ID, ref string_v office_name, ref string Err)
+        internal static myOrg.enum_GetCompany_Person_Data Get(long myCompany_Person_ID, ref long Atom_myCompany_Person_ID, ref string_v office_name)
         {
+            string Err = null;
             DataTable dt = new DataTable();
             long myCompany_ID = -1;
             long Office_ID = -1;

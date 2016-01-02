@@ -506,6 +506,8 @@ namespace BlagajnaDataBaseDef
         /* 174 */
         public SQLTable t_FVI_SLO_Response = null;
 
+        /* 175 */
+        public SQLTable t_Atom_FVI_SLO_RealEstateBP = null;
 
 
         public void Define_SQL_Database_Tables() // constructor;
@@ -1926,7 +1928,7 @@ namespace BlagajnaDataBaseDef
          /* 173 */
             t_FVI_SLO_RealEstateBP = new SQLTable((Object)new FVI_SLO_RealEstateBP(), "fvislore", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_FVI_SLO_RealEstateBP);
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office ID", "Poslovna enota ID"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.m_Office_Data, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office Data ID", "Poslovna enota podatki ID"));
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.BuildingNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("BuildingNumber", "Številka stavbe"));
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.BuildingSectionNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("BuildingSectionNumber", "Številka dela stavbe"));
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.Community, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Community", "Naselje"));
@@ -1947,6 +1949,20 @@ namespace BlagajnaDataBaseDef
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.Response_DateTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Response Time", "Čas odgovora"));
             m_DBTables.items.Add(t_FVI_SLO_Response);
 
+
+        /* 175 */
+            t_Atom_FVI_SLO_RealEstateBP = new SQLTable((Object)new Atom_FVI_SLO_RealEstateBP(), "afvislore", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_FVI_SLO_RealEstateBP);
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.m_Atom_Office_Data, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Atom Office Data ID", "Poslovna enota podatki arh ID"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.BuildingNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("BuildingNumber", "Številka stavbe"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.BuildingSectionNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("BuildingSectionNumber", "Številka dela stavbe"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.Community, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Community", "Naselje"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.CadastralNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("CadastralNumber", "Številka katastrske občine"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.ValidityDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ValidityDate", "Datum začetka veljavnosti podatkov"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.ClosingTag, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ClosingTag", "ZaprtjePoslovnegaProstora"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.SoftwareSupplier_TaxNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SW supplier tax number", "Davčna številka dobavitelja programske opreme ali vzdrževalca"));
+            t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.PremiseType, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Premise Type", "Vrsta poslovnega prostora"));
+            m_DBTables.items.Add(t_Atom_FVI_SLO_RealEstateBP);
         }
     }
  }

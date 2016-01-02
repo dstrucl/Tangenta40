@@ -60,7 +60,10 @@ namespace Tangenta
         }
         public bool Read_ProformaInvoice()
         {
-            string sql = @"select
+            string sql = null;
+            if (Program.b_FVI_SLO)
+            {
+                sql = @"select
                                  inv.ID as Invoice_ID,
                                  pi.FinancialYear,
                                  pi.NumberInFinancialYear,
@@ -102,6 +105,8 @@ namespace Tangenta
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
+                                 inner join Atom_Office_Data aoffd on amcp.Atom_Office_Data_ID = aoffd.ID
+                                 inner join FVI_SLO_RealEstateBP fvislores on fvislores.Atom_Office_Data_ID = aoffd.ID
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
@@ -126,7 +131,77 @@ namespace Tangenta
                                  left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
                                  left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
                                  where pi.ID = " + ProformaInvoice_ID.ToString();
-
+            }
+            else
+            {
+                sql = @"select
+                                 inv.ID as Invoice_ID,
+                                 pi.FinancialYear,
+                                 pi.NumberInFinancialYear,
+                                 mpay.PaymentType,
+                                 GrossSum,
+                                 TaxSum,
+                                 NetSum,
+                                 ao.Name,
+                                 ao.Tax_ID,
+                                 ao.Registration_ID,
+                                 Atom_cStreetName_Org.StreetName,
+                                 Atom_cHouseNumber_Org.HouseNumber,
+                                 Atom_cCity_Org.City,
+                                 Atom_cZIP_Org.ZIP,
+                                 Atom_cState_Org.State,
+                                 Atom_cCountry_Org.Country,
+                                 cEmail_Org.Email,
+                                 aorgd_hp.HomePage,
+                                 cPhoneNumber_Org.PhoneNumber,
+                                 cFaxNumber_Org.FaxNumber,
+                                 aorgd.BankName,
+                                 aorgd.TRR,
+                                 aoff.Name as Atom_Office_Name,
+                                 apfn.FirstName as My_Organisation_Person_FirstName,
+                                 apln.LastName as My_Organisation_Person_LastName,
+                                 ap.Tax_ID as My_Organisation_Tax_ID,
+                                 ap.CardNumber,
+                                 amcp.UserName as My_Organisation_Person_UserName,
+                                 amcp.Job as My_Organisation_Job,
+                                 Atom_Logo.Image_Hash as Logo_Hash,
+                                 Atom_Logo.Image_Data as Logo_Data,
+                                 Atom_Logo.Description as Logo_Description,
+                                 acusorg.ID as Atom_Customer_Org_ID,
+                                 acusper.ID as Atom_Customer_Person_ID
+                                 from JOURNAL_ProformaInvoice
+                                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
+                                 inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
+                                 inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
+                                 inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
+                                 inner join Atom_Person ap on ap.ID = amcp.ID
+                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
+                                 inner join Atom_Office_Data aoffd on amcp.Atom_Office_Data_ID = aoffd.ID
+                                 inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
+                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
+                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                 left join Invoice inv on pi.Invoice_ID = inv.ID
+                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
+                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
+                                 left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
+                                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
+                                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
+                                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
+                                 left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
+                                 left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
+                                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
+                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
+                                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
+                                 left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
+                                 left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
+                                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
+                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
+                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
+                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
+                                 where pi.ID = " + ProformaInvoice_ID.ToString();
+            }
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
             {

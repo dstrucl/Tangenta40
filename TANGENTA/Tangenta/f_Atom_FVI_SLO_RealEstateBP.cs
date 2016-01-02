@@ -8,27 +8,36 @@ using System.Threading.Tasks;
 
 namespace Tangenta
 {
-    public static class f_Atom_Office
+    public static class f_Atom_FVI_SLO_RealEstateBP
     {
         internal static bool Get(
-                                 long Office_ID,
-                                 ref long Atom_Office_ID)
+                         long FVI_SLO_RealEstateBP_ID,
+                         ref long Atom_FVI_SLO_RealEstateBP_ID)
         {
 
             string Office_Name = null;
             long myCompany_ID = -1;
 
             string sql = @"select 
-                            o.Name as Office_Name,
-                            o.myCompany_ID
-                            from Office o
-                            where o.ID = "+Office_ID.ToString();
+                            fres.Office_Data_ID,
+                            fres.BuildingNumber,
+                            fres.BuildingSectionNumber,
+                            fres.Community,
+                            fres.CadastralNumber,
+                            fres.ValidityDate,
+                            fres.ClosingTag,
+                            fres.SoftwareSupplier_TaxNumber,
+                            fres.PremiseType,
+                            from FVI_SLO_RealEstateBP fres
+                            where fres.ID = " + FVI_SLO_RealEstateBP_ID.ToString();
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
+
+
                     object o_Office_Name = dt.Rows[0]["Office_Name"];
                     if (o_Office_Name is string)
                     {
@@ -51,7 +60,7 @@ namespace Tangenta
                     }
 
                     long Atom_myCompany_ID = -1;
-                    if (f_Atom_myCompany.Get(myCompany_ID, ref Atom_myCompany_ID)== myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
+                    if (f_Atom_myCompany.Get(myCompany_ID, ref Atom_myCompany_ID) == myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

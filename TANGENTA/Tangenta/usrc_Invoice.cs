@@ -199,13 +199,27 @@ namespace Tangenta
 
         private bool EditMyCompany_Person_Data()
         {
-            Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person))));
-            if (edt_my_company_person_dlg.ShowDialog() == DialogResult.OK)
+            DialogResult dres = DialogResult.Ignore;
+            this.Cursor = Cursors.WaitCursor;
+            if (Program.b_FVI_SLO)
             {
+                Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(FVI_SLO_RealEstateBP))));
+                dres = edt_my_company_person_dlg.ShowDialog();
+            }
+            else
+            {
+                Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person))));
+                dres = edt_my_company_person_dlg.ShowDialog();
+            }
+
+            if (dres == DialogResult.OK)
+            {
+                this.Cursor = Cursors.Arrow;
                 return true;
             }
             else
             {
+                this.Cursor = Cursors.Arrow;
                 return false;
             }
         }

@@ -133,5 +133,119 @@ namespace Tangenta
             }
         }
 
+        internal static bool Get(long cAddress_Org_ID, ref long Atom_cAddress_Org_ID)
+        {
+            long cStreetName_Org_ID = -1;
+            long cHouseNumber_Org_ID = -1;
+            long cCity_Org_ID = -1;
+            long cZIP_Org_ID = -1;
+            long cState_Org_ID = -1;
+            long cCountry_Org_ID = -1;
+            string sql = @"select 
+                            cAorg.cStreetName_Org_ID,
+                            cAorg.cHouseNumber_Org_ID,
+                            cAorg.cZIP_Org_ID,
+                            cAorg.cCity_Org_ID,
+                            cAorg.cState_Org_ID,
+                            cAorg.cState_Org_ID,
+                            cAorg.cCountry_Org_ID
+                            from cAddress_Org cAorg
+                            where cAorg.ID = " + cAddress_Org_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    cStreetName_Org_ID = (long)dt.Rows[0]["cStreetName_Org_ID"];
+                    cHouseNumber_Org_ID = (long)dt.Rows[0]["cHouseNumber_Org_ID"];
+                    cZIP_Org_ID = (long)dt.Rows[0]["cZIP_Org_ID"];
+                    cCity_Org_ID = (long)dt.Rows[0]["cCity_Org_ID"];
+                    cState_Org_ID = (long)dt.Rows[0]["cState_Org_ID"];
+                    object o_cCountry_Org_ID = dt.Rows[0]["cCountry_Org_ID"];
+
+                    string sCountryCond = null;
+                    string sCountryVal = null;
+                    if (o_cCountry_Org_ID is long)
+                    {
+                        cCountry_Org_ID = (long)o_cCountry_Org_ID;
+                        sCountryCond = "Atom_cCountry_Org_ID = " + cCountry_Org_ID.ToString();
+                        sCountryVal = cCountry_Org_ID.ToString();
+                    }
+                    else
+                    {
+                        o_cCountry_Org_ID = null;
+                        sCountryCond = "Atom_cCountry_Org_ID is null";
+                        sCountryVal = "null";
+                    }
+                    long Atom_cStreetName_Org_ID = -1;
+                    long Atom_cHouseNumber_Org_ID = -1;
+                    long Atom_cCity_Org_ID = -1;
+                    long Atom_cZIP_Org_ID = -1;
+                    long Atom_cState_Org_ID = -1;
+                    if (f_Atom_cStreetName_Org.Get(cStreetName_Org_ID, ref Atom_cStreetName_Org_ID))
+                    {
+                        if (f_Atom_cHouseNumber_Org.Get(cHouseNumber_Org_ID, ref Atom_cHouseNumber_Org_ID))
+                        {
+                            if (f_Atom_cCity_Org.Get(cCity_Org_ID, ref Atom_cCity_Org_ID))
+                            {
+                                if (f_Atom_cZIP_Org.Get(cZIP_Org_ID, ref Atom_cZIP_Org_ID))
+                                {
+                                    if (f_Atom_cState_Org.Get(cState_Org_ID, ref Atom_cState_Org_ID))
+                                    {
+                                        sql = @"select
+                                                    ID
+                                                from Atom_cAddress_Org where Atom_cStreetNme_Org_ID = " + Atom_cStreetName_Org_ID.ToString() + @"
+                                                and Atom_cHouseNumber_Org_ID = " + Atom_cHouseNumber_Org_ID.ToString() + @"
+                                                and Atom_cCity_Org_ID = " + Atom_cCity_Org_ID.ToString() + @"
+                                                and Atom_cZIP_Org_ID = " + Atom_cZIP_Org_ID.ToString() + @"
+                                                and Atom_cState_Org_ID = " + Atom_cState_Org_ID.ToString() + @"
+                                                and " + sCountryCond;
+                                        dt.Clear();
+                                        dt.Columns.Clear();
+                                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+                                        {
+                                            if (dt.Rows.Count > 0)
+                                            {
+                                                Atom_cAddress_Org_ID = (long)dt.Rows[0]["ID"];
+                                                return true;
+                                            }
+                                            else
+                                            {
+                                                sql = @"insert into Atom_cAddress_Org
+                                                        (Atom_cStreetNme_Org_ID,Atom_cHouseNumber_Org_ID,Atom_cZIP_Org_ID,Atom_cCity_Org_ID,Atom_cState_Org_ID,Atom_cCountry_Org_ID) values
+                                                        (" + Atom_cStreetName_Org_ID.ToString() + "," + Atom_cHouseNumber_Org_ID.ToString() + "," + Atom_cZIP_Org_ID.ToString() + "," + Atom_cCity_Org_ID.ToString() + "," + Atom_cState_Org_ID.ToString() + "," + sCountryVal + ")";
+                                                object objretx = null;
+                                                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_cAddress_Org_ID, ref objretx, ref Err, "Atom_cAddress_Org"))
+                                                {
+                                                    return true;
+                                                }
+                                                else
+                                                {
+                                                    LogFile.Error.Show("ERROR:f_Atom_cAddress_Org:Get:sql=" + sql + "\r\nErr=" + Err);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:f_Atom_cAddress_Org:Get:sql=" + sql + "\r\nErr=" + Err);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_Atom_cAddress_Org:Get:No cAdddress_Org for cAddress_Org_ID = " + cAddress_Org_ID.ToString());
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_cAddress_Org:Get:sql=" + sql + "\r\nErr=" + Err);
+            }
+            return false;
+        }
     }
 }

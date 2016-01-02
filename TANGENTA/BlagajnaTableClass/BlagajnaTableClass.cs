@@ -1999,7 +1999,22 @@ namespace BlagajnaTableClass
     public class FVI_SLO_RealEstateBP
     {
         public ID ID = new ID();
-        public Office m_Office = new Office();
+        public Office_Data m_Office_Data = new Office_Data();
+        public Community Community = new Community();
+        public CadastralNumber CadastralNumber = new CadastralNumber();
+        public BuildingNumber BuildingNumber = new BuildingNumber();
+        public BuildingSectionNumber BuildingSectionNumber = new BuildingSectionNumber();
+        public PremiseType PremiseType = new PremiseType();
+        public ValidityDate ValidityDate = new ValidityDate();
+        public ClosingTag ClosingTag = new ClosingTag();
+        public SoftwareSupplier_TaxNumber SoftwareSupplier_TaxNumber = new SoftwareSupplier_TaxNumber();
+        public SpecialNotes SpecialNotes = new SpecialNotes();
+    }
+
+    public class Atom_FVI_SLO_RealEstateBP
+    {
+        public ID ID = new ID();
+        public Atom_Office_Data m_Atom_Office_Data = new Atom_Office_Data();
         public Community Community = new Community();
         public CadastralNumber CadastralNumber = new CadastralNumber();
         public BuildingNumber BuildingNumber = new BuildingNumber();
@@ -2531,6 +2546,10 @@ namespace BlagajnaTableClass
 
         /* 174 */
         public FVI_SLO_Response m_FVI_SLO_Response = new FVI_SLO_Response();
+
+        /* 175 */
+        public Atom_FVI_SLO_RealEstateBP m_Atom_FVI_SLO_RealEstateBP = new Atom_FVI_SLO_RealEstateBP();
+
 
     }
 }

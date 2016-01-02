@@ -50,7 +50,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -84,7 +84,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -115,7 +115,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -143,7 +143,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -168,7 +168,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -190,7 +190,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -209,7 +209,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -225,7 +225,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -238,7 +238,7 @@ namespace Tangenta
                                             {
                                                 if (UpgradeDB_1_08_to_1_09())
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -248,7 +248,7 @@ namespace Tangenta
                                             {
                                                 if (sOldDBVersion.Equals("1.09"))
                                                 {
-                                                    if (UpgradeDB_1_08_to_1_10())
+                                                    if (UpgradeDB_1_09_to_1_10())
                                                     {
                                                         return true;
                                                     }
@@ -270,7 +270,7 @@ namespace Tangenta
             return false;
         }
 
-        private bool UpgradeDB_1_08_to_1_10()
+        private bool UpgradeDB_1_09_to_1_10()
         {
             string Err = null;
             if (DBSync.DBSync.Drop_VIEWs())
@@ -315,16 +315,13 @@ namespace Tangenta
                 }
                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
-                    string[] new_tables = new string[] { "FVI_SLO_RealEstateBP", "FVI_SLO_Response" };
+                    string[] new_tables = new string[] { "FVI_SLO_RealEstateBP", "FVI_SLO_Response", "Atom_FVI_SLO_RealEstateBP" };
                     if (DBSync.DBSync.CreateTables(new_tables))
                     {
                         if (DBSync.DBSync.Create_VIEWs())
                         {
-                            if (f_doc.InsertDefault())
-                            {
-                                Set_DatBase_Version("1.10");
-                                return true;
-                            }
+                            Set_DatBase_Version("1.10");
+                            return true;
                         }
                     }
                 }
