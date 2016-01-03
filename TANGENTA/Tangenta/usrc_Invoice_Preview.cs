@@ -15,6 +15,7 @@ namespace Tangenta
 {
     public partial class usrc_Invoice_Preview : UserControl
     {
+        public InvoiceData m_InvoiceData = null;
         private byte[] m_Doc = null;
         private usrc_Printer m_usrc_Print;
         private usrc_Payment.ePaymentType m_paymentType;
@@ -82,6 +83,16 @@ namespace Tangenta
 
             this.m_webBrowser.DocumentText = s;
             this.m_webBrowser.Refresh();
+            this.btn_Print.Enabled = true;
+            return true;
+        }
+
+        public bool Init(InvoiceData xInvoiceData)
+        {
+            m_InvoiceData = xInvoiceData;
+            this.m_webBrowser.DocumentText = "HTML Predloga ni določena, brez nje pa ne morete tiskati računa.";
+            this.m_webBrowser.Refresh();
+            this.btn_Print.Enabled = false;
             return true;
         }
 
@@ -262,7 +273,7 @@ namespace Tangenta
 
         private void btn_Tokens_Click(object sender, EventArgs e)
         {
-            Form_TemplateTokens frm_tokens = new Form_TemplateTokens(m_usrc_Print.m_InvoiceData);
+            Form_TemplateTokens frm_tokens = new Form_TemplateTokens(m_InvoiceData);
             frm_tokens.ShowDialog();
         }
     }

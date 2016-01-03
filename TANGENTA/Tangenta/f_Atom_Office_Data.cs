@@ -23,7 +23,7 @@ namespace Tangenta
                             od.Office_ID,
                             od.cAddress_Org_ID,
                             od.myCompany_Person_ID,
-                            od.Description,
+                            od.Description
                             from Office_Data od
                             where od.ID = " + Office_Data_ID.ToString();
             DataTable dt = new DataTable();
@@ -120,7 +120,7 @@ namespace Tangenta
                                     }
                                     else
                                     {
-                                        sql = @"insert into Atom_Office_Data (Atom_Office_ID,Atom_cAddress_Org_ID,Atom_myCompany_Person_ID) values (" + Atom_Office_ID.ToString() + "," + Atom_cAddress_Org_ID.ToString() + "," + Atom_myCompany_Person_ID.ToString() + "," + sval_Description + ")";
+                                        sql = @"insert into Atom_Office_Data (Atom_Office_ID,Atom_cAddress_Org_ID,Atom_myCompany_Person_ID,Description) values (" + Atom_Office_ID.ToString() + "," + Atom_cAddress_Org_ID.ToString() + "," + Atom_myCompany_Person_ID.ToString() + "," + sval_Description + ")";
                                         object objretx = null;
                                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_Data_ID, ref objretx, ref Err, "Atom_Office_Data"))
                                         {

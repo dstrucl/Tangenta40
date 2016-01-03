@@ -42,17 +42,17 @@ namespace UniversalInvoice
                                     string _FaxNumber,
                                     byte[] _Logo_Data)
         {
-            tName                    = new TemplateToken(token_prefix, new string[] { "Name", "Ime" }, _Name);
-            tTax_ID                  = new TemplateToken(token_prefix, new string[] { "Tax_ID", "DavčnaŠtevilka" }, _Tax_ID);
-            tRegistration_ID         = new TemplateToken(token_prefix, new string[] { "Regsitration_ID", "MatičnaŠtevilka" }, _Registration_ID);
-            tAtom_Office_Name        = new TemplateToken(token_prefix, new string[] { "Office", "PoslovnaEnota" }, _Atom_Office_Name);
-            tBankName                = new TemplateToken(token_prefix, new string[] { "BankName", "Banka" }, _BankName);
-            tTRR                     = new TemplateToken(token_prefix, new string[] { "BankAccount", "Bančni račun" }, _TRR);
-            tEmail                   = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, _Email);
-            tHomePage                = new TemplateToken(token_prefix, new string[] { "HomePage", "DomačaStran" }, _HomePage);
-            tPhoneNumber             = new TemplateToken(token_prefix, new string[] { "PhoneNumber", "Telefon" }, _PhoneNumber);
-            tFaxNumber               = new TemplateToken(token_prefix, new string[] { "FaxNumber", "Fax" }, _FaxNumber);
-            tLogo_Data               = new TemplateToken(token_prefix, new string[] { "Logo", "Logo" }, _Logo_Data);
+            tName                    = new TemplateToken(token_prefix, new string[] { "Name", "Ime" }, _Name,null);
+            tTax_ID                  = new TemplateToken(token_prefix, new string[] { "Tax_ID", "DavčnaŠtevilka" }, _Tax_ID, null);
+            tRegistration_ID         = new TemplateToken(token_prefix, new string[] { "Regsitration_ID", "MatičnaŠtevilka" }, _Registration_ID, null);
+            tAtom_Office_Name        = new TemplateToken(token_prefix, new string[] { "Office", "PoslovnaEnota" }, _Atom_Office_Name, null);
+            tBankName                = new TemplateToken(token_prefix, new string[] { "BankName", "Banka" }, _BankName, null);
+            tTRR                     = new TemplateToken(token_prefix, new string[] { "BankAccount", "Bančni račun" }, _TRR, null);
+            tEmail                   = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, _Email, null);
+            tHomePage                = new TemplateToken(token_prefix, new string[] { "HomePage", "DomačaStran" }, _HomePage, null);
+            tPhoneNumber             = new TemplateToken(token_prefix, new string[] { "PhoneNumber", "Telefon" }, _PhoneNumber, null);
+            tFaxNumber               = new TemplateToken(token_prefix, new string[] { "FaxNumber", "Fax" }, _FaxNumber, null);
+            tLogo_Data               = new TemplateToken(token_prefix, new string[] { "Logo", "Logo" }, _Logo_Data, null);
             list.Add(tName);
             list.Add(tTax_ID);
             list.Add(tRegistration_ID);

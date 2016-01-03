@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="AddressToken.cs" />
+    <Compile Include="FVI_SLO_RealEstateBP.cs" />
+    <Compile Include="FVI_SLO_RealEstateBPToken.cs" />
     <Compile Include="InvoiceToken.cs" />
     <Compile Include="InvoiceTemplate.cs" />
     <Compile Include="ItemSoldToken.cs" />

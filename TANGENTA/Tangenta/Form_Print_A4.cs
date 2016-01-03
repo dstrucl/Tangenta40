@@ -191,6 +191,11 @@ namespace Tangenta
                     return true;
 
                 }
+                else
+                {
+                    XMessage.Box.Show(this, lngRPM.s_YouHaveNoDocumentTemplateToPrintOnA4, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                    m_usrc_Invoice_Preview.Init(usrc_Print.m_InvoiceData);
+                }
             }
             else
             {

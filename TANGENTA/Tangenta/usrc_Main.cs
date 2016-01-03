@@ -41,6 +41,12 @@ namespace Tangenta
                     string Err = null;
                     if (Program.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null,ref Err))
                     {
+                        if (Program.b_FVI_SLO)
+                        {
+                            if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID, 1))
+                            {
+                            }
+                        }
                         return this.m_usrc_InvoiceMan.Init(main_Form);
                     }
                     else
@@ -64,6 +70,12 @@ namespace Tangenta
                             {
                                 if (Program.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
                                 {
+                                    if (Program.b_FVI_SLO)
+                                    {
+                                        if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID,1))
+                                        {
+                                        }
+                                    }
                                     return this.m_usrc_InvoiceMan.Init(main_Form);
                                 }
                                 else

@@ -37,6 +37,7 @@
             this.txt_Tokens.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Tokens.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_Tokens.Location = new System.Drawing.Point(8, 8);
             this.txt_Tokens.Multiline = true;
             this.txt_Tokens.Name = "txt_Tokens";

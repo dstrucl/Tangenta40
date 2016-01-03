@@ -43,7 +43,7 @@ namespace Tangenta
                         dt.Columns.Clear();
                         dt.Clear();
                         sql = @"select ID from Atom_cZIP_Org where " + scond_ZIP;
-                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                        if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
                         {
                             if (dt.Rows.Count > 0)
                             {

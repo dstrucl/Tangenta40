@@ -1,4 +1,5 @@
 ﻿using LanguageControl;
+using System;
 
 namespace UniversalInvoice
 {
@@ -43,7 +44,9 @@ namespace UniversalInvoice
                             string _ZIP,
                             string _City,
                             string _State,
-                            string _Country)
+                            string _Country
+                            
+                            )
         {
 
             Name = _Name;

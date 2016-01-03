@@ -45,22 +45,22 @@ namespace UniversalInvoice
                               decimal _TaxPrice,
                               decimal _PriceWithTax)
         {
-            tItemName = new TemplateToken(token_prefix, new string[] { "Name", "Ime" }, _Item_Name);
-            tPricePerUnit = new TemplateToken(token_prefix, new string[] { "PricePerUnit", "CenaNaEnoto" }, _RetailPricePerUnit.ToString());
-            tUnit = new TemplateToken(token_prefix, new string[] { "Unit", "MerskaEnota" }, _UnitName);
-            tDiscount = new TemplateToken(token_prefix, new string[] {"Discount", "Popust" }, _Discount.ToString());
-            tDiscountPercent = new TemplateToken(token_prefix, new string[] { "DiscountPercent", "PopustVProcentih" }, (_Discount*100).ToString()+"%");
-            tExtraDiscount = new TemplateToken(token_prefix, new string[] { "ExtraDiscount", "DodatniPopust" }, _ExtraDiscount.ToString());
-            tExtraDiscountPercent = new TemplateToken(token_prefix, new string[] { "ExtraDiscountPercent", "DodatniPopustVProcentih" }, (_ExtraDiscount*100).ToString()+"%");
-            tCurrency = new TemplateToken(token_prefix, new string[] { "Currency", "Valuta" }, _CurrencySymbol);
-            tQuantity = new TemplateToken(token_prefix, new string[] { "Quantity", "Količina" }, _dQuantity.ToString());
-            tTaxationRate = new TemplateToken(token_prefix, new string[] { "TaxationRate", "DavčnaStopnja" }, _TaxationRate.ToString());
-            tTaxationRatePercent = new TemplateToken(token_prefix, new string[] { "TaxationRatePercent", "DavčnaStopnjaVProcentih" }, (_TaxationRate*100).ToString()+"%");
-            tTotalDiscount = new TemplateToken(token_prefix, new string[] { "TotalDiscount", "CelotenPopust" }, _TotalDiscount.ToString());
-            tTotalDiscountPercent = new TemplateToken(token_prefix, new string[] { "TotalDiscountPercent", "CelotenPopustVProcentih" }, (_TotalDiscount * 100).ToString() + "%");
-            tNetPrice = new TemplateToken(token_prefix, new string[] { "NetPrice", "Cena_Brez_DDV" }, _NetPrice.ToString());
-            tTax = new TemplateToken(token_prefix, new string[] { "Tax", "Davek" }, _TaxPrice.ToString());
-            tPriceWithTax = new TemplateToken(token_prefix, new string[] { "PriceWithTax", "Cena_z_DDV" }, _PriceWithTax.ToString());
+            tItemName = new TemplateToken(token_prefix, new string[] { "Name", "Ime" }, _Item_Name, null);
+            tPricePerUnit = new TemplateToken(token_prefix, new string[] { "PricePerUnit", "CenaNaEnoto" }, _RetailPricePerUnit.ToString(), null);
+            tUnit = new TemplateToken(token_prefix, new string[] { "Unit", "MerskaEnota" }, _UnitName, null);
+            tDiscount = new TemplateToken(token_prefix, new string[] {"Discount", "Popust" }, _Discount.ToString(), null);
+            tDiscountPercent = new TemplateToken(token_prefix, new string[] { "DiscountPercent", "PopustVProcentih" }, (_Discount*100).ToString()+"%", null);
+            tExtraDiscount = new TemplateToken(token_prefix, new string[] { "ExtraDiscount", "DodatniPopust" }, _ExtraDiscount.ToString(), null);
+            tExtraDiscountPercent = new TemplateToken(token_prefix, new string[] { "ExtraDiscountPercent", "DodatniPopustVProcentih" }, (_ExtraDiscount*100).ToString()+"%", null);
+            tCurrency = new TemplateToken(token_prefix, new string[] { "Currency", "Valuta" }, _CurrencySymbol, null);
+            tQuantity = new TemplateToken(token_prefix, new string[] { "Quantity", "Količina" }, _dQuantity.ToString(), null);
+            tTaxationRate = new TemplateToken(token_prefix, new string[] { "TaxationRate", "DavčnaStopnja" }, _TaxationRate.ToString(), null);
+            tTaxationRatePercent = new TemplateToken(token_prefix, new string[] { "TaxationRatePercent", "DavčnaStopnjaVProcentih" }, (_TaxationRate*100).ToString()+"%", null);
+            tTotalDiscount = new TemplateToken(token_prefix, new string[] { "TotalDiscount", "CelotenPopust" }, _TotalDiscount.ToString(), null);
+            tTotalDiscountPercent = new TemplateToken(token_prefix, new string[] { "TotalDiscountPercent", "CelotenPopustVProcentih" }, (_TotalDiscount * 100).ToString() + "%", null);
+            tNetPrice = new TemplateToken(token_prefix, new string[] { "NetPrice", "Cena_Brez_DDV" }, _NetPrice.ToString(), null);
+            tTax = new TemplateToken(token_prefix, new string[] { "Tax", "Davek" }, _TaxPrice.ToString(), null);
+            tPriceWithTax = new TemplateToken(token_prefix, new string[] { "PriceWithTax", "Cena_z_DDV" }, _PriceWithTax.ToString(), null);
 
             list = new List<TemplateToken>();
             list.Add(tItemName);

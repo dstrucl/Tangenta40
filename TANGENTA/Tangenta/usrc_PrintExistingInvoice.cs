@@ -15,6 +15,7 @@ namespace Tangenta
 {
     public partial class usrc_PrintExistingInvoice : UserControl
     {
+        public InvoiceData m_InvoiceData = null;
         public delegate void delegate_DoPrint_Existing_Invoice(DateTime_v issue_time);
         public event delegate_DoPrint_Existing_Invoice aa_DoPrint_Existing_Invoice;
         DateTime_v ProformaInvoiceTime_v = null;
@@ -30,9 +31,11 @@ namespace Tangenta
         }
 
 
-        public bool Init(long xProformaInvoice_ID,string InvoiceNumber)
+        public bool Init(InvoiceData xInvoiceData,string InvoiceNumber)
         {
-            ProformaInvoice_ID = xProformaInvoice_ID;
+
+            m_InvoiceData = xInvoiceData;
+            ProformaInvoice_ID = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID;
             lbl_Invoice_value.Text = InvoiceNumber;
             btn_Print.Text = lngRPM.s_Print.s;
             return ShowJournal();

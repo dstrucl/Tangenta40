@@ -43,7 +43,7 @@ namespace Tangenta
                         dt.Columns.Clear();
                         dt.Clear();
                         sql = @"select ID from Atom_cStreetName_Org where " + scond_StreetName;
-                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                        if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
                         {
                             if (dt.Rows.Count > 0)
                             {

@@ -25,12 +25,12 @@ namespace UniversalInvoice
                             string State,
                             string Country)
         {
-            tStreet = new TemplateToken(token_prefix, new string[] { "Street", "Cesta" }, Street);
-            tHouseNumber = new TemplateToken(token_prefix, new string[] { "HouseNumber", "HišnaŠtevilka" }, HouseNumber);
-            tZIP = new TemplateToken(token_prefix, new string[] { "ZIP", "Pošta" }, ZIP);
-            tCity = new TemplateToken(token_prefix, new string[] { "City", "Kraj" }, City);
-            tState = new TemplateToken(token_prefix, new string[] { "State", "Država" }, State);
-            tCountry = new TemplateToken(token_prefix, new string[] { "Country", "Dežela" }, Country);
+            tStreet = new TemplateToken(token_prefix, new string[] { "Street", "Cesta" }, Street,null);
+            tHouseNumber = new TemplateToken(token_prefix, new string[] { "HouseNumber", "HišnaŠtevilka" }, HouseNumber, null);
+            tZIP = new TemplateToken(token_prefix, new string[] { "ZIP", "Pošta" }, ZIP, null);
+            tCity = new TemplateToken(token_prefix, new string[] { "City", "Kraj" }, City, null);
+            tState = new TemplateToken(token_prefix, new string[] { "State", "Država" }, State, null);
+            tCountry = new TemplateToken(token_prefix, new string[] { "Country", "Dežela" }, Country, null);
             list.Add(tStreet);
             list.Add(tHouseNumber);
             list.Add(tZIP);

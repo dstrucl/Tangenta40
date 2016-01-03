@@ -27,6 +27,7 @@ namespace Tangenta
         public decimal NetSum = 0;
 
         public UniversalInvoice.Organisation MyOrganisation = null;
+        public UniversalInvoice.FVI_SLO_RealEstateBP FVI_SLO_RealEstateBP = null;
         public UniversalInvoice.Organisation CustomerOrganisation = null;
         public UniversalInvoice.Person CustomerPerson = null;
 
@@ -96,6 +97,14 @@ namespace Tangenta
                                  Atom_Logo.Image_Hash as Logo_Hash,
                                  Atom_Logo.Image_Data as Logo_Data,
                                  Atom_Logo.Description as Logo_Description,
+                                 afvislores.BuildingNumber,              
+                                 afvislores.BuildingSectionNumber,
+                                 afvislores.Community,                   
+                                 afvislores.CadastralNumber, 
+                                 afvislores.ValidityDate,            
+                                 afvislores.ClosingTag,               
+                                 afvislores.SoftwareSupplier_TaxNumber,
+                                 afvislores.PremiseType, 
                                  acusorg.ID as Atom_Customer_Org_ID,
                                  acusper.ID as Atom_Customer_Person_ID
                                  from JOURNAL_ProformaInvoice
@@ -105,8 +114,8 @@ namespace Tangenta
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on amcp.Atom_Office_Data_ID = aoffd.ID
-                                 inner join FVI_SLO_RealEstateBP fvislores on fvislores.Atom_Office_Data_ID = aoffd.ID
+                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
+                                 inner join Atom_FVI_SLO_RealEstateBP afvislores on afvislores.Atom_Office_Data_ID = aoffd.ID
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
@@ -176,7 +185,7 @@ namespace Tangenta
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on amcp.Atom_Office_Data_ID = aoffd.ID
+                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
@@ -212,8 +221,23 @@ namespace Tangenta
                         GrossSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
                         taxsum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
                         NetSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
-                        ltext ltMy = new ltext("My", "Moja");
-                        MyOrganisation = new UniversalInvoice.Organisation(ltMy, DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
+                        
+
+                        if (Program.b_FVI_SLO)
+                        {
+
+                            this.FVI_SLO_RealEstateBP = new UniversalInvoice.FVI_SLO_RealEstateBP(lngToken.st_Invoice,
+                                                                                                         DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["BuildingNumber"]),
+                                                                                                         DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["BuildingSectionNumber"]),
+                                                                                                         DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Community"]),
+                                                                                                         DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["CadastralNumber"]),
+                                                                                                         DBTypes.func._set_DateTime(dt_ProformaInvoice.Rows[0]["ValidityDate"]),
+                                                                                                         DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["ClosingTag"]),
+                                                                                                         DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["SoftwareSupplier_TaxNumber"]),
+                                                                                                         DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["PremiseType"])   );
+                        }
+
+                        MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
                                                                    DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
                                                                    DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),
                                                                    DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Atom_Office_Name"]),
@@ -289,8 +313,15 @@ namespace Tangenta
                 s += "\r\n" + tt.lt.s;
             }
 
-            ltext ltMy = new ltext("My", "Moja");
-            UniversalInvoice.Organisation xMyOrganisation = new UniversalInvoice.Organisation(ltMy, 
+            UniversalInvoice.ItemSoldToken items_sold_token = new UniversalInvoice.ItemSoldToken(lngToken.st_Item, null, 0, null, 0, null, 0, 0, 0, null, 0, 0, 0, 0, 0);
+            foreach (UniversalInvoice.TemplateToken tt in items_sold_token.list)
+            {
+                s += "\r\n" + tt.lt.s;
+            }
+
+
+
+            UniversalInvoice.Organisation xMyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, 
                                                        null,
                                                        null,
                                                        null,
@@ -320,8 +351,8 @@ namespace Tangenta
                 s += "\r\n" + tt.lt.s;
             }
 
-            ltext ltCustomer = new ltext("Customer", "Stranka");
-            UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(ltCustomer, 
+            
+            UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(lngToken.st_Customer, 
                                                        null,
                                                        null,
                                                        null,
@@ -349,7 +380,7 @@ namespace Tangenta
                 s += "\r\n" + tt.lt.s;
             }
 
-            UniversalInvoice.Person xCustomerPerson = new UniversalInvoice.Person(ltCustomer,false,
+            UniversalInvoice.Person xCustomerPerson = new UniversalInvoice.Person(lngToken.st_Customer,false,
                                                        null,
                                                        null,
                                                        DateTime.MinValue,

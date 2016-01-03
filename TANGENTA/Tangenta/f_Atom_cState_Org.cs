@@ -13,7 +13,7 @@ namespace Tangenta
         public static bool Get(long cState_Org_ID, ref long Atom_cState_Org_ID)
         {
             string Err = null;
-            string sql = @"select State, State_ISO_3166_a2,State_ISO_3166_a3,State_ISO_3166_num, from cState_Org where ID = " + cState_Org_ID.ToString();
+            string sql = @"select State, State_ISO_3166_a2,State_ISO_3166_a3,State_ISO_3166_num from cState_Org where ID = " + cState_Org_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
@@ -40,7 +40,7 @@ namespace Tangenta
                         SQL_Parameter par_State_ISO_3166_a3 = new SQL_Parameter(spar_State_ISO_3166_a3, SQL_Parameter.eSQL_Parameter.Nvarchar, false, State_ISO_3166_a3);
                         lpar.Add(par_State_ISO_3166_a3);
 
-                        string State_ISO_3166_num = (string)dt.Rows[0]["State_ISO_3166_num"];
+                        short State_ISO_3166_num = (short)dt.Rows[0]["State_ISO_3166_num"];
                         string spar_State_ISO_3166_num = "@par_State_ISO_3166_num";
                         SQL_Parameter par_State_ISO_3166_num = new SQL_Parameter(spar_State_ISO_3166_num, SQL_Parameter.eSQL_Parameter.Smallint, false, State_ISO_3166_num);
                         lpar.Add(par_State_ISO_3166_num);
@@ -50,7 +50,7 @@ namespace Tangenta
                         dt.Columns.Clear();
                         dt.Clear();
                         sql = @"select ID from Atom_cState_Org where State = "+ spar_State+ " and  State_ISO_3166_a2 = "+ spar_State_ISO_3166_a2 + " and State_ISO_3166_a3 = " + spar_State_ISO_3166_a3 + " and State_ISO_3166_num = " + spar_State_ISO_3166_num;
-                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                        if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
                         {
                             if (dt.Rows.Count > 0)
                             {

@@ -195,7 +195,7 @@ namespace Tangenta
                                     {
                                         sql = @"select
                                                     ID
-                                                from Atom_cAddress_Org where Atom_cStreetNme_Org_ID = " + Atom_cStreetName_Org_ID.ToString() + @"
+                                                from Atom_cAddress_Org where Atom_cStreetName_Org_ID = " + Atom_cStreetName_Org_ID.ToString() + @"
                                                 and Atom_cHouseNumber_Org_ID = " + Atom_cHouseNumber_Org_ID.ToString() + @"
                                                 and Atom_cCity_Org_ID = " + Atom_cCity_Org_ID.ToString() + @"
                                                 and Atom_cZIP_Org_ID = " + Atom_cZIP_Org_ID.ToString() + @"
@@ -213,7 +213,7 @@ namespace Tangenta
                                             else
                                             {
                                                 sql = @"insert into Atom_cAddress_Org
-                                                        (Atom_cStreetNme_Org_ID,Atom_cHouseNumber_Org_ID,Atom_cZIP_Org_ID,Atom_cCity_Org_ID,Atom_cState_Org_ID,Atom_cCountry_Org_ID) values
+                                                        (Atom_cStreetName_Org_ID,Atom_cHouseNumber_Org_ID,Atom_cZIP_Org_ID,Atom_cCity_Org_ID,Atom_cState_Org_ID,Atom_cCountry_Org_ID) values
                                                         (" + Atom_cStreetName_Org_ID.ToString() + "," + Atom_cHouseNumber_Org_ID.ToString() + "," + Atom_cZIP_Org_ID.ToString() + "," + Atom_cCity_Org_ID.ToString() + "," + Atom_cState_Org_ID.ToString() + "," + sCountryVal + ")";
                                                 object objretx = null;
                                                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Atom_cAddress_Org_ID, ref objretx, ref Err, "Atom_cAddress_Org"))

@@ -120,6 +120,7 @@ namespace Tangenta
         public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
         public static Color Color_Stock = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
         internal static bool b_FVI_SLO = true;
+        internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
 
         //public static int iGDIcUser100;
         //public static int iGDIcUser101;
@@ -377,7 +378,7 @@ namespace Tangenta
                 if (Atom_myCompany_Person_ID < 0)
                 {
                     string_v office_name = null;
-                    if (f_Atom_myCompany_Person.Get(1, ref Atom_myCompany_Person_ID,ref office_name, ref Err)== myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
+                    if (f_Atom_myCompany_Person.Get(1, ref Atom_myCompany_Person_ID,ref office_name)== myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
                     {
                         if (f_WorkingPlace.Get(office_name.v, "Tangenta 1", ref WorkingPlace_ID))
                         {

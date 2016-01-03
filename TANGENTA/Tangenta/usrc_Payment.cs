@@ -14,6 +14,7 @@ namespace Tangenta
 {
     public partial class usrc_Payment : UserControl
     {
+        public InvoiceData m_InvoiceData = null;
         public enum ePaymentType { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD };
         public ePaymentType PaymentType = ePaymentType.NONE;
         public delegate void delegate_DoPrint (ePaymentType ePaymentType,string sPaymentMethod, string sAmountReceived, string sToReturn,DateTime_v issue_time);
@@ -61,9 +62,10 @@ namespace Tangenta
             }
         }
 
-        public bool Init(long xInvoice_ID, int xCurrency_DecimalPlaces, decimal xGrossSum)
+        public bool Init(InvoiceData xInvoiceData, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
-            Invoice_ID = xInvoice_ID;
+            m_InvoiceData = xInvoiceData;
+            Invoice_ID = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Invoice_ID;
             Currency_DecimalPlaces = xCurrency_DecimalPlaces;
             GrossSum = xGrossSum;
             txt__Amount.Text = GrossSum.ToString();

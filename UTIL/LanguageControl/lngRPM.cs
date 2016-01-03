@@ -10,6 +10,8 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_YouHaveNoDocumentTemplateToPrintOnA4 = new ltext("You have no html document template for printing Invoice on A4 paper format!\r\nYou must insert document template html into database!", "Nimate vnešenih html predlog za tiskanje na A4 papir.\r\nVnesti morate v bazo vsaj eno html predlogo za tisaknje računov na A4 tiskalniku!");
+        public static ltext s_FVI_SLO_RealEstateBP_has_no_Data = new ltext("No data for Fiscal Verification system in Slovenia. \r\nYou can not do fiscal verification until you enter RealEstate data!", "Ni vnešenih podatkov o poslovnem prosturu potrebnih za davčno upravo.\r\nPotrejavanje računov ne bo delalo dokler ne vnesete podatkov o poslovnem prostoru!");
         public static ltext s_btn_Tokens = new ltext("View replacement word", "Ključne besede za izdelavo predlog");
         public static ltext s_Form_Select_State_ISO_3166_Title = new ltext("Select Country", "Izberite Državo");
         public static ltext s_YouMustEnterYourCompanyData = new ltext("You must enter your organisation data. Without organisation data program can not run!", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati!");

@@ -7,8 +7,10 @@ namespace LanguageControl
 {
     public static class lngToken
     {
-        public static ltext st_Invoice = new ltext("Invoice", "Rečun");
+        public static ltext st_My = new ltext("My", "Moja");
+        public static ltext st_Invoice = new ltext("Invoice", "Račun");
         public static ltext st_Item = new ltext("Item", "StoritevAliArtikel");
+        public static ltext st_Customer = new ltext("Customer", "Stranka");
         public static ltext st_Organisation = new ltext("Organisation", "Organizacija");
         public static ltext st_Person = new ltext("Person", "Oseba");
         public static ltext st_Address = new ltext("Address", "Naslov");

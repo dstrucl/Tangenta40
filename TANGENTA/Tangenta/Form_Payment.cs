@@ -14,17 +14,17 @@ namespace Tangenta
 {
     public partial class Form_Payment : Form
     {
-        InvoiceData m_InvoiceData = null;
+        public InvoiceData m_InvoiceData = null;
         public usrc_Payment.ePaymentType m_ePaymentType = usrc_Payment.ePaymentType.NONE;
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
 
-        public Form_Payment(InvoiceData InvoiceData)
+        public Form_Payment(InvoiceData xInvoiceData)
         {
             InitializeComponent();
 
-            m_InvoiceData = InvoiceData;
+            m_InvoiceData = xInvoiceData;
             this.Text = lngRPM.s_PaymentAndPrint.s;
             this.btn_Cancel.Text = lngRPM.s_Cancel.s;
             if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Exist)
@@ -71,7 +71,6 @@ namespace Tangenta
                     
                     if (Program.b_FVI_SLO)
                     {
-                       //LK damjan reku  Program.usrc_FVI_SLO1.Get_FVI_SLO_Confirmation(Program.GetPaymentTypeString(ePaymentType), sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                         Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     }
                     else
@@ -108,7 +107,7 @@ namespace Tangenta
             {
                 if ((m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.bDraft))
                 {
-                    if (m_usrc_Payment.Init(m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Invoice_ID, m_usrc_Print.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
+                    if (m_usrc_Payment.Init(m_InvoiceData, m_usrc_Print.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
                     {
                         //splitContainer1.Panel1Collapsed = true;
                         return;
@@ -122,7 +121,7 @@ namespace Tangenta
                 else
                 {
                     string sInvoiceNumber = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_InvoiceData.NumberInFinancialYear.ToString();
-                    if (m_usrc_PrintExistingInvoice.Init(m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID, sInvoiceNumber))
+                    if (m_usrc_PrintExistingInvoice.Init(m_InvoiceData, sInvoiceNumber))
                     {
                         //splitContainer1.Panel1Collapsed = true;
                         return;

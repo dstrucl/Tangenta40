@@ -37,17 +37,17 @@ namespace UniversalInvoice
                                 string CardType)
 
         {
-            tGender = new TemplateToken(token_prefix, new string[] { "Gender", "Spol" }, DBTypes.func.GenderAsString(Gender));
-            tFirstName = new TemplateToken(token_prefix, new string[] { "FirstName", "Ime" }, FirstName);
-            tLastName = new TemplateToken(token_prefix, new string[] { "LastName", "Priimek" }, LastName);
-            tDateOfBirth = new TemplateToken(token_prefix, new string[] { "DateOfBirth", "DatumRojstva" }, DBTypes.func.Get_DATE_dd_mm_yyyy(DateOfBirth));
-            tTaxID = new TemplateToken(token_prefix, new string[] { "Tax_ID", "DavčnaŠtevilka" }, Tax_ID);
-            tRegistration_ID = new TemplateToken(token_prefix, new string[] { "Registration_ID", "MatičnaŠtevilka" }, Registration_ID);
-            tMobilePhoneNumber = new TemplateToken(token_prefix, new string[] { "MobilePhoneNumber", "MobilnaTelefonŠtevilka" }, MobilePhoneNumber);
-            tPhoneNumber = new TemplateToken(token_prefix, new string[] { "PhoneNumber", "TelefonskaŠtevilka" }, PhoneNumber);
-            tEmail = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, Email);
-            tCardNumber = new TemplateToken(token_prefix, new string[] { "CardNumber", "ŠtevilkaKartice" }, CardNumber);
-            tCardType = new TemplateToken(token_prefix, new string[] { "CardType", "VrstaKartice" }, CardType);
+            tGender = new TemplateToken(token_prefix, new string[] { "Gender", "Spol" }, DBTypes.func.GenderAsString(Gender), null);
+            tFirstName = new TemplateToken(token_prefix, new string[] { "FirstName", "Ime" }, FirstName, null);
+            tLastName = new TemplateToken(token_prefix, new string[] { "LastName", "Priimek" }, LastName, null);
+            tDateOfBirth = new TemplateToken(token_prefix, new string[] { "DateOfBirth", "DatumRojstva" }, DBTypes.func.Get_DATE_dd_mm_yyyy(DateOfBirth), null);
+            tTaxID = new TemplateToken(token_prefix, new string[] { "Tax_ID", "DavčnaŠtevilka" }, Tax_ID, null);
+            tRegistration_ID = new TemplateToken(token_prefix, new string[] { "Registration_ID", "MatičnaŠtevilka" }, Registration_ID, null);
+            tMobilePhoneNumber = new TemplateToken(token_prefix, new string[] { "MobilePhoneNumber", "MobilnaTelefonŠtevilka" }, MobilePhoneNumber, null);
+            tPhoneNumber = new TemplateToken(token_prefix, new string[] { "PhoneNumber", "TelefonskaŠtevilka" }, PhoneNumber, null);
+            tEmail = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, Email, null);
+            tCardNumber = new TemplateToken(token_prefix, new string[] { "CardNumber", "ŠtevilkaKartice" }, CardNumber, null);
+            tCardType = new TemplateToken(token_prefix, new string[] { "CardType", "VrstaKartice" }, CardType, null);
 
             list = new List<TemplateToken>();
             list.Add(tGender);
