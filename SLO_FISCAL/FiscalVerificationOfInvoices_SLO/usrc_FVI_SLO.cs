@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 
 
+
 namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class usrc_FVI_SLO : UserControl
@@ -33,6 +34,7 @@ namespace FiscalVerificationOfInvoices_SLO
         private usrc_FVI_SLO_Message message = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.NONE, null);
 
         private int m_message_box_length = 100;
+        private long LastMessageID = 0;
 
         public int MessageBox_Length
         {
@@ -67,9 +69,11 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
-        public Result_MessageBox_Post Send_SingleInvoice(long Message_ID,string xml)
+        public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID)
         {
-            Thread_FVI_Message msg = new Thread_FVI_Message(Message_ID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
+            LastMessageID ++;
+
+            Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
             return thread_fvi.message_box.Post(msg);
 
         }

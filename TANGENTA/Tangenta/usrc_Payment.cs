@@ -28,14 +28,15 @@ namespace Tangenta
         public usrc_Payment()
         {
             InitializeComponent();
-            rdb_Cash.Text = lngRPM.s_Cash.s;
-            rdb_PaymentCard.Text = lngRPM.s_PaymentCard.s;
-            this.lbl_Amount.Text = lngRPM.s_Amount.s;
-            this.lbl_ToReturn.Text = lngRPM.s_ToReturn.s + ":";
-            rdb_AllreadyPayed.Text = lngRPM.s_AlreadyPaid.s;
-            btn_Print.Text = lngRPM.s_Print.s;
-            lbl_Amount.Text = lngRPM.s_Amount.s + ":";
-            lbl_AmountReceived.Text = lngRPM.s_AmountReceived.s + ":";
+            lngRPM.s_Cash.Text(rdb_Cash);
+            lngRPM.s_PaymentCard.Text(rdb_PaymentCard);
+            lngRPM.s_Amount.Text(lbl_Amount);
+            lngRPM.s_ToReturn.Text(lbl_ToReturn);
+            lngRPM.s_AlreadyPaid.Text(rdb_AllreadyPayed);
+            lngRPM.s_Print.Text(btn_Print);
+            lngRPM.s_Amount.Text(lbl_Amount,":");
+            lngRPM.s_AmountReceived.Text(lbl_AmountReceived,":");
+            lngRPM.s_PaymentOnBankAccount.Text(rdb_BankAccountTransfer);
             btn_Print.Enabled = false;
             this.rdb_Cash.CheckedChanged += new System.EventHandler(this.rdb_Cash_CheckedChanged);
             this.rdb_Cash.MouseUp += new System.Windows.Forms.MouseEventHandler(this.rdb_Cash_MouseUp);

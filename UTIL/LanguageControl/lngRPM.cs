@@ -250,7 +250,8 @@ namespace LanguageControl
         public static ltext s_AlreadyPaid = new ltext("Already paid", "Že plačano");
         public static ltext s_ToReturn = new ltext("Money back", "Vračilo");
         public static ltext s_PaymentCard = new ltext("Payment Card", "Plačilna Kartica");
-        
+
+        public static ltext s_PaymentOnBankAccount = new ltext("Payment to Bank acount", "Plačilo na bančni račun");
         public static ltext s_Cash = new ltext("Cash", "Gotovina");
         public static ltext s_Amount = new ltext("Amount", "Znesek");
 

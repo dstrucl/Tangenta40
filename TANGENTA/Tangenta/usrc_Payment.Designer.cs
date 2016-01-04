@@ -38,6 +38,7 @@
             this.btn_Print = new System.Windows.Forms.Button();
             this.txt_AmountReceived = new System.Windows.Forms.TextBox();
             this.lbl_AmountReceived = new System.Windows.Forms.Label();
+            this.rdb_BankAccountTransfer = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // rdb_Cash
@@ -153,9 +154,22 @@
             this.lbl_AmountReceived.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.lbl_AmountReceived.Visible = false;
             // 
+            // rdb_BankAccountTransfer
+            // 
+            this.rdb_BankAccountTransfer.AutoSize = true;
+            this.rdb_BankAccountTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.rdb_BankAccountTransfer.ForeColor = System.Drawing.Color.Black;
+            this.rdb_BankAccountTransfer.Location = new System.Drawing.Point(339, 3);
+            this.rdb_BankAccountTransfer.Name = "rdb_BankAccountTransfer";
+            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(200, 35);
+            this.rdb_BankAccountTransfer.TabIndex = 10;
+            this.rdb_BankAccountTransfer.Text = "Bank Account";
+            this.rdb_BankAccountTransfer.UseVisualStyleBackColor = true;
+            // 
             // usrc_Payment
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.rdb_BankAccountTransfer);
             this.Controls.Add(this.txt_AmountReceived);
             this.Controls.Add(this.lbl_AmountReceived);
             this.Controls.Add(this.btn_Print);
@@ -186,5 +200,6 @@
         private System.Windows.Forms.Button btn_Print;
         private System.Windows.Forms.TextBox txt_AmountReceived;
         private System.Windows.Forms.Label lbl_AmountReceived;
+        private System.Windows.Forms.RadioButton rdb_BankAccountTransfer;
     }
 }

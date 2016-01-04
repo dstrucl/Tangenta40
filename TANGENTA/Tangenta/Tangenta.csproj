@@ -149,6 +149,12 @@
     <Compile Include="Form_DBSettings_Edit.Designer.cs">
       <DependentUpon>Form_DBSettings_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Wait_FVI_SLO_Response.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Wait_FVI_SLO_Response.Designer.cs">
+      <DependentUpon>Form_Wait_FVI_SLO_Response.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Warranty_Edit.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using LanguageControl;
 using DBTypes;
+using FiscalVerificationOfInvoices_SLO;
 
 namespace Tangenta
 {
@@ -82,6 +83,23 @@ namespace Tangenta
         internal void Print_Receipt(InvoiceData xInvoiceData, usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
 
+
+            string furs_XML = "";
+            string furs_UniqeMsgID = "";
+            string furs_UniqeInvID = "";
+
+            //TODO:
+            //naredi xml
+
+
+            //pošlji 
+
+            Program.usrc_FVI_SLO1.Send_SingleInvoice( furs_XML,this.Parent ,ref furs_UniqeMsgID, ref furs_UniqeInvID);
+
+            if (Program.b_FVI_SLO)
+            {
+              //  furs_XML Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_ID, furs_XML);
+            }
             if (Printer_is_ESC_POS())
             {
                 Print_Receipt_ESC_POS(xInvoiceData,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
@@ -91,6 +109,12 @@ namespace Tangenta
                 Form_Print_A4 print_A4_dlg = new Form_Print_A4(this,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                 print_A4_dlg.ShowDialog();
             }
+        }
+    
+
+        private void FVI_SLO_GetResponse(ref string fVI_MessageID, ref string fVI_UniqueInvoiceID)
+        {
+            throw new NotImplementedException();
         }
 
         private bool Printer_is_ESC_POS()
