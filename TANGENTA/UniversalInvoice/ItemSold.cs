@@ -23,11 +23,11 @@ namespace UniversalInvoice
         public decimal NetPrice;
         public decimal TaxPrice;
         public decimal PriceWithTax;
+        public string StoreDivision;
 
-       
         public ItemSoldToken token = null;
 
-        public ItemSold(ltext token_prefix,
+        public ItemSold(ltext token_prefix, ltext lt_StoreDivision,
                         string _Item_Name,
                         decimal _RetailPricePerUnit,
                         string _UnitName,
@@ -41,8 +41,10 @@ namespace UniversalInvoice
                         decimal _TotalDiscount,
                         decimal _NetPrice,
                         decimal _TaxPrice,
-                        decimal _PriceWithTax)
+                        decimal _PriceWithTax
+                        )
         {
+            StoreDivision = lt_StoreDivision.s;
             Item_Name = _Item_Name;
             RetailPricePerUnit = _RetailPricePerUnit;
             UnitName = _UnitName;
@@ -59,6 +61,7 @@ namespace UniversalInvoice
             PriceWithTax = _PriceWithTax;
             ltext token_ItemSold = token_prefix.AddAtTheEnd(lngToken.st_Item);
             token = new ItemSoldToken(token_ItemSold,
+                                     lt_StoreDivision,
                                     _Item_Name,
                                     _RetailPricePerUnit,
                                     _UnitName,

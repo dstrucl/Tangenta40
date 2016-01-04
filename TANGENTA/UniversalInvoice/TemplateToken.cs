@@ -23,16 +23,23 @@ namespace UniversalInvoice
                 {
                     if (TokenInLanguage[i] != null)
                     {
-                        string token = null;
-                        if (token_prefix!= null)
+                        if (TokenInLanguage[i].Contains("@@"))
                         {
-                            token = "@@" + token_prefix.sText[i] + "_"+ TokenInLanguage[i];
+                            continue;
                         }
                         else
-                        {
-                            token = "@@" + TokenInLanguage[i];
+                        { 
+                            string token = null;
+                            if (token_prefix != null)
+                            {
+                                token = "@@" + token_prefix.sText[i] + "_" + TokenInLanguage[i];
+                            }
+                            else
+                            {
+                                token = "@@" + TokenInLanguage[i];
+                            }
+                            lt.sText[i] = token;
                         }
-                        lt.sText[i] = token;
                     }
                 }
             }
@@ -59,7 +66,7 @@ namespace UniversalInvoice
         }
 
 
-        private string GetString(int i, int places)
+        public string GetString(int i, int places)
         {
             string s = i.ToString();
             while (s.Length<places)
@@ -69,7 +76,7 @@ namespace UniversalInvoice
             return s;
         }
 
-        internal void Set(string v)
+        public void Set(string v)
         {
             replacement = v;
         }

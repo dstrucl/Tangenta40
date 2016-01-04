@@ -41,90 +41,9 @@ namespace Tangenta
                 cond = "";
             }
 
-            //string sql_GetDraft = "Select " + DBtcn.colAtom_myCompany_Person_FirstName + "," + new_line
-            //                                  + DBtcn.colAtom_myCompany_Person_LastName + "," + new_line
-            //                                  + DBtcn.colAtom_myCompany_Person_Job + "," + new_line
-            //                                  + DBtcn.colAtom_myCompany_Person_UserName + "," + new_line
-            //                                  + DBtcn.colAtom_myCompany_Person_Description + "," + new_line
-            //                                + DBtcn.colProformaInvoice_ID + " as " + DBtcn.colProformaInvoice_as_ID + "," + new_line
-            //                                + DBtcn.colProformaInvoice_Atom_myCompany_Person_ID + " as " + DBtcn.colProformaInvoice_as_Atom_myCompany_Person_ID + "," + new_line
-            //                                + DBtcn.colProformaInvoice_FinancialYear + "," + new_line
-            //                                + DBtcn.colProformaInvoice_NumberInFinancialYear + "," + new_line
-            //                                + DBtcn.colProformaInvoice_Draft + "," + new_line
-            //                                + "DraftNumber," + new_line
-            //                                + "Atom_Customer_Person_ID," + new_line
-            //                                + "Atom_Customer_Org_ID," + new_line
-            //                                + DBtcn.colProformaInvoice_PrintTime + " as " + DBtcn.colProformaInvoice_as_PrintTime + "," + new_line
-            //                                + DBtcn.colProformaInvoice_NetSum + "," + new_line
-            //                                + DBtcn.colProformaInvoice_Discount + "," + new_line
-            //                                + DBtcn.colProformaInvoice_EndSum + "," + new_line
-            //                                + DBtcn.colProformaInvoice_TaxSum + "," + new_line
-            //                                + DBtcn.colProformaInvoice_GrossSum + "," + new_line
-            //                                + DBtcn.colProformaInvoice_BuyerAtom_Person_ID + "," + new_line
-            //                                + DBtcn.colProformaInvoice_BuyerCompanyAtom_ID + "," + new_line
-            //                                + DBtcn.colProformaInvoice_WarrantyExists + "," + new_line
-            //                                + DBtcn.colProformaInvoice_WarrantyDurationType + "," + new_line
-            //                                + DBtcn.colProformaInvoice_WarrantyDuration + "," + new_line
-            //                                + DBtcn.colProformaInvoice_WarrantyConditions + "," + new_line
-            //                                + DBtcn.colProformaInvoice_ProformaInvoiceDuration + "," + new_line
-            //                                + DBtcn.colProformaInvoice_ProformaInvoiceDurationType + "," + new_line
-            //                                + DBtcn.colProformaInvoice_TermsOfPayment_ID + "," + new_line
-            //                                + DBtcn.colProformaInvoice_FinancialYear + " as " + DBtcn.colProformaInvoice_as_FinancialYear + "," + new_line
-            //                                + DBtcn.colProformaInvoice_NumberInFinancialYear + " as " + DBtcn.colProformaInvoice_as_NumberInFinancialYear + "," + new_line
-            //                                + DBtcn.colProformaInvoice_Invoice_ID + "," + new_line
-            //                                + DBtcn.colInvoice_PaymentDeadline + "," + new_line
-            //                                + DBtcn.colInvoice_m_MethodOfPayment + "," + new_line
-            //                                + DBtcn.colInvoice_Paid + "," + new_line
-            //                                + DBtcn.colInvoice_Storno + new_line
-            //                                + " from " + DBtcn.stbl_ProformaInvoice_TableName + new_line
-            //                                + " inner join " + DBtcn.stbl_Atom_myCompany_Person_TableName + " on  " + DBtcn.stbl_ProformaInvoice_TableName + "." + DBtcn.stbl_Atom_myCompany_Person_TableName + "_ID = " + DBtcn.stbl_Atom_myCompany_Person_TableName + ".ID" + new_line
-            //                                + " inner join " + DBtcn.stbl_Atom_myCompany_TableName + " on  " + DBtcn.stbl_Atom_myCompany_Person_TableName + "." + DBtcn.stbl_Atom_myCompany_TableName + "_ID = " + DBtcn.stbl_Atom_myCompany_TableName + ".ID" + new_line
-            //                                + " inner join " + DBtcn.stbl_Invoice_TableName + " on  " + DBtcn.colProformaInvoice_Invoice_ID + " = " + DBtcn.stbl_Invoice_TableName + ".ID" + new_line
-            //                                + cond;
-
-//            Select Atom_myCompany_Person.FirstName,
-//Atom_myCompany_Person.LastName,
-//Atom_myCompany_Person.Job,
-//Atom_myCompany_Person.UserName,
-//Atom_myCompany_Person.Description,
-//ProformaInvoice.ID as ProformaInvoice_ID,
-//Atom_myCompany_Person.ID as Atom_myCompany_Person_ID,
-//ProformaInvoice.FinancialYear,
-//ProformaInvoice.NumberInFinancialYear,
-//Draft,
-//DraftNumber,
-//Atom_Customer_Person_ID,
-//Atom_Customer_Org_ID,
-// as ,
-//NetSum,
-//Discount,
-//EndSum,
-//TaxSum,
-//GrossSum,
-//Atom_Customer_Person_ID,
-//Atom_Customer_Org_ID,
-//WarrantyExist,
-//WarrantyDurationType,
-//WarrantyDuration,
-//WarrantyConditions,
-//ProformaInvoiceDuration,
-//ProformaInvoiceDurationType,
-//TermsOfPayment_ID,
-//ProformaInvoice.FinancialYear as ProformaInvoice_FinancialYear,
-//ProformaInvoice.NumberInFinancialYear as ProformaInvoice_NumberInFinancialYear,
-//ProformaInvoice.Invoice_ID,
-//Invoice.PaymentDeadline,
-//Invoice.MethodOfPayment_ID,
-//Invoice.Paid,
-//Invoice.Storno
-// from ProformaInvoice
-// inner join Atom_myCompany_Person on  ProformaInvoice.Atom_myCompany_Person_ID = Atom_myCompany_Person.ID
-// inner join Atom_myCompany on  Atom_myCompany_Person.Atom_myCompany_ID = Atom_myCompany.ID
-// inner join Invoice on  ProformaInvoice.Invoice_ID = Invoice.ID
-// where Invoice_ID = 162
 
 
- string sql_GetDraft = @"Select
+            string sql_GetDraft = @"Select
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                         JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$Job,
@@ -157,179 +76,6 @@ namespace Tangenta
                         JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Paid,
                         JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Storno
                         from JOURNAL_ProformaInvoice_VIEW " + cond;
-//SELECT 
-//  JOURNAL_ProformaInvoice.ID,
-//JOURNAL_ProformaInvoice_$_JOURNAL_ProformaInvoice_Type.ID AS JOURNAL_ProformaInvoice_$_jpinvt_$$ID,
-//JOURNAL_ProformaInvoice_$_JOURNAL_ProformaInvoice_Type.Name AS JOURNAL_ProformaInvoice_$_jpinvt_$$Name,
-//JOURNAL_ProformaInvoice_$_JOURNAL_ProformaInvoice_Type.Description AS JOURNAL_ProformaInvoice_$_jpinvt_$$Description,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.ID AS JOURNAL_ProformaInvoice_$_pinv_$$ID,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.Draft AS JOURNAL_ProformaInvoice_$_pinv_$$Draft,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.DraftNumber AS JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.FinancialYear AS JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.NumberInFinancialYear AS JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.NetSum AS JOURNAL_ProformaInvoice_$_pinv_$$NetSum,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.Discount AS JOURNAL_ProformaInvoice_$_pinv_$$Discount,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.EndSum AS JOURNAL_ProformaInvoice_$_pinv_$$EndSum,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.TaxSum AS JOURNAL_ProformaInvoice_$_pinv_$$TaxSum,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.GrossSum AS JOURNAL_ProformaInvoice_$_pinv_$$GrossSum,
-//JOURNAL_ProformaInvoice_$_pinv_$_Atom_Customer_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Gender AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$$Gender,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cFirstName.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acfn_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cFirstName.FirstName AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acfn_$$FirstName,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cLastName.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acln_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cLastName.LastName AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acln_$$LastName,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.DateOfBirth AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$$DateOfBirth,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Tax_ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$$Tax_ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Registration_ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$$Registration_ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cGsmNumber_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_agsmnper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cGsmNumber_Person.GsmNumber AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cPhoneNumber_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aphnnper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cPhoneNumber_Person.PhoneNumber AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aphnnper_$$PhoneNumber,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cEmail_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aemailper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cEmail_Person.Email AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aemailper_$$Email,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cStreetName_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_astrnper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cStreetName_Person.StreetName AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_astrnper_$$StreetName,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cHouseNumber_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_ahounper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cHouseNumber_Person.HouseNumber AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_ahounper_$$HouseNumber,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cCity_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_acitper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cCity_Person.City AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_acitper_$$City,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cZIP_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_azipper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cZIP_Person.ZIP AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_azipper_$$ZIP,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cState_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cstper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cState_Person.State AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cstper_$$State,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cCountry_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_ccouper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cCountry_Person.Country AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_ccouper_$$Country,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.CardNumber AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$$CardNumber,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cCardType_Person.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cardtper_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cCardType_Person.CardType AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cardtper_$$CardType,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_PersonImage.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_perimg_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_PersonImage.Image_Hash AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_perimg_$$Image_Hash,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_PersonImage.Image_Data AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_perimg_$$Image_Data,
-//JOURNAL_ProformaInvoice_$_pinv_$_Atom_Customer_Org.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_Atom_Organisation.ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_aorg_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_Atom_Organisation.Name AS JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_aorg_$$Name,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_Atom_Organisation.Tax_ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_aorg_$$Tax_ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_Atom_Organisation.Registration_ID AS JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_aorg_$$Registration_ID,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.WarrantyExist AS JOURNAL_ProformaInvoice_$_pinv_$$WarrantyExist,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.WarrantyConditions AS JOURNAL_ProformaInvoice_$_pinv_$$WarrantyConditions,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.WarrantyDurationType AS JOURNAL_ProformaInvoice_$_pinv_$$WarrantyDurationType,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.WarrantyDuration AS JOURNAL_ProformaInvoice_$_pinv_$$WarrantyDuration,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.ProformaInvoiceDuration AS JOURNAL_ProformaInvoice_$_pinv_$$ProformaInvoiceDuration,
-//JOURNAL_ProformaInvoice_$_ProformaInvoice.ProformaInvoiceDurationType AS JOURNAL_ProformaInvoice_$_pinv_$$ProformaInvoiceDurationType,
-//JOURNAL_ProformaInvoice_$_pinv_$_TermsOfPayment.ID AS JOURNAL_ProformaInvoice_$_pinv_$_trmpay_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_TermsOfPayment.Description AS JOURNAL_ProformaInvoice_$_pinv_$_trmpay_$$Description,
-//JOURNAL_ProformaInvoice_$_pinv_$_Invoice.ID AS JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_Invoice.PaymentDeadline AS JOURNAL_ProformaInvoice_$_pinv_$_inv_$$PaymentDeadline,
-//JOURNAL_ProformaInvoice_$_pinv_$_inv_$_MethodOfPayment.ID AS JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$ID,
-//JOURNAL_ProformaInvoice_$_pinv_$_inv_$_MethodOfPayment.PaymentType AS JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$PaymentType,
-//JOURNAL_ProformaInvoice_$_pinv_$_Invoice.Paid AS JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Paid,
-//JOURNAL_ProformaInvoice_$_pinv_$_Invoice.Storno AS JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Storno,
-//  JOURNAL_ProformaInvoice.EventTime AS JOURNAL_ProformaInvoice_$$EventTime,
-//JOURNAL_ProformaInvoice_$_Atom_WorkPeriod.ID AS JOURNAL_ProformaInvoice_$_awperiod_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person.UserName AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$UserName,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person.FirstName AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$FirstName,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person.LastName AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$LastName,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_Atom_Office.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_Atom_myCompany.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Organisation.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Organisation.Name AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Name,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Organisation.Tax_ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Tax_ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Organisation.Registration_ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Registration_ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cStreetName_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astrnorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cStreetName_Org.StreetName AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astrnorg_$$StreetName,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cHouseNumber_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_ahounorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cHouseNumber_Org.HouseNumber AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_ahounorg_$$HouseNumber,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCity_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCity_Org.City AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg_$$City,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cZIP_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_aziporg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cZIP_Org.ZIP AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_aziporg_$$ZIP,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cState_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cState_Org_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cState_Org.State AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cState_Org_$$State,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCountry_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCountry_Org_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCountry_Org.Country AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCountry_Org_$$Country,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cPhoneNumber_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cPhoneNumber_Org.PhoneNumber AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg_$$PhoneNumber,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cFaxNumber_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cfaxnorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cFaxNumber_Org.FaxNumber AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cfaxnorg_$$FaxNumber,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cEmail_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cemailorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cEmail_Org.Email AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cemailorg_$$Email,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cHomePage_Org.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_chomepgorg_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cHomePage_Org.HomePage AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_chomepgorg_$$HomePage,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cOrgTYPE.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cOrgTYPE.OrganisationTYPE AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_orgt_$$OrganisationTYPE,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.BankName AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$$BankName,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.TRR AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$$TRR,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo.Image_Hash AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo_$$Image_Hash,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo.Image_Data AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo_$$Image_Data,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo.Description AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo_$$Description,
-//JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_Atom_Office.Name AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person.Job AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$Job,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person.Description AS JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$$Description,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkingPlace.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkingPlace_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkingPlace.Name AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkingPlace_$$Name,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkingPlace.Description AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkingPlace_$$Description,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer.Name AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer_$$Name,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer.UserName AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer_$$UserName,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer.IP_address AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer_$$IP_address,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer.MAC_address AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer_$$MAC_address,
-//JOURNAL_ProformaInvoice_$_Atom_WorkPeriod.LoginTime AS JOURNAL_ProformaInvoice_$_awperiod_$$LoginTime,
-//JOURNAL_ProformaInvoice_$_Atom_WorkPeriod.LogoutTime AS JOURNAL_ProformaInvoice_$_awperiod_$$LogoutTime,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkPeriod_TYPE.ID AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkPeriod_TYPE_$$ID,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkPeriod_TYPE.Name AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkPeriod_TYPE_$$Name,
-//JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkPeriod_TYPE.Description AS JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkPeriod_TYPE_$$Description
-//FROM JOURNAL_ProformaInvoice
-//INNER JOIN JOURNAL_ProformaInvoice_Type JOURNAL_ProformaInvoice_$_JOURNAL_ProformaInvoice_Type ON JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_$_JOURNAL_ProformaInvoice_Type.ID
-//INNER JOIN ProformaInvoice JOURNAL_ProformaInvoice_$_ProformaInvoice ON JOURNAL_ProformaInvoice.ProformaInvoice_ID = JOURNAL_ProformaInvoice_$_ProformaInvoice.ID
-//LEFT JOIN Atom_Customer_Person JOURNAL_ProformaInvoice_$_pinv_$_Atom_Customer_Person ON JOURNAL_ProformaInvoice_$_ProformaInvoice.Atom_Customer_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_Atom_Customer_Person.ID
-//LEFT JOIN Atom_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person ON JOURNAL_ProformaInvoice_$_pinv_$_Atom_Customer_Person.Atom_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.ID
-//LEFT JOIN Atom_cFirstName JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cFirstName ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Atom_cFirstName_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cFirstName.ID
-//LEFT JOIN Atom_cLastName JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cLastName ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Atom_cLastName_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cLastName.ID
-//LEFT JOIN Atom_cGsmNumber_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cGsmNumber_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Atom_cGsmNumber_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cGsmNumber_Person.ID
-//LEFT JOIN Atom_cPhoneNumber_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cPhoneNumber_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Atom_cPhoneNumber_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cPhoneNumber_Person.ID
-//LEFT JOIN Atom_cEmail_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cEmail_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Atom_cEmail_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cEmail_Person.ID
-//LEFT JOIN Atom_cAddress_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Atom_cAddress_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person.ID
-//LEFT JOIN Atom_cStreetName_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cStreetName_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person.Atom_cStreetName_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cStreetName_Person.ID
-//LEFT JOIN Atom_cHouseNumber_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cHouseNumber_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person.Atom_cHouseNumber_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cHouseNumber_Person.ID
-//LEFT JOIN Atom_cCity_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cCity_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person.Atom_cCity_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cCity_Person.ID
-//LEFT JOIN Atom_cZIP_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cZIP_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person.Atom_cZIP_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cZIP_Person.ID
-//LEFT JOIN Atom_cState_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cState_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person.Atom_cState_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cState_Person.ID
-//LEFT JOIN Atom_cCountry_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cCountry_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cAddress_Person.Atom_cCountry_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_Atom_cCountry_Person.ID
-//LEFT JOIN Atom_cCardType_Person JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cCardType_Person ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Atom_cCardType_Person_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_cCardType_Person.ID
-//LEFT JOIN Atom_PersonImage JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_PersonImage ON JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_Atom_Person.Atom_PersonImage_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_Atom_PersonImage.ID
-//LEFT JOIN Atom_Customer_Org JOURNAL_ProformaInvoice_$_pinv_$_Atom_Customer_Org ON JOURNAL_ProformaInvoice_$_ProformaInvoice.Atom_Customer_Org_ID = JOURNAL_ProformaInvoice_$_pinv_$_Atom_Customer_Org.ID
-//LEFT JOIN Atom_Organisation JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_Atom_Organisation ON JOURNAL_ProformaInvoice_$_pinv_$_Atom_Customer_Org.Atom_Organisation_ID = JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_Atom_Organisation.ID
-//LEFT JOIN TermsOfPayment JOURNAL_ProformaInvoice_$_pinv_$_TermsOfPayment ON JOURNAL_ProformaInvoice_$_ProformaInvoice.TermsOfPayment_ID = JOURNAL_ProformaInvoice_$_pinv_$_TermsOfPayment.ID
-//LEFT JOIN Invoice JOURNAL_ProformaInvoice_$_pinv_$_Invoice ON JOURNAL_ProformaInvoice_$_ProformaInvoice.Invoice_ID = JOURNAL_ProformaInvoice_$_pinv_$_Invoice.ID
-//LEFT JOIN MethodOfPayment JOURNAL_ProformaInvoice_$_pinv_$_inv_$_MethodOfPayment ON JOURNAL_ProformaInvoice_$_pinv_$_Invoice.MethodOfPayment_ID = JOURNAL_ProformaInvoice_$_pinv_$_inv_$_MethodOfPayment.ID
-//INNER JOIN Atom_WorkPeriod JOURNAL_ProformaInvoice_$_Atom_WorkPeriod ON JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_ProformaInvoice_$_Atom_WorkPeriod.ID
-//INNER JOIN Atom_myCompany_Person JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person ON JOURNAL_ProformaInvoice_$_Atom_WorkPeriod.Atom_myCompany_Person_ID = JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person.ID
-//INNER JOIN Atom_Office JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_Atom_Office ON JOURNAL_ProformaInvoice_$_awperiod_$_Atom_myCompany_Person.Atom_Office_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_Atom_Office.ID
-//INNER JOIN Atom_myCompany JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_Atom_myCompany ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_Atom_Office.Atom_myCompany_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_Atom_myCompany.ID
-//INNER JOIN Atom_OrganisationData JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_Atom_myCompany.Atom_OrganisationData_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.ID
-//INNER JOIN Atom_Organisation JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Organisation ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.Atom_Organisation_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Organisation.ID
-//LEFT JOIN Atom_cAddress_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.Atom_cAddress_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org.ID
-//LEFT JOIN Atom_cStreetName_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cStreetName_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org.Atom_cStreetName_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cStreetName_Org.ID
-//LEFT JOIN Atom_cHouseNumber_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cHouseNumber_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org.Atom_cHouseNumber_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cHouseNumber_Org.ID
-//LEFT JOIN Atom_cCity_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCity_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org.Atom_cCity_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCity_Org.ID
-//LEFT JOIN Atom_cZIP_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cZIP_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org.Atom_cZIP_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cZIP_Org.ID
-//LEFT JOIN Atom_cState_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cState_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org.Atom_cState_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cState_Org.ID
-//LEFT JOIN Atom_cCountry_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCountry_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_cAddress_Org.Atom_cCountry_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_Atom_cCountry_Org.ID
-//LEFT JOIN cPhoneNumber_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cPhoneNumber_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.cPhoneNumber_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cPhoneNumber_Org.ID
-//LEFT JOIN cFaxNumber_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cFaxNumber_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.cFaxNumber_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cFaxNumber_Org.ID
-//LEFT JOIN cEmail_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cEmail_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.cEmail_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cEmail_Org.ID
-//LEFT JOIN cHomePage_Org JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cHomePage_Org ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.cHomePage_Org_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cHomePage_Org.ID
-//LEFT JOIN cOrgTYPE JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cOrgTYPE ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.cOrgTYPE_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cOrgTYPE.ID
-//LEFT JOIN Atom_Logo JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo ON JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_Atom_OrganisationData.Atom_Logo_ID = JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_Atom_Logo.ID
-//INNER JOIN Atom_WorkingPlace JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkingPlace ON JOURNAL_ProformaInvoice_$_Atom_WorkPeriod.Atom_WorkingPlace_ID = JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkingPlace.ID
-//INNER JOIN Atom_Computer JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer ON JOURNAL_ProformaInvoice_$_Atom_WorkPeriod.Atom_Computer_ID = JOURNAL_ProformaInvoice_$_awperiod_$_Atom_Computer.ID
-//LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkPeriod_TYPE ON JOURNAL_ProformaInvoice_$_Atom_WorkPeriod.Atom_WorkPeriod_TYPE_ID = JOURNAL_ProformaInvoice_$_awperiod_$_Atom_WorkPeriod_TYPE.ID
 
 
             m_CurrentInvoice.dtCurrent_Invoice.Clear();
@@ -566,7 +312,25 @@ namespace Tangenta
             DataTable dt = new DataTable();
             int xDraftNumber = -1;
             int iLimit = 1;
-            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,Invoice_ID,DraftNumber from ProformaInvoice where FinancialYear = " + iFinancialYear.ToString() + " and Invoice_ID is not null order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "DraftNumber from ProformaInvoice where Invoice_ID is not null order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            if (!DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                LogFile.Error.Show("ERROR:InvoiceDB:SetNewDraft:sql="+sql+"\r\nErr=" + Err);
+                return false;
+            }
+            if (dt.Rows.Count >0)
+            { 
+                xDraftNumber = (int)dt.Rows[0]["DraftNumber"];
+                xDraftNumber++;
+            }
+            else
+            {
+                xDraftNumber = 0;
+            }
+
+            dt.Clear();
+            dt.Columns.Clear();
+            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,Invoice_ID,DraftNumber from ProformaInvoice where FinancialYear = " + iFinancialYear.ToString() + " and Invoice_ID is not null order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count == 1)
@@ -575,18 +339,12 @@ namespace Tangenta
                     try
                     {
                         Invoice_ID = (long)dt.Rows[0]["Invoice_ID"];
-                        xDraftNumber = (int)dt.Rows[0]["DraftNumber"];
-                        xDraftNumber++;
                     }
                     catch (Exception ex)
                     {
                         LogFile.Error.Show("ERROR:InvoiceDB:SetNewDraft: Invoice_ID is not defined in ProformaInvoice! Exception =" + ex.Message);
                         return false;
                     }
-                }
-                else
-                {
-                    xDraftNumber = 1;
                 }
 
                 string sql_SetDraftInvoice = "insert into " + DBtcn.stbl_Invoice_TableName
@@ -606,6 +364,7 @@ namespace Tangenta
                 {
                     long Atom_myCompany_Person_ID = -1;
                     this.m_CurrentInvoice.Invoice_ID = Invoice_ID;
+                    m_CurrentInvoice.FinancialYear = iFinancialYear;
                     m_CurrentInvoice.DraftNumber = xDraftNumber;
                     string_v office_name = null;
                     string error = null;

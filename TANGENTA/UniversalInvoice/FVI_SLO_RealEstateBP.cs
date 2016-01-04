@@ -18,7 +18,7 @@ namespace UniversalInvoice
         public string SoftwareSupplier_TaxNumber = null;
         public string PremiseType = null;
 
-        FVI_SLO_RealEstateBPToken token = null;
+        public FVI_SLO_RealEstateBPToken token = null;
 
         public FVI_SLO_RealEstateBP(ltext token_prefix,
                                    int _BuildingNumber,

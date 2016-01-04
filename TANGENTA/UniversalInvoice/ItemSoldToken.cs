@@ -26,10 +26,12 @@ namespace UniversalInvoice
         public TemplateToken tNetPrice = null;
         public TemplateToken tTax = null;
         public TemplateToken tPriceWithTax = null;
+        public TemplateToken tStoreDivision = null;
         // End of items ****
         public List<TemplateToken> list = null;
 
         public ItemSoldToken( ltext token_prefix,
+                              ltext lt_StoreDivision,
                               string _Item_Name,
                               decimal _RetailPricePerUnit,
                               string _UnitName,
@@ -45,6 +47,7 @@ namespace UniversalInvoice
                               decimal _TaxPrice,
                               decimal _PriceWithTax)
         {
+            tStoreDivision = new TemplateToken(token_prefix, new string[] { "StoreDivision", "OddelekProdaje" }, lt_StoreDivision.s, null);
             tItemName = new TemplateToken(token_prefix, new string[] { "Name", "Ime" }, _Item_Name, null);
             tPricePerUnit = new TemplateToken(token_prefix, new string[] { "PricePerUnit", "CenaNaEnoto" }, _RetailPricePerUnit.ToString(), null);
             tUnit = new TemplateToken(token_prefix, new string[] { "Unit", "MerskaEnota" }, _UnitName, null);
@@ -63,6 +66,7 @@ namespace UniversalInvoice
             tPriceWithTax = new TemplateToken(token_prefix, new string[] { "PriceWithTax", "Cena_z_DDV" }, _PriceWithTax.ToString(), null);
 
             list = new List<TemplateToken>();
+            list.Add(tStoreDivision);
             list.Add(tItemName);
             list.Add(tPricePerUnit);
             list.Add(tUnit);

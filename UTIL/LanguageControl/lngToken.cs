@@ -14,8 +14,6 @@ namespace LanguageControl
         public static ltext st_Organisation = new ltext("Organisation", "Organizacija");
         public static ltext st_Person = new ltext("Person", "Oseba");
         public static ltext st_Address = new ltext("Address", "Naslov");
-        public static ltext st_Simple = new ltext("Simple", "Enostavna");
-        public static ltext st_Physical = new ltext("st_Physical", "Fizikalna");
 
 
         public static ltext st_FiscalYear = new ltext("FiscalYear", "ObračunskoLeto");

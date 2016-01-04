@@ -51,11 +51,11 @@ namespace Tangenta
         {
             if (ePaymentType == usrc_Payment.ePaymentType.CASH)
             {
-                m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                m_usrc_Print.Print_Receipt(m_InvoiceData,ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             }
             else
             {
-                m_usrc_Print.Print_Receipt(ePaymentType, sPaymentMethod, null, null, issue_time);
+                m_usrc_Print.Print_Receipt(m_InvoiceData,ePaymentType, sPaymentMethod, null, null, issue_time);
             }
         }
 
@@ -63,10 +63,10 @@ namespace Tangenta
         {
             long ProformaInvoice_ID = -1;
             int xNumberInFinancialYear = -1;
-            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear))
+            if (m_InvoiceData.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear))
             {
                 m_InvoiceData.NumberInFinancialYear = xNumberInFinancialYear;
-                if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.SetInvoiceTime(issue_time))
+                if (m_InvoiceData.SetInvoiceTime(issue_time))
                 {
                     
                     if (Program.b_FVI_SLO)
@@ -98,7 +98,7 @@ namespace Tangenta
 
         private void m_usrc_PrintExistingInvoice_DoPrint_Existing_Invoice(DateTime_v issue_time)
         {
-            m_usrc_Print.Print_Receipt(usrc_Payment.ePaymentType.NONE, null, null, null, issue_time);
+            m_usrc_Print.Print_Receipt(m_InvoiceData,usrc_Payment.ePaymentType.NONE, null, null, null, issue_time);
         }
 
         private void Form_Receipt_Preview_Load(object sender, EventArgs e)

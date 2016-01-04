@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBTypes;
 
 namespace Tangenta
 {
@@ -19,6 +20,22 @@ namespace Tangenta
         public int FinancialYear = -1;
         public int NumberInFinancialYear = -1;
 
+        public int IssueDate_Hour = 0;
+        public int IssueDate_Min = 0;
+        public int IssueDate_Sec = 0;
+        public byte[] Logo_Data = null;
+        public string Logo_Description = null;
+
+
+
+        public int IssueDate_Day = 0;
+        public int IssueDate_Month = 0;
+        public int IssueDate_Year = 0;
+
+        public string Currency_Symbol = null;
+        public int Currency_DecimalPlaces = -1;
+
+
 
         public decimal GrossSum = 0;
 
@@ -30,8 +47,18 @@ namespace Tangenta
         public UniversalInvoice.FVI_SLO_RealEstateBP FVI_SLO_RealEstateBP = null;
         public UniversalInvoice.Organisation CustomerOrganisation = null;
         public UniversalInvoice.Person CustomerPerson = null;
+        public UniversalInvoice.Person Invoice_Author = null;
+        public UniversalInvoice.ItemSold[] ItemsSold = null;
+        public UniversalInvoice.InvoiceToken InvoiceToken = null;
+
+        public int iCountSimpleItemsSold = 0;
+        public int iCountItemsSold = 0;
+
 
         public InvoiceDB m_InvoiceDB = null;
+
+
+        public StaticLib.TaxSum taxSum = null;
 
 
         public object Customer
@@ -59,6 +86,163 @@ namespace Tangenta
             m_InvoiceDB = xInvoiceDB;
             ProformaInvoice_ID = xProformaInvoice_ID;
         }
+
+
+        public void Fill_SoldSimpleItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        {
+            int i;
+            int end_index = start_index + count;
+            int j = 0;
+            for (i = start_index; i < end_index; i++)
+            {
+                DataRow dr = dt_Atom_Price_SimpleItem.Rows[j];
+
+                decimal Discount = 0;
+                object oDiscount = dr["Discount"];
+                if (oDiscount is decimal)
+                {
+                    Discount = (decimal)oDiscount;
+                }
+
+                decimal ExtraDiscount = 0;
+                object oExtraDiscount = dr["ExtraDiscount"];
+                if (oExtraDiscount is decimal)
+                {
+                    ExtraDiscount = (decimal)oExtraDiscount;
+                }
+
+                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
+
+                decimal RetailSimpleItemPriceWithDiscount = 0;
+                object o_RetailSimpleItemPriceWithDiscount = dr["RetailSimpleItemPriceWithDiscount"];
+                if (o_RetailSimpleItemPriceWithDiscount.GetType() == typeof(decimal))
+                {
+                    RetailSimpleItemPriceWithDiscount = (decimal)o_RetailSimpleItemPriceWithDiscount;
+                }
+
+                decimal TaxPrice = -1;
+                object oTaxPrice = dr["TaxPrice"];
+                if (oTaxPrice is decimal)
+                {
+                    TaxPrice = (decimal)oTaxPrice;
+                }
+                decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
+
+
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_rdbStore_SimpleItem,
+                                                             DBTypes.func._set_string(dr["Name"]),
+                                                             DBTypes.func._set_decimal(dr["RetailSimpleItemPrice"]),
+                                                             "", // no unit
+                                                             DBTypes.func._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]),
+                                                             DBTypes.func._set_string(dr["Atom_Taxation_Name"]),
+                                                             Convert.ToDecimal(DBTypes.func._set_int(dr["iQuantity"])),
+                                                             DBTypes.func._set_decimal(dr["Discount"]),
+                                                             DBTypes.func._set_decimal(dr["ExtraDiscount"]),
+                                                             DBTypes.func._set_string(dr["Atom_Currency_Symbol"]),
+                                                             DBTypes.func._set_decimal(dr["Atom_Taxation_Rate"]),
+                                                             DBTypes.func._set_decimal(TotalDiscount),
+                                                             DBTypes.func._set_decimal(price_without_tax),
+                                                             DBTypes.func._set_decimal(dr["TaxPrice"]),
+                                                             DBTypes.func._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]));
+
+                j++;
+            }
+
+        }
+
+        internal bool Save(ref long proformaInvoice_ID, usrc_Payment.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        {
+            return m_InvoiceDB.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
+        }
+
+        internal bool SetInvoiceTime(DateTime_v issue_time)
+        {
+            if (m_InvoiceDB.m_CurrentInvoice.SetInvoiceTime(issue_time))
+            {
+                if (issue_time != null)
+                {
+                    IssueDate_Year = issue_time.v.Year;
+                    IssueDate_Month = issue_time.v.Month;
+                    IssueDate_Day = issue_time.v.Day;
+                    IssueDate_Hour = issue_time.v.Hour;
+                    IssueDate_Min = issue_time.v.Minute;
+                    IssueDate_Sec = issue_time.v.Second;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:InvoiceData:SetInvoiceTime:issue_time==null!");
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+     
+
+
+
+
+
+
+        public void Fill_SoldItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        {
+
+            int i;
+            int end_index = start_index + count;
+            int j = 0;
+
+
+            for (i = start_index; i < end_index; i++)
+            {
+                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
+
+                decimal Discount = appisd.Discount.v;
+
+                decimal ExtraDiscount = appisd.ExtraDiscount.v;
+
+                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
+
+                decimal Atom_Taxation_Rate = appisd.Atom_Taxation_Rate.v;
+
+                decimal RetailItemsPriceWithDiscount = 0;
+                decimal ItemsTaxPrice = 0;
+                decimal ItemsNetPrice = 0;
+
+                int decimal_places = appisd.Atom_Currency_DecimalPlaces.v;
+
+                decimal RetailPricePerUnit = appisd.RetailPricePerUnit.v;
+                decimal dQuantity = appisd.dQuantity_FromStock + appisd.dQuantity_FromFactory;
+
+                StaticLib.Func.CalculatePrice(RetailPricePerUnit, dQuantity, Discount, ExtraDiscount, Atom_Taxation_Rate, ref RetailItemsPriceWithDiscount, ref ItemsTaxPrice, ref ItemsNetPrice, decimal_places);
+
+
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix,lngRPM.s_rdbStore_Item,
+                                                             DBTypes.func._set_string(appisd.Atom_Item_UniqueName.v),
+                                                             DBTypes.func._set_decimal(appisd.RetailPricePerUnit.v),
+                                                             DBTypes.func._set_string(appisd.Atom_Item_UniqueName.v),
+                                                             DBTypes.func._set_decimal(appisd.RetailPriceWithDiscount.v),
+                                                             DBTypes.func._set_string(appisd.Atom_Taxation_Name.v),
+                                                             DBTypes.func._set_decimal(appisd.RetailPriceWithDiscount.v),
+                                                             DBTypes.func._set_decimal(appisd.Discount.v),
+                                                             DBTypes.func._set_decimal(appisd.ExtraDiscount.v),
+                                                             DBTypes.func._set_string(appisd.Atom_Currency_Symbol.v),
+                                                             DBTypes.func._set_decimal(appisd.Atom_Taxation_Rate.v),
+                                                             DBTypes.func._set_decimal(TotalDiscount),
+                                                             DBTypes.func._set_decimal(ItemsNetPrice),
+                                                             DBTypes.func._set_decimal(ItemsTaxPrice),
+                                                             DBTypes.func._set_decimal(RetailItemsPriceWithDiscount));
+
+                j++;
+            }
+
+        }
+
+
+
         public bool Read_ProformaInvoice()
         {
             string sql = null;
@@ -90,7 +274,8 @@ namespace Tangenta
                                  aoff.Name as Atom_Office_Name,
                                  apfn.FirstName as My_Organisation_Person_FirstName,
                                  apln.LastName as My_Organisation_Person_LastName,
-                                 ap.Tax_ID as My_Organisation_Tax_ID,
+                                 ap.ID as Atom_MyOrganisation_Person_ID,
+                                 ao.Tax_ID as My_Organisation_Tax_ID,
                                  ap.CardNumber,
                                  amcp.UserName as My_Organisation_Person_UserName,
                                  amcp.Job as My_Organisation_Job,
@@ -169,7 +354,8 @@ namespace Tangenta
                                  aoff.Name as Atom_Office_Name,
                                  apfn.FirstName as My_Organisation_Person_FirstName,
                                  apln.LastName as My_Organisation_Person_LastName,
-                                 ap.Tax_ID as My_Organisation_Tax_ID,
+                                 ap.ID as Atom_MyOrganisation_Person_ID,
+                                 ao.Tax_ID as My_Organisation_Tax_ID,
                                  ap.CardNumber,
                                  amcp.UserName as My_Organisation_Person_UserName,
                                  amcp.Job as My_Organisation_Job,
@@ -260,22 +446,52 @@ namespace Tangenta
                         FinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
                         NumberInFinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
 
+                        object oAtom_MyOrganisation_Person_ID = dt_ProformaInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
+                        if (oAtom_MyOrganisation_Person_ID is long)
+                        {
+                            long Atom_MyOrganisation_Person_ID = (long)oAtom_MyOrganisation_Person_ID;
+                            Invoice_Author = f_Atom_Person.GetData(lngToken.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
+                        }
+
                         object oAtom_Customer_Org_ID = dt_ProformaInvoice.Rows[0]["Atom_Customer_Org_ID"];
-                        ltext lt_Customer = new ltext("Customer", "Stranka");
                         if (oAtom_Customer_Org_ID is long)
                         {
                             long Atom_Customer_Org_ID = (long)oAtom_Customer_Org_ID;
-                            CustomerOrganisation = f_Atom_OrganisationData.GetData(lt_Customer, Atom_Customer_Org_ID);
+                            CustomerOrganisation = f_Atom_OrganisationData.GetData(lngToken.st_Customer, Atom_Customer_Org_ID);
                         }
                         else if (dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
                         {
                             long Atom_Customer_Person_ID = (long)dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"];
-                            CustomerPerson = f_Atom_Person.GetData(lt_Customer, Atom_Customer_Person_ID);
+                            CustomerPerson = f_Atom_Person.GetData(lngToken.st_Customer, Atom_Customer_Person_ID);
                         }
 
 
                         if (m_InvoiceDB.Read_Atom_Price_SimpleItem_Table(ProformaInvoice_ID, ref dt_Atom_Price_SimpleItem))
                         {
+
+                            int iCountSimpleItemsSold = dt_Atom_Price_SimpleItem.Rows.Count;
+                            int iCountItemsSold = m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
+
+                            ItemsSold = new UniversalInvoice.ItemSold[iCountSimpleItemsSold + iCountItemsSold];
+
+                            Fill_SoldSimpleItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountSimpleItemsSold);
+                            Fill_SoldItemsData(lngToken.st_Invoice, ref ItemsSold, iCountSimpleItemsSold, iCountItemsSold);
+
+                            InvoiceToken = new UniversalInvoice.InvoiceToken();
+
+                            InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
+                            InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
+                            InvoiceToken.tCashier.Set("Blagajna1");
+
+                            string stime = IssueDate_Day.ToString() + "."
+                                           + IssueDate_Month.ToString() + "."
+                                           + IssueDate_Year.ToString() + " "
+                                           + IssueDate_Hour.ToString() + ":"
+                                           + IssueDate_Min.ToString();
+                            InvoiceToken.tDateOfIssue.Set(stime);
+                            InvoiceToken.tDateOfMaturity.Set(stime);
+
+
                             return true;
                         }
                         else
@@ -307,51 +523,47 @@ namespace Tangenta
         {
             string s = "";
 
-            UniversalInvoice.InvoiceToken xInvoiceToken = new UniversalInvoice.InvoiceToken();
-            foreach (UniversalInvoice.TemplateToken tt in xInvoiceToken.list)
-            {
-                s += "\r\n" + tt.lt.s;
-            }
-
-            UniversalInvoice.ItemSoldToken items_sold_token = new UniversalInvoice.ItemSoldToken(lngToken.st_Item, null, 0, null, 0, null, 0, 0, 0, null, 0, 0, 0, 0, 0);
-            foreach (UniversalInvoice.TemplateToken tt in items_sold_token.list)
+            foreach (UniversalInvoice.TemplateToken tt in this.InvoiceToken.list)
             {
                 s += "\r\n" + tt.lt.s;
             }
 
 
 
-            UniversalInvoice.Organisation xMyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, 
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null,
-                                                       null);
+            if (ItemsSold.Count() > 0)
+            {
+                foreach (UniversalInvoice.TemplateToken tt in this.ItemsSold[0].token.list)
+                {
+                    s += "\r\n" + tt.lt.s;
+                }
+            }
 
-
-            foreach (UniversalInvoice.TemplateToken tt in xMyOrganisation.token.list)
+            foreach (UniversalInvoice.TemplateToken tt in this.FVI_SLO_RealEstateBP.token.list)
             {
                 s += "\r\n" + tt.lt.s;
             }
 
-            foreach (UniversalInvoice.TemplateToken tt in xMyOrganisation.Address.token.list)
+
+            foreach (UniversalInvoice.TemplateToken tt in this.MyOrganisation.token.list)
             {
                 s += "\r\n" + tt.lt.s;
             }
 
-            
+
+
+            foreach (UniversalInvoice.TemplateToken tt in this.MyOrganisation.Address.token.list)
+            {
+                s += "\r\n" + tt.lt.s;
+            }
+
+            if (this.Invoice_Author != null)
+            {
+                foreach (UniversalInvoice.TemplateToken tt in this.Invoice_Author.token.list)
+                {
+                    s += "\r\n" + tt.lt.s;
+                }
+            }
+
             UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(lngToken.st_Customer, 
                                                        null,
                                                        null,
@@ -410,5 +622,123 @@ namespace Tangenta
             return s;
         }
 
+        public string CreateHTML(ref string html_doc_text)
+        {
+
+            foreach (UniversalInvoice.TemplateToken ivt in MyOrganisation.token.list)
+            {
+                if (ivt.replacement != null)
+                {
+                    html_doc_text = html_doc_text.Replace(ivt.lt.s, ivt.replacement);
+                }
+                else
+                {
+                    html_doc_text = html_doc_text.Replace(ivt.lt.s, "");
+                }
+                html_doc_text = html_doc_text.Replace(InvoiceToken.tDateOfIssue.lt.s, InvoiceToken.tDateOfIssue.replacement);
+                html_doc_text = html_doc_text.Replace(InvoiceToken.tDateOfMaturity.lt.s, InvoiceToken.tDateOfMaturity.replacement);
+            }
+
+
+            int itbody = html_doc_text.IndexOf("<tbody>", 0);
+            if (itbody > 0)
+            {
+                int itr_start = html_doc_text.IndexOf("<tr class=\"row\">", itbody);
+                if (itr_start > 0)
+                {
+                    int itr_end = html_doc_text.IndexOf("</tr>", itr_start);
+                    if (itr_end > 0)
+                    {
+
+                        string tr_RowTemplate = html_doc_text.Substring(itr_start, itr_end - itr_start + 5);
+
+                        taxSum = new StaticLib.TaxSum();
+
+                        html_doc_text = html_doc_text.Remove(itr_start, itr_end - itr_start + 5);
+
+                        int ipos = itr_start;
+
+                        UniversalInvoice.TemplateToken tCurrency = null;
+                        foreach (UniversalInvoice.ItemSold itms in ItemsSold)
+                        {
+                            if (tCurrency == null)
+                            {
+                                if (itms.token.tCurrency != null)
+                                {
+                                    tCurrency = itms.token.tCurrency;
+                                }
+                            }
+                            string sRow = tr_RowTemplate.Replace(itms.token.tItemName.lt.s, itms.token.tItemName.replacement);
+                            sRow = sRow.Replace(itms.token.tPricePerUnit.lt.s, itms.token.tPricePerUnit.replacement);
+                            sRow = sRow.Replace(itms.token.tDiscount.lt.s, itms.token.tDiscount.replacement);
+                            sRow = sRow.Replace(itms.token.tCurrency.lt.s, itms.token.tCurrency.replacement);
+                            sRow = sRow.Replace(itms.token.tUnit.lt.s, itms.token.tUnit.replacement);
+                            sRow = sRow.Replace(itms.token.tQuantity.lt.s, itms.token.tQuantity.replacement);
+                            sRow = sRow.Replace(itms.token.tTaxationRate.lt.s, itms.token.tTaxationRate.replacement);
+                            sRow = sRow.Replace(itms.token.tNetPrice.lt.s, itms.token.tNetPrice.replacement);
+                            sRow = sRow.Replace(itms.token.tTax.lt.s, itms.token.tTax.replacement);
+                            sRow = sRow.Replace(itms.token.tPriceWithTax.lt.s, itms.token.tPriceWithTax.replacement);
+                            html_doc_text = html_doc_text.Insert(ipos, sRow);
+                            ipos += sRow.Length;
+                        }
+
+
+                        html_doc_text = html_doc_text.Replace(tCurrency.lt.s, tCurrency.replacement);
+
+                        InvoiceToken.tSumNetPrice.Set(NetSum.ToString());
+                        html_doc_text = html_doc_text.Replace(InvoiceToken.tSumNetPrice.lt.s, InvoiceToken.tSumNetPrice.replacement);
+
+
+                        //string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
+                        //string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
+                        //long journal_proformainvoice_id = -1;
+                        //f_Journal_ProformaInvoice.Write(m_usrc_Print.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
+                        int itr_taxsum_start = html_doc_text.IndexOf("<tr class=\"taxsum\">", itr_end);
+                        if (itr_taxsum_start > 0)
+                        {
+                            int itr_taxsum_end = html_doc_text.IndexOf("</tr>", itr_taxsum_start);
+                            if (itr_taxsum_end > 0)
+                            {
+                                string tr_TaxSum = html_doc_text.Substring(itr_taxsum_start, itr_taxsum_end - itr_taxsum_start + 5);
+                                html_doc_text = html_doc_text.Remove(itr_taxsum_start, itr_taxsum_end - itr_taxsum_start + 5);
+                                ipos = itr_taxsum_start;
+                                foreach (StaticLib.Tax tax in taxSum.TaxList)
+                                {
+                                    InvoiceToken.tTaxRateName.Set(tax.Name);
+                                    InvoiceToken.tSumTax.Set(tax.Sum.ToString());
+                                    string str = tr_TaxSum.Replace(InvoiceToken.tTaxRateName.lt.s, InvoiceToken.tTaxRateName.replacement);
+                                    str = str.Replace(InvoiceToken.tSumTax.lt.s, InvoiceToken.tSumTax.replacement);
+                                    html_doc_text = html_doc_text.Insert(ipos, str);
+                                    ipos += str.Length;
+                                }
+                                InvoiceToken.tTotalSum.Set(GrossSum.ToString());
+                                html_doc_text = html_doc_text.Replace(InvoiceToken.tTotalSum.lt.s, InvoiceToken.tTotalSum.replacement);
+                                return html_doc_text;
+                            }
+                            else
+                            {
+                                return "ERROR:itr_taxsum_end <= 0";
+                            }
+                        }
+                        else
+                        {
+                            return "ERROR:itr_taxsum_start <= 0";
+                        }
+                    }
+                    else
+                    {
+                        return "ERROR:itr_end <= 0";
+                    }
+                }
+                else
+                {
+                    return "ERROR:itr_start <= 0";
+                }
+            }
+            else
+            {
+                return "ERROR:itbody <= 0";
+            }
+        }
     }
 }

@@ -57,20 +57,6 @@ namespace Tangenta
         static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
 
 
-        public int PrintDate_Hour = 0;
-        public int PrintDate_Min = 0;
-        public int PrintDate_Sec = 0;
-        public byte[] Logo_Data = null;
-        public string Logo_Description = null;
-
-
-
-        public int PrintDate_Day = 0;
-        public int PrintDate_Month = 0;
-        public int PrintDate_Year = 0;
-
-        public string Currency_Symbol = null;
-        public int Currency_DecimalPlaces = -1;
 
         public InvoiceData m_InvoiceData = null;
         public StaticLib.TaxSum taxSum = null;
@@ -93,12 +79,12 @@ namespace Tangenta
 
 
 
-        internal void Print_Receipt(usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        internal void Print_Receipt(InvoiceData xInvoiceData, usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
 
             if (Printer_is_ESC_POS())
             {
-                Print_Receipt_ESC_POS(PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Print_Receipt_ESC_POS(xInvoiceData,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             }
             else
             {
@@ -120,18 +106,9 @@ namespace Tangenta
             return false;
         }
 
-        internal void Print_Receipt_ESC_POS(usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        internal void Print_Receipt_ESC_POS(InvoiceData xInvoiceData,usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
-            if (issue_time!=null)
-            { 
-                PrintDate_Hour = issue_time.v.Hour; ;
-                PrintDate_Min = issue_time.v.Minute;
-                PrintDate_Sec = issue_time.v.Second;
-
-                PrintDate_Day = issue_time.v.Day;
-                PrintDate_Month = issue_time.v.Month;
-                PrintDate_Year = issue_time.v.Year;
-            }
+          
             
             //Program.ReceiptPrinter.Print(ep.InitializePrinter());
             long journal_proformainvoice_id = -1;
@@ -147,9 +124,9 @@ namespace Tangenta
                     Program.ReceiptPrinter.Clear();
                 }
 
-                if (Logo_Data != null)
+                if (xInvoiceData.Logo_Data != null)
                 {
-                   Program.ReceiptPrinter.wr_Logo(Logo_Data);
+                   Program.ReceiptPrinter.wr_Logo(xInvoiceData.Logo_Data);
                 }
 
                 Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
@@ -184,7 +161,7 @@ namespace Tangenta
                 //buffer = buffer + "\x1b\x1d\x61\x0";             //Left Alignment - Refer to Pg. 3-29
                 Program.ReceiptPrinter.wr_SetHorizontalTabPositions(new byte[] { 2, 0x10, 0x22 });
                 Program.ReceiptPrinter.wr_Paragraph("Številka računa: " + m_InvoiceData.FinancialYear.ToString() + "/" + m_InvoiceData.NumberInFinancialYear.ToString());
-                Program.ReceiptPrinter.wr_Paragraph("Datum:" + PrintDate_Day.ToString() + "." + PrintDate_Month.ToString() + "." + PrintDate_Year.ToString() + "\x9" + " Čas:" + PrintDate_Hour.ToString() + ":" + PrintDate_Min.ToString());      //Moving Horizontal Tab - Pg. 3-26
+                Program.ReceiptPrinter.wr_Paragraph("Datum:" + xInvoiceData.IssueDate_Day.ToString() + "." + xInvoiceData.IssueDate_Month.ToString() + "." + xInvoiceData.IssueDate_Year.ToString() + "\x9" + " Čas:" + xInvoiceData.IssueDate_Hour.ToString() + ":" + xInvoiceData.IssueDate_Min.ToString());      //Moving Horizontal Tab - Pg. 3-26
                 Program.ReceiptPrinter.wr_LineDelimeter();
                 Program.ReceiptPrinter.wr_BoldOn();
 

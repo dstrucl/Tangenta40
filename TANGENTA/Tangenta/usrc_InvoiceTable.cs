@@ -49,7 +49,7 @@ namespace Tangenta
 
         }
 
-        internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice, bool bNew)
+        internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice, bool bNew,int iFinancialYear)
         {
             ColorDraft = Properties.Settings.Default.ColorDraft;
             ColorStorno = Properties.Settings.Default.ColorStorno;
@@ -59,7 +59,7 @@ namespace Tangenta
             {
                 case usrc_Invoice.enum_Invoice.Invoice:
                     this.dgvx_XInvoice.SelectionChanged -= new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
-                    iRowsCount = Init_Invoice(true, bNew);
+                    iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
                     ShowOrEditSelectedRow(true);
                     this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
                     break;
@@ -76,7 +76,7 @@ namespace Tangenta
             return iRowsCount;
         }
 
-        private int Init_Invoice(bool bInvoice, bool bNew)
+        private int Init_Invoice(bool bInvoice, bool bNew, int iFinancialYear)
         {
             m_bInvoice = bInvoice;
             int iRowsCount = -1;
@@ -101,7 +101,13 @@ namespace Tangenta
                 lpar_ExtraCondition = null;
             }
 
+            if (iFinancialYear > 0)
+            {
+                cond += " and JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear = " + iFinancialYear.ToString();
+            }
+
             string sql = @" select 
+                            JOURNAL_ProformaInvoice_$_pinv_$$ID,
                             JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear,
                             JOURNAL_ProformaInvoice_$_pinv_$$Draft,
                             JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber,
@@ -133,7 +139,7 @@ namespace Tangenta
                             JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName
                             JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
                             JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID
-                            from JOURNAL_ProformaInvoice_VIEW " + cond +" and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID + " order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
+                            from JOURNAL_ProformaInvoice_VIEW " + cond +  " and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID + " order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
             int iCurrentSelectedRow = -1;
             if (!bNew)
             {
@@ -270,9 +276,9 @@ namespace Tangenta
                 if (dgvCellCollection.Count >= 1)
                 {
                     //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
-                    if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID"].Value is long)
+                    if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_ProformaInvoice_$_pinv_$$ID"].Value is long)
                     {
-                        long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID"].Value;
+                        long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_ProformaInvoice_$_pinv_$$ID"].Value;
                         SelectedInvoiceChanged(Identity, bInitialise);
                         return;
                     }
@@ -292,7 +298,7 @@ namespace Tangenta
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
                 Program.Cursor_Wait();
-                Init(enum_Invoice, true);
+                Init(enum_Invoice, true, Properties.Settings.Default.FinancialYear);
                 Program.Cursor_Arrow();
             }
         }
