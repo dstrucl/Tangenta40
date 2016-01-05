@@ -1015,7 +1015,7 @@ namespace Tangenta
                 decimal tax_rate = (decimal)dr["SelectedSimpleItem_TaxRate"];
                 string tax_name = (string)dr["SelectedSimpleItem_TaxName"];
                 dsum_GrossSum += price;
-                TaxSum.Add(tax, tax_name, tax_rate);
+                TaxSum.Add(tax,0, tax_name, tax_rate);
                 dsum_NetSum += price - tax;
             }
 

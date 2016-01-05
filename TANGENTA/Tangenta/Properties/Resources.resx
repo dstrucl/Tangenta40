@@ -1607,24 +1607,24 @@
     <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;fu:InvoiceRequest xmlns:fu="http://www.fu.gov.si/" Id="test"&gt;
 	&lt;fu:Invoice&gt;
-		&lt;fu:TaxNumber&gt;@@DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
-		&lt;fu:IssueDateTime&gt;@@Datum_izdaje_računa&lt;/fu:IssueDateTime&gt;
+		&lt;fu:TaxNumber&gt;@@Moja_Organizacija_DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
+		&lt;fu:IssueDateTime&gt;@@Račun_Datum_izdaje_računa&lt;/fu:IssueDateTime&gt;
 		&lt;fu:NumberingStructure&gt;B&lt;/fu:NumberingStructure&gt;
 		&lt;fu:InvoiceIdentifier&gt;
-			&lt;fu:BusinessPremiseID&gt;@@PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
-			&lt;fu:ElectronicDeviceID&gt;@@OznakaBlagajne&lt;/fu:ElectronicDeviceID&gt;
-			&lt;fu:InvoiceNumber&gt;@@ObračunskoLeto/@@ŠtevilkaRačuna&lt;/fu:InvoiceNumber&gt;
+			&lt;fu:BusinessPremiseID&gt;@@Moja_Organizacija_PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
+			&lt;fu:ElectronicDeviceID&gt;@@Račun_OznakaBlagajne&lt;/fu:ElectronicDeviceID&gt;
+			&lt;fu:InvoiceNumber&gt;@@Račun_Številka&lt;/fu:InvoiceNumber&gt;
 		&lt;/fu:InvoiceIdentifier&gt;
 		&lt;fu:InvoiceAmount&gt;@@Cena_z_DDV&lt;/fu:InvoiceAmount&gt;
 		&lt;fu:PaymentAmount&gt;@@Cena_z_DDV&lt;/fu:PaymentAmount&gt;
 		&lt;fu:TaxesPerSeller&gt;
 			&lt;fu:VAT&gt;
-				&lt;fu:TaxRate&gt;@@DavčnaStopnja&lt;/fu:TaxRate&gt;
-				&lt;fu:TaxableAmount&gt;@@Cena_Brez_DDV&lt;/fu:TaxableAmount&gt;
-				&lt;fu:TaxAmount&gt;@@Davek&lt;/fu:TaxAmount&gt;
+				&lt;fu:TaxRate&gt;22.00&lt;/fu:TaxRate&gt;
+				&lt;fu:TaxableAmount&gt;23.04&lt;/fu:TaxableAmount&gt;
+				&lt;fu:TaxAmount&gt;5.09&lt;/fu:TaxAmount&gt;
 			&lt;/fu:VAT&gt;
 		&lt;/fu:TaxesPerSeller&gt;
-		&lt;fu:OperatorTaxNumber&gt;@@DavčnaŠtevilkaOsebeKiJeIzdalaRačun&lt;/fu:OperatorTaxNumber&gt;
+		&lt;fu:OperatorTaxNumber&gt;@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka&lt;/fu:OperatorTaxNumber&gt;
 	&lt;/fu:Invoice&gt;
 &lt;/fu:InvoiceRequest&gt;</value>
   </data>

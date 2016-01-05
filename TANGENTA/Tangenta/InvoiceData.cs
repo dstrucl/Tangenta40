@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DBTypes;
+using System.Xml;
 
 namespace Tangenta
 {
@@ -87,7 +88,6 @@ namespace Tangenta
             ProformaInvoice_ID = xProformaInvoice_ID;
         }
 
-
         public void Fill_SoldSimpleItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
         {
             int i;
@@ -128,21 +128,25 @@ namespace Tangenta
                 }
                 decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
 
+                decimal taxation_rate  = DBTypes.func._set_decimal(dr["Atom_Taxation_Rate"]);
+                decimal tax_price = DBTypes.func._set_decimal(dr["TaxPrice"]);
+                string tax_name = DBTypes.func._set_string(dr["Atom_Taxation_Name"]);
+                taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_rdbStore_SimpleItem,
                                                              DBTypes.func._set_string(dr["Name"]),
                                                              DBTypes.func._set_decimal(dr["RetailSimpleItemPrice"]),
                                                              "", // no unit
                                                              DBTypes.func._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]),
-                                                             DBTypes.func._set_string(dr["Atom_Taxation_Name"]),
+                                                             tax_name,
                                                              Convert.ToDecimal(DBTypes.func._set_int(dr["iQuantity"])),
                                                              DBTypes.func._set_decimal(dr["Discount"]),
                                                              DBTypes.func._set_decimal(dr["ExtraDiscount"]),
                                                              DBTypes.func._set_string(dr["Atom_Currency_Symbol"]),
-                                                             DBTypes.func._set_decimal(dr["Atom_Taxation_Rate"]),
+                                                             taxation_rate,
                                                              DBTypes.func._set_decimal(TotalDiscount),
                                                              DBTypes.func._set_decimal(price_without_tax),
-                                                             DBTypes.func._set_decimal(dr["TaxPrice"]),
+                                                             tax_price,
                                                              DBTypes.func._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]));
 
                 j++;
@@ -220,6 +224,12 @@ namespace Tangenta
                 StaticLib.Func.CalculatePrice(RetailPricePerUnit, dQuantity, Discount, ExtraDiscount, Atom_Taxation_Rate, ref RetailItemsPriceWithDiscount, ref ItemsTaxPrice, ref ItemsNetPrice, decimal_places);
 
 
+                decimal taxation_rate = DBTypes.func._set_decimal(appisd.Atom_Taxation_Rate.v);
+                decimal tax_price = ItemsTaxPrice;
+                string tax_name = appisd.Atom_Taxation_Name.v;
+
+                taxSum.Add(tax_price, ItemsNetPrice, tax_name, taxation_rate);
+
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix,lngRPM.s_rdbStore_Item,
                                                              DBTypes.func._set_string(appisd.Atom_Item_UniqueName.v),
                                                              DBTypes.func._set_decimal(appisd.RetailPricePerUnit.v),
@@ -230,7 +240,7 @@ namespace Tangenta
                                                              DBTypes.func._set_decimal(appisd.Discount.v),
                                                              DBTypes.func._set_decimal(appisd.ExtraDiscount.v),
                                                              DBTypes.func._set_string(appisd.Atom_Currency_Symbol.v),
-                                                             DBTypes.func._set_decimal(appisd.Atom_Taxation_Rate.v),
+                                                             taxation_rate,
                                                              DBTypes.func._set_decimal(TotalDiscount),
                                                              DBTypes.func._set_decimal(ItemsNetPrice),
                                                              DBTypes.func._set_decimal(ItemsTaxPrice),
@@ -473,7 +483,7 @@ namespace Tangenta
                             int iCountItemsSold = m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
 
                             ItemsSold = new UniversalInvoice.ItemSold[iCountSimpleItemsSold + iCountItemsSold];
-
+                            taxSum = new StaticLib.TaxSum();
                             Fill_SoldSimpleItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountSimpleItemsSold);
                             Fill_SoldItemsData(lngToken.st_Invoice, ref ItemsSold, iCountSimpleItemsSold, iCountItemsSold);
 
@@ -481,7 +491,7 @@ namespace Tangenta
 
                             InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
                             InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
-                            InvoiceToken.tCashier.Set("Blagajna1");
+                            InvoiceToken.tCashier.Set(Properties.Settings.Default.CasshierName);
 
                             string stime = IssueDate_Day.ToString() + "."
                                            + IssueDate_Month.ToString() + "."
@@ -622,6 +632,82 @@ namespace Tangenta
             return s;
         }
 
+        
+        internal string Create_furs_InvoiceXML()
+        {
+            try
+            {
+                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_Invoice;
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.LoadXml(InvoiceXmlTemplate);
+                XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
+                ndl_TaxNumber.Item(0).InnerText = MyOrganisation.Tax_ID;
+                XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
+                ndl_IssueDateTime.Item(0).InnerText = fs.GetString(IssueDate_Year, 4) + "-"
+                                                    + fs.GetString(IssueDate_Month, 2) + "-"
+                                                    + fs.GetString(IssueDate_Day, 2) + "T"
+                                                    + fs.GetString(IssueDate_Hour, 2) + ":"
+                                                    + fs.GetString(IssueDate_Min, 2) + ":"
+                                                    + fs.GetString(IssueDate_Sec, 2);
+                XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
+                ndl_BusinessPremiseID.Item(0).InnerText = MyOrganisation.Atom_Office_Name;
+                XmlNodeList ndl_ElectronicDeviceID = xdoc.GetElementsByTagName("fu:ElectronicDeviceID");
+                ndl_ElectronicDeviceID.Item(0).InnerText = Properties.Settings.Default.CasshierName;
+                XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
+                ndl_InvoiceNumber.Item(0).InnerText = NumberInFinancialYear.ToString();
+                XmlNodeList ndl_InvoiceAmount = xdoc.GetElementsByTagName("fu:InvoiceAmount");
+                ndl_InvoiceAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
+                XmlNodeList ndl_PaymentAmount = xdoc.GetElementsByTagName("fu:PaymentAmount");
+                ndl_PaymentAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
+
+                XmlNodeList ndl_TaxesPerSeller = xdoc.GetElementsByTagName("fu:TaxesPerSeller");
+                string s_innertext = "";
+                foreach (StaticLib.Tax tax in taxSum.TaxList)
+                {
+                    string sVat = "<fu:VAT>\r\n" +
+                                          "<fu:TaxRate>" + fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
+                                          "<fu:TaxableAmount>" + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
+                                          "<fu:TaxAmount>" + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
+                                   "</fu:VAT>" + "\r\n";
+                    s_innertext += sVat;
+                }
+                ndl_TaxesPerSeller.Item(0).InnerXml = s_innertext;
+
+                XmlNodeList ndl_OperatorTaxNumber = xdoc.GetElementsByTagName("fu:OperatorTaxNumber");
+                ndl_OperatorTaxNumber.Item(0).InnerText = Invoice_Author.Tax_ID;
+
+                string InvoiceXml = XmlDcoumentToString(xdoc);
+                return InvoiceXml;
+            }
+            catch (Exception Ex)
+            {
+                LogFile.Error.Show("ERROR:InvoiceData:Create_furs_InvoiceXML:Exception = " + Ex.Message);
+                return null;
+            }
+
+        }
+
+        private void GetFursDecimalString(decimal grossSum)
+        {
+            throw new NotImplementedException();
+        }
+
+        private string XmlDcoumentToString(XmlDocument xmlDoc)
+        {
+            var settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = false;
+            settings.Indent = true;
+            settings.NewLineOnAttributes = true;
+
+            var stringBuilder = new StringBuilder();
+            using (var xmlWriter = XmlWriter.Create(stringBuilder, settings))
+            {
+                xmlDoc.Save(xmlWriter);
+            }
+
+            return stringBuilder.ToString();
+        }
+
         public string CreateHTML(ref string html_doc_text)
         {
 
@@ -652,7 +738,6 @@ namespace Tangenta
 
                         string tr_RowTemplate = html_doc_text.Substring(itr_start, itr_end - itr_start + 5);
 
-                        taxSum = new StaticLib.TaxSum();
 
                         html_doc_text = html_doc_text.Remove(itr_start, itr_end - itr_start + 5);
 
@@ -705,7 +790,7 @@ namespace Tangenta
                                 foreach (StaticLib.Tax tax in taxSum.TaxList)
                                 {
                                     InvoiceToken.tTaxRateName.Set(tax.Name);
-                                    InvoiceToken.tSumTax.Set(tax.Sum.ToString());
+                                    InvoiceToken.tSumTax.Set(tax.TaxAmount.ToString());
                                     string str = tr_TaxSum.Replace(InvoiceToken.tTaxRateName.lt.s, InvoiceToken.tTaxRateName.replacement);
                                     str = str.Replace(InvoiceToken.tSumTax.lt.s, InvoiceToken.tSumTax.replacement);
                                     html_doc_text = html_doc_text.Insert(ipos, str);

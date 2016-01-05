@@ -83,10 +83,10 @@ namespace Tangenta
         internal void Print_Receipt(InvoiceData xInvoiceData, usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
 
-
             string furs_XML = "";
             string furs_UniqeMsgID = "";
             string furs_UniqeInvID = "";
+
 
             //TODO:
             //naredi xml
@@ -94,11 +94,10 @@ namespace Tangenta
 
             //pošlji 
 
-            Program.usrc_FVI_SLO1.Send_SingleInvoice( furs_XML,this.Parent ,ref furs_UniqeMsgID, ref furs_UniqeInvID);
-
             if (Program.b_FVI_SLO)
             {
-              //  furs_XML Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_ID, furs_XML);
+                furs_XML = xInvoiceData.Create_furs_InvoiceXML();
+                Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID);
             }
             if (Printer_is_ESC_POS())
             {
@@ -233,7 +232,7 @@ namespace Tangenta
                     if (oTaxPrice is decimal)
                     {
                         TaxPrice = (decimal)oTaxPrice;
-                        taxSum.Add(TaxPrice, (string)dr["Atom_Taxation_Name"], (decimal)dr["Atom_Taxation_Rate"]);
+                        taxSum.Add(TaxPrice,0, (string)dr["Atom_Taxation_Name"], (decimal)dr["Atom_Taxation_Rate"]);
                     }
 
                     int iQuantity = -1;
@@ -378,7 +377,7 @@ namespace Tangenta
 
                     decimal TaxPrice = appisd.TaxPrice.v;
 
-                    taxSum.Add(ItemsTaxPrice, TaxationName, Atom_Taxation_Rate);
+                    taxSum.Add(ItemsTaxPrice,0, TaxationName, Atom_Taxation_Rate);
 
 
                     Program.ReceiptPrinter.wr_String(TaxationName + HT + HT + ItemsTaxPrice.ToString() + " EUR\n");
@@ -389,7 +388,7 @@ namespace Tangenta
 
                 foreach (StaticLib.Tax tax in taxSum.TaxList)
                 {
-                    Program.ReceiptPrinter.wr_String(tax.Name +  HT + HT + "" + tax.Sum.ToString() + " EUR\n");
+                    Program.ReceiptPrinter.wr_String(tax.Name +  HT + HT + "" + tax.TaxAmount.ToString() + " EUR\n");
                 }
                 
                 Program.ReceiptPrinter.wr_String("Brez davka " +  HT + HT + "" + m_InvoiceData.NetSum.ToString() + " EUR\n");

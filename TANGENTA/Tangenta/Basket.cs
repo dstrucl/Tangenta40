@@ -439,7 +439,7 @@ namespace Tangenta
                                         ref net_price,
                                         ((Atom_ProformaInvoice_Price_Item_Stock_Data)o).Atom_Currency_DecimalPlaces.v);
 
-                TaxSum.Add(tax_price, ((Atom_ProformaInvoice_Price_Item_Stock_Data)o).Atom_Taxation_Name.v, ((Atom_ProformaInvoice_Price_Item_Stock_Data)o).Atom_Taxation_Rate.v);
+                TaxSum.Add(tax_price, net_price,((Atom_ProformaInvoice_Price_Item_Stock_Data)o).Atom_Taxation_Name.v, ((Atom_ProformaInvoice_Price_Item_Stock_Data)o).Atom_Taxation_Rate.v);
 
                 dsum_GrossSum_Basket += RetailPriceWithDisount;
                 dsum_TaxSum_Basket += tax_price;

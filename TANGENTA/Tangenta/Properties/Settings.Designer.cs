@@ -442,5 +442,17 @@ namespace Tangenta.Properties {
                 this["FinancialYear"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Blagajna1")]
+        public string CasshierName {
+            get {
+                return ((string)(this["CasshierName"]));
+            }
+            set {
+                this["CasshierName"] = value;
+            }
+        }
     }
 }

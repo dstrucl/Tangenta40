@@ -15,6 +15,15 @@ namespace Tangenta
 {
     public static class fs
     {
+        public static string GetString(int i, int places)
+        {
+            string s = i.ToString();
+            while (s.Length < places)
+            {
+                s = '0' + s;
+            }
+            return s;
+        }
         public static decimal GetIncrement(int_v DecimalPlaces, string_v Unit_Symbol)
         {
             if (DecimalPlaces != null)
@@ -900,6 +909,33 @@ namespace Tangenta
                 return false;
             }
         }
+
+        internal static string GetFursDecimalString(decimal d)
+        {
+            d = decimal.Round(d, 2);
+            string s = d.ToString();
+            int icomma = s.IndexOf(',');
+            if (s.Contains(","))
+            {
+                s = s.Replace(',', '.');
+            }
+
+            icomma = s.IndexOf('.');
+            if (icomma >= 0)
+            {
+                int len = s.Length;
+                while (s.Length < icomma + 3)
+                {
+                    s = s + "0";
+                }
+            }
+            else
+            {
+                s = s + ".00";
+            }
+            return s;
+        }
+
 
         public static bool WriteRow(string TableName, DataRow dr, string Column_PrefixTable, bool Those_from_Column_PrefixTable, ref long id)
         {
