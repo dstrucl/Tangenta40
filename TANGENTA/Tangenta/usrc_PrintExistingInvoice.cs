@@ -93,10 +93,48 @@ namespace Tangenta
             
             if (aa_DoPrint_Existing_Invoice != null)
             {
-                    aa_DoPrint_Existing_Invoice(ProformaInvoiceTime_v);
-                    ShowJournal();
+                DateTime dtInvoiceTime = DateTime.MinValue;
+                if (GetInvoiceTime(ref dtInvoiceTime))
+                {
+                    if (ProformaInvoiceTime_v== null)
+                    {
+                        ProformaInvoiceTime_v = new DateTime_v();
+                    }
+                    ProformaInvoiceTime_v.v = dtInvoiceTime;
+                }
+
+                aa_DoPrint_Existing_Invoice(ProformaInvoiceTime_v);
+                ShowJournal();
             }
         }
 
+        private bool GetInvoiceTime(ref DateTime dtInvoiceTime)
+        {
+            string sql = @"select   JOURNAL_ProformaInvoice_$$EventTime
+                                    from JOURNAL_ProformaInvoice_VIEW where 
+                                    JOURNAL_ProformaInvoice_$_jpinvt_$$Name = 'InvoiceTime' and
+                                    JOURNAL_ProformaInvoice_$_pinv_$$ID = " + ProformaInvoice_ID.ToString() + " order by ID desc";
+            dt.Clear();
+            string Err = null;
+            DataTable xdt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref xdt, sql, ref Err))
+            {
+                if (xdt.Rows.Count>0)
+                {
+                    dtInvoiceTime = (DateTime)xdt.Rows[0]["JOURNAL_ProformaInvoice_$$EventTime"];
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_PrintExistingInvoice:GetInvoiceTime:sql=" + sql + "\r\nErr= xdt.Rows.Count == 0");
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_PrintExistingInvoice:Init:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

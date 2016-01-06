@@ -24,8 +24,6 @@ namespace Tangenta
         public int IssueDate_Hour = 0;
         public int IssueDate_Min = 0;
         public int IssueDate_Sec = 0;
-        public byte[] Logo_Data = null;
-        public string Logo_Description = null;
 
 
 
@@ -433,6 +431,7 @@ namespace Tangenta
                                                                                                          DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["PremiseType"])   );
                         }
 
+                        byte[] barr_logoData = (byte[])dt_ProformaInvoice.Rows[0]["Logo_Data"];
                         MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
                                                                    DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
                                                                    DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),

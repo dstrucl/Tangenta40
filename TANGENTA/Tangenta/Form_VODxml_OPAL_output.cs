@@ -551,8 +551,8 @@ namespace Tangenta
                                             JOURNAL_Invoice_$_jinvt_$$Description,
                                             JOURNAL_Invoice_$$EventTime,
                                             JOURNAL_Invoice_$_awperiod_$_amcper_$$UserName,
-                                            JOURNAL_Invoice_$_awperiod_$_amcper_$$FirstName,
-                                            JOURNAL_Invoice_$_awperiod_$_amcper_$$LastName
+                                            JOURNAL_Invoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                                            JOURNAL_Invoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName
                                        from JOURNAL_Invoice_VIEW where JOURNAL_Invoice_$_jinvt_$$Name = 'Storno*' and JOURNAL_Invoice_$_inv_$$Storno = 1 and JOURNAL_Invoice_$_inv_$$ID = " + Invoice_ID.ToString();
 
 
@@ -568,13 +568,13 @@ namespace Tangenta
                                             gl19_Opis_razloga_spremembe_racuna = (string)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_jinvt_$$Description"];
                                             gl20_Uporabnisko_ime_osebe_ki_je_spremenila_racun = (string)dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_awperiod_$_amcper_$$UserName"];
                                             string sFirstName = "";
-                                            object oFirstName = dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_awperiod_$_amcper_$$FirstName"];
+                                            object oFirstName = dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"];
                                             if (oFirstName is string)
                                             {
                                                 sFirstName = (string)oFirstName;
                                             }
                                             string sLastName = "";
-                                            object oLastName = dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_awperiod_$_amcper_$$LastName"];
+                                            object oLastName = dt_XML_Invoice_Storno.Rows[0]["JOURNAL_Invoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"];
                                             if (oLastName is string)
                                             {
                                                 sLastName = (string)oLastName;

@@ -87,6 +87,26 @@ namespace Tangenta
             string furs_UniqeMsgID = "";
             string furs_UniqeInvID = "";
 
+            if (issue_time != null)
+            {
+                if (xInvoiceData.IssueDate_Year == 0)
+                {
+                    xInvoiceData.IssueDate_Year = issue_time.v.Year;
+                    xInvoiceData.IssueDate_Month = issue_time.v.Month;
+                    xInvoiceData.IssueDate_Day = issue_time.v.Day;
+                    xInvoiceData.IssueDate_Hour = issue_time.v.Hour;
+                    xInvoiceData.IssueDate_Min = issue_time.v.Minute;
+                    xInvoiceData.IssueDate_Sec = issue_time.v.Second;
+                }
+                else
+                {
+                    if (Program.b_FVI_SLO)
+                    {
+                        furs_XML = xInvoiceData.Create_furs_InvoiceXML();
+                        //Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID);
+                    }
+                }
+            }
 
             //TODO:
             //naredi xml
@@ -94,11 +114,6 @@ namespace Tangenta
 
             //pošlji 
 
-            if (Program.b_FVI_SLO)
-            {
-                furs_XML = xInvoiceData.Create_furs_InvoiceXML();
-                Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID);
-            }
             if (Printer_is_ESC_POS())
             {
                 Print_Receipt_ESC_POS(xInvoiceData,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
@@ -147,9 +162,9 @@ namespace Tangenta
                     Program.ReceiptPrinter.Clear();
                 }
 
-                if (xInvoiceData.Logo_Data != null)
+                if (xInvoiceData.MyOrganisation.Logo_Data != null)
                 {
-                   Program.ReceiptPrinter.wr_Logo(xInvoiceData.Logo_Data);
+                   Program.ReceiptPrinter.wr_Logo(xInvoiceData.MyOrganisation.Logo_Data);
                 }
 
                 Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);

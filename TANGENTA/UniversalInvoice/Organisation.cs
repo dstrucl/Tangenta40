@@ -16,12 +16,6 @@ namespace UniversalInvoice
         public string PhoneNumber = null;
         public string FaxNumber = null;
         public byte[] Logo_Data = null;
-        public string StreetName = null;
-        public string HouseNumber = null;
-        public string ZIP = null;
-        public string City = null;
-        public string State = null;
-        public string Country = null;
 
         public Address Address = null;
         public OrganisationToken token = null;
@@ -62,12 +56,12 @@ namespace UniversalInvoice
             Logo_Data =             _Logo_Data;
 
             ltext token_prefix_Organisation = token_prefix.AddAtTheEnd(lngToken.st_Organisation);
-            Address = new Address(token_prefix_Organisation, StreetName,
-                                    HouseNumber,
-                                    ZIP,
-                                    City,
-                                    State,
-                                    Country);
+            Address = new Address(token_prefix_Organisation, _StreetName,
+                                    _HouseNumber,
+                                    _ZIP,
+                                    _City,
+                                    _State,
+                                    _Country);
 
             token = new OrganisationToken(token_prefix_Organisation,
                                             Name,
