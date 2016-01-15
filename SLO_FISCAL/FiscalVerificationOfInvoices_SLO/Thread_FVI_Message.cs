@@ -42,6 +42,29 @@ namespace FiscalVerificationOfInvoices_SLO
             set { m_Message_ID = value; }
         }
 
+        public string MessageType
+        {
+            get {
+                    switch (m_Message)
+                    {
+                        case eMessage.NONE:
+                            return "eMessage = NONE";
+                        case eMessage.END:
+                            return "eMessage = END";
+                        case eMessage.POST_BUSINESSPREMISE:
+                            return "eMessage = POST_BUSINESSPREMISE";
+                        case eMessage.POST_ECHO:
+                            return "eMessage = POST_ECHO";
+                        case eMessage.POST_MANY_INVOICES:
+                            return "eMessage = POST_MANY_INVOICES";
+                        case eMessage.POST_SINGLE_INVOICE:
+                            return "eMessage = POST_SINGLE_INVOICE";
+                    }
+                return "eMessage = ERROR wrong eMessage in Thread_FVI_Message";
+                }
+
+        }
+
         public Thread_FVI_Message(long xMessage_ID,eMessage xMessage, string xml_data)
         {
             Message = xMessage;

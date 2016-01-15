@@ -673,6 +673,13 @@ namespace Tangenta
                 ndl_TaxesPerSeller.Item(0).InnerXml = s_innertext;
 
                 XmlNodeList ndl_OperatorTaxNumber = xdoc.GetElementsByTagName("fu:OperatorTaxNumber");
+
+
+                //CORRECT THIS DAMJAN!
+                Invoice_Author.Tax_ID = "59729481";
+                //CORRECT THIS DAMJAN!
+
+
                 ndl_OperatorTaxNumber.Item(0).InnerText = Invoice_Author.Tax_ID;
 
                 string InvoiceXml = XmlDcoumentToString(xdoc);

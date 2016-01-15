@@ -194,7 +194,7 @@
 
         }
 
-        #endregion
+
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         public usrc_Invoice m_usrc_Invoice;
@@ -206,5 +206,6 @@
         private System.Windows.Forms.RadioButton rdb_Items;
         private System.Windows.Forms.RadioButton rdb_ItemsAndProformaInvoices;
         private System.Windows.Forms.RadioButton rdb_ProformaInvoices;
+        #endregion
     }
 }

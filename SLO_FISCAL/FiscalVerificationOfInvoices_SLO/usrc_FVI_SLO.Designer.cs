@@ -36,16 +36,16 @@
             // btn_FVI
             // 
             this.btn_FVI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_FVI.Image = null;
+            this.btn_FVI.Image = global::FiscalVerificationOfInvoices_SLO.Properties.Resources.TAX_Office_Connection_NONE;
             this.btn_FVI.Location = new System.Drawing.Point(0, 0);
             this.btn_FVI.Name = "btn_FVI";
             this.btn_FVI.Size = new System.Drawing.Size(33, 26);
             this.btn_FVI.TabIndex = 0;
             this.btn_FVI.UseVisualStyleBackColor = true;
+            this.btn_FVI.Click += new System.EventHandler(this.btn_FVI_Click);
             // 
             // timer_MessagePump
             // 
-            this.timer_MessagePump.Enabled = false;
             this.timer_MessagePump.Tick += new System.EventHandler(this.timer_MessagePump_Tick);
             // 
             // usrc_FVI_SLO

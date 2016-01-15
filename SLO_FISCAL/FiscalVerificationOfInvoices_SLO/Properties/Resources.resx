@@ -1658,6 +1658,9 @@
 &lt;/schema&gt;</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="TAX_Office_Connection_NONE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TAX_Office_Connection_NONE.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="TAX_Office_Connection_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TAX_Office_Connection_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

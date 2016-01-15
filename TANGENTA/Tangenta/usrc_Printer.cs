@@ -103,7 +103,7 @@ namespace Tangenta
                     if (Program.b_FVI_SLO)
                     {
                         furs_XML = xInvoiceData.Create_furs_InvoiceXML();
-                        //Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID);
+                        Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID);
                     }
                 }
             }

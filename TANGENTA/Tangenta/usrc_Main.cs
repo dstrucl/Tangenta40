@@ -47,7 +47,22 @@ namespace Tangenta
                             {
                             }
                         }
-                        return this.m_usrc_InvoiceMan.Init(main_Form);
+                        if (this.m_usrc_InvoiceMan.Init(main_Form))
+                        {
+                            if (Program.b_FVI_SLO)
+                            {
+                                if (!this.usrc_FVI_SLO1.Start(ref Err))
+                                {
+                                    LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
+                                    return false;
+                                }
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -76,7 +91,22 @@ namespace Tangenta
                                         {
                                         }
                                     }
-                                    return this.m_usrc_InvoiceMan.Init(main_Form);
+                                    if (this.m_usrc_InvoiceMan.Init(main_Form))
+                                    {
+                                        if (Program.b_FVI_SLO)
+                                        {
+                                            if (!this.usrc_FVI_SLO1.Start(ref Err))
+                                            {
+                                                LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
+                                                return false;
+                                            }
+                                        }
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
                                 }
                                 else
                                 {
@@ -133,6 +163,13 @@ namespace Tangenta
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
+            if (Program.b_FVI_SLO)
+            {
+                if (usrc_FVI_SLO1!=null)
+                {
+                    usrc_FVI_SLO1.End();
+                }
+            }
             if (Exit_Click!=null)
             {
                 Exit_Click();

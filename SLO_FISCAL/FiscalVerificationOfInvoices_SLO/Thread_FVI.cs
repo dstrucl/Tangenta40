@@ -40,26 +40,40 @@ namespace FiscalVerificationOfInvoices_SLO
             xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
             for (;;)
             {
+                ReturnValue rv = null;
+                string xml_returned = null;
                 switch (message_box.Get(ref fvi_message))
                 {
                     case Result_MessageBox_Get.OK:
                         switch (fvi_message.Message)
                         {
+
                             case Thread_FVI_Message.eMessage.POST_ECHO:
-                            case Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE:
-                            case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
-
-                                ReturnValue rv= taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-
-                                string xml = prettyXml(rv.MessageReceivedFromFurs);
-    
-                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml);
+                                rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
+                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
-                                return;
+                                break;
 
-                 
+                            case Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE:
+                                rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
+                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
+                                xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
+                                break;
+
+                            case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
+                                rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
+                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
+                                xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
+                                break;
 
                             case Thread_FVI_Message.eMessage.POST_MANY_INVOICES:
+                                rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
+                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
+                                xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
                             case Thread_FVI_Message.eMessage.END:
@@ -101,13 +115,9 @@ namespace FiscalVerificationOfInvoices_SLO
         }
 
 
-        public void Start(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox,int message_box_length, string certificateFileName, string CertPass, string fursWebServiceURL, string fursXmlNamespace, int timeOutInSec, ref string ErrReason)
+        public bool Start(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox,int message_box_length, string certificateFileName, string CertPass, string fursWebServiceURL, string fursXmlNamespace, int timeOutInSec, ref string ErrReason)
         {
 
-            message_box = new Thread_FVI_MessageBox(message_box_length);
-            FVI_Thread = new System.Threading.Thread(Run);
-            FVI_Thread.SetApartmentState(ApartmentState.STA);
-            FVI_Thread.Start(xusrc_FVI_SLO_MessageBox);
 
             try
             {
@@ -116,10 +126,17 @@ namespace FiscalVerificationOfInvoices_SLO
                 taxService = TaxService.Create(FiscalSettings);  //create service with settings
                 ErrReason= "";
 
+                message_box = new Thread_FVI_MessageBox(message_box_length);
+                FVI_Thread = new System.Threading.Thread(Run);
+                FVI_Thread.SetApartmentState(ApartmentState.STA);
+                FVI_Thread.Start(xusrc_FVI_SLO_MessageBox);
+                return true;
+
             }
             catch (Exception ex)
             {
                 ErrReason = ex.Message;
+                return false;
             }
 
 

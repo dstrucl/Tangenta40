@@ -15,6 +15,16 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class usrc_FVI_SLO : UserControl
     {
+        public bool DEBUG = false;
+        public string certificateFileName = null;
+        public string CertPass = null;
+        public string fursWebServiceURL = null;
+        public string fursXmlNamespace = null;
+        public int timeOutInSec = 0;
+
+
+        private FormWait WaitForm = null;
+        public Result_MessageBox_Post RetFromWaitForm = Result_MessageBox_Post.TIMEOUT;
 
         public delegate void delegate_Response_SingleInvoice(long Message_ID, string xml);
         public delegate void delegate_Response_ManyInvoices(long Message_ID, string xml);
@@ -29,7 +39,7 @@ namespace FiscalVerificationOfInvoices_SLO
         private bool bRun = false;
         internal usrc_FVI_SLO_MessageBox message_box = null;
 
-        private Thread_FVI thread_fvi = new Thread_FVI();
+        internal Thread_FVI thread_fvi = new Thread_FVI();
 
         private usrc_FVI_SLO_Message message = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.NONE, null);
 
@@ -52,15 +62,57 @@ namespace FiscalVerificationOfInvoices_SLO
         {
         }
 
-        public bool Start(string certificateFileName, string CertPass, string fursWebServiceURL, string fursXmlNamespace, int timeOutInSec, ref string ErrReason)
+        public bool Start(string xcertificateFileName, string xCertPass, string xfursWebServiceURL, string xfursXmlNamespace, int xtimeOutInSec, Control ParentForm, ref string ErrReason)
         {
             if (!bRun)
             {
                 message_box = new usrc_FVI_SLO_MessageBox(MessageBox_Length);
-                thread_fvi.Start(message_box, MessageBox_Length,  certificateFileName,  CertPass,  fursWebServiceURL,  fursXmlNamespace,  timeOutInSec, ref  ErrReason);
+                thread_fvi.Start(message_box, MessageBox_Length, xcertificateFileName, xCertPass, xfursWebServiceURL, xfursXmlNamespace, xtimeOutInSec, ref ErrReason);
                 timer_MessagePump.Enabled = true;
                 bRun = true;
                 return true;
+            }
+            else
+            {
+                ErrReason = "0 Not run";
+                return false;
+            }
+        }
+
+        public bool Start(ref string ErrReason)
+        {
+            
+
+            //Properties.Settings.Default.Save();  //shranis setings
+
+
+            if (!bRun)
+            {
+                message_box = new usrc_FVI_SLO_MessageBox(MessageBox_Length);
+
+                DialogResult dlgResult = DialogResult.None;
+                while (dlgResult != DialogResult.Cancel)
+                {
+                    DEBUG = Properties.Settings.Default.DEBUG;
+                    certificateFileName = Properties.Settings.Default.certificateFileName;
+                    CertPass = Properties.Settings.Default.CertPass;
+                    fursWebServiceURL = Properties.Settings.Default.fursWebServiceURL;
+                    fursXmlNamespace = Properties.Settings.Default.fursXmlNamespace;
+                    timeOutInSec = Properties.Settings.Default.timeOutInSec;
+                    if (thread_fvi.Start(message_box, MessageBox_Length, certificateFileName, CertPass, fursWebServiceURL, fursXmlNamespace, timeOutInSec, ref ErrReason))
+                    {
+                        timer_MessagePump.Enabled = true;
+                        bRun = true;
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show(ErrReason);
+                        Form_Settings fvi_settings = new Form_Settings(this);
+                        dlgResult = fvi_settings.ShowDialog();
+                    }
+                }
+                return false;
             }
             else
             {
@@ -74,6 +126,10 @@ namespace FiscalVerificationOfInvoices_SLO
             LastMessageID ++;
 
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
+            WaitForm = new FormWait(this, msg);
+            WaitForm.ShowDialog();
+
+
             return thread_fvi.message_box.Post(msg);
 
         }
@@ -166,6 +222,12 @@ namespace FiscalVerificationOfInvoices_SLO
                     break;
 
             }
+        }
+
+        private void btn_FVI_Click(object sender, EventArgs e)
+        {
+            Form_Settings fvi_man = new Form_Settings(this);
+            fvi_man.ShowDialog();
         }
     }
 }
