@@ -24,7 +24,6 @@ namespace FiscalVerificationOfInvoices_SLO
 
 
         private FormWait WaitForm = null;
-        public Result_MessageBox_Post RetFromWaitForm = Result_MessageBox_Post.TIMEOUT;
 
         public delegate void delegate_Response_SingleInvoice(long Message_ID, string xml);
         public delegate void delegate_Response_ManyInvoices(long Message_ID, string xml);
@@ -128,9 +127,7 @@ namespace FiscalVerificationOfInvoices_SLO
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
             WaitForm = new FormWait(this, msg);
             WaitForm.ShowDialog();
-
-
-            return thread_fvi.message_box.Post(msg);
+            return WaitForm.RetFromWaitForm;
 
         }
 
@@ -195,6 +192,12 @@ namespace FiscalVerificationOfInvoices_SLO
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE:
+                            if (WaitForm!= null)
+                            {
+                                if (WaitForm.FVI_Response_Single_Invoice(message.Message_ID, message.XML_Data))
+                                {
+                                }
+                            }
                             if (Response_SingleInvoice!=null)
                             {
                                 Response_SingleInvoice(message.Message_ID, message.XML_Data);

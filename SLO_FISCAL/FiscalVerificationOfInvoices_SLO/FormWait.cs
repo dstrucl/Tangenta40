@@ -13,6 +13,9 @@ namespace FiscalVerificationOfInvoices_SLO
     public partial class FormWait : Form
     {
 
+        public Result_MessageBox_Post RetFromWaitForm = Result_MessageBox_Post.TIMEOUT;
+
+
         private usrc_FVI_SLO m_usrc_FVI_SLO;
         private Thread_FVI_Message m_msg;
 
@@ -23,11 +26,11 @@ namespace FiscalVerificationOfInvoices_SLO
         FormBorderStyle default_FormBorderStyle = FormBorderStyle.None;
         /****** End For DEBUG & TEST PURPOSES ***/
 
-        public FormWait(usrc_FVI_SLO Parent, Thread_FVI_Message msg )
+        public FormWait(usrc_FVI_SLO Parent, Thread_FVI_Message msg)
         {
             InitializeComponent();
 
-           
+
 
             m_usrc_FVI_SLO = Parent;
             m_msg = msg;
@@ -49,7 +52,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
-        
+
         /****** For DEBUG & TEST PURPOSES ***/
         private void Show_usrc_DEBUG_MessagePreview()
         {
@@ -74,9 +77,16 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 m_DEBUG_MessagePreview.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
                 m_DEBUG_MessagePreview.PostMessage += M_DEBUG_MessagePreview_PostMessage;
+                m_DEBUG_MessagePreview.End += M_DEBUG_MessagePreview_End;
 
             }
-            
+
+        }
+
+        private void M_DEBUG_MessagePreview_End()
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
         }
 
         private void M_DEBUG_MessagePreview_PostMessage()
@@ -107,12 +117,12 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private void FormWait_Shown(object sender, EventArgs e)
         {
-         
+
         }
 
         private void PostMessage()
         {
-            m_usrc_FVI_SLO.RetFromWaitForm = m_usrc_FVI_SLO.thread_fvi.message_box.Post(m_msg);
+            RetFromWaitForm = m_usrc_FVI_SLO.thread_fvi.message_box.Post(m_msg);
         }
 
         private void TmrStart_Tick(object sender, EventArgs e)
@@ -122,6 +132,15 @@ namespace FiscalVerificationOfInvoices_SLO
             Refresh();
 
             PostMessage();
+        }
+
+        internal bool FVI_Response_Single_Invoice(long message_ID, string xML_Data)
+        {
+            if (m_DEBUG_MessagePreview != null)
+            {
+                m_DEBUG_MessagePreview.SetResponse(message_ID, xML_Data);
+            }
+            return true;
         }
     }
 }
