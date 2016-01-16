@@ -11,7 +11,7 @@ using MNet.SLOTaxService.Messages;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    public partial class FormWait : Form
+    public partial class FormFURSCommunication : Form
     {
 
         public bool Success = false;
@@ -40,7 +40,7 @@ namespace FiscalVerificationOfInvoices_SLO
         FormBorderStyle default_FormBorderStyle = FormBorderStyle.None;
         /****** End For DEBUG & TEST PURPOSES ***/
 
-        public FormWait(usrc_FVI_SLO Parent, Thread_FVI_Message msg)
+        public FormFURSCommunication(usrc_FVI_SLO Parent, Thread_FVI_Message msg)
         {
             InitializeComponent();
 
@@ -185,6 +185,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 m_usrc_Success_Response.Anchor = AnchorStyles.Top | AnchorStyles.Left;
                 m_usrc_Success_Response.do_close += M_usrc_Success_Response_do_close;
 
+                Close();
             }
             else
             {
@@ -223,8 +224,9 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private void M_usrc_Success_Response_do_close()
         {
-            this.Close();
+            Close();
             DialogResult = DialogResult.OK;
         }
+
     }
 }

@@ -25,6 +25,26 @@ namespace FiscalVerificationOfInvoices_SLO
 
     public class Thread_FVI
     {
+        public class ThreadData
+        {
+            public string certificateFileName = null;
+            public string CertPass = null;
+            public string fursWebServiceURL = null;
+            public string fursXmlNamespace = null;
+            public int timeOutInSec = 0;
+            public usrc_FVI_SLO_MessageBox m_usrc_FVI_SLO_MessageBox = null;
+            public ThreadData(string xcertificateFileName, string xCertPass, string xfursWebServiceURL, string xfursXmlNamespace, int xtimeOutInSec, usrc_FVI_SLO_MessageBox x_usrc_FVI_SLO_MessageBox)
+            {
+                certificateFileName = xcertificateFileName;
+                CertPass = xCertPass;
+                fursWebServiceURL = xfursWebServiceURL;
+                fursXmlNamespace = xfursXmlNamespace;
+                timeOutInSec = xtimeOutInSec;
+                m_usrc_FVI_SLO_MessageBox = x_usrc_FVI_SLO_MessageBox;
+            }
+        }
+
+
         internal bool bEnd = false;
         public Thread_FVI_MessageBox message_box = null;
 
@@ -33,12 +53,28 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private System.Threading.Thread FVI_Thread;
 
-        private void Run(object ousrc_FVI_SLO_MessageBox )
+        private void Run(object othdata)
         {
-            usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox = (usrc_FVI_SLO_MessageBox)ousrc_FVI_SLO_MessageBox;
+            ThreadData thdata = (ThreadData)othdata;
+
+            usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox = thdata.m_usrc_FVI_SLO_MessageBox;
             Thread_FVI_Message fvi_message = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.NONE,null);
             usrc_FVI_SLO_Message xusrc_FVI_SLO_Message = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.Thread_FVI_START, null);
             xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
+
+            try
+            {
+                X509Certificate2 certificate = GetCertFromFile(thdata.certificateFileName, thdata.CertPass);
+                FiscalSettings = Settings.Create(certificate, thdata.fursWebServiceURL, thdata.fursXmlNamespace, thdata.timeOutInSec);
+                taxService = TaxService.Create(FiscalSettings);  //create service with settings
+            }
+            catch (Exception ex)
+            {
+                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.ERROR, ex.Message);
+                xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
+                return;
+            }
+
             for (;;)
             {
                 ReturnValue rv = null;
@@ -51,14 +87,14 @@ namespace FiscalVerificationOfInvoices_SLO
 
                             case Thread_FVI_Message.eMessage.POST_ECHO:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
                             case Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xml_returned = prettyXml(rv.originalMessage);
                                 if (rv.BarCodes!=null)
                                 {
                                     string BarCodeValue = rv.BarCodes.BarCodeValue;
@@ -107,14 +143,14 @@ namespace FiscalVerificationOfInvoices_SLO
 
                             case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
                             case Thread_FVI_Message.eMessage.POST_MANY_INVOICES:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
@@ -160,29 +196,20 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public bool Start(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox,int message_box_length, string certificateFileName, string CertPass, string fursWebServiceURL, string fursXmlNamespace, int timeOutInSec, ref string ErrReason)
         {
-
-
             try
             {
-                X509Certificate2 certificate = GetCertFromFile(certificateFileName, CertPass);
-                FiscalSettings = Settings.Create(certificate, fursWebServiceURL, fursXmlNamespace, timeOutInSec);
-                taxService = TaxService.Create(FiscalSettings);  //create service with settings
-                ErrReason= "";
-
+                ThreadData thdata = new ThreadData(certificateFileName, CertPass, fursWebServiceURL, fursXmlNamespace, timeOutInSec, xusrc_FVI_SLO_MessageBox);
                 message_box = new Thread_FVI_MessageBox(message_box_length);
                 FVI_Thread = new System.Threading.Thread(Run);
                 FVI_Thread.SetApartmentState(ApartmentState.STA);
-                FVI_Thread.Start(xusrc_FVI_SLO_MessageBox);
+                FVI_Thread.Start(thdata);
                 return true;
-
             }
             catch (Exception ex)
             {
                 ErrReason = ex.Message;
                 return false;
             }
-
-
         }
 
 

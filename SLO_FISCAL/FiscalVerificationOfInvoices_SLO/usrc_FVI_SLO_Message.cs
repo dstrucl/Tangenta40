@@ -10,7 +10,7 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public class usrc_FVI_SLO_Message
     {
-        public enum eMessage { NONE, Thread_FVI_START, Thread_FVI_END, FVI_RESPONSE_SINGLE_INVOICE, FVI_RESPONSE_MANY_INVOICES, FVI_RESPONSE_PP, FVI_RESPONSE_ECHO }
+        public enum eMessage { NONE, Thread_FVI_START, Thread_FVI_END, FVI_RESPONSE_SINGLE_INVOICE, FVI_RESPONSE_MANY_INVOICES, FVI_RESPONSE_PP, FVI_RESPONSE_ECHO, ERROR }
         private eMessage m_Message;
         private string m_XML_Data;
         private long m_Message_ID;
