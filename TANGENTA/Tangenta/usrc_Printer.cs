@@ -83,9 +83,6 @@ namespace Tangenta
         internal void Print_Receipt(InvoiceData xInvoiceData, usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
 
-            string furs_XML = "";
-            string furs_UniqeMsgID = "";
-            string furs_UniqeInvID = "";
 
             if (issue_time != null)
             {
@@ -102,8 +99,15 @@ namespace Tangenta
                 {
                     if (Program.b_FVI_SLO)
                     {
-                        furs_XML = xInvoiceData.Create_furs_InvoiceXML();
-                        Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID);
+                        string furs_XML = xInvoiceData.Create_furs_InvoiceXML();
+                        Image img_QR = null;
+                        string furs_UniqeMsgID = null;
+                        string furs_UniqeInvID = null;
+                        if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID,ref img_QR)== Result_MessageBox_Post.OK)
+                        {
+                            xInvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, img_QR);
+                            xInvoiceData.Write_FURS_Response_Data();
+                        }
                     }
                 }
             }
@@ -120,7 +124,7 @@ namespace Tangenta
             }
             else
             {
-                Form_Print_A4 print_A4_dlg = new Form_Print_A4(this,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Form_Print_A4 print_A4_dlg = new Form_Print_A4(this, xInvoiceData,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                 print_A4_dlg.ShowDialog();
             }
         }

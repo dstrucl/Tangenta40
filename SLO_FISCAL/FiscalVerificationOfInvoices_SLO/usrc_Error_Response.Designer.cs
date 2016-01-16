@@ -31,6 +31,7 @@
             this.lbl_MessageType = new System.Windows.Forms.Label();
             this.lbl_ErrorMessage = new System.Windows.Forms.Label();
             this.txt_ErrorMessage = new System.Windows.Forms.TextBox();
+            this.btn_OK = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_MessageType
@@ -61,16 +62,28 @@
             this.txt_ErrorMessage.Size = new System.Drawing.Size(312, 46);
             this.txt_ErrorMessage.TabIndex = 2;
             // 
+            // btn_OK
+            // 
+            this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_OK.Location = new System.Drawing.Point(153, 93);
+            this.btn_OK.Name = "btn_OK";
+            this.btn_OK.Size = new System.Drawing.Size(110, 51);
+            this.btn_OK.TabIndex = 11;
+            this.btn_OK.Text = "OK";
+            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
+            // 
             // usrc_Error_Response
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.txt_ErrorMessage);
             this.Controls.Add(this.lbl_ErrorMessage);
             this.Controls.Add(this.lbl_MessageType);
             this.Name = "usrc_Error_Response";
-            this.Size = new System.Drawing.Size(409, 117);
+            this.Size = new System.Drawing.Size(409, 154);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,5 +94,6 @@
         private System.Windows.Forms.Label lbl_MessageType;
         private System.Windows.Forms.Label lbl_ErrorMessage;
         private System.Windows.Forms.TextBox txt_ErrorMessage;
+        private System.Windows.Forms.Button btn_OK;
     }
 }

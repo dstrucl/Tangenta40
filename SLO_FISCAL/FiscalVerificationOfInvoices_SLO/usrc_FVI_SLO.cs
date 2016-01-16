@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 //using System.Collections.Generic;
 //using System.ComponentModel;
 //using System.Drawing;
@@ -120,15 +121,27 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
-        public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID)
+        public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID, ref Image Image_QR)
         {
-            LastMessageID ++;
+            LastMessageID++;
 
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
             WaitForm = new FormWait(this, msg);
-            WaitForm.ShowDialog();
-            return WaitForm.RetFromWaitForm;
-
+            DialogResult dlgres = WaitForm.ShowDialog();
+            if (dlgres == DialogResult.OK)
+            {
+                UniqeMsgID = WaitForm.ProtectedID;
+                UniqueInvID = WaitForm.UniqueInvoiceID;
+                Image_QR = (Image)WaitForm.Image_QRCode.Clone();
+                WaitForm.Image_QRCode.Dispose();
+                WaitForm = null;
+                return Result_MessageBox_Post.OK;
+            }
+            else
+            {
+                WaitForm = null;
+                return Result_MessageBox_Post.ERROR;
+            }
         }
 
         public Result_MessageBox_Post Send_ManyInvoices(long Message_ID, string xml)

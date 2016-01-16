@@ -60,7 +60,6 @@ namespace Tangenta
             }
         }
 
-        private usrc_InvoiceMan m_usrc_InvoiceMan = null;
 
 
         public usrc_Invoice_Preview()
@@ -70,8 +69,9 @@ namespace Tangenta
             //string html_doc = Properties.Resources.html_doc;
 
         }
-        public bool Init(byte[] xdoc, usrc_Printer xusrc_Print, usrc_Payment.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public bool Init(byte[] xdoc, usrc_Printer xusrc_Print,InvoiceData xInvoiceData, usrc_Payment.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
+            m_InvoiceData = xInvoiceData;
             m_Doc = xdoc;
             m_usrc_Print = xusrc_Print;
             m_paymentType = xpaymentType;

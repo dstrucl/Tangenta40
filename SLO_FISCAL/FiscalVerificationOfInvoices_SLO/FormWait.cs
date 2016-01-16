@@ -14,12 +14,23 @@ namespace FiscalVerificationOfInvoices_SLO
     public partial class FormWait : Form
     {
 
+        public bool Success = false;
+        public MessageType MessageType = MessageType.Unknown;
+        public String ErrorMessage = null;
+        public string ProtectedID = null;
+        public string UniqueInvoiceID = null;
+        public Image Image_QRCode = null;
+
+
         public Result_MessageBox_Post RetFromWaitForm = Result_MessageBox_Post.TIMEOUT;
+
+
 
 
         private usrc_FVI_SLO m_usrc_FVI_SLO;
         private Thread_FVI_Message m_msg;
 
+        usrc_Success_Response m_usrc_Success_Response = null;
         usrc_Error_Response m_usrc_Error_Response = null;
 
         /****** For DEBUG & TEST PURPOSES ***/
@@ -141,8 +152,38 @@ namespace FiscalVerificationOfInvoices_SLO
 
         internal bool FVI_Response_Single_Invoice(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage, string protectedID, string uniqueInvoiceID, Image image_QRCode)
         {
+            Success = success;
+            MessageType = messageType;
+            ErrorMessage = errorMessage;
+            ProtectedID = protectedID;
+            UniqueInvoiceID = uniqueInvoiceID;
+            Image_QRCode = image_QRCode;
+
             if (success)
             {
+                this.m_usrc_Success_Response = new usrc_Success_Response(messageType, protectedID, uniqueInvoiceID, image_QRCode);
+                this.Controls.Add(m_usrc_Success_Response);
+
+                if (m_DEBUG_MessagePreview != null)
+                {
+                    m_usrc_Success_Response.Top = m_DEBUG_MessagePreview.Top;
+                    m_DEBUG_MessagePreview.Top = m_usrc_Success_Response.Top + m_usrc_Success_Response.Height + 10;
+                    this.Height = m_DEBUG_MessagePreview.Top + m_DEBUG_MessagePreview.Height + 10;
+                }
+                else
+                {
+                    m_usrc_Success_Response.Top = this.Height;
+                    this.Height = m_usrc_Success_Response.Top + m_usrc_Success_Response.Height + 10;
+                }
+                if (this.Width < m_usrc_Success_Response.Width + 10)
+                {
+                    this.Width = m_usrc_Success_Response.Width + 10;
+                }
+
+                m_usrc_Success_Response.Left = 5;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                m_usrc_Success_Response.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                m_usrc_Success_Response.do_close += M_usrc_Success_Response_do_close;
 
             }
             else
@@ -169,8 +210,21 @@ namespace FiscalVerificationOfInvoices_SLO
                 m_usrc_Error_Response.Left = 5;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 m_usrc_Error_Response.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                m_usrc_Error_Response.do_close += M_usrc_Error_Response_do_close;
             }
             return true;
+        }
+
+        private void M_usrc_Error_Response_do_close()
+        {
+            this.Close();
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void M_usrc_Success_Response_do_close()
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
         }
     }
 }

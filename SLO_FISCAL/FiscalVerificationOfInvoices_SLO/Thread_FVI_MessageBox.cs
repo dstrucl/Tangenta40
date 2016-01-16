@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FiscalVerificationOfInvoices_SLO
 {
     public enum Result_MessageBox_Get { OK,TIMEOUT,EMPTY};
-    public enum Result_MessageBox_Post { OK, TIMEOUT, FULL };
+    public enum Result_MessageBox_Post { OK, TIMEOUT, FULL, ERROR };
 
     public class Thread_FVI_MessageBox
     {

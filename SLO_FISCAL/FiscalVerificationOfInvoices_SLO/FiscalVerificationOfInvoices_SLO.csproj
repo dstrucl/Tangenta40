@@ -91,6 +91,12 @@
     </Compile>
     <Compile Include="usrc_FVI_SLO_Message.cs" />
     <Compile Include="usrc_FVI_SLO_MessageBox.cs" />
+    <Compile Include="usrc_Success_Response.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Success_Response.Designer.cs">
+      <DependentUpon>usrc_Success_Response.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormWait.resx">
@@ -112,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_FVI_SLO.resx">
       <DependentUpon>usrc_FVI_SLO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Success_Response.resx">
+      <DependentUpon>usrc_Success_Response.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

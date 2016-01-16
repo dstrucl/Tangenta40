@@ -7,11 +7,30 @@ using System.Text;
 using System.Threading.Tasks;
 using DBTypes;
 using System.Xml;
+using System.Drawing;
+using DBConnectionControl40;
 
 namespace Tangenta
 {
+    public class FURS_Response_data
+    {
+        public string UniqueMessageID = null;
+        public string UniqueInvoiceID = null;
+        public Image Image_QRcode = null;
+
+        public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID, Image img_QR)
+        {
+            this.UniqueMessageID = furs_UniqeMsgID;
+            this.UniqueInvoiceID = furs_UniqeInvID;
+            this.Image_QRcode = img_QR;
+        }
+    }
+
     public class InvoiceData
     {
+
+        public FURS_Response_data FURS_Response_Data = null;
+
         public DataTable dt_ProformaInvoice = new DataTable();
         public DataTable dt_Atom_Price_SimpleItem = new DataTable();
 
@@ -150,6 +169,43 @@ namespace Tangenta
                 j++;
             }
 
+        }
+
+        internal bool Write_FURS_Response_Data()
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Invoice_ID = "@par_Invoice_ID";
+            SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Invoice_ID);
+            lpar.Add(par_Invoice_ID);
+
+            string spar_MessageID = "@par_MessageID";
+            SQL_Parameter par_MessageID = new SQL_Parameter(spar_MessageID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_Response_Data.UniqueMessageID);
+            lpar.Add(par_MessageID);
+
+
+            string spar_UniqueInvoiceID = "@par_UniqueInvoiceID";
+            SQL_Parameter par_UniqueInvoiceID = new SQL_Parameter(spar_UniqueInvoiceID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_Response_Data.UniqueInvoiceID);
+            lpar.Add(par_UniqueInvoiceID);
+
+            DateTime resp_datetime = DateTime.Now;
+            string spar_Response_DateTime = "@par_Response_DateTime";
+            SQL_Parameter par_Response_DateTime = new SQL_Parameter(spar_Response_DateTime, SQL_Parameter.eSQL_Parameter.Datetime, false, resp_datetime);
+            lpar.Add(par_Response_DateTime);
+
+
+            string sql = "insert into fvi_slo_response (Invoice_ID,MessageID,UniqueInvoiceID,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_Response_DateTime + ")";
+            long id = -1;
+            object oret = null;
+            string Err = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar, ref id, ref oret,ref Err, "fvi_slo_response"))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
         }
 
         internal bool Save(ref long proformaInvoice_ID, usrc_Payment.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
@@ -616,9 +672,12 @@ namespace Tangenta
                 }
             }
 
-            foreach (UniversalInvoice.TemplateToken tt in this.FVI_SLO_RealEstateBP.token.list)
+            if (this.FVI_SLO_RealEstateBP != null)
             {
-                s += "\r\n" + tt.lt.s;
+                foreach (UniversalInvoice.TemplateToken tt in this.FVI_SLO_RealEstateBP.token.list)
+                {
+                    s += "\r\n" + tt.lt.s;
+                }
             }
 
 
@@ -785,6 +844,22 @@ namespace Tangenta
 
         public string CreateHTML(ref string html_doc_text)
         {
+            string stime = IssueDate_Day.ToString() + "."
+                                           + IssueDate_Month.ToString() + "."
+                                           + IssueDate_Year.ToString() + " "
+                                           + IssueDate_Hour.ToString() + ":"
+                                           + IssueDate_Min.ToString();
+            InvoiceToken.tDateOfIssue.Set(stime);
+            InvoiceToken.tDateOfMaturity.Set(stime);
+
+            html_doc_text = html_doc_text.Replace(InvoiceToken.tFiscalYear.lt.s, InvoiceToken.tFiscalYear.replacement);
+            html_doc_text = html_doc_text.Replace(InvoiceToken.tInvoiceNumber.lt.s, InvoiceToken.tInvoiceNumber.replacement);
+            html_doc_text = html_doc_text.Replace(InvoiceToken.tIssuerOfInvoice.lt.s, InvoiceToken.tIssuerOfInvoice.replacement);
+            html_doc_text = html_doc_text.Replace(InvoiceToken.tCashier.lt.s, InvoiceToken.tCashier.replacement);
+            html_doc_text = html_doc_text.Replace(Invoice_Author.token.tFirstName.lt.s, Invoice_Author.token.tFirstName.replacement);
+            html_doc_text = html_doc_text.Replace(Invoice_Author.token.tLastName.lt.s, Invoice_Author.token.tLastName.replacement);
+            html_doc_text = html_doc_text.Replace(Invoice_Author.token.tTaxID.lt.s, Invoice_Author.token.tTaxID.replacement);
+
 
             foreach (UniversalInvoice.TemplateToken ivt in MyOrganisation.token.list)
             {
@@ -796,9 +871,22 @@ namespace Tangenta
                 {
                     html_doc_text = html_doc_text.Replace(ivt.lt.s, "");
                 }
-                html_doc_text = html_doc_text.Replace(InvoiceToken.tDateOfIssue.lt.s, InvoiceToken.tDateOfIssue.replacement);
-                html_doc_text = html_doc_text.Replace(InvoiceToken.tDateOfMaturity.lt.s, InvoiceToken.tDateOfMaturity.replacement);
             }
+
+            foreach (UniversalInvoice.TemplateToken ivt in MyOrganisation.Address.token.list)
+            {
+                if (ivt.replacement != null)
+                {
+                    html_doc_text = html_doc_text.Replace(ivt.lt.s, ivt.replacement);
+                }
+                else
+                {
+                    html_doc_text = html_doc_text.Replace(ivt.lt.s, "");
+                }
+            }
+
+            html_doc_text = html_doc_text.Replace(InvoiceToken.tDateOfIssue.lt.s, InvoiceToken.tDateOfIssue.replacement);
+            html_doc_text = html_doc_text.Replace(InvoiceToken.tDateOfMaturity.lt.s, InvoiceToken.tDateOfMaturity.replacement);
 
 
             int itbody = html_doc_text.IndexOf("<tbody>", 0);
@@ -853,7 +941,7 @@ namespace Tangenta
                         //string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
                         //long journal_proformainvoice_id = -1;
                         //f_Journal_ProformaInvoice.Write(m_usrc_Print.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
-                        int itr_taxsum_start = html_doc_text.IndexOf("<tr class=\"taxsum\">", itr_end);
+                        int itr_taxsum_start = html_doc_text.IndexOf("<tr class=\"taxsum\">", 0);
                         if (itr_taxsum_start > 0)
                         {
                             int itr_taxsum_end = html_doc_text.IndexOf("</tr>", itr_taxsum_start);

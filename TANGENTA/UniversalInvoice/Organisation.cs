@@ -56,7 +56,8 @@ namespace UniversalInvoice
             Logo_Data =             _Logo_Data;
 
             ltext token_prefix_Organisation = token_prefix.AddAtTheEnd(lngToken.st_Organisation);
-            Address = new Address(token_prefix_Organisation, _StreetName,
+            Address = new Address(token_prefix_Organisation,
+                                    _StreetName,
                                     _HouseNumber,
                                     _ZIP,
                                     _City,

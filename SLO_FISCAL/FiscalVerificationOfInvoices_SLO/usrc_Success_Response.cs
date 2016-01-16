@@ -11,34 +11,26 @@ using MNet.SLOTaxService.Messages;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    public partial class usrc_Error_Response : UserControl
+    public partial class usrc_Success_Response : UserControl
     {
-        //private string m_XML_Data;
-        //private long m_Message_ID;
-
-        //private string m_errorMessage;
-        //private MessageType m_messageType;
-        //private string m_protectedID;
-        //private bool m_success;
-        //private string m_uniqueInvoiceID;
-        //private string m_barCodeValue;
-        //private Image m_image_QRCode;
         public delegate void delegate_do_close();
         public event delegate_do_close do_close = null;
 
+        int iSeconds = 5;
 
-        public usrc_Error_Response()
+        public usrc_Success_Response()
         {
             InitializeComponent();
         }
 
-        public usrc_Error_Response(MessageType xm_messageType, string ErrorMessage)
+        public usrc_Success_Response(MessageType xm_messageType, string ProtectedID, string UniqueInvoiceID,Image img_QR)
         {
             InitializeComponent();
             //m_messageType = xm_messageType;
             lbl_MessageType.Text = messageType_SetString(xm_messageType);
-            txt_ErrorMessage.Text = ErrorMessage;
-
+            txt_ProtectID.Text = ProtectedID;
+            txt_UniqueInvoiceID.Text = UniqueInvoiceID;
+            pic_QR.Image = img_QR;
         }
 
         private string messageType_SetString(MessageType m_messageType)
@@ -55,6 +47,28 @@ namespace FiscalVerificationOfInvoices_SLO
                     return "Unknown (Neznano)";
             }
             return "???";
+        }
+
+        private void usrc_Success_Response_Load(object sender, EventArgs e)
+        {
+            timer_Close.Enabled = true;
+            timer_Close.Tick += Timer_Close_Tick;
+
+        }
+
+        private void Timer_Close_Tick(object sender, EventArgs e)
+        {
+            if (iSeconds > 0)
+            {
+                iSeconds--;
+            }
+            else
+            {
+                if (do_close!=null)
+                {
+                    do_close();
+                }
+            }
         }
 
         private void btn_OK_Click(object sender, EventArgs e)

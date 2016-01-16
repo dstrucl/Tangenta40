@@ -22,14 +22,14 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            string CertName = "C:\\Luka\\TestCert\\10329048-1.p12";
-            string CertPass = "NVIJCY55TF3L";
-            string FursserviceUrl = "https://blagajne-test.fu.gov.si:9002/v1/cash_registers";
-            string FursXMLNamespace = "http://www.fu.gov.si/";
+            //string CertName = "C:\\Luka\\TestCert\\10329048-1.p12";
+            //string CertPass = "NVIJCY55TF3L";
+            //string FursserviceUrl = "https://blagajne-test.fu.gov.si:9002/v1/cash_registers";
+            //string FursXMLNamespace = "http://www.fu.gov.si/";
             string ErrReason = "";
 
 
-            FVI_com_running = usrc_FVI_SLO1.Start(CertName, CertPass, FursserviceUrl, FursXMLNamespace, 2, ref ErrReason);
+            FVI_com_running = usrc_FVI_SLO1.Start( ref ErrReason);
             if (FVI_com_running)
             {
                 btn_Send_ECHO.Enabled = true;

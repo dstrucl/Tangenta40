@@ -34,6 +34,7 @@ namespace UniversalInvoice
             list.Add(tStreet);
             list.Add(tHouseNumber);
             list.Add(tZIP);
+            list.Add(tCity);
             list.Add(tState);
             list.Add(tCountry);
         }
