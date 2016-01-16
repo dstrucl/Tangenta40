@@ -45,6 +45,9 @@
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
             this.usrc_FVI_SLO1.Size = new System.Drawing.Size(39, 26);
             this.usrc_FVI_SLO1.TabIndex = 0;
+            this.usrc_FVI_SLO1.Response_SingleInvoice += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.delegate_Response_SingleInvoice(this.usrc_FVI_SLO1_Response_SingleInvoice);
+            this.usrc_FVI_SLO1.Response_ManyInvoices += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.delegate_Response_ManyInvoices(this.usrc_FVI_SLO1_Response_ManyInvoices);
+            this.usrc_FVI_SLO1.Response_PP += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.delegate_Response_PP(this.usrc_FVI_SLO1_Response_PP);
             this.usrc_FVI_SLO1.Response_ECHO += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.delegate_Response_ECHO(this.usrc_FVI_SLO1_Response_ECHO);
             // 
             // btn_Start

@@ -11,7 +11,7 @@ using MNet.SLOTaxService.Messages;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    public partial class FormWait : Form
+    public partial class FormFURSCommunication : Form
     {
 
         public Result_MessageBox_Post RetFromWaitForm = Result_MessageBox_Post.TIMEOUT;
@@ -29,7 +29,7 @@ namespace FiscalVerificationOfInvoices_SLO
         FormBorderStyle default_FormBorderStyle = FormBorderStyle.None;
         /****** End For DEBUG & TEST PURPOSES ***/
 
-        public FormWait(usrc_FVI_SLO Parent, Thread_FVI_Message msg)
+        public FormFURSCommunication(usrc_FVI_SLO Parent, Thread_FVI_Message msg)
         {
             InitializeComponent();
 

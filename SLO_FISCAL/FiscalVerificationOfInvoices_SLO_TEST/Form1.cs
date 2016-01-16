@@ -22,14 +22,14 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            string CertName = "C:\\Luka\\TestCert\\10329048-1.p12";
-            string CertPass = "NVIJCY55TF3L";
-            string FursserviceUrl = "https://blagajne-test.fu.gov.si:9002/v1/cash_registers";
-            string FursXMLNamespace = "http://www.fu.gov.si/";
+            //string CertName = "C:\\Luka\\TestCert\\10329048-1.p12";
+            //string CertPass = "NVIJCY55TF3L";
+            //string FursserviceUrl = "https://blagajne-test.fu.gov.si:9002/v1/cash_registers";
+            //string FursXMLNamespace = "http://www.fu.gov.si/";
             string ErrReason = "";
 
-
-            FVI_com_running = usrc_FVI_SLO1.Start(CertName, CertPass, FursserviceUrl, FursXMLNamespace, 2, ref ErrReason);
+          //  FVI_com_running = usrc_FVI_SLO1.Start(CertName, CertPass, FursserviceUrl, FursXMLNamespace, 2, this, ref ErrReason);
+            FVI_com_running = usrc_FVI_SLO1.Start(ref ErrReason);
             if (FVI_com_running)
             {
                 btn_Send_ECHO.Enabled = true;
@@ -52,9 +52,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
         private void usrc_FVI_SLO1_Response_ECHO(long Message_ID, string xml)
         {
             txt_Response_ECHO_xml.Text = "Message_ID =" + Message_ID.ToString() + "\r\n" + xml;
-
-        
-
+    
 
         }
 
@@ -91,9 +89,30 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
         {
 
             string FileName = Application.StartupPath + "\\XML\\Invoice.xml";
-
+            string id = "";
+            string id1 = "";
             string xml = GetFursXmlMesage(FileName);
-            usrc_FVI_SLO1.Send_PP(1, xml);
+            usrc_FVI_SLO1.Send_SingleInvoice( xml,this, ref id, ref id1);
+        }
+
+
+
+        private void usrc_FVI_SLO1_Response_ManyInvoices(long Message_ID, string xml)
+        {
+            txt_Response_ECHO_xml.Text = "Message_ID =" + Message_ID.ToString() + "\r\n" + xml;
+
+        }
+
+        private void usrc_FVI_SLO1_Response_PP(long Message_ID, string xml)
+        {
+            txt_Response_ECHO_xml.Text = "Message_ID =" + Message_ID.ToString() + "\r\n" + xml;
+
+        }
+
+        private void usrc_FVI_SLO1_Response_SingleInvoice(long Message_ID, string xml)
+        {
+            txt_Response_ECHO_xml.Text = "Message_ID =" + Message_ID.ToString() + "\r\n" + xml;
+
         }
     }
 }

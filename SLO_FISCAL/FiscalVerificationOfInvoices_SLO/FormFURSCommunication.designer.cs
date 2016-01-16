@@ -1,6 +1,6 @@
 ﻿namespace FiscalVerificationOfInvoices_SLO
 {
-    partial class FormWait
+    partial class FormFURSCommunication
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormWait));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFURSCommunication));
             this.label1 = new System.Windows.Forms.Label();
             this.TmrStart = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
