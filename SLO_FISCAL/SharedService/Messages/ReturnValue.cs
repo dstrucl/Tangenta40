@@ -124,6 +124,6 @@ namespace MNet.SLOTaxService.Messages
       this.BarCodes = (id == null) ? null : BarCodes.Create(checkedDocument);
     }
 
-    private XmlDocument originalMessage;
+    public  XmlDocument originalMessage;
   }
 }

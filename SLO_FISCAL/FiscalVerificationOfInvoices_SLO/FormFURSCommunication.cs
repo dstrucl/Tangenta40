@@ -144,6 +144,7 @@ namespace FiscalVerificationOfInvoices_SLO
             if (success)
             {
 
+                Close();
             }
             else
             {
@@ -172,5 +173,46 @@ namespace FiscalVerificationOfInvoices_SLO
             }
             return true;
         }
+
+
+        internal bool FVI_Response_ECHO(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage )
+        {
+            //if(Response_ECHO_OK(long message_ID, string xML_Data))
+            //{
+            //}
+            Close();
+            if (m_DEBUG_MessagePreview != null)
+            {
+                m_DEBUG_MessagePreview.SetResponse(message_ID, xML_Data);
+            }
+            return true;
+        }
+
+        internal bool FVI_Response_PP(long message_ID, string xML_Data,bool success, MessageType messageType, string errorMessage)
+        {
+            //if(Response_PP_OK(long message_ID, string xML_Data))
+            //{
+            //}
+            Close();
+            if (m_DEBUG_MessagePreview != null)
+            {
+                m_DEBUG_MessagePreview.SetResponse(message_ID, xML_Data);
+            }
+            return true;
+        }
+
+        internal bool FVI_Response_Many_Invoice(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage, string protectedID, string uniqueInvoiceID, Image image_QRCode)
+        {
+            //if(Response_Many_Invoice_OK(long message_ID, string xML_Data))
+            //{
+            //}
+            Close();
+            if (m_DEBUG_MessagePreview != null)
+            {
+                m_DEBUG_MessagePreview.SetResponse(message_ID, xML_Data);
+            }
+            return true;
+        }
+
     }
 }

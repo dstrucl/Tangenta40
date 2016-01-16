@@ -87,14 +87,14 @@ namespace FiscalVerificationOfInvoices_SLO
 
                             case Thread_FVI_Message.eMessage.POST_ECHO:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
                             case Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xml_returned = prettyXml(rv.originalMessage);
                                 if (rv.BarCodes!=null)
                                 {
                                     string BarCodeValue = rv.BarCodes.BarCodeValue;
@@ -143,14 +143,14 @@ namespace FiscalVerificationOfInvoices_SLO
 
                             case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
                             case Thread_FVI_Message.eMessage.POST_MANY_INVOICES:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
-                                xml_returned = prettyXml(rv.MessageReceivedFromFurs);
+                                xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;

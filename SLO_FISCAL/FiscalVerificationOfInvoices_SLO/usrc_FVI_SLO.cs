@@ -23,7 +23,7 @@ namespace FiscalVerificationOfInvoices_SLO
         public int timeOutInSec = 0;
 
 
-        private FormFURSCommunication WaitForm = null;
+        private FormFURSCommunication FormFURSCommunicationForm = null;
 
         public delegate void delegate_Response_SingleInvoice(long Message_ID, string xml);
         public delegate void delegate_Response_ManyInvoices(long Message_ID, string xml);
@@ -122,33 +122,45 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID)
         {
-            LastMessageID ++;
+            LastMessageID++;
 
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
-            WaitForm = new FormFURSCommunication(this, msg);
-            WaitForm.ShowDialog();
-            return WaitForm.RetFromWaitForm;
+            FormFURSCommunicationForm = new FormFURSCommunication(this, msg);
+            FormFURSCommunicationForm.ShowDialog();
+            return FormFURSCommunicationForm.RetFromWaitForm;
 
         }
 
         public Result_MessageBox_Post Send_ManyInvoices(long Message_ID, string xml)
         {
-            Thread_FVI_Message msg = new Thread_FVI_Message(Message_ID, Thread_FVI_Message.eMessage.POST_MANY_INVOICES, xml);
-            return thread_fvi.message_box.Post(msg);
+            LastMessageID++;
+
+            Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_MANY_INVOICES, xml);
+            FormFURSCommunicationForm = new FormFURSCommunication(this, msg);
+            FormFURSCommunicationForm.ShowDialog();
+            return FormFURSCommunicationForm.RetFromWaitForm;
 
         }
 
         public Result_MessageBox_Post Send_PP(long Message_ID, string xml)
         {
-            Thread_FVI_Message msg = new Thread_FVI_Message(Message_ID, Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE, xml);
-            return thread_fvi.message_box.Post(msg);
+            LastMessageID++;
+
+            Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE, xml);
+            FormFURSCommunicationForm = new FormFURSCommunication(this, msg);
+            FormFURSCommunicationForm.ShowDialog();
+            return FormFURSCommunicationForm.RetFromWaitForm;
 
         }
 
         public Result_MessageBox_Post Send_Echo(long Message_ID, string xml)
         {
-            Thread_FVI_Message msg = new Thread_FVI_Message(Message_ID, Thread_FVI_Message.eMessage.POST_ECHO, xml);
-            return thread_fvi.message_box.Post(msg);
+            LastMessageID++;
+            Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_ECHO, xml);
+            FormFURSCommunicationForm = new FormFURSCommunication(this, msg);
+            FormFURSCommunicationForm.ShowDialog();
+            return FormFURSCommunicationForm.RetFromWaitForm;
+
         }
 
         public bool End()
@@ -185,6 +197,17 @@ namespace FiscalVerificationOfInvoices_SLO
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO:
+                            if (FormFURSCommunicationForm != null)
+                            {
+                                if (FormFURSCommunicationForm.FVI_Response_ECHO(message.Message_ID,
+                                                                         message.XML_Data,
+                                                                         message.Success,
+                                                                         message.MessageType,
+                                                                         message.ErrorMessage
+                                                                         ))
+                                {
+                                }
+                            }
                             if (Response_ECHO!=null)
                             {
                                 Response_ECHO(message.Message_ID, message.XML_Data);
@@ -192,9 +215,9 @@ namespace FiscalVerificationOfInvoices_SLO
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE:
-                            if (WaitForm!= null)
+                            if (FormFURSCommunicationForm != null)
                             {
-                                if (WaitForm.FVI_Response_Single_Invoice(message.Message_ID,
+                                if (FormFURSCommunicationForm.FVI_Response_Single_Invoice(message.Message_ID,
                                                                          message.XML_Data,
                                                                          message.Success,
                                                                          message.MessageType,
@@ -213,6 +236,21 @@ namespace FiscalVerificationOfInvoices_SLO
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_MANY_INVOICES:
+                            if (FormFURSCommunicationForm != null)
+                            {
+                                if (FormFURSCommunicationForm.FVI_Response_Many_Invoice(message.Message_ID,
+                                                                         message.XML_Data,
+                                                                         message.Success,
+                                                                         message.MessageType,
+                                                                         message.ErrorMessage,
+                                                                         message.ProtectedID,
+                                                                         message.UniqueInvoiceID,
+                                                                         message.Image_QRCode
+                                                                         ))
+                                {
+                                }
+                            }
+
                             if (Response_ManyInvoices!=null)
                             {
                                 Response_ManyInvoices(message.Message_ID, message.XML_Data);
@@ -220,7 +258,18 @@ namespace FiscalVerificationOfInvoices_SLO
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_PP:
-                            if (Response_PP != null)
+
+                            if (FormFURSCommunicationForm.FVI_Response_PP(message.Message_ID,
+                                                                     message.XML_Data,
+                                                                     message.Success,
+                                                                     message.MessageType,
+                                                                     message.ErrorMessage
+                                                                     ))
+                            {
+                            }
+    
+
+                    if (Response_PP != null)
                             {
                                 Response_PP(message.Message_ID, message.XML_Data);
                             }
