@@ -640,7 +640,7 @@ namespace Tangenta
                 XmlDocument xdoc = new XmlDocument();
                 xdoc.LoadXml(InvoiceXmlTemplate);
                 XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
-                ndl_TaxNumber.Item(0).InnerText = MyOrganisation.Tax_ID;
+                ndl_TaxNumber.Item(0).InnerText = "10329048";//MyOrganisation.Tax_ID;
                 XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
                 ndl_IssueDateTime.Item(0).InnerText = fs.GetString(IssueDate_Year, 4) + "-"
                                                     + fs.GetString(IssueDate_Month, 2) + "-"

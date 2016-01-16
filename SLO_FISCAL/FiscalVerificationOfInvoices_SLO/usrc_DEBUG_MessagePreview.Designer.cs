@@ -81,17 +81,17 @@
             // 
             this.txt_MessageXml.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_MessageXml.Location = new System.Drawing.Point(0, 85);
+            this.txt_MessageXml.Location = new System.Drawing.Point(0, 66);
             this.txt_MessageXml.Multiline = true;
             this.txt_MessageXml.Name = "txt_MessageXml";
             this.txt_MessageXml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_MessageXml.Size = new System.Drawing.Size(459, 180);
+            this.txt_MessageXml.Size = new System.Drawing.Size(459, 129);
             this.txt_MessageXml.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 64);
+            this.label1.Location = new System.Drawing.Point(0, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 7;
@@ -100,7 +100,7 @@
             // lbl_XML_Response
             // 
             this.lbl_XML_Response.AutoSize = true;
-            this.lbl_XML_Response.Location = new System.Drawing.Point(9, 277);
+            this.lbl_XML_Response.Location = new System.Drawing.Point(5, 207);
             this.lbl_XML_Response.Name = "lbl_XML_Response";
             this.lbl_XML_Response.Size = new System.Drawing.Size(94, 13);
             this.lbl_XML_Response.TabIndex = 12;
@@ -111,11 +111,11 @@
             this.txt_Response_XML.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Response_XML.Location = new System.Drawing.Point(6, 293);
+            this.txt_Response_XML.Location = new System.Drawing.Point(3, 227);
             this.txt_Response_XML.Multiline = true;
             this.txt_Response_XML.Name = "txt_Response_XML";
             this.txt_Response_XML.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_Response_XML.Size = new System.Drawing.Size(459, 177);
+            this.txt_Response_XML.Size = new System.Drawing.Size(459, 156);
             this.txt_Response_XML.TabIndex = 11;
             // 
             // btn_End
@@ -131,7 +131,7 @@
             // txt_Response_MessageID
             // 
             this.txt_Response_MessageID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
-            this.txt_Response_MessageID.Location = new System.Drawing.Point(182, 271);
+            this.txt_Response_MessageID.Location = new System.Drawing.Point(178, 201);
             this.txt_Response_MessageID.Name = "txt_Response_MessageID";
             this.txt_Response_MessageID.Size = new System.Drawing.Size(108, 20);
             this.txt_Response_MessageID.TabIndex = 15;
@@ -139,7 +139,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(109, 276);
+            this.label2.Location = new System.Drawing.Point(105, 206);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 14;
@@ -149,6 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.Controls.Add(this.txt_Response_MessageID);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_End);
@@ -161,7 +162,7 @@
             this.Controls.Add(this.btn_PostMessage);
             this.Controls.Add(this.txt_MessageXml);
             this.Name = "usrc_DEBUG_MessagePreview";
-            this.Size = new System.Drawing.Size(465, 473);
+            this.Size = new System.Drawing.Size(465, 386);
             this.ResumeLayout(false);
             this.PerformLayout();
 

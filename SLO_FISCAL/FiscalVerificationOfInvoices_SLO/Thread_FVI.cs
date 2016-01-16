@@ -17,6 +17,7 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Linq;
     using System.Text;
     using System.Threading;
@@ -58,7 +59,49 @@ namespace FiscalVerificationOfInvoices_SLO
                             case Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
                                 xml_returned = prettyXml(rv.MessageReceivedFromFurs);
-                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
+                                if (rv.BarCodes!=null)
+                                {
+                                    string BarCodeValue = rv.BarCodes.BarCodeValue;
+                                    if (BarCodeValue != null)
+                                    {
+                                        Image img_QRCode = rv.BarCodes.DrawQRCode(128, System.Drawing.Imaging.ImageFormat.Bmp);
+                                        xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
+                                                                  xml_returned,
+                                                                  rv.ErrorMessage,
+                                                                  rv.MessageType,
+                                                                  rv.ProtectedID,
+                                                                  rv.Success,
+                                                                  rv.UniqueInvoiceID,
+                                                                  BarCodeValue,
+                                                                  img_QRCode);
+
+                                    }
+                                    else
+                                    {
+                                        xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
+                                                                 xml_returned,
+                                                                 rv.ErrorMessage,
+                                                                 rv.MessageType,
+                                                                 rv.ProtectedID,
+                                                                 rv.Success,
+                                                                 rv.UniqueInvoiceID,
+                                                                 null,
+                                                                 null);
+                                    }
+                                }
+                                else
+                                {
+                                    xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
+                                                                xml_returned,
+                                                                rv.ErrorMessage,
+                                                                rv.MessageType,
+                                                                rv.ProtectedID,
+                                                                rv.Success,
+                                                                rv.UniqueInvoiceID,
+                                                                null,
+                                                                null);
+                                }                          
+                                
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 

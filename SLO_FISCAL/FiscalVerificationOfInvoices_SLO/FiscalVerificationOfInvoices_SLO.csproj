@@ -77,6 +77,12 @@
     <Compile Include="usrc_DEBUG_MessagePreview.Designer.cs">
       <DependentUpon>usrc_DEBUG_MessagePreview.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Error_Response.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Error_Response.Designer.cs">
+      <DependentUpon>usrc_Error_Response.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_FVI_SLO.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -100,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_DEBUG_MessagePreview.resx">
       <DependentUpon>usrc_DEBUG_MessagePreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Error_Response.resx">
+      <DependentUpon>usrc_Error_Response.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_FVI_SLO.resx">
       <DependentUpon>usrc_FVI_SLO.cs</DependentUpon>

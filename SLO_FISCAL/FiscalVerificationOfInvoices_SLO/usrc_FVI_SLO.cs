@@ -194,7 +194,15 @@ namespace FiscalVerificationOfInvoices_SLO
                         case usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE:
                             if (WaitForm!= null)
                             {
-                                if (WaitForm.FVI_Response_Single_Invoice(message.Message_ID, message.XML_Data))
+                                if (WaitForm.FVI_Response_Single_Invoice(message.Message_ID,
+                                                                         message.XML_Data,
+                                                                         message.Success,
+                                                                         message.MessageType,
+                                                                         message.ErrorMessage,
+                                                                         message.ProtectedID,
+                                                                         message.UniqueInvoiceID,
+                                                                         message.Image_QRCode
+                                                                         ))
                                 {
                                 }
                             }

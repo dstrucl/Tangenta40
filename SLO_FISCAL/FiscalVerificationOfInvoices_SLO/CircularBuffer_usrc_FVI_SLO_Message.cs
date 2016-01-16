@@ -44,9 +44,16 @@ namespace FiscalVerificationOfInvoices_SLO
             }
             else
             {
-                m_obuff[pIn].Message = msg.Message;
-                m_obuff[pIn].XML_Data = msg.XML_Data;
-                m_obuff[pIn].Message_ID = msg.Message_ID;
+                m_obuff[pIn].Set(msg.Message_ID,
+                                 msg.Message,
+                                 msg.XML_Data,
+                                 msg.ErrorMessage,
+                                 msg.MessageType,
+                                 msg.ProtectedID,
+                                 msg.Success,
+                                 msg.UniqueInvoiceID,
+                                 msg.BarCodeValue,
+                                 msg.Image_QRCode);
                 pIn = pInNext;
                 return true;
             }
@@ -66,11 +73,19 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (pOut != pIn)
             {
-                msg.Message = m_obuff[pOut].Message;
-                msg.XML_Data = m_obuff[pOut].XML_Data;
-                msg.Message_ID = m_obuff[pOut].Message_ID;
-                m_obuff[pOut].Message = usrc_FVI_SLO_Message.eMessage.NONE;
-                m_obuff[pOut].XML_Data = null;
+                msg.Set(m_obuff[pOut].Message_ID,
+                        m_obuff[pOut].Message,
+                        m_obuff[pOut].XML_Data,
+                        m_obuff[pOut].ErrorMessage,
+                        m_obuff[pOut].MessageType,
+                        m_obuff[pOut].ProtectedID,
+                        m_obuff[pOut].Success,
+                        m_obuff[pOut].UniqueInvoiceID,
+                        m_obuff[pOut].BarCodeValue,
+                        m_obuff[pOut].Image_QRCode);
+
+
+                m_obuff[pOut].Do_Dispose();
                 pOut = Next(pOut);
                 return true;
             }
