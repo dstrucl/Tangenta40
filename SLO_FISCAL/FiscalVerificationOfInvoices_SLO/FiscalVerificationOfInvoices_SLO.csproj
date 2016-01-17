@@ -48,9 +48,7 @@
     <Compile Include="FormFURSCommunication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormFURSCommunication.designer.cs">
-      <DependentUpon>FormFURSCommunication.cs</DependentUpon>
-    </Compile>
+    <Compile Include="FormFURSCommunication.designer.cs" />
     <Compile Include="Form_Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,9 +97,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormFURSCommunication.resx">
-      <DependentUpon>FormFURSCommunication.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="FormFURSCommunication.resx" />
     <EmbeddedResource Include="Form_Settings.resx">
       <DependentUpon>Form_Settings.cs</DependentUpon>
     </EmbeddedResource>

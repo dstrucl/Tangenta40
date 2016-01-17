@@ -28,8 +28,8 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             //string FursXMLNamespace = "http://www.fu.gov.si/";
             string ErrReason = "";
 
-          //  FVI_com_running = usrc_FVI_SLO1.Start(CertName, CertPass, FursserviceUrl, FursXMLNamespace, 2, this, ref ErrReason);
-            FVI_com_running = usrc_FVI_SLO1.Start(ref ErrReason);
+
+            FVI_com_running = usrc_FVI_SLO1.Start(CertName, CertPass, FursserviceUrl, FursXMLNamespace, 2, ref ErrReason);
             if (FVI_com_running)
             {
                 btn_Send_ECHO.Enabled = true;
@@ -52,8 +52,8 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
         private void usrc_FVI_SLO1_Response_ECHO(long Message_ID, string xml)
         {
             txt_Response_ECHO_xml.Text = "Message_ID =" + Message_ID.ToString() + "\r\n" + xml;
-    
 
+        
         }
 
         private string GetFursXmlMesage(string FileName)
