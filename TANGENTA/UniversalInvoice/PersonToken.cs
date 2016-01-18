@@ -21,7 +21,8 @@ namespace UniversalInvoice
         public TemplateToken tCardNumber;
         public TemplateToken tCardType;
 
-        public List<TemplateToken> list = null;
+        public List<TemplateToken> list = new List<TemplateToken>();
+        private ltext token_prefix_Person;
 
         public PersonToken(ltext token_prefix,
                                 bool Gender,
@@ -48,8 +49,28 @@ namespace UniversalInvoice
             tEmail = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, Email, null);
             tCardNumber = new TemplateToken(token_prefix, new string[] { "CardNumber", "ŠtevilkaKartice" }, CardNumber, null);
             tCardType = new TemplateToken(token_prefix, new string[] { "CardType", "VrstaKartice" }, CardType, null);
+            AddList();
+        }
 
-            list = new List<TemplateToken>();
+        public PersonToken(ltext token_prefix)
+        {
+            tGender = new TemplateToken(token_prefix, new string[] { "Gender", "Spol" }, "",null);
+            tFirstName = new TemplateToken(token_prefix, new string[] { "FirstName", "Ime" }, "", null);
+            tLastName = new TemplateToken(token_prefix, new string[] { "LastName", "Priimek" }, "", null);
+            tDateOfBirth = new TemplateToken(token_prefix, new string[] { "DateOfBirth", "DatumRojstva" }, "", null);
+            tTaxID = new TemplateToken(token_prefix, new string[] { "Tax_ID", "DavčnaŠtevilka" }, "", null);
+            tRegistration_ID = new TemplateToken(token_prefix, new string[] { "Registration_ID", "MatičnaŠtevilka" }, "", null);
+            tMobilePhoneNumber = new TemplateToken(token_prefix, new string[] { "MobilePhoneNumber", "MobilnaTelefonŠtevilka" }, "", null);
+            tPhoneNumber = new TemplateToken(token_prefix, new string[] { "PhoneNumber", "TelefonskaŠtevilka" }, "", null);
+            tEmail = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, "", null);
+            tCardNumber = new TemplateToken(token_prefix, new string[] { "CardNumber", "ŠtevilkaKartice" }, "", null);
+            tCardType = new TemplateToken(token_prefix, new string[] { "CardType", "VrstaKartice" }, "", null);
+
+            AddList();
+        }
+        private void AddList()
+        {
+            list.Clear();
             list.Add(tGender);
             list.Add(tFirstName);
             list.Add(tLastName);
@@ -61,6 +82,7 @@ namespace UniversalInvoice
             list.Add(tEmail);
             list.Add(tCardNumber);
             list.Add(tCardType);
-        }  
+
+        }
     }
 }

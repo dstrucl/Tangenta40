@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using LanguageControl;
 using DBTypes;
 using FiscalVerificationOfInvoices_SLO;
+using System.IO;
 
 namespace Tangenta
 {

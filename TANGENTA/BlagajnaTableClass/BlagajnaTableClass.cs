@@ -767,6 +767,10 @@ namespace BlagajnaTableClass
     {
     }
 
+    public class NoticeText : DB_varchar_max
+    {
+    }
+
     public class ExpiryDescription: DB_varchar_2000
     {
     }
@@ -1669,10 +1673,19 @@ namespace BlagajnaTableClass
         public Description Description = new Description();
     }
 
-    public class ProformaInvoice_Image
+    public class Notice
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public NoticeText NoticeText = new NoticeText();
+        public Description Description = new Description();
+    }
+
+    public class ProformaInvoice_Notice
     {
         public ID ID = new ID();
         public ProformaInvoice m_ProformaInvoice = new ProformaInvoice();
+        public Notice m_Notice = new Notice();
         public ProformaInvoice_ImageLib m_ProformaInvoice_ImageLib = new ProformaInvoice_ImageLib();
     }
 
@@ -2161,7 +2174,7 @@ namespace BlagajnaTableClass
         public ProformaInvoice m_ProformaInvoice = new ProformaInvoice();
 
         /* 46 */
-        public ProformaInvoice_Image m_ProformaInvoice_Image = new ProformaInvoice_Image();
+        public ProformaInvoice_Notice m_ProformaInvoice_Notice = new ProformaInvoice_Notice();
 
         /* 47 */
         public ProformaInvoice_ImageLib m_ProformaInvoice_ImageLib = new ProformaInvoice_ImageLib();
@@ -2550,6 +2563,8 @@ namespace BlagajnaTableClass
         /* 175 */
         public Atom_FVI_SLO_RealEstateBP m_Atom_FVI_SLO_RealEstateBP = new Atom_FVI_SLO_RealEstateBP();
 
+        /* 176 */
+        public Notice m_Notice = new Notice();
 
     }
 }

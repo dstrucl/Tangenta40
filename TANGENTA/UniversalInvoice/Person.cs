@@ -23,7 +23,7 @@ namespace UniversalInvoice
         public byte[] PersonImage = null;
         public Address Address = null;
         public PersonToken token = null;
-
+        private ltext st_Customer;
 
         public Person(ltext token_prefix,
                         bool _Gender,
@@ -79,5 +79,25 @@ namespace UniversalInvoice
                                     CardType);
 
     }
-}
+
+        public Person(ltext token_prefix)
+        {
+            Gender = false;
+            FirstName = "";
+            LastName = "";
+            DateOfBirth = DateTime.MinValue;
+            Tax_ID = "";
+            Registration_ID = "";
+            MobilePhoneNumber = "";
+            PhoneNumber = "";
+            Email = "";
+            CardNumber = "";
+            CardType = "";
+            PersonImage = null;
+            ltext token_prefix_Person = token_prefix.AddAtTheEnd(lngToken.st_Person);
+            Address = new Address(token_prefix_Person);
+
+            token = new PersonToken(token_prefix_Person);
+        }
+    }
 }

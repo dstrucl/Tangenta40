@@ -52,7 +52,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -86,7 +92,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -117,7 +129,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -145,7 +163,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -170,7 +194,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -192,7 +222,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -211,7 +247,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -227,7 +269,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -240,7 +288,13 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
@@ -250,12 +304,38 @@ namespace Tangenta
                                                 {
                                                     if (UpgradeDB_1_09_to_1_10())
                                                     {
-                                                        return true;
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            return true;
+                                                        }
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                                    if (sOldDBVersion.Equals("1.10"))
+                                                    {
+                                                        if (UpgradeDB_1_10_to_1_11())
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (sOldDBVersion.Equals("1.11"))
+                                                        {
+                                                            if (UpgradeDB_1_11_to_1_12())
+                                                            {
+                                                                return true;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -333,6 +413,126 @@ namespace Tangenta
             }
             return false;
         }
+
+        private bool UpgradeDB_1_11_to_1_12()
+        {
+            string Err = null;
+            if (DBSync.DBSync.Drop_VIEWs())
+            {
+                string sql = null;
+                string stbl = "ProformaInvoice_Notice";
+                if (DBSync.DBSync.TableExists(stbl, ref Err))
+                {
+
+                    sql = @"PRAGMA foreign_keys = OFF;
+                    DROP TABLE " + stbl + @";
+                    CREATE TABLE Notice
+                      (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                          'Name' varchar(264) NOT NULL,
+                          'NoticeText' TEXT NOT NULL,
+                          'Description' varchar(2000) NULL
+                      );
+
+                    CREATE TABLE ProformaInvoice_Notice
+                      (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                           ProformaInvoice_ID  INTEGER  NOT NULL REFERENCES ProformaInvoice(ID),
+                           Notice_ID  INTEGER  NOT NULL REFERENCES Notice(ID),
+                           ProformaInvoice_ImageLib_ID  INTEGER  NULL REFERENCES ProformaInvoice_ImageLib(ID)
+                      );
+                    PRAGMA foreign_keys = ON;";
+                }
+                else
+                {
+                    sql = @"
+                    CREATE TABLE Notice
+                      (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                          'Name' varchar(264) NOT NULL,
+                          'NoticeText' TEXT NOT NULL,
+                          'Description' varchar(2000) NULL
+                      );
+
+                    CREATE TABLE ProformaInvoice_Notice
+                      (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                           ProformaInvoice_ID  INTEGER  NOT NULL REFERENCES ProformaInvoice(ID),
+                           Notice_ID  INTEGER  NOT NULL REFERENCES Notice(ID),
+                           ProformaInvoice_ImageLib_ID  INTEGER  NULL REFERENCES ProformaInvoice_ImageLib(ID)
+                      );
+                    ";
+                }
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    if (DBSync.DBSync.Create_VIEWs())
+                    {
+                        Set_DatBase_Version("1.12");
+                        return true;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_08_to_1_09:sql = " + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+
+            }
+            return false;
+        }
+
+        private bool UpgradeDB_1_10_to_1_11()
+        {
+            string Err = null;
+            if (DBSync.DBSync.Drop_VIEWs())
+            {
+                string sql = null;
+                string stbl = "ProformaInvoice_Image";
+                if (DBSync.DBSync.TableExists(stbl, ref Err))
+                {
+
+                    sql = @"PRAGMA foreign_keys = OFF;
+                    DROP TABLE " + stbl + @";
+                    CREATE TABLE ProformaInvoice_Notice
+                      (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                           ProformaInvoice_ID  INTEGER  NOT NULL REFERENCES ProformaInvoice(ID),
+                          'NoticeText' TEXT NULL,
+                           ProformaInvoice_ImageLib_ID  INTEGER  NULL REFERENCES ProformaInvoice_ImageLib(ID)
+                      );
+                    PRAGMA foreign_keys = ON;";
+                }
+                else
+                {
+                    sql = @"
+                    CREATE TABLE ProformaInvoice_Notice
+                      (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                           ProformaInvoice_ID  INTEGER  NOT NULL REFERENCES ProformaInvoice(ID),
+                          'NoticeText' TEXT NULL,
+                           ProformaInvoice_ImageLib_ID  INTEGER  NULL REFERENCES ProformaInvoice_ImageLib(ID)
+                          
+                      );
+                    ";
+                }
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    if (DBSync.DBSync.Create_VIEWs())
+                    {
+                        Set_DatBase_Version("1.11");
+                        return true;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_08_to_1_09:sql = " + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+
+            }
+            return false;
+        }
+
 
 
         private bool UpgradeDB_1_08_to_1_09()

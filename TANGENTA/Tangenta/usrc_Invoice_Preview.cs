@@ -80,7 +80,7 @@ namespace Tangenta
             m_sToReturn = sToReturn;
             m_issue_time = issue_time;
             string shtml_doc_text = html_doc_text;
-            string s = m_InvoiceData.CreateHTML(ref shtml_doc_text);
+            string s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
 
             this.m_webBrowser.DocumentText = s;
             this.m_webBrowser.Refresh();

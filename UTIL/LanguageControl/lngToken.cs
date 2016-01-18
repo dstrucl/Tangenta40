@@ -7,6 +7,10 @@ namespace LanguageControl
 {
     public static class lngToken
     {
+        public static ltext st_UniqueMessageID = new ltext("FURS_UniqueMessageID", "FURS_UnikatnaŠtevilkaSporočila");
+        public static ltext st_UniqueInvoiceID = new ltext("FURS_UniqueInvoiceID", "FURS_UnikatnaŠtevilkaRačuna");
+        public static ltext st_QR = new ltext("FURS_QRCode", "FURS_QR_koda");
+
         public static ltext st_My = new ltext("My", "Moja");
         public static ltext st_Invoice = new ltext("Invoice", "Račun");
         public static ltext st_Item = new ltext("Item", "StoritevAliArtikel");

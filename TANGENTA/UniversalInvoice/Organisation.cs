@@ -19,7 +19,7 @@ namespace UniversalInvoice
 
         public Address Address = null;
         public OrganisationToken token = null;
-
+        private ltext st_Customer;
 
         public Organisation(ltext token_prefix,
                             string _Name,
@@ -76,6 +76,25 @@ namespace UniversalInvoice
                                             PhoneNumber,
                                             FaxNumber,
                                             Logo_Data);
+        }
+
+        public Organisation(ltext token_prefix)
+        {
+
+            Name = "";
+            Tax_ID = "";
+            Registration_ID = "";
+            Atom_Office_Name = "";
+            BankName = "";
+            TRR = "";
+            Email = "";
+            HomePage = "";
+            PhoneNumber ="";
+            FaxNumber = "";
+            Logo_Data = null;
+            ltext token_prefix_Organisation = token_prefix.AddAtTheEnd(lngToken.st_Organisation);
+            Address = new Address(token_prefix_Organisation);
+            token = new OrganisationToken(token_prefix_Organisation);
         }
     }
 }

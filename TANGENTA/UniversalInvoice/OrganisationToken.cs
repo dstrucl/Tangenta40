@@ -28,6 +28,7 @@ namespace UniversalInvoice
         public TemplateToken tCountry = null;
 
         public List<TemplateToken> list = new List<TemplateToken>();
+        private ltext token_prefix_Organisation;
 
         public OrganisationToken(ltext token_prefix,
                                     string _Name,
@@ -53,6 +54,29 @@ namespace UniversalInvoice
             tPhoneNumber             = new TemplateToken(token_prefix, new string[] { "PhoneNumber", "Telefon" }, _PhoneNumber, null);
             tFaxNumber               = new TemplateToken(token_prefix, new string[] { "FaxNumber", "Fax" }, _FaxNumber, null);
             tLogo_Data               = new TemplateToken(token_prefix, new string[] { "Logo", "Logo" }, _Logo_Data, null);
+            AddList();
+        }
+
+
+        public OrganisationToken(ltext token_prefix)
+        {
+            tName = new TemplateToken(token_prefix, new string[] { "Name", "Ime" }, "", null);
+            tTax_ID = new TemplateToken(token_prefix, new string[] { "Tax_ID", "DavčnaŠtevilka" }, "", null);
+            tRegistration_ID = new TemplateToken(token_prefix, new string[] { "Regsitration_ID", "MatičnaŠtevilka" }, "", null);
+            tAtom_Office_Name = new TemplateToken(token_prefix, new string[] { "Office", "PoslovnaEnota" }, "", null);
+            tBankName = new TemplateToken(token_prefix, new string[] { "BankName", "Banka" }, "", null);
+            tTRR = new TemplateToken(token_prefix, new string[] { "BankAccount", "Bančni račun" }, "", null);
+            tEmail = new TemplateToken(token_prefix, new string[] { "Email", "Email" }, "", null);
+            tHomePage = new TemplateToken(token_prefix, new string[] { "HomePage", "DomačaStran" }, "", null);
+            tPhoneNumber = new TemplateToken(token_prefix, new string[] { "PhoneNumber", "Telefon" }, "", null);
+            tFaxNumber = new TemplateToken(token_prefix, new string[] { "FaxNumber", "Fax" }, "", null);
+            tLogo_Data = new TemplateToken(token_prefix, new string[] { "Logo", "Logo" }, "", null);
+            AddList();
+        }
+
+        private void AddList()
+        {
+            list.Clear();
             list.Add(tName);
             list.Add(tTax_ID);
             list.Add(tRegistration_ID);
@@ -66,5 +90,6 @@ namespace UniversalInvoice
             list.Add(tLogo_Data);
 
         }
+
     }
 }

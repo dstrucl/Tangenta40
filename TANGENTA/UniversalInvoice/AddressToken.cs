@@ -16,6 +16,7 @@ namespace UniversalInvoice
         public TemplateToken tState = null;
         public TemplateToken tCountry = null;
         public List<TemplateToken> list = new List<TemplateToken>();
+        private ltext ltAddress_prefix;
 
         public AddressToken(ltext token_prefix,
                             string Street,
@@ -31,13 +32,30 @@ namespace UniversalInvoice
             tCity = new TemplateToken(token_prefix, new string[] { "City", "Kraj" }, City, null);
             tState = new TemplateToken(token_prefix, new string[] { "State", "Država" }, State, null);
             tCountry = new TemplateToken(token_prefix, new string[] { "Country", "Dežela" }, Country, null);
+            AddList();
+        }
+
+        public AddressToken(ltext token_prefix)
+        {
+            tStreet = new TemplateToken(token_prefix, new string[] { "Street", "Cesta" }, "", null);
+            tHouseNumber = new TemplateToken(token_prefix, new string[] { "HouseNumber", "HišnaŠtevilka" }, "", null);
+            tZIP = new TemplateToken(token_prefix, new string[] { "ZIP", "Pošta" }, "", null);
+            tCity = new TemplateToken(token_prefix, new string[] { "City", "Kraj" }, "", null);
+            tState = new TemplateToken(token_prefix, new string[] { "State", "Država" }, "", null);
+            tCountry = new TemplateToken(token_prefix, new string[] { "Country", "Dežela" }, "", null);
+            AddList();
+        }
+
+        private void AddList()
+        {
+            list.Clear();
             list.Add(tStreet);
             list.Add(tHouseNumber);
             list.Add(tZIP);
             list.Add(tCity);
             list.Add(tState);
             list.Add(tCountry);
-        }
 
+        }
     }
 }

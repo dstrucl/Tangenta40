@@ -7,6 +7,7 @@ namespace LanguageControl
 {
     public static class lngTName
     {
+        public static ltext lngt_t_Notice = new ltext("Notice", "Dopis");
         public static ltext lngt_t_Atom_FVI_SLO_RealEstateBP = new ltext("FVI_SLO RealEstateBP", "Davčni podatki o poslovnem prostoru");
         public static ltext lngt_t_FVI_SLO_Response = new ltext("FVI Response", "Overovljanje računov pri davčni upravi");
         public static ltext lngt_t_FVI_SLO_RealEstateBP = new ltext("Business premises", "Davčni podatki o poslovnem prostoru");

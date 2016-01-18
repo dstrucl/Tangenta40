@@ -65,7 +65,8 @@ namespace Tangenta
             int xNumberInFinancialYear = -1;
             if (m_InvoiceData.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear))
             {
-                m_InvoiceData.NumberInFinancialYear = xNumberInFinancialYear;
+                m_InvoiceData.Set_NumberInFinancialYear(xNumberInFinancialYear);
+
                 if (m_InvoiceData.SetInvoiceTime(issue_time))
                 {
                     

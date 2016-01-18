@@ -32,9 +32,6 @@
             this.txt_MyCompany = new System.Windows.Forms.TextBox();
             this.lbl_MyCompany = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.usrc_SimpleItemMan = new Tangenta.usrc_SimpleItemMan();
-            this.usrc_ItemMan = new Tangenta.usrc_ItemMan();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.cmb_select_my_Company_Person = new System.Windows.Forms.ComboBox();
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
@@ -50,9 +47,12 @@
             this.chk_Head = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btn_CodeTables = new System.Windows.Forms.Button();
+            this.chk_Storno = new System.Windows.Forms.CheckBox();
+            this.usrc_Notice1 = new Tangenta.usrc_Notice();
             this.usrc_PriceList = new Tangenta.usrc_PriceList();
             this.usrc_Customer = new Tangenta.usrc_Customer();
-            this.chk_Storno = new System.Windows.Forms.CheckBox();
+            this.usrc_SimpleItemMan = new Tangenta.usrc_SimpleItemMan();
+            this.usrc_ItemMan = new Tangenta.usrc_ItemMan();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -109,38 +109,6 @@
             this.splitContainer1.SplitterDistance = 322;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 3;
-            // 
-            // usrc_SimpleItemMan
-            // 
-            this.usrc_SimpleItemMan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_SimpleItemMan.Location = new System.Drawing.Point(0, 0);
-            this.usrc_SimpleItemMan.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_SimpleItemMan.Name = "usrc_SimpleItemMan";
-            this.usrc_SimpleItemMan.Size = new System.Drawing.Size(1010, 318);
-            this.usrc_SimpleItemMan.TabIndex = 0;
-            this.usrc_SimpleItemMan.Load += new System.EventHandler(this.usrc_SimpleItemMan_Load);
-            // 
-            // usrc_ItemMan
-            // 
-            this.usrc_ItemMan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_ItemMan.Location = new System.Drawing.Point(0, 0);
-            this.usrc_ItemMan.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_ItemMan.Name = "usrc_ItemMan";
-            this.usrc_ItemMan.Size = new System.Drawing.Size(1010, 282);
-            this.usrc_ItemMan.TabIndex = 0;
-            this.usrc_ItemMan.ItemAdded += new Tangenta.usrc_ItemMan.delegate_ItemAdded(this.usrc_ItemMan_ItemAdded);
-            this.usrc_ItemMan.After_Atom_Item_Remove += new Tangenta.usrc_ItemMan.delegate_After_Atom_Item_Remove(this.usrc_ItemMan_After_Atom_Item_Remove);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(445, 736);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(434, 38);
-            this.textBox1.TabIndex = 5;
             // 
             // cmb_select_my_Company_Person
             // 
@@ -319,6 +287,28 @@
             this.btn_CodeTables.UseVisualStyleBackColor = true;
             this.btn_CodeTables.Click += new System.EventHandler(this.btn_CodeTables_Click);
             // 
+            // chk_Storno
+            // 
+            this.chk_Storno.AutoSize = true;
+            this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chk_Storno.Location = new System.Drawing.Point(918, 1);
+            this.chk_Storno.Name = "chk_Storno";
+            this.chk_Storno.Size = new System.Drawing.Size(84, 28);
+            this.chk_Storno.TabIndex = 39;
+            this.chk_Storno.Text = "Storno";
+            this.chk_Storno.UseVisualStyleBackColor = true;
+            this.chk_Storno.CheckedChanged += new System.EventHandler(this.chk_Storno_CheckedChanged);
+            // 
+            // usrc_Notice1
+            // 
+            this.usrc_Notice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Notice1.BackColor = System.Drawing.Color.LemonChiffon;
+            this.usrc_Notice1.Location = new System.Drawing.Point(452, 736);
+            this.usrc_Notice1.Name = "usrc_Notice1";
+            this.usrc_Notice1.Size = new System.Drawing.Size(567, 42);
+            this.usrc_Notice1.TabIndex = 40;
+            // 
             // usrc_PriceList
             // 
             this.usrc_PriceList.Location = new System.Drawing.Point(725, 8);
@@ -342,21 +332,31 @@
             this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
             this.usrc_Customer.Load += new System.EventHandler(this.usrc_Customer_Load);
             // 
-            // chk_Storno
+            // usrc_SimpleItemMan
             // 
-            this.chk_Storno.AutoSize = true;
-            this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Storno.Location = new System.Drawing.Point(918, 1);
-            this.chk_Storno.Name = "chk_Storno";
-            this.chk_Storno.Size = new System.Drawing.Size(84, 28);
-            this.chk_Storno.TabIndex = 39;
-            this.chk_Storno.Text = "Storno";
-            this.chk_Storno.UseVisualStyleBackColor = true;
-            this.chk_Storno.CheckedChanged += new System.EventHandler(this.chk_Storno_CheckedChanged);
+            this.usrc_SimpleItemMan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_SimpleItemMan.Location = new System.Drawing.Point(0, 0);
+            this.usrc_SimpleItemMan.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_SimpleItemMan.Name = "usrc_SimpleItemMan";
+            this.usrc_SimpleItemMan.Size = new System.Drawing.Size(1010, 318);
+            this.usrc_SimpleItemMan.TabIndex = 0;
+            this.usrc_SimpleItemMan.Load += new System.EventHandler(this.usrc_SimpleItemMan_Load);
+            // 
+            // usrc_ItemMan
+            // 
+            this.usrc_ItemMan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_ItemMan.Location = new System.Drawing.Point(0, 0);
+            this.usrc_ItemMan.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_ItemMan.Name = "usrc_ItemMan";
+            this.usrc_ItemMan.Size = new System.Drawing.Size(1010, 282);
+            this.usrc_ItemMan.TabIndex = 0;
+            this.usrc_ItemMan.ItemAdded += new Tangenta.usrc_ItemMan.delegate_ItemAdded(this.usrc_ItemMan_ItemAdded);
+            this.usrc_ItemMan.After_Atom_Item_Remove += new Tangenta.usrc_ItemMan.delegate_After_Atom_Item_Remove(this.usrc_ItemMan_After_Atom_Item_Remove);
             // 
             // usrc_Invoice
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_Notice1);
             this.Controls.Add(this.chk_Storno);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.chk_Head);
@@ -370,7 +370,6 @@
             this.Controls.Add(this.lbl_Currency);
             this.Controls.Add(this.lbl_Number);
             this.Controls.Add(this.txt_Number);
-            this.Controls.Add(this.textBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "usrc_Invoice";
             this.Size = new System.Drawing.Size(1025, 779);
@@ -394,7 +393,6 @@
         private System.Windows.Forms.TextBox txt_MyCompany;
         private System.Windows.Forms.Label lbl_MyCompany;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btn_edit_MyCompany_Person;
         private System.Windows.Forms.ComboBox cmb_select_my_Company_Person;
         private System.Windows.Forms.TextBox txt_Number;
@@ -415,5 +413,6 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.CheckBox chk_Storno;
         private System.Windows.Forms.Button btn_CodeTables;
+        private usrc_Notice usrc_Notice1;
     }
 }

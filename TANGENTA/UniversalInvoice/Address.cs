@@ -17,7 +17,7 @@ namespace UniversalInvoice
         public string Country = null;
 
         public AddressToken token = null;
-
+        private ltext token_prefix_Organisation;
 
         public Address(ltext token_prefix,
                        string _StreetName,
@@ -46,6 +46,18 @@ namespace UniversalInvoice
                                     );
 
             
+        }
+
+        public Address(ltext token_prefix)
+        {
+            StreetName = "";
+            HouseNumber = "";
+            ZIP = "";
+            City = "";
+            State = "";
+            Country = "";
+            ltext ltAddress_prefix = token_prefix.AddAtTheEnd(lngToken.st_Address);
+            token = new AddressToken(ltAddress_prefix);
         }
     }
 }

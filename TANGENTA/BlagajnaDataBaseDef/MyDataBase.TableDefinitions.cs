@@ -49,7 +49,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.10";
+        public const string VERSION = "1.12";
         public Settings Settings = null;
 
         /* 1 */
@@ -143,7 +143,7 @@ namespace BlagajnaDataBaseDef
         /* 45 */
         public SQLTable t_ProformaInvoice = null;
         /* 46 */
-        public SQLTable t_ProformaInvoice_Image = null;
+        public SQLTable t_ProformaInvoice_Notice = null;
         /* 47 */
         public SQLTable t_ProformaInvoice_ImageLib = null;
         /* 48 */
@@ -509,6 +509,9 @@ namespace BlagajnaDataBaseDef
         /* 175 */
         public SQLTable t_Atom_FVI_SLO_RealEstateBP = null;
 
+        /* 176 */
+        public SQLTable t_Notice = null;
+
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -869,11 +872,12 @@ namespace BlagajnaDataBaseDef
             m_DBTables.items.Add(t_ProformaInvoice);
 
         /* 46 */
-            t_ProformaInvoice_Image = new SQLTable((Object)new ProformaInvoice_Image(),"pinvimg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_ProformaInvoice_Image);
-            t_ProformaInvoice_Image.AddColumn((Object)mt.m_ProformaInvoice_Image.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_ProformaInvoice_Image.AddColumn((Object)mt.m_ProformaInvoice_Image.m_ProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "ProformaInvoice ID", "Predračun ID") );            
-            t_ProformaInvoice_Image.AddColumn((Object)mt.m_ProformaInvoice_Image.m_ProformaInvoice_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "ProformaInvoice_ImageLib _ID", "Knjižnica slik ID") );            
-            m_DBTables.items.Add(t_ProformaInvoice_Image);
+            t_ProformaInvoice_Notice = new SQLTable((Object)new ProformaInvoice_Notice(),"pinvnotice", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_ProformaInvoice_Image);
+            t_ProformaInvoice_Notice.AddColumn((Object)mt.m_ProformaInvoice_Notice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_ProformaInvoice_Notice.AddColumn((Object)mt.m_ProformaInvoice_Notice.m_ProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "ProformaInvoice ID", "Predračun ID") );
+            t_ProformaInvoice_Notice.AddColumn((Object)mt.m_ProformaInvoice_Notice.m_Notice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Notice ID", "Dopis ID"));
+            t_ProformaInvoice_Notice.AddColumn((Object)mt.m_ProformaInvoice_Notice.m_ProformaInvoice_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "ProformaInvoice_ImageLib _ID", "Knjižnica slik ID") );            
+            m_DBTables.items.Add(t_ProformaInvoice_Notice);
 
         /* 47 */
             t_ProformaInvoice_ImageLib = new SQLTable((Object)new ProformaInvoice_ImageLib(),"pinvimgl", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_ProformaInvoice_Image);
@@ -1963,6 +1967,14 @@ namespace BlagajnaDataBaseDef
             t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.SoftwareSupplier_TaxNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SW supplier tax number", "Davčna številka dobavitelja programske opreme ali vzdrževalca"));
             t_Atom_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_Atom_FVI_SLO_RealEstateBP.PremiseType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Premise Type", "Vrsta poslovnega prostora"));
             m_DBTables.items.Add(t_Atom_FVI_SLO_RealEstateBP);
+
+         /* 176 */
+            t_Notice = new SQLTable((Object)new Notice(), "notice", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Notice);
+            t_Notice.AddColumn((Object)mt.m_Notice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Notice.AddColumn((Object)mt.m_Notice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Notice name", "Ime dopisa"));
+            t_Notice.AddColumn((Object)mt.m_Notice.NoticeText, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Notice text", "Dopis"));
+            t_Notice.AddColumn((Object)mt.m_Notice.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_Notice);
         }
     }
  }
