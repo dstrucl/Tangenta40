@@ -20,7 +20,8 @@ using MNet.SLOTaxService.Messages;
          public MessageType MessageType = MessageType.Unknown; 
          public String ErrorMessage = null; 
          public string ProtectedID = null; 
-         public string UniqueInvoiceID = null; 
+         public string UniqueInvoiceID = null;
+         public string BarCodeValue = null;
          public Image Image_QRCode = null; 
  
 
@@ -172,13 +173,14 @@ using MNet.SLOTaxService.Messages;
 
  
 
-         internal bool FVI_Response_Single_Invoice(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage, string protectedID, string uniqueInvoiceID, Image image_QRCode)
+         internal bool FVI_Response_Single_Invoice(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage, string protectedID, string uniqueInvoiceID,string barcode_value, Image image_QRCode)
          { 
              Success = success; 
              MessageType = messageType; 
              ErrorMessage = errorMessage; 
              ProtectedID = protectedID; 
-             UniqueInvoiceID = uniqueInvoiceID; 
+             UniqueInvoiceID = uniqueInvoiceID;
+             BarCodeValue = barcode_value;
              Image_QRCode = image_QRCode; 
  
 

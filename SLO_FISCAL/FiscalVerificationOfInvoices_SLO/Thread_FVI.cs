@@ -100,7 +100,7 @@ namespace FiscalVerificationOfInvoices_SLO
                                     string BarCodeValue = rv.BarCodes.BarCodeValue;
                                     if (BarCodeValue != null)
                                     {
-                                        Image img_QRCode = rv.BarCodes.DrawQRCode(128, System.Drawing.Imaging.ImageFormat.Png);
+                                        Image img_QRCode = rv.BarCodes.DrawQRCode(Properties.Settings.Default.QRImageWidth, System.Drawing.Imaging.ImageFormat.Png);
                                         xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE,
                                                                   xml_returned,
                                                                   rv.ErrorMessage,

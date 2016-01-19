@@ -1146,8 +1146,8 @@ namespace Tangenta
                             m_InvoiceData = new InvoiceData(m_InvoiceDB, m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID);
                             if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
-                                Form_Payment payment_frm = new Form_Payment(m_InvoiceData);
-                                payment_frm.ShowDialog();
+                                Form_PrintExistingInvoice frm_Print_Existing_invoice = new Form_PrintExistingInvoice(m_InvoiceData);
+                                frm_Print_Existing_invoice.ShowDialog(this);
                             }
                         }
                     }

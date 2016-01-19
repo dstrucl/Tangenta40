@@ -51,7 +51,18 @@ namespace MNet.SLOTaxService.Services
       return Image.FromStream(stream);
     }
 
-    private BarCodes(XmlDocument invoice)
+    public static Image DrawQRCode(int qrImageSize, ImageFormat imgFormat,string UniqueInvoiceID)
+    {
+        QrEncoder qrEncoder = new QrEncoder(ErrorCorrectionLevel.M);
+        QrCode qrCode = qrEncoder.Encode(UniqueInvoiceID);
+
+        GraphicsRenderer renderer = new GraphicsRenderer(new FixedCodeSize(qrImageSize, QuietZoneModules.Two), Brushes.Black, Brushes.White);
+        MemoryStream stream = new MemoryStream();
+        renderer.WriteToStream(qrCode.Matrix, imgFormat, stream);
+        return Image.FromStream(stream);
+    }
+
+        private BarCodes(XmlDocument invoice)
     {
       // People at FURS say that modulo is just easy modulo 10 and not luhn!
       IModulo modulo = new Modulo10_Easy();

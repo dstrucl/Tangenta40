@@ -84,10 +84,12 @@ namespace Tangenta
             this.m_usrc_Invoice_Preview.AutoScroll = true;
             this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.m_usrc_Invoice_Preview.html_doc_text = "Document Template not set";
             this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(1, 42);
             this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
             this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(923, 560);
             this.m_usrc_Invoice_Preview.TabIndex = 0;
+            this.m_usrc_Invoice_Preview.OK += new Tangenta.usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
             // 
             // Form_Print_A4
             // 

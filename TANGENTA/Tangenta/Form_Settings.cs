@@ -22,6 +22,7 @@ namespace Tangenta
         {
             InitializeComponent();
             lngRPM.s_Language.Text(lbl_Language);
+            lngRPM.s_FullScreen.Text(chk_FullScreen);
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
             cmb_Language.DataSource = DynSettings.s_language.sText;
@@ -31,6 +32,25 @@ namespace Tangenta
             DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
             chk_AllowToEditText.Checked = DynSettings.AllowToEditText;
             chk_AllowToEditText.CheckedChanged += chk_AllowToEditText_CheckedChanged;
+            chk_FullScreen.Checked = Properties.Settings.Default.FullScreen;
+            chk_FullScreen.CheckedChanged += Chk_FullScreen_CheckedChanged;
+
+        }
+
+        private void Chk_FullScreen_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.FullScreen = chk_FullScreen.Checked;
+            Properties.Settings.Default.Save();
+            if (Properties.Settings.Default.FullScreen)
+            {
+                Program.MainForm.WindowState = FormWindowState.Maximized;
+                Program.MainForm.FormBorderStyle = FormBorderStyle.None;
+            }
+            else
+            {
+                Program.MainForm.FormBorderStyle = FormBorderStyle.Sizable;
+            }
+
         }
 
         void chk_AllowToEditText_CheckedChanged(object sender, EventArgs e)

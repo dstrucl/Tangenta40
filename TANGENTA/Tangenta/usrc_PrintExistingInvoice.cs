@@ -15,9 +15,10 @@ namespace Tangenta
 {
     public partial class usrc_PrintExistingInvoice : UserControl
     {
+        public delegate void delegate_Cancel();
+        public event delegate_Cancel Cancel;
+
         public InvoiceData m_InvoiceData = null;
-        public delegate void delegate_DoPrint_Existing_Invoice(DateTime_v issue_time);
-        public event delegate_DoPrint_Existing_Invoice aa_DoPrint_Existing_Invoice;
         DateTime_v ProformaInvoiceTime_v = null;
         DataTable dt = new DataTable();
 
@@ -91,19 +92,15 @@ namespace Tangenta
         private void btn_Print_Click(object sender, EventArgs e)
         {
             
-            if (aa_DoPrint_Existing_Invoice != null)
+            DateTime dtInvoiceTime = DateTime.MinValue;
+            if (GetInvoiceTime(ref dtInvoiceTime))
             {
-                DateTime dtInvoiceTime = DateTime.MinValue;
-                if (GetInvoiceTime(ref dtInvoiceTime))
+                if (ProformaInvoiceTime_v == null)
                 {
-                    if (ProformaInvoiceTime_v== null)
-                    {
-                        ProformaInvoiceTime_v = new DateTime_v();
-                    }
-                    ProformaInvoiceTime_v.v = dtInvoiceTime;
+                    ProformaInvoiceTime_v = new DateTime_v();
                 }
-
-                aa_DoPrint_Existing_Invoice(ProformaInvoiceTime_v);
+                ProformaInvoiceTime_v.v = dtInvoiceTime;
+                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, usrc_Payment.ePaymentType.NONE, null, null, null, ProformaInvoiceTime_v);
                 ShowJournal();
             }
         }
@@ -134,6 +131,14 @@ namespace Tangenta
             {
                 LogFile.Error.Show("ERROR:usrc_PrintExistingInvoice:Init:sql=" + sql + "\r\nErr=" + Err);
                 return false;
+            }
+        }
+
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            if (Cancel!=null)
+            {
+                Cancel();
             }
         }
     }

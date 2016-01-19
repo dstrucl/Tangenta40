@@ -24,7 +24,14 @@ namespace Tangenta
         {
             LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Main()before InitializeComponent()!");
             InitializeComponent();
-
+            if (Properties.Settings.Default.FullScreen)
+            {
+                this.FormBorderStyle = FormBorderStyle.None;
+            }
+            else
+            {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+            }
 
             if (Get_RecentItemsFolder(ref RecentItemsFolder))
             {
@@ -235,14 +242,39 @@ namespace Tangenta
 
         }
 
+        private void Exit()
+        {
+            f_Atom_WorkPeriod.End(Program.Atom_WorkPeriod_ID);
+            if (Program.b_FVI_SLO)
+            {
+                if (Program.usrc_FVI_SLO1 != null)
+                {
+                    Program.usrc_FVI_SLO1.End();
+                }
+            }
+        }
+
         private void m_usrc_Main_Exit_Click()
         {
-            if (MessageBox.Show(this,lngRPM.s_RealyWantToExitProgram.s,"?",MessageBoxButtons.YesNo, MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
+            if (AskToExit())
             {
-                f_Atom_WorkPeriod.End(Program.Atom_WorkPeriod_ID);
+                Exit();
                 this.Close();
                 DialogResult = DialogResult.OK;
             }
+        }
+
+        private bool AskToExit()
+        {
+            if (MessageBox.Show(this, lngRPM.s_RealyWantToExitProgram.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         public long myCompany_Person_ID 
@@ -257,6 +289,19 @@ namespace Tangenta
                         return -1;
                     }
                 }
+        }
+
+        private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (AskToExit())
+            {
+                Exit();
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

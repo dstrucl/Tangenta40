@@ -91,21 +91,6 @@ namespace Tangenta
                     xInvoiceData.IssueDate_Min = issue_time.v.Minute;
                     xInvoiceData.IssueDate_Sec = issue_time.v.Second;
                 }
-                else
-                {
-                    if (Program.b_FVI_SLO)
-                    {
-                        string furs_XML = xInvoiceData.Create_furs_InvoiceXML();
-                        Image img_QR = null;
-                        string furs_UniqeMsgID = null;
-                        string furs_UniqeInvID = null;
-                        if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref img_QR) == Result_MessageBox_Post.OK)
-                        {
-                            xInvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, img_QR);
-                            xInvoiceData.Write_FURS_Response_Data();
-                        }
-                    }
-                }
             }
 
             if (Printer_is_ESC_POS())

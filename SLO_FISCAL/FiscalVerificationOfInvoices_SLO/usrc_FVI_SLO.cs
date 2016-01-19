@@ -121,7 +121,7 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
-        public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID, ref Image Image_QR)
+        public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID, ref string barcode_value, ref Image Image_QR)
         {
             LastMessageID++;
 
@@ -131,6 +131,7 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 UniqeMsgID = FormFURSCommunication.ProtectedID;
                 UniqueInvID = FormFURSCommunication.UniqueInvoiceID;
+                barcode_value = FormFURSCommunication.BarCodeValue;
                 Image_QR = FormFURSCommunication.Image_QRCode;
                 return Result_MessageBox_Post.OK;
             }
@@ -255,6 +256,7 @@ namespace FiscalVerificationOfInvoices_SLO
                                                                          message.ErrorMessage,
                                                                          message.ProtectedID,
                                                                          message.UniqueInvoiceID,
+                                                                         message.BarCodeValue,
                                                                          message.Image_QRCode
                                                                          ))
                                 {
@@ -313,6 +315,11 @@ namespace FiscalVerificationOfInvoices_SLO
                     break;
 
             }
+        }
+
+        public Image GetQRImage(string uniqInvID)
+        {
+            return MNet.SLOTaxService.Services.BarCodes.DrawQRCode(Properties.Settings.Default.QRImageWidth, System.Drawing.Imaging.ImageFormat.Png, uniqInvID);
         }
 
         private void btn_FVI_Click(object sender, EventArgs e)

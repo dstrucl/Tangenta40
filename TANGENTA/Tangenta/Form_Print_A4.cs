@@ -212,5 +212,11 @@ namespace Tangenta
                 txt_Template.Text = Default_Tamplate;
             }
         }
+
+        private void m_usrc_Invoice_Preview_OK()
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
+        }
     }
 }

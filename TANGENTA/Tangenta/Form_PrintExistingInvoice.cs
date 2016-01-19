@@ -26,18 +26,20 @@ namespace Tangenta
 
             m_InvoiceData = xInvoiceData;
             this.Text = lngRPM.s_PaymentAndPrint.s;
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
-        }
-
-        private void btn_Cancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Close();
+            lngRPM.s_Printer.Text(lbl_Printer);
+            this.lbl_PrinterNameValue.Text = Program.usrc_Printer1.PrinterName;
+            this.usrc_PrintExistingInvoice1.Init(xInvoiceData, xInvoiceData.NumberInFinancialYear.ToString());
         }
 
 
         private void Form_Receipt_Preview_Load(object sender, EventArgs e)
         {
+        }
+
+        private void usrc_PrintExistingInvoice1_Cancel()
+        {
+            DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Close();
         }
     }
 }

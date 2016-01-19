@@ -210,6 +210,10 @@ namespace StaticLib
                         {
                             return 50;
                         }
+                        else if (myType == typeof(DB_varchar_64))
+                        {
+                            return 64;
+                        }
                         else if (myType == typeof(DB_varchar_45))
                         {
                             return 45;

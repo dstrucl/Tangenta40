@@ -127,6 +127,21 @@ namespace DBTypes
         }
     }
 
+    public class DB_varchar_64 : ValSet
+    {
+        private string m_val = "";
+        public string val
+        {
+            get { return m_val; }
+
+            set
+            {
+                m_val = value;
+                this.defined = true;
+            }
+        }
+    }
+
     public class DB_varchar_45 : ValSet
     {
         private string m_val = "";
@@ -355,6 +370,7 @@ namespace DBTypes
         public DB_varchar_2000 DB_varchar_2000 = new DB_varchar_2000();
         public DB_varchar_264 DB_varchar_264 = new DB_varchar_264();
         public DB_varchar_250 DB_varchar_250 = new DB_varchar_250();
+        public DB_varchar_64 DB_varchar_64 = new DB_varchar_64();
         public DB_varchar_50 DB_varchar_50 = new DB_varchar_50();
         public DB_varchar_45 DB_varchar_45 = new DB_varchar_45();
         public DB_varchar_32 DB_varchar_32 = new DB_varchar_32();
@@ -448,6 +464,11 @@ namespace DBTypes
                     else if (baseType == typeof(DB_varchar_264))
                     {
                         sMSSQL_type = "[nvarchar](264)";
+                        return true;
+                    }
+                    else if (baseType == typeof(DB_varchar_64))
+                    {
+                        sMSSQL_type = "[nvarchar](64)";
                         return true;
                     }
                     else if (baseType == typeof(DB_varchar_50))
@@ -603,6 +624,10 @@ namespace DBTypes
                         {
                             return "[nvarchar](250)";
                         }
+                        else if (baseType == typeof(DB_varchar_64))
+                        {
+                            return "[nvarchar](64)";
+                        }
                         else if (baseType == typeof(DB_varchar_50))
                         {
                             return "[nvarchar](50)";
@@ -724,6 +749,10 @@ namespace DBTypes
                             return true;
                         }
                         else if (baseType == typeof(DB_varchar_250))
+                        {
+                            return true;
+                        }
+                        else if (baseType == typeof(DB_varchar_64))
                         {
                             return true;
                         }
@@ -854,6 +883,10 @@ namespace DBTypes
                         {
                             return 250;
                         }
+                        else if (baseType == typeof(DB_varchar_64))
+                        {
+                            return 64;
+                        }
                         else if (baseType == typeof(DB_varchar_50))
                         {
                             return 50;
@@ -969,6 +1002,10 @@ namespace DBTypes
                         else if (baseType == typeof(DB_varchar_250))
                         {
                             return "varchar(250) CHARSET utf8";
+                        }
+                        else if (baseType == typeof(DB_varchar_64))
+                        {
+                            return "varchar(64)  CHARSET utf8";
                         }
                         else if (baseType == typeof(DB_varchar_50))
                         {
@@ -1098,6 +1135,10 @@ namespace DBTypes
                         {
                             return "varchar(250)";
                         }
+                        else if (baseType == typeof(DB_varchar_64))
+                        {
+                            return "varchar(64)";
+                        }
                         else if (baseType == typeof(DB_varchar_50))
                         {
                             return "varchar(50)";
@@ -1194,6 +1235,10 @@ namespace DBTypes
                     else if (baseType == typeof(DB_varchar_250))
                     {
                         return typeof(DB_varchar_250);
+                    }
+                    else if (baseType == typeof(DB_varchar_64))
+                    {
+                        return typeof(DB_varchar_64);
                     }
                     else if (baseType == typeof(DB_varchar_50))
                     {
@@ -1308,6 +1353,10 @@ namespace DBTypes
                         return false;
                     }
                     else if (baseType == typeof(DB_varchar_250))
+                    {
+                        return false;
+                    }
+                    else if (baseType == typeof(DB_varchar_64))
                     {
                         return false;
                     }
@@ -1498,6 +1547,13 @@ namespace DBTypes
                     sAction = "DB_varchar_250";
                     DB_varchar_250 xDB_varchar_250 = (DB_varchar_250)obj;
                     xDB_varchar_250.val = Value;
+                    return true;
+                }
+                else if (type == typeof(DB_varchar_64))
+                {
+                    sAction = "DB_varchar_64";
+                    DB_varchar_64 xDB_varchar_64 = (DB_varchar_64)obj;
+                    xDB_varchar_64.val = Value;
                     return true;
                 }
                 else if (type == typeof(DB_varchar_50))
@@ -1788,6 +1844,11 @@ namespace DBTypes
                         ((DB_varchar_250)col_obj).val = Convert.ToString(Value);
                         return true;
                     }
+                    else if (type == typeof(DB_varchar_64))
+                    {
+                        ((DB_varchar_64)col_obj).val = Convert.ToString(Value);
+                        return true;
+                    }
                     else if (type == typeof(DB_varchar_50))
                     {
                         ((DB_varchar_50)col_obj).val = Convert.ToString(Value);
@@ -1986,6 +2047,11 @@ namespace DBTypes
                 DB_varchar_250 xDB_varchar_250 = (DB_varchar_250)obj;
                 return SetParString(xDB_varchar_250.val, lsqlPar, "@Par_" + sThisVar + "_" + Name);
             }
+            else if (baseType == typeof(DB_varchar_64))
+            {
+                DB_varchar_64 xDB_varchar_64 = (DB_varchar_64)obj;
+                return SetParString(xDB_varchar_64.val, lsqlPar, "@Par_" + sThisVar + "_" + Name);
+            }
             else if (baseType == typeof(DB_varchar_50))
             {
                 DB_varchar_50 xDB_varchar_50 = (DB_varchar_50)obj;
@@ -2156,6 +2222,7 @@ namespace DBTypes
                     (baseType == typeof(DB_varbinary_max)) ||
                     (baseType == typeof(DB_varchar_264)) ||
                     (baseType == typeof(DB_varchar_250)) ||
+                    (baseType == typeof(DB_varchar_64)) ||
                     (baseType == typeof(DB_varchar_50)) ||
                     (baseType == typeof(DB_varchar_45)) ||
                     (baseType == typeof(DB_varchar_32)) ||

@@ -45,8 +45,11 @@
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.nm_TimeToShoqSuccessfulFURS_Transaction = new System.Windows.Forms.NumericUpDown();
             this.lbl_TimeToShowFURSSuccessfulResult = new System.Windows.Forms.Label();
+            this.nm_QRSizeWidth = new System.Windows.Forms.NumericUpDown();
+            this.lbl_QRSizeWidth = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // chk_DebugAndTest
@@ -156,7 +159,7 @@
             0,
             0});
             this.nm_UpDown_timeOutInSec.Name = "nm_UpDown_timeOutInSec";
-            this.nm_UpDown_timeOutInSec.Size = new System.Drawing.Size(184, 20);
+            this.nm_UpDown_timeOutInSec.Size = new System.Drawing.Size(66, 20);
             this.nm_UpDown_timeOutInSec.TabIndex = 11;
             this.nm_UpDown_timeOutInSec.Value = new decimal(new int[] {
             30,
@@ -166,7 +169,7 @@
             // 
             // btn_OK
             // 
-            this.btn_OK.Location = new System.Drawing.Point(155, 252);
+            this.btn_OK.Location = new System.Drawing.Point(161, 296);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(87, 25);
             this.btn_OK.TabIndex = 12;
@@ -176,7 +179,7 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Location = new System.Drawing.Point(270, 251);
+            this.btn_Cancel.Location = new System.Drawing.Point(285, 296);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(87, 25);
             this.btn_Cancel.TabIndex = 13;
@@ -193,7 +196,7 @@
             0,
             0});
             this.nm_TimeToShoqSuccessfulFURS_Transaction.Name = "nm_TimeToShoqSuccessfulFURS_Transaction";
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Size = new System.Drawing.Size(114, 20);
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Size = new System.Drawing.Size(49, 20);
             this.nm_TimeToShoqSuccessfulFURS_Transaction.TabIndex = 15;
             this.nm_TimeToShoqSuccessfulFURS_Transaction.Value = new decimal(new int[] {
             10,
@@ -210,11 +213,44 @@
             this.lbl_TimeToShowFURSSuccessfulResult.TabIndex = 14;
             this.lbl_TimeToShowFURSSuccessfulResult.Text = "Čas prikaza uspešne FURS transakcije v sekundah";
             // 
+            // nm_QRSizeWidth
+            // 
+            this.nm_QRSizeWidth.Location = new System.Drawing.Point(108, 247);
+            this.nm_QRSizeWidth.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nm_QRSizeWidth.Minimum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.nm_QRSizeWidth.Name = "nm_QRSizeWidth";
+            this.nm_QRSizeWidth.Size = new System.Drawing.Size(71, 20);
+            this.nm_QRSizeWidth.TabIndex = 17;
+            this.nm_QRSizeWidth.Value = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            // 
+            // lbl_QRSizeWidth
+            // 
+            this.lbl_QRSizeWidth.AutoSize = true;
+            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(20, 249);
+            this.lbl_QRSizeWidth.Name = "lbl_QRSizeWidth";
+            this.lbl_QRSizeWidth.Size = new System.Drawing.Size(82, 13);
+            this.lbl_QRSizeWidth.TabIndex = 16;
+            this.lbl_QRSizeWidth.Text = "Širina QR kode:";
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 287);
+            this.ClientSize = new System.Drawing.Size(556, 354);
+            this.Controls.Add(this.nm_QRSizeWidth);
+            this.Controls.Add(this.lbl_QRSizeWidth);
             this.Controls.Add(this.nm_TimeToShoqSuccessfulFURS_Transaction);
             this.Controls.Add(this.lbl_TimeToShowFURSSuccessfulResult);
             this.Controls.Add(this.btn_Cancel);
@@ -237,6 +273,7 @@
             this.Text = "Nastavitve za komunikacijo z DAVČNO UPRAVO";
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,5 +297,7 @@
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.NumericUpDown nm_TimeToShoqSuccessfulFURS_Transaction;
         private System.Windows.Forms.Label lbl_TimeToShowFURSSuccessfulResult;
+        private System.Windows.Forms.NumericUpDown nm_QRSizeWidth;
+        private System.Windows.Forms.Label lbl_QRSizeWidth;
     }
 }

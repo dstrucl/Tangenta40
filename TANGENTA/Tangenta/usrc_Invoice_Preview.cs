@@ -15,6 +15,9 @@ namespace Tangenta
 {
     public partial class usrc_Invoice_Preview : UserControl
     {
+        public delegate void delegate_OK();
+        public event delegate_OK OK;
+
         public InvoiceData m_InvoiceData = null;
         private byte[] m_Doc = null;
         private usrc_PrinterSettings m_usrc_Print;
@@ -117,6 +120,14 @@ namespace Tangenta
         {
             Form_TemplateTokens frm_tokens = new Form_TemplateTokens(m_InvoiceData);
             frm_tokens.ShowDialog();
+        }
+
+        private void btn_OK_Click(object sender, EventArgs e)
+        {
+            if (OK != null)
+            {
+                OK();
+            }
         }
     }
 }

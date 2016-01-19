@@ -480,6 +480,7 @@ namespace SQLTableControl
 
                     case Globals.eDBType.DB_varchar_264:
                     case Globals.eDBType.DB_varchar_250:
+                    case Globals.eDBType.DB_varchar_64:
                     case Globals.eDBType.DB_varchar_50:
                     case Globals.eDBType.DB_varchar_45:
                     case Globals.eDBType.DB_varchar_32:
@@ -805,6 +806,7 @@ namespace SQLTableControl
 
                 case Globals.eDBType.DB_varchar_264:
                 case Globals.eDBType.DB_varchar_250:
+                case Globals.eDBType.DB_varchar_64:
                 case Globals.eDBType.DB_varchar_50:
                 case Globals.eDBType.DB_varchar_45:
                 case Globals.eDBType.DB_varchar_32:
@@ -1147,6 +1149,7 @@ namespace SQLTableControl
 
                 case Globals.eDBType.DB_varchar_264:
                 case Globals.eDBType.DB_varchar_250:
+                case Globals.eDBType.DB_varchar_64:
                 case Globals.eDBType.DB_varchar_50:
                 case Globals.eDBType.DB_varchar_45:
                 case Globals.eDBType.DB_varchar_32:
@@ -1340,6 +1343,7 @@ namespace SQLTableControl
 
                 case Globals.eDBType.DB_varchar_264:
                 case Globals.eDBType.DB_varchar_250:
+                case Globals.eDBType.DB_varchar_64:
                 case Globals.eDBType.DB_varchar_50:
                 case Globals.eDBType.DB_varchar_45:
                 case Globals.eDBType.DB_varchar_32:
@@ -1542,6 +1546,7 @@ namespace SQLTableControl
                     break;
 
 
+                case Globals.eDBType.DB_varchar_64:
                 case Globals.eDBType.DB_varchar_50:
                 case Globals.eDBType.DB_varchar_45:
                 case Globals.eDBType.DB_varchar_32:
@@ -1709,6 +1714,12 @@ namespace SQLTableControl
             {
                 DB_varchar_250 xDB_varchar_250 = (DB_varchar_250)Obj;
                 txtBox.Text = xDB_varchar_250.val;
+                return true;
+            }
+            else if (basetype == typeof(DB_varchar_64))
+            {
+                DB_varchar_64 xDB_varchar_64 = (DB_varchar_64)Obj;
+                txtBox.Text = xDB_varchar_64.val;
                 return true;
             }
             else if (basetype == typeof(DB_varchar_50))
@@ -2027,6 +2038,13 @@ namespace SQLTableControl
                 txtBox.BackColor = ColorDefined;
                 return true;
             }
+            else if (Value.GetType() == typeof(DB_varchar_64))
+            {
+                DB_varchar_64 xDB_varchar_64 = (DB_varchar_64)Value;
+                txtBox.Text = xDB_varchar_64.val;
+                txtBox.BackColor = ColorDefined;
+                return true;
+            }
             else if (Value.GetType() == typeof(DB_varchar_50))
             {
                 DB_varchar_50 xDB_varchar_50 = (DB_varchar_50)Value;
@@ -2291,6 +2309,13 @@ namespace SQLTableControl
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
+            else if (basetype == typeof(DB_varchar_64))
+            {
+                DB_varchar_64 xDB_varchar_x = (DB_varchar_64)Obj;
+                xDB_varchar_x.val = txtBox.Text;
+                objret = xDB_varchar_x.val;
+                eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
+            }
             else if (basetype == typeof(DB_varchar_50))
             {
                 DB_varchar_50 xDB_varchar_x = (DB_varchar_50)Obj;
@@ -2508,6 +2533,7 @@ namespace SQLTableControl
             }
             else if ((basetype == typeof(DB_varchar_264)) ||
                      (basetype == typeof(DB_varchar_250)) ||
+                     (basetype == typeof(DB_varchar_64)) ||
                      (basetype == typeof(DB_varchar_50)) ||
                      (basetype == typeof(DB_varchar_45)) ||
                      (basetype == typeof(DB_varchar_32)) ||
@@ -2656,6 +2682,7 @@ namespace SQLTableControl
             else if (
                      (basetype == typeof(DB_varchar_264)) ||
                      (basetype == typeof(DB_varchar_250)) ||
+                     (basetype == typeof(DB_varchar_64)) ||
                      (basetype == typeof(DB_varchar_50)) ||
                      (basetype == typeof(DB_varchar_45)) ||
                      (basetype == typeof(DB_varchar_32))||
@@ -2674,6 +2701,12 @@ namespace SQLTableControl
                 {
                     DB_varchar_250 xDB_varchar_250 = (DB_varchar_250)Obj;
                     xDB_varchar_250.val = txtBox.Text;
+
+                }
+                else if (basetype == typeof(DB_varchar_64))
+                {
+                    DB_varchar_64 xDB_varchar_64 = (DB_varchar_64)Obj;
+                    xDB_varchar_64.val = txtBox.Text;
 
                 }
                 else if (basetype == typeof(DB_varchar_50))

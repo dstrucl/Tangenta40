@@ -964,5 +964,17 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
                 this["timeToShowSuccessfulFURSResult"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("128")]
+        public int QRImageWidth {
+            get {
+                return ((int)(this["QRImageWidth"]));
+            }
+            set {
+                this["QRImageWidth"] = value;
+            }
+        }
     }
 }

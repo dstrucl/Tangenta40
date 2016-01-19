@@ -39,6 +39,7 @@
             this.txt_AmountReceived = new System.Windows.Forms.TextBox();
             this.lbl_AmountReceived = new System.Windows.Forms.Label();
             this.rdb_BankAccountTransfer = new System.Windows.Forms.RadioButton();
+            this.btn_Cancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rdb_Cash
@@ -87,7 +88,6 @@
             this.lbl_Amount.TabIndex = 3;
             this.lbl_Amount.Text = "Amount:";
             this.lbl_Amount.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.lbl_Amount.Click += new System.EventHandler(this.lbl_Amount_Click);
             // 
             // txt__Amount
             // 
@@ -96,7 +96,6 @@
             this.txt__Amount.Name = "txt__Amount";
             this.txt__Amount.Size = new System.Drawing.Size(256, 38);
             this.txt__Amount.TabIndex = 4;
-            this.txt__Amount.TextChanged += new System.EventHandler(this.txt__Amount_TextChanged);
             // 
             // txt_ToReturn
             // 
@@ -124,7 +123,7 @@
             // 
             this.btn_Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Print.ForeColor = System.Drawing.Color.Black;
-            this.btn_Print.Location = new System.Drawing.Point(153, 306);
+            this.btn_Print.Location = new System.Drawing.Point(153, 310);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(197, 55);
             this.btn_Print.TabIndex = 7;
@@ -166,9 +165,23 @@
             this.rdb_BankAccountTransfer.Text = "Bank Account";
             this.rdb_BankAccountTransfer.UseVisualStyleBackColor = true;
             // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
+            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Cancel.Location = new System.Drawing.Point(472, 312);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(115, 52);
+            this.btn_Cancel.TabIndex = 12;
+            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            // 
             // usrc_Payment
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.rdb_BankAccountTransfer);
             this.Controls.Add(this.txt_AmountReceived);
             this.Controls.Add(this.lbl_AmountReceived);
@@ -182,7 +195,7 @@
             this.Controls.Add(this.rdb_Cash);
             this.ForeColor = System.Drawing.Color.Red;
             this.Name = "usrc_Payment";
-            this.Size = new System.Drawing.Size(615, 369);
+            this.Size = new System.Drawing.Size(615, 373);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,5 +214,6 @@
         private System.Windows.Forms.TextBox txt_AmountReceived;
         private System.Windows.Forms.Label lbl_AmountReceived;
         private System.Windows.Forms.RadioButton rdb_BankAccountTransfer;
+        private System.Windows.Forms.Button btn_Cancel;
     }
 }

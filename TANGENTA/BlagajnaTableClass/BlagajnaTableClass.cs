@@ -2054,6 +2054,11 @@ namespace BlagajnaTableClass
 
     }
 
+    public class BarCodeValue:DB_varchar_64
+    {
+
+    }
+
     public class FVI_SLO_Response
     {
         public ID ID = new ID();
@@ -2061,6 +2066,7 @@ namespace BlagajnaTableClass
         public Response_DateTime Response_DateTime = new Response_DateTime();
         public MessageID MessageID = new MessageID();
         public UniqueInvoiceID UniqueInvoiceID = new UniqueInvoiceID();
+        public BarCodeValue BarCodeValue = new BarCodeValue();
     }
 
 

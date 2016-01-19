@@ -17,12 +17,14 @@ namespace Tangenta
     {
         public string UniqueMessageID = null;
         public string UniqueInvoiceID = null;
+        public string BarCodeValue = null;
         public Image Image_QRcode = null;
 
-        public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID, Image img_QR)
+        public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID,string furs_barcode_value, Image img_QR)
         {
             this.UniqueMessageID = furs_UniqeMsgID;
             this.UniqueInvoiceID = furs_UniqeInvID;
+            this.BarCodeValue = furs_barcode_value;
             this.Image_QRcode = img_QR;
         }
     }
@@ -40,6 +42,7 @@ namespace Tangenta
 
         public int FinancialYear = -1;
         public int NumberInFinancialYear = -1;
+        public bool Draft = true;
 
         public int IssueDate_Hour = 0;
         public int IssueDate_Min = 0;
@@ -180,6 +183,7 @@ namespace Tangenta
 
         }
 
+        
         internal bool Write_FURS_Response_Data()
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -196,39 +200,87 @@ namespace Tangenta
             SQL_Parameter par_UniqueInvoiceID = new SQL_Parameter(spar_UniqueInvoiceID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_Response_Data.UniqueInvoiceID);
             lpar.Add(par_UniqueInvoiceID);
 
+            string spar_BarCodeValue = "@par_BarCodeValue";
+            SQL_Parameter par_BarCodeValue = new SQL_Parameter(spar_BarCodeValue, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_Response_Data.BarCodeValue);
+            lpar.Add(par_BarCodeValue);
+
             DateTime resp_datetime = DateTime.Now;
             string spar_Response_DateTime = "@par_Response_DateTime";
             SQL_Parameter par_Response_DateTime = new SQL_Parameter(spar_Response_DateTime, SQL_Parameter.eSQL_Parameter.Datetime, false, resp_datetime);
             lpar.Add(par_Response_DateTime);
 
 
-            string sql = "insert into fvi_slo_response (Invoice_ID,MessageID,UniqueInvoiceID,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_Response_DateTime + ")";
+            string sql = "insert into fvi_slo_response (Invoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID +","+ spar_BarCodeValue + "," + spar_Response_DateTime + ")";
             long id = -1;
             object oret = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar, ref id, ref oret,ref Err, "fvi_slo_response"))
             {
-                
-                if (Invoice_FURS_Token==null)
-                {
-                    Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
-                }
-                Invoice_FURS_Token.tUniqueMessageID.Set(FURS_Response_Data.UniqueMessageID);
-                Invoice_FURS_Token.tUniqueInvoiceID.Set(FURS_Response_Data.UniqueInvoiceID);
-                using (MemoryStream m = new MemoryStream())
-                {
-                    FURS_Response_Data.Image_QRcode.Save(m, FURS_Response_Data.Image_QRcode.RawFormat);
-                    byte[] imageBytes = m.ToArray();
-
-                    // Convert byte[] to Base64 String
-                    string base64String = Convert.ToBase64String(imageBytes);
-                    Invoice_FURS_Token.tQR.Set(base64String);
-                }
+                Set_Invoice_Furs_Token();
                 return true;
             }
             else
             {
                 LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+
+        private void Set_Invoice_Furs_Token()
+        {
+            if (Invoice_FURS_Token == null)
+            {
+                Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
+            }
+            Invoice_FURS_Token.tUniqueMessageID.Set(FURS_Response_Data.UniqueMessageID);
+            Invoice_FURS_Token.tUniqueInvoiceID.Set(FURS_Response_Data.UniqueInvoiceID);
+            using (MemoryStream m = new MemoryStream())
+            {
+                FURS_Response_Data.Image_QRcode.Save(m, FURS_Response_Data.Image_QRcode.RawFormat);
+                byte[] imageBytes = m.ToArray();
+
+                // Convert byte[] to Base64 String
+                string base64String = Convert.ToBase64String(imageBytes);
+                Invoice_FURS_Token.tQR.Set(base64String);
+            }
+        }
+
+
+
+        internal bool Read_FURS_Response_Data(long Invoice_ID)
+        {
+            string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where Invoice_ID = " + Invoice_ID.ToString();
+            string Err = null;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt,sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    string UniqMsgID = (string)dt.Rows[0]["MessageID"];
+                    string UniqInvID = (string)dt.Rows[0]["UniqueInvoiceID"];
+                    string QRBarCodeValue = (string)dt.Rows[0]["BarCodeValue"];
+                    Image Img_QR = Program.usrc_FVI_SLO1.GetQRImage(QRBarCodeValue);
+                    FURS_Response_Data = new FURS_Response_data(UniqMsgID, UniqInvID, QRBarCodeValue, Img_QR);
+                    Set_Invoice_Furs_Token();
+                }
+                else
+                {
+                    FURS_Response_Data = null;
+                    if (Invoice_FURS_Token == null)
+                    {
+                        Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
+                    }
+                    Invoice_FURS_Token.tUniqueMessageID.Set("");
+                    Invoice_FURS_Token.tUniqueInvoiceID.Set("");
+                    Invoice_FURS_Token.tQR.Set("");
+                }
+                return true;
+
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:InvoiceData:Read_FURS_Response_Data:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }
@@ -329,88 +381,12 @@ namespace Tangenta
             string sql = null;
             if (Program.b_FVI_SLO)
             {
-                //sql = @"select
-                //                 inv.ID as Invoice_ID,
-                //                 pi.FinancialYear,
-                //                 pi.NumberInFinancialYear,
-                //                 mpay.PaymentType,
-                //                 GrossSum,
-                //                 TaxSum,
-                //                 NetSum,
-                //                 ao.Name,
-                //                 ao.Tax_ID,
-                //                 ao.Registration_ID,
-                //                 Atom_cStreetName_Org.StreetName,
-                //                 Atom_cHouseNumber_Org.HouseNumber,
-                //                 Atom_cCity_Org.City,
-                //                 Atom_cZIP_Org.ZIP,
-                //                 Atom_cState_Org.State,
-                //                 Atom_cCountry_Org.Country,
-                //                 cEmail_Org.Email,
-                //                 aorgd_hp.HomePage,
-                //                 cPhoneNumber_Org.PhoneNumber,
-                //                 cFaxNumber_Org.FaxNumber,
-                //                 aorgd.BankName,
-                //                 aorgd.TRR,
-                //                 aoff.Name as Atom_Office_Name,
-                //                 apfn.FirstName as My_Organisation_Person_FirstName,
-                //                 apln.LastName as My_Organisation_Person_LastName,
-                //                 ap.ID as Atom_MyOrganisation_Person_ID,
-                //                 ao.Tax_ID as My_Organisation_Tax_ID,
-                //                 ap.CardNumber,
-                //                 amcp.UserName as My_Organisation_Person_UserName,
-                //                 amcp.Job as My_Organisation_Job,
-                //                 Atom_Logo.Image_Hash as Logo_Hash,
-                //                 Atom_Logo.Image_Data as Logo_Data,
-                //                 Atom_Logo.Description as Logo_Description,
-                //                 afvislores.BuildingNumber,              
-                //                 afvislores.BuildingSectionNumber,
-                //                 afvislores.Community,                   
-                //                 afvislores.CadastralNumber, 
-                //                 afvislores.ValidityDate,            
-                //                 afvislores.ClosingTag,               
-                //                 afvislores.SoftwareSupplier_TaxNumber,
-                //                 afvislores.PremiseType, 
-                //                 acusorg.ID as Atom_Customer_Org_ID,
-                //                 acusper.ID as Atom_Customer_Person_ID
-                //                 from JOURNAL_ProformaInvoice
-                //                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
-                //                 inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
-                //                 inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
-                //                 inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
-                //                 inner join Atom_Person ap on ap.ID = amcp.ID
-                //                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                //                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
-                //                 inner join Atom_FVI_SLO_RealEstateBP afvislores on afvislores.Atom_Office_Data_ID = aoffd.ID
-                //                 inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
-                //                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
-                //                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
-                //                 left join Invoice inv on pi.Invoice_ID = inv.ID
-                //                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
-                //                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                //                 left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
-                //                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
-                //                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
-                //                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
-                //                 left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
-                //                 left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
-                //                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                //                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
-                //                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
-                //                 left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                //                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
-                //                 left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                //                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
-                //                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
-                //                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
-                //                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
-                //                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                //                 where pi.ID = " + ProformaInvoice_ID.ToString();
 
                 sql = @"select
                                  inv.ID as Invoice_ID,
                                  pi.FinancialYear,
                                  pi.NumberInFinancialYear,
+                                 pi.Draft,
                                  mpay.PaymentType,
                                  GrossSum,
                                  TaxSum,
@@ -482,6 +458,7 @@ namespace Tangenta
                                  inv.ID as Invoice_ID,
                                  pi.FinancialYear,
                                  pi.NumberInFinancialYear,
+                                 pi.Draft,
                                  mpay.PaymentType,
                                  GrossSum,
                                  TaxSum,
@@ -554,6 +531,7 @@ namespace Tangenta
                 {
                     try
                     {
+                        Draft = DBTypes.func._set_bool(dt_ProformaInvoice.Rows[0]["Draft"]);
                         GrossSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
                         taxsum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
                         NetSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
@@ -596,6 +574,14 @@ namespace Tangenta
                         Invoice_ID = DBTypes.func._set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
                         FinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
                         NumberInFinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
+
+                        if (Program.b_FVI_SLO)
+                        {
+                            if (!Draft)
+                            {
+                                this.Read_FURS_Response_Data(Invoice_ID);
+                            }
+                        }
 
                         object oAtom_MyOrganisation_Person_ID = dt_ProformaInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
                         if (oAtom_MyOrganisation_Person_ID is long)

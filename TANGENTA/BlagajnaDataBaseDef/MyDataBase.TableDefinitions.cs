@@ -49,7 +49,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.12";
+        public const string VERSION = "1.13";
         public Settings Settings = null;
 
         /* 1 */
@@ -1950,6 +1950,7 @@ namespace BlagajnaDataBaseDef
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.m_Invoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.MessageID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Message ID", "Transakcija ID"));
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.UniqueInvoiceID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("UniqueInvoiceID", "Enkratna identifikacijska oznaka računa"));
+            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.BarCodeValue, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("QR BarCode", "QR bar koda"));
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.Response_DateTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Response Time", "Čas odgovora"));
             m_DBTables.items.Add(t_FVI_SLO_Response);
 

@@ -110,5 +110,8 @@
     <Setting Name="CasshierName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Blagajna1</Value>
     </Setting>
+    <Setting Name="FullScreen" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

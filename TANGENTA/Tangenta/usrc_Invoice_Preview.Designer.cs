@@ -33,6 +33,7 @@
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_SaveAs = new System.Windows.Forms.Button();
             this.btn_Tokens = new System.Windows.Forms.Button();
+            this.btn_OK = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // m_webBrowser
@@ -68,7 +69,7 @@
             // 
             // btn_Tokens
             // 
-            this.btn_Tokens.Location = new System.Drawing.Point(233, 3);
+            this.btn_Tokens.Location = new System.Drawing.Point(164, 10);
             this.btn_Tokens.Name = "btn_Tokens";
             this.btn_Tokens.Size = new System.Drawing.Size(258, 25);
             this.btn_Tokens.TabIndex = 5;
@@ -76,12 +77,25 @@
             this.btn_Tokens.UseVisualStyleBackColor = true;
             this.btn_Tokens.Click += new System.EventHandler(this.btn_Tokens_Click);
             // 
+            // btn_OK
+            // 
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_OK.Location = new System.Drawing.Point(434, 3);
+            this.btn_OK.Name = "btn_OK";
+            this.btn_OK.Size = new System.Drawing.Size(55, 39);
+            this.btn_OK.TabIndex = 6;
+            this.btn_OK.Text = "OK";
+            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
+            // 
             // usrc_Invoice_Preview
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.btn_Tokens);
             this.Controls.Add(this.btn_SaveAs);
             this.Controls.Add(this.btn_Print);
@@ -99,5 +113,6 @@
         private System.Windows.Forms.Button btn_Print;
         private System.Windows.Forms.Button btn_SaveAs;
         private System.Windows.Forms.Button btn_Tokens;
+        private System.Windows.Forms.Button btn_OK;
     }
 }

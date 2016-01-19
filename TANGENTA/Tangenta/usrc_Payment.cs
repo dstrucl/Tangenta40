@@ -14,11 +14,15 @@ namespace Tangenta
 {
     public partial class usrc_Payment : UserControl
     {
+        public delegate void delegate_Cancel();
+        public event delegate_Cancel Cancel;
+
+        public delegate void delegate_OK();
+        public event delegate_OK OK;
+
         public InvoiceData m_InvoiceData = null;
         public enum ePaymentType { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD };
         public ePaymentType PaymentType = ePaymentType.NONE;
-        public delegate void delegate_DoPrint (ePaymentType ePaymentType,string sPaymentMethod, string sAmountReceived, string sToReturn,DateTime_v issue_time);
-        public event delegate_DoPrint DoPrint;
 
 
         int Currency_DecimalPlaces = -1;
@@ -156,29 +160,73 @@ namespace Tangenta
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
-            if (DoPrint!=null)
+            DateTime_v ProformaInvoiceTime = new DateTime_v();
+            ProformaInvoiceTime.v = DateTime.Now;
+            if (PaymentType == ePaymentType.CASH)
             {
-                DateTime_v ProformaInvoiceTime = new DateTime_v();
-                ProformaInvoiceTime.v = DateTime.Now;
-                if (PaymentType == ePaymentType.CASH)
+                DoPrint(PaymentType, sPaymentMethod, txt_AmountReceived.Text, txt_ToReturn.Text, ProformaInvoiceTime);
+            }
+            else
+            {
+                DoPrint(PaymentType, sPaymentMethod, null, null, ProformaInvoiceTime);
+            }
+
+            if (OK != null)
+            {
+                OK();
+            }
+
+        }
+
+        private void DoPrint(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        {
+            long ProformaInvoice_ID = -1;
+            int xNumberInFinancialYear = -1;
+            if (m_InvoiceData.Save(ref ProformaInvoice_ID, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, ref xNumberInFinancialYear))
+            {
+                m_InvoiceData.Set_NumberInFinancialYear(xNumberInFinancialYear);
+
+                if (m_InvoiceData.SetInvoiceTime(issue_time))
                 {
-                    DoPrint(PaymentType, sPaymentMethod, txt_AmountReceived.Text, txt_ToReturn.Text, ProformaInvoiceTime);
+
+                    if (Program.b_FVI_SLO)
+                    {
+                        string furs_XML = m_InvoiceData.Create_furs_InvoiceXML();
+                        Image img_QR = null;
+                        string furs_UniqeMsgID = null;
+                        string furs_UniqeInvID = null;
+                        string furs_BarCodeValue = null;
+                        if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID,ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
+                        {
+                            m_InvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue, img_QR);
+                            m_InvoiceData.Write_FURS_Response_Data();
+                        }
+                    }
                 }
-                else
-                {
-                    DoPrint(PaymentType, sPaymentMethod, null, null, ProformaInvoiceTime);
-                }
+                Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             }
         }
 
-        private void lbl_Amount_Click(object sender, EventArgs e)
-        {
 
+        private void Print(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        {
+            if (ePaymentType == usrc_Payment.ePaymentType.CASH)
+            {
+                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+            }
+            else
+            {
+                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, null, null, issue_time);
+            }
         }
 
-        private void txt__Amount_TextChanged(object sender, EventArgs e)
-        {
 
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            if (Cancel != null)
+            {
+                Cancel();
+            }
         }
     }
 }

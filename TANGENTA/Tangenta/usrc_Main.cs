@@ -164,13 +164,6 @@ namespace Tangenta
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            if (Program.b_FVI_SLO)
-            {
-                if (usrc_FVI_SLO1!=null)
-                {
-                    usrc_FVI_SLO1.End();
-                }
-            }
             if (Exit_Click!=null)
             {
                 Exit_Click();

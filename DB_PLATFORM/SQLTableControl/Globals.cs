@@ -32,6 +32,7 @@ namespace SQLTableControl
             DB_varbinary_max,
             DB_varchar_264,
             DB_varchar_250,
+            DB_varchar_64,
             DB_varchar_50,
             DB_varchar_45,
             DB_varchar_32,
@@ -197,6 +198,10 @@ namespace SQLTableControl
             else if (basetype == typeof(DB_varchar_250))
             {
                 return eDBType.DB_varchar_250;
+            }
+            else if (basetype == typeof(DB_varchar_64))
+            {
+                return eDBType.DB_varchar_64;
             }
             else if (basetype == typeof(DB_varchar_50))
             {

@@ -1159,6 +1159,9 @@ namespace LanguageControl
 
         public static ltext s_Text_in_language = new ltext("Text in Language","Prevod v jeziku");
 
+        public static ltext s_FullScreen = new ltext("Full Screen",
+                                                   "Čez cel zaslon");
+
         public static ltext s_Language = new ltext("Language",
                                                    "Jezik");
 

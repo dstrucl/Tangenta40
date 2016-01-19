@@ -67,6 +67,7 @@ namespace LanguageControl
                 if (sErr.Length > 0)
                 {
                     MessageBox.Show(sErr);
+                    SaveLanguages(ref dt_Languages, lngRPM_XML_file, TableName);
                 }
 
             }

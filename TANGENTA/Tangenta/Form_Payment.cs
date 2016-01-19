@@ -26,51 +26,7 @@ namespace Tangenta
 
             m_InvoiceData = xInvoiceData;
             this.Text = lngRPM.s_PaymentAndPrint.s;
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
         }
-
-        private void Print(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
-        {
-            if (ePaymentType == usrc_Payment.ePaymentType.CASH)
-            {
-                Program.usrc_Printer1.Print_Receipt(m_InvoiceData,ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-            }
-            else
-            {
-                Program.usrc_Printer1.Print_Receipt(m_InvoiceData,ePaymentType, sPaymentMethod, null, null, issue_time);
-            }
-        }
-
-        private void usrc_Payment_DoPrint(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
-        {
-            long ProformaInvoice_ID = -1;
-            int xNumberInFinancialYear = -1;
-            if (m_InvoiceData.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear))
-            {
-                m_InvoiceData.Set_NumberInFinancialYear(xNumberInFinancialYear);
-
-                if (m_InvoiceData.SetInvoiceTime(issue_time))
-                {
-                    
-                    if (Program.b_FVI_SLO)
-                    {
-                        Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-                    }
-                    else
-                    {
-                        Print(ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-                    }
-                    m_ePaymentType = ePaymentType;
-                    m_sPaymentMethod = sPaymentMethod;
-                    m_sAmountReceived = sAmountReceived;
-                    m_sToReturn = sToReturn;
-                    DialogResult = System.Windows.Forms.DialogResult.OK;
-                    this.Close();
-
-                }
-            }
-        }
-
 
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -80,7 +36,7 @@ namespace Tangenta
         }
 
 
-        private void Form_Receipt_Preview_Load(object sender, EventArgs e)
+        private void Form_Payment_Load(object sender, EventArgs e)
         {
             if (Program.usrc_Printer1.Init(m_InvoiceData))
             {
@@ -102,6 +58,18 @@ namespace Tangenta
                     LogFile.Error.Show("ERROR:Form_Payment:Not Draft!");
                 }
             }
+        }
+
+        private void m_usrc_Payment_Cancel()
+        {
+            this.Close();
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void m_usrc_Payment_OK()
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
         }
     }
 }

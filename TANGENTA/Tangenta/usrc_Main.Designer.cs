@@ -76,12 +76,10 @@
             // 
             // m_usrc_InvoiceMan
             // 
-            this.m_usrc_InvoiceMan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_InvoiceMan.Location = new System.Drawing.Point(-20, 0);
+            this.m_usrc_InvoiceMan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_InvoiceMan.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_InvoiceMan.Name = "m_usrc_InvoiceMan";
-            this.m_usrc_InvoiceMan.Size = new System.Drawing.Size(938, 605);
+            this.m_usrc_InvoiceMan.Size = new System.Drawing.Size(918, 605);
             this.m_usrc_InvoiceMan.TabIndex = 2;
             // 
             // usrc_Printer1

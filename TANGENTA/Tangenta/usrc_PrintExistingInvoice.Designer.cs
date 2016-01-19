@@ -32,15 +32,16 @@
             this.lbl_Invoice = new System.Windows.Forms.Label();
             this.lbl_Invoice_value = new System.Windows.Forms.Label();
             this.dgvx_Journal_InvoicePrint = new DataGridView_2xls.DataGridView2xls();
+            this.btn_Cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Journal_InvoicePrint)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Print
             // 
-            this.btn_Print.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Print.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Print.ForeColor = System.Drawing.Color.Black;
-            this.btn_Print.Location = new System.Drawing.Point(195, 311);
+            this.btn_Print.Location = new System.Drawing.Point(208, 311);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(197, 55);
             this.btn_Print.TabIndex = 7;
@@ -86,9 +87,23 @@
             this.dgvx_Journal_InvoicePrint.Size = new System.Drawing.Size(612, 271);
             this.dgvx_Journal_InvoicePrint.TabIndex = 8;
             // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
+            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Cancel.Location = new System.Drawing.Point(489, 311);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(115, 52);
+            this.btn_Cancel.TabIndex = 11;
+            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            // 
             // usrc_PrintExistingInvoice
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.lbl_Invoice_value);
             this.Controls.Add(this.lbl_Invoice);
             this.Controls.Add(this.dgvx_Journal_InvoicePrint);
@@ -107,5 +122,6 @@
         private DataGridView_2xls.DataGridView2xls dgvx_Journal_InvoicePrint;
         private System.Windows.Forms.Label lbl_Invoice;
         private System.Windows.Forms.Label lbl_Invoice_value;
+        private System.Windows.Forms.Button btn_Cancel;
     }
 }
