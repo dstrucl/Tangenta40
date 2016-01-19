@@ -113,12 +113,6 @@ namespace Tangenta
                 }
             }
 
-            //TODO:
-            //naredi xml
-
-
-            //pošlji 
-
             if (Printer_is_ESC_POS())
             {
                 Print_Receipt_ESC_POS(xInvoiceData,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);

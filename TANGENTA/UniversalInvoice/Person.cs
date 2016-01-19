@@ -23,7 +23,6 @@ namespace UniversalInvoice
         public byte[] PersonImage = null;
         public Address Address = null;
         public PersonToken token = null;
-        private ltext st_Customer;
 
         public Person(ltext token_prefix,
                         bool _Gender,

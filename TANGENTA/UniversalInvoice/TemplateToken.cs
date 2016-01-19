@@ -9,6 +9,8 @@ namespace UniversalInvoice
 {
     public class TemplateToken
     {
+        public const string START_TAG = "(@@";
+        public const string END_TAG = "@@)";
         public string replacement;
         public ltext lt = null;
         public TemplateToken(ltext token_prefix,string[] TokenInLanguage, object Replacement, string sFormat)
@@ -23,21 +25,35 @@ namespace UniversalInvoice
                 {
                     if (TokenInLanguage[i] != null)
                     {
-                        if (TokenInLanguage[i].Contains("@@"))
+                        if (TokenInLanguage[i].Contains(START_TAG))
                         {
                             continue;
                         }
                         else
                         { 
                             string token = null;
-                            if (token_prefix != null)
-                            {
-                                token = "@@" + token_prefix.sText[i] + "_" + TokenInLanguage[i];
-                            }
-                            else
-                            {
-                                token = "@@" + TokenInLanguage[i];
-                            }
+                            token = START_TAG + token_prefix.sText[i] + "_" + TokenInLanguage[i]+ END_TAG;
+                            lt.sText[i] = token;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                int i = 0;
+                int iCount = lt.sText.Length;
+                for (i = 0; i < iCount; i++)
+                {
+                    if (TokenInLanguage[i] != null)
+                    {
+                        if (TokenInLanguage[i].Contains(START_TAG))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            string token = null;
+                            token = START_TAG + TokenInLanguage[i] + END_TAG;
                             lt.sText[i] = token;
                         }
                     }
