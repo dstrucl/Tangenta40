@@ -952,5 +952,17 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
                 this["DEBUG"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int timeToShowSuccessfulFURSResult {
+            get {
+                return ((int)(this["timeToShowSuccessfulFURSResult"]));
+            }
+            set {
+                this["timeToShowSuccessfulFURSResult"] = value;
+            }
+        }
     }
 }

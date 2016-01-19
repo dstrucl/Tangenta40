@@ -36,7 +36,9 @@ namespace Tangenta
         public static string IniFileName = "Tangenta.ini";
         public static string IniFolder = "";
         public static string IniFile = "";
+
         public static usrc_FVI_SLO usrc_FVI_SLO1 = null;
+        public static usrc_Printer usrc_Printer1 = null;
 
         internal static long Office_ID = -1;
         internal static long WorkingPlace_ID = -1;
@@ -56,7 +58,6 @@ namespace Tangenta
 
         private static bool m_bProgramDiagnostic = false;
 
-        public static Printer ReceiptPrinter = null;
 
 
         public static long myCompany_Person_ID

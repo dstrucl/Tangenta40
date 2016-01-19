@@ -183,34 +183,41 @@ using MNet.SLOTaxService.Messages;
  
 
              if (success) 
-             { 
-                 this.m_usrc_Success_Response = new usrc_Success_Response(messageType, protectedID, uniqueInvoiceID, image_QRCode); 
-                 this.Controls.Add(m_usrc_Success_Response); 
- 
+             {
+                if (Properties.Settings.Default.timeToShowSuccessfulFURSResult > 0)
+                {
+                    this.m_usrc_Success_Response = new usrc_Success_Response(messageType, protectedID, uniqueInvoiceID, image_QRCode);
+                    this.Controls.Add(m_usrc_Success_Response);
 
-                 if (m_DEBUG_MessagePreview != null) 
-                 {
-                      m_usrc_Success_Response.Top = m_DEBUG_MessagePreview.Top;
-                      m_DEBUG_MessagePreview.Top = m_usrc_Success_Response.Top + m_usrc_Success_Response.Height + 10;
-                      this.Height = m_DEBUG_MessagePreview.Top + m_DEBUG_MessagePreview.Height + 10;
-                  } 
-              else 
-              {
-                      m_usrc_Success_Response.Top = this.Height;
-                      this.Height = m_usrc_Success_Response.Top + m_usrc_Success_Response.Height + 10;
-                  } 
-              if (this.Width < m_usrc_Success_Response.Width + 10) 
-              {
-                      this.Width = m_usrc_Success_Response.Width + 10;
-                  } 
- 
 
-              m_usrc_Success_Response.Left = 5; 
-              this.FormBorderStyle = FormBorderStyle.Sizable; 
-              m_usrc_Success_Response.Anchor = AnchorStyles.Top | AnchorStyles.Left; 
-              m_usrc_Success_Response.do_close += M_usrc_Success_Response_do_close; 
- 
-          } 
+                    if (m_DEBUG_MessagePreview != null)
+                    {
+                        m_usrc_Success_Response.Top = m_DEBUG_MessagePreview.Top;
+                        m_DEBUG_MessagePreview.Top = m_usrc_Success_Response.Top + m_usrc_Success_Response.Height + 10;
+                        this.Height = m_DEBUG_MessagePreview.Top + m_DEBUG_MessagePreview.Height + 10;
+                    }
+                    else
+                    {
+                        m_usrc_Success_Response.Top = this.Height;
+                        this.Height = m_usrc_Success_Response.Top + m_usrc_Success_Response.Height + 10;
+                    }
+                    if (this.Width < m_usrc_Success_Response.Width + 10)
+                    {
+                        this.Width = m_usrc_Success_Response.Width + 10;
+                    }
+
+
+                    m_usrc_Success_Response.Left = 5;
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    m_usrc_Success_Response.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                    m_usrc_Success_Response.do_close += M_usrc_Success_Response_do_close;
+                }
+                else
+                {
+                    Close();
+                    DialogResult = DialogResult.OK;
+                }
+            } 
           else 
           { 
               this.m_usrc_Error_Response = new usrc_Error_Response(messageType, errorMessage); 

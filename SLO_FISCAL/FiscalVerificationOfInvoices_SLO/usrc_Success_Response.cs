@@ -16,7 +16,7 @@ namespace FiscalVerificationOfInvoices_SLO
         public delegate void delegate_do_close();
         public event delegate_do_close do_close = null;
 
-        int iSeconds = 5;
+        int iSeconds = 4;
 
         public usrc_Success_Response()
         {
@@ -51,6 +51,8 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private void usrc_Success_Response_Load(object sender, EventArgs e)
         {
+            iSeconds = Convert.ToInt32(Properties.Settings.Default.timeToShowSuccessfulFURSResult);
+            this.lbl_CountDown.Text = iSeconds.ToString();
             timer_Close.Enabled = true;
             timer_Close.Tick += Timer_Close_Tick;
 
@@ -60,10 +62,12 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (iSeconds > 0)
             {
+                this.lbl_CountDown.Text = iSeconds.ToString();
                 iSeconds--;
             }
             else
             {
+                this.lbl_CountDown.Text = iSeconds.ToString();
                 if (do_close!=null)
                 {
                     do_close();

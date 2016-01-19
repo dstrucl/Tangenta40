@@ -30,9 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.usrc_Invoice_Preview = new Tangenta.usrc_Invoice_Preview();
-            this.m_usrc_PrintExistingInvoice = new Tangenta.usrc_PrintExistingInvoice();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.m_usrc_Print = new Tangenta.usrc_Printer();
             this.m_usrc_Payment = new Tangenta.usrc_Payment();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -42,8 +40,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Location = new System.Drawing.Point(-1, 12);
@@ -56,9 +54,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.m_usrc_PrintExistingInvoice);
             this.splitContainer1.Panel2.Controls.Add(this.btn_Cancel);
-            this.splitContainer1.Panel2.Controls.Add(this.m_usrc_Print);
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_Payment);
             this.splitContainer1.Size = new System.Drawing.Size(1002, 635);
             this.splitContainer1.SplitterDistance = 360;
@@ -66,8 +62,8 @@
             // 
             // usrc_Invoice_Preview
             // 
-            this.usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Invoice_Preview.AutoScroll = true;
             this.usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -77,17 +73,6 @@
             this.usrc_Invoice_Preview.Name = "usrc_Invoice_Preview";
             this.usrc_Invoice_Preview.Size = new System.Drawing.Size(352, 1162);
             this.usrc_Invoice_Preview.TabIndex = 0;
-            // 
-            // m_usrc_PrintExistingInvoice
-            // 
-            this.m_usrc_PrintExistingInvoice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_PrintExistingInvoice.ForeColor = System.Drawing.Color.Red;
-            this.m_usrc_PrintExistingInvoice.Location = new System.Drawing.Point(17, 61);
-            this.m_usrc_PrintExistingInvoice.Name = "m_usrc_PrintExistingInvoice";
-            this.m_usrc_PrintExistingInvoice.Size = new System.Drawing.Size(980, 496);
-            this.m_usrc_PrintExistingInvoice.TabIndex = 13;
-            this.m_usrc_PrintExistingInvoice.aa_DoPrint_Existing_Invoice += new Tangenta.usrc_PrintExistingInvoice.delegate_DoPrint_Existing_Invoice(this.m_usrc_PrintExistingInvoice_DoPrint_Existing_Invoice);
             // 
             // btn_Cancel
             // 
@@ -102,19 +87,10 @@
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
-            // m_usrc_Print
-            // 
-            this.m_usrc_Print.Location = new System.Drawing.Point(-3, 4);
-            this.m_usrc_Print.Name = "m_usrc_Print";
-            this.m_usrc_Print.PaperName = null;
-            this.m_usrc_Print.PrinterName = null;
-            this.m_usrc_Print.Size = new System.Drawing.Size(555, 50);
-            this.m_usrc_Print.TabIndex = 11;
-            // 
             // m_usrc_Payment
             // 
-            this.m_usrc_Payment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.m_usrc_Payment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_Payment.ForeColor = System.Drawing.Color.Coral;
             this.m_usrc_Payment.Location = new System.Drawing.Point(3, 61);
@@ -123,13 +99,13 @@
             this.m_usrc_Payment.TabIndex = 0;
             this.m_usrc_Payment.DoPrint += new Tangenta.usrc_Payment.delegate_DoPrint(this.usrc_Payment_DoPrint);
             // 
-            // Form_Receipt_Preview
+            // Form_Payment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1004, 665);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Form_Receipt_Preview";
+            this.Name = "Form_Payment";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Receipt_Preview_Form";
             this.Load += new System.EventHandler(this.Form_Receipt_Preview_Load);
@@ -146,8 +122,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private usrc_Payment m_usrc_Payment;
         internal usrc_Invoice_Preview usrc_Invoice_Preview;
-        private usrc_Printer m_usrc_Print;
         private System.Windows.Forms.Button btn_Cancel;
-        private usrc_PrintExistingInvoice m_usrc_PrintExistingInvoice;
     }
 }

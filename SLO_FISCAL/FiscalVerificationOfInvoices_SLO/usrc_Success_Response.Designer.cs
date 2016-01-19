@@ -38,6 +38,7 @@
             this.lbl_QR = new System.Windows.Forms.Label();
             this.btn_OK = new System.Windows.Forms.Button();
             this.timer_Close = new System.Windows.Forms.Timer(this.components);
+            this.lbl_CountDown = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pic_QR)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,11 +122,20 @@
             // 
             this.timer_Close.Interval = 1000;
             // 
+            // lbl_CountDown
+            // 
+            this.lbl_CountDown.AutoSize = true;
+            this.lbl_CountDown.Location = new System.Drawing.Point(476, 233);
+            this.lbl_CountDown.Name = "lbl_CountDown";
+            this.lbl_CountDown.Size = new System.Drawing.Size(0, 13);
+            this.lbl_CountDown.TabIndex = 11;
+            // 
             // usrc_Success_Response
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightYellow;
+            this.Controls.Add(this.lbl_CountDown);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.lbl_QR);
             this.Controls.Add(this.pic_QR);
@@ -154,5 +164,6 @@
         private System.Windows.Forms.Label lbl_QR;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Timer timer_Close;
+        private System.Windows.Forms.Label lbl_CountDown;
     }
 }

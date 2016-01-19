@@ -33,9 +33,7 @@
             this.cmb_FinancialYear = new System.Windows.Forms.ComboBox();
             this.lbl_FinancialYear = new System.Windows.Forms.Label();
             this.btn_New = new System.Windows.Forms.Button();
-            this.rdb_Items = new System.Windows.Forms.RadioButton();
-            this.rdb_ItemsAndProformaInvoices = new System.Windows.Forms.RadioButton();
-            this.rdb_ProformaInvoices = new System.Windows.Forms.RadioButton();
+            this.btn_SelectPanels = new System.Windows.Forms.Button();
             this.m_usrc_Invoice = new Tangenta.usrc_Invoice();
             this.m_usrc_InvoiceTable = new Tangenta.usrc_InvoiceTable();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -106,44 +104,15 @@
             this.btn_New.UseVisualStyleBackColor = true;
             this.btn_New.Click += new System.EventHandler(this.btn_New_Click);
             // 
-            // rdb_Items
+            // btn_SelectPanels
             // 
-            this.rdb_Items.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_Items.Image = global::Tangenta.Properties.Resources.EditInvoice;
-            this.rdb_Items.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rdb_Items.Location = new System.Drawing.Point(419, -3);
-            this.rdb_Items.Name = "rdb_Items";
-            this.rdb_Items.Size = new System.Drawing.Size(68, 34);
-            this.rdb_Items.TabIndex = 29;
-            this.rdb_Items.TabStop = true;
-            this.rdb_Items.UseVisualStyleBackColor = true;
-            this.rdb_Items.CheckedChanged += new System.EventHandler(this.rdb_Items_CheckedChanged);
-            // 
-            // rdb_ItemsAndProformaInvoices
-            // 
-            this.rdb_ItemsAndProformaInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_ItemsAndProformaInvoices.Image = global::Tangenta.Properties.Resources.EditAndViewInvoice;
-            this.rdb_ItemsAndProformaInvoices.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rdb_ItemsAndProformaInvoices.Location = new System.Drawing.Point(491, -3);
-            this.rdb_ItemsAndProformaInvoices.Name = "rdb_ItemsAndProformaInvoices";
-            this.rdb_ItemsAndProformaInvoices.Size = new System.Drawing.Size(71, 34);
-            this.rdb_ItemsAndProformaInvoices.TabIndex = 30;
-            this.rdb_ItemsAndProformaInvoices.TabStop = true;
-            this.rdb_ItemsAndProformaInvoices.UseVisualStyleBackColor = true;
-            this.rdb_ItemsAndProformaInvoices.CheckedChanged += new System.EventHandler(this.rdb_ItemsAndProformaInvoices_CheckedChanged);
-            // 
-            // rdb_ProformaInvoices
-            // 
-            this.rdb_ProformaInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_ProformaInvoices.Image = global::Tangenta.Properties.Resources.ViewInvoice;
-            this.rdb_ProformaInvoices.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rdb_ProformaInvoices.Location = new System.Drawing.Point(570, -3);
-            this.rdb_ProformaInvoices.Name = "rdb_ProformaInvoices";
-            this.rdb_ProformaInvoices.Size = new System.Drawing.Size(76, 34);
-            this.rdb_ProformaInvoices.TabIndex = 31;
-            this.rdb_ProformaInvoices.TabStop = true;
-            this.rdb_ProformaInvoices.UseVisualStyleBackColor = true;
-            this.rdb_ProformaInvoices.CheckedChanged += new System.EventHandler(this.rdb_ProformaInvoices_CheckedChanged);
+            this.btn_SelectPanels.Image = global::Tangenta.Properties.Resources.EditAndViewInvoice;
+            this.btn_SelectPanels.Location = new System.Drawing.Point(419, 0);
+            this.btn_SelectPanels.Name = "btn_SelectPanels";
+            this.btn_SelectPanels.Size = new System.Drawing.Size(68, 32);
+            this.btn_SelectPanels.TabIndex = 29;
+            this.btn_SelectPanels.UseVisualStyleBackColor = true;
+            this.btn_SelectPanels.Click += new System.EventHandler(this.btn_SelectPanels_Click);
             // 
             // m_usrc_Invoice
             // 
@@ -175,9 +144,7 @@
             // usrc_InvoiceMan
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.Controls.Add(this.rdb_ProformaInvoices);
-            this.Controls.Add(this.rdb_ItemsAndProformaInvoices);
-            this.Controls.Add(this.rdb_Items);
+            this.Controls.Add(this.btn_SelectPanels);
             this.Controls.Add(this.lbl_FinancialYear);
             this.Controls.Add(this.cmb_FinancialYear);
             this.Controls.Add(this.btn_New);
@@ -198,14 +165,13 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         public usrc_Invoice m_usrc_Invoice;
-        private usrc_InvoiceTable m_usrc_InvoiceTable;
+        public usrc_InvoiceTable m_usrc_InvoiceTable;
         private System.Windows.Forms.Button btn_New;
         private System.Windows.Forms.ComboBox cmb_InvoiceType;
         private System.Windows.Forms.ComboBox cmb_FinancialYear;
         private System.Windows.Forms.Label lbl_FinancialYear;
-        private System.Windows.Forms.RadioButton rdb_Items;
-        private System.Windows.Forms.RadioButton rdb_ItemsAndProformaInvoices;
-        private System.Windows.Forms.RadioButton rdb_ProformaInvoices;
         #endregion
+
+        public System.Windows.Forms.Button btn_SelectPanels;
     }
 }

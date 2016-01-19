@@ -179,9 +179,11 @@ namespace Tangenta
             if (mode == emode.view_eInvoiceType)
             {
                 chk_Storno.Visible = true;
+                lngRPM.s_Print.Text(btn_Issue);
             }
             else
             {
+                lngRPM.s_Issue.Text(btn_Issue);
                 chk_Storno.Visible = false;
             }
 
@@ -458,11 +460,11 @@ namespace Tangenta
 
         private bool GetReceiptPrinter()
         {
-            if (Program.ReceiptPrinter == null)
+            if (Program.usrc_Printer1.Printer == null)
             {
-                Program.ReceiptPrinter = new Printer();
+                Program.usrc_Printer1.Printer = new Printer();
             }
-            Program.ReceiptPrinter.Define(null);
+            Program.usrc_Printer1.Printer.Define(null);
             return true;
         }
 

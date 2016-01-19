@@ -28,7 +28,7 @@ namespace Tangenta
 
         private void Form_PrintReport_Load(object sender, EventArgs e)
         {
-            this.m_usrc_Print.Init(null);
+            Program.usrc_Printer1.Init(null);
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace Tangenta
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
-            this.m_usrc_Print.PrintReport(m_usrc_InvoiceTable);
+            Program.usrc_Printer1.PrintReport(m_usrc_InvoiceTable);
             this.Close();
             DialogResult = DialogResult.OK;
         }

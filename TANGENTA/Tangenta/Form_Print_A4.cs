@@ -21,21 +21,19 @@ namespace Tangenta
         public string Default_Tamplate = null;
         public byte[] Doc = null;
 
-        private usrc_Printer usrc_Print;
         private usrc_Payment.ePaymentType paymentType;
         private string sPaymentMethod;
         private string sAmountReceived;
         private string sToReturn;
         private DateTime_v issue_time;
-        private usrc_Printer usrc_Printer;
+        private usrc_PrinterSettings usrc_Printer;
         private InvoiceData m_InvoiceData;
 
 
-        public Form_Print_A4(usrc_Printer usrc_Printer, InvoiceData xInvoiceData, usrc_Payment.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public Form_Print_A4(InvoiceData xInvoiceData, usrc_Payment.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             InitializeComponent();
 
-            this.usrc_Printer = usrc_Printer;
             this.m_InvoiceData = xInvoiceData;
             this.paymentType = paymentType;
             this.sPaymentMethod = sPaymentMethod;
@@ -132,7 +130,7 @@ namespace Tangenta
         //private string sAmountReceived;
         //private string sToReturn;
         //private DateTime_v issue_time;
-                        m_usrc_Invoice_Preview.Init(xDocument, usrc_Print,m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        m_usrc_Invoice_Preview.Init(xDocument, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                         return true;
                     }
                 }
@@ -187,7 +185,7 @@ namespace Tangenta
                         {
                             xDocument = (byte[])((byte[])o_doc).Clone();
                         }
-                        m_usrc_Invoice_Preview.Init(xDocument, usrc_Print, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        m_usrc_Invoice_Preview.Init(xDocument, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                         return true;
                     }
                     return true;
@@ -196,7 +194,7 @@ namespace Tangenta
                 else
                 {
                     XMessage.Box.Show(this, lngRPM.s_YouHaveNoDocumentTemplateToPrintOnA4, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                    m_usrc_Invoice_Preview.Init(usrc_Print.m_InvoiceData);
+                    m_usrc_Invoice_Preview.Init(Program.usrc_Printer1.m_InvoiceData);
                 }
             }
             else

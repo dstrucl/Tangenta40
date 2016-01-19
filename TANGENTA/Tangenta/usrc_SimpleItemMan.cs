@@ -502,8 +502,12 @@ namespace Tangenta
             if ((Layout == eLayout.VIEW)||(Layout == eLayout.NONE))
             {
                 if (Layout == eLayout.VIEW)
-                { 
-                    this.dgv_SelectedSimpleItems.Columns.Remove(column_total_discount);
+                {
+                    if (FindColumn(dgv_SelectedSimpleItems, column_total_discount))
+                    {
+                        this.dgv_SelectedSimpleItems.Columns.Remove(column_total_discount);
+                    }
+                    dgv_total_discount_column = null;
                 }
 
                 DataGridViewImageButtonColumn btn_Discount = null;
@@ -524,6 +528,17 @@ namespace Tangenta
 
         }
 
+        private bool FindColumn(DataGridView dgv, string column_name)
+        {
+            foreach (DataGridViewColumn dgvcol in dgv.Columns)
+            {
+                if (dgvcol.Name.Equals(column_name))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         internal void SetViewButtons()
         {
@@ -534,6 +549,11 @@ namespace Tangenta
                     this.dgv_SelectedSimpleItems.Columns.Remove(column_SelectedSimpleItem_btn_discount);
                     this.dgv_SelectedSimpleItems.Columns.Remove(column_SelectedSimpleItem_btn_deselect);
                 }
+                if (!FindColumn(dgv_SelectedSimpleItems, column_total_discount))
+                {
+                    dgv_total_discount_column = null;
+                }
+
 
                 if (dgv_total_discount_column == null)
                 {

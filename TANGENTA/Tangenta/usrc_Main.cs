@@ -28,6 +28,7 @@ namespace Tangenta
         {
             InitializeComponent();
             Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
+            Program.usrc_Printer1 = this.usrc_Printer1;
         }
 
         internal bool Init(Form main_Form)
@@ -189,6 +190,11 @@ namespace Tangenta
                     return -1;
                 }
             }
+        }
+
+        private void usrc_Printer1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

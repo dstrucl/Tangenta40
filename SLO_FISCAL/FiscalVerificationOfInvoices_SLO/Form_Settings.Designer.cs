@@ -43,13 +43,16 @@
             this.nm_UpDown_timeOutInSec = new System.Windows.Forms.NumericUpDown();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.nm_TimeToShoqSuccessfulFURS_Transaction = new System.Windows.Forms.NumericUpDown();
+            this.lbl_TimeToShowFURSSuccessfulResult = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).BeginInit();
             this.SuspendLayout();
             // 
             // chk_DebugAndTest
             // 
             this.chk_DebugAndTest.AutoSize = true;
-            this.chk_DebugAndTest.Location = new System.Drawing.Point(17, 10);
+            this.chk_DebugAndTest.Location = new System.Drawing.Point(453, 12);
             this.chk_DebugAndTest.Name = "chk_DebugAndTest";
             this.chk_DebugAndTest.Size = new System.Drawing.Size(91, 17);
             this.chk_DebugAndTest.TabIndex = 0;
@@ -181,11 +184,39 @@
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
+            // nm_TimeToShoqSuccessfulFURS_Transaction
+            // 
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Location = new System.Drawing.Point(261, 10);
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Name = "nm_TimeToShoqSuccessfulFURS_Transaction";
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Size = new System.Drawing.Size(114, 20);
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.TabIndex = 15;
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // lbl_TimeToShowFURSSuccessfulResult
+            // 
+            this.lbl_TimeToShowFURSSuccessfulResult.AutoSize = true;
+            this.lbl_TimeToShowFURSSuccessfulResult.Location = new System.Drawing.Point(5, 12);
+            this.lbl_TimeToShowFURSSuccessfulResult.Name = "lbl_TimeToShowFURSSuccessfulResult";
+            this.lbl_TimeToShowFURSSuccessfulResult.Size = new System.Drawing.Size(250, 13);
+            this.lbl_TimeToShowFURSSuccessfulResult.TabIndex = 14;
+            this.lbl_TimeToShowFURSSuccessfulResult.Text = "Čas prikaza uspešne FURS transakcije v sekundah";
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 287);
+            this.Controls.Add(this.nm_TimeToShoqSuccessfulFURS_Transaction);
+            this.Controls.Add(this.lbl_TimeToShowFURSSuccessfulResult);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.nm_UpDown_timeOutInSec);
@@ -205,6 +236,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nastavitve za komunikacijo z DAVČNO UPRAVO";
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,5 +258,7 @@
         private System.Windows.Forms.NumericUpDown nm_UpDown_timeOutInSec;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
+        private System.Windows.Forms.NumericUpDown nm_TimeToShoqSuccessfulFURS_Transaction;
+        private System.Windows.Forms.Label lbl_TimeToShowFURSSuccessfulResult;
     }
 }

@@ -94,6 +94,24 @@
     <Compile Include="Form_Notice.Designer.cs">
       <DependentUpon>Form_Notice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_PrinterSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PrinterSettings.Designer.cs">
+      <DependentUpon>Form_PrinterSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PrintExistingInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PrintExistingInvoice.Designer.cs">
+      <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SelectPanels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SelectPanels.Designer.cs">
+      <DependentUpon>Form_SelectPanels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Templates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -415,6 +433,12 @@
     <Compile Include="usrc_Notice.Designer.cs">
       <DependentUpon>usrc_Notice.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Printer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Printer.Designer.cs">
+      <DependentUpon>usrc_Printer.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_PrintExistingInvoice.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -427,11 +451,11 @@
     <Compile Include="usrc_Payment.Designer.cs">
       <DependentUpon>usrc_Payment.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Printer.cs">
+    <Compile Include="usrc_PrinterSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_Printer.Designer.cs">
-      <DependentUpon>usrc_Printer.cs</DependentUpon>
+    <Compile Include="usrc_PrinterSettings.Designer.cs">
+      <DependentUpon>usrc_PrinterSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_PurchasePriceList_Edit.cs">
       <SubType>UserControl</SubType>
@@ -549,6 +573,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Notice.resx">
       <DependentUpon>Form_Notice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PrinterSettings.resx">
+      <DependentUpon>Form_PrinterSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PrintExistingInvoice.resx">
+      <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SelectPanels.resx">
+      <DependentUpon>Form_SelectPanels.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Templates.resx">
       <DependentUpon>Form_Templates.cs</DependentUpon>
@@ -687,14 +720,17 @@
     <EmbeddedResource Include="usrc_Notice.resx">
       <DependentUpon>usrc_Notice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Printer.resx">
+      <DependentUpon>usrc_Printer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_PrintExistingInvoice.resx">
       <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Payment.resx">
       <DependentUpon>usrc_Payment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Printer.resx">
-      <DependentUpon>usrc_Printer.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_PrinterSettings.resx">
+      <DependentUpon>usrc_PrinterSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PurchasePriceList_Edit.resx">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
@@ -1168,6 +1204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\PrinterSettings.bmp" />
     <None Include="Resources\SaveHtml.bmp" />
     <None Include="Resources\SelectRow.bmp" />
   </ItemGroup>

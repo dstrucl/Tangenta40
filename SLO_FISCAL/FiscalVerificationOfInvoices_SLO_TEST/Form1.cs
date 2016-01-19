@@ -29,7 +29,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string ErrReason = "";
 
 
-            FVI_com_running = usrc_FVI_SLO1.Start(CertName, CertPass, FursserviceUrl, FursXMLNamespace, 2, ref ErrReason);
+            FVI_com_running = usrc_FVI_SLO1.Start(ref ErrReason);
             if (FVI_com_running)
             {
                 btn_Send_ECHO.Enabled = true;
@@ -89,10 +89,11 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
         {
 
             string FileName = Application.StartupPath + "\\XML\\Invoice.xml";
-            string id = "";
-            string id1 = "";
             string xml = GetFursXmlMesage(FileName);
-            usrc_FVI_SLO1.Send_SingleInvoice( xml,this, ref id, ref id1);
+            string UniqueMsgID = null;
+            string UniqueInvoiceID = null;
+            Image Image_QR = null;
+            usrc_FVI_SLO1.Send_SingleInvoice( xml,this, ref UniqueMsgID,ref UniqueInvoiceID,ref Image_QR);
         }
 
 

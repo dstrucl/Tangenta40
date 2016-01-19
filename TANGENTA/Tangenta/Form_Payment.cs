@@ -27,35 +27,17 @@ namespace Tangenta
             m_InvoiceData = xInvoiceData;
             this.Text = lngRPM.s_PaymentAndPrint.s;
             this.btn_Cancel.Text = lngRPM.s_Cancel.s;
-            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Exist)
-            {
-                if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.bDraft)
-                {
-                    m_usrc_Payment.Visible = true;
-                    m_usrc_PrintExistingInvoice.Visible = false;
-                }
-                else
-                {
-                    m_usrc_PrintExistingInvoice.Top = m_usrc_Payment.Top;
-                    m_usrc_PrintExistingInvoice.Left = m_usrc_Payment.Left;
-                    m_usrc_PrintExistingInvoice.Width = m_usrc_Payment.Width;
-                    m_usrc_PrintExistingInvoice.Height = m_usrc_Payment.Height;
-                    m_usrc_PrintExistingInvoice.Anchor = m_usrc_Payment.Anchor;
-                    m_usrc_Payment.Visible = false;
-                    m_usrc_PrintExistingInvoice.Visible = true;
-                }
-            }
         }
 
         private void Print(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             if (ePaymentType == usrc_Payment.ePaymentType.CASH)
             {
-                m_usrc_Print.Print_Receipt(m_InvoiceData,ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Program.usrc_Printer1.Print_Receipt(m_InvoiceData,ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             }
             else
             {
-                m_usrc_Print.Print_Receipt(m_InvoiceData,ePaymentType, sPaymentMethod, null, null, issue_time);
+                Program.usrc_Printer1.Print_Receipt(m_InvoiceData,ePaymentType, sPaymentMethod, null, null, issue_time);
             }
         }
 
@@ -97,18 +79,14 @@ namespace Tangenta
             this.Close();
         }
 
-        private void m_usrc_PrintExistingInvoice_DoPrint_Existing_Invoice(DateTime_v issue_time)
-        {
-            m_usrc_Print.Print_Receipt(m_InvoiceData,usrc_Payment.ePaymentType.NONE, null, null, null, issue_time);
-        }
 
         private void Form_Receipt_Preview_Load(object sender, EventArgs e)
         {
-            if (m_usrc_Print.Init(m_InvoiceData))
+            if (Program.usrc_Printer1.Init(m_InvoiceData))
             {
                 if ((m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.bDraft))
                 {
-                    if (m_usrc_Payment.Init(m_InvoiceData, m_usrc_Print.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
+                    if (m_usrc_Payment.Init(m_InvoiceData, Program.usrc_Printer1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
                     {
                         //splitContainer1.Panel1Collapsed = true;
                         return;
@@ -121,12 +99,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    string sInvoiceNumber = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_InvoiceData.NumberInFinancialYear.ToString();
-                    if (m_usrc_PrintExistingInvoice.Init(m_InvoiceData, sInvoiceNumber))
-                    {
-                        //splitContainer1.Panel1Collapsed = true;
-                        return;
-                    }
+                    LogFile.Error.Show("ERROR:Form_Payment:Not Draft!");
                 }
             }
         }

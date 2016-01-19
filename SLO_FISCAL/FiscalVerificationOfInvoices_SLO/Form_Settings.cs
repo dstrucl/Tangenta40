@@ -31,7 +31,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.txt_fursWebServiceURL.Text = Properties.Settings.Default.fursWebServiceURL;
             this.txt_fursXmlNamespace.Text = Properties.Settings.Default.fursXmlNamespace;
             this.nm_UpDown_timeOutInSec.Value = Convert.ToDecimal(Properties.Settings.Default.timeOutInSec);
-
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Value = Convert.ToDecimal(Properties.Settings.Default.timeToShowSuccessfulFURSResult);
             chk_DebugAndTest.Checked = Properties.Settings.Default.DEBUG;
             chk_DebugAndTest.CheckedChanged += Chk_DebugAndTest_CheckedChanged;
 
@@ -73,6 +73,7 @@ namespace FiscalVerificationOfInvoices_SLO
             Properties.Settings.Default.fursWebServiceURL = this.txt_fursWebServiceURL.Text;
             Properties.Settings.Default.fursXmlNamespace = this.txt_fursXmlNamespace.Text;
             Properties.Settings.Default.timeOutInSec = Convert.ToInt32(this.nm_UpDown_timeOutInSec.Value);
+            Properties.Settings.Default.timeToShowSuccessfulFURSResult = Convert.ToInt32(this.nm_TimeToShoqSuccessfulFURS_Transaction.Value);
             Properties.Settings.Default.Save();
             certificateFileName = Properties.Settings.Default.certificateFileName;
             CertPass = Properties.Settings.Default.CertPass;

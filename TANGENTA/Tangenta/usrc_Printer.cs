@@ -8,16 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using LanguageControl;
 using DBTypes;
+using LanguageControl;
 using FiscalVerificationOfInvoices_SLO;
-using System.IO;
 
 namespace Tangenta
 {
     public partial class usrc_Printer : UserControl
     {
+        public Printer Printer = new Printer();
 
+        Form_PrinterSettings m_frm_prn_settings = null;
 
         private string m_PrinterName = null;
         private string m_PaperName = null;
@@ -25,15 +26,7 @@ namespace Tangenta
         {
             get
             {
-                return m_PrinterName;
-            }
-            set
-            {
-                m_PrinterName = value;
-                if (m_PrinterName != null)
-                {
-                    lbl_PrinterName_Value.Text = m_PrinterName;
-                }
+                return Printer.PrinterName;
             }
         }
 
@@ -48,13 +41,12 @@ namespace Tangenta
                 m_PaperName = value;
                 if (m_PaperName != null)
                 {
-                    lbl_PaperName_Value.Text = m_PaperName;
+                    //lbl_PaperName_Value.Text = m_PaperName;
                 }
             }
         }
 
         public string HT = "\x09"; //CarriageReturn
-        private long myCompany_Person_ID = -1;
         [DllImport("gdi32.dll")]
         static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
 
@@ -62,9 +54,7 @@ namespace Tangenta
 
         public InvoiceData m_InvoiceData = null;
         public StaticLib.TaxSum taxSum = null;
-        
-        private long_v Atom_Customer_Org_ID = null;
-        private long_v Atom_Customer_Person_ID = null;
+
 
 
         float cx_paper_in_inch = 0;
@@ -73,13 +63,18 @@ namespace Tangenta
         int cx_paper_on_screen_in_pixels = 0;
         int cy_paper_on_screen_in_pixels = 0;
 
-
         public usrc_Printer()
         {
             InitializeComponent();
         }
 
+        private void btn_Printer_Click(object sender, EventArgs e)
+        {
+            m_frm_prn_settings = new Form_PrinterSettings(this);
+            m_frm_prn_settings.ShowDialog();
+            m_frm_prn_settings = null;
 
+        }
 
         internal void Print_Receipt(InvoiceData xInvoiceData, usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
@@ -104,7 +99,7 @@ namespace Tangenta
                         Image img_QR = null;
                         string furs_UniqeMsgID = null;
                         string furs_UniqeInvID = null;
-                        if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID,ref img_QR)== Result_MessageBox_Post.OK)
+                        if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref img_QR) == Result_MessageBox_Post.OK)
                         {
                             xInvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, img_QR);
                             xInvoiceData.Write_FURS_Response_Data();
@@ -115,20 +110,15 @@ namespace Tangenta
 
             if (Printer_is_ESC_POS())
             {
-                Print_Receipt_ESC_POS(xInvoiceData,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Print_Receipt_ESC_POS(xInvoiceData, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             }
             else
             {
-                Form_Print_A4 print_A4_dlg = new Form_Print_A4(this, xInvoiceData,PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Form_Print_A4 print_A4_dlg = new Form_Print_A4(xInvoiceData, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                 print_A4_dlg.ShowDialog();
             }
         }
-    
 
-        private void FVI_SLO_GetResponse(ref string fVI_MessageID, ref string fVI_UniqueInvoiceID)
-        {
-            throw new NotImplementedException();
-        }
 
         private bool Printer_is_ESC_POS()
         {
@@ -143,42 +133,43 @@ namespace Tangenta
             return false;
         }
 
-        internal void Print_Receipt_ESC_POS(InvoiceData xInvoiceData,usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        internal void Print_Receipt_ESC_POS(InvoiceData xInvoiceData, usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
-          
-            
-            //Program.ReceiptPrinter.Print(ep.InitializePrinter());
+
+
+            //ReceiptPrinter.Print(ep.InitializePrinter());
             long journal_proformainvoice_id = -1;
 
             try
             {
-                if (Program.ReceiptPrinter.InitializePrinter())
+                
+                if (Printer.InitializePrinter())
                 {
 
                 }
-                if (Program.ReceiptPrinter.PrintInBuffer)
+                if (Printer.PrintInBuffer)
                 {
-                    Program.ReceiptPrinter.Clear();
+                    Printer.Clear();
                 }
 
                 if (xInvoiceData.MyOrganisation.Logo_Data != null)
                 {
-                   Program.ReceiptPrinter.wr_Logo(xInvoiceData.MyOrganisation.Logo_Data);
+                    Printer.wr_Logo(xInvoiceData.MyOrganisation.Logo_Data);
                 }
 
-                Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
-                Program.ReceiptPrinter.wr_Paragraph(m_InvoiceData.MyOrganisation.Name);
-                Program.ReceiptPrinter.wr_Paragraph(m_InvoiceData.MyOrganisation.Address.StreetName + " " + m_InvoiceData.MyOrganisation.Address.HouseNumber);
-                Program.ReceiptPrinter.wr_Paragraph(m_InvoiceData.MyOrganisation.Address.ZIP + " " + m_InvoiceData.MyOrganisation.Address.City);
+                Printer.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
+                Printer.wr_Paragraph(m_InvoiceData.MyOrganisation.Name);
+                Printer.wr_Paragraph(m_InvoiceData.MyOrganisation.Address.StreetName + " " + m_InvoiceData.MyOrganisation.Address.HouseNumber);
+                Printer.wr_Paragraph(m_InvoiceData.MyOrganisation.Address.ZIP + " " + m_InvoiceData.MyOrganisation.Address.City);
                 if (m_InvoiceData.MyOrganisation.HomePage != null)
                 {
                     if (m_InvoiceData.MyOrganisation.HomePage.Length > 0)
                     {
-                        Program.ReceiptPrinter.wr_String("Domača stran:");
-                        Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
-                        Program.ReceiptPrinter.wr_String(m_InvoiceData.MyOrganisation.HomePage);
-                        Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
-                        Program.ReceiptPrinter.wr_NewLine();
+                        Printer.wr_String("Domača stran:");
+                        Printer.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
+                        Printer.wr_String(m_InvoiceData.MyOrganisation.HomePage);
+                        Printer.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
+                        Printer.wr_NewLine();
                         ;
                     }
                 }
@@ -186,27 +177,27 @@ namespace Tangenta
                 {
                     if (m_InvoiceData.MyOrganisation.Email.Length > 0)
                     {
-                        Program.ReceiptPrinter.wr_String("EPOŠTA:");
-                        Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
-                        Program.ReceiptPrinter.wr_String(m_InvoiceData.MyOrganisation.Email);
-                        Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
+                        Printer.wr_String("EPOŠTA:");
+                        Printer.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
+                        Printer.wr_String(m_InvoiceData.MyOrganisation.Email);
+                        Printer.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
                     }
                 }
-                Program.ReceiptPrinter.wr_NewLine();
-                Program.ReceiptPrinter.wr_Paragraph("Davčna Številka:" + m_InvoiceData.MyOrganisation.Tax_ID);
-                Program.ReceiptPrinter.wr_NewLine(2);
+                Printer.wr_NewLine();
+                Printer.wr_Paragraph("Davčna Številka:" + m_InvoiceData.MyOrganisation.Tax_ID);
+                Printer.wr_NewLine(2);
                 //buffer = buffer + "\x1b\x1d\x61\x0";             //Left Alignment - Refer to Pg. 3-29
-                Program.ReceiptPrinter.wr_SetHorizontalTabPositions(new byte[] { 2, 0x10, 0x22 });
-                Program.ReceiptPrinter.wr_Paragraph("Številka računa: " + m_InvoiceData.FinancialYear.ToString() + "/" + m_InvoiceData.NumberInFinancialYear.ToString());
-                Program.ReceiptPrinter.wr_Paragraph("Datum:" + xInvoiceData.IssueDate_Day.ToString() + "." + xInvoiceData.IssueDate_Month.ToString() + "." + xInvoiceData.IssueDate_Year.ToString() + "\x9" + " Čas:" + xInvoiceData.IssueDate_Hour.ToString() + ":" + xInvoiceData.IssueDate_Min.ToString());      //Moving Horizontal Tab - Pg. 3-26
-                Program.ReceiptPrinter.wr_LineDelimeter();
-                Program.ReceiptPrinter.wr_BoldOn();
+                Printer.wr_SetHorizontalTabPositions(new byte[] { 2, 0x10, 0x22 });
+                Printer.wr_Paragraph("Številka računa: " + m_InvoiceData.FinancialYear.ToString() + "/" + m_InvoiceData.NumberInFinancialYear.ToString());
+                Printer.wr_Paragraph("Datum:" + xInvoiceData.IssueDate_Day.ToString() + "." + xInvoiceData.IssueDate_Month.ToString() + "." + xInvoiceData.IssueDate_Year.ToString() + "\x9" + " Čas:" + xInvoiceData.IssueDate_Hour.ToString() + ":" + xInvoiceData.IssueDate_Min.ToString());      //Moving Horizontal Tab - Pg. 3-26
+                Printer.wr_LineDelimeter();
+                Printer.wr_BoldOn();
 
-                Program.ReceiptPrinter.wr_Paragraph("PRODANO:");
-                Program.ReceiptPrinter.wr_NewLine();
-                Program.ReceiptPrinter.wr_BoldOff();
-    
-                                   //Select Emphasized Printing - Pg. 3-14;                    //Cancel Emphasized Printing - Pg. 3-14
+                Printer.wr_Paragraph("PRODANO:");
+                Printer.wr_NewLine();
+                Printer.wr_BoldOff();
+
+                //Select Emphasized Printing - Pg. 3-14;                    //Cancel Emphasized Printing - Pg. 3-14
 
                 taxSum = null;
                 taxSum = new StaticLib.TaxSum();
@@ -246,7 +237,7 @@ namespace Tangenta
                     if (oTaxPrice is decimal)
                     {
                         TaxPrice = (decimal)oTaxPrice;
-                        taxSum.Add(TaxPrice,0, (string)dr["Atom_Taxation_Name"], (decimal)dr["Atom_Taxation_Rate"]);
+                        taxSum.Add(TaxPrice, 0, (string)dr["Atom_Taxation_Name"], (decimal)dr["Atom_Taxation_Rate"]);
                     }
 
                     int iQuantity = -1;
@@ -270,25 +261,25 @@ namespace Tangenta
                         ExtraDiscount = (decimal)oExtraDiscount;
                     }
 
-                    Program.ReceiptPrinter.wr_Paragraph(SimpleItem_name);
-                    Program.ReceiptPrinter.wr_String("Cena za enoto" + HT + RetailSimpleItemPrice.ToString() + " EUR\n");
-                    decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount,Program.Get_BaseCurrency_DecimalPlaces());
+                    Printer.wr_Paragraph(SimpleItem_name);
+                    Printer.wr_String("Cena za enoto" + HT + RetailSimpleItemPrice.ToString() + " EUR\n");
+                    decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
                     decimal TotalDiscountPercent = TotalDiscount * 100;
                     if (TotalDiscountPercent > 0)
                     {
-                        Program.ReceiptPrinter.wr_String("Popust:" + TotalDiscountPercent.ToString() + " %\n");
+                        Printer.wr_String("Popust:" + TotalDiscountPercent.ToString() + " %\n");
                     }
-                        Program.ReceiptPrinter.wr_String("Količina:" + HT + iQuantity.ToString() + "\n");
+                    Printer.wr_String("Količina:" + HT + iQuantity.ToString() + "\n");
                     if (TotalDiscountPercent > 0)
                     {
-                        Program.ReceiptPrinter.wr_String("Cena s popustom:" + HT + HT + RetailSimpleItemPriceWithDiscount.ToString() + " EUR\n");
+                        Printer.wr_String("Cena s popustom:" + HT + HT + RetailSimpleItemPriceWithDiscount.ToString() + " EUR\n");
                     }
                     else
                     {
-                        Program.ReceiptPrinter.wr_String("Cena " + HT + HT + HT + RetailSimpleItemPriceWithDiscount.ToString() + " EUR\n");
+                        Printer.wr_String("Cena " + HT + HT + HT + RetailSimpleItemPriceWithDiscount.ToString() + " EUR\n");
                     }
-                    Program.ReceiptPrinter.wr_String(TaxationName + HT + HT + TaxPrice.ToString() + " EUR\n");
-                    Program.ReceiptPrinter.wr_NewLine();
+                    Printer.wr_String(TaxationName + HT + HT + TaxPrice.ToString() + " EUR\n");
+                    Printer.wr_NewLine();
 
                 }
 
@@ -335,7 +326,7 @@ namespace Tangenta
                 //Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
                 //Atom_Currency.Symbol AS Atom_Currency_Symbol,
                 //Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces
-                Program.ReceiptPrinter.wr_NewLine();
+                Printer.wr_NewLine();
 
                 foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisd in m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
                 {
@@ -344,32 +335,32 @@ namespace Tangenta
                     decimal RetailPricePerUnit = appisd.RetailPricePerUnit.v;
 
 
-                    decimal RetailItemPriceWithDiscount =  appisd.RetailPriceWithDiscount.v;
+                    decimal RetailItemPriceWithDiscount = appisd.RetailPriceWithDiscount.v;
 
-                    Program.ReceiptPrinter.wr_String(Item_UniqueName + "\n");
+                    Printer.wr_String(Item_UniqueName + "\n");
 
                     decimal dQuantity = appisd.dQuantity_FromStock + appisd.dQuantity_FromFactory;
 
                     string Atom_Unit_Name = appisd.Atom_Unit_Name.v;
 
 
-                    Program.ReceiptPrinter.wr_String("Cena za 1 " + Atom_Unit_Name + " = " + RetailPricePerUnit.ToString() + " EUR\n");
+                    Printer.wr_String("Cena za 1 " + Atom_Unit_Name + " = " + RetailPricePerUnit.ToString() + " EUR\n");
 
                     decimal Discount = appisd.Discount.v;
 
                     decimal ExtraDiscount = appisd.ExtraDiscount.v;
 
 
-                    decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount,Program.Get_BaseCurrency_DecimalPlaces());
+                    decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
                     decimal TotalDiscountPercent = TotalDiscount * 100;
                     if (TotalDiscountPercent > 0)
                     {
-                        Program.ReceiptPrinter.wr_String("Popust:" + TotalDiscountPercent.ToString() + " %\n");
+                        Printer.wr_String("Popust:" + TotalDiscountPercent.ToString() + " %\n");
                     }
-                    Program.ReceiptPrinter.wr_String("Količina:" + HT + dQuantity.ToString() + " " + Atom_Unit_Name + "\n");
+                    Printer.wr_String("Količina:" + HT + dQuantity.ToString() + " " + Atom_Unit_Name + "\n");
 
                     decimal Atom_Taxation_Rate = appisd.Atom_Taxation_Rate.v;
-                    
+
                     decimal RetailItemsPriceWithDiscount = 0;
                     decimal ItemsTaxPrice = 0;
                     decimal ItemsNetPrice = 0;
@@ -380,92 +371,92 @@ namespace Tangenta
 
                     if (TotalDiscountPercent > 0)
                     {
-                        Program.ReceiptPrinter.wr_String("Cena s popustom:" + HT + HT + RetailItemsPriceWithDiscount.ToString() + " EUR\n");
+                        Printer.wr_String("Cena s popustom:" + HT + HT + RetailItemsPriceWithDiscount.ToString() + " EUR\n");
                     }
                     else
                     {
-                        Program.ReceiptPrinter.wr_String("Cena " + HT + HT + HT + RetailItemsPriceWithDiscount.ToString() + " EUR\n");
+                        Printer.wr_String("Cena " + HT + HT + HT + RetailItemsPriceWithDiscount.ToString() + " EUR\n");
                     }
 
                     string TaxationName = appisd.Atom_Taxation_Name.v;
 
                     decimal TaxPrice = appisd.TaxPrice.v;
 
-                    taxSum.Add(ItemsTaxPrice,0, TaxationName, Atom_Taxation_Rate);
+                    taxSum.Add(ItemsTaxPrice, 0, TaxationName, Atom_Taxation_Rate);
 
 
-                    Program.ReceiptPrinter.wr_String(TaxationName + HT + HT + ItemsTaxPrice.ToString() + " EUR\n");
-                    Program.ReceiptPrinter.wr_NewLine();
+                    Printer.wr_String(TaxationName + HT + HT + ItemsTaxPrice.ToString() + " EUR\n");
+                    Printer.wr_NewLine();
 
                 }
-                Program.ReceiptPrinter.wr_LineDelimeter();
+                Printer.wr_LineDelimeter();
 
                 foreach (StaticLib.Tax tax in taxSum.TaxList)
                 {
-                    Program.ReceiptPrinter.wr_String(tax.Name +  HT + HT + "" + tax.TaxAmount.ToString() + " EUR\n");
+                    Printer.wr_String(tax.Name + HT + HT + "" + tax.TaxAmount.ToString() + " EUR\n");
                 }
-                
-                Program.ReceiptPrinter.wr_String("Brez davka " +  HT + HT + "" + m_InvoiceData.NetSum.ToString() + " EUR\n");
+
+                Printer.wr_String("Brez davka " + HT + HT + "" + m_InvoiceData.NetSum.ToString() + " EUR\n");
                 //buffer += "\x1B" + "G" + "\xFF";
-                Program.ReceiptPrinter.wr_String("Skupaj " + HT + HT + m_InvoiceData.GrossSum.ToString() + " EUR\n"); 
+                Printer.wr_String("Skupaj " + HT + HT + m_InvoiceData.GrossSum.ToString() + " EUR\n");
                 //buffer += "\x1B" + "G" + "\x00\n";
                 if (PaymentType != usrc_Payment.ePaymentType.NONE)
-                { 
-                    Program.ReceiptPrinter.wr_String("Način plačila:" + sPaymentMethod + "\n");
+                {
+                    Printer.wr_String("Način plačila:" + sPaymentMethod + "\n");
                     if (PaymentType == usrc_Payment.ePaymentType.CASH)
                     {
-                        Program.ReceiptPrinter.wr_String("  Prejeto: " + sAmountReceived + " EUR\n");
-                        Program.ReceiptPrinter.wr_String("  Vrnjeno: " + sToReturn + " EUR\n");
+                        Printer.wr_String("  Prejeto: " + sAmountReceived + " EUR\n");
+                        Printer.wr_String("  Vrnjeno: " + sToReturn + " EUR\n");
                     }
                 }
-                Program.ReceiptPrinter.wr_NewLine(6);
-                Program.ReceiptPrinter.PartialCutPaper();
+                Printer.wr_NewLine(6);
+                Printer.PartialCutPaper();
 
-                if (Program.ReceiptPrinter.PrintInBuffer)
+                if (Printer.PrintInBuffer)
                 {
-                    Program.ReceiptPrinter.Print_PrinterBuffer();
+                    Printer.Print_PrinterBuffer();
                 }
-            
+
 
                 string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
-                string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
-                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description,null, ref journal_proformainvoice_id);
+                string s_journal_invoice_description = Printer.PrinterName;
+                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
             }
             catch (Exception ex)
             {
-                string s_journal_invoice_type = lngRPM.s_journal_invoice_type_PrintError.s + Program.ReceiptPrinter.PrinterName+ "\nErr="+ex.Message;
-                string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
-                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description,null, ref journal_proformainvoice_id);
+                string s_journal_invoice_type = lngRPM.s_journal_invoice_type_PrintError.s + Printer.PrinterName + "\nErr=" + ex.Message;
+                string s_journal_invoice_description = Printer.PrinterName;
+                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
             }
         }
 
         public bool Init(InvoiceData x_InvoiceData)
         {
             m_InvoiceData = x_InvoiceData;
-            lbl_PrinterName.Text = lngRPM.s_Printer.s;
-            PrinterName = Program.ReceiptPrinter.printer_settings.PrinterName;
-            lbl_PaperName.Text = lngRPM.s_PaperName.s + ":";
-            PaperName = Program.ReceiptPrinter.page_settings.PaperSize.PaperName;
-            chk_PrintAll.Text = lngRPM.s_chk_PrintAll.s;
-            this.chk_PrintAll.CheckedChanged -= new System.EventHandler(this.chk_PrintAll_CheckedChanged);
-            chk_PrintAll.Checked = Properties.Settings.Default.PrintAtOnce;
-            Program.ReceiptPrinter.PrintInBuffer = chk_PrintAll.Checked;
-            this.chk_PrintAll.CheckedChanged += new System.EventHandler(this.chk_PrintAll_CheckedChanged);
- 
+            //lbl_PrinterName.Text = lngRPM.s_Printer.s;
+            Printer.PrinterName = Printer.printer_settings.PrinterName;
+            //lbl_PaperName.Text = lngRPM.s_PaperName.s + ":";
+            PaperName = Printer.page_settings.PaperSize.PaperName;
+            //chk_PrintAll.Text = lngRPM.s_chk_PrintAll.s;
+            //this.chk_PrintAll.CheckedChanged -= new System.EventHandler(this.chk_PrintAll_CheckedChanged);
+            //chk_PrintAll.Checked = Properties.Settings.Default.PrintAtOnce;
+            //ReceiptPrinter.PrintInBuffer = chk_PrintAll.Checked;
+            //this.chk_PrintAll.CheckedChanged += new System.EventHandler(this.chk_PrintAll_CheckedChanged);
 
-            if (Program.ReceiptPrinter != null)
+
+            if (Printer != null)
             {
-                int iWidth_inHoundreths_of_Inch = Program.ReceiptPrinter.page_settings.PaperSize.Width;
+                int iWidth_inHoundreths_of_Inch = Printer.page_settings.PaperSize.Width;
 
-                int dpix = Program.ReceiptPrinter.page_settings.PrinterResolution.X;
+                int dpix = Printer.page_settings.PrinterResolution.X;
 
                 cx_paper_in_inch = ((float)iWidth_inHoundreths_of_Inch) / ((float)100);
                 cx_paper_on_screen_in_pixels = (int)(cx_paper_in_inch * getScalingFactorX());
                 //this.pnl_paper.Width = cx_paper_on_screen_in_pixels;
 
-                int iHeight_inHoundreths_of_Inch = Program.ReceiptPrinter.page_settings.PaperSize.Height;
+                int iHeight_inHoundreths_of_Inch = Printer.page_settings.PaperSize.Height;
 
-                int dpiy = Program.ReceiptPrinter.page_settings.PrinterResolution.Y;
+                int dpiy = Printer.page_settings.PrinterResolution.Y;
 
                 cy_paper_in_inch = ((float)iHeight_inHoundreths_of_Inch) / ((float)100);
                 cy_paper_on_screen_in_pixels = (int)(cy_paper_in_inch * getScalingFactorY());
@@ -475,7 +466,7 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Init:Program.ReceiptPrinter == null!");
+                LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Init:ReceiptPrinter == null!");
                 return false;
             }
         }
@@ -502,7 +493,7 @@ namespace Tangenta
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count >0)
+            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
             {
                 object o_Data = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
                 if (o_Data is Atom_ProformaInvoice_Price_Item_Stock_Data)
@@ -522,27 +513,6 @@ namespace Tangenta
             return 2;
         }
 
-        private void btn_SelectPrinter_Click(object sender, EventArgs e)
-        {
-            if (Program.ReceiptPrinter.Select(null))
-            {
-                PrinterName = Program.ReceiptPrinter.printer_settings.PrinterName;
-                PaperName = Program.ReceiptPrinter.page_settings.PaperSize.PaperName;
-            }
-        }
-
-        private void btn_PageSetup_Click(object sender, EventArgs e)
-        {
-            Program.ReceiptPrinter.SelectPageSettings();
-        }
-
-        private void chk_PrintAll_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.PrintAtOnce =chk_PrintAll.Checked;
-            Program.ReceiptPrinter.PrintInBuffer = chk_PrintAll.Checked;
-            Properties.Settings.Default.Save();
-        }
-
 
 
 
@@ -550,13 +520,13 @@ namespace Tangenta
         internal void PrintReport(usrc_InvoiceTable m_usrc_InvoiceTable)
         {
             // Print header
-            Program.ReceiptPrinter.Clear();
-            Program.ReceiptPrinter.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
-            Program.ReceiptPrinter.wr_Paragraph(m_usrc_InvoiceTable.lbl_From_To.Text);
-            Program.ReceiptPrinter.wr_LineDelimeter();
-            string sLine = lngRPM.s_Invoice.s+HT+lngRPM.s_MethodOfPayment.s+HT+lngRPM.s_EndPrice.s;
-            Program.ReceiptPrinter.wr_String(sLine);
-            Program.ReceiptPrinter.wr_NewLine();
+            Printer.Clear();
+            Printer.wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
+            Printer.wr_Paragraph(m_usrc_InvoiceTable.lbl_From_To.Text);
+            Printer.wr_LineDelimeter();
+            string sLine = lngRPM.s_Invoice.s + HT + lngRPM.s_MethodOfPayment.s + HT + lngRPM.s_EndPrice.s;
+            Printer.wr_String(sLine);
+            Printer.wr_NewLine();
             foreach (DataRow dr in m_usrc_InvoiceTable.dt_XInvoice.Rows)
             {
 
@@ -566,7 +536,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    Program.ReceiptPrinter.wr_NewLine();
+                    Printer.wr_NewLine();
                     int iFinYear = (int)dr["JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear"];
                     int iNumberInFinancialYear = (int)dr["JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear"];
                     string payment_type = (string)dr["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$PaymentType"];
@@ -574,7 +544,7 @@ namespace Tangenta
                     bool Storno = (bool)dr["JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Storno"];
                     DateTime ProformaInvoice_Date = (DateTime)dr["JOURNAL_ProformaInvoice_$$EventTime"];
                     sLine = ProformaInvoice_Date.ToString() + ":";
-                    Program.ReceiptPrinter.wr_Paragraph(sLine);
+                    Printer.wr_Paragraph(sLine);
                     if (Storno)
                     {
                         sLine = "**STORNO:" + iFinYear.ToString() + "/" + iNumberInFinancialYear.ToString() + HT + payment_type + HT + GrossSum.ToString();
@@ -583,20 +553,22 @@ namespace Tangenta
                     {
                         sLine = iFinYear.ToString() + "/" + iNumberInFinancialYear.ToString() + HT + payment_type + HT + GrossSum.ToString();
                     }
-                    Program.ReceiptPrinter.wr_Paragraph(sLine);
+                    Printer.wr_Paragraph(sLine);
 
                 }
             }
-            Program.ReceiptPrinter.wr_LineDelimeter();
-            Program.ReceiptPrinter.wr_Paragraph("");
-            Program.ReceiptPrinter.wr_Paragraph(m_usrc_InvoiceTable.lbl_Sum_All.Text);
-            Program.ReceiptPrinter.wr_Paragraph(m_usrc_InvoiceTable.lbl_Sum_Tax.Text);
-            Program.ReceiptPrinter.wr_Paragraph(m_usrc_InvoiceTable.lbl_Sum_WithoutTax.Text);
-            Program.ReceiptPrinter.wr_Paragraph(m_usrc_InvoiceTable.lbl_Payment1.Text);
-            Program.ReceiptPrinter.wr_Paragraph(m_usrc_InvoiceTable.lbl_Payment2.Text);
-            Program.ReceiptPrinter.wr_NewLine(10);
-            Program.ReceiptPrinter.PartialCutPaper();
-            Program.ReceiptPrinter.Print_PrinterBuffer();
+            Printer.wr_LineDelimeter();
+            Printer.wr_Paragraph("");
+            Printer.wr_Paragraph(m_usrc_InvoiceTable.lbl_Sum_All.Text);
+            Printer.wr_Paragraph(m_usrc_InvoiceTable.lbl_Sum_Tax.Text);
+            Printer.wr_Paragraph(m_usrc_InvoiceTable.lbl_Sum_WithoutTax.Text);
+            Printer.wr_Paragraph(m_usrc_InvoiceTable.lbl_Payment1.Text);
+            Printer.wr_Paragraph(m_usrc_InvoiceTable.lbl_Payment2.Text);
+            Printer.wr_NewLine(10);
+            Printer.PartialCutPaper();
+            Printer.Print_PrinterBuffer();
         }
+
+
     }
 }

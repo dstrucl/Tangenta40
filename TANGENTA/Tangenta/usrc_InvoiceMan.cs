@@ -13,7 +13,7 @@ namespace Tangenta
 {
     public partial class usrc_InvoiceMan : UserControl
     {
-        private bool Customer_Changed = false;
+        internal bool Customer_Changed = false;
 
         public enum eMode { Items, ProformaInvoices, Items_and_ProformaInvoices };
         public eMode Mode = eMode.Items_and_ProformaInvoices;
@@ -53,25 +53,16 @@ namespace Tangenta
             {
                 splitContainer1.Panel2Collapsed = true;
                 splitContainer1.Panel1Collapsed = false;
-                this.rdb_Items.CheckedChanged -= new System.EventHandler(this.rdb_Items_CheckedChanged);
-                this.rdb_Items.Checked = true;
-                this.rdb_Items.CheckedChanged += new System.EventHandler(this.rdb_Items_CheckedChanged);
             }
             else if (mode == eMode.ProformaInvoices)
             {
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel1Collapsed = true;
-                this.rdb_ProformaInvoices.CheckedChanged -= new System.EventHandler(this.rdb_ProformaInvoices_CheckedChanged);
-                this.rdb_ProformaInvoices.Checked = true;
-                this.rdb_ProformaInvoices.CheckedChanged += new System.EventHandler(this.rdb_ProformaInvoices_CheckedChanged);
             }
             else
             {
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel1Collapsed = false;
-                this.rdb_ItemsAndProformaInvoices.CheckedChanged -= new System.EventHandler(this.rdb_ItemsAndProformaInvoices_CheckedChanged);
-                this.rdb_ItemsAndProformaInvoices.Checked = true;
-                this.rdb_ItemsAndProformaInvoices.CheckedChanged += new System.EventHandler(this.rdb_ItemsAndProformaInvoices_CheckedChanged);
             }
         }
 
@@ -109,9 +100,6 @@ namespace Tangenta
                 }
                 SetInitialMode();
                 SetMode(Mode);
-                this.rdb_Items.CheckedChanged += new System.EventHandler(this.rdb_Items_CheckedChanged);
-                this.rdb_ItemsAndProformaInvoices.CheckedChanged += new System.EventHandler(this.rdb_ItemsAndProformaInvoices_CheckedChanged);
-                this.rdb_ProformaInvoices.CheckedChanged += new System.EventHandler(this.rdb_ProformaInvoices_CheckedChanged);
                 Program.Cursor_Arrow();
                 return true;
             }
@@ -258,41 +246,6 @@ namespace Tangenta
             Program.Cursor_Arrow();
         }
 
-        private void rdb_Items_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdb_Items.Checked)
-            { 
-                SetMode(eMode.Items);
-            }
-        }
-
-        private void rdb_ItemsAndProformaInvoices_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdb_ItemsAndProformaInvoices.Checked)
-            {
-                SetMode(eMode.Items_and_ProformaInvoices);
-                if (Customer_Changed)
-                {
-                    Customer_Changed = false;
-                    this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,Properties.Settings.Default.FinancialYear);
-                }
-            }
-
-        }
-
-        private void rdb_ProformaInvoices_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdb_ProformaInvoices.Checked)
-            {
-                SetMode(eMode.ProformaInvoices);
-                if (Customer_Changed)
-                {
-                    Customer_Changed = false;
-                    this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,Properties.Settings.Default.FinancialYear);
-                }
-            }
-
-        }
 
         private void m_usrc_Invoice_Customer_Person_Changed(long Customer_Person_ID)
         {
@@ -345,5 +298,10 @@ namespace Tangenta
             this.Init(m_pparent);
         }
 
+        private void btn_SelectPanels_Click(object sender, EventArgs e)
+        {
+            Form_SelectPanels frm_select_panels = new Form_SelectPanels(this);
+            frm_select_panels.ShowDialog(this);
+        }
     }
 }
