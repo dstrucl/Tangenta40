@@ -72,7 +72,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string FileName = Application.StartupPath + "\\XML\\Echo.xml";
 
             string xml_echo = GetFursXmlMesage(FileName);
-            usrc_FVI_SLO1.Send_Echo(1, xml_echo);
+            usrc_FVI_SLO1.Send_Echo(xml_echo);
 
         }
 

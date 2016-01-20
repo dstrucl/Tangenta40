@@ -14,6 +14,13 @@ namespace FiscalVerificationOfInvoices_SLO
     public partial class usrc_FURS_BussinesPremiseData : UserControl
     {
         private bool Test = false;
+        private bool m_ReadOnly = false;
+
+        public bool ReadOnly
+        {
+            get { return m_ReadOnly;  }
+            set { m_ReadOnly = value; }
+        }
 
         public usrc_FURS_BussinesPremiseData()
         {
@@ -67,6 +74,20 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_BussinesPremiseID.Text = Properties.Settings.Default.fursD_BussinesPremiseID;
                 this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
             }
+
+            this.txt_BuildingNumber.ReadOnly = m_ReadOnly;
+            this.txt_BuildingSectionNumber.ReadOnly = m_ReadOnly;
+            this.txt_Community.ReadOnly = m_ReadOnly;
+            this.txt_CadastralNumber.ReadOnly = m_ReadOnly;
+            this.dt_ValidityDate.Enabled = !m_ReadOnly;
+            this.txt_ClosingTag.ReadOnly = m_ReadOnly;
+            this.txt_SoftwareSupplier_TaxNumber.ReadOnly = m_ReadOnly;
+            this.txt_PremiseType.ReadOnly = m_ReadOnly;
+            this.txt_MyOrganisation_TaxID.ReadOnly = m_ReadOnly;
+            this.txt_BussinesPremiseID.ReadOnly = m_ReadOnly;
+            this.txt_InvoiceAuthor_TaxID.ReadOnly = m_ReadOnly;
+            this.btn_ImportFromDataBase.Visible = !m_ReadOnly;
+
         }
 
         internal void Save()

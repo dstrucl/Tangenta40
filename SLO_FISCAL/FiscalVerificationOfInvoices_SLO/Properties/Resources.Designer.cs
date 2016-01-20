@@ -61,6 +61,16 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FURS_Settings {
+            get {
+                object obj = ResourceManager.GetObject("FURS_Settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:fu=&quot;http://www.fu.gov.si/&quot;&gt;
         ///   &lt;soapenv:Header/&gt;
         ///   &lt;soapenv:Body&gt;

@@ -256,12 +256,7 @@ namespace Tangenta
 
         private void m_usrc_Main_Exit_Click()
         {
-            if (AskToExit())
-            {
-                Exit();
-                this.Close();
-                DialogResult = DialogResult.OK;
-            }
+             this.Close();
         }
 
         private bool AskToExit()

@@ -400,7 +400,7 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
-        public Result_MessageBox_Post Send_Echo(long Message_ID, string xml)
+        public Result_MessageBox_Post Send_Echo(string xml)
         {
             LastMessageID++;
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_ECHO, xml);
@@ -551,8 +551,9 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private void btn_FVI_Click(object sender, EventArgs e)
         {
-            Form_Settings fvi_man = new Form_Settings(this);
-            fvi_man.ShowDialog();
+            Form_Main frm_main = new Form_Main(this);
+            frm_main.ShowDialog(this);
+
         }
     }
 }

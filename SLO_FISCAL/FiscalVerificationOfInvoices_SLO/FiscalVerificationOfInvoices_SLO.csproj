@@ -31,6 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataGridView_2xls, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\DataGridView_2xls.dll</HintPath>
+    </Reference>
+    <Reference Include="Excell_Export, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -50,6 +55,12 @@
     </Compile>
     <Compile Include="FormFURSCommunication.Designer.cs">
       <DependentUpon>FormFURSCommunication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Settings.cs">
       <SubType>Form</SubType>
@@ -114,6 +125,9 @@
     <EmbeddedResource Include="FormFURSCommunication.resx">
       <DependentUpon>FormFURSCommunication.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Settings.resx">
       <DependentUpon>Form_Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DURS.ico" />
+    <None Include="Resources\FURS_Settings.bmp" />
     <Content Include="Resources\TAX_Office_Connection_NONE.bmp" />
     <Content Include="Resources\TAX_Office_Transmission_ERROR.bmp" />
   </ItemGroup>
