@@ -10,6 +10,29 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+
+        public static ltext s_lbl_FURS_BussinesData = new ltext("FURS bussines data", "FURS poslovni podatki");
+        public static ltext s_fursBuildingNumber = new ltext("Building number", "Številka stavbe");
+        public static ltext s_lbl_BuildingSectionNumber = new ltext("Building section number", "Številka dela stavbe");
+        public static ltext s_lbl_Community = new ltext("Community", "Naselje");
+        public static ltext s_lbl_CadastralNumber = new ltext("Cadastral number", "Katastrska številka");
+        public static ltext s_lbl_ValidityDate = new ltext("Validity Date", "Datum veljavnosti");
+        public static ltext s_lbl_ClosingTag = new ltext("Closing tag", "Oznaka zaprtja");
+        public static ltext s_lbl_SoftwareSupplier_TaxNumber = new ltext("Software supplier Tax ID", "Davčna številka dobavitelja programske opreme");
+        public static ltext s_lbl_PremiseType = new ltext("Premise type", "Vrsta Nepremičnine");
+        public static ltext s_lbl_MyOrganisation_TaxID = new ltext("My organisation Tax ID", "Davčna številka moje organizacije");
+        public static ltext s_lbl_BussinesPremiseID = new ltext("Bussines Premise ID", "Oznaka poslovnega prostora");
+        public static ltext s_lbl_InvoiceAuthor_TaxID = new ltext("Davčna številka izdajatelja računa", "Davčna številka izdajatelja računa");
+        public static ltext s_btn_ImportFromDataBase = new ltext("Import from Data Base", "Uvozi iz baze podatkov");
+
+
+
+
+        public static ltext s_SelectCertificate = new ltext("Select certificate", "Izberite Certifikat");
+
+        public static ltext s_Furs_Environment = new ltext("FURS environment", "FURS okolje");
+
+        public static ltext s_Furs_Test_Environment = new ltext("FURS Test environment", "FURS TESTNO okolje !");
         public static ltext s_YouHaveNoDocumentTemplateToPrintOnA4 = new ltext("You have no html document template for printing Invoice on A4 paper format!\r\nYou must insert document template html into database!", "Nimate vnešenih html predlog za tiskanje na A4 papir.\r\nVnesti morate v bazo vsaj eno html predlogo za tisaknje računov na A4 tiskalniku!");
         public static ltext s_FVI_SLO_RealEstateBP_has_no_Data = new ltext("No data for Fiscal Verification system in Slovenia. \r\nYou can not do fiscal verification until you enter RealEstate data!", "Ni vnešenih podatkov o poslovnem prosturu potrebnih za davčno upravo.\r\nPotrejavanje računov ne bo delalo dokler ne vnesete podatkov o poslovnem prostoru!");
         public static ltext s_btn_Tokens = new ltext("View replacement word", "Ključne besede za izdelavo predlog");

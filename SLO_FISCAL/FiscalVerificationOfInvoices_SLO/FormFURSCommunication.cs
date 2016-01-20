@@ -56,12 +56,21 @@ using MNet.SLOTaxService.Messages;
          { 
              InitializeComponent(); 
  
+             if (Parent.FursTESTEnvironment)
+             {
+                lbl_TEST_Environment.Visible = true;
+             }
+             else
+             {
+                lbl_TEST_Environment.Visible = false;
+             }
 
- 
 
- 
 
-             m_usrc_FVI_SLO = Parent; 
+
+
+
+            m_usrc_FVI_SLO = Parent; 
              m_msg = msg; 
  
 

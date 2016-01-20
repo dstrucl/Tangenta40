@@ -15,6 +15,7 @@ using MNet.SLOTaxService.Messages;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
+    using LanguageControl;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -27,14 +28,16 @@ namespace FiscalVerificationOfInvoices_SLO
     {
         public class ThreadData
         {
+            public bool fursTESTEnvironment = false;
             public string certificateFileName = null;
             public string CertPass = null;
             public string fursWebServiceURL = null;
             public string fursXmlNamespace = null;
             public int timeOutInSec = 0;
             public usrc_FVI_SLO_MessageBox m_usrc_FVI_SLO_MessageBox = null;
-            public ThreadData(string xcertificateFileName, string xCertPass, string xfursWebServiceURL, string xfursXmlNamespace, int xtimeOutInSec, usrc_FVI_SLO_MessageBox x_usrc_FVI_SLO_MessageBox)
+            public ThreadData(bool xfursTESTEnvironment,string xcertificateFileName, string xCertPass, string xfursWebServiceURL, string xfursXmlNamespace, int xtimeOutInSec, usrc_FVI_SLO_MessageBox x_usrc_FVI_SLO_MessageBox)
             {
+                fursTESTEnvironment = xfursTESTEnvironment;
                 certificateFileName = xcertificateFileName;
                 CertPass = xCertPass;
                 fursWebServiceURL = xfursWebServiceURL;
@@ -64,13 +67,22 @@ namespace FiscalVerificationOfInvoices_SLO
 
             try
             {
-                X509Certificate2 certificate = GetCertFromFile(thdata.certificateFileName, thdata.CertPass);
-                FiscalSettings = Settings.Create(certificate, thdata.fursWebServiceURL, thdata.fursXmlNamespace, thdata.timeOutInSec);
-                taxService = TaxService.Create(FiscalSettings);  //create service with settings
+                if (File.Exists(thdata.certificateFileName))
+                {
+                    X509Certificate2 certificate = GetCertFromFile(thdata.certificateFileName, thdata.CertPass);
+                    FiscalSettings = Settings.Create(certificate, thdata.fursWebServiceURL, thdata.fursXmlNamespace, thdata.timeOutInSec);
+                    taxService = TaxService.Create(FiscalSettings);  //create service with settings
+                }
+                else
+                {
+                    xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.ERROR,null, lngRPM.sFileDoesNotExist.s + ":" + thdata.certificateFileName,MessageType.Unknown,null,false,null,null,null);
+                    xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
+                    return;
+                }
             }
             catch (Exception ex)
             {
-                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.ERROR, ex.Message);
+                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.ERROR, null, ex.Message, MessageType.Unknown, null, false, null, null, null);
                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                 return;
             }
@@ -194,11 +206,11 @@ namespace FiscalVerificationOfInvoices_SLO
         }
 
 
-        public bool Start(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox,int message_box_length, string certificateFileName, string CertPass, string fursWebServiceURL, string fursXmlNamespace, int timeOutInSec, ref string ErrReason)
+        public bool Start(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox,int message_box_length,bool fursTESTEnvironment, string certificateFileName, string CertPass, string fursWebServiceURL, string fursXmlNamespace, int timeOutInSec, ref string ErrReason)
         {
             try
             {
-                ThreadData thdata = new ThreadData(certificateFileName, CertPass, fursWebServiceURL, fursXmlNamespace, timeOutInSec, xusrc_FVI_SLO_MessageBox);
+                ThreadData thdata = new ThreadData(fursTESTEnvironment,certificateFileName, CertPass, fursWebServiceURL, fursXmlNamespace, timeOutInSec, xusrc_FVI_SLO_MessageBox);
                 message_box = new Thread_FVI_MessageBox(message_box_length);
                 FVI_Thread = new System.Threading.Thread(Run);
                 FVI_Thread.SetApartmentState(ApartmentState.STA);

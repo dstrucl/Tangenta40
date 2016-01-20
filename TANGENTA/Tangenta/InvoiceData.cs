@@ -788,7 +788,8 @@ namespace Tangenta
                 XmlDocument xdoc = new XmlDocument();
                 xdoc.LoadXml(InvoiceXmlTemplate);
                 XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
-                ndl_TaxNumber.Item(0).InnerText = "10329048";//MyOrganisation.Tax_ID;
+                //string sInnerText_MyOrgTaxID = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; // "10329048";//MyOrganisation.Tax_ID;
+                ndl_TaxNumber.Item(0).InnerText = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; //MyOrganisation.Tax_ID;
                 XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
                 ndl_IssueDateTime.Item(0).InnerText = fs.GetString(IssueDate_Year, 4) + "-"
                                                     + fs.GetString(IssueDate_Month, 2) + "-"
@@ -797,7 +798,8 @@ namespace Tangenta
                                                     + fs.GetString(IssueDate_Min, 2) + ":"
                                                     + fs.GetString(IssueDate_Sec, 2);
                 XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
-                ndl_BusinessPremiseID.Item(0).InnerText = "36CF"; //MyOrganisation.Atom_Office_Name;
+                //string sInnerText_FursD_BussinesPremiseID = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID;
+                ndl_BusinessPremiseID.Item(0).InnerText = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID; // "36CF"; //MyOrganisation.Atom_Office_Name;
                 XmlNodeList ndl_ElectronicDeviceID = xdoc.GetElementsByTagName("fu:ElectronicDeviceID");
                 ndl_ElectronicDeviceID.Item(0).InnerText = Properties.Settings.Default.CasshierName;
                 XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
@@ -822,10 +824,11 @@ namespace Tangenta
 
                 XmlNodeList ndl_OperatorTaxNumber = xdoc.GetElementsByTagName("fu:OperatorTaxNumber");
 
+                string sFursD_InvoiceAuthorTaxID = Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
 
-                //CORRECT THIS DAMJAN!
-                Invoice_Author.Tax_ID = "59729481";
-                //CORRECT THIS DAMJAN!
+                //Invoice_Author.Tax_ID = "59729481";
+
+                Invoice_Author.Tax_ID = Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
 
 
                 ndl_OperatorTaxNumber.Item(0).InnerText = Invoice_Author.Tax_ID;

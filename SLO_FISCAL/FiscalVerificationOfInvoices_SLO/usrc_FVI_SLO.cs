@@ -17,11 +17,236 @@ namespace FiscalVerificationOfInvoices_SLO
     public partial class usrc_FVI_SLO : UserControl
     {
         public bool DEBUG = false;
-        public string certificateFileName = null;
-        public string CertPass = null;
-        public string fursWebServiceURL = null;
-        public string fursXmlNamespace = null;
         public int timeOutInSec = 0;
+
+        public bool FursTESTEnvironment
+        {
+            get { return Properties.Settings.Default.fursTEST_Environment; }
+        }
+        public string FursCertificateFileName
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.furscertificateFileName_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.furscertificateFileName;
+                }
+            }
+        }
+
+        public string FursCertificatePassword
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursCertPass_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursCertPass;
+                }
+            }
+        }
+
+        public string FursWebServiceURL
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursWebServiceURL_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursWebServiceURL;
+                }
+            }
+        }
+
+        public string FursXmlNamespace
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursXmlNamespace_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursXmlNamespace;
+                }
+            }
+        }
+
+        public string FursD_BuildingNumber
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_BuildingNumber_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_BuildingNumber;
+                }
+            }
+        }
+
+        public string FursD_BuildingSectionNumber
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_BuildingSectionNumber_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_BuildingSectionNumber;
+                }
+            }
+        }
+
+        public string FursD_Community
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_Community_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_Community;
+                }
+            }
+        }
+
+        public string FursD_CadastralNumber
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_CadastralNumber_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_CadastralNumber;
+                }
+            }
+        }
+
+        public DateTime FursD_ValidityDate
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_ValidityDate_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_ValidityDate;
+                }
+            }
+        }
+
+        public string FursD_ClosingTag
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_ClosingTag_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_ClosingTag;
+                }
+            }
+        }
+
+        public string FursD_SoftwareSupplierTaxID
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_SoftwareSupplierTaxID_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_SoftwareSupplierTaxID;
+                }
+            }
+        }
+
+        public string FursD_PremiseType
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_PremiseType_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_PremiseType;
+                }
+            }
+        }
+
+        public string FursD_MyOrgTaxID
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_MyOrgTaxID_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_MyOrgTaxID;
+                }
+            }
+        }
+
+        public string FursD_BussinesPremiseID
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_BussinesPremiseID_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_BussinesPremiseID;
+                }
+            }
+        }
+
+        public string FursD_InvoiceAuthorTaxID
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
+                }
+            }
+        }
 
 
         private FormFURSCommunication FormFURSCommunication = null;
@@ -67,7 +292,7 @@ namespace FiscalVerificationOfInvoices_SLO
             if (!bRun)
             {
                 message_box = new usrc_FVI_SLO_MessageBox(MessageBox_Length);
-                thread_fvi.Start(message_box, MessageBox_Length, xcertificateFileName, xCertPass, xfursWebServiceURL, xfursXmlNamespace, xtimeOutInSec, ref ErrReason);
+                thread_fvi.Start(message_box, MessageBox_Length,FursTESTEnvironment,  xcertificateFileName, xCertPass, xfursWebServiceURL, xfursXmlNamespace, xtimeOutInSec, ref ErrReason);
                 timer_MessagePump.Enabled = true;
                 bRun = true;
                 return true;
@@ -94,12 +319,8 @@ namespace FiscalVerificationOfInvoices_SLO
                 while (dlgResult != DialogResult.Cancel)
                 {
                     DEBUG = Properties.Settings.Default.DEBUG;
-                    certificateFileName = Properties.Settings.Default.certificateFileName;
-                    CertPass = Properties.Settings.Default.CertPass;
-                    fursWebServiceURL = Properties.Settings.Default.fursWebServiceURL;
-                    fursXmlNamespace = Properties.Settings.Default.fursXmlNamespace;
                     timeOutInSec = Properties.Settings.Default.timeOutInSec;
-                    if (thread_fvi.Start(message_box, MessageBox_Length, certificateFileName, CertPass, fursWebServiceURL, fursXmlNamespace, timeOutInSec, ref ErrReason))
+                    if (thread_fvi.Start(message_box, MessageBox_Length,FursTESTEnvironment, FursCertificateFileName, FursCertificatePassword, FursWebServiceURL, FursXmlNamespace, timeOutInSec, ref ErrReason))
                     {
                         timer_MessagePump.Enabled = true;
                         bRun = true;
@@ -220,6 +441,12 @@ namespace FiscalVerificationOfInvoices_SLO
                 case Result_MessageBox_Get.OK:
                     switch (message.Message)
                     {
+                        case usrc_FVI_SLO_Message.eMessage.ERROR:
+                            btn_FVI.Enabled = true;
+                            bRun = false;
+                            LogFile.Error.Show(message.ErrorMessage);
+                            break;
+
                         case usrc_FVI_SLO_Message.eMessage.Thread_FVI_START:
                             btn_FVI.Enabled = true;
                             break;

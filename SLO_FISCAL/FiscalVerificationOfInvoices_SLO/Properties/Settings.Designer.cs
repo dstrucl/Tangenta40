@@ -883,31 +883,31 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Luka\\TestCert\\10329048-1.p12")]
-        public string certificateFileName {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string furscertificateFileName {
             get {
-                return ((string)(this["certificateFileName"]));
+                return ((string)(this["furscertificateFileName"]));
             }
             set {
-                this["certificateFileName"] = value;
+                this["furscertificateFileName"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NVIJCY55TF3L")]
-        public string CertPass {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursCertPass {
             get {
-                return ((string)(this["CertPass"]));
+                return ((string)(this["fursCertPass"]));
             }
             set {
-                this["CertPass"] = value;
+                this["fursCertPass"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://blagajne-test.fu.gov.si:9002/v1/cash_registers")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string fursWebServiceURL {
             get {
                 return ((string)(this["fursWebServiceURL"]));
@@ -919,7 +919,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://www.fu.gov.si/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string fursXmlNamespace {
             get {
                 return ((string)(this["fursXmlNamespace"]));
@@ -974,6 +974,330 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
             }
             set {
                 this["QRImageWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Luka\\TestCert\\10329048-1.p12")]
+        public string furscertificateFileName_TEST {
+            get {
+                return ((string)(this["furscertificateFileName_TEST"]));
+            }
+            set {
+                this["furscertificateFileName_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NVIJCY55TF3L")]
+        public string fursCertPass_TEST {
+            get {
+                return ((string)(this["fursCertPass_TEST"]));
+            }
+            set {
+                this["fursCertPass_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://blagajne-test.fu.gov.si:9002/v1/cash_registers")]
+        public string fursWebServiceURL_TEST {
+            get {
+                return ((string)(this["fursWebServiceURL_TEST"]));
+            }
+            set {
+                this["fursWebServiceURL_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.fu.gov.si/")]
+        public string fursXmlNamespace_TEST {
+            get {
+                return ((string)(this["fursXmlNamespace_TEST"]));
+            }
+            set {
+                this["fursXmlNamespace_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool fursTEST_Environment {
+            get {
+                return ((bool)(this["fursTEST_Environment"]));
+            }
+            set {
+                this["fursTEST_Environment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_MyOrgTaxID {
+            get {
+                return ((string)(this["fursD_MyOrgTaxID"]));
+            }
+            set {
+                this["fursD_MyOrgTaxID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_MyOrgTaxID_TEST {
+            get {
+                return ((string)(this["fursD_MyOrgTaxID_TEST"]));
+            }
+            set {
+                this["fursD_MyOrgTaxID_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_BussinesPremiseID {
+            get {
+                return ((string)(this["fursD_BussinesPremiseID"]));
+            }
+            set {
+                this["fursD_BussinesPremiseID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_BussinesPremiseID_TEST {
+            get {
+                return ((string)(this["fursD_BussinesPremiseID_TEST"]));
+            }
+            set {
+                this["fursD_BussinesPremiseID_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_InvoiceAuthorTaxID {
+            get {
+                return ((string)(this["fursD_InvoiceAuthorTaxID"]));
+            }
+            set {
+                this["fursD_InvoiceAuthorTaxID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_InvoiceAuthorTaxID_TEST {
+            get {
+                return ((string)(this["fursD_InvoiceAuthorTaxID_TEST"]));
+            }
+            set {
+                this["fursD_InvoiceAuthorTaxID_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_BuildingNumber {
+            get {
+                return ((string)(this["fursD_BuildingNumber"]));
+            }
+            set {
+                this["fursD_BuildingNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_BuildingNumber_TEST {
+            get {
+                return ((string)(this["fursD_BuildingNumber_TEST"]));
+            }
+            set {
+                this["fursD_BuildingNumber_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_BuildingSectionNumber {
+            get {
+                return ((string)(this["fursD_BuildingSectionNumber"]));
+            }
+            set {
+                this["fursD_BuildingSectionNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_BuildingSectionNumber_TEST {
+            get {
+                return ((string)(this["fursD_BuildingSectionNumber_TEST"]));
+            }
+            set {
+                this["fursD_BuildingSectionNumber_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_Community {
+            get {
+                return ((string)(this["fursD_Community"]));
+            }
+            set {
+                this["fursD_Community"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_Community_TEST {
+            get {
+                return ((string)(this["fursD_Community_TEST"]));
+            }
+            set {
+                this["fursD_Community_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_CadastralNumber {
+            get {
+                return ((string)(this["fursD_CadastralNumber"]));
+            }
+            set {
+                this["fursD_CadastralNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_CadastralNumber_TEST {
+            get {
+                return ((string)(this["fursD_CadastralNumber_TEST"]));
+            }
+            set {
+                this["fursD_CadastralNumber_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2100-01-01")]
+        public global::System.DateTime fursD_ValidityDate {
+            get {
+                return ((global::System.DateTime)(this["fursD_ValidityDate"]));
+            }
+            set {
+                this["fursD_ValidityDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2100-01-01")]
+        public global::System.DateTime fursD_ValidityDate_TEST {
+            get {
+                return ((global::System.DateTime)(this["fursD_ValidityDate_TEST"]));
+            }
+            set {
+                this["fursD_ValidityDate_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_ClosingTag {
+            get {
+                return ((string)(this["fursD_ClosingTag"]));
+            }
+            set {
+                this["fursD_ClosingTag"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_ClosingTag_TEST {
+            get {
+                return ((string)(this["fursD_ClosingTag_TEST"]));
+            }
+            set {
+                this["fursD_ClosingTag_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_PremiseType {
+            get {
+                return ((string)(this["fursD_PremiseType"]));
+            }
+            set {
+                this["fursD_PremiseType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_PremiseType_TEST {
+            get {
+                return ((string)(this["fursD_PremiseType_TEST"]));
+            }
+            set {
+                this["fursD_PremiseType_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_SoftwareSupplierTaxID {
+            get {
+                return ((string)(this["fursD_SoftwareSupplierTaxID"]));
+            }
+            set {
+                this["fursD_SoftwareSupplierTaxID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_SoftwareSupplierTaxID_TEST {
+            get {
+                return ((string)(this["fursD_SoftwareSupplierTaxID_TEST"]));
+            }
+            set {
+                this["fursD_SoftwareSupplierTaxID_TEST"] = value;
             }
         }
     }

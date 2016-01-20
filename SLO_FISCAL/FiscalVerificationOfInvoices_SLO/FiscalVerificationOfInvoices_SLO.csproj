@@ -83,6 +83,18 @@
     <Compile Include="usrc_Error_Response.Designer.cs">
       <DependentUpon>usrc_Error_Response.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_FURS_BussinesPremiseData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_FURS_BussinesPremiseData.Designer.cs">
+      <DependentUpon>usrc_FURS_BussinesPremiseData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_FURS_environment_settings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_FURS_environment_settings.Designer.cs">
+      <DependentUpon>usrc_FURS_environment_settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_FVI_SLO.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +127,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Error_Response.resx">
       <DependentUpon>usrc_Error_Response.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_FURS_BussinesPremiseData.resx">
+      <DependentUpon>usrc_FURS_BussinesPremiseData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_FURS_environment_settings.resx">
+      <DependentUpon>usrc_FURS_environment_settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_FVI_SLO.resx">
       <DependentUpon>usrc_FVI_SLO.cs</DependentUpon>
@@ -154,6 +172,14 @@
     <Content Include="Resources\TAX_Office_Transmission_ERROR.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SLOTaxService\SLOTaxService.csproj">
       <Project>{b2f0a646-91f9-4ddb-aadd-f7a8c1d97fd7}</Project>
       <Name>SLOTaxService</Name>
