@@ -57,7 +57,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TANGENTA\InvoiceDB\InvoiceDB.csproj">
+    <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>InvoiceDB</Name>
     </ProjectReference>

@@ -89,7 +89,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopC", "TANGENTA\ShopC\Sho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Form_Discount", "Form_Discount\Form_Discount.csproj", "{4AC81B7E-A501-40BA-9A29-ED8004430EAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopA", "ShopA\ShopA.csproj", "{71220305-2548-4253-AF8E-9B2C11FF343C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopA", "TANGENTA\ShopA\ShopA.csproj", "{71220305-2548-4253-AF8E-9B2C11FF343C}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

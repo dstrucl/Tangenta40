@@ -788,10 +788,6 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ShopA\ShopA.csproj">
-      <Project>{71220305-2548-4253-af8e-9b2c11ff343c}</Project>
-      <Name>ShopA</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
       <Name>FiscalVerificationOfInvoices_SLO</Name>
