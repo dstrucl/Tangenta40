@@ -1,6 +1,6 @@
-﻿namespace Tangenta
+﻿namespace ShopC
 {
-    partial class usrc_ItemMan
+    partial class usrc_ShopC
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.usrc_Atom_ItemsList = new ShopC.usrc_Atom_ItemsList();
+            this.usrc_ItemList = new ShopC.usrc_ItemList();
             this.lbl_StoreA_SelectetItems = new System.Windows.Forms.Label();
             this.btn_Stock = new System.Windows.Forms.Button();
             this.lbl_Items = new System.Windows.Forms.Label();
             this.btn_Items = new System.Windows.Forms.Button();
             this.lbl_Stock = new System.Windows.Forms.Label();
-            this.usrc_Atom_ItemsList = new Tangenta.usrc_Atom_ItemsList();
-            this.usrc_ItemList = new Tangenta.usrc_ItemList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -65,6 +65,30 @@
             this.splitContainer3.SplitterDistance = 597;
             this.splitContainer3.TabIndex = 1;
             // 
+            // usrc_Atom_ItemsList
+            // 
+            this.usrc_Atom_ItemsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Atom_ItemsList.Location = new System.Drawing.Point(5, 6);
+            this.usrc_Atom_ItemsList.Margin = new System.Windows.Forms.Padding(5);
+            this.usrc_Atom_ItemsList.Name = "usrc_Atom_ItemsList";
+            this.usrc_Atom_ItemsList.NumberOfItemsPerPage = 10;
+            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(583, 493);
+            this.usrc_Atom_ItemsList.TabIndex = 5;
+            // 
+            // usrc_ItemList
+            // 
+            this.usrc_ItemList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_ItemList.Location = new System.Drawing.Point(1, 6);
+            this.usrc_ItemList.Margin = new System.Windows.Forms.Padding(5);
+            this.usrc_ItemList.Name = "usrc_ItemList";
+            this.usrc_ItemList.NumberOfItemsPerPage = 10;
+            this.usrc_ItemList.Size = new System.Drawing.Size(653, 496);
+            this.usrc_ItemList.TabIndex = 22;
+            // 
             // lbl_StoreA_SelectetItems
             // 
             this.lbl_StoreA_SelectetItems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -80,7 +104,7 @@
             // btn_Stock
             // 
             this.btn_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Stock.Image = global::Tangenta.Properties.Resources.Edit;
+            this.btn_Stock.Image = global::ShopC.Properties.Resources.Edit;
             this.btn_Stock.Location = new System.Drawing.Point(1064, 3);
             this.btn_Stock.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Stock.Name = "btn_Stock";
@@ -103,7 +127,7 @@
             // btn_Items
             // 
             this.btn_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Items.Image = global::Tangenta.Properties.Resources.Edit;
+            this.btn_Items.Image = global::ShopC.Properties.Resources.Edit;
             this.btn_Items.Location = new System.Drawing.Point(1216, 3);
             this.btn_Items.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Items.Name = "btn_Items";
@@ -123,29 +147,7 @@
             this.lbl_Stock.TabIndex = 5;
             this.lbl_Stock.Text = "Zaloge";
             // 
-            // usrc_Atom_ItemsList
-            // 
-            this.usrc_Atom_ItemsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Atom_ItemsList.Location = new System.Drawing.Point(5, 6);
-            this.usrc_Atom_ItemsList.Margin = new System.Windows.Forms.Padding(5);
-            this.usrc_Atom_ItemsList.Name = "usrc_Atom_ItemsList";
-            this.usrc_Atom_ItemsList.Size = new System.Drawing.Size(583, 493);
-            this.usrc_Atom_ItemsList.TabIndex = 5;
-            // 
-            // usrc_ItemList
-            // 
-            this.usrc_ItemList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_ItemList.Location = new System.Drawing.Point(1, 6);
-            this.usrc_ItemList.Margin = new System.Windows.Forms.Padding(5);
-            this.usrc_ItemList.Name = "usrc_ItemList";
-            this.usrc_ItemList.Size = new System.Drawing.Size(653, 496);
-            this.usrc_ItemList.TabIndex = 22;
-            // 
-            // usrc_ItemMan
+            // usrc_ShopC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.splitContainer3);
@@ -155,7 +157,7 @@
             this.Controls.Add(this.lbl_StoreA_SelectetItems);
             this.Controls.Add(this.lbl_Stock);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "usrc_ItemMan";
+            this.Name = "usrc_ShopC";
             this.Size = new System.Drawing.Size(1260, 538);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
@@ -169,12 +171,12 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer3;
-        internal usrc_Atom_ItemsList usrc_Atom_ItemsList;
         private System.Windows.Forms.Label lbl_StoreA_SelectetItems;
         private System.Windows.Forms.Button btn_Stock;
         private System.Windows.Forms.Label lbl_Items;
         private System.Windows.Forms.Button btn_Items;
         private System.Windows.Forms.Label lbl_Stock;
-        internal usrc_ItemList usrc_ItemList;
+        public usrc_Atom_ItemsList usrc_Atom_ItemsList;
+        public usrc_ItemList usrc_ItemList;
     }
 }

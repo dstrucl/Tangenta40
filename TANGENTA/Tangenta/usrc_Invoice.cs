@@ -13,11 +13,21 @@ using System.Windows.Forms.VisualStyles;
 using LanguageControl;
 using DBTypes;
 using InvoiceDB;
+using ShopA;
+using ShopB;
+using ShopC;
 
 namespace Tangenta
 {
     public partial class usrc_Invoice : UserControl
     {
+        public enum eShopsMode { A, B, C, AB, BC, AC, ABC };
+
+        usrc_ShopA m_usrc_ShopA = null;
+        usrc_ShopB m_usrc_ShopB = null;
+        usrc_ShopC m_usrc_ShopC = null;
+        public eShopsMode m_eShopsMode = eShopsMode.BC;
+
         usrc_InvoiceMan m_usrc_InvoiceMan = null;
         public enum emode
         {
@@ -75,6 +85,358 @@ namespace Tangenta
         public enum_Invoice eInvoiceType = enum_Invoice.Invoice;
 
         public List<Employee> Employees = new List<Employee>();
+
+        internal void Set_eShopsMode(eShopsMode xeShopsMode)
+        {
+            m_eShopsMode = xeShopsMode;
+            Save_eShopsMode(m_eShopsMode);
+            switch (xeShopsMode)
+            {
+                case usrc_Invoice.eShopsMode.A:
+                    Set_eShopsMode_A();
+                    break;
+                case usrc_Invoice.eShopsMode.B:
+                    Set_eShopsMode_B();
+                    break;
+                case usrc_Invoice.eShopsMode.C:
+                    Set_eShopsMode_C();
+                    break;
+                case usrc_Invoice.eShopsMode.AB:
+                    Set_eShopsMode_AB();
+                    break;
+                case usrc_Invoice.eShopsMode.BC:
+                    Set_eShopsMode_BC();
+                    break;
+                case usrc_Invoice.eShopsMode.AC:
+                    Set_eShopsMode_AC();
+                    break;
+                case usrc_Invoice.eShopsMode.ABC:
+                    Set_eShopsMode_ABC();
+                    break;
+                default:
+                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode!");
+                    return;
+            }
+        }
+
+        private void Set_eShopsMode_A()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+            this.splitContainer1.Panel2Collapsed = true;
+            if (m_usrc_ShopB!=null)
+            {
+                m_usrc_ShopB.Dispose();
+                m_usrc_ShopB = null;
+            }
+            if (m_usrc_ShopC != null)
+            {
+                m_usrc_ShopC.Dispose();
+                m_usrc_ShopC = null;
+            }
+            if (m_usrc_ShopA != null)
+            {
+                m_usrc_ShopA.Dispose();
+                m_usrc_ShopA = null;
+            }
+            m_usrc_ShopA = new usrc_ShopA();
+            m_usrc_ShopA.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopA.Dock = DockStyle.Fill;
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
+        }
+
+        private void Set_eShopsMode_B()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+            this.splitContainer1.Panel2Collapsed = true;
+            if (m_usrc_ShopA != null)
+            {
+                m_usrc_ShopA.Dispose();
+                m_usrc_ShopA = null;
+            }
+            if (m_usrc_ShopC != null)
+            {
+                m_usrc_ShopC.Dispose();
+                m_usrc_ShopC = null;
+            }
+            if (m_usrc_ShopB != null)
+            {
+                m_usrc_ShopB.Dispose();
+                m_usrc_ShopB = null;
+            }
+            New_ShopB();
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopB);
+
+        }
+
+        private void Set_eShopsMode_C()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+            this.splitContainer1.Panel2Collapsed = true;
+            if (m_usrc_ShopA != null)
+            {
+                m_usrc_ShopA.Dispose();
+                m_usrc_ShopA = null;
+            }
+            if (m_usrc_ShopB != null)
+            {
+                m_usrc_ShopB.Dispose();
+                m_usrc_ShopB = null;
+            }
+            if (m_usrc_ShopC != null)
+            {
+                m_usrc_ShopC.Dispose();
+                m_usrc_ShopC = null;
+
+            }
+            m_usrc_ShopC = new usrc_ShopC();
+            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopC.Dock = DockStyle.Fill;
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopC);
+
+        }
+
+        private void Set_eShopsMode_AB()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+
+            this.splitContainer1.Panel2Collapsed = false;
+            this.splitContainer3.Panel2Collapsed = true;
+
+            if (m_usrc_ShopC != null)
+            {
+                m_usrc_ShopC.Dispose();
+                m_usrc_ShopC = null;
+            }
+
+            if (m_usrc_ShopA != null)
+            {
+                m_usrc_ShopA.Dispose();
+                m_usrc_ShopA = null;
+            }
+            m_usrc_ShopA = new usrc_ShopA();
+            m_usrc_ShopA.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopA.Dock = DockStyle.Fill;
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
+
+            if (m_usrc_ShopB != null)
+            {
+                m_usrc_ShopB.Dispose();
+                m_usrc_ShopB = null;
+            }
+            New_ShopB();
+            this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopB);
+        }
+
+        private void New_ShopB()
+        {
+            m_usrc_ShopB = new usrc_ShopB();
+            m_usrc_ShopB.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopB.Dock = DockStyle.Fill;
+            m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
+            m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
+            m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
+            m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
+
+        }
+
+
+        private void Set_eShopsMode_BC()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+
+            this.splitContainer1.Panel2Collapsed = false;
+            this.splitContainer3.Panel2Collapsed = true;
+
+            if (m_usrc_ShopA != null)
+            {
+                m_usrc_ShopA.Dispose();
+                m_usrc_ShopA = null;
+            }
+
+            if (m_usrc_ShopB != null)
+            {
+                m_usrc_ShopB.Dispose();
+                m_usrc_ShopB = null;
+            }
+
+            if (m_usrc_ShopC != null)
+            {
+                m_usrc_ShopC.Dispose();
+                m_usrc_ShopC = null;
+            }
+
+            New_ShopB();
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopB);
+
+            m_usrc_ShopC = new usrc_ShopC();
+            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopC.Dock = DockStyle.Fill;
+            this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopC);
+        }
+
+        private void Set_eShopsMode_AC()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+
+            this.splitContainer1.Panel2Collapsed = false;
+            this.splitContainer3.Panel2Collapsed = true;
+
+            if (m_usrc_ShopA != null)
+            {
+                m_usrc_ShopA.Dispose();
+                m_usrc_ShopA = null;
+            }
+
+            if (m_usrc_ShopB != null)
+            {
+                m_usrc_ShopB.Dispose();
+                m_usrc_ShopB = null;
+            }
+
+            if (m_usrc_ShopC != null)
+            {
+                m_usrc_ShopC.Dispose();
+                m_usrc_ShopC = null;
+            }
+
+            m_usrc_ShopA = new usrc_ShopA();
+            m_usrc_ShopA.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopA.Dock = DockStyle.Fill;
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
+
+            m_usrc_ShopC = new usrc_ShopC();
+            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopC.Dock = DockStyle.Fill;
+            this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopC);
+        }
+
+        private void Set_eShopsMode_ABC()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+
+            this.splitContainer1.Panel2Collapsed = false;
+            this.splitContainer3.Panel1Collapsed = false;
+            this.splitContainer3.Panel2Collapsed = false;
+
+            if (m_usrc_ShopA != null)
+            {
+                m_usrc_ShopA.Dispose();
+                m_usrc_ShopA = null;
+            }
+
+            if (m_usrc_ShopB != null)
+            {
+                m_usrc_ShopB.Dispose();
+                m_usrc_ShopB = null;
+            }
+
+            if (m_usrc_ShopC != null)
+            {
+                m_usrc_ShopC.Dispose();
+                m_usrc_ShopC = null;
+            }
+
+            m_usrc_ShopA = new usrc_ShopA();
+            m_usrc_ShopA.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopA.Dock = DockStyle.Fill;
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
+
+            New_ShopB();
+            this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopB);
+
+            New_ShopC();
+            this.splitContainer3.Panel2.Controls.Add(m_usrc_ShopC);
+        }
+
+        private void New_ShopC()
+        {
+            m_usrc_ShopC = new usrc_ShopC();
+            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopC.Dock = DockStyle.Fill;
+            m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
+            m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
+        }
+
+        internal void Save_eShopsMode(eShopsMode xeShopsMode)
+        {
+            switch (xeShopsMode)
+            {
+                case usrc_Invoice.eShopsMode.A:
+                    Properties.Settings.Default.eShopsMode = "A";
+                    break;
+                case usrc_Invoice.eShopsMode.B:
+                    Properties.Settings.Default.eShopsMode = "B";
+                    break;
+                case usrc_Invoice.eShopsMode.C:
+                    Properties.Settings.Default.eShopsMode = "C";
+                    break;
+                case usrc_Invoice.eShopsMode.AB:
+                    Properties.Settings.Default.eShopsMode = "AB";
+                    break;
+                case usrc_Invoice.eShopsMode.BC:
+                    Properties.Settings.Default.eShopsMode = "BC";
+                    break;
+                case usrc_Invoice.eShopsMode.AC:
+                    Properties.Settings.Default.eShopsMode = "AC";
+                    break;
+                case usrc_Invoice.eShopsMode.ABC:
+                    Properties.Settings.Default.eShopsMode = "ABC";
+                    break;
+                default:
+                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode!");
+                    return;
+                    break;
+            }
+            Properties.Settings.Default.Save();
+
+        }
+
+        private void Set_eShopsMode(string eShopsMode)
+        {
+            if (eShopsMode.Equals("A"))
+            {
+                Set_eShopsMode(usrc_Invoice.eShopsMode.A);
+            }
+            else if (eShopsMode.Equals("B"))
+            {
+                Set_eShopsMode(usrc_Invoice.eShopsMode.B);
+            }
+            else if (eShopsMode.Equals("C"))
+            {
+                Set_eShopsMode(usrc_Invoice.eShopsMode.C);
+            }
+            else if (eShopsMode.Equals("AB"))
+            {
+                Set_eShopsMode(usrc_Invoice.eShopsMode.AB);
+            }
+            else if (eShopsMode.Equals("BC"))
+            {
+                Set_eShopsMode(usrc_Invoice.eShopsMode.BC);
+            }
+            else if (eShopsMode.Equals("AC"))
+            {
+                Set_eShopsMode(usrc_Invoice.eShopsMode.AC);
+            }
+            else if (eShopsMode.Equals("ABC"))
+            {
+                Set_eShopsMode(usrc_Invoice.eShopsMode.ABC);
+            }
+        }
+
         public class InvoiceType
         {
             private enum_Invoice m_eInvoiceType = enum_Invoice.Invoice;
@@ -173,8 +535,21 @@ namespace Tangenta
         internal void SetMode(emode mode)
         {
             m_mode = mode;
-            this.usrc_SimpleItemMan.SetMode(mode);
-            this.usrc_ItemMan.SetMode(mode);
+            usrc_ShopB.eMode usrc_ShopB_eMode = usrc_ShopB.eMode.EDIT;
+            usrc_ShopC.eMode usrc_ShopC_eMode = usrc_ShopC.eMode.EDIT;
+            if (mode == emode.edit_eInvoiceType)
+            {
+                usrc_ShopB_eMode = usrc_ShopB.eMode.EDIT;
+                usrc_ShopC_eMode = usrc_ShopC.eMode.EDIT;
+            }
+            else
+            {
+                usrc_ShopB_eMode = usrc_ShopB.eMode.VIEW;
+                usrc_ShopC_eMode = usrc_ShopC.eMode.EDIT;
+            }
+
+            this.m_usrc_ShopB.SetMode(usrc_ShopB_eMode);
+            this.m_usrc_ShopC.SetMode(usrc_ShopC_eMode);
             if (mode == emode.view_eInvoiceType)
             {
                 chk_Storno.Visible = true;
@@ -237,9 +612,8 @@ namespace Tangenta
             {
                 m_ShopBC = new ShopBC(DBtcn);
             }
-            this.usrc_SimpleItemMan.Init(m_ShopBC, DBtcn);
-            this.usrc_ItemMan.Init(m_ShopBC, DBtcn, this);
 
+            Set_eShopsMode(Properties.Settings.Default.eShopsMode);
 
 
             string Err = null;
@@ -265,11 +639,11 @@ namespace Tangenta
                                         if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.usrc_PriceList.ID))
                                         {
 
-                                            this.usrc_SimpleItemMan.Set_dgv_SelectedSimpleItems();
+                                            this.m_usrc_ShopB.Set_dgv_SelectedSimpleItems();
 
                                         }
 
-                                        if (this.usrc_ItemMan.usrc_ItemList.Get_Price_Item_Stock_Data(this.usrc_PriceList.ID))
+                                        if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.usrc_PriceList.ID))
                                         {
 
 
@@ -362,11 +736,11 @@ namespace Tangenta
             {
                 if (m_ShopBC.m_CurrentInvoice.bDraft)
                 {
-                    this.usrc_SimpleItemMan.SetDraftButtons();
+                    this.m_usrc_ShopB.SetDraftButtons();
                 }
                 else
                 {
-                    this.usrc_SimpleItemMan.SetViewButtons();
+                    this.m_usrc_ShopB.SetViewButtons();
                 }
                 this.usrc_Customer.Show_Customer(m_ShopBC.m_CurrentInvoice);
                 return true;
@@ -382,9 +756,6 @@ namespace Tangenta
         {
             if (bInitialise)
             {
-                lngRPM.s_rdbStore_SimpleItem_And_Item.Text(rdbStore_SimpleItem_And_Item);
-                lngRPM.s_rdbStore_Item.Text(rdbStore_Item);
-                lngRPM.s_rdbStore_SimpleItem.Text(rdbStore_SimpleItem);
                 lngRPM.s_Head.Text(chk_Head);
                 chk_Head.Checked = true;
                 chk_Head.CheckedChanged += chk_Head_CheckedChanged;
@@ -402,6 +773,7 @@ namespace Tangenta
             }
             return false;
         }
+
 
         void chk_Head_CheckedChanged(object sender, EventArgs e)
         {
@@ -444,10 +816,13 @@ namespace Tangenta
             if (!EventsActive)
             {
                 EventsActive = true;
-                this.usrc_SimpleItemMan.aa_ItemAdded += new usrc_ShopB.delegate_ItemAdded(usrc_SimpleItemMan_ItemAdded);
-                this.usrc_SimpleItemMan.aa_ItemRemoved += new usrc_ShopB.delegate_ItemRemoved(usrc_SimpleItemMan_ItemRemoved);
-                this.usrc_SimpleItemMan.aa_ItemUpdated += new usrc_ShopB.delegate_ItemUpdated(usrc_SimpleItemMan_ItemUpdated);
-                this.usrc_SimpleItemMan.aa_ExtraDiscount += new usrc_ShopB.delegate_ExtraDiscount(usrc_SimpleItemMan_ExtraDiscount);
+                if (this.m_usrc_ShopB!=null)
+                {
+                    this.m_usrc_ShopB.aa_ItemAdded += new usrc_ShopB.delegate_ItemAdded(usrc_ShopB_ItemAdded);
+                    this.m_usrc_ShopB.aa_ItemRemoved += new usrc_ShopB.delegate_ItemRemoved(usrc_ShopB_ItemRemoved);
+                    this.m_usrc_ShopB.aa_ItemUpdated += new usrc_ShopB.delegate_ItemUpdated(usrc_ShopB_ItemUpdated);
+                    this.m_usrc_ShopB.aa_ExtraDiscount += new usrc_ShopB.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
+                }
             }
         }
 
@@ -456,10 +831,13 @@ namespace Tangenta
             if (EventsActive)
             {
                 EventsActive = false;
-                this.usrc_SimpleItemMan.aa_ItemAdded -= new usrc_ShopB.delegate_ItemAdded(usrc_SimpleItemMan_ItemAdded);
-                this.usrc_SimpleItemMan.aa_ItemRemoved -= new usrc_ShopB.delegate_ItemRemoved(usrc_SimpleItemMan_ItemRemoved);
-                this.usrc_SimpleItemMan.aa_ItemUpdated -= new usrc_ShopB.delegate_ItemUpdated(usrc_SimpleItemMan_ItemUpdated);
-                this.usrc_SimpleItemMan.aa_ExtraDiscount -= new usrc_ShopB.delegate_ExtraDiscount(usrc_SimpleItemMan_ExtraDiscount);
+                if (m_usrc_ShopB != null)
+                {
+                    this.m_usrc_ShopB.aa_ItemAdded -= new usrc_ShopB.delegate_ItemAdded(usrc_ShopB_ItemAdded);
+                    this.m_usrc_ShopB.aa_ItemRemoved -= new usrc_ShopB.delegate_ItemRemoved(usrc_ShopB_ItemRemoved);
+                    this.m_usrc_ShopB.aa_ItemUpdated -= new usrc_ShopB.delegate_ItemUpdated(usrc_ShopB_ItemUpdated);
+                    this.m_usrc_ShopB.aa_ExtraDiscount -= new usrc_ShopB.delegate_ExtraDiscount(usrc_ShopB_ExtraDiscount);
+                }
             }
         }
 
@@ -502,7 +880,7 @@ namespace Tangenta
 
         internal bool GetSimpleItemData(ref int iCountSimpleItemData)
         {
-            if (this.usrc_SimpleItemMan.GetSimpleItemData(ref iCountSimpleItemData))
+            if (this.m_usrc_ShopB.GetSimpleItemData(ref iCountSimpleItemData))
             {
                 if (iCountSimpleItemData > 0)
                 {
@@ -512,8 +890,8 @@ namespace Tangenta
                 {
                     if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
-                        this.usrc_SimpleItemMan.EditSimpleItem();
-                        if (this.usrc_SimpleItemMan.GetSimpleItemData(ref iCountSimpleItemData))
+                        this.m_usrc_ShopB.EditSimpleItem();
+                        if (this.m_usrc_ShopB.GetSimpleItemData(ref iCountSimpleItemData))
                         {
                             return true;
                         }
@@ -536,7 +914,7 @@ namespace Tangenta
 
         internal bool Get_Price_SimpleItem_Data(ref int iCount_Price_SimpleItem_Data, long PriceList_id)
         {
-            if (this.usrc_SimpleItemMan.Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, PriceList_id))
+            if (this.m_usrc_ShopB.Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, PriceList_id))
             {
                 if (iCount_Price_SimpleItem_Data > 0)
                 {
@@ -555,7 +933,7 @@ namespace Tangenta
         }
         internal bool GetItemData(ref int iCountItemData)
         {
-            if (this.usrc_ItemMan.GetItemData(ref iCountItemData))
+            if (this.m_usrc_ShopC.GetItemData(ref iCountItemData))
             {
                 if (iCountItemData > 0)
                 {
@@ -565,8 +943,8 @@ namespace Tangenta
                 {
                     if (MessageBox.Show(this, lngRPM.s_NoItemData_EnterItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
-                        this.usrc_ItemMan.EditItem();
-                        if (this.usrc_ItemMan.GetItemData(ref iCountItemData))
+                        this.m_usrc_ShopC.EditItem();
+                        if (this.m_usrc_ShopC.GetItemData(ref iCountItemData))
                         {
                             return true;
                         }
@@ -711,19 +1089,19 @@ namespace Tangenta
                     if (m_ShopBC.m_CurrentInvoice.bDraft)
                     {
                         SetMode(emode.edit_eInvoiceType);
-                        this.usrc_SimpleItemMan.SetCurrentInvoice_SelectedSimpleItems();
-                        this.usrc_ItemMan.SetCurrentInvoice_SelectedItems();
+                        this.m_usrc_ShopB.SetCurrentInvoice_SelectedSimpleItems();
+                        this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                     }
                     else
                     {
                         SetMode(emode.view_eInvoiceType);
-                        this.usrc_SimpleItemMan.SetCurrentInvoice_SelectedSimpleItems();
-                        this.usrc_ItemMan.SetCurrentInvoice_SelectedItems();
+                        this.m_usrc_ShopB.SetCurrentInvoice_SelectedSimpleItems();
+                        this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                         chk_Storno_CanBe_ManualyChanged = false;
                         this.chk_Storno.Checked = m_ShopBC.m_CurrentInvoice.bStorno;
                         chk_Storno_CanBe_ManualyChanged = true;
                     }
-                    this.usrc_ItemMan.Reset();
+                    this.m_usrc_ShopC.Reset();
                     return true;
                 }
                 else
@@ -734,22 +1112,22 @@ namespace Tangenta
                         if (Invoice_ID >= 0)
                         {
                             this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopBC.m_CurrentInvoice.bDraft, m_ShopBC.m_CurrentInvoice.FinancialYear, m_ShopBC.m_CurrentInvoice.NumberInFinancialYear, m_ShopBC.m_CurrentInvoice.DraftNumber);
-                            this.usrc_ItemMan.Clear();
-                            this.usrc_ItemMan.SetCurrentInvoice_SelectedItems();
+                            this.m_usrc_ShopC.Clear();
+                            this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                         }
-                        this.usrc_ItemMan.Reset();
+                        this.m_usrc_ShopC.Reset();
                         return true;
                     }
                     else
                     {
-                        this.usrc_ItemMan.Reset();
+                        this.m_usrc_ShopC.Reset();
                         return false;
                     }
                 }
             }
             else
             {
-                this.usrc_ItemMan.Reset();
+                this.m_usrc_ShopC.Reset();
                 return false;
             }
         }
@@ -1012,7 +1390,7 @@ namespace Tangenta
             TaxSum = null;
             TaxSum = new StaticLib.TaxSum();
 
-            foreach (DataRow dr in this.usrc_SimpleItemMan.dt_SelectedSimpleItem.Rows)
+            foreach (DataRow dr in this.m_usrc_ShopB.dt_SelectedSimpleItem.Rows)
             {
                 decimal price = (decimal)dr["SelectedSimpleItemPrice"];
                 decimal tax = (decimal)dr["SelectedSimpleItemPriceTax"];
@@ -1048,32 +1426,32 @@ namespace Tangenta
             this.lbl_Sum.Text = dsum_GrossSum.ToString() + " " + GlobalData.BaseCurrency.Symbol;// +" tax:" + TaxSum.ToString() + " " + NetSum.ToString();
         }
 
-        private void usrc_ItemMan_ItemAdded()
+        private void usrc_ShopC_ItemAdded()
         {
             GetPriceSum();
         }
 
-        private void usrc_ItemMan_After_Atom_Item_Remove()
+        private void usrc_ShopC_After_Atom_Item_Remove()
         {
             GetPriceSum();
         }
 
-        void usrc_SimpleItemMan_ItemUpdated(long ID, DataTable dt_SelectedSimpleItem)
+        void usrc_ShopB_ItemUpdated(long ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        void usrc_SimpleItemMan_ExtraDiscount(long ID, DataTable dt_SelectedSimpleItem)
+        void usrc_ShopB_ExtraDiscount(long ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        void usrc_SimpleItemMan_ItemRemoved(long ID, DataTable dt_SelectedSimpleItem)
+        void usrc_ShopB_ItemRemoved(long ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
 
-        void usrc_SimpleItemMan_ItemAdded(long ID, DataTable dt_SelectedSimpleItem)
+        void usrc_ShopB_ItemAdded(long ID, DataTable dt_SelectedSimpleItem)
         {
             GetPriceSum();
         }
@@ -1157,42 +1535,6 @@ namespace Tangenta
             }
         }
 
-
-        private void rdbStore_SimpleItem_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdbStore_SimpleItem.Checked)
-            {
-                this.splitContainer1.Panel1Collapsed = false;
-                this.splitContainer1.Panel2Collapsed = true;
-            }
-            else
-            {
-                this.splitContainer1.Panel1Collapsed = true;
-            }
-        }
-
-        private void rdbStore_Item_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdbStore_Item.Checked)
-            {
-                this.splitContainer1.Panel2Collapsed = false;
-                this.splitContainer1.Panel1Collapsed = true;
-            }
-            else
-            {
-                this.splitContainer1.Panel2Collapsed = true;
-            }
-
-        }
-
-        private void rdbStore_SimpleItem_And_Item_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdbStore_SimpleItem_And_Item.Checked)
-            {
-                this.splitContainer1.Panel1Collapsed = false;
-                this.splitContainer1.Panel2Collapsed = false;
-            }
-        }
 
 
         private void usrc_Customer_Load(object sender, EventArgs e)
@@ -1303,6 +1645,12 @@ namespace Tangenta
                 this.Cursor = Cursors.Arrow;
                 return false;
             }
+        }
+
+        private void btn_Select_Shops_Click(object sender, EventArgs e)
+        {
+            Form_SelectShops frm_sel_shops = new Form_SelectShops(this);
+            frm_sel_shops.ShowDialog(this);
         }
     }
 }

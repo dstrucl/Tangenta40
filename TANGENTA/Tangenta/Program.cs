@@ -97,8 +97,6 @@ namespace Tangenta
         internal static bool bChangeConnection = false;
         internal static bool bSymulator = false;
         internal static bool bRS232Monitor = false;
-        public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-        public static Color Color_Stock = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
         internal static bool b_FVI_SLO = true;
         internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
 

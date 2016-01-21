@@ -163,7 +163,7 @@ namespace Tangenta
                 string tax_name = DBTypes.func._set_string(dr["Atom_Taxation_Name"]);
                 taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
 
-                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_rdbStore_SimpleItem,
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
                                                              DBTypes.func._set_string(dr["Name"]),
                                                              DBTypes.func._set_decimal(dr["RetailSimpleItemPrice"]),
                                                              "", // no unit
@@ -355,7 +355,7 @@ namespace Tangenta
 
                 taxSum.Add(tax_price, ItemsNetPrice, tax_name, taxation_rate);
 
-                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix,lngRPM.s_rdbStore_Item,
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix,lngRPM.s_Shop_B,
                                                              DBTypes.func._set_string(appisd.Atom_Item_UniqueName.v),
                                                              DBTypes.func._set_decimal(appisd.RetailPricePerUnit.v),
                                                              DBTypes.func._set_string(appisd.Atom_Unit_Name.v),

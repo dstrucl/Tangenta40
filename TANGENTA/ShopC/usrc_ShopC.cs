@@ -13,8 +13,12 @@ using InvoiceDB;
 
 namespace ShopC
 {
-    public partial class usrc_ItemMan : UserControl
+    public partial class usrc_ShopC : UserControl
     {
+        public enum eMode { VIEW, EDIT };
+
+        public long m_PriceList_ID = -1;
+
         public delegate void delegate_ItemAdded();
         public event delegate_ItemAdded ItemAdded = null;
 
@@ -28,8 +32,8 @@ namespace ShopC
         DataTable dt_Item = new DataTable();
         private InvoiceDB.ShopBC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
-        private usrc_Invoice m_usrc_Invoice = null;
-        public usrc_ItemMan()
+       // private usrc_Invoice m_usrc_Invoice = null;
+        public usrc_ShopC()
         {
             InitializeComponent();
             lngRPM.s_lbl_StoreA_SelectetItems.Text(lbl_StoreA_SelectetItems);
@@ -41,34 +45,34 @@ namespace ShopC
 
         
 
-        public long PriceList_ID
-        {
-            get
-            {
-                if (m_usrc_Invoice != null)
-                {
-                    return m_usrc_Invoice.PriceList_ID;
-                }
-                else
-                {
-                    if (DesignMode)
-                    {
-                        return -1;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_ItemMan: public long PriceList_ID:usrc_Invoice == null!");
-                        return -1;
-                    }
-                }
-            }
-        }
+        //public long PriceList_ID
+        //{
+        //    get
+        //    {
+        //        if (m_usrc_Invoice != null)
+        //        {
+        //            return m_usrc_Invoice.PriceList_ID;
+        //        }
+        //        else
+        //        {
+        //            if (DesignMode)
+        //            {
+        //                return -1;
+        //            }
+        //            else
+        //            {
+        //                LogFile.Error.Show("ERROR:usrc_ItemMan: public long PriceList_ID:usrc_Invoice == null!");
+        //                return -1;
+        //            }
+        //        }
+        //    }
+        //}
 
-        internal void Init(InvoiceDB.ShopBC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, usrc_Invoice x_usrc_Invoice)
+        public void Init(InvoiceDB.ShopBC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             //Program.iGDIcUser502 = Program.getGuiResourcesUserCount();
 
-            m_usrc_Invoice = x_usrc_Invoice;
+            //m_usrc_Invoice = x_usrc_Invoice;
             m_InvoiceDB = xm_InvoiceDB;
             DBtcn = xDBtcn;
 
@@ -97,22 +101,22 @@ namespace ShopC
             }
         }
 
-        internal void SetMode(usrc_Invoice.emode mode)
+        public void SetMode(eMode mode)
         {
             switch (mode)
             {
-                case usrc_Invoice.emode.view_eInvoiceType:
+                case eMode.VIEW:
                     splitContainer3.Panel2Collapsed = true;
                     break;
 
-                case usrc_Invoice.emode.edit_eInvoiceType:
+                case eMode.EDIT:
                     splitContainer3.Panel2Collapsed = false;
                     break;
             }
 
         }
 
-        internal bool GetItemData(ref int iCount)
+        public bool GetItemData(ref int iCount)
         {
             SQLTable tbl_Item = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Item));
 
@@ -160,16 +164,16 @@ namespace ShopC
 
         }
 
-        internal void Reset()
+        public void Reset()
         {
             this.usrc_ItemList.Reset();
         }
 
-        internal void Clear()
+        public void Clear()
         {
             this.usrc_Atom_ItemsList.Clear();
         }
-        internal void SetCurrentInvoice_SelectedItems()
+        public void SetCurrentInvoice_SelectedItems()
         {
             this.usrc_Atom_ItemsList.SetCurrentInvoice_SelectedItems();
         }
@@ -183,7 +187,7 @@ namespace ShopC
                 {
                     if (EditStock())
                     {
-                        usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_Invoice.usrc_PriceList.ID);
+                        usrc_ItemList.Get_Price_Item_Stock_Data(m_PriceList_ID);
                     }
                 }
                 else
@@ -238,7 +242,7 @@ namespace ShopC
             EditItem();
         }
 
-        internal bool EditItem()
+        public bool EditItem()
         {
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Item)));
             Form_Item_Edit edt_Item_dlg = new Form_Item_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
@@ -248,7 +252,7 @@ namespace ShopC
 
             if (edt_Item_dlg.Changed)
             {
-                usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_Invoice.usrc_PriceList.ID);
+                usrc_ItemList.Get_Price_Item_Stock_Data(m_PriceList_ID);
             }
 
             if (edt_Item_dlg.bPriceListChanged)

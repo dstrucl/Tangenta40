@@ -1,6 +1,7 @@
 ﻿using DBTypes;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,10 @@ namespace InvoiceDB
 
         public static JOURNAL_ProformaInvoice_Type_definitions JOURNAL_ProformaInvoice_Type_definitions = new JOURNAL_ProformaInvoice_Type_definitions();
         public static xCurrency BaseCurrency = null;
+
+        public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+        public static Color Color_Stock = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+
 
         public static bool GetWorkPeriod(string Atom_WorkPeriod_Type_Name, string x_Atom_WorkPeriod_Type_Description, DateTime dtStart, DateTime_v dtEnd_v, ref string Err)
         {

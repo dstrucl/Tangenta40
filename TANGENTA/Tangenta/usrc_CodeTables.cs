@@ -119,7 +119,7 @@ namespace Tangenta
         {
 
             SQLTable tbl_StockAddress = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Stock_AddressLevel1)));
-            Form_StockAddress_Edit unit_dlg = new Form_StockAddress_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_StockAddress, "ID asc");
+            ShopC.Form_StockAddress_Edit unit_dlg = new ShopC.Form_StockAddress_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_StockAddress, "ID asc");
             if (unit_dlg.ShowDialog() == DialogResult.OK)
             {
                 bChanged = unit_dlg.Changed;

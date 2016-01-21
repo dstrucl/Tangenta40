@@ -466,5 +466,17 @@ namespace Tangenta.Properties {
                 this["FullScreen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BC")]
+        public string eShopsMode {
+            get {
+                return ((string)(this["eShopsMode"]));
+            }
+            set {
+                this["eShopsMode"] = value;
+            }
+        }
     }
 }

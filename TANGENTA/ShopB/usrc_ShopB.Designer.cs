@@ -204,7 +204,7 @@
             // btn_edit_SimpleItems
             // 
             this.btn_edit_SimpleItems.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_edit_SimpleItems.Image = global::Tangenta.Properties.Resources.Edit;
+            this.btn_edit_SimpleItems.Image = Properties.Resources.Edit;
             this.btn_edit_SimpleItems.Location = new System.Drawing.Point(766, 0);
             this.btn_edit_SimpleItems.Name = "btn_edit_SimpleItems";
             this.btn_edit_SimpleItems.Size = new System.Drawing.Size(32, 25);

@@ -103,6 +103,12 @@
     <Compile Include="Form_PrintExistingInvoice.Designer.cs">
       <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_SelectShops.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SelectShops.Designer.cs">
+      <DependentUpon>Form_SelectShops.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_SelectPanels.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,12 +150,6 @@
     </Compile>
     <Compile Include="Form_Logo_Edit.Designer.cs">
       <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Stock_Address_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Stock_Address_Edit.Designer.cs">
-      <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_TemplateTokens.cs">
       <SubType>Form</SubType>
@@ -323,12 +323,6 @@
       <DependentUpon>Form_PaymentCash.cs</DependentUpon>
     </Compile>
     <Compile Include="Return_to_shop_shelf_data.cs" />
-    <Compile Include="Form_StockItem_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_StockItem_Edit.Designer.cs">
-      <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>
-    </Compile>
     <Compile Include="SumPayment.cs" />
     <Compile Include="TaxSum.cs" />
     <Compile Include="usrc_checkmark.cs">
@@ -436,29 +430,11 @@
     <Compile Include="Form_Select_DefaultCurrency.Designer.cs">
       <DependentUpon>Form_Select_DefaultCurrency.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Stock_AvoidStock_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Stock_AvoidStock_Edit.Designer.cs">
-      <DependentUpon>Form_Stock_AvoidStock_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_ItemAtom_View.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_ItemAtom_View.Designer.cs">
-      <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_Taxation_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_Taxation_Edit.Designer.cs">
       <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_ItemAtom.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ItemAtom.Designer.cs">
-      <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
     </Compile>
     <Compile Include="Employees.cs" />
     <Compile Include="Form_Discount.cs">
@@ -467,25 +443,7 @@
     <Compile Include="Form_Discount.Designer.cs">
       <DependentUpon>Form_Discount.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Stock_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Stock_Edit.Designer.cs">
-      <DependentUpon>Form_Stock_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Item_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Item_Edit.Designer.cs">
-      <DependentUpon>Form_Item_Edit.cs</DependentUpon>
-    </Compile>
     <Compile Include="SampleDB_Data.cs" />
-    <Compile Include="Form_SimpleItem_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_SimpleItem_Edit.Designer.cs">
-      <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataGridViewButtonImageCell.cs" />
     <Compile Include="DataGridViewButtonImageColumn.cs">
       <SubType>Code</SubType>
@@ -526,6 +484,9 @@
     <EmbeddedResource Include="Form_PrintExistingInvoice.resx">
       <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_SelectShops.resx">
+      <DependentUpon>Form_SelectShops.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_SelectPanels.resx">
       <DependentUpon>Form_SelectPanels.cs</DependentUpon>
     </EmbeddedResource>
@@ -550,9 +511,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Logo_Edit.resx">
       <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Stock_Address_Edit.resx">
-      <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_TemplateTokens.resx">
       <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
@@ -635,10 +593,6 @@
     <EmbeddedResource Include="Form_PaymentCash.resx">
       <DependentUpon>Form_PaymentCash.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_StockItem_Edit.resx">
-      <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_checkmark.resx">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
     </EmbeddedResource>
@@ -687,33 +641,11 @@
     <EmbeddedResource Include="Form_Select_DefaultCurrency.resx">
       <DependentUpon>Form_Select_DefaultCurrency.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Stock_AvoidStock_Edit.resx">
-      <DependentUpon>Form_Stock_AvoidStock_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_ItemAtom_View.resx">
-      <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_Taxation_Edit.resx">
       <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ItemAtom.resx">
-      <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_Discount.resx">
       <DependentUpon>Form_Discount.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Stock_Edit.resx">
-      <DependentUpon>Form_Stock_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Item_Edit.resx">
-      <DependentUpon>Form_Item_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_SimpleItem_Edit.resx">
-      <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Settings.resx">
@@ -741,25 +673,6 @@
       <DependentUpon>usrc_Invoice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Item.resx">
-      <DependentUpon>usrc_Item.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ItemAtomsList.resx">
-      <DependentUpon>usrc_ItemAtomsList.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ItemAtom_View.resx">
-      <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ItemList.resx">
-      <DependentUpon>usrc_ItemList.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ShopC.resx">
-      <DependentUpon>usrc_ShopC.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_PriceList.resx">
       <DependentUpon>usrc_PriceList.cs</DependentUpon>
     </EmbeddedResource>
@@ -768,10 +681,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Price_ItemOrService.resx">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ShopB.resx">
-      <DependentUpon>usrc_ShopB.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -804,36 +713,6 @@
     <Compile Include="usrc_Invoice.Designer.cs">
       <DependentUpon>usrc_Invoice.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Item.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Item.Designer.cs">
-      <DependentUpon>usrc_Item.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_ItemAtomsList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ItemAtomsList.Designer.cs">
-      <DependentUpon>usrc_ItemAtomsList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_ItemAtom_View.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ItemAtom_View.Designer.cs">
-      <DependentUpon>usrc_ItemAtom_View.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_ItemList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ItemList.Designer.cs">
-      <DependentUpon>usrc_ItemList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_ShopC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ShopC.Designer.cs">
-      <DependentUpon>usrc_ShopC.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_PriceList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -851,12 +730,6 @@
     </Compile>
     <Compile Include="usrc_Price_ItemOrService.Designer.cs">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_ShopB.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_ShopB.Designer.cs">
-      <DependentUpon>usrc_ShopB.cs</DependentUpon>
     </Compile>
     <Compile Include="XML_Izpis_Postavka.cs" />
     <Compile Include="xTaxation.cs" />
@@ -915,6 +788,10 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ShopA\ShopA.csproj">
+      <Project>{71220305-2548-4253-af8e-9b2c11ff343c}</Project>
+      <Name>ShopA</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
       <Name>FiscalVerificationOfInvoices_SLO</Name>
@@ -942,6 +819,18 @@
     <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>BlagajnaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>InvoiceDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopB\ShopB.csproj">
+      <Project>{f417c16a-b37f-4284-9e39-4fbeff69008e}</Project>
+      <Name>ShopB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopC\ShopC.csproj">
+      <Project>{3d077dc4-bdab-414f-8907-c902b91fcb0e}</Project>
+      <Name>ShopC</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>

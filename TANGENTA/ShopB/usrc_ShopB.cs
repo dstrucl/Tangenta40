@@ -12,6 +12,7 @@ using BlagajnaTableClass;
 using LanguageControl;
 using DBConnectionControl40;
 using InvoiceDB;
+using FormDiscount;
 
 namespace ShopB
 {
@@ -28,7 +29,7 @@ namespace ShopB
         DataTable dt_SimpleItem = new DataTable();
         DataTable dt_Price_SimpleItem_Group = new DataTable();
         public enum eLayout {NONE,DRAFT,VIEW }
-        //private eLayout Layout = eLayout.NONE;
+        private eLayout Layout = eLayout.NONE;
 
         DataTable dt_Price_SimpleItem = new DataTable();
 
@@ -100,7 +101,7 @@ namespace ShopB
             dt_SelectedSimpleItem.Columns.Add(DBtcn.column_SelectedSimpleItem_ExtraDiscount, DBtcn.column_SelectedSimpleItem_ExtraDiscount_TYPE);
         }
 
-        internal void SetMode(eMode mode)
+        public void SetMode(eMode mode)
         {
             switch (mode)
             {
@@ -154,7 +155,7 @@ namespace ShopB
             }
         }
 
-        internal void SetCurrentInvoice_SelectedSimpleItems()
+        public void SetCurrentInvoice_SelectedSimpleItems()
         {
             m_InvoiceDB.m_CurrentInvoice.Set_SelectedSimpleItems(dgv_SelectedSimpleItems, dt_SelectedSimpleItem, dgv_SimpleItems, dt_Price_SimpleItem);
         }
@@ -499,7 +500,7 @@ namespace ShopB
             }
         }
 
-        internal void SetDraftButtons()
+        public void SetDraftButtons()
         {
             if ((Layout == eLayout.VIEW)||(Layout == eLayout.NONE))
             {
@@ -542,7 +543,7 @@ namespace ShopB
             return false;
         }
 
-        internal void SetViewButtons()
+        public void SetViewButtons()
         {
             if ((Layout == eLayout.DRAFT) || (Layout == eLayout.NONE))
             {
@@ -582,7 +583,7 @@ namespace ShopB
             }
         }
 
-        internal void Set_dgv_SelectedSimpleItems()
+        public void Set_dgv_SelectedSimpleItems()
         {
             try
             {
@@ -611,7 +612,7 @@ namespace ShopB
             }
         }
 
-        internal bool GetSimpleItemData(ref int iCount)
+        public bool GetSimpleItemData(ref int iCount)
         {
             SQLTable tbl_SimpleItem = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem));
 
@@ -679,7 +680,7 @@ namespace ShopB
         }
 
 
-        internal bool Get_Price_SimpleItem_Data(ref int iCount_Price_SimpleItem_Data,long PriceList_id)
+        public bool Get_Price_SimpleItem_Data(ref int iCount_Price_SimpleItem_Data,long PriceList_id)
         {
             m_PriceList_id = PriceList_id;
             SQLTable tbl_SimpleItem = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem));
@@ -713,7 +714,7 @@ namespace ShopB
             EditSimpleItem();
         }
 
-        internal bool EditSimpleItem()
+        public bool EditSimpleItem()
         {
             SQLTable tbl_SimpleItem=new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem)));
             Form_SimpleItem_Edit edt_SimpleItem_dlg = new Form_SimpleItem_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,

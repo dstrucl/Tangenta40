@@ -111,9 +111,15 @@ namespace LanguageControl
         public static ltext s_YouCanNotEditStockUntilAllBasketsAreEmpty = new ltext("You can not edit stock as long you have items in baskets!", "Najprej spraznite vse košare, da bi lahko urejali zaloge !");
 
         public static ltext s_chk_Storno = new ltext("Storno", "Storno");
-        public static ltext s_rdbStore_SimpleItem_And_Item = new ltext("A&B", "A&B");
-        public static ltext s_rdbStore_Item = new ltext("B", "B");
-        public static ltext s_rdbStore_SimpleItem = new ltext("A", "A");
+
+        public static ltext s_Shop_A = new ltext("A", "A");
+        public static ltext s_Shop_B = new ltext("B", "B");
+        public static ltext s_Shop_C = new ltext("C", "C");
+        public static ltext s_Shop_AB = new ltext(s_Shop_A.sText[0]+"&"+ s_Shop_B.sText[0], s_Shop_A.sText[1] + "&" + s_Shop_B.sText[1]);
+        public static ltext s_Shop_BC = new ltext(s_Shop_B.sText[0] + "&" + s_Shop_C.sText[0], s_Shop_B.sText[1] + "&" + s_Shop_C.sText[1]);
+        public static ltext s_Shop_AC = new ltext(s_Shop_A.sText[0] + "&" + s_Shop_C.sText[0], s_Shop_A.sText[1] + "&" + s_Shop_C.sText[1]);
+        public static ltext s_Shop_ABC = new ltext(s_Shop_A.sText[0] + "&" + s_Shop_B.sText[0] + "&" + s_Shop_C.sText[0], s_Shop_A.sText[1] + "&" + s_Shop_B.sText[1] + "&" + s_Shop_C.sText[1]);
+
         public static ltext s_Abort = new ltext("Abort", "Prekini");
         public static ltext s_Retry = new ltext("Retry", "Ponovi");
         public static ltext s_Ignore = new ltext("Ignore", "Ignoriraj");
