@@ -1,4 +1,5 @@
-﻿using LanguageControl;
+﻿using InvoiceDB;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.Data;

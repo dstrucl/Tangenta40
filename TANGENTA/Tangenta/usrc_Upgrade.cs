@@ -12,6 +12,7 @@ using BlagajnaTableClass;
 using DBConnectionControl40;
 using LanguageControl;
 using DBTypes;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -1007,9 +1008,9 @@ namespace Tangenta
                         decimal RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax = 0;
 
                         int decimal_places = 2;
-                        if (Program.BaseCurrency != null)
+                        if (GlobalData.BaseCurrency != null)
                         {
-                            decimal_places = Program.BaseCurrency.DecimalPlaces;
+                            decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
                         }
                         //RetailSimpleItemPriceAll has allready price for all quantity so dQunatity = 1
                         StaticLib.Func.CalculatePrice(RetailSimpleItemPriceAll, 1, Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount_Calculated, ref TaxPrice, ref RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax, decimal_places);
@@ -1217,9 +1218,9 @@ namespace Tangenta
                         decimal RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax = 0;
 
                         int decimal_places = 2;
-                        if (Program.BaseCurrency != null)
+                        if (GlobalData.BaseCurrency != null)
                         {
-                            decimal_places = Program.BaseCurrency.DecimalPlaces;
+                            decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
                         }
                         decimal dQuantity = Convert.ToDecimal(iQuantity);
                         StaticLib.Func.CalculatePrice(RetailSimpleItemPriceAll, dQuantity,Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount_Calculated, ref TaxPrice, ref RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax, decimal_places);
@@ -2193,11 +2194,11 @@ namespace Tangenta
             {
                 if (this.tbl.TableName.ToLower().Equals("pricelist"))
                 {
-                    if (Program.Office_ID<0)
+                    if (GlobalData.Office_ID<0)
                     { 
                         string sql = "insert into Office (myCompany_ID,Name)values(1,'P1')";
                         object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,null,ref Program.Office_ID,ref oret, ref Err,"Office"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,null,ref GlobalData.Office_ID,ref oret, ref Err,"Office"))
                         {
                             sql = "insert into myCompany_Person (UserName,Password,Job,Active,Description,Person_ID,Office_ID)values('marjetkah',null,'Direktor',1,'Direktorica in lastnica podjetja',1,1)";
                             long x_myCompany_Person_ID = -1;
@@ -2222,10 +2223,10 @@ namespace Tangenta
                 {
                     string sql = null;
                     object oret = null;
-                    if (Program.Atom_Office_ID < 0)
+                    if (GlobalData.Atom_Office_ID < 0)
                     {
                         sql = "insert into Atom_Office (Atom_myCompany_ID,Name)values(1,'P1')";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Program.Atom_Office_ID, ref oret, ref Err, "Atom_Office"))
+                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref GlobalData.Atom_Office_ID, ref oret, ref Err, "Atom_Office"))
                         {
                             LogFile.Error.Show("ERROR:usrc_Upgrade:Write2DB:sql=" + sql + "\r\nErr=" + Err);
                             return false;
@@ -2235,7 +2236,7 @@ namespace Tangenta
                     DateTime dtStart = new DateTime(2015, 4, 29);
                     DateTime_v dtEnd_v = new DateTime_v();
                     dtEnd_v.v = DateTime.Now;
-                    if (!Program.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04,null,dtStart,dtEnd_v, ref Err))
+                    if (!GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04,null,dtStart,dtEnd_v, ref Err))
                     {
                         return false;
                     }
@@ -2247,7 +2248,7 @@ namespace Tangenta
                     DateTime dtStart = new DateTime(2015, 4, 29);
                     DateTime_v dtEnd_v = new DateTime_v();
                     dtEnd_v.v = DateTime.Now;
-                    Program.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04, null, dtStart, dtEnd_v, ref Err);
+                    GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04, null, dtStart, dtEnd_v, ref Err);
                 }
             }
 
@@ -2402,23 +2403,23 @@ namespace Tangenta
                         if (tname.ToLower().Equals("proformainvoice"))
                         { 
                             long Journal_ProformaInvoice_ID = -1;
-                            f_Journal_ProformaInvoice.Write(new_id, Program.Atom_WorkPeriod_ID, Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.Name, Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.Description, InvoiceTime_v, ref Journal_ProformaInvoice_ID);
+                            f_Journal_ProformaInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.Name, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.Description, InvoiceTime_v, ref Journal_ProformaInvoice_ID);
                             if (dr["Draft"] is bool)
                             {
                                 if (!(bool)dr["Draft"])
                                 { 
-                                    f_Journal_ProformaInvoice.Write(new_id, Program.Atom_WorkPeriod_ID, Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.Name,Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.Description ,InvoiceTime_v, ref Journal_ProformaInvoice_ID);
-                                    f_Journal_ProformaInvoice.Write(new_id, Program.Atom_WorkPeriod_ID, Program.JOURNAL_ProformaInvoice_Type_definitions.InvoicePaidTime.Name, Program.JOURNAL_ProformaInvoice_Type_definitions.InvoicePaidTime.Description, InvoiceTime_v, ref Journal_ProformaInvoice_ID);
+                                    f_Journal_ProformaInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.Name, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.Description ,InvoiceTime_v, ref Journal_ProformaInvoice_ID);
+                                    f_Journal_ProformaInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoicePaidTime.Name, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoicePaidTime.Description, InvoiceTime_v, ref Journal_ProformaInvoice_ID);
                                 }
                             }
                         }
                         else if (tname.ToLower().Equals("invoice"))
                         {
                             long Journal_Invoice_ID = -1;
-                            f_Journal_Invoice.Write(new_id, Program.Atom_WorkPeriod_ID, "Paid", "Plačano", PaidTime_v, ref Journal_Invoice_ID);
+                            f_Journal_Invoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, "Paid", "Plačano", PaidTime_v, ref Journal_Invoice_ID);
                             if (bStorno)
                             { 
-                                f_Journal_Invoice.Write(new_id, Program.Atom_WorkPeriod_ID, "Storno*", "Napaka pri vnosu", StornoTime_v, ref Journal_Invoice_ID);
+                                f_Journal_Invoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, "Storno*", "Napaka pri vnosu", StornoTime_v, ref Journal_Invoice_ID);
                             }
                         }
                     }

@@ -10,6 +10,7 @@ using LanguageControl;
 using DBConnectionControl40;
 using BlagajnaTableClass;
 using DBTypes;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -36,7 +37,7 @@ namespace Tangenta
         {
 
             m_InvoiceData = xInvoiceData;
-            ProformaInvoice_ID = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID;
+            ProformaInvoice_ID = m_InvoiceData.m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID;
             lbl_Invoice_value.Text = InvoiceNumber;
             btn_Print.Text = lngRPM.s_Print.s;
             return ShowJournal();
@@ -100,7 +101,7 @@ namespace Tangenta
                     ProformaInvoiceTime_v = new DateTime_v();
                 }
                 ProformaInvoiceTime_v.v = dtInvoiceTime;
-                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, usrc_Payment.ePaymentType.NONE, null, null, null, ProformaInvoiceTime_v);
+                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, GlobalData.ePaymentType.NONE, null, null, null, ProformaInvoiceTime_v);
                 ShowJournal();
             }
         }

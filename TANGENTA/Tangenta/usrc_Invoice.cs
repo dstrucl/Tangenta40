@@ -12,6 +12,7 @@ using SQLTableControl;
 using System.Windows.Forms.VisualStyles;
 using LanguageControl;
 using DBTypes;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -48,14 +49,14 @@ namespace Tangenta
 
         public DBTablesAndColumnNames DBtcn = null;
 
-        public InvoiceDB m_InvoiceDB = null;
+        public InvoiceDB.ShopBC m_ShopBC = null;
         public InvoiceData m_InvoiceData = null;
 
         public xTaxationList m_xTaxationList = null;
 
-        public xCurrency BaseCurrency = null;
+        public InvoiceDB.xCurrency BaseCurrency = null;
 
-        public xPriceList m_xPriceList = null;
+        public InvoiceDB.xPriceList m_xPriceList = null;
 
         private decimal GrossSum = 0;
         private decimal NetSum = 0;
@@ -234,12 +235,12 @@ namespace Tangenta
             {
                 DBtcn = new DBTablesAndColumnNames();
             }
-            if (m_InvoiceDB == null)
+            if (m_ShopBC == null)
             {
-                m_InvoiceDB = new InvoiceDB(DBtcn);
+                m_ShopBC = new ShopBC(DBtcn);
             }
-            this.usrc_SimpleItemMan.Init(m_InvoiceDB, DBtcn);
-            this.usrc_ItemMan.Init(m_InvoiceDB, DBtcn, this);
+            this.usrc_SimpleItemMan.Init(m_ShopBC, DBtcn);
+            this.usrc_ItemMan.Init(m_ShopBC, DBtcn, this);
 
 
 
@@ -287,8 +288,15 @@ namespace Tangenta
                                                 Program.bStartup = false;
                                                 if (DBSync.DBSync.DB_for_Blagajna.Settings.StockCheckAtStartup.TextValue.Equals("1"))
                                                 {
-                                                    if (fs.ExpiryCheck(this))
+                                                    bool ExpiryItemsFound = false;
+                                                    string sNoExpiryDate = null;
+                                                    string sNoSaleBeforeExpiryDate = null;
+                                                    string sNoDiscardBeforeExpiryDate = null;
+                                                    DataTable dt_ExpiryCheck = new DataTable();
+                                                    if (fs.ExpiryCheck(ref dt_ExpiryCheck,ref ExpiryItemsFound,ref sNoExpiryDate,ref sNoSaleBeforeExpiryDate,ref sNoDiscardBeforeExpiryDate))
                                                     {
+                                                        Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
+                                                        frm_exp_chk.ShowDialog();
                                                         return true;
                                                     }
                                                     else
@@ -354,7 +362,7 @@ namespace Tangenta
         {
             if (DoGetCurrent(ID))
             {
-                if (m_InvoiceDB.m_CurrentInvoice.bDraft)
+                if (m_ShopBC.m_CurrentInvoice.bDraft)
                 {
                     this.usrc_SimpleItemMan.SetDraftButtons();
                 }
@@ -362,7 +370,7 @@ namespace Tangenta
                 {
                     this.usrc_SimpleItemMan.SetViewButtons();
                 }
-                this.usrc_Customer.Show_Customer(m_InvoiceDB.m_CurrentInvoice);
+                this.usrc_Customer.Show_Customer(m_ShopBC.m_CurrentInvoice);
                 return true;
             }
             else
@@ -414,13 +422,13 @@ namespace Tangenta
             if (GetCurrent(ID))
             {
                 GetPriceSum();
-                if (m_InvoiceDB.m_CurrentInvoice.bDraft)
+                if (m_ShopBC.m_CurrentInvoice.bDraft)
                 {
                     AddHandler();
                 }
                 else
                 {
-                    if (m_InvoiceDB.m_CurrentInvoice.Exist)
+                    if (m_ShopBC.m_CurrentInvoice.Exist)
                     {
                         RemoveHandler();
                     }
@@ -697,12 +705,12 @@ namespace Tangenta
             string Err = null;
             long Invoice_ID = -1;
             //
-            if (m_InvoiceDB.Get(ref Invoice_ID, true, ID, ref Err)) // try to get draft
+            if (m_ShopBC.Get(ref Invoice_ID, true, ID, ref Err)) // try to get draft
             {
                 if (Invoice_ID >= 0)
                 {
-                    this.txt_Number.Text = Program.GetInvoiceNumber(m_InvoiceDB.m_CurrentInvoice.bDraft, m_InvoiceDB.m_CurrentInvoice.FinancialYear, m_InvoiceDB.m_CurrentInvoice.NumberInFinancialYear, m_InvoiceDB.m_CurrentInvoice.DraftNumber);
-                    if (m_InvoiceDB.m_CurrentInvoice.bDraft)
+                    this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopBC.m_CurrentInvoice.bDraft, m_ShopBC.m_CurrentInvoice.FinancialYear, m_ShopBC.m_CurrentInvoice.NumberInFinancialYear, m_ShopBC.m_CurrentInvoice.DraftNumber);
+                    if (m_ShopBC.m_CurrentInvoice.bDraft)
                     {
                         SetMode(emode.edit_eInvoiceType);
                         this.usrc_SimpleItemMan.SetCurrentInvoice_SelectedSimpleItems();
@@ -714,7 +722,7 @@ namespace Tangenta
                         this.usrc_SimpleItemMan.SetCurrentInvoice_SelectedSimpleItems();
                         this.usrc_ItemMan.SetCurrentInvoice_SelectedItems();
                         chk_Storno_CanBe_ManualyChanged = false;
-                        this.chk_Storno.Checked = m_InvoiceDB.m_CurrentInvoice.bStorno;
+                        this.chk_Storno.Checked = m_ShopBC.m_CurrentInvoice.bStorno;
                         chk_Storno_CanBe_ManualyChanged = true;
                     }
                     this.usrc_ItemMan.Reset();
@@ -723,11 +731,11 @@ namespace Tangenta
                 else
                 {
                     SetMode(emode.view_eInvoiceType);
-                    if (m_InvoiceDB.Get(ref Invoice_ID, false, ID, ref Err)) // Get invoice with Invoice_ID
+                    if (m_ShopBC.Get(ref Invoice_ID, false, ID, ref Err)) // Get invoice with Invoice_ID
                     {
                         if (Invoice_ID >= 0)
                         {
-                            this.txt_Number.Text = Program.GetInvoiceNumber(m_InvoiceDB.m_CurrentInvoice.bDraft, m_InvoiceDB.m_CurrentInvoice.FinancialYear, m_InvoiceDB.m_CurrentInvoice.NumberInFinancialYear, m_InvoiceDB.m_CurrentInvoice.DraftNumber);
+                            this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopBC.m_CurrentInvoice.bDraft, m_ShopBC.m_CurrentInvoice.FinancialYear, m_ShopBC.m_CurrentInvoice.NumberInFinancialYear, m_ShopBC.m_CurrentInvoice.DraftNumber);
                             this.usrc_ItemMan.Clear();
                             this.usrc_ItemMan.SetCurrentInvoice_SelectedItems();
                         }
@@ -919,9 +927,9 @@ namespace Tangenta
             switch (eInvoiceType)
             {
                 case enum_Invoice.Invoice:
-                    if (m_InvoiceDB == null)
+                    if (m_ShopBC == null)
                     {
-                        m_InvoiceDB = new InvoiceDB(DBtcn);
+                        m_ShopBC = new ShopBC(DBtcn);
                     }
                     if (SetNewInvoiceDraft(FinancialYear))
                     {
@@ -943,11 +951,11 @@ namespace Tangenta
         {
             long Invoice_ID = -1;
             string Err = null;
-            if (m_InvoiceDB.SetNewDraft_Invoice(FinancialYear, this, ref Invoice_ID, Last_myCompany_Person_id, ref Err))
+            if (m_ShopBC.SetNewDraft_Invoice(FinancialYear, this, ref Invoice_ID, Last_myCompany_Person_id, ref Err))
             {
-                if (m_InvoiceDB.m_CurrentInvoice.Invoice_ID >= 0)
+                if (m_ShopBC.m_CurrentInvoice.Invoice_ID >= 0)
                 {
-                    this.txt_Number.Text = m_InvoiceDB.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_InvoiceDB.m_CurrentInvoice.DraftNumber.ToString();
+                    this.txt_Number.Text = m_ShopBC.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_ShopBC.m_CurrentInvoice.DraftNumber.ToString();
                     SetMode(emode.edit_eInvoiceType);
                 }
 
@@ -1025,7 +1033,7 @@ namespace Tangenta
             decimal dsum_TaxSum_Basket = 0;
             decimal dsum_NetSum_Basket = 0;
 
-            m_InvoiceDB.m_CurrentInvoice.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
+            m_ShopBC.m_CurrentInvoice.m_Basket.GetPriceSum(ref dsum_GrossSum_Basket, ref dsum_TaxSum_Basket, ref dsum_NetSum_Basket, ref TaxSum);
 
             dsum_GrossSum += dsum_GrossSum_Basket;
             dsum_TaxSum += dsum_TaxSum_Basket;
@@ -1091,7 +1099,7 @@ namespace Tangenta
             DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
             lpar.Add(par_NetSum);
 
-            string sql_SetPrice = "update proformainvoice set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID.ToString();
+            string sql_SetPrice = "update proformainvoice set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID.ToString();
             object ores = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
@@ -1107,9 +1115,9 @@ namespace Tangenta
 
         private void btn_Issue_Click(object sender, EventArgs e)
         {
-            if (m_InvoiceDB != null)
+            if (m_ShopBC != null)
             {
-                if (m_InvoiceDB.m_CurrentInvoice != null)
+                if (m_ShopBC.m_CurrentInvoice != null)
                 {
                     long myCompany_Person_id = -1;
                     object o_myCompany_Person_id = cmb_select_my_Company_Person.SelectedItem;
@@ -1119,15 +1127,15 @@ namespace Tangenta
                         myCompany_Person_id = employe.myCompany_Person_ID;
                     }
 
-                    if (m_InvoiceDB.m_CurrentInvoice.Exist)
+                    if (m_ShopBC.m_CurrentInvoice.Exist)
                     {
-                        if (m_InvoiceDB.m_CurrentInvoice.bDraft)
+                        if (m_ShopBC.m_CurrentInvoice.bDraft)
                         {
 
                             // print draft invoice
                             if (UpdateInvoicePriceInDraft())
                             {
-                                m_InvoiceData = new InvoiceData(m_InvoiceDB, m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID);
+                                m_InvoiceData = new InvoiceData(m_ShopBC, m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID);
                                 if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                                 {
                                     Form_Payment payment_frm = new Form_Payment(m_InvoiceData);
@@ -1135,7 +1143,7 @@ namespace Tangenta
                                     {
                                         if (aa_ProformaInvoiceSaved != null)
                                         {
-                                            aa_ProformaInvoiceSaved(m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID);
+                                            aa_ProformaInvoiceSaved(m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID);
                                         }
                                     }
                                 }
@@ -1143,7 +1151,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            m_InvoiceData = new InvoiceData(m_InvoiceDB, m_InvoiceDB.m_CurrentInvoice.ProformaInvoice_ID);
+                            m_InvoiceData = new InvoiceData(m_ShopBC, m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID);
                             if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 Form_PrintExistingInvoice frm_Print_Existing_invoice = new Form_PrintExistingInvoice(m_InvoiceData);
@@ -1205,11 +1213,11 @@ namespace Tangenta
         {
             long_v Atom_Customer_Person_ID_v = null;
             this.Cursor = Cursors.WaitCursor;
-            if (m_InvoiceDB.m_CurrentInvoice.Update_Customer_Person(Customer_Person_ID, ref Atom_Customer_Person_ID_v))
+            if (m_ShopBC.m_CurrentInvoice.Update_Customer_Person(Customer_Person_ID, ref Atom_Customer_Person_ID_v))
             {
                 if (Atom_Customer_Person_ID_v != null)
                 {
-                    usrc_Customer.Show_Customer_Person(m_InvoiceDB.m_CurrentInvoice);
+                    usrc_Customer.Show_Customer_Person(m_ShopBC.m_CurrentInvoice);
                     if (aa_Customer_Person_Changed != null)
                     {
                         aa_Customer_Person_Changed(Customer_Person_ID);
@@ -1225,19 +1233,19 @@ namespace Tangenta
         {
             if (chk_Storno_CanBe_ManualyChanged)
             {
-                if (chk_Storno.Checked!=m_InvoiceDB.m_CurrentInvoice.bStorno)
+                if (chk_Storno.Checked!=m_ShopBC.m_CurrentInvoice.bStorno)
                 {
                     if (chk_Storno.Checked)
                     {
                         if (MessageBox.Show(this, lngRPM.s_Invoice.s + ": " + txt_Number.Text + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            Form_Storno frm_storno_dlg = new Form_Storno(m_InvoiceDB.m_CurrentInvoice.Invoice_ID);
+                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopBC.m_CurrentInvoice.Invoice_ID);
                             if (frm_storno_dlg.ShowDialog()==DialogResult.Yes)
                             {
                                 string sInvoiceToStorno = frm_storno_dlg.m_sInvoiceToStorno;
                                 if (MessageBox.Show(this,sInvoiceToStorno + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                                 {
-                                    if (m_InvoiceDB.m_CurrentInvoice.Storno(true, frm_storno_dlg.m_Reason))
+                                    if (m_ShopBC.m_CurrentInvoice.Storno(true, frm_storno_dlg.m_Reason))
                                     {
                                         if (Storno != null)
                                         {
@@ -1272,12 +1280,12 @@ namespace Tangenta
         {
             this.Cursor = Cursors.WaitCursor;
             long_v Atom_Customer_Org_ID_v = null;
-            if (m_InvoiceDB.m_CurrentInvoice.Update_Customer_Org(Customer_Org_ID, ref Atom_Customer_Org_ID_v))
+            if (m_ShopBC.m_CurrentInvoice.Update_Customer_Org(Customer_Org_ID, ref Atom_Customer_Org_ID_v))
             {
-                m_InvoiceDB.m_CurrentInvoice.Atom_Customer_Org_ID_v = Atom_Customer_Org_ID_v;
+                m_ShopBC.m_CurrentInvoice.Atom_Customer_Org_ID_v = Atom_Customer_Org_ID_v;
                 if (Atom_Customer_Org_ID_v != null)
                 {
-                    usrc_Customer.Show_Customer_Org(m_InvoiceDB.m_CurrentInvoice);
+                    usrc_Customer.Show_Customer_Org(m_ShopBC.m_CurrentInvoice);
                     if (aa_Customer_Org_Changed != null)
                     {
                         aa_Customer_Org_Changed(Customer_Org_ID);
@@ -1291,7 +1299,7 @@ namespace Tangenta
         private bool usrc_Customer_aa_Customer_Removed()
         {
             this.Cursor = Cursors.WaitCursor;
-            if (m_InvoiceDB.m_CurrentInvoice.Update_Customer_Remove())
+            if (m_ShopBC.m_CurrentInvoice.Update_Customer_Remove())
             {
                 this.Cursor = Cursors.Arrow;
                 return true;

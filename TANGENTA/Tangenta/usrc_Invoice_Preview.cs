@@ -10,6 +10,7 @@ using LanguageControl;
 using System.Runtime.InteropServices;
 using DBConnectionControl40;
 using DBTypes;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -21,7 +22,7 @@ namespace Tangenta
         public InvoiceData m_InvoiceData = null;
         private byte[] m_Doc = null;
         private usrc_PrinterSettings m_usrc_Print;
-        private usrc_Payment.ePaymentType m_paymentType;
+        private GlobalData.ePaymentType m_paymentType;
         private string m_sPaymentMethod;
         private string m_sAmountReceived;
         private string m_sToReturn;
@@ -72,7 +73,7 @@ namespace Tangenta
             //string html_doc = Properties.Resources.html_doc;
 
         }
-        public bool Init(byte[] xdoc, InvoiceData xInvoiceData, usrc_Payment.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public bool Init(byte[] xdoc, InvoiceData xInvoiceData, GlobalData.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             m_InvoiceData = xInvoiceData;
             m_Doc = xdoc;

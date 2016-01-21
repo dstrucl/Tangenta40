@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using LanguageControl;
 using SQLTableControl;
 using DBTypes;
+using InvoiceDB;
+
 namespace Tangenta
 {
     public partial class Form_StockItem_Edit : Form
@@ -18,11 +20,11 @@ namespace Tangenta
         SQLTable tbl = null;
         bool bclose = false;
         bool bInitData = false;
-        Item_Data m_Item_Data = null;
+        InvoiceDB.Item_Data m_Item_Data = null;
         long_v PurchasePrice_Item_ID = null;
         private bool m_bChanged = false;
 
-        public Form_StockItem_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl,string where_condition, string ColumnToOrderBy,Item_Data x_Item_Data)
+        public Form_StockItem_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl,string where_condition, string ColumnToOrderBy,InvoiceDB.Item_Data x_Item_Data)
         {
             InitializeComponent();
             m_Item_Data = x_Item_Data;

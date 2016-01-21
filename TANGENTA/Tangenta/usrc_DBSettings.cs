@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SQLTableControl;
 using BlagajnaTableClass;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -92,7 +93,7 @@ namespace Tangenta
             string Err = null;
             if (Read_DBSettings_Version(ref bUpgradeDone,ref Err))
             {
-                if (Program.JOURNAL_ProformaInvoice_Type_definitions.Read())
+                if (GlobalData.JOURNAL_ProformaInvoice_Type_definitions.Read())
                 { 
                     if (Read_DBSettings_LastInvoiceType(bUpgradeDone,ref Err))
                     {

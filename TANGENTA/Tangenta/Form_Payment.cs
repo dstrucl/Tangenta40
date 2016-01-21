@@ -9,13 +9,14 @@ using System.Windows.Forms;
 using LanguageControl;
 using DBConnectionControl40;
 using DBTypes;
+using InvoiceDB;
 
 namespace Tangenta
 {
     public partial class Form_Payment : Form
     {
         public InvoiceData m_InvoiceData = null;
-        public usrc_Payment.ePaymentType m_ePaymentType = usrc_Payment.ePaymentType.NONE;
+        public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.NONE;
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
@@ -40,7 +41,7 @@ namespace Tangenta
         {
             if (Program.usrc_Printer1.Init(m_InvoiceData))
             {
-                if ((m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.bDraft))
+                if ((m_InvoiceData.m_ShopBC.m_CurrentInvoice.bDraft))
                 {
                     if (m_usrc_Payment.Init(m_InvoiceData, Program.usrc_Printer1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
                     {

@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using DBTypes;
 using LanguageControl;
 using FiscalVerificationOfInvoices_SLO;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -76,7 +77,7 @@ namespace Tangenta
 
         }
 
-        internal void Print_Receipt(InvoiceData xInvoiceData, usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        internal void Print_Receipt(InvoiceData xInvoiceData, GlobalData.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
 
 
@@ -118,7 +119,7 @@ namespace Tangenta
             return false;
         }
 
-        internal void Print_Receipt_ESC_POS(InvoiceData xInvoiceData, usrc_Payment.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        internal void Print_Receipt_ESC_POS(InvoiceData xInvoiceData, GlobalData.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
 
 
@@ -313,7 +314,7 @@ namespace Tangenta
                 //Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces
                 Printer.wr_NewLine();
 
-                foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisd in m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
+                foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisd in m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
                 {
                     string Item_UniqueName = appisd.Atom_Item_UniqueName.v;
 
@@ -385,10 +386,10 @@ namespace Tangenta
                 //buffer += "\x1B" + "G" + "\xFF";
                 Printer.wr_String("Skupaj " + HT + HT + m_InvoiceData.GrossSum.ToString() + " EUR\n");
                 //buffer += "\x1B" + "G" + "\x00\n";
-                if (PaymentType != usrc_Payment.ePaymentType.NONE)
+                if (PaymentType != GlobalData.ePaymentType.NONE)
                 {
                     Printer.wr_String("Način plačila:" + sPaymentMethod + "\n");
-                    if (PaymentType == usrc_Payment.ePaymentType.CASH)
+                    if (PaymentType == GlobalData.ePaymentType.CASH)
                     {
                         Printer.wr_String("  Prejeto: " + sAmountReceived + " EUR\n");
                         Printer.wr_String("  Vrnjeno: " + sToReturn + " EUR\n");
@@ -405,13 +406,13 @@ namespace Tangenta
 
                 string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
                 string s_journal_invoice_description = Printer.PrinterName;
-                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
+                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
             }
             catch (Exception ex)
             {
                 string s_journal_invoice_type = lngRPM.s_journal_invoice_type_PrintError.s + Printer.PrinterName + "\nErr=" + ex.Message;
                 string s_journal_invoice_description = Printer.PrinterName;
-                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
+                f_Journal_ProformaInvoice.Write(m_InvoiceData.ProformaInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
             }
         }
 
@@ -478,17 +479,17 @@ namespace Tangenta
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
+            if (m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
             {
-                object o_Data = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
+                object o_Data = m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
                 if (o_Data is Atom_ProformaInvoice_Price_Item_Stock_Data)
                 {
                     return (int)((Atom_ProformaInvoice_Price_Item_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;
                 }
             }
-            if (m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows.Count > 0)
+            if (m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows.Count > 0)
             {
-                object o_Currency_DecimalPlaces = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
+                object o_Currency_DecimalPlaces = m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
                 if (o_Currency_DecimalPlaces.GetType() == typeof(int))
                 {
                     return (int)o_Currency_DecimalPlaces;

@@ -11,6 +11,7 @@ using BlagajnaTableClass;
 using DBTypes;
 using SQLTableControl;
 using LanguageControl;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -27,7 +28,7 @@ namespace Tangenta
 
         //usrc_ItemList
 
-        public Item_Data m_Item_Data = null;
+        public InvoiceDB.Item_Data m_Item_Data = null;
 
         bool disposed = false;
 
@@ -193,7 +194,7 @@ namespace Tangenta
             }
             Set_btn_Discount_Text();
         }
-        internal void DoPaint(Item_Data xItem_Data, string[] s_name_Group,usrc_Atom_ItemsList x_usrc_Atom_ItemsList)
+        internal void DoPaint(InvoiceDB.Item_Data xItem_Data, string[] s_name_Group,usrc_Atom_ItemsList x_usrc_Atom_ItemsList)
         {
             m_Item_Data = xItem_Data;
             m_Item_Data.m_s_name_Group = s_name_Group;
@@ -206,7 +207,7 @@ namespace Tangenta
 
         private void Paint_Item_Mode(eMode xeMode)
         {
-            Atom_ProformaInvoice_Price_Item_Stock_Data appisd_in_Basket = m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Contains(m_Item_Data);
+            Atom_ProformaInvoice_Price_Item_Stock_Data appisd_in_Basket = m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Contains(m_Item_Data);
             int xStart = x0_pic_Item;
             switch (xeMode)
             {
@@ -409,9 +410,9 @@ namespace Tangenta
             decimal TaxPrice = 0;
 
             int decimal_places = 2;
-            if (Program.BaseCurrency != null)
+            if (GlobalData.BaseCurrency != null)
             {
-                decimal_places = Program.BaseCurrency.DecimalPlaces;
+                decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
             }
             StaticLib.Func.CalculatePrice(m_Item_Data.RetailPricePerUnit.v, this.dQuantity, m_Item_Data.Price_Item_Discount.v, ExtraDiscount, m_Item_Data.Taxation_Rate.v, ref RetailPriceWithDiscount, ref  TaxPrice, ref  RetailPriceWithDiscount_WithoutTax, decimal_places);
             decimal EndPrice = decimal.Round(RetailPriceWithDiscount, Program.Get_BaseCurrency_DecimalPlaces());
@@ -424,7 +425,12 @@ namespace Tangenta
         {
             //appisd.Set(this, ref m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST, false);
             Atom_ProformaInvoice_Price_Item_Stock_Data appisd = null;
-            m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Add(this, ref appisd, false);
+            m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID,
+                                                                        this,
+                                                                        m_Item_Data,
+                                                                        nmUpDn_FactoryQuantity.Value,
+                                                                        nmUpDn_StockQuantity.Value,
+                                                                        ref appisd, false);
 
             usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromStock(appisd);
             if (uia != null)
@@ -446,7 +452,12 @@ namespace Tangenta
                 if (EditStock_AvoidStock())
                 {
                     Atom_ProformaInvoice_Price_Item_Stock_Data appisd = null;
-                    m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Add(this, ref appisd, true);
+                    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID,
+                                                                                   this,
+                                                                                   m_Item_Data,
+                                                                                   nmUpDn_FactoryQuantity.Value,
+                                                                                   nmUpDn_StockQuantity.Value,
+                                                                                   ref appisd, true);
                     usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(appisd);
                     if (uia != null)
                     {
@@ -461,7 +472,13 @@ namespace Tangenta
             else
             {
                 Atom_ProformaInvoice_Price_Item_Stock_Data appisd = null;
-                m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Add(this, ref appisd, true);
+                m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID,
+                                                                                this,
+                                                                                m_Item_Data,
+                                                                                nmUpDn_FactoryQuantity.Value,
+                                                                                nmUpDn_StockQuantity.Value,
+                                                                                ref appisd,
+                                                                                true);
                 usrc_Atom_Item uia = m_usrc_Atom_ItemsList.AddFromFactory(appisd);
                 if (uia != null)
                 {

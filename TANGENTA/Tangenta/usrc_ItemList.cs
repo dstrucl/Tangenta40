@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DBConnectionControl40;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -32,7 +33,7 @@ namespace Tangenta
 
         public usrc_Item[] usrc_Item_aray = null;
         usrc_Atom_ItemsList m_usrc_Atom_ItemsList = null;
-        InvoiceDB m_InvoiceDB;
+        ShopBC m_ShopBC;
         DBTablesAndColumnNames DBtcn;
         int ipnl_Items_Width_default = -1;
         private long m_PriceList_ID = -1;
@@ -90,15 +91,15 @@ namespace Tangenta
 
         void usrc_item_ItemChanged(object obj)
         {
-            if (obj is Item_Data)
+            if (obj is InvoiceDB.Item_Data)
             {
-                Get_Price_Item_Stock_Data(((Item_Data)obj).PriceList_ID.v);
+                Get_Price_Item_Stock_Data(((InvoiceDB.Item_Data)obj).PriceList_ID.v);
             }
         }
 
-        internal void Init(InvoiceDB xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, usrc_ItemMan x_usrc_ItemMan)
+        internal void Init(InvoiceDB.ShopBC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ItemMan x_usrc_ItemMan)
         {
-            m_InvoiceDB = xm_InvoiceDB;
+            m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;
             DBtcn = xDBtcn;
             Init();
@@ -124,9 +125,9 @@ namespace Tangenta
         public bool Get_Price_Item_Stock_Data(long PriceList_ID)
         {
             m_PriceList_ID = PriceList_ID;
-            if (m_InvoiceDB.m_CurrentInvoice.m_ShopShelf.GetGroupsTable(PriceList_ID))
+            if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.GetGroupsTable(PriceList_ID))
             {
-                m_usrc_Item_Group_Handler.Set_Groups(m_InvoiceDB.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group);
+                m_usrc_Item_Group_Handler.Set_Groups(m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group);
                 return true;
             }
             else
@@ -167,15 +168,15 @@ namespace Tangenta
         {
             s_name_Group = s_name;
 
-            if (m_InvoiceDB.m_CurrentInvoice.m_ShopShelf.Load(m_PriceList_ID, s_name))
+            if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.Load(m_PriceList_ID, s_name))
             {
                 lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
-                m_usrc_Item_PageHandler.Init(m_InvoiceDB.m_CurrentInvoice.m_ShopShelf.items, 5, usrc_Item_aray);
+                m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentInvoice.m_ShopShelf.items, 5, usrc_Item_aray);
             }
 
         }
 
-        internal bool Show(Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        internal bool Show(InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
         {
             string[] sGroupArr = new string[3];
             sGroupArr[0] = appisd.s1_name;
@@ -183,7 +184,7 @@ namespace Tangenta
             sGroupArr[2] = appisd.s3_name;
             if (m_usrc_Item_Group_Handler.Set(sGroupArr))
             {
-                int index = m_InvoiceDB.m_CurrentInvoice.m_ShopShelf.GetIndex(appisd);
+                int index = m_ShopBC.m_CurrentInvoice.m_ShopShelf.GetIndex(appisd);
                 if (index>=0)
                 { 
                     m_usrc_Item_PageHandler.Show(index);

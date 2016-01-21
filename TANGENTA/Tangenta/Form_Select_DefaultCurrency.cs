@@ -16,11 +16,11 @@ namespace Tangenta
     public partial class Form_Select_DefaultCurrency : Form
     {
         public long Currency_ID = -1;
-        public xCurrency m_xCurrency = null;
+        public InvoiceDB.xCurrency m_xCurrency = null;
 
 
         DataTable dtCurrency = new DataTable();
-        public Form_Select_DefaultCurrency(ref xCurrency xxCurrency)
+        public Form_Select_DefaultCurrency(ref InvoiceDB.xCurrency xxCurrency)
         {
             InitializeComponent();
             m_xCurrency = xxCurrency;

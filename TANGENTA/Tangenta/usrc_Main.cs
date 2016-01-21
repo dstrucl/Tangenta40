@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using SQLTableControl;
 using LanguageControl;
 using BlagajnaTableClass;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -19,10 +20,7 @@ namespace Tangenta
         public delegate void delegate_Exit_Click();
         public event delegate_Exit_Click Exit_Click;
 
-        public xCurrency BaseCurrency
-        {
-            get { return m_usrc_InvoiceMan.BaseCurrency; }
-        }
+       
 
         public usrc_Main()
         {
@@ -40,7 +38,7 @@ namespace Tangenta
                 if (Program.Get_JOURNAL_Types_ID())
                 {
                     string Err = null;
-                    if (Program.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null,ref Err))
+                    if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null,ref Err))
                     {
                         if (Program.b_FVI_SLO)
                         {
@@ -84,7 +82,7 @@ namespace Tangenta
                             }
                             if (dres == DialogResult.OK)
                             {
-                                if (Program.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
+                                if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
                                 {
                                     if (Program.b_FVI_SLO)
                                     {

@@ -232,11 +232,6 @@ namespace Tangenta
 
 
 
-        public xCurrency BaseCurrency 
-        {
-            get {return m_usrc_Main.BaseCurrency;}
-        }
-
         private void m_usrc_Main_Load(object sender, EventArgs e)
         {
 
@@ -244,7 +239,7 @@ namespace Tangenta
 
         private void Exit()
         {
-            f_Atom_WorkPeriod.End(Program.Atom_WorkPeriod_ID);
+            InvoiceDB.f_Atom_WorkPeriod.End(InvoiceDB.GlobalData.Atom_WorkPeriod_ID);
             if (Program.b_FVI_SLO)
             {
                 if (Program.usrc_FVI_SLO1 != null)

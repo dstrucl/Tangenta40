@@ -10,6 +10,8 @@ using LanguageControl;
 using SQLTableControl;
 using DBTypes;
 using SQLTableControl.TableDocking_Form;
+using InvoiceDB;
+
 namespace Tangenta
 {
     public partial class Form_OrganisationAccount_Edit : Form

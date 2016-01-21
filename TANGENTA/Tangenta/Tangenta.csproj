@@ -67,9 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
-    <Compile Include="Atom_ProformaInvoice_Price_Item_Stock.cs" />
-    <Compile Include="Basket.cs" />
-    <Compile Include="Columns_Price_Item_Stock.cs" />
     <Compile Include="Database_Upgrade_WindowsForm_Thread.cs" />
     <Compile Include="DURS_Izpis_Postavka.cs" />
     <Compile Include="EscPos_RP58 .cs" />
@@ -280,39 +277,7 @@
     <Compile Include="Form_XML_output.Designer.cs">
       <DependentUpon>Form_XML_output.cs</DependentUpon>
     </Compile>
-    <Compile Include="f_Atom_cAddress_Org.cs" />
-    <Compile Include="f_Atom_cCity_Org.cs" />
-    <Compile Include="f_Atom_cCountry_Org.cs" />
-    <Compile Include="f_Atom_cHouseNumber_Org.cs" />
-    <Compile Include="f_Atom_Computer.cs" />
-    <Compile Include="f_Atom_cState_Org.cs" />
-    <Compile Include="f_Atom_cStreetName_Org.cs" />
-    <Compile Include="f_Atom_Customer_Org.cs" />
-    <Compile Include="f_Atom_Customer_Person.cs" />
-    <Compile Include="f_Atom_cZIP_Org.cs" />
-    <Compile Include="f_Atom_FVI_SLO_RealEstateBP.cs" />
-    <Compile Include="f_Atom_Logo.cs" />
-    <Compile Include="f_Atom_Office_Data.cs" />
-    <Compile Include="f_Atom_OrganisationData.cs" />
-    <Compile Include="f_Atom_Person.cs" />
-    <Compile Include="f_doc.cs" />
-    <Compile Include="f_doc_page_type.cs" />
-    <Compile Include="f_doc_type.cs" />
-    <Compile Include="f_JOURNAL_Stock.cs" />
-    <Compile Include="f_Language.cs" />
-    <Compile Include="f_Office.cs" />
-    <Compile Include="f_Atom_Organisation.cs" />
-    <Compile Include="f_Atom_WorkPeriod.cs" />
-    <Compile Include="f_Atom_WorkPeriod_Type.cs" />
-    <Compile Include="f_Atom_WorkingPlace.cs" />
-    <Compile Include="f_Journal_ProformaInvoice.cs" />
-    <Compile Include="f_Journal_Invoice.cs" />
-    <Compile Include="f_Atom_Office.cs" />
-    <Compile Include="f_PurchasePrice_Item.cs" />
-    <Compile Include="f_WorkingPlace.cs" />
     <Compile Include="InvoiceData.cs" />
-    <Compile Include="Item_Data.cs" />
-    <Compile Include="JOURNAL_ProformaInvoice_Type_definitions.cs" />
     <Compile Include="Form_OrganisationAccount_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,17 +302,6 @@
     <Compile Include="Form_Customer_Org_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="f_CurrencyAtom.cs" />
-    <Compile Include="f_Atom_myCompany.cs" />
-    <Compile Include="f_Atom_myCompany_Person.cs" />
-    <Compile Include="f_PriceAtom_ServiceAtom.cs" />
-    <Compile Include="f_PriceList.cs" />
-    <Compile Include="f_PriceListAtom.cs" />
-    <Compile Include="f_SimpleItemAtom.cs" />
-    <Compile Include="f_SimpleItemAtom_Image.cs" />
-    <Compile Include="f_SimpleItemAtom_Name.cs" />
-    <Compile Include="fs.cs" />
-    <Compile Include="f_TaxationAtom.cs" />
     <Compile Include="Form_Customer_Person_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -369,8 +323,6 @@
       <DependentUpon>Form_PaymentCash.cs</DependentUpon>
     </Compile>
     <Compile Include="Return_to_shop_shelf_data.cs" />
-    <Compile Include="ShopShelf.cs" />
-    <Compile Include="Stock_Data.cs" />
     <Compile Include="Form_StockItem_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -472,8 +424,6 @@
     <Compile Include="uwpf_UndefinedPriceForItem.xaml.cs">
       <DependentUpon>uwpf_UndefinedPriceForItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShopShelf_Source.cs" />
-    <Compile Include="xCurrencyList.cs" />
     <Compile Include="Form_PriceList_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -498,7 +448,6 @@
     <Compile Include="Form_ItemAtom_View.Designer.cs">
       <DependentUpon>Form_ItemAtom_View.cs</DependentUpon>
     </Compile>
-    <Compile Include="myCompany.cs" />
     <Compile Include="Form_Taxation_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -511,10 +460,7 @@
     <Compile Include="usrc_ItemAtom.Designer.cs">
       <DependentUpon>usrc_ItemAtom.cs</DependentUpon>
     </Compile>
-    <Compile Include="DBTablesAndColumnNames.cs" />
-    <Compile Include="CurrentInvoice.cs" />
     <Compile Include="Employees.cs" />
-    <Compile Include="InvoiceDB.cs" />
     <Compile Include="Form_Discount.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -913,7 +859,6 @@
       <DependentUpon>usrc_SimpleItemMan.cs</DependentUpon>
     </Compile>
     <Compile Include="XML_Izpis_Postavka.cs" />
-    <Compile Include="xPriceList.cs" />
     <Compile Include="xTaxation.cs" />
     <Compile Include="xUnitList.cs" />
   </ItemGroup>
@@ -969,6 +914,10 @@
     <ProjectReference Include="..\..\DB_PLATFORM\SQLTableControl\SQLTableControl.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\InvoiceDB\InvoiceDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>InvoiceDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>

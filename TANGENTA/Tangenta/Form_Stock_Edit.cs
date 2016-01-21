@@ -10,6 +10,8 @@ using LanguageControl;
 using SQLTableControl;
 using DBTypes;
 using BlagajnaTableClass;
+using InvoiceDB;
+
 namespace Tangenta
 {
     public partial class Form_Stock_Edit : Form

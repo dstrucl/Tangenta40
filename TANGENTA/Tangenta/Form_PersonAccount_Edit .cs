@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using LanguageControl;
 using SQLTableControl;
 using DBTypes;
+using InvoiceDB;
+
 namespace Tangenta
 {
     public partial class PersonAccount_EditForm : Form

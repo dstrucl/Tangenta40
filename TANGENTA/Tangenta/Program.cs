@@ -12,6 +12,7 @@ using System.Diagnostics;
 using DBConnectionControl40;
 using DBTypes;
 using FiscalVerificationOfInvoices_SLO;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -40,15 +41,7 @@ namespace Tangenta
         public static usrc_FVI_SLO usrc_FVI_SLO1 = null;
         public static usrc_Printer usrc_Printer1 = null;
 
-        internal static long Office_ID = -1;
-        internal static long WorkingPlace_ID = -1;
-        internal static long Atom_Office_ID = -1;
-        internal static long Atom_Computer_ID = -1;
-        internal static long Atom_WorkingPlace_ID = -1;
-        internal static long Atom_myCompany_Person_ID = -1;
-        internal static long Atom_WorkPeriod_ID = -1;
 
-        internal static JOURNAL_ProformaInvoice_Type_definitions JOURNAL_ProformaInvoice_Type_definitions = new JOURNAL_ProformaInvoice_Type_definitions();
         
 
         internal static string UserName = "UserName not defined";
@@ -76,20 +69,6 @@ namespace Tangenta
         }
 
 
-        public static xCurrency BaseCurrency
-        {
-            get
-            {
-                if (MainForm != null)
-                {
-                    return MainForm.BaseCurrency;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
 
         public static bool ProgramDiagnostic
         {
@@ -147,9 +126,9 @@ namespace Tangenta
 
         public static int Get_BaseCurrency_DecimalPlaces()
         {
-            if (Program.BaseCurrency != null)
+            if (GlobalData.BaseCurrency != null)
             {
-                return Program.BaseCurrency.DecimalPlaces;
+                return GlobalData.BaseCurrency.DecimalPlaces;
             }
             else
             {
@@ -318,7 +297,7 @@ namespace Tangenta
 
 
 
-        internal static void PriceList_Edit(long m_Currency_ID, ComboBox cmb_PriceListType, xPriceList m_xPriceList,bool bEditUndefined)
+        internal static void PriceList_Edit(long m_Currency_ID, ComboBox cmb_PriceListType, InvoiceDB.xPriceList m_xPriceList,bool bEditUndefined)
         {
             string Err = null;
             int xPriceListType_Count = 0;
@@ -372,58 +351,6 @@ namespace Tangenta
             return sNumber;
         }
 
-        public static bool GetWorkPeriod(string Atom_WorkPeriod_Type_Name,string x_Atom_WorkPeriod_Type_Description, DateTime dtStart, DateTime_v dtEnd_v, ref string Err)
-        {
-            if (Atom_WorkPeriod_ID < 0)
-            {
-                if (Atom_myCompany_Person_ID < 0)
-                {
-                    string_v office_name = null;
-                    if (f_Atom_myCompany_Person.Get(1, ref Atom_myCompany_Person_ID,ref office_name)== myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
-                    {
-                        if (f_WorkingPlace.Get(office_name.v, "Tangenta 1", ref WorkingPlace_ID))
-                        {
-                            if (f_Atom_WorkingPlace.Get(Program.WorkingPlace_ID, ref Atom_WorkingPlace_ID))
-                            {
-                                if (f_Atom_Computer.Get(ref Program.Atom_Computer_ID))
-                                {
-                                    string Atom_WorkPeriod_Type_Description = x_Atom_WorkPeriod_Type_Description;
-                                    if (Atom_WorkPeriod_Type_Name.Equals(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04))
-                                    {
-                                        Atom_WorkPeriod_Type_Description = "Stari šiht od 29.4.2015 do " + dtEnd_v.v.Day.ToString() + "." + dtEnd_v.v.Month.ToString() + "." + dtEnd_v.v.Year.ToString();
-                                    }
-                                    if (f_Atom_WorkPeriod.Get(Atom_WorkPeriod_Type_Name,Atom_WorkPeriod_Type_Description , Atom_myCompany_Person_ID, Atom_WorkingPlace_ID, Atom_Computer_ID, dtStart, dtEnd_v, ref Atom_WorkPeriod_ID))
-                                    {
-                                        return true;
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
 
         internal static bool Get_JOURNAL_Types_ID()
         {
@@ -434,17 +361,17 @@ namespace Tangenta
             return false;
         }
 
-        internal static string GetPaymentTypeString(usrc_Payment.ePaymentType ePaymentType)
+        internal static string GetPaymentTypeString(GlobalData.ePaymentType ePaymentType)
         {
             switch (ePaymentType)
             {
-                case usrc_Payment.ePaymentType.CASH:
+                case GlobalData.ePaymentType.CASH:
                     return "cash";
-                case usrc_Payment.ePaymentType.PAYMENT_CARD:
+                case GlobalData.ePaymentType.PAYMENT_CARD:
                     return "payment_card";
-                case usrc_Payment.ePaymentType.NONE:
+                case GlobalData.ePaymentType.NONE:
                     return "none";
-                case usrc_Payment.ePaymentType.ALLREADY_PAID:
+                case GlobalData.ePaymentType.ALLREADY_PAID:
                     return "allready_paid";
                     break;
             }

@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace Tangenta
 {
     public partial class Form_Atom_Item_View : Form
     {
-        private InvoiceDB m_InvoiceDB=null;
+        private InvoiceDB.ShopBC m_InvoiceDB =null;
         private long m_Atom_Item_ID = 0;
-        public Form_Atom_Item_View(InvoiceDB xInvoiceDB,long xAtom_Item_ID)
+        public Form_Atom_Item_View(InvoiceDB.ShopBC xInvoiceDB,long xAtom_Item_ID)
         {
             InitializeComponent();
             m_InvoiceDB = xInvoiceDB;

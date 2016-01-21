@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Data;
 using DBTypes;
 using DBConnectionControl40;
+using InvoiceDB;
 
 namespace Tangenta
 {

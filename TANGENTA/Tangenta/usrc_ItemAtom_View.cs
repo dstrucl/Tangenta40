@@ -8,13 +8,14 @@ using System.Text;
 using System.Windows.Forms;
 using DataGridView_2xls;
 using LanguageControl;
+using InvoiceDB;
 
 namespace Tangenta
 {
 
     public partial class usrc_Atom_Item_View : UserControl
     {
-        private InvoiceDB m_InvoiceDB = null;
+        private InvoiceDB.ShopBC m_InvoiceDB = null;
         private long m_Atom_Item_ID = 0;
         private List<object> appisd_List = new List<object>();
         private DataTable dt_ProformaInvoice_Atom_Item_Stock_view = new DataTable();
@@ -30,7 +31,7 @@ namespace Tangenta
 
         }
 
-        public bool Init(InvoiceDB x_InvoiceDB, long x_Atom_Item_ID)
+        public bool Init(InvoiceDB.ShopBC x_InvoiceDB, long x_Atom_Item_ID)
         {
 
             m_InvoiceDB = x_InvoiceDB;

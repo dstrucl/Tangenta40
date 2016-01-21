@@ -9,13 +9,14 @@ using System.Windows.Forms;
 using LanguageControl;
 using DBConnectionControl40;
 using DBTypes;
+using InvoiceDB;
 
 namespace Tangenta
 {
     public partial class Form_PrintExistingInvoice : Form
     {
         public InvoiceData m_InvoiceData = null;
-        public usrc_Payment.ePaymentType m_ePaymentType = usrc_Payment.ePaymentType.NONE;
+        public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.NONE;
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;

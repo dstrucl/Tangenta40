@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InvoiceDB;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -13,11 +14,11 @@ namespace Tangenta
 {
     public partial class usrc_Atom_Item : UserControl
     {
-        public Atom_ProformaInvoice_Price_Item_Stock_Data m_appisd = null;
+        public InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data m_appisd = null;
         public long Item_ID = -1;
         public delegate void delegate_btn_RemoveClick(usrc_Atom_Item x_usrc_Atom_Item, bool bFactory);
         public event delegate_btn_RemoveClick btn_RemoveClick = null;
-        private InvoiceDB m_InvoiceDB = null;
+        private InvoiceDB.ShopBC m_InvoiceDB = null;
         public bool FromFactory = false;
         public bool FromStock = false;
         private decimal dQuantity_FromStock = 0;
@@ -50,7 +51,7 @@ namespace Tangenta
 
         }
 
-        internal void DoPaint(InvoiceDB xInvoiceDB,Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        internal void DoPaint(InvoiceDB.ShopBC xInvoiceDB, Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
         {
             //appisd.Set(m_dr);
             m_InvoiceDB = xInvoiceDB;
@@ -241,7 +242,7 @@ namespace Tangenta
             }
         }
 
-        internal void GetPrices(Atom_ProformaInvoice_Price_Item_Stock_Data appisd,
+        internal void GetPrices(InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data appisd,
                                 ref decimal Discount, ref decimal ExtraDiscount, ref decimal RetailPrice, ref decimal RetailPriceWithDiscount,
                                 ref decimal TaxPrice,
                                 ref string TaxName,
@@ -277,9 +278,9 @@ namespace Tangenta
                 }
                 RetailPrice = RetailPricePerUnit * dquantity_all;
                 int decimal_places = 2;
-                if (Program.BaseCurrency != null)
+                if (GlobalData.BaseCurrency != null)
                 {
-                    decimal_places = Program.BaseCurrency.DecimalPlaces;
+                    decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
                 }
                 StaticLib.Func.CalculatePrice(RetailPricePerUnit, dquantity_all, Discount, ExtraDiscount, TaxRate, ref RetailPriceWithDiscount, ref TaxPrice, ref NetPrice, decimal_places);
             }

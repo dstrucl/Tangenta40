@@ -11,6 +11,7 @@ using SQLTableControl;
 using BlagajnaTableClass;
 using DBConnectionControl40;
 using LanguageControl;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -80,7 +81,7 @@ namespace Tangenta
         {
             m_bInvoice = bInvoice;
             int iRowsCount = -1;
-            string s_JOURNAL_ProformaInvoice_Type_ID = Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString();
+            string s_JOURNAL_ProformaInvoice_Type_ID = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString();
 
             if (bInvoice)
             {
@@ -93,7 +94,7 @@ namespace Tangenta
 
             if (ExtraCondition!=null)
             {
-                s_JOURNAL_ProformaInvoice_Type_ID = Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                s_JOURNAL_ProformaInvoice_Type_ID = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
                 cond += " and " + ExtraCondition;
             }
             else
@@ -235,7 +236,7 @@ namespace Tangenta
         {
             if (dt_XInvoice.Rows.Count>0)
             { 
-                string currency_symbol = Program.BaseCurrency.Symbol;
+                string currency_symbol = GlobalData.BaseCurrency.Symbol;
                 SumPaymentList xSumPaymentList = new SumPaymentList();
                 SumPayments(xSumPaymentList);
                 if (xSumPaymentList.SumPayment_List.Count > 0)

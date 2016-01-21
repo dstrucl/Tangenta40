@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using BlagajnaTableClass;
 using SQLTableControl;
 using LanguageControl;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -25,7 +26,7 @@ namespace Tangenta
         
 
         DataTable dt_Item = new DataTable();
-        private InvoiceDB m_InvoiceDB = null;
+        private InvoiceDB.ShopBC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
         private usrc_Invoice m_usrc_Invoice = null;
         public usrc_ItemMan()
@@ -63,7 +64,7 @@ namespace Tangenta
             }
         }
 
-        internal void Init(InvoiceDB xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, usrc_Invoice x_usrc_Invoice)
+        internal void Init(InvoiceDB.ShopBC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, usrc_Invoice x_usrc_Invoice)
         {
             //Program.iGDIcUser502 = Program.getGuiResourcesUserCount();
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -15,7 +16,7 @@ namespace Tangenta
         int xPriceList_Count = 0;
         public long m_Currency_ID = 0;
 
-        public xPriceList m_xPriceList = null;
+        public InvoiceDB.xPriceList m_xPriceList = null;
 
         public usrc_PriceList()
         {

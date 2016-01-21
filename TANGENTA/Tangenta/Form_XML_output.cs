@@ -1,4 +1,5 @@
-﻿using LanguageControl;
+﻿using InvoiceDB;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -144,7 +145,7 @@ namespace Tangenta
             try
             {
                 int iRowsCount = -1;
-                string sInvoiceCondition = " and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString() +" ";
+                string sInvoiceCondition = " and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString() +" ";
                 string sql = @" select 
                             JOURNAL_ProformaInvoice_$_pinv_$$ID as ID,
                             JOURNAL_ProformaInvoice_$_pinv_$$Draft,

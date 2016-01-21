@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using DBConnectionControl40;
 using DBTypes;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -21,8 +22,8 @@ namespace Tangenta
         public event delegate_OK OK;
 
         public InvoiceData m_InvoiceData = null;
-        public enum ePaymentType { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD };
-        public ePaymentType PaymentType = ePaymentType.NONE;
+        
+        public GlobalData.ePaymentType PaymentType = GlobalData.ePaymentType.NONE;
 
 
         int Currency_DecimalPlaces = -1;
@@ -53,7 +54,7 @@ namespace Tangenta
         {
             if (rdb_AllreadyPayed.Checked)
             {
-                PaymentType = ePaymentType.ALLREADY_PAID;
+                PaymentType = GlobalData.ePaymentType.ALLREADY_PAID;
                 SetPaymentMethod(lngRPM.s_AlreadyPaid.s);
             }
         }
@@ -62,7 +63,7 @@ namespace Tangenta
         {
             if (rdb_PaymentCard.Checked)
             {
-                PaymentType = ePaymentType.PAYMENT_CARD;
+                PaymentType = GlobalData.ePaymentType.PAYMENT_CARD;
                 SetPaymentMethod(lngRPM.s_PaymentCard.s);
             }
         }
@@ -70,7 +71,7 @@ namespace Tangenta
         public bool Init(InvoiceData xInvoiceData, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
             m_InvoiceData = xInvoiceData;
-            Invoice_ID = m_InvoiceData.m_InvoiceDB.m_CurrentInvoice.Invoice_ID;
+            Invoice_ID = m_InvoiceData.m_ShopBC.m_CurrentInvoice.Invoice_ID;
             Currency_DecimalPlaces = xCurrency_DecimalPlaces;
             GrossSum = xGrossSum;
             txt__Amount.Text = GrossSum.ToString();
@@ -86,7 +87,7 @@ namespace Tangenta
                 txt_ToReturn.Visible = true;
                 lbl_AmountReceived.Visible = true;
                 txt_AmountReceived.Visible = true;
-                PaymentType = ePaymentType.CASH;
+                PaymentType = GlobalData.ePaymentType.CASH;
             }
             else
             {
@@ -162,7 +163,7 @@ namespace Tangenta
         {
             DateTime_v ProformaInvoiceTime = new DateTime_v();
             ProformaInvoiceTime.v = DateTime.Now;
-            if (PaymentType == ePaymentType.CASH)
+            if (PaymentType == GlobalData.ePaymentType.CASH)
             {
                 DoPrint(PaymentType, sPaymentMethod, txt_AmountReceived.Text, txt_ToReturn.Text, ProformaInvoiceTime);
             }
@@ -178,7 +179,7 @@ namespace Tangenta
 
         }
 
-        private void DoPrint(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        private void DoPrint(GlobalData.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             long ProformaInvoice_ID = -1;
             int xNumberInFinancialYear = -1;
@@ -208,9 +209,9 @@ namespace Tangenta
         }
 
 
-        private void Print(usrc_Payment.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        private void Print(GlobalData.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
-            if (ePaymentType == usrc_Payment.ePaymentType.CASH)
+            if (ePaymentType == GlobalData.ePaymentType.CASH)
             {
                 Program.usrc_Printer1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             }

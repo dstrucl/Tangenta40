@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DBTypes;
 using LanguageControl;
 using XMessage;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -19,7 +20,7 @@ namespace Tangenta
         public int yPosLast = 5;
 
         private usrc_ItemList m_usrc_ItemList = null;
-        public InvoiceDB m_InvoiceDB;
+        public InvoiceDB.ShopBC m_ShopBC;
         private DBTablesAndColumnNames DBtcn;
 
         public delegate void delegate_After_Atom_Item_Remove();
@@ -68,10 +69,10 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        internal void Init(usrc_ItemList x_usrc_ItemList,InvoiceDB xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        internal void Init(usrc_ItemList x_usrc_ItemList, InvoiceDB.ShopBC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             m_usrc_ItemList = x_usrc_ItemList;
-            m_InvoiceDB=xm_InvoiceDB;
+            m_ShopBC=xm_InvoiceDB;
             DBtcn = xDBtcn;
             // pias_Atom_Item_List.Clear();
             Init();
@@ -83,7 +84,7 @@ namespace Tangenta
         {
             if (bFactory)
             {
-                if (this.m_InvoiceDB.m_CurrentInvoice.m_Basket.RemoveFactory(x_usrc_Atom_Item.m_appisd))
+                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.RemoveFactory(x_usrc_Atom_Item.m_appisd))
                 {
                     if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
                     {
@@ -105,7 +106,7 @@ namespace Tangenta
             }
             else
             {
-                if (this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Remove_and_put_back_to_ShopShelf(x_usrc_Atom_Item.m_appisd, this.m_InvoiceDB.m_CurrentInvoice.m_ShopShelf))
+                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.Remove_and_put_back_to_ShopShelf(x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentInvoice.m_ShopShelf))
                 {
                     if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
                     {
@@ -125,18 +126,18 @@ namespace Tangenta
                     LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
                 }
             }
-            this.btn_ClearAll.Visible = this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0;
+            this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0;
         }
 
 
         internal void SetCurrentInvoice_SelectedItems()
         {
 
-            m_usrc_Item_PageHandler.Init(m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST, 5, usrc_Atom_Item_array);
+            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST, 5, usrc_Atom_Item_array);
             this.m_usrc_ItemList.Reset();
-            if (this.m_InvoiceDB.m_CurrentInvoice.bDraft)
+            if (this.m_ShopBC.m_CurrentInvoice.bDraft)
             {
-                this.btn_ClearAll.Visible = this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0;
+                this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0;
             }
             else
             {
@@ -152,7 +153,7 @@ namespace Tangenta
             if (bVisible)
             {
                 Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)o_data;
-                usrc_atom_item.DoPaint(this.m_InvoiceDB,appisd);
+                usrc_atom_item.DoPaint(this.m_ShopBC,appisd);
                 usrc_atom_item.Visible = true;
                 usrc_atom_item.Enabled = true;
             }
@@ -165,11 +166,11 @@ namespace Tangenta
         }
 
 
-        internal usrc_Atom_Item AddFromStock(Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        internal usrc_Atom_Item AddFromStock(InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
         {
-            if (m_InvoiceDB.m_CurrentInvoice.Insert_ProformaInvoice_Atom_Price_Items_Stock(ref appisd,true))
+            if (m_ShopBC.m_CurrentInvoice.Insert_ProformaInvoice_Atom_Price_Items_Stock(ref appisd,true))
             {
-                int index = m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.IndexOf(appisd);
+                int index = m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.IndexOf(appisd);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
                 if (usrc_itema != null)
                 {
@@ -184,13 +185,13 @@ namespace Tangenta
             }
         }
 
-        internal usrc_Atom_Item AddFromFactory(Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        internal usrc_Atom_Item AddFromFactory(InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
         {
 
-            if (m_InvoiceDB.m_CurrentInvoice.Insert_ProformaInvoice_Atom_Price_Items_Stock(ref appisd,false))
+            if (m_ShopBC.m_CurrentInvoice.Insert_ProformaInvoice_Atom_Price_Items_Stock(ref appisd,false))
             {
 
-                int index = m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.IndexOf(appisd);
+                int index = m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.IndexOf(appisd);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
                 if (usrc_itema!=null)
                 {
@@ -210,7 +211,7 @@ namespace Tangenta
             if (XMessage.Box.Show(this, lngRPM.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                m_InvoiceDB.m_CurrentInvoice.m_Basket.Empty(m_InvoiceDB.m_CurrentInvoice.m_ShopShelf);
+                m_ShopBC.m_CurrentInvoice.m_Basket.Empty(m_ShopBC.m_CurrentInvoice.m_ShopShelf);
                 m_usrc_Item_PageHandler.DoPaint();
                 m_usrc_ItemList.Reset();
                 this.Cursor = Cursors.Arrow;

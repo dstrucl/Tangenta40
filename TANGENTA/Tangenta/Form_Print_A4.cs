@@ -1,5 +1,6 @@
 ﻿using BlagajnaTableClass;
 using DBTypes;
+using InvoiceDB;
 using LanguageControl;
 using SQLTableControl;
 using System;
@@ -21,7 +22,7 @@ namespace Tangenta
         public string Default_Tamplate = null;
         public byte[] Doc = null;
 
-        private usrc_Payment.ePaymentType paymentType;
+        private GlobalData.ePaymentType paymentType;
         private string sPaymentMethod;
         private string sAmountReceived;
         private string sToReturn;
@@ -30,7 +31,7 @@ namespace Tangenta
         private InvoiceData m_InvoiceData;
 
 
-        public Form_Print_A4(InvoiceData xInvoiceData, usrc_Payment.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public Form_Print_A4(InvoiceData xInvoiceData, GlobalData.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             InitializeComponent();
 

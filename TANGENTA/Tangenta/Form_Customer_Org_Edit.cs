@@ -11,6 +11,8 @@ using SQLTableControl;
 using DBTypes;
 using BlagajnaTableClass;
 using SQLTableControl.TableDocking_Form;
+using InvoiceDB;
+
 namespace Tangenta
 {
     public partial class Form_Customer_Org_Edit : Form

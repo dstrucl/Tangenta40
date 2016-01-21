@@ -11,6 +11,7 @@ using SQLTableControl;
 using BlagajnaTableClass;
 using LanguageControl;
 using DBConnectionControl40;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -32,7 +33,7 @@ namespace Tangenta
 
         public DataTable dt_SelectedSimpleItem = new DataTable();
 
-        InvoiceDB m_InvoiceDB = null;
+        InvoiceDB.ShopBC m_InvoiceDB = null;
         DBTablesAndColumnNames DBtcn = null;
 
         string column_SelectedSimpleItem_btn_discount = "btn_discount";
@@ -61,7 +62,7 @@ namespace Tangenta
         public event delegate_ExtraDiscount aa_ExtraDiscount = null;
 
 
-        public void Init(InvoiceDB x_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        public void Init(ShopBC x_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             Layout = eLayout.NONE;
             m_InvoiceDB = x_InvoiceDB;

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SQLTableControl;
 using BlagajnaTableClass;
 using LanguageControl;
+using InvoiceDB;
 
 namespace Tangenta
 {

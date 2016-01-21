@@ -34,11 +34,11 @@ namespace Tangenta
         public void SetInitialMode()
         {
             Mode = eMode.Items_and_ProformaInvoices;
-            if (m_usrc_Invoice.m_InvoiceDB!=null)
+            if (m_usrc_Invoice.m_ShopBC!=null)
             {
-                if (m_usrc_Invoice.m_InvoiceDB.m_CurrentInvoice!=null)
+                if (m_usrc_Invoice.m_ShopBC.m_CurrentInvoice!=null)
                 {
-                    if (m_usrc_Invoice.m_InvoiceDB.m_CurrentInvoice.bDraft)
+                    if (m_usrc_Invoice.m_ShopBC.m_CurrentInvoice.bDraft)
                     {
                         Mode = eMode.Items;
                     }
@@ -195,10 +195,6 @@ namespace Tangenta
             return false;
         }
 
-        public xCurrency BaseCurrency
-        {
-            get { return m_usrc_Invoice.BaseCurrency; }
-        }
 
         private void m_usrc_Invoice_ProformaInvoiceSaved(long ProformaInvoice_id)
         {

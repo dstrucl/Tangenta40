@@ -10,6 +10,7 @@ using System.Xml;
 using System.Drawing;
 using DBConnectionControl40;
 using System.IO;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -78,7 +79,7 @@ namespace Tangenta
         public int iCountItemsSold = 0;
 
 
-        public InvoiceDB m_InvoiceDB = null;
+        public InvoiceDB.ShopBC m_ShopBC = null;
 
 
         public StaticLib.TaxSum taxSum = null;
@@ -104,9 +105,9 @@ namespace Tangenta
         }
 
 
-        public InvoiceData(InvoiceDB xInvoiceDB, long xProformaInvoice_ID)
+        public InvoiceData(InvoiceDB.ShopBC xInvoiceDB, long xProformaInvoice_ID)
         {
-            m_InvoiceDB = xInvoiceDB;
+            m_ShopBC = xInvoiceDB;
             ProformaInvoice_ID = xProformaInvoice_ID;
             Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
         }
@@ -285,14 +286,14 @@ namespace Tangenta
             }
         }
 
-        internal bool Save(ref long proformaInvoice_ID, usrc_Payment.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        internal bool Save(ref long proformaInvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
-            return m_InvoiceDB.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
+            return m_ShopBC.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
         }
 
         internal bool SetInvoiceTime(DateTime_v issue_time)
         {
-            if (m_InvoiceDB.m_CurrentInvoice.SetInvoiceTime(issue_time))
+            if (m_ShopBC.m_CurrentInvoice.SetInvoiceTime(issue_time))
             {
                 if (issue_time != null)
                 {
@@ -326,7 +327,7 @@ namespace Tangenta
 
             for (i = start_index; i < end_index; i++)
             {
-                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
+                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
 
                 decimal Discount = appisd.Discount.v;
 
@@ -420,7 +421,7 @@ namespace Tangenta
                                  acusorg.ID as Atom_Customer_Org_ID,
                                  acusper.ID as Atom_Customer_Person_ID
                                  from JOURNAL_ProformaInvoice
-                                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
+                                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
                                  inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
@@ -492,7 +493,7 @@ namespace Tangenta
                                  acusorg.ID as Atom_Customer_Org_ID,
                                  acusper.ID as Atom_Customer_Person_ID
                                  from JOURNAL_ProformaInvoice
-                                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
+                                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
                                  inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
@@ -613,11 +614,11 @@ namespace Tangenta
                         }
 
 
-                        if (m_InvoiceDB.Read_Atom_Price_SimpleItem_Table(ProformaInvoice_ID, ref dt_Atom_Price_SimpleItem))
+                        if (m_ShopBC.Read_Atom_Price_SimpleItem_Table(ProformaInvoice_ID, ref dt_Atom_Price_SimpleItem))
                         {
 
                             int iCountSimpleItemsSold = dt_Atom_Price_SimpleItem.Rows.Count;
-                            int iCountItemsSold = m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
+                            int iCountItemsSold = m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
 
                             ItemsSold = new UniversalInvoice.ItemSold[iCountSimpleItemsSold + iCountItemsSold];
                             taxSum = new StaticLib.TaxSum();

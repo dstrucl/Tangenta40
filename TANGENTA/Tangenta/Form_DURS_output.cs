@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -76,7 +77,7 @@ namespace Tangenta
             try
             {
                 int iRowsCount = -1;
-                string sInvoiceCondition = " and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + Program.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString() + " ";
+                string sInvoiceCondition = " and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString() + " ";
                 string sql = @" select 
                             JOURNAL_ProformaInvoice_$_pinv_$$ID as ID,
                             JOURNAL_ProformaInvoice_$_pinv_$$Draft,
