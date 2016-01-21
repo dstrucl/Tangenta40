@@ -29,7 +29,7 @@ namespace Tangenta
         public delegate void delegate_ItemAdded();
         public event delegate_ItemAdded ItemAdded = null;
 
-        public usrc_ItemMan m_usrc_ItemMan = null;
+        public usrc_ShopC m_usrc_ItemMan = null;
 
         public usrc_Item[] usrc_Item_aray = null;
         usrc_Atom_ItemsList m_usrc_Atom_ItemsList = null;
@@ -97,7 +97,7 @@ namespace Tangenta
             }
         }
 
-        internal void Init(InvoiceDB.ShopBC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ItemMan x_usrc_ItemMan)
+        internal void Init(InvoiceDB.ShopBC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan)
         {
             m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;

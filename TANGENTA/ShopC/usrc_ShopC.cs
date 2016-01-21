@@ -11,7 +11,7 @@ using SQLTableControl;
 using LanguageControl;
 using InvoiceDB;
 
-namespace Tangenta
+namespace ShopC
 {
     public partial class usrc_ItemMan : UserControl
     {

@@ -45,7 +45,6 @@ namespace Tangenta
         public long Last_myCompany_Person_id = 1;
 
         public emode m_mode = emode.view_eInvoiceType;
-        long myCompany_Person_id = -1;
 
         public DBTablesAndColumnNames DBtcn = null;
 
@@ -54,7 +53,6 @@ namespace Tangenta
 
         public xTaxationList m_xTaxationList = null;
 
-        public InvoiceDB.xCurrency BaseCurrency = null;
 
         public InvoiceDB.xPriceList m_xPriceList = null;
 
@@ -280,7 +278,7 @@ namespace Tangenta
                                             f_PriceList.CheckPriceUndefined(pparent, DBSync.DBSync.DB_for_Blagajna.m_DBTables, ref bEditPriceList);
                                             if (bEditPriceList)
                                             {
-                                                Program.PriceList_Edit(BaseCurrency.ID, this.usrc_PriceList.cmb_PriceListType, m_xPriceList, true);
+                                                Program.PriceList_Edit(GlobalData.BaseCurrency.ID, this.usrc_PriceList.cmb_PriceListType, m_xPriceList, true);
                                             }
 
                                             if (Program.bStartup)
@@ -446,10 +444,10 @@ namespace Tangenta
             if (!EventsActive)
             {
                 EventsActive = true;
-                this.usrc_SimpleItemMan.aa_ItemAdded += new usrc_SimpleItemMan.delegate_ItemAdded(usrc_SimpleItemMan_ItemAdded);
-                this.usrc_SimpleItemMan.aa_ItemRemoved += new usrc_SimpleItemMan.delegate_ItemRemoved(usrc_SimpleItemMan_ItemRemoved);
-                this.usrc_SimpleItemMan.aa_ItemUpdated += new usrc_SimpleItemMan.delegate_ItemUpdated(usrc_SimpleItemMan_ItemUpdated);
-                this.usrc_SimpleItemMan.aa_ExtraDiscount += new usrc_SimpleItemMan.delegate_ExtraDiscount(usrc_SimpleItemMan_ExtraDiscount);
+                this.usrc_SimpleItemMan.aa_ItemAdded += new usrc_ShopB.delegate_ItemAdded(usrc_SimpleItemMan_ItemAdded);
+                this.usrc_SimpleItemMan.aa_ItemRemoved += new usrc_ShopB.delegate_ItemRemoved(usrc_SimpleItemMan_ItemRemoved);
+                this.usrc_SimpleItemMan.aa_ItemUpdated += new usrc_ShopB.delegate_ItemUpdated(usrc_SimpleItemMan_ItemUpdated);
+                this.usrc_SimpleItemMan.aa_ExtraDiscount += new usrc_ShopB.delegate_ExtraDiscount(usrc_SimpleItemMan_ExtraDiscount);
             }
         }
 
@@ -458,10 +456,10 @@ namespace Tangenta
             if (EventsActive)
             {
                 EventsActive = false;
-                this.usrc_SimpleItemMan.aa_ItemAdded -= new usrc_SimpleItemMan.delegate_ItemAdded(usrc_SimpleItemMan_ItemAdded);
-                this.usrc_SimpleItemMan.aa_ItemRemoved -= new usrc_SimpleItemMan.delegate_ItemRemoved(usrc_SimpleItemMan_ItemRemoved);
-                this.usrc_SimpleItemMan.aa_ItemUpdated -= new usrc_SimpleItemMan.delegate_ItemUpdated(usrc_SimpleItemMan_ItemUpdated);
-                this.usrc_SimpleItemMan.aa_ExtraDiscount -= new usrc_SimpleItemMan.delegate_ExtraDiscount(usrc_SimpleItemMan_ExtraDiscount);
+                this.usrc_SimpleItemMan.aa_ItemAdded -= new usrc_ShopB.delegate_ItemAdded(usrc_SimpleItemMan_ItemAdded);
+                this.usrc_SimpleItemMan.aa_ItemRemoved -= new usrc_ShopB.delegate_ItemRemoved(usrc_SimpleItemMan_ItemRemoved);
+                this.usrc_SimpleItemMan.aa_ItemUpdated -= new usrc_ShopB.delegate_ItemUpdated(usrc_SimpleItemMan_ItemUpdated);
+                this.usrc_SimpleItemMan.aa_ExtraDiscount -= new usrc_ShopB.delegate_ExtraDiscount(usrc_SimpleItemMan_ExtraDiscount);
             }
         }
 
@@ -498,7 +496,7 @@ namespace Tangenta
         private bool GetPriceList()
         {
             string Err = null;
-            return usrc_PriceList.Init(BaseCurrency.ID, ref Err);
+            return usrc_PriceList.Init(GlobalData.BaseCurrency.ID, ref Err);
         }
 
 
@@ -789,13 +787,13 @@ namespace Tangenta
                 {
                     long currency_id = (long)dt.Rows[0]["Currency_ID"];
 
-                    if (BaseCurrency == null)
+                    if (GlobalData.BaseCurrency == null)
                     {
-                        BaseCurrency = new xCurrency();
+                        GlobalData.BaseCurrency = new xCurrency();
                     }
-                    if (BaseCurrency.SetCurrency(currency_id, ref Err))
+                    if (GlobalData.BaseCurrency.SetCurrency(currency_id, ref Err))
                     {
-                        this.txt_Currency.Text = BaseCurrency.Abbreviation + " " + BaseCurrency.Symbol;
+                        this.txt_Currency.Text = GlobalData.BaseCurrency.Abbreviation + " " + GlobalData.BaseCurrency.Symbol;
                         return true;
                     }
                     else
@@ -824,18 +822,18 @@ namespace Tangenta
 
         private bool Select_BaseCurrency(ref string Err)
         {
-            if (BaseCurrency == null)
+            if (GlobalData.BaseCurrency == null)
             {
-                BaseCurrency = new xCurrency();
+                GlobalData.BaseCurrency = new xCurrency();
             }
-            Form_Select_DefaultCurrency sel_basecurrency_dlg = new Form_Select_DefaultCurrency(ref BaseCurrency);
+            Form_Select_DefaultCurrency sel_basecurrency_dlg = new Form_Select_DefaultCurrency(ref GlobalData.BaseCurrency);
             if (sel_basecurrency_dlg.ShowDialog() == DialogResult.OK)
             {
                 string sql_SetBaseCurrency = "Insert into BaseCurrency (Currency_ID) Values (" + sel_basecurrency_dlg.Currency_ID.ToString() + ")";
                 object oRes = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetBaseCurrency, null, ref oRes, ref Err))
                 {
-                    this.txt_Currency.Text = BaseCurrency.Abbreviation + " " + BaseCurrency.Symbol;
+                    this.txt_Currency.Text = GlobalData.BaseCurrency.Abbreviation + " " + GlobalData.BaseCurrency.Symbol;
                     return true;
                 }
                 else
@@ -982,10 +980,6 @@ namespace Tangenta
             }
         }
 
-        private void usrc_SimpleItemMan_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void btn_SelectBaseCurrency_Click(object sender, EventArgs e)
         {
@@ -1051,7 +1045,7 @@ namespace Tangenta
             }
             GrossSum = dsum_GrossSum;
             NetSum = dsum_NetSum;
-            this.lbl_Sum.Text = dsum_GrossSum.ToString() + " " + BaseCurrency.Symbol;// +" tax:" + TaxSum.ToString() + " " + NetSum.ToString();
+            this.lbl_Sum.Text = dsum_GrossSum.ToString() + " " + GlobalData.BaseCurrency.Symbol;// +" tax:" + TaxSum.ToString() + " " + NetSum.ToString();
         }
 
         private void usrc_ItemMan_ItemAdded()

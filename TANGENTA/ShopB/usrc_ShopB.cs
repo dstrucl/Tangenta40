@@ -13,10 +13,11 @@ using LanguageControl;
 using DBConnectionControl40;
 using InvoiceDB;
 
-namespace Tangenta
+namespace ShopB
 {
-    public partial class usrc_SimpleItemMan : UserControl
+    public partial class usrc_ShopB : UserControl
     {
+        public enum eMode { VIEW,EDIT};
 
         private DataGridViewTextBoxColumn col_Discount = null;
         private DataGridViewTextBoxColumn dgv_total_discount_column = null;
@@ -27,7 +28,7 @@ namespace Tangenta
         DataTable dt_SimpleItem = new DataTable();
         DataTable dt_Price_SimpleItem_Group = new DataTable();
         public enum eLayout {NONE,DRAFT,VIEW }
-        private eLayout Layout = eLayout.NONE;
+        //private eLayout Layout = eLayout.NONE;
 
         DataTable dt_Price_SimpleItem = new DataTable();
 
@@ -41,7 +42,7 @@ namespace Tangenta
         string column_total_discount = "total_discount";
         string btn_Select_Name = "btn_Select";
 
-        public usrc_SimpleItemMan()
+        public usrc_ShopB()
         {
             InitializeComponent();
             idgv_SimpleItems_Width_default = this.dgv_SimpleItems.Width;
@@ -99,16 +100,16 @@ namespace Tangenta
             dt_SelectedSimpleItem.Columns.Add(DBtcn.column_SelectedSimpleItem_ExtraDiscount, DBtcn.column_SelectedSimpleItem_ExtraDiscount_TYPE);
         }
 
-        internal void SetMode(usrc_Invoice.emode mode)
+        internal void SetMode(eMode mode)
         {
             switch (mode)
             {
-                case usrc_Invoice.emode.view_eInvoiceType:
+                case eMode.VIEW:
                     splitContainer2.Panel2Collapsed = true;
                     lbl_GroupPath.Visible = false;
                     break;
 
-                case usrc_Invoice.emode.edit_eInvoiceType:
+                case eMode.EDIT:
                     splitContainer2.Panel2Collapsed = false;
                     lbl_GroupPath.Visible = true;
                     break;

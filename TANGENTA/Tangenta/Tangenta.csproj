@@ -756,8 +756,8 @@
       <DependentUpon>usrc_ItemList.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ItemMan.resx">
-      <DependentUpon>usrc_ItemMan.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_ShopC.resx">
+      <DependentUpon>usrc_ShopC.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PriceList.resx">
@@ -769,8 +769,8 @@
     <EmbeddedResource Include="usrc_Price_ItemOrService.resx">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_SimpleItemMan.resx">
-      <DependentUpon>usrc_SimpleItemMan.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_ShopB.resx">
+      <DependentUpon>usrc_ShopB.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -828,11 +828,11 @@
     <Compile Include="usrc_ItemList.Designer.cs">
       <DependentUpon>usrc_ItemList.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_ItemMan.cs">
+    <Compile Include="usrc_ShopC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_ItemMan.Designer.cs">
-      <DependentUpon>usrc_ItemMan.cs</DependentUpon>
+    <Compile Include="usrc_ShopC.Designer.cs">
+      <DependentUpon>usrc_ShopC.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_PriceList.cs">
       <SubType>UserControl</SubType>
@@ -852,11 +852,11 @@
     <Compile Include="usrc_Price_ItemOrService.Designer.cs">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_SimpleItemMan.cs">
+    <Compile Include="usrc_ShopB.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_SimpleItemMan.Designer.cs">
-      <DependentUpon>usrc_SimpleItemMan.cs</DependentUpon>
+    <Compile Include="usrc_ShopB.Designer.cs">
+      <DependentUpon>usrc_ShopB.cs</DependentUpon>
     </Compile>
     <Compile Include="XML_Izpis_Postavka.cs" />
     <Compile Include="xTaxation.cs" />
@@ -914,10 +914,6 @@
     <ProjectReference Include="..\..\DB_PLATFORM\SQLTableControl\SQLTableControl.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\InvoiceDB\InvoiceDB.csproj">
-      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
-      <Name>InvoiceDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>

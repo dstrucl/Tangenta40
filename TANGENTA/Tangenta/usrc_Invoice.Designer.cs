@@ -51,8 +51,8 @@
             this.usrc_Notice1 = new Tangenta.usrc_Notice();
             this.usrc_PriceList = new Tangenta.usrc_PriceList();
             this.usrc_Customer = new Tangenta.usrc_Customer();
-            this.usrc_SimpleItemMan = new Tangenta.usrc_SimpleItemMan();
-            this.usrc_ItemMan = new Tangenta.usrc_ItemMan();
+            this.usrc_SimpleItemMan = new Tangenta.usrc_ShopB();
+            this.usrc_ItemMan = new Tangenta.usrc_ShopC();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -340,7 +340,6 @@
             this.usrc_SimpleItemMan.Name = "usrc_SimpleItemMan";
             this.usrc_SimpleItemMan.Size = new System.Drawing.Size(1010, 318);
             this.usrc_SimpleItemMan.TabIndex = 0;
-            this.usrc_SimpleItemMan.Load += new System.EventHandler(this.usrc_SimpleItemMan_Load);
             // 
             // usrc_ItemMan
             // 
@@ -350,8 +349,8 @@
             this.usrc_ItemMan.Name = "usrc_ItemMan";
             this.usrc_ItemMan.Size = new System.Drawing.Size(1010, 282);
             this.usrc_ItemMan.TabIndex = 0;
-            this.usrc_ItemMan.ItemAdded += new Tangenta.usrc_ItemMan.delegate_ItemAdded(this.usrc_ItemMan_ItemAdded);
-            this.usrc_ItemMan.After_Atom_Item_Remove += new Tangenta.usrc_ItemMan.delegate_After_Atom_Item_Remove(this.usrc_ItemMan_After_Atom_Item_Remove);
+            this.usrc_ItemMan.ItemAdded += new Tangenta.usrc_ShopC.delegate_ItemAdded(this.usrc_ItemMan_ItemAdded);
+            this.usrc_ItemMan.After_Atom_Item_Remove += new Tangenta.usrc_ShopC.delegate_After_Atom_Item_Remove(this.usrc_ItemMan_After_Atom_Item_Remove);
             // 
             // usrc_Invoice
             // 
@@ -397,8 +396,8 @@
         private System.Windows.Forms.ComboBox cmb_select_my_Company_Person;
         private System.Windows.Forms.TextBox txt_Number;
         private System.Windows.Forms.Label lbl_Number;
-        internal usrc_SimpleItemMan usrc_SimpleItemMan;
-        internal usrc_ItemMan usrc_ItemMan;
+        internal usrc_ShopB usrc_SimpleItemMan;
+        internal usrc_ShopC usrc_ItemMan;
         private System.Windows.Forms.Label lbl_Currency;
         private System.Windows.Forms.TextBox txt_Currency;
         private System.Windows.Forms.Button btn_SelectBaseCurrency;

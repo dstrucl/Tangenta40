@@ -1,6 +1,6 @@
-﻿namespace Tangenta
+﻿namespace ShopB
 {
-    partial class usrc_SimpleItemMan
+    partial class usrc_ShopB
     {
         /// <summary> 
         /// Required designer variable.
