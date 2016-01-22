@@ -535,21 +535,17 @@ namespace Tangenta
         internal void SetMode(emode mode)
         {
             m_mode = mode;
-            usrc_ShopB.eMode usrc_ShopB_eMode = usrc_ShopB.eMode.EDIT;
-            usrc_ShopC.eMode usrc_ShopC_eMode = usrc_ShopC.eMode.EDIT;
             if (mode == emode.edit_eInvoiceType)
             {
-                usrc_ShopB_eMode = usrc_ShopB.eMode.EDIT;
-                usrc_ShopC_eMode = usrc_ShopC.eMode.EDIT;
+                this.m_usrc_ShopB.SetMode(usrc_ShopB.eMode.EDIT);
+                this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.EDIT);
             }
             else
             {
-                usrc_ShopB_eMode = usrc_ShopB.eMode.VIEW;
-                usrc_ShopC_eMode = usrc_ShopC.eMode.EDIT;
+                this.m_usrc_ShopB.SetMode(usrc_ShopB.eMode.VIEW);
+                this.m_usrc_ShopC.SetMode(usrc_ShopC.eMode.VIEW);
             }
 
-            this.m_usrc_ShopB.SetMode(usrc_ShopB_eMode);
-            this.m_usrc_ShopC.SetMode(usrc_ShopC_eMode);
             if (mode == emode.view_eInvoiceType)
             {
                 chk_Storno.Visible = true;

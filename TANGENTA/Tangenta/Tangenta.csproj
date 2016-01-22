@@ -115,6 +115,12 @@
     <Compile Include="Form_SelectPanels.Designer.cs">
       <DependentUpon>Form_SelectPanels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ShopsInUse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ShopsInUse.Designer.cs">
+      <DependentUpon>Form_ShopsInUse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Templates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -490,6 +496,9 @@
     <EmbeddedResource Include="Form_SelectPanels.resx">
       <DependentUpon>Form_SelectPanels.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_ShopsInUse.resx">
+      <DependentUpon>Form_ShopsInUse.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Templates.resx">
       <DependentUpon>Form_Templates.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -819,6 +828,10 @@
     <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>InvoiceDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopA\ShopA.csproj">
+      <Project>{71220305-2548-4253-af8e-9b2c11ff343c}</Project>
+      <Name>ShopA</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopB\ShopB.csproj">
       <Project>{f417c16a-b37f-4284-9e39-4fbeff69008e}</Project>

@@ -43,12 +43,13 @@
             this.lbl_Language = new System.Windows.Forms.Label();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.chk_FullScreen = new System.Windows.Forms.CheckBox();
+            this.btn_Shops_in_use = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Stock
             // 
             this.btn_Stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Stock.Location = new System.Drawing.Point(9, 82);
+            this.btn_Stock.Location = new System.Drawing.Point(7, 125);
             this.btn_Stock.Name = "btn_Stock";
             this.btn_Stock.Size = new System.Drawing.Size(145, 82);
             this.btn_Stock.TabIndex = 0;
@@ -60,7 +61,7 @@
             // btn_MyCompany
             // 
             this.btn_MyCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_MyCompany.Location = new System.Drawing.Point(462, 82);
+            this.btn_MyCompany.Location = new System.Drawing.Point(460, 125);
             this.btn_MyCompany.Name = "btn_MyCompany";
             this.btn_MyCompany.Size = new System.Drawing.Size(145, 82);
             this.btn_MyCompany.TabIndex = 1;
@@ -72,7 +73,7 @@
             // btn_SimpleItems
             // 
             this.btn_SimpleItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_SimpleItems.Location = new System.Drawing.Point(160, 82);
+            this.btn_SimpleItems.Location = new System.Drawing.Point(158, 125);
             this.btn_SimpleItems.Name = "btn_SimpleItems";
             this.btn_SimpleItems.Size = new System.Drawing.Size(145, 82);
             this.btn_SimpleItems.TabIndex = 2;
@@ -84,7 +85,7 @@
             // btn_Stranke
             // 
             this.btn_Stranke.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Stranke.Location = new System.Drawing.Point(311, 170);
+            this.btn_Stranke.Location = new System.Drawing.Point(309, 213);
             this.btn_Stranke.Name = "btn_Stranke";
             this.btn_Stranke.Size = new System.Drawing.Size(145, 82);
             this.btn_Stranke.TabIndex = 3;
@@ -96,7 +97,7 @@
             // btn_BuyerCompany
             // 
             this.btn_BuyerCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_BuyerCompany.Location = new System.Drawing.Point(160, 170);
+            this.btn_BuyerCompany.Location = new System.Drawing.Point(158, 213);
             this.btn_BuyerCompany.Name = "btn_BuyerCompany";
             this.btn_BuyerCompany.Size = new System.Drawing.Size(145, 82);
             this.btn_BuyerCompany.TabIndex = 4;
@@ -108,7 +109,7 @@
             // btn_Invoice
             // 
             this.btn_Invoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Invoice.Location = new System.Drawing.Point(613, 82);
+            this.btn_Invoice.Location = new System.Drawing.Point(611, 125);
             this.btn_Invoice.Name = "btn_Invoice";
             this.btn_Invoice.Size = new System.Drawing.Size(145, 82);
             this.btn_Invoice.TabIndex = 5;
@@ -119,7 +120,7 @@
             // btn_Taxations
             // 
             this.btn_Taxations.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Taxations.Location = new System.Drawing.Point(9, 170);
+            this.btn_Taxations.Location = new System.Drawing.Point(7, 213);
             this.btn_Taxations.Name = "btn_Taxations";
             this.btn_Taxations.Size = new System.Drawing.Size(145, 82);
             this.btn_Taxations.TabIndex = 6;
@@ -131,7 +132,7 @@
             // btn_ItemName
             // 
             this.btn_ItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_ItemName.Location = new System.Drawing.Point(311, 82);
+            this.btn_ItemName.Location = new System.Drawing.Point(309, 125);
             this.btn_ItemName.Name = "btn_ItemName";
             this.btn_ItemName.Size = new System.Drawing.Size(145, 82);
             this.btn_ItemName.TabIndex = 7;
@@ -143,7 +144,7 @@
             // btn_DataBaseConnection
             // 
             this.btn_DataBaseConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_DataBaseConnection.Location = new System.Drawing.Point(462, 170);
+            this.btn_DataBaseConnection.Location = new System.Drawing.Point(460, 213);
             this.btn_DataBaseConnection.Name = "btn_DataBaseConnection";
             this.btn_DataBaseConnection.Size = new System.Drawing.Size(145, 82);
             this.btn_DataBaseConnection.TabIndex = 8;
@@ -155,7 +156,7 @@
             // btn_DeleteInvoices
             // 
             this.btn_DeleteInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_DeleteInvoices.Location = new System.Drawing.Point(17, 269);
+            this.btn_DeleteInvoices.Location = new System.Drawing.Point(15, 312);
             this.btn_DeleteInvoices.Name = "btn_DeleteInvoices";
             this.btn_DeleteInvoices.Size = new System.Drawing.Size(158, 37);
             this.btn_DeleteInvoices.TabIndex = 9;
@@ -211,11 +212,22 @@
             this.chk_FullScreen.Text = "Allow to edit language texts";
             this.chk_FullScreen.UseVisualStyleBackColor = true;
             // 
+            // btn_Shops_in_use
+            // 
+            this.btn_Shops_in_use.Location = new System.Drawing.Point(13, 47);
+            this.btn_Shops_in_use.Name = "btn_Shops_in_use";
+            this.btn_Shops_in_use.Size = new System.Drawing.Size(297, 31);
+            this.btn_Shops_in_use.TabIndex = 15;
+            this.btn_Shops_in_use.Text = "btn_Shops_in_use";
+            this.btn_Shops_in_use.UseVisualStyleBackColor = true;
+            this.btn_Shops_in_use.Click += new System.EventHandler(this.btn_Shops_in_use_Click);
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(793, 49);
+            this.ClientSize = new System.Drawing.Size(793, 89);
+            this.Controls.Add(this.btn_Shops_in_use);
             this.Controls.Add(this.chk_FullScreen);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.lbl_Language);
@@ -256,5 +268,6 @@
         private System.Windows.Forms.Label lbl_Language;
         private System.Windows.Forms.Button btn_Exit;
         private System.Windows.Forms.CheckBox chk_FullScreen;
+        private System.Windows.Forms.Button btn_Shops_in_use;
     }
 }

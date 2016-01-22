@@ -478,5 +478,17 @@ namespace Tangenta.Properties {
                 this["eShopsMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BC")]
+        public string eShopsInUse {
+            get {
+                return ((string)(this["eShopsInUse"]));
+            }
+            set {
+                this["eShopsInUse"] = value;
+            }
+        }
     }
 }

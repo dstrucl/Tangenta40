@@ -10,6 +10,17 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        
+        public static ltext s_Shops_In_Use = new ltext("Shops in use", "Prodajalne v uporabi");
+
+        public static ltext s_chk_A_in_use =  new ltext("Shop A in use", "Prodajalna A v uporabi");
+        public static ltext s_chk_B_in_use =  new ltext("Shop C in use", "Prodajalna B v uporabi");
+        public static ltext s_chk_C_in_use =  new ltext("Shop C in use", "Prodajalna C v uporabi");
+
+        public static ltext s_lbl_ShopA_Name = new ltext("Shop A Name", "Ime prodajalne A");
+        public static ltext s_lbl_ShopB_Name = new ltext("Shop B Name", "Ime prodajalne B");
+        public static ltext s_lbl_ShopC_Name  = new ltext("Shop C Name", "Ime prodajalne C");
+
 
         public static ltext s_lbl_FURS_BussinesData = new ltext("FURS bussines data", "FURS poslovni podatki");
         public static ltext s_fursBuildingNumber = new ltext("Building number", "Številka stavbe");

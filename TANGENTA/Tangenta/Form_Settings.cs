@@ -15,7 +15,6 @@ namespace Tangenta
 {
     public partial class Form_Settings : Form
     {
-        private bool LanguageChanged = false;
         private int default_language_ID = -1;
         private int newLanguage = -1;
 
@@ -24,6 +23,7 @@ namespace Tangenta
             InitializeComponent();
             lngRPM.s_Language.Text(lbl_Language);
             lngRPM.s_FullScreen.Text(chk_FullScreen);
+            lngRPM.s_Shops_In_Use.Text(btn_Shops_in_use);
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
             cmb_Language.DataSource = DynSettings.s_language.sText;
@@ -211,5 +211,10 @@ namespace Tangenta
             }
         }
 
+        private void btn_Shops_in_use_Click(object sender, EventArgs e)
+        {
+            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse();
+            frm_shops_in_use.ShowDialog();
+        }
     }
 }
