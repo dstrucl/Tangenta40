@@ -100,10 +100,6 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Form_Discount\Form_Discount.csproj">
-      <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
-      <Name>Form_Discount</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>

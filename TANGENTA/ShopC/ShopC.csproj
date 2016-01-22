@@ -224,10 +224,6 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Form_Discount\Form_Discount.csproj">
-      <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
-      <Name>Form_Discount</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
