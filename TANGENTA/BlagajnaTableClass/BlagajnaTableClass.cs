@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -1189,6 +1190,26 @@ namespace BlagajnaTableClass
         public Item_ParentGroup2 m_Item_ParentGroup2 = new Item_ParentGroup2();
     }
 
+    public class EndPriceWithDiscountAndTax : DB_Money
+    {
+
+    }
+
+    public class TAX : DB_Money
+    {
+
+    }
+
+    public class PricePerUnit:DB_Money
+    {
+
+    }
+
+    public class ShopAUnit:DB_varchar_32
+    {
+        
+    }
+
 
     public class Unit
     {
@@ -2069,6 +2090,50 @@ namespace BlagajnaTableClass
         public BarCodeValue BarCodeValue = new BarCodeValue();
     }
 
+    public class Atom_Unit_ShopA
+    {
+        public ID ID = new ID();
+        public ShopAUnit ShopAUnit = new ShopAUnit();
+        public VisibleForSelection VisibleForSelection = new VisibleForSelection();
+    }
+
+    public class VisibleForSelection:DB_bit
+    {
+
+    }
+
+    public class Atom_ItemShopA_Image
+    {
+        public ID ID = new ID();
+        public Atom_ItemShopA m_Atom_ItemShopA = new Atom_ItemShopA();
+        public Image_Hash Image_Hash = new Image_Hash();
+        public Image_Data Image_Data = new Image_Data();
+        public Description Description = new Description();
+    }
+
+
+    public class Atom_ItemShopA
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+        public Taxation m_Taxation= new Taxation();
+        public Atom_Unit_ShopA m_Atom_Unit_ShopA = new Atom_Unit_ShopA();
+        public VisibleForSelection VisibleForSelection = new VisibleForSelection();
+    }
+
+    public class Atom_ItemShopA_Price
+    {
+        public ID ID = new ID();
+        public ProformaInvoice m_ProformaInvoice = new ProformaInvoice();
+        public Atom_ItemShopA m_Atom_ItemShopA = new Atom_ItemShopA();
+        public dQuantity dQuantity = new dQuantity();
+        public Discount Discount = new Discount();
+        public PricePerUnit PricePerUnit = new PricePerUnit();
+        public EndPriceWithDiscountAndTax EndPriceWithDiscountAndTax = new EndPriceWithDiscountAndTax();
+        public TAX TAX = new TAX();
+    }
+
 
     public class SQL_Database_Tables_Definition
     {
@@ -2571,6 +2636,18 @@ namespace BlagajnaTableClass
 
         /* 176 */
         public Notice m_Notice = new Notice();
+
+        /* 177 */
+        public Atom_Unit_ShopA m_Atom_Unit_ShopA = new Atom_Unit_ShopA();
+
+        /* 178 */
+        public Atom_ItemShopA_Image m_Atom_ItemShopA_Image = new Atom_ItemShopA_Image();
+
+        /* 179 */
+        public Atom_ItemShopA m_Atom_ItemShopA = new Atom_ItemShopA();
+
+        /* 180 */
+        public Atom_ItemShopA_Price m_Atom_ItemShopA_Price = new Atom_ItemShopA_Price();
 
     }
 }

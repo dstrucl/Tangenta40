@@ -49,7 +49,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.13";
+        public const string VERSION = "1.14";
         public Settings Settings = null;
 
         /* 1 */
@@ -511,6 +511,18 @@ namespace BlagajnaDataBaseDef
 
         /* 176 */
         public SQLTable t_Notice = null;
+
+        /* 177 */
+        public SQLTable t_Atom_Unit_ShopA = null;
+
+        /* 178 */
+        public SQLTable t_Atom_ItemShopA_Image = null;
+
+        /* 179 */
+        public SQLTable t_Atom_ItemShopA = null;
+
+        /* 180 */
+        public SQLTable t_Atom_ItemShopA_Price = null;
 
 
         public void Define_SQL_Database_Tables() // constructor;
@@ -1976,6 +1988,44 @@ namespace BlagajnaDataBaseDef
             t_Notice.AddColumn((Object)mt.m_Notice.NoticeText, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Notice text", "Dopis"));
             t_Notice.AddColumn((Object)mt.m_Notice.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             m_DBTables.items.Add(t_Notice);
+
+            /* 177 */
+            t_Atom_Unit_ShopA = new SQLTable((Object)new Atom_Unit_ShopA(), "ausha", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_Unit_ShopA);
+            t_Atom_Unit_ShopA.AddColumn((Object)mt.m_Atom_Unit_ShopA.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_Unit_ShopA.AddColumn((Object)mt.m_Atom_Unit_ShopA.ShopAUnit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Shop A unit", "Merska enota"));
+            t_Atom_Unit_ShopA.AddColumn((Object)mt.m_Atom_Unit_ShopA.VisibleForSelection, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Visible for selection", "Vidno za izbor"));
+            m_DBTables.items.Add(t_Atom_Unit_ShopA);
+
+            /* 178 */
+            t_Atom_ItemShopA_Image = new SQLTable((Object)new Atom_ItemShopA_Image(), "aishaimg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_ItemShopA_Image);
+            t_Atom_ItemShopA_Image.AddColumn((Object)mt.m_Atom_ItemShopA_Image.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_ItemShopA_Image.AddColumn((Object)mt.m_Atom_ItemShopA_Image.m_Atom_ItemShopA, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ShopA Item ID", "Artikel Prodajalne A ID"));
+            t_Atom_ItemShopA_Image.AddColumn((Object)mt.m_Atom_ItemShopA_Image.Image_Hash, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image identity", "Identiteta slike"));
+            t_Atom_ItemShopA_Image.AddColumn((Object)mt.m_Atom_ItemShopA_Image.Image_Data, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Image", "Slika"));
+            t_Atom_ItemShopA_Image.AddColumn((Object)mt.m_Atom_ItemShopA_Image.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_Atom_ItemShopA_Image);
+
+            /* 179 */
+            t_Atom_ItemShopA = new SQLTable((Object)new Atom_ItemShopA(), "aisha", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_ItemShopA);
+            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Name", "Ime artikla ali storitve"));
+            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Description", "Opis artikla ali storitve"));
+            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax ID", "Obdavčitev ID"));
+            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.m_Atom_Unit_ShopA, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Unit ID", "Merska enota ID"));
+            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.VisibleForSelection, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Visible for selection", "Vidno za izbor"));
+            m_DBTables.items.Add(t_Atom_ItemShopA);
+
+            /* 180 */
+            t_Atom_ItemShopA_Price = new SQLTable((Object)new Atom_ItemShopA_Price(), "aishap", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_ItemShopA_Price);
+            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.m_ProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Proforma invoice ID", "Predračun ID"));
+            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.m_Atom_ItemShopA, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Shop A Item ID", "Prodajalna A artikel ID"));
+            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Discount", "Popust"));
+            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.dQuantity, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Quantity", "Količina"));
+            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.PricePerUnit, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price per unit", "Cena na enoto"));
+            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("End price", "Končna cena"));
+            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.TAX, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("TAX", "Davek"));
+            m_DBTables.items.Add(t_Atom_ItemShopA_Price);
         }
     }
  }

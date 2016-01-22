@@ -7,6 +7,10 @@ namespace LanguageControl
 {
     public static class lngTName
     {
+        public static ltext lngt_t_Atom_ItemShopA_Price = new ltext("Shopa A Item Price", "Prodajalna A artikli in cene");
+        public static ltext lngt_t_Atom_ItemShopA = new ltext("Shopa A Item", "Prodajalna A Artikli");
+        public static ltext lngt_t_Atom_Unit_ShopA = new ltext("Shopa A Unit", "Prodajalna A merske enote");
+        public static ltext lngt_t_Atom_ItemShopA_Image = new ltext("Shopa A Item Image", "Prodajalna A Slika Artikla");
         public static ltext lngt_t_Notice = new ltext("Notice", "Dopis");
         public static ltext lngt_t_Atom_FVI_SLO_RealEstateBP = new ltext("FVI_SLO RealEstateBP", "Davčni podatki o poslovnem prostoru");
         public static ltext lngt_t_FVI_SLO_Response = new ltext("FVI Response", "Overovljanje računov pri davčni upravi");

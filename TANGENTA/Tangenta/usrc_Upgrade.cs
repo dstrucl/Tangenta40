@@ -59,7 +59,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -102,7 +105,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -142,7 +148,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -179,7 +188,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -213,7 +225,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -244,7 +259,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -272,7 +290,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -297,7 +318,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -319,7 +343,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -338,7 +365,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -354,7 +384,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -367,7 +400,10 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -377,12 +413,25 @@ namespace Tangenta
                                                             {
                                                                 if (UpgradeDB_1_12_to_1_13())
                                                                 {
-                                                                    return true;
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
                                                                 }
                                                             }
                                                             else
                                                             {
-                                                                MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                                                if (sOldDBVersion.Equals("1.13"))
+                                                                {
+                                                                    if (UpgradeDB_1_13_to_1_14())
+                                                                    {
+                                                                        return true;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -394,7 +443,6 @@ namespace Tangenta
                             }
                         }
                     }
-
                 }
             }
             return false;
@@ -463,6 +511,24 @@ namespace Tangenta
             }
             return false;
         }
+
+        private bool UpgradeDB_1_13_to_1_14()
+        {
+            if (DBSync.DBSync.Drop_VIEWs())
+            {
+                string[] new_tables = new string[] { "Atom_Unit_ShopA", "Atom_ItemShopA", "Atom_ItemShopA_Image",  "Atom_ItemShopA_Price" };
+                if (DBSync.DBSync.CreateTables(new_tables))
+                {
+                    if (DBSync.DBSync.Create_VIEWs())
+                    {
+                        Set_DatBase_Version("1.14");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
 
         private bool UpgradeDB_1_12_to_1_13()
         {

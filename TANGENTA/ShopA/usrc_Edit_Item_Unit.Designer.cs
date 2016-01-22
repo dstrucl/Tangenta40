@@ -39,7 +39,7 @@
             this.cmb_Unit.FormattingEnabled = true;
             this.cmb_Unit.Location = new System.Drawing.Point(7, 24);
             this.cmb_Unit.Name = "cmb_Unit";
-            this.cmb_Unit.Size = new System.Drawing.Size(137, 21);
+            this.cmb_Unit.Size = new System.Drawing.Size(135, 21);
             this.cmb_Unit.TabIndex = 5;
             // 
             // lbl_Item_Unit
@@ -47,18 +47,19 @@
             this.lbl_Item_Unit.AutoSize = true;
             this.lbl_Item_Unit.Location = new System.Drawing.Point(6, 6);
             this.lbl_Item_Unit.Name = "lbl_Item_Unit";
-            this.lbl_Item_Unit.Size = new System.Drawing.Size(90, 13);
+            this.lbl_Item_Unit.Size = new System.Drawing.Size(73, 13);
             this.lbl_Item_Unit.TabIndex = 4;
-            this.lbl_Item_Unit.Text = "lbl_Item_TaxRate";
+            this.lbl_Item_Unit.Text = "Merska Enota";
             // 
             // usrc_Edit_Item_Unit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.cmb_Unit);
             this.Controls.Add(this.lbl_Item_Unit);
             this.Name = "usrc_Edit_Item_Unit";
-            this.Size = new System.Drawing.Size(150, 52);
+            this.Size = new System.Drawing.Size(148, 50);
             this.ResumeLayout(false);
             this.PerformLayout();
 

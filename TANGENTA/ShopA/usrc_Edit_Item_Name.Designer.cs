@@ -50,9 +50,9 @@
             this.lbl_ItemName.AutoSize = true;
             this.lbl_ItemName.Location = new System.Drawing.Point(9, 7);
             this.lbl_ItemName.Name = "lbl_ItemName";
-            this.lbl_ItemName.Size = new System.Drawing.Size(71, 13);
+            this.lbl_ItemName.Size = new System.Drawing.Size(106, 13);
             this.lbl_ItemName.TabIndex = 1;
-            this.lbl_ItemName.Text = "lbl_ItemName";
+            this.lbl_ItemName.Text = "Ime Artikla ali storitve";
             // 
             // usrc_Edit_Item_Name
             // 

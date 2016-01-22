@@ -39,6 +39,8 @@
             // 
             // nm_PricePerUnit_With_TAX
             // 
+            this.nm_PricePerUnit_With_TAX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nm_PricePerUnit_With_TAX.DecimalPlaces = 2;
             this.nm_PricePerUnit_With_TAX.Location = new System.Drawing.Point(3, 77);
             this.nm_PricePerUnit_With_TAX.Maximum = new decimal(new int[] {
@@ -52,6 +54,8 @@
             // 
             // nm_PricePerUnit_Without_TAX
             // 
+            this.nm_PricePerUnit_Without_TAX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nm_PricePerUnit_Without_TAX.DecimalPlaces = 2;
             this.nm_PricePerUnit_Without_TAX.Location = new System.Drawing.Point(3, 40);
             this.nm_PricePerUnit_Without_TAX.Maximum = new decimal(new int[] {

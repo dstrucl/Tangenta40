@@ -35,22 +35,22 @@
             // lbl_Item_Description
             // 
             this.lbl_Item_Description.AutoSize = true;
-            this.lbl_Item_Description.Location = new System.Drawing.Point(11, 2);
+            this.lbl_Item_Description.Location = new System.Drawing.Point(5, 7);
             this.lbl_Item_Description.Name = "lbl_Item_Description";
-            this.lbl_Item_Description.Size = new System.Drawing.Size(102, 13);
+            this.lbl_Item_Description.Size = new System.Drawing.Size(106, 13);
             this.lbl_Item_Description.TabIndex = 3;
-            this.lbl_Item_Description.Text = "lbl_Item_Description";
+            this.lbl_Item_Description.Text = "Opis artikla ali storive";
             // 
             // txt_Item_Description
             // 
             this.txt_Item_Description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Item_Description.Location = new System.Drawing.Point(2, 18);
+            this.txt_Item_Description.Location = new System.Drawing.Point(2, 26);
             this.txt_Item_Description.Multiline = true;
             this.txt_Item_Description.Name = "txt_Item_Description";
             this.txt_Item_Description.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_Item_Description.Size = new System.Drawing.Size(219, 190);
+            this.txt_Item_Description.Size = new System.Drawing.Size(219, 181);
             this.txt_Item_Description.TabIndex = 2;
             // 
             // usrc_Edit_Item_Description

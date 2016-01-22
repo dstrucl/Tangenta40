@@ -42,6 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGridViewButtonImageCell.cs" />
+    <Compile Include="DataGridViewButtonImageColumn.cs" />
+    <Compile Include="DataGridViewImageButtonSelectCell.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Edit_Item_Description.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -72,12 +80,6 @@
     <Compile Include="usrc_Edit_Item_PricePerUnit.Designer.cs">
       <DependentUpon>usrc_Edit_Item_PricePerUnit.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Edit_Item_Quantity.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Edit_Item_Quantity.Designer.cs">
-      <DependentUpon>usrc_Edit_Item_Quantity.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_Edit_Item_Tax.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,6 +92,12 @@
     <Compile Include="usrc_Edit_Item_Unit.Designer.cs">
       <DependentUpon>usrc_Edit_Item_Unit.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Quantity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Quantity.Designer.cs">
+      <DependentUpon>usrc_Quantity.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_ShopA.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -100,6 +108,10 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Editor.resx">
       <DependentUpon>usrc_Editor.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,27 +127,40 @@
     <EmbeddedResource Include="usrc_Edit_Item_PricePerUnit.resx">
       <DependentUpon>usrc_Edit_Item_PricePerUnit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Edit_Item_Quantity.aa-DJ.resx">
-      <DependentUpon>usrc_Edit_Item_Quantity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Edit_Item_Quantity.resx">
-      <DependentUpon>usrc_Edit_Item_Quantity.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Edit_Item_Tax.resx">
       <DependentUpon>usrc_Edit_Item_Tax.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Edit_Item_Unit.resx">
       <DependentUpon>usrc_Edit_Item_Unit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Quantity.resx">
+      <DependentUpon>usrc_Quantity.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_ShopA.resx">
       <DependentUpon>usrc_ShopA.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+      <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
+      <Name>DataGridView_2xls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>InvoiceDB</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeSelectService.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeSelectServiceDisabled.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeSelectServiceHot.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

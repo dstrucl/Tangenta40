@@ -45,6 +45,8 @@
             // 
             // nm_dQuantity
             // 
+            this.nm_dQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nm_dQuantity.Location = new System.Drawing.Point(7, 26);
             this.nm_dQuantity.Maximum = new decimal(new int[] {
             1410065408,
