@@ -1,15 +1,10 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using BlagajnaTableClass;
 using SQLTableControl;
-using System.Windows.Forms.VisualStyles;
 using LanguageControl;
 using DBTypes;
 using InvoiceDB;
@@ -23,9 +18,9 @@ namespace Tangenta
     {
         public enum eShopsMode { A, B, C, AB, BC, AC, ABC };
 
-        usrc_ShopA m_usrc_ShopA = null;
-        usrc_ShopB m_usrc_ShopB = null;
-        usrc_ShopC m_usrc_ShopC = null;
+        public usrc_ShopA m_usrc_ShopA = null;
+        public usrc_ShopB m_usrc_ShopB = null;
+        public usrc_ShopC m_usrc_ShopC = null;
         public eShopsMode m_eShopsMode = eShopsMode.BC;
 
         usrc_InvoiceMan m_usrc_InvoiceMan = null;
@@ -119,120 +114,11 @@ namespace Tangenta
             }
         }
 
-        private void Set_eShopsMode_A()
+        private void New_ShopA()
         {
-            this.splitContainer1.Panel1.Controls.Clear();
-            this.splitContainer3.Panel1.Controls.Clear();
-            this.splitContainer3.Panel2.Controls.Clear();
-            this.splitContainer1.Panel2Collapsed = true;
-            if (m_usrc_ShopB!=null)
-            {
-                m_usrc_ShopB.Dispose();
-                m_usrc_ShopB = null;
-            }
-            if (m_usrc_ShopC != null)
-            {
-                m_usrc_ShopC.Dispose();
-                m_usrc_ShopC = null;
-            }
-            if (m_usrc_ShopA != null)
-            {
-                m_usrc_ShopA.Dispose();
-                m_usrc_ShopA = null;
-            }
             m_usrc_ShopA = new usrc_ShopA();
             m_usrc_ShopA.Init(this.m_ShopBC, DBtcn);
             m_usrc_ShopA.Dock = DockStyle.Fill;
-            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
-        }
-
-        private void Set_eShopsMode_B()
-        {
-            this.splitContainer1.Panel1.Controls.Clear();
-            this.splitContainer3.Panel1.Controls.Clear();
-            this.splitContainer3.Panel2.Controls.Clear();
-            this.splitContainer1.Panel2Collapsed = true;
-            if (m_usrc_ShopA != null)
-            {
-                m_usrc_ShopA.Dispose();
-                m_usrc_ShopA = null;
-            }
-            if (m_usrc_ShopC != null)
-            {
-                m_usrc_ShopC.Dispose();
-                m_usrc_ShopC = null;
-            }
-            if (m_usrc_ShopB != null)
-            {
-                m_usrc_ShopB.Dispose();
-                m_usrc_ShopB = null;
-            }
-            New_ShopB();
-            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopB);
-
-        }
-
-        private void Set_eShopsMode_C()
-        {
-            this.splitContainer1.Panel1.Controls.Clear();
-            this.splitContainer3.Panel1.Controls.Clear();
-            this.splitContainer3.Panel2.Controls.Clear();
-            this.splitContainer1.Panel2Collapsed = true;
-            if (m_usrc_ShopA != null)
-            {
-                m_usrc_ShopA.Dispose();
-                m_usrc_ShopA = null;
-            }
-            if (m_usrc_ShopB != null)
-            {
-                m_usrc_ShopB.Dispose();
-                m_usrc_ShopB = null;
-            }
-            if (m_usrc_ShopC != null)
-            {
-                m_usrc_ShopC.Dispose();
-                m_usrc_ShopC = null;
-
-            }
-            m_usrc_ShopC = new usrc_ShopC();
-            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
-            m_usrc_ShopC.Dock = DockStyle.Fill;
-            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopC);
-
-        }
-
-        private void Set_eShopsMode_AB()
-        {
-            this.splitContainer1.Panel1.Controls.Clear();
-            this.splitContainer3.Panel1.Controls.Clear();
-            this.splitContainer3.Panel2.Controls.Clear();
-
-            this.splitContainer1.Panel2Collapsed = false;
-            this.splitContainer3.Panel2Collapsed = true;
-
-            if (m_usrc_ShopC != null)
-            {
-                m_usrc_ShopC.Dispose();
-                m_usrc_ShopC = null;
-            }
-
-            if (m_usrc_ShopA != null)
-            {
-                m_usrc_ShopA.Dispose();
-                m_usrc_ShopA = null;
-            }
-            m_usrc_ShopA = new usrc_ShopA();
-            m_usrc_ShopA.Init(this.m_ShopBC, DBtcn);
-            m_usrc_ShopA.Dock = DockStyle.Fill;
-            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
-
-            if (m_usrc_ShopB != null)
-            {
-                m_usrc_ShopB.Dispose();
-                m_usrc_ShopB = null;
-            }
-            New_ShopB();
-            this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopB);
         }
 
         private void New_ShopB()
@@ -247,6 +133,57 @@ namespace Tangenta
 
         }
 
+        private void New_ShopC()
+        {
+            m_usrc_ShopC = new usrc_ShopC();
+            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
+            m_usrc_ShopC.Dock = DockStyle.Fill;
+            m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
+            m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
+        }
+
+        private void Set_eShopsMode_A()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+            this.splitContainer1.Panel2Collapsed = true;
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
+        }
+
+        private void Set_eShopsMode_B()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+            this.splitContainer1.Panel2Collapsed = true;
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopB);
+        }
+
+        private void Set_eShopsMode_C()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+            this.splitContainer1.Panel2Collapsed = true;
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopC);
+        }
+
+
+        private void Set_eShopsMode_AB()
+        {
+            this.splitContainer1.Panel1.Controls.Clear();
+            this.splitContainer3.Panel1.Controls.Clear();
+            this.splitContainer3.Panel2.Controls.Clear();
+
+            this.splitContainer1.Panel2Collapsed = false;
+            this.splitContainer3.Panel2Collapsed = true;
+
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
+
+            this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopB);
+        }
+
 
         private void Set_eShopsMode_BC()
         {
@@ -257,30 +194,8 @@ namespace Tangenta
             this.splitContainer1.Panel2Collapsed = false;
             this.splitContainer3.Panel2Collapsed = true;
 
-            if (m_usrc_ShopA != null)
-            {
-                m_usrc_ShopA.Dispose();
-                m_usrc_ShopA = null;
-            }
-
-            if (m_usrc_ShopB != null)
-            {
-                m_usrc_ShopB.Dispose();
-                m_usrc_ShopB = null;
-            }
-
-            if (m_usrc_ShopC != null)
-            {
-                m_usrc_ShopC.Dispose();
-                m_usrc_ShopC = null;
-            }
-
-            New_ShopB();
             this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopB);
 
-            m_usrc_ShopC = new usrc_ShopC();
-            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
-            m_usrc_ShopC.Dock = DockStyle.Fill;
             this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopC);
         }
 
@@ -293,32 +208,8 @@ namespace Tangenta
             this.splitContainer1.Panel2Collapsed = false;
             this.splitContainer3.Panel2Collapsed = true;
 
-            if (m_usrc_ShopA != null)
-            {
-                m_usrc_ShopA.Dispose();
-                m_usrc_ShopA = null;
-            }
-
-            if (m_usrc_ShopB != null)
-            {
-                m_usrc_ShopB.Dispose();
-                m_usrc_ShopB = null;
-            }
-
-            if (m_usrc_ShopC != null)
-            {
-                m_usrc_ShopC.Dispose();
-                m_usrc_ShopC = null;
-            }
-
-            m_usrc_ShopA = new usrc_ShopA();
-            m_usrc_ShopA.Init(this.m_ShopBC, DBtcn);
-            m_usrc_ShopA.Dock = DockStyle.Fill;
             this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
 
-            m_usrc_ShopC = new usrc_ShopC();
-            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
-            m_usrc_ShopC.Dock = DockStyle.Fill;
             this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopC);
         }
 
@@ -332,43 +223,11 @@ namespace Tangenta
             this.splitContainer3.Panel1Collapsed = false;
             this.splitContainer3.Panel2Collapsed = false;
 
-            if (m_usrc_ShopA != null)
-            {
-                m_usrc_ShopA.Dispose();
-                m_usrc_ShopA = null;
-            }
-
-            if (m_usrc_ShopB != null)
-            {
-                m_usrc_ShopB.Dispose();
-                m_usrc_ShopB = null;
-            }
-
-            if (m_usrc_ShopC != null)
-            {
-                m_usrc_ShopC.Dispose();
-                m_usrc_ShopC = null;
-            }
-
-            m_usrc_ShopA = new usrc_ShopA();
-            m_usrc_ShopA.Init(this.m_ShopBC, DBtcn);
-            m_usrc_ShopA.Dock = DockStyle.Fill;
             this.splitContainer1.Panel1.Controls.Add(m_usrc_ShopA);
 
-            New_ShopB();
             this.splitContainer3.Panel1.Controls.Add(m_usrc_ShopB);
 
-            New_ShopC();
             this.splitContainer3.Panel2.Controls.Add(m_usrc_ShopC);
-        }
-
-        private void New_ShopC()
-        {
-            m_usrc_ShopC = new usrc_ShopC();
-            m_usrc_ShopC.Init(this.m_ShopBC, DBtcn);
-            m_usrc_ShopC.Dock = DockStyle.Fill;
-            m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
-            m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
         }
 
         internal void Save_eShopsMode(eShopsMode xeShopsMode)
@@ -407,17 +266,38 @@ namespace Tangenta
 
         private void Set_eShopsMode(string eShopsMode)
         {
+
+            if (m_usrc_ShopA==null)
+            {
+                New_ShopA();
+            }
+            if (m_usrc_ShopB == null)
+            {
+                New_ShopB();
+            }
+            if (m_usrc_ShopA == null)
+            {
+                New_ShopA();
+            }
+            if (m_usrc_ShopC == null)
+            {
+                New_ShopC();
+            }
+            this.btn_Show_Shops.Visible = true;
             if (eShopsMode.Equals("A"))
             {
                 Set_eShopsMode(usrc_Invoice.eShopsMode.A);
+                this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("B"))
             {
                 Set_eShopsMode(usrc_Invoice.eShopsMode.B);
+                this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("C"))
             {
                 Set_eShopsMode(usrc_Invoice.eShopsMode.C);
+                this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("AB"))
             {
@@ -501,13 +381,29 @@ namespace Tangenta
         DataTable dt_myCompany_Person = new DataTable();
         private bool EventsActive;
 
-        public long PriceList_ID
+        public long PriceList_ShopB_ID
         {
             get
             {
-                if (this.usrc_PriceList != null)
+                if (m_usrc_ShopB != null)
                 {
-                    return this.usrc_PriceList.ID;
+                    return m_usrc_ShopB.usrc_PriceList1.ID;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Invoice:public long PriceList_ID:this.usrc_PriceList==null");
+                    return -1;
+                }
+            }
+        }
+
+        public long PriceList_ShopC_ID
+        {
+            get
+            {
+                if (m_usrc_ShopC != null)
+                {
+                    return m_usrc_ShopC.usrc_PriceList1.ID;
                 }
                 else
                 {
@@ -521,6 +417,7 @@ namespace Tangenta
         {
             InitializeComponent();
             m_mode = emode.view_eInvoiceType;
+            lngRPM.s_Show_Shops.Text(btn_Show_Shops);
             lngRPM.s_Issuer.Text(lbl_MyCompany);
             lngRPM.s_Number.Text(lbl_Number);
             lngRPM.s_Currency.Text(lbl_Currency);
@@ -528,6 +425,12 @@ namespace Tangenta
             lngRPM.s_Issue.Text(btn_Issue);
             lngRPM.s_chk_Storno.Text(chk_Storno);
             lngRPM.s_CodeTables.Text(btn_CodeTables);
+
+            lngRPM.s_Shop_AB = new ltext(lngRPM.s_Shop_A.sText[0] + " && " + lngRPM.s_Shop_B.sText[0], lngRPM.s_Shop_A.sText[1] + " && " + lngRPM.s_Shop_B.sText[1]);
+            lngRPM.s_Shop_BC = new ltext(lngRPM.s_Shop_B.sText[0] + " && " + lngRPM.s_Shop_C.sText[0], lngRPM.s_Shop_B.sText[1] + " && " + lngRPM.s_Shop_C.sText[1]);
+            lngRPM.s_Shop_AC = new ltext(lngRPM.s_Shop_A.sText[0] + " && " + lngRPM.s_Shop_C.sText[0], lngRPM.s_Shop_A.sText[1] + " && " + lngRPM.s_Shop_C.sText[1]);
+            lngRPM.s_Shop_ABC = new ltext(lngRPM.s_Shop_A.sText[0] + " && " + lngRPM.s_Shop_B.sText[0] + " && " + lngRPM.s_Shop_C.sText[0], lngRPM.s_Shop_A.sText[1] + " && " + lngRPM.s_Shop_B.sText[1] + " && " + lngRPM.s_Shop_C.sText[1]);
+
             //SetMode(m_mode);
 
         }
@@ -632,23 +535,30 @@ namespace Tangenta
                                     {
                                         int iCount_Price_SimpleItem_Data = 0;
 
-                                        if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.usrc_PriceList.ID))
+                                        if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data,this.m_usrc_ShopB.usrc_PriceList1.ID))
                                         {
 
                                             this.m_usrc_ShopB.Set_dgv_SelectedSimpleItems();
+                                            f_PriceList.Check(pparent);
+                                            bool bEditPriceList = false;
+                                            f_PriceList.CheckPriceUndefined_ShopB(pparent, DBSync.DBSync.DB_for_Blagajna.m_DBTables, ref bEditPriceList);
+                                            if (bEditPriceList)
+                                            {
+                                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(GlobalData.BaseCurrency.ID, this.m_usrc_ShopB.usrc_PriceList1.cmb_PriceListType, m_xPriceList, true);
+                                            }
 
                                         }
 
-                                        if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.usrc_PriceList.ID))
+                                        if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
                                         {
 
 
                                             f_PriceList.Check(pparent);
                                             bool bEditPriceList = false;
-                                            f_PriceList.CheckPriceUndefined(pparent, DBSync.DBSync.DB_for_Blagajna.m_DBTables, ref bEditPriceList);
+                                            f_PriceList.CheckPriceUndefined_ShopC(pparent, DBSync.DBSync.DB_for_Blagajna.m_DBTables, ref bEditPriceList);
                                             if (bEditPriceList)
                                             {
-                                                Program.PriceList_Edit(GlobalData.BaseCurrency.ID, this.usrc_PriceList.cmb_PriceListType, m_xPriceList, true);
+                                                this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(GlobalData.BaseCurrency.ID, this.m_usrc_ShopC.usrc_PriceList1.cmb_PriceListType, m_xPriceList, true);
                                             }
 
                                             if (Program.bStartup)
@@ -870,7 +780,30 @@ namespace Tangenta
         private bool GetPriceList()
         {
             string Err = null;
-            return usrc_PriceList.Init(GlobalData.BaseCurrency.ID, ref Err);
+            bool bGet = true;
+            if (Program.Shops_in_use.Contains("B"))
+            {
+                if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, ref Err))
+                {
+
+                }
+                else
+                {
+                    bGet = false;
+                }
+            }
+            if (Program.Shops_in_use.Contains("C"))
+            {
+                if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, ref Err))
+                {
+
+                }
+                else
+                {
+                    bGet = false;
+                }
+            }
+            return bGet;
         }
 
 
@@ -1645,7 +1578,7 @@ namespace Tangenta
 
         private void btn_Select_Shops_Click(object sender, EventArgs e)
         {
-            Form_SelectShops frm_sel_shops = new Form_SelectShops(this);
+            Form_ShowShops frm_sel_shops = new Form_ShowShops(this);
             frm_sel_shops.ShowDialog(this);
         }
     }

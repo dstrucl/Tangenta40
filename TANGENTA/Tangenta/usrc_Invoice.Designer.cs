@@ -45,11 +45,10 @@
             this.chk_Head = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btn_CodeTables = new System.Windows.Forms.Button();
-            this.usrc_PriceList = new Tangenta.usrc_PriceList();
             this.usrc_Customer = new Tangenta.usrc_Customer();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.usrc_Notice1 = new Tangenta.usrc_Notice();
-            this.btn_Select_Shops = new System.Windows.Forms.Button();
+            this.btn_Show_Shops = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -247,7 +246,6 @@
             this.splitContainer2.Panel1.Controls.Add(this.lbl_MyCompany);
             this.splitContainer2.Panel1.Controls.Add(this.btn_edit_MyCompany_Person);
             this.splitContainer2.Panel1.Controls.Add(this.cmb_select_my_Company_Person);
-            this.splitContainer2.Panel1.Controls.Add(this.usrc_PriceList);
             this.splitContainer2.Panel1.Controls.Add(this.usrc_Customer);
             // 
             // splitContainer2.Panel2
@@ -270,14 +268,6 @@
             this.btn_CodeTables.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_CodeTables.UseVisualStyleBackColor = true;
             this.btn_CodeTables.Click += new System.EventHandler(this.btn_CodeTables_Click);
-            // 
-            // usrc_PriceList
-            // 
-            this.usrc_PriceList.Location = new System.Drawing.Point(725, 8);
-            this.usrc_PriceList.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_PriceList.Name = "usrc_PriceList";
-            this.usrc_PriceList.Size = new System.Drawing.Size(276, 31);
-            this.usrc_PriceList.TabIndex = 29;
             // 
             // usrc_Customer
             // 
@@ -318,19 +308,19 @@
             // 
             // btn_Select_Shops
             // 
-            this.btn_Select_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Select_Shops.Location = new System.Drawing.Point(305, -1);
-            this.btn_Select_Shops.Name = "btn_Select_Shops";
-            this.btn_Select_Shops.Size = new System.Drawing.Size(191, 32);
-            this.btn_Select_Shops.TabIndex = 41;
-            this.btn_Select_Shops.Text = "Izberi trgovine";
-            this.btn_Select_Shops.UseVisualStyleBackColor = true;
-            this.btn_Select_Shops.Click += new System.EventHandler(this.btn_Select_Shops_Click);
+            this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Show_Shops.Location = new System.Drawing.Point(305, -1);
+            this.btn_Show_Shops.Name = "btn_Select_Shops";
+            this.btn_Show_Shops.Size = new System.Drawing.Size(191, 32);
+            this.btn_Show_Shops.TabIndex = 41;
+            this.btn_Show_Shops.Text = "Izberi trgovine";
+            this.btn_Show_Shops.UseVisualStyleBackColor = true;
+            this.btn_Show_Shops.Click += new System.EventHandler(this.btn_Select_Shops_Click);
             // 
             // usrc_Invoice
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.Controls.Add(this.btn_Select_Shops);
+            this.Controls.Add(this.btn_Show_Shops);
             this.Controls.Add(this.usrc_Notice1);
             this.Controls.Add(this.chk_Storno);
             this.Controls.Add(this.splitContainer2);
@@ -373,7 +363,6 @@
         private System.Windows.Forms.Label lbl_Currency;
         private System.Windows.Forms.TextBox txt_Currency;
         private System.Windows.Forms.Button btn_SelectBaseCurrency;
-        internal usrc_PriceList usrc_PriceList;
         private System.Windows.Forms.Label lbl_Sum;
         private System.Windows.Forms.Button btn_Issue;
         private usrc_Customer usrc_Customer;
@@ -383,6 +372,6 @@
         private System.Windows.Forms.Button btn_CodeTables;
         private usrc_Notice usrc_Notice1;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        public System.Windows.Forms.Button btn_Select_Shops;
+        public System.Windows.Forms.Button btn_Show_Shops;
     }
 }

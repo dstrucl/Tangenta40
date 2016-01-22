@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 
-namespace Tangenta
+namespace PriseLists
 {
     public partial class Form_PriceList_NotComplete : Form
     {

@@ -10,28 +10,29 @@ using SQLTableControl;
 using BlagajnaTableClass;
 using LanguageControl;
 
-namespace Tangenta
+namespace PriseLists
 {
     public partial class Form_PriceList_Edit : Form
     {
-       
+        usrc_PriceList_Edit.eShopType m_eShopType;
         SQLTable m_tbl_PriceList = null;
         private bool bEditUndefined = false;
 
-        public Form_PriceList_Edit(bool xbEditUndefined)
+        public Form_PriceList_Edit(bool xbEditUndefined,usrc_PriceList_Edit.eShopType xeShopType)
         {
             InitializeComponent();
-
+            m_eShopType = xeShopType;
             bEditUndefined = xbEditUndefined;
             m_tbl_PriceList = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(PriceList)));
             m_tbl_PriceList.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
             this.Text = lngRPM.s_PriceListType.s;
         }
+
         private bool Init()
         {
             
             m_tbl_PriceList.DeleteInputControls();
-            if (this.usrc_PriceList_Edit.Init(m_tbl_PriceList,bEditUndefined))
+            if (this.usrc_PriceList_Edit.Init(m_tbl_PriceList,bEditUndefined, m_eShopType))
             {
                 return true;
             }

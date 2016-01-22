@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F417C16A-B37F-4284-9E39-4FBEFF69008E}</ProjectGuid>
+    <ProjectGuid>{D3E4AF57-60EB-486B-A145-5EADD0F01177}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShopB</RootNamespace>
-    <AssemblyName>ShopB</AssemblyName>
+    <RootNamespace>PriseLists</RootNamespace>
+    <AssemblyName>PriseLists</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,13 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataGridView_2xls, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\DataGridView_2xls.dll</HintPath>
-    </Reference>
-    <Reference Include="PriseLists">
-      <HintPath>..\PriseLists\obj\Debug\PriseLists.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,14 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataGridViewButtonImageCell.cs" />
-    <Compile Include="DataGridViewButtonImageColumn.cs" />
-    <Compile Include="DataGridViewImageButtonSelectCell.cs" />
-    <Compile Include="Form_SimpleItem_Edit.cs">
+    <Compile Include="Form_PriceList_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_SimpleItem_Edit.Designer.cs">
-      <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
+    <Compile Include="Form_PriceList_Edit.Designer.cs">
+      <DependentUpon>Form_PriceList_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_PriceList_NotComplete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_PriceList_NotComplete.Designer.cs">
+      <DependentUpon>Form_PriceList_NotComplete.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -65,31 +60,42 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="usrc_ShopB.cs">
+    <Compile Include="usrc_PriceList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_ShopB.Designer.cs">
-      <DependentUpon>usrc_ShopB.cs</DependentUpon>
+    <Compile Include="usrc_PriceList.Designer.cs">
+      <DependentUpon>usrc_PriceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_PriceList_Edit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_PriceList_Edit.Designer.cs">
+      <DependentUpon>usrc_PriceList_Edit.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_SimpleItem_Edit.resx">
-      <DependentUpon>Form_SimpleItem_Edit.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Form_PriceList_Edit.resx">
+      <DependentUpon>Form_PriceList_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_PriceList_NotComplete.resx">
+      <DependentUpon>Form_PriceList_NotComplete.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_ShopB.resx">
-      <DependentUpon>usrc_ShopB.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_PriceList.resx">
+      <DependentUpon>usrc_PriceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_PriceList_Edit.resx">
+      <DependentUpon>usrc_PriceList_Edit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CONTROLS\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
-      <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
-      <Name>usrc_Item_Group_Handler</Name>
+    <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+      <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
+      <Name>DataGridView_2xls</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DB_PLATFORM\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
@@ -107,60 +113,29 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
-      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
-      <Name>BlagajnaTableClass</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
-      <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
-      <Name>Form_Discount</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
-      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
-      <Name>InvoiceDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>BlagajnaDataBaseDef</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
-      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
-      <Name>LanguageControl</Name>
+    <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>BlagajnaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>InvoiceDB</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SelectService.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectServiceDisabled.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SelectServiceHot.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DeSelectService.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DeSelectServiceDisabled.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DeSelectServiceHot.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Edit.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Discount.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DiscountDisabled.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DiscountHot.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

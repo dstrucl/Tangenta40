@@ -51,6 +51,10 @@ namespace Tangenta
 
         private static bool m_bProgramDiagnostic = false;
 
+        public static string Shops_in_use
+        {
+            get { return Properties.Settings.Default.eShopsInUse; }
+        }
 
 
         public static long myCompany_Person_ID
@@ -295,28 +299,6 @@ namespace Tangenta
 
 
 
-        internal static void PriceList_Edit(long m_Currency_ID, ComboBox cmb_PriceListType, InvoiceDB.xPriceList m_xPriceList,bool bEditUndefined)
-        {
-            string Err = null;
-            int xPriceListType_Count = 0;
-            Form_PriceList_Edit PriceList_Edit_dlg = new Form_PriceList_Edit(bEditUndefined);
-            if (PriceList_Edit_dlg.ShowDialog() == DialogResult.OK)
-            {
-                if (m_xPriceList.Get_PriceLists_of_Currency(m_Currency_ID, ref xPriceListType_Count, ref Err))
-                {
-                    if (xPriceListType_Count > 0)
-                    {
-                        cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
-                        cmb_PriceListType.DisplayMember = "xPriceList_Name";
-                        cmb_PriceListType.ValueMember = "xPriceList_ID";
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show(Err);
-                }
-            }
-        }
 
         internal static void Cursor_Wait()
         {

@@ -252,6 +252,10 @@
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>InvoiceDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PriseLists\PriseLists.csproj">
+      <Project>{d3e4af57-60eb-486b-a145-5eadd0f01177}</Project>
+      <Name>PriseLists</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\checkmark_No.bmp" />

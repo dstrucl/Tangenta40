@@ -10,7 +10,10 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
-        
+        public static ltext s_Show_Shops = new ltext("Show Shops", "Prikaži prodajalne");
+
+        public static ltext s_YouMustSelectAtLeastOneShop = new ltext("You must select at least on shop!", "Izbrati morate najmanj eno prodajalno!");
+
         public static ltext s_Shops_In_Use = new ltext("Shops in use", "Prodajalne v uporabi");
 
         public static ltext s_chk_A_in_use =  new ltext("Shop A in use", "Prodajalna A v uporabi");

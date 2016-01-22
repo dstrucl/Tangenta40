@@ -1,4 +1,4 @@
-﻿namespace Tangenta
+﻿namespace PriseLists
 {
     partial class Form_PriceList_Edit
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PriceList_Edit));
-            this.usrc_PriceList_Edit = new Tangenta.usrc_PriceList_Edit();
+            this.usrc_PriceList_Edit = new usrc_PriceList_Edit();
             this.SuspendLayout();
             // 
             // usrc_PriceList_Edit
@@ -42,8 +42,8 @@
             this.usrc_PriceList_Edit.Name = "usrc_PriceList_Edit";
             this.usrc_PriceList_Edit.Size = new System.Drawing.Size(940, 793);
             this.usrc_PriceList_Edit.TabIndex = 0;
-            this.usrc_PriceList_Edit.Button_Cancel_Click += new Tangenta.usrc_PriceList_Edit.delegate_Cancel(this.usrc_PriceListType_Edit_Button_Cancel_Click);
-            this.usrc_PriceList_Edit.Button_OK_Click += new Tangenta.usrc_PriceList_Edit.delegate_OK(this.usrc_PriceListType_Edit_Button_OK_Click);
+            this.usrc_PriceList_Edit.Button_Cancel_Click += new usrc_PriceList_Edit.delegate_Cancel(this.usrc_PriceListType_Edit_Button_Cancel_Click);
+            this.usrc_PriceList_Edit.Button_OK_Click += new usrc_PriceList_Edit.delegate_OK(this.usrc_PriceListType_Edit_Button_OK_Click);
             // 
             // Form_PriceList_Edit
             // 

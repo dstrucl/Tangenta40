@@ -9,12 +9,13 @@ using System.Windows.Forms;
 using LanguageControl;
 using InvoiceDB;
 
-namespace Tangenta
+namespace PriseLists
 {
     public partial class usrc_PriceList : UserControl
     {
         int xPriceList_Count = 0;
         public long m_Currency_ID = 0;
+        private usrc_PriceList_Edit.eShopType m_eShopType;
 
         public InvoiceDB.xPriceList m_xPriceList = null;
 
@@ -41,8 +42,9 @@ namespace Tangenta
             }
         }
 
-        internal bool Init(long Currency_ID,ref string Err)
+        public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType, ref string Err)
         {
+            m_eShopType = xeShopType;
             m_Currency_ID = Currency_ID;
             if (m_xPriceList == null)
             {
@@ -61,7 +63,7 @@ namespace Tangenta
                 {
                     if (MessageBox.Show(this, lngRPM.s_NoPriceList_AskToCreatePriceList.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
-                        Form_PriceList_Edit PriceListType_Edit_dlg = new Form_PriceList_Edit(false);
+                        Form_PriceList_Edit PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType);
                         if (PriceListType_Edit_dlg.ShowDialog()== DialogResult.OK)
                         {
                             if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
@@ -104,12 +106,36 @@ namespace Tangenta
                 pctrl.Cursor = Cursors.WaitCursor; 
             }
 
-            Program.PriceList_Edit(m_Currency_ID, cmb_PriceListType, m_xPriceList, false);
+            PriceList_Edit(m_Currency_ID, cmb_PriceListType, m_xPriceList, false);
             this.Cursor = Cursors.Arrow;
             if (pctrl != null)
             {
                 pctrl.Cursor = Cursors.Arrow;
             }
         }
+
+        public void PriceList_Edit(long m_Currency_ID, ComboBox cmb_PriceListType, InvoiceDB.xPriceList m_xPriceList, bool bEditUndefined)
+        {
+            string Err = null;
+            int xPriceListType_Count = 0;
+            Form_PriceList_Edit PriceList_Edit_dlg = new Form_PriceList_Edit(bEditUndefined, m_eShopType);
+            if (PriceList_Edit_dlg.ShowDialog() == DialogResult.OK)
+            {
+                if (m_xPriceList.Get_PriceLists_of_Currency(m_Currency_ID, ref xPriceListType_Count, ref Err))
+                {
+                    if (xPriceListType_Count > 0)
+                    {
+                        cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
+                        cmb_PriceListType.DisplayMember = "xPriceList_Name";
+                        cmb_PriceListType.ValueMember = "xPriceList_ID";
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show(Err);
+                }
+            }
+        }
+
     }
 }

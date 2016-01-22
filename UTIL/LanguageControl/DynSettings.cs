@@ -77,6 +77,20 @@ namespace LanguageControl
             }
 
         }
+
+        public static void LanguageTextSave()
+        {
+            DataTable dt_Languages = new DataTable();
+            string TableName = "lngRPM";
+            string sAppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            if (sAppDataFolder[sAppDataFolder.Length - 1] != '\\')
+            {
+                sAppDataFolder += "\\";
+            }
+            string lngRPM_XML_file = sAppDataFolder + TableName;
+            DynSettings.SaveLanguages(ref dt_Languages, lngRPM_XML_file, TableName);
+        }
+
         public static bool SaveLanguages(ref DataTable dt_Languages, string lngRPM_XML_file, string TableName)
         {
             try

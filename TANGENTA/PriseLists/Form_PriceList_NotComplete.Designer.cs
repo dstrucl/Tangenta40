@@ -1,4 +1,4 @@
-﻿namespace Tangenta
+﻿namespace PriseLists
 {
     partial class Form_PriceList_NotComplete
     {

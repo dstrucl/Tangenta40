@@ -103,11 +103,11 @@
     <Compile Include="Form_PrintExistingInvoice.Designer.cs">
       <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_SelectShops.cs">
+    <Compile Include="Form_ShowShops.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_SelectShops.Designer.cs">
-      <DependentUpon>Form_SelectShops.cs</DependentUpon>
+    <Compile Include="Form_ShowShops.Designer.cs">
+      <DependentUpon>Form_ShowShops.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_SelectPanels.cs">
       <SubType>Form</SubType>
@@ -311,12 +311,6 @@
     <Compile Include="Form_Customer_Person_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_PriceList_NotComplete.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_PriceList_NotComplete.Designer.cs">
-      <DependentUpon>Form_PriceList_NotComplete.cs</DependentUpon>
-    </Compile>
     <Compile Include="Printer.cs" />
     <Compile Include="ProformaInvoice_Connection_Class.cs" />
     <Compile Include="Form_Payment.cs">
@@ -424,12 +418,6 @@
     <Compile Include="uwpf_UndefinedPriceForItem.xaml.cs">
       <DependentUpon>uwpf_UndefinedPriceForItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Form_PriceList_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_PriceList_Edit.Designer.cs">
-      <DependentUpon>Form_PriceList_Edit.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_Select_DefaultCurrency.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -490,8 +478,8 @@
     <EmbeddedResource Include="Form_PrintExistingInvoice.resx">
       <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_SelectShops.resx">
-      <DependentUpon>Form_SelectShops.cs</DependentUpon>
+    <EmbeddedResource Include="Form_ShowShops.resx">
+      <DependentUpon>Form_ShowShops.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SelectPanels.resx">
       <DependentUpon>Form_SelectPanels.cs</DependentUpon>
@@ -596,9 +584,6 @@
       <DependentUpon>Form_PersonData_Edit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_PriceList_NotComplete.resx">
-      <DependentUpon>Form_PriceList_NotComplete.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_PaymentCash.resx">
       <DependentUpon>Form_PaymentCash.cs</DependentUpon>
     </EmbeddedResource>
@@ -644,9 +629,6 @@
     <EmbeddedResource Include="usrc_PurchasePriceList_Edit.resx">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_PriceList_Edit.resx">
-      <DependentUpon>Form_PriceList_Edit.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_Select_DefaultCurrency.resx">
       <DependentUpon>Form_Select_DefaultCurrency.cs</DependentUpon>
     </EmbeddedResource>
@@ -682,12 +664,6 @@
       <DependentUpon>usrc_Invoice.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_PriceList.resx">
-      <DependentUpon>usrc_PriceList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_PriceList_Edit.resx">
-      <DependentUpon>usrc_PriceList_Edit.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Price_ItemOrService.resx">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </EmbeddedResource>
@@ -721,18 +697,6 @@
     </Compile>
     <Compile Include="usrc_Invoice.Designer.cs">
       <DependentUpon>usrc_Invoice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_PriceList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_PriceList.Designer.cs">
-      <DependentUpon>usrc_PriceList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_PriceList_Edit.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_PriceList_Edit.Designer.cs">
-      <DependentUpon>usrc_PriceList_Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Price_ItemOrService.cs">
       <SubType>UserControl</SubType>
@@ -828,6 +792,10 @@
     <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>InvoiceDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PriseLists\PriseLists.csproj">
+      <Project>{d3e4af57-60eb-486b-a145-5eadd0f01177}</Project>
+      <Name>PriseLists</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopA\ShopA.csproj">
       <Project>{71220305-2548-4253-af8e-9b2c11ff343c}</Project>

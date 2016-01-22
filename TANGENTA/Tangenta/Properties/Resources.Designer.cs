@@ -1042,6 +1042,25 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///	&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=windows-1250&quot;/&gt;
+        ///	&lt;title&gt;&lt;/title&gt;
+        ///	&lt;meta name=&quot;generator&quot; content=&quot;LibreOffice 5.0.3.2 (Windows)&quot;/&gt;
+        ///	&lt;meta name=&quot;created&quot; content=&quot;2016-01-22T12:18:10.314000000&quot;/&gt;
+        ///	&lt;meta name=&quot;changed&quot; content=&quot;2016-01-22T13:02:35.915000000&quot;/&gt;
+        ///&lt;/head&gt;
+        ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot;&gt;
+        ///&lt;h1 style=&quot;line-height: 100%&quot;&gt;&lt;font face=&quot;Arial, sans-serif&quot;&gt;&lt;font size=&quot;4&quot; style=&quot;font-size: 16pt&quot; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SLO_Help_Shops_in_use {
+            get {
+                return ResourceManager.GetString("SLO_Help_Shops_in_use", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Stock_EditForm {

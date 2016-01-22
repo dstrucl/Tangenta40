@@ -13,6 +13,7 @@ using LanguageControl;
 using DBConnectionControl40;
 using InvoiceDB;
 using FormDiscount;
+using PriseLists;
 
 namespace ShopB
 {
@@ -47,7 +48,7 @@ namespace ShopB
         {
             InitializeComponent();
             idgv_SimpleItems_Width_default = this.dgv_SimpleItems.Width;
-            lngRPM.s_lbl_SelectedSimpleItems.Text(lbl_SelectedSimpleItems);
+            lngRPM.s_lbl_SelectedSimpleItems.Text(lbl_ShopB_Name);
             lngRPM.s_lbl_SimpleItems.Text(lbl_SimpleItems);
         }
 
@@ -66,6 +67,8 @@ namespace ShopB
 
         public void Init(ShopBC x_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
+            lngRPM.s_Shop_B.Text(lbl_ShopB_Name);
+
             Layout = eLayout.NONE;
             m_InvoiceDB = x_InvoiceDB;
             DBtcn = xDBtcn;
@@ -99,6 +102,8 @@ namespace ShopB
             dt_SelectedSimpleItem.Columns.Add(DBtcn.column_SelectedSimpleItem_SimpleItem_ID, DBtcn.column_SelectedSimpleItem_SimpleItem_ID_TYPE);
             dt_SelectedSimpleItem.Columns.Add(DBtcn.column_SelectedSimpleItem_Count, DBtcn.column_SelectedSimpleItem_Count_TYPE);
             dt_SelectedSimpleItem.Columns.Add(DBtcn.column_SelectedSimpleItem_ExtraDiscount, DBtcn.column_SelectedSimpleItem_ExtraDiscount_TYPE);
+            string Err = null;
+            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, ref Err);
         }
 
         public void SetMode(eMode mode)

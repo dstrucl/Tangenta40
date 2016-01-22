@@ -10,6 +10,7 @@ using BlagajnaTableClass;
 using SQLTableControl;
 using LanguageControl;
 using InvoiceDB;
+using PriseLists;
 
 namespace ShopC
 {
@@ -36,37 +37,11 @@ namespace ShopC
         public usrc_ShopC()
         {
             InitializeComponent();
-            lngRPM.s_lbl_StoreA_SelectetItems.Text(lbl_StoreA_SelectetItems);
             lngRPM.s_lbl_Stock.Text(lbl_Stock);
             lngRPM.s_lbl_Items.Text(lbl_Items);
             usrc_ItemList.Init(this.usrc_Atom_ItemsList);
         }
 
-
-        
-
-        //public long PriceList_ID
-        //{
-        //    get
-        //    {
-        //        if (m_usrc_Invoice != null)
-        //        {
-        //            return m_usrc_Invoice.PriceList_ID;
-        //        }
-        //        else
-        //        {
-        //            if (DesignMode)
-        //            {
-        //                return -1;
-        //            }
-        //            else
-        //            {
-        //                LogFile.Error.Show("ERROR:usrc_ItemMan: public long PriceList_ID:usrc_Invoice == null!");
-        //                return -1;
-        //            }
-        //        }
-        //    }
-        //}
 
         public void Init(InvoiceDB.ShopBC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
@@ -76,13 +51,15 @@ namespace ShopC
             m_InvoiceDB = xm_InvoiceDB;
             DBtcn = xDBtcn;
 
+            lngRPM.s_Shop_C.Text(lbl_ShopC_Name);
+
             this.usrc_Atom_ItemsList.Init(usrc_ItemList, xm_InvoiceDB, xDBtcn);
             this.usrc_ItemList.Init(xm_InvoiceDB, xDBtcn,this);
 
             this.usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
-            
-
+            string Err = null;
+            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC, ref Err);
         }
 
         void usrc_Atom_ItemsList_After_Atom_Item_Remove()

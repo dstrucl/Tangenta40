@@ -1,4 +1,4 @@
-﻿namespace Tangenta
+﻿namespace PriseLists
 {
     partial class usrc_PriceList_Edit
     {
@@ -32,13 +32,9 @@
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.usrc_EditTable_PriceList = new SQLTableControl.TableDocking_Form.usrc_EditTable();
-            this.chk_Items = new System.Windows.Forms.CheckBox();
-            this.chk_View_SimpleItems = new System.Windows.Forms.CheckBox();
             this.txt_PriceList_Name = new System.Windows.Forms.TextBox();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.usrc_EditTable_SimpleItem = new SQLTableControl.TableDocking_Form.usrc_EditTable();
-            this.usrc_EditTable_Item = new SQLTableControl.TableDocking_Form.usrc_EditTable();
             this.lbl_PriceList_Name = new System.Windows.Forms.Label();
+            this.usrc_EditTable_Shop_Prices = new SQLTableControl.TableDocking_Form.usrc_EditTable();
             this.rdb_OnlyUnvalid = new System.Windows.Forms.RadioButton();
             this.rdb_All = new System.Windows.Forms.RadioButton();
             this.rdb_OnlyValid = new System.Windows.Forms.RadioButton();
@@ -46,10 +42,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_OK
@@ -90,11 +82,9 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.chk_Items);
-            this.splitContainer1.Panel2.Controls.Add(this.chk_View_SimpleItems);
             this.splitContainer1.Panel2.Controls.Add(this.txt_PriceList_Name);
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Controls.Add(this.lbl_PriceList_Name);
+            this.splitContainer1.Panel2.Controls.Add(this.usrc_EditTable_Shop_Prices);
             this.splitContainer1.Size = new System.Drawing.Size(890, 743);
             this.splitContainer1.SplitterDistance = 158;
             this.splitContainer1.TabIndex = 3;
@@ -119,107 +109,40 @@
             this.usrc_EditTable_PriceList.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_PriceList_after_InsertInDataBase);
             this.usrc_EditTable_PriceList.SelectedIndexChanged += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_SelectedIndexChanged(this.usrc_EditTable_PriceList_SelectedIndexChanged);
             // 
-            // chk_Items
-            // 
-            this.chk_Items.AutoSize = true;
-            this.chk_Items.Checked = true;
-            this.chk_Items.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_Items.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Items.Location = new System.Drawing.Point(491, 8);
-            this.chk_Items.Name = "chk_Items";
-            this.chk_Items.Size = new System.Drawing.Size(68, 24);
-            this.chk_Items.TabIndex = 6;
-            this.chk_Items.Text = "Items";
-            this.chk_Items.UseVisualStyleBackColor = true;
-            this.chk_Items.CheckedChanged += new System.EventHandler(this.chk_Items_CheckedChanged);
-            // 
-            // chk_View_SimpleItems
-            // 
-            this.chk_View_SimpleItems.AutoSize = true;
-            this.chk_View_SimpleItems.Checked = true;
-            this.chk_View_SimpleItems.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_View_SimpleItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_View_SimpleItems.Location = new System.Drawing.Point(385, 8);
-            this.chk_View_SimpleItems.Name = "chk_View_SimpleItems";
-            this.chk_View_SimpleItems.Size = new System.Drawing.Size(116, 24);
-            this.chk_View_SimpleItems.TabIndex = 5;
-            this.chk_View_SimpleItems.Text = "SimpleItems";
-            this.chk_View_SimpleItems.UseVisualStyleBackColor = true;
-            this.chk_View_SimpleItems.CheckedChanged += new System.EventHandler(this.chk_View_SimpleItems_CheckedChanged);
-            // 
             // txt_PriceList_Name
             // 
             this.txt_PriceList_Name.Location = new System.Drawing.Point(81, 8);
             this.txt_PriceList_Name.Name = "txt_PriceList_Name";
             this.txt_PriceList_Name.ReadOnly = true;
             this.txt_PriceList_Name.Size = new System.Drawing.Size(268, 20);
-            this.txt_PriceList_Name.TabIndex = 4;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 32);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.usrc_EditTable_SimpleItem);
-            this.splitContainer2.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.usrc_EditTable_Item);
-            this.splitContainer2.Size = new System.Drawing.Size(885, 542);
-            this.splitContainer2.SplitterDistance = 167;
-            this.splitContainer2.TabIndex = 2;
-            // 
-            // usrc_EditTable_SimpleItem
-            // 
-            this.usrc_EditTable_SimpleItem.AllowUserToAddNew = false;
-            this.usrc_EditTable_SimpleItem.AllowUserToChange = true;
-            this.usrc_EditTable_SimpleItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditTable_SimpleItem.GetRandomData = false;
-            this.usrc_EditTable_SimpleItem.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditTable_SimpleItem.Name = "usrc_EditTable_SimpleItem";
-            this.usrc_EditTable_SimpleItem.SelectionButtonVisible = false;
-            this.usrc_EditTable_SimpleItem.Size = new System.Drawing.Size(881, 163);
-            this.usrc_EditTable_SimpleItem.TabIndex = 0;
-            this.usrc_EditTable_SimpleItem.Title = "label1";
-            this.usrc_EditTable_SimpleItem.Title_Color = System.Drawing.SystemColors.ControlText;
-            this.usrc_EditTable_SimpleItem.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable_SimpleItem.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_PriceList_after_InsertInDataBase);
-            this.usrc_EditTable_SimpleItem.CellFormatting += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_CellFormatting(this.usrc_EditTable_SimpleItem_CellFormatting);
-            this.usrc_EditTable_SimpleItem.RowReferenceFromTable_Check_NoChangeToOther += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_RowReferenceFromTable_Check_NoChangeToOther(this.usrc_EditTable_SimpleItem_RowReferenceFromTable_Check_NoChangeToOther);
-            // 
-            // usrc_EditTable_Item
-            // 
-            this.usrc_EditTable_Item.AllowUserToAddNew = false;
-            this.usrc_EditTable_Item.AllowUserToChange = true;
-            this.usrc_EditTable_Item.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditTable_Item.GetRandomData = false;
-            this.usrc_EditTable_Item.Location = new System.Drawing.Point(0, 0);
-            this.usrc_EditTable_Item.Name = "usrc_EditTable_Item";
-            this.usrc_EditTable_Item.SelectionButtonVisible = false;
-            this.usrc_EditTable_Item.Size = new System.Drawing.Size(881, 367);
-            this.usrc_EditTable_Item.TabIndex = 2;
-            this.usrc_EditTable_Item.Title = "label1";
-            this.usrc_EditTable_Item.Title_Color = System.Drawing.SystemColors.ControlText;
-            this.usrc_EditTable_Item.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable_Item.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_PriceList_after_InsertInDataBase);
-            this.usrc_EditTable_Item.CellFormatting += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_CellFormatting(this.usrc_EditTable_Item_CellFormatting);
+            this.txt_PriceList_Name.TabIndex = 9;
             // 
             // lbl_PriceList_Name
             // 
             this.lbl_PriceList_Name.Location = new System.Drawing.Point(5, 6);
             this.lbl_PriceList_Name.Name = "lbl_PriceList_Name";
             this.lbl_PriceList_Name.Size = new System.Drawing.Size(70, 23);
-            this.lbl_PriceList_Name.TabIndex = 3;
+            this.lbl_PriceList_Name.TabIndex = 8;
             this.lbl_PriceList_Name.Text = "Cenik:";
             this.lbl_PriceList_Name.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // usrc_EditTable_Shop_Prices
+            // 
+            this.usrc_EditTable_Shop_Prices.AllowUserToAddNew = false;
+            this.usrc_EditTable_Shop_Prices.AllowUserToChange = true;
+            this.usrc_EditTable_Shop_Prices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_EditTable_Shop_Prices.GetRandomData = false;
+            this.usrc_EditTable_Shop_Prices.Location = new System.Drawing.Point(3, 34);
+            this.usrc_EditTable_Shop_Prices.Name = "usrc_EditTable_Shop_Prices";
+            this.usrc_EditTable_Shop_Prices.SelectionButtonVisible = false;
+            this.usrc_EditTable_Shop_Prices.Size = new System.Drawing.Size(881, 540);
+            this.usrc_EditTable_Shop_Prices.TabIndex = 7;
+            this.usrc_EditTable_Shop_Prices.Title = "label1";
+            this.usrc_EditTable_Shop_Prices.Title_Color = System.Drawing.SystemColors.ControlText;
+            this.usrc_EditTable_Shop_Prices.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.usrc_EditTable_Shop_Prices.CellFormatting += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_CellFormatting(this.usrc_EditTable_Shop_Prices_CellFormatting);
             // 
             // rdb_OnlyUnvalid
             // 
@@ -274,10 +197,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,16 +207,12 @@
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable_SimpleItem;
-        private System.Windows.Forms.TextBox txt_PriceList_Name;
-        private System.Windows.Forms.Label lbl_PriceList_Name;
-        private System.Windows.Forms.CheckBox chk_Items;
-        private System.Windows.Forms.CheckBox chk_View_SimpleItems;
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable_Item;
         #endregion
         private System.Windows.Forms.RadioButton rdb_OnlyUnvalid;
         private System.Windows.Forms.RadioButton rdb_All;
         private System.Windows.Forms.RadioButton rdb_OnlyValid;
+        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable_Shop_Prices;
+        private System.Windows.Forms.Label lbl_PriceList_Name;
+        private System.Windows.Forms.TextBox txt_PriceList_Name;
     }
 }

@@ -31,11 +31,12 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.usrc_Atom_ItemsList = new ShopC.usrc_Atom_ItemsList();
             this.usrc_ItemList = new ShopC.usrc_ItemList();
-            this.lbl_StoreA_SelectetItems = new System.Windows.Forms.Label();
+            this.lbl_ShopC_Name = new System.Windows.Forms.Label();
             this.btn_Stock = new System.Windows.Forms.Button();
             this.lbl_Items = new System.Windows.Forms.Label();
             this.btn_Items = new System.Windows.Forms.Button();
             this.lbl_Stock = new System.Windows.Forms.Label();
+            this.usrc_PriceList1 = new PriseLists.usrc_PriceList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -89,17 +90,17 @@
             this.usrc_ItemList.Size = new System.Drawing.Size(653, 496);
             this.usrc_ItemList.TabIndex = 22;
             // 
-            // lbl_StoreA_SelectetItems
+            // lbl_ShopC_Name
             // 
-            this.lbl_StoreA_SelectetItems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbl_ShopC_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_StoreA_SelectetItems.AutoSize = true;
-            this.lbl_StoreA_SelectetItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_StoreA_SelectetItems.Location = new System.Drawing.Point(3, 7);
-            this.lbl_StoreA_SelectetItems.Name = "lbl_StoreA_SelectetItems";
-            this.lbl_StoreA_SelectetItems.Size = new System.Drawing.Size(103, 17);
-            this.lbl_StoreA_SelectetItems.TabIndex = 4;
-            this.lbl_StoreA_SelectetItems.Text = "Izbrani Artikli";
+            this.lbl_ShopC_Name.AutoSize = true;
+            this.lbl_ShopC_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_ShopC_Name.Location = new System.Drawing.Point(343, 5);
+            this.lbl_ShopC_Name.Name = "lbl_ShopC_Name";
+            this.lbl_ShopC_Name.Size = new System.Drawing.Size(103, 17);
+            this.lbl_ShopC_Name.TabIndex = 4;
+            this.lbl_ShopC_Name.Text = "Izbrani Artikli";
             // 
             // btn_Stock
             // 
@@ -147,14 +148,23 @@
             this.lbl_Stock.TabIndex = 5;
             this.lbl_Stock.Text = "Zaloge";
             // 
+            // usrc_PriceList1
+            // 
+            this.usrc_PriceList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.usrc_PriceList1.Location = new System.Drawing.Point(1, 0);
+            this.usrc_PriceList1.Name = "usrc_PriceList1";
+            this.usrc_PriceList1.Size = new System.Drawing.Size(278, 24);
+            this.usrc_PriceList1.TabIndex = 22;
+            // 
             // usrc_ShopC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.usrc_PriceList1);
             this.Controls.Add(this.splitContainer3);
             this.Controls.Add(this.lbl_Items);
             this.Controls.Add(this.btn_Stock);
             this.Controls.Add(this.btn_Items);
-            this.Controls.Add(this.lbl_StoreA_SelectetItems);
+            this.Controls.Add(this.lbl_ShopC_Name);
             this.Controls.Add(this.lbl_Stock);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_ShopC";
@@ -171,12 +181,13 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.Label lbl_StoreA_SelectetItems;
+        private System.Windows.Forms.Label lbl_ShopC_Name;
         private System.Windows.Forms.Button btn_Stock;
         private System.Windows.Forms.Label lbl_Items;
         private System.Windows.Forms.Button btn_Items;
         private System.Windows.Forms.Label lbl_Stock;
         public usrc_Atom_ItemsList usrc_Atom_ItemsList;
         public usrc_ItemList usrc_ItemList;
+        public PriseLists.usrc_PriceList usrc_PriceList1;
     }
 }

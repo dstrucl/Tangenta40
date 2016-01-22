@@ -1,4 +1,4 @@
-﻿namespace Tangenta
+﻿namespace PriseLists
 {
     partial class usrc_PriceList
     {
@@ -37,10 +37,10 @@
             // 
             this.lbl_PriceList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_PriceList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_PriceList.Location = new System.Drawing.Point(-1, 9);
+            this.lbl_PriceList.Location = new System.Drawing.Point(2, 3);
             this.lbl_PriceList.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_PriceList.Name = "lbl_PriceList";
-            this.lbl_PriceList.Size = new System.Drawing.Size(67, 17);
+            this.lbl_PriceList.Size = new System.Drawing.Size(78, 17);
             this.lbl_PriceList.TabIndex = 33;
             this.lbl_PriceList.Text = "Cenik:";
             this.lbl_PriceList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -48,20 +48,20 @@
             // cmb_PriceListType
             // 
             this.cmb_PriceListType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmb_PriceListType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmb_PriceListType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_PriceListType.FormattingEnabled = true;
-            this.cmb_PriceListType.Location = new System.Drawing.Point(99, 3);
+            this.cmb_PriceListType.Location = new System.Drawing.Point(113, 0);
             this.cmb_PriceListType.Name = "cmb_PriceListType";
-            this.cmb_PriceListType.Size = new System.Drawing.Size(164, 28);
+            this.cmb_PriceListType.Size = new System.Drawing.Size(164, 24);
             this.cmb_PriceListType.TabIndex = 34;
             // 
             // btn_PriceListType
             // 
             this.btn_PriceListType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_PriceListType.Image = global::Tangenta.Properties.Resources.Edit;
-            this.btn_PriceListType.Location = new System.Drawing.Point(67, 2);
+            this.btn_PriceListType.Image = global::PriseLists.Properties.Resources.Edit;
+            this.btn_PriceListType.Location = new System.Drawing.Point(80, 0);
             this.btn_PriceListType.Name = "btn_PriceListType";
-            this.btn_PriceListType.Size = new System.Drawing.Size(29, 30);
+            this.btn_PriceListType.Size = new System.Drawing.Size(29, 24);
             this.btn_PriceListType.TabIndex = 32;
             this.btn_PriceListType.UseVisualStyleBackColor = true;
             this.btn_PriceListType.Click += new System.EventHandler(this.btn_PriceListType_Click);
@@ -69,11 +69,12 @@
             // usrc_PriceList
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.Controls.Add(this.lbl_PriceList);
             this.Controls.Add(this.cmb_PriceListType);
             this.Controls.Add(this.btn_PriceListType);
             this.Name = "usrc_PriceList";
-            this.Size = new System.Drawing.Size(264, 35);
+            this.Size = new System.Drawing.Size(278, 24);
             this.ResumeLayout(false);
 
         }
@@ -82,6 +83,6 @@
 
         private System.Windows.Forms.Label lbl_PriceList;
         private System.Windows.Forms.Button btn_PriceListType;
-        internal System.Windows.Forms.ComboBox cmb_PriceListType;
+        public System.Windows.Forms.ComboBox cmb_PriceListType;
     }
 }

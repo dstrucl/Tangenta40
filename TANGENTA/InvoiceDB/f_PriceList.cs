@@ -278,8 +278,26 @@ namespace InvoiceDB
         //}
 
 
+        public static void CheckPriceUndefined_ShopB(Form form, SQLTableControl.DBTableControl xdbTables, ref bool bEdit)
+        {
+            string Err = null;
+            bEdit = false;
+            DataTable dt_Price_SimpleItem_VIEW = new DataTable();
+            string sql = @"select Price_SimpleItem_$_pl_$$Name,Price_SimpleItem_$_si_$$UniqueName,Price_SimpleItem_$_si_$$Name
+                            from Price_SimpleItem_VIEW where Price_SimpleItem_$_si_$$ToOffer = 1 and Price_SimpleItem_$$RetailPricePerUnit < 0";
+            if (DBSync.DBSync.ReadDataTable(ref dt_Price_SimpleItem_VIEW, sql, ref Err))
+            {
+                if (dt_Price_SimpleItem_VIEW.Rows.Count > 0)
+                {
+                    //uwpf_GUI.Price_Undefined_Window piu_w = new uwpf_GUI.Price_Undefined_Window(lngRPM.s_SimpleItemPriceUndefined.s, dt_Price_SimpleItem_VIEW, xdbTables);
+                    //bEdit = (bool)piu_w.ShowDialog();
+                    bEdit = true;
+                }
+            }
+        }
 
-        public static void CheckPriceUndefined(Form form, SQLTableControl.DBTableControl xdbTables, ref bool bEdit)
+
+        public static void CheckPriceUndefined_ShopC(Form form, SQLTableControl.DBTableControl xdbTables, ref bool bEdit)
         {
             string Err = null;
             bEdit = false;
@@ -292,19 +310,6 @@ namespace InvoiceDB
                 {
                     //uwpf_GUI.Price_Undefined_Window piu_w = new uwpf_GUI.Price_Undefined_Window(lngRPM.s_ItemPriceUndefined.s, dt_Price_Item_VIEW, xdbTables);
                     //bEdit = (bool) piu_w.ShowDialog();
-                    bEdit = true;
-                }
-            }
-
-            sql = @"select Price_SimpleItem_$_pl_$$Name,Price_SimpleItem_$_si_$$UniqueName,Price_SimpleItem_$_si_$$Name
-                            from Price_SimpleItem_VIEW where Price_SimpleItem_$_si_$$ToOffer = 1 and Price_SimpleItem_$$RetailPricePerUnit < 0";
-            DataTable dt_Price_SimpleItem_VIEW = new DataTable();
-            if (DBSync.DBSync.ReadDataTable(ref dt_Price_SimpleItem_VIEW, sql, ref Err))
-            {
-                if (dt_Price_SimpleItem_VIEW.Rows.Count > 0)
-                {
-                    //uwpf_GUI.Price_Undefined_Window piu_w = new uwpf_GUI.Price_Undefined_Window(lngRPM.s_SimpleItemPriceUndefined.s, dt_Price_SimpleItem_VIEW, xdbTables);
-                    //bEdit = (bool)piu_w.ShowDialog();
                     bEdit = true;
                 }
             }
