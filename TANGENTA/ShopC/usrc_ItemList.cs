@@ -33,7 +33,7 @@ namespace ShopC
 
         public usrc_Item[] usrc_Item_aray = null;
         usrc_Atom_ItemsList m_usrc_Atom_ItemsList = null;
-        ShopBC m_ShopBC;
+        ShopABC m_ShopBC;
         DBTablesAndColumnNames DBtcn;
         int ipnl_Items_Width_default = -1;
         private long m_PriceList_ID = -1;
@@ -97,7 +97,7 @@ namespace ShopC
             }
         }
 
-        internal void Init(InvoiceDB.ShopBC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan)
+        internal void Init(InvoiceDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan)
         {
             m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;

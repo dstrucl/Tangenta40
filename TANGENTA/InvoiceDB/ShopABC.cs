@@ -12,14 +12,15 @@ using System.Windows.Forms;
 
 namespace InvoiceDB
 {
-    public class ShopBC
+    public class ShopABC
     {
 
 
         BlagajnaTableClass.SQL_Database_Tables_Definition td = null;
         DBTablesAndColumnNames DBtcn = null;
 
-        
+        public xTaxationList m_xTaxationList = null;
+
 
 
         public CurrentInvoice m_CurrentInvoice = null;
@@ -302,7 +303,7 @@ namespace InvoiceDB
             }
         }
 
-        public ShopBC(DBTablesAndColumnNames xDBtcn)
+        public ShopABC(DBTablesAndColumnNames xDBtcn)
         {
             m_CurrentInvoice = new CurrentInvoice(this, xDBtcn);
             td = DBSync.DBSync.DB_for_Blagajna.mt;

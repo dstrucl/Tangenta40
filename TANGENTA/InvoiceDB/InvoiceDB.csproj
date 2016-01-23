@@ -102,13 +102,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Return_to_shop_shelf_data.cs" />
-    <Compile Include="ShopBC.cs" />
+    <Compile Include="ShopABC.cs" />
     <Compile Include="ShopShelf.cs" />
     <Compile Include="ShopShelf_Source.cs" />
     <Compile Include="Stock_Data.cs" />
     <Compile Include="xCurrency.cs" />
     <Compile Include="xCurrencyList.cs" />
     <Compile Include="xPriceList.cs" />
+    <Compile Include="xTaxation.cs" />
+    <Compile Include="xUnitList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CONTROLS\XMessage\XMessage.csproj">

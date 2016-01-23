@@ -34,11 +34,11 @@ namespace Tangenta
         public void SetInitialMode()
         {
             Mode = eMode.Items_and_ProformaInvoices;
-            if (m_usrc_Invoice.m_ShopBC!=null)
+            if (m_usrc_Invoice.m_ShopABC!=null)
             {
-                if (m_usrc_Invoice.m_ShopBC.m_CurrentInvoice!=null)
+                if (m_usrc_Invoice.m_ShopABC.m_CurrentInvoice!=null)
                 {
-                    if (m_usrc_Invoice.m_ShopBC.m_CurrentInvoice.bDraft)
+                    if (m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.bDraft)
                     {
                         Mode = eMode.Items;
                     }

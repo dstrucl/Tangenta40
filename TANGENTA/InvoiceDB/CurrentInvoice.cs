@@ -11,7 +11,7 @@ namespace InvoiceDB
 {
     public class CurrentInvoice
     {
-        public ShopBC m_InvoiceDB = null;
+        public ShopABC m_InvoiceDB = null;
 
         public string sql_Price_Item_Stock_template = null;
 
@@ -37,7 +37,7 @@ namespace InvoiceDB
         public bool Exist = false;
         public bool bStorno = false;
 
-        public CurrentInvoice(ShopBC xInvoiceDB, DBTablesAndColumnNames xDBtcn)
+        public CurrentInvoice(ShopABC xInvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             m_InvoiceDB = xInvoiceDB;
             DBtcn = xDBtcn;

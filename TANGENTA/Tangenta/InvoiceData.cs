@@ -79,7 +79,7 @@ namespace Tangenta
         public int iCountItemsSold = 0;
 
 
-        public InvoiceDB.ShopBC m_ShopBC = null;
+        public InvoiceDB.ShopABC m_ShopBC = null;
 
 
         public StaticLib.TaxSum taxSum = null;
@@ -105,7 +105,7 @@ namespace Tangenta
         }
 
 
-        public InvoiceData(InvoiceDB.ShopBC xInvoiceDB, long xProformaInvoice_ID)
+        public InvoiceData(InvoiceDB.ShopABC xInvoiceDB, long xProformaInvoice_ID)
         {
             m_ShopBC = xInvoiceDB;
             ProformaInvoice_ID = xProformaInvoice_ID;

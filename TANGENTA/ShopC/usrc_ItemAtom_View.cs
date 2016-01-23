@@ -15,7 +15,7 @@ namespace ShopC
 
     public partial class usrc_Atom_Item_View : UserControl
     {
-        private InvoiceDB.ShopBC m_InvoiceDB = null;
+        private InvoiceDB.ShopABC m_InvoiceDB = null;
         private long m_Atom_Item_ID = 0;
         private List<object> appisd_List = new List<object>();
         private DataTable dt_ProformaInvoice_Atom_Item_Stock_view = new DataTable();
@@ -31,7 +31,7 @@ namespace ShopC
 
         }
 
-        public bool Init(InvoiceDB.ShopBC x_InvoiceDB, long x_Atom_Item_ID)
+        public bool Init(InvoiceDB.ShopABC x_InvoiceDB, long x_Atom_Item_ID)
         {
 
             m_InvoiceDB = x_InvoiceDB;

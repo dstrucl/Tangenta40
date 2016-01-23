@@ -36,7 +36,7 @@ namespace ShopB
 
         public DataTable dt_SelectedSimpleItem = new DataTable();
 
-        InvoiceDB.ShopBC m_InvoiceDB = null;
+        InvoiceDB.ShopABC m_InvoiceDB = null;
         DBTablesAndColumnNames DBtcn = null;
 
         string column_SelectedSimpleItem_btn_discount = "btn_discount";
@@ -65,7 +65,7 @@ namespace ShopB
         public event delegate_ExtraDiscount aa_ExtraDiscount = null;
 
 
-        public void Init(ShopBC x_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             lngRPM.s_Shop_B.Text(lbl_ShopB_Name);
 

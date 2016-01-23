@@ -705,8 +705,6 @@
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </Compile>
     <Compile Include="XML_Izpis_Postavka.cs" />
-    <Compile Include="xTaxation.cs" />
-    <Compile Include="xUnitList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">

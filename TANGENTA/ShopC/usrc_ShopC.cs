@@ -31,7 +31,7 @@ namespace ShopC
         
 
         DataTable dt_Item = new DataTable();
-        private InvoiceDB.ShopBC m_InvoiceDB = null;
+        private InvoiceDB.ShopABC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
        // private usrc_Invoice m_usrc_Invoice = null;
         public usrc_ShopC()
@@ -43,7 +43,7 @@ namespace ShopC
         }
 
 
-        public void Init(InvoiceDB.ShopBC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        public void Init(InvoiceDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             //Program.iGDIcUser502 = Program.getGuiResourcesUserCount();
 

@@ -20,7 +20,7 @@ namespace ShopC
         public int yPosLast = 5;
 
         private usrc_ItemList m_usrc_ItemList = null;
-        public InvoiceDB.ShopBC m_ShopBC;
+        public InvoiceDB.ShopABC m_ShopBC;
         private DBTablesAndColumnNames DBtcn;
 
         public delegate void delegate_After_Atom_Item_Remove();
@@ -69,7 +69,7 @@ namespace ShopC
             InitializeComponent();
         }
 
-        internal void Init(usrc_ItemList x_usrc_ItemList, InvoiceDB.ShopBC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        internal void Init(usrc_ItemList x_usrc_ItemList, InvoiceDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             m_usrc_ItemList = x_usrc_ItemList;
             m_ShopBC=xm_InvoiceDB;

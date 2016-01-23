@@ -127,9 +127,21 @@
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\DBSync\DBSync.csproj">
+      <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
+      <Name>DBSync</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\SQLTableControl\SQLTableControl.csproj">
+      <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
+      <Name>SQLTableControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ShopA_dbfunc\ShopA_dbfunc.csproj">
       <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
       <Name>ShopA_dbfunc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
+      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
+      <Name>BlagajnaDataBaseDef</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>

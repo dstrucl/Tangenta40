@@ -16,5 +16,10 @@ namespace ShopA
         {
             InitializeComponent();
         }
+
+        public void Init()
+        {
+        }
+
     }
 }

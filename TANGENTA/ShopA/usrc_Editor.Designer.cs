@@ -36,9 +36,9 @@
             this.btn_SelectItem = new System.Windows.Forms.Button();
             this.btn_EditItem = new System.Windows.Forms.Button();
             this.chk_PriceWithTax = new System.Windows.Forms.CheckBox();
-            this.usrc_Edit_Item_Name2 = new ShopA.usrc_Edit_Item_Name();
-            this.usrc_Edit_Item_Description2 = new ShopA.usrc_Edit_Item_Description();
-            this.usrc_Edit_Item_Tax2 = new ShopA.usrc_Edit_Item_Tax();
+            this.usrc_Edit_Item_Name1 = new ShopA.usrc_Edit_Item_Name();
+            this.usrc_Edit_Item_Description1 = new ShopA.usrc_Edit_Item_Description();
+            this.usrc_Edit_Item_Tax1 = new ShopA.usrc_Edit_Item_Tax();
             this.usrc_Edit_Item_Unit1 = new ShopA.usrc_Edit_Item_Unit();
             this.usrc_Edit_Item_EndPrice1 = new ShopA.usrc_Edit_Item_EndPrice();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -69,7 +69,7 @@
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Panel2.Controls.Add(this.chk_PriceWithTax);
-            this.splitContainer1.Panel2.Controls.Add(this.usrc_Edit_Item_Tax2);
+            this.splitContainer1.Panel2.Controls.Add(this.usrc_Edit_Item_Tax1);
             this.splitContainer1.Panel2.Controls.Add(this.usrc_Edit_Item_Unit1);
             this.splitContainer1.Panel2.Controls.Add(this.usrc_Edit_Item_EndPrice1);
             this.splitContainer1.Size = new System.Drawing.Size(797, 145);
@@ -89,12 +89,12 @@
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer2.Panel1.Controls.Add(this.btn_EditItem);
             this.splitContainer2.Panel1.Controls.Add(this.btn_SelectItem);
-            this.splitContainer2.Panel1.Controls.Add(this.usrc_Edit_Item_Name2);
+            this.splitContainer2.Panel1.Controls.Add(this.usrc_Edit_Item_Name1);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer2.Panel2.Controls.Add(this.usrc_Edit_Item_Description2);
+            this.splitContainer2.Panel2.Controls.Add(this.usrc_Edit_Item_Description1);
             this.splitContainer2.Size = new System.Drawing.Size(301, 145);
             this.splitContainer2.SplitterDistance = 54;
             this.splitContainer2.TabIndex = 0;
@@ -158,33 +158,33 @@
             this.chk_PriceWithTax.Text = "Vnos cen z davkom";
             this.chk_PriceWithTax.UseVisualStyleBackColor = true;
             // 
-            // usrc_Edit_Item_Name2
+            // usrc_Edit_Item_Name1
             // 
-            this.usrc_Edit_Item_Name2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_Edit_Item_Name1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Edit_Item_Name2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_Edit_Item_Name2.Location = new System.Drawing.Point(114, 4);
-            this.usrc_Edit_Item_Name2.Name = "usrc_Edit_Item_Name2";
-            this.usrc_Edit_Item_Name2.Size = new System.Drawing.Size(184, 44);
-            this.usrc_Edit_Item_Name2.TabIndex = 0;
-            this.usrc_Edit_Item_Name2.Load += new System.EventHandler(this.usrc_Edit_Item_Name2_Load);
+            this.usrc_Edit_Item_Name1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_Edit_Item_Name1.Location = new System.Drawing.Point(114, 4);
+            this.usrc_Edit_Item_Name1.Name = "usrc_Edit_Item_Name2";
+            this.usrc_Edit_Item_Name1.Size = new System.Drawing.Size(184, 44);
+            this.usrc_Edit_Item_Name1.TabIndex = 0;
+            this.usrc_Edit_Item_Name1.Load += new System.EventHandler(this.usrc_Edit_Item_Name2_Load);
             // 
-            // usrc_Edit_Item_Description2
+            // usrc_Edit_Item_Description1
             // 
-            this.usrc_Edit_Item_Description2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_Edit_Item_Description2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_Edit_Item_Description2.Location = new System.Drawing.Point(0, 0);
-            this.usrc_Edit_Item_Description2.Name = "usrc_Edit_Item_Description2";
-            this.usrc_Edit_Item_Description2.Size = new System.Drawing.Size(301, 87);
-            this.usrc_Edit_Item_Description2.TabIndex = 0;
+            this.usrc_Edit_Item_Description1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_Edit_Item_Description1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_Edit_Item_Description1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_Edit_Item_Description1.Name = "usrc_Edit_Item_Description2";
+            this.usrc_Edit_Item_Description1.Size = new System.Drawing.Size(301, 87);
+            this.usrc_Edit_Item_Description1.TabIndex = 0;
             // 
-            // usrc_Edit_Item_Tax2
+            // usrc_Edit_Item_Tax1
             // 
-            this.usrc_Edit_Item_Tax2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_Edit_Item_Tax2.Location = new System.Drawing.Point(2, 3);
-            this.usrc_Edit_Item_Tax2.Name = "usrc_Edit_Item_Tax2";
-            this.usrc_Edit_Item_Tax2.Size = new System.Drawing.Size(115, 42);
-            this.usrc_Edit_Item_Tax2.TabIndex = 0;
+            this.usrc_Edit_Item_Tax1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_Edit_Item_Tax1.Location = new System.Drawing.Point(2, 3);
+            this.usrc_Edit_Item_Tax1.Name = "usrc_Edit_Item_Tax1";
+            this.usrc_Edit_Item_Tax1.Size = new System.Drawing.Size(115, 42);
+            this.usrc_Edit_Item_Tax1.TabIndex = 0;
             // 
             // usrc_Edit_Item_Unit1
             // 
@@ -234,9 +234,6 @@
         private usrc_Edit_Item_Name usrc_Edit_Item_Name1;
         private usrc_Edit_Item_Description usrc_Edit_Item_Description1;
         private usrc_Edit_Item_Tax usrc_Edit_Item_Tax1;
-        private usrc_Edit_Item_Name usrc_Edit_Item_Name2;
-        private usrc_Edit_Item_Description usrc_Edit_Item_Description2;
-        private usrc_Edit_Item_Tax usrc_Edit_Item_Tax2;
         private usrc_Edit_Item_Unit usrc_Edit_Item_Unit1;
         private usrc_Edit_Item_EndPrice usrc_Edit_Item_EndPrice1;
         private System.Windows.Forms.SplitContainer splitContainer2;
