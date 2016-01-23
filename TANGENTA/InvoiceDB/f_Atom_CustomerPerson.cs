@@ -26,12 +26,12 @@ namespace InvoiceDB
                     {
                         if (dt.Rows.Count == 1)
                         {
-                            bool_v Gender_v = func.set_bool(dt.Rows[0]["Person_$$Gender"]);
-                            string_v FirstName_v = func.set_string(dt.Rows[0]["Person_$_cfn_$$FirstName"]);
-                            string_v LastName_v = func.set_string(dt.Rows[0]["Person_$_cln_$$LastName"]);
-                            DateTime_v DateOfBirth_v = func.set_DateTime(dt.Rows[0]["Person_$$DateOfBirth"]);
-                            int_v Tax_ID_v = func.set_int(dt.Rows[0]["Person_$$Tax_ID"]);
-                            string_v Registration_ID_v = func.set_string(dt.Rows[0]["Person_$$Registration_ID"]);
+                            bool_v Gender_v = tf.set_bool(dt.Rows[0]["Person_$$Gender"]);
+                            string_v FirstName_v = tf.set_string(dt.Rows[0]["Person_$_cfn_$$FirstName"]);
+                            string_v LastName_v = tf.set_string(dt.Rows[0]["Person_$_cln_$$LastName"]);
+                            DateTime_v DateOfBirth_v = tf.set_DateTime(dt.Rows[0]["Person_$$DateOfBirth"]);
+                            string_v Tax_ID_v = tf.set_string(dt.Rows[0]["Person_$$Tax_ID"]);
+                            string_v Registration_ID_v = tf.set_string(dt.Rows[0]["Person_$$Registration_ID"]);
                             string_v GsmNumber_v = null;
                             string_v PhoneNumber_v = null;
                             string_v Email_v = null;
@@ -67,20 +67,20 @@ namespace InvoiceDB
                             {
                                 if (dt.Rows.Count > 0)
                                 {
-                                    GsmNumber_v = func.set_string(dt.Rows[0]["PersonData_$_cgsmnper_$$GsmNumber"]);
-                                    PhoneNumber_v = func.set_string(dt.Rows[0]["PersonData_$_cphnnper_$$PhoneNumber"]);
-                                    Email_v = func.set_string(dt.Rows[0]["PersonData_$_cemailper_$$Email"]);
-                                    StreetName_v = func.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstrnper_$$StreetName"]);
-                                    HouseNumber_v = func.set_string(dt.Rows[0]["PersonData_$_cadrper_$_chounper_$$HouseNumber"]);
-                                    City_v = func.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccitper_$$City"]);
-                                    ZIP_v = func.set_string(dt.Rows[0]["PersonData_$_cadrper_$_zipper_$$ZIP"]);
-                                    State_v = func.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$State"]);
-                                    Country_v = func.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$Country"]);
-                                    CardNumber_v = func.set_string(dt.Rows[0]["PersonData_$$CardNumber"]);
-                                    CardType_v = func.set_string(dt.Rows[0]["PersonData_$_cardtper_$$CardType"]);
-                                    Image_Hash_v = func.set_string(dt.Rows[0]["PersonData_$_perimg_$$Image_Hash"]);
-                                    Image_Data_v = func.set_byte_array(dt.Rows[0]["PersonData_$_perimg_$$Image_Data"]);
-                                    Description_v = func.set_string(dt.Rows[0]["PersonData_$$Description"]);
+                                    GsmNumber_v = tf.set_string(dt.Rows[0]["PersonData_$_cgsmnper_$$GsmNumber"]);
+                                    PhoneNumber_v = tf.set_string(dt.Rows[0]["PersonData_$_cphnnper_$$PhoneNumber"]);
+                                    Email_v = tf.set_string(dt.Rows[0]["PersonData_$_cemailper_$$Email"]);
+                                    StreetName_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstrnper_$$StreetName"]);
+                                    HouseNumber_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_chounper_$$HouseNumber"]);
+                                    City_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccitper_$$City"]);
+                                    ZIP_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_zipper_$$ZIP"]);
+                                    State_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$State"]);
+                                    Country_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$Country"]);
+                                    CardNumber_v = tf.set_string(dt.Rows[0]["PersonData_$$CardNumber"]);
+                                    CardType_v = tf.set_string(dt.Rows[0]["PersonData_$_cardtper_$$CardType"]);
+                                    Image_Hash_v = tf.set_string(dt.Rows[0]["PersonData_$_perimg_$$Image_Hash"]);
+                                    Image_Data_v = tf.set_byte_array(dt.Rows[0]["PersonData_$_perimg_$$Image_Data"]);
+                                    Description_v = tf.set_string(dt.Rows[0]["PersonData_$$Description"]);
                                 }
                                 long_v Atom_Person_ID_v = null;
                                 if (!f_Atom_Person.Get(

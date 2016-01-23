@@ -16,7 +16,7 @@ namespace InvoiceDB
                                       string_v FirstName_v,
                                       string_v LastName_v,
                                       DateTime_v DateOfBirth_v,
-                                      int_v Tax_ID_v,
+                                      string_v Tax_ID_v,
                                       string_v Registration_ID_v,
                                       string_v GsmNumber_v,
                                       string_v PhoneNumber_v,
@@ -294,24 +294,24 @@ namespace InvoiceDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    univ_per = new UniversalInvoice.Person(token_prefix, DBTypes.func._set_bool(dt.Rows[0]["Atom_Person_$$Gender"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acfn_$$FirstName"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acln_$$LastName"]),
-                                                         DBTypes.func._set_DateTime(dt.Rows[0]["Atom_Person_$$DateOfBirth"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$$Tax_ID"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$$Registration_ID"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_agsmnper_$$GsmNumber"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_aphnnper_$$PhoneNumber"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_aemailper_$$Email"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$$CardNumber"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acardtper_$$CardType"]),
-                                                         DBTypes.func._set_byte_array(dt.Rows[0]["Atom_Person_$_aperimg_$$Image_Data"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_astrnper_$$StreetName"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_ahounper_$$HouseNumber"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_azipper_$$ZIP"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acitper_$$City"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_astper_$$State"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acouper_$$Country"]));
+                    univ_per = new UniversalInvoice.Person(token_prefix, DBTypes.tf._set_bool(dt.Rows[0]["Atom_Person_$$Gender"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acfn_$$FirstName"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acln_$$LastName"]),
+                                                         DBTypes.tf._set_DateTime(dt.Rows[0]["Atom_Person_$$DateOfBirth"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$$Tax_ID"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$$Registration_ID"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_agsmnper_$$GsmNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_aphnnper_$$PhoneNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_aemailper_$$Email"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$$CardNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acardtper_$$CardType"]),
+                                                         DBTypes.tf._set_byte_array(dt.Rows[0]["Atom_Person_$_aperimg_$$Image_Data"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_astrnper_$$StreetName"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_ahounper_$$HouseNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_azipper_$$ZIP"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acitper_$$City"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_astper_$$State"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acouper_$$Country"]));
                     return univ_per;
                 }
                 else

@@ -46,24 +46,24 @@ namespace InvoiceDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            string_v Name_v = func.set_string(dt.Rows[0]["OrganisationData_$_org_$$Name"]);
-                            string_v Tax_ID_v = func.set_string(dt.Rows[0]["OrganisationData_$_org_$$Tax_ID"]);
-                            string_v Registration_ID_v = func.set_string(dt.Rows[0]["OrganisationData_$_org_$$Registration_ID"]);
-                            string_v OrganisationTYPE_v = func.set_string(dt.Rows[0]["OrganisationData_$_orgt_$$OrganisationTYPE"]);
+                            string_v Name_v = tf.set_string(dt.Rows[0]["OrganisationData_$_org_$$Name"]);
+                            string_v Tax_ID_v = tf.set_string(dt.Rows[0]["OrganisationData_$_org_$$Tax_ID"]);
+                            string_v Registration_ID_v = tf.set_string(dt.Rows[0]["OrganisationData_$_org_$$Registration_ID"]);
+                            string_v OrganisationTYPE_v = tf.set_string(dt.Rows[0]["OrganisationData_$_orgt_$$OrganisationTYPE"]);
                             PostAddress_v Address_v = new PostAddress_v();
-                            Address_v.StreetName_v = func.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstrnorg_$$StreetName"]);
-                            Address_v.HouseNumber_v = func.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_chounorg_$$HouseNumber"]);
-                            Address_v.ZIP_v = func.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cziporg_$$ZIP"]);
-                            Address_v.City_v = func.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccitorg_$$City"]);
-                            Address_v.State_v = func.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State"]);
-                            Address_v.Country_v = func.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccouorg_$$Country"]);
-                            string_v PhoneNumber_v = func.set_string(dt.Rows[0]["OrganisationData_$_cphnnorg_$$PhoneNumber"]);
-                            string_v FaxNumber_v = func.set_string(dt.Rows[0]["OrganisationData_$_cfaxnorg_$$FaxNumber"]);
-                            string_v Email_v = func.set_string(dt.Rows[0]["OrganisationData_$_cemailorg_$$Email"]);
-                            string_v HomePage_v = func.set_string(dt.Rows[0]["OrganisationData_$_chomepgorg_$$HomePage"]);
-                            string_v Image_Hash_v = func.set_string(dt.Rows[0]["OrganisationData_$_logo_$$Image_Hash"]);
-                            byte_array_v Image_Data_v = func.set_byte_array(dt.Rows[0]["OrganisationData_$_logo_$$Image_Data"]);
-                            string_v Description_v = func.set_string(dt.Rows[0]["OrganisationData_$_logo_$$Description"]);
+                            Address_v.StreetName_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstrnorg_$$StreetName"]);
+                            Address_v.HouseNumber_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_chounorg_$$HouseNumber"]);
+                            Address_v.ZIP_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cziporg_$$ZIP"]);
+                            Address_v.City_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccitorg_$$City"]);
+                            Address_v.State_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State"]);
+                            Address_v.Country_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccouorg_$$Country"]);
+                            string_v PhoneNumber_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cphnnorg_$$PhoneNumber"]);
+                            string_v FaxNumber_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cfaxnorg_$$FaxNumber"]);
+                            string_v Email_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cemailorg_$$Email"]);
+                            string_v HomePage_v = tf.set_string(dt.Rows[0]["OrganisationData_$_chomepgorg_$$HomePage"]);
+                            string_v Image_Hash_v = tf.set_string(dt.Rows[0]["OrganisationData_$_logo_$$Image_Hash"]);
+                            byte_array_v Image_Data_v = tf.set_byte_array(dt.Rows[0]["OrganisationData_$_logo_$$Image_Data"]);
+                            string_v Description_v = tf.set_string(dt.Rows[0]["OrganisationData_$_logo_$$Description"]);
                             string_v BankName_v = null;
                             string_v TRR_v = null;
                             sql = @"select oacc.Description as OrganisationAccount_Description
@@ -82,8 +82,8 @@ namespace InvoiceDB
                             {
                                 if (dt.Rows.Count > 0)
                                 {
-                                    BankName_v = func.set_string(dt.Rows[0]["Name"]);
-                                    TRR_v = func.set_string(dt.Rows[0]["TRR"]);
+                                    BankName_v = tf.set_string(dt.Rows[0]["Name"]);
+                                    TRR_v = tf.set_string(dt.Rows[0]["TRR"]);
                                 }
                             }
                             long_v Atom_Organisation_ID_v = null;

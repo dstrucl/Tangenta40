@@ -74,12 +74,6 @@
     <Compile Include="usrc_Edit_Item_Name.Designer.cs">
       <DependentUpon>usrc_Edit_Item_Name.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Edit_Item_PricePerUnit.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Edit_Item_PricePerUnit.Designer.cs">
-      <DependentUpon>usrc_Edit_Item_PricePerUnit.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_Edit_Item_Tax.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -91,12 +85,6 @@
     </Compile>
     <Compile Include="usrc_Edit_Item_Unit.Designer.cs">
       <DependentUpon>usrc_Edit_Item_Unit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_Quantity.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Quantity.Designer.cs">
-      <DependentUpon>usrc_Quantity.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_ShopA.cs">
       <SubType>UserControl</SubType>
@@ -124,17 +112,11 @@
     <EmbeddedResource Include="usrc_Edit_Item_Name.resx">
       <DependentUpon>usrc_Edit_Item_Name.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Edit_Item_PricePerUnit.resx">
-      <DependentUpon>usrc_Edit_Item_PricePerUnit.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Edit_Item_Tax.resx">
       <DependentUpon>usrc_Edit_Item_Tax.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Edit_Item_Unit.resx">
       <DependentUpon>usrc_Edit_Item_Unit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Quantity.resx">
-      <DependentUpon>usrc_Quantity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_ShopA.resx">
       <DependentUpon>usrc_ShopA.cs</DependentUpon>
@@ -144,6 +126,14 @@
     <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ShopA_dbfunc\ShopA_dbfunc.csproj">
+      <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
+      <Name>ShopA_dbfunc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>BlagajnaTableClass</Name>
     </ProjectReference>
     <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>

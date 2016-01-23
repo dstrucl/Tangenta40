@@ -132,54 +132,54 @@ namespace InvoiceDB
                     {
                         myOrg.ID = (long)dt_myCompany_Person.Rows[0]["myCompany_ID"];
                         myOrg_Person.ID = (long)dt_myCompany_Person.Rows[0]["myCompany_Person_ID"];
-                        myOrg.Name_v = func.set_string(dt_myCompany_Person.Rows[0]["Name"]);
+                        myOrg.Name_v = tf.set_string(dt_myCompany_Person.Rows[0]["Name"]);
                         if (dt_myCompany_Person.Rows[0]["StreetName"].GetType() == typeof(string))
                         {
-                            myOrg.Address_v.StreetName_v = func.set_string(dt_myCompany_Person.Rows[0]["StreetName"]);
+                            myOrg.Address_v.StreetName_v = tf.set_string(dt_myCompany_Person.Rows[0]["StreetName"]);
                             if (dt_myCompany_Person.Rows[0]["HouseNumber"].GetType() == typeof(string))
                             {
-                                myOrg.Address_v.HouseNumber_v = func.set_string(dt_myCompany_Person.Rows[0]["HouseNumber"]);
+                                myOrg.Address_v.HouseNumber_v = tf.set_string(dt_myCompany_Person.Rows[0]["HouseNumber"]);
                                 if (dt_myCompany_Person.Rows[0]["ZIP"].GetType() == typeof(string))
                                 {
-                                    myOrg.Address_v.ZIP_v = func.set_string(dt_myCompany_Person.Rows[0]["ZIP"]);
+                                    myOrg.Address_v.ZIP_v = tf.set_string(dt_myCompany_Person.Rows[0]["ZIP"]);
                                     if (dt_myCompany_Person.Rows[0]["City"].GetType() == typeof(string))
                                     {
-                                        myOrg.Address_v.City_v = func.set_string(dt_myCompany_Person.Rows[0]["City"]);
+                                        myOrg.Address_v.City_v = tf.set_string(dt_myCompany_Person.Rows[0]["City"]);
                                         if (dt_myCompany_Person.Rows[0]["State"].GetType() == typeof(string))
                                         {
-                                            myOrg.Address_v.State_v = func.set_string(dt_myCompany_Person.Rows[0]["State"]);
-                                            myOrg.Address_v.State_ISO_3166_a2_v = func.set_string(dt_myCompany_Person.Rows[0]["State_ISO_3166_a2"]);
-                                            myOrg.Address_v.State_ISO_3166_a3_v = func.set_string(dt_myCompany_Person.Rows[0]["State_ISO_3166_a3"]);
-                                            myOrg.Address_v.State_ISO_3166_num_v = func.set_short(dt_myCompany_Person.Rows[0]["State_ISO_3166_num"]);
+                                            myOrg.Address_v.State_v = tf.set_string(dt_myCompany_Person.Rows[0]["State"]);
+                                            myOrg.Address_v.State_ISO_3166_a2_v = tf.set_string(dt_myCompany_Person.Rows[0]["State_ISO_3166_a2"]);
+                                            myOrg.Address_v.State_ISO_3166_a3_v = tf.set_string(dt_myCompany_Person.Rows[0]["State_ISO_3166_a3"]);
+                                            myOrg.Address_v.State_ISO_3166_num_v = tf.set_short(dt_myCompany_Person.Rows[0]["State_ISO_3166_num"]);
                                             if (dt_myCompany_Person.Rows[0]["Country"].GetType() == typeof(string))
                                             {
-                                                myOrg.Address_v.Country_v = func.set_string(dt_myCompany_Person.Rows[0]["Country"]);
+                                                myOrg.Address_v.Country_v = tf.set_string(dt_myCompany_Person.Rows[0]["Country"]);
                                             }
                                             if (dt_myCompany_Person.Rows[0]["Tax_ID"].GetType() == typeof(string))
                                             {
-                                                myOrg.Tax_ID_v = func.set_string(dt_myCompany_Person.Rows[0]["Tax_ID"]);
+                                                myOrg.Tax_ID_v = tf.set_string(dt_myCompany_Person.Rows[0]["Tax_ID"]);
 
-                                                myOrg.Registration_ID_v = func.set_string(dt_myCompany_Person.Rows[0]["Registration_ID"]);
+                                                myOrg.Registration_ID_v = tf.set_string(dt_myCompany_Person.Rows[0]["Registration_ID"]);
 
-                                                myOrg.OrganisationTYPE_v = func.set_string(dt_myCompany_Person.Rows[0]["OrganisationTYPE"]);
+                                                myOrg.OrganisationTYPE_v = tf.set_string(dt_myCompany_Person.Rows[0]["OrganisationTYPE"]);
 
-                                                myOrg.Office_ID_v = func.set_long(dt_myCompany_Person.Rows[0]["Office_ID"]);
+                                                myOrg.Office_ID_v = tf.set_long(dt_myCompany_Person.Rows[0]["Office_ID"]);
 
-                                                myOrg.Office_Name_v = func.set_string(dt_myCompany_Person.Rows[0]["Office_Name"]);
+                                                myOrg.Office_Name_v = tf.set_string(dt_myCompany_Person.Rows[0]["Office_Name"]);
 
-                                                myOrg.BankName_v = func.set_string(dt_myCompany_Person.Rows[0]["BankName"]);
+                                                myOrg.BankName_v = tf.set_string(dt_myCompany_Person.Rows[0]["BankName"]);
 
-                                                myOrg.TRR_v = func.set_string(dt_myCompany_Person.Rows[0]["TRR"]);
+                                                myOrg.TRR_v = tf.set_string(dt_myCompany_Person.Rows[0]["TRR"]);
 
-                                                myOrg.PhoneNumber_v = func.set_string(dt_myCompany_Person.Rows[0]["PhoneNumber"]);
+                                                myOrg.PhoneNumber_v = tf.set_string(dt_myCompany_Person.Rows[0]["PhoneNumber"]);
 
-                                                myOrg.HomePage_v = func.set_string(dt_myCompany_Person.Rows[0]["HomePage"]);
+                                                myOrg.HomePage_v = tf.set_string(dt_myCompany_Person.Rows[0]["HomePage"]);
 
-                                                myOrg.Email_v = func.set_string(dt_myCompany_Person.Rows[0]["Email"]);
+                                                myOrg.Email_v = tf.set_string(dt_myCompany_Person.Rows[0]["Email"]);
 
-                                                myOrg.FaxNumber_v = func.set_string(dt_myCompany_Person.Rows[0]["FaxNumber"]);
+                                                myOrg.FaxNumber_v = tf.set_string(dt_myCompany_Person.Rows[0]["FaxNumber"]);
 
-                                                myOrg.Logo_Image_Data_v = func.set_byte_array(dt_myCompany_Person.Rows[0]["Logo"]);
+                                                myOrg.Logo_Image_Data_v = tf.set_byte_array(dt_myCompany_Person.Rows[0]["Logo"]);
 
                                                 if (myOrg.Logo_Image_Data_v != null)
                                                 {
@@ -187,9 +187,9 @@ namespace InvoiceDB
                                                     myOrg.Logo = (Image)ic.ConvertFrom(myOrg.Logo_Image_Data_v.v);
                                                 }
 
-                                                myOrg.Logo_Hash_v = func.set_string(dt_myCompany_Person.Rows[0]["Logo_Hash"]);
+                                                myOrg.Logo_Hash_v = tf.set_string(dt_myCompany_Person.Rows[0]["Logo_Hash"]);
 
-                                                myOrg.Logo_Description_v = func.set_string(dt_myCompany_Person.Rows[0]["Logo_Description"]);
+                                                myOrg.Logo_Description_v = tf.set_string(dt_myCompany_Person.Rows[0]["Logo_Description"]);
 
                                                 //if (company_Company_id.Length > 0)
                                                 //{
@@ -222,15 +222,15 @@ namespace InvoiceDB
 
                                                 if (dt_myCompany_Person.Rows[0]["FirstName"].GetType() == typeof(string))
                                                 {
-                                                    myOrg_Person.FirstName_v = func.set_string(dt_myCompany_Person.Rows[0]["FirstName"]);
+                                                    myOrg_Person.FirstName_v = tf.set_string(dt_myCompany_Person.Rows[0]["FirstName"]);
 
-                                                    myOrg_Person.LastName_v = func.set_string(dt_myCompany_Person.Rows[0]["LastName"]);
+                                                    myOrg_Person.LastName_v = tf.set_string(dt_myCompany_Person.Rows[0]["LastName"]);
 
-                                                    myOrg_Person.Job_v = func.set_string(dt_myCompany_Person.Rows[0]["Job"]);
+                                                    myOrg_Person.Job_v = tf.set_string(dt_myCompany_Person.Rows[0]["Job"]);
 
-                                                    myOrg_Person.UserName_v = func.set_string(dt_myCompany_Person.Rows[0]["UserName"]);
+                                                    myOrg_Person.UserName_v = tf.set_string(dt_myCompany_Person.Rows[0]["UserName"]);
 
-                                                    myOrg_Person.Password_v = func.set_string(dt_myCompany_Person.Rows[0]["Password"]);
+                                                    myOrg_Person.Password_v = tf.set_string(dt_myCompany_Person.Rows[0]["Password"]);
 
 
                                                     return enum_GetCompany_Person_Data.MyCompany_Data_OK;

@@ -158,26 +158,26 @@ namespace Tangenta
                 }
                 decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
 
-                decimal taxation_rate  = DBTypes.func._set_decimal(dr["Atom_Taxation_Rate"]);
-                decimal tax_price = DBTypes.func._set_decimal(dr["TaxPrice"]);
-                string tax_name = DBTypes.func._set_string(dr["Atom_Taxation_Name"]);
+                decimal taxation_rate  = DBTypes.tf._set_decimal(dr["Atom_Taxation_Rate"]);
+                decimal tax_price = DBTypes.tf._set_decimal(dr["TaxPrice"]);
+                string tax_name = DBTypes.tf._set_string(dr["Atom_Taxation_Name"]);
                 taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
-                                                             DBTypes.func._set_string(dr["Name"]),
-                                                             DBTypes.func._set_decimal(dr["RetailSimpleItemPrice"]),
+                                                             DBTypes.tf._set_string(dr["Name"]),
+                                                             DBTypes.tf._set_decimal(dr["RetailSimpleItemPrice"]),
                                                              "", // no unit
-                                                             DBTypes.func._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]),
+                                                             DBTypes.tf._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]),
                                                              tax_name,
-                                                             Convert.ToDecimal(DBTypes.func._set_int(dr["iQuantity"])),
-                                                             DBTypes.func._set_decimal(dr["Discount"]),
-                                                             DBTypes.func._set_decimal(dr["ExtraDiscount"]),
-                                                             DBTypes.func._set_string(dr["Atom_Currency_Symbol"]),
+                                                             Convert.ToDecimal(DBTypes.tf._set_int(dr["iQuantity"])),
+                                                             DBTypes.tf._set_decimal(dr["Discount"]),
+                                                             DBTypes.tf._set_decimal(dr["ExtraDiscount"]),
+                                                             DBTypes.tf._set_string(dr["Atom_Currency_Symbol"]),
                                                              taxation_rate,
-                                                             DBTypes.func._set_decimal(TotalDiscount),
-                                                             DBTypes.func._set_decimal(price_without_tax),
+                                                             DBTypes.tf._set_decimal(TotalDiscount),
+                                                             DBTypes.tf._set_decimal(price_without_tax),
                                                              tax_price,
-                                                             DBTypes.func._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]));
+                                                             DBTypes.tf._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]));
 
                 j++;
             }
@@ -349,27 +349,27 @@ namespace Tangenta
                 StaticLib.Func.CalculatePrice(RetailPricePerUnit, dQuantityAll, Discount, ExtraDiscount, Atom_Taxation_Rate, ref RetailItemsPriceWithDiscount, ref ItemsTaxPrice, ref ItemsNetPrice, decimal_places);
 
 
-                decimal taxation_rate = DBTypes.func._set_decimal(appisd.Atom_Taxation_Rate.v);
+                decimal taxation_rate = DBTypes.tf._set_decimal(appisd.Atom_Taxation_Rate.v);
                 decimal tax_price = ItemsTaxPrice;
                 string tax_name = appisd.Atom_Taxation_Name.v;
 
                 taxSum.Add(tax_price, ItemsNetPrice, tax_name, taxation_rate);
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix,lngRPM.s_Shop_B,
-                                                             DBTypes.func._set_string(appisd.Atom_Item_UniqueName.v),
-                                                             DBTypes.func._set_decimal(appisd.RetailPricePerUnit.v),
-                                                             DBTypes.func._set_string(appisd.Atom_Unit_Name.v),
-                                                             DBTypes.func._set_decimal(appisd.RetailPriceWithDiscount.v),
-                                                             DBTypes.func._set_string(appisd.Atom_Taxation_Name.v),
-                                                             DBTypes.func._set_decimal(dQuantityAll),
-                                                             DBTypes.func._set_decimal(appisd.Discount.v),
-                                                             DBTypes.func._set_decimal(appisd.ExtraDiscount.v),
-                                                             DBTypes.func._set_string(appisd.Atom_Currency_Symbol.v),
+                                                             DBTypes.tf._set_string(appisd.Atom_Item_UniqueName.v),
+                                                             DBTypes.tf._set_decimal(appisd.RetailPricePerUnit.v),
+                                                             DBTypes.tf._set_string(appisd.Atom_Unit_Name.v),
+                                                             DBTypes.tf._set_decimal(appisd.RetailPriceWithDiscount.v),
+                                                             DBTypes.tf._set_string(appisd.Atom_Taxation_Name.v),
+                                                             DBTypes.tf._set_decimal(dQuantityAll),
+                                                             DBTypes.tf._set_decimal(appisd.Discount.v),
+                                                             DBTypes.tf._set_decimal(appisd.ExtraDiscount.v),
+                                                             DBTypes.tf._set_string(appisd.Atom_Currency_Symbol.v),
                                                              taxation_rate,
-                                                             DBTypes.func._set_decimal(TotalDiscount),
-                                                             DBTypes.func._set_decimal(ItemsNetPrice),
-                                                             DBTypes.func._set_decimal(ItemsTaxPrice),
-                                                             DBTypes.func._set_decimal(RetailItemsPriceWithDiscount));
+                                                             DBTypes.tf._set_decimal(TotalDiscount),
+                                                             DBTypes.tf._set_decimal(ItemsNetPrice),
+                                                             DBTypes.tf._set_decimal(ItemsTaxPrice),
+                                                             DBTypes.tf._set_decimal(RetailItemsPriceWithDiscount));
                 j++;
             }
 
@@ -532,49 +532,49 @@ namespace Tangenta
                 {
                     try
                     {
-                        Draft = DBTypes.func._set_bool(dt_ProformaInvoice.Rows[0]["Draft"]);
-                        GrossSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
-                        taxsum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
-                        NetSum = DBTypes.func._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
+                        Draft = DBTypes.tf._set_bool(dt_ProformaInvoice.Rows[0]["Draft"]);
+                        GrossSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
+                        taxsum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
+                        NetSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
                         
 
                         if (Program.b_FVI_SLO)
                         {
 
                             //this.FVI_SLO_RealEstateBP = new UniversalInvoice.FVI_SLO_RealEstateBP(lngToken.st_Invoice,
-                            //                                                                             DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["BuildingNumber"]),
-                            //                                                                             DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["BuildingSectionNumber"]),
-                            //                                                                             DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Community"]),
-                            //                                                                             DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["CadastralNumber"]),
-                            //                                                                             DBTypes.func._set_DateTime(dt_ProformaInvoice.Rows[0]["ValidityDate"]),
-                            //                                                                             DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["ClosingTag"]),
-                            //                                                                             DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["SoftwareSupplier_TaxNumber"]),
-                            //                                                                             DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["PremiseType"])   );
+                            //                                                                             DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["BuildingNumber"]),
+                            //                                                                             DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["BuildingSectionNumber"]),
+                            //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Community"]),
+                            //                                                                             DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["CadastralNumber"]),
+                            //                                                                             DBTypes.tf._set_DateTime(dt_ProformaInvoice.Rows[0]["ValidityDate"]),
+                            //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["ClosingTag"]),
+                            //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["SoftwareSupplier_TaxNumber"]),
+                            //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["PremiseType"])   );
                         }
 
                         byte[] barr_logoData = (byte[])dt_ProformaInvoice.Rows[0]["Logo_Data"];
-                        MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Atom_Office_Name"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["BankName"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["TRR"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Email"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["HomePage"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["PhoneNumber"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["FaxNumber"]),
-                                                                   DBTypes.func._set_byte_array(dt_ProformaInvoice.Rows[0]["Logo_Data"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["StreetName"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["HouseNumber"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["ZIP"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["City"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["State"]),
-                                                                   DBTypes.func._set_string(dt_ProformaInvoice.Rows[0]["Country"]));
+                        MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Atom_Office_Name"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["BankName"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["TRR"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Email"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["HomePage"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["PhoneNumber"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["FaxNumber"]),
+                                                                   DBTypes.tf._set_byte_array(dt_ProformaInvoice.Rows[0]["Logo_Data"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["StreetName"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["HouseNumber"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["ZIP"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["City"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["State"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Country"]));
 
 
-                        Invoice_ID = DBTypes.func._set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
-                        FinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
-                        NumberInFinancialYear = DBTypes.func._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
+                        Invoice_ID = DBTypes.tf._set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
+                        FinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
+                        NumberInFinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
 
                         if (Program.b_FVI_SLO)
                         {

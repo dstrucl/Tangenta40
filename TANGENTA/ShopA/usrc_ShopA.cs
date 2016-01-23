@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InvoiceDB;
+using ShopA_dbfunc;
+using BlagajnaTableClass;
 
 namespace ShopA
 {
@@ -15,6 +17,9 @@ namespace ShopA
     {
         ShopBC m_ShopBC = null;
         DBTablesAndColumnNames DBtcn = null;
+        DataTable dt_Item_Price = new DataTable();
+        Atom_ItemShopA_Price m_Atom_ItemShopA_Price = new Atom_ItemShopA_Price();
+
         public usrc_ShopA()
         {
             InitializeComponent();
@@ -24,7 +29,17 @@ namespace ShopA
         {
             m_ShopBC = xm_ShopBC;
             DBtcn = xDBtcn;
+            dt_Item_Price.Clear();
+            if (dbfunc.ReadItems(ref dt_Item_Price, ref m_Atom_ItemShopA_Price, m_ShopBC.m_CurrentInvoice.ProformaInvoice_ID))
+            {
+
+            }
+                
         }
 
+        private void usrc_Editor1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

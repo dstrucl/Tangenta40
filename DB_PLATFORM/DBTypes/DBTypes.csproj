@@ -116,6 +116,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="tf.cs" />
+    <Compile Include="type_v_classes.cs" />
     <Compile Include="DBTypes.cs" />
     <Compile Include="func.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

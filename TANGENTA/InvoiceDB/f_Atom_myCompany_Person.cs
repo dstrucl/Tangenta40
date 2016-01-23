@@ -38,7 +38,7 @@ namespace InvoiceDB
                         string_v FirstName_v = null;
                         string_v LastName_v = null;
                         DateTime_v DateOfBirth_v = null;
-                        int_v    Tax_ID_v = null;
+                        string_v Tax_ID_v = null;
                         string_v Registration_ID_v = null;
                         string_v GsmNumber_v = null;
                         string_v PhoneNumber_v = null;
@@ -72,17 +72,17 @@ namespace InvoiceDB
                             if (dt.Rows.Count>0)
                             {
                                 long_v Person_ID_v = null;
-                                Person_ID_v =  func.set_long(dt.Rows[0]["myCompany_Person_$_per_$$ID"]);
-                                UserName_v = func.set_string(dt.Rows[0]["myCompany_Person_$$UserName"]);
-                                Job_v = func.set_string(dt.Rows[0]["myCompany_Person_$$Job"]);
-                                Description_v= func.set_string(dt.Rows[0]["myCompany_Person_$$Description"]);
-                                Gender_v  =  func.set_bool(dt.Rows[0]["myCompany_Person_$_per_$$Gender"]);
-                                FirstName_v = func.set_string(dt.Rows[0]["myCompany_Person_$_per_$_cfn_$$FirstName"]);
-                                LastName_v = func.set_string(dt.Rows[0]["myCompany_Person_$_per_$_cln_$$LastName"]);
-                                DateOfBirth_v = func.set_DateTime(dt.Rows[0]["myCompany_Person_$_per_$$DateOfBirth"]);
-                                Tax_ID_v = func.set_int(dt.Rows[0]["myCompany_Person_$_per_$$Tax_ID"]);
-                                Registration_ID_v = func.set_string(dt.Rows[0]["myCompany_Person_$_per_$$Registration_ID"]);
-                                office_name = func.set_string(dt.Rows[0]["myCompany_Person_$_office_$$Name"]);
+                                Person_ID_v =  tf.set_long(dt.Rows[0]["myCompany_Person_$_per_$$ID"]);
+                                UserName_v = tf.set_string(dt.Rows[0]["myCompany_Person_$$UserName"]);
+                                Job_v = tf.set_string(dt.Rows[0]["myCompany_Person_$$Job"]);
+                                Description_v= tf.set_string(dt.Rows[0]["myCompany_Person_$$Description"]);
+                                Gender_v  =  tf.set_bool(dt.Rows[0]["myCompany_Person_$_per_$$Gender"]);
+                                FirstName_v = tf.set_string(dt.Rows[0]["myCompany_Person_$_per_$_cfn_$$FirstName"]);
+                                LastName_v = tf.set_string(dt.Rows[0]["myCompany_Person_$_per_$_cln_$$LastName"]);
+                                DateOfBirth_v = tf.set_DateTime(dt.Rows[0]["myCompany_Person_$_per_$$DateOfBirth"]);
+                                Tax_ID_v = tf.set_string(dt.Rows[0]["myCompany_Person_$_per_$$Tax_ID"]);
+                                Registration_ID_v = tf.set_string(dt.Rows[0]["myCompany_Person_$_per_$$Registration_ID"]);
+                                office_name = tf.set_string(dt.Rows[0]["myCompany_Person_$_office_$$Name"]);
                                 DataTable dt_PersonData = new DataTable();
                                 sql = @"select
                                         PersonData_$_cgsmnper_$$GsmNumber,
@@ -104,19 +104,19 @@ namespace InvoiceDB
                                 {
                                     if (dt_PersonData.Rows.Count>0)
                                     {
-                                        GsmNumber_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cgsmnper_$$GsmNumber"]);
-                                        PhoneNumber_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cphnnper_$$PhoneNumber"]);
-                                        Email_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cemailper_$$Email"]);
-                                        StreetName_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_cstrnper_$$StreetName"]);
-                                        HouseNumber_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_chounper_$$HouseNumber"]);
-                                        City_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_ccitper_$$City"]);
-                                        ZIP_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_zipper_$$ZIP"]);
-                                        State_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_cstper_$$State"]);
-                                        Country_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_ccouper_$$Country"]);
-                                        CardNumber_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$$CardNumber"]);
-                                        CardType_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_cardtper_$$CardType"]);
-                                        Image_Hash_v = func.set_string(dt_PersonData.Rows[0]["PersonData_$_perimg_$$Image_Hash"]);
-                                        Image_Data_v = func.set_byte_array(dt_PersonData.Rows[0]["PersonData_$_perimg_$$Image_Data"]);
+                                        GsmNumber_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cgsmnper_$$GsmNumber"]);
+                                        PhoneNumber_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cphnnper_$$PhoneNumber"]);
+                                        Email_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cemailper_$$Email"]);
+                                        StreetName_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_cstrnper_$$StreetName"]);
+                                        HouseNumber_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_chounper_$$HouseNumber"]);
+                                        City_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_ccitper_$$City"]);
+                                        ZIP_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_zipper_$$ZIP"]);
+                                        State_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_cstper_$$State"]);
+                                        Country_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_ccouper_$$Country"]);
+                                        CardNumber_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$$CardNumber"]);
+                                        CardType_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cardtper_$$CardType"]);
+                                        Image_Hash_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_perimg_$$Image_Hash"]);
+                                        Image_Data_v = tf.set_byte_array(dt_PersonData.Rows[0]["PersonData_$_perimg_$$Image_Data"]);
                                     }
                                 }
                                 else

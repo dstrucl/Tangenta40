@@ -110,19 +110,19 @@ namespace InvoiceDB
 
         }
 
-        //string_v StreetName_v = func.set_string(Address.StreetName);
-        //string_v HouseNumber_v = func.set_string(Address.HouseNumber);
-        //string_v ZIP_v = func.set_string(Address.ZIP);
-        //string_v City_v = func.set_string(Address.City);
-        //string_v State_v = func.set_string(Address.State);
-        //string_v Country_v = func.set_string(Address.Country);
-        //string_v PhoneNumber_v = func.set_string(PhoneNumber);
-        //string_v FaxNumber_v = func.set_string(FaxNumber);
-        //string_v Email_v = func.set_string(Email);
-        //string_v HomePage_v = func.set_string(HomePage);
-        //string_v Logo_Hash_v = func.set_string(Logo_Hash);
-        //byte_array_v Logo_Image_Data_v = func.set_byte_array(Logo);
-        //string_v Logo_Description_v = func.set_string(Logo_Description);
+        //string_v StreetName_v = tf.set_string(Address.StreetName);
+        //string_v HouseNumber_v = tf.set_string(Address.HouseNumber);
+        //string_v ZIP_v = tf.set_string(Address.ZIP);
+        //string_v City_v = tf.set_string(Address.City);
+        //string_v State_v = tf.set_string(Address.State);
+        //string_v Country_v = tf.set_string(Address.Country);
+        //string_v PhoneNumber_v = tf.set_string(PhoneNumber);
+        //string_v FaxNumber_v = tf.set_string(FaxNumber);
+        //string_v Email_v = tf.set_string(Email);
+        //string_v HomePage_v = tf.set_string(HomePage);
+        //string_v Logo_Hash_v = tf.set_string(Logo_Hash);
+        //byte_array_v Logo_Image_Data_v = tf.set_byte_array(Logo);
+        //string_v Logo_Description_v = tf.set_string(Logo_Description);
 
         public static bool Get( string_v Organisation_Name_v,
                                 string_v Tax_ID_v,

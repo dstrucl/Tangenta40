@@ -2090,12 +2090,6 @@ namespace BlagajnaTableClass
         public BarCodeValue BarCodeValue = new BarCodeValue();
     }
 
-    public class Atom_Unit_ShopA
-    {
-        public ID ID = new ID();
-        public ShopAUnit ShopAUnit = new ShopAUnit();
-        public VisibleForSelection VisibleForSelection = new VisibleForSelection();
-    }
 
     public class VisibleForSelection:DB_bit
     {
@@ -2118,9 +2112,11 @@ namespace BlagajnaTableClass
         public Name Name = new Name();
         public Description Description = new Description();
         public Taxation m_Taxation= new Taxation();
-        public Atom_Unit_ShopA m_Atom_Unit_ShopA = new Atom_Unit_ShopA();
+        public Unit m_Unit = new Unit();
+        public Supplier m_Supplier = new Supplier();
         public VisibleForSelection VisibleForSelection = new VisibleForSelection();
     }
+
 
     public class Atom_ItemShopA_Price
     {
@@ -2638,15 +2634,12 @@ namespace BlagajnaTableClass
         public Notice m_Notice = new Notice();
 
         /* 177 */
-        public Atom_Unit_ShopA m_Atom_Unit_ShopA = new Atom_Unit_ShopA();
-
-        /* 178 */
         public Atom_ItemShopA_Image m_Atom_ItemShopA_Image = new Atom_ItemShopA_Image();
 
-        /* 179 */
+        /* 178 */
         public Atom_ItemShopA m_Atom_ItemShopA = new Atom_ItemShopA();
 
-        /* 180 */
+        /* 179 */
         public Atom_ItemShopA_Price m_Atom_ItemShopA_Price = new Atom_ItemShopA_Price();
 
     }

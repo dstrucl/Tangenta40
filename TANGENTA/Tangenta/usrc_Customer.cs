@@ -451,21 +451,21 @@ namespace Tangenta
                 {
                     if (dt.Rows.Count == 1)
                     {
-                        string_v Name_v = func.set_string(dt.Rows[0]["Name"]);
-                        string_v OrganisationTYPE_v = func.set_string(dt.Rows[0]["OrganisationTYPE"]);
-                        string_v Tax_ID_v = func.set_string(dt.Rows[0]["Tax_ID"]);
-                        string_v Registration_ID_v = func.set_string(dt.Rows[0]["Registration_ID"]);
-                        string_v StreetName_v = func.set_string(dt.Rows[0]["StreetName"]);
-                        string_v HouseNumber_v = func.set_string(dt.Rows[0]["HouseNumber"]);
-                        string_v City_v = func.set_string(dt.Rows[0]["City"]);
-                        string_v ZIP_v = func.set_string(dt.Rows[0]["ZIP"]);
-                        string_v State_v = func.set_string(dt.Rows[0]["State"]);
-                        string_v Country_v = func.set_string(dt.Rows[0]["Country"]);
-                        string_v PhoneNumber_v = func.set_string(dt.Rows[0]["PhoneNumber"]);
-                        string_v Email_v = func.set_string(dt.Rows[0]["Email"]);
-                        string_v HomePage_v = func.set_string(dt.Rows[0]["HomePage"]);
-                        string_v BankName_v = func.set_string(dt.Rows[0]["BankName"]);
-                        string_v TRR_v = func.set_string(dt.Rows[0]["TRR"]);
+                        string_v Name_v = tf.set_string(dt.Rows[0]["Name"]);
+                        string_v OrganisationTYPE_v = tf.set_string(dt.Rows[0]["OrganisationTYPE"]);
+                        string_v Tax_ID_v = tf.set_string(dt.Rows[0]["Tax_ID"]);
+                        string_v Registration_ID_v = tf.set_string(dt.Rows[0]["Registration_ID"]);
+                        string_v StreetName_v = tf.set_string(dt.Rows[0]["StreetName"]);
+                        string_v HouseNumber_v = tf.set_string(dt.Rows[0]["HouseNumber"]);
+                        string_v City_v = tf.set_string(dt.Rows[0]["City"]);
+                        string_v ZIP_v = tf.set_string(dt.Rows[0]["ZIP"]);
+                        string_v State_v = tf.set_string(dt.Rows[0]["State"]);
+                        string_v Country_v = tf.set_string(dt.Rows[0]["Country"]);
+                        string_v PhoneNumber_v = tf.set_string(dt.Rows[0]["PhoneNumber"]);
+                        string_v Email_v = tf.set_string(dt.Rows[0]["Email"]);
+                        string_v HomePage_v = tf.set_string(dt.Rows[0]["HomePage"]);
+                        string_v BankName_v = tf.set_string(dt.Rows[0]["BankName"]);
+                        string_v TRR_v = tf.set_string(dt.Rows[0]["TRR"]);
                         string slbl = "";
                         if (Name_v != null)
                         {

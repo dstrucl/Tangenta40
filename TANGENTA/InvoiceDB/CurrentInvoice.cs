@@ -264,11 +264,11 @@ namespace InvoiceDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            appisd.Atom_ProformaInvoice_Price_Item_Stock_ID = func.set_long(dt.Rows[0]["ProformaInvoice_PrriceAtom_Atom_Item_Stock_ID"]);
+                            appisd.Atom_ProformaInvoice_Price_Item_Stock_ID = tf.set_long(dt.Rows[0]["ProformaInvoice_PrriceAtom_Atom_Item_Stock_ID"]);
                             // appisd.dQuantity_all.v = appisd.m_Warehouse.dQuantity_all;
-                            appisd.RetailPriceWithDiscount = func.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
-                            appisd.ExtraDiscount = func.set_decimal(dt.Rows[0]["ExtraDiscount"]);
-                            appisd.TaxPrice = func.set_decimal(dt.Rows[0]["TaxPrice"]);
+                            appisd.RetailPriceWithDiscount = tf.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
+                            appisd.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
+                            appisd.TaxPrice = tf.set_decimal(dt.Rows[0]["TaxPrice"]);
                             //$$TODO  pias.Stock_ID = long_v.Copy(pis.Stock_ID);
                             return true;
                         }
@@ -303,7 +303,7 @@ namespace InvoiceDB
                             long Atom_ProformaInvoice_Price_Item_Stock_ID = -1;
                             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_Atom_ProformaInvoice_Price_Item_Stock_ID, lpar, ref Atom_ProformaInvoice_Price_Item_Stock_ID, ref objret, ref Err, DBtcn.stbl_ProformaInvoice_Atom_Item_Stock_TableName))
                             {
-                                appisd.Atom_ProformaInvoice_Price_Item_Stock_ID = func.set_long(Atom_ProformaInvoice_Price_Item_Stock_ID);
+                                appisd.Atom_ProformaInvoice_Price_Item_Stock_ID = tf.set_long(Atom_ProformaInvoice_Price_Item_Stock_ID);
 
                                 if (Stock_ID != null)
                                 {
@@ -384,7 +384,7 @@ namespace InvoiceDB
                                 {
                                     if (dt.Rows.Count > 0)
                                     {
-                                        appisd.Atom_Price_Item_ID = func.set_long(dt.Rows[0]["Atom_Price_Item_ID"]);
+                                        appisd.Atom_Price_Item_ID = tf.set_long(dt.Rows[0]["Atom_Price_Item_ID"]);
                                         //if (appisd.Discount == null)
                                         //{
                                         //    appisd.Discount = new decimal_v();
@@ -414,7 +414,7 @@ namespace InvoiceDB
                                         long Atom_Price_Item_ID = -1;
                                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Price_Item_ID, ref objret, ref Err, "Atom_Price_Item"))
                                         {
-                                            appisd.Atom_Price_Item_ID = func.set_long(Atom_Price_Item_ID);
+                                            appisd.Atom_Price_Item_ID = tf.set_long(Atom_Price_Item_ID);
                                             //if (appisd.Discount == null)
                                             //{
                                             //    appisd.Discount = new decimal_v();

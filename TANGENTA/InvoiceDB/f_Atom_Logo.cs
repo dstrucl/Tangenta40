@@ -63,7 +63,7 @@ namespace InvoiceDB
                 {
                     sql = " insert into Atom_Logo (Image_Hash,Image_Data,Description) values (" + Image_Hash_Value + "," + Image_Data_Value + "," + Description_Value + ")";
                     object oRet = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Logo_ID_v.v, ref oRet, ref Err, "Atom_Logo"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Logo_ID_v.v_, ref oRet, ref Err, "Atom_Logo"))
                     {
                         return true;
                     }

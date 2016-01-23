@@ -513,15 +513,12 @@ namespace BlagajnaDataBaseDef
         public SQLTable t_Notice = null;
 
         /* 177 */
-        public SQLTable t_Atom_Unit_ShopA = null;
-
-        /* 178 */
         public SQLTable t_Atom_ItemShopA_Image = null;
 
-        /* 179 */
+        /* 178 */
         public SQLTable t_Atom_ItemShopA = null;
 
-        /* 180 */
+        /* 179 */
         public SQLTable t_Atom_ItemShopA_Price = null;
 
 
@@ -1989,14 +1986,8 @@ namespace BlagajnaDataBaseDef
             t_Notice.AddColumn((Object)mt.m_Notice.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             m_DBTables.items.Add(t_Notice);
 
-            /* 177 */
-            t_Atom_Unit_ShopA = new SQLTable((Object)new Atom_Unit_ShopA(), "ausha", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_Unit_ShopA);
-            t_Atom_Unit_ShopA.AddColumn((Object)mt.m_Atom_Unit_ShopA.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_Atom_Unit_ShopA.AddColumn((Object)mt.m_Atom_Unit_ShopA.ShopAUnit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Shop A unit", "Merska enota"));
-            t_Atom_Unit_ShopA.AddColumn((Object)mt.m_Atom_Unit_ShopA.VisibleForSelection, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Visible for selection", "Vidno za izbor"));
-            m_DBTables.items.Add(t_Atom_Unit_ShopA);
 
-            /* 178 */
+            /* 177 */
             t_Atom_ItemShopA_Image = new SQLTable((Object)new Atom_ItemShopA_Image(), "aishaimg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_ItemShopA_Image);
             t_Atom_ItemShopA_Image.AddColumn((Object)mt.m_Atom_ItemShopA_Image.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Atom_ItemShopA_Image.AddColumn((Object)mt.m_Atom_ItemShopA_Image.m_Atom_ItemShopA, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ShopA Item ID", "Artikel Prodajalne A ID"));
@@ -2005,13 +1996,14 @@ namespace BlagajnaDataBaseDef
             t_Atom_ItemShopA_Image.AddColumn((Object)mt.m_Atom_ItemShopA_Image.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             m_DBTables.items.Add(t_Atom_ItemShopA_Image);
 
-            /* 179 */
+            /* 178 */
             t_Atom_ItemShopA = new SQLTable((Object)new Atom_ItemShopA(), "aisha", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_ItemShopA);
             t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Name", "Ime artikla ali storitve"));
             t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item Description", "Opis artikla ali storitve"));
             t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax ID", "Obdavčitev ID"));
-            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.m_Atom_Unit_ShopA, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Unit ID", "Merska enota ID"));
+            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.m_Unit, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Unit ID", "Merska enota ID"));
+            t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.m_Supplier, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Supplier ID", "Dobavitelj ID"));
             t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.VisibleForSelection, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Visible for selection", "Vidno za izbor"));
             m_DBTables.items.Add(t_Atom_ItemShopA);
 

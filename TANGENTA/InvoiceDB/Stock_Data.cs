@@ -47,10 +47,10 @@ namespace InvoiceDB
 
         public void Set(System.Data.DataRow dria)
         {
-            Stock_ID = func.set_long(dria["Stock_ID"]);
-            Stock_ImportTime = func.set_DateTime(dria["Stock_ImportTime"]);
-            Stock_ExpiryDate = func.set_DateTime(dria["Stock_ExpiryDate"]);
-            dQuantity = func.set_decimal(dria["dQuantity"]);
+            Stock_ID = tf.set_long(dria["Stock_ID"]);
+            Stock_ImportTime = tf.set_DateTime(dria["Stock_ImportTime"]);
+            Stock_ExpiryDate = tf.set_DateTime(dria["Stock_ExpiryDate"]);
+            dQuantity = tf.set_decimal(dria["dQuantity"]);
         }
 
         public bool Remove_from_StockShelf()

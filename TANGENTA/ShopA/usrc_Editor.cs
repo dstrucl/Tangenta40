@@ -16,5 +16,10 @@ namespace ShopA
         {
             InitializeComponent();
         }
+
+        private void usrc_Edit_Item_Name2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

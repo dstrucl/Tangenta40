@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.usrc_Editor1 = new ShopA.usrc_Editor();
             this.dgvx_ShopA = new DataGridView_2xls.DataGridView2xls();
+            this.usrc_Editor1 = new ShopA.usrc_Editor();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -53,17 +53,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvx_ShopA);
-            this.splitContainer1.Size = new System.Drawing.Size(755, 549);
-            this.splitContainer1.SplitterDistance = 157;
+            this.splitContainer1.Size = new System.Drawing.Size(722, 549);
+            this.splitContainer1.SplitterDistance = 183;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // usrc_Editor1
-            // 
-            this.usrc_Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_Editor1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_Editor1.Name = "usrc_Editor1";
-            this.usrc_Editor1.Size = new System.Drawing.Size(755, 157);
-            this.usrc_Editor1.TabIndex = 0;
             // 
             // dgvx_ShopA
             // 
@@ -72,8 +64,19 @@
             this.dgvx_ShopA.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvx_ShopA.Location = new System.Drawing.Point(0, 0);
             this.dgvx_ShopA.Name = "dgvx_ShopA";
-            this.dgvx_ShopA.Size = new System.Drawing.Size(755, 388);
+            this.dgvx_ShopA.Size = new System.Drawing.Size(722, 362);
             this.dgvx_ShopA.TabIndex = 0;
+            // 
+            // usrc_Editor1
+            // 
+            this.usrc_Editor1.AutoScroll = true;
+            this.usrc_Editor1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_Editor1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_Editor1.Name = "usrc_Editor1";
+            this.usrc_Editor1.Size = new System.Drawing.Size(722, 183);
+            this.usrc_Editor1.TabIndex = 0;
+            this.usrc_Editor1.Load += new System.EventHandler(this.usrc_Editor1_Load);
             // 
             // usrc_ShopA
             // 
@@ -81,7 +84,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_ShopA";
-            this.Size = new System.Drawing.Size(755, 549);
+            this.Size = new System.Drawing.Size(722, 549);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

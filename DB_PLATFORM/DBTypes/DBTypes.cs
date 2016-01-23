@@ -25,6 +25,8 @@ namespace DBTypes
     public class DB_Int64 : ValSet
     {
         private long m_val = 0;
+
+
         public long val
         {
             get { return m_val; }
@@ -35,6 +37,31 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+
+        public long_v long_v = null;
+        public void set(object o)
+        {
+            this.long_v = tf.set_long(o);
+            if (o is long)
+            {
+                this.long_v = new long_v();
+                this.long_v.v = (long)o;
+            }
+            else if (o is ulong)
+            {
+                this.long_v = new long_v();
+                this.long_v.v = (long)o;
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+        }
+
     }
 
     public class DB_Int32 : ValSet
@@ -49,6 +76,31 @@ namespace DBTypes
                 m_val = value;
                 this.defined = true;
             }
+        }
+
+        public int_v int_v = null;
+        public void set(object o)
+        {
+            this.int_v = null;
+            if (o is int)
+            {
+                this.int_v = new int_v();
+                this.int_v.v = (int)o;
+            }
+            else if (o is uint)
+            {
+                this.int_v = new int_v();
+                this.int_v.v = (int)o;
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+
         }
     }
 
@@ -65,6 +117,26 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+        }
+
     }
 
     public class DB_varchar_2000 : ValSet
@@ -80,6 +152,25 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+
+        }
     }
 
     public class DB_varchar_264 : ValSet
@@ -93,6 +184,24 @@ namespace DBTypes
             {
                 m_val = value;
                 this.defined = true;
+            }
+        }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
     }
@@ -110,6 +219,12 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            string_v = tf.set_string(o);
+        }
+
     }
 
     public class DB_varchar_50 : ValSet
@@ -125,6 +240,26 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+
+        }
+
     }
 
     public class DB_varchar_64 : ValSet
@@ -140,6 +275,26 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+
+        }
+
     }
 
     public class DB_varchar_45 : ValSet
@@ -155,6 +310,26 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+
+        }
+
     }
 
     public class DB_varchar_32 : ValSet
@@ -170,6 +345,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+        }
+
     }
 
     public class DB_varchar_25 : ValSet
@@ -185,6 +371,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+        }
+
     }
 
     public class DB_varchar_10 : ValSet
@@ -200,6 +397,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+        }
+
     }
 
     public class DB_varchar_5 : ValSet
@@ -215,6 +423,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public string_v string_v = null;
+        public void set(object o)
+        {
+            this.string_v = null;
+            if (o is string)
+            {
+                this.string_v = new string_v();
+                this.string_v.v = (string)o;
+            }
+        }
+
     }
 
 
@@ -231,6 +450,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public DateTime_v DateTime_v = null;
+        public void set(object o)
+        {
+            this.DateTime_v = null;
+            if (o is DateTime)
+            {
+                this.DateTime_v = new DateTime_v();
+                this.DateTime_v.v = (DateTime)o;
+            }
+        }
+
     }
 
     public class DB_smallInt : ValSet
@@ -246,6 +476,23 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+
+        public short_v short_v = null;
+        public void set(object o)
+        {
+            this.short_v = null;
+            if (o is short)
+            {
+                this.short_v = new short_v();
+                this.short_v.v = (short)o;
+            }
+            if (o is ushort)
+            {
+                this.short_v = new short_v();
+                this.short_v.v = (short)o;
+            }
+        }
+
     }
 
     public class DB_bit : ValSet
@@ -261,6 +508,12 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public bool_v bool_v = null;
+        public void set(object o)
+        {
+            this.bool_v = tf.set_bool(o);
+        }
+
     }
 
     public class DB_varbinary_max : ValSet
@@ -276,6 +529,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public byte_array_v byte_array_v = null;
+        public void set(object o)
+        {
+            this.byte_array_v = null;
+            if (o is byte[])
+            {
+                this.byte_array_v = new byte_array_v();
+                this.byte_array_v.v = (byte[])o;
+            }
+        }
+
     }
 
     public class DB_Money : ValSet
@@ -291,6 +555,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public decimal_v decimal_v = null;
+        public void set(object o)
+        {
+            this.decimal_v = null;
+            if (o is decimal)
+            {
+                this.decimal_v = new decimal_v();
+                this.decimal_v.v = (decimal)o;
+            }
+        }
+
     }
 
     public class DB_decimal2 : ValSet
@@ -306,6 +581,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public decimal_v decimal_v = null;
+        public void set(object o)
+        {
+            this.decimal_v = null;
+            if (o is decimal)
+            {
+                this.decimal_v = new decimal_v();
+                this.decimal_v.v = (decimal)o;
+            }
+        }
+
     }
 
     public class DB_Percent : ValSet
@@ -321,6 +607,17 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public decimal_v decimal_v = null;
+        public void set(object o)
+        {
+            this.decimal_v = null;
+            if (o is decimal)
+            {
+                this.decimal_v = new decimal_v();
+                this.decimal_v.v = (decimal)o;
+            }
+        }
+
     }
 
     public class ID : DB_Int64
@@ -340,6 +637,16 @@ namespace DBTypes
                 this.defined = true;
             }
         }
+        public byte_array_v byte_array_v = null;
+        public void set(object o)
+        {
+            this.byte_array_v = null;
+            if (o is byte[])
+            {
+                this.byte_array_v = new byte_array_v();
+                this.byte_array_v.v = (byte[])o;
+            }
+        }
     }
 
     public class DB_Image : ValSet
@@ -353,6 +660,16 @@ namespace DBTypes
             {
                 m_val = value;
                 this.defined = true;
+            }
+        }
+        public byte_array_v byte_array_v = null;
+        public void set(object o)
+        {
+            this.byte_array_v = null;
+            if (o is byte[])
+            {
+                this.byte_array_v = new byte_array_v();
+                this.byte_array_v.v = (byte[])o;
             }
         }
     }

@@ -255,25 +255,25 @@ namespace InvoiceDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Name = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Name"]);
-                    Tax_ID = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Tax_ID"]);
-                    Registration_ID = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Registration_ID"]);
-                    Address.StreetName = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName"]);
-                    Address.HouseNumber = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]);
-                    Address.City = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acitorg_$$City"]);
-                    Address.ZIP = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP"]);
-                    Address.State = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$State"]);
-                    Address.Country = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country"]);
-                    PhoneNumber = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cphnnorg_$$PhoneNumber"]);
-                    FaxNumber = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cfaxnorg_$$FaxNumber"]);
-                    Email = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cemailorg_$$Email"]);
-                    HomePage = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_chomepgorg_$$HomePage"]);
-                    OrganisationType = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_orgt_$$OrganisationTYPE"]);
-                    BankName = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$$BankName"]);
-                    BankAccount = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$$TRR"]);
-                    Logo_Hash = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Hash AS Atom_OrganisationData_$_alogo_$$Image_Hash"]);
-                    LogoImage = DBTypes.func._set_Image(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data"]);
-                    Logo_Description = DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_alogo.Description AS Atom_OrganisationData_$_alogo_$$Description"]);
+                    Name = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Name"]);
+                    Tax_ID = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Tax_ID"]);
+                    Registration_ID = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Registration_ID"]);
+                    Address.StreetName = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName"]);
+                    Address.HouseNumber = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]);
+                    Address.City = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acitorg_$$City"]);
+                    Address.ZIP = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP"]);
+                    Address.State = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$State"]);
+                    Address.Country = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country"]);
+                    PhoneNumber = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cphnnorg_$$PhoneNumber"]);
+                    FaxNumber = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cfaxnorg_$$FaxNumber"]);
+                    Email = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cemailorg_$$Email"]);
+                    HomePage = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_chomepgorg_$$HomePage"]);
+                    OrganisationType = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_orgt_$$OrganisationTYPE"]);
+                    BankName = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$$BankName"]);
+                    BankAccount = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$$TRR"]);
+                    Logo_Hash = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Hash AS Atom_OrganisationData_$_alogo_$$Image_Hash"]);
+                    LogoImage = DBTypes.tf._set_Image(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data"]);
+                    Logo_Description = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_alogo.Description AS Atom_OrganisationData_$_alogo_$$Description"]);
                     return true;
                 }
                 else
@@ -317,24 +317,24 @@ namespace InvoiceDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    univ_org = new UniversalInvoice.Organisation(token_prefix, DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Name"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Tax_ID"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Registration_ID"]),
+                    univ_org = new UniversalInvoice.Organisation(token_prefix, DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Name"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Tax_ID"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_aorg_$$Registration_ID"]),
                                                          null,
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$$BankName"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$$TRR"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cemailorg_$$Email"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_chomepgorg_$$HomePage"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cphnnorg_$$PhoneNumber"]),
-                                                         DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_cfaxnorg_$$FaxNumber"]),
-                                                         DBTypes.func._set_byte_array(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$$BankName"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$$TRR"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cemailorg_$$Email"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_chomepgorg_$$HomePage"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cphnnorg_$$PhoneNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cfaxnorg_$$FaxNumber"]),
+                                                         DBTypes.tf._set_byte_array(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data"]),
 
-                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName"]),
-                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]),
-                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP"]),
-                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acitorg_$$City"]),
-                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$State"]),
-                                                        DBTypes.func._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country"]));
+                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName"]),
+                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]),
+                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP"]),
+                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acitorg_$$City"]),
+                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$State"]),
+                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country"]));
                     return univ_org;
                 }
                 else

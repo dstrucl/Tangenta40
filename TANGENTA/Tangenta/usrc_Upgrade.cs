@@ -516,7 +516,7 @@ namespace Tangenta
         {
             if (DBSync.DBSync.Drop_VIEWs())
             {
-                string[] new_tables = new string[] { "Atom_Unit_ShopA", "Atom_ItemShopA", "Atom_ItemShopA_Image",  "Atom_ItemShopA_Price" };
+                string[] new_tables = new string[] {"Atom_ItemShopA", "Atom_ItemShopA_Image",  "Atom_ItemShopA_Price" };
                 if (DBSync.DBSync.CreateTables(new_tables))
                 {
                     if (DBSync.DBSync.Create_VIEWs())
