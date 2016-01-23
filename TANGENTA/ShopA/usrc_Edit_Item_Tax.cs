@@ -24,7 +24,7 @@ namespace ShopA
             m_xTaxationList = xTaxationList;
             this.cmb_TaxRate.DataSource = m_xTaxationList.items;
             this.cmb_TaxRate.DisplayMember = "Name";
-            this.cmb_TaxRate.ValueMember = "Rate";
+            this.cmb_TaxRate.ValueMember = "Index";
         }
     }
 }

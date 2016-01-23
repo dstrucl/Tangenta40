@@ -11,9 +11,15 @@ namespace InvoiceDB
 {
     public class xTaxation
     {
+        private int m_Index = -1;
         private long m_ID=-1;
         private string m_Name = null;
         private decimal m_Rate = 0;
+
+        public long Index
+        {
+            get { return m_Index; }
+        }
 
         public long ID
         {
@@ -33,8 +39,9 @@ namespace InvoiceDB
             set { m_Name = value; }
         }
 
-        public xTaxation(long xid,string xName, decimal xRate)
+        public xTaxation(long xid,string xName, decimal xRate, int idx)
         {
+            m_Index = idx;
             m_ID = xid;
             m_Name = xName;
             m_Rate = xRate;
@@ -45,25 +52,22 @@ namespace InvoiceDB
     {
 
         public int Count = 0;
-        public List<xTaxation> items = new List<xTaxation>();
-        public void Add(xTaxation xtax)
-        {
-            items.Add(xtax);
-        }
+        public xTaxation[] items = null;
         public bool Get(ref DataTable dt,ref string Err)
         {
             string sql_Taxation = "select * from Taxation";
-            items.Clear();
             dt.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql_Taxation,ref Err))
             {
                 Count = dt.Rows.Count;
+                items = new xTaxation[Count];
                 if (Count > 0)
                 {
-                    foreach (DataRow dr in dt.Rows)
+                    int i = 0;
+                    for (i=0;i<Count;i++)
                     {
-                        xTaxation xtax = new xTaxation((long)dr["ID"], (string)dr["Name"], (decimal)dr["Rate"]);
-                        Add(xtax);
+                        DataRow dr = dt.Rows[i];
+                        items[i] = new xTaxation((long)dr["ID"], (string)dr["Name"], (decimal)dr["Rate"],i);
                     }
                 }
                 return true;
