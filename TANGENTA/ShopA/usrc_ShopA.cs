@@ -62,7 +62,7 @@ namespace ShopA
                 dgvxc_btn_Remove.Text = "-";
                 dgvxc_btn_Remove.Name = column_deselect;
                 this.dgvx_ShopA.Columns.Add(dgvxc_btn_Remove);
-                this.usrc_Editor1.Init(m_ShopBC);
+                this.usrc_Editor1.Init(m_ShopBC, m_Atom_ItemShopA_Price);
             }
         }
 

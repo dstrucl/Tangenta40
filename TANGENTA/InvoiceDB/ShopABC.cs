@@ -21,7 +21,7 @@ namespace InvoiceDB
 
         public xTaxationList m_xTaxationList = null;
 
-
+        public xUnitList m_xUnitList = null;
 
         public CurrentInvoice m_CurrentInvoice = null;
 

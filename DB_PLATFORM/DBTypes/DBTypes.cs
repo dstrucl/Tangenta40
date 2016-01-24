@@ -16,7 +16,70 @@ using System.Globalization;
 
 namespace DBTypes
 {
-    public class ValSet
+    public class SqlPar
+    {
+        public string cond;
+        public string value;
+        public void setsqlp(object type_v, ref List<SQL_Parameter> lpar, string column_name, ref string xcond,ref string xvalue)
+        {
+            string spar_name = null;
+            SQL_Parameter par = null;
+            spar_name = "@par_" + column_name;
+            if (type_v == null)
+            {
+                cond = " " + column_name + " is null ";
+                value = " null ";
+                xcond = cond;
+                xvalue = value;
+            }
+            else
+            {
+                if (type_v is bool_v)
+                {
+                    par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Bit, false, ((bool_v)type_v).v);
+                }
+                else if (type_v is short_v)
+                {
+                    par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Smallint, false, ((short_v)type_v).v);
+                }
+                else if (type_v is int_v)
+                {
+                    par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Int, false, ((int_v)type_v).v);
+                }
+                else if (type_v is long_v)
+                {
+                    par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Bigint, false, ((long_v)type_v).v);
+                }
+                else if (type_v is decimal_v)
+                {
+                    par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Decimal, false, ((decimal_v)type_v).v);
+                }
+                else if (type_v is string_v)
+                {
+                    par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ((string_v)type_v).v);
+                }
+                else if (type_v is byte_array_v)
+                {
+                    par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Varbinary, false, ((byte_array_v)type_v).v);
+                }
+                else if (type_v is DateTime_v)
+                {
+                    par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Datetime, false, ((DateTime_v)type_v).v);
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:DBTypes:SqlPar:setsqlp:unsuported type=" + type_v.GetType().ToString());
+                    return;
+                }
+                cond = " " + column_name + " = " + spar_name + " ";
+                value = spar_name;
+                xcond = cond;
+                xvalue = value;
+                lpar.Add(par);
+            }
+        }
+    }
+    public class ValSet:SqlPar
     {
         public bool defined = false;
     }
@@ -38,19 +101,25 @@ namespace DBTypes
             }
         }
 
-        public long_v long_v = null;
+        public long_v type_v = null;
+
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
+
         public void set(object o)
         {
-            this.long_v = tf.set_long(o);
+            this.type_v = null;
+            if (o == null) return;
             if (o is long)
             {
-                this.long_v = new long_v();
-                this.long_v.v = (long)o;
+                this.type_v = new long_v((long)o);
             }
             else if (o is ulong)
             {
-                this.long_v = new long_v();
-                this.long_v.v = (long)o;
+                this.type_v = new long_v((ulong)o);
             }
             else if (o is System.DBNull)
             {
@@ -78,19 +147,23 @@ namespace DBTypes
             }
         }
 
-        public int_v int_v = null;
+        public int_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.int_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is int)
             {
-                this.int_v = new int_v();
-                this.int_v.v = (int)o;
+                this.type_v = new int_v((int)o);
             }
             else if (o is uint)
             {
-                this.int_v = new int_v();
-                this.int_v.v = (int)o;
+                this.type_v = new int_v((uint)o);
             }
             else if (o is System.DBNull)
             {
@@ -118,14 +191,19 @@ namespace DBTypes
             }
         }
 
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond,ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
             }
             else if (o is System.DBNull)
             {
@@ -152,14 +230,20 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
+
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
             }
             else if (o is System.DBNull)
             {
@@ -186,14 +270,19 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
             }
             else if (o is System.DBNull)
             {
@@ -219,10 +308,28 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            string_v = tf.set_string(o);
+            this.type_v = null;
+            if (o == null) return;
+            if (o is string)
+            {
+                this.type_v = new string_v((string)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
         }
 
     }
@@ -240,14 +347,19 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
             }
             else if (o is System.DBNull)
             {
@@ -257,7 +369,6 @@ namespace DBTypes
             {
                 LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
-
         }
 
     }
@@ -275,14 +386,19 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
             }
             else if (o is System.DBNull)
             {
@@ -310,14 +426,19 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
             }
             else if (o is System.DBNull)
             {
@@ -327,7 +448,6 @@ namespace DBTypes
             {
                 LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
-
         }
 
     }
@@ -345,14 +465,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
 
@@ -371,14 +504,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
 
@@ -397,14 +543,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
 
@@ -423,14 +582,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public string_v string_v = null;
+        public string_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.string_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is string)
             {
-                this.string_v = new string_v();
-                this.string_v.v = (string)o;
+                this.type_v = new string_v((string)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
 
@@ -450,14 +622,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public DateTime_v DateTime_v = null;
+        public DateTime_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.DateTime_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is DateTime)
             {
-                this.DateTime_v = new DateTime_v();
-                this.DateTime_v.v = (DateTime)o;
+                this.type_v = new DateTime_v((DateTime)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
 
@@ -477,19 +662,31 @@ namespace DBTypes
             }
         }
 
-        public short_v short_v = null;
+        public short_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.short_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is short)
             {
-                this.short_v = new short_v();
-                this.short_v.v = (short)o;
+                this.type_v = new short_v((short)o);
             }
-            if (o is ushort)
+            else if (o is ushort)
             {
-                this.short_v = new short_v();
-                this.short_v.v = (short)o;
+                this.type_v = new short_v((ushort)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
 
@@ -508,10 +705,28 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public bool_v bool_v = null;
+        public bool_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.bool_v = tf.set_bool(o);
+            this.type_v = null;
+            if (o == null) return;
+            if (o is bool)
+            {
+                this.type_v = new bool_v((bool)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
         }
 
     }
@@ -529,15 +744,29 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public byte_array_v byte_array_v = null;
+        public byte_array_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.byte_array_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is byte[])
             {
-                this.byte_array_v = new byte_array_v();
-                this.byte_array_v.v = (byte[])o;
+                this.type_v = new byte_array_v((byte[])o);
             }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+
         }
 
     }
@@ -555,15 +784,29 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public decimal_v decimal_v = null;
+        public decimal_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.decimal_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is decimal)
             {
-                this.decimal_v = new decimal_v();
-                this.decimal_v.v = (decimal)o;
+                this.type_v = new decimal_v((decimal) o);
             }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
+            }
+
         }
 
     }
@@ -581,14 +824,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public decimal_v decimal_v = null;
+        public decimal_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.decimal_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is decimal)
             {
-                this.decimal_v = new decimal_v();
-                this.decimal_v.v = (decimal)o;
+                this.type_v = new decimal_v((decimal)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
 
@@ -607,14 +863,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public decimal_v decimal_v = null;
+        public decimal_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.decimal_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is decimal)
             {
-                this.decimal_v = new decimal_v();
-                this.decimal_v.v = (decimal)o;
+                this.type_v = new decimal_v((decimal)o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
 
@@ -637,14 +906,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public byte_array_v byte_array_v = null;
+        public byte_array_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.byte_array_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is byte[])
             {
-                this.byte_array_v = new byte_array_v();
-                this.byte_array_v.v = (byte[])o;
+                this.type_v = new byte_array_v((byte[])o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
     }
@@ -662,14 +944,27 @@ namespace DBTypes
                 this.defined = true;
             }
         }
-        public byte_array_v byte_array_v = null;
+        public byte_array_v type_v = null;
+        public void setsqlp(ref List<SQL_Parameter> lpar, string column_name, ref string cond, ref string value)
+        {
+            setsqlp(type_v, ref lpar, column_name, ref cond, ref value);
+        }
+
         public void set(object o)
         {
-            this.byte_array_v = null;
+            this.type_v = null;
+            if (o == null) return;
             if (o is byte[])
             {
-                this.byte_array_v = new byte_array_v();
-                this.byte_array_v.v = (byte[])o;
+                this.type_v = new byte_array_v((byte[])o);
+            }
+            else if (o is System.DBNull)
+            {
+                return;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:DB_Types:set:WRONG TYPE:" + o.GetType().ToString() + " should be " + this.GetType().ToString());
             }
         }
     }

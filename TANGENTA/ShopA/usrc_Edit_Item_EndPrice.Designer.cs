@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nm_EndPrice_Without_TAX = new System.Windows.Forms.NumericUpDown();
+            this.nm_EndPrice = new System.Windows.Forms.NumericUpDown();
             this.lbl_Item_EndPrice = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nm_EndPrice_Without_TAX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_EndPrice)).BeginInit();
             this.SuspendLayout();
             // 
-            // nm_EndPrice_Without_TAX
+            // nm_EndPrice
             // 
-            this.nm_EndPrice_Without_TAX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.nm_EndPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.nm_EndPrice_Without_TAX.DecimalPlaces = 2;
-            this.nm_EndPrice_Without_TAX.Location = new System.Drawing.Point(3, 17);
-            this.nm_EndPrice_Without_TAX.Maximum = new decimal(new int[] {
+            this.nm_EndPrice.DecimalPlaces = 2;
+            this.nm_EndPrice.Location = new System.Drawing.Point(3, 17);
+            this.nm_EndPrice.Maximum = new decimal(new int[] {
             1215752192,
             23,
             0,
             0});
-            this.nm_EndPrice_Without_TAX.Name = "nm_EndPrice_Without_TAX";
-            this.nm_EndPrice_Without_TAX.Size = new System.Drawing.Size(120, 20);
-            this.nm_EndPrice_Without_TAX.TabIndex = 20;
+            this.nm_EndPrice.Name = "nm_EndPrice";
+            this.nm_EndPrice.Size = new System.Drawing.Size(120, 20);
+            this.nm_EndPrice.TabIndex = 20;
             // 
             // lbl_Item_EndPrice
             // 
@@ -62,11 +62,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.nm_EndPrice_Without_TAX);
+            this.Controls.Add(this.nm_EndPrice);
             this.Controls.Add(this.lbl_Item_EndPrice);
             this.Name = "usrc_Edit_Item_EndPrice";
             this.Size = new System.Drawing.Size(129, 42);
-            ((System.ComponentModel.ISupportInitialize)(this.nm_EndPrice_Without_TAX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_EndPrice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -74,6 +74,6 @@
 
         #endregion
         private System.Windows.Forms.Label lbl_Item_EndPrice;
-        private System.Windows.Forms.NumericUpDown nm_EndPrice_Without_TAX;
+        private System.Windows.Forms.NumericUpDown nm_EndPrice;
     }
 }

@@ -37,7 +37,7 @@
             this.txt_ItemName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_ItemName.Location = new System.Drawing.Point(2, 16);
+            this.txt_ItemName.Location = new System.Drawing.Point(2, 18);
             this.txt_ItemName.Name = "txt_ItemName";
             this.txt_ItemName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txt_ItemName.Size = new System.Drawing.Size(173, 20);
@@ -47,11 +47,11 @@
             // lbl_ItemName
             // 
             this.lbl_ItemName.AutoSize = true;
-            this.lbl_ItemName.Location = new System.Drawing.Point(3, 0);
+            this.lbl_ItemName.Location = new System.Drawing.Point(3, 2);
             this.lbl_ItemName.Name = "lbl_ItemName";
-            this.lbl_ItemName.Size = new System.Drawing.Size(106, 13);
+            this.lbl_ItemName.Size = new System.Drawing.Size(71, 13);
             this.lbl_ItemName.TabIndex = 1;
-            this.lbl_ItemName.Text = "Ime Artikla ali storitve";
+            this.lbl_ItemName.Text = "Ime postavke";
             // 
             // usrc_Edit_Item_Name
             // 

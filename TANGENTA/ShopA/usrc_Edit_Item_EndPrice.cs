@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BlagajnaTableClass;
 
 namespace ShopA
 {
@@ -15,6 +16,18 @@ namespace ShopA
         public usrc_Edit_Item_EndPrice()
         {
             InitializeComponent();
+        }
+
+        internal void Fill(ref Atom_ItemShopA_Price m_Atom_ItemShopA_Price)
+        {
+            m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.set(nm_EndPrice.Value);
+
+        }
+        internal void Fill(ref Atom_ItemShopA_Price m_Atom_ItemShopA_Price, decimal calculated_end_price)
+        {
+            this.nm_EndPrice.Value = calculated_end_price;
+            Fill(ref m_Atom_ItemShopA_Price);
+
         }
     }
 }

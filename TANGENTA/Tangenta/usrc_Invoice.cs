@@ -523,6 +523,7 @@ namespace Tangenta
                 {
                     if (GetTaxation())
                     {
+                        GetUnits();
                         int iCountSimpleItemData = 0;
                         int iCountItemData = 0;
 
@@ -759,7 +760,7 @@ namespace Tangenta
             return true;
         }
 
-        private bool Edit()
+        private bool Edit_Taxation()
         {
             SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
             Form_Taxation_Edit tax_dlg = new Form_Taxation_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Taxation, "ID asc");
@@ -773,6 +774,20 @@ namespace Tangenta
             }
         }
 
+        private bool Edit_Units()
+        {
+            SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Unit)));
+            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Unit, "ID asc");
+            if (unit_dlg.ShowDialog() == DialogResult.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
 
         private bool GetTaxation()
         {
@@ -791,7 +806,7 @@ namespace Tangenta
                 else
                 {
                     dt.Clear();
-                    if (Edit())
+                    if (Edit_Taxation())
                     {
                         if (m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
                         {
@@ -806,7 +821,46 @@ namespace Tangenta
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Ge:Err=" + Err);
+                LogFile.Error.Show("ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err);
+                return false;
+            }
+        }
+
+
+        private bool GetUnits()
+        {
+            if (m_ShopABC.m_xUnitList == null)
+            {
+                m_ShopABC.m_xUnitList = new xUnitList();
+            }
+            string Err = null;
+            DataTable dt = new DataTable();
+            if (m_ShopABC.m_xUnitList.Get(ref dt, ref Err))
+            {
+                return true;
+                //if (dt.Rows.Count > 0)
+                //{
+                //    return true;
+                //}
+                //else
+                //{
+                //    dt.Clear();
+                //    if (Edit_Units())
+                //    {
+                //        if (m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
+                //        {
+                //            if (dt.Rows.Count > 0)
+                //            {
+                //                return true;
+                //            }
+                //        }
+                //    }
+                //    return false;
+                //}
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Invoice:GetUnits:m_xUnitList.Get:Err=" + Err);
                 return false;
             }
         }
