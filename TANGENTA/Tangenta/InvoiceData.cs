@@ -37,6 +37,7 @@ namespace Tangenta
 
         public DataTable dt_ProformaInvoice = new DataTable();
         public DataTable dt_Atom_Price_SimpleItem = new DataTable();
+        public DataTable dt_ShopA_Items = new DataTable();
 
         public long ProformaInvoice_ID = -1;
         public long Invoice_ID = -1;
@@ -118,7 +119,7 @@ namespace Tangenta
             InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
         }
 
-        public void Fill_SoldSimpleItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        public void Fill_Sold_ShopB_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
         {
             int i;
             int end_index = start_index + count;
@@ -317,7 +318,7 @@ namespace Tangenta
             }
         }
 
-        public void Fill_SoldItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        public void Fill_Sold_ShopC_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
         {
 
             int i;
@@ -622,8 +623,8 @@ namespace Tangenta
 
                             ItemsSold = new UniversalInvoice.ItemSold[iCountSimpleItemsSold + iCountItemsSold];
                             taxSum = new StaticLib.TaxSum();
-                            Fill_SoldSimpleItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountSimpleItemsSold);
-                            Fill_SoldItemsData(lngToken.st_Invoice, ref ItemsSold, iCountSimpleItemsSold, iCountItemsSold);
+                            Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountSimpleItemsSold);
+                            Fill_Sold_ShopC_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountSimpleItemsSold, iCountItemsSold);
 
                             InvoiceToken = new UniversalInvoice.InvoiceToken();
 

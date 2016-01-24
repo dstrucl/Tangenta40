@@ -118,6 +118,13 @@ namespace Tangenta
             m_usrc_ShopA = new usrc_ShopA();
             m_usrc_ShopA.Init(this.m_ShopABC, DBtcn);
             m_usrc_ShopA.Dock = DockStyle.Fill;
+            m_usrc_ShopA.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
+
+        }
+
+        private void M_usrc_ShopA_aa_ItemAdded(long ID, DataTable dt)
+        {
+            GetPriceSum();
         }
 
         private void New_ShopB()
@@ -1406,6 +1413,18 @@ namespace Tangenta
 
             TaxSum = null;
             TaxSum = new StaticLib.TaxSum();
+
+            foreach (DataRow dr in this.m_usrc_ShopA.dt_Item_Price.Rows)
+            {
+                decimal price = (decimal)dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"];
+                decimal tax = (decimal)dr["Atom_ItemShopA_Price_$$TAX"];
+                decimal tax_rate = (decimal)dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate"];
+                string tax_name = (string)dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Name"];
+                dsum_GrossSum += price;
+                TaxSum.Add(tax, 0, tax_name, tax_rate);
+                dsum_NetSum += price - tax;
+            }
+
 
             foreach (DataRow dr in this.m_usrc_ShopB.dt_SelectedSimpleItem.Rows)
             {

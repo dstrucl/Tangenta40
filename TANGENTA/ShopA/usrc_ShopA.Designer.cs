@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dgvx_ShopA = new DataGridView_2xls.DataGridView2xls();
             this.usrc_Editor1 = new ShopA.usrc_Editor();
+            this.dgvx_ShopA = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -57,6 +57,18 @@
             this.splitContainer1.SplitterDistance = 183;
             this.splitContainer1.TabIndex = 0;
             // 
+            // usrc_Editor1
+            // 
+            this.usrc_Editor1.AutoScroll = true;
+            this.usrc_Editor1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_Editor1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_Editor1.Name = "usrc_Editor1";
+            this.usrc_Editor1.Size = new System.Drawing.Size(722, 183);
+            this.usrc_Editor1.TabIndex = 0;
+            this.usrc_Editor1.AddRow += new ShopA.usrc_Editor.delegate_AddRow(this.usrc_Editor1_AddRow);
+            this.usrc_Editor1.Load += new System.EventHandler(this.usrc_Editor1_Load);
+            // 
             // dgvx_ShopA
             // 
             this.dgvx_ShopA.AllowUserToAddRows = false;
@@ -73,17 +85,7 @@
             this.dgvx_ShopA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvx_ShopA.Size = new System.Drawing.Size(722, 362);
             this.dgvx_ShopA.TabIndex = 0;
-            // 
-            // usrc_Editor1
-            // 
-            this.usrc_Editor1.AutoScroll = true;
-            this.usrc_Editor1.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_Editor1.Location = new System.Drawing.Point(0, 0);
-            this.usrc_Editor1.Name = "usrc_Editor1";
-            this.usrc_Editor1.Size = new System.Drawing.Size(722, 183);
-            this.usrc_Editor1.TabIndex = 0;
-            this.usrc_Editor1.Load += new System.EventHandler(this.usrc_Editor1_Load);
+            this.dgvx_ShopA.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_ShopA_CellMouseUp);
             // 
             // usrc_ShopA
             // 

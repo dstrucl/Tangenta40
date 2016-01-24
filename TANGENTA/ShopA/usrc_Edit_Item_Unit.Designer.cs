@@ -48,6 +48,7 @@
             this.cmb_Unit.Name = "cmb_Unit";
             this.cmb_Unit.Size = new System.Drawing.Size(96, 21);
             this.cmb_Unit.TabIndex = 5;
+            this.cmb_Unit.SelectedValueChanged += new System.EventHandler(this.cmb_Unit_SelectedValueChanged);
             // 
             // lbl_Item_Unit
             // 

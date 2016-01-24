@@ -10,19 +10,136 @@ using System.Windows.Forms;
 using InvoiceDB;
 using BlagajnaTableClass;
 using LanguageControl;
+using DBTypes;
 
 namespace ShopA
 {
     public partial class usrc_Edit_Item_Unit : UserControl
     {
-        public decimal dEndPrice = 0;
-        public decimal dPricePerUnit = 0;
-        public decimal dQuantity = 0;
-
         xUnitList m_xUnitList = null;
+
+        public delegate void delegate_ValueChanged();
+        public event delegate_ValueChanged ValueChanged;
+
+        private decimal_v dPriceSum_v = null;
+        private decimal_v dPricePerUnit_v = null;
+        private decimal_v dQuantity_v = null;
+
+        private Unit m_Unit = null;
+
+        public Unit Unit
+        {
+            get
+            {
+                if (chk_Unit.Checked)
+                {
+                    if (this.cmb_Unit.SelectedValue is long)
+                    {
+                        long i = (int)this.cmb_Unit.SelectedValue;
+                        m_Unit.ID.set(m_xUnitList.items[i].ID);
+                        m_Unit.Name.set(m_xUnitList.items[i].Name);
+                        m_Unit.DecimalPlaces.set(m_xUnitList.items[i].DecimalPlaces);
+                        m_Unit.StorageOption.set(m_xUnitList.items[i].StorageOption);
+                        m_Unit.Symbol.set(m_xUnitList.items[i].Symbol);
+                        m_Unit.Description.set(m_xUnitList.items[i].Description);
+                        return m_Unit;
+                    }
+                }
+                m_Unit.ID.set(null);
+                m_Unit.Name.set(null);
+                m_Unit.Symbol.set(null);
+                m_Unit.StorageOption.set(null);
+                m_Unit.DecimalPlaces.set(null);
+                m_Unit.Description.set(null);
+                return m_Unit;
+            }
+        }
+
+        public decimal PricePerUnit
+        {
+            get
+            {
+                if (chk_Unit.Checked)
+                {
+                    return nm_PricePerUnit.Value;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public decimal Quantity
+        {
+            get
+            {
+                if (chk_Unit.Checked)
+                {
+                    return nm_dQuantity.Value;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public decimal_v PriceSum_v
+        {
+            get {  if (chk_Unit.Checked)
+                    {
+                       return dPriceSum_v;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+        }
+
+        public decimal_v Quantity_v
+        {
+            get
+            {
+                if (chk_Unit.Checked)
+                {
+                    return dQuantity_v;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public decimal_v PricePerUnit_v
+        {
+            get
+            {
+                if (chk_Unit.Checked)
+                {
+                    return dPricePerUnit_v;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public bool UnitsEnabled
+        {
+            get { return chk_Unit.Checked; }
+        }
+
         public usrc_Edit_Item_Unit()
         {
             InitializeComponent();
+            dPriceSum_v = new decimal_v(0);
+            dPricePerUnit_v = new decimal_v();
+            dQuantity_v = new decimal_v();
+            m_Unit = new Unit();
             lbl_Price.Text = "";
             chk_Unit.CheckedChanged += Chk_Unit_CheckedChanged;
             chk_Unit.Checked = false;
@@ -56,6 +173,11 @@ namespace ShopA
     private void Chk_Unit_CheckedChanged(object sender, EventArgs e)
         {
             enable(chk_Unit.Checked);
+            if (ValueChanged!=null)
+            {
+                ValueChanged();
+            }
+
         }
 
         public void Init(xUnitList xxUnitList)
@@ -70,13 +192,21 @@ namespace ShopA
         {
             if (chk_Unit.Checked)
             {
-                if (this.cmb_Unit.SelectedValue is int)
+                if (this.cmb_Unit.SelectedValue is long)
                 {
-                    int i = (int)this.cmb_Unit.SelectedValue;
+                    long i = (int)this.cmb_Unit.SelectedValue;
                     xUnit.ID.set(m_xUnitList.items[i].ID);
+                    xUnit.Name.set(m_xUnitList.items[i].Name);
+                    xUnit.DecimalPlaces.set(m_xUnitList.items[i].DecimalPlaces);
                     xUnit.StorageOption.set(m_xUnitList.items[i].StorageOption);
                     xUnit.Symbol.set(m_xUnitList.items[i].Symbol);
                     xUnit.Description.set(m_xUnitList.items[i].Description);
+                    m_Unit.ID.set(m_xUnitList.items[i].ID);
+                    m_Unit.Name.set(m_xUnitList.items[i].Name);
+                    m_Unit.DecimalPlaces.set(m_xUnitList.items[i].DecimalPlaces);
+                    m_Unit.StorageOption.set(m_xUnitList.items[i].StorageOption);
+                    m_Unit.Symbol.set(m_xUnitList.items[i].Symbol);
+                    m_Unit.Description.set(m_xUnitList.items[i].Description);
                 }
             }
             else
@@ -87,25 +217,63 @@ namespace ShopA
                 xUnit.StorageOption.set(null);
                 xUnit.DecimalPlaces.set(null);
                 xUnit.Description.set(null);
+                m_Unit.ID.set(null);
+                m_Unit.Name.set(null);
+                m_Unit.Symbol.set(null);
+                m_Unit.StorageOption.set(null);
+                m_Unit.DecimalPlaces.set(null);
+                m_Unit.Description.set(null);
             }
         }
 
         private void nm_dQuantity_ValueChanged(object sender, EventArgs e)
         {
-            dQuantity = nm_dQuantity.Value;
-            CalculateEndPrice();
+            CalculatePriceSum();
+            if (ValueChanged!=null)
+            {
+                ValueChanged();
+            }
         }
 
         private void nm_PricePerUnit_ValueChanged(object sender, EventArgs e)
         {
-            dPricePerUnit = nm_PricePerUnit.Value;
-            CalculateEndPrice();
+            CalculatePriceSum();
+            if (ValueChanged!=null)
+            {
+                ValueChanged();
+            }
         }
 
-        private void CalculateEndPrice()
+        private void CalculatePriceSum()
         {
-            dEndPrice = dPricePerUnit * dQuantity;
-            lngRPM.s_Price_for.Text(lbl_Price, dQuantity.ToString() + " " + cmb_Unit.Text + " = " + dEndPrice.ToString());
+            dPriceSum_v.v = nm_PricePerUnit.Value * nm_dQuantity.Value;
+            dQuantity_v.v = nm_dQuantity.Value;
+            dPricePerUnit_v.v = nm_PricePerUnit.Value;
+            lngRPM.s_Price_for.Text(lbl_Price, dQuantity_v.v.ToString() + " " + cmb_Unit.Text + " = " + dPriceSum_v.v.ToString() +" "+ GlobalData.BaseCurrency.Symbol);
+        }
+
+        private void cmb_Unit_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (ValueChanged != null)
+            {
+                ValueChanged();
+            }
+        }
+
+        public void set_when_endprice_changed(decimal dPriceSum)
+        {
+            if (chk_Unit.Checked)
+            {
+                if (nm_dQuantity.Value == 0)
+                {
+                    nm_dQuantity.ValueChanged -= nm_dQuantity_ValueChanged;
+                    nm_dQuantity.Value = 1;
+                    nm_dQuantity.ValueChanged += nm_dQuantity_ValueChanged;
+                }
+                nm_PricePerUnit.ValueChanged -= nm_PricePerUnit_ValueChanged;
+                nm_PricePerUnit.Value = dPriceSum / nm_dQuantity.Value;
+                nm_PricePerUnit.ValueChanged += nm_PricePerUnit_ValueChanged;
+            }
         }
 
     }

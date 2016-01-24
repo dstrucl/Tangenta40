@@ -14,6 +14,10 @@ namespace ShopA
 {
     public partial class usrc_Edit_Item_Name : UserControl
     {
+        public string ItemName {
+                                    get { return txt_ItemName.Text; }
+                               }
+
         public usrc_Edit_Item_Name()
         {
             InitializeComponent();

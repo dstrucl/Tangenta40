@@ -134,10 +134,10 @@ namespace ShopA
                 16,
                 16);
             string sValue = "";
-            if (base.Value != null)
-            {
-                sValue = base.Value.ToString();
-            }
+            //if (base.Value != null)
+            //{
+            //    sValue = base.Value.ToString();
+            //}
             ButtonRenderer.DrawButton(graphics, buttonArea, sValue, font, TextFormatFlags.Right | TextFormatFlags.Bottom, ButtonImage, imageArea, false, ButtonState);
         }
 

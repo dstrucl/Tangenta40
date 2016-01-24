@@ -50,6 +50,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Edit_Item_Description.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -62,11 +67,11 @@
     <Compile Include="usrc_Editor.Designer.cs">
       <DependentUpon>usrc_Editor.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Edit_Item_EndPrice.cs">
+    <Compile Include="usrc_Edit_Item_Price.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_Edit_Item_EndPrice.Designer.cs">
-      <DependentUpon>usrc_Edit_Item_EndPrice.cs</DependentUpon>
+    <Compile Include="usrc_Edit_Item_Price.Designer.cs">
+      <DependentUpon>usrc_Edit_Item_Price.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Edit_Item_Name.cs">
       <SubType>UserControl</SubType>
@@ -106,8 +111,8 @@
     <EmbeddedResource Include="usrc_Edit_Item_Description.resx">
       <DependentUpon>usrc_Edit_Item_Description.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Edit_Item_EndPrice.resx">
-      <DependentUpon>usrc_Edit_Item_EndPrice.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_Edit_Item_Price.resx">
+      <DependentUpon>usrc_Edit_Item_Price.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Edit_Item_Name.resx">
       <DependentUpon>usrc_Edit_Item_Name.cs</DependentUpon>
@@ -147,6 +152,10 @@
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>BlagajnaDataBaseDef</Name>
@@ -155,12 +164,21 @@
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>BlagajnaTableClass</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
+      <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
+      <Name>Form_Discount</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>InvoiceDB</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\Add.bmp" />
   </ItemGroup>
   <ItemGroup>
