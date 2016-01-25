@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks; 
 using System.Windows.Forms; 
 using MNet.SLOTaxService.Messages; 
+
  
 
  namespace FiscalVerificationOfInvoices_SLO
@@ -15,7 +16,6 @@ using MNet.SLOTaxService.Messages;
      public partial class FormFURSCommunication : Form 
      { 
  
-
          public bool Success = false; 
          public MessageType MessageType = MessageType.Unknown; 
          public String ErrorMessage = null; 
@@ -23,23 +23,12 @@ using MNet.SLOTaxService.Messages;
          public string UniqueInvoiceID = null;
          public string BarCodeValue = null;
          public Image Image_QRCode = null; 
- 
-
- 
 
          public Result_MessageBox_Post RetFromWaitForm = Result_MessageBox_Post.TIMEOUT; 
  
-
- 
-
- 
-
- 
-
          private usrc_FVI_SLO m_usrc_FVI_SLO; 
          private Thread_FVI_Message m_msg; 
  
-
          usrc_Success_Response m_usrc_Success_Response = null; 
          usrc_Error_Response m_usrc_Error_Response = null; 
  
@@ -65,11 +54,7 @@ using MNet.SLOTaxService.Messages;
                 lbl_TEST_Environment.Visible = false;
              }
 
-
-
-
-
-
+ 
             m_usrc_FVI_SLO = Parent; 
              m_msg = msg; 
  
@@ -96,7 +81,6 @@ using MNet.SLOTaxService.Messages;
 
          } 
  
-
  
          /****** For DEBUG & TEST PURPOSES ***/ 
          private void Show_usrc_DEBUG_MessagePreview()
@@ -137,15 +121,15 @@ using MNet.SLOTaxService.Messages;
 
          private void M_DEBUG_MessagePreview_PostMessage()
          { 
-             PostMessage(); 
+             DoPostMessage(); 
          } 
  
-
          /****** End For DEBUG & TEST PURPOSES ***/ 
- 
 
          private void FormFURSCommunication_Load(object sender, EventArgs e)
-         { 
+         {
+            lbl_FURSCommunication.Text = "Prenašam podatke na FURS";
+
              if (m_usrc_FVI_SLO.DEBUG) 
              { 
                  /* PostMessage(); will be done whe you click on button [PostMessage --> Thread_FVI_Message]  
@@ -160,26 +144,16 @@ using MNet.SLOTaxService.Messages;
              } 
          } 
  
-
-
-         private void PostMessage()
+         private void DoPostMessage()
          { 
              RetFromWaitForm = m_usrc_FVI_SLO.thread_fvi.message_box.Post(m_msg); 
          } 
- 
 
          private void TmrStart_Tick(object sender, EventArgs e)
          { 
-             TmrStart.Enabled = false; 
- 
-
-             Refresh(); 
- 
-
-             PostMessage(); 
+            TmrStart.Enabled = false; 
+            DoPostMessage(); 
          } 
- 
-
  
 
          internal bool FVI_Response_Single_Invoice(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage, string protectedID, string uniqueInvoiceID,string barcode_value, Image image_QRCode)
@@ -276,7 +250,22 @@ using MNet.SLOTaxService.Messages;
 
         internal bool FVI_Response_ECHO(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage)
         {
-            throw new NotImplementedException();
+            int delay = 1000;
+
+            if (success)
+            {
+                lbl_FURSCommunication.Text = "Povezava na FURS OK";
+            }
+            else
+            {
+                lbl_FURSCommunication.Text = "Napaka v povezavi na FURS; " + errorMessage;
+                delay = Convert.ToInt16(Properties.Settings.Default.timeToShowSuccessfulFURSResult);
+            }
+            Refresh();
+            DialogResult = DialogResult.OK;
+            DelayClose(delay);
+
+            return true; 
         }
 
         internal bool FVI_Response_Many_Invoice(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage, string protectedID, string uniqueInvoiceID, Image image_QRCode)
@@ -287,6 +276,12 @@ using MNet.SLOTaxService.Messages;
         internal bool FVI_Response_PP(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage)
         {
             throw new NotImplementedException();
+        }
+
+        private void DelayClose(int DelayMs)      
+        {
+            System.Threading.Thread.Sleep(DelayMs);
+            Close();
         }
     } 
  } 

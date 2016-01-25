@@ -49,6 +49,7 @@
             this.usrc_FVI_SLO1.Response_ManyInvoices += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.delegate_Response_ManyInvoices(this.usrc_FVI_SLO1_Response_ManyInvoices);
             this.usrc_FVI_SLO1.Response_PP += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.delegate_Response_PP(this.usrc_FVI_SLO1_Response_PP);
             this.usrc_FVI_SLO1.Response_ECHO += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.delegate_Response_ECHO(this.usrc_FVI_SLO1_Response_ECHO);
+            this.usrc_FVI_SLO1.Load += new System.EventHandler(this.usrc_FVI_SLO1_Load);
             // 
             // btn_Start
             // 
@@ -134,6 +135,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

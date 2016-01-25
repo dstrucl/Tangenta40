@@ -35,7 +35,7 @@ namespace InvoiceDB
             string TRR_Value = null;
             string TRR_condition = null;
 
-            long_v Atom_Organisation_ID_v = null;
+          //  long_v Atom_Organisation_ID_v = null;
 
             ID_v cAdressAtom_Org_iD_v = null;
             SQLTable t_cAdressAtom_Org = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_cAddress_Org)));

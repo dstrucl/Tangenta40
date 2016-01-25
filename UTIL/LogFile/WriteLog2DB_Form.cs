@@ -75,7 +75,7 @@ namespace LogFile
             }
             catch (Exception ex)
             {
-                Error.Show("ERROR:Can not read log lines : LogFile :\"" + Log_PathFile + "\"");
+                Error.Show("ERROR:Can not read log lines : LogFile :\"" + Log_PathFile + "\" " + ex.Message );
                 this.Close();
                 DialogResult = DialogResult.Abort;
             }
@@ -182,7 +182,7 @@ namespace LogFile
             }
             catch (Exception ex)
             {
-                Error.Show("ERROR:WriteLog Can not delete:" + Log_PathFile + " Err = " + Err);
+                Error.Show("ERROR:WriteLog Can not delete:" + Log_PathFile + " Err = " + Err + " ;" + ex.Message );
             }
             finally
             {

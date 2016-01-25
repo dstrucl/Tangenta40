@@ -847,7 +847,7 @@ namespace LogFile
                                 local_DB_Param.DataBaseFilePath = m_conData_SQLITE.m_DataBaseFilePath;
                                 break;
                         }
-                        DB_Param = DB_Param;
+                       // DB_Param = DB_Param;
                         return true;
 
                     case Log_DBConnection.ConnectResult_ENUM.CANCELED:
@@ -2003,7 +2003,7 @@ namespace LogFile
                             Disconnect();
                             return true;
                         }
-                        return true;
+                        //return true;
 
                         case eDBType.SQLITE:
                         {

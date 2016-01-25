@@ -224,8 +224,9 @@ namespace SQLTableControl.TableDocking_Form
                     e.Value = isMale ? "M" : "Ž";
                 }
             }
-            catch (Exception ex)
+            catch
             {
+
                 e.Value = "?";
             }
 

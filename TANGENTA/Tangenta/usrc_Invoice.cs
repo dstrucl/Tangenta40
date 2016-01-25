@@ -1437,7 +1437,7 @@ namespace Tangenta
             {
                 long Atom_myCompany_Person_ID = -1;
                 string_v office_name = null;
-                string Err = null;
+               // string Err = null;
                 f_Atom_myCompany_Person.Get(Last_myCompany_Person_id, ref Atom_myCompany_Person_ID, ref office_name);
             }
         }

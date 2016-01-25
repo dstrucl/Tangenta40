@@ -43,15 +43,15 @@
             // 
             // txt_fursXmlNamespace
             // 
-            this.txt_fursXmlNamespace.Location = new System.Drawing.Point(193, 106);
+            this.txt_fursXmlNamespace.Location = new System.Drawing.Point(140, 78);
             this.txt_fursXmlNamespace.Name = "txt_fursXmlNamespace";
-            this.txt_fursXmlNamespace.Size = new System.Drawing.Size(340, 20);
+            this.txt_fursXmlNamespace.Size = new System.Drawing.Size(281, 20);
             this.txt_fursXmlNamespace.TabIndex = 18;
             // 
             // lbl_fursXmlNamespace
             // 
             this.lbl_fursXmlNamespace.AutoSize = true;
-            this.lbl_fursXmlNamespace.Location = new System.Drawing.Point(19, 109);
+            this.lbl_fursXmlNamespace.Location = new System.Drawing.Point(5, 81);
             this.lbl_fursXmlNamespace.Name = "lbl_fursXmlNamespace";
             this.lbl_fursXmlNamespace.Size = new System.Drawing.Size(124, 13);
             this.lbl_fursXmlNamespace.TabIndex = 17;
@@ -59,15 +59,15 @@
             // 
             // txt_fursWebServiceURL
             // 
-            this.txt_fursWebServiceURL.Location = new System.Drawing.Point(151, 77);
+            this.txt_fursWebServiceURL.Location = new System.Drawing.Point(140, 50);
             this.txt_fursWebServiceURL.Name = "txt_fursWebServiceURL";
-            this.txt_fursWebServiceURL.Size = new System.Drawing.Size(350, 20);
+            this.txt_fursWebServiceURL.Size = new System.Drawing.Size(281, 20);
             this.txt_fursWebServiceURL.TabIndex = 16;
             // 
             // lbl_fursWebServiceURL
             // 
             this.lbl_fursWebServiceURL.AutoSize = true;
-            this.lbl_fursWebServiceURL.Location = new System.Drawing.Point(19, 81);
+            this.lbl_fursWebServiceURL.Location = new System.Drawing.Point(5, 53);
             this.lbl_fursWebServiceURL.Name = "lbl_fursWebServiceURL";
             this.lbl_fursWebServiceURL.Size = new System.Drawing.Size(126, 13);
             this.lbl_fursWebServiceURL.TabIndex = 15;
@@ -75,26 +75,26 @@
             // 
             // txt_CertificatePassword
             // 
-            this.txt_CertificatePassword.Location = new System.Drawing.Point(130, 49);
+            this.txt_CertificatePassword.Location = new System.Drawing.Point(502, 22);
             this.txt_CertificatePassword.Name = "txt_CertificatePassword";
-            this.txt_CertificatePassword.Size = new System.Drawing.Size(340, 20);
+            this.txt_CertificatePassword.Size = new System.Drawing.Size(148, 20);
             this.txt_CertificatePassword.TabIndex = 14;
             // 
             // lbl_Certificate_Password
             // 
             this.lbl_Certificate_Password.AutoSize = true;
-            this.lbl_Certificate_Password.Location = new System.Drawing.Point(19, 52);
+            this.lbl_Certificate_Password.Location = new System.Drawing.Point(453, 25);
             this.lbl_Certificate_Password.Name = "lbl_Certificate_Password";
-            this.lbl_Certificate_Password.Size = new System.Drawing.Size(87, 13);
+            this.lbl_Certificate_Password.Size = new System.Drawing.Size(43, 13);
             this.lbl_Certificate_Password.TabIndex = 13;
-            this.lbl_Certificate_Password.Text = "Certifikat GESLO";
+            this.lbl_Certificate_Password.Text = "GESLO";
             // 
             // btn_BrowseCertificateFile
             // 
             this.btn_BrowseCertificateFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_BrowseCertificateFile.Location = new System.Drawing.Point(605, 23);
+            this.btn_BrowseCertificateFile.Location = new System.Drawing.Point(403, 21);
             this.btn_BrowseCertificateFile.Name = "btn_BrowseCertificateFile";
-            this.btn_BrowseCertificateFile.Size = new System.Drawing.Size(53, 20);
+            this.btn_BrowseCertificateFile.Size = new System.Drawing.Size(21, 20);
             this.btn_BrowseCertificateFile.TabIndex = 12;
             this.btn_BrowseCertificateFile.Text = "...";
             this.btn_BrowseCertificateFile.UseVisualStyleBackColor = true;
@@ -104,15 +104,15 @@
             // 
             this.txt_CertificateFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_CertificateFile.Location = new System.Drawing.Point(130, 23);
+            this.txt_CertificateFile.Location = new System.Drawing.Point(140, 21);
             this.txt_CertificateFile.Name = "txt_CertificateFile";
-            this.txt_CertificateFile.Size = new System.Drawing.Size(470, 20);
+            this.txt_CertificateFile.Size = new System.Drawing.Size(267, 20);
             this.txt_CertificateFile.TabIndex = 11;
             // 
             // lbl_CertificateFileName
             // 
             this.lbl_CertificateFileName.AutoSize = true;
-            this.lbl_CertificateFileName.Location = new System.Drawing.Point(19, 25);
+            this.lbl_CertificateFileName.Location = new System.Drawing.Point(5, 24);
             this.lbl_CertificateFileName.Name = "lbl_CertificateFileName";
             this.lbl_CertificateFileName.Size = new System.Drawing.Size(98, 13);
             this.lbl_CertificateFileName.TabIndex = 10;
@@ -121,7 +121,7 @@
             // lbl_Environment
             // 
             this.lbl_Environment.AutoSize = true;
-            this.lbl_Environment.Location = new System.Drawing.Point(14, 3);
+            this.lbl_Environment.Location = new System.Drawing.Point(5, 0);
             this.lbl_Environment.Name = "lbl_Environment";
             this.lbl_Environment.Size = new System.Drawing.Size(82, 13);
             this.lbl_Environment.TabIndex = 19;
@@ -132,9 +132,10 @@
             this.usrc_FURS_BussinesPremiseData1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_FURS_BussinesPremiseData1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_FURS_BussinesPremiseData1.Location = new System.Drawing.Point(7, 137);
+            this.usrc_FURS_BussinesPremiseData1.Location = new System.Drawing.Point(-1, 104);
             this.usrc_FURS_BussinesPremiseData1.Name = "usrc_FURS_BussinesPremiseData1";
-            this.usrc_FURS_BussinesPremiseData1.Size = new System.Drawing.Size(651, 214);
+            this.usrc_FURS_BussinesPremiseData1.ReadOnly = false;
+            this.usrc_FURS_BussinesPremiseData1.Size = new System.Drawing.Size(654, 214);
             this.usrc_FURS_BussinesPremiseData1.TabIndex = 20;
             // 
             // usrc_FURS_environment_settings
@@ -154,7 +155,7 @@
             this.Controls.Add(this.txt_CertificateFile);
             this.Controls.Add(this.lbl_CertificateFileName);
             this.Name = "usrc_FURS_environment_settings";
-            this.Size = new System.Drawing.Size(662, 359);
+            this.Size = new System.Drawing.Size(665, 322);
             this.ResumeLayout(false);
             this.PerformLayout();
 

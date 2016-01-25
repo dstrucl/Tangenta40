@@ -77,7 +77,7 @@ namespace DBConnectionControl_Settings
                             break;
                     }
                     return true;
-                    break;
+                 //   break;
 
                 case eType.IniFile_Setting:
                     if (!SectionExistsInIniFile())
@@ -102,7 +102,7 @@ namespace DBConnectionControl_Settings
                         }
                     }
                     return false;
-                    break;
+                 //   break;
             }
             return false;
         }
@@ -175,7 +175,7 @@ namespace DBConnectionControl_Settings
                     }
 
                     return true;
-                    break;
+                 //   break;
 
                 case eType.IniFile_Setting:
                     string section = m_inifile_prefix + const_section_prefix_LocalDB_;
@@ -209,32 +209,32 @@ namespace DBConnectionControl_Settings
                     {
                         case 0:
                             return Properties.LocalDB1.Default.LocalDB_DataBaseFilePath;
-                            break;
+                       //     break;
                         case 1:
                             return Properties.LocalDB2.Default.LocalDB_DataBaseFilePath;
-                            break;
+                      //      break;
                         case 2:
                             return Properties.LocalDB3.Default.LocalDB_DataBaseFilePath;
-                            break;
+                    //        break;
                         case 3:
                             return Properties.LocalDB4.Default.LocalDB_DataBaseFilePath;
-                            break;
+                    //       break;
                         default:
                             LogFile.Error.Show("Error:Settings.(string)LocalDB_DataBaseFilePath:Settings_Index=" + m_iSettingsIndex.ToString() + " not implemented in!");
                             return Properties.LocalDB1.Default.LocalDB_DataBaseFilePath;
-                            break;
+                        //    break;
                     }
-                    break;
+                 //   break;
 
                 case eType.IniFile_Setting:
                      return sLocalDB_DataBaseFilePath;
-                     break;
+                 //    break;
 
 
                 default:
                     LogFile.Error.Show("Error:Settings.LocalDB_DataBaseFilePath:m_Type not implemented in!");
                     return null;
-                    break;
+                //    break;
             }
         }
 
@@ -285,30 +285,30 @@ namespace DBConnectionControl_Settings
                     {
                         case 0:
                             return Properties.LocalDB1.Default.LocalDB_DataBaseFileName;
-                            break;
+                           // break;
                         case 1:
                             return Properties.LocalDB2.Default.LocalDB_DataBaseFileName;
-                            break;
+                          //  break;
                         case 2:
                             return Properties.LocalDB3.Default.LocalDB_DataBaseFileName;
-                            break;
+                         //   break;
                         case 3:
                             return Properties.LocalDB4.Default.LocalDB_DataBaseFileName;
-                            break;
+                        //    break;
                         default:
                             LogFile.Error.Show("Error:Settings.(string)LocalDB_DataBaseFileName:Settings_Index=" + m_iSettingsIndex.ToString() + " not implemented in!");
                             return Properties.LocalDB1.Default.LocalDB_DataBaseFileName;
-                            break;
+                         //   break;
                     }
-                    break;
+                  //  break;
                 case eType.IniFile_Setting:
                     return sLocalDB_DataBaseFileName;
-                    break;
+                  //  break;
 
                 default:
                     LogFile.Error.Show("Error:Settings.LocalDB_DataBaseFileName:m_Type not implemented in!");
                     return null;
-                    break;
+                   // break;
             }
         }
 
@@ -369,11 +369,11 @@ namespace DBConnectionControl_Settings
                             LogFile.Error.Show("Error:Settings.(string)LocalDB_crypted_Password:Settings_Index=" + m_iSettingsIndex.ToString() + " not implemented in!");
                             return Properties.LocalDB1.Default.LocalDB_crypted_Password;
                     }
-                    break;
+                   // break;
 
                 case eType.IniFile_Setting:
                     return sLocalDB_crypted_Password;
-                    break;
+                   // break;
 
 
                 default:

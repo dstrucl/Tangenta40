@@ -31,16 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
             this.btn_Settings = new System.Windows.Forms.Button();
             this.btn_Send_ECHO = new System.Windows.Forms.Button();
-            this.btn_BussinesPremisseID = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices = new DataGridView_2xls.DataGridView2xls();
-            this.usrc_FURS_BussinesPremiseData1 = new FiscalVerificationOfInvoices_SLO.usrc_FURS_BussinesPremiseData();
-            this.lbl_FURS_Environment = new System.Windows.Forms.Label();
             this.btn_SendInvoices_from_BingBookOfInvoices = new System.Windows.Forms.Button();
+            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_UnsentInvoices_from_BindingBookOfInvoices)).BeginInit();
             this.SuspendLayout();
@@ -66,15 +62,6 @@
             this.btn_Send_ECHO.UseVisualStyleBackColor = true;
             this.btn_Send_ECHO.Click += new System.EventHandler(this.btn_Send_ECHO_Click);
             // 
-            // btn_BussinesPremisseID
-            // 
-            this.btn_BussinesPremisseID.Location = new System.Drawing.Point(110, 6);
-            this.btn_BussinesPremisseID.Name = "btn_BussinesPremisseID";
-            this.btn_BussinesPremisseID.Size = new System.Drawing.Size(196, 38);
-            this.btn_BussinesPremisseID.TabIndex = 5;
-            this.btn_BussinesPremisseID.Text = "Pošlji podatke o poslovnem prostoru";
-            this.btn_BussinesPremisseID.UseVisualStyleBackColor = true;
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -93,8 +80,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1.Panel2.Controls.Add(this.usrc_FURS_BussinesPremiseData1);
-            this.splitContainer1.Panel2.Controls.Add(this.lbl_FURS_Environment);
+            this.splitContainer1.Panel2Collapsed = true;
             this.splitContainer1.Size = new System.Drawing.Size(914, 670);
             this.splitContainer1.SplitterDistance = 229;
             this.splitContainer1.TabIndex = 6;
@@ -108,6 +94,15 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Neposlani računi iz vezane knjige računov";
             // 
+            // btn_SendInvoices_from_BingBookOfInvoices
+            // 
+            this.btn_SendInvoices_from_BingBookOfInvoices.Location = new System.Drawing.Point(104, 6);
+            this.btn_SendInvoices_from_BingBookOfInvoices.Name = "btn_SendInvoices_from_BingBookOfInvoices";
+            this.btn_SendInvoices_from_BingBookOfInvoices.Size = new System.Drawing.Size(254, 38);
+            this.btn_SendInvoices_from_BingBookOfInvoices.TabIndex = 7;
+            this.btn_SendInvoices_from_BingBookOfInvoices.Text = "Pošlji neposlane račune iz vezane knjige računov";
+            this.btn_SendInvoices_from_BingBookOfInvoices.UseVisualStyleBackColor = true;
+            // 
             // dgvx_UnsentInvoices_from_BindingBookOfInvoices
             // 
             this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -115,40 +110,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.DataGridViewWithRowNumber = false;
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Location = new System.Drawing.Point(3, 36);
+            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Location = new System.Drawing.Point(8, 26);
             this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Name = "dgvx_UnsentInvoices_from_BindingBookOfInvoices";
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Size = new System.Drawing.Size(903, 190);
+            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Size = new System.Drawing.Size(903, 634);
             this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.TabIndex = 9;
-            // 
-            // usrc_FURS_BussinesPremiseData1
-            // 
-            this.usrc_FURS_BussinesPremiseData1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_FURS_BussinesPremiseData1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_FURS_BussinesPremiseData1.Location = new System.Drawing.Point(5, 35);
-            this.usrc_FURS_BussinesPremiseData1.Name = "usrc_FURS_BussinesPremiseData1";
-            this.usrc_FURS_BussinesPremiseData1.ReadOnly = true;
-            this.usrc_FURS_BussinesPremiseData1.Size = new System.Drawing.Size(903, 394);
-            this.usrc_FURS_BussinesPremiseData1.TabIndex = 10;
-            // 
-            // lbl_FURS_Environment
-            // 
-            this.lbl_FURS_Environment.AutoSize = true;
-            this.lbl_FURS_Environment.Location = new System.Drawing.Point(8, 10);
-            this.lbl_FURS_Environment.Name = "lbl_FURS_Environment";
-            this.lbl_FURS_Environment.Size = new System.Drawing.Size(67, 13);
-            this.lbl_FURS_Environment.TabIndex = 9;
-            this.lbl_FURS_Environment.Text = "FURS okolje";
-            // 
-            // btn_SendInvoices_from_BingBookOfInvoices
-            // 
-            this.btn_SendInvoices_from_BingBookOfInvoices.Location = new System.Drawing.Point(338, 6);
-            this.btn_SendInvoices_from_BingBookOfInvoices.Name = "btn_SendInvoices_from_BingBookOfInvoices";
-            this.btn_SendInvoices_from_BingBookOfInvoices.Size = new System.Drawing.Size(254, 38);
-            this.btn_SendInvoices_from_BingBookOfInvoices.TabIndex = 7;
-            this.btn_SendInvoices_from_BingBookOfInvoices.Text = "Pošlji neposlane račune iz vezane knjige računov";
-            this.btn_SendInvoices_from_BingBookOfInvoices.UseVisualStyleBackColor = true;
             // 
             // Form_Main
             // 
@@ -157,17 +122,15 @@
             this.ClientSize = new System.Drawing.Size(922, 728);
             this.Controls.Add(this.btn_SendInvoices_from_BingBookOfInvoices);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.btn_BussinesPremisseID);
             this.Controls.Add(this.btn_Send_ECHO);
             this.Controls.Add(this.btn_Settings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Main";
+            this.Load += new System.EventHandler(this.Form_Main_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_UnsentInvoices_from_BindingBookOfInvoices)).EndInit();
@@ -178,11 +141,8 @@
         #endregion
         private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.Button btn_Send_ECHO;
-        private System.Windows.Forms.Button btn_BussinesPremisseID;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lbl_FURS_Environment;
-        private usrc_FURS_BussinesPremiseData usrc_FURS_BussinesPremiseData1;
         private DataGridView_2xls.DataGridView2xls dgvx_UnsentInvoices_from_BindingBookOfInvoices;
         private System.Windows.Forms.Button btn_SendInvoices_from_BingBookOfInvoices;
     }

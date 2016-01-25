@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using LanguageControl;
 
 namespace FiscalVerificationOfInvoices_SLO_TEST
 {
@@ -115,6 +116,19 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
         {
             txt_Response_ECHO_xml.Text = "Message_ID =" + Message_ID.ToString() + "\r\n" + xml;
 
+        }
+
+        private void usrc_FVI_SLO1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Blagajna.Settings.LanguageID; ;
+
+            btn_Start_Click(null, null);
         }
     }
 }

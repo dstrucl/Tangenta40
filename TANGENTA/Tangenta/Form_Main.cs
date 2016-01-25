@@ -97,7 +97,7 @@ namespace Tangenta
 
         private void Main_Form_Load(object sender, EventArgs e)
         {
-            string Err = null;
+            //string Err = null;
             this.Text = lngRPM.s_Cashier.s;
             if (Program.bDemo)
             {
@@ -298,5 +298,7 @@ namespace Tangenta
                 e.Cancel = true;
             }
         }
+
+
     }
 }

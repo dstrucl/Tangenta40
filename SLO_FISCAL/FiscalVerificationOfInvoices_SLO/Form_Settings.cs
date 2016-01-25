@@ -114,5 +114,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+
     }
 }

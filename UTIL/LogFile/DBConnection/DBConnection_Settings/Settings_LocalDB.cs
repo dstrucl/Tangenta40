@@ -79,7 +79,7 @@ namespace LogFile
                     //        break;
                     //}
                     //return true;
-                    break;
+                    //break;
 
                 case eType.IniFile_Setting:
                     if (!SectionExistsInIniFile())
@@ -104,7 +104,7 @@ namespace LogFile
                         }
                     }
                     return false;
-                    break;
+                   // break;
             }
             return false;
         }
@@ -180,7 +180,7 @@ namespace LogFile
                     //}
 
                     //return true;
-                    break;
+                  //  break;
 
                 case eType.IniFile_Setting:
                     string section = m_inifile_prefix + const_section_prefix_LocalDB_;
@@ -232,17 +232,17 @@ namespace LogFile
                     //        break;
                     //}
 
-                    break;
+                   // break;
 
                 case eType.IniFile_Setting:
                      return sLocalDB_DataBaseFilePath;
-                     break;
+                    // break;
 
 
                 default:
                     Error.Show("Error:Settings.LocalDB_DataBaseFilePath:m_Type not implemented in!");
                     return null;
-                    break;
+                  //  break;
             }
         }
 
@@ -273,7 +273,7 @@ namespace LogFile
                     //        Error.Show("Error:Settings.(void)LocalDB_DataBaseFilePath:Settings_Index=" + m_iSettingsIndex.ToString() + " not implemented in!");
                     //        break;
                     //}
-                    break;
+                   // break;
                 case eType.IniFile_Setting:
                     sLocalDB_DataBaseFilePath = sValue;
                     break;
@@ -313,15 +313,15 @@ namespace LogFile
                     //        return Properties.LocalDB1.Default.LocalDB_DataBaseFileName;
                     //        break;
                     //}
-                    break;
+                 //   break;
                 case eType.IniFile_Setting:
                     return sLocalDB_DataBaseFileName;
-                    break;
+                //    break;
 
                 default:
                     Error.Show("Error:Settings.LocalDB_DataBaseFileName:m_Type not implemented in!");
                     return null;
-                    break;
+                 //   break;
             }
         }
 
@@ -351,7 +351,7 @@ namespace LogFile
                     //        Error.Show("Error:Settings.(void)LocalDB_DataBaseFileName:Settings_Index=" + m_iSettingsIndex.ToString() + " not implemented in!");
                     //        break;
                     //}
-                    break;
+                  //  break;
 
                 case eType.IniFile_Setting:
                     sLocalDB_DataBaseFileName = sValue;
@@ -387,11 +387,11 @@ namespace LogFile
                     //        Error.Show("Error:Settings.(string)LocalDB_crypted_Password:Settings_Index=" + m_iSettingsIndex.ToString() + " not implemented in!");
                     //        return Properties.LocalDB1.Default.LocalDB_crypted_Password;
                     //}
-                    break;
+                 //   break;
 
                 case eType.IniFile_Setting:
                     return sLocalDB_crypted_Password;
-                    break;
+                 //   break;
 
 
                 default:
@@ -427,7 +427,7 @@ namespace LogFile
                     //        Error.Show("Error:Settings.(void)LocalDB_crypted_Password:Settings_Index=" + m_iSettingsIndex.ToString() + " not implemented in!");
                     //        break;
                     //}
-                    break;
+              //      break;
 
                 case eType.IniFile_Setting:
                     sLocalDB_crypted_Password = sValue;

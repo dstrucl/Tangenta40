@@ -60,6 +60,7 @@ namespace FiscalVerificationOfInvoices_SLO
         public bool Success
         {
             get { return m_success; }
+            set { m_success = value; }
         }
 
         public string UniqueInvoiceID

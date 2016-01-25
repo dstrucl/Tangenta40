@@ -71,7 +71,7 @@ namespace LanguageControl
                 }
 
             }
-            catch (Exception Ex)
+            catch
             {
                 SaveLanguages(ref dt_Languages, lngRPM_XML_file, TableName);
             }

@@ -22,5 +22,17 @@ namespace FiscalVerificationOfInvoices_SLO_TEST.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int LanguageID {
+            get {
+                return ((int)(this["LanguageID"]));
+            }
+            set {
+                this["LanguageID"] = value;
+            }
+        }
     }
 }

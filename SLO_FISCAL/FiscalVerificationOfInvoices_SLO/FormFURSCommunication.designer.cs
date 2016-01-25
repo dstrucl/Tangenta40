@@ -49,6 +49,7 @@
             // 
             // TmrStart
             // 
+            this.TmrStart.Interval = 200;
             this.TmrStart.Tick += new System.EventHandler(this.TmrStart_Tick);
             // 
             // lbl_TEST_Environment

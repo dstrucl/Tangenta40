@@ -73,7 +73,7 @@ namespace DBConnectionControl_Settings
         {
             if (File.Exists(IniFile.IniFile.path))
             {
-                int i;
+               // int i;
                 string section = null;
                 section = m_inifile_prefix + const_section_prefix_RemoteDB_ + m_SettingsIndex.ToString();
                 if (!IniFile.IniFile.Check_Section_And_Key(section, const_uiRemoteDB_uiDataBaseType))
@@ -172,7 +172,7 @@ namespace DBConnectionControl_Settings
                             break;
                     }
                     return true;
-                    break;
+                //    break;
 
 
                 case eType.IniFile_Setting:
