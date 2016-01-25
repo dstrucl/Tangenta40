@@ -12,14 +12,14 @@ namespace InvoiceDB
 {
     public static class f_PriceList
     {
-        private static bool Update_price_item(DataTable dt_Item,Form parent_frm)
+        private static bool Update_price_item(DataTable dt_Item, Form parent_frm)
         {
             string Err = null;
-            for (; ; )
+            for (;;)
             {
                 SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
                 tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Blagajna.m_DBTables,null);
+                SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Blagajna.m_DBTables, null);
                 SelectID_Table_dlg.ShowDialog();
                 long id_Taxation = SelectID_Table_dlg.ID;
                 if (id_Taxation >= 0)
@@ -28,7 +28,7 @@ namespace InvoiceDB
                     {
                         long PriceList_ID = (long)dr["PriceList_ID"];
                         long Item_ID = (long)dr["Item_ID"];
-                        string sql = "insert into Price_Item (RetailPricePerUnit,Discount,Taxation_ID,Item_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + Item_ID.ToString()+","+PriceList_ID.ToString() + ")";
+                        string sql = "insert into Price_Item (RetailPricePerUnit,Discount,Taxation_ID,Item_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + Item_ID.ToString() + "," + PriceList_ID.ToString() + ")";
                         object objresult = new object();
                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objresult, ref Err))
                         {
@@ -51,11 +51,11 @@ namespace InvoiceDB
         private static bool Update_price_SimpleItem(DataTable dt_SimpleItem, Form parent_frm)
         {
             string Err = null;
-            for (; ; )
+            for (;;)
             {
                 SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
                 tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Blagajna.m_DBTables,null);
+                SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Blagajna.m_DBTables, null);
                 SelectID_Table_dlg.ShowDialog();
                 long id_Taxation = SelectID_Table_dlg.ID;
                 if (id_Taxation >= 0)
@@ -65,7 +65,7 @@ namespace InvoiceDB
                         long PriceList_ID = (long)dr["PriceList_ID"];
                         long SimpleItem_ID = (long)dr["SimpleItem_ID"];
                         object objresult = new object();
-                        string sql = "insert into Price_SimpleItem (RetailSimpleItemPrice,Discount,Taxation_ID,SimpleItem_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + ","+SimpleItem_ID.ToString()+"," + PriceList_ID.ToString() + ")";
+                        string sql = "insert into Price_SimpleItem (RetailSimpleItemPrice,Discount,Taxation_ID,SimpleItem_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + SimpleItem_ID.ToString() + "," + PriceList_ID.ToString() + ")";
                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objresult, ref Err))
                         {
                             LogFile.Error.Show("ERROR:f_PriceList:Update:sql=" + sql + "\r\nErr=" + Err);
@@ -86,7 +86,7 @@ namespace InvoiceDB
 
         private static bool check_price_item(ref DataTable dt)
         {
-            string Err=null;
+            string Err = null;
             if (dt.Columns.Count == 0)
             {
                 dt.Columns.Add("PriceList_ID", typeof(long));
@@ -97,7 +97,7 @@ namespace InvoiceDB
             }
 
             DataTable dt_PriceList = new DataTable();
-            
+
             string sql = "select ID,Name from PriceList";
             if (DBSync.DBSync.ReadDataTable(ref dt_PriceList, sql, ref Err))
             {
@@ -107,7 +107,7 @@ namespace InvoiceDB
                     string PriceList_Name = (string)dr["Name"];
 
                     DataTable dt_Item = new DataTable();
-                    sql = "select ID,UniqueName,Name from Item where (ToOffer=1) and (ID not in (Select Item_ID from Price_Item where PriceList_ID = " + PriceList_ID.ToString()+ "))";
+                    sql = "select ID,UniqueName,Name from Item where (ToOffer=1) and (ID not in (Select Item_ID from Price_Item where PriceList_ID = " + PriceList_ID.ToString() + "))";
                     if (DBSync.DBSync.ReadDataTable(ref dt_Item, sql, ref Err))
                     {
                         if (dt_Item.Rows.Count > 0)
@@ -143,7 +143,7 @@ namespace InvoiceDB
 
         private static bool check_price_SimpleItem(ref DataTable dt)
         {
-            string Err=null;
+            string Err = null;
             if (dt.Columns.Count == 0)
             {
                 dt.Columns.Add("PriceList_ID", typeof(long));
@@ -153,7 +153,7 @@ namespace InvoiceDB
             }
 
             DataTable dt_PriceList = new DataTable();
-            
+
             string sql = "select ID,Name from PriceList";
             if (DBSync.DBSync.ReadDataTable(ref dt_PriceList, sql, ref Err))
             {
@@ -193,54 +193,54 @@ namespace InvoiceDB
             }
         }
 
-        
+
 
         public static bool Update(Form parent_frm)
         {
-           DataTable dt_Item  = new DataTable();
-           if (check_price_item(ref dt_Item))
-           {
-               if (dt_Item.Rows.Count > 0)
-               {
-                   if (Update_price_item(dt_Item,parent_frm))
-                   {
-                       DataTable dt_SimpleItem = new DataTable();
-                       if (check_price_SimpleItem(ref dt_SimpleItem))
-                       {
-                           if (dt_SimpleItem.Rows.Count > 0)
-                           {
-                               return Update_price_SimpleItem(dt_SimpleItem,parent_frm);
-                           }
-                           else
-                           {
-                               return true;
-                           }
+            DataTable dt_Item = new DataTable();
+            if (check_price_item(ref dt_Item))
+            {
+                if (dt_Item.Rows.Count > 0)
+                {
+                    if (Update_price_item(dt_Item, parent_frm))
+                    {
+                        DataTable dt_SimpleItem = new DataTable();
+                        if (check_price_SimpleItem(ref dt_SimpleItem))
+                        {
+                            if (dt_SimpleItem.Rows.Count > 0)
+                            {
+                                return Update_price_SimpleItem(dt_SimpleItem, parent_frm);
+                            }
+                            else
+                            {
+                                return true;
+                            }
 
-                       }
-                   }
-                   return false;
-               }
-               else
-               {
-                   DataTable dt_SimpleItem = new DataTable();
-                   if (check_price_SimpleItem(ref dt_SimpleItem))
-                   {
-                       if (dt_SimpleItem.Rows.Count > 0)
-                       {
-                           return Update_price_SimpleItem(dt_SimpleItem,parent_frm);
-                       }
-                       else
-                       {
-                           return true;
-                       }
-                   }
-                   return false;
-               }
-           }
-           else
-           {
-               return false;
-           }
+                        }
+                    }
+                    return false;
+                }
+                else
+                {
+                    DataTable dt_SimpleItem = new DataTable();
+                    if (check_price_SimpleItem(ref dt_SimpleItem))
+                    {
+                        if (dt_SimpleItem.Rows.Count > 0)
+                        {
+                            return Update_price_SimpleItem(dt_SimpleItem, parent_frm);
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static bool Check(Form pparent)
@@ -283,8 +283,8 @@ namespace InvoiceDB
             string Err = null;
             bEdit = false;
             DataTable dt_Price_SimpleItem_VIEW = new DataTable();
-            string sql = @"select Price_SimpleItem_$_pl_$$Name,Price_SimpleItem_$_si_$$UniqueName,Price_SimpleItem_$_si_$$Name
-                            from Price_SimpleItem_VIEW where Price_SimpleItem_$_si_$$ToOffer = 1 and Price_SimpleItem_$$RetailPricePerUnit < 0";
+            string sql = @"select Price_SimpleItem_$_pl_$$Name,Price_SimpleItem_$_si_$$Name
+                            from Price_SimpleItem_VIEW where Price_SimpleItem_$_si_$$ToOffer = 1 and  Price_SimpleItem_$$RetailSimpleItemPrice < 0";
             if (DBSync.DBSync.ReadDataTable(ref dt_Price_SimpleItem_VIEW, sql, ref Err))
             {
                 if (dt_Price_SimpleItem_VIEW.Rows.Count > 0)
@@ -293,6 +293,10 @@ namespace InvoiceDB
                     //bEdit = (bool)piu_w.ShowDialog();
                     bEdit = true;
                 }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_PriceList:CheckPriceUndefined_ShopB:sql=" + sql + "\r\nErr=" + Err);
             }
         }
 
@@ -312,6 +316,10 @@ namespace InvoiceDB
                     //bEdit = (bool) piu_w.ShowDialog();
                     bEdit = true;
                 }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_PriceList:CheckPriceUndefined_ShopB:sql=" + sql + "\r\nErr=" + Err);
             }
         }
     }

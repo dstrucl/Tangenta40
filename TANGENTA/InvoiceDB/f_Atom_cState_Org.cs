@@ -40,7 +40,7 @@ namespace InvoiceDB
                         SQL_Parameter par_State_ISO_3166_a3 = new SQL_Parameter(spar_State_ISO_3166_a3, SQL_Parameter.eSQL_Parameter.Nvarchar, false, State_ISO_3166_a3);
                         lpar.Add(par_State_ISO_3166_a3);
 
-                        short State_ISO_3166_num = (short)dt.Rows[0]["State_ISO_3166_num"];
+                        short State_ISO_3166_num = Convert.ToInt16(dt.Rows[0]["State_ISO_3166_num"]);
                         string spar_State_ISO_3166_num = "@par_State_ISO_3166_num";
                         SQL_Parameter par_State_ISO_3166_num = new SQL_Parameter(spar_State_ISO_3166_num, SQL_Parameter.eSQL_Parameter.Smallint, false, State_ISO_3166_num);
                         lpar.Add(par_State_ISO_3166_num);

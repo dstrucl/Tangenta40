@@ -34,9 +34,14 @@ namespace DBTypes
         public static bool_v set_bool(object p)
         {
             bool_v x = null;
+            if (p == null) return null;
             if (p is bool)
             {
                 x = new bool_v((bool)p);
+            }
+            else if (!(p is System.DBNull))
+            {
+                tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
             }
             return x;
         }
@@ -44,6 +49,7 @@ namespace DBTypes
         public static short_v set_short(object p)
         {
             short_v x = null;
+            if (p == null) return null;
             if (p is short)
             {
                 x = new short_v((short)p);
@@ -63,6 +69,7 @@ namespace DBTypes
         public static int_v set_int(object p)
         {
             int_v x = null;
+            if (p == null) return null;
             if (p is int)
             {
                 x = new int_v((int)p);
@@ -81,6 +88,7 @@ namespace DBTypes
         public static long_v set_long(object p)
         {
             long_v x = null;
+            if (p == null) return null;
             if (p is long)
             {
                 x = new long_v((long)p);
@@ -100,6 +108,7 @@ namespace DBTypes
         public static decimal_v set_decimal(object p)
         {
             decimal_v x = null;
+            if (p == null) return null;
             if (p is decimal)
             {
                 x = new decimal_v((decimal)p);
@@ -116,6 +125,7 @@ namespace DBTypes
         public static DateTime_v set_DateTime(object p)
         {
             DateTime_v x = null;
+            if (p == null) return null;
             if (p.GetType() == typeof(DateTime))
             {
                 x = new DateTime_v((DateTime)p);
@@ -132,6 +142,7 @@ namespace DBTypes
         public static string_v set_string(object p)
         {
             string_v x = null;
+            if (p == null) return null;
             if (p is string)
             {
                 x = new string_v((string)p);
@@ -147,9 +158,14 @@ namespace DBTypes
         public static string _set_string(object p)
         {
             string x = null;
+            if (p == null) return null;
             if (p is string)
             {
                 x = (string)p;
+            }
+            else if (!(p is System.DBNull))
+            {
+                tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
             }
             return x;
         }
@@ -205,6 +221,7 @@ namespace DBTypes
         public static Image _set_Image(object p)
         {
             Image x = null;
+            if (p == null) return null;
             if (p is byte[])
             {
                 try
@@ -217,15 +234,24 @@ namespace DBTypes
                     x = null;
                 }
             }
+            else if (!(p is System.DBNull))
+            {
+                tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
+            }
             return x;
         }
 
 
         public static byte[] _set_byte_array(object p)
         {
+            if (p == null) return null;
             if (p is byte[])
             {
                 return (byte[])p;
+            }
+            else if (!(p is System.DBNull))
+            {
+                tf.ShowTypeError(p.GetType().ToString(), typeof(byte[]).ToString());
             }
             return null;
         }
@@ -233,10 +259,10 @@ namespace DBTypes
         public static byte_array_v set_byte_array(object p)
         {
             byte_array_v x = null;
-            if (p.GetType() == typeof(byte[]))
+            if (p == null) return null;
+            if (p is byte[])
             {
-                x = new byte_array_v();
-                x.v = (byte[])p;
+                x = new byte_array_v((byte[])p);
             }
             return x;
         }

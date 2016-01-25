@@ -150,7 +150,7 @@ namespace InvoiceDB
                                             myOrg.Address_v.State_v = tf.set_string(dt_myCompany_Person.Rows[0]["State"]);
                                             myOrg.Address_v.State_ISO_3166_a2_v = tf.set_string(dt_myCompany_Person.Rows[0]["State_ISO_3166_a2"]);
                                             myOrg.Address_v.State_ISO_3166_a3_v = tf.set_string(dt_myCompany_Person.Rows[0]["State_ISO_3166_a3"]);
-                                            myOrg.Address_v.State_ISO_3166_num_v = tf.set_short(dt_myCompany_Person.Rows[0]["State_ISO_3166_num"]);
+                                            myOrg.Address_v.State_ISO_3166_num_v = tf.set_short(Convert.ToInt16(dt_myCompany_Person.Rows[0]["State_ISO_3166_num"]));
                                             if (dt_myCompany_Person.Rows[0]["Country"].GetType() == typeof(string))
                                             {
                                                 myOrg.Address_v.Country_v = tf.set_string(dt_myCompany_Person.Rows[0]["Country"]);

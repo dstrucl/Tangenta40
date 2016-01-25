@@ -1039,12 +1039,33 @@ namespace Tangenta
                 {
                     case myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK:
                         {
+                            string sPhoneNumber = "";
+                            string sEmail = "";
+                            string sHomePage = "";
+                            string sRegistration_ID = "";
+                            if (myOrg.PhoneNumber_v!=null)
+                            {
+                                sPhoneNumber = myOrg.PhoneNumber_v.vs;
+                            }
+                            if (myOrg.Email_v != null)
+                            {
+                                sEmail = myOrg.Email_v.vs;
+                            }
+                            if (myOrg.HomePage_v != null)
+                            {
+                                sHomePage = myOrg.HomePage_v.vs;
+                            }
+                            if (myOrg.Registration_ID_v != null)
+                            {
+                                sRegistration_ID = myOrg.Registration_ID_v.vs;
+                            }
+
                             this.txt_MyCompany.Text = myOrg.Name_v.vs + "," + sAddress
                              + "\r\nDavčna Številka:" + myOrg.Tax_ID_v.vs
-                             + "\r\nMatična Številka:" + myOrg.Registration_ID_v.vs
-                             + "\r\nTelefon:" + myOrg.PhoneNumber_v.vs
-                             + "\r\nEmail:" + myOrg.Email_v.vs
-                             + "\r\nDomača stran:" + myOrg.HomePage_v.vs;
+                             + "\r\nMatična Številka:" + sRegistration_ID
+                             + "\r\nTelefon:" + sPhoneNumber
+                             + "\r\nEmail:" + sEmail
+                             + "\r\nDomača stran:" + sHomePage;
                             Fill_MyCompany_Person();
 
                             return true;
