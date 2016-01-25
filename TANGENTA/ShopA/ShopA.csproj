@@ -163,10 +163,6 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ShopA_dbfunc\ShopA_dbfunc.csproj">
-      <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
-      <Name>ShopA_dbfunc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
@@ -190,6 +186,10 @@
     <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>InvoiceDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopA_dbfunc\ShopA_dbfunc.csproj">
+      <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
+      <Name>ShopA_dbfunc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

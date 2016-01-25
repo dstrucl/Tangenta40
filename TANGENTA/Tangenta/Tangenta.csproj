@@ -759,10 +759,6 @@
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>SQLTableControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ShopA_dbfunc\ShopA_dbfunc.csproj">
-      <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
-      <Name>ShopA_dbfunc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\SLO_FISCAL\FiscalVerificationOfInvoices_SLO\FiscalVerificationOfInvoices_SLO.csproj">
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
       <Name>FiscalVerificationOfInvoices_SLO</Name>
@@ -802,6 +798,10 @@
     <ProjectReference Include="..\ShopA\ShopA.csproj">
       <Project>{71220305-2548-4253-af8e-9b2c11ff343c}</Project>
       <Name>ShopA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopA_dbfunc\ShopA_dbfunc.csproj">
+      <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
+      <Name>ShopA_dbfunc</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopB\ShopB.csproj">
       <Project>{f417c16a-b37f-4284-9e39-4fbeff69008e}</Project>

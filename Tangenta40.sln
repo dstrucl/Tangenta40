@@ -93,7 +93,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Form_Discount", "TANGENTA\F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriseLists", "TANGENTA\PriseLists\PriseLists.csproj", "{D3E4AF57-60EB-486B-A145-5EADD0F01177}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopA_dbfunc", "ShopA_dbfunc\ShopA_dbfunc.csproj", "{3501813F-D72E-4190-9D0F-D491D42BBBFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopA_dbfunc", "TANGENTA\ShopA_dbfunc\ShopA_dbfunc.csproj", "{3501813F-D72E-4190-9D0F-D491D42BBBFC}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
