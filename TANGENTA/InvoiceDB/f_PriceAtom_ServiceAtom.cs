@@ -9,7 +9,7 @@ using InvoiceDB;
 namespace InvoiceDB
 {
 
-    public static class f_Atom_Price_SimpleItem
+    public static class f_Atom_Price_ShopBItem
     {
         public static bool Get(long Price_SimpleItem_ID,
                                  long ProformaInvoice_ID,
@@ -43,7 +43,7 @@ namespace InvoiceDB
                         if (f_Atom_PriceList.Get(PriceList_ID, ref Atom_PriceList_ID))
                         {
                             long Atom_SimpleItem_ID = -1;
-                            if (f_Atom_SimpleItem.Get(SimpleItem_ID, ref Atom_SimpleItem_ID))
+                            if (f_Atom_ShopBItem.Get(SimpleItem_ID, ref Atom_SimpleItem_ID))
                             {
                                 long Atom_Taxation_ID = -1;
                                 if (f_Atom_Taxation.Get(Taxation_ID, ref Atom_Taxation_ID))

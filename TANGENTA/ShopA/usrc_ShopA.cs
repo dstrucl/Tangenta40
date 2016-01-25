@@ -20,6 +20,12 @@ namespace ShopA
     {
         public delegate void delegate_aa_ItemAdded(long ID, DataTable dt);
         public event delegate_aa_ItemAdded aa_ItemAdded = null;
+        public delegate void delegate_ItemRemoved(long ID, DataTable dt);
+        public event delegate_ItemRemoved aa_ItemRemoved = null;
+
+        public delegate bool delegate_EditUnis();
+        public event delegate_EditUnis EditUnits;
+
 
         private const string column_deselect = "deselect";
         DataGridViewImageButtonColumn dgvxc_btn_Remove = null;
@@ -44,31 +50,45 @@ namespace ShopA
 
         }
 
-        public void SetDraft()
+        public void SetView()
         {
-            if (dgvxc_btn_Remove == null)
+            if (dgvxc_btn_Remove != null)
             {
-                dgvxc_btn_Remove = new DataGridViewImageButtonColumn();
-                dgvxc_btn_Remove.HeaderText = "Odstrani";
-                dgvxc_btn_Remove.Text = "-";
-                dgvxc_btn_Remove.Name = column_deselect;
-                this.dgvx_ShopA.Columns.Add(dgvxc_btn_Remove);
-                this.usrc_Editor1.Init(m_ShopABC, m_Atom_ItemShopA_Price);
+                this.dgvx_ShopA.Columns.Remove(dgvxc_btn_Remove);
+                dgvxc_btn_Remove.Dispose();
+                dgvxc_btn_Remove = null;
             }
             dt_Item_Price.Clear();
             this.dgvx_ShopA.DataSource = null;
-            if (dbfunc.ReadItems(ref dt_Item_Price, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID))
+            if (dbfunc.Read_ShopA_Price_Item_Table(m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
                 t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
-                this.dgvx_ShopA.Columns["ID"].Visible = false;
-                this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_pinv_$$ID"].Visible = false;
-                this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_tax_$$ID"].Visible = false;
-                this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$ID"].Visible = false;
-                this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$$ID"].Visible = false;
-                this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_pinv_$$Draft"].Visible = false;
-                this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol"].Visible = false;
-                this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces"].Visible = false;
+                HideNotImportantColumns();
+            }
+        }
+
+        private void HideNotImportantColumns()
+        {
+            this.dgvx_ShopA.Columns["ID"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_pinv_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_tax_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_pinv_$$Draft"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces"].Visible = false;
+        }
+
+        public void SetDraft()
+        {
+            dt_Item_Price.Clear();
+            this.dgvx_ShopA.DataSource = null;
+            if (dbfunc.Read_ShopA_Price_Item_Table(m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID,ref dt_Item_Price))
+            {
+                this.dgvx_ShopA.DataSource = dt_Item_Price;
+                t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
+                HideNotImportantColumns();
 
                 if (dt_Item_Price.Rows.Count > 0)
                 {
@@ -91,6 +111,16 @@ namespace ShopA
                     m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"]);
                     m_Atom_ItemShopA_Price.TAX.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$TAX"]);
                 }
+                if (dgvxc_btn_Remove == null)
+                {
+                    dgvxc_btn_Remove = new DataGridViewImageButtonColumn();
+                    dgvxc_btn_Remove.HeaderText = "Odstrani";
+                    dgvxc_btn_Remove.Text = "-";
+                    dgvxc_btn_Remove.Name = column_deselect;
+                    this.dgvx_ShopA.Columns.Add(dgvxc_btn_Remove);
+                    this.usrc_Editor1.Init(m_ShopABC, m_Atom_ItemShopA_Price);
+                }
+
 
             }
         }
@@ -102,12 +132,7 @@ namespace ShopA
             {
                 case eMode.VIEW:
                     this.splitContainer1.Panel1Collapsed = true;
-                    if (dgvxc_btn_Remove != null)
-                    {
-                        this.dgvx_ShopA.Columns.Remove(dgvxc_btn_Remove);
-                        dgvxc_btn_Remove.Dispose();
-                        dgvxc_btn_Remove = null;
-                    }
+                    SetView();
                     break;
 
                 case eMode.EDIT:
@@ -209,7 +234,20 @@ namespace ShopA
             if (dbfunc.delete(Atom_ItemShopA_Price_ID))
             {
                 dt_Item_Price.Rows.Remove(dr);
+                if (aa_ItemRemoved!=null)
+                {
+                    aa_ItemRemoved(Atom_ItemShopA_Price_ID, dt_Item_Price);
+                }
             }
+        }
+
+        private bool usrc_Editor1_EditUnits()
+        {
+            if (EditUnits!=null)
+            {
+                return EditUnits();
+            }
+            return false;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace ShopB
+﻿namespace ShopA
 {
-    partial class Form_ShopBItem_Edit
+    partial class Form_ShopAItem_Edit
     {
         /// <summary>
         /// Required designer variable.

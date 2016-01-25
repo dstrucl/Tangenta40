@@ -45,6 +45,18 @@
     <Compile Include="DataGridViewButtonImageCell.cs" />
     <Compile Include="DataGridViewButtonImageColumn.cs" />
     <Compile Include="DataGridViewImageButtonSelectCell.cs" />
+    <Compile Include="Form_ShopAItem_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ShopAItem_Edit.Designer.cs">
+      <DependentUpon>Form_ShopAItem_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Tool_SelectItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Tool_SelectItem.Designer.cs">
+      <DependentUpon>Form_Tool_SelectItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +113,13 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_ShopAItem_Edit.resx">
+      <DependentUpon>Form_ShopAItem_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Tool_SelectItem.resx">
+      <DependentUpon>Form_Tool_SelectItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -189,6 +208,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DeSelectServiceHot.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Discount.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectRow.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,7 +8,7 @@ using DBTypes;
 
 namespace InvoiceDB
 {
-    public static class f_Atom_SimpleItem
+    public static class f_Atom_ShopBItem
     {
         public static bool Get(long SimpleItem_ID, ref long Atom_SimpleItem_ID)
         {
@@ -37,14 +37,14 @@ namespace InvoiceDB
                     string s_Atom_SimpleItem_Image_id = "null";
                     string SimpleItem_Name = null;
                     string SimpleItem_Abbreviation = null;
-                    if (Find_Name_Abbreviation_SimpleItem_Image(SimpleItem_ID,ref SimpleItem_Name,ref SimpleItem_Abbreviation,ref SimpleItem_Image_id))
+                    if (Find_Name_Abbreviation_ShopBItem_Image(SimpleItem_ID,ref SimpleItem_Name,ref SimpleItem_Abbreviation,ref SimpleItem_Image_id))
                     {
                         
 
                         if (SimpleItem_Image_id!=null)
                         {
                             long Atom_SimpleItem_Image_id = -1;
-                            if (f_Atom_SimpleItem_Image.Get(SimpleItem_Image_id.v,ref Atom_SimpleItem_Image_id))
+                            if (f_Atom_ShopBItem_Image.Get(SimpleItem_Image_id.v,ref Atom_SimpleItem_Image_id))
                             {
                                 s_Atom_SimpleItem_Image_id = Atom_SimpleItem_Image_id.ToString();
                             }
@@ -55,7 +55,7 @@ namespace InvoiceDB
                         }
 
                         long Atom_SimpleItem_Name_ID = -1;
-                        if (f_Atom_SimpleItem_Name.Get(SimpleItem_Name, SimpleItem_Abbreviation, ref Atom_SimpleItem_Name_ID))
+                        if (f_Atom_ShopBItem_Name.Get(SimpleItem_Name, SimpleItem_Abbreviation, ref Atom_SimpleItem_Name_ID))
                         {
 
 
@@ -103,7 +103,7 @@ namespace InvoiceDB
         }
 
 
-        private static bool Find_Name_Abbreviation_SimpleItem_Image(long SimpleItem_ID, ref string Name,ref string Abbreviation, ref long_v SimpleItem_Image_id)
+        private static bool Find_Name_Abbreviation_ShopBItem_Image(long SimpleItem_ID, ref string Name,ref string Abbreviation, ref long_v SimpleItem_Image_id)
         {
             string Err = null;
             DataTable dt = new DataTable();

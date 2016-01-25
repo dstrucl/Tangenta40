@@ -14,18 +14,18 @@ namespace ShopB
     {
         public override void LoadImages()
         {
-            _buttonImageNormal = Properties.Resources.SelectSimpleItem;
-            _buttonImageDisabled = Properties.Resources.SelectSimpleItemDisabled;
-            _buttonImageHot = Properties.Resources.SelectSimpleItemHot;
+            _buttonImageNormal = Properties.Resources.SelectShopBItem;
+            _buttonImageDisabled = Properties.Resources.SelectShopBItemDisabled;
+            _buttonImageHot = Properties.Resources.SelectShopBItemHot;
         }
     }
     public class DataGridViewImageButtonDeselectCell : DataGridViewImageButtonCell
     {
         public override void LoadImages()
         {
-            _buttonImageNormal =  Properties.Resources.DeSelectSimpleItem;
-            _buttonImageDisabled =  Properties.Resources.DeSelectSimpleItemDisabled;
-            _buttonImageHot = Properties.Resources.DeSelectSimpleItemHot;
+            _buttonImageNormal =  Properties.Resources.DeSelectShopBItem;
+            _buttonImageDisabled =  Properties.Resources.DeSelectShopBItemDisabled;
+            _buttonImageHot = Properties.Resources.DeSelectShopBItemHot;
         }
     }
     public class DataGridViewImageButtonDiscountCell : DataGridViewImageButtonCell

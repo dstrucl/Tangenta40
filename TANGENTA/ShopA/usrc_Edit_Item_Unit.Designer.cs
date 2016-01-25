@@ -48,7 +48,6 @@
             this.cmb_Unit.Name = "cmb_Unit";
             this.cmb_Unit.Size = new System.Drawing.Size(96, 21);
             this.cmb_Unit.TabIndex = 5;
-            this.cmb_Unit.SelectedValueChanged += new System.EventHandler(this.cmb_Unit_SelectedValueChanged);
             // 
             // lbl_Item_Unit
             // 
@@ -97,12 +96,13 @@
             // 
             // btn_Edit_Units
             // 
+            this.btn_Edit_Units.Image = global::ShopA.Properties.Resources.Edit;
             this.btn_Edit_Units.Location = new System.Drawing.Point(3, 4);
             this.btn_Edit_Units.Name = "btn_Edit_Units";
             this.btn_Edit_Units.Size = new System.Drawing.Size(37, 33);
             this.btn_Edit_Units.TabIndex = 19;
-            this.btn_Edit_Units.Text = "btn_Edit_Units";
             this.btn_Edit_Units.UseVisualStyleBackColor = true;
+            this.btn_Edit_Units.Click += new System.EventHandler(this.btn_Edit_Units_Click);
             // 
             // lbl_Price
             // 

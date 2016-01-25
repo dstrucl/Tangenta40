@@ -17,8 +17,14 @@ namespace Tangenta
     {
         private int default_language_ID = -1;
         private int newLanguage = -1;
+        private usrc_Main m_usrc_Main;
 
         public Form_Settings()
+        {
+
+        }
+
+        public Form_Settings(usrc_Main usrc_Main)
         {
             InitializeComponent();
             lngRPM.s_Language.Text(lbl_Language);
@@ -28,14 +34,14 @@ namespace Tangenta
             newLanguage = default_language_ID;
             cmb_Language.DataSource = DynSettings.s_language.sText;
             cmb_Language.SelectedIndex = DynSettings.LanguageID;
-            cmb_Language.SelectedIndexChanged +=cmb_Language_SelectedIndexChanged;
+            cmb_Language.SelectedIndexChanged += cmb_Language_SelectedIndexChanged;
 
             DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
             chk_AllowToEditText.Checked = DynSettings.AllowToEditText;
             chk_AllowToEditText.CheckedChanged += chk_AllowToEditText_CheckedChanged;
             chk_FullScreen.Checked = Properties.Settings.Default.FullScreen;
             chk_FullScreen.CheckedChanged += Chk_FullScreen_CheckedChanged;
-
+            m_usrc_Main = usrc_Main;
         }
 
         private void Chk_FullScreen_CheckedChanged(object sender, EventArgs e)
@@ -213,7 +219,7 @@ namespace Tangenta
 
         private void btn_Shops_in_use_Click(object sender, EventArgs e)
         {
-            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse();
+            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(m_usrc_Main);
             frm_shops_in_use.ShowDialog();
         }
     }

@@ -7,7 +7,7 @@ using LogFile;
 
 namespace InvoiceDB
 {
-    public static class f_Atom_SimpleItem_Image
+    public static class f_Atom_ShopBItem_Image
     {
         public static bool Get(long SimpleItem_Image_ID, ref long Atom_SimpleItem_Image_ID)
         {

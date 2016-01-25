@@ -63,9 +63,9 @@ namespace ShopB.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap DeSelectSimpleItem {
+        public static System.Drawing.Bitmap DeSelectShopBItem {
             get {
-                object obj = ResourceManager.GetObject("DeSelectSimpleItem", resourceCulture);
+                object obj = ResourceManager.GetObject("DeSelectShopBItem", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace ShopB.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap DeSelectSimpleItemDisabled {
+        public static System.Drawing.Bitmap DeSelectShopBItemDisabled {
             get {
-                object obj = ResourceManager.GetObject("DeSelectSimpleItemDisabled", resourceCulture);
+                object obj = ResourceManager.GetObject("DeSelectShopBItemDisabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace ShopB.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap DeSelectSimpleItemHot {
+        public static System.Drawing.Bitmap DeSelectShopBItemHot {
             get {
-                object obj = ResourceManager.GetObject("DeSelectSimpleItemHot", resourceCulture);
+                object obj = ResourceManager.GetObject("DeSelectShopBItemHot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace ShopB.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap SelectSimpleItem {
+        public static System.Drawing.Bitmap SelectShopBItem {
             get {
-                object obj = ResourceManager.GetObject("SelectSimpleItem", resourceCulture);
+                object obj = ResourceManager.GetObject("SelectShopBItem", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace ShopB.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap SelectSimpleItemDisabled {
+        public static System.Drawing.Bitmap SelectShopBItemDisabled {
             get {
-                object obj = ResourceManager.GetObject("SelectSimpleItemDisabled", resourceCulture);
+                object obj = ResourceManager.GetObject("SelectShopBItemDisabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace ShopB.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap SelectSimpleItemHot {
+        public static System.Drawing.Bitmap SelectShopBItemHot {
             get {
-                object obj = ResourceManager.GetObject("SelectSimpleItemHot", resourceCulture);
+                object obj = ResourceManager.GetObject("SelectShopBItemHot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

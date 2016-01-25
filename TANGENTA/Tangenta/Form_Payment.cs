@@ -41,7 +41,7 @@ namespace Tangenta
         {
             if (Program.usrc_Printer1.Init(m_InvoiceData))
             {
-                if ((m_InvoiceData.m_ShopBC.m_CurrentInvoice.bDraft))
+                if ((m_InvoiceData.m_ShopABC.m_CurrentInvoice.bDraft))
                 {
                     if (m_usrc_Payment.Init(m_InvoiceData, Program.usrc_Printer1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
                     {

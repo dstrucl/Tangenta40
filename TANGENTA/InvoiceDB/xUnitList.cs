@@ -8,25 +8,25 @@ namespace InvoiceDB
 {
     public class xUnitList
     {
-        public List<xUnit> m_UnitList = new List<xUnit>();
+        public List<xUnit> m_DefaltUnitList = new List<xUnit>();
 
         public int Count = 0;
         public xUnit[] items = null;
 
         public xUnitList()
         {
-            m_UnitList.Add(new xUnit(1,1,"komad", "kom.", 0,true, "Artikli kot komadi."));
-            m_UnitList.Add(new xUnit(2,2, "ura", "h", 2,false, "Za vse, kar se meri v urah"));
-            m_UnitList.Add(new xUnit(3,3, "dan", "dan", 2, false, "Za vse, kar se meri v dnevih"));
-            m_UnitList.Add(new xUnit(4,4,"mesec", "mes", 2, false, "Za vse, kar se meri v mesecih"));
-            m_UnitList.Add(new xUnit(5,5,"leto", "mes", 2,false, "Za vse, kar se meri v mesecih"));
-            m_UnitList.Add(new xUnit(6,6,"meter", "m", 2, true, "Za kar se, prodaja na dolžinsko enoto"));
-            m_UnitList.Add(new xUnit(7,7,"kvadratni meter", "m2", 2, true, "Za vse kar se prodaja glede na površino"));
-            m_UnitList.Add(new xUnit(8,8,"kubični meter", "m3", 2, true, "Za vse kar se prodaja glede na prostornino"));
-            m_UnitList.Add(new xUnit(9,9,"kilowatna ura", "kWh", 2, false, "Prodaja energije"));
-            m_UnitList.Add(new xUnit(10,10,"kilometrina", "km", 0, false, "Obračun kilometrine"));
-            m_UnitList.Add(new xUnit(11,11,"kilogram", "kg", 2, true, "Masa artikla"));
-            m_UnitList.Add(new xUnit(12,12,"liter", "l", 2, true, "Za snovi, ki se prodajajo glede na prostornino"));
+            m_DefaltUnitList.Add(new xUnit(1,1,"komad", "kom.", 0,true, "Artikli kot komadi."));
+            m_DefaltUnitList.Add(new xUnit(2,2, "ura", "h", 2,false, "Za vse, kar se meri v urah"));
+            m_DefaltUnitList.Add(new xUnit(3,3, "dan", "dan", 2, false, "Za vse, kar se meri v dnevih"));
+            m_DefaltUnitList.Add(new xUnit(4,4,"mesec", "mes", 2, false, "Za vse, kar se meri v mesecih"));
+            m_DefaltUnitList.Add(new xUnit(5,5,"leto", "mes", 2,false, "Za vse, kar se meri v mesecih"));
+            m_DefaltUnitList.Add(new xUnit(6,6,"meter", "m", 2, true, "Za kar se, prodaja na dolžinsko enoto"));
+            m_DefaltUnitList.Add(new xUnit(7,7,"kvadratni meter", "m2", 2, true, "Za vse kar se prodaja glede na površino"));
+            m_DefaltUnitList.Add(new xUnit(8,8,"kubični meter", "m3", 2, true, "Za vse kar se prodaja glede na prostornino"));
+            m_DefaltUnitList.Add(new xUnit(9,9,"kilowatna ura", "kWh", 2, false, "Prodaja energije"));
+            m_DefaltUnitList.Add(new xUnit(10,10,"kilometrina", "km", 0, false, "Obračun kilometrine"));
+            m_DefaltUnitList.Add(new xUnit(11,11,"kilogram", "kg", 2, true, "Masa artikla"));
+            m_DefaltUnitList.Add(new xUnit(12,12,"liter", "l", 2, true, "Za snovi, ki se prodajajo glede na prostornino"));
         }
 
         public bool Get(ref DataTable dt, ref string Err)

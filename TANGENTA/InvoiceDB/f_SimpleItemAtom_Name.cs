@@ -7,7 +7,7 @@ using LogFile;
 
 namespace InvoiceDB
 {
-    public static class f_Atom_SimpleItem_Name
+    public static class f_Atom_ShopBItem_Name
     {
         public static bool Get(string Name,string Abbreviation, ref long Atom_SimpleItem_Name_ID)
         {

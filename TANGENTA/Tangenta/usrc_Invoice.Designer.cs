@@ -170,8 +170,9 @@
             // 
             // lbl_Currency
             // 
+            this.lbl_Currency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Currency.Location = new System.Drawing.Point(746, 7);
+            this.lbl_Currency.Location = new System.Drawing.Point(637, 9);
             this.lbl_Currency.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Currency.Name = "lbl_Currency";
             this.lbl_Currency.Size = new System.Drawing.Size(59, 17);
@@ -181,8 +182,9 @@
             // 
             // txt_Currency
             // 
+            this.txt_Currency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Currency.Location = new System.Drawing.Point(846, 0);
+            this.txt_Currency.Location = new System.Drawing.Point(746, 2);
             this.txt_Currency.Name = "txt_Currency";
             this.txt_Currency.ReadOnly = true;
             this.txt_Currency.Size = new System.Drawing.Size(64, 26);
@@ -190,9 +192,10 @@
             // 
             // btn_SelectBaseCurrency
             // 
+            this.btn_SelectBaseCurrency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_SelectBaseCurrency.AutoEllipsis = true;
             this.btn_SelectBaseCurrency.Image = ((System.Drawing.Image)(resources.GetObject("btn_SelectBaseCurrency.Image")));
-            this.btn_SelectBaseCurrency.Location = new System.Drawing.Point(808, -1);
+            this.btn_SelectBaseCurrency.Location = new System.Drawing.Point(700, 1);
             this.btn_SelectBaseCurrency.Name = "btn_SelectBaseCurrency";
             this.btn_SelectBaseCurrency.Size = new System.Drawing.Size(34, 29);
             this.btn_SelectBaseCurrency.TabIndex = 28;
@@ -262,9 +265,9 @@
             this.btn_CodeTables.AutoEllipsis = true;
             this.btn_CodeTables.Image = ((System.Drawing.Image)(resources.GetObject("btn_CodeTables.Image")));
             this.btn_CodeTables.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_CodeTables.Location = new System.Drawing.Point(627, -1);
+            this.btn_CodeTables.Location = new System.Drawing.Point(923, 0);
             this.btn_CodeTables.Name = "btn_CodeTables";
-            this.btn_CodeTables.Size = new System.Drawing.Size(107, 32);
+            this.btn_CodeTables.Size = new System.Drawing.Size(95, 32);
             this.btn_CodeTables.TabIndex = 34;
             this.btn_CodeTables.Text = "Code tables";
             this.btn_CodeTables.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -273,9 +276,10 @@
             // 
             // chk_Storno
             // 
+            this.chk_Storno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chk_Storno.AutoSize = true;
             this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Storno.Location = new System.Drawing.Point(918, 1);
+            this.chk_Storno.Location = new System.Drawing.Point(822, 3);
             this.chk_Storno.Name = "chk_Storno";
             this.chk_Storno.Size = new System.Drawing.Size(84, 28);
             this.chk_Storno.TabIndex = 39;

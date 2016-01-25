@@ -181,7 +181,7 @@ namespace Tangenta
             xUnitList xUnitList = new xUnitList();
 
             string sql_Unit = "insert into " + s_Unit_table_name + " ( " + s_col_Name + "," + s_col_Symbol + "," + s_col_DecimalPlaces + "," + s_col_StorageOption + "," + s_col_Description + " ) values (";
-            foreach (xUnit unit in xUnitList.m_UnitList)
+            foreach (xUnit unit in xUnitList.m_DefaltUnitList)
             {
                 string sStorageOptionValue = null;
                 if (unit.StorageOption)

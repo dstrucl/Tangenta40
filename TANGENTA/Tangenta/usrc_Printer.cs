@@ -188,7 +188,7 @@ namespace Tangenta
                 taxSum = null;
                 taxSum = new StaticLib.TaxSum();
 
-                foreach (DataRow dr in m_InvoiceData.dt_Atom_Price_SimpleItem.Rows)
+                foreach (DataRow dr in m_InvoiceData.dt_ShopB_Items.Rows)
                 {
                     object o_SimpleItem_name = dr["Name"];
                     string SimpleItem_name = null;
@@ -314,7 +314,7 @@ namespace Tangenta
                 //Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces
                 Printer.wr_NewLine();
 
-                foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisd in m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
+                foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisd in m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
                 {
                     string Item_UniqueName = appisd.Atom_Item_UniqueName.v;
 
@@ -471,32 +471,31 @@ namespace Tangenta
 
         internal int Get_CurrencyD_DecimalPlaces()
         {
-            if (m_InvoiceData.dt_Atom_Price_SimpleItem.Rows.Count > 0)
+            if (m_InvoiceData.dt_ShopB_Items.Rows.Count > 0)
             {
-                object o_Currency_DecimalPlaces = m_InvoiceData.dt_Atom_Price_SimpleItem.Rows[0]["Atom_Currency_DecimalPlaces"];
+                object o_Currency_DecimalPlaces = m_InvoiceData.dt_ShopB_Items.Rows[0]["Atom_Currency_DecimalPlaces"];
                 if (o_Currency_DecimalPlaces.GetType() == typeof(int))
                 {
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
+            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
             {
-                object o_Data = m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
+                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
                 if (o_Data is Atom_ProformaInvoice_Price_Item_Stock_Data)
                 {
                     return (int)((Atom_ProformaInvoice_Price_Item_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;
                 }
             }
-            if (m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows.Count > 0)
+            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows.Count > 0)
             {
-                object o_Currency_DecimalPlaces = m_InvoiceData.m_ShopBC.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
+                object o_Currency_DecimalPlaces = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
                 if (o_Currency_DecimalPlaces.GetType() == typeof(int))
                 {
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            LogFile.Error.Show("ERROR:usrc_Print:Get_CurrencyD_DecimalPlaces:NUmber of decimal places not found!Returned 2 decimal places.");
-            return 2;
+            return GlobalData.BaseCurrency.DecimalPlaces;
         }
 
 

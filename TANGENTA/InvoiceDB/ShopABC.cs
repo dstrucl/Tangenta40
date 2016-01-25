@@ -134,7 +134,7 @@ namespace InvoiceDB
 
                     m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber"];
                     Invoice_ID = m_CurrentInvoice.Invoice_ID;
-                    if (Read_Atom_Price_SimpleItem_Table(m_CurrentInvoice.ProformaInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_SimpleItem))
+                    if (Read_ShopB_Price_Item_Table(m_CurrentInvoice.ProformaInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
                     {
                         if (m_CurrentInvoice.m_Basket.Read_Atom_ProformaInvoice_Price_Item_Stock_Table(m_CurrentInvoice.ProformaInvoice_ID))
                         {
@@ -165,7 +165,7 @@ namespace InvoiceDB
         }
 
 
-        public bool Read_Atom_Price_SimpleItem_Table(long ProformaInvoice_ID, ref DataTable dt_Atom_Price_SimpleItem)
+        public bool Read_ShopB_Price_Item_Table(long ProformaInvoice_ID, ref DataTable dt_Atom_Price_SimpleItem)
         {
             string Err = null;
             string sql_select_Atom_Price_SimpleItem = @"SELECT 
@@ -572,7 +572,7 @@ namespace InvoiceDB
                                 )
                                 ";
                     object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_SimpleItem, lpar, ref Atom_SimpleItem_ID, ref objretx, ref Err, DBtcn.stbl_Atom_SimpleItem_TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_SimpleItem, lpar, ref Atom_SimpleItem_ID, ref objretx, ref Err, DBtcn.stbl_Atom_ShopBItem_TableName))
                     {
                         return true;
                     }
@@ -715,7 +715,7 @@ namespace InvoiceDB
             long new_Atom_Taxation_ID = -1;
             if (irow_Atom_SimpleItem >= 0)
             {
-                long Atom_Taxation_ID = (long)m_CurrentInvoice.dtCurrent_Atom_Price_SimpleItem.Rows[irow_Atom_SimpleItem]["Atom_Taxation_ID"];
+                long Atom_Taxation_ID = (long)m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Rows[irow_Atom_SimpleItem]["Atom_Taxation_ID"];
 
                 string sparam_Atom_Taxation_Rate = "@Atom_Taxation_Rate";
                 DBConnectionControl40.SQL_Parameter par_Atom_Taxation_Rate = new DBConnectionControl40.SQL_Parameter(sparam_Atom_Taxation_Rate, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, Taxation_Rate);
@@ -823,10 +823,10 @@ namespace InvoiceDB
         private int FindRowIndex_In_dtDraft_Atom_SimpleItem(long Atom_Price_SimpleItem_ID)
         {
             DataRow[] foundRows;
-            foundRows = m_CurrentInvoice.dtCurrent_Atom_Price_SimpleItem.Select("ID=" + Atom_Price_SimpleItem_ID.ToString());
+            foundRows = m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Select("ID=" + Atom_Price_SimpleItem_ID.ToString());
             if (foundRows.Count() > 0)
             {
-                return m_CurrentInvoice.dtCurrent_Atom_Price_SimpleItem.Rows.IndexOf(foundRows[0]);
+                return m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Rows.IndexOf(foundRows[0]);
             }
             else
             {

@@ -71,7 +71,7 @@ namespace Tangenta
         public bool Init(InvoiceData xInvoiceData, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
             m_InvoiceData = xInvoiceData;
-            Invoice_ID = m_InvoiceData.m_ShopBC.m_CurrentInvoice.Invoice_ID;
+            Invoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.Invoice_ID;
             Currency_DecimalPlaces = xCurrency_DecimalPlaces;
             GrossSum = xGrossSum;
             txt__Amount.Text = GrossSum.ToString();

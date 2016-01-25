@@ -21,6 +21,9 @@ namespace ShopA
         public delegate void delegate_ValueChanged();
         public event delegate_ValueChanged ValueChanged;
 
+        public delegate bool delegate_EditUnis();
+        public event delegate_EditUnis EditUnits;
+
         private decimal_v dPriceSum_v = null;
         private decimal_v dPricePerUnit_v = null;
         private decimal_v dQuantity_v = null;
@@ -33,12 +36,12 @@ namespace ShopA
             {
                 if (chk_Unit.Checked)
                 {
-                    if (this.cmb_Unit.SelectedValue is long)
+                    if ((this.cmb_Unit.SelectedValue is long)|| (this.cmb_Unit.SelectedValue is int))
                     {
-                        long i = (int)this.cmb_Unit.SelectedValue;
+                        long i = Convert.ToInt64(this.cmb_Unit.SelectedValue);
                         m_Unit.ID.set(m_xUnitList.items[i].ID);
                         m_Unit.Name.set(m_xUnitList.items[i].Name);
-                        m_Unit.DecimalPlaces.set(m_xUnitList.items[i].DecimalPlaces);
+                        m_Unit.DecimalPlaces.set(Convert.ToInt16(m_xUnitList.items[i].DecimalPlaces));
                         m_Unit.StorageOption.set(m_xUnitList.items[i].StorageOption);
                         m_Unit.Symbol.set(m_xUnitList.items[i].Symbol);
                         m_Unit.Description.set(m_xUnitList.items[i].Description);
@@ -179,31 +182,37 @@ namespace ShopA
             }
 
         }
+        private void Set_DataSource()
+        {
+            this.cmb_Unit.DataSource = m_xUnitList.items;
+            this.cmb_Unit.DisplayMember = "Name";
+            this.cmb_Unit.ValueMember = "Index";
+            
+        }
 
         public void Init(xUnitList xxUnitList)
         {
             m_xUnitList = xxUnitList;
-            this.cmb_Unit.DataSource = m_xUnitList.items;
-            this.cmb_Unit.DisplayMember = "Name";
-            this.cmb_Unit.ValueMember = "Index";
+            Set_DataSource();
+            this.cmb_Unit.SelectedValueChanged += new System.EventHandler(this.cmb_Unit_SelectedValueChanged);
         }
 
         internal void Fill(ref Unit xUnit)
         {
             if (chk_Unit.Checked)
             {
-                if (this.cmb_Unit.SelectedValue is long)
+                if ((this.cmb_Unit.SelectedValue is long)|| (this.cmb_Unit.SelectedValue is int))
                 {
-                    long i = (int)this.cmb_Unit.SelectedValue;
+                    long i =  Convert.ToInt64(this.cmb_Unit.SelectedValue);
                     xUnit.ID.set(m_xUnitList.items[i].ID);
                     xUnit.Name.set(m_xUnitList.items[i].Name);
-                    xUnit.DecimalPlaces.set(m_xUnitList.items[i].DecimalPlaces);
+                    xUnit.DecimalPlaces.set(Convert.ToInt16(m_xUnitList.items[i].DecimalPlaces));
                     xUnit.StorageOption.set(m_xUnitList.items[i].StorageOption);
                     xUnit.Symbol.set(m_xUnitList.items[i].Symbol);
                     xUnit.Description.set(m_xUnitList.items[i].Description);
                     m_Unit.ID.set(m_xUnitList.items[i].ID);
                     m_Unit.Name.set(m_xUnitList.items[i].Name);
-                    m_Unit.DecimalPlaces.set(m_xUnitList.items[i].DecimalPlaces);
+                    m_Unit.DecimalPlaces.set(Convert.ToInt16(m_xUnitList.items[i].DecimalPlaces));
                     m_Unit.StorageOption.set(m_xUnitList.items[i].StorageOption);
                     m_Unit.Symbol.set(m_xUnitList.items[i].Symbol);
                     m_Unit.Description.set(m_xUnitList.items[i].Description);
@@ -224,6 +233,43 @@ namespace ShopA
                 m_Unit.DecimalPlaces.set(null);
                 m_Unit.Description.set(null);
             }
+        }
+
+        internal void SetControls(Unit m_Unit)
+        {
+            this.cmb_Unit.SelectedValueChanged -= new System.EventHandler(this.cmb_Unit_SelectedValueChanged);
+            if (m_Unit.ID.type_v!=null)
+             {
+                this.chk_Unit.Checked = true;
+                int i = FindIndex(m_Unit.ID.type_v.v);
+                if (i>=0)
+                {
+                    cmb_Unit.SelectedIndex =  i;
+                    if (m_Unit.DecimalPlaces.type_v != null)
+                    {
+                        nm_dQuantity.DecimalPlaces = Convert.ToInt32(m_Unit.DecimalPlaces.type_v.v);
+                    }
+                }
+             }
+             else
+             {
+                this.chk_Unit.Checked = false;
+            }
+            this.cmb_Unit.SelectedValueChanged += new System.EventHandler(this.cmb_Unit_SelectedValueChanged);
+        }
+
+        private int FindIndex(long ID)
+        {
+            int i = 0;
+            int iCount = m_xUnitList.items.Count();
+            for(i =0;i< iCount;i++ )
+            {
+                if (ID == m_xUnitList.items[i].ID)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         private void nm_dQuantity_ValueChanged(object sender, EventArgs e)
@@ -254,6 +300,15 @@ namespace ShopA
 
         private void cmb_Unit_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (chk_Unit.Checked)
+            {
+                if ((this.cmb_Unit.SelectedValue is long) || (this.cmb_Unit.SelectedValue is int))
+                {
+                    long i = Convert.ToInt64(this.cmb_Unit.SelectedValue);
+                    nm_dQuantity.DecimalPlaces = m_xUnitList.items[i].DecimalPlaces;
+                }
+            }
+
             if (ValueChanged != null)
             {
                 ValueChanged();
@@ -276,5 +331,15 @@ namespace ShopA
             }
         }
 
+        private void btn_Edit_Units_Click(object sender, EventArgs e)
+        {
+            if (EditUnits!=null)
+            {
+                if (EditUnits())
+                {
+                    Set_DataSource();
+                }
+            }
+        }
     }
 }

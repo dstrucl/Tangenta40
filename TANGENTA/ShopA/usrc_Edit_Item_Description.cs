@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BlagajnaTableClass;
+using DBTypes;
 
 namespace ShopA
 {
@@ -32,6 +33,18 @@ namespace ShopA
             else
             {
                 m_Atom_ItemShopA.Description.set(null);
+            }
+        }
+
+        internal void SetControls(string_v type_v)
+        {
+            this.txt_Item_Description.Text = "";
+            if (type_v != null)
+            {
+                if (type_v is string_v)
+                {
+                    this.txt_Item_Description.Text = type_v.v;
+                }
             }
         }
     }

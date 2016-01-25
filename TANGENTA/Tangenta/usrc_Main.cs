@@ -155,7 +155,7 @@ namespace Tangenta
 
         private void m_usrc_DBSettings_Settings_Click()
         {
-            Form_Settings edt_Form = new Form_Settings();
+            Form_Settings edt_Form = new Form_Settings(this);
             edt_Form.ShowDialog();
             edt_Form.Dispose();
         }

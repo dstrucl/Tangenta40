@@ -9,16 +9,16 @@ using System.Windows.Forms;
 using LanguageControl;
 using SQLTableControl;
 
-namespace ShopB
+namespace ShopA
 {
-    public partial class Form_ShopBItem_Edit : Form
+    public partial class Form_ShopAItem_Edit : Form
     {
         DataTable dt_ShopBItem = new DataTable();
         SQLTableControl.DBTableControl dbTables = null;
         SQLTable tbl = null;
         bool bclose = false;
 
-        public Form_ShopBItem_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl, string ColumnToOrderBy)
+        public Form_ShopAItem_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl, string ColumnToOrderBy)
         {
             InitializeComponent();
             dbTables = xdbTables;

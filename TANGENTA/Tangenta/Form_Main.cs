@@ -239,6 +239,11 @@ namespace Tangenta
 
         private void Exit()
         {
+            if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem!= null)
+            {
+                m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
+                m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+            }
             InvoiceDB.f_Atom_WorkPeriod.End(InvoiceDB.GlobalData.Atom_WorkPeriod_ID);
             if (Program.b_FVI_SLO)
             {

@@ -67,6 +67,7 @@
             this.usrc_Editor1.Size = new System.Drawing.Size(722, 183);
             this.usrc_Editor1.TabIndex = 0;
             this.usrc_Editor1.AddRow += new ShopA.usrc_Editor.delegate_AddRow(this.usrc_Editor1_AddRow);
+            this.usrc_Editor1.EditUnits += new ShopA.usrc_Editor.delegate_EditUnis(this.usrc_Editor1_EditUnits);
             this.usrc_Editor1.Load += new System.EventHandler(this.usrc_Editor1_Load);
             // 
             // dgvx_ShopA
@@ -106,7 +107,7 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private usrc_Editor usrc_Editor1;
         private DataGridView_2xls.DataGridView2xls dgvx_ShopA;
+        public usrc_Editor usrc_Editor1;
     }
 }

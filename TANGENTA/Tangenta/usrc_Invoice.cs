@@ -119,7 +119,27 @@ namespace Tangenta
             m_usrc_ShopA.Init(this.m_ShopABC, DBtcn);
             m_usrc_ShopA.Dock = DockStyle.Fill;
             m_usrc_ShopA.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
+            m_usrc_ShopA.aa_ItemRemoved += M_usrc_ShopA_aa_ItemRemoved;
+            m_usrc_ShopA.EditUnits += M_usrc_ShopA_EditUnits;
 
+        }
+
+        private bool M_usrc_ShopA_EditUnits()
+        {
+            SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Unit)));
+            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Unit, "ID asc");
+            if (unit_dlg.ShowDialog() == DialogResult.OK)
+            {
+                GetUnits();
+                return true;
+
+            }
+            return false;
+        }
+
+        private void M_usrc_ShopA_aa_ItemRemoved(long ID, DataTable dt)
+        {
+            GetPriceSum();
         }
 
         private void M_usrc_ShopA_aa_ItemAdded(long ID, DataTable dt)
@@ -270,8 +290,26 @@ namespace Tangenta
 
         }
 
-        private void Set_eShopsMode(string eShopsMode)
+        internal void Set_eShopsMode(string eShopsMode)
         {
+            if (Properties.Settings.Default.eShopsInUse.Length == 1)
+            {
+                eShopsMode = Properties.Settings.Default.eShopsInUse;
+                this.btn_Show_Shops.Visible = false;
+            }
+            else
+            {
+                this.btn_Show_Shops.Visible = true;
+            }
+
+            if (Properties.Settings.Default.eShopsInUse.Length == 2)
+            {
+                if (!Properties.Settings.Default.eShopsInUse.Contains(eShopsMode))
+                {
+                    eShopsMode = Properties.Settings.Default.eShopsInUse;
+                }
+            }
+
 
             if (m_usrc_ShopA==null)
             {
@@ -289,21 +327,21 @@ namespace Tangenta
             {
                 New_ShopC();
             }
-            this.btn_Show_Shops.Visible = true;
+
             if (eShopsMode.Equals("A"))
             {
                 Set_eShopsMode(usrc_Invoice.eShopsMode.A);
-                this.btn_Show_Shops.Visible = false;
+                //this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("B"))
             {
                 Set_eShopsMode(usrc_Invoice.eShopsMode.B);
-                this.btn_Show_Shops.Visible = false;
+                //this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("C"))
             {
                 Set_eShopsMode(usrc_Invoice.eShopsMode.C);
-                this.btn_Show_Shops.Visible = false;
+                //this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("AB"))
             {
@@ -547,7 +585,7 @@ namespace Tangenta
                                         if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data,this.m_usrc_ShopB.usrc_PriceList1.ID))
                                         {
 
-                                            this.m_usrc_ShopB.Set_dgv_SelectedSimpleItems();
+                                            this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
                                             f_PriceList.Check(pparent);
                                             bool bEditPriceList = false;
                                             f_PriceList.CheckPriceUndefined_ShopB(pparent, DBSync.DBSync.DB_for_Blagajna.m_DBTables, ref bEditPriceList);
@@ -644,6 +682,7 @@ namespace Tangenta
             }
 
         }
+
 
         private bool DoCurrent(long ID)
         {
@@ -904,7 +943,7 @@ namespace Tangenta
 
         internal bool GetSimpleItemData(ref int iCountSimpleItemData)
         {
-            if (this.m_usrc_ShopB.GetSimpleItemData(ref iCountSimpleItemData))
+            if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
             {
                 if (iCountSimpleItemData > 0)
                 {
@@ -914,8 +953,8 @@ namespace Tangenta
                 {
                     if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
-                        this.m_usrc_ShopB.EditSimpleItem();
-                        if (this.m_usrc_ShopB.GetSimpleItemData(ref iCountSimpleItemData))
+                        this.m_usrc_ShopB.EditShopBItem();
+                        if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
                         {
                             return true;
                         }
@@ -938,7 +977,7 @@ namespace Tangenta
 
         internal bool Get_Price_SimpleItem_Data(ref int iCount_Price_SimpleItem_Data, long PriceList_id)
         {
-            if (this.m_usrc_ShopB.Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, PriceList_id))
+            if (this.m_usrc_ShopB.Get_Price_ShopBItem_Data(ref iCount_Price_SimpleItem_Data, PriceList_id))
             {
                 if (iCount_Price_SimpleItem_Data > 0)
                 {
@@ -1113,13 +1152,13 @@ namespace Tangenta
                     if (m_ShopABC.m_CurrentInvoice.bDraft)
                     {
                         SetMode(emode.edit_eInvoiceType);
-                        this.m_usrc_ShopB.SetCurrentInvoice_SelectedSimpleItems();
+                        this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
                         this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                     }
                     else
                     {
                         SetMode(emode.view_eInvoiceType);
-                        this.m_usrc_ShopB.SetCurrentInvoice_SelectedSimpleItems();
+                        this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
                         this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                         chk_Storno_CanBe_ManualyChanged = false;
                         this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.bStorno;
@@ -1426,7 +1465,7 @@ namespace Tangenta
             }
 
 
-            foreach (DataRow dr in this.m_usrc_ShopB.dt_SelectedSimpleItem.Rows)
+            foreach (DataRow dr in this.m_usrc_ShopB.dt_SelectedShopBItem.Rows)
             {
                 decimal price = (decimal)dr["SelectedSimpleItemPrice"];
                 decimal tax = (decimal)dr["SelectedSimpleItemPriceTax"];

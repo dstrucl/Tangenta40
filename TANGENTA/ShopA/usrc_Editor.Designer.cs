@@ -33,6 +33,8 @@
             this.btn_EditItem = new System.Windows.Forms.Button();
             this.btn_SelectItem = new System.Windows.Forms.Button();
             this.usrc_Edit_Item_Name1 = new ShopA.usrc_Edit_Item_Name();
+            this.lbl_NetPrice_Value = new System.Windows.Forms.Label();
+            this.lbl_EndNetPrice = new System.Windows.Forms.Label();
             this.txt_Discount = new System.Windows.Forms.TextBox();
             this.btn_Discount = new System.Windows.Forms.Button();
             this.lbl_EndPriceWidthDisocunt_Value = new System.Windows.Forms.Label();
@@ -43,11 +45,7 @@
             this.usrc_Edit_Item_Tax1 = new ShopA.usrc_Edit_Item_Tax();
             this.usrc_Edit_Item_Unit1 = new ShopA.usrc_Edit_Item_Unit();
             this.usrc_Edit_Item_Price1 = new ShopA.usrc_Edit_Item_Price();
-            this.lbl_Line = new System.Windows.Forms.Label();
-            this.btn_Update = new System.Windows.Forms.Button();
             this.btn_AddNewLine = new System.Windows.Forms.Button();
-            this.lbl_NetPrice_Value = new System.Windows.Forms.Label();
-            this.lbl_EndNetPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -103,21 +101,23 @@
             // 
             // btn_EditItem
             // 
+            this.btn_EditItem.Image = global::ShopA.Properties.Resources.Edit;
             this.btn_EditItem.Location = new System.Drawing.Point(8, 7);
             this.btn_EditItem.Name = "btn_EditItem";
             this.btn_EditItem.Size = new System.Drawing.Size(47, 37);
             this.btn_EditItem.TabIndex = 6;
-            this.btn_EditItem.Text = "Edit Item";
             this.btn_EditItem.UseVisualStyleBackColor = true;
+            this.btn_EditItem.Click += new System.EventHandler(this.btn_EditItem_Click);
             // 
             // btn_SelectItem
             // 
-            this.btn_SelectItem.Location = new System.Drawing.Point(61, 7);
+            this.btn_SelectItem.Image = global::ShopA.Properties.Resources.SelectRow;
+            this.btn_SelectItem.Location = new System.Drawing.Point(65, 7);
             this.btn_SelectItem.Name = "btn_SelectItem";
             this.btn_SelectItem.Size = new System.Drawing.Size(47, 39);
             this.btn_SelectItem.TabIndex = 5;
-            this.btn_SelectItem.Text = "SelectItem";
             this.btn_SelectItem.UseVisualStyleBackColor = true;
+            this.btn_SelectItem.Click += new System.EventHandler(this.btn_SelectItem_Click);
             // 
             // usrc_Edit_Item_Name1
             // 
@@ -129,11 +129,28 @@
             this.usrc_Edit_Item_Name1.Size = new System.Drawing.Size(195, 44);
             this.usrc_Edit_Item_Name1.TabIndex = 4;
             // 
+            // lbl_NetPrice_Value
+            // 
+            this.lbl_NetPrice_Value.AutoSize = true;
+            this.lbl_NetPrice_Value.Location = new System.Drawing.Point(419, 46);
+            this.lbl_NetPrice_Value.Name = "lbl_NetPrice_Value";
+            this.lbl_NetPrice_Value.Size = new System.Drawing.Size(52, 13);
+            this.lbl_NetPrice_Value.TabIndex = 16;
+            this.lbl_NetPrice_Value.Text = "TaxValue";
+            // 
+            // lbl_EndNetPrice
+            // 
+            this.lbl_EndNetPrice.Location = new System.Drawing.Point(354, 46);
+            this.lbl_EndNetPrice.Name = "lbl_EndNetPrice";
+            this.lbl_EndNetPrice.Size = new System.Drawing.Size(62, 16);
+            this.lbl_EndNetPrice.TabIndex = 15;
+            this.lbl_EndNetPrice.Text = "Neto cena:";
+            // 
             // txt_Discount
             // 
             this.txt_Discount.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txt_Discount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Discount.Location = new System.Drawing.Point(354, 124);
+            this.txt_Discount.Location = new System.Drawing.Point(353, 125);
             this.txt_Discount.Name = "txt_Discount";
             this.txt_Discount.ReadOnly = true;
             this.txt_Discount.Size = new System.Drawing.Size(98, 15);
@@ -141,11 +158,14 @@
             // 
             // btn_Discount
             // 
-            this.btn_Discount.Location = new System.Drawing.Point(356, 87);
+            this.btn_Discount.Image = global::ShopA.Properties.Resources.Discount;
+            this.btn_Discount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Discount.Location = new System.Drawing.Point(354, 88);
             this.btn_Discount.Name = "btn_Discount";
-            this.btn_Discount.Size = new System.Drawing.Size(63, 34);
+            this.btn_Discount.Size = new System.Drawing.Size(77, 30);
             this.btn_Discount.TabIndex = 13;
             this.btn_Discount.Text = "Popust";
+            this.btn_Discount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_Discount.UseVisualStyleBackColor = true;
             this.btn_Discount.Click += new System.EventHandler(this.btn_Discount_Click);
             // 
@@ -211,6 +231,7 @@
             this.usrc_Edit_Item_Unit1.Size = new System.Drawing.Size(346, 92);
             this.usrc_Edit_Item_Unit1.TabIndex = 2;
             this.usrc_Edit_Item_Unit1.ValueChanged += new ShopA.usrc_Edit_Item_Unit.delegate_ValueChanged(this.usrc_Edit_Item_Unit1_ValueChanged);
+            this.usrc_Edit_Item_Unit1.EditUnits += new ShopA.usrc_Edit_Item_Unit.delegate_EditUnis(this.usrc_Edit_Item_Unit1_EditUnits);
             // 
             // usrc_Edit_Item_Price1
             // 
@@ -220,26 +241,6 @@
             this.usrc_Edit_Item_Price1.Size = new System.Drawing.Size(116, 42);
             this.usrc_Edit_Item_Price1.TabIndex = 4;
             this.usrc_Edit_Item_Price1.ValueChanged += new ShopA.usrc_Edit_Item_Price.delegate_ValueChanged(this.usrc_Edit_Item_EndPrice1_ValueChanged);
-            // 
-            // lbl_Line
-            // 
-            this.lbl_Line.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbl_Line.AutoSize = true;
-            this.lbl_Line.Location = new System.Drawing.Point(6, 157);
-            this.lbl_Line.Name = "lbl_Line";
-            this.lbl_Line.Size = new System.Drawing.Size(48, 13);
-            this.lbl_Line.TabIndex = 1;
-            this.lbl_Line.Text = "Vrstica:1";
-            // 
-            // btn_Update
-            // 
-            this.btn_Update.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Update.Location = new System.Drawing.Point(384, 154);
-            this.btn_Update.Name = "btn_Update";
-            this.btn_Update.Size = new System.Drawing.Size(219, 26);
-            this.btn_Update.TabIndex = 2;
-            this.btn_Update.Text = "Popravi vrstico";
-            this.btn_Update.UseVisualStyleBackColor = true;
             // 
             // btn_AddNewLine
             // 
@@ -252,31 +253,12 @@
             this.btn_AddNewLine.UseVisualStyleBackColor = true;
             this.btn_AddNewLine.Click += new System.EventHandler(this.btn_AddNewLine_Click);
             // 
-            // lbl_NetPrice_Value
-            // 
-            this.lbl_NetPrice_Value.AutoSize = true;
-            this.lbl_NetPrice_Value.Location = new System.Drawing.Point(419, 46);
-            this.lbl_NetPrice_Value.Name = "lbl_NetPrice_Value";
-            this.lbl_NetPrice_Value.Size = new System.Drawing.Size(52, 13);
-            this.lbl_NetPrice_Value.TabIndex = 16;
-            this.lbl_NetPrice_Value.Text = "TaxValue";
-            // 
-            // lbl_EndNetPrice
-            // 
-            this.lbl_EndNetPrice.Location = new System.Drawing.Point(354, 46);
-            this.lbl_EndNetPrice.Name = "lbl_EndNetPrice";
-            this.lbl_EndNetPrice.Size = new System.Drawing.Size(62, 16);
-            this.lbl_EndNetPrice.TabIndex = 15;
-            this.lbl_EndNetPrice.Text = "Neto cena:";
-            // 
             // usrc_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.btn_AddNewLine);
-            this.Controls.Add(this.btn_Update);
-            this.Controls.Add(this.lbl_Line);
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_Editor";
             this.Size = new System.Drawing.Size(831, 183);
@@ -286,7 +268,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -297,8 +278,6 @@
         private usrc_Edit_Item_Unit usrc_Edit_Item_Unit1;
         private usrc_Edit_Item_Price usrc_Edit_Item_Price1;
         private System.Windows.Forms.CheckBox chk_PriceWithTax;
-        private System.Windows.Forms.Label lbl_Line;
-        private System.Windows.Forms.Button btn_Update;
         private System.Windows.Forms.Button btn_AddNewLine;
         private System.Windows.Forms.Label lbl_EndPriceWidthDisocunt;
         private usrc_Edit_Item_Name usrc_Edit_Item_Name1;

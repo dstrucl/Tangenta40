@@ -11,6 +11,7 @@ using System.Drawing;
 using DBConnectionControl40;
 using System.IO;
 using InvoiceDB;
+using ShopA_dbfunc;
 
 namespace Tangenta
 {
@@ -36,7 +37,7 @@ namespace Tangenta
         public FURS_Response_data FURS_Response_Data = null;
 
         public DataTable dt_ProformaInvoice = new DataTable();
-        public DataTable dt_Atom_Price_SimpleItem = new DataTable();
+        public DataTable dt_ShopB_Items = new DataTable();
         public DataTable dt_ShopA_Items = new DataTable();
 
         public long ProformaInvoice_ID = -1;
@@ -80,7 +81,7 @@ namespace Tangenta
         public int iCountItemsSold = 0;
 
 
-        public InvoiceDB.ShopABC m_ShopBC = null;
+        public InvoiceDB.ShopABC m_ShopABC = null;
 
 
         public StaticLib.TaxSum taxSum = null;
@@ -108,7 +109,7 @@ namespace Tangenta
 
         public InvoiceData(InvoiceDB.ShopABC xInvoiceDB, long xProformaInvoice_ID)
         {
-            m_ShopBC = xInvoiceDB;
+            m_ShopABC = xInvoiceDB;
             ProformaInvoice_ID = xProformaInvoice_ID;
             Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
         }
@@ -119,6 +120,91 @@ namespace Tangenta
             InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
         }
 
+
+
+        public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        {
+            int i;
+            int end_index = start_index + count;
+            int j = 0;
+            for (i = start_index; i < end_index; i++)
+            {
+                DataRow dr = dt_ShopA_Items.Rows[j];
+
+                decimal Discount = 0;
+                object oDiscount = dr["Atom_ItemShopA_Price_$$Discount"];
+                if (oDiscount is decimal)
+                {
+                    Discount = (decimal)oDiscount;
+                }
+
+
+                decimal TotalDiscount = Discount;
+
+                decimal RetailSimpleItemPriceWithDiscount = 0;
+                object o_RetailSimpleItemPriceWithDiscount = dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"];
+                if (o_RetailSimpleItemPriceWithDiscount.GetType() == typeof(decimal))
+                {
+                    RetailSimpleItemPriceWithDiscount = (decimal)o_RetailSimpleItemPriceWithDiscount;
+                }
+
+                string sUnitName = "";
+                object oUnitName = dr["Atom_ItemShopA_Price_$_aisha_$_u_$$Name"];
+                if (oUnitName is string)
+                {
+                    sUnitName = (string)oUnitName;
+                }
+
+                decimal dQuantity = -1;    
+                object oQuantity = dr["Atom_ItemShopA_Price_$$dQuantity"];
+                if (oQuantity is decimal)
+                {
+                    dQuantity = (decimal)oQuantity;
+                }
+
+                decimal TaxPrice = -1;
+                object oTaxPrice = dr["Atom_ItemShopA_Price_$$TAX"];
+                if (oTaxPrice is decimal)
+                {
+                    TaxPrice = (decimal)oTaxPrice;
+                }
+                decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
+
+                decimal taxation_rate = DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate"]);
+                decimal tax_price = DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$TAX"]);
+                string tax_name = DBTypes.tf._set_string(dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Name"]);
+                taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
+
+                decimal dRetailPricePerUnitWithDiscount = 0;
+                if (dr["Atom_ItemShopA_Price_$$PricePerUnit"] is decimal)
+                {
+                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr["Atom_ItemShopA_Price_$$PricePerUnit"]*(1- Discount),GlobalData.BaseCurrency.DecimalPlaces);
+                }
+
+
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
+                                                             DBTypes.tf._set_string(dr["Atom_ItemShopA_Price_$_aisha_$$Name"]),
+                                                             DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$PricePerUnit"]),
+                                                             "", // no unit
+                                                             dRetailPricePerUnitWithDiscount,
+                                                             tax_name,
+                                                             dQuantity,
+                                                             DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$Discount"]),
+                                                             DBTypes.tf._set_decimal(0),
+                                                             DBTypes.tf._set_string(GlobalData.BaseCurrency.Symbol),
+                                                             taxation_rate,
+                                                             DBTypes.tf._set_decimal(TotalDiscount),
+                                                             DBTypes.tf._set_decimal(price_without_tax),
+                                                             tax_price,
+                                                             DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"]));
+
+                j++;
+            }
+
+        }
+
+
+
         public void Fill_Sold_ShopB_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
         {
             int i;
@@ -126,7 +212,7 @@ namespace Tangenta
             int j = 0;
             for (i = start_index; i < end_index; i++)
             {
-                DataRow dr = dt_Atom_Price_SimpleItem.Rows[j];
+                DataRow dr = dt_ShopB_Items.Rows[j];
 
                 decimal Discount = 0;
                 object oDiscount = dr["Discount"];
@@ -289,12 +375,12 @@ namespace Tangenta
 
         internal bool Save(ref long proformaInvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
-            return m_ShopBC.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
+            return m_ShopABC.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
         }
 
         internal bool SetInvoiceTime(DateTime_v issue_time)
         {
-            if (m_ShopBC.m_CurrentInvoice.SetInvoiceTime(issue_time))
+            if (m_ShopABC.m_CurrentInvoice.SetInvoiceTime(issue_time))
             {
                 if (issue_time != null)
                 {
@@ -328,7 +414,7 @@ namespace Tangenta
 
             for (i = start_index; i < end_index; i++)
             {
-                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
+                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_ShopABC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
 
                 decimal Discount = appisd.Discount.v;
 
@@ -424,11 +510,11 @@ namespace Tangenta
                                  from JOURNAL_ProformaInvoice
                                  inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
                                  inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
-                                 inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
-                                 inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
+                                 inner join Atom_WorkPeriod awp on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = awp.ID
+                                 inner join Atom_myCompany_Person amcp on awp.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
+                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID and aoffd.Atom_myCompany_Person_ID = awp.Atom_myCompany_Person_ID
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
@@ -500,7 +586,7 @@ namespace Tangenta
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
+                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID and aoffd.Atom_myCompany_Person_ID = awp.Atom_myCompany_Person_ID
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
@@ -615,33 +701,42 @@ namespace Tangenta
                         }
 
 
-                        if (m_ShopBC.Read_Atom_Price_SimpleItem_Table(ProformaInvoice_ID, ref dt_Atom_Price_SimpleItem))
+                        if (dbfunc.Read_ShopA_Price_Item_Table(ProformaInvoice_ID, ref dt_ShopA_Items))
                         {
+                            if (m_ShopABC.Read_ShopB_Price_Item_Table(ProformaInvoice_ID, ref dt_ShopB_Items))
+                            {
 
-                            int iCountSimpleItemsSold = dt_Atom_Price_SimpleItem.Rows.Count;
-                            int iCountItemsSold = m_ShopBC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
+                                int iCountShopAItemsSold = dt_ShopA_Items.Rows.Count;
+                                int iCountShopBItemsSold = dt_ShopB_Items.Rows.Count;
+                                int iCountShopCItemsSold = m_ShopABC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
 
-                            ItemsSold = new UniversalInvoice.ItemSold[iCountSimpleItemsSold + iCountItemsSold];
-                            taxSum = new StaticLib.TaxSum();
-                            Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountSimpleItemsSold);
-                            Fill_Sold_ShopC_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountSimpleItemsSold, iCountItemsSold);
+                                ItemsSold = new UniversalInvoice.ItemSold[iCountShopAItemsSold + iCountShopBItemsSold + iCountShopCItemsSold];
+                                taxSum = new StaticLib.TaxSum();
+                                Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold);
+                                Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold);
+                                Fill_Sold_ShopC_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold);
 
-                            InvoiceToken = new UniversalInvoice.InvoiceToken();
+                                InvoiceToken = new UniversalInvoice.InvoiceToken();
 
-                            InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
-                            InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
-                            InvoiceToken.tCashier.Set(Properties.Settings.Default.CasshierName);
+                                InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
+                                InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
+                                InvoiceToken.tCashier.Set(Properties.Settings.Default.CasshierName);
 
-                            string stime = IssueDate_Day.ToString() + "."
-                                           + IssueDate_Month.ToString() + "."
-                                           + IssueDate_Year.ToString() + " "
-                                           + IssueDate_Hour.ToString() + ":"
-                                           + IssueDate_Min.ToString();
-                            InvoiceToken.tDateOfIssue.Set(stime);
-                            InvoiceToken.tDateOfMaturity.Set(stime);
+                                string stime = IssueDate_Day.ToString() + "."
+                                               + IssueDate_Month.ToString() + "."
+                                               + IssueDate_Year.ToString() + " "
+                                               + IssueDate_Hour.ToString() + ":"
+                                               + IssueDate_Min.ToString();
+                                InvoiceToken.tDateOfIssue.Set(stime);
+                                InvoiceToken.tDateOfMaturity.Set(stime);
 
 
-                            return true;
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
                         else
                         {

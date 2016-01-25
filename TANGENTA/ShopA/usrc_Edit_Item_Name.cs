@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BlagajnaTableClass;
 using LanguageControl;
+using DBTypes;
 
 namespace ShopA
 {
@@ -39,6 +40,18 @@ namespace ShopA
             {
                 MessageBox.Show(this, lngRPM.s_Item_name_must_be_defined.s);
                 return false;
+            }
+        }
+
+        internal void SetControls(string_v type_v)
+        {
+            this.txt_ItemName.Text = "";
+            if (type_v!=null)
+            {
+                if (type_v is string_v)
+                {
+                    this.txt_ItemName.Text = type_v.v;
+                }
             }
         }
     }

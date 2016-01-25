@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using InvoiceDB;
 using BlagajnaTableClass;
+using SQLTableControl;
 
 namespace ShopA
 {
@@ -16,6 +17,9 @@ namespace ShopA
     {
         public delegate void delegate_AddRow(Atom_ItemShopA_Price m_Atom_ItemShopA_Price);
         public event delegate_AddRow AddRow = null;
+        public delegate bool delegate_EditUnis();
+        public event delegate_EditUnis EditUnits;
+        public Form_Tool_SelectItem m_tool_SelectItem = null;
 
 
         ShopABC m_ShopABC = null;
@@ -87,6 +91,11 @@ namespace ShopA
             }
         }
 
+        internal void Form_Tool_SelectItem_FormClosed()
+        {
+            m_tool_SelectItem = null;
+        }
+
         private bool Fill()
         {
             if (this.usrc_Edit_Item_Name1.Fill(ref m_Atom_ItemShopA_Price.m_Atom_ItemShopA))
@@ -122,6 +131,15 @@ namespace ShopA
             this.lbl_NetPrice_Value.Text = EndNetPrice.ToString() + " " + GlobalData.BaseCurrency.Symbol;
 
         }
+
+        internal void SetControls(Atom_ItemShopA xAtom_ItemShopA)
+        {
+            this.usrc_Edit_Item_Name1.SetControls(xAtom_ItemShopA.Name.type_v);
+            this.usrc_Edit_Item_Description1.SetControls(xAtom_ItemShopA.Description.type_v);
+            this.usrc_Edit_Item_Unit1.SetControls(xAtom_ItemShopA.m_Unit);
+        }
+
+
         private void usrc_Edit_Item_Unit1_ValueChanged()
         {
             if (usrc_Edit_Item_Unit1.PriceSum_v != null)
@@ -152,6 +170,39 @@ namespace ShopA
         private void usrc_Edit_Item_Tax1_ValueChanged()
         {
             calculate_tax();
+        }
+
+        private void btn_EditItem_Click(object sender, EventArgs e)
+        {
+            EditShopAItem();
+        }
+
+        public bool EditShopAItem()
+        {
+            SQLTable tbl_ShopAItem = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_ItemShopA)));
+            Form_ShopAItem_Edit edt_ShopAItem_dlg = new Form_ShopAItem_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+                                                                    tbl_ShopAItem,
+                                                                    "Atom_ItemShopA_$$Name asc");
+            edt_ShopAItem_dlg.ShowDialog();
+            return true;
+        }
+
+        private bool usrc_Edit_Item_Unit1_EditUnits()
+        {
+            if (EditUnits!=null)
+            {
+                return EditUnits();
+            }
+            return false;
+        }
+
+        private void btn_SelectItem_Click(object sender, EventArgs e)
+        {
+            if (m_tool_SelectItem == null)
+            {
+                m_tool_SelectItem = new Form_Tool_SelectItem(m_Atom_ItemShopA_Price.m_Atom_ItemShopA,this);
+            }
+            m_tool_SelectItem.Show(this);
         }
     }
 }

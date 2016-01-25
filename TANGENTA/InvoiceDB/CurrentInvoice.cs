@@ -17,7 +17,7 @@ namespace InvoiceDB
 
 
         public DataTable dtCurrent_Invoice = new DataTable();
-        public DataTable dtCurrent_Atom_Price_SimpleItem = new DataTable();
+        public DataTable dtCurrent_Atom_Price_ShopBItem = new DataTable();
 
         public DataTable dtCurrent_Atom_ProformaInvoice_Price_Item_Stock = new DataTable();
 
@@ -48,7 +48,7 @@ namespace InvoiceDB
         }
 
 
-        public void Set_SelectedSimpleItems(DataGridView dgv_SelectedSimpleItems,
+        public void Set_SelectedShopB_Items(DataGridView dgv_SelectedSimpleItems,
                                            DataTable dt_SelectedSimpleItem,
                                            DataGridView dgv_SimpleItem,
                                            DataTable dt_SimpleItems)
@@ -72,7 +72,7 @@ namespace InvoiceDB
             decimal Atom_Price_SimpleItem_ExtraDiscount;
 
             dt_SelectedSimpleItem.Clear();
-            foreach (DataRow drsa in dtCurrent_Atom_Price_SimpleItem.Rows)
+            foreach (DataRow drsa in dtCurrent_Atom_Price_ShopBItem.Rows)
             {
                 Atom_SimpleItem_ID = (long)drsa["ID"];
                 Atom_Price_SimpleItem_ProformaInvoice_ID = (long)drsa["ProformaInvoice_ID"];
@@ -102,17 +102,17 @@ namespace InvoiceDB
                 Atom_Price_SimpleItem_PriceWithoutTax = Atom_Price_SimpleItem_RetailSimpleItemPriceWithDiscount - Atom_Price_SimpleItem_TaxPrice;
 
                 DataRow dr = dt_SelectedSimpleItem.NewRow();
-                dr[DBtcn.column_SelectedSimpleItem_dt_SimpleItem_Index] = Find_dt_SimpleItem_Index(dt_SimpleItems, Atom_Price_SimpleItem_SimpleItem_ID);
-                dr[DBtcn.column_Selected_Atom_Price_SimpleItem_ID] = Atom_SimpleItem_ID;
-                dr[DBtcn.column_SelectedSimpleItem_SimpleItem_ID] = Atom_Price_SimpleItem_SimpleItem_ID;
-                dr[DBtcn.column_SelectedSimpleItem_Count] = Atom_Price_SimpleItem_Quantity;
-                dr[DBtcn.column_SelectedSimpleItemName] = Atom_Price_SimpleItem_Atom_SimpleItem_Atom_SimpleItem_Name;
-                dr[DBtcn.column_SelectedSimpleItemPriceWithoutTax] = Atom_Price_SimpleItem_PriceWithoutTax;
-                dr[DBtcn.column_SelectedSimpleItemPriceTax] = Atom_Price_SimpleItem_TaxPrice;
-                dr[DBtcn.column_SelectedSimpleItem_TaxName] = Atom_Price_SimpleItem_Atom_Taxation_Name;
-                dr[DBtcn.column_SelectedSimpleItem_TaxRate] = Atom_Price_SimpleItem_Atom_Taxation_Rate;
-                dr[DBtcn.column_SelectedSimpleItem_ExtraDiscount] = Atom_Price_SimpleItem_ExtraDiscount;
-                dr[DBtcn.column_SelectedSimpleItemPrice] = Atom_Price_SimpleItem_RetailSimpleItemPriceWithDiscount;
+                dr[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index] = Find_dt_SimpleItem_Index(dt_SimpleItems, Atom_Price_SimpleItem_SimpleItem_ID);
+                dr[DBtcn.column_Selected_Atom_Price_ShopBItem_ID] = Atom_SimpleItem_ID;
+                dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = Atom_Price_SimpleItem_SimpleItem_ID;
+                dr[DBtcn.column_SelectedShopBItem_Count] = Atom_Price_SimpleItem_Quantity;
+                dr[DBtcn.column_SelectedShopBItemName] = Atom_Price_SimpleItem_Atom_SimpleItem_Atom_SimpleItem_Name;
+                dr[DBtcn.column_SelectedShopBItemPriceWithoutTax] = Atom_Price_SimpleItem_PriceWithoutTax;
+                dr[DBtcn.column_SelectedShopBItemPriceTax] = Atom_Price_SimpleItem_TaxPrice;
+                dr[DBtcn.column_SelectedShopBItem_TaxName] = Atom_Price_SimpleItem_Atom_Taxation_Name;
+                dr[DBtcn.column_SelectedShopBItem_TaxRate] = Atom_Price_SimpleItem_Atom_Taxation_Rate;
+                dr[DBtcn.column_SelectedShopBItem_ExtraDiscount] = Atom_Price_SimpleItem_ExtraDiscount;
+                dr[DBtcn.column_SelectedShopBItemPrice] = Atom_Price_SimpleItem_RetailSimpleItemPriceWithDiscount;
                 dt_SelectedSimpleItem.Rows.Add(dr);
                 int index = dt_SelectedSimpleItem.Rows.IndexOf(dr);
                 if (Atom_Price_SimpleItem_ExtraDiscount != 0)

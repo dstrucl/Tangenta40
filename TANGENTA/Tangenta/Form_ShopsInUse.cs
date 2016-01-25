@@ -13,7 +13,10 @@ namespace Tangenta
 {
     public partial class Form_ShopsInUse : Form
     {
-        public Form_ShopsInUse()
+        private usrc_Main m_usrc_Main;
+
+
+        public Form_ShopsInUse(usrc_Main xusrc_Main)
         {
             InitializeComponent();
             lngRPM.s_Shops_In_Use.Text(this);
@@ -43,6 +46,7 @@ namespace Tangenta
             {
                 chk_C_in_use.Checked = true;
             }
+            this.m_usrc_Main = xusrc_Main;
         }
 
         private void btn_OK_Click(object sender, EventArgs e)
@@ -71,6 +75,24 @@ namespace Tangenta
             DynSettings.LanguageTextSave();
             Properties.Settings.Default.eShopsInUse = shinuse;
             Properties.Settings.Default.Save();
+            if (m_usrc_Main!=null)
+            {
+                if (m_usrc_Main.m_usrc_InvoiceMan !=null)
+                {
+                    if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice!=null)
+                    {
+                        m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(shinuse);
+                    }
+                }
+            }
+            this.Close();
+            DialogResult = DialogResult.OK;
+        }
+
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

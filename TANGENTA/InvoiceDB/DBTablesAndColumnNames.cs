@@ -32,12 +32,12 @@ namespace InvoiceDB
         public string stbl_Taxation_TableName = null;
         public string stbl_ProformaInvoice_TableName = null;
 
-        public string stbl_SimpleItem_TableName = null;
-        public string stbl_SimpleItem_Image_TableName = null;
+        public string stbl_ShopBItem_TableName = null;
+        public string stbl_ShopBItem_Image_TableName = null;
 
-        public string stbl_Atom_SimpleItem_TableName = null;
-        public string stbl_Atom_SimpleItem_Name_TableName = null;
-        public string stbl_Atom_SimpleItem_Image_TableName = null;
+        public string stbl_Atom_ShopBItem_TableName = null;
+        public string stbl_Atom_ShopBItem_Name_TableName = null;
+        public string stbl_Atom_ShopBItem_Image_TableName = null;
 
         public string stbl_Atom_Item_Name_TableName = null;
         public string stbl_Atom_Item_barcode_TableName = null;
@@ -57,16 +57,16 @@ namespace InvoiceDB
         public string col_NumberInFinancialYear;
 
 
-        public string colSimpleItem_ID = "ID";
-        public string colSimpleItemName = "SimpleItem_Name";
-        public string colSimpleItemAbbreviation = "SimpleItem_Abbreviation";
-        public string colSimpleItemMinimumSimpleItemPrice = "SimpleItem_MinimumSimpleItemPrice";
-        public string colPriceSimpleItemRetailSimpleItemPrice = "RetailSimpleItemPrice";
-        public string colSimpleItemTaxation_Name = "Taxation_Name";
-        public string colSimpleItemTaxation_Rate = "Taxation_Rate";
-        public string colSimpleItem_SimpleItem_Image_Image_Hash = "SimpleItem_Image_Image_Hash";
-        public string colSimpleItem_SimpleItem_Image_Image_Data = "SimpleItem_Image_Image_Data";
-        public string colSimpleItem_Code = "SimpleItem_Code";
+        public string colShopBItem_ID = "ID";
+        public string colShopBItemName = "SimpleItem_Name";
+        public string colShopBItemAbbreviation = "SimpleItem_Abbreviation";
+        public string colShopBItemMinimumShopBItemPrice = "SimpleItem_MinimumSimpleItemPrice";
+        public string colPriceShopBItemRetailShopBItemPrice = "RetailSimpleItemPrice";
+        public string colShopBItemTaxation_Name = "Taxation_Name";
+        public string colShopBItemTaxation_Rate = "Taxation_Rate";
+        public string colShopBItem_ShopBItem_Image_Image_Hash = "SimpleItem_Image_Image_Hash";
+        public string colShopBItem_ShopBItem_Image_Image_Data = "SimpleItem_Image_Image_Data";
+        public string colShopBItem_Code = "SimpleItem_Code";
 
         public string colStockVIEW_ID = "ID";
         public string colStockVIEW_Item_Name = "Item_Name";
@@ -86,38 +86,38 @@ namespace InvoiceDB
         public string colStockVIEW_Stock_Quantity = "Stock_Quantity";
         public string colStockVIEW_Stock_ExpiryDate = "Stock_ExpiryDate";
 
-        public string column_SelectedSimpleItem_dt_SimpleItem_Index = "SelectedSimpleItem_dt_SimpleItem_Index";
-        public Type column_SelectedSimpleItem_dt_SimpleItem_Index_TYPE = typeof(int);
+        public string column_SelectedShopBItem_dt_ShopBItem_Index = "SelectedSimpleItem_dt_SimpleItem_Index";
+        public Type column_SelectedShopBItem_dt_ShopBItem_Index_TYPE = typeof(int);
 
-        public string column_Selected_Atom_Price_SimpleItem_ID = "Selected_Atom_Price_SimpleItem_ID";
-        public Type column_Selected_Atom_Price_SimpleItem_ID_TYPE = typeof(long);
+        public string column_Selected_Atom_Price_ShopBItem_ID = "Selected_Atom_Price_SimpleItem_ID";
+        public Type column_Selected_Atom_Price_ShopBItem_ID_TYPE = typeof(long);
 
-        public string column_SelectedSimpleItemName = "SelectedSimpleItemName";
-        public Type column_SelectedSimpleItemName_TYPE = typeof(string);
-        public string column_SelectedSimpleItemPrice = "SelectedSimpleItemPrice";
-        public Type column_SelectedSimpleItemPrice_TYPE = typeof(decimal);
+        public string column_SelectedShopBItemName = "SelectedSimpleItemName";
+        public Type column_SelectedShopBItemName_TYPE = typeof(string);
+        public string column_SelectedShopBItemPrice = "SelectedSimpleItemPrice";
+        public Type column_SelectedShopBItemPrice_TYPE = typeof(decimal);
 
-        public string column_SelectedSimpleItemPriceTax = "SelectedSimpleItemPriceTax";
-        public Type column_SelectedSimpleItemPriceTax_TYPE = typeof(decimal);
+        public string column_SelectedShopBItemPriceTax = "SelectedSimpleItemPriceTax";
+        public Type column_SelectedShopBItemPriceTax_TYPE = typeof(decimal);
 
-        public string column_SelectedSimpleItem_TaxName = "SelectedSimpleItem_TaxName";
-        public Type column_SelectedSimpleItem_TaxName_TYPE = typeof(string);
+        public string column_SelectedShopBItem_TaxName = "SelectedSimpleItem_TaxName";
+        public Type column_SelectedShopBItem_TaxName_TYPE = typeof(string);
 
-        public string column_SelectedSimpleItem_TaxRate = "SelectedSimpleItem_TaxRate";
-        public Type column_SelectedSimpleItem_TaxRate_TYPE = typeof(decimal);
+        public string column_SelectedShopBItem_TaxRate = "SelectedSimpleItem_TaxRate";
+        public Type column_SelectedShopBItem_TaxRate_TYPE = typeof(decimal);
 
 
-        public string column_SelectedSimpleItemPriceWithoutTax = "SelectedSimpleItemPriceWithoutTax";
-        public Type column_SelectedSimpleItemPriceWithoutTax_TYPE = typeof(decimal);
-        public string column_SelectedSimpleItemPriceDiscount = "SelectedSimpleItemPriceDiscount";
-        public Type column_SelectedSimpleItemPriceDiscount_TYPE = typeof(decimal);
-        public string column_SelectedSimpleItem_SimpleItem_ID = "SelectedSimpleItem_SimpleItem_ID";
-        public Type column_SelectedSimpleItem_SimpleItem_ID_TYPE = typeof(long);
-        public string column_SelectedSimpleItem_Count = "SelectedSimpleItem_Count";
-        public Type column_SelectedSimpleItem_Count_TYPE = typeof(int);
+        public string column_SelectedShopBItemPriceWithoutTax = "SelectedSimpleItemPriceWithoutTax";
+        public Type column_SelectedShopBItemPriceWithoutTax_TYPE = typeof(decimal);
+        public string column_SelectedShopBItemPriceDiscount = "SelectedSimpleItemPriceDiscount";
+        public Type column_SelectedShopBItemPriceDiscount_TYPE = typeof(decimal);
+        public string column_SelectedShopBItem_ShopBItem_ID = "SelectedSimpleItem_SimpleItem_ID";
+        public Type column_SelectedShopBItem_ShopBItem_ID_TYPE = typeof(long);
+        public string column_SelectedShopBItem_Count = "SelectedSimpleItem_Count";
+        public Type column_SelectedShopBItem_Count_TYPE = typeof(int);
 
-        public string column_SelectedSimpleItem_ExtraDiscount = "SelectedSimpleItem_ExtraDiscount";
-        public Type column_SelectedSimpleItem_ExtraDiscount_TYPE = typeof(decimal);
+        public string column_SelectedShopBItem_ExtraDiscount = "SelectedSimpleItem_ExtraDiscount";
+        public Type column_SelectedShopBItem_ExtraDiscount_TYPE = typeof(decimal);
 
 
         public string colmyCompany_ID;
@@ -231,11 +231,11 @@ namespace InvoiceDB
             SQLTable tbl_TermsOfPayment = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(TermsOfPayment));
             SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Invoice));
             SQLTable tbl_Taxation = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation));
-            SQLTable tbl_SimpleItem = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem));
-            SQLTable tbl_SimpleItem_Image = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem_Image));
-            SQLTable tbl_Atom_SimpleItem = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_SimpleItem));
-            SQLTable tbl_Atom_SimpleItem_Name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_SimpleItem_Name));
-            SQLTable tbl_Atom_SimpleItem_Image = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_SimpleItem_Image));
+            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem));
+            SQLTable tbl_ShopBItem_Image = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem_Image));
+            SQLTable tbl_Atom_ShopBItem = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_SimpleItem));
+            SQLTable tbl_Atom_ShopBItem_Name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_SimpleItem_Name));
+            SQLTable tbl_Atom_ShopBItem_Image = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_SimpleItem_Image));
             SQLTable tbl_Atom_Taxation = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_Taxation));
 
             SQLTable tbl_cStreetName_Org = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(cStreetName_Org));
@@ -296,12 +296,12 @@ namespace InvoiceDB
             stbl_Taxation_TableName = tbl_Taxation.TableName;
 
 
-            stbl_SimpleItem_TableName = tbl_SimpleItem.TableName;
-            stbl_SimpleItem_Image_TableName = tbl_SimpleItem_Image.TableName;
+            stbl_ShopBItem_TableName = tbl_ShopBItem.TableName;
+            stbl_ShopBItem_Image_TableName = tbl_ShopBItem_Image.TableName;
 
-            stbl_Atom_SimpleItem_TableName = tbl_Atom_SimpleItem.TableName;
-            stbl_Atom_SimpleItem_Name_TableName = tbl_Atom_SimpleItem_Name.TableName;
-            stbl_Atom_SimpleItem_Image_TableName = tbl_Atom_SimpleItem_Image.TableName;
+            stbl_Atom_ShopBItem_TableName = tbl_Atom_ShopBItem.TableName;
+            stbl_Atom_ShopBItem_Name_TableName = tbl_Atom_ShopBItem_Name.TableName;
+            stbl_Atom_ShopBItem_Image_TableName = tbl_Atom_ShopBItem_Image.TableName;
 
             stbl_Atom_Warranty_TableName = tbl_Atom_Warranty.TableName;
 

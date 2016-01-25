@@ -56,7 +56,14 @@ namespace UniversalInvoice
             tExtraDiscount = new TemplateToken(token_prefix, new string[] { "ExtraDiscount", "DodatniPopust" }, _ExtraDiscount.ToString(), null);
             tExtraDiscountPercent = new TemplateToken(token_prefix, new string[] { "ExtraDiscountPercent", "DodatniPopustVProcentih" }, (_ExtraDiscount*100).ToString()+"%", null);
             tCurrency = new TemplateToken(token_prefix, new string[] { "Currency", "Valuta" }, _CurrencySymbol, null);
-            tQuantity = new TemplateToken(token_prefix, new string[] { "Quantity", "Količina" }, _dQuantity.ToString(), null);
+            if (_dQuantity >= 0)
+            {
+                tQuantity = new TemplateToken(token_prefix, new string[] { "Quantity", "Količina" }, _dQuantity.ToString(), null);
+            }
+            else
+            {
+                tQuantity = new TemplateToken(token_prefix, new string[] { "Quantity", "Količina" }, "", null);
+            }
             tTaxationRate = new TemplateToken(token_prefix, new string[] { "TaxationRate", "DavčnaStopnja" }, _TaxationRate.ToString(), null);
             tTaxationRatePercent = new TemplateToken(token_prefix, new string[] { "TaxationRatePercent", "DavčnaStopnjaVProcentih" }, (_TaxationRate*100).ToString()+"%", null);
             tTotalDiscount = new TemplateToken(token_prefix, new string[] { "TotalDiscount", "CelotenPopust" }, _TotalDiscount.ToString(), null);
