@@ -1597,15 +1597,23 @@ namespace Tangenta
 
                     if (m_ShopABC.m_CurrentInvoice.Exist)
                     {
+                        DataTable dt_FURS_ResponseData = new DataTable();
                         if (m_ShopABC.m_CurrentInvoice.bDraft)
                         {
 
                             // print draft invoice
                             if (UpdateInvoicePriceInDraft())
                             {
-                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID);
-                                if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
+                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.CasshierName);
+                                if (m_InvoiceData.Read_ProformaInvoice(ref dt_FURS_ResponseData)) // read Proforma Invoice again from DataBase
                                 {
+                                    if (dt_FURS_ResponseData.Rows.Count>0)
+                                    {
+                                        m_InvoiceData.FURS_Response_Data.Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_Response_Data.BarCodeValue);
+                                        m_InvoiceData.Set_Invoice_Furs_Token();
+
+                                    }
+
                                     Form_Payment payment_frm = new Form_Payment(m_InvoiceData);
                                     if (payment_frm.ShowDialog() == DialogResult.OK)
                                     {
@@ -1619,9 +1627,14 @@ namespace Tangenta
                         }
                         else
                         {
-                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID);
-                            if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
+                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.CasshierName);
+                            if (m_InvoiceData.Read_ProformaInvoice(ref dt_FURS_ResponseData)) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
+                                if (dt_FURS_ResponseData.Rows.Count > 0)
+                                {
+                                    m_InvoiceData.FURS_Response_Data.Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_Response_Data.BarCodeValue);
+                                    m_InvoiceData.Set_Invoice_Furs_Token();
+                                }
                                 Form_PrintExistingInvoice frm_Print_Existing_invoice = new Form_PrintExistingInvoice(m_InvoiceData);
                                 frm_Print_Existing_invoice.ShowDialog(this);
                             }

@@ -373,7 +373,6 @@ namespace InvoiceDB
                     m_CurrentInvoice.FinancialYear = iFinancialYear;
                     m_CurrentInvoice.DraftNumber = xDraftNumber;
                     string_v office_name = null;
-                    string error = null;
                     if (f_Atom_myCompany_Person.Get(myCompany_Person_ID, ref Atom_myCompany_Person_ID, ref office_name) == myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
                     {
                         //**TODO

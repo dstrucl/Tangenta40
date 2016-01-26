@@ -209,15 +209,15 @@ namespace Tangenta
                 return cPartialCutPaper;
             }
 
-            public string GetLogo(byte[] LogoData)
+            public string GetBitmapString(byte[] ImageData)
             {
-                if (LogoData==null)
+                if (ImageData==null)
                 {
                     return "";
                 }
                 string logo = "";
 
-                BitmapData data = GetBitmapData(LogoData);
+                BitmapData data = GetBitmapData(ImageData);
                 BitArray dots = data.Dots;
                 byte[] width = BitConverter.GetBytes(data.Width);
 
@@ -278,9 +278,9 @@ namespace Tangenta
                 return logo + Encoding.Default.GetString(bytes);
             }
 
-            public BitmapData GetBitmapData(byte[] LogoData)
+            public BitmapData GetBitmapData(byte[] ImageData)
             {
-                MemoryStream ms = new MemoryStream(LogoData);
+                MemoryStream ms = new MemoryStream(ImageData);
                 using (var bitmap = (Bitmap)Bitmap.FromStream(ms))
                 {
                     var threshold = 127;
