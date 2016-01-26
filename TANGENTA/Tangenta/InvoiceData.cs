@@ -639,7 +639,7 @@ namespace Tangenta
                             //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["PremiseType"])   );
                         }
 
-                        byte[] barr_logoData = (byte[])dt_ProformaInvoice.Rows[0]["Logo_Data"];
+                        //byte[] barr_logoData = (byte[])dt_ProformaInvoice.Rows[0]["Logo_Data"];
                         MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
                                                                    DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
                                                                    DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),
