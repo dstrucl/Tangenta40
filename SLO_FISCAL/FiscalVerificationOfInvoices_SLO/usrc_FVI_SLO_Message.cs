@@ -45,6 +45,7 @@ namespace FiscalVerificationOfInvoices_SLO
         public string ErrorMessage
         {
             get { return m_errorMessage; }
+            set { m_errorMessage = value; }
         }
 
         public MessageType MessageType
@@ -60,6 +61,7 @@ namespace FiscalVerificationOfInvoices_SLO
         public bool Success
         {
             get { return m_success; }
+            set { m_success = value; }
         }
 
         public string UniqueInvoiceID

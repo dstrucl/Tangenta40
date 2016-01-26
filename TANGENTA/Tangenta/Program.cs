@@ -353,7 +353,7 @@ namespace Tangenta
                     return "none";
                 case GlobalData.ePaymentType.ALLREADY_PAID:
                     return "allready_paid";
-                    break;
+                  //  break;
             }
             return null;
         }

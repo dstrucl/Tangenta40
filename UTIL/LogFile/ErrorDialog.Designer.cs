@@ -104,10 +104,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStripMenuItem ItemCopy;
-        private System.Windows.Forms.ToolStripMenuItem ItemCut;
-        private System.Windows.Forms.ToolStripMenuItem ItemPaste;
-        private System.Windows.Forms.ContextMenuStrip TextEditorMenuStrip;
+        //private System.Windows.Forms.ToolStripMenuItem ItemCopy;
+        //private System.Windows.Forms.ToolStripMenuItem ItemCut;
+        //private System.Windows.Forms.ToolStripMenuItem ItemPaste;
+        //private System.Windows.Forms.ContextMenuStrip TextEditorMenuStrip;
         private System.Windows.Forms.TextBox txtErrorMessage;
         private System.Windows.Forms.Button btn1;
         private System.Windows.Forms.Button btn2;

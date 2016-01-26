@@ -101,6 +101,7 @@ namespace FiscalVerificationOfInvoices_SLO
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
                                 xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml_returned);
+                                xusrc_FVI_SLO_Message.Success = rv.Success;
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
@@ -156,7 +157,11 @@ namespace FiscalVerificationOfInvoices_SLO
                             case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
                                 xml_returned = prettyXml(rv.originalMessage);
-                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_PP, xml_returned);
+                                xusrc_FVI_SLO_Message.Success = rv.Success;
+                                xusrc_FVI_SLO_Message.ErrorMessage  = rv.ErrorMessage;
+
+
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
@@ -235,17 +240,21 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private string prettyXml(XmlDocument xmlDoc)
         {
-            var settings = new XmlWriterSettings();
-            settings.OmitXmlDeclaration = false;
-            settings.Indent = true;
-            settings.NewLineOnAttributes = true;
-
             var stringBuilder = new StringBuilder();
-            using (var xmlWriter = XmlWriter.Create(stringBuilder, settings))
-            {
-                xmlDoc.Save(xmlWriter);
-            }
 
+            if (xmlDoc != null)
+            {
+                var settings = new XmlWriterSettings();
+                settings.OmitXmlDeclaration = false;
+                settings.Indent = true;
+                settings.NewLineOnAttributes = true;
+
+              
+                using (var xmlWriter = XmlWriter.Create(stringBuilder, settings))
+                {
+                    xmlDoc.Save(xmlWriter);
+                }
+            }
             return stringBuilder.ToString();
         }
 

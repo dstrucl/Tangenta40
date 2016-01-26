@@ -35,8 +35,8 @@ namespace FiscalVerificationOfInvoices_SLO
             this.nm_QRSizeWidth.Value = Convert.ToDecimal(Properties.Settings.Default.QRImageWidth);
             this.rdb_FURS_TEST_Environment.Checked = false;
             this.rdb_FURS_Environment.Checked = false;
-            this.usrc_FURS_environment_settings.Init(false);
-            this.usrc_FURS_environment_settings_TEST.Init(true);
+            this.usrc_FURS_environment_settings.Init(false, m_usrc_FVI_SLO);
+            this.usrc_FURS_environment_settings_TEST.Init(true, m_usrc_FVI_SLO);
 
             if (Properties.Settings.Default.fursTEST_Environment)
             {
@@ -114,5 +114,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+
     }
 }

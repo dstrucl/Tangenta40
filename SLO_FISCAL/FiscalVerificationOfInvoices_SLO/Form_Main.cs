@@ -13,8 +13,8 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class Form_Main : Form
     {
-        string Xml_ECHO = @"<? xml version = ""1.0"" encoding=""UTF-8""?>
-                            <fu:EchoRequest xmlns:fu=""http://www.fu.gov.si/"">Echo</fu:EchoRequest>""";
+        string Xml_ECHO = @"<?xml version=""1.0"" encoding=""UTF-8""?> <fu:EchoRequest xmlns:fu=""http://www.fu.gov.si/"">Echo</fu:EchoRequest>";
+        ToolTip ToolTipEcho = new ToolTip();
 
         public usrc_FVI_SLO m_usrc_FVI_SLO = null;
 
@@ -28,16 +28,16 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public void Init()
         {
-            if (m_usrc_FVI_SLO.FursTESTEnvironment)
-            {
-                this.lbl_FURS_Environment.Text = lngRPM.s_Furs_Test_Environment.s;
-            }
-            else
-            {
-                this.lbl_FURS_Environment.Text = lngRPM.s_Furs_Environment.s;
-            }
-            usrc_FURS_BussinesPremiseData1.ReadOnly = true;
-            usrc_FURS_BussinesPremiseData1.Init(m_usrc_FVI_SLO.FursTESTEnvironment);
+            //if (m_usrc_FVI_SLO.FursTESTEnvironment)
+            //{
+            //    this.lbl_FURS_Environment.Text = lngRPM.s_Furs_Test_Environment.s;
+            //}
+            //else
+            //{
+            //    this.lbl_FURS_Environment.Text = lngRPM.s_Furs_Environment.s;
+            //}
+            //usrc_FURS_BussinesPremiseData1.ReadOnly = true;
+            //usrc_FURS_BussinesPremiseData1.Init(m_usrc_FVI_SLO.FursTESTEnvironment);
 
         }
 
@@ -48,10 +48,46 @@ namespace FiscalVerificationOfInvoices_SLO
             Init();
         }
 
-        private void btn_Send_ECHO_Click(object sender, EventArgs e)
+        public void btn_Send_ECHO_Click(object sender, EventArgs e)
         {
+
+            ToolTipEcho.SetToolTip(this.btn_Send_ECHO, "");
+            btn_Send_ECHO.ForeColor = Color.Black ;
+            Refresh();
             m_usrc_FVI_SLO.Send_Echo(Xml_ECHO);
         }
 
+        public bool FVI_Response_ECHO(bool success, string errorMessage)
+        {
+
+            string msg = "";
+
+            if (success)
+            {
+                msg = "Echo OK";
+                btn_Send_ECHO.ForeColor = Color.Green;
+            }
+            else
+            {
+                msg = "Echo Err " + errorMessage;
+                btn_Send_ECHO.ForeColor = Color.Red;
+            }
+
+            
+            ToolTipEcho.SetToolTip(this.btn_Send_ECHO, DateTime.Now.ToString() + " " +  msg);
+
+
+            return true;
+        }
+
+        private void Form_Main_Load(object sender, EventArgs e)
+        {  
+            ToolTipEcho.SetToolTip(this.btn_Send_ECHO, "");
+        }
+
+        private void btn_BussinesPremisseID_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

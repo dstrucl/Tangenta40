@@ -55,17 +55,19 @@
             // chk_DebugAndTest
             // 
             this.chk_DebugAndTest.AutoSize = true;
-            this.chk_DebugAndTest.Location = new System.Drawing.Point(524, 13);
+            this.chk_DebugAndTest.Location = new System.Drawing.Point(573, 38);
             this.chk_DebugAndTest.Name = "chk_DebugAndTest";
+            this.chk_DebugAndTest.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chk_DebugAndTest.Size = new System.Drawing.Size(91, 17);
             this.chk_DebugAndTest.TabIndex = 0;
             this.chk_DebugAndTest.Text = "Debug && Test";
+            this.chk_DebugAndTest.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.chk_DebugAndTest.UseVisualStyleBackColor = true;
             // 
             // lbl_timeOutInSec
             // 
             this.lbl_timeOutInSec.AutoSize = true;
-            this.lbl_timeOutInSec.Location = new System.Drawing.Point(12, 38);
+            this.lbl_timeOutInSec.Location = new System.Drawing.Point(11, 36);
             this.lbl_timeOutInSec.Name = "lbl_timeOutInSec";
             this.lbl_timeOutInSec.Size = new System.Drawing.Size(252, 13);
             this.lbl_timeOutInSec.TabIndex = 10;
@@ -73,7 +75,7 @@
             // 
             // nm_UpDown_timeOutInSec
             // 
-            this.nm_UpDown_timeOutInSec.Location = new System.Drawing.Point(270, 33);
+            this.nm_UpDown_timeOutInSec.Location = new System.Drawing.Point(279, 33);
             this.nm_UpDown_timeOutInSec.Maximum = new decimal(new int[] {
             120,
             0,
@@ -85,7 +87,7 @@
             0,
             0});
             this.nm_UpDown_timeOutInSec.Name = "nm_UpDown_timeOutInSec";
-            this.nm_UpDown_timeOutInSec.Size = new System.Drawing.Size(66, 20);
+            this.nm_UpDown_timeOutInSec.Size = new System.Drawing.Size(49, 20);
             this.nm_UpDown_timeOutInSec.TabIndex = 11;
             this.nm_UpDown_timeOutInSec.Value = new decimal(new int[] {
             30,
@@ -96,7 +98,7 @@
             // btn_OK
             // 
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OK.Location = new System.Drawing.Point(8, 504);
+            this.btn_OK.Location = new System.Drawing.Point(8, 807);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(87, 25);
             this.btn_OK.TabIndex = 12;
@@ -107,7 +109,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Cancel.Location = new System.Drawing.Point(129, 504);
+            this.btn_Cancel.Location = new System.Drawing.Point(129, 807);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(87, 25);
             this.btn_Cancel.TabIndex = 13;
@@ -117,7 +119,7 @@
             // 
             // nm_TimeToShoqSuccessfulFURS_Transaction
             // 
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Location = new System.Drawing.Point(261, 10);
+            this.nm_TimeToShoqSuccessfulFURS_Transaction.Location = new System.Drawing.Point(279, 8);
             this.nm_TimeToShoqSuccessfulFURS_Transaction.Maximum = new decimal(new int[] {
             10,
             0,
@@ -135,15 +137,15 @@
             // lbl_TimeToShowFURSSuccessfulResult
             // 
             this.lbl_TimeToShowFURSSuccessfulResult.AutoSize = true;
-            this.lbl_TimeToShowFURSSuccessfulResult.Location = new System.Drawing.Point(5, 12);
+            this.lbl_TimeToShowFURSSuccessfulResult.Location = new System.Drawing.Point(11, 10);
             this.lbl_TimeToShowFURSSuccessfulResult.Name = "lbl_TimeToShowFURSSuccessfulResult";
-            this.lbl_TimeToShowFURSSuccessfulResult.Size = new System.Drawing.Size(250, 13);
+            this.lbl_TimeToShowFURSSuccessfulResult.Size = new System.Drawing.Size(253, 13);
             this.lbl_TimeToShowFURSSuccessfulResult.TabIndex = 14;
-            this.lbl_TimeToShowFURSSuccessfulResult.Text = "Čas prikaza uspešne FURS transakcije v sekundah";
+            this.lbl_TimeToShowFURSSuccessfulResult.Text = "Čas prikaza uspešne FURS transakcije v sekundah:";
             // 
             // nm_QRSizeWidth
             // 
-            this.nm_QRSizeWidth.Location = new System.Drawing.Point(437, 11);
+            this.nm_QRSizeWidth.Location = new System.Drawing.Point(594, 12);
             this.nm_QRSizeWidth.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -166,7 +168,7 @@
             // lbl_QRSizeWidth
             // 
             this.lbl_QRSizeWidth.AutoSize = true;
-            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(350, 15);
+            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(505, 15);
             this.lbl_QRSizeWidth.Name = "lbl_QRSizeWidth";
             this.lbl_QRSizeWidth.Size = new System.Drawing.Size(82, 13);
             this.lbl_QRSizeWidth.TabIndex = 16;
@@ -175,7 +177,7 @@
             // rdb_FURS_Environment
             // 
             this.rdb_FURS_Environment.AutoSize = true;
-            this.rdb_FURS_Environment.Location = new System.Drawing.Point(12, 61);
+            this.rdb_FURS_Environment.Location = new System.Drawing.Point(14, 58);
             this.rdb_FURS_Environment.Name = "rdb_FURS_Environment";
             this.rdb_FURS_Environment.Size = new System.Drawing.Size(140, 17);
             this.rdb_FURS_Environment.TabIndex = 20;
@@ -186,7 +188,7 @@
             // rdb_FURS_TEST_Environment
             // 
             this.rdb_FURS_TEST_Environment.AutoSize = true;
-            this.rdb_FURS_TEST_Environment.Location = new System.Drawing.Point(180, 61);
+            this.rdb_FURS_TEST_Environment.Location = new System.Drawing.Point(160, 59);
             this.rdb_FURS_TEST_Environment.Name = "rdb_FURS_TEST_Environment";
             this.rdb_FURS_TEST_Environment.Size = new System.Drawing.Size(174, 17);
             this.rdb_FURS_TEST_Environment.TabIndex = 21;
@@ -212,8 +214,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_FURS_environment_settings_TEST);
-            this.splitContainer1.Size = new System.Drawing.Size(627, 419);
-            this.splitContainer1.SplitterDistance = 221;
+            this.splitContainer1.Size = new System.Drawing.Size(669, 722);
+            this.splitContainer1.SplitterDistance = 380;
             this.splitContainer1.TabIndex = 22;
             // 
             // usrc_FURS_environment_settings
@@ -224,7 +226,7 @@
             this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
-            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(623, 217);
+            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(665, 376);
             this.usrc_FURS_environment_settings.TabIndex = 18;
             // 
             // usrc_FURS_environment_settings_TEST
@@ -235,7 +237,7 @@
             this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
-            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(623, 190);
+            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(665, 334);
             this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
             // 
             // Form_Settings
@@ -243,7 +245,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(642, 538);
+            this.ClientSize = new System.Drawing.Size(684, 841);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.rdb_FURS_TEST_Environment);
             this.Controls.Add(this.rdb_FURS_Environment);

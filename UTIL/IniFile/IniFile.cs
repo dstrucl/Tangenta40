@@ -819,7 +819,7 @@ namespace IniFile
                     case eFind.KEY_NOT_FOUND:
                         Err = "ERROR:IniFile:ini:GetPrivateProfileString: eFind.KEY_NOT_FOUND !";
                         return false;
-                        break;
+                       // break;
                 }
             }
             return false;

@@ -19,8 +19,8 @@ namespace DecimalConvertToString
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            decimal x1 = 14;
-            decimal x2 = 3;
+          //  decimal x1 = 14;
+          //  decimal x2 = 3;
             string s = GetFursDecimalString(1.1m);
             s = GetFursDecimalString(1.0m);
             s = GetFursDecimalString(1.02m);

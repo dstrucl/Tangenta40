@@ -16,8 +16,12 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class usrc_FVI_SLO : UserControl
     {
+
+        #region Declaration
+
         public bool DEBUG = false;
         public int timeOutInSec = 0;
+
 
         public bool FursTESTEnvironment
         {
@@ -250,6 +254,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
 
         private FormFURSCommunication FormFURSCommunication = null;
+        private Form_Main frm_main = null;
 
         public delegate void delegate_Response_SingleInvoice(long Message_ID, string xml);
         public delegate void delegate_Response_ManyInvoices(long Message_ID, string xml);
@@ -282,6 +287,8 @@ namespace FiscalVerificationOfInvoices_SLO
             InitializeComponent();
             btn_FVI.Enabled = false;
         }
+
+        #endregion
 
         private void usrc_FVI_SLO_Load(object sender, EventArgs e)
         {
@@ -370,7 +377,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_MANY_INVOICES, xml);
             FormFURSCommunication = new FormFURSCommunication(this, msg);
-            FormFURSCommunication.ShowDialog();
+          //  FormFURSCommunication.ShowDialog();
             if (FormFURSCommunication.ShowDialog() == DialogResult.OK)
             {
                 return Result_MessageBox_Post.OK;
@@ -383,13 +390,13 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
-        public Result_MessageBox_Post Send_PP(long Message_ID, string xml)
+        public Result_MessageBox_Post Send_PP(string xml)
         {
             LastMessageID++;
 
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE, xml);
             FormFURSCommunication = new FormFURSCommunication(this, msg);
-            FormFURSCommunication.ShowDialog();
+  
             if (FormFURSCommunication.ShowDialog() == DialogResult.OK)
             {
                 return Result_MessageBox_Post.OK;
@@ -405,7 +412,7 @@ namespace FiscalVerificationOfInvoices_SLO
             LastMessageID++;
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_ECHO, xml);
             FormFURSCommunication = new FormFURSCommunication(this, msg);
-            FormFURSCommunication.ShowDialog();
+
             if (FormFURSCommunication.ShowDialog() == DialogResult.OK)
             {
                 return Result_MessageBox_Post.OK;
@@ -467,6 +474,19 @@ namespace FiscalVerificationOfInvoices_SLO
                                 {
                                 }
                             }
+                            if (frm_main != null)
+                            {
+                                if (message.Success == true)
+                                {
+                                    frm_main.FVI_Response_ECHO(message.Success, message.ErrorMessage);
+
+
+
+    }
+
+
+                            }
+
                             if (Response_ECHO!=null)
                             {
                                 Response_ECHO(message.Message_ID, message.XML_Data);
@@ -551,9 +571,11 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private void btn_FVI_Click(object sender, EventArgs e)
         {
-            Form_Main frm_main = new Form_Main(this);
+
+            frm_main = new Form_Main(this);
             frm_main.ShowDialog(this);
 
+            frm_main = null;
         }
     }
 }

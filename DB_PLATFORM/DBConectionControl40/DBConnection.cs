@@ -882,7 +882,7 @@ namespace DBConnectionControl40
                                 local_DB_Param.DataBaseFilePath = m_conData_SQLITE.m_DataBaseFilePath;
                                 break;
                         }
-                        DB_Param = DB_Param;
+                       // DB_Param = DB_Param;
                         return true;
 
                     case DBConnection.ConnectResult_ENUM.CANCELED:
@@ -1294,7 +1294,7 @@ namespace DBConnectionControl40
                                         }
                                         catch (Exception ex)
                                         {
-                                            LogFile.Error.Show("ERROR:SQLite:PRAGMA foreign_keys = ON;!");
+                                            LogFile.Error.Show("ERROR:SQLite:PRAGMA foreign_keys = ON;! " + ex.Message);
                                         }
                                     }
                                     Disconnect();
@@ -2125,7 +2125,7 @@ namespace DBConnectionControl40
                             ProgramDiagnostic.Diagnostic.Meassure("ExecuteNonQuerySQL END", null);
                             return true;
                         }
-                        return true;
+                      //  return true;
 
                         case eDBType.SQLITE:
                         {

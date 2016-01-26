@@ -82,7 +82,7 @@ namespace SQLTableControl
                             }
                             catch (Exception Ex)
                             {
-                                LogFile.Error.Show("ERROR:IndexBox:public override string Text:Cannot convert \"" + s + "\" to Int64!");
+                                LogFile.Error.Show("ERROR:IndexBox:public override string Text:Cannot convert \"" + s + "\" to Int64! " + Ex.Message);
                                 Initial_ID = null;
                             }
                         }

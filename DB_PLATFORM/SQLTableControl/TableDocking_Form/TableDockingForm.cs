@@ -529,7 +529,7 @@ namespace SQLTableControl
             }
             catch (Exception ex)
             {
-                LogFile.Warning.Show("Warning: Xml file :" + StaticXml.m_XMLFile + " not loaded !");
+                LogFile.Warning.Show("Warning: Xml file :" + StaticXml.m_XMLFile + " not loaded ! " + ex.Message );
             }
         }
 
