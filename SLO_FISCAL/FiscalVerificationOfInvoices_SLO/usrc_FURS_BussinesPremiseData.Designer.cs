@@ -241,6 +241,7 @@
             this.Btn_Add_PP_to_FURS.TabIndex = 41;
             this.Btn_Add_PP_to_FURS.Text = "Registriraj prostor";
             this.Btn_Add_PP_to_FURS.UseVisualStyleBackColor = true;
+            this.Btn_Add_PP_to_FURS.Click += new System.EventHandler(this.Btn_Add_PP_to_FURS_Click);
             // 
             // usrc_FURS_BussinesPremiseData
             // 

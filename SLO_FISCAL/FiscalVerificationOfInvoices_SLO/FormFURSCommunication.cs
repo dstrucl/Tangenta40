@@ -129,6 +129,7 @@ using MNet.SLOTaxService.Messages;
          private void FormFURSCommunication_Load(object sender, EventArgs e)
          {
             lbl_FURSCommunication.Text = "Prenašam podatke na FURS";
+            Lbl_errorDesc.Text = "";
 
              if (m_usrc_FVI_SLO.DEBUG) 
              { 
@@ -258,7 +259,8 @@ using MNet.SLOTaxService.Messages;
             }
             else
             {
-                lbl_FURSCommunication.Text = "Napaka v povezavi na FURS; " + errorMessage;
+                lbl_FURSCommunication.Text = "Napaka v povezavi na FURS" ;
+                Lbl_errorDesc.Text = errorMessage;
                 delay = Convert.ToInt16(Properties.Settings.Default.timeToShowSuccessfulFURSResult);
             }
             Refresh();
@@ -275,7 +277,25 @@ using MNet.SLOTaxService.Messages;
 
         internal bool FVI_Response_PP(long message_ID, string xML_Data, bool success, MessageType messageType, string errorMessage)
         {
-            throw new NotImplementedException();
+            int delay = 1000;
+
+            if (success)
+            {
+                lbl_FURSCommunication.Text = "Prostor Prijavljen ";
+            }
+            else
+            {
+                lbl_FURSCommunication.Text = "Napaka pri prijavi poslovnega prostora";
+                Lbl_errorDesc.Text = errorMessage;
+                delay = Convert.ToInt16(Properties.Settings.Default.timeToShowSuccessfulFURSResult) *1000;
+                this.BackColor = Color.Tomato;
+            }
+            Refresh();
+            DialogResult = DialogResult.OK;
+            DelayClose(delay);
+
+            return true;
+
         }
 
         private void DelayClose(int DelayMs)      

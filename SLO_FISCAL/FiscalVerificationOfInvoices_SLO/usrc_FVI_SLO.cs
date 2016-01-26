@@ -390,7 +390,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
-        public Result_MessageBox_Post Send_PP(long Message_ID, string xml)
+        public Result_MessageBox_Post Send_PP(string xml)
         {
             LastMessageID++;
 

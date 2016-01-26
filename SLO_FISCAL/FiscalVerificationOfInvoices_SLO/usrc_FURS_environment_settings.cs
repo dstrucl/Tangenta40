@@ -14,14 +14,18 @@ namespace FiscalVerificationOfInvoices_SLO
     public partial class usrc_FURS_environment_settings : UserControl
     {
         bool Test = false;
+        private usrc_FVI_SLO m_usrc_FVI_SLO;
+
         public usrc_FURS_environment_settings()
         {
             InitializeComponent();
         }
 
-        public void Init(bool bTest)
+        public void Init(bool bTest, usrc_FVI_SLO x_usrc_FVI_SLO)
         {
+            m_usrc_FVI_SLO = x_usrc_FVI_SLO;
             Test = bTest;
+
             if (Test)
             {
                 lngRPM.s_Furs_Test_Environment.Text(this.lbl_Environment);
@@ -40,7 +44,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_fursWebServiceURL.Text = Properties.Settings.Default.fursWebServiceURL;
                 this.txt_fursXmlNamespace.Text = Properties.Settings.Default.fursXmlNamespace;
             }
-            this.usrc_FURS_BussinesPremiseData1.Init(Test);
+            this.usrc_FURS_BussinesPremiseData1.Init(Test, m_usrc_FVI_SLO);
         }
 
         private void btn_BrowseCertificateFile_Click(object sender, EventArgs e)

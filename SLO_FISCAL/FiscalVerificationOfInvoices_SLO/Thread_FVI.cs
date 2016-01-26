@@ -157,7 +157,11 @@ namespace FiscalVerificationOfInvoices_SLO
                             case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
                                 rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
                                 xml_returned = prettyXml(rv.originalMessage);
-                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
+                                xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_PP, xml_returned);
+                                xusrc_FVI_SLO_Message.Success = rv.Success;
+                                xusrc_FVI_SLO_Message.ErrorMessage  = rv.ErrorMessage;
+
+
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 

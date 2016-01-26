@@ -32,6 +32,7 @@
             this.lbl_FURSCommunication = new System.Windows.Forms.Label();
             this.TmrStart = new System.Windows.Forms.Timer(this.components);
             this.lbl_TEST_Environment = new System.Windows.Forms.Label();
+            this.Lbl_errorDesc = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_FURSCommunication
@@ -64,12 +65,26 @@
             this.lbl_TEST_Environment.TabIndex = 1;
             this.lbl_TEST_Environment.Text = "TESTNO OKOLJE";
             // 
+            // Lbl_errorDesc
+            // 
+            this.Lbl_errorDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Lbl_errorDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Lbl_errorDesc.ForeColor = System.Drawing.Color.Navy;
+            this.Lbl_errorDesc.Location = new System.Drawing.Point(12, 73);
+            this.Lbl_errorDesc.Name = "Lbl_errorDesc";
+            this.Lbl_errorDesc.Size = new System.Drawing.Size(486, 69);
+            this.Lbl_errorDesc.TabIndex = 2;
+            this.Lbl_errorDesc.Text = "Prenašam podatke na FURS";
+            this.Lbl_errorDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormFURSCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(504, 112);
+            this.ClientSize = new System.Drawing.Size(504, 151);
+            this.Controls.Add(this.Lbl_errorDesc);
             this.Controls.Add(this.lbl_TEST_Environment);
             this.Controls.Add(this.lbl_FURSCommunication);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -86,5 +101,6 @@
         private System.Windows.Forms.Label lbl_FURSCommunication;
         private System.Windows.Forms.Timer TmrStart;
         private System.Windows.Forms.Label lbl_TEST_Environment;
+        private System.Windows.Forms.Label Lbl_errorDesc;
     }
 }

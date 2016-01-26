@@ -82,7 +82,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string FileName = Application.StartupPath + "\\XML\\BusinessPremises.xml";
 
             string xml = GetFursXmlMesage(FileName);
-            usrc_FVI_SLO1.Send_PP(1, xml);
+            usrc_FVI_SLO1.Send_PP(xml);
 
         }
 

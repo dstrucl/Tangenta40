@@ -45,6 +45,7 @@ namespace FiscalVerificationOfInvoices_SLO
         public string ErrorMessage
         {
             get { return m_errorMessage; }
+            set { m_errorMessage = value; }
         }
 
         public MessageType MessageType

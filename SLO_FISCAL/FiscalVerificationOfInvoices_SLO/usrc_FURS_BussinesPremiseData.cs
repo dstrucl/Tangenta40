@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LanguageControl;
+using System.Xml;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
@@ -15,6 +16,7 @@ namespace FiscalVerificationOfInvoices_SLO
     {
         private bool Test = false;
         private bool m_ReadOnly = false;
+        private usrc_FVI_SLO m_usrc_FVI_SLO;
 
         public bool ReadOnly
         {
@@ -43,8 +45,10 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
-        public void Init(bool bTest)
+        public void Init(bool bTest, usrc_FVI_SLO x_usrc_FVI_SLO)
         {
+
+            m_usrc_FVI_SLO = x_usrc_FVI_SLO;
             Test = bTest;
             if (Test)
             {
@@ -120,6 +124,124 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
             //    Properties.Settings.Default.fursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
             }
+        }
+
+        private void Btn_Add_PP_to_FURS_Click(object sender, EventArgs e)
+        {
+            //save settings ? 
+           string xml = MakePP_XML();
+
+            m_usrc_FVI_SLO.Send_PP(xml);
+      
+
+        }
+
+        string MakePP_XML()
+        {
+            string fu_TaxNumber = "10329048";                   // davčna  podjetja
+            string fu_BusinessPremiseID = "KUNAVE6";     // Oznaka prostora vsak račun vsebuje oznako prostora 
+            string fu_CadastralNumber = "1738";          // št. katastrske občine
+            string fu_BuildingNumber = "2183";           // številka stavbe  (GURS)
+            string fu_BuildingSectionNumber = "73";      //Oznaka dela stavbe (GURS)
+            string fu_Street = "Kunaverjeva";            //ulica poslovnega prostora
+            string fu_HouseNumber = "6";                 //hišna številka poslovnega prostora
+            string fu_HouseNumberAdditional = " ";        //hišna številka dodatno  poslovnega prostora
+            string fu_Community = "Dravlje";             // okraj 
+            string fu_City = "Dravlje";                  //Kraj
+            string fu_PostalCode = "1117";               // Poštna številka
+            string fu_ValidityDate = "2020-08-25";       // do kdaj je veljaven poslovni prostor
+            string fu_SpecialNotes = " ";                 //dodatno sporočilo za interno evidenco
+            string fu_SoftwareSupplier_TaxNumber = "10000000";   //davvčna št izdelovalca programske opreme
+
+            XmlDocument xdoc = null;
+            XmlNodeList NList = null;
+
+            try
+            {
+                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_BussinesPremises;
+                xdoc = new XmlDocument();
+                xdoc.LoadXml(InvoiceXmlTemplate);
+
+                NList = xdoc.GetElementsByTagName("fu:TaxNumber"); NList.Item(0).InnerText = fu_TaxNumber;
+
+                foreach (XmlNode nd in NList) 
+                {
+                    if (nd.ParentNode.Name == "fu:SoftwareSupplier")
+                    {
+                        nd.InnerText = fu_SoftwareSupplier_TaxNumber;
+                        break;
+                    }
+                }
+
+                NList = xdoc.GetElementsByTagName("fu:BusinessPremiseID"); NList.Item(0).InnerText = fu_BusinessPremiseID;
+                NList = xdoc.GetElementsByTagName("fu:CadastralNumber"); NList.Item(0).InnerText = fu_CadastralNumber;
+                NList = xdoc.GetElementsByTagName("fu:BuildingNumber"); NList.Item(0).InnerText = fu_BuildingNumber;
+                NList = xdoc.GetElementsByTagName("fu:BuildingSectionNumber"); NList.Item(0).InnerText = fu_BuildingSectionNumber;
+                NList = xdoc.GetElementsByTagName("fu:Street"); NList.Item(0).InnerText = fu_Street;
+                NList = xdoc.GetElementsByTagName("fu:HouseNumber"); NList.Item(0).InnerText = fu_HouseNumber;
+                NList = xdoc.GetElementsByTagName("fu:HouseNumberAdditional"); NList.Item(0).InnerText = fu_HouseNumberAdditional;
+                NList = xdoc.GetElementsByTagName("fu:Community"); NList.Item(0).InnerText = fu_Community;
+                NList = xdoc.GetElementsByTagName("fu:City"); NList.Item(0).InnerText = fu_City;
+                NList = xdoc.GetElementsByTagName("fu:PostalCode"); NList.Item(0).InnerText = fu_PostalCode;
+                NList = xdoc.GetElementsByTagName("fu:ValidityDate"); NList.Item(0).InnerText = fu_ValidityDate;
+                NList = xdoc.GetElementsByTagName("fu:SpecialNotes"); NList.Item(0).InnerText = fu_SpecialNotes;
+
+
+                string PPXml = XmlDcoumentToString(xdoc);
+                return PPXml;
+            }
+            catch (Exception Ex)
+            {
+                LogFile.Error.Show("ERROR:InvoiceData:Create_furs_InvoiceXML:Exception = " + Ex.Message);
+                return null;
+            }
+
+   //<? xml version = "1.0" encoding = "UTF-8" ?>
+   //< fu : BusinessPremiseRequest xmlns: fu = "http://www.fu.gov.si/" Id = "test" >
+   //   < fu:BusinessPremise >
+   //       < fu:TaxNumber > 10329048 </ fu:TaxNumber >
+   //       < fu:BusinessPremiseID > KUNAV6 </ fu:BusinessPremiseID >
+   //       < fu:BPIdentifier >
+   //           < fu:RealEstateBP >
+   //               < fu:PropertyID >
+   //                    < fu:CadastralNumber > 365 </ fu:CadastralNumber >
+   //                    < fu:BuildingNumber > 12 </ fu:BuildingNumber >
+   //                     < fu:BuildingSectionNumber > 3 </ fu:BuildingSectionNumber >
+   //               </ fu:PropertyID >
+   //               < fu:Address >
+   //                   < fu:Street > Dunajska cesta </ fu:Street >
+   //                   < fu:HouseNumber > 24 </ fu:HouseNumber >
+   //                   < fu:HouseNumberAdditional > B </ fu:HouseNumberAdditional >
+   //                   < fu:Community > Ljubljana </ fu:Community >
+   //                   < fu:City > Ljubljana </ fu:City >
+   //                   < fu:PostalCode > 1000 </ fu:PostalCode >
+   //               </ fu:Address >
+   //           </ fu:RealEstateBP >
+   //       </ fu:BPIdentifier >
+   //       < fu:ValidityDate > 2020 - 08 - 25 </ fu:ValidityDate >
+   //       < fu:SoftwareSupplier >
+   //           < fu:TaxNumber > 24564444 </ fu:TaxNumber >
+   //       </ fu:SoftwareSupplier >
+   //       < fu:SpecialNotes > Primer prijave poslovnega prostora </ fu:SpecialNotes >
+   //   </ fu:BusinessPremise >
+   //</ fu:BusinessPremiseRequest >
+
+        }
+
+        private string XmlDcoumentToString(XmlDocument xmlDoc)
+        {
+            var settings = new XmlWriterSettings();
+            settings.OmitXmlDeclaration = false;
+            settings.Indent = true;
+            settings.NewLineOnAttributes = true;
+
+            var stringBuilder = new StringBuilder();
+            using (var xmlWriter = XmlWriter.Create(stringBuilder, settings))
+            {
+                xmlDoc.Save(xmlWriter);
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }
