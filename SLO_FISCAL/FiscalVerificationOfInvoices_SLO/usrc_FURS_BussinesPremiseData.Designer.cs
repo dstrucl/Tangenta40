@@ -55,7 +55,7 @@
             // 
             // txt_BuildingNumber
             // 
-            this.txt_BuildingNumber.Location = new System.Drawing.Point(145, 50);
+            this.txt_BuildingNumber.Location = new System.Drawing.Point(144, 53);
             this.txt_BuildingNumber.Name = "txt_BuildingNumber";
             this.txt_BuildingNumber.Size = new System.Drawing.Size(91, 20);
             this.txt_BuildingNumber.TabIndex = 18;
@@ -95,9 +95,9 @@
             // 
             // txt_Community
             // 
-            this.txt_Community.Location = new System.Drawing.Point(145, 79);
+            this.txt_Community.Location = new System.Drawing.Point(144, 79);
             this.txt_Community.Name = "txt_Community";
-            this.txt_Community.Size = new System.Drawing.Size(175, 20);
+            this.txt_Community.Size = new System.Drawing.Size(166, 20);
             this.txt_Community.TabIndex = 23;
             // 
             // lbl_Community
@@ -127,9 +127,9 @@
             // 
             // dt_ValidityDate
             // 
-            this.dt_ValidityDate.Location = new System.Drawing.Point(135, 101);
+            this.dt_ValidityDate.Location = new System.Drawing.Point(144, 102);
             this.dt_ValidityDate.Name = "dt_ValidityDate";
-            this.dt_ValidityDate.Size = new System.Drawing.Size(183, 20);
+            this.dt_ValidityDate.Size = new System.Drawing.Size(166, 20);
             this.dt_ValidityDate.TabIndex = 26;
             // 
             // lbl_ValidityDate
@@ -159,9 +159,9 @@
             // 
             // txt_SoftwareSupplier_TaxNumber
             // 
-            this.txt_SoftwareSupplier_TaxNumber.Location = new System.Drawing.Point(253, 169);
+            this.txt_SoftwareSupplier_TaxNumber.Location = new System.Drawing.Point(176, 169);
             this.txt_SoftwareSupplier_TaxNumber.Name = "txt_SoftwareSupplier_TaxNumber";
-            this.txt_SoftwareSupplier_TaxNumber.Size = new System.Drawing.Size(65, 20);
+            this.txt_SoftwareSupplier_TaxNumber.Size = new System.Drawing.Size(134, 20);
             this.txt_SoftwareSupplier_TaxNumber.TabIndex = 31;
             // 
             // lbl_SoftwareSupplier_TaxNumber

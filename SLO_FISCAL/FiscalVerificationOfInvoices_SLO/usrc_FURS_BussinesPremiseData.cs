@@ -138,20 +138,20 @@ namespace FiscalVerificationOfInvoices_SLO
 
         string MakePP_XML()
         {
-            string fu_TaxNumber = "10329048";                   // davčna  podjetja
-            string fu_BusinessPremiseID = "KUNAVE6";     // Oznaka prostora vsak račun vsebuje oznako prostora 
-            string fu_CadastralNumber = "1738";          // št. katastrske občine
-            string fu_BuildingNumber = "2183";           // številka stavbe  (GURS)
-            string fu_BuildingSectionNumber = "73";      //Oznaka dela stavbe (GURS)
+            string fu_TaxNumber = txt_MyOrganisation_TaxID.Text;      // "10329048";                   // davčna  podjetja
+            string fu_BusinessPremiseID = txt_BussinesPremiseID.Text; //  "KUNAVE6";     // Oznaka prostora vsak račun vsebuje oznako prostora 
+            string fu_CadastralNumber = txt_CadastralNumber.Text;     //  "1738";          // št. katastrske občine
+            string fu_BuildingNumber = txt_BuildingNumber.Text ;      // "2183";           // številka stavbe  (GURS)
+            string fu_BuildingSectionNumber = txt_BuildingSectionNumber.Text; // "73";      //Oznaka dela stavbe (GURS)
             string fu_Street = "Kunaverjeva";            //ulica poslovnega prostora
             string fu_HouseNumber = "6";                 //hišna številka poslovnega prostora
             string fu_HouseNumberAdditional = " ";        //hišna številka dodatno  poslovnega prostora
-            string fu_Community = "Dravlje";             // okraj 
+            string fu_Community = txt_Community.Text; // "Dravlje";             // okraj 
             string fu_City = "Dravlje";                  //Kraj
             string fu_PostalCode = "1117";               // Poštna številka
-            string fu_ValidityDate = "2020-08-25";       // do kdaj je veljaven poslovni prostor
+            string fu_ValidityDate = dt_ValidityDate.Text; //  "2020-08-25";       // do kdaj je veljaven poslovni prostor
             string fu_SpecialNotes = " ";                 //dodatno sporočilo za interno evidenco
-            string fu_SoftwareSupplier_TaxNumber = "10000000";   //davvčna št izdelovalca programske opreme
+            string fu_SoftwareSupplier_TaxNumber = txt_SoftwareSupplier_TaxNumber.Text; // "10000000";   //davvčna št izdelovalca programske opreme
 
             XmlDocument xdoc = null;
             XmlNodeList NList = null;
