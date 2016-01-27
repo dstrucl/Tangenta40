@@ -1,6 +1,6 @@
 ﻿namespace FiscalVerificationOfInvoices_SLO
 {
-    partial class Form_Main
+    partial class Form_MainFiscal
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MainFiscal));
             this.btn_Settings = new System.Windows.Forms.Button();
             this.btn_Send_ECHO = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btn_SendInvoices_from_BingBookOfInvoices = new System.Windows.Forms.Button();
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_UnsentInvoices_from_BindingBookOfInvoices)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Settings
@@ -72,11 +67,6 @@
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.dgvx_UnsentInvoices_from_BindingBookOfInvoices);
-            // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
@@ -85,55 +75,21 @@
             this.splitContainer1.SplitterDistance = 229;
             this.splitContainer1.TabIndex = 6;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(207, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Neposlani računi iz vezane knjige računov";
-            // 
-            // btn_SendInvoices_from_BingBookOfInvoices
-            // 
-            this.btn_SendInvoices_from_BingBookOfInvoices.Location = new System.Drawing.Point(104, 6);
-            this.btn_SendInvoices_from_BingBookOfInvoices.Name = "btn_SendInvoices_from_BingBookOfInvoices";
-            this.btn_SendInvoices_from_BingBookOfInvoices.Size = new System.Drawing.Size(254, 38);
-            this.btn_SendInvoices_from_BingBookOfInvoices.TabIndex = 7;
-            this.btn_SendInvoices_from_BingBookOfInvoices.Text = "Pošlji neposlane račune iz vezane knjige računov";
-            this.btn_SendInvoices_from_BingBookOfInvoices.UseVisualStyleBackColor = true;
-            // 
-            // dgvx_UnsentInvoices_from_BindingBookOfInvoices
-            // 
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.DataGridViewWithRowNumber = false;
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Location = new System.Drawing.Point(8, 26);
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Name = "dgvx_UnsentInvoices_from_BindingBookOfInvoices";
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.Size = new System.Drawing.Size(903, 634);
-            this.dgvx_UnsentInvoices_from_BindingBookOfInvoices.TabIndex = 9;
-            // 
-            // Form_Main
+            // Form_MainFiscal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(922, 728);
-            this.Controls.Add(this.btn_SendInvoices_from_BingBookOfInvoices);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.btn_Send_ECHO);
             this.Controls.Add(this.btn_Settings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_Main";
+            this.Name = "Form_MainFiscal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Main";
             this.Load += new System.EventHandler(this.Form_Main_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_UnsentInvoices_from_BindingBookOfInvoices)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -142,8 +98,5 @@
         private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.Button btn_Send_ECHO;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label label1;
-        private DataGridView_2xls.DataGridView2xls dgvx_UnsentInvoices_from_BindingBookOfInvoices;
-        private System.Windows.Forms.Button btn_SendInvoices_from_BingBookOfInvoices;
     }
 }

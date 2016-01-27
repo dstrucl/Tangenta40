@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    public partial class Form_Main : Form
+    public partial class Form_MainFiscal : Form
     {
         string Xml_ECHO = @"<?xml version=""1.0"" encoding=""UTF-8""?> <fu:EchoRequest xmlns:fu=""http://www.fu.gov.si/"">Echo</fu:EchoRequest>";
         ToolTip ToolTipEcho = new ToolTip();
 
         public usrc_FVI_SLO m_usrc_FVI_SLO = null;
 
-        public Form_Main(usrc_FVI_SLO xusrc_FVI_SLO)
+        public Form_MainFiscal(usrc_FVI_SLO xusrc_FVI_SLO)
         {
             InitializeComponent();
             m_usrc_FVI_SLO = xusrc_FVI_SLO;
@@ -85,9 +85,14 @@ namespace FiscalVerificationOfInvoices_SLO
             ToolTipEcho.SetToolTip(this.btn_Send_ECHO, "");
         }
 
-        private void btn_BussinesPremisseID_Click(object sender, EventArgs e)
+        private void LoadVKRinvoice()
         {
 
+
+
+
         }
+
+
     }
 }

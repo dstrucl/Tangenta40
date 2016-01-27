@@ -254,7 +254,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
 
         private FormFURSCommunication FormFURSCommunication = null;
-        private Form_Main frm_main = null;
+        private Form_MainFiscal frm_main = null;
 
         public delegate void delegate_Response_SingleInvoice(long Message_ID, string xml);
         public delegate void delegate_Response_ManyInvoices(long Message_ID, string xml);
@@ -572,7 +572,7 @@ namespace FiscalVerificationOfInvoices_SLO
         private void btn_FVI_Click(object sender, EventArgs e)
         {
 
-            frm_main = new Form_Main(this);
+            frm_main = new Form_MainFiscal(this);
             frm_main.ShowDialog(this);
 
             frm_main = null;
