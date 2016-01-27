@@ -11,6 +11,7 @@ namespace LanguageControl
     public static class lngRPM
     {
 
+        public static ltext s_SalesBookInvoice = new ltext("Sales book invoice", "Vezana knjiga računov");
         public static ltext s_Price_for = new ltext("Price for", "Cena za ");
         public static ltext s_TaxRate_must_be_defined = new ltext("Tax rate name must be defined!", "Davčna stopnja mora biti določena!");
         public static ltext s_Item_name_must_be_defined = new ltext("Item name must be defined!", "Ime postavke mora biti določen!");

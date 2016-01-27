@@ -649,8 +649,11 @@ namespace Tangenta
                                                     DataTable dt_ExpiryCheck = new DataTable();
                                                     if (fs.ExpiryCheck(ref dt_ExpiryCheck,ref ExpiryItemsFound,ref sNoExpiryDate,ref sNoSaleBeforeExpiryDate,ref sNoDiscardBeforeExpiryDate))
                                                     {
-                                                        Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
-                                                        frm_exp_chk.ShowDialog();
+                                                        if (ExpiryItemsFound)
+                                                        {
+                                                            Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
+                                                            frm_exp_chk.ShowDialog();
+                                                        }
                                                         return true;
                                                     }
                                                     else

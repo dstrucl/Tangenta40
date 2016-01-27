@@ -61,7 +61,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -107,7 +110,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -150,7 +156,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -190,7 +199,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -227,7 +239,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -261,7 +276,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -292,7 +310,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -320,7 +341,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -345,7 +369,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -367,7 +394,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -386,7 +416,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -415,7 +448,10 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -425,12 +461,25 @@ namespace Tangenta
                                                                 {
                                                                     if (UpgradeDB_1_13_to_1_14())
                                                                     {
-                                                                        return true;
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
                                                                     }
                                                                 }
                                                                 else
                                                                 {
-                                                                    MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                                                    if (sOldDBVersion.Equals("1.14"))
+                                                                    {
+                                                                        if (UpgradeDB_1_14_to_1_15())
+                                                                        {
+                                                                            return true;
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -448,70 +497,65 @@ namespace Tangenta
             return false;
         }
 
-        private bool UpgradeDB_1_09_to_1_10()
+        private bool UpgradeDB_1_14_to_1_15()
         {
             string Err = null;
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
-                string stbl = "Atom_myCompany_Person";
-                if (DBSync.DBSync.TableExists(stbl, ref Err))
-                {
-
-                    sql = @"PRAGMA foreign_keys = OFF;
-                    DROP TABLE " + stbl + @";
-                    CREATE TABLE " + stbl + @"
-                      (
-                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                          'UserName' varchar(32) NOT NULL,
-                           Atom_Person_ID  INTEGER  NOT NULL REFERENCES Atom_Person(ID),
-                           Atom_Office_ID  INTEGER  NOT NULL REFERENCES Atom_Office(ID),
-                          'Job' varchar(264) NULL,
-                          'Description' varchar(2000) NULL
-                      );
-                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,1,'Direktor','Direktorica in lastnica podjetja');
-                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,2,'Direktor','Direktorica in lastnica podjetja');
-                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,3,'Direktor','Direktorica in lastnica podjetja');
-                    PRAGMA foreign_keys = ON;";
-                }
-                else
-                {
-                    sql = @"PRAGMA foreign_keys = OFF;
-                      CREATE TABLE " + stbl + @"
-                      (
-                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                          'UserName' varchar(32) NOT NULL,
-                           Atom_Person_ID  INTEGER  NOT NULL REFERENCES Atom_Person(ID),
-                           Atom_Office_ID  INTEGER  NOT NULL REFERENCES Atom_Office(ID),
-                          'Job' varchar(264) NULL,
-                          'Description' varchar(2000) NULL
-                      );
-                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,1,'Direktor','Direktorica in lastnica podjetja');
-                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,2,'Direktor','Direktorica in lastnica podjetja');
-                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,3,'Direktor','Direktorica in lastnica podjetja');                    
-                    PRAGMA foreign_keys = ON;";
-                }
+                sql = @"
+                        CREATE TABLE Stock_backup
+                        (
+                        'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                        'ImportTime' DATETIME NOT NULL,
+                        'dQuantity' DECIMAL(10,5) NOT NULL,
+                        'ExpiryDate' DATETIME NULL,
+                        PurchasePrice_Item_ID  INTEGER  NOT NULL REFERENCES PurchasePrice_Item(ID),
+                        Stock_AddressLevel1_ID  INTEGER  NULL REFERENCES Stock_AddressLevel1(ID),
+                        'Description' varchar(2000) NULL
+                        )
+                ";
                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
-                    string[] new_tables = new string[] { "FVI_SLO_RealEstateBP", "FVI_SLO_Response", "Atom_FVI_SLO_RealEstateBP" };
-                    if (DBSync.DBSync.CreateTables(new_tables))
+                    sql = @"INSERT INTO Stock_backup SELECT * FROM Stock";
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
-                        if (DBSync.DBSync.Create_VIEWs())
+                        sql = @"PRAGMA foreign_keys = OFF;
+                        DROP TABLE Stock;
+                        ALTER TABLE Stock_backup RENAME TO Stock;
+                        PRAGMA foreign_keys = ON;";
+                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
-                            Set_DatBase_Version("1.10");
-                            return true;
+                            string[] new_tables = new string[] { "FVI_SLO_SalesBookInvoice"};
+                            if (DBSync.DBSync.CreateTables(new_tables))
+                            {
+                                if (DBSync.DBSync.Create_VIEWs())
+                                {
+                                    Set_DatBase_Version("1.15");
+                                    return true;
+                                }
+                            }
                         }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_08_to_1_09:sql = " + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             return false;
         }
-
         private bool UpgradeDB_1_13_to_1_14()
         {
             if (DBSync.DBSync.Drop_VIEWs())
@@ -700,6 +744,70 @@ namespace Tangenta
                     return false;
                 }
 
+            }
+            return false;
+        }
+
+        private bool UpgradeDB_1_09_to_1_10()
+        {
+            string Err = null;
+            if (DBSync.DBSync.Drop_VIEWs())
+            {
+                string sql = null;
+                string stbl = "Atom_myCompany_Person";
+                if (DBSync.DBSync.TableExists(stbl, ref Err))
+                {
+
+                    sql = @"PRAGMA foreign_keys = OFF;
+                    DROP TABLE " + stbl + @";
+                    CREATE TABLE " + stbl + @"
+                      (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                          'UserName' varchar(32) NOT NULL,
+                           Atom_Person_ID  INTEGER  NOT NULL REFERENCES Atom_Person(ID),
+                           Atom_Office_ID  INTEGER  NOT NULL REFERENCES Atom_Office(ID),
+                          'Job' varchar(264) NULL,
+                          'Description' varchar(2000) NULL
+                      );
+                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,1,'Direktor','Direktorica in lastnica podjetja');
+                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,2,'Direktor','Direktorica in lastnica podjetja');
+                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,3,'Direktor','Direktorica in lastnica podjetja');
+                    PRAGMA foreign_keys = ON;";
+                }
+                else
+                {
+                    sql = @"PRAGMA foreign_keys = OFF;
+                      CREATE TABLE " + stbl + @"
+                      (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                          'UserName' varchar(32) NOT NULL,
+                           Atom_Person_ID  INTEGER  NOT NULL REFERENCES Atom_Person(ID),
+                           Atom_Office_ID  INTEGER  NOT NULL REFERENCES Atom_Office(ID),
+                          'Job' varchar(264) NULL,
+                          'Description' varchar(2000) NULL
+                      );
+                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,1,'Direktor','Direktorica in lastnica podjetja');
+                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,2,'Direktor','Direktorica in lastnica podjetja');
+                    Insert into " + stbl + @" (UserName,Atom_Person_ID,Atom_Office_ID,Job,Description)values('marjetkah',1,3,'Direktor','Direktorica in lastnica podjetja');                    
+                    PRAGMA foreign_keys = ON;";
+                }
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    string[] new_tables = new string[] { "FVI_SLO_RealEstateBP", "FVI_SLO_Response", "Atom_FVI_SLO_RealEstateBP" };
+                    if (DBSync.DBSync.CreateTables(new_tables))
+                    {
+                        if (DBSync.DBSync.Create_VIEWs())
+                        {
+                            Set_DatBase_Version("1.10");
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_08_to_1_09:sql = " + sql + "\r\nErr=" + Err);
+                    return false;
+                }
             }
             return false;
         }

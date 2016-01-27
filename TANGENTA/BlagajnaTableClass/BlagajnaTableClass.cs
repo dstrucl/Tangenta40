@@ -2090,10 +2090,28 @@ namespace BlagajnaTableClass
         public BarCodeValue BarCodeValue = new BarCodeValue();
     }
 
-
-    public class VisibleForSelection:DB_bit
+    public class InvoiceNumber:DB_varchar_25
     {
 
+    }
+
+    public class SetNumber:DB_varchar_5
+    {
+
+    }
+
+    public class SerialNumber : DB_varchar_25
+    {
+
+    }
+
+    public class FVI_SLO_SalesBookInvoice
+    {
+        public ID ID = new ID();
+        public Invoice m_Invoice = new Invoice();
+        public InvoiceNumber InvoiceNumber = new InvoiceNumber();
+        public SetNumber SetNumber = new SetNumber();
+        public SerialNumber SerialNumber = new SerialNumber();
     }
 
     public class Atom_ItemShopA_Image
@@ -2105,6 +2123,10 @@ namespace BlagajnaTableClass
         public Description Description = new Description();
     }
 
+    public class VisibleForSelection:DB_bit
+    {
+
+    }
 
     public class Atom_ItemShopA
     {
@@ -2641,6 +2663,9 @@ namespace BlagajnaTableClass
 
         /* 179 */
         public Atom_ItemShopA_Price m_Atom_ItemShopA_Price = new Atom_ItemShopA_Price();
+
+        /* 180 */
+        public FVI_SLO_SalesBookInvoice m_FVI_SLO_SalesBookInvoice = new FVI_SLO_SalesBookInvoice();
 
     }
 }

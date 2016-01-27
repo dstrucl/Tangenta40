@@ -56,6 +56,12 @@
     <Compile Include="FormFURSCommunication.Designer.cs">
       <DependentUpon>FormFURSCommunication.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_EnterData_to_SalesBookInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_EnterData_to_SalesBookInvoice.Designer.cs">
+      <DependentUpon>Form_EnterData_to_SalesBookInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FormFURSCommunication.resx">
       <DependentUpon>FormFURSCommunication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_EnterData_to_SalesBookInvoice.resx">
+      <DependentUpon>Form_EnterData_to_SalesBookInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>

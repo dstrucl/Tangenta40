@@ -7,6 +7,7 @@ namespace LanguageControl
 {
     public static class lngTName
     {
+        public static ltext lngt_t_FVI_SLO_SalesBookInvoice = new ltext("Sales Book Invoice", "Vezana knjiga računov");
         public static ltext lngt_t_Atom_ItemShopA_Price = new ltext("Shopa A Item Price", "Prodajalna A artikli in cene");
         public static ltext lngt_t_Atom_ItemShopA = new ltext("Shopa A Item", "Prodajalna A Artikli");
         public static ltext lngt_t_Atom_Unit_ShopA = new ltext("Shopa A Unit", "Prodajalna A merske enote");

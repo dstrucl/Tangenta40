@@ -76,7 +76,7 @@ namespace InvoiceDB
                                     Stock_$$ImportTime,
                                     Stock_$_ppi_$_pp_$_sup_$_org_$$Name,
                                     Stock_$_ppi_$_pp_$_ref_$$ReferenceNote
-                                    from stock_view where Stock_$$dQuantity > 0  order by Stock_$$ExpiryDate asc " + DBSync.DBSync.sLimit(iLimit);
+                                    from stock_view where Stock_$$dQuantity > 0 and (Stock_$$ExpiryDate is not null) order by Stock_$$ExpiryDate asc " + DBSync.DBSync.sLimit(iLimit);
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_ExpiryCheck, sql, ref Err))
             {
@@ -97,44 +97,61 @@ namespace InvoiceDB
             ExpiryItemsFound = false;
             if (fs.ExpiryCheckData(ref dt_ExpiryCheck))
             {
-                int iSaleBeforeExpiryDateInDays_COUNT = 0;
-                int iDiscardBeforeExpiryDateInDays_COUNT = 0;
-                foreach (DataRow dr in dt_ExpiryCheck.Rows)
+                if (dt_ExpiryCheck.Rows.Count > 0)
                 {
-                    DateTime dt_Expiry_Date;
-                    int iSaleBeforeExpiryDateInDays;
-                    int iDiscardBeforeExpiryDateInDays;
-                    string sUniqueName = null;
-                    object oUniqueName = dr["Stock_$_ppi_$_i_$$UniqueName"];
-                    if (oUniqueName is string)
+                    int iSaleBeforeExpiryDateInDays_COUNT = 0;
+                    int iDiscardBeforeExpiryDateInDays_COUNT = 0;
+                    foreach (DataRow dr in dt_ExpiryCheck.Rows)
                     {
-                        sUniqueName = (string)oUniqueName;
-                    }
-                    object odt_Expiry_Date = dr["Stock_$$ExpiryDate"];
-
-                    if (odt_Expiry_Date is DateTime)
-                    {
-                        dt_Expiry_Date = (DateTime)odt_Expiry_Date;
-                        object oSaleBeforeExpiryDateInDays = dr["Stock_$_ppi_$_i_$_exp_$$SaleBeforeExpiryDateInDays"];
-                        if (oSaleBeforeExpiryDateInDays is int)
+                        DateTime dt_Expiry_Date;
+                        int iSaleBeforeExpiryDateInDays;
+                        int iDiscardBeforeExpiryDateInDays;
+                        string sUniqueName = null;
+                        object oUniqueName = dr["Stock_$_ppi_$_i_$$UniqueName"];
+                        if (oUniqueName is string)
                         {
-                            iSaleBeforeExpiryDateInDays = (int)oSaleBeforeExpiryDateInDays;
-                            object oiDiscardBeforeExpiryDateInDays = dr["Stock_$_ppi_$_i_$_exp_$$DiscardBeforeExpiryDateInDays"];
-                            if (oiDiscardBeforeExpiryDateInDays is int)
+                            sUniqueName = (string)oUniqueName;
+                        }
+                        object odt_Expiry_Date = dr["Stock_$$ExpiryDate"];
+
+                        if (odt_Expiry_Date is DateTime)
+                        {
+                            dt_Expiry_Date = (DateTime)odt_Expiry_Date;
+                            object oSaleBeforeExpiryDateInDays = dr["Stock_$_ppi_$_i_$_exp_$$SaleBeforeExpiryDateInDays"];
+                            if (oSaleBeforeExpiryDateInDays is int)
                             {
-                                iDiscardBeforeExpiryDateInDays = (int)oiDiscardBeforeExpiryDateInDays;
-                                DateTime datet_SaleBeforeExpiryDateInDays = dt_Expiry_Date.AddDays(-iSaleBeforeExpiryDateInDays);
-                                DateTime datet_DiscardBeforeExpiryDateInDays = dt_Expiry_Date.AddDays(-iDiscardBeforeExpiryDateInDays);
-                                DateTime dtNow = DateTime.Now;
-                                if (dtNow.CompareTo(datet_DiscardBeforeExpiryDateInDays) > 0)
+                                iSaleBeforeExpiryDateInDays = (int)oSaleBeforeExpiryDateInDays;
+                                object oiDiscardBeforeExpiryDateInDays = dr["Stock_$_ppi_$_i_$_exp_$$DiscardBeforeExpiryDateInDays"];
+                                if (oiDiscardBeforeExpiryDateInDays is int)
                                 {
-                                    iDiscardBeforeExpiryDateInDays_COUNT++;
+                                    iDiscardBeforeExpiryDateInDays = (int)oiDiscardBeforeExpiryDateInDays;
+                                    DateTime datet_SaleBeforeExpiryDateInDays = dt_Expiry_Date.AddDays(-iSaleBeforeExpiryDateInDays);
+                                    DateTime datet_DiscardBeforeExpiryDateInDays = dt_Expiry_Date.AddDays(-iDiscardBeforeExpiryDateInDays);
+                                    DateTime dtNow = DateTime.Now;
+                                    if (dtNow.CompareTo(datet_DiscardBeforeExpiryDateInDays) > 0)
+                                    {
+                                        iDiscardBeforeExpiryDateInDays_COUNT++;
+                                    }
+                                    else
+                                    {
+                                        if (dtNow.CompareTo(datet_SaleBeforeExpiryDateInDays) > 0)
+                                        {
+                                            iSaleBeforeExpiryDateInDays_COUNT++;
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    if (dtNow.CompareTo(datet_SaleBeforeExpiryDateInDays) > 0)
+                                    if (sUniqueName != null)
                                     {
-                                        iSaleBeforeExpiryDateInDays_COUNT++;
+                                        if (sNoDiscardBeforeExpiryDateInDays == null)
+                                        {
+                                            sNoDiscardBeforeExpiryDateInDays = sUniqueName;
+                                        }
+                                        else
+                                        {
+                                            sNoDiscardBeforeExpiryDateInDays += "|*|" + sUniqueName;
+                                        }
                                     }
                                 }
                             }
@@ -142,55 +159,41 @@ namespace InvoiceDB
                             {
                                 if (sUniqueName != null)
                                 {
-                                    if (sNoDiscardBeforeExpiryDateInDays == null)
+                                    if (sNoSaleBeforeExpiryDateInDays == null)
                                     {
-                                        sNoDiscardBeforeExpiryDateInDays = sUniqueName;
+                                        sNoSaleBeforeExpiryDateInDays = sUniqueName;
                                     }
                                     else
                                     {
-                                        sNoDiscardBeforeExpiryDateInDays += "|*|" + sUniqueName;
+                                        sNoSaleBeforeExpiryDateInDays += "|*|" + sUniqueName;
                                     }
                                 }
                             }
+
                         }
                         else
                         {
                             if (sUniqueName != null)
                             {
-                                if (sNoSaleBeforeExpiryDateInDays == null)
+                                if (sNoExpiryDate == null)
                                 {
-                                    sNoSaleBeforeExpiryDateInDays = sUniqueName;
+                                    sNoExpiryDate = sUniqueName;
                                 }
                                 else
                                 {
-                                    sNoSaleBeforeExpiryDateInDays += "|*|" + sUniqueName;
+                                    sNoExpiryDate += "|*|" + sUniqueName;
                                 }
                             }
                         }
-
                     }
-                    else
+                    if (iSaleBeforeExpiryDateInDays_COUNT + iDiscardBeforeExpiryDateInDays_COUNT > 0)
                     {
-                        if (sUniqueName != null)
-                        {
-                            if (sNoExpiryDate == null)
-                            {
-                                sNoExpiryDate = sUniqueName;
-                            }
-                            else
-                            {
-                                sNoExpiryDate += "|*|" + sUniqueName;
-                            }
-                        }
+                        ExpiryItemsFound = true;
                     }
                 }
-                if ((iSaleBeforeExpiryDateInDays_COUNT + iDiscardBeforeExpiryDateInDays_COUNT > 0) ||
-                    (sNoExpiryDate != null) ||
-                    (sNoSaleBeforeExpiryDateInDays != null) ||
-                    (sNoDiscardBeforeExpiryDateInDays != null))
-
+                else
                 {
-                    ExpiryItemsFound = true;
+                    ExpiryItemsFound = false;
                 }
                 return true;
             }

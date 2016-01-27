@@ -49,7 +49,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.14";
+        public const string VERSION = "1.15";
         public Settings Settings = null;
 
         /* 1 */
@@ -521,6 +521,9 @@ namespace BlagajnaDataBaseDef
         /* 179 */
         public SQLTable t_Atom_ItemShopA_Price = null;
 
+        /* 180 */
+        public SQLTable t_FVI_SLO_SalesBookInvoice = null;
+
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -730,7 +733,7 @@ namespace BlagajnaDataBaseDef
             t_Stock.AddColumn((Object)mt.m_Stock.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Stock.AddColumn((Object)mt.m_Stock.ImportTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker_Now, new ltext( "Import time", "Čas vnosa") );
             t_Stock.AddColumn((Object)mt.m_Stock.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Quantity in Stok", "Količina na zalogi") );
-            t_Stock.AddColumn((Object)mt.m_Stock.ExpiryDate, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Expiry Date", "Rok uporabe") );
+            t_Stock.AddColumn((Object)mt.m_Stock.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Expiry Date", "Rok uporabe") );
             t_Stock.AddColumn((Object)mt.m_Stock.m_PurchasePrice_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Purchase Price Item ID", "Nabavna Cena Artikel ID") );
             t_Stock.AddColumn((Object)mt.m_Stock.m_Stock_AddressLevel1, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "ID Stock Address Level 1", "ID Naslova nivo 1") );
             t_Stock.AddColumn((Object)mt.m_Stock.Description, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Description", "Opis") );
@@ -2007,7 +2010,7 @@ namespace BlagajnaDataBaseDef
             t_Atom_ItemShopA.AddColumn((Object)mt.m_Atom_ItemShopA.VisibleForSelection, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Visible for selection", "Vidno za izbor"));
             m_DBTables.items.Add(t_Atom_ItemShopA);
 
-            /* 180 */
+            /* 179 */
             t_Atom_ItemShopA_Price = new SQLTable((Object)new Atom_ItemShopA_Price(), "aishap", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_ItemShopA_Price);
             t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.m_ProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Proforma invoice ID", "Predračun ID"));
@@ -2018,6 +2021,15 @@ namespace BlagajnaDataBaseDef
             t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("End price", "Končna cena"));
             t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.TAX, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("TAX", "Davek"));
             m_DBTables.items.Add(t_Atom_ItemShopA_Price);
+
+            /* 180 */
+            t_FVI_SLO_SalesBookInvoice = new SQLTable((Object)new FVI_SLO_SalesBookInvoice(), "fvisbi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_FVI_SLO_SalesBookInvoice);
+            t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.m_Invoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
+            t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.InvoiceNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Number ID", "Številka Računa ID"));
+            t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.SetNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Set Number", "Številka posameznega obrazca iz vezane knjige računov"));
+            t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.SerialNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Serial Number", "Serijska številka vezane knjige računov"));
+            m_DBTables.items.Add(t_FVI_SLO_SalesBookInvoice);
         }
     }
  }
