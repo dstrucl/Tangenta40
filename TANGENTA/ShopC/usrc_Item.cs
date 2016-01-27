@@ -565,6 +565,7 @@ namespace ShopC
                 Form_Discount discount_frm = new Form_Discount(m_Item_Data.RetailPricePerUnit.v, AveragePruchasePricePerUnit, ExtraDiscount, m_Item_Data.Item_UniqueName.v);
                 discount_frm.ShowDialog();
                 ExtraDiscount = discount_frm.ExtraDiscount;
+                m_Item_Data.ExtraDiscount = ExtraDiscount;
                 Set_btn_Discount_Text();
                 Set_txt_Price();
             }

@@ -142,6 +142,11 @@
             // 
             this.nm_UpDown_EndPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.nm_UpDown_EndPrice.Location = new System.Drawing.Point(386, 354);
+            this.nm_UpDown_EndPrice.Maximum = new decimal(new int[] {
+            276447232,
+            23283,
+            0,
+            0});
             this.nm_UpDown_EndPrice.Name = "nm_UpDown_EndPrice";
             this.nm_UpDown_EndPrice.Size = new System.Drawing.Size(222, 62);
             this.nm_UpDown_EndPrice.TabIndex = 11;
