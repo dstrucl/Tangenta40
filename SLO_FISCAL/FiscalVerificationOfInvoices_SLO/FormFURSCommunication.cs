@@ -264,8 +264,8 @@ using MNet.SLOTaxService.Messages;
                 delay = Convert.ToInt16(Properties.Settings.Default.timeToShowSuccessfulFURSResult);
             }
             Refresh();
-            DialogResult = DialogResult.OK;
             DelayClose(delay);
+            DialogResult = DialogResult.OK;
 
             return true; 
         }
@@ -281,7 +281,7 @@ using MNet.SLOTaxService.Messages;
 
             if (success)
             {
-                lbl_FURSCommunication.Text = "Prostor Prijavljen ";
+                lbl_FURSCommunication.Text = "Prostor Prijavljen";
             }
             else
             {
@@ -291,11 +291,10 @@ using MNet.SLOTaxService.Messages;
                 this.BackColor = Color.Tomato;
             }
             Refresh();
-            DialogResult = DialogResult.OK;
             DelayClose(delay);
+            DialogResult = DialogResult.OK;
 
             return true;
-
         }
 
         private void DelayClose(int DelayMs)      
