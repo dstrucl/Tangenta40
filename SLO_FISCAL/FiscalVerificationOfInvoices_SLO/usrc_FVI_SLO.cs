@@ -311,6 +311,25 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
+        public void Write_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber,ref string xSerialNumber,ref string xSetNumber,ref string xInvoiceNumber)
+        {
+          Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(Invoice_ID, FiscalYear, InvoiceNumber, null, null, null, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
+            fsb.ShowDialog();
+            xSerialNumber = fsb.SerialNumber;
+            xSetNumber = fsb.SetNumber;
+            xInvoiceNumber = fsb.InvoiceNumber;
+
+        }
+
+        public void Update_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber, ref string xSerialNumber, ref string xSetNumber, ref string xInvoiceNumber)
+        {
+          Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(Invoice_ID, FiscalYear, InvoiceNumber, xSerialNumber, xSetNumber, xInvoiceNumber, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
+          fsb.ShowDialog();
+          xSerialNumber = fsb.SerialNumber;
+          xSetNumber = fsb.SetNumber;
+          xInvoiceNumber = fsb.InvoiceNumber;
+        }
+
         public bool Start(ref string ErrReason)
         {
             

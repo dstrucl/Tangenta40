@@ -33,7 +33,7 @@ namespace FiscalVerificationOfInvoices_SLO
             get { return m_InvoiceNumber; }
         }
 
-        public Form_EnterData_to_SalesBookInvoice(long Invoice_ID,int FiscalYear, string xSerialNaumber, string xSetNumber,string xInvoiceNumber,int InvoiceNumber, eMode xEmode)
+        public Form_EnterData_to_SalesBookInvoice(long Invoice_ID,int FiscalYear, int InvoiceNumber, string xSerialNaumber, string xSetNumber,string xInvoiceNumber, eMode xEmode)
         {
             InitializeComponent();
             lngRPM.s_SalesBookInvoice.Text(this);
