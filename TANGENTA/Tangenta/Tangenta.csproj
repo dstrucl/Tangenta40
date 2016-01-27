@@ -283,7 +283,6 @@
     <Compile Include="Form_XML_output.Designer.cs">
       <DependentUpon>Form_XML_output.cs</DependentUpon>
     </Compile>
-    <Compile Include="InvoiceData.cs" />
     <Compile Include="Form_OrganisationAccount_Edit.cs">
       <SubType>Form</SubType>
     </Compile>

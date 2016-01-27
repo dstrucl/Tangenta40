@@ -12,45 +12,10 @@ namespace InvoiceDB
 {
     public static class f_PriceList
     {
-        private static bool Update_price_item(DataTable dt_Item, Form parent_frm)
+        public static bool Insert_ShopB_Items_in_PriceList(DataTable dt_SimpleItem, Control parent_ctrl)
         {
             string Err = null;
-            for (;;)
-            {
-                SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
-                tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Blagajna.m_DBTables, null);
-                SelectID_Table_dlg.ShowDialog();
-                long id_Taxation = SelectID_Table_dlg.ID;
-                if (id_Taxation >= 0)
-                {
-                    foreach (DataRow dr in dt_Item.Rows)
-                    {
-                        long PriceList_ID = (long)dr["PriceList_ID"];
-                        long Item_ID = (long)dr["Item_ID"];
-                        string sql = "insert into Price_Item (RetailPricePerUnit,Discount,Taxation_ID,Item_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + Item_ID.ToString() + "," + PriceList_ID.ToString() + ")";
-                        object objresult = new object();
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objresult, ref Err))
-                        {
-                            LogFile.Error.Show("ERROR:f_PriceList:Update:sql=" + sql + "\r\nErr=" + Err);
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-                else
-                {
-                    if (MessageBox.Show(parent_frm, lngRPM.s_PriceListIsNotUpdatedBecauseYouDidnotSelect.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
 
-        private static bool Update_price_SimpleItem(DataTable dt_SimpleItem, Form parent_frm)
-        {
-            string Err = null;
             for (;;)
             {
                 SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
@@ -76,7 +41,7 @@ namespace InvoiceDB
                 }
                 else
                 {
-                    if (MessageBox.Show(parent_frm, lngRPM.s_PriceListIsNotUpdatedBecauseYouDidnotSelect.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
+                    if (MessageBox.Show(parent_ctrl, lngRPM.s_PriceListIsNotUpdatedBecauseYouDidnotSelect.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
                     {
                         return false;
                     }
@@ -84,16 +49,53 @@ namespace InvoiceDB
             }
         }
 
-        private static bool check_price_item(ref DataTable dt)
+        public static bool Insert_ShopC_Items_in_PriceList(DataTable dt_Item_NotIn_PriceList, Control parent_ctrl)
         {
             string Err = null;
-            if (dt.Columns.Count == 0)
+            for (;;)
             {
-                dt.Columns.Add("PriceList_ID", typeof(long));
-                dt.Columns.Add("PriceList", typeof(string));
-                dt.Columns.Add("Item_ID", typeof(long));
-                dt.Columns.Add("UniqueName", typeof(string));
-                dt.Columns.Add("Name", typeof(string));
+                SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
+                tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Blagajna.m_DBTables, null);
+                SelectID_Table_dlg.ShowDialog();
+                long id_Taxation = SelectID_Table_dlg.ID;
+                if (id_Taxation >= 0)
+                {
+                    foreach (DataRow dr in dt_Item_NotIn_PriceList.Rows)
+                    {
+                        long PriceList_ID = (long)dr["PriceList_ID"];
+                        long Item_ID = (long)dr["Item_ID"];
+                        string sql = "insert into Price_Item (RetailPricePerUnit,Discount,Taxation_ID,Item_ID,PriceList_ID) values (-1,0," + id_Taxation.ToString() + "," + Item_ID.ToString() + "," + PriceList_ID.ToString() + ")";
+                        object objresult = new object();
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objresult, ref Err))
+                        {
+                            LogFile.Error.Show("ERROR:f_PriceList:Update:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    if (MessageBox.Show(parent_ctrl, lngRPM.s_PriceListIsNotUpdatedBecauseYouDidnotSelect.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+        private static bool check_price_ShopC_Item(ref DataTable dt_ShopC_Items_NotIn_PriceList)
+        {
+            string Err = null;
+            if (dt_ShopC_Items_NotIn_PriceList.Columns.Count == 0)
+            {
+                dt_ShopC_Items_NotIn_PriceList.Columns.Add("PriceList_ID", typeof(long));
+                dt_ShopC_Items_NotIn_PriceList.Columns.Add("PriceList", typeof(string));
+                dt_ShopC_Items_NotIn_PriceList.Columns.Add("Item_ID", typeof(long));
+                dt_ShopC_Items_NotIn_PriceList.Columns.Add("UniqueName", typeof(string));
+                dt_ShopC_Items_NotIn_PriceList.Columns.Add("Name", typeof(string));
             }
 
             DataTable dt_PriceList = new DataTable();
@@ -114,13 +116,13 @@ namespace InvoiceDB
                         {
                             foreach (DataRow dr_of_dt_Item in dt_Item.Rows)
                             {
-                                DataRow dr_of_dt = dt.NewRow();
+                                DataRow dr_of_dt = dt_ShopC_Items_NotIn_PriceList.NewRow();
                                 dr_of_dt["PriceList_ID"] = PriceList_ID;
                                 dr_of_dt["PriceList"] = PriceList_Name;
                                 dr_of_dt["Item_ID"] = dr_of_dt_Item["ID"];
                                 dr_of_dt["UniqueName"] = dr_of_dt_Item["UniqueName"];
                                 dr_of_dt["Name"] = dr_of_dt_Item["Name"];
-                                dt.Rows.Add(dr_of_dt);
+                                dt_ShopC_Items_NotIn_PriceList.Rows.Add(dr_of_dt);
                             }
                         }
                     }
@@ -141,7 +143,7 @@ namespace InvoiceDB
 
         }
 
-        private static bool check_price_SimpleItem(ref DataTable dt)
+        private static bool check_price_ShopB_Item(ref DataTable dt)
         {
             string Err = null;
             if (dt.Columns.Count == 0)
@@ -195,47 +197,62 @@ namespace InvoiceDB
 
 
 
-        public static bool Update(Form parent_frm)
+        public static bool CheckAndComplete_PriceList_if_needed(char chShop,Control parent_ctrl)
         {
-            DataTable dt_Item = new DataTable();
-            if (check_price_item(ref dt_Item))
+            DataTable dt_Item_NotIn_PriceList = new DataTable();
+            if (chShop == 'B')
             {
-                if (dt_Item.Rows.Count > 0)
+                if (check_price_ShopB_Item(ref dt_Item_NotIn_PriceList))
                 {
-                    if (Update_price_item(dt_Item, parent_frm))
+                    if (dt_Item_NotIn_PriceList.Rows.Count > 0)
                     {
-                        DataTable dt_SimpleItem = new DataTable();
-                        if (check_price_SimpleItem(ref dt_SimpleItem))
-                        {
-                            if (dt_SimpleItem.Rows.Count > 0)
-                            {
-                                return Update_price_SimpleItem(dt_SimpleItem, parent_frm);
-                            }
-                            else
-                            {
-                                return true;
-                            }
-
-                        }
+                        return Insert_ShopB_Items_in_PriceList(dt_Item_NotIn_PriceList, parent_ctrl);
                     }
-                    return false;
+                    else
+                    {
+                        return true;
+                    }
                 }
                 else
                 {
-                    DataTable dt_SimpleItem = new DataTable();
-                    if (check_price_SimpleItem(ref dt_SimpleItem))
+                    return false;
+
+                }
+            }
+            else if (chShop == 'C')
+            {
+                if (check_price_ShopC_Item(ref dt_Item_NotIn_PriceList))
+                {
+                    if (dt_Item_NotIn_PriceList.Rows.Count > 0)
                     {
-                        if (dt_SimpleItem.Rows.Count > 0)
-                        {
-                            return Update_price_SimpleItem(dt_SimpleItem, parent_frm);
-                        }
-                        else
+                        if (Insert_ShopC_Items_in_PriceList(dt_Item_NotIn_PriceList, parent_ctrl))
                         {
                             return true;
                         }
+                        return false;
                     }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
                     return false;
                 }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_PriceList:Update:chShop can be 'B' or 'C'!");
+                return false;
+            }
+        }
+
+        public static bool Check_All_ShopB_Items_In_PriceList(ref DataTable dt_ShopB_Item_NotIn_PriceList)
+        {
+            if (check_price_ShopB_Item(ref dt_ShopB_Item_NotIn_PriceList))
+            {
+                return true;
             }
             else
             {
@@ -243,42 +260,21 @@ namespace InvoiceDB
             }
         }
 
-        public static bool Check(Form pparent)
+        public static bool Check_All_ShopC_Items_In_PriceList(ref DataTable dt_ShopC_Item_NotIn_PriceList)
         {
-            DataTable dt_Item = new DataTable();
-            DataTable dt_SimpleItem = new DataTable();
-            if (check_price_item(ref dt_Item))
+            if (check_price_ShopC_Item(ref dt_ShopC_Item_NotIn_PriceList))
             {
-                if (check_price_SimpleItem(ref dt_SimpleItem))
-                {
-                    if (dt_Item.Rows.Count + dt_SimpleItem.Rows.Count > 0)
-                    {
-                        return true;
-                        //if (Ask_To_Update(dt_SimpleItem, dt_Item, pparent))
-                        //{
-                        //    return Update(pparent);
-                        //}
-                    }
-                }
+                return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
-        //private static bool Ask_To_Update(DataTable dt_SimpleItem, DataTable dt_Item, Form pparent)
-        //{
-        //    Form_PriceList_NotComplete PriceList_NotComplete_Form_dlg = new Form_PriceList_NotComplete(dt_SimpleItem, dt_Item, pparent);
-        //    if (PriceList_NotComplete_Form_dlg.ShowDialog() == DialogResult.OK)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
 
 
-        public static void CheckPriceUndefined_ShopB(Form form, SQLTableControl.DBTableControl xdbTables, ref bool bEdit)
+        public static void CheckPriceUndefined_ShopB(ref bool bEdit)
         {
             string Err = null;
             bEdit = false;
@@ -289,8 +285,6 @@ namespace InvoiceDB
             {
                 if (dt_Price_SimpleItem_VIEW.Rows.Count > 0)
                 {
-                    //uwpf_GUI.Price_Undefined_Window piu_w = new uwpf_GUI.Price_Undefined_Window(lngRPM.s_SimpleItemPriceUndefined.s, dt_Price_SimpleItem_VIEW, xdbTables);
-                    //bEdit = (bool)piu_w.ShowDialog();
                     bEdit = true;
                 }
             }
@@ -301,7 +295,7 @@ namespace InvoiceDB
         }
 
 
-        public static void CheckPriceUndefined_ShopC(Form form, SQLTableControl.DBTableControl xdbTables, ref bool bEdit)
+        public static void CheckPriceUndefined_ShopC(ref bool bEdit)
         {
             string Err = null;
             bEdit = false;

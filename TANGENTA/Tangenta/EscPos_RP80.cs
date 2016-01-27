@@ -234,15 +234,85 @@ namespace Tangenta
                 return cPartialCutPaper;
             }
 
-            public string GetLogo(byte[] LogoData)
+        public string GetBitmapString(byte[] ImageData, double xwidth)
+        {
+            if (ImageData == null)
             {
-                if (LogoData==null)
+                return "";
+            }
+            string logo = "";
+
+            BitmapData data = GetBitmapData(ImageData, xwidth);
+            BitArray dots = data.Dots;
+            byte[] width = BitConverter.GetBytes(data.Width);
+
+            int offset = 0;
+            MemoryStream stream = new MemoryStream();
+            BinaryWriter bw = new BinaryWriter(stream);
+
+
+            bw.Write((char)0x1B);
+            bw.Write('@');
+
+            bw.Write((char)0x1B);
+            bw.Write('3');
+            bw.Write((byte)24);
+
+            while (offset < data.Height)
+            {
+                bw.Write((char)0x1B);
+                bw.Write('*');         // bit-image mode
+                bw.Write((byte)33);    // 24-dot double-density
+                bw.Write(width[0]);  // width low byte
+                bw.Write(width[1]);  // width high byte
+
+                for (int x = 0; x < data.Width; ++x)
+                {
+                    for (int k = 0; k < 3; ++k)
+                    {
+                        byte slice = 0;
+                        for (int b = 0; b < 8; ++b)
+                        {
+                            int y = (((offset / 8) + k) * 8) + b;
+                            // Calculate the location of the pixel we want in the bit array.
+                            // It'll be at (y * width) + x.
+                            int i = (y * data.Width) + x;
+
+                            // If the image is shorter than 24 dots, pad with zero.
+                            bool v = false;
+                            if (i < dots.Length)
+                            {
+                                v = dots[i];
+                            }
+                            slice |= (byte)((v ? 1 : 0) << (7 - b));
+                        }
+
+                        bw.Write(slice);
+                    }
+                }
+                offset += 24;
+                bw.Write((char)0x0A);
+            }
+            // Restore the line spacing to the default of 30 dots.
+            bw.Write((char)0x1B);
+            bw.Write('3');
+            bw.Write((byte)30);
+
+            bw.Flush();
+            byte[] bytes = stream.ToArray();
+            return logo + Encoding.Default.GetString(bytes);
+        }
+
+
+        public string GetBitmapString570x570imagesize(byte[] ImageData)
+            {
+                if (ImageData==null)
                 {
                     return "";
                 }
                 string logo = "";
 
-                BitmapData data = GetBitmapData(LogoData);
+                BitmapData data = GetBitmapData570x570ImageSize(ImageData);
                 BitArray dots = data.Dots;
                 byte[] width = BitConverter.GetBytes(data.Width);
 
@@ -303,9 +373,46 @@ namespace Tangenta
                 return logo + Encoding.Default.GetString(bytes);
             }
 
-            public BitmapData GetBitmapData(byte[] LogoData)
+        public BitmapData GetBitmapData(byte[] ImageData,double xmultiplier)
+        {
+            MemoryStream ms = new MemoryStream(ImageData);
+            using (var bitmap = (Bitmap)Bitmap.FromStream(ms))
             {
-                MemoryStream ms = new MemoryStream(LogoData);
+                var threshold = 127;
+                var index = 0;
+                double multiplier = xmultiplier; // this depends on your printer model. for Beiyang you should use 1000
+                double scale = (double)(multiplier / (double)bitmap.Width);
+
+                int xheight = (int)(bitmap.Height * scale);
+                int xwidth = (int)(bitmap.Width * scale);
+                var dimensions = xwidth * xheight;
+                var dots = new BitArray(dimensions);
+
+                for (var y = 0; y < xheight; y++)
+                {
+                    for (var x = 0; x < xwidth; x++)
+                    {
+                        var _x = (int)(x / scale);
+                        var _y = (int)(y / scale);
+                        var color = bitmap.GetPixel(_x, _y);
+                        var luminance = (int)(color.R * 0.3 + color.G * 0.59 + color.B * 0.11);
+                        dots[index] = (luminance < threshold);
+                        index++;
+                    }
+                }
+
+                return new BitmapData()
+                {
+                    Dots = dots,
+                    Height = (int)(bitmap.Height * scale),
+                    Width = (int)(bitmap.Width * scale)
+                };
+            }
+        }
+
+        public BitmapData GetBitmapData570x570ImageSize(byte[] ImageData)
+            {
+                MemoryStream ms = new MemoryStream(ImageData);
                 using (var bitmap = (Bitmap)Bitmap.FromStream(ms))
                 {
                     var threshold = 127;

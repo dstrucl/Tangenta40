@@ -13,7 +13,7 @@ using System.IO;
 using InvoiceDB;
 using ShopA_dbfunc;
 
-namespace Tangenta
+namespace InvoiceDB
 {
     public class FURS_Response_data
     {
@@ -22,17 +22,18 @@ namespace Tangenta
         public string BarCodeValue = null;
         public Image Image_QRcode = null;
 
-        public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID,string furs_barcode_value, Image img_QR)
+        public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID,string furs_barcode_value)
         {
             this.UniqueMessageID = furs_UniqeMsgID;
             this.UniqueInvoiceID = furs_UniqeInvID;
             this.BarCodeValue = furs_barcode_value;
-            this.Image_QRcode = img_QR;
         }
     }
 
     public class InvoiceData
     {
+        private bool b_FVI_SLO = false;
+        private string CasshierName = "";
 
         public FURS_Response_data FURS_Response_Data = null;
 
@@ -107,14 +108,16 @@ namespace Tangenta
         }
 
 
-        public InvoiceData(InvoiceDB.ShopABC xInvoiceDB, long xProformaInvoice_ID)
+        public InvoiceData(InvoiceDB.ShopABC xInvoiceDB, long xProformaInvoice_ID, bool xb_FVI_SLO, string xCasshierName)
         {
             m_ShopABC = xInvoiceDB;
             ProformaInvoice_ID = xProformaInvoice_ID;
             Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
+            b_FVI_SLO = xb_FVI_SLO;
+            CasshierName = xCasshierName;
         }
 
-        internal void Set_NumberInFinancialYear(int xNumberInFinancialYear)
+        public void Set_NumberInFinancialYear(int xNumberInFinancialYear)
         {
             NumberInFinancialYear = xNumberInFinancialYear;
             InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
@@ -228,7 +231,7 @@ namespace Tangenta
                     ExtraDiscount = (decimal)oExtraDiscount;
                 }
 
-                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
+                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, GlobalData.Get_BaseCurrency_DecimalPlaces());
 
                 decimal RetailSimpleItemPriceWithDiscount = 0;
                 object o_RetailSimpleItemPriceWithDiscount = dr["RetailSimpleItemPriceWithDiscount"];
@@ -272,7 +275,7 @@ namespace Tangenta
         }
 
         
-        internal bool Write_FURS_Response_Data()
+        public bool Write_FURS_Response_Data()
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Invoice_ID = "@par_Invoice_ID";
@@ -315,7 +318,7 @@ namespace Tangenta
         }
 
 
-        private void Set_Invoice_Furs_Token()
+        public void Set_Invoice_Furs_Token()
         {
             if (Invoice_FURS_Token == null)
             {
@@ -336,11 +339,10 @@ namespace Tangenta
 
 
 
-        internal bool Read_FURS_Response_Data(long Invoice_ID)
+        public bool Read_FURS_Response_Data(long Invoice_ID, ref DataTable dt)
         {
             string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where Invoice_ID = " + Invoice_ID.ToString();
             string Err = null;
-            DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
@@ -348,9 +350,7 @@ namespace Tangenta
                     string UniqMsgID = (string)dt.Rows[0]["MessageID"];
                     string UniqInvID = (string)dt.Rows[0]["UniqueInvoiceID"];
                     string QRBarCodeValue = (string)dt.Rows[0]["BarCodeValue"];
-                    Image Img_QR = Program.usrc_FVI_SLO1.GetQRImage(QRBarCodeValue);
-                    FURS_Response_Data = new FURS_Response_data(UniqMsgID, UniqInvID, QRBarCodeValue, Img_QR);
-                    Set_Invoice_Furs_Token();
+                    FURS_Response_Data = new FURS_Response_data(UniqMsgID, UniqInvID, QRBarCodeValue);
                 }
                 else
                 {
@@ -373,12 +373,12 @@ namespace Tangenta
             }
         }
 
-        internal bool Save(ref long proformaInvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        public bool Save(ref long proformaInvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             return m_ShopABC.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
         }
 
-        internal bool SetInvoiceTime(DateTime_v issue_time)
+        public bool SetInvoiceTime(DateTime_v issue_time)
         {
             if (m_ShopABC.m_CurrentInvoice.SetInvoiceTime(issue_time))
             {
@@ -420,7 +420,7 @@ namespace Tangenta
 
                 decimal ExtraDiscount = appisd.ExtraDiscount.v;
 
-                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
+                decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, GlobalData.Get_BaseCurrency_DecimalPlaces());
 
                 decimal Atom_Taxation_Rate = appisd.Atom_Taxation_Rate.v;
 
@@ -464,10 +464,10 @@ namespace Tangenta
 
 
 
-        public bool Read_ProformaInvoice()
+        public bool Read_ProformaInvoice(ref DataTable dt_FURS_Response_Data)
         {
             string sql = null;
-            if (Program.b_FVI_SLO)
+            if (b_FVI_SLO)
             {
 
                 sql = @"select
@@ -625,7 +625,7 @@ namespace Tangenta
                         NetSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
                         
 
-                        if (Program.b_FVI_SLO)
+                        if (b_FVI_SLO)
                         {
 
                             //this.FVI_SLO_RealEstateBP = new UniversalInvoice.FVI_SLO_RealEstateBP(lngToken.st_Invoice,
@@ -639,7 +639,7 @@ namespace Tangenta
                             //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["PremiseType"])   );
                         }
 
-                        byte[] barr_logoData = (byte[])dt_ProformaInvoice.Rows[0]["Logo_Data"];
+                        //byte[] barr_logoData = (byte[])dt_ProformaInvoice.Rows[0]["Logo_Data"];
                         MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
                                                                    DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
                                                                    DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),
@@ -663,11 +663,11 @@ namespace Tangenta
                         FinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
                         NumberInFinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
 
-                        if (Program.b_FVI_SLO)
+                        if (b_FVI_SLO)
                         {
                             if (!Draft)
                             {
-                                this.Read_FURS_Response_Data(Invoice_ID);
+                                this.Read_FURS_Response_Data(Invoice_ID,ref dt_FURS_Response_Data);
                             }
                         }
 
@@ -720,7 +720,7 @@ namespace Tangenta
 
                                 InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
                                 InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
-                                InvoiceToken.tCashier.Set(Properties.Settings.Default.CasshierName);
+                                InvoiceToken.tCashier.Set(CasshierName);
 
                                 string stime = IssueDate_Day.ToString() + "."
                                                + IssueDate_Month.ToString() + "."
@@ -877,16 +877,16 @@ namespace Tangenta
         }
 
         
-        internal string Create_furs_InvoiceXML()
+        public string Create_furs_InvoiceXML(string InvoiceXmlTemplate,string FursD_MyOrgTaxID,string FursD_BussinesPremiseID,string CasshierName, string FursD_InvoiceAuthorTaxID)
         {
             try
             {
-                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_Invoice;
+//                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_Invoice;
                 XmlDocument xdoc = new XmlDocument();
                 xdoc.LoadXml(InvoiceXmlTemplate);
                 XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
                 //string sInnerText_MyOrgTaxID = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; // "10329048";//MyOrganisation.Tax_ID;
-                ndl_TaxNumber.Item(0).InnerText = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; //MyOrganisation.Tax_ID;
+                ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;//Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; //MyOrganisation.Tax_ID;
                 XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
                 ndl_IssueDateTime.Item(0).InnerText = fs.GetString(IssueDate_Year, 4) + "-"
                                                     + fs.GetString(IssueDate_Month, 2) + "-"
@@ -896,9 +896,9 @@ namespace Tangenta
                                                     + fs.GetString(IssueDate_Sec, 2);
                 XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
                 //string sInnerText_FursD_BussinesPremiseID = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID;
-                ndl_BusinessPremiseID.Item(0).InnerText = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID; // "36CF"; //MyOrganisation.Atom_Office_Name;
+                ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;// Program.usrc_FVI_SLO1.FursD_BussinesPremiseID; // "36CF"; //MyOrganisation.Atom_Office_Name;
                 XmlNodeList ndl_ElectronicDeviceID = xdoc.GetElementsByTagName("fu:ElectronicDeviceID");
-                ndl_ElectronicDeviceID.Item(0).InnerText = Properties.Settings.Default.CasshierName;
+                ndl_ElectronicDeviceID.Item(0).InnerText = CasshierName;//Properties.Settings.Default.CasshierName;
                 XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
                 ndl_InvoiceNumber.Item(0).InnerText = NumberInFinancialYear.ToString();
                 XmlNodeList ndl_InvoiceAmount = xdoc.GetElementsByTagName("fu:InvoiceAmount");
@@ -921,11 +921,11 @@ namespace Tangenta
 
                 XmlNodeList ndl_OperatorTaxNumber = xdoc.GetElementsByTagName("fu:OperatorTaxNumber");
 
-                string sFursD_InvoiceAuthorTaxID = Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
+                string sFursD_InvoiceAuthorTaxID = FursD_InvoiceAuthorTaxID;// Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
 
                 //Invoice_Author.Tax_ID = "59729481";
 
-                Invoice_Author.Tax_ID = Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
+                Invoice_Author.Tax_ID = FursD_InvoiceAuthorTaxID;// Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
 
 
                 ndl_OperatorTaxNumber.Item(0).InnerText = Invoice_Author.Tax_ID;

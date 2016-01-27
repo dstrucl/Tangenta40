@@ -726,6 +726,23 @@ namespace ShopB
                                                                     tbl_ShopBItem,
                                                                     "SimpleItem_$$Code desc");
             edt_ShopBItem_dlg.ShowDialog();
+
+            if (edt_ShopBItem_dlg.List_of_Inserted_Items_ID.Count > 0)
+            {
+                DataTable dt_ShopB_Items_NotIn_PriceList = new DataTable();
+                if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Items_NotIn_PriceList))
+                {
+                    if (dt_ShopB_Items_NotIn_PriceList.Rows.Count > 0)
+                    {
+                        if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Items_NotIn_PriceList, this))
+                        {
+                            this.usrc_PriceList1.PriceList_Edit( true);
+                        }
+                    }
+                }
+            }
+
+
             int iCount = 0;
             this.GetShopBItemData(ref iCount);
             SetGroups(m_PriceList_id);

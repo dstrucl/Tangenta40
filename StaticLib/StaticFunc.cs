@@ -332,6 +332,43 @@ namespace StaticLib
 
         }
 
+        public static Image resizeImage(Image imgToResize, Size size, System.Drawing.Imaging.ImageFormat destformat,PixelFormat pixel_format)
+        {
+            int sourceWidth = imgToResize.Width;
+            int sourceHeight = imgToResize.Height;
+
+            float nPercent = 0;
+            float nPercentW = 0;
+            float nPercentH = 0;
+
+            nPercentW = ((float)size.Width / (float)sourceWidth);
+            nPercentH = ((float)size.Height / (float)sourceHeight);
+
+            if (nPercentH < nPercentW)
+                nPercent = nPercentH;
+            else
+                nPercent = nPercentW;
+
+            int destWidth = (int)(sourceWidth * nPercent);
+            int destHeight = (int)(sourceHeight * nPercent);
+
+            Bitmap b = new Bitmap(size.Width, size.Height,PixelFormat.Format1bppIndexed);
+
+            Graphics g = Graphics.FromImage((Image)b);
+            g.InterpolationMode = InterpolationMode.Bicubic;
+
+            g.DrawImage(imgToResize, 0, 0, size.Width, size.Height);
+            g.Dispose();
+
+            Image img = (Image)b;
+
+            byte[] bin = DBTypes.DBtypesFunc.imageToByteArray(img, destformat);
+            //byte[] bin = DBTypes.DBtypesFunc.imageToByteArray(img);
+            ImageConverter ic = new ImageConverter();
+            return (Image)ic.ConvertFrom(bin);
+
+        }
+
 
         public static Image PutImageInBoundaries(Image OrgImage, int MAX_PICTURE_WIDTH, int MAX_PICTURE_HEIGHT, System.Drawing.Imaging.ImageFormat destformat)
         {

@@ -201,8 +201,12 @@ namespace ShopA
             if (m_tool_SelectItem == null)
             {
                 m_tool_SelectItem = new Form_Tool_SelectItem(m_Atom_ItemShopA_Price.m_Atom_ItemShopA,this);
+                m_tool_SelectItem.Show(this);
             }
-            m_tool_SelectItem.Show(this);
+            else
+            {
+                m_tool_SelectItem.Focus();
+            }
         }
     }
 }

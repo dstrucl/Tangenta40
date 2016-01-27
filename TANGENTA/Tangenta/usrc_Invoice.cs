@@ -58,7 +58,6 @@ namespace Tangenta
 
 
 
-        public InvoiceDB.xPriceList m_xPriceList = null;
 
         private decimal GrossSum = 0;
         private decimal NetSum = 0;
@@ -580,34 +579,64 @@ namespace Tangenta
                                 {
                                     if (GetPriceList())
                                     {
-                                        int iCount_Price_SimpleItem_Data = 0;
 
-                                        if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data,this.m_usrc_ShopB.usrc_PriceList1.ID))
+                                        DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
+                                        if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
                                         {
-
-                                            this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
-                                            f_PriceList.Check(pparent);
-                                            bool bEditPriceList = false;
-                                            f_PriceList.CheckPriceUndefined_ShopB(pparent, DBSync.DBSync.DB_for_Blagajna.m_DBTables, ref bEditPriceList);
-                                            if (bEditPriceList)
+                                            if (dt_ShopB_Item_NotIn_PriceList.Rows.Count>0)
                                             {
-                                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(GlobalData.BaseCurrency.ID, this.m_usrc_ShopB.usrc_PriceList1.cmb_PriceListType, m_xPriceList, true);
+                                                if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
+                                                {
+                                                    if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
+                                                    {
+                                                        this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(  true);
+                                                    }
+                                                }
                                             }
+                                            else
+                                            {
+                                                bool bEdit = false;
+                                                f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
+                                                if (bEdit)
+                                                {
+                                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit( true);
 
+                                                }
+                                            }
+                                        }
+
+                                        DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
+                                        if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
+                                        {
+                                            if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
+                                            {
+                                                if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
+                                                {
+                                                    if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
+                                                    {
+                                                        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                bool bEdit = false;
+                                                f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
+                                                if (bEdit)
+                                                {
+                                                    this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
+                                                }
+                                            }
+                                        }
+
+                                        int iCount_Price_SimpleItem_Data = 0;
+                                        if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
+                                        {
+                                            this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
                                         }
 
                                         if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
                                         {
-
-
-                                            f_PriceList.Check(pparent);
-                                            bool bEditPriceList = false;
-                                            f_PriceList.CheckPriceUndefined_ShopC(pparent, DBSync.DBSync.DB_for_Blagajna.m_DBTables, ref bEditPriceList);
-                                            if (bEditPriceList)
-                                            {
-                                                this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(GlobalData.BaseCurrency.ID, this.m_usrc_ShopC.usrc_PriceList1.cmb_PriceListType, m_xPriceList, true);
-                                            }
-
                                             if (Program.bStartup)
                                             {
                                                 Program.bStartup = false;
@@ -915,27 +944,21 @@ namespace Tangenta
         {
             string Err = null;
             bool bGet = true;
-            if (Program.Shops_in_use.Contains("B"))
+            if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, ref Err))
             {
-                if (m_usrc_ShopB.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopB, ref Err))
-                {
 
-                }
-                else
-                {
-                    bGet = false;
-                }
             }
-            if (Program.Shops_in_use.Contains("C"))
+            else
             {
-                if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, ref Err))
-                {
+                bGet = false;
+            }
+            if (m_usrc_ShopC.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, PriseLists.usrc_PriceList_Edit.eShopType.ShopC, ref Err))
+            {
 
-                }
-                else
-                {
-                    bGet = false;
-                }
+            }
+            else
+            {
+                bGet = false;
             }
             return bGet;
         }
@@ -1597,15 +1620,23 @@ namespace Tangenta
 
                     if (m_ShopABC.m_CurrentInvoice.Exist)
                     {
+                        DataTable dt_FURS_ResponseData = new DataTable();
                         if (m_ShopABC.m_CurrentInvoice.bDraft)
                         {
 
                             // print draft invoice
                             if (UpdateInvoicePriceInDraft())
                             {
-                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID);
-                                if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
+                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.CasshierName);
+                                if (m_InvoiceData.Read_ProformaInvoice(ref dt_FURS_ResponseData)) // read Proforma Invoice again from DataBase
                                 {
+                                    if (dt_FURS_ResponseData.Rows.Count>0)
+                                    {
+                                        m_InvoiceData.FURS_Response_Data.Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_Response_Data.BarCodeValue);
+                                        m_InvoiceData.Set_Invoice_Furs_Token();
+
+                                    }
+
                                     Form_Payment payment_frm = new Form_Payment(m_InvoiceData);
                                     if (payment_frm.ShowDialog() == DialogResult.OK)
                                     {
@@ -1619,9 +1650,14 @@ namespace Tangenta
                         }
                         else
                         {
-                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID);
-                            if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
+                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.CasshierName);
+                            if (m_InvoiceData.Read_ProformaInvoice(ref dt_FURS_ResponseData)) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
+                                if (dt_FURS_ResponseData.Rows.Count > 0)
+                                {
+                                    m_InvoiceData.FURS_Response_Data.Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_Response_Data.BarCodeValue);
+                                    m_InvoiceData.Set_Invoice_Furs_Token();
+                                }
                                 Form_PrintExistingInvoice frm_Print_Existing_invoice = new Form_PrintExistingInvoice(m_InvoiceData);
                                 frm_Print_Existing_invoice.ShowDialog(this);
                             }

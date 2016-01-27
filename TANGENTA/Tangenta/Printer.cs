@@ -455,7 +455,7 @@ namespace Tangenta
             }
         }
 
-        internal void wr_Logo(byte[] Logo_Data)
+        internal void wr_BitmapByteArrayTo570x570imagesize(byte[] Logo_Data)
         {
             if (print_ESC_POS_device==null)
             {
@@ -464,13 +464,53 @@ namespace Tangenta
             if (print_ESC_POS_device is EscPos_RP80)
             {
                 string buf = "";
-                buf = ep_RP80.GetLogo(Logo_Data);// ep.LF + ep.CR;
+                buf = ep_RP80.GetBitmapString570x570imagesize(Logo_Data);// ep.LF + ep.CR;
                 Print(buf);
             }
             else if (print_ESC_POS_device is EscPos_Star_TSP100)
             {
                 string buf = "";
-                buf = ep_Star_TSP100.GetLogo(Logo_Data);// ep.LF + ep.CR;
+                buf = ep_Star_TSP100.GetBitmapString(Logo_Data);// ep.LF + ep.CR;
+                Print(buf);
+            }
+        }
+
+        internal void wr_BitmapByteArray570x570imagesize(byte[] Logo_Data)
+        {
+            if (print_ESC_POS_device == null)
+            {
+                return;
+            }
+            if (print_ESC_POS_device is EscPos_RP80)
+            {
+                string buf = "";
+                buf = ep_RP80.GetBitmapString570x570imagesize(Logo_Data);// ep.LF + ep.CR;
+                Print(buf);
+            }
+            else if (print_ESC_POS_device is EscPos_Star_TSP100)
+            {
+                string buf = "";
+                buf = ep_Star_TSP100.GetBitmapString(Logo_Data);// ep.LF + ep.CR;
+                Print(buf);
+            }
+        }
+
+        internal void wr_BitmapByteArray(byte[] Logo_Data, double xwidth)
+        {
+            if (print_ESC_POS_device == null)
+            {
+                return;
+            }
+            if (print_ESC_POS_device is EscPos_RP80)
+            {
+                string buf = "";
+                buf = ep_RP80.GetBitmapString(Logo_Data, xwidth);// ep.LF + ep.CR;
+                Print(buf);
+            }
+            else if (print_ESC_POS_device is EscPos_Star_TSP100)
+            {
+                string buf = "";
+                buf = ep_Star_TSP100.GetBitmapString(Logo_Data);// ep.LF + ep.CR;
                 Print(buf);
             }
         }

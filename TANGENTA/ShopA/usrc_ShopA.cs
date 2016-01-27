@@ -92,6 +92,15 @@ namespace ShopA
 
                 if (dt_Item_Price.Rows.Count > 0)
                 {
+                    object oDecimalPlaces = dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces"];
+                    if ((oDecimalPlaces is int)||(oDecimalPlaces is short))
+                    {
+                        oDecimalPlaces = Convert.ToInt16(oDecimalPlaces);
+                    }
+                    else
+                    {
+                        oDecimalPlaces = null;
+                    }
                     m_Atom_ItemShopA_Price.ID.type_v = tf.set_long(dt_Item_Price.Rows[0]["ID"]);
                     m_Atom_ItemShopA_Price.m_ProformaInvoice.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_pinv_$$ID"]);
                     m_Atom_ItemShopA_Price.m_ProformaInvoice.Draft.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_pinv_$$Draft"]);
@@ -104,7 +113,7 @@ namespace ShopA
                     m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$ID"]);
                     m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.Name.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$Name"]);
                     m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.Symbol.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces"]);
+                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(oDecimalPlaces);
                     m_Atom_ItemShopA_Price.Discount.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$Discount"]);
                     m_Atom_ItemShopA_Price.dQuantity.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$dQuantity"]);
                     m_Atom_ItemShopA_Price.PricePerUnit.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$PricePerUnit"]);

@@ -103,13 +103,6 @@ namespace Tangenta
             }
         }
 
-        private void Update_PriceList()
-        {
-            if (List_of_Inserted_Items_ID.Count > 0)
-            {
-                f_PriceList.Update(this);
-            }
-        }
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
@@ -169,10 +162,6 @@ namespace Tangenta
 
         private void Item_EditForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (f_PriceList.Check((Form)this.Parent))
-            {
-               
-            }
         }
 
         internal bool Edit_PersonData()

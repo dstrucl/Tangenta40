@@ -18,15 +18,20 @@ namespace ShopC
         public enum eItem_EditMode { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
         private eItem_EditMode ItemEditMode = eItem_EditMode.SELECT_VALID;
 
-        List<long> List_of_Inserted_Items_ID = null; 
+        public List<long> List_of_Inserted_Items_ID = null; 
         DataTable dt_Item = new DataTable();
         SQLTableControl.DBTableControl dbTables = null;
         SQLTable tbl = null;
         long_v ID_v = null;
         string ColumnOrderBy = "";
         private bool m_bChanged = false;
+        public bool Changed
+        {
+            get { return m_bChanged; }
+        }
 
-        public bool bPriceListChanged = false;
+
+        public bool bShopC_Item_NotIn_PriceList = false;
 
         public Form_Item_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
         {
@@ -109,13 +114,6 @@ namespace ShopC
             }
         }
 
-        private void Update_PriceList()
-        {
-            if (List_of_Inserted_Items_ID.Count > 0)
-            {
-                f_PriceList.Update(this);
-            }
-        }
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
@@ -145,13 +143,24 @@ namespace ShopC
 
         private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
         {
-            List_of_Inserted_Items_ID.Add(ID);
-            m_bChanged = true;
+            if (bRes)
+            {
+                List_of_Inserted_Items_ID.Add(ID);
+                m_bChanged = true;
+            }
         }
 
         private void Item_EditForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bPriceListChanged = f_PriceList.Check((Form)this.Parent);
+            DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
+            bShopC_Item_NotIn_PriceList = f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList);
+            if (bShopC_Item_NotIn_PriceList)
+            {
+                if (PriseLists.usrc_PriceList.Ask_To_Update('C',dt_ShopC_Item_NotIn_PriceList,  this))
+                {
+                    f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this);
+                }
+            }
         }
 
 
@@ -182,10 +191,6 @@ namespace ShopC
             }
         }
 
-        public bool Changed 
-        {
-            get {return m_bChanged;}
-        }
 
         private void usrc_EditTable_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
         {
