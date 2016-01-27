@@ -18,7 +18,8 @@ namespace Tangenta
         public enum eTemplates { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
         private eTemplates eTemplatesSelectionMode = eTemplates.SELECT_VALID;
 
-        List<long> List_of_Inserted_Items_ID = null; 
+        List<long> List_of_Inserted_Items_ID = null;
+
         DataTable dt_Item = new DataTable();
         SQLTableControl.DBTableControl dbTables = null;
         SQLTable tbl = null;
@@ -100,14 +101,6 @@ namespace Tangenta
             }
         }
 
-        private void Update_PriceList()
-        {
-            if (List_of_Inserted_Items_ID.Count > 0)
-            {
-                f_PriceList.Update(this);
-            }
-        }
-
         private void btn_OK_Click(object sender, EventArgs e)
         {
 
@@ -154,7 +147,6 @@ namespace Tangenta
 
         private void Item_EditForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bPriceListChanged = f_PriceList.Check((Form)this.Parent);
         }
 
 

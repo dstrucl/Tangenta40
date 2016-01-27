@@ -42,6 +42,7 @@ namespace PriseLists
             }
         }
 
+
         public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType, ref string Err)
         {
             m_eShopType = xeShopType;
@@ -106,7 +107,7 @@ namespace PriseLists
                 pctrl.Cursor = Cursors.WaitCursor; 
             }
 
-            PriceList_Edit(m_Currency_ID, cmb_PriceListType, m_xPriceList, false);
+            PriceList_Edit(false);
             this.Cursor = Cursors.Arrow;
             if (pctrl != null)
             {
@@ -114,7 +115,7 @@ namespace PriseLists
             }
         }
 
-        public void PriceList_Edit(long m_Currency_ID, ComboBox cmb_PriceListType, InvoiceDB.xPriceList m_xPriceList, bool bEditUndefined)
+        public void PriceList_Edit(bool bEditUndefined)
         {
             string Err = null;
             int xPriceListType_Count = 0;
@@ -134,6 +135,19 @@ namespace PriseLists
                 {
                     LogFile.Error.Show(Err);
                 }
+            }
+        }
+
+        public static bool Ask_To_Update(char chShopType,DataTable dt_Item_NotIn_PriceList, Control pparent_ctrl)
+        {
+            Form_PriceList_NotComplete PriceList_NotComplete_Form_dlg = new Form_PriceList_NotComplete(chShopType, dt_Item_NotIn_PriceList, pparent_ctrl);
+            if (PriceList_NotComplete_Form_dlg.ShowDialog() == DialogResult.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
