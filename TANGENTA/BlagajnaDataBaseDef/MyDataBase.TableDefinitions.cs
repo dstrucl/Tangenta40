@@ -49,7 +49,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.15";
+        public const string VERSION = "1.16";
         public Settings Settings = null;
 
         /* 1 */
@@ -763,6 +763,8 @@ namespace BlagajnaDataBaseDef
             t_Invoice.AddColumn((Object)mt.m_Invoice.m_MethodOfPayment, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Method Of Payment ID", "Način Plačila ID") );
             t_Invoice.AddColumn((Object)mt.m_Invoice.Paid, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Paid", "Plačano") );
             t_Invoice.AddColumn((Object)mt.m_Invoice.Storno, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Storno", "Stornirano") );
+            t_Invoice.AddColumn((Object)mt.m_Invoice.Invoice_Reference_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Reference ID", "Referenca na račun ID"));
+            t_Invoice.AddColumn((Object)mt.m_Invoice.Invoice_Reference_Type, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Reference Type", "Vrsta reference na račun"));
             m_DBTables.items.Add(t_Invoice);
 
 

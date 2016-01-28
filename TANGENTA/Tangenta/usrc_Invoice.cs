@@ -11,6 +11,7 @@ using InvoiceDB;
 using ShopA;
 using ShopB;
 using ShopC;
+using System.Drawing;
 
 namespace Tangenta
 {
@@ -1716,11 +1717,44 @@ namespace Tangenta
                                 string sInvoiceToStorno = frm_storno_dlg.m_sInvoiceToStorno;
                                 if (MessageBox.Show(this,sInvoiceToStorno + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                                 {
-                                    if (m_ShopABC.m_CurrentInvoice.Storno(true, frm_storno_dlg.m_Reason))
+                                    long Storno_ProformaInvoice_ID = -1;
+                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_ProformaInvoice_ID,true, frm_storno_dlg.m_Reason))
                                     {
                                         if (Storno != null)
                                         {
                                             Storno(true);
+                                        }
+                                    }
+
+                                    if (Program.b_FVI_SLO)
+                                    {
+                                        DataTable dt_xFURS_ResponseData = new DataTable();
+                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.CasshierName);
+                                        if (xInvoiceData.Read_ProformaInvoice(ref dt_xFURS_ResponseData)) // read Proforma Invoice again from DataBase
+                                        {
+                                            string furs_XML = xInvoiceData.Create_furs_InvoiceXML(true,Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, Properties.Settings.Default.CasshierName, Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID);
+                                            string furs_UniqeMsgID = null;
+                                            string furs_UniqeInvID = null;
+                                            string furs_BarCodeValue = null;
+                                            Image img_QR = null;
+                                            if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
+                                            {
+                                                m_InvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue);
+                                                m_InvoiceData.Write_FURS_Response_Data();
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Storno računa ni bil uspešno poslan na furs, zato ga boste vpisali v VEZANO KNJIGO RAČUNOV!");
+                                                string xSerialNumber = null;
+                                                string xSetNumber = null;
+                                                string xInvoiceNumber = null;
+                                                Program.usrc_FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.Invoice_ID, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                                                long FVI_SLO_SalesBookInvoice_ID = -1;
+                                                if (InvoiceDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.Invoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                                                {
+                                                    MessageBox.Show("Storno računa je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
+                                                }
+                                            }
                                         }
                                     }
                                 }

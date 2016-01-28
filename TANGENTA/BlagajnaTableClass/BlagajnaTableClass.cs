@@ -1622,6 +1622,16 @@ namespace BlagajnaTableClass
         public PaymentType PaymentType  = new PaymentType();
     }
 
+    public class Invoice_Reference_ID:DB_Int64
+    {
+
+    }
+
+    public class Invoice_Reference_Type:DB_varchar_25
+    {
+
+    }
+
     public class Invoice
     {
         public ID ID = new ID();
@@ -1629,6 +1639,8 @@ namespace BlagajnaTableClass
         public MethodOfPayment m_MethodOfPayment = new MethodOfPayment();
         public Paid Paid = new Paid();
         public Storno Storno = new Storno();
+        public Invoice_Reference_ID Invoice_Reference_ID  = new Invoice_Reference_ID();
+        public Invoice_Reference_Type Invoice_Reference_Type = new Invoice_Reference_Type();
     }
 
 

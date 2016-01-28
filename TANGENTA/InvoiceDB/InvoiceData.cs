@@ -343,6 +343,7 @@ namespace InvoiceDB
         {
             string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where Invoice_ID = " + Invoice_ID.ToString();
             string Err = null;
+            FURS_Response_Data = null;
             if (DBSync.DBSync.ReadDataTable(ref dt,sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
@@ -876,8 +877,19 @@ namespace InvoiceDB
             return s;
         }
 
-        
-        public string Create_furs_InvoiceXML(string InvoiceXmlTemplate,string FursD_MyOrgTaxID,string FursD_BussinesPremiseID,string CasshierName, string FursD_InvoiceAuthorTaxID)
+        private string sStorno(bool bStorno)
+        {
+            if (bStorno)
+            {
+                return "";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public string Create_furs_InvoiceXML(bool bStorno,string InvoiceXmlTemplate,string FursD_MyOrgTaxID,string FursD_BussinesPremiseID,string CasshierName, string FursD_InvoiceAuthorTaxID)
         {
             try
             {
@@ -902,18 +914,18 @@ namespace InvoiceDB
                 XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
                 ndl_InvoiceNumber.Item(0).InnerText = NumberInFinancialYear.ToString();
                 XmlNodeList ndl_InvoiceAmount = xdoc.GetElementsByTagName("fu:InvoiceAmount");
-                ndl_InvoiceAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
+                ndl_InvoiceAmount.Item(0).InnerText = sStorno(bStorno) + fs.GetFursDecimalString(GrossSum);
                 XmlNodeList ndl_PaymentAmount = xdoc.GetElementsByTagName("fu:PaymentAmount");
-                ndl_PaymentAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
+                ndl_PaymentAmount.Item(0).InnerText = sStorno(bStorno) + fs.GetFursDecimalString(GrossSum);
 
                 XmlNodeList ndl_TaxesPerSeller = xdoc.GetElementsByTagName("fu:TaxesPerSeller");
                 string s_innertext = "";
                 foreach (StaticLib.Tax tax in taxSum.TaxList)
                 {
                     string sVat = "<fu:VAT>\r\n" +
-                                          "<fu:TaxRate>" + fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
-                                          "<fu:TaxableAmount>" + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
-                                          "<fu:TaxAmount>" + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
+                                          "<fu:TaxRate>" + sStorno(bStorno)+ fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
+                                          "<fu:TaxableAmount>" + sStorno(bStorno)  + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
+                                          "<fu:TaxAmount>" + sStorno(bStorno)+ fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
                                    "</fu:VAT>" + "\r\n";
                     s_innertext += sVat;
                 }

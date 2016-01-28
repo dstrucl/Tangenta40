@@ -1463,7 +1463,7 @@ namespace InvoiceDB
             return false;
         }
 
-        private bool GetNewNumberInFinancialYear()
+        private bool GetNewNumberInFinancialYear(ref int xNumberInFinancialYear)
         {
             string cond = null;
             int iLimit = 1;
@@ -1484,11 +1484,11 @@ namespace InvoiceDB
                 if (dt.Rows.Count == 1)
                 {
                     int iLastNumberInFinancialYear = (int)dt.Rows[0]["NumberInFinancialYear"];
-                    NumberInFinancialYear = iLastNumberInFinancialYear + 1;
+                    xNumberInFinancialYear = iLastNumberInFinancialYear + 1;
                 }
                 else
                 {
-                    NumberInFinancialYear = 1;
+                    xNumberInFinancialYear = 1;
                 }
                 return true;
             }
@@ -1497,6 +1497,11 @@ namespace InvoiceDB
                 LogFile.Error.Show("ERROR:CurrentInvoices:GetNewNumberInFinancialYear:Err=" + Err);
                 return false;
             }
+        }
+
+        private bool GetNewNumberInFinancialYear()
+        {
+            return GetNewNumberInFinancialYear(ref NumberInFinancialYear);
         }
 
         public bool Update_Customer_Person(long Customer_Person_ID, ref long_v xAtom_Customer_Person_ID_v)
@@ -1643,27 +1648,144 @@ namespace InvoiceDB
         }
 
 
-        public bool Storno(bool bStorno, string sReason)
+        public bool Storno(ref long Storno_ProformaInvoice_ID,  bool bStorno, string sReason)
         {
-            string sBit = "0";
-            if (bStorno)
-            {
-                sBit = "1";
-            }
-            string sql = " update invoice set Storno  = " + sBit + " where ID = " + this.Invoice_ID.ToString();
             object ores = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+            DataTable dt_ProfInv = new DataTable();
+            string sql = @"select  
+                        Draft,
+                        DraftNumber, 
+                        FinancialYear,
+                        NumberInFinancialYear,
+                        NetSum,
+                        Discount,
+                        EndSum,
+                        TaxSum,
+                        GrossSum,
+                        Atom_Customer_Person_ID,
+                        Atom_Customer_Org_ID,
+                        WarrantyExist,
+                        WarrantyConditions,
+                        WarrantyDurationType,
+                        WarrantyDuration,
+                        ProformaInvoiceDuration,
+                        ProformaInvoiceDurationType,
+                        TermsOfPayment_ID,
+                        Invoice_ID
+                  from ProformaInvoice where ProformaInvoice.ID  = " + ProformaInvoice_ID.ToString();
+            if (DBSync.DBSync.ReadDataTable(ref dt_ProfInv, sql, ref Err))
             {
-                long JOURNAL_Invoice_ID = -1;
-                if (f_Journal_Invoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
+                long_v Invoice_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Invoice_ID"]);
+                int_v DraftNumber_v = tf.set_int(dt_ProfInv.Rows[0]["DraftNumber"]);
+                int_v FinancialYear_v = tf.set_int(dt_ProfInv.Rows[0]["FinancialYear"]);
+                decimal_v NetSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["NetSum"]);
+                decimal_v Discount_v = tf.set_decimal(dt_ProfInv.Rows[0]["Discount"]);
+                decimal_v EndSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["EndSum"]);
+                decimal_v TaxSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["TaxSum"]);
+                decimal_v GrossSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["GrossSum"]);
+                long_v Atom_Customer_Person_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Customer_Person_ID"]);
+                long_v Atom_Customer_Org_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Customer_Org_ID"]);
+                bool_v WarrantyExist_v = tf.set_bool(dt_ProfInv.Rows[0]["WarrantyExist"]);
+                string_v WarrantyConditions_v = tf.set_string(dt_ProfInv.Rows[0]["WarrantyConditions"]);
+                int_v WarrantyDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDurationType"]);
+                int_v WarrantyDuration_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDuration"]);
+                long_v ProformaInvoiceDuration_v = tf.set_long(dt_ProfInv.Rows[0]["ProformaInvoiceDuration"]);
+                int_v ProformaInvoiceDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["ProformaInvoiceDurationType"]);
+                long_v TermsOfPayment_ID_v = tf.set_long(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
+                int iNewNumberInFinancialYear = -1;
+                GetNewNumberInFinancialYear(ref iNewNumberInFinancialYear);
+                int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
+                string sBit = "0";
+                if (bStorno)
                 {
-                    if (f_Journal_Invoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
+                    sBit = "1";
+                }
+                sql = " update invoice set Storno  = " + sBit + " where ID = " + this.Invoice_ID.ToString();
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                {
+                    sql = @"insert into Invoice (PaymentDeadline,MethodOfPayment_ID,Paid,Storno,Invoice_Reference_ID,Invoice_Reference_Type) values (null,null,null,1," + Invoice_ID.ToString() + ",'STORNO')";
+                    long Storno_Invoice_ID = -1;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Storno_Invoice_ID, ref ores, ref Err, "Invoice"))
                     {
-                        return true;
+                        long_v Storno_Invoice_ID_v = new long_v(Storno_Invoice_ID);
+
+                        NetSum_v.v = -NetSum_v.v;
+                        TaxSum_v.v = -TaxSum_v.v;
+                        GrossSum_v.v = -GrossSum_v.v;
+
+                        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                        sql = @"insert into ProformaInvoice (
+                                                        Draft,
+                                                        DraftNumber,
+                                                        FinancialYear,
+                                                        NumberInFinancialYear,
+                                                        NetSum,
+                                                        Discount,
+                                                        EndSum,
+                                                        TaxSum,
+                                                        GrossSum,
+                                                        Atom_Customer_Person_ID,
+                                                        Atom_Customer_Org_ID,
+                                                        WarrantyExist,
+                                                        WarrantyConditions,
+                                                        WarrantyDurationType,
+                                                        WarrantyDuration,
+                                                        ProformaInvoiceDuration,
+                                                        ProformaInvoiceDurationType,
+                                                        TermsOfPayment_ID,
+                                                        Invoice_ID)
+                                                        values
+                                                        (
+                                                            0,"
+                                                                 + GetParam("DraftNumber", ref lpar, DraftNumber_v) + ","
+                                                                 + GetParam("FinancialYear", ref lpar, FinancialYear_v) + ","
+                                                                 + GetParam("NumberInFinancialYear", ref lpar, iNewNumberInFinancialYear_v) + ","
+                                                                 + GetParam("NetSum", ref lpar, NetSum_v) + ","
+                                                                 + GetParam("Discount", ref lpar, Discount_v) + ","
+                                                                 + GetParam("EndSum", ref lpar, EndSum_v) + ","
+                                                                 + GetParam("TaxSum", ref lpar, TaxSum_v) + ","
+                                                                 + GetParam("GrossSum", ref lpar, GrossSum_v) + ","
+                                                                 + GetParam("Atom_Customer_Person_ID", ref lpar, Atom_Customer_Person_ID_v) + ","
+                                                                 + GetParam("Atom_Customer_Org_ID", ref lpar, Atom_Customer_Org_ID_v) + ","
+                                                                 + GetParam("WarrantyExist", ref lpar, WarrantyExist_v) + ","
+                                                                 + GetParam("WarrantyConditions", ref lpar, WarrantyConditions_v) + ","
+                                                                 + GetParam("WarrantyDurationType", ref lpar, WarrantyDurationType_v) + ","
+                                                                 + GetParam("WarrantyDuration", ref lpar, WarrantyDuration_v) + ","
+                                                                 + GetParam("ProformaInvoiceDuration", ref lpar, ProformaInvoiceDuration_v) + ","
+                                                                 + GetParam("ProformaInvoiceDurationType", ref lpar, ProformaInvoiceDurationType_v) + ","
+                                                                 + GetParam("TermsOfPayment_ID", ref lpar, TermsOfPayment_ID_v) + ","
+                                                                 + GetParam("Invoice_ID", ref lpar, Storno_Invoice_ID_v) + ")";
+
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_ProformaInvoice_ID, ref ores, ref Err, "ProformaInvoice"))
+                        {
+                            long JOURNAL_Invoice_ID = -1;
+                            if (f_Journal_Invoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
+                            {
+                                if (f_Journal_Invoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
+                                {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
                     }
                 }
-                return false;
+                else
+                {
+                    LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
             }
             else
             {
@@ -1672,5 +1794,44 @@ namespace InvoiceDB
             }
         }
 
+        private string GetParam(string scol_name, ref List<SQL_Parameter> lpar, object type_v)
+        {
+            string sParam = "@par_" + scol_name;
+            if (type_v == null)
+            {
+                return "null";
+            }
+            if (type_v is int_v)
+            {
+                lpar.Add(new SQL_Parameter(sParam, SQL_Parameter.eSQL_Parameter.Int, false, ((int_v)type_v).v));
+                return sParam;
+            }
+            else if (type_v is long_v)
+            {
+                lpar.Add(new SQL_Parameter(sParam, SQL_Parameter.eSQL_Parameter.Bigint, false, ((long_v)type_v).v));
+                return sParam;
+            }
+            else if (type_v is decimal_v)
+            {
+                lpar.Add(new SQL_Parameter(sParam, SQL_Parameter.eSQL_Parameter.Decimal, false, ((decimal_v)type_v).v));
+                return sParam;
+            }
+            else if (type_v is string_v)
+            {
+                lpar.Add(new SQL_Parameter(sParam, SQL_Parameter.eSQL_Parameter.Varchar, false, ((string_v)type_v).v));
+                return sParam;
+            }
+            else if (type_v is bool_v)
+            {
+                lpar.Add(new SQL_Parameter(sParam, SQL_Parameter.eSQL_Parameter.Bit, false, ((bool_v)type_v).v));
+                return sParam;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:CurrentInvoice:GetParam:type_v not implemented : " + type_v.GetType().ToString());
+                return null;
+            }
+
+        }
     }
 }

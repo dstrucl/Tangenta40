@@ -192,7 +192,7 @@ namespace Tangenta
 
                     if (Program.b_FVI_SLO)
                     {
-                        string furs_XML = m_InvoiceData.Create_furs_InvoiceXML(Properties.Resources.FVI_SLO_Invoice,Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,Properties.Settings.Default.CasshierName,Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID);
+                        string furs_XML = m_InvoiceData.Create_furs_InvoiceXML(false,Properties.Resources.FVI_SLO_Invoice,Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,Properties.Settings.Default.CasshierName,Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID);
                         Image img_QR = null;
                         string furs_UniqeMsgID = null;
                         string furs_UniqeInvID = null;
@@ -202,6 +202,19 @@ namespace Tangenta
                             m_InvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue);
                             m_InvoiceData.FURS_Response_Data.Image_QRcode = img_QR;
                             m_InvoiceData.Write_FURS_Response_Data();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Račun ni bil uspešno poslan na furs, zato ga boste vpisali v VEZANO KNJIGO RAČUNOV!");
+                            string xSerialNumber = null;
+                            string xSetNumber = null;
+                            string xInvoiceNumber = null;
+                            Program.usrc_FVI_SLO1.Write_SalesBookInvoice(m_InvoiceData.Invoice_ID, m_InvoiceData.FinancialYear, m_InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                            long FVI_SLO_SalesBookInvoice_ID = -1;
+                            if (InvoiceDB.f_FVI_SLO_SalesBookInvoice.Get(m_InvoiceData.Invoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber,ref FVI_SLO_SalesBookInvoice_ID))
+                            {
+                                MessageBox.Show("Račun je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
+                            }
                         }
                     }
                 }
