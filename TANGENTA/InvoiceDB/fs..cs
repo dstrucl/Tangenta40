@@ -1209,6 +1209,16 @@ namespace InvoiceDB
             }
         }
 
+        public static string GetFURS_Time_Formated(DateTime dtime)
+        {
+            return fs.GetString(dtime.Year, 4) + "-"
+            + fs.GetString(dtime.Month, 2) + "-"
+            + fs.GetString(dtime.Day, 2) + "T"
+            + fs.GetString(dtime.Hour, 2) + ":"
+            + fs.GetString(dtime.Minute, 2) + ":"
+            + fs.GetString(dtime.Second, 2);
+        }
+
         public static object String2Decimal(string sdec)
         {
             decimal d = 0;

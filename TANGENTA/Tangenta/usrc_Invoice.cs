@@ -1758,9 +1758,9 @@ namespace Tangenta
                                                 string xSerialNumber = null;
                                                 string xSetNumber = null;
                                                 string xInvoiceNumber = null;
-                                                Program.usrc_FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.Invoice_ID, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                                                Program.usrc_FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.Invoice_ID_v.v, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
                                                 long FVI_SLO_SalesBookInvoice_ID = -1;
-                                                if (InvoiceDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.Invoice_ID, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                                                if (InvoiceDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.Invoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
                                                 {
                                                     MessageBox.Show("Storno računa je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
                                                 }

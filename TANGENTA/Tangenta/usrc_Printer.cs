@@ -82,18 +82,6 @@ namespace Tangenta
         {
 
 
-            if (issue_time != null)
-            {
-                if (xInvoiceData.IssueDate_Year == 0)
-                {
-                    xInvoiceData.IssueDate_Year = issue_time.v.Year;
-                    xInvoiceData.IssueDate_Month = issue_time.v.Month;
-                    xInvoiceData.IssueDate_Day = issue_time.v.Day;
-                    xInvoiceData.IssueDate_Hour = issue_time.v.Hour;
-                    xInvoiceData.IssueDate_Min = issue_time.v.Minute;
-                    xInvoiceData.IssueDate_Sec = issue_time.v.Second;
-                }
-            }
 
             if (Printer_is_ESC_POS())
             {
@@ -176,7 +164,7 @@ namespace Tangenta
                 //buffer = buffer + "\x1b\x1d\x61\x0";             //Left Alignment - Refer to Pg. 3-29
                 Printer.wr_SetHorizontalTabPositions(new byte[] { 2, 0x10, 0x22 });
                 Printer.wr_Paragraph("Številka računa: " + xInvoiceData.FinancialYear.ToString() + "/" + xInvoiceData.NumberInFinancialYear.ToString());
-                Printer.wr_Paragraph("Datum:" + xInvoiceData.IssueDate_Day.ToString() + "." + xInvoiceData.IssueDate_Month.ToString() + "." + xInvoiceData.IssueDate_Year.ToString() + "\x9" + " Čas:" + xInvoiceData.IssueDate_Hour.ToString() + ":" + xInvoiceData.IssueDate_Min.ToString());      //Moving Horizontal Tab - Pg. 3-26
+                Printer.wr_Paragraph("Datum:" + xInvoiceData.IssueDate.Day.ToString() + "." + xInvoiceData.IssueDate.Month.ToString() + "." + xInvoiceData.IssueDate.Year.ToString() + "\x9" + " Čas:" + xInvoiceData.IssueDate.Hour.ToString() + ":" + xInvoiceData.IssueDate.Minute.ToString());      //Moving Horizontal Tab - Pg. 3-26
                 Printer.wr_LineDelimeter();
                 Printer.wr_BoldOn();
 
@@ -520,9 +508,9 @@ namespace Tangenta
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
+            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
             {
-                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
+                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
                 if (o_Data is Atom_ProformaInvoice_Price_Item_Stock_Data)
                 {
                     return (int)((Atom_ProformaInvoice_Price_Item_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;

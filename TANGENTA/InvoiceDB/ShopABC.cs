@@ -136,7 +136,8 @@ namespace InvoiceDB
                     Invoice_ID = m_CurrentInvoice.Invoice_ID;
                     if (Read_ShopB_Price_Item_Table(m_CurrentInvoice.ProformaInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
                     {
-                        if (m_CurrentInvoice.m_Basket.Read_Atom_ProformaInvoice_Price_Item_Stock_Table(m_CurrentInvoice.ProformaInvoice_ID))
+                        m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Clear();
+                        if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(m_CurrentInvoice.ProformaInvoice_ID, ref m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST))
                         {
                             return true;
                         }

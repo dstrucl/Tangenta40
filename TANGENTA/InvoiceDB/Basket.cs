@@ -11,15 +11,15 @@ namespace InvoiceDB
 {
     public class Basket
     {
-        public List<object> Atom_ProformaInvoice_Price_Item_Stock_Data_LIST = new List<object>();
+        public List<object> m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST = new List<object>();
         public DataTable dtDraft_ProformaInvoice_Atom_Item_Stock = new DataTable();
 
 
         public void Empty(ShopShelf xShopShelf)
         {
-            while (Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
+            while (m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
             {
-                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
+                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
                 if (appisd.dQuantity_FromStock > 0)
                 {
                     Remove_and_put_back_to_ShopShelf(appisd, xShopShelf);
@@ -28,11 +28,11 @@ namespace InvoiceDB
                 {
                     RemoveFactory(appisd);
                 }
-                Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(appisd);
+                m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(appisd);
             }
         }
 
-        public bool Read_Atom_ProformaInvoice_Price_Item_Stock_Table(long ProformaInvoice_ID)
+        public bool Read_ShopC_Price_Item_Stock_Table(long ProformaInvoice_ID, ref List<object> xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST)
         {
             string Err = null;
             string sql_select_ProformaInvoice_Atom_Item_Stock = @"
@@ -110,13 +110,14 @@ namespace InvoiceDB
             LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
             LEFT JOIN  Item_Image ON itm.Item_Image_ID = Item_Image.ID 
             where Atom_ProformaInvoice_Price_Item_Stock.ProformaInvoice_ID = " + ProformaInvoice_ID.ToString();
-            Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Clear();
+            m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Clear();
             dtDraft_ProformaInvoice_Atom_Item_Stock.Clear();
             dtDraft_ProformaInvoice_Atom_Item_Stock.Columns.Clear();
             dtDraft_ProformaInvoice_Atom_Item_Stock.Rows.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dtDraft_ProformaInvoice_Atom_Item_Stock, sql_select_ProformaInvoice_Atom_Item_Stock, ref Err))
             {
-                Parse_Atom_ProformaInvoice_Item_Stock(this.dtDraft_ProformaInvoice_Atom_Item_Stock, ref this.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST);
+                xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST.Clear();
+                Parse_Atom_ProformaInvoice_Item_Stock(this.dtDraft_ProformaInvoice_Atom_Item_Stock, ref xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST);
                 return true;
             }
             else
@@ -240,7 +241,7 @@ namespace InvoiceDB
 
             if (appisd.m_ShopShelf_Source.Stock_Data_List.Count == 0)
             {
-                this.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(appisd);
+                this.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(appisd);
             }
 
         }
@@ -262,7 +263,7 @@ namespace InvoiceDB
 
             if (appisd.m_ShopShelf_Source.Stock_Data_List.Count == 0)
             {
-                this.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(appisd);
+                this.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(appisd);
             }
         }
 
@@ -411,7 +412,7 @@ namespace InvoiceDB
 
         public Atom_ProformaInvoice_Price_Item_Stock_Data Contains(Item_Data m_Item_Data)
         {
-            foreach (object o in this.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
+            foreach (object o in this.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
             {
                 if (((Atom_ProformaInvoice_Price_Item_Stock_Data)o).Atom_Item_UniqueName.v.Equals(m_Item_Data.Item_UniqueName.v))
                 {
@@ -423,7 +424,7 @@ namespace InvoiceDB
 
         public void GetPriceSum(ref decimal dsum_GrossSum_Basket, ref decimal dsum_TaxSum_Basket, ref decimal dsum_NetSum, ref StaticLib.TaxSum TaxSum)
         {
-            foreach (object o in this.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
+            foreach (object o in this.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
             {
                 decimal dQuantity = ((Atom_ProformaInvoice_Price_Item_Stock_Data)o).dQuantity_FromFactory + ((Atom_ProformaInvoice_Price_Item_Stock_Data)o).dQuantity_FromStock;
                 decimal RetailPriceWithDisount = 0;
@@ -449,7 +450,7 @@ namespace InvoiceDB
 
         public void Add(long xProformaInvoice_ID,object xusrc_Item,Item_Data xItemData,decimal xFactoryQuantity, decimal xStockQuantity,  ref Atom_ProformaInvoice_Price_Item_Stock_Data appisd, bool b_from_factory)
         {
-            foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisdx in Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
+            foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisdx in m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
             {
                 if (appisdx.Item_ID.v == xItemData.Item_ID.v)
                 {
@@ -460,7 +461,7 @@ namespace InvoiceDB
             }
             appisd = new Atom_ProformaInvoice_Price_Item_Stock_Data();
             appisd.Set(xusrc_Item, xItemData, xProformaInvoice_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
-            Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Add(appisd);
+            m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Add(appisd);
 
         }
 

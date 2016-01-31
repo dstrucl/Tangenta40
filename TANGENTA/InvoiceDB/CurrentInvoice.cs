@@ -1704,7 +1704,7 @@ namespace InvoiceDB
                 sql = " update invoice set Storno  = " + sBit + " where ID = " + this.Invoice_ID.ToString();
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
-                    sql = @"insert into Invoice (PaymentDeadline,MethodOfPayment_ID,Paid,Storno,Invoice_Reference_ID,Invoice_Reference_Type) values (null,null,null,1," + Invoice_ID.ToString() + ",'STORNO')";
+                    sql = @"insert into Invoice (PaymentDeadline,MethodOfPayment_ID,Paid,Storno,Invoice_Reference_ID,Invoice_Reference_Type) values (null,null,null,1," + ProformaInvoice_ID.ToString() + ",'STORNO')";
                     long Storno_Invoice_ID = -1;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Storno_Invoice_ID, ref ores, ref Err, "Invoice"))
                     {
@@ -1781,13 +1781,6 @@ namespace InvoiceDB
                                     }
                                 }
                             }
-                            if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
-                                if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
-                                {
-                                    return true;
-                                }
-                            }
-
                             return false;
                         }
                         else
@@ -1852,7 +1845,6 @@ namespace InvoiceDB
                 LogFile.Error.Show("ERROR:CurrentInvoice:GetParam:type_v not implemented : " + type_v.GetType().ToString());
                 return null;
             }
-
         }
     }
 }
