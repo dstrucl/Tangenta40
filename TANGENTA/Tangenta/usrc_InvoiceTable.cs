@@ -81,8 +81,8 @@ namespace Tangenta
         {
             m_bInvoice = bInvoice;
             int iRowsCount = -1;
-            string s_JOURNAL_ProformaInvoice_Type_ID = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString();
-
+            string s_JOURNAL_ProformaInvoice_Type_ID_InvoiceDraftTime = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString();
+            string s_JOURNAL_ProformaInvoice_Type_ID_InvoiceStornoTime = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString();
             if (bInvoice)
             {
                 cond = " where JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID is not null ";
@@ -94,7 +94,8 @@ namespace Tangenta
 
             if (ExtraCondition!=null)
             {
-                s_JOURNAL_ProformaInvoice_Type_ID = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                s_JOURNAL_ProformaInvoice_Type_ID_InvoiceDraftTime = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                s_JOURNAL_ProformaInvoice_Type_ID_InvoiceStornoTime = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString();
                 cond += " and " + ExtraCondition;
             }
             else
@@ -140,7 +141,7 @@ namespace Tangenta
                             JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName
                             JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
                             JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID
-                            from JOURNAL_ProformaInvoice_VIEW " + cond +  " and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID + " order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
+                            from JOURNAL_ProformaInvoice_VIEW " + cond +  " and ((JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceStornoTime + ")) order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
             int iCurrentSelectedRow = -1;
             if (!bNew)
             {
@@ -226,8 +227,11 @@ namespace Tangenta
                     continue;
                 }
                 else
-                { 
-                    xSumPaymentList.Add((decimal)dt_XInvoice.Rows[i][iCol], (string)dt_XInvoice.Rows[i][iColPayment]);
+                {
+                    if (dt_XInvoice.Rows[i][iColPayment] is string)
+                    {
+                        xSumPaymentList.Add((decimal)dt_XInvoice.Rows[i][iCol], (string)dt_XInvoice.Rows[i][iColPayment]);
+                    }
                 }
             }
         }

@@ -1648,7 +1648,7 @@ namespace InvoiceDB
         }
 
 
-        public bool Storno(ref long Storno_ProformaInvoice_ID,  bool bStorno, string sReason)
+        public bool Storno(ref long Storno_ProformaInvoice_ID,  bool bStorno, string sReason,ref  DateTime retissue_time)
         {
             object ores = null;
             string Err = null;
@@ -1759,12 +1759,26 @@ namespace InvoiceDB
 
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_ProformaInvoice_ID, ref ores, ref Err, "ProformaInvoice"))
                         {
-                            long JOURNAL_Invoice_ID = -1;
-                            if (f_Journal_Invoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
+                            long Journal_ProformaInvoice_ID = -1;
+                            DateTime_v issue_time = new DateTime_v(DateTime.Now);
+
+                            retissue_time = issue_time.v;
+
+                            if (f_Journal_ProformaInvoice.Write(Storno_ProformaInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_ProformaInvoice_ID))
                             {
-                                if (f_Journal_Invoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
+                                long JOURNAL_Invoice_ID = -1;
+                                if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
                                 {
-                                    return true;
+                                    if (f_Journal_Invoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
+                                    {
+                                        if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
+                                        {
+                                            if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
+                                            {
+                                                return true;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))

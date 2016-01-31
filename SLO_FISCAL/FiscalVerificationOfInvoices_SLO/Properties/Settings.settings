@@ -878,22 +878,22 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="fursD_MyOrgTaxID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">10329048</Value>
     </Setting>
     <Setting Name="fursD_MyOrgTaxID_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">10329048</Value>
     </Setting>
     <Setting Name="fursD_BussinesPremiseID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">KUNAVE6</Value>
     </Setting>
     <Setting Name="fursD_BussinesPremiseID_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">KUNAVE6</Value>
     </Setting>
     <Setting Name="fursD_InvoiceAuthorTaxID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">10329048</Value>
     </Setting>
     <Setting Name="fursD_InvoiceAuthorTaxID_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">10329048</Value>
     </Setting>
     <Setting Name="fursD_BuildingNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -938,10 +938,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_SoftwareSupplierTaxID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">99999999</Value>
     </Setting>
     <Setting Name="fursD_SoftwareSupplierTaxID_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">99999999</Value>
     </Setting>
   </Settings>
 </SettingsFile>
