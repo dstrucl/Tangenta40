@@ -1021,13 +1021,21 @@ namespace InvoiceDB
                 if (bStorno)
                 {
                     XmlNodeList Fu_Invoice = xdoc.GetElementsByTagName("fu:Invoice");
+                    string ns = Fu_Invoice.Item(0).GetNamespaceOfPrefix("fu");
 
-                    XmlNode xReferenceInvoice = xdoc.CreateNode("element", "ReferenceInvoice", "fu");
-                    XmlNode xReferenceInvoiceIdentifier = xdoc.CreateNode("element", "ReferenceInvoiceIdentifier", "fu");
-                    XmlNode xBusinessPremiseID = xdoc.CreateNode("element", "BusinessPremiseID", "fu"); 
-                    XmlNode xElectronicDeviceID = xdoc.CreateNode("element", "ElectronicDeviceID", "fu"); 
-                    XmlNode xInvoiceNumber = xdoc.CreateNode("element", "InvoiceNumber", "fu"); 
-                    XmlNode xReferenceInvoiceIssueDateTime = xdoc.CreateNode("element", "ReferenceInvoiceIssueDateTime", "fu"); 
+                    XmlNode xReferenceInvoice = xdoc.CreateNode("element", "ReferenceInvoice", ns);
+                    XmlNode xReferenceInvoiceIdentifier = xdoc.CreateNode("element", "ReferenceInvoiceIdentifier", ns);
+                    XmlNode xBusinessPremiseID = xdoc.CreateNode("element", "BusinessPremiseID", ns); 
+                    XmlNode xElectronicDeviceID = xdoc.CreateNode("element", "ElectronicDeviceID", ns); 
+                    XmlNode xInvoiceNumber = xdoc.CreateNode("element", "InvoiceNumber", ns); 
+                    XmlNode xReferenceInvoiceIssueDateTime = xdoc.CreateNode("element", "ReferenceInvoiceIssueDateTime", ns);
+                    xReferenceInvoice.Prefix = "fu";
+                    xReferenceInvoiceIdentifier.Prefix = "fu";
+                    xBusinessPremiseID.Prefix = "fu";
+                    xElectronicDeviceID.Prefix = "fu";
+                    xInvoiceNumber.Prefix = "fu";
+                    xReferenceInvoiceIssueDateTime.Prefix = "fu";
+
 
                     xBusinessPremiseID.InnerText = FursD_BussinesPremiseID;
                     xElectronicDeviceID.InnerText = CasshierName;

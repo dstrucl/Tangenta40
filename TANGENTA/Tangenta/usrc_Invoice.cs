@@ -1749,8 +1749,8 @@ namespace Tangenta
                                             Image img_QR = null;
                                             if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
                                             {
-                                                m_InvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue);
-                                                m_InvoiceData.Write_FURS_Response_Data();
+                                                xInvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue);
+                                                xInvoiceData.Write_FURS_Response_Data();
                                             }
                                             else
                                             {
