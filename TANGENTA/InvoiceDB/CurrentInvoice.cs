@@ -1767,6 +1767,13 @@ namespace InvoiceDB
                                     return true;
                                 }
                             }
+                            if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
+                                if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
+                                {
+                                    return true;
+                                }
+                            }
+
                             return false;
                         }
                         else
