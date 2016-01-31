@@ -32,8 +32,12 @@ namespace InvoiceDB
 
     public class InvoiceData
     {
+        public enum eType  {DRAFT,INVOICE,PROFORMA_INVOICE,STORNO,UNKNOWN};
+        public eType m_eType = eType.UNKNOWN;
         private bool b_FVI_SLO = false;
         private string CasshierName = "";
+
+
 
         public FURS_Response_data FURS_Response_Data = null;
 
@@ -51,12 +55,16 @@ namespace InvoiceDB
         public int IssueDate_Hour = 0;
         public int IssueDate_Min = 0;
         public int IssueDate_Sec = 0;
-
-
-
         public int IssueDate_Day = 0;
         public int IssueDate_Month = 0;
         public int IssueDate_Year = 0;
+
+        public int StornoIssueDate_Hour = 0;
+        public int StornoIssueDate_Min = 0;
+        public int StornoIssueDate_Sec = 0;
+        public int StornoIssueDate_Day = 0;
+        public int StornoIssueDate_Month = 0;
+        public int StornoIssueDate_Year = 0;
 
         public string Currency_Symbol = null;
         public int Currency_DecimalPlaces = -1;
@@ -507,11 +515,13 @@ namespace InvoiceDB
                                  Atom_Logo.Image_Data as Logo_Data,
                                  Atom_Logo.Description as Logo_Description,
                                  acusorg.ID as Atom_Customer_Org_ID,
-                                 acusper.ID as Atom_Customer_Person_ID
-                                 from JOURNAL_ProformaInvoice
-                                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
-                                 inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
-                                 inner join Atom_WorkPeriod awp on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = awp.ID
+                                 acusper.ID as Atom_Customer_Person_ID,
+                                 jpi.EventTime,
+                                 jpit.Name as JOURNAL_ProformaInvoice_Type_Name
+                                 from JOURNAL_ProformaInvoice jpi
+                                 inner join JOURNAL_ProformaInvoice_Type jpit on jpi.JOURNAL_ProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
+                                 inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
+                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                  inner join Atom_myCompany_Person amcp on awp.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
@@ -579,11 +589,13 @@ namespace InvoiceDB
                                  Atom_Logo.Image_Data as Logo_Data,
                                  Atom_Logo.Description as Logo_Description,
                                  acusorg.ID as Atom_Customer_Org_ID,
-                                 acusper.ID as Atom_Customer_Person_ID
-                                 from JOURNAL_ProformaInvoice
-                                 inner join JOURNAL_ProformaInvoice_Type on JOURNAL_ProformaInvoice.JOURNAL_ProformaInvoice_Type_ID = JOURNAL_ProformaInvoice_Type.ID and (JOURNAL_ProformaInvoice_Type.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @")
-                                 inner join ProformaInvoice pi on JOURNAL_ProformaInvoice.ProformaInvoice_ID = pi.ID
-                                 inner join Atom_WorkPeriod on JOURNAL_ProformaInvoice.Atom_WorkPeriod_ID = Atom_WorkPeriod.ID
+                                 acusper.ID as Atom_Customer_Person_ID,
+                                 jpi.EventTime,
+                                 jpit.Name as JOURNAL_ProformaInvoice_Type_Name,
+                                 from JOURNAL_ProformaInvoice jpi
+                                 inner join JOURNAL_ProformaInvoice_Type jpit on jpi.JOURNAL_ProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
+                                 inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
+                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
@@ -592,6 +604,8 @@ namespace InvoiceDB
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                  left join Invoice inv on pi.Invoice_ID = inv.ID
+                                 left join JOURNAL_Invoice jinv on jinv.Invoice_ID = inv.ID
+                                 left join JOURNAL_Invoice_Type jinvt on jinv.JOURNAL_Invoice_Type_ID = jinvt.ID
                                  left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                  left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                  left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
@@ -620,6 +634,36 @@ namespace InvoiceDB
                 {
                     try
                     {
+                        Invoice_ID = DBTypes.tf._set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
+
+                        string_v EventName_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_Type_Name"]);
+                        if (EventName_v != null)
+                        {
+                            if (EventName_v.Equals("InvoiceStornoTime"))
+                            {
+                            }
+                            else if (EventName_v.Equals("InvoiceStornoTime"))
+                            {
+                                this.m_eType = eType.STORNO;
+                            }
+                            
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen EventName must be defined!");
+                        }
+                        DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_ProformaInvoice.Rows[0]["EventTime"]);
+                        //if (issue_time != null)
+                        //{
+                        //    IssueDate_Year = issue_time.v.Year;
+                        //    IssueDate_Month = issue_time.v.Month;
+                        //    IssueDate_Day = issue_time.v.Day;
+                        //    IssueDate_Hour = issue_time.v.Hour;
+                        //    IssueDate_Min = issue_time.v.Minute;
+                        //    IssueDate_Sec = issue_time.v.Second;
+                        //    return true;
+                        //}
+
                         Draft = DBTypes.tf._set_bool(dt_ProformaInvoice.Rows[0]["Draft"]);
                         GrossSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
                         taxsum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
@@ -660,7 +704,6 @@ namespace InvoiceDB
                                                                    DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Country"]));
 
 
-                        Invoice_ID = DBTypes.tf._set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
                         FinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
                         NumberInFinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
 
@@ -889,7 +932,7 @@ namespace InvoiceDB
             }
         }
 
-        public string Create_furs_InvoiceXML(bool bStorno,string InvoiceXmlTemplate,string FursD_MyOrgTaxID,string FursD_BussinesPremiseID,string CasshierName, string FursD_InvoiceAuthorTaxID)
+        public string Create_furs_InvoiceXML(bool bStorno,string InvoiceXmlTemplate,string FursD_MyOrgTaxID,string FursD_BussinesPremiseID,string CasshierName, string FursD_InvoiceAuthorTaxID,string stornoReferenceInvoiceNumber, string stornoReferenceInvoiceIssueDateTime)
         {
             try
             {
@@ -942,6 +985,40 @@ namespace InvoiceDB
 
                 ndl_OperatorTaxNumber.Item(0).InnerText = Invoice_Author.Tax_ID;
 
+                //LK storno 
+                if (bStorno)
+                {
+                    XmlNodeList Fu_Invoice = xdoc.GetElementsByTagName("fu:Invoice");
+
+                    XmlNode xReferenceInvoice = xdoc.CreateNode("element", "ReferenceInvoice", "fu");
+                    XmlNode xReferenceInvoiceIdentifier = xdoc.CreateNode("element", "ReferenceInvoiceIdentifier", "fu");
+                    XmlNode xBusinessPremiseID = xdoc.CreateNode("element", "BusinessPremiseID", "fu"); 
+                    XmlNode xElectronicDeviceID = xdoc.CreateNode("element", "ElectronicDeviceID", "fu"); 
+                    XmlNode xInvoiceNumber = xdoc.CreateNode("element", "InvoiceNumber", "fu"); 
+                    XmlNode xReferenceInvoiceIssueDateTime = xdoc.CreateNode("element", "ReferenceInvoiceIssueDateTime", "fu"); 
+
+                    xBusinessPremiseID.InnerText = FursD_BussinesPremiseID;
+                    xElectronicDeviceID.InnerText = CasshierName;
+                    xInvoiceNumber.InnerText = stornoReferenceInvoiceNumber;
+                    xReferenceInvoiceIssueDateTime.InnerText = stornoReferenceInvoiceIssueDateTime;
+
+                    xReferenceInvoiceIdentifier.AppendChild(xBusinessPremiseID);
+                    xReferenceInvoiceIdentifier.AppendChild(xElectronicDeviceID);
+                    xReferenceInvoiceIdentifier.AppendChild(xInvoiceNumber);
+                    xReferenceInvoice.AppendChild(xReferenceInvoiceIdentifier);
+                    xReferenceInvoice.AppendChild(xReferenceInvoiceIssueDateTime);
+                    Fu_Invoice.Item(0).AppendChild(xReferenceInvoice);
+
+                    //<fu:ReferenceInvoice>
+                    //  <fu:ReferenceInvoiceIdentifier >  
+                    //    <fu:BusinessPremiseID > TRGOVINA1 </ fu:BusinessPremiseID >
+                    //    <fu:ElectronicDeviceID > BLAG2 </ fu:ElectronicDeviceID >
+                    //    <fu:InvoiceNumber > 145 </ fu:InvoiceNumber >
+                    //  </fu:ReferenceInvoiceIdentifier >
+                    //  <fu:ReferenceInvoiceIssueDateTime > 2015 - 09 - 07T12: 12:54 </ fu:ReferenceInvoiceIssueDateTime >
+                    //</fu:ReferenceInvoice >
+                }
+
                 string InvoiceXml = XmlDcoumentToString(xdoc);
                 return InvoiceXml;
             }
@@ -952,6 +1029,71 @@ namespace InvoiceDB
             }
 
         }
+
+        public string Create_furs_SalesBookInvoiceXML(string InvoiceXmlTemplate, string FursD_MyOrgTaxID, string FursD_BussinesPremiseID, string CasshierName, string FursD_InvoiceAuthorTaxID)
+        {
+            try
+            {
+                //                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_Invoice;
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.LoadXml(InvoiceXmlTemplate);
+                XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
+                //string sInnerText_MyOrgTaxID = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; // "10329048";//MyOrganisation.Tax_ID;
+                ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;//Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; //MyOrganisation.Tax_ID;
+                XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
+                ndl_IssueDateTime.Item(0).InnerText = fs.GetString(IssueDate_Year, 4) + "-"
+                                                    + fs.GetString(IssueDate_Month, 2) + "-"
+                                                    + fs.GetString(IssueDate_Day, 2) + "T"
+                                                    + fs.GetString(IssueDate_Hour, 2) + ":"
+                                                    + fs.GetString(IssueDate_Min, 2) + ":"
+                                                    + fs.GetString(IssueDate_Sec, 2);
+                XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
+                //string sInnerText_FursD_BussinesPremiseID = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID;
+                ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;// Program.usrc_FVI_SLO1.FursD_BussinesPremiseID; // "36CF"; //MyOrganisation.Atom_Office_Name;
+                XmlNodeList ndl_ElectronicDeviceID = xdoc.GetElementsByTagName("fu:ElectronicDeviceID");
+                ndl_ElectronicDeviceID.Item(0).InnerText = CasshierName;//Properties.Settings.Default.CasshierName;
+                XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
+                ndl_InvoiceNumber.Item(0).InnerText = NumberInFinancialYear.ToString();
+                XmlNodeList ndl_InvoiceAmount = xdoc.GetElementsByTagName("fu:InvoiceAmount");
+              //LK  ndl_InvoiceAmount.Item(0).InnerText = sStorno(bStorno) + fs.GetFursDecimalString(GrossSum);
+                XmlNodeList ndl_PaymentAmount = xdoc.GetElementsByTagName("fu:PaymentAmount");
+                //LK   ndl_PaymentAmount.Item(0).InnerText = sStorno(bStorno) + fs.GetFursDecimalString(GrossSum);
+
+                XmlNodeList ndl_TaxesPerSeller = xdoc.GetElementsByTagName("fu:TaxesPerSeller");
+                string s_innertext = "";
+                foreach (StaticLib.Tax tax in taxSum.TaxList)
+                {
+                    //LKstring sVat = "<fu:VAT>\r\n" +
+                    //LK                      "<fu:TaxRate>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
+                    //LK                      "<fu:TaxableAmount>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
+                    //LK                      "<fu:TaxAmount>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
+                    //LK               "</fu:VAT>" + "\r\n";
+                    //LKs_innertext += sVat;
+                }
+                ndl_TaxesPerSeller.Item(0).InnerXml = s_innertext;
+
+                XmlNodeList ndl_OperatorTaxNumber = xdoc.GetElementsByTagName("fu:OperatorTaxNumber");
+
+                string sFursD_InvoiceAuthorTaxID = FursD_InvoiceAuthorTaxID;// Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
+
+                //Invoice_Author.Tax_ID = "59729481";
+
+                Invoice_Author.Tax_ID = FursD_InvoiceAuthorTaxID;// Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
+
+
+                ndl_OperatorTaxNumber.Item(0).InnerText = Invoice_Author.Tax_ID;
+
+                string InvoiceXml = XmlDcoumentToString(xdoc);
+                return InvoiceXml;
+            }
+            catch (Exception Ex)
+            {
+                LogFile.Error.Show("ERROR:InvoiceData:Create_furs_InvoiceXML:Exception = " + Ex.Message);
+                return null;
+            }
+
+        }
+
 
         private void GetFursDecimalString(decimal grossSum)
         {

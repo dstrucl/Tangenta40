@@ -21,6 +21,10 @@ namespace Tangenta
         long m_Invoice_ID = -1;
         public string m_sInvoiceToStorno = null;
         public string m_Reason = null;
+
+        public string m_InvoiceTime = ""; 
+
+
         public Form_Storno(long Invoice_ID)
         {
             InitializeComponent();
@@ -50,6 +54,14 @@ namespace Tangenta
                     DateTime InvoiceTime = (DateTime)dt.Rows[0]["InvoiceTime"];
                     decimal GrossSum = (decimal)dt.Rows[0]["GrossSum"];
                     string s_GrossSum = fs.Decimal2String(GrossSum,2);
+
+                   
+                    m_InvoiceTime = fs.GetString(InvoiceTime.Year , 4) + "-"  //0000 - 00 - 00T00: 00:00
+                                                    + fs.GetString(InvoiceTime.Month, 2) + "-"
+                                                    + fs.GetString(InvoiceTime.Day, 2) + "T"
+                                                    + fs.GetString(InvoiceTime.Hour, 2) + ":"
+                                                    + fs.GetString(InvoiceTime.Minute , 2) + ":"
+                                                    + fs.GetString(InvoiceTime.Second , 2);
 
                     m_sInvoiceToStorno = lngRPM.s_Invoice.s + ":" + InvoiceNumber + " " + lngRPM.s_Invoice.s + " " + lngRPM.s_Time.s + " = " + fs.DateTime2String(InvoiceTime) + "," + lngRPM.s_Price.s + " = " + s_GrossSum;
                     lbl_StornoMessage.Text = m_sInvoiceToStorno+ "\r\n" + lngRPM.s_Storno_Instruction.s;

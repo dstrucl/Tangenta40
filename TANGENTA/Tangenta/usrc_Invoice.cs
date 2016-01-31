@@ -1703,6 +1703,10 @@ namespace Tangenta
 
         private void chk_Storno_CheckedChanged(object sender, EventArgs e)
         {
+
+            string stornoReferenceInvoiceNumber = "";
+            string stornoReferenceInvoiceIssueDateTime = "";
+
             if (chk_Storno_CanBe_ManualyChanged)
             {
                 if (chk_Storno.Checked!=m_ShopABC.m_CurrentInvoice.bStorno)
@@ -1712,13 +1716,18 @@ namespace Tangenta
                         if (MessageBox.Show(this, lngRPM.s_Invoice.s + ": " + txt_Number.Text + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentInvoice.Invoice_ID);
+
                             if (frm_storno_dlg.ShowDialog()==DialogResult.Yes)
                             {
+                                stornoReferenceInvoiceNumber = m_ShopABC.m_CurrentInvoice.NumberInFinancialYear.ToString();
+                                stornoReferenceInvoiceIssueDateTime = frm_storno_dlg.m_InvoiceTime;
                                 string sInvoiceToStorno = frm_storno_dlg.m_sInvoiceToStorno;
                                 if (MessageBox.Show(this,sInvoiceToStorno + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                                 {
+    
                                     long Storno_ProformaInvoice_ID = -1;
-                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_ProformaInvoice_ID,true, frm_storno_dlg.m_Reason))
+                                    DateTime stornoInvoiceIssueDateTime = new DateTime();
+                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_ProformaInvoice_ID,true, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
                                     {
                                         if (Storno != null)
                                         {
@@ -1732,7 +1741,8 @@ namespace Tangenta
                                         InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.CasshierName);
                                         if (xInvoiceData.Read_ProformaInvoice(ref dt_xFURS_ResponseData)) // read Proforma Invoice again from DataBase
                                         {
-                                            string furs_XML = xInvoiceData.Create_furs_InvoiceXML(true,Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, Properties.Settings.Default.CasshierName, Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID);
+
+                                            string furs_XML = xInvoiceData.Create_furs_InvoiceXML(true,Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, Properties.Settings.Default.CasshierName, Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID, stornoReferenceInvoiceNumber, stornoReferenceInvoiceIssueDateTime);
                                             string furs_UniqeMsgID = null;
                                             string furs_UniqeInvID = null;
                                             string furs_BarCodeValue = null;
