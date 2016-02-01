@@ -33,7 +33,8 @@ namespace InvoiceDB
 
     public class InvoiceData
     {
-        public enum eType  {DRAFT,INVOICE,PROFORMA_INVOICE,STORNO,UNKNOWN};
+        public enum eType { INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
+
         public eType m_eType = eType.UNKNOWN;
         private bool b_FVI_SLO = false;
         private string CasshierName = "";
@@ -674,7 +675,7 @@ namespace InvoiceDB
                                 }
                                 else
                                 {
-                                    this.m_eType = eType.DRAFT;
+                                    this.m_eType = eType.UNKNOWN;
                                 }
 
                             }
@@ -685,7 +686,7 @@ namespace InvoiceDB
                         }
                         else
                         {
-                            this.m_eType = eType.DRAFT;
+                            this.m_eType = eType.UNKNOWN;
                         }
                         
 

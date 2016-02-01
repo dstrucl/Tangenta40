@@ -11,6 +11,8 @@ namespace InvoiceDB
 {
     public class CurrentInvoice
     {
+        public InvoiceData.eType m_eType = InvoiceData.eType.UNKNOWN;
+
         public ShopABC m_InvoiceDB = null;
 
         public string sql_Price_Item_Stock_template = null;
@@ -30,7 +32,11 @@ namespace InvoiceDB
         public int NumberInFinancialYear;
         public int DraftNumber;
         public long Invoice_ID;
+
         public long ProformaInvoice_ID;
+        public long_v StornoProformaInvoice_ID_v = null;
+        public string_v Invoice_Reference_Type_v= null;
+
         public long_v Atom_Customer_Person_ID_v = null;
         public long_v Atom_Customer_Org_ID_v = null;
         public bool bDraft = false;

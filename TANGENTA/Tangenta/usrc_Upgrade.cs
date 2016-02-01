@@ -558,22 +558,27 @@ namespace Tangenta
         private bool UpgradeDB_1_15_to_1_16()
         {
             string Err = null;
-            string sql = null;
-            sql = @"
-                ALTER TABLE Invoice ADD COLUMN Invoice_Reference_ID INTEGER NULL;
-                ALTER TABLE Invoice ADD COLUMN Invoice_Reference_Type varchar(25) NULL;
-                ";
-            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+            if (DBSync.DBSync.Drop_VIEWs())
             {
-                    Set_DatBase_Version("1.16");
-                    return true;
+                string sql = null;
+                sql = @"
+                    ALTER TABLE Invoice ADD COLUMN Invoice_Reference_ID INTEGER NULL;
+                    ALTER TABLE Invoice ADD COLUMN Invoice_Reference_Type varchar(25) NULL;
+                    ";
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    if (DBSync.DBSync.Create_VIEWs())
+                    {
+                        Set_DatBase_Version("1.16");
+                        return true;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_15_to_1_16:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
             }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_15_to_1_16:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-
             return false;
         }
 
@@ -597,7 +602,20 @@ namespace Tangenta
                 ";
                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
-                    sql = @"INSERT INTO Stock_backup SELECT * FROM Stock";
+                    sql = @"INSERT INTO Stock_backup (ImportTime,
+						 dQuantity,
+						ExpiryDate,
+						PurchasePrice_Item_ID,
+						Stock_AddressLevel1_ID,
+						Description)
+						SELECT 
+						ImportTime,
+						 dQuantity,
+						ExpiryDate,
+						PurchasePrice_Item_ID,
+						Stock_AddressLevel1_ID,
+						Description 
+						FROM Stock";
                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         sql = @"PRAGMA foreign_keys = OFF;

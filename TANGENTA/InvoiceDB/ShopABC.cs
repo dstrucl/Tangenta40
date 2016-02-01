@@ -28,10 +28,10 @@ namespace InvoiceDB
 
         public bool Get(ref long Invoice_ID, bool bDraft, long ID, ref string Err)
         {
-            SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Invoice));
-            SQLTable tbl_ProformaInvoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(ProformaInvoice));
-            SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
-            SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany));
+            //SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Invoice));
+            //SQLTable tbl_ProformaInvoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(ProformaInvoice));
+            //SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
+            //SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany));
 
             string cond = null;
             if (ID >= 0)
@@ -80,7 +80,9 @@ namespace InvoiceDB
                         JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$ID,
                         JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$PaymentType,
                         JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Paid,
-                        JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Storno
+                        JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Storno,
+                        JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Invoice_Reference_ID,
+                        JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Invoice_Reference_Type
                         from JOURNAL_ProformaInvoice_VIEW " + cond;
 
 
@@ -93,6 +95,8 @@ namespace InvoiceDB
                     m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$$Draft"];
                     m_CurrentInvoice.Invoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID"];
                     m_CurrentInvoice.ProformaInvoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$$ID"];
+                    m_CurrentInvoice.StornoProformaInvoice_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Invoice_Reference_ID"]);
+                    m_CurrentInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Invoice_Reference_Type"]);
                     m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear"];
                     m_CurrentInvoice.bStorno = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Storno"];
 
@@ -134,10 +138,17 @@ namespace InvoiceDB
 
                     m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber"];
                     Invoice_ID = m_CurrentInvoice.Invoice_ID;
-                    if (Read_ShopB_Price_Item_Table(m_CurrentInvoice.ProformaInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
+
+                    long xProformaInvoice_ID = m_CurrentInvoice.ProformaInvoice_ID;
+                    if (m_CurrentInvoice.StornoProformaInvoice_ID_v!=null)
+                    {
+                        xProformaInvoice_ID = m_CurrentInvoice.StornoProformaInvoice_ID_v.v;
+                    }
+
+                    if (Read_ShopB_Price_Item_Table(xProformaInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
                     {
                         m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Clear();
-                        if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(m_CurrentInvoice.ProformaInvoice_ID, ref m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST))
+                        if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(xProformaInvoice_ID, ref m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST))
                         {
                             return true;
                         }

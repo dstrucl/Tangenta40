@@ -60,7 +60,12 @@ namespace ShopA
             }
             dt_Item_Price.Clear();
             this.dgvx_ShopA.DataSource = null;
-            if (dbfunc.Read_ShopA_Price_Item_Table(m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, ref dt_Item_Price))
+            long xProformaInvoice_ID = m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID;
+            if (m_ShopABC.m_CurrentInvoice.StornoProformaInvoice_ID_v != null)
+            {
+                xProformaInvoice_ID = m_ShopABC.m_CurrentInvoice.StornoProformaInvoice_ID_v.v;
+            }
+            if (dbfunc.Read_ShopA_Price_Item_Table(xProformaInvoice_ID, ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
                 t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
