@@ -22,11 +22,12 @@ namespace InvoiceDB
         public string BarCodeValue = null;
         public Image Image_QRcode = null;
 
-        public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID,string furs_barcode_value)
+        public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID,string furs_barcode_value, Image furs_Image_QRcode)
         {
             this.UniqueMessageID = furs_UniqeMsgID;
             this.UniqueInvoiceID = furs_UniqeInvID;
             this.BarCodeValue = furs_barcode_value;
+            this.Image_QRcode = furs_Image_QRcode;
         }
     }
 
@@ -325,14 +326,18 @@ namespace InvoiceDB
             }
             Invoice_FURS_Token.tUniqueMessageID.Set(FURS_Response_Data.UniqueMessageID);
             Invoice_FURS_Token.tUniqueInvoiceID.Set(FURS_Response_Data.UniqueInvoiceID);
-            using (MemoryStream m = new MemoryStream())
-            {
-                FURS_Response_Data.Image_QRcode.Save(m, FURS_Response_Data.Image_QRcode.RawFormat);
-                byte[] imageBytes = m.ToArray();
 
-                // Convert byte[] to Base64 String
-                string base64String = Convert.ToBase64String(imageBytes);
-                Invoice_FURS_Token.tQR.Set(base64String);
+            if (FURS_Response_Data.Image_QRcode != null)
+            {
+                using (MemoryStream m = new MemoryStream())
+                {
+                    FURS_Response_Data.Image_QRcode.Save(m, FURS_Response_Data.Image_QRcode.RawFormat);
+                    byte[] imageBytes = m.ToArray();
+
+                    // Convert byte[] to Base64 String
+                    string base64String = Convert.ToBase64String(imageBytes);
+                    Invoice_FURS_Token.tQR.Set(base64String);
+                }
             }
         }
 
@@ -350,7 +355,8 @@ namespace InvoiceDB
                     string UniqMsgID = (string)dt.Rows[0]["MessageID"];
                     string UniqInvID = (string)dt.Rows[0]["UniqueInvoiceID"];
                     string QRBarCodeValue = (string)dt.Rows[0]["BarCodeValue"];
-                    FURS_Response_Data = new FURS_Response_data(UniqMsgID, UniqInvID, QRBarCodeValue);
+                    Image img_QR=null;
+                    FURS_Response_Data = new FURS_Response_data(UniqMsgID, UniqInvID, QRBarCodeValue, img_QR);
                 }
                 else
                 {
