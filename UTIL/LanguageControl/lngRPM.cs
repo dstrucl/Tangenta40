@@ -10,6 +10,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_DoYouRealyWantToResetSettingsFor_FiscalVerificationOfInvoices = new ltext("Do you realy want to reset Settings for fiscal verification of invoices", "Ste prepričani, da zares želite ponastaviti nastavitve za davčno potrjevanje računov na začetno programsko vrednost ?");
 
         public static ltext s_SalesBookInvoice = new ltext("Sales book invoice", "Vezana knjiga računov");
         public static ltext s_Price_for = new ltext("Price for", "Cena za ");

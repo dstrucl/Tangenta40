@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageControl;
+using System;
 using System.Drawing;
 //using System.Collections.Generic;
 //using System.ComponentModel;
@@ -591,6 +592,13 @@ namespace FiscalVerificationOfInvoices_SLO
             frm_main.ShowDialog(this);
 
             frm_main = null;
+        }
+        public void Settings_Reset(Control ctrl_owner)
+        {
+            if (MessageBox.Show(ctrl_owner, lngRPM.s_DoYouRealyWantToResetSettingsFor_FiscalVerificationOfInvoices.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                Properties.Settings.Default.Reset();
+            }
         }
     }
 }

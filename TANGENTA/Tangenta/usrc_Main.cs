@@ -26,6 +26,10 @@ namespace Tangenta
         {
             InitializeComponent();
             Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
+            if (Program.bResetNew)
+            {
+                Program.usrc_FVI_SLO1.Settings_Reset(this);
+            }
             Program.usrc_Printer1 = this.usrc_Printer1;
         }
 
