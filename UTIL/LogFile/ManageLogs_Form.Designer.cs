@@ -229,9 +229,9 @@
             // 
             // txt__ExceptionLogs
             // 
-            this.txt__ExceptionLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt__ExceptionLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt__ExceptionLogs.Location = new System.Drawing.Point(5, 260);
             this.txt__ExceptionLogs.Multiline = true;
             this.txt__ExceptionLogs.Name = "txt__ExceptionLogs";
@@ -242,6 +242,7 @@
             // 
             // btn_Log2DB
             // 
+            this.btn_Log2DB.Enabled = false;
             this.btn_Log2DB.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Log2DB.Image = global::LogFile.Properties.Resources.ImportLogToDB;
             this.btn_Log2DB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;

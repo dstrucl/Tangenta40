@@ -44,6 +44,7 @@
             this.btn_Exit = new System.Windows.Forms.Button();
             this.chk_FullScreen = new System.Windows.Forms.CheckBox();
             this.btn_Shops_in_use = new System.Windows.Forms.Button();
+            this.btn_LogFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Stock
@@ -222,11 +223,22 @@
             this.btn_Shops_in_use.UseVisualStyleBackColor = true;
             this.btn_Shops_in_use.Click += new System.EventHandler(this.btn_Shops_in_use_Click);
             // 
+            // btn_LogFile
+            // 
+            this.btn_LogFile.Location = new System.Drawing.Point(348, 47);
+            this.btn_LogFile.Name = "btn_LogFile";
+            this.btn_LogFile.Size = new System.Drawing.Size(293, 31);
+            this.btn_LogFile.TabIndex = 16;
+            this.btn_LogFile.Text = "LOG DATOTEKA";
+            this.btn_LogFile.UseVisualStyleBackColor = true;
+            this.btn_LogFile.Click += new System.EventHandler(this.btn_LogFile_Click);
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(793, 89);
+            this.Controls.Add(this.btn_LogFile);
             this.Controls.Add(this.btn_Shops_in_use);
             this.Controls.Add(this.chk_FullScreen);
             this.Controls.Add(this.btn_Exit);
@@ -269,5 +281,6 @@
         private System.Windows.Forms.Button btn_Exit;
         private System.Windows.Forms.CheckBox chk_FullScreen;
         private System.Windows.Forms.Button btn_Shops_in_use;
+        private System.Windows.Forms.Button btn_LogFile;
     }
 }

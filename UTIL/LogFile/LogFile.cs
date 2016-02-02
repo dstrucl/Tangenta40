@@ -5,12 +5,17 @@ using System.IO;
 //using System.Reflection;
 using System.Windows.Forms;
 using System.Threading;
+using LanguageControl;
 
 namespace LogFile
 {
 
     public static class LogFile
     {
+        public enum eType {CLIENT,SERVER};
+        public static eType m_eType = eType.CLIENT;
+        private static bool bFirstWrite = true;
+        private static ManageLogs_Form ManageLogsDlg = null;
         public const string const_inifile_prefix = "LogFile_DB_";
         public const int const_Log2DB_flag_Write2DB_on_exit = 0x01;
         public static Log_RemoteDB_data Log_RemoteDB_data_ProgramSettings = null;
@@ -157,6 +162,11 @@ namespace LogFile
                     {
                         CanNotWriteLogClass exlog = new CanNotWriteLogClass(dt, type, s,ex.Message);
                         list_exlog.Add(exlog);
+                        if (bFirstWrite)
+                        {
+                            bFirstWrite = false;
+                            MessageBox.Show(lngRPM.s_LogFile.s + ":" + lngRPM.s_Error.s + ":" + lngRPM.s_CanNotWriteOrDeleteFileInFolder.s + ":\"" + Log_File + "\"");
+                        }
                     }
                     finally
                     {
@@ -192,8 +202,19 @@ namespace LogFile
 
         public static void LogManager()
         {
-            ManageLogs_Form ManageLogsDlg = new ManageLogs_Form();
-            ManageLogsDlg.Show();
+            if (ManageLogsDlg != null)
+            {
+                if (ManageLogsDlg.IsDisposed)
+                {
+                    ManageLogsDlg = null;
+                }
+            }
+            if (ManageLogsDlg == null)
+            {
+                ManageLogsDlg = new ManageLogs_Form();
+                ManageLogsDlg.Show();
+            }
+            ManageLogsDlg.Activate();
         }
 
         public static void Trigger(bool p)

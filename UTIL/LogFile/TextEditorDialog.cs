@@ -104,5 +104,9 @@ namespace LogFile
 
         }
 
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.textEditorControl.FindForm();
+        }
     }
 }

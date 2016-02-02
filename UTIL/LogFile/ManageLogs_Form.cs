@@ -15,6 +15,16 @@ namespace LogFile
         public ManageLogs_Form()
         {
             InitializeComponent();
+            if (LogFile.m_eType == LogFile.eType.CLIENT)
+            {
+                this.btn_Log2DB.Enabled = false;
+                this.chk_WriteLog2DB_on_exit.Enabled = false;
+            }
+            else
+            {
+                this.btn_Log2DB.Enabled = true;
+                this.chk_WriteLog2DB_on_exit.Enabled = true;
+            }
         }
 
 

@@ -27,6 +27,7 @@ namespace Tangenta
         public Form_Settings(usrc_Main usrc_Main)
         {
             InitializeComponent();
+            lngRPM.s_LogFile.Text(btn_LogFile);
             lngRPM.s_Language.Text(lbl_Language);
             lngRPM.s_FullScreen.Text(chk_FullScreen);
             lngRPM.s_Shops_In_Use.Text(btn_Shops_in_use);
@@ -221,6 +222,11 @@ namespace Tangenta
         {
             Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(m_usrc_Main);
             frm_shops_in_use.ShowDialog();
+        }
+
+        private void btn_LogFile_Click(object sender, EventArgs e)
+        {
+            LogFile.LogFile.LogManager();
         }
     }
 }
