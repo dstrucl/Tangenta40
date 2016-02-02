@@ -38,7 +38,7 @@ namespace FiscalVerificationOfInvoices_SLO
             lngRPM.s_lbl_PremiseType.Text(lbl_PremiseType);
             lngRPM.s_lbl_MyOrganisation_TaxID.Text(lbl_MyOrganisation_TaxID);
             lngRPM.s_lbl_BussinesPremiseID.Text(lbl_BussinesPremiseID);
-          //  lngRPM.s_lbl_InvoiceAuthor_TaxID.Text(lbl_InvoiceAuthor_TaxID);
+            lngRPM.s_lbl_InvoiceAuthor_TaxID.Text(lbl_InvoiceAuthor_TaxID);
             lngRPM.s_btn_ImportFromDataBase.Text(btn_ImportFromDataBase);
 
 
@@ -62,7 +62,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_PremiseType.Text = Properties.Settings.Default.fursD_PremiseType_TEST;
                 this.txt_MyOrganisation_TaxID.Text = Properties.Settings.Default.fursD_MyOrgTaxID_TEST;
                 this.txt_BussinesPremiseID.Text = Properties.Settings.Default.fursD_BussinesPremiseID_TEST;
-          //      this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST;
+                this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST;
             }
             else
             {
@@ -76,7 +76,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_PremiseType.Text = Properties.Settings.Default.fursD_PremiseType;
                 this.txt_MyOrganisation_TaxID.Text = Properties.Settings.Default.fursD_MyOrgTaxID;
                 this.txt_BussinesPremiseID.Text = Properties.Settings.Default.fursD_BussinesPremiseID;
-             //   this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
+                this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
             }
 
             this.txt_BuildingNumber.ReadOnly = m_ReadOnly;
@@ -89,7 +89,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.txt_PremiseType.ReadOnly = m_ReadOnly;
             this.txt_MyOrganisation_TaxID.ReadOnly = m_ReadOnly;
             this.txt_BussinesPremiseID.ReadOnly = m_ReadOnly;
-        //    this.txt_InvoiceAuthor_TaxID.ReadOnly = m_ReadOnly;
+            this.txt_InvoiceAuthor_TaxID.ReadOnly = m_ReadOnly;
             this.btn_ImportFromDataBase.Visible = !m_ReadOnly;
 
         }
@@ -108,7 +108,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursD_PremiseType_TEST = this.txt_PremiseType.Text;
                 Properties.Settings.Default.fursD_MyOrgTaxID_TEST = this.txt_MyOrganisation_TaxID.Text;
                 Properties.Settings.Default.fursD_BussinesPremiseID_TEST = this.txt_BussinesPremiseID.Text;
-         //       Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST = this.txt_InvoiceAuthor_TaxID.Text;
+                Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST = this.txt_InvoiceAuthor_TaxID.Text;
             }
             else
             {
@@ -122,7 +122,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursD_PremiseType = this.txt_PremiseType.Text;
                 Properties.Settings.Default.fursD_MyOrgTaxID = this.txt_MyOrganisation_TaxID.Text;
                 Properties.Settings.Default.fursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
-            //    Properties.Settings.Default.fursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
+                Properties.Settings.Default.fursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
             }
         }
 
