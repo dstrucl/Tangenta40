@@ -37,7 +37,7 @@ namespace DBSync
         }
 
 
-        public static bool Init(Form parentform, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,bool bShowDialog,bool bChangeConnection)
+        public static bool Init(Form parentform,bool bReset, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,bool bShowDialog,bool bChangeConnection)
         {
             string Err = null;
             if (DB_for_Blagajna == null)
@@ -52,7 +52,7 @@ namespace DBSync
             {
                 my_StartupWindowThread.Message(lngRPM.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
 
-                if (m_SQLite_Support.Get(parentform, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection))
+                if (m_SQLite_Support.Get(parentform, bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection))
                 {
                     my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
@@ -66,7 +66,7 @@ namespace DBSync
             else
             {
                 my_StartupWindowThread.Message(lngRPM.s_DataBaseFile.s);
-                if (Get(parentform, ref Err, ref IniFileFolder, "TangentaDB"))
+                if (Get(parentform,bReset, ref Err, ref IniFileFolder, "TangentaDB"))
                 {
                     my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
@@ -80,10 +80,10 @@ namespace DBSync
         }
 
 
-        public static Form_DBmanager.eResult DBMan(Form parentform, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,ref string xBackupFolder)
+        public static Form_DBmanager.eResult DBMan(Form parentform,bool bReset, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,ref string xBackupFolder)
         {
             m_BackupFolder = xBackupFolder;
-            Form_DBmanager dbman_dlg = new Form_DBmanager(parentform, m_XmlFileName, IniFileFolder, DataBaseType,m_BackupFolder);
+            Form_DBmanager dbman_dlg = new Form_DBmanager(parentform, bReset, m_XmlFileName, IniFileFolder, DataBaseType,m_BackupFolder);
             dbman_dlg.ShowDialog();
             m_BackupFolder = dbman_dlg.m_BackupFolder;
             xBackupFolder = m_BackupFolder;
@@ -221,11 +221,11 @@ namespace DBSync
             return true;
         }
 
-        public static bool Get(Form parent, ref string Err, ref string inifile_prefix, string default_DataBase_name)
+        public static bool Get(Form parent,bool bReset, ref string Err, ref string inifile_prefix, string default_DataBase_name)
         {
             if (DBSync.RemoteDB_data == null)
             {
-                DBSync.RemoteDB_data = new RemoteDB_data(inifile_prefix, 1, m_DBType, default_DataBase_name);
+                DBSync.RemoteDB_data = new RemoteDB_data(bReset,inifile_prefix, 1, m_DBType, default_DataBase_name);
             }
 
 

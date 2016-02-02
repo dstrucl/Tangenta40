@@ -19,13 +19,13 @@ namespace DBConnectionControl40
         public string strDataBaseFilePath;
         public string strDataBaseLogFilePath;
 
-        public RemoteDB_data(string inifile_prefix,int i, DBConnection.eDBType xDBType, string xConnectionName)
+        public RemoteDB_data(bool bReset,string inifile_prefix,int i, DBConnection.eDBType xDBType, string xConnectionName)
         {
             ConnectionName = xConnectionName;
             DBType = xDBType;
             Settings_Index = i;
             m_Settings_RemoteDB = new DBConnectionControl_Settings.Settings_RemoteDB(inifile_prefix, Settings_Index);
-            ReadSettings();
+            ReadSettings(bReset);
         }
 
         public bool Save(string infile_prefix,ref string Err)
@@ -49,10 +49,10 @@ namespace DBConnectionControl40
             return bres;
         }
 
-        public void ReadSettings()
+        public void ReadSettings(bool bReset)
         {
             string Err = null;
-            if (m_Settings_RemoteDB.Load(ref Err))
+            if (m_Settings_RemoteDB.Load(bReset,ref Err))
             {
                 DBType = (DBConnection.eDBType)m_Settings_RemoteDB.DBType();
                 bWindowsAuthentication = m_Settings_RemoteDB.bWindowsAuthentication();
@@ -74,7 +74,7 @@ namespace DBConnectionControl40
 
         public RemoteDB_data Clone()
         {
-            RemoteDB_data new_RemoteDB_data = new RemoteDB_data(this.m_Settings_RemoteDB.m_inifile_prefix, this.Settings_Index, this.DBType, this.ConnectionName);
+            RemoteDB_data new_RemoteDB_data = new RemoteDB_data(false,this.m_Settings_RemoteDB.m_inifile_prefix, this.Settings_Index, this.DBType, this.ConnectionName);
             new_RemoteDB_data.bChanged = this.bChanged;
             new_RemoteDB_data.bNewDatabase = this.bChanged;
             new_RemoteDB_data.bWindowsAuthentication = this.bWindowsAuthentication;
@@ -107,19 +107,19 @@ namespace DBConnectionControl40
 
         public bool bAllwaysCreateNew = false;
 
-        public LocalDB_data(string inifile_prefix,int instance, string xConnectionName, bool xAllwaysCreateNew)
+        public LocalDB_data(bool bReset,string inifile_prefix,int instance, string xConnectionName, bool xAllwaysCreateNew)
         {
             Settings_Index = instance;
             ConnectionName = xConnectionName;
             bAllwaysCreateNew = xAllwaysCreateNew;
             m_Settings_LocalDB = new Settings_LocalDB(inifile_prefix, Settings_Index);
-            ReadSettings();
+            ReadSettings(bReset);
         }
 
-        private void ReadSettings()
+        private void ReadSettings(bool bReset)
         {
             string Err = null;
-            if (m_Settings_LocalDB.Load(ref Err))
+            if (m_Settings_LocalDB.Load(bReset,ref Err))
             {
                 DataBaseFileName = m_Settings_LocalDB.LocalDB_DataBaseFileName();
                 DataBaseFilePath = m_Settings_LocalDB.LocalDB_DataBaseFilePath();

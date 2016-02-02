@@ -35,7 +35,7 @@ namespace Tangenta
             bool bUpgradeDone = false;
             if (m_usrc_DBSettings.Read_DBSettings(ref bUpgradeDone))
             {
-                if (Program.Get_JOURNAL_Types_ID())
+                if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
                 {
                     string Err = null;
                     if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null,ref Err))
@@ -145,7 +145,7 @@ namespace Tangenta
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
-            DBSync.DBSync.DBMan(Main_Form, ((Form_Main)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder);
+            DBSync.DBSync.DBMan(Main_Form,Program.bResetNew, ((Form_Main)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder);
             Properties.Settings.Default.BackupFolder = BackupFolder;
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();

@@ -128,7 +128,7 @@ namespace Tangenta
 
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
-            bool bResult = DBSync.DBSync.Init(this, m_XmlFileName, IniFileFolder, ref sDBType,false,Program.bChangeConnection);
+            bool bResult = DBSync.DBSync.Init(this,Program.bResetNew, m_XmlFileName, IniFileFolder, ref sDBType,false,Program.bChangeConnection);
 
             Properties.Settings.Default.IniFileFolder = IniFileFolder;
 
@@ -239,10 +239,13 @@ namespace Tangenta
 
         private void Exit()
         {
-            if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem!= null)
+            if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA != null)
             {
-                m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
-                m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem != null)
+                {
+                    m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem.Close();
+                    m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
+                }
             }
             InvoiceDB.f_Atom_WorkPeriod.End(InvoiceDB.GlobalData.Atom_WorkPeriod_ID);
             if (Program.b_FVI_SLO)

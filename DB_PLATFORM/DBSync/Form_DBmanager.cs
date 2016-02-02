@@ -22,8 +22,9 @@ namespace DBSync
         public string m_XmlFileName = null;
         public string m_IniFileFolder = null;
         public string m_DataBaseType = null;
+        private bool m_bReset = false; 
 
-        public Form_DBmanager(Form xparent_form, string xm_XmlFileName, string xIniFileFolder, string xDataBaseType, string xBackupFolder)
+        public Form_DBmanager(Form xparent_form,bool bxReset, string xm_XmlFileName, string xIniFileFolder, string xDataBaseType, string xBackupFolder)
         {
             InitializeComponent();
             m_parent_form = xparent_form;
@@ -31,6 +32,7 @@ namespace DBSync
             m_IniFileFolder = xIniFileFolder;
             m_DataBaseType = xDataBaseType;
             m_BackupFolder = xBackupFolder;
+            m_bReset = bxReset;
             Init();
         }
 
@@ -64,7 +66,7 @@ namespace DBSync
 
         private void btn_Change_Click(object sender, EventArgs e)
         {
-            DBSync.Init(m_parent_form, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true);
+            DBSync.Init(m_parent_form, m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true);
             Init();
         }
 

@@ -89,6 +89,7 @@ namespace Tangenta
 
 
         const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
+        const string const_command_RESETNEW = "RESETNEW";
         const string const_command_SYMULATOR = "SYMULATOR";
         const string const_command_RS232MONITOR = "RS232MONITOR";
         const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
@@ -103,28 +104,8 @@ namespace Tangenta
         internal static bool bRS232Monitor = false;
         internal static bool b_FVI_SLO = true;
         internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
+        internal static bool bResetNew = false;
 
-        //public static int iGDIcUser100;
-        //public static int iGDIcUser101;
-        //public static int iGDIcUser102;
-        //public static int iGDIcUser103;
-        //public static int iGDIcUser104;
-
-        //public static int iGDIcUser_After_Insert_usrc_Item2;
-        //public static int iGDIcUser_Insert_usrc_Item1;
-        //public static int iGDIcUser_Insert_usrc_Item2;
-        //public static int iGDIcUser_Insert_usrc_Item4;
-        //public static int iGDIcUser_Insert_usrc_Item5;
-        //public static int iGDIcUser_Insert_usrc_Item6;
-
-        public static byte[] imageToByteArray(System.Drawing.Image imageIn)
-        {
-            MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
-            return ms.ToArray();
-        }
-
-      
 
         public static int Get_BaseCurrency_DecimalPlaces()
         {
@@ -155,36 +136,14 @@ namespace Tangenta
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                IniFolder = Application.CommonAppDataPath;
-                int iLen = IniFolder.Length;
-                if (iLen > 0)
-                {
-                    if (IniFolder[iLen - 1] != '\\')
-                    {
-                        IniFolder += '\\';
-                    }
-                }
-                IniFile = IniFolder + IniFileName;
-
-                LogFile.Settings.m_eType = LogFile.Settings.eType.IniFile_Settings;
-                if (!LogFile.Settings.Load(IniFile, ref Err))
-                {
-                    MessageBox.Show("ERROR Loading LogFile Settings ! Err=" + Err);
-                }
-                //Settings_Kig_Programski_Paket.Settings.m_eType = Settings_Kig_Programski_Paket.Settings.eType.DataBase_Settings;
-
-                //Settings_Kig_Programski_Paket.Settings_List.Load(
                 string[] CommandLineArguments = System.Environment.GetCommandLineArgs();
 
+                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
+                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lngRPM.s_commandline_RESETNEW.s));
+                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
+                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
+                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
 
-                LogFile.LogFile.InitLogFile(CommandLineArguments);
-                LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
-
-                //if (!CrystalReportInstalled(ref VersionOfCrystalReport))
-                //{
-                //    MessageBox.Show("Error: Crystal Report Not Installed!\r\nYou must install Crystal Report befor starting " + Application.ProductName + "!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //    return;
-                //}
                 foreach (string s in CommandLineArguments)
                 {
 
@@ -214,9 +173,47 @@ namespace Tangenta
                         {
                             m_bProgramDiagnostic = true;
                         }
+                        if (s.Contains(const_command_RESETNEW))
+                        {
+                            Properties.Settings.Default.Reset();
+                            SQLTableControl.ASet.Settings_Reset();
+                            bResetNew = true;
+                        }
                     }
                 }
 
+
+
+                IniFolder = Application.CommonAppDataPath;
+                int iLen = IniFolder.Length;
+                if (iLen > 0)
+                {
+                    if (IniFolder[iLen - 1] != '\\')
+                    {
+                        IniFolder += '\\';
+                    }
+                }
+                IniFile = IniFolder + IniFileName;
+
+                LogFile.Settings.m_eType = LogFile.Settings.eType.IniFile_Settings;
+                if (!LogFile.Settings.Load(bResetNew,IniFile, ref Err))
+                {
+                    MessageBox.Show("ERROR Loading LogFile Settings ! Err=" + Err);
+                }
+                //Settings_Kig_Programski_Paket.Settings.m_eType = Settings_Kig_Programski_Paket.Settings.eType.DataBase_Settings;
+
+                //Settings_Kig_Programski_Paket.Settings_List.Load(
+
+
+
+                LogFile.LogFile.InitLogFile(CommandLineArguments);
+                LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
+
+                //if (!CrystalReportInstalled(ref VersionOfCrystalReport))
+                //{
+                //    MessageBox.Show("Error: Crystal Report Not Installed!\r\nYou must install Crystal Report befor starting " + Application.ProductName + "!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //    return;
+                //}
                 LanguageControl.DynSettings.LoadLanguages();
                 LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Blagajna.Settings.LanguageID; ;
                 LanguageControl.DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
@@ -229,10 +226,6 @@ namespace Tangenta
                     return;
                 }
 
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
 
 
 
@@ -331,32 +324,7 @@ namespace Tangenta
             return sNumber;
         }
 
-
-        internal static bool Get_JOURNAL_Types_ID()
-        {
-            if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
-            {
-                return true;
-            }
-            return false;
-        }
-
-        internal static string GetPaymentTypeString(GlobalData.ePaymentType ePaymentType)
-        {
-            switch (ePaymentType)
-            {
-                case GlobalData.ePaymentType.CASH:
-                    return "cash";
-                case GlobalData.ePaymentType.PAYMENT_CARD:
-                    return "payment_card";
-                case GlobalData.ePaymentType.NONE:
-                    return "none";
-                case GlobalData.ePaymentType.ALLREADY_PAID:
-                    return "allready_paid";
-                  //  break;
-            }
-            return null;
-        }
+      
     }
 
 }

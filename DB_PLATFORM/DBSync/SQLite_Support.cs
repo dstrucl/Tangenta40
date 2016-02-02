@@ -29,7 +29,7 @@ namespace DBSync
             return false;
         }
 
-        public bool Get(Form MainForm, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection)
+        public bool Get(Form MainForm,bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection)
         {
 
             //string IniFileFolder = Settings.IniFileFolder;
@@ -46,7 +46,7 @@ namespace DBSync
 
             if (DBSync.LocalDB_data_SQLite == null)
             {
-                DBSync.LocalDB_data_SQLite = new LocalDB_data(inifile_prefix, 1, DataBaseName, false);
+                DBSync.LocalDB_data_SQLite = new LocalDB_data(bReset,inifile_prefix, 1, DataBaseName, false);
             }
 
             if (bChangeConnection)

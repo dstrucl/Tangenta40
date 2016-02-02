@@ -305,11 +305,15 @@ namespace LogFile
             return false;
         }
 
-        public static bool Load(string IniFilePath, ref string Err)
+        public static bool Load(bool bReset,string IniFilePath, ref string Err)
         {
             Settings_List.Init();
             Settings_List.Init_Default();
             IniFile.IniFile.path = IniFilePath;
+            if (bReset)
+            {
+                Settings_List.CreateDefaultFile();
+            }
             if (!IniDataExsits(IniFilePath))
             {
                 Settings_List.CreateDefaultFile();

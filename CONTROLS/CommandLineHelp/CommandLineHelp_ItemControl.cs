@@ -14,7 +14,7 @@ namespace CommandLineHelp
         public CommandLineHelp_ItemControl(CommandLineHelp chlp)
         {
             InitializeComponent();
-            this.lbl_Help.Text = chlp.Command + " = " + chlp.description;
+            this.txt_Help.Text = chlp.Command + " = " + chlp.description;
         }
     }
 }

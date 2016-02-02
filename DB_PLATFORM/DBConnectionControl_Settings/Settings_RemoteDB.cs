@@ -123,11 +123,18 @@ namespace DBConnectionControl_Settings
         }
 
 
-        public  bool Load(ref string Err)
+        public  bool Load(bool bReset,ref string Err)
         {
             switch (m_eType)
             {
                 case eType.Properties_Settings_Default:
+                    if (bReset)
+                    {
+                        Properties.RemoteDB1.Default.Reset();
+                        Properties.RemoteDB2.Default.Reset();
+                        Properties.RemoteDB3.Default.Reset();
+                        Properties.RemoteDB4.Default.Reset();
+                    }
                     switch (m_SettingsIndex)
                     {
                         case 0:
@@ -192,12 +199,23 @@ namespace DBConnectionControl_Settings
                         IniFile.IniFile.path = spath + const_default_ini_file_name;
                     }
 
-                    if (!SectionExistsInIniFile())
+                    if (bReset)
                     {
                         Init();
                         if (!Save(ref Err))
                         {
                             return false;
+                        }
+                    }
+                    else
+                    {
+                        if (!SectionExistsInIniFile())
+                        {
+                            Init();
+                            if (!Save(ref Err))
+                            {
+                                return false;
+                            }
                         }
                     }
                     string section = m_inifile_prefix + const_section_prefix_RemoteDB_;

@@ -46,13 +46,20 @@ namespace DBConnectionControl_Settings
             m_inifile_prefix = x_inifile_prefix;
         }
 
-        public  bool Load(ref string Err)
+        public  bool Load(bool bReset,ref string Err)
         {
 
             switch (m_eType)
             {
                 case eType.Properties_Settings_Default:
 
+                    if (bReset)
+                    {
+                        Properties.LocalDB1.Default.Reset();
+                        Properties.LocalDB2.Default.Reset();
+                        Properties.LocalDB3.Default.Reset();
+                        Properties.LocalDB4.Default.Reset();
+                    }
                     switch (m_iSettingsIndex)
                     {
                         case 0:
@@ -80,12 +87,23 @@ namespace DBConnectionControl_Settings
                  //   break;
 
                 case eType.IniFile_Setting:
-                    if (!SectionExistsInIniFile())
+                    if (bReset)
                     {
                         Init();
                         if (!Save(ref Err))
                         {
                             return false;
+                        }
+                    }
+                    else
+                    {
+                        if (!SectionExistsInIniFile())
+                        {
+                            Init();
+                            if (!Save(ref Err))
+                            {
+                                return false;
+                            }
                         }
                     }
 

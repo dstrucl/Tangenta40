@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_Help = new System.Windows.Forms.Label();
+            this.txt_Help = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // lbl_Help
+            // txt_Help
             // 
-            this.lbl_Help.AutoSize = true;
-            this.lbl_Help.Location = new System.Drawing.Point(8, 5);
-            this.lbl_Help.Name = "lbl_Help";
-            this.lbl_Help.Size = new System.Drawing.Size(35, 13);
-            this.lbl_Help.TabIndex = 0;
-            this.lbl_Help.Text = "label1";
+            this.txt_Help.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_Help.Location = new System.Drawing.Point(3, 1);
+            this.txt_Help.Multiline = true;
+            this.txt_Help.Name = "txt_Help";
+            this.txt_Help.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txt_Help.Size = new System.Drawing.Size(527, 87);
+            this.txt_Help.TabIndex = 0;
             // 
             // CommandLineHelp_ItemControl
             // 
@@ -46,10 +47,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.lbl_Help);
+            this.Controls.Add(this.txt_Help);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "CommandLineHelp_ItemControl";
-            this.Size = new System.Drawing.Size(531, 89);
+            this.Size = new System.Drawing.Size(533, 91);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -57,7 +58,6 @@
 
         #endregion
 
-        internal System.Windows.Forms.Label lbl_Help;
-
+        private System.Windows.Forms.TextBox txt_Help;
     }
 }

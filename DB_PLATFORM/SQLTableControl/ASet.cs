@@ -30,6 +30,11 @@ namespace SQLTableControl
             }
         }
 
+        public static void Settings_Reset()
+        {
+            Properties.Settings.Default.Reset();
+        }
+
         public static int LanguageID
         {
             get
