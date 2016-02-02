@@ -56,7 +56,7 @@ namespace InvoiceDB
 
 
 
-        public static enum_GetCompany_Person_Data SelectCompanyData(DataTable dt_myCompany_Person, long Last_myCompany_id, long Last_myCompany_Person_id, ref string sAddress)
+        public static enum_GetCompany_Person_Data SelectCompanyData(DataTable dt_myCompany_Person, long myCompany_id, long myCompany_Person_id, ref string sAddress)
         {
 
             string sql_my_company_person = @"Select 
@@ -91,18 +91,20 @@ namespace InvoiceDB
                                               cFaxNumber_Org.FaxNumber,
                                               myorgdata_Logo.Image_Hash as Logo_Hash,
                                               myorgdata_Logo.Image_Data as Logo,
-                                              myorgdata_Logo.Description as Logo_Description
+                                              myorgdata_Logo.Description as Logo_Description,
+                                              per.Tax_ID as myCompany_Person_Tax_ID,
+                                              per.Registration_ID as myCompany_Person_Registration_ID
                                               from myCompany
                                               inner join OrganisationData myorgdata on myorgdata.Organisation_ID = myCompany.ID
                                               inner join Organisation myorg on myorgdata.Organisation_ID = myorg.ID
 					                          inner join Office on  Office.myCompany_ID = myCompany.id
 					                          inner join myCompany_Person on  myCompany_Person.Office_ID = Office.id
-					                          inner join Person on  myCompany_Person.Person_ID = Person.id 
-                                              inner join cFirstName on  Person.cFirstName_ID = cFirstName.id 
-                                              inner join cLastName on  Person.cLastName_ID = cLastName.id 
+					                          inner join Person per on  myCompany_Person.Person_ID = per.id 
+                                              inner join cFirstName on  per.cFirstName_ID = cFirstName.id 
+                                              inner join cLastName on  per.cLastName_ID = cLastName.id 
                                               left join cOrgType orgtype on myorgdata.cOrgType_ID = orgtype.ID
                                               left join OrganisationAccount on OrganisationAccount.Organisation_ID = myorg.ID
-					                          left join PersonData on PersonData.Person_ID =  Person.id
+					                          left join PersonData on PersonData.Person_ID =  per.id
 					                          left join BankAccount bankacc_org on bankacc_org.id = OrganisationAccount.BankAccount_ID
                                               left join Bank on Bank.id = bankacc_org .Bank_ID
 					                          left join Organisation bank_org on bank_org.id = Bank.Organisation_ID
@@ -118,7 +120,7 @@ namespace InvoiceDB
                                                                 left join cCity_Org on cAddress_Org.cCity_Org_ID  = cCity_Org.id 
                                                                 left join cState_Org on cAddress_Org.cState_Org_ID  = cState_Org.id 
                                                                 left join cCountry_Org on cAddress_Org.cCountry_Org_ID  = cCountry_Org.id "
-                                                                + " where myCompany.id = " + Last_myCompany_id.ToString() + " and myCompany_Person.id = " + Last_myCompany_Person_id.ToString()
+                                                                + " where myCompany.id = " + myCompany_id.ToString() + " and myCompany_Person.id = " + myCompany_Person_id.ToString()
                                                                 + " and myCompany_Person.Active = 1 ";
             string Err = null;
             dt_myCompany_Person.Clear();
@@ -132,6 +134,8 @@ namespace InvoiceDB
                     {
                         myOrg.ID = (long)dt_myCompany_Person.Rows[0]["myCompany_ID"];
                         myOrg_Person.ID = (long)dt_myCompany_Person.Rows[0]["myCompany_Person_ID"];
+                        myOrg_Person.Tax_ID_v = tf.set_string(dt_myCompany_Person.Rows[0]["myCompany_Person_Tax_ID"]);
+                        myOrg_Person.Registration_ID_v = tf.set_string(dt_myCompany_Person.Rows[0]["myCompany_Person_Registration_ID"]);
                         myOrg.Name_v = tf.set_string(dt_myCompany_Person.Rows[0]["Name"]);
                         if (dt_myCompany_Person.Rows[0]["StreetName"].GetType() == typeof(string))
                         {

@@ -16,5 +16,8 @@ namespace InvoiceDB
         public static string_v UserName_v = null;
         public static string_v Password_v = null;
         public static bool_v Active_v = null;
+        public static string_v Tax_ID_v = null;
+        public static string_v Registration_ID_v = null;
+
     }
 }

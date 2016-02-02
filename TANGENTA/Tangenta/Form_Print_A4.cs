@@ -22,6 +22,7 @@ namespace Tangenta
         public string Default_Tamplate = null;
         public byte[] Doc = null;
 
+        private usrc_Invoice_Preview m_usrc_Invoice_Preview = null;
         private GlobalData.ePaymentType paymentType;
         private string sPaymentMethod;
         private string sAmountReceived;
@@ -45,6 +46,43 @@ namespace Tangenta
             lngRPM.s_Template.Text(lbl_Template, ":");
         }
 
+        public void Init()
+        {
+            if (GetDefaultTemplate(ref Default_ID, ref Default_Tamplate, ref Doc, ref bCompressedDocumentTemplate))
+            {
+                txt_Template.Text = Default_Tamplate;
+            }
+        }
+
+
+        // 
+        // m_usrc_Invoice_Preview
+        // 
+        public void Create_usrc_Invoice_Preview()
+        {
+            if (m_usrc_Invoice_Preview!=null)
+            {
+                this.m_usrc_Invoice_Preview.OK -= new Tangenta.usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
+                this.Controls.Remove(m_usrc_Invoice_Preview);
+                m_usrc_Invoice_Preview.Dispose();
+                m_usrc_Invoice_Preview = null;
+            }
+            m_usrc_Invoice_Preview = new usrc_Invoice_Preview();
+            this.m_usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_usrc_Invoice_Preview.AutoScroll = true;
+            this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.m_usrc_Invoice_Preview.html_doc_text = "Document Template not set";
+            this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(1, 42);
+            this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
+            this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(923, 560);
+            this.m_usrc_Invoice_Preview.TabIndex = 0;
+            this.m_usrc_Invoice_Preview.OK += new Tangenta.usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
+            this.Controls.Add(m_usrc_Invoice_Preview);
+
+        }
         private void btn_EditTemplates_Click(object sender, EventArgs e)
         {
             SQLTable tbl_doc = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(doc)));
@@ -55,14 +93,12 @@ namespace Tangenta
             {
                 long id = edt_doc_dlg.ID_v.v;
                 string doc_name = null;
+                SetDefault(id);
                 if (GetTemplate(id,ref doc_name, ref Doc, ref bCompressedDocumentTemplate))
                 {
                     txt_Template.Text = doc_name;
-                    SetDefault(id);
                 }
-               
             }
-
         }
 
         private bool SetDefault(long id)
@@ -125,12 +161,13 @@ namespace Tangenta
                             xDocument = (byte[])((byte[])o_doc).Clone();
                         }
 
-        //private usrc_Print usrc_Print;
-        //private usrc_Payment.ePaymentType paymentType;
-        //private string sPaymentMethod;
-        //private string sAmountReceived;
-        //private string sToReturn;
-        //private DateTime_v issue_time;
+                        //private usrc_Print usrc_Print;
+                        //private usrc_Payment.ePaymentType paymentType;
+                        //private string sPaymentMethod;
+                        //private string sAmountReceived;
+                        //private string sToReturn;
+                        //private DateTime_v issue_time;
+                        Create_usrc_Invoice_Preview();
                         m_usrc_Invoice_Preview.Init(xDocument, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                         return true;
                     }
@@ -186,6 +223,7 @@ namespace Tangenta
                         {
                             xDocument = (byte[])((byte[])o_doc).Clone();
                         }
+                        Create_usrc_Invoice_Preview();
                         m_usrc_Invoice_Preview.Init(xDocument, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                         return true;
                     }
@@ -195,6 +233,7 @@ namespace Tangenta
                 else
                 {
                     XMessage.Box.Show(this, lngRPM.s_YouHaveNoDocumentTemplateToPrintOnA4, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                    Create_usrc_Invoice_Preview();
                     m_usrc_Invoice_Preview.Init(Program.usrc_Printer1.m_InvoiceData);
                 }
             }
@@ -208,10 +247,7 @@ namespace Tangenta
 
         private void Form_Print_A4_Load(object sender, EventArgs e)
         {
-            if (GetDefaultTemplate(ref Default_ID,ref Default_Tamplate,ref Doc, ref bCompressedDocumentTemplate))
-            {
-                txt_Template.Text = Default_Tamplate;
-            }
+            Init();
         }
 
         private void m_usrc_Invoice_Preview_OK()

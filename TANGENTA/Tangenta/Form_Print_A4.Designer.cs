@@ -35,7 +35,6 @@ namespace Tangenta
             this.txt_Template = new System.Windows.Forms.TextBox();
             this.btn_Select_Template = new System.Windows.Forms.Button();
             this.btn_EditTemplates = new System.Windows.Forms.Button();
-            this.m_usrc_Invoice_Preview = new Tangenta.usrc_Invoice_Preview();
             this.SuspendLayout();
             // 
             // lbl_Template
@@ -75,21 +74,7 @@ namespace Tangenta
             this.btn_EditTemplates.TabIndex = 4;
             this.btn_EditTemplates.UseVisualStyleBackColor = true;
             this.btn_EditTemplates.Click += new System.EventHandler(this.btn_EditTemplates_Click);
-            // 
-            // m_usrc_Invoice_Preview
-            // 
-            this.m_usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_Invoice_Preview.AutoScroll = true;
-            this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.m_usrc_Invoice_Preview.html_doc_text = "Document Template not set";
-            this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(1, 42);
-            this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
-            this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(923, 560);
-            this.m_usrc_Invoice_Preview.TabIndex = 0;
-            this.m_usrc_Invoice_Preview.OK += new Tangenta.usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
+            
             // 
             // Form_Print_A4
             // 
@@ -100,7 +85,6 @@ namespace Tangenta
             this.Controls.Add(this.btn_Select_Template);
             this.Controls.Add(this.txt_Template);
             this.Controls.Add(this.lbl_Template);
-            this.Controls.Add(this.m_usrc_Invoice_Preview);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Print_A4";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -112,7 +96,6 @@ namespace Tangenta
 
         #endregion
 
-        private usrc_Invoice_Preview m_usrc_Invoice_Preview;
         private System.Windows.Forms.Label lbl_Template;
         private System.Windows.Forms.TextBox txt_Template;
         private System.Windows.Forms.Button btn_Select_Template;

@@ -57,6 +57,21 @@ namespace Tangenta
         public InvoiceDB.ShopABC m_ShopABC = null;
         public InvoiceData m_InvoiceData = null;
 
+        public long myCompany_Person_id
+        {
+            get {
+                object oSelvalue = this.cmb_select_my_Company_Person.SelectedValue;
+                if (oSelvalue is long)
+                {
+                    return (long)oSelvalue;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
 
 
 
@@ -1546,7 +1561,18 @@ namespace Tangenta
             }
             GrossSum = dsum_GrossSum;
             NetSum = dsum_NetSum;
-            this.lbl_Sum.Text = dsum_GrossSum.ToString() + " " + GlobalData.BaseCurrency.Symbol;// +" tax:" + TaxSum.ToString() + " " + NetSum.ToString();
+            string sGrossSum = "";
+            if (m_ShopABC.m_CurrentInvoice.StornoProformaInvoice_ID_v == null)
+            {
+                sGrossSum  = dsum_GrossSum.ToString();
+                this.lbl_Sum.ForeColor = Color.Black;
+            }
+            else
+            {
+                sGrossSum = "-"+dsum_GrossSum.ToString();
+                this.lbl_Sum.ForeColor = Color.Red;
+            }
+            this.lbl_Sum.Text = sGrossSum + " " + GlobalData.BaseCurrency.Symbol;// +" tax:" + TaxSum.ToString() + " " + NetSum.ToString();
         }
 
         private void usrc_ShopC_ItemAdded()
