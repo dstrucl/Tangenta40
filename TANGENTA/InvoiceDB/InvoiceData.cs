@@ -518,7 +518,7 @@ namespace InvoiceDB
                                  inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                  inner join Atom_myCompany_Person amcp on awp.Atom_myCompany_Person_ID = amcp.ID
-                                 inner join Atom_Person ap on ap.ID = amcp.ID
+                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
                                  inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID and aoffd.Atom_myCompany_Person_ID = awp.Atom_myCompany_Person_ID
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
@@ -593,7 +593,7 @@ namespace InvoiceDB
                                  inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
-                                 inner join Atom_Person ap on ap.ID = amcp.ID
+                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
                                  inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID and aoffd.Atom_myCompany_Person_ID = awp.Atom_myCompany_Person_ID
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
@@ -675,6 +675,25 @@ namespace InvoiceDB
                                 }
                                 else
                                 {
+                                    sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                    DataTable dt = new DataTable();
+                                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                                    {
+                                        if (dt.Rows.Count == 1)
+                                        {
+                                            IssueDate = (DateTime)dt.Rows[0]["EventTime"];
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
+                                    }
+
                                     this.m_eType = eType.UNKNOWN;
                                 }
 
