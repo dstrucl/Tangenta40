@@ -135,7 +135,7 @@
             this.usrc_FURS_BussinesPremiseData1.Location = new System.Drawing.Point(-1, 104);
             this.usrc_FURS_BussinesPremiseData1.Name = "usrc_FURS_BussinesPremiseData1";
             this.usrc_FURS_BussinesPremiseData1.ReadOnly = false;
-            this.usrc_FURS_BussinesPremiseData1.Size = new System.Drawing.Size(654, 214);
+            this.usrc_FURS_BussinesPremiseData1.Size = new System.Drawing.Size(667, 235);
             this.usrc_FURS_BussinesPremiseData1.TabIndex = 20;
             // 
             // usrc_FURS_environment_settings
@@ -155,7 +155,7 @@
             this.Controls.Add(this.txt_CertificateFile);
             this.Controls.Add(this.lbl_CertificateFileName);
             this.Name = "usrc_FURS_environment_settings";
-            this.Size = new System.Drawing.Size(665, 322);
+            this.Size = new System.Drawing.Size(665, 342);
             this.ResumeLayout(false);
             this.PerformLayout();
 
