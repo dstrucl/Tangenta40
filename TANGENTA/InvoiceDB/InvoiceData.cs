@@ -55,8 +55,8 @@ namespace InvoiceDB
         public int NumberInFinancialYear = -1;
         public bool Draft = true;
 
-        public DateTime IssueDate;
-        public DateTime StornoIssueDate;
+        public DateTime_v IssueDate_v=null;
+        public DateTime_v StornoIssueDate_v=null;
 
 
         public string Currency_Symbol = null;
@@ -391,7 +391,7 @@ namespace InvoiceDB
             {
                 if (issue_time != null)
                 {
-                    this.IssueDate = issue_time.v;
+                    this.IssueDate_v = issue_time.Clone();
                     return true;
                 }
                 else
@@ -640,32 +640,35 @@ namespace InvoiceDB
                                 if (EventName_v.v.Equals("InvoiceTime"))
                                 {
                                     this.m_eType = eType.INVOICE;
-                                    this.IssueDate = EventTime_v.v;
+                                    this.IssueDate_v = EventTime_v.Clone();
                                 }
                                 else if (EventName_v.v.Equals("InvoiceStornoTime"))
                                 {
                                     this.m_eType = eType.STORNO;
-                                    this.StornoIssueDate = EventTime_v.v;
+                                    this.StornoIssueDate_v = EventTime_v.Clone();
                                     ProformaInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_Reference_ID"]);
                                     if (ProformaInvoice_Reference_ID_v != null)
                                     {
-                                        sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
-                                        DataTable dt = new DataTable();
-                                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                                        if (IssueDate_v == null)
                                         {
-                                            if (dt.Rows.Count == 1)
+                                            sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                            DataTable dt = new DataTable();
+                                            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                             {
-                                                IssueDate = (DateTime)dt.Rows[0]["EventTime"];
+                                                if (dt.Rows.Count == 1)
+                                                {
+                                                    IssueDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["EventTime"]);
+                                                }
+                                                else
+                                                {
+                                                    LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                }
+
                                             }
                                             else
                                             {
-                                                LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
                                             }
-
-                                        }
-                                        else
-                                        {
-                                            LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql="+sql+"\r\nERR="+Err);
                                         }
                                     }
                                     else
@@ -675,23 +678,27 @@ namespace InvoiceDB
                                 }
                                 else
                                 {
-                                    sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
-                                    DataTable dt = new DataTable();
-                                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                                    if (IssueDate_v == null)
                                     {
-                                        if (dt.Rows.Count == 1)
+
+                                        sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                        DataTable dt = new DataTable();
+                                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                         {
-                                            IssueDate = (DateTime)dt.Rows[0]["EventTime"];
+                                            if (dt.Rows.Count == 1)
+                                            {
+                                                IssueDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["EventTime"]);
+                                            }
+                                            else
+                                            {
+                                                LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                            }
+
                                         }
                                         else
                                         {
-                                            LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                            LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
                                         }
-
-                                    }
-                                    else
-                                    {
-                                        LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
                                     }
 
                                     this.m_eType = eType.UNKNOWN;
@@ -830,11 +837,11 @@ namespace InvoiceDB
                                 InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
                                 InvoiceToken.tCashier.Set(CasshierName);
 
-                                string stime = IssueDate.Day.ToString() + "."
-                                                + IssueDate.Month.ToString() + "."
-                                                + IssueDate.Year.ToString() + " "
-                                                + IssueDate.Hour.ToString() + ":"
-                                                + IssueDate.Minute.ToString();
+                                string stime = IssueDate_v.v.Day.ToString() + "."
+                                                + IssueDate_v.v.Month.ToString() + "."
+                                                + IssueDate_v.v.Year.ToString() + " "
+                                                + IssueDate_v.v.Hour.ToString() + ":"
+                                                + IssueDate_v.v.Minute.ToString();
                                 InvoiceToken.tDateOfIssue.Set(stime);
                                 InvoiceToken.tDateOfMaturity.Set(stime);
 
@@ -1006,7 +1013,7 @@ namespace InvoiceDB
                 //string sInnerText_MyOrgTaxID = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; // "10329048";//MyOrganisation.Tax_ID;
                 ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;//Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; //MyOrganisation.Tax_ID;
                 XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
-                ndl_IssueDateTime.Item(0).InnerText = fs.GetFURS_Time_Formated(IssueDate);
+                ndl_IssueDateTime.Item(0).InnerText = fs.GetFURS_Time_Formated(IssueDate_v.v);
                 XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
                 //string sInnerText_FursD_BussinesPremiseID = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID;
                 ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;// Program.usrc_FVI_SLO1.FursD_BussinesPremiseID; // "36CF"; //MyOrganisation.Atom_Office_Name;
@@ -1107,7 +1114,7 @@ namespace InvoiceDB
                 //string sInnerText_MyOrgTaxID = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; // "10329048";//MyOrganisation.Tax_ID;
                 ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;//Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; //MyOrganisation.Tax_ID;
                 XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
-                ndl_IssueDateTime.Item(0).InnerText = fs.GetFURS_Time_Formated(IssueDate);
+                ndl_IssueDateTime.Item(0).InnerText = fs.GetFURS_Time_Formated(IssueDate_v.v);
                 XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
                 //string sInnerText_FursD_BussinesPremiseID = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID;
                 ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;// Program.usrc_FVI_SLO1.FursD_BussinesPremiseID; // "36CF"; //MyOrganisation.Atom_Office_Name;
@@ -1179,11 +1186,11 @@ namespace InvoiceDB
 
         public string CreateHTML_Invoice(ref string html_doc_template)
         {
-            string stime = IssueDate.Day.ToString() + "."
-                                           + IssueDate.Month.ToString() + "."
-                                           + IssueDate.Year.ToString() + " "
-                                           + IssueDate.Hour.ToString() + ":"
-                                           + IssueDate.Minute.ToString();
+            string stime = IssueDate_v.v.Day.ToString() + "."
+                                           + IssueDate_v.v.Month.ToString() + "."
+                                           + IssueDate_v.v.Year.ToString() + " "
+                                           + IssueDate_v.v.Hour.ToString() + ":"
+                                           + IssueDate_v.v.Minute.ToString();
             InvoiceToken.tDateOfIssue.Set(stime);
             InvoiceToken.tDateOfMaturity.Set(stime);
 

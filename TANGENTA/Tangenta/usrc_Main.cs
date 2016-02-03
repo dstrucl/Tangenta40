@@ -26,7 +26,7 @@ namespace Tangenta
         {
             InitializeComponent();
             Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
-            if (Program.bResetNew)
+            if (Program.bReset2FactorySettings)
             {
                 Program.usrc_FVI_SLO1.Settings_Reset(this);
             }
@@ -149,7 +149,7 @@ namespace Tangenta
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
-            DBSync.DBSync.DBMan(Main_Form,Program.bResetNew, ((Form_Main)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder);
+            DBSync.DBSync.DBMan(Main_Form,Program.bReset2FactorySettings, ((Form_Main)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder);
             Properties.Settings.Default.BackupFolder = BackupFolder;
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();

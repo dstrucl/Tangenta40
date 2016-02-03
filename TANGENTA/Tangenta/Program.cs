@@ -104,7 +104,7 @@ namespace Tangenta
         internal static bool bRS232Monitor = false;
         internal static bool b_FVI_SLO = true;
         internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
-        internal static bool bResetNew = false;
+        internal static bool bReset2FactorySettings = false;
 
 
         public static int Get_BaseCurrency_DecimalPlaces()
@@ -175,9 +175,16 @@ namespace Tangenta
                         }
                         if (s.Contains(const_command_RESETNEW))
                         {
-                            Properties.Settings.Default.Reset();
-                            SQLTableControl.ASet.Settings_Reset();
-                            bResetNew = true;
+                            if (MessageBox.Show(lngRPM.s_AreYouSure_ToResetSettingsToInitialvalues.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                            {
+                                Properties.Settings.Default.Reset();
+                                SQLTableControl.ASet.Settings_Reset();
+                                bReset2FactorySettings = true;
+                            }
+                            else
+                            {
+                                bReset2FactorySettings = false;
+                            }
                         }
                     }
                 }
@@ -196,7 +203,7 @@ namespace Tangenta
                 IniFile = IniFolder + IniFileName;
 
                 LogFile.Settings.m_eType = LogFile.Settings.eType.IniFile_Settings;
-                if (!LogFile.Settings.Load(bResetNew,IniFile, ref Err))
+                if (!LogFile.Settings.Load(bReset2FactorySettings,IniFile, ref Err))
                 {
                     MessageBox.Show("ERROR Loading LogFile Settings ! Err=" + Err);
                 }

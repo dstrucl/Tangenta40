@@ -164,7 +164,7 @@ namespace Tangenta
                 //buffer = buffer + "\x1b\x1d\x61\x0";             //Left Alignment - Refer to Pg. 3-29
                 Printer.wr_SetHorizontalTabPositions(new byte[] { 2, 0x10, 0x22 });
                 Printer.wr_Paragraph("Številka računa: " + xInvoiceData.FinancialYear.ToString() + "/" + xInvoiceData.NumberInFinancialYear.ToString());
-                Printer.wr_Paragraph("Datum:" + xInvoiceData.IssueDate.Day.ToString() + "." + xInvoiceData.IssueDate.Month.ToString() + "." + xInvoiceData.IssueDate.Year.ToString() + "\x9" + " Čas:" + xInvoiceData.IssueDate.Hour.ToString() + ":" + xInvoiceData.IssueDate.Minute.ToString());      //Moving Horizontal Tab - Pg. 3-26
+                Printer.wr_Paragraph("Datum:" + xInvoiceData.IssueDate_v.v.Day.ToString() + "." + xInvoiceData.IssueDate_v.v.Month.ToString() + "." + xInvoiceData.IssueDate_v.v.Year.ToString() + "\x9" + " Čas:" + xInvoiceData.IssueDate_v.v.Hour.ToString() + ":" + xInvoiceData.IssueDate_v.v.Minute.ToString());      //Moving Horizontal Tab - Pg. 3-26
                 Printer.wr_LineDelimeter();
                 Printer.wr_BoldOn();
 
