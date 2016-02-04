@@ -11,7 +11,7 @@ namespace InvoiceDB
 {
     public static class f_Atom_myCompany
     {
-        public static myOrg.enum_GetCompany_Person_Data Get(long myCompany_ID, ref long Atom_myCompany_ID)
+        public static bool Get(long myCompany_ID, ref long Atom_myCompany_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -61,15 +61,14 @@ namespace InvoiceDB
                 if (dt.Rows.Count > 0)
                 {
                     Atom_myCompany_ID = (long)dt.Rows[0]["Atom_myCompany_ID"];
+                    return true;
                 }
                 else
                 {
                     ID_v Atom_myCompany_iD_v = null;
                     if (myOrg.Name_v == null)
                     {   
-                        DataTable dt_myCompanyData = new DataTable();
-                        string s_Address = null;
-                        return myOrg.SelectCompanyData(dt_myCompanyData, 1, 1, ref s_Address);
+                        myOrg.Get(1);
                     }
                     if (!f_Atom_myCompany.Get(myOrg.Name_v,
                                               myOrg.Tax_ID_v,
@@ -87,25 +86,25 @@ namespace InvoiceDB
                                               myOrg.Logo_Description_v,
                                               ref Atom_myCompany_iD_v))
                     {
-                        return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                        return false;
                     }
                     if (Atom_myCompany_iD_v != null)
                     {
                         Atom_myCompany_ID = Atom_myCompany_iD_v.v;
+                        return true;
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:InsertInto_Atom_myCompany_Person:Atom_myCompany_iD_v == null!");
-                        return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data; ;
+                        return false;
                     }
 
                 }
-                return myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK;
             }
             else
             {
                 LogFile.Error.Show(@"ERROR:Find_Atom_myCompany_Person_ID:select ...from Atom_myCompany:\r\nErr=" + Err);
-                return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data; 
+                return false; 
             }
 
         }

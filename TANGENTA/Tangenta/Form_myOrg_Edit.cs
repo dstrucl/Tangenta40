@@ -9,16 +9,17 @@ using System.Windows.Forms;
 using LanguageControl;
 using SQLTableControl;
 using BlagajnaTableClass;
+
 namespace Tangenta
 {
-    public partial class Form_MyCompany_Person_Data_Edit : Form
+    public partial class Form_myOrg_Edit : Form
     {
         DataTable dt_my_company = new DataTable();
         SQLTableControl.DBTableControl dbTables = null;
         SQLTable tbl = null;
         //bool bclose = false;
 
-        public Form_MyCompany_Person_Data_Edit(SQLTableControl.DBTableControl xdbTables,SQLTable xtbl)
+        public Form_myOrg_Edit(SQLTableControl.DBTableControl xdbTables,SQLTable xtbl)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -29,14 +30,7 @@ namespace Tangenta
         {
             dt_my_company.Clear();
             string sql = null;
-            if (Program.b_FVI_SLO)
-            {
-                sql = @"select * from FVI_SLO_RealEstateBP_VIEW";
-            }
-            else
-            {
-                sql = @"select * from Atom_myCompany_Person_VIEW";
-            }
+             sql = @"select * from Atom_myCompany_VIEW";
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_my_company,sql,ref Err))

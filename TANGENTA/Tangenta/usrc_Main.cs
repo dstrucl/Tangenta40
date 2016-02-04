@@ -42,86 +42,84 @@ namespace Tangenta
                 if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
                 {
                     string Err = null;
-                    if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null,ref Err))
+                    if (this.m_usrc_InvoiceMan.m_usrc_Invoice.GetCompanyData())
                     {
-                        if (Program.b_FVI_SLO)
-                        {
-                            if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID, 1))
-                            {
-                            }
-                        }
-                        if (this.m_usrc_InvoiceMan.Init(main_Form))
+                        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
                         {
                             if (Program.b_FVI_SLO)
                             {
-                                if (!this.usrc_FVI_SLO1.Start(ref Err))
+                                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID, 1))
                                 {
-                                    LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
-                                    return false;
                                 }
                             }
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if (Program.bStartup && Err == null)
-                        {
-
-                            XMessage.Box.Show(Program.MainForm, lngRPM.s_No_CompanyData, "!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information, System.Windows.Forms.MessageBoxDefaultButton.Button1);
-                            DialogResult dres = DialogResult.Ignore;
-                            if (Program.b_FVI_SLO)
+                            if (this.m_usrc_InvoiceMan.Init(main_Form))
                             {
-                                Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(FVI_SLO_RealEstateBP))));
-                                dres = edt_my_company_person_dlg.ShowDialog();
-                            }
-                            else
-                            {
-                                Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person))));
-                                dres = edt_my_company_person_dlg.ShowDialog();
-                            }
-                            if (dres == DialogResult.OK)
-                            {
-                                if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
+                                if (Program.b_FVI_SLO)
                                 {
-                                    if (Program.b_FVI_SLO)
+                                    if (!this.usrc_FVI_SLO1.Start(ref Err))
                                     {
-                                        if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID,1))
-                                        {
-                                        }
-                                    }
-                                    if (this.m_usrc_InvoiceMan.Init(main_Form))
-                                    {
-                                        if (Program.b_FVI_SLO)
-                                        {
-                                            if (!this.usrc_FVI_SLO1.Start(ref Err))
-                                            {
-                                                LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
-                                                return false;
-                                            }
-                                        }
-                                        return true;
-                                    }
-                                    else
-                                    {
+                                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
                                         return false;
                                     }
                                 }
-                                else
-                                {
-                                    return false;
-                                }
+                                return true;
                             }
                             else
                             {
                                 return false;
                             }
                         }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        //if (Program.bStartup && Err == null)
+                        //{
 
+                        //    XMessage.Box.Show(Program.MainForm, lngRPM.s_No_CompanyData, "!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information, System.Windows.Forms.MessageBoxDefaultButton.Button1);
+                        //    DialogResult dres = DialogResult.Ignore;
+                        //    Form_MyCompany_Person_Data_Edit edt_my_company_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany))));
+                        //    dres = edt_my_company_dlg.ShowDialog();
+                        //    if (dres == DialogResult.OK)
+                        //    {
+                        //        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
+                        //        {
+                        //            if (Program.b_FVI_SLO)
+                        //            {
+                        //                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID, 1))
+                        //                {
+                        //                }
+                        //            }
+                        //            if (this.m_usrc_InvoiceMan.Init(main_Form))
+                        //            {
+                        //                if (Program.b_FVI_SLO)
+                        //                {
+                        //                    if (!this.usrc_FVI_SLO1.Start(ref Err))
+                        //                    {
+                        //                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
+                        //                        return false;
+                        //                    }
+                        //                }
+                        //                return true;
+                        //            }
+                        //            else
+                        //            {
+                        //                return false;
+                        //            }
+                        //        }
+                        //        else
+                        //        {
+                        //            return false;
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        return false;
+                        //    }
                         return false;
                     }
                 }

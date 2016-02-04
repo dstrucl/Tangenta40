@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,24 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAAAGABoAwAAFgAAACgAAAAQAAAAIAAAAAEAGAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAA
-        AAAMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/mQD/mQD/
-        mQD/mQD/mQD/mQD/mQD/mQD/mQAMDAz/mQD/mQD/mQD/mQAMDAwMDAz/mQD/mQD/mQD/mQD/mQD/mQD/
-        mQD/mQD/mQAMDAz/mQD/mQD/mQD/mQAMDAwMDAz/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQAMDAz/
-        mQD/mQD/mQD/mQAMDAwMDAz/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQAMDAz/mQD/mQD/mQD/mQAM
-        DAwMDAz/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQAMDAz/mQD/mQD/mQD/mQAMDAwMDAz/mQD/mQD/
-        mQD/mQD/mQD/mQD/mQD/mQD/mQAMDAz/mQD/mQD/mQD/mQAMDAwMDAz/mQD/mQD/mQD/mQD/mQD/mQD/
-        mQD/mQD/mQAMDAz/mQD/mQD/mQD/mQAMDAwMDAz/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQAMDAz/
-        mQD/mQD/mQD/mQAMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM
-        DAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/mQD/mQD/
-        mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQAMDAwMDAz/mQAA/8z/mQAA/8z/mQAA/8z/
-        mQD/mQAA/8z/mQD/mQAA/8z/mQAA/8wMDAwMDAz/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/mQD/
-        mQD/mQD/mQD/mQAMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM
-        DAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA
-</value>
-  </data>
 </root>

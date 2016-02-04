@@ -15,7 +15,7 @@ namespace InvoiceDB
 {
     public static class f_Atom_myCompany_Person
     {
-        public static myOrg.enum_GetCompany_Person_Data Get(long myCompany_Person_ID, ref long Atom_myCompany_Person_ID, ref string_v office_name)
+        public static bool Get(long myCompany_Person_ID, ref long Atom_myCompany_Person_ID, ref string_v office_name)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -25,8 +25,7 @@ namespace InvoiceDB
             if (Find_myCompany_Office(myCompany_Person_ID, ref Person_ID, ref myCompany_ID, ref Office_ID, ref Err))
             {
                 long Atom_myCompany_ID = -1;
-                myOrg.enum_GetCompany_Person_Data Result_enum_GetCompany_Person_Data = f_Atom_myCompany.Get(myCompany_ID, ref Atom_myCompany_ID);
-                if (Result_enum_GetCompany_Person_Data == myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
+                if (f_Atom_myCompany.Get(myCompany_ID, ref Atom_myCompany_ID))
                 {
                     long Atom_Office_ID = -1;
                     if (f_Atom_Office.Get(Office_ID,ref Atom_Office_ID))
@@ -122,7 +121,7 @@ namespace InvoiceDB
                                 else
                                 {
                                     LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:sql="+sql+"\r\nErr="+Err);
-                                    return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                                    return false;
                                 }
 
                                 long_v Atom_Person_ID = null;
@@ -238,7 +237,7 @@ namespace InvoiceDB
                                         if (dt.Rows.Count>0)
                                         {
                                             Atom_myCompany_Person_ID = (long)dt.Rows[0]["ID"];
-                                            return myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK;;
+                                            return true;
                                         }
                                         else
                                         {
@@ -248,57 +247,57 @@ namespace InvoiceDB
                                             object oret = null;
                                             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar,ref Atom_myCompany_Person_ID,ref oret, ref Err,"atom_mycompany_person"))
                                             {
-                                                return myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK;
+                                                return true;
                                             }
                                             else
                                             {
                                                 LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:sql="+sql+"\r\nErr="+Err);
-                                                return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                                                return false;
                                             }
                                         }
                                     }
                                     else
                                     {
                                         LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:sql="+sql+"\r\nErr="+Err);
-                                        return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                                        return false;
                                     }
                                 }
                                 else
                                 {
-                                    return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                                    return false;
                                 }
                             }
                             else
                             {
                                 LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:myCompany_Person for myCompany_Person_ID = " +myCompany_Person_ID.ToString()+ " not found !");
-                                return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                                return false;
                             }
                         }
                         else
                         {
                             LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:slq="+sql+"\r\nErr="+Err);
-                            return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                            return false;
                         }
                     }
                     else
                     {
-                        return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                        return false;
                     }
                 }
                 else
                 {
-                    return Result_enum_GetCompany_Person_Data;
+                    return false;
                 }
             }
             else
             {
                 if (Err == null)
                 {
-                    return myOrg.enum_GetCompany_Person_Data.No_MyCompanyData;
+                    return false;
                 }
                 else
                 {
-                    return myOrg.enum_GetCompany_Person_Data.Error_Load_MyCompany_data;
+                    return false;
                 }
             }
         }

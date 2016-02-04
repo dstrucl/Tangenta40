@@ -44,6 +44,8 @@
             this.btn_Issue = new System.Windows.Forms.Button();
             this.chk_Head = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.lbl_MyOrganisation = new System.Windows.Forms.Label();
+            this.btn_MyOrganisation = new System.Windows.Forms.Button();
             this.btn_CodeTables = new System.Windows.Forms.Button();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
@@ -62,22 +64,18 @@
             // 
             // txt_MyCompany
             // 
-            this.txt_MyCompany.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_MyCompany.Location = new System.Drawing.Point(320, 6);
+            this.txt_MyCompany.Location = new System.Drawing.Point(191, 8);
             this.txt_MyCompany.Margin = new System.Windows.Forms.Padding(2);
             this.txt_MyCompany.Multiline = true;
             this.txt_MyCompany.Name = "txt_MyCompany";
-            this.txt_MyCompany.Size = new System.Drawing.Size(695, 34);
+            this.txt_MyCompany.Size = new System.Drawing.Size(824, 34);
             this.txt_MyCompany.TabIndex = 1;
             // 
             // lbl_MyCompany
             // 
-            this.lbl_MyCompany.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_MyCompany.AutoSize = true;
             this.lbl_MyCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_MyCompany.Location = new System.Drawing.Point(1, 11);
+            this.lbl_MyCompany.Location = new System.Drawing.Point(8, 50);
             this.lbl_MyCompany.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_MyCompany.Name = "lbl_MyCompany";
             this.lbl_MyCompany.Size = new System.Drawing.Size(78, 17);
@@ -134,9 +132,9 @@
             // 
             this.cmb_select_my_Company_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_select_my_Company_Person.FormattingEnabled = true;
-            this.cmb_select_my_Company_Person.Location = new System.Drawing.Point(125, 7);
+            this.cmb_select_my_Company_Person.Location = new System.Drawing.Point(132, 47);
             this.cmb_select_my_Company_Person.Name = "cmb_select_my_Company_Person";
-            this.cmb_select_my_Company_Person.Size = new System.Drawing.Size(186, 24);
+            this.cmb_select_my_Company_Person.Size = new System.Drawing.Size(185, 24);
             this.cmb_select_my_Company_Person.TabIndex = 21;
             // 
             // txt_Number
@@ -161,7 +159,7 @@
             // btn_edit_MyCompany_Person
             // 
             this.btn_edit_MyCompany_Person.Image = ((System.Drawing.Image)(resources.GetObject("btn_edit_MyCompany_Person.Image")));
-            this.btn_edit_MyCompany_Person.Location = new System.Drawing.Point(82, 6);
+            this.btn_edit_MyCompany_Person.Location = new System.Drawing.Point(91, 45);
             this.btn_edit_MyCompany_Person.Name = "btn_edit_MyCompany_Person";
             this.btn_edit_MyCompany_Person.Size = new System.Drawing.Size(35, 28);
             this.btn_edit_MyCompany_Person.TabIndex = 17;
@@ -246,6 +244,8 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.lbl_MyOrganisation);
+            this.splitContainer2.Panel1.Controls.Add(this.btn_MyOrganisation);
             this.splitContainer2.Panel1.Controls.Add(this.txt_MyCompany);
             this.splitContainer2.Panel1.Controls.Add(this.lbl_MyCompany);
             this.splitContainer2.Panel1.Controls.Add(this.btn_edit_MyCompany_Person);
@@ -258,6 +258,29 @@
             this.splitContainer2.Size = new System.Drawing.Size(1021, 697);
             this.splitContainer2.SplitterDistance = 78;
             this.splitContainer2.TabIndex = 38;
+            // 
+            // lbl_MyOrganisation
+            // 
+            this.lbl_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_MyOrganisation.AutoSize = true;
+            this.lbl_MyOrganisation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_MyOrganisation.Location = new System.Drawing.Point(8, 16);
+            this.lbl_MyOrganisation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_MyOrganisation.Name = "lbl_MyOrganisation";
+            this.lbl_MyOrganisation.Size = new System.Drawing.Size(138, 17);
+            this.lbl_MyOrganisation.TabIndex = 34;
+            this.lbl_MyOrganisation.Text = "Moja Organizacija";
+            // 
+            // btn_MyOrganisation
+            // 
+            this.btn_MyOrganisation.Image = ((System.Drawing.Image)(resources.GetObject("btn_MyOrganisation.Image")));
+            this.btn_MyOrganisation.Location = new System.Drawing.Point(151, 10);
+            this.btn_MyOrganisation.Name = "btn_MyOrganisation";
+            this.btn_MyOrganisation.Size = new System.Drawing.Size(35, 28);
+            this.btn_MyOrganisation.TabIndex = 35;
+            this.btn_MyOrganisation.UseVisualStyleBackColor = true;
+            this.btn_MyOrganisation.Click += new System.EventHandler(this.btn_MyOrganisation_Click);
             // 
             // btn_CodeTables
             // 
@@ -313,10 +336,10 @@
             this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Customer.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_Customer.Location = new System.Drawing.Point(6, 44);
+            this.usrc_Customer.Location = new System.Drawing.Point(368, 45);
             this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_Customer.Name = "usrc_Customer";
-            this.usrc_Customer.Size = new System.Drawing.Size(1009, 29);
+            this.usrc_Customer.Size = new System.Drawing.Size(647, 29);
             this.usrc_Customer.TabIndex = 33;
             this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
             this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
@@ -380,5 +403,7 @@
         private usrc_Notice usrc_Notice1;
         private System.Windows.Forms.SplitContainer splitContainer3;
         public System.Windows.Forms.Button btn_Show_Shops;
+        private System.Windows.Forms.Label lbl_MyOrganisation;
+        private System.Windows.Forms.Button btn_MyOrganisation;
     }
 }

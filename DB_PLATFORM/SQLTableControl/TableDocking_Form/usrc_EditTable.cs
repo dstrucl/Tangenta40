@@ -224,26 +224,31 @@ namespace SQLTableControl.TableDocking_Form
                 selection = SelectedColumns;
             }
 
+            string sOrderBy = "";
+            if (OrderByColumnName!=null)
+            {
+                sOrderBy = " order by " + OrderByColumnName;
+            }
             if (WhereConditon == null)
             {
                 if (tbl.ViewName != null)
                 {
-                    sql = "select " + selection + " from " + tbl.ViewName + " order by " + OrderByColumnName;
+                    sql = "select " + selection + " from " + tbl.ViewName + sOrderBy;
                 }
                 else
                 {
-                    sql = "select " + selection + " from " + tbl.TableName + " order by " + OrderByColumnName;
+                    sql = "select " + selection + " from " + tbl.TableName + sOrderBy;
                 }
             }
             else
             {
                 if (tbl.ViewName != null)
                 {
-                    sql = "select " + selection + " from " + tbl.ViewName + " " + WhereConditon + " order by " + OrderByColumnName;
+                    sql = "select " + selection + " from " + tbl.ViewName + " " + WhereConditon + sOrderBy;
                 }
                 else
                 {
-                    sql = "select " + selection + " from " + tbl.TableName + "  " + WhereConditon + " order by " + OrderByColumnName;
+                    sql = "select " + selection + " from " + tbl.TableName + "  " + WhereConditon + sOrderBy;
                 }
             }
 
