@@ -10,6 +10,8 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_Total = new ltext("TOTAL", "SKUPAJ");
+
         public static ltext s_AreYouSure_ToResetSettingsToInitialvalues = new ltext("Do you realy want to reset all settings to initial values?\r\nIf yes, you will lost all user settings you have defined.", "Ste prepričani, da zares želite ponastaviti nastavitve na začetno programsko vrednost?\r\nV kolikor ste, vedite, da boste izgubili vse nastavitve ki ste jih ročno vnesli.");
         public static ltext s_DoYouRealyWantToResetSettingsFor_FiscalVerificationOfInvoices = new ltext("Do you realy want to reset Settings for fiscal verification of invoices", "Ste prepričani, da zares želite ponastaviti nastavitve za davčno potrjevanje računov na začetno programsko vrednost ?");
 
@@ -435,8 +437,8 @@ namespace LanguageControl
         public static ltext s_Issuer = new ltext("Issuer",
                                                     "Izstavitelj");
 
-        public static ltext s_MyCompany = new ltext("My company",
-                                                    "Moje podjetje");
+        public static ltext s_MyCompany = new ltext("My organisation",
+                                                    "Moja oragnizacija");
 
 
         public static ltext s_No_CompanyData = new ltext("There is no data about your company. You must enter your company data first!",

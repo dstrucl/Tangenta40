@@ -46,8 +46,10 @@ namespace Tangenta
             dtStartTime = DateTime.Now;
             dtEndTime = DateTime.Now;
             lbl_From_To.Text = lngRPM.s_AllData.s;
-
-
+            lngRPM.s_Sum_All.Text(this.lbl_Sum_All);
+            lngRPM.s_Sum_Tax.Text(this.lbl_Sum_Tax);
+            lngRPM.s_Sum_WithoutTax.Text(this.lbl_Sum_WithoutTax);
+            lngRPM.s_from.Text(this.lbl_From_To);
         }
 
         internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice, bool bNew,int iFinancialYear)
