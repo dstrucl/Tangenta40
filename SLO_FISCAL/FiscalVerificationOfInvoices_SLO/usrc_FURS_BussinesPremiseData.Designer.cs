@@ -324,6 +324,7 @@
             this.Chk_StoreClosed.TabIndex = 53;
             this.Chk_StoreClosed.Text = "Postor ne obratuje več ";
             this.Chk_StoreClosed.UseVisualStyleBackColor = true;
+            this.Chk_StoreClosed.Visible = false;
             // 
             // usrc_FURS_BussinesPremiseData
             // 

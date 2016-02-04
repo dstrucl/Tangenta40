@@ -199,15 +199,14 @@ namespace FiscalVerificationOfInvoices_SLO
         bool  MakePP_XML(ref string xml )
         {
             bool ret = true; 
-            string fu_TaxNumber = txt_MyOrganisation_TaxID.Text;      // "10329048";                   // davčna  podjetja
-            string fu_BusinessPremiseID = txt_BussinesPremiseID.Text; //  "KUNAVE6";     // Oznaka prostora vsak račun vsebuje oznako prostora 
-            string fu_CadastralNumber = txt_CadastralNumber.Text;     //  "1738";          // št. katastrske občine
-            string fu_BuildingNumber = txt_BuildingNumber.Text ;      // "2183";           // številka stavbe  (GURS)
-            string fu_BuildingSectionNumber = txt_BuildingSectionNumber.Text; // "73";      //Oznaka dela stavbe (GURS)
-            string fu_ValidityDate = dt_ValidityDate.Value.ToString("yyyy-MM-dd"); //  "2020 -08-25";       // do kdaj je veljaven poslovni prostor
-           
+            string fu_TaxNumber = txt_MyOrganisation_TaxID.Text;                     // "10329048";                   // davčna  podjetja
+            string fu_BusinessPremiseID = txt_BussinesPremiseID.Text;                //  "KUNAVE6";     // Oznaka prostora vsak račun vsebuje oznako prostora 
+            string fu_CadastralNumber = txt_CadastralNumber.Text;                    //  "1738";          // št. katastrske občine
+            string fu_BuildingNumber = txt_BuildingNumber.Text ;                     // "2183";           // številka stavbe  (GURS)
+            string fu_BuildingSectionNumber = txt_BuildingSectionNumber.Text;        // "73";      //Oznaka dela stavbe (GURS)
+            string fu_ValidityDate = dt_ValidityDate.Value.ToString("yyyy-MM-dd");   //  "2020 -08-25";       // do kdaj je veljaven poslovni prostor
             string fu_SoftwareSupplier_TaxNumber = txt_SoftwareSupplier_TaxNumber.Text; // "10000000";   //davvčna št izdelovalca programske opreme
-            string fu_PostalCode = this.txt_PostNumber.Text;              // Poštna številka
+            string fu_PostalCode = this.txt_PostNumber.Text;                          // Poštna številka
 
             string fu_Street = this.txt_StreetName.Text;          //ulica poslovnega prostora
             if (fu_Street.Length == 0) fu_Street = " ";  // ne sme bit prazno javi error html
@@ -220,8 +219,6 @@ namespace FiscalVerificationOfInvoices_SLO
             string fu_Community = txt_Community.Text; // "Dravlje";             // okraj 
             if (fu_Community.Length == 0) fu_Community = " ";  // ne sme bit prazno javi error html
 
-            string fu_ClosingTag = "";  //rednost je Z če je trgovina prenehala z obratovanjem 
-                if (Chk_StoreClosed.Checked) fu_ClosingTag = "z";
 
             string fu_SpecialNotes = " ";                 //dodatno sporočilo za interno evidenco
 
@@ -272,9 +269,6 @@ namespace FiscalVerificationOfInvoices_SLO
             #endregion
 
 
-
-
-
             XmlDocument xdoc = null;
             XmlNodeList NList = null;
 
@@ -308,11 +302,21 @@ namespace FiscalVerificationOfInvoices_SLO
                 NList = xdoc.GetElementsByTagName("fu:ValidityDate"); NList.Item(0).InnerText = fu_ValidityDate;
                 NList = xdoc.GetElementsByTagName("fu:SpecialNotes"); NList.Item(0).InnerText = fu_SpecialNotes;
 
-                // še ni v xml predlogi
-                //NList = xdoc.GetElementsByTagName("fu:ClosingTag"); NList.Item(0).InnerText = fu_ClosingTag;
+
+                //TODO: LK ne dela 
+                // <fu:ClosingTag></fu:ClosingTag>
+                if (Chk_StoreClosed.Checked)  // je Z če je trgovina prenehala z obratovanjem 
+                {
+                    NList = xdoc.GetElementsByTagName("fu:BusinessPremise");
+                    string ns = NList.Item(0).GetNamespaceOfPrefix("fu");
+                    XmlNode xClosingTag = xdoc.CreateNode("element", "ClosingTag", ns);
+                    xClosingTag.Prefix = "fu";
+                    xClosingTag.InnerText = "Z";
+                    NList.Item(0).AppendChild(xClosingTag);
+                }
 
 
-                //  txt_ClosingTag
+
 
 
                 xml = XmlDcoumentToString(xdoc);
