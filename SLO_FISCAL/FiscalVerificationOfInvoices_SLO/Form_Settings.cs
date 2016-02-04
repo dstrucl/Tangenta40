@@ -15,10 +15,10 @@ namespace FiscalVerificationOfInvoices_SLO
     {
         private usrc_FVI_SLO m_usrc_FVI_SLO = null;
 
-        public string certificateFileName = null;
-        public string CertPass = null;
-        public string fursWebServiceURL = null;
-        public string fursXmlNamespace = null;
+        //public string certificateFileName = null;
+        //public string CertPass = null;
+        //public string fursWebServiceURL = null;
+        //public string fursXmlNamespace = null;
         public int timeOutInSec = -1;
 
 
@@ -65,6 +65,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursTEST_Environment = false;
                 this.usrc_FURS_environment_settings.Enabled = true;
                 this.usrc_FURS_environment_settings_TEST.Enabled = false;
+                m_usrc_FVI_SLO.LoadSettingsValues(false);
 
             }
         }
@@ -76,6 +77,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursTEST_Environment = true;
                 this.usrc_FURS_environment_settings.Enabled = false;
                 this.usrc_FURS_environment_settings_TEST.Enabled = true;
+                m_usrc_FVI_SLO.LoadSettingsValues(true);
             }
         }
 
@@ -98,7 +100,7 @@ namespace FiscalVerificationOfInvoices_SLO
             DialogResult = DialogResult.Cancel;
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        public void btn_OK_Click(object sender, EventArgs e)
         {
             this.usrc_FURS_environment_settings.Save();
             this.usrc_FURS_environment_settings_TEST.Save();
@@ -106,10 +108,12 @@ namespace FiscalVerificationOfInvoices_SLO
             Properties.Settings.Default.timeToShowSuccessfulFURSResult = Convert.ToInt32(this.nm_TimeToShoqSuccessfulFURS_Transaction.Value);
             Properties.Settings.Default.QRImageWidth = Convert.ToInt32(this.nm_QRSizeWidth.Value);
             Properties.Settings.Default.Save();
-            certificateFileName = Properties.Settings.Default.furscertificateFileName;
-            CertPass = Properties.Settings.Default.fursCertPass;
-            fursWebServiceURL = Properties.Settings.Default.fursWebServiceURL;
-            fursXmlNamespace = Properties.Settings.Default.fursXmlNamespace;
+
+
+            //certificateFileName = Properties.Settings.Default.furscertificateFileName;
+            //CertPass = Properties.Settings.Default.fursCertPass;
+            //fursWebServiceURL = Properties.Settings.Default.fursWebServiceURL;
+            //fursXmlNamespace = Properties.Settings.Default.fursXmlNamespace;
             timeOutInSec = Properties.Settings.Default.timeOutInSec;
             this.DialogResult = DialogResult.OK;
             this.Close();

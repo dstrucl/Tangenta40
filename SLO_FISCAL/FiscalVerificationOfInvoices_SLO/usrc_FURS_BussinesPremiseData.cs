@@ -20,7 +20,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public bool ReadOnly
         {
-            get { return m_ReadOnly;  }
+            get { return m_ReadOnly; }
             set { m_ReadOnly = value; }
         }
 
@@ -76,9 +76,9 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_StreetName.Text = Properties.Settings.Default.fursD_StreetName_TEST;
 
                 if (Properties.Settings.Default.fursD_ClosingTag_TEST == "Z")
-                    this.Chk_StoreClosed.Checked  = true;
+                    this.Chk_StoreClosed.Checked = true;
                 else
-                    this.Chk_StoreClosed.Checked = false ;
+                    this.Chk_StoreClosed.Checked = false;
 
             }
             else
@@ -112,7 +112,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.txt_Community.ReadOnly = m_ReadOnly;
             this.txt_CadastralNumber.ReadOnly = m_ReadOnly;
             this.dt_ValidityDate.Enabled = !m_ReadOnly;
-            this.Chk_StoreClosed.Enabled  = !m_ReadOnly;
+            this.Chk_StoreClosed.Enabled = !m_ReadOnly;
             this.txt_SoftwareSupplier_TaxNumber.ReadOnly = m_ReadOnly;
             this.txt_PremiseType.ReadOnly = m_ReadOnly;
             this.txt_MyOrganisation_TaxID.ReadOnly = m_ReadOnly;
@@ -142,19 +142,15 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursD_MyOrgTaxID_TEST = this.txt_MyOrganisation_TaxID.Text;
                 Properties.Settings.Default.fursD_BussinesPremiseID_TEST = this.txt_BussinesPremiseID.Text;
                 Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST = this.txt_InvoiceAuthor_TaxID.Text;
-
                 Properties.Settings.Default.fursD_City_TEST = this.txt_City.Text;
                 Properties.Settings.Default.fursD_PostNumber_TEST = this.txt_PostNumber.Text;
                 Properties.Settings.Default.fursD_StreetNumber_TEST = this.txt_StreetNumber.Text;
                 Properties.Settings.Default.fursD_StreetNumberAdt_TEST = this.txt_StreetNumberAdt.Text;
                 Properties.Settings.Default.fursD_StreetName_TEST = this.txt_StreetName.Text;
-
                 if (this.Chk_StoreClosed.Checked == true)
                     Properties.Settings.Default.fursD_ClosingTag_TEST = "Z";
                 else
                     Properties.Settings.Default.fursD_ClosingTag_TEST = "";
-
-
             }
             else
             {
@@ -168,19 +164,33 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursD_MyOrgTaxID = this.txt_MyOrganisation_TaxID.Text;
                 Properties.Settings.Default.fursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
                 Properties.Settings.Default.fursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
-
                 Properties.Settings.Default.fursD_City = this.txt_City.Text;
                 Properties.Settings.Default.fursD_PostNumber = this.txt_PostNumber.Text;
                 Properties.Settings.Default.fursD_StreetNumber = this.txt_StreetNumber.Text;
                 Properties.Settings.Default.fursD_StreetNumberAdt = this.txt_StreetNumberAdt.Text;
                 Properties.Settings.Default.fursD_StreetName = this.txt_StreetName.Text;
-
                 if (this.Chk_StoreClosed.Checked == true)
                     Properties.Settings.Default.fursD_ClosingTag = "Z";
                 else
                     Properties.Settings.Default.fursD_ClosingTag = "";
 
             }
+
+            //reset variables on main control
+            m_usrc_FVI_SLO.FursD_BuildingNumber = this.txt_BuildingNumber.Text;
+            m_usrc_FVI_SLO.FursD_BuildingSectionNumber = this.txt_BuildingSectionNumber.Text;
+            m_usrc_FVI_SLO.FursD_Community = this.txt_Community.Text;
+            m_usrc_FVI_SLO.FursD_CadastralNumber = this.txt_CadastralNumber.Text;
+            m_usrc_FVI_SLO.FursD_ValidityDate = this.dt_ValidityDate.Value;
+            m_usrc_FVI_SLO.FursD_SoftwareSupplierTaxID = this.txt_SoftwareSupplier_TaxNumber.Text;
+            m_usrc_FVI_SLO.FursD_PremiseType = this.txt_PremiseType.Text;
+            m_usrc_FVI_SLO.FursD_MyOrgTaxID = this.txt_MyOrganisation_TaxID.Text;
+            m_usrc_FVI_SLO.FursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
+            m_usrc_FVI_SLO.FursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
+            if (this.Chk_StoreClosed.Checked == true)
+                m_usrc_FVI_SLO.FursD_ClosingTag = "Z";
+            else
+                m_usrc_FVI_SLO.FursD_ClosingTag = "";
         }
 
         private void Btn_Add_PP_to_FURS_Click(object sender, EventArgs e)
@@ -188,26 +198,27 @@ namespace FiscalVerificationOfInvoices_SLO
             //save settings ? 
             string xml = "";
 
-             if (MakePP_XML(ref xml))
+            Save();
+
+            if (MakePP_XML(ref xml))
             {
                 m_usrc_FVI_SLO.Send_PP(xml);
             }
 
-    
+
         }
 
-        bool  MakePP_XML(ref string xml )
+        bool MakePP_XML(ref string xml)
         {
-            bool ret = true; 
+
             string fu_TaxNumber = txt_MyOrganisation_TaxID.Text;                     // "10329048";                   // davčna  podjetja
             string fu_BusinessPremiseID = txt_BussinesPremiseID.Text;                //  "KUNAVE6";     // Oznaka prostora vsak račun vsebuje oznako prostora 
             string fu_CadastralNumber = txt_CadastralNumber.Text;                    //  "1738";          // št. katastrske občine
-            string fu_BuildingNumber = txt_BuildingNumber.Text ;                     // "2183";           // številka stavbe  (GURS)
+            string fu_BuildingNumber = txt_BuildingNumber.Text;                     // "2183";           // številka stavbe  (GURS)
             string fu_BuildingSectionNumber = txt_BuildingSectionNumber.Text;        // "73";      //Oznaka dela stavbe (GURS)
             string fu_ValidityDate = dt_ValidityDate.Value.ToString("yyyy-MM-dd");   //  "2020 -08-25";       // do kdaj je veljaven poslovni prostor
             string fu_SoftwareSupplier_TaxNumber = txt_SoftwareSupplier_TaxNumber.Text; // "10000000";   //davvčna št izdelovalca programske opreme
             string fu_PostalCode = this.txt_PostNumber.Text;                          // Poštna številka
-
             string fu_Street = this.txt_StreetName.Text;          //ulica poslovnega prostora
             if (fu_Street.Length == 0) fu_Street = " ";  // ne sme bit prazno javi error html
             string fu_HouseNumber = this.txt_StreetNumber.Text;                  //hišna številka poslovnega prostora
@@ -219,13 +230,13 @@ namespace FiscalVerificationOfInvoices_SLO
             string fu_Community = txt_Community.Text; // "Dravlje";             // okraj 
             if (fu_Community.Length == 0) fu_Community = " ";  // ne sme bit prazno javi error html
 
-
+            //TODO: LK  do edit box on form
             string fu_SpecialNotes = " ";                 //dodatno sporočilo za interno evidenco
 
             #region CheckValues
 
             // check values 
-            if (fu_TaxNumber.Length != 8 ||  GetIntValueFromString(fu_TaxNumber) == 0)
+            if (fu_TaxNumber.Length != 8 || GetIntValueFromString(fu_TaxNumber) == 0)
             {
                 MessageBox.Show("Davčna številka podjetja mora biti osem mestna številka!");
                 return false;
@@ -235,12 +246,12 @@ namespace FiscalVerificationOfInvoices_SLO
                 MessageBox.Show("Davčna številka izdajatelja računa mora biti osem mestna številka!");
                 return false;
             }
-            if (fu_SoftwareSupplier_TaxNumber.Length != 8 || GetIntValueFromString(fu_SoftwareSupplier_TaxNumber) ==0)
+            if (fu_SoftwareSupplier_TaxNumber.Length != 8 || GetIntValueFromString(fu_SoftwareSupplier_TaxNumber) == 0)
             {
                 MessageBox.Show("Davčna številka prozivajalca programske opreme mora biti osem mestna številka!");
                 return false;
             }
-            if (fu_BusinessPremiseID.Trim().Length ==0)
+            if (fu_BusinessPremiseID.Trim().Length == 0)
             {
                 MessageBox.Show("Oznaka prostora ne sme biti prazna");
                 return false;
@@ -268,7 +279,6 @@ namespace FiscalVerificationOfInvoices_SLO
 
             #endregion
 
-
             XmlDocument xdoc = null;
             XmlNodeList NList = null;
 
@@ -280,7 +290,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
                 NList = xdoc.GetElementsByTagName("fu:TaxNumber"); NList.Item(0).InnerText = fu_TaxNumber;
 
-                foreach (XmlNode nd in NList) 
+                foreach (XmlNode nd in NList)
                 {
                     if (nd.ParentNode.Name == "fu:SoftwareSupplier")
                     {
@@ -325,7 +335,7 @@ namespace FiscalVerificationOfInvoices_SLO
             catch (Exception Ex)
             {
                 LogFile.Error.Show("ERROR:InvoiceData:Create_furs_InvoiceXML:Exception = " + Ex.Message);
-                return false ;
+                return false;
             }
 
             //<? xml version = "1.0" encoding = "UTF-8" ?>
@@ -351,7 +361,7 @@ namespace FiscalVerificationOfInvoices_SLO
             //           </ fu:RealEstateBP >
             //       </ fu:BPIdentifier >
             //       < fu:ValidityDate > 2020 - 08 - 25 </ fu:ValidityDate >
- // ClosingTag ></ fu:ClosingTag >
+            // ClosingTag ></ fu:ClosingTag >
             //       < fu:SoftwareSupplier >
             //           < fu:TaxNumber > 24564444 </ fu:TaxNumber >
             //       </ fu:SoftwareSupplier >
@@ -359,7 +369,7 @@ namespace FiscalVerificationOfInvoices_SLO
             //   </ fu:BusinessPremise >
             //</ fu:BusinessPremiseRequest >
 
-            return ret;
+
         }
 
         private string XmlDcoumentToString(XmlDocument xmlDoc)
@@ -386,8 +396,8 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private int GetIntValueFromString(string s)
         {
-            int output=0;
-            bool ret =  int.TryParse(s.Trim(), out output);
+            int output = 0;
+            bool ret = int.TryParse(s.Trim(), out output);
 
             return output;
 
