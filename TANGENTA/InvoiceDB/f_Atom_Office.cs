@@ -51,7 +51,7 @@ namespace InvoiceDB
                     }
 
                     long Atom_myCompany_ID = -1;
-                    if (f_Atom_myCompany.Get(myCompany_ID, ref Atom_myCompany_ID)== myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
+                    if (f_Atom_myCompany.Get(myCompany_ID, ref Atom_myCompany_ID))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

@@ -81,8 +81,7 @@ namespace InvoiceDB
                         if (f_Atom_cAddress_Org.Get(cAddress_Org_ID, ref Atom_cAddress_Org_ID))
                         {
                             DBTypes.string_v Office_Name = new DBTypes.string_v();
-                            myOrg.enum_GetCompany_Person_Data res = f_Atom_myCompany_Person.Get(myCompany_Person_ID, ref Atom_myCompany_Person_ID, ref Office_Name);
-                            if (res == myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK)
+                            if (f_Atom_myCompany_Person.Get(myCompany_Person_ID, ref Atom_myCompany_Person_ID, ref Office_Name))
                             {
                                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                                 string scond_Description = null;

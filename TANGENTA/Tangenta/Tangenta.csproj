@@ -103,6 +103,18 @@
     <Compile Include="Form_Expiry_Check.Designer.cs">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_myOrg_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Edit.Designer.cs">
+      <DependentUpon>Form_myOrg_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_myOrg_Person_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Person_Edit.Designer.cs">
+      <DependentUpon>Form_myOrg_Person_Edit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Notice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -472,12 +484,6 @@
     <Compile Include="Form_Main.Designer.cs">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_MyCompany_Person_Data_Edit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_MyCompany_Person_Data_Edit.Designer.cs">
-      <DependentUpon>Form_MyCompany_Person_Data_Edit.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_CodeTables.resx">
@@ -485,6 +491,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Expiry_Check.resx">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Person_Edit.resx">
+      <DependentUpon>Form_myOrg_Person_Edit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Notice.resx">
       <DependentUpon>Form_Notice.cs</DependentUpon>
@@ -662,10 +671,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_MyCompany_Person_Data_Edit.resx">
-      <DependentUpon>Form_MyCompany_Person_Data_Edit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

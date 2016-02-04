@@ -95,7 +95,9 @@
     <Compile Include="Item_Data.cs" />
     <Compile Include="JOURNAL_ProformaInvoice_Type_definitions.cs" />
     <Compile Include="MyOrg.cs" />
+    <Compile Include="myOrg_Office.cs" />
     <Compile Include="MyOrg_Person.cs" />
+    <Compile Include="myOrg_Person_List.cs" />
     <Compile Include="PostAddress_v.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

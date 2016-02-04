@@ -437,7 +437,6 @@ namespace Tangenta
 
 
 
-        DataTable dt_myCompany_Person = new DataTable();
         private bool EventsActive;
 
         public long PriceList_ShopB_ID
@@ -537,16 +536,43 @@ namespace Tangenta
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            if (Program.b_FVI_SLO)
-            {
-                Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(FVI_SLO_RealEstateBP))));
+            //if (Program.b_FVI_SLO)
+            //{
+            //    Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(FVI_SLO_RealEstateBP))));
+            //    dres = edt_my_company_person_dlg.ShowDialog();
+            //}
+            //else
+            //{
+                Form_myOrg_Person_Edit edt_my_company_person_dlg = new Form_myOrg_Person_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,null, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person))));
                 dres = edt_my_company_person_dlg.ShowDialog();
+            //}
+
+            if (dres == DialogResult.OK)
+            {
+                this.Cursor = Cursors.Arrow;
+                return true;
             }
             else
             {
-                Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person))));
-                dres = edt_my_company_person_dlg.ShowDialog();
+                this.Cursor = Cursors.Arrow;
+                return false;
             }
+        }
+
+        private bool EditMyCompany_Data()
+        {
+            DialogResult dres = DialogResult.Ignore;
+            this.Cursor = Cursors.WaitCursor;
+            //if (Program.b_FVI_SLO)
+            //{
+            //    Form_MyCompany_Person_Data_Edit edt_my_company_person_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(FVI_SLO_RealEstateBP))));
+            //    dres = edt_my_company_person_dlg.ShowDialog();
+            //}
+            //else
+            //{
+            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany))));
+            dres = edt_my_company_dlg.ShowDialog();
+            //}
 
             if (dres == DialogResult.OK)
             {
@@ -579,107 +605,100 @@ namespace Tangenta
             string Err = null;
             if (Get_BaseCurrency(ref Err))
             {
-                if (GetCompanyData())
+                if (GetTaxation())
                 {
-                    if (GetTaxation())
+                    GetUnits();
+                    int iCountSimpleItemData = 0;
+                    int iCountItemData = 0;
+
+                    if (GetSimpleItemData(ref iCountSimpleItemData))
                     {
-                        GetUnits();
-                        int iCountSimpleItemData = 0;
-                        int iCountItemData = 0;
-
-                        if (GetSimpleItemData(ref iCountSimpleItemData))
+                        if (GetItemData(ref iCountItemData))
                         {
-                            if (GetItemData(ref iCountItemData))
+                            if (iCountSimpleItemData + iCountItemData > 0)
                             {
-                                if (iCountSimpleItemData + iCountItemData > 0)
+                                if (GetPriceList())
                                 {
-                                    if (GetPriceList())
+
+                                    DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
+                                    if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
                                     {
-
-                                        DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
-                                        if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
+                                        if (dt_ShopB_Item_NotIn_PriceList.Rows.Count>0)
                                         {
-                                            if (dt_ShopB_Item_NotIn_PriceList.Rows.Count>0)
+                                            if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
                                             {
-                                                if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
+                                                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
                                                 {
-                                                    if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
-                                                    {
-                                                        this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(  true);
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-                                                bool bEdit = false;
-                                                f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
-                                                if (bEdit)
-                                                {
-                                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit( true);
-
+                                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(  true);
                                                 }
                                             }
                                         }
-
-                                        DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
-                                        if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
+                                        else
                                         {
-                                            if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
+                                            bool bEdit = false;
+                                            f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
+                                            if (bEdit)
                                             {
-                                                if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
-                                                {
-                                                    if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
-                                                    {
-                                                        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
-                                                    }
-                                                }
+                                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit( true);
+
                                             }
-                                            else
+                                        }
+                                    }
+
+                                    DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
+                                    if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
+                                    {
+                                        if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
+                                        {
+                                            if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
                                             {
-                                                bool bEdit = false;
-                                                f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
-                                                if (bEdit)
+                                                if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
                                                 {
                                                     this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
                                                 }
                                             }
                                         }
-
-                                        int iCount_Price_SimpleItem_Data = 0;
-                                        if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
+                                        else
                                         {
-                                            this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
-                                        }
-
-                                        if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
-                                        {
-                                            if (Program.bStartup)
+                                            bool bEdit = false;
+                                            f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
+                                            if (bEdit)
                                             {
-                                                Program.bStartup = false;
-                                                if (DBSync.DBSync.DB_for_Blagajna.Settings.StockCheckAtStartup.TextValue.Equals("1"))
+                                                this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
+                                            }
+                                        }
+                                    }
+
+                                    int iCount_Price_SimpleItem_Data = 0;
+                                    if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
+                                    {
+                                        this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
+                                    }
+
+                                    if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
+                                    {
+                                        if (Program.bStartup)
+                                        {
+                                            Program.bStartup = false;
+                                            if (DBSync.DBSync.DB_for_Blagajna.Settings.StockCheckAtStartup.TextValue.Equals("1"))
+                                            {
+                                                bool ExpiryItemsFound = false;
+                                                string sNoExpiryDate = null;
+                                                string sNoSaleBeforeExpiryDate = null;
+                                                string sNoDiscardBeforeExpiryDate = null;
+                                                DataTable dt_ExpiryCheck = new DataTable();
+                                                if (fs.ExpiryCheck(ref dt_ExpiryCheck,ref ExpiryItemsFound,ref sNoExpiryDate,ref sNoSaleBeforeExpiryDate,ref sNoDiscardBeforeExpiryDate))
                                                 {
-                                                    bool ExpiryItemsFound = false;
-                                                    string sNoExpiryDate = null;
-                                                    string sNoSaleBeforeExpiryDate = null;
-                                                    string sNoDiscardBeforeExpiryDate = null;
-                                                    DataTable dt_ExpiryCheck = new DataTable();
-                                                    if (fs.ExpiryCheck(ref dt_ExpiryCheck,ref ExpiryItemsFound,ref sNoExpiryDate,ref sNoSaleBeforeExpiryDate,ref sNoDiscardBeforeExpiryDate))
+                                                    if (ExpiryItemsFound)
                                                     {
-                                                        if (ExpiryItemsFound)
-                                                        {
-                                                            Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
-                                                            frm_exp_chk.ShowDialog();
-                                                        }
-                                                        return true;
+                                                        Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
+                                                        frm_exp_chk.ShowDialog();
                                                     }
-                                                    else
-                                                    {
-                                                        return false;
-                                                    }
+                                                    return true;
                                                 }
                                                 else
                                                 {
-                                                    return true;
+                                                    return false;
                                                 }
                                             }
                                             else
@@ -689,7 +708,7 @@ namespace Tangenta
                                         }
                                         else
                                         {
-                                            return false;
+                                            return true;
                                         }
                                     }
                                     else
@@ -699,12 +718,12 @@ namespace Tangenta
                                 }
                                 else
                                 {
-                                    MessageBox.Show(this, lngRPM.s_TherAreNoSimpleItemAndItemData.s);
                                     return false;
                                 }
                             }
                             else
                             {
+                                MessageBox.Show(this, lngRPM.s_TherAreNoSimpleItemAndItemData.s);
                                 return false;
                             }
                         }
@@ -1077,112 +1096,142 @@ namespace Tangenta
             string sAddress = null;
             for (;;)
             {
-                switch (myOrg.SelectCompanyData(dt_myCompany_Person, Last_myCompany_id, Last_myCompany_Person_id, ref sAddress))
+                if (myOrg.Get(1))
                 {
-                    case myOrg.enum_GetCompany_Person_Data.MyCompany_Data_OK:
-                        {
-                            string sPhoneNumber = "";
-                            string sEmail = "";
-                            string sHomePage = "";
-                            string sRegistration_ID = "";
-                            if (myOrg.PhoneNumber_v!=null)
-                            {
-                                sPhoneNumber = myOrg.PhoneNumber_v.vs;
-                            }
-                            if (myOrg.Email_v != null)
-                            {
-                                sEmail = myOrg.Email_v.vs;
-                            }
-                            if (myOrg.HomePage_v != null)
-                            {
-                                sHomePage = myOrg.HomePage_v.vs;
-                            }
-                            if (myOrg.Registration_ID_v != null)
-                            {
-                                sRegistration_ID = myOrg.Registration_ID_v.vs;
-                            }
-
-                            this.txt_MyCompany.Text = myOrg.Name_v.vs + "," + sAddress
-                             + "\r\nDavčna Številka:" + myOrg.Tax_ID_v.vs
-                             + "\r\nMatična Številka:" + sRegistration_ID
-                             + "\r\nTelefon:" + sPhoneNumber
-                             + "\r\nEmail:" + sEmail
-                             + "\r\nDomača stran:" + sHomePage;
-                            Fill_MyCompany_Person();
-
-                            return true;
-                        }
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompanyData:
+                    if (myOrg.Name_v == null)
+                    {
                         MessageBox.Show(lngRPM.s_No_CompanyData.s);
-                        if (!EditMyCompany_Person_Data())
+                        if (EditMyCompany_Data())
+                        {
+                            continue;
+                        }
+                        else
                         {
                             return false;
                         }
-                        break;
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompany_StreetName:
-                        MessageBox.Show(lngRPM.s_No_MyCompany_StreetName.s);
-                        if (!EditMyCompany_Person_Data())
-                        {
-                            return false;
-                        }
-                        break;
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompany_HouseNumber:
-                        MessageBox.Show(lngRPM.s_No_MyCompany_HouseNumber.s);
-                        if (!EditMyCompany_Person_Data())
-                        {
-                            return false;
-                        }
-                        break;
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompany_ZIP:
-                        MessageBox.Show(lngRPM.s_No_MyCompany_ZIP.s);
-                        if (!EditMyCompany_Person_Data())
-                        {
-                            return false;
-                        }
-                        break;
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompany_City:
-                        MessageBox.Show(lngRPM.s_No_MyCompany_City.s);
-                        if (!EditMyCompany_Person_Data())
-                        {
-                            return false;
-                        }
-                        break;
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompany_State:
-                        MessageBox.Show(lngRPM.s_No_MyCompany_State.s);
-                        if (!EditMyCompany_Person_Data())
-                        {
-                            return false;
-                        }
-                        break;
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompany_name:
-                        MessageBox.Show(lngRPM.s_No_MyCompany_name.s);
-                        if (!EditMyCompany_Person_Data())
-                        {
-                            return false;
-                        }
-                        break;
-
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompany_Person:
-                        MessageBox.Show(lngRPM.s_No_MyCompany_Person.s);
-                        if (!EditMyCompany_Person_Data())
-                        {
-                            return false;
-                        }
-                        break;
-
-                    case myOrg.enum_GetCompany_Person_Data.No_MyCompany_Tax_ID:
+                    }
+                    if (myOrg.Tax_ID_v == null)
+                    {
                         MessageBox.Show(lngRPM.s_No_MyCompany_Tax_ID.s);
-                        if (!EditMyCompany_Person_Data())
+                        if (EditMyCompany_Data())
+                        {
+                            continue;
+                        }
+                        else
                         {
                             return false;
                         }
-                        break;
+                    }
+
+                    if (myOrg.Address_v.StreetName_v == null)
+                    {
+                        MessageBox.Show(lngRPM.s_No_MyCompany_StreetName.s);
+                        if (EditMyCompany_Data())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    if (myOrg.Address_v.HouseNumber_v == null)
+                    {
+                        MessageBox.Show(lngRPM.s_No_MyCompany_HouseNumber.s);
+                        if (EditMyCompany_Data())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    if (myOrg.Address_v.ZIP_v == null)
+                    {
+                        MessageBox.Show(lngRPM.s_No_MyCompany_ZIP.s);
+                        if (EditMyCompany_Data())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    if (myOrg.Address_v.City_v == null)
+                    {
+                        MessageBox.Show(lngRPM.s_No_MyCompany_City.s);
+                        if (EditMyCompany_Data())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    if (myOrg.Address_v.State_v == null)
+                    {
+                        MessageBox.Show(lngRPM.s_No_MyCompany_State.s);
+                        if (EditMyCompany_Data())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    if (myOrg.myOrg_Person_list.Count== 0)
+                    {
+                        MessageBox.Show(lngRPM.s_No_MyCompany_Person.s);
+                        if (EditMyCompany_Person_Data())
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+
+                    string sPhoneNumber = "";
+                    string sEmail = "";
+                    string sHomePage = "";
+                    string sRegistration_ID = "";
+                    if (myOrg.PhoneNumber_v!=null)
+                    {
+                        sPhoneNumber = myOrg.PhoneNumber_v.vs;
+                    }
+                    if (myOrg.Email_v != null)
+                    {
+                        sEmail = myOrg.Email_v.vs;
+                    }
+                    if (myOrg.HomePage_v != null)
+                    {
+                        sHomePage = myOrg.HomePage_v.vs;
+                    }
+                    if (myOrg.Registration_ID_v != null)
+                    {
+                        sRegistration_ID = myOrg.Registration_ID_v.vs;
+                    }
+
+                    this.txt_MyCompany.Text = myOrg.Name_v.vs + "," + sAddress
+                        + "\r\nDavčna Številka:" + myOrg.Tax_ID_v.vs
+                        + "\r\nMatična Številka:" + sRegistration_ID
+                        + "\r\nTelefon:" + sPhoneNumber
+                        + "\r\nEmail:" + sEmail
+                        + "\r\nDomača stran:" + sHomePage;
+                     Fill_MyCompany_Person();
+                     return true;
                 }
             }
         }
-
-
-
 
         private bool GetCurrent(long ID)
         {
@@ -1356,7 +1405,7 @@ namespace Tangenta
         }
 
 
-        private void Fill_MyCompany_Person()
+        internal void Fill_MyCompany_Person()
         {
             DataTable dtEmployees = new DataTable();
             string sql_my_company_person = @"Select ID,
@@ -1473,8 +1522,7 @@ namespace Tangenta
         private void btn_edit_MyCompany_Click_1(object sender, EventArgs e)
         {
             EditMyCompany_Person_Data();
-            string sAddress = null;
-            myOrg.SelectCompanyData(dt_myCompany_Person, Last_myCompany_id, Last_myCompany_Person_id, ref sAddress);
+            myOrg.Get(1);
             if (Last_myCompany_Person_id >= 0)
             {
                 long Atom_myCompany_Person_ID = -1;
@@ -1856,6 +1904,11 @@ namespace Tangenta
         {
             Form_ShowShops frm_sel_shops = new Form_ShowShops(this);
             frm_sel_shops.ShowDialog(this);
+        }
+
+        private void btn_MyOrganisation_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
