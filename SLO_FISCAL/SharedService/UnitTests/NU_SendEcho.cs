@@ -1,9 +1,4 @@
-﻿// <copyright file="NU_SendEcho.cs" company="MNet">
-//     Copyright (c) Matjaz Prtenjak All rights reserved.
-// </copyright>
-// <author>Matjaz Prtenjak</author>
-//-----------------------------------------------------------------------
-
+﻿
 using MNet.SLOTaxService.Messages;
 using MNet.SLOTaxService.Services;
 using NUnit.Framework;

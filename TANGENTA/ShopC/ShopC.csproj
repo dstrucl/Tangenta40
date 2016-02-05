@@ -260,6 +260,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Resources\checkmark_No.bmp" />
+    <None Include="ShopC.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\checkmark_Yes.bmp" />

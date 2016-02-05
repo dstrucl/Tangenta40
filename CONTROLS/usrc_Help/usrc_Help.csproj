@@ -85,6 +85,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\Help.bmp.bmp" />
+    <None Include="usrc_Help.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Help_icon.ico" />

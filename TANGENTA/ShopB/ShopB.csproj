@@ -135,6 +135,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Resources\SelectService.bmp" />
+    <None Include="ShopB.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SelectServiceDisabled.bmp" />

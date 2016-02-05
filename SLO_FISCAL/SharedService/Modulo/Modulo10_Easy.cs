@@ -1,9 +1,4 @@
-﻿// <copyright file="Modulo10_Easy.cs" company="MNet">
-//     Copyright (c) Matjaz Prtenjak All rights reserved.
-// </copyright>
-// <author>Matjaz Prtenjak</author>
-//-----------------------------------------------------------------------
-
+﻿
 using System.Linq;
 
 namespace MNet.SLOTaxService.Modulo

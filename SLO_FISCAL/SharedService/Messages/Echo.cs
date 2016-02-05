@@ -1,9 +1,4 @@
-﻿// <copyright file="Echo.cs" company="MNet">
-//     Copyright (c) Matjaz Prtenjak All rights reserved.
-// </copyright>
-// <author>Matjaz Prtenjak</author>
-//-----------------------------------------------------------------------
-
+﻿
 using System.Xml;
 using MNet.SLOTaxService.Services;
 using MNet.SLOTaxService.Utils;

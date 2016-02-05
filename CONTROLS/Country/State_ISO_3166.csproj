@@ -71,6 +71,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Country.licenseheader" />
     <None Include="Resources\State.ico" />
   </ItemGroup>
   <ItemGroup>

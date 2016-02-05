@@ -727,6 +727,7 @@
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </Compile>
     <Compile Include="XML_Izpis_Postavka.cs" />
+    <None Include="Tangenta.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">

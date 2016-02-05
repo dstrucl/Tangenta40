@@ -1,9 +1,4 @@
-﻿// <copyright file="ProtectiveMark.cs" company="MNet">
-//     Copyright (c) Matjaz Prtenjak All rights reserved.
-// </copyright>
-// <author>Matjaz Prtenjak</author>
-//-----------------------------------------------------------------------
-
+﻿
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;

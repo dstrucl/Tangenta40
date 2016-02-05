@@ -71,7 +71,9 @@
     </Compile>
     <Compile Include="Services\SetCryptoConfig.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="SLOTaxService.licenseheader" />
+  </ItemGroup>
   <Import Project="..\SharedService\SharedService.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\common_reference\StyleCop\Build\StyleCop.MSBuild.Targets" />

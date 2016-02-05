@@ -112,6 +112,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DBSync.licenseheader" />
     <None Include="Resources\DBType.ico" />
   </ItemGroup>
   <ItemGroup>

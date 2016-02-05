@@ -105,6 +105,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="CommandLineHelp.licenseheader" />
     <None Include="Resources\CommandLineHelpIcon.ico" />
   </ItemGroup>
   <ItemGroup>

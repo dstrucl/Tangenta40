@@ -44,6 +44,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)SharedService.licenseheader" />
     <None Include="$(MSBuildThisFileDirectory)UnitTests\Resources\file.cer">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

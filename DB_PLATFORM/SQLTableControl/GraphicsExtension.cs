@@ -1,22 +1,10 @@
-﻿/* GraphicsExtension - [Extended Graphics]
- * Author name:           Arun Reginald Zaheeruddin
- * Current version:       1.0.0.4 (12b)
- * Release documentation: http://www.codeproject.com
- * License information:   Microsoft Public License (Ms-PL) [http://www.opensource.org/licenses/ms-pl.html]
- * 
- * Enhancements and history
- * ------------------------
- * 1.0.0.1 (20 Jul 2009): Initial release with modified code from previous CodeProject article.
- * 1.0.0.2 (25 Jul 2009): Added functionality that allows selected corners on a rectangle to be rounded.
- *                        Modified code to adapt to an anti-aliased output while drawing and filling rounded rectangles.
- * 1.0.0.3 (26 Jul 2009): Added DrawRoundedRectangle and FillRoundedRectangle methods that take a Rectangle and RectangleF object.
- * 1.0.0.4 (27 Jul 2009): Added font metrics and measuring utility that measures a font's height, leading, ascent, etc.
- * 
- * Issues addressed
- * ----------------
- * 1. Rounded rectangles - rounding edges of a rectangle.
- * 2. Font Metrics - Measuring a font's height, leading, ascent, etc.
- */
+﻿#region LICENSE 
+/*
+ This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
+ If a copy of the Tangenta Public License (TPL) was not distributed with this 
+ file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
+*/
+#endregion
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;

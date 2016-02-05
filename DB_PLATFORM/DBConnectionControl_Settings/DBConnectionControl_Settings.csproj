@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="DBConnectionControl_Settings.licenseheader" />
     <None Include="Properties\LocalDB4.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>LocalDB4.Designer.cs</LastGenOutput>

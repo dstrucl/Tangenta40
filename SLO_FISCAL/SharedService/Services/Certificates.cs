@@ -1,8 +1,4 @@
-﻿// <copyright file="Certificates.cs" company="MNet">
-//     Copyright (c) Matjaz Prtenjak All rights reserved.
-// </copyright>
-// <author>Matjaz Prtenjak</author>
-//-----------------------------------------------------------------------
+﻿
 using System;
 using System.Collections.Generic;
 using System.IO;

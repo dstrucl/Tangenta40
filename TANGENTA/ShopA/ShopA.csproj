@@ -199,6 +199,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\Add.bmp" />
+    <None Include="ShopA.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DeSelectService.bmp" />

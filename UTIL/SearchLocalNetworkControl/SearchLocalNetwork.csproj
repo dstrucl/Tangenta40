@@ -119,6 +119,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="SearchLocalNetworkControl.licenseheader" />
     <None Include="SearchLocalNetwork_Key.pfx" />
   </ItemGroup>
   <ItemGroup>

@@ -104,6 +104,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Excell_Export.licenseheader" />
     <None Include="Resources\Excel.ico" />
   </ItemGroup>
   <ItemGroup>

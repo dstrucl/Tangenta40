@@ -67,6 +67,7 @@
   <ItemGroup>
     <None Include="Resources\First.bmp" />
     <None Include="Resources\Last.bmp" />
+    <None Include="usrc_Item_PageHandler.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Next.bmp" />

@@ -323,7 +323,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="DBConectionControl40.licenseheader" />
     <None Include="Resources\ConnectionDialog.ico" />
   </ItemGroup>
   <ItemGroup>
