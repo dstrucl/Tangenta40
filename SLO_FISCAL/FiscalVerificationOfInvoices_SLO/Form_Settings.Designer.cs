@@ -98,7 +98,7 @@
             // btn_OK
             // 
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OK.Location = new System.Drawing.Point(8, 807);
+            this.btn_OK.Location = new System.Drawing.Point(8, 824);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(87, 25);
             this.btn_OK.TabIndex = 12;
@@ -109,7 +109,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Cancel.Location = new System.Drawing.Point(129, 807);
+            this.btn_Cancel.Location = new System.Drawing.Point(129, 824);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(87, 25);
             this.btn_Cancel.TabIndex = 13;
@@ -214,8 +214,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_FURS_environment_settings_TEST);
-            this.splitContainer1.Size = new System.Drawing.Size(669, 722);
-            this.splitContainer1.SplitterDistance = 380;
+            this.splitContainer1.Size = new System.Drawing.Size(669, 739);
+            this.splitContainer1.SplitterDistance = 363;
             this.splitContainer1.TabIndex = 22;
             // 
             // usrc_FURS_environment_settings
@@ -226,7 +226,7 @@
             this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
-            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(665, 376);
+            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(665, 359);
             this.usrc_FURS_environment_settings.TabIndex = 18;
             // 
             // usrc_FURS_environment_settings_TEST
@@ -237,7 +237,7 @@
             this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
-            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(665, 334);
+            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(665, 368);
             this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
             // 
             // Form_Settings
@@ -245,7 +245,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(684, 841);
+            this.ClientSize = new System.Drawing.Size(684, 858);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.rdb_FURS_TEST_Environment);
             this.Controls.Add(this.rdb_FURS_Environment);

@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Security.Cryptography.X509Certificates;
 using MNet.SLOTaxService.Services;
 using System.IO;
 using System.Xml;
-
 using MNet.SLOTaxService;
 using MNet.SLOTaxService.Messages;
+using LanguageControl;
+using System;
+using System.Drawing;
+using System.Text;
+using System.Threading;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    using LanguageControl;
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Windows.Forms;
-
     public class Thread_FVI
     {
+        internal bool bEnd = false;
+        public Thread_FVI_MessageBox message_box = null;
+        private Settings FiscalSettings = null;
+        private TaxService taxService = null;
+        private System.Threading.Thread FVI_Thread;
+
         public class ThreadData
         {
             public bool fursTESTEnvironment = false;
@@ -35,6 +29,7 @@ namespace FiscalVerificationOfInvoices_SLO
             public string fursXmlNamespace = null;
             public int timeOutInSec = 0;
             public usrc_FVI_SLO_MessageBox m_usrc_FVI_SLO_MessageBox = null;
+
             public ThreadData(bool xfursTESTEnvironment,string xcertificateFileName, string xCertPass, string xfursWebServiceURL, string xfursXmlNamespace, int xtimeOutInSec, usrc_FVI_SLO_MessageBox x_usrc_FVI_SLO_MessageBox)
             {
                 fursTESTEnvironment = xfursTESTEnvironment;
@@ -48,18 +43,10 @@ namespace FiscalVerificationOfInvoices_SLO
         }
 
 
-        internal bool bEnd = false;
-        public Thread_FVI_MessageBox message_box = null;
-
-        private Settings FiscalSettings = null;
-        private TaxService taxService = null;
-
-        private System.Threading.Thread FVI_Thread;
-
         private void Run(object othdata)
         {
-            ThreadData thdata = (ThreadData)othdata;
 
+            ThreadData thdata = (ThreadData)othdata;
             usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox = thdata.m_usrc_FVI_SLO_MessageBox;
             Thread_FVI_Message fvi_message = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.NONE,null);
             usrc_FVI_SLO_Message xusrc_FVI_SLO_Message = new usrc_FVI_SLO_Message(0,usrc_FVI_SLO_Message.eMessage.Thread_FVI_START, null);
@@ -98,7 +85,7 @@ namespace FiscalVerificationOfInvoices_SLO
                         {
 
                             case Thread_FVI_Message.eMessage.POST_ECHO:
-                                rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
+                                rv = taxService.Send(fvi_message.XML_Data);  
                                 xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml_returned);
                                 xusrc_FVI_SLO_Message.Success = rv.Success;
@@ -106,7 +93,7 @@ namespace FiscalVerificationOfInvoices_SLO
                                 break;
 
                             case Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE:
-                                rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
+                                rv = taxService.Send(fvi_message.XML_Data);  
                                 xml_returned = prettyXml(rv.originalMessage);
                                 if (rv.BarCodes!=null)
                                 {
@@ -155,18 +142,16 @@ namespace FiscalVerificationOfInvoices_SLO
                                 break;
 
                             case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
-                                rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
+                                rv = taxService.Send(fvi_message.XML_Data);  
                                 xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_PP, xml_returned);
                                 xusrc_FVI_SLO_Message.Success = rv.Success;
                                 xusrc_FVI_SLO_Message.ErrorMessage  = rv.ErrorMessage;
-
-
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;
 
                             case Thread_FVI_Message.eMessage.POST_MANY_INVOICES:
-                                rv = taxService.Send(fvi_message.XML_Data);  //LK  po moje bi bilo dobr definirat kaj se rabi in se to poslje in ne vse 
+                                rv = taxService.Send(fvi_message.XML_Data);   
                                 xml_returned = prettyXml(rv.originalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
@@ -184,9 +169,9 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
+
         public bool End(usrc_FVI_SLO_MessageBox xusrc_FVI_SLO_MessageBox)
         {
-
             FiscalSettings = null;
             taxService = null;
 
@@ -194,6 +179,7 @@ namespace FiscalVerificationOfInvoices_SLO
             Thread_FVI_Message fvi_message_END = new Thread_FVI_Message(0,Thread_FVI_Message.eMessage.END, null);
             message_box.Post(fvi_message_END);
             long StartTicks = DateTime.Now.Ticks;
+
             for (;;)
             {
                 if (xusrc_FVI_SLO_MessageBox.Get(ref xusrc_FVI_SLO_Message_END)== Result_MessageBox_Get.OK)

@@ -845,10 +845,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursWebServiceURL" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">https://blagajne.fu.gov.si:9003/v1/cash_registers</Value>
     </Setting>
     <Setting Name="fursXmlNamespace" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">http://www.fu.gov.si/</Value>
     </Setting>
     <Setting Name="timeOutInSec" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
@@ -942,6 +942,36 @@
     </Setting>
     <Setting Name="fursD_SoftwareSupplierTaxID_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">99999999</Value>
+    </Setting>
+    <Setting Name="fursD_City_TEST" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ljubljana</Value>
+    </Setting>
+    <Setting Name="fursD_PostNumber_TEST" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="fursD_StreetNumber_TEST" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="fursD_StreetNumberAdt_TEST" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="fursD_StreetName_TEST" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Na trati</Value>
+    </Setting>
+    <Setting Name="fursD_City" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ljubljana</Value>
+    </Setting>
+    <Setting Name="fursD_PostNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="fursD_StreetNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="fursD_StreetName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Na trati</Value>
+    </Setting>
+    <Setting Name="fursD_StreetNumberAdt" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

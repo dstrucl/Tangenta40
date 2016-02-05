@@ -76,6 +76,11 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursXmlNamespace = this.txt_fursXmlNamespace.Text;
             }
 
+            m_usrc_FVI_SLO.FursCertificateFileName = this.txt_CertificateFile.Text;
+            m_usrc_FVI_SLO.FursCertificatePassword = this.txt_CertificatePassword.Text; ;
+            m_usrc_FVI_SLO.FursWebServiceURL = this.txt_fursWebServiceURL.Text;
+            m_usrc_FVI_SLO.FursXmlNamespace = this.txt_fursXmlNamespace.Text;
+
         }
     }
 }

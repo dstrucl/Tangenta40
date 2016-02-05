@@ -20,7 +20,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public bool ReadOnly
         {
-            get { return m_ReadOnly;  }
+            get { return m_ReadOnly; }
             set { m_ReadOnly = value; }
         }
 
@@ -33,13 +33,18 @@ namespace FiscalVerificationOfInvoices_SLO
             lngRPM.s_lbl_Community.Text(lbl_Community);
             lngRPM.s_lbl_CadastralNumber.Text(lbl_CadastralNumber);
             lngRPM.s_lbl_ValidityDate.Text(lbl_ValidityDate);
-            lngRPM.s_lbl_ClosingTag.Text(lbl_ClosingTag);
             lngRPM.s_lbl_SoftwareSupplier_TaxNumber.Text(lbl_SoftwareSupplier_TaxNumber);
             lngRPM.s_lbl_PremiseType.Text(lbl_PremiseType);
             lngRPM.s_lbl_MyOrganisation_TaxID.Text(lbl_MyOrganisation_TaxID);
             lngRPM.s_lbl_BussinesPremiseID.Text(lbl_BussinesPremiseID);
             lngRPM.s_lbl_InvoiceAuthor_TaxID.Text(lbl_InvoiceAuthor_TaxID);
-            lngRPM.s_btn_ImportFromDataBase.Text(btn_ImportFromDataBase);
+            // lngRPM.s_btn_ImportFromDataBase.Text(btn_ImportFromDataBase);
+
+            lngRPM.s_lbl_StreetName.Text(lbl_StreetName);
+            lngRPM.s_lbl_Street_Number.Text(lbl_Street_Number);
+            lngRPM.s_lbl_Post.Text(lbl_Post);
+            lngRPM.s_lbl_City.Text(lbl_City);
+
 
 
 
@@ -57,12 +62,24 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_Community.Text = Properties.Settings.Default.fursD_Community_TEST;
                 this.txt_CadastralNumber.Text = Properties.Settings.Default.fursD_CadastralNumber_TEST;
                 this.dt_ValidityDate.Value = Properties.Settings.Default.fursD_ValidityDate_TEST;
-                this.txt_ClosingTag.Text = Properties.Settings.Default.fursD_ClosingTag_TEST;
+
                 this.txt_SoftwareSupplier_TaxNumber.Text = Properties.Settings.Default.fursD_SoftwareSupplierTaxID_TEST;
                 this.txt_PremiseType.Text = Properties.Settings.Default.fursD_PremiseType_TEST;
                 this.txt_MyOrganisation_TaxID.Text = Properties.Settings.Default.fursD_MyOrgTaxID_TEST;
                 this.txt_BussinesPremiseID.Text = Properties.Settings.Default.fursD_BussinesPremiseID_TEST;
                 this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST;
+
+                this.txt_City.Text = Properties.Settings.Default.fursD_City_TEST;
+                this.txt_PostNumber.Text = Properties.Settings.Default.fursD_PostNumber_TEST;
+                this.txt_StreetNumber.Text = Properties.Settings.Default.fursD_StreetNumber_TEST;
+                this.txt_StreetNumberAdt.Text = Properties.Settings.Default.fursD_StreetNumberAdt_TEST;
+                this.txt_StreetName.Text = Properties.Settings.Default.fursD_StreetName_TEST;
+
+                if (Properties.Settings.Default.fursD_ClosingTag_TEST == "Z")
+                    this.Chk_StoreClosed.Checked = true;
+                else
+                    this.Chk_StoreClosed.Checked = false;
+
             }
             else
             {
@@ -71,12 +88,23 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_Community.Text = Properties.Settings.Default.fursD_Community;
                 this.txt_CadastralNumber.Text = Properties.Settings.Default.fursD_CadastralNumber;
                 this.dt_ValidityDate.Value = Properties.Settings.Default.fursD_ValidityDate;
-                this.txt_ClosingTag.Text = Properties.Settings.Default.fursD_ClosingTag;
                 this.txt_SoftwareSupplier_TaxNumber.Text = Properties.Settings.Default.fursD_SoftwareSupplierTaxID;
                 this.txt_PremiseType.Text = Properties.Settings.Default.fursD_PremiseType;
                 this.txt_MyOrganisation_TaxID.Text = Properties.Settings.Default.fursD_MyOrgTaxID;
                 this.txt_BussinesPremiseID.Text = Properties.Settings.Default.fursD_BussinesPremiseID;
                 this.txt_InvoiceAuthor_TaxID.Text = Properties.Settings.Default.fursD_InvoiceAuthorTaxID;
+
+                this.txt_City.Text = Properties.Settings.Default.fursD_City;
+                this.txt_PostNumber.Text = Properties.Settings.Default.fursD_PostNumber;
+                this.txt_StreetNumber.Text = Properties.Settings.Default.fursD_StreetNumber;
+                this.txt_StreetNumberAdt.Text = Properties.Settings.Default.fursD_StreetNumberAdt;
+                this.txt_StreetName.Text = Properties.Settings.Default.fursD_StreetName;
+
+                if (Properties.Settings.Default.fursD_ClosingTag == "Z")
+                    this.Chk_StoreClosed.Checked = true;
+                else
+                    this.Chk_StoreClosed.Checked = false;
+
             }
 
             this.txt_BuildingNumber.ReadOnly = m_ReadOnly;
@@ -84,13 +112,19 @@ namespace FiscalVerificationOfInvoices_SLO
             this.txt_Community.ReadOnly = m_ReadOnly;
             this.txt_CadastralNumber.ReadOnly = m_ReadOnly;
             this.dt_ValidityDate.Enabled = !m_ReadOnly;
-            this.txt_ClosingTag.ReadOnly = m_ReadOnly;
+            this.Chk_StoreClosed.Enabled = !m_ReadOnly;
             this.txt_SoftwareSupplier_TaxNumber.ReadOnly = m_ReadOnly;
             this.txt_PremiseType.ReadOnly = m_ReadOnly;
             this.txt_MyOrganisation_TaxID.ReadOnly = m_ReadOnly;
             this.txt_BussinesPremiseID.ReadOnly = m_ReadOnly;
             this.txt_InvoiceAuthor_TaxID.ReadOnly = m_ReadOnly;
-            this.btn_ImportFromDataBase.Visible = !m_ReadOnly;
+            // this.btn_ImportFromDataBase.Visible = !m_ReadOnly;
+
+            this.txt_City.ReadOnly = m_ReadOnly;
+            this.txt_PostNumber.ReadOnly = m_ReadOnly;
+            this.txt_StreetNumber.ReadOnly = m_ReadOnly;
+            this.txt_StreetNumberAdt.ReadOnly = m_ReadOnly;
+            this.txt_StreetName.ReadOnly = m_ReadOnly;
 
         }
 
@@ -103,12 +137,20 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursD_Community_TEST = this.txt_Community.Text;
                 Properties.Settings.Default.fursD_CadastralNumber_TEST = this.txt_CadastralNumber.Text;
                 Properties.Settings.Default.fursD_ValidityDate_TEST = this.dt_ValidityDate.Value;
-                Properties.Settings.Default.fursD_ClosingTag_TEST = this.txt_ClosingTag.Text;
                 Properties.Settings.Default.fursD_SoftwareSupplierTaxID_TEST = this.txt_SoftwareSupplier_TaxNumber.Text;
                 Properties.Settings.Default.fursD_PremiseType_TEST = this.txt_PremiseType.Text;
                 Properties.Settings.Default.fursD_MyOrgTaxID_TEST = this.txt_MyOrganisation_TaxID.Text;
                 Properties.Settings.Default.fursD_BussinesPremiseID_TEST = this.txt_BussinesPremiseID.Text;
                 Properties.Settings.Default.fursD_InvoiceAuthorTaxID_TEST = this.txt_InvoiceAuthor_TaxID.Text;
+                Properties.Settings.Default.fursD_City_TEST = this.txt_City.Text;
+                Properties.Settings.Default.fursD_PostNumber_TEST = this.txt_PostNumber.Text;
+                Properties.Settings.Default.fursD_StreetNumber_TEST = this.txt_StreetNumber.Text;
+                Properties.Settings.Default.fursD_StreetNumberAdt_TEST = this.txt_StreetNumberAdt.Text;
+                Properties.Settings.Default.fursD_StreetName_TEST = this.txt_StreetName.Text;
+                if (this.Chk_StoreClosed.Checked == true)
+                    Properties.Settings.Default.fursD_ClosingTag_TEST = "Z";
+                else
+                    Properties.Settings.Default.fursD_ClosingTag_TEST = "";
             }
             else
             {
@@ -117,41 +159,125 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursD_Community = this.txt_Community.Text;
                 Properties.Settings.Default.fursD_CadastralNumber = this.txt_CadastralNumber.Text;
                 Properties.Settings.Default.fursD_ValidityDate = this.dt_ValidityDate.Value;
-                Properties.Settings.Default.fursD_ClosingTag = this.txt_ClosingTag.Text;
                 Properties.Settings.Default.fursD_SoftwareSupplierTaxID = this.txt_SoftwareSupplier_TaxNumber.Text;
                 Properties.Settings.Default.fursD_PremiseType = this.txt_PremiseType.Text;
                 Properties.Settings.Default.fursD_MyOrgTaxID = this.txt_MyOrganisation_TaxID.Text;
                 Properties.Settings.Default.fursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
                 Properties.Settings.Default.fursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
+                Properties.Settings.Default.fursD_City = this.txt_City.Text;
+                Properties.Settings.Default.fursD_PostNumber = this.txt_PostNumber.Text;
+                Properties.Settings.Default.fursD_StreetNumber = this.txt_StreetNumber.Text;
+                Properties.Settings.Default.fursD_StreetNumberAdt = this.txt_StreetNumberAdt.Text;
+                Properties.Settings.Default.fursD_StreetName = this.txt_StreetName.Text;
+                if (this.Chk_StoreClosed.Checked == true)
+                    Properties.Settings.Default.fursD_ClosingTag = "Z";
+                else
+                    Properties.Settings.Default.fursD_ClosingTag = "";
+
             }
+
+            //reset variables on main control
+            m_usrc_FVI_SLO.FursD_BuildingNumber = this.txt_BuildingNumber.Text;
+            m_usrc_FVI_SLO.FursD_BuildingSectionNumber = this.txt_BuildingSectionNumber.Text;
+            m_usrc_FVI_SLO.FursD_Community = this.txt_Community.Text;
+            m_usrc_FVI_SLO.FursD_CadastralNumber = this.txt_CadastralNumber.Text;
+            m_usrc_FVI_SLO.FursD_ValidityDate = this.dt_ValidityDate.Value;
+            m_usrc_FVI_SLO.FursD_SoftwareSupplierTaxID = this.txt_SoftwareSupplier_TaxNumber.Text;
+            m_usrc_FVI_SLO.FursD_PremiseType = this.txt_PremiseType.Text;
+            m_usrc_FVI_SLO.FursD_MyOrgTaxID = this.txt_MyOrganisation_TaxID.Text;
+            m_usrc_FVI_SLO.FursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
+            m_usrc_FVI_SLO.FursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
+            if (this.Chk_StoreClosed.Checked == true)
+                m_usrc_FVI_SLO.FursD_ClosingTag = "Z";
+            else
+                m_usrc_FVI_SLO.FursD_ClosingTag = "";
         }
 
         private void Btn_Add_PP_to_FURS_Click(object sender, EventArgs e)
         {
             //save settings ? 
-           string xml = MakePP_XML();
+            string xml = "";
 
-            m_usrc_FVI_SLO.Send_PP(xml);
-      
+            Save();
+
+            if (MakePP_XML(ref xml))
+            {
+                m_usrc_FVI_SLO.Send_PP(xml);
+            }
+
 
         }
 
-        string MakePP_XML()
+        bool MakePP_XML(ref string xml)
         {
-            string fu_TaxNumber = txt_MyOrganisation_TaxID.Text;      // "10329048";                   // davčna  podjetja
-            string fu_BusinessPremiseID = txt_BussinesPremiseID.Text; //  "KUNAVE6";     // Oznaka prostora vsak račun vsebuje oznako prostora 
-            string fu_CadastralNumber = txt_CadastralNumber.Text;     //  "1738";          // št. katastrske občine
-            string fu_BuildingNumber = txt_BuildingNumber.Text ;      // "2183";           // številka stavbe  (GURS)
-            string fu_BuildingSectionNumber = txt_BuildingSectionNumber.Text; // "73";      //Oznaka dela stavbe (GURS)
-            string fu_Street = "Kunaverjeva";            //ulica poslovnega prostora
-            string fu_HouseNumber = "6";                 //hišna številka poslovnega prostora
-            string fu_HouseNumberAdditional = " ";        //hišna številka dodatno  poslovnega prostora
-            string fu_Community = txt_Community.Text; // "Dravlje";             // okraj 
-            string fu_City = "Dravlje";                  //Kraj
-            string fu_PostalCode = "1117";               // Poštna številka
-            string fu_ValidityDate = dt_ValidityDate.Text; //  "2020-08-25";       // do kdaj je veljaven poslovni prostor
-            string fu_SpecialNotes = " ";                 //dodatno sporočilo za interno evidenco
+
+            string fu_TaxNumber = txt_MyOrganisation_TaxID.Text;                     // "10329048";                   // davčna  podjetja
+            string fu_BusinessPremiseID = txt_BussinesPremiseID.Text;                //  "KUNAVE6";     // Oznaka prostora vsak račun vsebuje oznako prostora 
+            string fu_CadastralNumber = txt_CadastralNumber.Text;                    //  "1738";          // št. katastrske občine
+            string fu_BuildingNumber = txt_BuildingNumber.Text;                     // "2183";           // številka stavbe  (GURS)
+            string fu_BuildingSectionNumber = txt_BuildingSectionNumber.Text;        // "73";      //Oznaka dela stavbe (GURS)
+            string fu_ValidityDate = dt_ValidityDate.Value.ToString("yyyy-MM-dd");   //  "2020 -08-25";       // do kdaj je veljaven poslovni prostor
             string fu_SoftwareSupplier_TaxNumber = txt_SoftwareSupplier_TaxNumber.Text; // "10000000";   //davvčna št izdelovalca programske opreme
+            string fu_PostalCode = this.txt_PostNumber.Text;                          // Poštna številka
+            string fu_Street = this.txt_StreetName.Text;          //ulica poslovnega prostora
+            if (fu_Street.Length == 0) fu_Street = " ";  // ne sme bit prazno javi error html
+            string fu_HouseNumber = this.txt_StreetNumber.Text;                  //hišna številka poslovnega prostora
+            if (fu_HouseNumber.Length == 0) fu_HouseNumber = " ";  // ne sme bit prazno javi error html
+            string fu_HouseNumberAdditional = this.txt_StreetNumberAdt.Text;     //hišna številka dodatno  poslovnega prostora
+            if (fu_HouseNumberAdditional.Length == 0) fu_HouseNumberAdditional = " ";  // ne sme bit prazno javi error html
+            string fu_City = this.txt_City.Text;          //Kraj
+            if (fu_City.Length == 0) fu_City = " ";  // ne sme bit prazno javi error html
+            string fu_Community = txt_Community.Text; // "Dravlje";             // okraj 
+            if (fu_Community.Length == 0) fu_Community = " ";  // ne sme bit prazno javi error html
+
+            //TODO: LK  do edit box on form
+            string fu_SpecialNotes = " ";                 //dodatno sporočilo za interno evidenco
+
+            #region CheckValues
+
+            // check values 
+            if (fu_TaxNumber.Length != 8 || GetIntValueFromString(fu_TaxNumber) == 0)
+            {
+                MessageBox.Show("Davčna številka podjetja mora biti osem mestna številka!");
+                return false;
+            }
+            if (txt_InvoiceAuthor_TaxID.Text.Length != 8 || GetIntValueFromString(txt_InvoiceAuthor_TaxID.Text) == 0)
+            {
+                MessageBox.Show("Davčna številka izdajatelja računa mora biti osem mestna številka!");
+                return false;
+            }
+            if (fu_SoftwareSupplier_TaxNumber.Length != 8 || GetIntValueFromString(fu_SoftwareSupplier_TaxNumber) == 0)
+            {
+                MessageBox.Show("Davčna številka prozivajalca programske opreme mora biti osem mestna številka!");
+                return false;
+            }
+            if (fu_BusinessPremiseID.Trim().Length == 0)
+            {
+                MessageBox.Show("Oznaka prostora ne sme biti prazna");
+                return false;
+            }
+
+            if (!IsNumeric(fu_PostalCode) || fu_PostalCode.Length != 4)
+            {
+                MessageBox.Show("Vnesi poštno številko štiri številke!");
+                return false;
+            }
+
+            if (GetIntValueFromString(fu_CadastralNumber) == 0)
+            {
+                MessageBox.Show("Vnesi katastrsko občino!");
+            }
+
+            if (GetIntValueFromString(fu_BuildingNumber) == 0)
+            {
+                MessageBox.Show("Vnesi številko stavbe!");
+            }
+            if (GetIntValueFromString(fu_BuildingSectionNumber) == 0)
+            {
+                MessageBox.Show("Vnesi številko dela stavbe!");
+            }
+
+            #endregion
 
             XmlDocument xdoc = null;
             XmlNodeList NList = null;
@@ -164,7 +290,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
                 NList = xdoc.GetElementsByTagName("fu:TaxNumber"); NList.Item(0).InnerText = fu_TaxNumber;
 
-                foreach (XmlNode nd in NList) 
+                foreach (XmlNode nd in NList)
                 {
                     if (nd.ParentNode.Name == "fu:SoftwareSupplier")
                     {
@@ -187,44 +313,62 @@ namespace FiscalVerificationOfInvoices_SLO
                 NList = xdoc.GetElementsByTagName("fu:SpecialNotes"); NList.Item(0).InnerText = fu_SpecialNotes;
 
 
-                string PPXml = XmlDcoumentToString(xdoc);
-                return PPXml;
+                //TODO: LK ne dela 
+                // <fu:ClosingTag></fu:ClosingTag>
+                if (Chk_StoreClosed.Checked)  // je Z če je trgovina prenehala z obratovanjem 
+                {
+                    NList = xdoc.GetElementsByTagName("fu:BusinessPremise");
+                    string ns = NList.Item(0).GetNamespaceOfPrefix("fu");
+                    XmlNode xClosingTag = xdoc.CreateNode("element", "ClosingTag", ns);
+                    xClosingTag.Prefix = "fu";
+                    xClosingTag.InnerText = "Z";
+                    NList.Item(0).AppendChild(xClosingTag);
+                }
+
+
+
+
+
+                xml = XmlDcoumentToString(xdoc);
+                return true;
             }
             catch (Exception Ex)
             {
                 LogFile.Error.Show("ERROR:InvoiceData:Create_furs_InvoiceXML:Exception = " + Ex.Message);
-                return null;
+                return false;
             }
 
-   //<? xml version = "1.0" encoding = "UTF-8" ?>
-   //< fu : BusinessPremiseRequest xmlns: fu = "http://www.fu.gov.si/" Id = "test" >
-   //   < fu:BusinessPremise >
-   //       < fu:TaxNumber > 10329048 </ fu:TaxNumber >
-   //       < fu:BusinessPremiseID > KUNAV6 </ fu:BusinessPremiseID >
-   //       < fu:BPIdentifier >
-   //           < fu:RealEstateBP >
-   //               < fu:PropertyID >
-   //                    < fu:CadastralNumber > 365 </ fu:CadastralNumber >
-   //                    < fu:BuildingNumber > 12 </ fu:BuildingNumber >
-   //                     < fu:BuildingSectionNumber > 3 </ fu:BuildingSectionNumber >
-   //               </ fu:PropertyID >
-   //               < fu:Address >
-   //                   < fu:Street > Dunajska cesta </ fu:Street >
-   //                   < fu:HouseNumber > 24 </ fu:HouseNumber >
-   //                   < fu:HouseNumberAdditional > B </ fu:HouseNumberAdditional >
-   //                   < fu:Community > Ljubljana </ fu:Community >
-   //                   < fu:City > Ljubljana </ fu:City >
-   //                   < fu:PostalCode > 1000 </ fu:PostalCode >
-   //               </ fu:Address >
-   //           </ fu:RealEstateBP >
-   //       </ fu:BPIdentifier >
-   //       < fu:ValidityDate > 2020 - 08 - 25 </ fu:ValidityDate >
-   //       < fu:SoftwareSupplier >
-   //           < fu:TaxNumber > 24564444 </ fu:TaxNumber >
-   //       </ fu:SoftwareSupplier >
-   //       < fu:SpecialNotes > Primer prijave poslovnega prostora </ fu:SpecialNotes >
-   //   </ fu:BusinessPremise >
-   //</ fu:BusinessPremiseRequest >
+            //<? xml version = "1.0" encoding = "UTF-8" ?>
+            //< fu : BusinessPremiseRequest xmlns: fu = "http://www.fu.gov.si/" Id = "test" >
+            //   < fu:BusinessPremise >
+            //       < fu:TaxNumber > 10329048 </ fu:TaxNumber >
+            //       < fu:BusinessPremiseID > KUNAV6 </ fu:BusinessPremiseID >
+            //       < fu:BPIdentifier >
+            //           < fu:RealEstateBP >
+            //               < fu:PropertyID >
+            //                    < fu:CadastralNumber > 365 </ fu:CadastralNumber >
+            //                    < fu:BuildingNumber > 12 </ fu:BuildingNumber >
+            //                     < fu:BuildingSectionNumber > 3 </ fu:BuildingSectionNumber >
+            //               </ fu:PropertyID >
+            //               < fu:Address >
+            //                   < fu:Street > Dunajska cesta </ fu:Street >
+            //                   < fu:HouseNumber > 24 </ fu:HouseNumber >
+            //                   < fu:HouseNumberAdditional > B </ fu:HouseNumberAdditional >
+            //                   < fu:Community > Ljubljana </ fu:Community >
+            //                   < fu:City > Ljubljana </ fu:City >
+            //                   < fu:PostalCode > 1000 </ fu:PostalCode >
+            //               </ fu:Address >
+            //           </ fu:RealEstateBP >
+            //       </ fu:BPIdentifier >
+            //       < fu:ValidityDate > 2020 - 08 - 25 </ fu:ValidityDate >
+            // ClosingTag ></ fu:ClosingTag >
+            //       < fu:SoftwareSupplier >
+            //           < fu:TaxNumber > 24564444 </ fu:TaxNumber >
+            //       </ fu:SoftwareSupplier >
+            //       < fu:SpecialNotes > Primer prijave poslovnega prostora </ fu:SpecialNotes >
+            //   </ fu:BusinessPremise >
+            //</ fu:BusinessPremiseRequest >
+
 
         }
 
@@ -243,5 +387,21 @@ namespace FiscalVerificationOfInvoices_SLO
 
             return stringBuilder.ToString();
         }
+
+        private bool IsNumeric(string s)
+        {
+            float output;
+            return float.TryParse(s.Trim(), out output);
+        }
+
+        private int GetIntValueFromString(string s)
+        {
+            int output = 0;
+            bool ret = int.TryParse(s.Trim(), out output);
+
+            return output;
+
+        }
+
     }
 }

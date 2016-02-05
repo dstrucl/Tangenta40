@@ -342,25 +342,6 @@ namespace Tangenta.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-        ///&lt;fu:BusinessPremiseRequest xmlns:fu=&quot;http://www.fu.gov.si/&quot; Id=&quot;test&quot;&gt;
-        ///	&lt;fu:BusinessPremise&gt;
-        ///		&lt;fu:TaxNumber&gt;@@DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
-        ///		&lt;fu:BusinessPremiseID&gt;@@PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
-        ///		&lt;fu:BPIdentifier&gt;
-        ///			&lt;fu:RealEstateBP&gt;
-        ///				&lt;fu:PropertyID&gt;
-        ///					&lt;fu:CadastralNumber&gt;@@KatastrskaŠtevilkaPoslovneEnote&lt;/fu:CadastralNumber&gt;
-        ///					&lt;fu:BuildingNumber&gt;@@ŠtevilkaStavbe&lt;/fu:BuildingNumber&gt;
-        ///					&lt;fu:BuildingSectionNumber&gt;@ŠtevilkaDelaStavbe&lt;/fu:Bu [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string FVI_SLO_BussinesPremises {
-            get {
-                return ResourceManager.GetString("FVI_SLO_BussinesPremises", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
         ///&lt;fu:InvoiceRequest xmlns:fu=&quot;http://www.fu.gov.si/&quot; Id=&quot;test&quot;&gt;
         ///	&lt;fu:Invoice&gt;
         ///		&lt;fu:TaxNumber&gt;@@Moja_Organizacija_DavčnaŠtevilka&lt;/fu:TaxNumber&gt;

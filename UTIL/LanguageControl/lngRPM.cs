@@ -2135,5 +2135,15 @@ namespace LanguageControl
 
         public static ltext s_DataBaseHasNoTablesItIsEmpty = new ltext("Database has not tables.It is allready empty.",
                                                                        "Podatkovna baza nima tabel. Je prazna.");
-    }
+
+
+
+        public static ltext s_lbl_StreetName = new ltext("Adress", "Naslov");
+        public static ltext s_lbl_Street_Number = new ltext("House number", "Hišna št.");
+        public static ltext s_lbl_Post = new ltext("Post number", "Poštna št.");
+        public static ltext s_lbl_City = new ltext("City", "Kraj");
+
+
+      }
 }
+     

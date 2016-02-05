@@ -917,7 +917,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://blagajne.fu.gov.si:9003/v1/cash_registers")]
         public string fursWebServiceURL {
             get {
                 return ((string)(this["fursWebServiceURL"]));
@@ -929,7 +929,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.fu.gov.si/")]
         public string fursXmlNamespace {
             get {
                 return ((string)(this["fursXmlNamespace"]));
@@ -1308,6 +1308,126 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
             }
             set {
                 this["fursD_SoftwareSupplierTaxID_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ljubljana")]
+        public string fursD_City_TEST {
+            get {
+                return ((string)(this["fursD_City_TEST"]));
+            }
+            set {
+                this["fursD_City_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public string fursD_PostNumber_TEST {
+            get {
+                return ((string)(this["fursD_PostNumber_TEST"]));
+            }
+            set {
+                this["fursD_PostNumber_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string fursD_StreetNumber_TEST {
+            get {
+                return ((string)(this["fursD_StreetNumber_TEST"]));
+            }
+            set {
+                this["fursD_StreetNumber_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_StreetNumberAdt_TEST {
+            get {
+                return ((string)(this["fursD_StreetNumberAdt_TEST"]));
+            }
+            set {
+                this["fursD_StreetNumberAdt_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Na trati")]
+        public string fursD_StreetName_TEST {
+            get {
+                return ((string)(this["fursD_StreetName_TEST"]));
+            }
+            set {
+                this["fursD_StreetName_TEST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ljubljana")]
+        public string fursD_City {
+            get {
+                return ((string)(this["fursD_City"]));
+            }
+            set {
+                this["fursD_City"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public string fursD_PostNumber {
+            get {
+                return ((string)(this["fursD_PostNumber"]));
+            }
+            set {
+                this["fursD_PostNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string fursD_StreetNumber {
+            get {
+                return ((string)(this["fursD_StreetNumber"]));
+            }
+            set {
+                this["fursD_StreetNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Na trati")]
+        public string fursD_StreetName {
+            get {
+                return ((string)(this["fursD_StreetName"]));
+            }
+            set {
+                this["fursD_StreetName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fursD_StreetNumberAdt {
+            get {
+                return ((string)(this["fursD_StreetNumberAdt"]));
+            }
+            set {
+                this["fursD_StreetNumberAdt"] = value;
             }
         }
     }

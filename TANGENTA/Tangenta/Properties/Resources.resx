@@ -1572,37 +1572,6 @@
   <data name="SaveHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveHtml.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FVI_SLO_BussinesPremises" xml:space="preserve">
-    <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;fu:BusinessPremiseRequest xmlns:fu="http://www.fu.gov.si/" Id="test"&gt;
-	&lt;fu:BusinessPremise&gt;
-		&lt;fu:TaxNumber&gt;@@DavčnaŠtevilka&lt;/fu:TaxNumber&gt;
-		&lt;fu:BusinessPremiseID&gt;@@PoslovnaEnota&lt;/fu:BusinessPremiseID&gt;
-		&lt;fu:BPIdentifier&gt;
-			&lt;fu:RealEstateBP&gt;
-				&lt;fu:PropertyID&gt;
-					&lt;fu:CadastralNumber&gt;@@KatastrskaŠtevilkaPoslovneEnote&lt;/fu:CadastralNumber&gt;
-					&lt;fu:BuildingNumber&gt;@@ŠtevilkaStavbe&lt;/fu:BuildingNumber&gt;
-					&lt;fu:BuildingSectionNumber&gt;@ŠtevilkaDelaStavbe&lt;/fu:BuildingSectionNumber&gt;
-				&lt;/fu:PropertyID&gt;
-				&lt;fu:Address&gt;
-					&lt;fu:Street&gt;@@Blagajna_Naslov_Cesta&lt;/fu:Street&gt;
-					&lt;fu:HouseNumber&gt;@@Blagajna_Naslov_Hišna_Številka&lt;/fu:HouseNumber&gt;
-					&lt;fu:HouseNumberAdditional&gt;@@Blagajna_Naslov_Hišna_Številka_Dodatek&lt;/fu:HouseNumberAdditional&gt;
-					&lt;fu:Community&gt;@@Blagajna_Naslov_Krajevna_skupnost&lt;/fu:Community&gt;
-					&lt;fu:City&gt;@@Blagajna_Naslov_Kraj&lt;/fu:City&gt;
-					&lt;fu:PostalCode&gt;@@Blagajna_Naslov_Kraj&lt;/fu:PostalCode&gt;
-				&lt;/fu:Address&gt;
-			&lt;/fu:RealEstateBP&gt;
-		&lt;/fu:BPIdentifier&gt;
-		&lt;fu:ValidityDate&gt;@@DatumVeljavnosti&lt;/fu:ValidityDate&gt;
-		&lt;fu:SoftwareSupplier&gt;
-			&lt;fu:TaxNumber&gt;89304489&lt;/fu:TaxNumber&gt;
-		&lt;/fu:SoftwareSupplier&gt;
-		&lt;fu:SpecialNotes&gt;Prijava poslovnega prostora&lt;/fu:SpecialNotes&gt;
-	&lt;/fu:BusinessPremise&gt;
-&lt;/fu:BusinessPremiseRequest&gt;</value>
-  </data>
   <data name="FVI_SLO_Invoice" xml:space="preserve">
     <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;fu:InvoiceRequest xmlns:fu="http://www.fu.gov.si/" Id="test"&gt;
