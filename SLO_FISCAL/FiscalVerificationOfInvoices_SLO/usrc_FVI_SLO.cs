@@ -68,7 +68,11 @@ namespace FiscalVerificationOfInvoices_SLO
         public string FursD_BussinesPremiseID { get; set; }
         public string FursD_InvoiceAuthorTaxID { get; set; }
 
+        public string XML_Template_FVI_SLO_SalesBook
+        {
+            get { return Properties.Resources.FVI_SLO_SalesBook; }
 
+        }
 
         public int MessageBox_Length
         {
@@ -441,12 +445,19 @@ namespace FiscalVerificationOfInvoices_SLO
             bool ret = true;
 
             //  two groups of errors    a. error incorect data   b. communication errors  
-             // a no repeat  goto sales book 
+            // a no repeat  goto sales book 
 
-           // b try to 
+            // b try to 
 
 
-
+// S001  Sporočilo ni v skladu s shemo XML / Message is not in compliance with XML schema
+// S003  Digitalni podpis ni ustrezen / Digital signature is not appropriate
+// S004  Identifikator digitalnega potrdila ni ustrezen / Digital certificate identifier is not appropriate
+// S005  Davčna številka v sporočilu ni enaka davčni številki iz digitalnega potrdila / Tax number in the message is not the same as the tax number from the digital certificate
+// S006  Podatki o poslovnem prostoru niso posredovani / Data about business premises are not submitted
+// S007              Digitalno potrdilo je preklicano / Digital certificate is withdrawn
+// S008  Digitalnemu potrdilu je potekla veljavnost / The validity of the digital certificate is expired
+// S100  Sistemska napaka pri obdelavi
 
             return ret;
         }

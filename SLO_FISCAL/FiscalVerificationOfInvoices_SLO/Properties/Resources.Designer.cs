@@ -150,9 +150,9 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         ///	&lt;fu:InvoiceAmount&gt;1060.06&lt;/fu:InvoiceAmount&gt;
         ///	&lt;fu:ReturnsAm [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string FYI_SLO_SalesBook {
+        internal static string FVI_SLO_SalesBook {
             get {
-                return ResourceManager.GetString("FYI_SLO_SalesBook", resourceCulture);
+                return ResourceManager.GetString("FVI_SLO_SalesBook", resourceCulture);
             }
         }
         

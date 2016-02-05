@@ -1126,8 +1126,8 @@ namespace InvoiceDB
                 xdoc.LoadXml(InvoiceXmlTemplate);
                 XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
                 ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;
-                XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
-                ndl_IssueDateTime.Item(0).InnerText = fs.GetFURS_Time_Formated(IssueDate_v.v);
+                XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDate");
+                ndl_IssueDateTime.Item(0).InnerText = IssueDate_v.v.ToString("yyyy-MM-dd");
                 XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
                 ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;
                 XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");

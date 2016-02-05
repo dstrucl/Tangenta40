@@ -1737,7 +1737,7 @@
   <data name="TAX_Office_Transmission_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TAX_Office_Transmission_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FYI_SLO_SalesBook" xml:space="preserve">
+  <data name="FVI_SLO_SalesBook" xml:space="preserve">
     <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;fu:InvoiceRequest xmlns:fu="http://www.fu.gov.si/" Id="data"&gt;
 &lt;fu:SalesBookInvoice&gt;
