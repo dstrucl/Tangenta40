@@ -96,5 +96,35 @@ namespace UniversalInvoice
         {
             replacement = v;
         }
+
+        public string Replace(string html_doc_template)
+        {
+            if (html_doc_template.Contains(lt.s))
+            {
+                return html_doc_template.Replace(lt.s, this.replacement);
+            }
+            else
+            {
+                //replace if token is written in other languages
+                int i = 0;
+                int iCount = lt.sText.Length;
+                for (i = 0; i < iCount; i++)
+                {
+                    if (i == DynSettings.LanguageID)
+                    {
+                        continue;
+                    }
+                    string sx = lt.sText[i];
+                    if (sx != null)
+                    {
+                        if (html_doc_template.Contains(sx))
+                        {
+                            return html_doc_template.Replace(sx, this.replacement);
+                        }
+                    }
+                }
+                return html_doc_template;
+            }
+        }
     }
 }

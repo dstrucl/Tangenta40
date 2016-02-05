@@ -33,7 +33,7 @@ namespace InvoiceDB
 
     public class InvoiceData
     {
-        public enum eType { INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
+        public enum eType { DRAFT_INVOICE,INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
 
         public eType m_eType = eType.UNKNOWN;
         private bool b_FVI_SLO = false;
@@ -392,6 +392,13 @@ namespace InvoiceDB
                 if (issue_time != null)
                 {
                     this.IssueDate_v = issue_time.Clone();
+                    string stime = IssueDate_v.v.Day.ToString() + "."
+                                    + IssueDate_v.v.Month.ToString() + "."
+                                    + IssueDate_v.v.Year.ToString() + " "
+                                    + IssueDate_v.v.Hour.ToString() + ":"
+                                    + IssueDate_v.v.Minute.ToString();
+                    InvoiceToken.tDateOfIssue.Set(stime);
+                    InvoiceToken.tDateOfMaturity.Set(stime);
                     return true;
                 }
                 else
@@ -630,28 +637,65 @@ namespace InvoiceDB
                 {
                     try
                     {
+                        Draft = DBTypes.tf._set_bool(dt_ProformaInvoice.Rows[0]["Draft"]);
                         Invoice_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_ProformaInvoice.Rows[0]["EventTime"]);
                         string_v EventName_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_Type_Name"]);
-                        if (Invoice_ID_v != null)
+                        if (Draft)
                         {
-                            if (EventName_v != null)
+                                this.m_eType = eType.DRAFT_INVOICE;
+                        }
+                        else
+                        {
+                            if (Invoice_ID_v != null)
                             {
-                                if (EventName_v.v.Equals("InvoiceTime"))
+                                if (EventName_v != null)
                                 {
-                                    this.m_eType = eType.INVOICE;
-                                    this.IssueDate_v = EventTime_v.Clone();
-                                }
-                                else if (EventName_v.v.Equals("InvoiceStornoTime"))
-                                {
-                                    this.m_eType = eType.STORNO;
-                                    this.StornoIssueDate_v = EventTime_v.Clone();
-                                    ProformaInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_Reference_ID"]);
-                                    if (ProformaInvoice_Reference_ID_v != null)
+                                    if (EventName_v.v.Equals("InvoiceTime"))
+                                    {
+                                        this.m_eType = eType.INVOICE;
+                                        this.IssueDate_v = EventTime_v.Clone();
+                                    }
+                                    else if (EventName_v.v.Equals("InvoiceStornoTime"))
+                                    {
+                                        this.m_eType = eType.STORNO;
+                                        this.StornoIssueDate_v = EventTime_v.Clone();
+                                        ProformaInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_Reference_ID"]);
+                                        if (ProformaInvoice_Reference_ID_v != null)
+                                        {
+                                            if (IssueDate_v == null)
+                                            {
+                                                sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                                DataTable dt = new DataTable();
+                                                if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                                                {
+                                                    if (dt.Rows.Count == 1)
+                                                    {
+                                                        IssueDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["EventTime"]);
+                                                    }
+                                                    else
+                                                    {
+                                                        LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! ProformaInvoice_Reference_ID_v must be defined!");
+                                        }
+                                    }
+                                    else
                                     {
                                         if (IssueDate_v == null)
                                         {
-                                            sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+
+                                            sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
                                             DataTable dt = new DataTable();
                                             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                             {
@@ -670,53 +714,23 @@ namespace InvoiceDB
                                                 LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
                                             }
                                         }
+
+                                        this.m_eType = eType.UNKNOWN;
                                     }
-                                    else
-                                    {
-                                        LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! ProformaInvoice_Reference_ID_v must be defined!");
-                                    }
+
                                 }
                                 else
                                 {
-                                    if (IssueDate_v == null)
-                                    {
-
-                                        sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
-                                        DataTable dt = new DataTable();
-                                        if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
-                                        {
-                                            if (dt.Rows.Count == 1)
-                                            {
-                                                IssueDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["EventTime"]);
-                                            }
-                                            else
-                                            {
-                                                LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
-                                            }
-
-                                        }
-                                        else
-                                        {
-                                            LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
-                                        }
-                                    }
-
-                                    this.m_eType = eType.UNKNOWN;
+                                    LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventName must be defined!");
                                 }
-
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventName must be defined!");
+                                this.m_eType = eType.UNKNOWN;
                             }
                         }
-                        else
-                        {
-                            this.m_eType = eType.UNKNOWN;
-                        }
-                        
 
-                        Draft = DBTypes.tf._set_bool(dt_ProformaInvoice.Rows[0]["Draft"]);
+
                         GrossSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
                         taxsum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
                         NetSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
@@ -837,15 +851,16 @@ namespace InvoiceDB
                                 InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
                                 InvoiceToken.tCashier.Set(CasshierName);
 
-                                string stime = IssueDate_v.v.Day.ToString() + "."
-                                                + IssueDate_v.v.Month.ToString() + "."
-                                                + IssueDate_v.v.Year.ToString() + " "
-                                                + IssueDate_v.v.Hour.ToString() + ":"
-                                                + IssueDate_v.v.Minute.ToString();
-                                InvoiceToken.tDateOfIssue.Set(stime);
-                                InvoiceToken.tDateOfMaturity.Set(stime);
-
-
+                                if (!Draft)
+                                {
+                                    string stime = IssueDate_v.v.Day.ToString() + "."
+                                                    + IssueDate_v.v.Month.ToString() + "."
+                                                    + IssueDate_v.v.Year.ToString() + " "
+                                                    + IssueDate_v.v.Hour.ToString() + ":"
+                                                    + IssueDate_v.v.Minute.ToString();
+                                    InvoiceToken.tDateOfIssue.Set(stime);
+                                    InvoiceToken.tDateOfMaturity.Set(stime);
+                                }
                                 return true;
                             }
                             else
@@ -1187,32 +1202,32 @@ namespace InvoiceDB
             InvoiceToken.tDateOfIssue.Set(stime);
             InvoiceToken.tDateOfMaturity.Set(stime);
 
-            html_doc_template = html_doc_template.Replace(InvoiceToken.tFiscalYear.lt.s, InvoiceToken.tFiscalYear.replacement);
-            html_doc_template = html_doc_template.Replace(InvoiceToken.tInvoiceNumber.lt.s, InvoiceToken.tInvoiceNumber.replacement);
-            html_doc_template = html_doc_template.Replace(InvoiceToken.tIssuerOfInvoice.lt.s, InvoiceToken.tIssuerOfInvoice.replacement);
-            html_doc_template = html_doc_template.Replace(InvoiceToken.tCashier.lt.s, InvoiceToken.tCashier.replacement);
-            html_doc_template = html_doc_template.Replace(Invoice_Author.token.tFirstName.lt.s, Invoice_Author.token.tFirstName.replacement);
-            html_doc_template = html_doc_template.Replace(Invoice_Author.token.tLastName.lt.s, Invoice_Author.token.tLastName.replacement);
-            html_doc_template = html_doc_template.Replace(Invoice_Author.token.tTaxID.lt.s, Invoice_Author.token.tTaxID.replacement);
+            html_doc_template = InvoiceToken.tFiscalYear.Replace(html_doc_template);
+            html_doc_template = InvoiceToken.tInvoiceNumber.Replace(html_doc_template);
+            html_doc_template = InvoiceToken.tIssuerOfInvoice.Replace(html_doc_template);
+            html_doc_template = InvoiceToken.tCashier.Replace(html_doc_template);
+            html_doc_template = Invoice_Author.token.tFirstName.Replace(html_doc_template);
+            html_doc_template = Invoice_Author.token.tLastName.Replace(html_doc_template);
+            html_doc_template = Invoice_Author.token.tTaxID.Replace(html_doc_template);
 
             foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.token.list)
             {
-                html_doc_template = html_doc_template.Replace(tt.lt.s, tt.replacement);
+                html_doc_template = tt.Replace(html_doc_template);
             }
 
             foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.Address.token.list)
             {
-                html_doc_template = html_doc_template.Replace(tt.lt.s, tt.replacement);
+                html_doc_template = tt.Replace(html_doc_template);
             }
 
             foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.token.list)
             {
-                html_doc_template = html_doc_template.Replace(tt.lt.s, tt.replacement);
+                html_doc_template = tt.Replace(html_doc_template);
             }
 
             foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.Address.token.list)
             {
-                html_doc_template = html_doc_template.Replace(tt.lt.s, tt.replacement);
+                html_doc_template = tt.Replace(html_doc_template);
             }
 
 
@@ -1220,11 +1235,11 @@ namespace InvoiceDB
             {
                 if (ivt.replacement != null)
                 {
-                    html_doc_template = html_doc_template.Replace(ivt.lt.s, ivt.replacement);
+                    html_doc_template = ivt.Replace(html_doc_template);
                 }
                 else
                 {
-                    html_doc_template = html_doc_template.Replace(ivt.lt.s, "");
+                    html_doc_template = ivt.Replace(html_doc_template);
                 }
             }
 
@@ -1232,20 +1247,20 @@ namespace InvoiceDB
             {
                 if (ivt.replacement != null)
                 {
-                    html_doc_template = html_doc_template.Replace(ivt.lt.s, ivt.replacement);
+                    html_doc_template = ivt.Replace(html_doc_template);
                 }
                 else
                 {
-                    html_doc_template = html_doc_template.Replace(ivt.lt.s, "");
+                    html_doc_template = ivt.Replace(html_doc_template);
                 }
             }
 
-            html_doc_template = html_doc_template.Replace(InvoiceToken.tDateOfIssue.lt.s, InvoiceToken.tDateOfIssue.replacement);
-            html_doc_template = html_doc_template.Replace(InvoiceToken.tDateOfMaturity.lt.s, InvoiceToken.tDateOfMaturity.replacement);
+            html_doc_template = InvoiceToken.tDateOfIssue.Replace(html_doc_template);
+            html_doc_template = InvoiceToken.tDateOfMaturity.Replace(html_doc_template);
 
-            html_doc_template = html_doc_template.Replace(Invoice_FURS_Token.tUniqueMessageID.lt.s, Invoice_FURS_Token.tUniqueMessageID.replacement);
-            html_doc_template = html_doc_template.Replace(Invoice_FURS_Token.tUniqueInvoiceID.lt.s, Invoice_FURS_Token.tUniqueInvoiceID.replacement);
-            html_doc_template = html_doc_template.Replace(Invoice_FURS_Token.tQR.lt.s, Invoice_FURS_Token.tQR.replacement);
+            html_doc_template = Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
+            html_doc_template = Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
+            html_doc_template = Invoice_FURS_Token.tQR.Replace(html_doc_template);
 
 
             int itbody = html_doc_template.IndexOf("<tbody>", 0);
@@ -1275,25 +1290,25 @@ namespace InvoiceDB
                                     tCurrency = itms.token.tCurrency;
                                 }
                             }
-                            string sRow = tr_RowTemplate.Replace(itms.token.tItemName.lt.s, itms.token.tItemName.replacement);
-                            sRow = sRow.Replace(itms.token.tPricePerUnit.lt.s, itms.token.tPricePerUnit.replacement);
-                            sRow = sRow.Replace(itms.token.tTotalDiscount.lt.s, itms.token.tTotalDiscount.replacement);
-                            sRow = sRow.Replace(itms.token.tCurrency.lt.s, itms.token.tCurrency.replacement);
-                            sRow = sRow.Replace(itms.token.tUnit.lt.s, itms.token.tUnit.replacement);
-                            sRow = sRow.Replace(itms.token.tQuantity.lt.s, itms.token.tQuantity.replacement);
-                            sRow = sRow.Replace(itms.token.tTaxationRatePercent.lt.s, itms.token.tTaxationRatePercent.replacement);
-                            sRow = sRow.Replace(itms.token.tNetPrice.lt.s, itms.token.tNetPrice.replacement);
-                            sRow = sRow.Replace(itms.token.tTax.lt.s, itms.token.tTax.replacement);
-                            sRow = sRow.Replace(itms.token.tPriceWithTax.lt.s, itms.token.tPriceWithTax.replacement);
+                            string sRow = itms.token.tItemName.Replace(tr_RowTemplate);
+                            sRow = itms.token.tPricePerUnit.Replace(sRow);
+                            sRow = itms.token.tTotalDiscount.Replace(sRow);
+                            sRow = itms.token.tCurrency.Replace(sRow);
+                            sRow = itms.token.tUnit.Replace(sRow);
+                            sRow = itms.token.tQuantity.Replace(sRow);
+                            sRow = itms.token.tTaxationRatePercent.Replace(sRow);
+                            sRow = itms.token.tNetPrice.Replace(sRow);
+                            sRow = itms.token.tTax.Replace(sRow);
+                            sRow = itms.token.tPriceWithTax.Replace(sRow);
                             html_doc_template = html_doc_template.Insert(ipos, sRow);
                             ipos += sRow.Length;
                         }
 
 
-                        html_doc_template = html_doc_template.Replace(tCurrency.lt.s, tCurrency.replacement);
+                        html_doc_template = tCurrency.Replace(html_doc_template);
 
                         InvoiceToken.tSumNetPrice.Set(NetSum.ToString());
-                        html_doc_template = html_doc_template.Replace(InvoiceToken.tSumNetPrice.lt.s, InvoiceToken.tSumNetPrice.replacement);
+                        html_doc_template = InvoiceToken.tSumNetPrice.Replace(html_doc_template);
 
 
                         //string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
@@ -1313,13 +1328,13 @@ namespace InvoiceDB
                                 {
                                     InvoiceToken.tTaxRateName.Set(tax.Name);
                                     InvoiceToken.tSumTax.Set(tax.TaxAmount.ToString());
-                                    string str = tr_TaxSum.Replace(InvoiceToken.tTaxRateName.lt.s, InvoiceToken.tTaxRateName.replacement);
-                                    str = str.Replace(InvoiceToken.tSumTax.lt.s, InvoiceToken.tSumTax.replacement);
+                                    string str = InvoiceToken.tTaxRateName.Replace(tr_TaxSum);
+                                    str = InvoiceToken.tSumTax.Replace(str);
                                     html_doc_template = html_doc_template.Insert(ipos, str);
                                     ipos += str.Length;
                                 }
                                 InvoiceToken.tTotalSum.Set(GrossSum.ToString());
-                                html_doc_template = html_doc_template.Replace(InvoiceToken.tTotalSum.lt.s, InvoiceToken.tTotalSum.replacement);
+                                html_doc_template = InvoiceToken.tTotalSum.Replace(html_doc_template);
                                 return html_doc_template;
                             }
                             else
