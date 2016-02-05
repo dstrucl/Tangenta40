@@ -1737,4 +1737,35 @@
   <data name="TAX_Office_Transmission_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TAX_Office_Transmission_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="FYI_SLO_SalesBook" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fu:InvoiceRequest xmlns:fu="http://www.fu.gov.si/" Id="data"&gt;
+&lt;fu:SalesBookInvoice&gt;
+	&lt;fu:TaxNumber&gt;10329048&lt;/fu:TaxNumber&gt;
+	&lt;fu:IssueDate&gt;2015-09-07&lt;/fu:IssueDate&gt;
+
+	&lt;fu:SalesBookIdentifier&gt;
+		&lt;fu:InvoiceNumber&gt;612&lt;/fu:InvoiceNumber&gt;
+		&lt;fu:SetNumber&gt;03&lt;/fu:SetNumber&gt;
+		&lt;fu:SerialNumber&gt;5001-0001018&lt;/fu:SerialNumber&gt;
+	&lt;/fu:SalesBookIdentifier&gt;
+	&lt;fu:BusinessPremiseID&gt;KUNAVE6&lt;/fu:BusinessPremiseID&gt;
+	&lt;fu:InvoiceAmount&gt;1060.06&lt;/fu:InvoiceAmount&gt;
+	&lt;fu:ReturnsAmount&gt;12.30&lt;/fu:ReturnsAmount&gt;
+	&lt;fu:PaymentAmount&gt;1047.76&lt;/fu:PaymentAmount&gt;
+	&lt;fu:TaxesPerSeller&gt;
+		&lt;fu:VAT&gt;
+			&lt;fu:TaxRate&gt;22.00&lt;/fu:TaxRate&gt;
+			&lt;fu:TaxableAmount&gt;36.89&lt;/fu:TaxableAmount&gt;
+			&lt;fu:TaxAmount&gt;8.12&lt;/fu:TaxAmount&gt;
+		&lt;/fu:VAT&gt;
+		&lt;fu:VAT&gt;
+			&lt;fu:TaxRate&gt;9.50&lt;/fu:TaxRate&gt;
+			&lt;fu:TaxableAmount&gt;56.53&lt;/fu:TaxableAmount&gt;
+			&lt;fu:TaxAmount&gt;5.37&lt;/fu:TaxAmount&gt;
+		&lt;/fu:VAT&gt;
+	&lt;/fu:TaxesPerSeller&gt;
+&lt;/fu:SalesBookInvoice&gt;
+&lt;/fu:InvoiceRequest&gt;</value>
+  </data>
 </root>

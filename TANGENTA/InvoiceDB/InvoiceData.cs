@@ -1118,62 +1118,55 @@ namespace InvoiceDB
 
         }
 
-        public string Create_furs_SalesBookInvoiceXML(string InvoiceXmlTemplate, string FursD_MyOrgTaxID, string FursD_BussinesPremiseID, string CasshierName, string FursD_InvoiceAuthorTaxID)
+        public string Create_furs_SalesBookInvoiceXML(string InvoiceXmlTemplate, string FursD_MyOrgTaxID, string FursD_BussinesPremiseID, string SalesBookSetNumber, string SalesBookSerialNumber)
         {
             try
             {
-                //                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_Invoice;
                 XmlDocument xdoc = new XmlDocument();
                 xdoc.LoadXml(InvoiceXmlTemplate);
                 XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
-                //string sInnerText_MyOrgTaxID = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; // "10329048";//MyOrganisation.Tax_ID;
-                ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;//Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; //MyOrganisation.Tax_ID;
+                ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;
                 XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
                 ndl_IssueDateTime.Item(0).InnerText = fs.GetFURS_Time_Formated(IssueDate_v.v);
                 XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
-                //string sInnerText_FursD_BussinesPremiseID = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID;
-                ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;// Program.usrc_FVI_SLO1.FursD_BussinesPremiseID; // "36CF"; //MyOrganisation.Atom_Office_Name;
-                XmlNodeList ndl_ElectronicDeviceID = xdoc.GetElementsByTagName("fu:ElectronicDeviceID");
-                ndl_ElectronicDeviceID.Item(0).InnerText = CasshierName;//Properties.Settings.Default.CasshierName;
+                ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;
                 XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
                 ndl_InvoiceNumber.Item(0).InnerText = NumberInFinancialYear.ToString();
                 XmlNodeList ndl_InvoiceAmount = xdoc.GetElementsByTagName("fu:InvoiceAmount");
-              //LK  ndl_InvoiceAmount.Item(0).InnerText = sStorno(bStorno) + fs.GetFursDecimalString(GrossSum);
+                ndl_InvoiceAmount.Item(0).InnerText =  fs.GetFursDecimalString(GrossSum);
                 XmlNodeList ndl_PaymentAmount = xdoc.GetElementsByTagName("fu:PaymentAmount");
-                //LK   ndl_PaymentAmount.Item(0).InnerText = sStorno(bStorno) + fs.GetFursDecimalString(GrossSum);
+                ndl_PaymentAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
 
                 XmlNodeList ndl_TaxesPerSeller = xdoc.GetElementsByTagName("fu:TaxesPerSeller");
                 string s_innertext = "";
                 foreach (StaticLib.Tax tax in taxSum.TaxList)
                 {
-                    //LKstring sVat = "<fu:VAT>\r\n" +
-                    //LK                      "<fu:TaxRate>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
-                    //LK                      "<fu:TaxableAmount>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
-                    //LK                      "<fu:TaxAmount>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
-                    //LK               "</fu:VAT>" + "\r\n";
-                    //LKs_innertext += sVat;
+                    string sVat = "<fu:VAT>\r\n" +
+                                          "<fu:TaxRate>" +  fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
+                                          "<fu:TaxableAmount>" + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
+                                          "<fu:TaxAmount>"  + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
+                                   "</fu:VAT>" + "\r\n";
+                    s_innertext += sVat;
                 }
                 ndl_TaxesPerSeller.Item(0).InnerXml = s_innertext;
 
-                XmlNodeList ndl_OperatorTaxNumber = xdoc.GetElementsByTagName("fu:OperatorTaxNumber");
+                // salesbook stuff
+                XmlNodeList ndl_SetNumber = xdoc.GetElementsByTagName("fu:SetNumber");
+                ndl_SetNumber.Item(0).InnerText = SalesBookSetNumber;
 
-                string sFursD_InvoiceAuthorTaxID = FursD_InvoiceAuthorTaxID;// Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
-
-                //Invoice_Author.Tax_ID = "59729481";
-
-                Invoice_Author.Tax_ID = FursD_InvoiceAuthorTaxID;// Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
-
-
-                ndl_OperatorTaxNumber.Item(0).InnerText = Invoice_Author.Tax_ID;
+                XmlNodeList ndl_SerialNumber = xdoc.GetElementsByTagName("fu:SerialNumber");
+                ndl_SerialNumber.Item(0).InnerText = SalesBookSerialNumber;
+                
 
                 string InvoiceXml = XmlDcoumentToString(xdoc);
                 return InvoiceXml;
             }
             catch (Exception Ex)
             {
-                LogFile.Error.Show("ERROR:InvoiceData:Create_furs_InvoiceXML:Exception = " + Ex.Message);
+                LogFile.Error.Show("ERROR:InvoiceData:Create_furs_SalesBookInvoiceXML:Exception = " + Ex.Message);
                 return null;
             }
+
 
         }
 

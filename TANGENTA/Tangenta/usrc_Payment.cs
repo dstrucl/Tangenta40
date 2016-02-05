@@ -214,6 +214,14 @@ namespace Tangenta
                             if (InvoiceDB.f_FVI_SLO_SalesBookInvoice.Get(m_InvoiceData.Invoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber,ref FVI_SLO_SalesBookInvoice_ID))
                             {
                                 MessageBox.Show("Račun je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
+
+                                string furs_XML_SB = m_InvoiceData.Create_furs_SalesBookInvoiceXML( Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, xSetNumber, xSerialNumber);
+                                if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML_SB, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
+                                {
+                                    m_InvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue, img_QR);
+                                    m_InvoiceData.FURS_Response_Data.Image_QRcode = img_QR;
+                                    m_InvoiceData.Write_FURS_Response_Data();
+                                }
                             }
                         }
                     }
