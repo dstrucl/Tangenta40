@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLTableControl;
+using BlagajnaTableClass;
 
 namespace InvoiceDB
 {
@@ -131,6 +133,159 @@ namespace InvoiceDB
                 LogFile.Error.Show("ERROR:f_Atom_Customer_Org:Get_Atom_cAddress_Org_ID:\r\nsql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
+        }
+
+        internal static bool Get(PostAddress_v address_v, ref ID_v cAdressAtom_Org_iD_v)
+        {
+            string Err = null;
+            long_v Atom_cStreetName_Org_ID_v = null;
+            long_v Atom_cHouseNumber_Org_ID_v = null;
+            long_v Atom_cCity_Org_ID_v = null;
+            long_v Atom_cZIP_Org_ID_v = null;
+            long_v Atom_cState_Org_ID_v = null;
+            long_v Atom_cCountry_Org_ID_v = null;
+
+            if (f_Atom_cStreetName_Org.Get(address_v.StreetName_v, ref Atom_cStreetName_Org_ID_v))
+            {
+                if (f_Atom_cHouseNumber_Org.Get(address_v.HouseNumber_v, ref Atom_cHouseNumber_Org_ID_v))
+                {
+                    if (f_Atom_cCity_Org.Get(address_v.City_v, ref Atom_cCity_Org_ID_v))
+                    {
+                        if (f_Atom_cZIP_Org.Get(address_v.ZIP_v, ref Atom_cZIP_Org_ID_v))
+                        {
+                            if (f_Atom_cState_Org.Get(address_v.State_v,
+                                                      address_v.State_ISO_3166_a2_v,
+                                                      address_v.State_ISO_3166_a3_v,
+                                                      address_v.State_ISO_3166_num_v,
+                                                      ref Atom_cState_Org_ID_v))
+                            {
+                                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                                string scond_Atom_cStreetName_Org_ID_v = " Atom_cStreetName_Org_ID is null ";
+                                string sval_Atom_cStreetName_Org_ID_v = "null";
+
+                                if (Atom_cStreetName_Org_ID_v != null)
+                                {
+                                    string spar_Atom_cStreetName_Org_ID_v = "@par_Atom_cStreetName_Org_ID_v";
+                                    SQL_Parameter par_Atom_cStreetName_Org_ID_v = new SQL_Parameter(spar_Atom_cStreetName_Org_ID_v,SQL_Parameter.eSQL_Parameter.Bigint,false, Atom_cStreetName_Org_ID_v.v);
+                                    lpar.Add(par_Atom_cStreetName_Org_ID_v);
+                                    scond_Atom_cStreetName_Org_ID_v = " Atom_cStreetName_Org_ID = " + spar_Atom_cStreetName_Org_ID_v;
+                                    sval_Atom_cStreetName_Org_ID_v = spar_Atom_cStreetName_Org_ID_v;
+                                }
+
+
+
+                                string scond_Atom_cHouseNumber_Org_ID_v = " Atom_cHouseNumber_Org_ID is null ";
+                                string sval_Atom_cHouseNumber_Org_ID_v = "null";
+                                if (Atom_cHouseNumber_Org_ID_v != null)
+                                {
+                                    string spar_Atom_cHouseNumber_Org_ID_v = "@par_Atom_cHouseNumber_Org_ID_v";
+                                    SQL_Parameter par_Atom_cHouseNumber_Org_ID_v = new SQL_Parameter(spar_Atom_cHouseNumber_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cHouseNumber_Org_ID_v.v);
+                                    lpar.Add(par_Atom_cHouseNumber_Org_ID_v);
+                                    scond_Atom_cHouseNumber_Org_ID_v = " Atom_cHouseNumber_Org_ID = " + spar_Atom_cHouseNumber_Org_ID_v;
+                                    sval_Atom_cHouseNumber_Org_ID_v = spar_Atom_cHouseNumber_Org_ID_v;
+                                }
+
+                                string scond_Atom_cCity_Org_ID_v = " Atom_cCity_Org_ID is null ";
+                                string sval_Atom_cCity_Org_ID_v = "null";
+                                if (Atom_cCity_Org_ID_v != null)
+                                {
+                                    string spar_Atom_cCity_Org_ID_v = "@par_Atom_cCity_Org_ID_v";
+                                    SQL_Parameter par_Atom_cCity_Org_ID_v = new SQL_Parameter(spar_Atom_cCity_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cCity_Org_ID_v.v);
+                                    lpar.Add(par_Atom_cCity_Org_ID_v);
+                                    scond_Atom_cCity_Org_ID_v = " Atom_cCity_Org_ID = " + spar_Atom_cCity_Org_ID_v;
+                                    sval_Atom_cCity_Org_ID_v = spar_Atom_cCity_Org_ID_v;
+                                }
+
+                                string scond_Atom_cZIP_Org_ID_v = " Atom_cZIP_Org_ID is null ";
+                                string sval_Atom_cZIP_Org_ID_v = "null";
+                                if (Atom_cZIP_Org_ID_v != null)
+                                {
+                                    string spar_Atom_cZIP_Org_ID_v = "@par_Atom_cZIP_Org_ID_v";
+                                    SQL_Parameter par_Atom_cZIP_Org_ID_v = new SQL_Parameter(spar_Atom_cZIP_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cZIP_Org_ID_v.v);
+                                    lpar.Add(par_Atom_cZIP_Org_ID_v);
+                                    scond_Atom_cZIP_Org_ID_v = " Atom_cZIP_Org_ID = " + spar_Atom_cZIP_Org_ID_v;
+                                    sval_Atom_cZIP_Org_ID_v = spar_Atom_cZIP_Org_ID_v;
+                                }
+
+                                string scond_Atom_cState_Org_ID_v = " Atom_cState_Org_ID is null ";
+                                string sval_Atom_cState_Org_ID_v = "null";
+                                if (Atom_cState_Org_ID_v != null)
+                                {
+                                    string spar_Atom_cState_Org_ID_v = "@par_Atom_cState_Org_ID_v";
+                                    SQL_Parameter par_Atom_cState_Org_ID_v = new SQL_Parameter(spar_Atom_cState_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cState_Org_ID_v.v);
+                                    lpar.Add(par_Atom_cState_Org_ID_v);
+                                    scond_Atom_cState_Org_ID_v = " Atom_cState_Org_ID = " + spar_Atom_cState_Org_ID_v;
+                                    sval_Atom_cState_Org_ID_v = spar_Atom_cState_Org_ID_v;
+                                }
+
+                                string scond_Atom_cCountry_Org_ID_v = " Atom_cCountry_Org_ID is null ";
+                                string sval_Atom_cCountry_Org_ID_v = "null";
+                                if (Atom_cCountry_Org_ID_v != null)
+                                {
+                                    string spar_Atom_cCountry_Org_ID_v = "@par_Atom_cCountry_Org_ID_v";
+                                    SQL_Parameter par_Atom_cCountry_Org_ID_v = new SQL_Parameter(spar_Atom_cCountry_Org_ID_v, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_cCountry_Org_ID_v.v);
+                                    lpar.Add(par_Atom_cCountry_Org_ID_v);
+                                    scond_Atom_cCountry_Org_ID_v = " Atom_cCountry_Org_ID = " + spar_Atom_cCountry_Org_ID_v;
+                                    sval_Atom_cCountry_Org_ID_v = spar_Atom_cCountry_Org_ID_v;
+                                }
+                                string sql = "select ID from Atom_cAddress_Org where " + scond_Atom_cStreetName_Org_ID_v + " and "
+                                                                                       + scond_Atom_cHouseNumber_Org_ID_v + " and "
+                                                                                       + scond_Atom_cCity_Org_ID_v + " and "
+                                                                                       + scond_Atom_cZIP_Org_ID_v + " and "
+                                                                                       + scond_Atom_cState_Org_ID_v + " and "
+                                                                                       + scond_Atom_cCountry_Org_ID_v;
+
+                                DataTable dt = new DataTable();
+                                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                                {
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        if (cAdressAtom_Org_iD_v==null)
+                                        {
+                                            cAdressAtom_Org_iD_v = new ID_v();
+                                        }
+                                        cAdressAtom_Org_iD_v.v = (long)dt.Rows[0]["ID"];
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        sql = "insert into Atom_cAddress_Org (Atom_cStreetName_Org_ID,Atom_cHouseNumber_Org_ID,Atom_cCity_Org_ID,Atom_cZIP_Org_ID,Atom_cState_Org_ID,Atom_cCountry_Org_ID) values ("
+                                                + sval_Atom_cStreetName_Org_ID_v + ","
+                                                + sval_Atom_cHouseNumber_Org_ID_v + ","
+                                                + sval_Atom_cCity_Org_ID_v + ","
+                                                + sval_Atom_cZIP_Org_ID_v + ","
+                                                + sval_Atom_cState_Org_ID_v + ","
+                                                + sval_Atom_cCountry_Org_ID_v + ")";
+                                        long Atom_cAddress_Org_ID = -1;
+                                        object oret = null;
+                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cAddress_Org_ID, ref oret, ref Err, "Atom_cAddress_Org"))
+                                        {
+                                            if (cAdressAtom_Org_iD_v == null)
+                                            {
+                                                cAdressAtom_Org_iD_v = new ID_v();
+                                            }
+                                            cAdressAtom_Org_iD_v.v = Atom_cAddress_Org_ID;
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
+                                            return false;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         public static bool Get(long cAddress_Org_ID, ref long Atom_cAddress_Org_ID)

@@ -141,15 +141,16 @@ namespace LogFile
 
         }
 
-        internal static void Write(int Level, string type, string s)
+        private static bool xWrite(int Level, string type, string s)
         {
+            bool bRes = true; 
             if (Level <= LogLevel)
             {
 
                 DateTime dt = DateTime.Now;
-                string DateTimeString = ":"+dt.Day.ToString("D2") + ":" + dt.Month.ToString("D2") + ":" + dt.Year.ToString("D4") + ":" + dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2") + ":" + dt.Second.ToString("D2") + ":" + dt.Millisecond.ToString("D3");
+                string DateTimeString = ":" + dt.Day.ToString("D2") + ":" + dt.Month.ToString("D2") + ":" + dt.Year.ToString("D4") + ":" + dt.Hour.ToString("D2") + ":" + dt.Minute.ToString("D2") + ":" + dt.Second.ToString("D2") + ":" + dt.Millisecond.ToString("D3");
                 string sLine = LogSplitSeparator[0] + DateTimeString + "|" + type + Level.ToString() + "|" + s;
-                
+
                 if (Mutex.WaitOne(MutexTimeout_in_ms))
                 {
                     try
@@ -160,18 +161,15 @@ namespace LogFile
                     }
                     catch (Exception ex)
                     {
-                        CanNotWriteLogClass exlog = new CanNotWriteLogClass(dt, type, s,ex.Message);
+                        CanNotWriteLogClass exlog = new CanNotWriteLogClass(dt, type, s, ex.Message);
                         list_exlog.Add(exlog);
-                        if (bFirstWrite)
-                        {
-                            bFirstWrite = false;
-                            MessageBox.Show(lngRPM.s_LogFile.s + ":" + lngRPM.s_Error.s + ":" + lngRPM.s_CanNotWriteOrDeleteFileInFolder.s + ":\"" + Log_File + "\"");
-                        }
+                        bRes = false;
                     }
                     finally
                     {
                         Mutex.ReleaseMutex();
                     }
+
                 }
                 else
                 {
@@ -184,6 +182,38 @@ namespace LogFile
                     if (bTrigger)
                     {
                         MessageBox.Show(sLine, "LOG WRITE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            return bRes;
+        }
+
+        internal static void Write(int Level, string type, string s)
+        {
+            if (xWrite(Level,type,s))
+            {
+                return;
+            }
+            else
+            {
+                if (bFirstWrite)
+                {
+                    bFirstWrite = false;
+                    for (;;)
+                    {
+                        MessageBox.Show(lngRPM.s_LogFile.s + ":" + lngRPM.s_Error.s + ":" + lngRPM.s_CanNotWriteOrDeleteFileInFolder.s + ":\"" + Log_File + "\"");
+                        ManageLogs_Form mng_log = new ManageLogs_Form();
+                        if (mng_log.ShowDialog()==DialogResult.OK)
+                        {
+                            if (xWrite(Level, type, s))
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                 }
             }

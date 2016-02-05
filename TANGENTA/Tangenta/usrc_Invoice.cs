@@ -484,10 +484,10 @@ namespace Tangenta
             lngRPM.s_chk_Storno.Text(chk_Storno);
             lngRPM.s_CodeTables.Text(btn_CodeTables);
 
-            lngRPM.s_Shop_AB = new ltext(lngRPM.s_Shop_A.sText[0] + " && " + lngRPM.s_Shop_B.sText[0], lngRPM.s_Shop_A.sText[1] + " && " + lngRPM.s_Shop_B.sText[1]);
-            lngRPM.s_Shop_BC = new ltext(lngRPM.s_Shop_B.sText[0] + " && " + lngRPM.s_Shop_C.sText[0], lngRPM.s_Shop_B.sText[1] + " && " + lngRPM.s_Shop_C.sText[1]);
-            lngRPM.s_Shop_AC = new ltext(lngRPM.s_Shop_A.sText[0] + " && " + lngRPM.s_Shop_C.sText[0], lngRPM.s_Shop_A.sText[1] + " && " + lngRPM.s_Shop_C.sText[1]);
-            lngRPM.s_Shop_ABC = new ltext(lngRPM.s_Shop_A.sText[0] + " && " + lngRPM.s_Shop_B.sText[0] + " && " + lngRPM.s_Shop_C.sText[0], lngRPM.s_Shop_A.sText[1] + " && " + lngRPM.s_Shop_B.sText[1] + " && " + lngRPM.s_Shop_C.sText[1]);
+            lngRPM.s_Shop_AB = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_B.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_B.sText(1));
+            lngRPM.s_Shop_BC = new ltext(lngRPM.s_Shop_B.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_B.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
+            lngRPM.s_Shop_AC = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
+            lngRPM.s_Shop_ABC = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_B.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_B.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
 
             lngRPM.s_MyCompany.Text(lbl_MyOrganisation);
             lngRPM.s_Total.Text(this.lbl_Sum);

@@ -1,4 +1,5 @@
 ﻿using DBTypes;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -189,6 +190,66 @@ namespace InvoiceDB
 
 
 
+        public static UniversalInvoice.Person GetData(ltext token_prefix, long Atom_Customer_Person_ID)
+        {
+            string Err = null;
+            UniversalInvoice.Person univ_per = null;
+            string sql = @"select 
+                            Atom_Customer_Person_$_aper_$$Gender,
+                            Atom_Customer_Person_$_aper_$_acfn_$$FirstName,
+                            Atom_Customer_Person_$_aper_$_acln_$$LastName,
+                            Atom_Customer_Person_$_aper_$$DateOfBirth,
+                            Atom_Customer_Person_$_aper_$$Tax_ID,
+                            Atom_Customer_Person_$_aper_$$Registration_ID,
+                            Atom_Customer_Person_$_aper_$_agsmnper_$$GsmNumber,
+                            Atom_Customer_Person_$_aper_$_aphnnper_$$PhoneNumber,
+                            Atom_Customer_Person_$_aper_$_aemailper_$$Email,
+                            Atom_Customer_Person_$_aper_$_acadrper_$_astrnper_$$StreetName,
+                            Atom_Customer_Person_$_aper_$_acadrper_$_ahounper_$$HouseNumber,
+                            Atom_Customer_Person_$_aper_$_acadrper_$_acitper_$$City,
+                            Atom_Customer_Person_$_aper_$_acadrper_$_azipper_$$ZIP,
+                            Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$State,
+                            Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$Country,
+                            Atom_Customer_Person_$_aper_$$CardNumber,
+                            Atom_Customer_Person_$_aper_$_acardtper_$$CardType,
+                            Atom_Customer_Person_$_aper_$_aperimg_$$Image_Data
+                                from Atom_Customer_Person_VIEW where ID = " + Atom_Customer_Person_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    univ_per = new UniversalInvoice.Person(token_prefix, DBTypes.tf._set_bool(dt.Rows[0]["Atom_Customer_Person_$_aper_$$Gender"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acfn_$$FirstName"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acln_$$LastName"]),
+                                                         DBTypes.tf._set_DateTime(dt.Rows[0]["Atom_Customer_Person_$_aper_$$DateOfBirth"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$$Tax_ID"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$$Registration_ID"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_agsmnper_$$GsmNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_aphnnper_$$PhoneNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_aemailper_$$Email"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$$CardNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acardtper_$$CardType"]),
+                                                         DBTypes.tf._set_byte_array(dt.Rows[0]["Atom_Customer_Person_$_aper_$_aperimg_$$Image_Data"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_astrnper_$$StreetName"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_ahounper_$$HouseNumber"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_azipper_$$ZIP"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_acitper_$$City"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$State"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$Country"]));
+                    return univ_per;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_Person:GetData:sql=" + sql + "\r\nErr=" + Err);
+            }
+            return null;
+        }
 
 
 

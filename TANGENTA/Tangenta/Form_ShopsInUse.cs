@@ -69,9 +69,9 @@ namespace Tangenta
                 MessageBox.Show(this, lngRPM.s_Warning.s, lngRPM.s_YouMustSelectAtLeastOneShop.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 return;
             }
-            lngRPM.s_Shop_A.sText[DynSettings.LanguageID] = txt_ShopA_Name.Text;
-            lngRPM.s_Shop_B.sText[DynSettings.LanguageID] = txt_ShopB_Name.Text;
-            lngRPM.s_Shop_C.sText[DynSettings.LanguageID] = txt_ShopC_Name.Text;
+            lngRPM.s_Shop_A.sText(DynSettings.LanguageID,txt_ShopA_Name.Text);
+            lngRPM.s_Shop_B.sText(DynSettings.LanguageID,txt_ShopB_Name.Text);
+            lngRPM.s_Shop_C.sText(DynSettings.LanguageID,txt_ShopC_Name.Text);
             DynSettings.LanguageTextSave();
             Properties.Settings.Default.eShopsInUse = shinuse;
             Properties.Settings.Default.Save();

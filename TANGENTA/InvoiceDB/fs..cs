@@ -1607,5 +1607,37 @@ namespace InvoiceDB
             }
         }
 
+        public static object MyConvertToShort(object v)
+        {
+            if (v is int)
+            {
+                return Convert.ToInt16(v);
+            }
+            else if (v is uint)
+            {
+                return Convert.ToInt16(v);
+            }
+            else if (v is long)
+            {
+                return Convert.ToInt16(v);
+            }
+            else if (v is ulong)
+            {
+                return Convert.ToInt16(v);
+            }
+            else if (v is short)
+            {
+                return Convert.ToInt16(v);
+            }
+            else if (v is ushort)
+            {
+                return Convert.ToInt16(v);
+            }
+            else
+            {
+                return System.DBNull.Value;
+            }
+        }
+
     }
 }

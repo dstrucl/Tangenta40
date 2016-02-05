@@ -149,7 +149,7 @@ namespace InvoiceDB
                     myOrg.Address_v.State_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State"]);
                     myOrg.Address_v.State_ISO_3166_a2_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_a2"]);
                     myOrg.Address_v.State_ISO_3166_a3_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_a3"]);
-                    myOrg.Address_v.State_ISO_3166_num_v = tf.set_short(MyConvertToShort(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_num"]));
+                    myOrg.Address_v.State_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_num"]));
                     myOrg.Address_v.Country_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_ccouorg_$$Country"]);
                     if (myOrg.ID_v != null)
                     {
@@ -162,38 +162,6 @@ namespace InvoiceDB
             {
                 LogFile.Error.Show("ERROR:MyOrg:Get:sql=" + sql+"\r\nErr="+Err);
                 return false;
-            }
-        }
-
-        private static object MyConvertToShort(object v)
-        {
-            if (v is int)
-            {
-                return Convert.ToInt16(v);
-            }
-            else if (v is uint)
-            {
-                return Convert.ToInt16(v);
-            }
-            else if (v is long)
-            {
-                return Convert.ToInt16(v);
-            }
-            else if (v is ulong)
-            {
-                return Convert.ToInt16(v);
-            }
-            else if (v is short)
-            {
-                return Convert.ToInt16(v);
-            }
-            else if (v is ushort)
-            {
-                return Convert.ToInt16(v);
-            }
-            else
-            {
-                return System.DBNull.Value;
             }
         }
     }

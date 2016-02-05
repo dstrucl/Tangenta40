@@ -70,9 +70,8 @@ namespace LogFile
             }
         }
 
-        private void btn_SaveSettings_Click(object sender, EventArgs e)
+        private bool SaveSettings()
         {
-            //Properties.Log.Default.LogFile = txtLogFile.Text;
             if (MessageBox.Show(this, "Save new Log settings ?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
             {
                 Settings.LogFolder = txt_LogFolder.Text;
@@ -82,7 +81,18 @@ namespace LogFile
                 LogFile.WriteLog2DBOnProgramExit = chk_WriteLog2DB_on_exit.Checked; // write Settings.Log2DB in property
                 Settings.Save();
                 LogFile.SetLogFile();
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
+
+    private void btn_SaveSettings_Click(object sender, EventArgs e)
+        {
+            //Properties.Log.Default.LogFile = txtLogFile.Text;
+            SaveSettings();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -199,6 +209,25 @@ namespace LogFile
                     break;
             }
 
+        }
+
+        private void btn_OK_Click(object sender, EventArgs e)
+        {
+            if (SaveSettings())
+            {
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                DialogResult = DialogResult.Cancel;
+            }
+            Close();
+        }
+
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }

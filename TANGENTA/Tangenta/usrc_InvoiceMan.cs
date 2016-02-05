@@ -89,7 +89,7 @@ namespace Tangenta
             string Err = null;
             if (m_usrc_Invoice.Get_BaseCurrency(ref Err))
             {
-                int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,Properties.Settings.Default.FinancialYear);
+                int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,true,Properties.Settings.Default.FinancialYear);
                 if (iRowsCount == 0)
                 {
                     if (!m_usrc_Invoice.Init(m_pparent, this,-1, true))
@@ -157,7 +157,7 @@ namespace Tangenta
                 {
                     Properties.Settings.Default.FinancialYear = iFinancialYear;
                     Properties.Settings.Default.Save();
-                    this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, Properties.Settings.Default.FinancialYear);
+                    this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear);
                 }
             }
         }
@@ -200,7 +200,7 @@ namespace Tangenta
         {
             splitContainer1.Panel2Collapsed = false;
             SetMode(eMode.Items_and_ProformaInvoices);
-            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false, Properties.Settings.Default.FinancialYear);
+            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear);
         }
 
         private void m_usrc_InvoiceTable_SelectedInvoiceChanged(long ProformaInvoice_ID,bool bInitialise)
@@ -229,7 +229,7 @@ namespace Tangenta
                     DateTime dtStart = DateTime.Now;
                     DateTime dtEnd = DateTime.Now;
                     m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
-                    m_usrc_InvoiceTable.Init(eInvType,true,Properties.Settings.Default.FinancialYear);
+                    m_usrc_InvoiceTable.Init(eInvType,true,false,Properties.Settings.Default.FinancialYear);
                 }
                 else
                 {
@@ -249,7 +249,7 @@ namespace Tangenta
             if (this.m_usrc_InvoiceTable.Visible)
             {
                 Customer_Changed = false;
-                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,Properties.Settings.Default.FinancialYear);
+                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false,Properties.Settings.Default.FinancialYear);
             }
         }
 
@@ -259,13 +259,13 @@ namespace Tangenta
             if (this.m_usrc_InvoiceTable.Visible)
             {
                 Customer_Changed = false;
-                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, Properties.Settings.Default.FinancialYear);
+                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear);
             }
         }
 
         private void m_usrc_Invoice_Storno(bool bStorno)
         {
-            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, Properties.Settings.Default.FinancialYear);
+            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear);
         }
 
         private void m_usrc_Invoice_Load(object sender, EventArgs e)

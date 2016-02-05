@@ -17,9 +17,9 @@ namespace UniversalInvoice
 
         public Invoice_FURS_Token()
         {
-            tUniqueMessageID = new TemplateToken(lngToken.st_Invoice, lngToken.st_UniqueMessageID.sText, null, null);
-            tUniqueInvoiceID = new TemplateToken(lngToken.st_Invoice, lngToken.st_UniqueInvoiceID.sText, null, null);
-            tQR = new TemplateToken(lngToken.st_Invoice, lngToken.st_QR.sText, null, null);
+            tUniqueMessageID = new TemplateToken(lngToken.st_Invoice, lngToken.st_UniqueMessageID, null, null);
+            tUniqueInvoiceID = new TemplateToken(lngToken.st_Invoice, lngToken.st_UniqueInvoiceID, null, null);
+            tQR = new TemplateToken(lngToken.st_Invoice, lngToken.st_QR, null, null);
 
             list = new List<TemplateToken>();
             list.Add(tUniqueMessageID);

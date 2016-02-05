@@ -56,7 +56,6 @@
     <Compile Include="f_Atom_Computer.cs" />
     <Compile Include="f_Atom_cState_Org.cs" />
     <Compile Include="f_Atom_cStreetName_Org.cs" />
-    <Compile Include="f_Atom_CustomerPerson.cs" />
     <Compile Include="f_Atom_Customer_Org.cs" />
     <Compile Include="f_Atom_cZIP_Org.cs" />
     <Compile Include="f_Atom_FVI_SLO_RealEstateBP.cs" />
@@ -67,6 +66,7 @@
     <Compile Include="f_Atom_Office_Data.cs" />
     <Compile Include="f_Atom_Organisation.cs" />
     <Compile Include="f_Atom_OrganisationData.cs" />
+    <Compile Include="f_Atom_Customer_Person.cs" />
     <Compile Include="f_Atom_Person.cs" />
     <Compile Include="f_Atom_PriceList.cs" />
     <Compile Include="f_Atom_WorkingPlace.cs" />

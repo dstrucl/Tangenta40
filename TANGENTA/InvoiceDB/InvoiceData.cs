@@ -792,7 +792,7 @@ namespace InvoiceDB
                         if (oAtom_Customer_Org_ID is long)
                         {
                             long Atom_Customer_Org_ID = (long)oAtom_Customer_Org_ID;
-                            CustomerOrganisation = f_Atom_OrganisationData.GetData(lngToken.st_Customer, Atom_Customer_Org_ID);
+                            CustomerOrganisation = f_Atom_Customer_Org.GetData(lngToken.st_Customer, Atom_Customer_Org_ID);
                         }
                         else
                         {
@@ -803,7 +803,7 @@ namespace InvoiceDB
                         if (dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
                         {
                             long Atom_Customer_Person_ID = (long)dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"];
-                            CustomerPerson = f_Atom_Person.GetData(lngToken.st_Customer, Atom_Customer_Person_ID);
+                            CustomerPerson = f_Atom_Customer_Person.GetData(lngToken.st_Customer, Atom_Customer_Person_ID);
                         }
                         else
                         {

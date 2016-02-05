@@ -80,7 +80,7 @@ namespace LanguageControl
         void btn_Click(object sender, EventArgs e)
         {
             ltext xltext = (ltext)((Button)sender).Tag;
-            xltext.Edit(ref xltext.sText);
+            xltext.Edit(ref xltext);
         }
     }
 }

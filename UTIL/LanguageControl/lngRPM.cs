@@ -139,10 +139,10 @@ namespace LanguageControl
         public static ltext s_Shop_A = new ltext("A", "A");
         public static ltext s_Shop_B = new ltext("B", "B");
         public static ltext s_Shop_C = new ltext("C", "C");
-        public static ltext s_Shop_AB = new ltext(s_Shop_A.sText[0]+"&"+ s_Shop_B.sText[0], s_Shop_A.sText[1] + "&" + s_Shop_B.sText[1]);
-        public static ltext s_Shop_BC = new ltext(s_Shop_B.sText[0] + "&" + s_Shop_C.sText[0], s_Shop_B.sText[1] + "&" + s_Shop_C.sText[1]);
-        public static ltext s_Shop_AC = new ltext(s_Shop_A.sText[0] + "&" + s_Shop_C.sText[0], s_Shop_A.sText[1] + "&" + s_Shop_C.sText[1]);
-        public static ltext s_Shop_ABC = new ltext(s_Shop_A.sText[0] + "&" + s_Shop_B.sText[0] + "&" + s_Shop_C.sText[0], s_Shop_A.sText[1] + "&" + s_Shop_B.sText[1] + "&" + s_Shop_C.sText[1]);
+        public static ltext s_Shop_AB = new ltext(s_Shop_A.sText(0)+"&"+ s_Shop_B.sText(0), s_Shop_A.sText(1) + "&" + s_Shop_B.sText(1));
+        public static ltext s_Shop_BC = new ltext(s_Shop_B.sText(0) + "&" + s_Shop_C.sText(0), s_Shop_B.sText(1) + "&" + s_Shop_C.sText(1));
+        public static ltext s_Shop_AC = new ltext(s_Shop_A.sText(0) + "&" + s_Shop_C.sText(0), s_Shop_A.sText(1) + "&" + s_Shop_C.sText(1));
+        public static ltext s_Shop_ABC = new ltext(s_Shop_A.sText(0) + "&" + s_Shop_B.sText(0) + "&" + s_Shop_C.sText(0), s_Shop_A.sText(1) + "&" + s_Shop_B.sText(1) + "&" + s_Shop_C.sText(1));
 
         public static ltext s_Abort = new ltext("Abort", "Prekini");
         public static ltext s_Retry = new ltext("Retry", "Ponovi");
