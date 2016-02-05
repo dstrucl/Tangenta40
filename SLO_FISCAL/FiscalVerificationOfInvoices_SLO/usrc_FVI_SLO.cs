@@ -130,15 +130,9 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public bool Start(ref string ErrReason)
         {
-            
-
-            //Properties.Settings.Default.Save();  //shranis setings
-
-
             if (!bRun)
             {
                 message_box = new usrc_FVI_SLO_MessageBox(MessageBox_Length);
-
                 DialogResult dlgResult = DialogResult.None;
                 while (dlgResult != DialogResult.Cancel)
                 {
@@ -166,10 +160,24 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
+        public bool End()
+        {
+            if (bRun)
+            {
+                bRun = false;
+                timer_MessagePump.Enabled = false;
+                thread_fvi.End(message_box);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID, ref string barcode_value, ref Image Image_QR)
         {
             LastMessageID++;
-
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
             FormFURSCommunication = new FormFURSCommunication(this, msg);
             if (FormFURSCommunication.ShowDialog()== DialogResult.OK)
@@ -184,17 +192,13 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 return Result_MessageBox_Post.ERROR;
             }
-            
-
         }
 
         public Result_MessageBox_Post Send_ManyInvoices(long Message_ID, string xml)
         {
             LastMessageID++;
-
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_MANY_INVOICES, xml);
             FormFURSCommunication = new FormFURSCommunication(this, msg);
-          //  FormFURSCommunication.ShowDialog();
             if (FormFURSCommunication.ShowDialog() == DialogResult.OK)
             {
                 return Result_MessageBox_Post.OK;
@@ -210,7 +214,6 @@ namespace FiscalVerificationOfInvoices_SLO
         public Result_MessageBox_Post Send_PP(string xml)
         {
             LastMessageID++;
-
             Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE, xml);
             FormFURSCommunication = new FormFURSCommunication(this, msg);
   
@@ -240,22 +243,7 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
-        public bool End()
-        {
-
-            if (bRun)
-            {
-                bRun = false;
-                timer_MessagePump.Enabled = false;
-                thread_fvi.End(message_box);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
+   
 
         private void timer_MessagePump_Tick(object sender, EventArgs e)
         {
@@ -445,6 +433,22 @@ namespace FiscalVerificationOfInvoices_SLO
 
 
 
+        }
+
+
+        public bool ManageErrors(string errorDesc)
+        {
+            bool ret = true;
+
+            //  two groups of errors    a. error incorect data   b. communication errors  
+             // a no repeat  goto sales book 
+
+           // b try to 
+
+
+
+
+            return ret;
         }
 
         #endregion

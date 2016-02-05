@@ -135,6 +135,28 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;fu:InvoiceRequest xmlns:fu=&quot;http://www.fu.gov.si/&quot; Id=&quot;data&quot;&gt;
+        ///&lt;fu:SalesBookInvoice&gt;
+        ///	&lt;fu:TaxNumber&gt;10329048&lt;/fu:TaxNumber&gt;
+        ///	&lt;fu:IssueDate&gt;2015-09-07&lt;/fu:IssueDate&gt;
+        ///
+        ///	&lt;fu:SalesBookIdentifier&gt;
+        ///		&lt;fu:InvoiceNumber&gt;612&lt;/fu:InvoiceNumber&gt;
+        ///		&lt;fu:SetNumber&gt;03&lt;/fu:SetNumber&gt;
+        ///		&lt;fu:SerialNumber&gt;5001-0001018&lt;/fu:SerialNumber&gt;
+        ///	&lt;/fu:SalesBookIdentifier&gt;
+        ///	&lt;fu:BusinessPremiseID&gt;KUNAVE6&lt;/fu:BusinessPremiseID&gt;
+        ///	&lt;fu:InvoiceAmount&gt;1060.06&lt;/fu:InvoiceAmount&gt;
+        ///	&lt;fu:ReturnsAm [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FYI_SLO_SalesBook {
+            get {
+                return ResourceManager.GetString("FYI_SLO_SalesBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap TAX_Office_Connection_NONE {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fu:InvoiceRequest xmlns:fu="http://www.fu.gov.si/" Id="test">
 	<fu:Invoice>
-		<fu:TaxNumber>10329048</fu:TaxNumber>
+		<fu:TaxNumber>10329048x</fu:TaxNumber>
 		<fu:IssueDateTime>2015-08-07T13:05:24</fu:IssueDateTime>
 		<fu:NumberingStructure>B</fu:NumberingStructure>
 		<fu:InvoiceIdentifier>
