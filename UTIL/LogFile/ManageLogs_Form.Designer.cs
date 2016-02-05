@@ -48,6 +48,8 @@
             this.btn_Log2DB = new System.Windows.Forms.Button();
             this.chk_WriteLog2DB_on_exit = new System.Windows.Forms.CheckBox();
             this.lst_ActiveLogLevels = new System.Windows.Forms.ListBox();
+            this.btn_OK = new System.Windows.Forms.Button();
+            this.btn_Cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDown_LogLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDown_MutexTimeout)).BeginInit();
             this.SuspendLayout();
@@ -237,7 +239,7 @@
             this.txt__ExceptionLogs.Name = "txt__ExceptionLogs";
             this.txt__ExceptionLogs.ReadOnly = true;
             this.txt__ExceptionLogs.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt__ExceptionLogs.Size = new System.Drawing.Size(721, 233);
+            this.txt__ExceptionLogs.Size = new System.Drawing.Size(721, 194);
             this.txt__ExceptionLogs.TabIndex = 18;
             // 
             // btn_Log2DB
@@ -274,11 +276,35 @@
             this.lst_ActiveLogLevels.Size = new System.Drawing.Size(240, 69);
             this.lst_ActiveLogLevels.TabIndex = 21;
             // 
+            // btn_OK
+            // 
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.Location = new System.Drawing.Point(13, 466);
+            this.btn_OK.Name = "btn_OK";
+            this.btn_OK.Size = new System.Drawing.Size(66, 29);
+            this.btn_OK.TabIndex = 22;
+            this.btn_OK.Text = "OK";
+            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
+            // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Cancel.Location = new System.Drawing.Point(132, 466);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(66, 29);
+            this.btn_Cancel.TabIndex = 23;
+            this.btn_Cancel.Text = "Cancel";
+            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            // 
             // ManageLogs_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(737, 505);
+            this.Controls.Add(this.btn_Cancel);
+            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.lst_ActiveLogLevels);
             this.Controls.Add(this.chk_WriteLog2DB_on_exit);
             this.Controls.Add(this.btn_Log2DB);
@@ -332,5 +358,7 @@
         private System.Windows.Forms.Button btn_Log2DB;
         private System.Windows.Forms.CheckBox chk_WriteLog2DB_on_exit;
         private System.Windows.Forms.ListBox lst_ActiveLogLevels;
+        private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.Button btn_Cancel;
     }
 }

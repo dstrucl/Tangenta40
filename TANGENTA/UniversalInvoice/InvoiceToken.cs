@@ -29,24 +29,24 @@ namespace UniversalInvoice
 
         public InvoiceToken()
         {
-            tFiscalYear = new TemplateToken(lngToken.st_Invoice, lngToken.st_FiscalYear.sText, null,null);
-            tInvoiceNumber = new TemplateToken(lngToken.st_Invoice, lngToken.st_Number.sText, null,null);
-            tCashier = new TemplateToken(lngToken.st_Invoice, lngToken.st_Cashier.sText, null, null);
-            tIssuerOfInvoice = new TemplateToken(lngToken.st_Invoice, lngToken.st_IssuerOfInvoice.sText, null,null);
+            tFiscalYear = new TemplateToken(lngToken.st_Invoice, lngToken.st_FiscalYear, null,null);
+            tInvoiceNumber = new TemplateToken(lngToken.st_Invoice, lngToken.st_Number, null,null);
+            tCashier = new TemplateToken(lngToken.st_Invoice, lngToken.st_Cashier, null, null);
+            tIssuerOfInvoice = new TemplateToken(lngToken.st_Invoice, lngToken.st_IssuerOfInvoice, null,null);
 
 
-            tDateOfIssue = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfIssue.sText, null,null);
-            tDateOfMaturity = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfMaturity.sText, null, null);
-            tPaymentType = new TemplateToken(lngToken.st_Invoice, lngToken.st_PaymentType.sText, null, null);
+            tDateOfIssue = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfIssue, null,null);
+            tDateOfMaturity = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfMaturity, null, null);
+            tPaymentType = new TemplateToken(lngToken.st_Invoice, lngToken.st_PaymentType, null, null);
 
 
-            tSumNetPrice = new TemplateToken(lngToken.st_Invoice, lngToken.st_SumNetPrice.sText, null, null);
-            tTaxRateName = new TemplateToken(lngToken.st_Invoice, lngToken.st_TaxRateName.sText, null, null);
-            tSumTax = new TemplateToken(lngToken.st_Invoice, lngToken.st_SumTax.sText, null, null);
-            tTotalSum = new TemplateToken(lngToken.st_Invoice, lngToken.st_TotalSum.sText, null, null);
+            tSumNetPrice = new TemplateToken(lngToken.st_Invoice, lngToken.st_SumNetPrice, null, null);
+            tTaxRateName = new TemplateToken(lngToken.st_Invoice, lngToken.st_TaxRateName, null, null);
+            tSumTax = new TemplateToken(lngToken.st_Invoice, lngToken.st_SumTax, null, null);
+            tTotalSum = new TemplateToken(lngToken.st_Invoice, lngToken.st_TotalSum, null, null);
 
-            tNotice = new TemplateToken(lngToken.st_Invoice, lngToken.st_Notice.sText, null, null);
-            tFooter = new TemplateToken(lngToken.st_Invoice, lngToken.st_Footer.sText, null, null);
+            tNotice = new TemplateToken(lngToken.st_Invoice, lngToken.st_Notice, null, null);
+            tFooter = new TemplateToken(lngToken.st_Invoice, lngToken.st_Footer, null, null);
 
             list = new List<TemplateToken>();
             list.Add(tFiscalYear);

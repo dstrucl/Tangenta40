@@ -38,9 +38,7 @@ namespace InvoiceDB
           //  long_v Atom_Organisation_ID_v = null;
 
             ID_v cAdressAtom_Org_iD_v = null;
-            SQLTable t_cAdressAtom_Org = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_cAddress_Org)));
-            t_cAdressAtom_Org.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-            if (myOrg.Address_v.Get_Address_Tabel_ID(t_cAdressAtom_Org, ref cAdressAtom_Org_iD_v))
+            if (f_Atom_cAddress_Org.Get(Address_v, ref cAdressAtom_Org_iD_v))
             {
                 ID_v cHomePage_Org_ID_v = null;
                 string cHomePage_Org_ID_v_cond = "cHomePage_Org_ID is null";
@@ -211,6 +209,8 @@ namespace InvoiceDB
             return false;
         }
 
+
+
         public static bool GetData(long Atom_Organisation_ID,
                                 ref string Name,
                                 ref string Tax_ID,
@@ -308,9 +308,9 @@ namespace InvoiceDB
                                 Atom_OrganisationData_$_orgt_$$OrganisationTYPE,
                                 Atom_OrganisationData_$$BankName,
                                 Atom_OrganisationData_$$TRR,
-                                Atom_OrganisationData_$_alogo.Image_Hash AS Atom_OrganisationData_$_alogo_$$Image_Hash,
-                                Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data,
-                                Atom_OrganisationData_$_alogo.Description AS Atom_OrganisationData_$_alogo_$$Description
+                                Atom_OrganisationData_$_alogo_$$Image_Hash,
+                                Atom_OrganisationData_$_alogo_$$Image_Data,
+                                Atom_OrganisationData_$_alogo_$$Description
                                 from Atom_OrganisationData_VIEW where Atom_OrganisationData_$_aorg_$$ID = " + Atom_Organisation_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
@@ -327,7 +327,7 @@ namespace InvoiceDB
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_chomepgorg_$$HomePage"]),
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cphnnorg_$$PhoneNumber"]),
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cfaxnorg_$$FaxNumber"]),
-                                                         DBTypes.tf._set_byte_array(dt.Rows[0]["Atom_OrganisationData_$_alogo.Image_Data AS Atom_OrganisationData_$_alogo_$$Image_Data"]),
+                                                         DBTypes.tf._set_byte_array(dt.Rows[0]["Atom_OrganisationData_$_alogo_$$Image_Data"]),
 
                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astrnorg_$$StreetName"]),
                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]),

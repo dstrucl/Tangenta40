@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBTypes;
 
 namespace InvoiceDB
 {
@@ -86,6 +87,62 @@ namespace InvoiceDB
             else
             {
                 LogFile.Error.Show("ERROR:f_Atom_cStreetName_Org:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool Get(string_v streetName_v, ref long_v atom_cStreetName_Org_ID_v)
+        {
+            if (streetName_v != null)
+            {
+                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                string spar = "@par";
+                SQL_Parameter par = new SQL_Parameter(spar, SQL_Parameter.eSQL_Parameter.Nvarchar,false, streetName_v.v);
+                lpar.Add(par);
+                string sql = @"select ID from Atom_cStreetName_Org where StreetName = @par";
+                DataTable dt = new DataTable();
+                string Err = null;
+                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (atom_cStreetName_Org_ID_v == null)
+                        {
+                            atom_cStreetName_Org_ID_v = new long_v();
+                        }
+                        atom_cStreetName_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        return true;
+                    }
+                    else
+                    {
+                        sql = @"insert into Atom_cStreetName_Org (StreetName) values (@par)";
+                        long Atom_cStreetName_Org_ID = -1;
+                        object oret = null;
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_cStreetName_Org_ID, ref oret, ref Err, "Atom_cStreetName_Org"))
+                        {
+                            if (atom_cStreetName_Org_ID_v == null)
+                            {
+                                atom_cStreetName_Org_ID_v = new long_v();
+                            }
+                            atom_cStreetName_Org_ID_v.v = Atom_cStreetName_Org_ID;
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_cStreetName_Org:Get(string_v streetName_v, ref long_v atom_cStreetName_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_cStreetName_Org:Get(string_v streetName_v, ref long_v atom_cStreetName_Org_ID_v) sql="+sql+"\r\nErr="+Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_cStreetName_Org:Get(string_v streetName_v, ref long_v atom_cStreetName_Org_ID_v) streetName_v may not be null!");
                 return false;
             }
         }

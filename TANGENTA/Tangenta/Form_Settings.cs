@@ -33,7 +33,7 @@ namespace Tangenta
             lngRPM.s_Shops_In_Use.Text(btn_Shops_in_use);
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
-            cmb_Language.DataSource = DynSettings.s_language.sText;
+            cmb_Language.DataSource = DynSettings.s_language.sTextArr;
             cmb_Language.SelectedIndex = DynSettings.LanguageID;
             cmb_Language.SelectedIndexChanged += cmb_Language_SelectedIndexChanged;
 

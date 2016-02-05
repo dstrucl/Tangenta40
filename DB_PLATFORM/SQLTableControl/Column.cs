@@ -104,7 +104,7 @@ namespace SQLTableControl
             //int iCount = c.Name_in_language.sText.Length;
             //for (int i = 0; i < iCount; i++)
             //{
-            //    Name_in_language.sText[i] = c.Name_in_language.sText[i];
+            //    Name_in_language.sText(i) = c.Name_in_language.sText(i);
             //}
 
         }
@@ -131,7 +131,7 @@ namespace SQLTableControl
 
             //for (int i = 0; i < iCount;i++)
             //{
-            //    Name_in_language.sText[i] = c.Name_in_language.sText[i];
+            //    Name_in_language.sText(i) = c.Name_in_language.sText(i);
             //}
 
         }
@@ -144,7 +144,7 @@ namespace SQLTableControl
             nulltype = xType;
             flags = xflags;
            // int i = 0;
-            int iCount = Name_in_lang.sText.Length;
+            int iCount = Name_in_lang.sText_Length;
             this.ownerTable = owner;
 
             Name = StaticLib.Func.GetNameFromObjectType(obj);
@@ -158,7 +158,7 @@ namespace SQLTableControl
 
             //for (i = 0; i < iCount; i++)
             //{
-            //    Name_in_language.sText[i]=Name_in_lang.sText[i];
+            //    Name_in_language.sText(i)=Name_in_lang.sText(i);
             //}
         }
 
@@ -242,10 +242,10 @@ namespace SQLTableControl
 
                         refTable = new_ref_Table;
                         this.Name = refTable.TableName;
-                        int iCount = this.Name_in_language.sText.Length;
+                        int iCount = this.Name_in_language.sText_Length;
                         for (int i = 0; i < iCount; i++)
                         {
-                            this.Name_in_language.sText[i] = refTable.lngTableName.sText[i] + ":" + this.Name_in_language.sText[i];
+                            this.Name_in_language.sText(i, refTable.lngTableName.sText(i) + ":" + this.Name_in_language.sText(i));
                         }
                     }
                     this.Name = this.Name + "_ID";
@@ -319,10 +319,10 @@ namespace SQLTableControl
 
                         refTable = new_ref_Table;
                         this.Name = refTable.TableName;
-                        int iCount = this.Name_in_language.sText.Length;
+                        int iCount = this.Name_in_language.sText_Length;
                         for (int i = 0; i < iCount; i++)
                         {
-                            this.Name_in_language.sText[i] = refTable.lngTableName.sText[i] + "_" + this.Name_in_language.sText[i];
+                            this.Name_in_language.sText(i,refTable.lngTableName.sText(i) + "_" + this.Name_in_language.sText(i));
                         }
                     }
                      this.Name =  this.Name  + "_ID";
@@ -408,10 +408,10 @@ namespace SQLTableControl
 
                         refTable = new_ref_Table;
                         this.Name = refTable.TableName;
-                        int iCount = this.Name_in_language.sText.Length;
+                        int iCount = this.Name_in_language.sText_Length;
                         for (int i = 0; i < iCount; i++)
                         {
-                            this.Name_in_language.sText[i] = refTable.lngTableName.sText[i] + ":" + this.Name_in_language.sText[i];
+                            this.Name_in_language.sText(i,refTable.lngTableName.sText(i) + ":" + this.Name_in_language.sText(i));
                         }
                     }
                     this.Name = this.Name + "_ID";

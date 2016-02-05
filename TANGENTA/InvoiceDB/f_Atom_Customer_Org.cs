@@ -1,4 +1,5 @@
 ﻿using DBTypes;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,6 +34,9 @@ namespace InvoiceDB
                                     OrganisationData_$_cadrorg_$_cziporg_$$ZIP,
                                     OrganisationData_$_cadrorg_$_ccitorg_$$City,
                                     OrganisationData_$_cadrorg_$_cstorg_$$State,
+                                    OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_a2,
+                                    OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_a3,
+                                    OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_num,
                                     OrganisationData_$_cadrorg_$_ccouorg_$$Country,
                                     OrganisationData_$_cphnnorg_$$PhoneNumber,
                                     OrganisationData_$_cfaxnorg_$$FaxNumber,
@@ -56,6 +60,9 @@ namespace InvoiceDB
                             Address_v.ZIP_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cziporg_$$ZIP"]);
                             Address_v.City_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccitorg_$$City"]);
                             Address_v.State_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State"]);
+                            Address_v.State_ISO_3166_a2_v= tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_a2"]);
+                            Address_v.State_ISO_3166_a3_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_a3"]);
+                            Address_v.State_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_num"]));
                             Address_v.Country_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccouorg_$$Country"]);
                             string_v PhoneNumber_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cphnnorg_$$PhoneNumber"]);
                             string_v FaxNumber_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cfaxnorg_$$FaxNumber"]);
@@ -175,6 +182,30 @@ namespace InvoiceDB
             }
         }
 
+        public static UniversalInvoice.Organisation GetData(ltext token_prefix, long Atom_Customer_Org_ID)
+        {
+            string sql = "select Atom_Organisation_ID from Atom_Customer_Org where ID = " + Atom_Customer_Org_ID.ToString();
+            string Err = null;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt,sql, ref Err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    long Atom_Organisation_ID = (long)dt.Rows[0]["Atom_Organisation_ID"];
+                    return f_Atom_OrganisationData.GetData(token_prefix, Atom_Organisation_ID);
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_Customer_Org:GetData:sql=" + sql + "Err=!(dt.Rows.Count>0)");
+                    return null;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_Customer_Org:GetData:sql=" + sql + "Err="+Err);
+                return null;
+            }
+        }
 
 
         private static bool Find_Customer(long Customer_Org_ID, ref long Org_ID, ref long Customer_ID)

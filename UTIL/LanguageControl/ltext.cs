@@ -12,7 +12,72 @@ namespace LanguageControl
 {
     public class ltext
     {
-        public string[] sText = new string[DynSettings.MAX_NUMBER_OF_LANGUAGES];
+        private string[] m_sText = new string[DynSettings.MAX_NUMBER_OF_LANGUAGES];
+
+        public void sText(int i,string s)
+        {
+            if (i< m_sText.Length)
+            {
+                m_sText[i] = s;
+            }
+        }
+
+        public string[] sTextArr
+        {
+            get
+            {
+                return m_sText;
+            }
+        }
+
+        public int sText_Length
+        {
+            get
+            {
+               return m_sText.Length;
+            }
+        }
+
+        public void sText(ltext tokenInLanguage)
+        {
+            int i = 0;
+            int iCount = m_sText.Length;
+            for (i = 0; i < iCount; i++)
+            {
+                if (i < tokenInLanguage.sText_Length)
+                {
+                    m_sText[i] = tokenInLanguage.sText(i);
+                }
+            }
+        }
+
+        public void sText(string[] tokenInLanguage)
+        {
+            int i = 0;
+            int iCount = m_sText.Length;
+            for (i = 0; i < iCount; i++)
+            {
+                if (i < tokenInLanguage.Length)
+                {
+                    m_sText[i] = tokenInLanguage[i];
+                }
+            }
+        }
+
+
+        public string sText(int i)
+        {
+            if (i < m_sText.Length)
+            {
+                return m_sText[i];
+            }
+            else
+            {
+                MessageBox.Show("ERROR:LanguageControl:sText(int i):i>=m_sText.Length");
+                return null;
+            }
+        }
+
         public List<object> complex_text_list = null;
         Control m_ctrl = null;
         public string s
@@ -21,7 +86,7 @@ namespace LanguageControl
             {
                 if (complex_text_list == null)
                 {
-                    return sText[DynSettings.LanguageID];
+                    return m_sText[DynSettings.LanguageID];
                 }
                 else
                 {
@@ -52,34 +117,35 @@ namespace LanguageControl
         {
             int i = 0;
             ltext lt = null;
-            int iCount = this.sText.Count();
+            int iCount = this.m_sText.Count();
             for (i=0;i< iCount;i++)
             {
-                if (this.sText[i]!=null)
+                if (this.m_sText[i]!=null)
                 {
                     if (lt==null)
                     {
                         lt = new ltext();
                     }
-                    lt.sText[i] = this.sText[i];
-                    if (st_Address.sText[i]!=null)
+                    lt.m_sText[i] = this.m_sText[i];
+                    if (st_Address.m_sText[i]!=null)
                     {
-                        lt.sText[i] = this.sText[i] + "_" + st_Address.sText[i];
+                        lt.m_sText[i] = this.m_sText[i] + "_" + st_Address.m_sText[i];
                     }
                     else
                     {
-                        lt.sText[i] = this.sText[i];
+                        lt.m_sText[i] = this.m_sText[i];
                     }
                 }
             }
             return lt;
         }
 
+
         public string GetText(int i)
         {
             if (complex_text_list == null)
             {
-                return sText[i];
+                return m_sText[i];
             }
             else
             {
@@ -107,8 +173,15 @@ namespace LanguageControl
 
         public ltext(string Lang1, string Lang2)
         {
-            sText[0] = Lang1;
-            sText[1] = Lang2;
+            if (m_sText[0] != null)
+            {
+                if (m_sText[0].Equals("IssuerOfInvoice"))
+                {
+                    MessageBox.Show("STOP IssuerOfInvoice");
+                }
+            }
+            m_sText[0] = Lang1;
+            m_sText[1] = Lang2;
         }
 
         public ltext(List<object> complex_text)
@@ -122,9 +195,15 @@ namespace LanguageControl
             // TODO: Complete member initialization
         }
 
-        public bool Edit(ref string[] sText)
+        internal bool Edit(ref ltext xltext)
         {
-            Form_ltext_Edit dlgedit = new Form_ltext_Edit(this, ref sText);
+            Form_ltext_Edit dlgedit = new Form_ltext_Edit(this, ref xltext.m_sText);
+            return dlgedit.ShowDialog() == DialogResult.Yes;
+        }
+
+        internal bool Edit()
+        {
+            Form_ltext_Edit dlgedit = new Form_ltext_Edit(this, ref m_sText);
             return dlgedit.ShowDialog() == DialogResult.Yes;
         }
 
@@ -207,7 +286,7 @@ namespace LanguageControl
                 {
                     if (complex_text_list == null)
                     {
-                        if (Edit(ref sText))
+                        if (Edit())
                         {
                             m_ctrl.Text = this.s;
                             m_ctrl.Refresh();
@@ -227,7 +306,7 @@ namespace LanguageControl
         {
             if (Control.ModifierKeys.HasFlag(Keys.Control))
             {
-                if (Edit(ref sText))
+                if (Edit())
                 {
                     m_ctrl.Text = this.s;
                     m_ctrl.Refresh();
@@ -242,11 +321,11 @@ namespace LanguageControl
             {
                 if (dataRow[i + 1] is string)
                 {
-                    sText[i] = (string)dataRow[i + 1];
+                    m_sText[i] = (string)dataRow[i + 1];
                 }
                 else
                 {
-                    sText[i] = null;
+                    m_sText[i] = null;
                 }
             }
         }

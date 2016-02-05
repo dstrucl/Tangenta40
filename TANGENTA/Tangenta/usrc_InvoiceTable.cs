@@ -52,7 +52,7 @@ namespace Tangenta
             lngRPM.s_from.Text(this.lbl_From_To);
         }
 
-        internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice, bool bNew,int iFinancialYear)
+        internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice, bool bNew,bool bInitialise_usrc_Invoice,int iFinancialYear)
         {
             ColorDraft = Properties.Settings.Default.ColorDraft;
             ColorStorno = Properties.Settings.Default.ColorStorno;
@@ -63,7 +63,7 @@ namespace Tangenta
                 case usrc_Invoice.enum_Invoice.Invoice:
                     this.dgvx_XInvoice.SelectionChanged -= new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
                     iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
-                    ShowOrEditSelectedRow(true);
+                    ShowOrEditSelectedRow(bInitialise_usrc_Invoice);
                     this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
                     break;
                 case usrc_Invoice.enum_Invoice.ProformaInvoice:
@@ -305,7 +305,7 @@ namespace Tangenta
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
                 Program.Cursor_Wait();
-                Init(enum_Invoice, true, Properties.Settings.Default.FinancialYear);
+                Init(enum_Invoice, true,false, Properties.Settings.Default.FinancialYear);
                 Program.Cursor_Arrow();
             }
         }
