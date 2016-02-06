@@ -485,7 +485,7 @@ namespace InvoiceDB
                                       string HouseNumber,
                                       string ZIP,
                                       string City,
-                                      string State,
+                                      string Country,
                                       ref long cAddres_Org_ID, ref string Err)
         {
 
@@ -511,17 +511,17 @@ namespace InvoiceDB
                 return false;
             }
 
-            long cState_Org_ID = -1;
-            if (!GetID("cState_Org", new string[] { "State" }, new string[] { "'" + State + "'" }, null, ref cState_Org_ID, ref Err))
+            long cCountry_Org_ID = -1;
+            if (!GetID("cCountry_Org", new string[] { "Country" }, new string[] { "'" + Country+ "'" }, null, ref cCountry_Org_ID, ref Err))
             {
                 return false;
             }
 
-            if (GetID("cAddress_Org", new string[] { "cStreetName_Org_ID", "cHouseNumber_Org_ID", "cCity_Org_ID", "cZIP_Org_ID", "cState_Org_ID" }, new string[] { cStreetName_Org_ID.ToString(),
+            if (GetID("cAddress_Org", new string[] { "cStreetName_Org_ID", "cHouseNumber_Org_ID", "cCity_Org_ID", "cZIP_Org_ID", "cCountry_Org_ID" }, new string[] { cStreetName_Org_ID.ToString(),
                                                                                                                                                                     cHouseNumber_Org_ID.ToString(),
                                                                                                                                                                     cCity_Org_ID.ToString(),
                                                                                                                                                                     cZIP_Org_ID.ToString(),
-                                                                                                                                                                    cState_Org_ID.ToString()},
+                                                                                                                                                                    cCountry_Org_ID.ToString()},
                                                                                                                                                                     null, ref cAddres_Org_ID, ref Err))
             {
                 return true;
@@ -538,7 +538,7 @@ namespace InvoiceDB
                                                    string HouseNumber,
                                                    string ZIP,
                                                    string City,
-                                                   string State,
+                                                   string Country,
                                                    string_v TRR,
                                                    long_v Tax_ID,
                                                    string_v Registration_ID,
@@ -557,7 +557,7 @@ namespace InvoiceDB
                                                    ref string Err)
         {
             long cAddres_Org_ID = -1;
-            if (Get_cAddres_Org_ID(StreetName, HouseNumber, ZIP, City, State, ref cAddres_Org_ID, ref Err))
+            if (Get_cAddres_Org_ID(StreetName, HouseNumber, ZIP, City, Country, ref cAddres_Org_ID, ref Err))
             {
                 if (Get_Organisation_ID_and_OrganisationAccount_ID(Name, Tax_ID, Registration_ID, Bank_Name, Bank_Tax_ID, Bank_Registration_ID, TRR, AccountDescription, ref Organisation_id, ref OrganisationAccount_id, ref Err))
                 {
@@ -1277,9 +1277,9 @@ namespace InvoiceDB
             }
         }
 
-        public static bool Get_Atom_cAddress_Person_ID(string_v StreetName_v, string_v HouseNumber_v, string_v ZIP_v, string_v City_v, string_v State_v, string_v Country_v, ref long_v Atom_cAddress_Person_ID_v)
+        public static bool Get_Atom_cAddress_Person_ID(string_v StreetName_v, string_v HouseNumber_v, string_v ZIP_v, string_v City_v, string_v Country_v, string_v State_v, ref long_v Atom_cAddress_Person_ID_v)
         {
-            if ((StreetName_v == null) || (HouseNumber_v == null) || (ZIP_v == null) || (City_v == null) || (State_v == null))
+            if ((StreetName_v == null) || (HouseNumber_v == null) || (ZIP_v == null) || (City_v == null) || (Country_v == null))
             {
                 Atom_cAddress_Person_ID_v = null;
                 return true;
@@ -1329,17 +1329,6 @@ namespace InvoiceDB
             {
                 return false;
             }
-            long_v Atom_cState_Person_ID_v = null;
-            if (!Get_string_table_ID("Atom_cState_Person", "State", State_v, ref Atom_cState_Person_ID_v))
-            {
-                return false;
-            }
-            string Atom_cState_Person_ID_cond = null;
-            string Atom_cState_Person_ID_value = null;
-            if (!AddPar("Atom_cState_Person_ID", ref lpar, Atom_cState_Person_ID_v, ref Atom_cState_Person_ID_cond, ref Atom_cState_Person_ID_value))
-            {
-                return false;
-            }
             long_v Atom_cCountry_Person_ID_v = null;
             if (!Get_string_table_ID("Atom_cCountry_Person", "Country", Country_v, ref Atom_cCountry_Person_ID_v))
             {
@@ -1351,13 +1340,24 @@ namespace InvoiceDB
             {
                 return false;
             }
+            long_v Atom_cState_Person_ID_v = null;
+            if (!Get_string_table_ID("Atom_cState_Person", "State", State_v, ref Atom_cState_Person_ID_v))
+            {
+                return false;
+            }
+            string Atom_cState_Person_ID_cond = null;
+            string Atom_cState_Person_ID_value = null;
+            if (!AddPar("Atom_cState_Person_ID", ref lpar, Atom_cState_Person_ID_v, ref Atom_cState_Person_ID_cond, ref Atom_cState_Person_ID_value))
+            {
+                return false;
+            }
 
             string sql = "select ID from Atom_cAddress_Person where " + Atom_cStreetName_Person_ID_cond
                                                                      + " and " + Atom_cHouseNumber_Person_ID_cond
                                                                      + " and " + Atom_cZIP_Person_ID_cond
                                                                      + " and " + Atom_cCity_Person_ID_cond
-                                                                     + " and " + Atom_cState_Person_ID_cond
-                                                                     + " and " + Atom_cCountry_Person_ID_cond + " order by ID desc";
+                                                                     + " and " + Atom_cCountry_Person_ID_cond
+                                                                     + " and " + Atom_cState_Person_ID_cond + " order by ID desc";
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -1373,7 +1373,7 @@ namespace InvoiceDB
                 }
                 else
                 {
-                    sql = " insert into Atom_cAddress_Person (Atom_cStreetName_Person_ID,Atom_cHouseNumber_Person_ID,Atom_cZIP_Person_ID,Atom_cCity_Person_ID,Atom_cState_Person_ID,Atom_cCountry_Person_ID)values(" + Atom_cStreetName_Person_ID_value + "," + Atom_cHouseNumber_Person_ID_value + "," + Atom_cZIP_Person_ID_value + "," + Atom_cCity_Person_ID_value + "," + Atom_cState_Person_ID_value + "," + Atom_cCountry_Person_ID_value + ")";
+                    sql = " insert into Atom_cAddress_Person (Atom_cStreetName_Person_ID,Atom_cHouseNumber_Person_ID,Atom_cZIP_Person_ID,Atom_cCity_Person_ID,Atom_cCountry_Person_ID,Atom_cState_Person_ID)values(" + Atom_cStreetName_Person_ID_value + "," + Atom_cHouseNumber_Person_ID_value + "," + Atom_cZIP_Person_ID_value + "," + Atom_cCity_Person_ID_value + "," + Atom_cCountry_Person_ID_value + "," + Atom_cState_Person_ID_value + ")";
                     long id = -1;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref ores, ref Err, "Atom_cAddress_Person"))

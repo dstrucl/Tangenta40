@@ -51,10 +51,10 @@
     <Compile Include="fs..cs" />
     <Compile Include="f_Atom_cAddress_Org.cs" />
     <Compile Include="f_Atom_cCity_Org.cs" />
-    <Compile Include="f_Atom_cCountry_Org.cs" />
+    <Compile Include="f_Atom_cState_Org.cs" />
     <Compile Include="f_Atom_cHouseNumber_Org.cs" />
     <Compile Include="f_Atom_Computer.cs" />
-    <Compile Include="f_Atom_cState_Org.cs" />
+    <Compile Include="f_Atom_cCountry_Org.cs" />
     <Compile Include="f_Atom_cStreetName_Org.cs" />
     <Compile Include="f_Atom_Customer_Org.cs" />
     <Compile Include="f_Atom_cZIP_Org.cs" />

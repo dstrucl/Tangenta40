@@ -199,18 +199,18 @@ namespace SearchLocalNetwork
         {
             if (Properties.Settings.Default.bPingTimeout)
             {
-                this.chkPingTimeout.CheckState = CheckState.Checked;
+                this.chkPingTimeout.CheckState= CheckState.Checked;
                 this.TextPingTimeout.Enabled = true;
             }
             else
             {
-                this.chkPingTimeout.CheckState = CheckState.Unchecked;
+                this.chkPingTimeout.CheckState= CheckState.Unchecked;
                 this.TextPingTimeout.Enabled = false;
             }
 
             if (Properties.Settings.Default.chkShowAll)
             {
-                chkUsePing.CheckState = CheckState.Checked;
+                chkUsePing.CheckState= CheckState.Checked;
                 chkPingTimeout.Enabled = true;
                 if (chkPingTimeout.Checked)
                 {
@@ -223,30 +223,30 @@ namespace SearchLocalNetwork
             }
             else
             {
-                chkUsePing.CheckState = CheckState.Unchecked;
+                chkUsePing.CheckState= CheckState.Unchecked;
             }
 
             if (Properties.Settings.Default.bScanPortRange)
             {
-                chkPortRange.CheckState = CheckState.Checked;
+                chkPortRange.CheckState= CheckState.Checked;
                 this.text_EndPort.Enabled = true;
             }
             else
             {
-                chkPortRange.CheckState = CheckState.Unchecked;
+                chkPortRange.CheckState= CheckState.Unchecked;
                 this.text_EndPort.Enabled = false;
             }
 
             if (Properties.Settings.Default.bCheckPort)
             {
-                this.chkPorts.CheckState = CheckState.Checked;
+                this.chkPorts.CheckState= CheckState.Checked;
                 this.text_EndPort.Enabled = true;
                 this.text_StartPort.Enabled = true;
                 this.chkPortRange.Enabled = true;
             }
             else
             {
-                chkPorts.CheckState = CheckState.Unchecked;
+                chkPorts.CheckState= CheckState.Unchecked;
                 this.text_EndPort.Enabled = false;
                 this.text_StartPort.Enabled = false;
                 this.chkPortRange.Enabled = false;
@@ -367,7 +367,7 @@ namespace SearchLocalNetwork
                                 {
                                     thrcls.MessageList.Add(myScannerThreadClass.eMessage.MSG_EXIT_THREAD);
                                     thrcls.mutexMessageBoxScanner.ReleaseMutex();
-                                    while (thrcls.ScannerThread.ThreadState == System.Threading.ThreadState.Running)
+                                    while (thrcls.ScannerThread.ThreadState== System.Threading.ThreadState.Running)
                                     {
                                         System.Threading.Thread.Sleep(100);
                                     }
@@ -576,7 +576,7 @@ namespace SearchLocalNetwork
                     {
                         thrcls.MessageList.Add(myScannerThreadClass.eMessage.MSG_EXIT_THREAD);
                         thrcls.mutexMessageBoxScanner.ReleaseMutex();
-                        while (thrcls.ScannerThread.ThreadState == System.Threading.ThreadState.Running)
+                        while (thrcls.ScannerThread.ThreadState== System.Threading.ThreadState.Running)
                         {
                             System.Threading.Thread.Sleep(100);
                         }
@@ -767,7 +767,7 @@ namespace SearchLocalNetwork
                         {
                             thrcls.MessageList.Add(myScannerThreadClass.eMessage.MSG_EXIT_THREAD);
                             thrcls.mutexMessageBoxScanner.ReleaseMutex();
-                            while (thrcls.ScannerThread.ThreadState == System.Threading.ThreadState.Running)
+                            while (thrcls.ScannerThread.ThreadState== System.Threading.ThreadState.Running)
                             {
                                 System.Threading.Thread.Sleep(100);
                             }

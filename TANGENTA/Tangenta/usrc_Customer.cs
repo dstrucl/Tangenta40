@@ -143,8 +143,8 @@ namespace Tangenta
             chnr_per.HouseNumber,
             city_per.City,
             zip_per.ZIP,
-            state_per.State,
-            country_per.Country,
+            state_per.Country,
+            country_per.State,
             per_data.CardNumber,
             per_data.Description,
             img_per.Image_Data
@@ -161,8 +161,8 @@ namespace Tangenta
             LEFT JOIN  cHouseNumber_Person  chnr_per ON cadr_per.cHouseNumber_Person_ID = chnr_per.ID
             LEFT JOIN  cCity_Person  city_per ON cadr_per.cCity_Person_ID = city_per.ID
             LEFT JOIN  cZIP_Person  zip_per ON cadr_per.cZIP_Person_ID = zip_per.ID
-            LEFT JOIN  cState_Person state_per ON cadr_per.cState_Person_ID = state_per.ID
-            LEFT JOIN  cCountry_Person  country_per ON cadr_per.cCountry_Person_ID = country_per.ID
+            LEFT JOIN  cCountry_Person state_per ON cadr_per.cCountry_Person_ID = state_per.ID
+            LEFT JOIN  cState_Person  country_per ON cadr_per.cState_Person_ID = country_per.ID
             LEFT JOIN  PersonImage img_per ON per_data.PersonImage_ID = img_per.ID
             ";
             string[] sColumnsToView = new string[] { "Customer_Person_$_per_$_cfn_$$FirstName",
@@ -176,8 +176,8 @@ namespace Tangenta
                                                     "HouseNumber",
                                                     "City",
                                                     "ZIP",
-                                                    "State",
                                                     "Country",
+                                                    "State",
                                                     "CardNumber",
                                                     "Description",
                                                     };
@@ -208,7 +208,7 @@ namespace Tangenta
                                                      "Customer_Org_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber",
                                                     "Customer_Org_$_orgd_$_cadrorg_$_ccitorg_$$City",
                                                     "Customer_Org_$_orgd_$_cadrorg_$_cziporg_$$ZIP",
-                                                    "Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$State",
+                                                    "Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$Country",
                                                     "Customer_Org_$_orgd_$_cphnnorg_$$PhoneNumber",
                                                     "Customer_Org_$_orgd_$_cfaxnorg_$$FaxNumber",
                                                     "Customer_Org_$_orgd_$_cemailorg_$$Email",
@@ -322,8 +322,8 @@ namespace Tangenta
                                         Atom_Customer_Person_$_aper_$_acadrper_$_ahounper_$$HouseNumber,
                 				        Atom_Customer_Person_$_aper_$_acadrper_$_azipper_$$ZIP,
 				                        Atom_Customer_Person_$_aper_$_acadrper_$_acitper_$$City,
-				                        Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$State,
-				                        Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$Country
+				                        Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$Country,
+				                        Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$State
                                         from  Atom_Customer_Person_VIEW 
                                         where ID = " + Atom_Customer_Person_ID.ToString();
                 DataTable dt = new DataTable();
@@ -342,8 +342,8 @@ namespace Tangenta
                         object oHouseNumber = dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_ahounper_$$HouseNumber"];
                         object oZIP = dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_azipper_$$ZIP"];
                         object oCity = dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_acitper_$$City"];
-                        object oState = dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$State"];
-                        object oCountry = dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$Country"];
+                        object oCountry= dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$Country"];
+                        object oState = dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$State"];
                         object oBirthDay = dt.Rows[0]["Atom_Customer_Person_$_aper_$$DateOfBirth"];
                         string slbl = "";
                         if (oFirstName is string)
@@ -388,13 +388,13 @@ namespace Tangenta
                         {
                             slbl += " " + (string)oCity;
                         }
-                        if (oState is string)
-                        {
-                            slbl += "," + (string)oState;
-                        }
                         if (oCountry is string)
                         {
                             slbl += "," + (string)oCountry;
+                        }
+                        if (oState is string)
+                        {
+                            slbl += "," + (string)oState;
                         }
                         txt_Buyer.Text = slbl;
                         txt_Buyer.Visible = true;
@@ -429,8 +429,8 @@ namespace Tangenta
 				                Atom_OrganisationData_$_acadrorg_$_ahounorg.HouseNumber,
 				                Atom_OrganisationData_$_acadrorg_$_acitorg.City,
 				                Atom_OrganisationData_$_acadrorg_$_aziporg.ZIP,
-				                Atom_OrganisationData_$_acadrorg_$_astorg.State,
-				                Atom_OrganisationData_$_acadrorg_$_acouorg.Country,
+				                Atom_OrganisationData_$_acadrorg_$_astorg.Country,
+				                Atom_OrganisationData_$_acadrorg_$_acouorg.State,
 				                Atom_OrganisationData_$_cphnnorg.PhoneNumber,
 				                Atom_OrganisationData_$_cemailorg.Email,
 				                Atom_OrganisationData_$_chomepgorg.HomePage,
@@ -444,8 +444,8 @@ namespace Tangenta
                                 LEFT JOIN Atom_cHouseNumber_Org Atom_OrganisationData_$_acadrorg_$_ahounorg ON Atom_OrganisationData_$_acadrorg.Atom_cHouseNumber_Org_ID = Atom_OrganisationData_$_acadrorg_$_ahounorg.ID
                                 LEFT JOIN Atom_cCity_Org Atom_OrganisationData_$_acadrorg_$_acitorg ON Atom_OrganisationData_$_acadrorg.Atom_cCity_Org_ID = Atom_OrganisationData_$_acadrorg_$_acitorg.ID
                                 LEFT JOIN Atom_cZIP_Org Atom_OrganisationData_$_acadrorg_$_aziporg ON Atom_OrganisationData_$_acadrorg.Atom_cZIP_Org_ID = Atom_OrganisationData_$_acadrorg_$_aziporg.ID
-                                LEFT JOIN Atom_cState_Org Atom_OrganisationData_$_acadrorg_$_astorg ON Atom_OrganisationData_$_acadrorg.Atom_cState_Org_ID = Atom_OrganisationData_$_acadrorg_$_astorg.ID
-                                LEFT JOIN Atom_cCountry_Org Atom_OrganisationData_$_acadrorg_$_acouorg ON Atom_OrganisationData_$_acadrorg.Atom_cCountry_Org_ID = Atom_OrganisationData_$_acadrorg_$_acouorg.ID
+                                LEFT JOIN Atom_cCountry_Org Atom_OrganisationData_$_acadrorg_$_astorg ON Atom_OrganisationData_$_acadrorg.Atom_cCountry_Org_ID = Atom_OrganisationData_$_acadrorg_$_astorg.ID
+                                LEFT JOIN Atom_cState_Org Atom_OrganisationData_$_acadrorg_$_acouorg ON Atom_OrganisationData_$_acadrorg.Atom_cState_Org_ID = Atom_OrganisationData_$_acadrorg_$_acouorg.ID
                                 LEFT JOIN cPhoneNumber_Org Atom_OrganisationData_$_cphnnorg ON Atom_OrganisationData_$_aorgd.cPhoneNumber_Org_ID = Atom_OrganisationData_$_cphnnorg.ID
                                 LEFT JOIN cFaxNumber_Org Atom_OrganisationData_$_cfaxnorg ON Atom_OrganisationData_$_aorgd.cFaxNumber_Org_ID = Atom_OrganisationData_$_cfaxnorg.ID
                                 LEFT JOIN cEmail_Org Atom_OrganisationData_$_cemailorg ON Atom_OrganisationData_$_aorgd.cEmail_Org_ID = Atom_OrganisationData_$_cemailorg.ID
@@ -467,8 +467,8 @@ namespace Tangenta
                         string_v HouseNumber_v = tf.set_string(dt.Rows[0]["HouseNumber"]);
                         string_v City_v = tf.set_string(dt.Rows[0]["City"]);
                         string_v ZIP_v = tf.set_string(dt.Rows[0]["ZIP"]);
-                        string_v State_v = tf.set_string(dt.Rows[0]["State"]);
                         string_v Country_v = tf.set_string(dt.Rows[0]["Country"]);
+                        string_v State_v = tf.set_string(dt.Rows[0]["State"]);
                         string_v PhoneNumber_v = tf.set_string(dt.Rows[0]["PhoneNumber"]);
                         string_v Email_v = tf.set_string(dt.Rows[0]["Email"]);
                         string_v HomePage_v = tf.set_string(dt.Rows[0]["HomePage"]);
@@ -501,13 +501,13 @@ namespace Tangenta
                         {
                             slbl += " " + City_v.vs;
                         }
-                        if (Country_v != null)
-                        {
-                            slbl += "," + Country_v.vs;
-                        }
                         if (State_v != null)
                         {
                             slbl += "," + State_v.vs;
+                        }
+                        if (Country_v != null)
+                        {
+                            slbl += "," + Country_v.vs;
                         }
                         txt_Buyer.Text = slbl;
                         txt_Buyer.Visible = true;

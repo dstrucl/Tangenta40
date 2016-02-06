@@ -21,8 +21,8 @@ namespace UniversalInvoice
         public string HouseNumber = null;
         public string ZIP = null;
         public string City = null;
+        public string Country= null;
         public string State = null;
-        public string Country = null;
 
         public AddressToken token = null;
         private ltext token_prefix_Organisation;
@@ -32,8 +32,8 @@ namespace UniversalInvoice
                        string _HouseNumber,
                        string _ZIP,
                        string _City,
-                       string _State,
-                       string _Country
+                       string _Country,
+                       string _State
                        )
 
         {
@@ -41,16 +41,16 @@ namespace UniversalInvoice
             HouseNumber = _HouseNumber;
             ZIP = _ZIP;
             City = _City;
+            Country= _Country;
             State = _State;
-            Country = _Country;
             ltext ltAddress_prefix = token_prefix.AddAtTheEnd(lngToken.st_Address);
             token = new AddressToken(ltAddress_prefix,
                                     StreetName,
                                     HouseNumber,
                                     ZIP,
                                     City,
-                                    State,
-                                    Country
+                                    Country,
+                                    State
                                     );
 
             
@@ -62,8 +62,8 @@ namespace UniversalInvoice
             HouseNumber = "";
             ZIP = "";
             City = "";
+            Country= "";
             State = "";
-            Country = "";
             ltext ltAddress_prefix = token_prefix.AddAtTheEnd(lngToken.st_Address);
             token = new AddressToken(ltAddress_prefix);
         }

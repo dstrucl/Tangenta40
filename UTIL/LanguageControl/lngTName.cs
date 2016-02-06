@@ -133,15 +133,15 @@ namespace LanguageControl
         public static ltext lngt_Atom_cAddress_Person = new ltext("Address Person", "Naslovi oseb");
         public static ltext lngt_cAddress_Org = new ltext("Address Organisation", "Naslovi organizacij");
         public static ltext lngt_cAddress_Person = new ltext("Address Person", "Naslovi oseb");
-        public static ltext lngt_Atom_cCountry_Org = new ltext("Country", "Dežela");
-        public static ltext lngt_Atom_cState_Org = new ltext("State", "Država");
+        public static ltext lngt_Atom_cState_Org = new ltext("State", "Dežela");
+        public static ltext lngt_Atom_cCountry_Org = new ltext("Country", "Država");
         public static ltext lngt_Atom_cZIP_Org = new ltext("ZIP", "Številka pošte");
         public static ltext lngt_Atom_cCity_Org = new ltext("City", "Kraj");
         public static ltext lngt_Atom_cHouseNumber_Org = new ltext("House number", "Hišna številka");
         public static ltext lngt_Atom_cStreetName_Org = new ltext("Street name", "Cesta prebivališča");
 
-        public static ltext lngt_Atom_cCountry_Person = new ltext("Country", "Dežela");
-        public static ltext lngt_Atom_cState_Person = new ltext("State", "Država");
+        public static ltext lngt_Atom_cState_Person = new ltext("State", "Dežela");
+        public static ltext lngt_Atom_cCountry_Person = new ltext("Country", "Država");
         public static ltext lngt_Atom_cZIP_Person = new ltext("ZIP", "Številka pošte");
         public static ltext lngt_Atom_cCity_Person = new ltext("City", "Kraj");
         public static ltext lngt_Atom_cHouseNumber_Person = new ltext("House number", "Hišna številka");
@@ -244,8 +244,8 @@ namespace LanguageControl
         public static ltext lngt_cHouseNumber = new ltext ("House Number","Hišna številka");
         public static ltext lngt_cStrAddr = new ltext ("Street Address","Naslov ulice");
         public static ltext lngt_cCity = new ltext ("City","Mesto");
-        public static ltext lngt_cState = new ltext ("State","Država");
-        public static ltext lngt_cCountry = new ltext ("Country","Dežela");
+        public static ltext lngt_cCuntry= new ltext ("Country","Država");
+        public static ltext lngt_cState = new ltext ("State","Dežela");
         public static ltext lngt_cPhoneNumber = new ltext ("Phone Number","Telefonska številka");
         public static ltext lngt_cFaxNumber = new ltext ("Fax Number","Faks");
         public static ltext lngt_cEmail = new ltext ("Email","Email");
@@ -316,10 +316,10 @@ namespace LanguageControl
         public static ltext lngt_cStrAddr_Person = new ltext("Street Address", "Hišni naslov");
         public static ltext lngt_cCity_Org = new ltext("City","Mesto");
         public static ltext lngt_cCity_Person = new ltext("City", "Mesto");
-        public static ltext lngt_cState_Org = new ltext("State","Država");
-        public static ltext lngt_cState_Person = new ltext("State", "Država");
-        public static ltext lngt_cCountry_Org = new ltext("Country","Dežela");
-        public static ltext lngt_cCountry_Person = new ltext("Country", "Dežela");
+        public static ltext lngt_cCountry_Org = new ltext("Country","Država");
+        public static ltext lngt_cCountry_Person = new ltext("Country", "Država");
+        public static ltext lngt_cState_Org = new ltext("State","Dežela");
+        public static ltext lngt_cState_Person = new ltext("State", "Dežela");
         public static ltext lngt_cPhoneNumber_Org = new ltext("Phone Number","Tel. številka");
         public static ltext lngt_cPhoneNumber_Person = new ltext("Phone Number", "Tel. številka");
         public static ltext lngt_cGsmNumber_Person = new ltext("Gsm Number", "Gsm številka");

@@ -48,8 +48,8 @@ namespace InvoiceDB
                             string_v HouseNumber_v = null;
                             string_v City_v = null;
                             string_v ZIP_v = null;
-                            string_v State_v = null;
                             string_v Country_v = null;
+                            string_v State_v = null;
                             string_v CardNumber_v = null;
                             string_v CardType_v = null;
                             string_v Image_Hash_v = null;
@@ -62,8 +62,8 @@ namespace InvoiceDB
                                             PersonData_$_cadrper_$_chounper_$$HouseNumber,
                                             PersonData_$_cadrper_$_ccitper_$$City,
                                             PersonData_$_cadrper_$_zipper_$$ZIP,
-                                            PersonData_$_cadrper_$_cstper_$$State,
-                                            PersonData_$_cadrper_$_ccouper_$$Country,
+                                            PersonData_$_cadrper_$_cstper_$$Country,
+                                            PersonData_$_cadrper_$_ccouper_$$State,
                                             PersonData_$$CardNumber,
                                             PersonData_$_cardtper_$$CardType,
                                             PersonData_$_perimg_$$Image_Hash,
@@ -82,8 +82,8 @@ namespace InvoiceDB
                                     HouseNumber_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_chounper_$$HouseNumber"]);
                                     City_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccitper_$$City"]);
                                     ZIP_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_zipper_$$ZIP"]);
-                                    State_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$State"]);
-                                    Country_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$Country"]);
+                                    Country_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country"]);
+                                    State_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$State"]);
                                     CardNumber_v = tf.set_string(dt.Rows[0]["PersonData_$$CardNumber"]);
                                     CardType_v = tf.set_string(dt.Rows[0]["PersonData_$_cardtper_$$CardType"]);
                                     Image_Hash_v = tf.set_string(dt.Rows[0]["PersonData_$_perimg_$$Image_Hash"]);
@@ -105,8 +105,8 @@ namespace InvoiceDB
                                                         HouseNumber_v,
                                                         City_v,
                                                         ZIP_v,
-                                                        State_v,
                                                         Country_v,
+                                                        State_v,
                                                         CardNumber_v,
                                                         CardType_v,
                                                         Image_Hash_v,
@@ -215,8 +215,8 @@ namespace InvoiceDB
                             Atom_Customer_Person_$_aper_$_acadrper_$_ahounper_$$HouseNumber,
                             Atom_Customer_Person_$_aper_$_acadrper_$_acitper_$$City,
                             Atom_Customer_Person_$_aper_$_acadrper_$_azipper_$$ZIP,
-                            Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$State,
-                            Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$Country,
+                            Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$Country,
+                            Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$State,
                             Atom_Customer_Person_$_aper_$$CardNumber,
                             Atom_Customer_Person_$_aper_$_acardtper_$$CardType,
                             Atom_Customer_Person_$_aper_$_aperimg_$$Image_Data
@@ -242,8 +242,8 @@ namespace InvoiceDB
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_ahounper_$$HouseNumber"]),
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_azipper_$$ZIP"]),
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_acitper_$$City"]),
-                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$State"]),
-                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$Country"]));
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_astper_$$Country"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Customer_Person_$_aper_$_acadrper_$_acouper_$$State"]));
                     return univ_per;
                 }
                 else

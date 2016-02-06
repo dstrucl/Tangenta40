@@ -63,11 +63,11 @@ namespace InvoiceDB
             myOrg.Address_v.HouseNumber_v = null;
             myOrg.Address_v.ZIP_v = null;
             myOrg.Address_v.City_v = null;
-            myOrg.Address_v.State_v = null;
-            myOrg.Address_v.State_ISO_3166_a2_v = null;
-            myOrg.Address_v.State_ISO_3166_a3_v = null;
-            myOrg.Address_v.State_ISO_3166_num_v = null;
             myOrg.Address_v.Country_v = null;
+            myOrg.Address_v.Country_ISO_3166_a2_v = null;
+            myOrg.Address_v.Country_ISO_3166_a3_v = null;
+            myOrg.Address_v.Country_ISO_3166_num_v = null;
+            myOrg.Address_v.State_v = null;
 
             string sql = null;
             if (myCompany_id >= 0)
@@ -84,11 +84,11 @@ namespace InvoiceDB
                             myCompany_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
                             myCompany_$_orgd_$_cadrorg_$_ccitorg_$$City,
                             myCompany_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$State,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_a2,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_a3,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_num,
-                            myCompany_$_orgd_$_cadrorg_$_ccouorg_$$Country,
+                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country,
+                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
+                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
+                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
+                            myCompany_$_orgd_$_cadrorg_$_ccouorg_$$State,
                             myCompany_$_orgd_$_cphnnorg_$$PhoneNumber,
                             myCompany_$_orgd_$_cfaxnorg_$$FaxNumber,
                             myCompany_$_orgd_$_cemailorg_$$Email,
@@ -112,11 +112,11 @@ namespace InvoiceDB
                             myCompany_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
                             myCompany_$_orgd_$_cadrorg_$_ccitorg_$$City,
                             myCompany_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$State,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_a2,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_a3,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_num,
-                            myCompany_$_orgd_$_cadrorg_$_ccouorg_$$Country,
+                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country,
+                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
+                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
+                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
+                            myCompany_$_orgd_$_cadrorg_$_ccouorg_$$State,
                             myCompany_$_orgd_$_cphnnorg_$$PhoneNumber,
                             myCompany_$_orgd_$_cfaxnorg_$$FaxNumber,
                             myCompany_$_orgd_$_cemailorg_$$Email,
@@ -153,11 +153,11 @@ namespace InvoiceDB
                     myOrg.Address_v.HouseNumber_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber"]);
                     myOrg.Address_v.ZIP_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cziporg_$$ZIP"]);
                     myOrg.Address_v.City_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_ccitorg_$$City"]);
-                    myOrg.Address_v.State_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State"]);
-                    myOrg.Address_v.State_ISO_3166_a2_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_a2"]);
-                    myOrg.Address_v.State_ISO_3166_a3_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_a3"]);
-                    myOrg.Address_v.State_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$State_ISO_3166_num"]));
-                    myOrg.Address_v.Country_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_ccouorg_$$Country"]);
+                    myOrg.Address_v.Country_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country"]);
+                    myOrg.Address_v.Country_ISO_3166_a2_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2"]);
+                    myOrg.Address_v.Country_ISO_3166_a3_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3"]);
+                    myOrg.Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num"]));
+                    myOrg.Address_v.State_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_ccouorg_$$State"]);
                     if (myOrg.ID_v != null)
                     {
                         myOrg_Person_List.Get(myOrg.ID_v.v, ref myOrg.myOrg_Person_list);

@@ -11,7 +11,7 @@ using SQLTableControl;
 using LanguageControl;
 using BlagajnaTableClass;
 using DBTypes;
-using State_ISO_3166;
+using Country_ISO_3166;
 
 namespace BlagajnaDataBaseDef
 {

@@ -51,7 +51,7 @@
             this.Controls.Add(this.lbl_WaitRandomDataParamSettingsDialogIsClosed);
             this.Name = "WaitRandomDataParamSettingsDialogClosed_Form";
             this.ShowInTaskbar = false;
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.WindowState= System.Windows.Forms.FormWindowState.Minimized;
             this.Load += new System.EventHandler(this.WaitRandomDataParamSettingsDialogClosed_Form_Load);
             this.ResumeLayout(false);
 

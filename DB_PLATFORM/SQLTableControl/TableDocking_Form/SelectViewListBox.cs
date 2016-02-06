@@ -117,16 +117,16 @@ namespace System.Windows.Forms
 
             // Determines text color/brush
             Brush textBrush;
-            bool isChecked = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+            bool isChecked = (e.State& DrawItemState.Selected) == DrawItemState.Selected;
 
             RadioButtonState state = isChecked ? RadioButtonState.CheckedNormal : RadioButtonState.UncheckedNormal;
 
-            if ((e.State & DrawItemState.Disabled) == DrawItemState.Disabled)
+            if ((e.State& DrawItemState.Disabled) == DrawItemState.Disabled)
             {
                 textBrush = SystemBrushes.GrayText;
                 state = isChecked ? RadioButtonState.CheckedDisabled : RadioButtonState.UncheckedDisabled;
             }
-            else if ((e.State & DrawItemState.Grayed) == DrawItemState.Grayed)
+            else if ((e.State& DrawItemState.Grayed) == DrawItemState.Grayed)
             {
                 textBrush = SystemBrushes.GrayText;
                 state = isChecked ? RadioButtonState.CheckedDisabled : RadioButtonState.UncheckedDisabled;

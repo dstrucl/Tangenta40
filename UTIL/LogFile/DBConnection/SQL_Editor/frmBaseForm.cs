@@ -95,14 +95,14 @@ namespace SqlBuilder.Forms
 
 		private void SaveWindowPos(object sender, EventArgs e)
 		{
-			if (!this.Created || this.WindowState == FormWindowState.Minimized)
+			if (!this.Created || this.WindowState== FormWindowState.Minimized)
 				return;
 
 			// If there is another window of the same type open --> dont save window position
 			if (SiblingCount > 0)
 				return;
 
-			if (this.WindowState == FormWindowState.Maximized)
+			if (this.WindowState== FormWindowState.Maximized)
 			{
 				//Functions.RegistryWrite(Functions.eReg.Main, this.Name + "Maxi", 1);
 			}
@@ -132,7 +132,7 @@ namespace SqlBuilder.Forms
             //    return;
             //}
 
-            //if (M == 0) this.WindowState = FormWindowState.Normal;
+            //if (M == 0) this.WindowState= FormWindowState.Normal;
 
             //Functions.LimitOnScreen(ref X, ref Y, ref W, ref H);
 
@@ -145,7 +145,7 @@ namespace SqlBuilder.Forms
             //this.Location = new Point(X,Y);
             //this.Size     = new Size (W,H);
 
-            //if (M > 0) this.WindowState = FormWindowState.Maximized;
+            //if (M > 0) this.WindowState= FormWindowState.Maximized;
 		}
 	}
 }

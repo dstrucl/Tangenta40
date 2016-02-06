@@ -503,8 +503,8 @@ namespace InvoiceDB
                                  Atom_cHouseNumber_Org.HouseNumber,
                                  Atom_cCity_Org.City,
                                  Atom_cZIP_Org.ZIP,
-                                 Atom_cState_Org.State,
                                  Atom_cCountry_Org.Country,
+                                 Atom_cState_Org.State,
                                  cEmail_Org.Email,
                                  aorgd_hp.HomePage,
                                  cPhoneNumber_Org.PhoneNumber,
@@ -548,8 +548,8 @@ namespace InvoiceDB
                                  left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
                                  left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
                                  left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
                                  left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
+                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
                                  left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
                                  left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
                                  left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
@@ -578,8 +578,8 @@ namespace InvoiceDB
                                  Atom_cHouseNumber_Org.HouseNumber,
                                  Atom_cCity_Org.City,
                                  Atom_cZIP_Org.ZIP,
-                                 Atom_cState_Org.State,
                                  Atom_cCountry_Org.Country,
+                                 Atom_cState_Org.State,
                                  cEmail_Org.Email,
                                  aorgd_hp.HomePage,
                                  cPhoneNumber_Org.PhoneNumber,
@@ -625,8 +625,8 @@ namespace InvoiceDB
                                  left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
                                  left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
                                  left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
                                  left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
+                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
                                  left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
                                  left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
                                  left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
@@ -773,8 +773,8 @@ namespace InvoiceDB
                                                                    DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["HouseNumber"]),
                                                                    DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["ZIP"]),
                                                                    DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["City"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["State"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Country"]));
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Country"]),
+                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["State"]));
 
 
                         FinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);

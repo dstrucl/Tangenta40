@@ -432,8 +432,8 @@ namespace Tangenta
             No_MyCompany_HouseNumber,
             No_MyCompany_ZIP,
             No_MyCompany_City,
-            No_MyCompany_State,
             No_MyCompany_Country,
+            No_MyCompany_State,
             No_MyCompanyData,
             No_MyCompany_Person_FirstName,
             No_MyCompany_Person,
@@ -1184,9 +1184,9 @@ namespace Tangenta
                         }
                     }
 
-                    if (myOrg.Address_v.State_v == null)
+                    if (myOrg.Address_v.Country_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyCompany_State.s);
+                        MessageBox.Show(lngRPM.s_No_MyCompany_Country.s);
                         if (EditMyCompany_Data())
                         {
                             continue;

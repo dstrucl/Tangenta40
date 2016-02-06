@@ -25,13 +25,13 @@ namespace SQLTableControl
         public const string const_Minimized = "Minimized";
         public const string const_Maximized = "Maximized";
         public const string const_Normal = "Normal";
-        public const string const_FormWindowState = "FormWindowState";
+        public const string const_FormWindowState= "FormWindowState";
         public const string const_Top = "Top";
         public const string const_Left = "Left";
         public const string const_Width = "Width";
         public const string const_Height = "Height";
 
-        public FormWindowState formWindowState = FormWindowState.Normal;
+        public FormWindowState formWindowState= FormWindowState.Normal;
         public int Left = 0;
         public int Top = 0;
         public int Width = 400;
@@ -45,7 +45,7 @@ namespace SQLTableControl
             Height = xHeight;
         }
 
-        internal string GetWindowStateString(FormWindowState formWindowState)
+        internal string GetWindowCountryString(FormWindowState formWindowState)
         {
             switch (formWindowState)
             {
@@ -81,7 +81,7 @@ namespace SQLTableControl
 
         internal void SetFormPlacement(Form pForm)
         {
-            pForm.WindowState = this.formWindowState;
+            pForm.WindowState= this.formWindowState;
             pForm.Left = this.Left;
             pForm.Top = this.Top;
             pForm.Width = this.Width;
@@ -829,8 +829,8 @@ namespace SQLTableControl
 
         internal void Set_wRect(wRect wRect, Form myForm)
         {
-            wRect.formWindowState = myForm.WindowState;
-            if (myForm.WindowState == FormWindowState.Normal)
+            wRect.formWindowState= myForm.WindowState;
+            if (myForm.WindowState== FormWindowState.Normal)
             {
                 wRect.Left = myForm.Left;
                 wRect.Top = myForm.Top;
@@ -879,7 +879,7 @@ namespace SQLTableControl
             {
                 if (attr.Name.Equals(wRect.const_FormWindowState))
                 {
-                    wrect.formWindowState = wrect.SetFormWindowState(attr.Value);
+                    wrect.formWindowState= wrect.SetFormWindowState(attr.Value);
                 }
                 else if (attr.Name.Equals(wRect.const_Left))
                 {
@@ -903,8 +903,8 @@ namespace SQLTableControl
         internal static void Set_wRect(wRect wrect, XmlDocument xmlDoc, XmlElement element)
         {
 
-            XmlAttribute attrFormWindowState = xmlDoc.CreateAttribute(wRect.const_FormWindowState);
-            attrFormWindowState.Value = wrect.GetWindowStateString(wrect.formWindowState);
+            XmlAttribute attrFormWindowState= xmlDoc.CreateAttribute(wRect.const_FormWindowState);
+            attrFormWindowState.Value = wrect.GetWindowCountryString(wrect.formWindowState);
             element.Attributes.Append(attrFormWindowState);
 
             XmlAttribute attrLeft = xmlDoc.CreateAttribute(wRect.const_Left);

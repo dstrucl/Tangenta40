@@ -50,7 +50,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.16";
+        public const string VERSION = "1.17";
         public Settings Settings = null;
 
         /* 1 */
@@ -72,9 +72,9 @@ namespace BlagajnaDataBaseDef
         /* 9 */
         public SQLTable t_cCity_Person = null;
         /* 10 */
-        public SQLTable t_cState_Person = null;
-        /* 11 */
         public SQLTable t_cCountry_Person = null;
+        /* 11 */
+        public SQLTable t_cState_Person = null;
         /* 12 */
         public SQLTable t_Person = null;
         /* 13 */
@@ -86,9 +86,9 @@ namespace BlagajnaDataBaseDef
         /* 16 */
         public SQLTable t_cCity_Org = null;
         /* 17 */
-        public SQLTable t_cState_Org = null;
-        /* 18 */
         public SQLTable t_cCountry_Org = null;
+        /* 18 */
+        public SQLTable t_cState_Org = null;
         /* 19 */
         public SQLTable t_cZIP_Org = null;
         /* 20 */
@@ -199,10 +199,10 @@ namespace BlagajnaDataBaseDef
         public SQLTable t_Atom_cZIP_Person = null;
 
         /* 72 */
-        public SQLTable t_Atom_cState_Person = null;
+        public SQLTable t_Atom_cCountry_Person = null;
 
         /* 73 */
-        public SQLTable t_Atom_cCountry_Person = null;
+        public SQLTable t_Atom_cState_Person = null;
 
         /* 74 */
         public SQLTable t_Atom_cStreetName_Org = null;
@@ -217,10 +217,10 @@ namespace BlagajnaDataBaseDef
         public SQLTable t_Atom_cZIP_Org  = null;
 
         /* 78 */
-        public SQLTable t_Atom_cState_Org = null;
+        public SQLTable t_Atom_cCountry_Org = null;
 
         /* 79 */
-        public SQLTable t_Atom_cCountry_Org = null;
+        public SQLTable t_Atom_cState_Org = null;
 
         /* 80 */
         public SQLTable t_cAddress_Person = null;
@@ -586,20 +586,20 @@ namespace BlagajnaDataBaseDef
             m_DBTables.items.Add(t_cCity_Person);
 
             /* 10 */
-            t_cState_Person = new SQLTable((Object)new cState_Person(),"cstper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cState_Person);
-            t_cState_Person.SetInputControls = m_ISO_3166_Table.SetInputControls;
-            t_cState_Person.AddColumn((Object)mt.m_cState_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "State", "Država") );
-            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a2", "ISO_3166 a2"));
-            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a3", "ISO_3166 a3"));
-            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 num", "ISO_3166 št."));
-            m_DBTables.items.Add(t_cState_Person);
+            t_cCountry_Person = new SQLTable((Object)new cCountry_Person(),"cstper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cCountry_Person);
+            t_cCountry_Person.SetInputControls = m_ISO_3166_Table.SetInputControls;
+            t_cCountry_Person.AddColumn((Object)mt.m_cCountry_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_cCountry_Person.AddColumn((Object)mt.m_cCountry_Person.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "Country", "Država") );
+            t_cCountry_Person.AddColumn((Object)mt.m_cCountry_Person.Country_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a2", "ISO_3166 a2"));
+            t_cCountry_Person.AddColumn((Object)mt.m_cCountry_Person.Country_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a3", "ISO_3166 a3"));
+            t_cCountry_Person.AddColumn((Object)mt.m_cCountry_Person.Country_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 num", "ISO_3166 št."));
+            m_DBTables.items.Add(t_cCountry_Person);
 
             /* 11 */
-            t_cCountry_Person = new SQLTable((Object)new cCountry_Person(),"ccouper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cCountry_Person);
-            t_cCountry_Person.AddColumn((Object)mt.m_cCountry_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_cCountry_Person.AddColumn((Object)mt.m_cCountry_Person.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new ltext( "Country", "Dežela") );
-            m_DBTables.items.Add(t_cCountry_Person);
+            t_cState_Person = new SQLTable((Object)new cState_Person(),"ccouper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cState_Person);
+            t_cState_Person.AddColumn((Object)mt.m_cState_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_cState_Person.AddColumn((Object)mt.m_cState_Person.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new ltext( "State", "Dežela") );
+            m_DBTables.items.Add(t_cState_Person);
 
             /* 12 */
             t_Person = new SQLTable((Object)new Person(),"per", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_BuyerPerson);
@@ -639,20 +639,20 @@ namespace BlagajnaDataBaseDef
             m_DBTables.items.Add(t_cCity_Org);
 
             /* 17 */
-            t_cState_Org = new SQLTable((Object)new cState_Org(),"cstorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cState_Org);
-            t_cState_Org.SetInputControls = m_ISO_3166_Table.SetInputControls;
-            t_cState_Org.AddColumn((Object)mt.m_cState_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "State", "Država") );
-            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a2", "ISO_3166 a2"));
-            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a3", "ISO_3166 a3"));
-            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 num", "ISO_3166 št."));
-            m_DBTables.items.Add(t_cState_Org);
+            t_cCountry_Org = new SQLTable((Object)new cCountry_Org(),"cstorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cCountry_Org);
+            t_cCountry_Org.SetInputControls = m_ISO_3166_Table.SetInputControls;
+            t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "Country", "Država") );
+            t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.Country_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a2", "ISO_3166 a2"));
+            t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.Country_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 a3", "ISO_3166 a3"));
+            t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.Country_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext("ISO_3166 num", "ISO_3166 št."));
+            m_DBTables.items.Add(t_cCountry_Org);
 
             /* 18 */
-            t_cCountry_Org = new SQLTable((Object)new cCountry_Org(),"ccouorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cCountry_Org);
-            t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new ltext( "Country", "Dežela") );
-            m_DBTables.items.Add(t_cCountry_Org);
+            t_cState_Org = new SQLTable((Object)new cState_Org(),"ccouorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cState_Org);
+            t_cState_Org.AddColumn((Object)mt.m_cState_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_cState_Org.AddColumn((Object)mt.m_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new ltext( "State", "Dežela") );
+            m_DBTables.items.Add(t_cState_Org);
 
             /* 19 */
             t_cZIP_Org = new SQLTable((Object)new cZIP_Org(),"cziporg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cZIP_Org);
@@ -1099,19 +1099,19 @@ namespace BlagajnaDataBaseDef
             m_DBTables.items.Add(t_Atom_cZIP_Person);
 
         /* 72 */
-            t_Atom_cState_Person = new SQLTable((Object)new Atom_cState_Person(),"astper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cState_Person);
-            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "State", "Država") );
-            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.State_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a2", "ISO_3166 a3"));
-            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.State_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a3", "ISO_3166 a3"));
-            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Person.State_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 num", "ISO_3166 št."));
-            m_DBTables.items.Add(t_Atom_cState_Person);
+            t_Atom_cCountry_Person = new SQLTable((Object)new Atom_cCountry_Person(),"astper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cCountry_Person);
+            t_Atom_cCountry_Person.AddColumn((Object)mt.m_Atom_cCountry_Person.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_Atom_cCountry_Person.AddColumn((Object)mt.m_Atom_cCountry_Person.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Country", "Država") );
+            t_Atom_cCountry_Person.AddColumn((Object)mt.m_Atom_cCountry_Person.Country_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a2", "ISO_3166 a3"));
+            t_Atom_cCountry_Person.AddColumn((Object)mt.m_Atom_cCountry_Person.Country_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a3", "ISO_3166 a3"));
+            t_Atom_cCountry_Person.AddColumn((Object)mt.m_Atom_cCountry_Person.Country_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 num", "ISO_3166 št."));
+            m_DBTables.items.Add(t_Atom_cCountry_Person);
 
         /* 73 */
-            t_Atom_cCountry_Person = new SQLTable((Object)new Atom_cCountry_Person(),"acouper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cCountry_Person);
-            t_Atom_cCountry_Person.AddColumn((Object)mt.m_Atom_cCountry_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_cCountry_Person.AddColumn((Object)mt.m_Atom_cCountry_Org.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Country", "Dežela") );
-            m_DBTables.items.Add(t_Atom_cCountry_Person);
+            t_Atom_cState_Person = new SQLTable((Object)new Atom_cState_Person(),"acouper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cState_Person);
+            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_Atom_cState_Person.AddColumn((Object)mt.m_Atom_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "State", "Dežela") );
+            m_DBTables.items.Add(t_Atom_cState_Person);
 
         /* 74 */
             t_Atom_cStreetName_Org = new SQLTable((Object)new Atom_cStreetName_Org(),"astrnorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cStreetName_Org);;
@@ -1138,20 +1138,20 @@ namespace BlagajnaDataBaseDef
             m_DBTables.items.Add(t_Atom_cZIP_Org);
 
         /* 78 */
-            t_Atom_cState_Org = new SQLTable((Object)new Atom_cState_Org(), "astorg",Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cState_Org);
-            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "State", "Država") );
-            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a2", "ISO_3166 a3"));
-            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a3", "ISO_3166 a3"));
-            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 num", "ISO_3166 št."));
-            m_DBTables.items.Add(t_Atom_cState_Org);
+            t_Atom_cCountry_Org = new SQLTable((Object)new Atom_cCountry_Org(), "astorg",Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cCountry_Org);
+            t_Atom_cCountry_Org.AddColumn((Object)mt.m_Atom_cCountry_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_Atom_cCountry_Org.AddColumn((Object)mt.m_Atom_cCountry_Org.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Country", "Država") );
+            t_Atom_cCountry_Org.AddColumn((Object)mt.m_Atom_cCountry_Org.Country_ISO_3166_a2, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a2", "ISO_3166 a3"));
+            t_Atom_cCountry_Org.AddColumn((Object)mt.m_Atom_cCountry_Org.Country_ISO_3166_a3, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 a3", "ISO_3166 a3"));
+            t_Atom_cCountry_Org.AddColumn((Object)mt.m_Atom_cCountry_Org.Country_ISO_3166_num, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("ISO_3166 num", "ISO_3166 št."));
+            m_DBTables.items.Add(t_Atom_cCountry_Org);
 
 
         /* 79 */
-            t_Atom_cCountry_Org = new SQLTable((Object)new Atom_cCountry_Org(),"acouorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cCountry_Org);
-            t_Atom_cCountry_Org.AddColumn((Object)mt.m_Atom_cCountry_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_cCountry_Org.AddColumn((Object)mt.m_Atom_cCountry_Org.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "ZIP", "Številka pošte") );
-            m_DBTables.items.Add(t_Atom_cCountry_Org);
+            t_Atom_cState_Org = new SQLTable((Object)new Atom_cState_Org(),"acouorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_cState_Org);
+            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_Atom_cState_Org.AddColumn((Object)mt.m_Atom_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "ZIP", "Številka pošte") );
+            m_DBTables.items.Add(t_Atom_cState_Org);
 
         /* 80 */
             t_cAddress_Person = new SQLTable((Object)new cAddress_Person(), "cadrper",Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cAddress_Person);
@@ -1160,8 +1160,8 @@ namespace BlagajnaDataBaseDef
             t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cHouseNumber_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "House Number ID", "Hišna številka ID") );
             t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cCity_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "City ID", "Mesto ID") );
             t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cZIP_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "ZIP ID", "Številka Pošte ID") );
-            t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cState_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Država ID") );
-            t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cCountry_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Country ID", "Dežela ID") );
+            t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cCountry_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "CuntryID", "Država ID") );
+            t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cState_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Dežela ID") );
             m_DBTables.items.Add(t_cAddress_Person);
 
         /* 81 */
@@ -1171,8 +1171,8 @@ namespace BlagajnaDataBaseDef
             t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cHouseNumber_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "House Number ID", "Hišna številka ID") );
             t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cCity_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "City ID", "Mesto ID") );
             t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cZIP_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "ZIP ID", "Številka Pošte ID") );
-            t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cState_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Država ID") );
-            t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cCountry_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Country ID", "Dežela ID") );
+            t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cCountry_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "CuntryID", "Država ID") );
+            t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cState_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Dežela ID") );
             m_DBTables.items.Add(t_cAddress_Org);
 
         /* 82 */
@@ -1182,8 +1182,8 @@ namespace BlagajnaDataBaseDef
             t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cHouseNumber_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "House Number ID", "Hišna številka ID") );
             t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cCity_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "City ID", "Mesto ID") );
             t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cZIP_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "ZIP ID", "Številka Pošte ID") );
-            t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cState_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Država ID") );
-            t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cCountry_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Country ID", "Dežela ID") );
+            t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cCountry_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "CuntryID", "Država ID") );
+            t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cState_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Dežela ID") );
             m_DBTables.items.Add(t_Atom_cAddress_Person);
 
         /* 83 */
@@ -1193,8 +1193,8 @@ namespace BlagajnaDataBaseDef
             t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cHouseNumber_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "House Number ID", "Hišna številka ID") );
             t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cCity_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "City ID", "Mesto ID") );
             t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cZIP_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "ZIP ID", "Številka Pošte ID") );
-            t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cState_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Država ID") );
-            t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cCountry_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Country ID", "Dežela ID") );
+            t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cCountry_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "CuntryID", "Država ID") );
+            t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cState_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Dežela ID") );
             m_DBTables.items.Add(t_Atom_cAddress_Org);
 
         /* 84 */

@@ -27,8 +27,8 @@ namespace InvoiceDB
         public string stbl_cHouseNumber_Org_TableName = null;
         public string stbl_cZIP_Org_TableName = null;
         public string stbl_cCity_Org_TableName = null;
-        public string stbl_cState_Org_TableName = null;
         public string stbl_cCountry_Org_TableName = null;
+        public string stbl_cState_Org_TableName = null;
 
         public string stbl_cAddress_Org_TableName = null;
 
@@ -135,8 +135,8 @@ namespace InvoiceDB
         public string col_cAddress_Org_cHouseNumber_Org_ID;
         public string col_cAddress_Org_cZIP_Org_ID;
         public string col_cAddress_Org_cCity_Org_ID;
-        public string col_cAddress_Org_cState_Org_ID;
         public string col_cAddress_Org_cCountry_Org_ID;
+        public string col_cAddress_Org_cState_Org_ID;
 
 
 
@@ -249,8 +249,8 @@ namespace InvoiceDB
             SQLTable tbl_cHouseNumber_Org = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(cHouseNumber_Org));
             SQLTable tbl_cZIP_Org = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(cZIP_Org));
             SQLTable tbl_cCity_Org = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(cCity_Org));
-            SQLTable tbl_cState_Org = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(cState_Org));
             SQLTable tbl_cCountry_Org = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(cCountry_Org));
+            SQLTable tbl_cState_Org = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(cState_Org));
 
             SQLTable tbl_cAddress_Org = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(cAddress_Org));
 
@@ -270,8 +270,8 @@ namespace InvoiceDB
             stbl_cHouseNumber_Org_TableName = tbl_cHouseNumber_Org.TableName;
             stbl_cZIP_Org_TableName = tbl_cZIP_Org.TableName;
             stbl_cCity_Org_TableName = tbl_cCity_Org.TableName;
-            stbl_cState_Org_TableName = tbl_cState_Org.TableName;
             stbl_cCountry_Org_TableName = tbl_cCountry_Org.TableName;
+            stbl_cState_Org_TableName = tbl_cState_Org.TableName;
 
             stbl_Atom_Item_Name_TableName = tbl_Atom_Item_Name.TableName;
             stbl_Atom_Item_barcode_TableName = tbl_Atom_Item_barcode.TableName;
@@ -322,8 +322,8 @@ namespace InvoiceDB
             col_cAddress_Org_cHouseNumber_Org_ID = stbl_cAddress_Org_TableName + "." + GetName(td.m_cAddress_Org.m_cHouseNumber_Org.GetType()) + "_ID";
             col_cAddress_Org_cZIP_Org_ID = stbl_cAddress_Org_TableName + "." + GetName(td.m_cAddress_Org.m_cZIP_Org.GetType()) + "_ID";
             col_cAddress_Org_cCity_Org_ID = stbl_cAddress_Org_TableName + "." + GetName(td.m_cAddress_Org.m_cCity_Org.GetType()) + "_ID";
-            col_cAddress_Org_cState_Org_ID = stbl_cAddress_Org_TableName + "." + GetName(td.m_cAddress_Org.m_cState_Org.GetType()) + "_ID";
             col_cAddress_Org_cCountry_Org_ID = stbl_cAddress_Org_TableName + "." + GetName(td.m_cAddress_Org.m_cCountry_Org.GetType()) + "_ID";
+            col_cAddress_Org_cState_Org_ID = stbl_cAddress_Org_TableName + "." + GetName(td.m_cAddress_Org.m_cState_Org.GetType()) + "_ID";
 
 
 
@@ -350,8 +350,8 @@ namespace InvoiceDB
             //colmyCompany_cStreetName_Org_ID = GetName(td.m_myCompany.m_cStreetName_Org.GetType());
             //colmyCompany_cHouseNumber_Org_ID = GetName(td.m_myCompany.m_cHouseNumber_Org.GetType());
             //colmyCompany_cCity_Org_ID = GetName(td.m_myCompany.m_cCity_Org.GetType());
-            //colmyCompany_cState_Org_ID = GetName(td.m_myCompany.m_cState_Org.GetType());
             //colmyCompany_cCountry_Org_ID = GetName(td.m_myCompany.m_cCountry_Org.GetType());
+            //colmyCompany_cState_Org_ID = GetName(td.m_myCompany.m_cState_Org.GetType());
             //colmyCompany_cZIP_Org_ID = GetName(td.m_myCompany.m_cZIP_Org.GetType());
 
 

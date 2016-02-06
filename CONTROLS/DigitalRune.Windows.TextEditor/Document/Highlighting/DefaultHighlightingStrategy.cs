@@ -632,7 +632,7 @@ namespace DigitalRune.Windows.TextEditor.Highlighting
     }
 
 
-    void UpdateSpanStateVariables()
+    void UpdateSpanCountryVariables()
     {
       _inSpan = (_currentSpanStack != null && !_currentSpanStack.IsEmpty);
       _activeSpan = _inSpan ? _currentSpanStack.Peek() : null;
@@ -648,7 +648,7 @@ namespace DigitalRune.Windows.TextEditor.Highlighting
 
       _currentOffset = 0;
       _currentLength = 0;
-      UpdateSpanStateVariables();
+      UpdateSpanCountryVariables();
 
       int currentLineLength = _currentLine.Length;
       int currentLineOffset = _currentLine.Offset;
@@ -873,7 +873,7 @@ namespace DigitalRune.Windows.TextEditor.Highlighting
                     _currentLength = 0;
                     i += regex.Length - 1;
                     _currentSpanStack.Pop();
-                    UpdateSpanStateVariables();
+                    UpdateSpanCountryVariables();
                     continue;
                   }
                 }
@@ -906,7 +906,7 @@ namespace DigitalRune.Windows.TextEditor.Highlighting
                       _currentSpanStack.Push(span);
                       span.IgnoreCase = _activeRuleSet.IgnoreCase;
 
-                      UpdateSpanStateVariables();
+                      UpdateSpanCountryVariables();
                     }
 
                     goto skip;

@@ -48,8 +48,8 @@ namespace UniversalInvoice
                         string _HouseNumber,
                         string _ZIP,
                         string _City,
-                        string _State,
-                        string _Country
+                        string _Country,
+                        string _State
                         )
         {
             Gender = _Gender;
@@ -69,8 +69,8 @@ namespace UniversalInvoice
                                            _HouseNumber,
                                            _ZIP,
                                            _City,
-                                           _State,
-                                           _Country);
+                                           _Country,
+                                           _State);
             token = new PersonToken(token_prefix_Person,
                                     Gender,
                                     FirstName,

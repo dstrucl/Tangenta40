@@ -286,8 +286,8 @@ namespace SQLTableControl
 
             if (m_pTableDockingFormXml != null)
             {
-                this.WindowState = m_pTableDockingFormXml.wrect.formWindowState;
-                if (this.WindowState == FormWindowState.Normal)
+                this.WindowState= m_pTableDockingFormXml.wrect.formWindowState;
+                if (this.WindowState== FormWindowState.Normal)
                 {
                     if (m_pTableDockingFormXml.wrect.Width < 200)
                         m_pTableDockingFormXml.wrect.Width = 200;

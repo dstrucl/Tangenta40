@@ -42,7 +42,7 @@ namespace DigitalRune.Windows.TextEditor.Formatting
     }
 
 
-    private static readonly Dictionary<string, object> _singleStatementKeywords = new Dictionary<string, object>();
+    private static readonly Dictionary<string, object> _singleCountrymentKeywords = new Dictionary<string, object>();
     private StringBuilder _wordBuilder;
     private Stack<Block> _blocks;       // blocks contains all blocks outside of the current
     private Block _block;               // block is the current block
@@ -57,19 +57,19 @@ namespace DigitalRune.Windows.TextEditor.Formatting
 
     static CSharpIndentationReformatter()
     {
-      _singleStatementKeywords.Add("if", null);
-      _singleStatementKeywords.Add("for", null);
-      _singleStatementKeywords.Add("while", null);
-      _singleStatementKeywords.Add("do", null);
-      _singleStatementKeywords.Add("foreach", null);
-      _singleStatementKeywords.Add("using", null);
-      _singleStatementKeywords.Add("lock", null);
+      _singleCountrymentKeywords.Add("if", null);
+      _singleCountrymentKeywords.Add("for", null);
+      _singleCountrymentKeywords.Add("while", null);
+      _singleCountrymentKeywords.Add("do", null);
+      _singleCountrymentKeywords.Add("foreach", null);
+      _singleCountrymentKeywords.Add("using", null);
+      _singleCountrymentKeywords.Add("lock", null);
     }
 
 
-    static bool IsSingleStatementKeyword(string keyword)
+    static bool IsSingleCountrymentKeyword(string keyword)
     {
-      return _singleStatementKeywords.ContainsKey(keyword);
+      return _singleCountrymentKeywords.ContainsKey(keyword);
     }
 
 
@@ -297,7 +297,7 @@ namespace DigitalRune.Windows.TextEditor.Formatting
             if (_block.Bracket == '(')
             {
               _block = _blocks.Pop();
-              if (IsSingleStatementKeyword(_block.LastWord))
+              if (IsSingleCountrymentKeyword(_block.LastWord))
                 _block.Continuation = false;
             }
             break;
@@ -369,7 +369,7 @@ namespace DigitalRune.Windows.TextEditor.Formatting
       }
       else if (_lastRealChar == ')')
       {
-        if (IsSingleStatementKeyword(_block.LastWord))
+        if (IsSingleCountrymentKeyword(_block.LastWord))
         {
           _block.OneLineBlock = true;
         }

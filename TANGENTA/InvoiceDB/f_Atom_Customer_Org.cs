@@ -40,11 +40,11 @@ namespace InvoiceDB
                                     OrganisationData_$_cadrorg_$_chounorg_$$HouseNumber,
                                     OrganisationData_$_cadrorg_$_cziporg_$$ZIP,
                                     OrganisationData_$_cadrorg_$_ccitorg_$$City,
-                                    OrganisationData_$_cadrorg_$_cstorg_$$State,
-                                    OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_a2,
-                                    OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_a3,
-                                    OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_num,
-                                    OrganisationData_$_cadrorg_$_ccouorg_$$Country,
+                                    OrganisationData_$_cadrorg_$_cstorg_$$Country,
+                                    OrganisationData_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
+                                    OrganisationData_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
+                                    OrganisationData_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
+                                    OrganisationData_$_cadrorg_$_ccouorg_$$State,
                                     OrganisationData_$_cphnnorg_$$PhoneNumber,
                                     OrganisationData_$_cfaxnorg_$$FaxNumber,
                                     OrganisationData_$_cemailorg_$$Email,
@@ -66,11 +66,11 @@ namespace InvoiceDB
                             Address_v.HouseNumber_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_chounorg_$$HouseNumber"]);
                             Address_v.ZIP_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cziporg_$$ZIP"]);
                             Address_v.City_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccitorg_$$City"]);
-                            Address_v.State_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State"]);
-                            Address_v.State_ISO_3166_a2_v= tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_a2"]);
-                            Address_v.State_ISO_3166_a3_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_a3"]);
-                            Address_v.State_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State_ISO_3166_num"]));
-                            Address_v.Country_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccouorg_$$Country"]);
+                            Address_v.Country_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$Country"]);
+                            Address_v.Country_ISO_3166_a2_v= tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2"]);
+                            Address_v.Country_ISO_3166_a3_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3"]);
+                            Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$Country_ISO_3166_num"]));
+                            Address_v.State_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccouorg_$$State"]);
                             string_v PhoneNumber_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cphnnorg_$$PhoneNumber"]);
                             string_v FaxNumber_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cfaxnorg_$$FaxNumber"]);
                             string_v Email_v = tf.set_string(dt.Rows[0]["OrganisationData_$_cemailorg_$$Email"]);

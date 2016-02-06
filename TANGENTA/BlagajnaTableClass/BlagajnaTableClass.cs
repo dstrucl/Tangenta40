@@ -328,11 +328,11 @@ namespace BlagajnaTableClass
     {
     }
 
-    public class State : DB_varchar_264
+    public class Country: DB_varchar_264
     {
     }
 
-    public class Country : DB_varchar_264
+    public class State : DB_varchar_264
     {
     }
 
@@ -379,17 +379,17 @@ namespace BlagajnaTableClass
 
     }
 
-    public class State_ISO_3166_a2:DB_varchar_5
+    public class Country_ISO_3166_a2:DB_varchar_5
     {
 
     }
 
-    public class State_ISO_3166_a3 : DB_varchar_5
+    public class Country_ISO_3166_a3 : DB_varchar_5
     {
 
     }
 
-    public class State_ISO_3166_num : DB_smallInt
+    public class Country_ISO_3166_num : DB_smallInt
     {
 
     }
@@ -497,19 +497,19 @@ namespace BlagajnaTableClass
         public ZIP ZIP = new ZIP();
     }
 
+    public class cCountry_Person
+    {
+        public ID ID = new ID();
+        public Country Country= new Country();
+        public Country_ISO_3166_a2 Country_ISO_3166_a2 = new Country_ISO_3166_a2();
+        public Country_ISO_3166_a3 Country_ISO_3166_a3 = new Country_ISO_3166_a3();
+        public Country_ISO_3166_num Country_ISO_3166_num = new Country_ISO_3166_num();
+    }
+
     public class cState_Person
     {
         public ID ID = new ID();
         public State State = new State();
-        public State_ISO_3166_a2 State_ISO_3166_a2 = new State_ISO_3166_a2();
-        public State_ISO_3166_a3 State_ISO_3166_a3 = new State_ISO_3166_a3();
-        public State_ISO_3166_num State_ISO_3166_num = new State_ISO_3166_num();
-    }
-
-    public class cCountry_Person
-    {
-        public ID ID = new ID();
-        public Country Country = new Country();
     }
 
     public class Atom_cStreetName_Person
@@ -537,19 +537,19 @@ namespace BlagajnaTableClass
     }
 
 
+    public class Atom_cCountry_Person
+    {
+        public ID ID = new ID();
+        public Country Country= new Country();
+        public Country_ISO_3166_a2 Country_ISO_3166_a2 = new Country_ISO_3166_a2();
+        public Country_ISO_3166_a3 Country_ISO_3166_a3 = new Country_ISO_3166_a3();
+        public Country_ISO_3166_num Country_ISO_3166_num = new Country_ISO_3166_num();
+    }
+
     public class Atom_cState_Person
     {
         public ID ID = new ID();
         public State State = new State();
-        public State_ISO_3166_a2 State_ISO_3166_a2 = new State_ISO_3166_a2();
-        public State_ISO_3166_a3 State_ISO_3166_a3 = new State_ISO_3166_a3();
-        public State_ISO_3166_num State_ISO_3166_num = new State_ISO_3166_num();
-    }
-
-    public class Atom_cCountry_Person
-    {
-        public ID ID = new ID();
-        public Country Country = new Country();
     }
 
     public class cAddress_Person
@@ -559,8 +559,8 @@ namespace BlagajnaTableClass
         public cHouseNumber_Person m_cHouseNumber_Person = new cHouseNumber_Person();
         public cCity_Person m_cCity_Person = new cCity_Person();
         public cZIP_Person m_cZIP_Person = new cZIP_Person();
-        public cState_Person m_cState_Person = new cState_Person();
         public cCountry_Person m_cCountry_Person = new cCountry_Person();
+        public cState_Person m_cState_Person = new cState_Person();
 
     }
 
@@ -628,8 +628,8 @@ namespace BlagajnaTableClass
         public Atom_cHouseNumber_Person m_Atom_cHouseNumber_Person = new Atom_cHouseNumber_Person();
         public Atom_cCity_Person m_Atom_cCity_Person = new Atom_cCity_Person();
         public Atom_cZIP_Person m_Atom_cZIP_Person = new Atom_cZIP_Person();
-        public Atom_cState_Person m_Atom_cState_Person = new Atom_cState_Person();
         public Atom_cCountry_Person m_Atom_cCountry_Person = new Atom_cCountry_Person();
+        public Atom_cState_Person m_Atom_cState_Person = new Atom_cState_Person();
     }
 
     public class Atom_Person
@@ -685,19 +685,19 @@ namespace BlagajnaTableClass
         public ZIP ZIP = new ZIP();
     }
 
+    public class cCountry_Org
+    {
+        public ID ID = new ID();
+        public Country Country= new Country();
+        public Country_ISO_3166_a2 Country_ISO_3166_a2 = new Country_ISO_3166_a2();
+        public Country_ISO_3166_a3 Country_ISO_3166_a3 = new Country_ISO_3166_a3();
+        public Country_ISO_3166_num Country_ISO_3166_num = new Country_ISO_3166_num();
+    }
+
     public class cState_Org
     {
         public ID ID = new ID();
         public State State = new State();
-        public State_ISO_3166_a2 State_ISO_3166_a2 = new State_ISO_3166_a2();
-        public State_ISO_3166_a3 State_ISO_3166_a3 = new State_ISO_3166_a3();
-        public State_ISO_3166_num State_ISO_3166_num = new State_ISO_3166_num();
-    }
-
-    public class cCountry_Org
-    {
-        public ID ID = new ID();
-        public Country Country = new Country();
     }
 
 
@@ -725,19 +725,19 @@ namespace BlagajnaTableClass
         public ZIP ZIP = new ZIP();
     }
 
+    public class Atom_cCountry_Org
+    {
+        public ID ID = new ID();
+        public Country Country= new Country();
+        public Country_ISO_3166_a2 Country_ISO_3166_a2 = new Country_ISO_3166_a2();
+        public Country_ISO_3166_a3 Country_ISO_3166_a3 = new Country_ISO_3166_a3();
+        public Country_ISO_3166_num Country_ISO_3166_num = new Country_ISO_3166_num();
+    }
+
     public class Atom_cState_Org
     {
         public ID ID = new ID();
         public State State = new State();
-        public State_ISO_3166_a2 State_ISO_3166_a2 = new State_ISO_3166_a2();
-        public State_ISO_3166_a3 State_ISO_3166_a3 = new State_ISO_3166_a3();
-        public State_ISO_3166_num State_ISO_3166_num = new State_ISO_3166_num();
-    }
-
-    public class Atom_cCountry_Org
-    {
-        public ID ID = new ID();
-        public Country Country = new Country();
     }
 
 
@@ -987,8 +987,8 @@ namespace BlagajnaTableClass
         public cStreetName_Org m_cStreetName_Org = new cStreetName_Org();
         public cHouseNumber_Org m_cHouseNumber_Org = new cHouseNumber_Org();
         public cCity_Org m_cCity_Org = new cCity_Org();
-        public cState_Org m_cState_Org = new cState_Org();
         public cCountry_Org m_cCountry_Org = new cCountry_Org();
+        public cState_Org m_cState_Org = new cState_Org();
         public cZIP_Org m_cZIP_Org = new cZIP_Org();
     }
 
@@ -999,8 +999,8 @@ namespace BlagajnaTableClass
         public Atom_cHouseNumber_Org m_Atom_cHouseNumber_Org = new Atom_cHouseNumber_Org();
         public Atom_cCity_Org m_Atom_cCity_Org = new Atom_cCity_Org();
         public Atom_cZIP_Org m_Atom_cZIP_Org = new Atom_cZIP_Org();
-        public Atom_cState_Org m_Atom_cState_Org = new Atom_cState_Org();
         public Atom_cCountry_Org m_Atom_cCountry_Org = new Atom_cCountry_Org();
+        public Atom_cState_Org m_Atom_cState_Org = new Atom_cState_Org();
     }
 
 
@@ -2188,9 +2188,9 @@ namespace BlagajnaTableClass
         /* 9 */
         public cCity_Person m_cCity_Person = new cCity_Person();
         /* 10 */
-        public cState_Person m_cState_Person = new cState_Person();
-        /* 11 */
         public cCountry_Person m_cCountry_Person = new cCountry_Person();
+        /* 11 */
+        public cState_Person m_cState_Person = new cState_Person();
 
         /* 12 */
         public Person m_Person = new Person();
@@ -2205,9 +2205,9 @@ namespace BlagajnaTableClass
         /* 16 */
         public cCity_Org m_cCity_Org = new cCity_Org();
         /* 17 */
-        public cState_Org m_cState_Org = new cState_Org();
-        /* 18 */
         public cCountry_Org m_cCountry_Org = new cCountry_Org();
+        /* 18 */
+        public cState_Org m_cState_Org = new cState_Org();
         /* 19 */
         public cZIP_Org m_cZIP_Org = new cZIP_Org();
         /* 20 */
@@ -2354,10 +2354,10 @@ namespace BlagajnaTableClass
         public Atom_cZIP_Person m_Atom_cZIP_Person = new Atom_cZIP_Person();
 
         /* 72 */
-        public Atom_cState_Person m_Atom_cState_Person = new Atom_cState_Person();
+        public Atom_cCountry_Person m_Atom_cCountry_Person = new Atom_cCountry_Person();
 
         /* 73 */
-        public Atom_cCountry_Person m_Atom_cCountry_Person = new Atom_cCountry_Person();
+        public Atom_cState_Person m_Atom_cState_Person = new Atom_cState_Person();
 
         /* 74 */
         public Atom_cStreetName_Org m_Atom_cStreetName_Org = new Atom_cStreetName_Org();
@@ -2372,10 +2372,10 @@ namespace BlagajnaTableClass
         public Atom_cZIP_Org m_Atom_cZIP_Org  = new Atom_cZIP_Org();
 
         /* 78 */
-        public Atom_cState_Org m_Atom_cState_Org = new Atom_cState_Org();
+        public Atom_cCountry_Org m_Atom_cCountry_Org = new Atom_cCountry_Org();
 
         /* 79 */
-        public Atom_cCountry_Org m_Atom_cCountry_Org = new Atom_cCountry_Org();
+        public Atom_cState_Org m_Atom_cState_Org = new Atom_cState_Org();
 
         /* 80 */
         public cAddress_Person m_cAddress_Person = new cAddress_Person();

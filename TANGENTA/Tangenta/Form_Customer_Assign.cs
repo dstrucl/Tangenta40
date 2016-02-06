@@ -30,8 +30,8 @@ namespace Tangenta
         internal string HouseNumber = null;
         internal string ZIP = null;
         internal string City = null;
-        internal string Country = null;
         internal string State = null;
+        internal string Country= null;
         internal DateTime DateOfBirth = DateTime.MinValue;
         public long Person_ID = -1;
         public long CustomerPerson_ID = -1;
@@ -67,8 +67,8 @@ namespace Tangenta
                             PersonData_$_cadrper_$_chounper_$$HouseNumber,
                             PersonData_$_cadrper_$_zipper_$$ZIP,
                             PersonData_$_cadrper_$_ccitper_$$City,
-                            PersonData_$_cadrper_$_ccouper_$$Country,
-                            PersonData_$_cadrper_$_cstper_$$State,
+                            PersonData_$_cadrper_$_ccouper_$$State,
+                            PersonData_$_cadrper_$_cstper_$$Country,
                             PersonData_$_per_$$DateOfBirth,
                             PersonData_$_per_$$ID
                             from PersonData_VIEW where ID = " + PersonData_ID.ToString();
@@ -109,13 +109,13 @@ namespace Tangenta
                     {
                         City = (string)dt.Rows[0]["PersonData_$_cadrper_$_ccitper_$$City"];
                     }
-                    if (dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$Country"] is string)
+                    if (dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$State"] is string)
                     {
-                        Country = (string)dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$Country"];
+                        State = (string)dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$State"];
                     }
-                    if (dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$State"] is string)
+                    if (dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country"] is string)
                     {
-                        State = (string)dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$State"];
+                        Country= (string)dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country"];
                     }
                     if (dt.Rows[0]["PersonData_$_per_$$DateOfBirth"] is DateTime)
                     {
@@ -170,13 +170,13 @@ namespace Tangenta
                     {
                         lbl_Person.Text += "\r\n     " + lngRPM.s_City.s + ":" + City;
                     }
-                    if (Country != null)
-                    {
-                        lbl_Person.Text += "\r\n     " + lngRPM.s_Country.s + ":" + Country;
-                    }
                     if (State != null)
                     {
                         lbl_Person.Text += "\r\n     " + lngRPM.s_State.s + ":" + State;
+                    }
+                    if (Country!= null)
+                    {
+                        lbl_Person.Text += "\r\n     " + lngRPM.s_Country.s + ":" + Country;
                     }
                 }
             }

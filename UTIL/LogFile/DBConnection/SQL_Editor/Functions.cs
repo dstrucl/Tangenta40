@@ -36,7 +36,7 @@ namespace SqlBuilder
 		{
 			Main,      // write in MainKey
 			WorkDir,   // write in MainKey\WorkDirs\DirectoryName
-			WorkState, // write in MainKey\WorkDirs\DirectoryName\WorkStates\Filename
+			WorkCountry, // write in MainKey\WorkDirs\DirectoryName\WorkCountrys\Filename
 		}
 
 		const  string ms_RegistryRoot = @"Software\ElmueSoft\SqlBuilder";
@@ -183,7 +183,7 @@ namespace SqlBuilder
         //    //    return s_Path;
 
         //    //ListViewEx.cItem i_Item = frmMain.SelectedFile;
-        //    //return s_Path + @"\WorkStates\" + i_Item.s_DataBase + "/" + i_Item.s_FileName;
+        //    //return s_Path + @"\WorkCountrys\" + i_Item.s_DataBase + "/" + i_Item.s_FileName;
         //}
 
         //public static void RegistryWrite(eReg e_Registry, string s_Name, object o_Value)
@@ -234,14 +234,14 @@ namespace SqlBuilder
 		/// Removes a work state subkey in the Registry
 		/// or delete ALL workstates
 		/// </summary>
-        ////public static void RemoveWorkState(bool b_RemoveALL)
+        ////public static void RemoveWorkCountry(bool b_RemoveALL)
         //{
         //    try 
         //    { 
         //        //if (b_RemoveALL)
-        //        //    Registry.CurrentUser.DeleteSubKeyTree(GetRegPath(eReg.WorkDir) + @"\WorkStates"); 
+        //        //    Registry.CurrentUser.DeleteSubKeyTree(GetRegPath(eReg.WorkDir) + @"\WorkCountrys"); 
         //        //else
-        //        //    Registry.CurrentUser.DeleteSubKeyTree(GetRegPath(eReg.WorkState)); 
+        //        //    Registry.CurrentUser.DeleteSubKeyTree(GetRegPath(eReg.WorkCountry)); 
         //    }
         //    catch {}
         //}

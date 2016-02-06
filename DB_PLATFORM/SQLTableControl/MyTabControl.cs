@@ -91,7 +91,7 @@ namespace SQLTableControl
             // Get the real bounds for the tab rectangle.
             Rectangle _tabBounds = base.GetTabRect(e.Index);
 
-            if (e.State == DrawItemState.Selected)
+            if (e.State== DrawItemState.Selected)
             {
 
                 // Draw a different background color, and don't paint a focus rectangle.

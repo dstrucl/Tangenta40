@@ -33,8 +33,8 @@ namespace InvoiceDB
                                 left join Atom_cHouseNumber_Org on Atom_cAddress_Org.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
                                 left join Atom_cCity_Org on Atom_cAddress_Org.Atom_cCity_Org_ID = Atom_cCity_Org.ID
                                 left join Atom_cZIP_Org on Atom_cAddress_Org.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                                left join Atom_cState_Org on Atom_cAddress_Org.Atom_cState_Org_ID = Atom_cState_Org.ID
                                 left join Atom_cCountry_Org on Atom_cAddress_Org.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
+                                left join Atom_cState_Org on Atom_cAddress_Org.Atom_cState_Org_ID = Atom_cState_Org.ID
                                 inner join Organisation on Organisation.Name = Atom_Organisation.Name
                                            and ((Organisation.Tax_ID = Atom_Organisation.Tax_ID) or ( Organisation.Tax_ID is null and  Atom_Organisation.Tax_ID is null))
                                            and ((Organisation.Registration_ID = Atom_Organisation.Registration_ID) or (Organisation.Registration_ID is null and Atom_Organisation.Registration_ID is null))
@@ -45,8 +45,8 @@ namespace InvoiceDB
                                 left  join cHouseNumber_Org on cAddress_Org.cHouseNumber_Org_ID = cHouseNumber_Org.ID
                                 left  join cCity_Org on cAddress_Org.cCity_Org_ID = cCity_Org.ID
                                 left  join cZIP_Org on cAddress_Org.cZIP_Org_ID = cZIP_Org.ID
-                                left  join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
                                 left  join cCountry_Org on cAddress_Org.cCountry_Org_ID = cCountry_Org.ID
+                                left  join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
                                 left  join Logo on OrganisationData.Logo_ID = Logo.ID
                                 left  join Atom_Logo on Atom_OrganisationData.Atom_Logo_ID = Atom_Logo.ID
                                 where
@@ -59,8 +59,8 @@ namespace InvoiceDB
                                 ( (  Atom_OrganisationData.cFaxNumber_Org_ID is null  and   OrganisationData.cFaxNumber_Org_ID is null  ) or  ( Atom_OrganisationData.cFaxNumber_Org_ID = OrganisationData.cFaxNumber_Org_ID ) ) and
                                 ( (  cCity_Org.City is null ) and  Atom_cCity_Org.City is null   ) or  (cCity_Org.City = Atom_cCity_Org.City  ) and
                                 ( (  cZip_Org.ZIP is null  and  Atom_cZIP_Org.ZIP is null  )or  (cZip_Org.ZIP = Atom_cZIP_Org.ZIP ) ) and
-                                ( ( cState_Org.State is null  and   Atom_cState_Org.State is null )  or  ( cState_Org.State = Atom_cState_Org.State ) ) and
-                                ( ( cCountry_Org.Country is null and  Atom_cCountry_Org.Country is null  ) or  (cCountry_Org.Country = Atom_cCountry_Org.Country ) ) and
+                                ( ( cCountry_Org.Cuntryis null  and   Atom_cCountry_Org.Cuntryis null )  or  ( cCountry_Org.State= Atom_cCountry_Org.State) ) and
+                                ( ( cState_Org.State is null and  Atom_cState_Org.State is null  ) or  (cState_Org.State = Atom_cState_Org.State ) ) and
                                 myCompany.id = " + myCompany_ID.ToString();
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_myCompany_ID, ref Err))
@@ -120,8 +120,8 @@ namespace InvoiceDB
         //string_v HouseNumber_v = tf.set_string(Address.HouseNumber);
         //string_v ZIP_v = tf.set_string(Address.ZIP);
         //string_v City_v = tf.set_string(Address.City);
-        //string_v State_v = tf.set_string(Address.State);
         //string_v Country_v = tf.set_string(Address.Country);
+        //string_v State_v = tf.set_string(Address.State);
         //string_v PhoneNumber_v = tf.set_string(PhoneNumber);
         //string_v FaxNumber_v = tf.set_string(FaxNumber);
         //string_v Email_v = tf.set_string(Email);

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Country.Properties {
+namespace State.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Country.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Country.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("State.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace Country.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon State {
+        internal static System.Drawing.Icon Cuntry{
             get {
-                object obj = ResourceManager.GetObject("State", resourceCulture);
+                object obj = ResourceManager.GetObject("Country", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

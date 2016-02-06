@@ -279,7 +279,7 @@ namespace SQLTableControl
                 m_CurViewXml.m_ViewXml = new ViewXml(SelectView_FormDialog.m_ViewXml_Selected);
                 if (SelectView_FormDialog.bDefaultView)
                 {
-                    m_CurViewXml.State = CurViewXml.ViewXmlState.DEFAULT_VIEW;
+                    m_CurViewXml.State= CurViewXml.ViewXmlState.DEFAULT_VIEW;
                     if (m_pTableDockingFormXml != null)
                     {
                         if (m_pTableDockingFormXml.m_CreateViewFormXml != null)
@@ -291,7 +291,7 @@ namespace SQLTableControl
                 }
                 else
                 {
-                    m_CurViewXml.State = CurViewXml.ViewXmlState.EXISTING_VIEW;
+                    m_CurViewXml.State= CurViewXml.ViewXmlState.EXISTING_VIEW;
                 }
                 m_tbl.ClearFilterDataOf_DefineView_InputControl();
                 DynamicCreateControls(m_CurViewXml.m_ViewXml);
@@ -347,7 +347,7 @@ namespace SQLTableControl
                 }
             //}
             m_CurViewXml.m_ViewXml = null;
-            //m_CurViewXml.State = CurViewXml.ViewXmlState.NEW_VIEW;
+            //m_CurViewXml.State= CurViewXml.ViewXmlState.NEW_VIEW;
             //TableDockingFormXml xTableDockingFormXml = m_DBTables.m_xml.GetTableDockingFormXml(m_tbl.TableName);
             //m_CurViewXml.m_ViewXml.Name = UniqueNames.GetName(xTableDockingFormXml.m_ViewXml, lngRPM.s_View.s+"1");
             m_tbl.ClearFilterDataOf_DefineView_InputControl();
@@ -364,7 +364,7 @@ namespace SQLTableControl
                 m_CurViewXml.m_ViewXml = new ViewXml(SelectView_FormDialog.m_ViewXml_Selected);
                 if (SelectView_FormDialog.bDefaultView)
                 {
-                    m_CurViewXml.State = CurViewXml.ViewXmlState.DEFAULT_VIEW;
+                    m_CurViewXml.State= CurViewXml.ViewXmlState.DEFAULT_VIEW;
                     if (m_pTableDockingFormXml != null)
                     {
                         if (m_pTableDockingFormXml.m_CreateViewFormXml != null)
@@ -376,7 +376,7 @@ namespace SQLTableControl
                 }
                 else
                 {
-                    m_CurViewXml.State = CurViewXml.ViewXmlState.EXISTING_VIEW;
+                    m_CurViewXml.State= CurViewXml.ViewXmlState.EXISTING_VIEW;
                 }
                 m_tbl.ClearFilterDataOf_DefineView_InputControl();
                 DynamicCreateControls(m_CurViewXml.m_ViewXml);

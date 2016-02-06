@@ -13,35 +13,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace State_ISO_3166
+namespace Country_ISO_3166
 {
     public class ISO_3166_Table
     {
-        public ISO_3166[] Country_ISO_3166_array = null;
+        public ISO_3166[] State_ISO_3166_array = null;
         public DataTable dt_ISO_3166 = new DataTable();
 
         public bool SetInputControls(SQLTable tbl)
         {
-            Form_Select_State_ISO_3166 frm_Select_State_ISO_316 = new Form_Select_State_ISO_3166(dt_ISO_3166);
-            if (frm_Select_State_ISO_316.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166);
+            if (frm_Select_Country_ISO_316.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 foreach (Column col in tbl.Column)
                 {
-                    if (col.Name.Equals("State"))
+                    if (col.Name.Equals("Country"))
                     {
-                        col.InputControl.SetValue(frm_Select_State_ISO_316.State);
+                        col.InputControl.SetValue(frm_Select_Country_ISO_316.Country);
                     }
-                    else if (col.Name.Equals("State_ISO_3166_a2"))
+                    else if (col.Name.Equals("Country_ISO_3166_a2"))
                     {
-                        col.InputControl.SetValue(frm_Select_State_ISO_316.State_ISO_3166_a2);
+                        col.InputControl.SetValue(frm_Select_Country_ISO_316.Country_ISO_3166_a2);
                     }
-                    else if (col.Name.Equals("State_ISO_3166_a3"))
+                    else if (col.Name.Equals("Country_ISO_3166_a3"))
                     {
-                        col.InputControl.SetValue(frm_Select_State_ISO_316.State_ISO_3166_a3);
+                        col.InputControl.SetValue(frm_Select_Country_ISO_316.Country_ISO_3166_a3);
                     }
-                    else if (col.Name.Equals("State_ISO_3166_num"))
+                    else if (col.Name.Equals("Country_ISO_3166_num"))
                     {
-                        col.InputControl.SetValue(frm_Select_State_ISO_316.State_ISO_3166_num);
+                        col.InputControl.SetValue(frm_Select_Country_ISO_316.Country_ISO_3166_num);
                     }
                 }
                 return true;
@@ -54,7 +54,7 @@ namespace State_ISO_3166
 
         public ISO_3166_Table()
         {
-            Country_ISO_3166_array = new ISO_3166[] {
+            State_ISO_3166_array = new ISO_3166[] {
             new ISO_3166("Afghanistan","AF","AFG",004,"ISO 3166 - 2:AF","Afganistan"),
             new ISO_3166("Åland Islands","AX","ALA",248,"ISO 3166 - 2:AX","Åland otoki"),
             new ISO_3166("Albania","AL","ALB",008,"ISO 3166 - 2:AL","Albanija"),
@@ -81,7 +81,7 @@ namespace State_ISO_3166
             new ISO_3166("Benin","BJ","BEN",204,"ISO 3166 - 2:BJ","Benin"),
             new ISO_3166("Bermuda","BM","BMU",060,"ISO 3166 - 2:BM","Bermuda"),
             new ISO_3166("Bhutan","BT","BTN",064,"ISO 3166 - 2:BT","Butan"),
-            new ISO_3166("Bolivia(Plurinational State of)","BO","BOL",068,"ISO 3166 - 2:BO","Bolivija"),
+            new ISO_3166("Bolivia(Plurinational Cuntryof)","BO","BOL",068,"ISO 3166 - 2:BO","Bolivija"),
             new ISO_3166("Bonaire, Sint Eustatius and Saba","BQ","BES",535,"ISO 3166 - 2:BQ","Bonaire, Sint Eustatius and Saba"),
             new ISO_3166("Bosnia and Herzegovina","BA","BIH",070,"ISO 3166 - 2:BA","Bosna in Hercegovina"),
             new ISO_3166("Botswana","BW","BWA",072,"ISO 3166 - 2:BW","Bocvana"),
@@ -197,7 +197,7 @@ namespace State_ISO_3166
             new ISO_3166("Mauritius","MU","MUS",480,"ISO 3166 - 2:MU","Mauritius"),
             new ISO_3166("Mayotte","YT","MYT",175,"ISO 3166 - 2:YT","Mayotte"),
             new ISO_3166("Mexico","MX","MEX",484,"ISO 3166 - 2:MX","Mehika"),
-            new ISO_3166("Micronesia(Federated States of)","FM","FSM",583,"ISO 3166 - 2:FM","Mikronezija"),
+            new ISO_3166("Micronesia(Federated Countrys of)","FM","FSM",583,"ISO 3166 - 2:FM","Mikronezija"),
             new ISO_3166("Moldova(Republic of)","MD","MDA",498,"ISO 3166 - 2:MD","Moldavija"),
             new ISO_3166("Monaco","MC","MCO",492,"ISO 3166 - 2:MC","Monako"),
             new ISO_3166("Mongolia","MN","MNG",496,"ISO 3166 - 2:MN","Mongolija"),
@@ -222,7 +222,7 @@ namespace State_ISO_3166
             new ISO_3166("Oman","OM","OMN",512,"ISO 3166 - 2:OM","Oman"),
             new ISO_3166("Pakistan","PK","PAK",586,"ISO 3166 - 2:PK","Pakistan"),
             new ISO_3166("Palau","PW","PLW",585,"ISO 3166 - 2:PW","Palau"),
-            new ISO_3166("Palestine, State of","PS","PSE",275,"ISO 3166 - 2:PS","Palestina"),
+            new ISO_3166("Palestine, Cuntryof","PS","PSE",275,"ISO 3166 - 2:PS","Palestina"),
             new ISO_3166("Panama","PA","PAN",591,"ISO 3166 - 2:PA","Panama"),
             new ISO_3166("Papua New Guinea","PG","PNG",598,"ISO 3166 - 2:PG","Papua Nova Gvineja"),
             new ISO_3166("Paraguay","PY","PRY",600,"ISO 3166 - 2:PY","Paragvaj"),
@@ -288,8 +288,8 @@ namespace State_ISO_3166
             new ISO_3166("Ukraine","UA","UKR",804,"ISO 3166 - 2:UA","Ukrajina"),
             new ISO_3166("United Arab Emirates","AE","ARE",784,"ISO 3166 - 2:AE","Združeni arabski emirati"),
             new ISO_3166("United Kingdom of Great Britain and Northern Ireland","GB","GBR",826,"ISO 3166 - 2:GB","Velika Britanija"),
-            new ISO_3166("United States of America","US","USA",840,"ISO 3166 - 2:US","Združene države Amerike"),
-            new ISO_3166("United States Minor Outlying Islands","UM","UMI",581,"ISO 3166 - 2:UM","United States Minor Outlying Islands"),
+            new ISO_3166("United Countrys of America","US","USA",840,"ISO 3166 - 2:US","Združene države Amerike"),
+            new ISO_3166("United Countrys Minor Outlying Islands","UM","UMI",581,"ISO 3166 - 2:UM","United Countrys Minor Outlying Islands"),
             new ISO_3166("Uruguay","UY","URY",858,"ISO 3166 - 2:UY","Urugvaj"),
             new ISO_3166("Uzbekistan","UZ","UZB",860,"ISO 3166 - 2:UZ","Uzbekistan "),
             new ISO_3166("Vanuatu","VU","VUT",548,"ISO 3166 - 2:VU","Vanuatu"),
@@ -303,17 +303,17 @@ namespace State_ISO_3166
             new ISO_3166("Zambia","ZM","ZMB",894,"ISO 3166 - 2:ZM","Zambija"),
             new ISO_3166("Zimbabwe","ZW","ZWE",716,"ISO 3166 - 2:ZW","Zimbabve")
             };
-            dt_ISO_3166.Columns.Add("State", typeof(string));
+            dt_ISO_3166.Columns.Add("Country", typeof(string));
             dt_ISO_3166.Columns.Add("a2", typeof(string));
             dt_ISO_3166.Columns.Add("a3", typeof(string));
             dt_ISO_3166.Columns.Add("num", typeof(short));
-            foreach (ISO_3166 iso_3166 in Country_ISO_3166_array)
+            foreach (ISO_3166 iso_3166 in State_ISO_3166_array)
             {
                 DataRow dr = dt_ISO_3166.NewRow();
-                dr["State"] = iso_3166.s_Name_In_Language.s;
-                dr["a2"] = iso_3166.Country_A2;
-                dr["a3"] = iso_3166.Country_A3;
-                dr["num"] = iso_3166.Country_Number;
+                dr["Country"] = iso_3166.s_Name_In_Language.s;
+                dr["a2"] = iso_3166.State_A2;
+                dr["a3"] = iso_3166.State_A3;
+                dr["num"] = iso_3166.State_Number;
                 dt_ISO_3166.Rows.Add(dr);
             }
         }

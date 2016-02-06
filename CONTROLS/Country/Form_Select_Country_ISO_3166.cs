@@ -16,26 +16,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace State_ISO_3166
+namespace Country_ISO_3166
 {
-    public partial class Form_Select_State_ISO_3166 : Form
+    public partial class Form_Select_Country_ISO_3166 : Form
     {
         private DataTable dt_ISO_3166;
-        public string State = null;
-        public string State_ISO_3166_a2 = null;
-        public string State_ISO_3166_a3 = null;
-        public short State_ISO_3166_num = -1;
+        public string Country= null;
+        public string Country_ISO_3166_a2 = null;
+        public string Country_ISO_3166_a3 = null;
+        public short Country_ISO_3166_num = -1;
 
-        public Form_Select_State_ISO_3166(DataTable dt_ISO_3166)
+        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166)
         {
             InitializeComponent();
             this.dt_ISO_3166 = dt_ISO_3166;
             dgvx_ISO_3166.DataSource = this.dt_ISO_3166;
-            dgvx_ISO_3166.Columns["State"].HeaderText = lngRPM.s_State.s;
+            dgvx_ISO_3166.Columns["Country"].HeaderText = lngRPM.s_Country.s;
             dgvx_ISO_3166.Columns["a2"].HeaderText = lngRPM.ss_Abbreviation.s + " a2";
             dgvx_ISO_3166.Columns["a3"].HeaderText = lngRPM.ss_Abbreviation.s + " a3";
             dgvx_ISO_3166.Columns["num"].HeaderText = lngRPM.s_Number.s;
-            this.Text = lngRPM.s_Form_Select_State_ISO_3166_Title.s;
+            this.Text = lngRPM.s_Form_Select_Country_ISO_3166_Title.s;
             lngRPM.s_OK.Text(btn_OK);
             lngRPM.s_Cancel.Text(btn_Cancel);
         }
@@ -46,17 +46,17 @@ namespace State_ISO_3166
             DialogResult = DialogResult.Cancel;
         }
 
-        private void Form_Select_State_ISO_3166_Load(object sender, EventArgs e)
+        private void Form_Select_Country_ISO_3166_Load(object sender, EventArgs e)
         {
-            txt_SelectState.Focus();
+            txt_SelectCountry.Focus();
             this.dgvx_ISO_3166.SelectionChanged += new System.EventHandler(this.dgvx_ISO_3166_SelectionChanged);
         }
 
-        private void txt_SelectState_TextChanged(object sender, EventArgs e)
+        private void txt_SelectCountry_TextChanged(object sender, EventArgs e)
         {
             this.dgvx_ISO_3166.SelectionChanged -= new System.EventHandler(this.dgvx_ISO_3166_SelectionChanged);
-            string s = txt_SelectState.Text + "*";
-            DataRow[] drs = dt_ISO_3166.Select("State LIKE '" + s+"'");
+            string s = txt_SelectCountry.Text + "*";
+            DataRow[] drs = dt_ISO_3166.Select("CuntryLIKE '" + s+"'");
             if (drs.Count()>0)
             {
                 int iRowIndex = dt_ISO_3166.Rows.IndexOf(drs[0]);
@@ -72,9 +72,9 @@ namespace State_ISO_3166
             {
                 DataGridViewRow dgvr = dgvc[0];
                 int iRow = dgvx_ISO_3166.Rows.IndexOf(dgvr);
-                this.txt_SelectState.TextChanged -= txt_SelectState_TextChanged;
-                this.txt_SelectState.Text = (string)this.dt_ISO_3166.Rows[iRow]["State"];
-                this.txt_SelectState.TextChanged += txt_SelectState_TextChanged;
+                this.txt_SelectCountry.TextChanged -= txt_SelectCountry_TextChanged;
+                this.txt_SelectCountry.Text = (string)this.dt_ISO_3166.Rows[iRow]["Country"];
+                this.txt_SelectCountry.TextChanged += txt_SelectCountry_TextChanged;
             }
         }
 
@@ -85,13 +85,13 @@ namespace State_ISO_3166
             {
                 DataGridViewRow dgvr = dgvc[0];
                 int iRow = dgvx_ISO_3166.Rows.IndexOf(dgvr);
-                this.txt_SelectState.TextChanged -= txt_SelectState_TextChanged;
-                this.txt_SelectState.Text = (string)this.dt_ISO_3166.Rows[iRow]["State"];
-                this.txt_SelectState.TextChanged += txt_SelectState_TextChanged;
-                this.State = (string)this.dt_ISO_3166.Rows[iRow]["State"];
-                this.State_ISO_3166_a2 = (string)this.dt_ISO_3166.Rows[iRow]["a2"];
-                this.State_ISO_3166_a3 = (string)this.dt_ISO_3166.Rows[iRow]["a3"];
-                this.State_ISO_3166_num = (short)this.dt_ISO_3166.Rows[iRow]["num"];
+                this.txt_SelectCountry.TextChanged -= txt_SelectCountry_TextChanged;
+                this.txt_SelectCountry.Text = (string)this.dt_ISO_3166.Rows[iRow]["Country"];
+                this.txt_SelectCountry.TextChanged += txt_SelectCountry_TextChanged;
+                this.Country= (string)this.dt_ISO_3166.Rows[iRow]["Country"];
+                this.Country_ISO_3166_a2 = (string)this.dt_ISO_3166.Rows[iRow]["a2"];
+                this.Country_ISO_3166_a3 = (string)this.dt_ISO_3166.Rows[iRow]["a3"];
+                this.Country_ISO_3166_num = (short)this.dt_ISO_3166.Rows[iRow]["num"];
                 this.Close();
                 DialogResult = DialogResult.OK;
             }

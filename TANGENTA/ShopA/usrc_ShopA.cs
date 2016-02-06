@@ -222,7 +222,7 @@ namespace ShopA
 
             if ((e.ColumnIndex >= 0) && (e.RowIndex >= 0))
             {
-                SetGridButtonState(this.dgvx_ShopA, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
+                SetGridButtonCountry(this.dgvx_ShopA, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
                 if (dgvx_ShopA.Columns[e.ColumnIndex].Name.Equals(column_deselect))
                 {
                     ItemDeselect(e.RowIndex);
@@ -230,7 +230,7 @@ namespace ShopA
             }
         }
 
-        private void SetGridButtonState(DataGridView dgv, int rowIndex, int columnIndex, PushButtonState pushButtonState)
+        private void SetGridButtonCountry(DataGridView dgv, int rowIndex, int columnIndex, PushButtonState pushButtonState)
         {
             if ((rowIndex > -1) && (columnIndex > -1))
             {

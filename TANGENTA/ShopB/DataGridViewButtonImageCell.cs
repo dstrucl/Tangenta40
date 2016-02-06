@@ -34,7 +34,7 @@ namespace ShopB
             // In my project, buttons are disabled by default
             font = new Font("Arial", 8);
             _enabled = true;
-            _buttonState = PushButtonState.Normal;
+            _buttonState= PushButtonState.Normal;
 
             // Changing this value affects the appearance of the image on the button.
             _buttonImageOffset = 4;
@@ -54,15 +54,15 @@ namespace ShopB
             set
             {
                 _enabled = value;
-                _buttonState = value ? PushButtonState.Normal : PushButtonState.Disabled;
+                _buttonState= value ? PushButtonState.Normal : PushButtonState.Disabled;
             }
         }
 
-        // PushButton State Property
+        // PushButton CuntryProperty
         public PushButtonState ButtonState
         {
             get { return _buttonState; }
-            set { _buttonState = value; }
+            set { _buttonState= value; }
         }
 
         // Image Property
@@ -102,7 +102,7 @@ namespace ShopB
             DataGridViewAdvancedBorderStyle advancedBorderStyle,
             DataGridViewPaintParts paintParts)
         {
-            //base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
+            //base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementCountry, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
 
             // Draw the cell background, if specified.
             if ((paintParts & DataGridViewPaintParts.Background) ==

@@ -1181,7 +1181,7 @@ namespace SQLTableControl
                                                 SET @ErrorVariable = N'" + lngRPM.s_Error_Insert_Unique.s + sWhere_Condition_Error_Report + lngRPM.s_Error_Insert_Unique_the_same_allready_exists_at_id.s+ @"';
                                                 RAISERROR (@ErrorVariable, -- Message text.
                                                 11, -- Severity,
-                                                 1, -- State
+                                                 1, -- Country
                                                 N'" + TableName + @"',
                                                 "+ "@" +sThisVar + ")";
                     sInsertTo = sInsertTo + "\nEND\n";

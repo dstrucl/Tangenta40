@@ -306,7 +306,7 @@ namespace SqlBuilder.Forms
             this.checkWholeWord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkWholeWord.Checked = true;
-            this.checkWholeWord.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkWholeWord.CheckState= System.Windows.Forms.CheckState.Checked;
             this.checkWholeWord.Location = new System.Drawing.Point(8, 90);
             this.checkWholeWord.Name = "checkWholeWord";
             this.checkWholeWord.Size = new System.Drawing.Size(418, 16);

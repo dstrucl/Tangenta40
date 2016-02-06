@@ -135,7 +135,7 @@ namespace DBConnectionControl40
             {
                 case DBConnection.eDBType.MYSQL:
                     this.label_UserName.Text = sqlConn.UserName;
-                    this.chkBoxWindowsLogon.CheckState = CheckState.Unchecked;
+                    this.chkBoxWindowsLogon.CheckState= CheckState.Unchecked;
 
                     if (sqlConn.DataSource.Length == 0)
                     {
@@ -171,13 +171,13 @@ namespace DBConnectionControl40
                     this.label_UserName.Text = sqlConn.UserName;
                     if (sqlConn.WindowsAuthentication)
                     {
-                        this.chkBoxWindowsLogon.CheckState = CheckState.Checked;
+                        this.chkBoxWindowsLogon.CheckState= CheckState.Checked;
                         this.label_UserName.Text = sqlConn.WindowsAuthentication_UserName;
 
                     }
                     else
                     {
-                        this.chkBoxWindowsLogon.CheckState = CheckState.Unchecked;
+                        this.chkBoxWindowsLogon.CheckState= CheckState.Unchecked;
                         this.label_UserName.Text = sqlConn.UserName;
                     }
 
@@ -264,7 +264,7 @@ namespace DBConnectionControl40
 
         private void timerFollow_CheckConnection_Tick(object sender, EventArgs e)
         {
-            if (CheckConnectionThread.ThreadState == ThreadState.Running)
+            if (CheckConnectionThread.ThreadState== ThreadState.Running)
             {
                 if (this.progressBar_Connection.Value < this.progressBar_Connection.Maximum)
                 {

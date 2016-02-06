@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace State_ISO_3166
+namespace Country_ISO_3166
 {
     public class ISO_3166
     {
@@ -24,19 +24,19 @@ namespace State_ISO_3166
         private string m_ISO_STANDARD = null;
         private int m_Number = -1;
         public ltext s_Name_In_Language = null;
-        public string Country_Name
+        public string State_Name
         {
             get { return m_Name; }
         }
-        public string Country_A2
+        public string State_A2
         {
             get { return m_A2; }
         }
-        public string Country_A3
+        public string State_A3
         {
             get { return m_A3; }
         }
-        public int Country_Number
+        public int State_Number
         {
             get {return m_Number;}
         }

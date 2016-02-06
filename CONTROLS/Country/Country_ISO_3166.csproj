@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form_Select_State_ISO_3166.cs">
+    <Compile Include="Form_Select_Country_ISO_3166.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Select_State_ISO_3166.Designer.cs">
-      <DependentUpon>Form_Select_State_ISO_3166.cs</DependentUpon>
+    <Compile Include="Form_Select_Country_ISO_3166.Designer.cs">
+      <DependentUpon>Form_Select_Country_ISO_3166.cs</DependentUpon>
     </Compile>
     <Compile Include="ISO_3166.cs" />
     <Compile Include="ISO_3166_Table.cs" />
@@ -62,8 +62,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_Select_State_ISO_3166.resx">
-      <DependentUpon>Form_Select_State_ISO_3166.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Select_Country_ISO_3166.resx">
+      <DependentUpon>Form_Select_Country_ISO_3166.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

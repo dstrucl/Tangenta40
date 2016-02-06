@@ -44,8 +44,8 @@ namespace UniversalInvoice
                             string _HouseNumber,
                             string _ZIP,
                             string _City,
-                            string _State,
-                            string _Country
+                            string _Country,
+                            string _State
                             
                             )
         {
@@ -68,8 +68,8 @@ namespace UniversalInvoice
                                     _HouseNumber,
                                     _ZIP,
                                     _City,
-                                    _State,
-                                    _Country);
+                                    _Country,
+                                    _State);
 
             token = new OrganisationToken(token_prefix_Organisation,
                                             Name,

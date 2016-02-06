@@ -20,17 +20,17 @@ namespace DigitalRune.Windows.TextEditor.Folding
     {
       _blocks = new Dictionary<string, object>();
       _blocks["asm"] = null;
-      _blocks["BlendState"] = null;
+      _blocks["BlendCountry"] = null;
       _blocks["cbuffer"] = null;
-      _blocks["DepthStencilState"] = null;
+      _blocks["DepthStencilCountry"] = null;
       _blocks["interface"] = null;
       _blocks["pass"] = null;
-      _blocks["RasterizerState"] = null;
+      _blocks["RasterizerCountry"] = null;
       _blocks["struct"] = null;
       _blocks["sampler_state"] = null;
       _blocks["stateblock_state"] = null;
-      _blocks["SamplerState"] = null;
-      _blocks["SamplerComparisonState"] = null;
+      _blocks["SamplerCountry"] = null;
+      _blocks["SamplerComparisonCountry"] = null;
       _blocks["tbuffer"] = null;
       _blocks["technique"] = null;
       _blocks["technique10"] = null;

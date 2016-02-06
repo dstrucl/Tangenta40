@@ -29,8 +29,8 @@ namespace Tangenta
         public static BlagajnaTableClass.cHouseNumber_Org m_cHouseNumber_Org = new BlagajnaTableClass.cHouseNumber_Org();
         public static BlagajnaTableClass.cCity_Org m_cCity_Org = new BlagajnaTableClass.cCity_Org();
         public static BlagajnaTableClass.cZIP_Org m_cZIP_Org = new BlagajnaTableClass.cZIP_Org();
-        public static BlagajnaTableClass.cState_Org m_cState_Org = new BlagajnaTableClass.cState_Org();
         public static BlagajnaTableClass.cCountry_Org m_cCountry_Org = new BlagajnaTableClass.cCountry_Org();
+        public static BlagajnaTableClass.cState_Org m_cState_Org = new BlagajnaTableClass.cState_Org();
 
         public static BlagajnaTableClass.myCompany m_myCompany = new BlagajnaTableClass.myCompany();
 
@@ -281,7 +281,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             orgdata.m_cAddress_Org.m_cHouseNumber_Org.HouseNumber.val = "27 a – 35";
             orgdata.m_cAddress_Org.m_cCity_Org.City.val = "Oberasbach";
             orgdata.m_cAddress_Org.m_cZIP_Org.ZIP.val = "90522";
-            orgdata.m_cAddress_Org.m_cState_Org.State.val = "Deutschland";
+            orgdata.m_cAddress_Org.m_cCountry_Org.Country.val = "Deutschland";
 
             supplier.m_Organisation = org;
 
@@ -855,7 +855,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                                                Supplier_OrganisationData.m_cAddress_Org.m_cHouseNumber_Org.HouseNumber.val,
                                                Supplier_OrganisationData.m_cAddress_Org.m_cZIP_Org.ZIP.val,
                                                Supplier_OrganisationData.m_cAddress_Org.m_cCity_Org.City.val,
-                                               Supplier_OrganisationData.m_cAddress_Org.m_cState_Org.State.val,
+                                               Supplier_OrganisationData.m_cAddress_Org.m_cCountry_Org.Country.val,
                                                null,
                                                null,
                                                null,

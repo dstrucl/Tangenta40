@@ -17,7 +17,7 @@ namespace InvoiceDB
     public class xCurrency
     {
         public long ID = -1;
-        public string State = null;
+        public string Cuntry= null;
         public string Name = null;
         public string Abbreviation = null;
         public string Symbol = null;
@@ -28,9 +28,9 @@ namespace InvoiceDB
         {
         }
 
-        public xCurrency(string xState, string xName, string xAbbreviation, string xSymbol, short xCode, short xDecimalPlaces)
+        public xCurrency(string xCountry, string xName, string xAbbreviation, string xSymbol, short xCode, short xDecimalPlaces)
         {
-            State = xState;
+            Cuntry= xCountry;
             Name = xName;
             Abbreviation = xAbbreviation;
             CurrencyCode = xCode;

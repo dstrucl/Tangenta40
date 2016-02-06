@@ -32,7 +32,7 @@ namespace DigitalRune.Windows.TextEditor.TextBuffer
     {
 #if DEBUG
       if (System.Threading.Thread.CurrentThread.ManagedThreadId != _creatorThread)
-        throw new InvalidOperationException("GapTextBufferStategy is not thread-safe!");
+        throw new InvalidOperationException("GapTextBufferCountrygy is not thread-safe!");
 #endif
     }
 

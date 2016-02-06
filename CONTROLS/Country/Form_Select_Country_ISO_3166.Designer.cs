@@ -1,6 +1,6 @@
-﻿namespace State_ISO_3166
+﻿namespace Country_ISO_3166
 {
-    partial class Form_Select_State_ISO_3166
+    partial class Form_Select_Country_ISO_3166
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Select_State_ISO_3166));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Select_Country_ISO_3166));
             this.dgvx_ISO_3166 = new DataGridView_2xls.DataGridView2xls();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.txt_SelectState = new System.Windows.Forms.TextBox();
+            this.txt_SelectCountry= new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ISO_3166)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,29 +75,29 @@
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
-            // txt_SelectState
+            // txt_SelectCountry
             // 
-            this.txt_SelectState.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_SelectState.Location = new System.Drawing.Point(5, 8);
-            this.txt_SelectState.Name = "txt_SelectState";
-            this.txt_SelectState.Size = new System.Drawing.Size(221, 22);
-            this.txt_SelectState.TabIndex = 3;
-            this.txt_SelectState.TextChanged += new System.EventHandler(this.txt_SelectState_TextChanged);
+            this.txt_SelectCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_SelectCountry.Location = new System.Drawing.Point(5, 8);
+            this.txt_SelectCountry.Name = "txt_SelectCountry";
+            this.txt_SelectCountry.Size = new System.Drawing.Size(221, 22);
+            this.txt_SelectCountry.TabIndex = 3;
+            this.txt_SelectCountry.TextChanged += new System.EventHandler(this.txt_SelectCountry_TextChanged);
             // 
-            // Form_Select_State_ISO_3166
+            // Form_Select_Country_ISO_3166
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(308, 533);
-            this.Controls.Add(this.txt_SelectState);
+            this.Controls.Add(this.txt_SelectCountry);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.dgvx_ISO_3166);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_Select_State_ISO_3166";
+            this.Name = "Form_Select_Country_ISO_3166";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form_Select_State_ISO_3166";
-            this.Load += new System.EventHandler(this.Form_Select_State_ISO_3166_Load);
+            this.Text = "Form_Select_Country_ISO_3166";
+            this.Load += new System.EventHandler(this.Form_Select_Country_ISO_3166_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ISO_3166)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -109,6 +109,6 @@
         private DataGridView_2xls.DataGridView2xls dgvx_ISO_3166;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
-        private System.Windows.Forms.TextBox txt_SelectState;
+        private System.Windows.Forms.TextBox txt_SelectCountry;
     }
 }

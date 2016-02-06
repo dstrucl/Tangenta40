@@ -1581,8 +1581,8 @@ namespace InvoiceDB
         //                                Customer_Org_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
         //                                Customer_Org_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
         //                                Customer_Org_$_orgd_$_cadrorg_$_ccitorg_$$City,
-        //                                Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$State,
-        //                                Customer_Org_$_orgd_$_cadrorg_$_ccouorg_$$Country
+        //                                Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$Country,
+        //                                Customer_Org_$_orgd_$_cadrorg_$_ccouorg_$$State
         //                                from  Customer_Org_VIEW  where ID = " + Customer_Org_ID_v.v.ToString();
         //        DataTable dt = new DataTable();
         //        string Err = null;
@@ -1596,8 +1596,8 @@ namespace InvoiceDB
         //        object oHouseNumber = dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber"];
         //        object oZIP = dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_cziporg_$$ZIP"];
         //        object oCity = dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_ccitorg_$$City"];
-        //        object oState = dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$State"];
-        //        object oCountry = dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_ccouorg_$$Country"];
+        //        object oCuntry= dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$Country"];
+        //        object oState = dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_ccouorg_$$State"];
         //        string slbl = "";
         //                        if (oName is string)
         //                        {
@@ -1624,13 +1624,13 @@ namespace InvoiceDB
         //                        {
         //                            slbl += " " + (string)oCity;
         //                        }
+        //                        if (oCuntryis string)
+        //                        {
+        //                            slbl += "," + (string)oCountry;
+        //                        }
         //                        if (oState is string)
         //                        {
         //                            slbl += "," + (string)oState;
-        //                        }
-        //                        if (oCountry is string)
-        //                        {
-        //                            slbl += "," + (string)oCountry;
         //                        }
         //                        this.txt_Buyer.Text = slbl;
         //                    }

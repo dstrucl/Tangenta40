@@ -23,7 +23,7 @@ namespace SQLTableControl
 {
     public class CurViewXml
     {
-        public enum ViewXmlState { DEFAULT_VIEW,EXISTING_VIEW, NEW_VIEW };
+        public enum ViewXmlState{ DEFAULT_VIEW,EXISTING_VIEW, NEW_VIEW };
         public ViewXml m_ViewXml;
         public ViewXmlState State;
 
@@ -97,7 +97,7 @@ namespace SQLTableControl
                 foreach (DefineView_InputControl dvinpctrl in tbl.DefineView_inpCtrlList)
                 {
                     ColumnXml xColumnXml = null;
-                    if (State == ViewXmlState.DEFAULT_VIEW)
+                    if (State== ViewXmlState.DEFAULT_VIEW)
                     {
                         xColumnXml = m_DBTables.m_xml.GetCreateViewDefaultViewColumnXml(tbl.TableName, dvinpctrl.FullName);
                     }
@@ -130,7 +130,7 @@ namespace SQLTableControl
             else
             {
 
-                State = ViewXmlState.NEW_VIEW;
+                State= ViewXmlState.NEW_VIEW;
                 m_ViewXml = new ViewXml();
                 m_ViewXml.Name = UniqueNames.GetName(ViewXmlList, tbl.GetFirstViewName());
                 foreach (DefineView_InputControl dvinpctrl in tbl.DefineView_inpCtrlList)

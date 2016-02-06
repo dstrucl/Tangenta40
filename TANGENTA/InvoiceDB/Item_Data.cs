@@ -123,7 +123,7 @@ namespace InvoiceDB
             PurchaseCompany_Address.HouseNumber_v = tf.set_string(xdr["HouseNumber"]);
             PurchaseCompany_Address.City_v = tf.set_string(xdr["City"]);
             PurchaseCompany_Address.ZIP_v = tf.set_string(xdr["ZIP"]);
-            PurchaseCompany_Address.State_v = tf.set_string(xdr["State"]);
+            PurchaseCompany_Address.Country_v = tf.set_string(xdr["Country"]);
             if (xdr["s1_name"] is string)
             {
                 s1_name = (string)xdr["s1_name"];

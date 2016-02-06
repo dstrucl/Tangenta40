@@ -59,7 +59,7 @@ namespace Tangenta
             Properties.Settings.Default.Save();
             if (Properties.Settings.Default.FullScreen)
             {
-                Program.MainForm.WindowState = FormWindowState.Maximized;
+                Program.MainForm.WindowState= FormWindowState.Maximized;
                 Program.MainForm.FormBorderStyle = FormBorderStyle.None;
             }
             else
@@ -155,8 +155,8 @@ namespace Tangenta
                            "Atom_cHouseNumber_Org",
                            "Atom_cZip_Org",
                            "Atom_cCity_Org",
-                           "Atom_cState_Org",
                            "Atom_cCountry_Org",
+                           "Atom_cState_Org",
                            "Atom_Currency",
                            "Atom_Unit",
                            "Atom_Customer_Person",
@@ -166,8 +166,8 @@ namespace Tangenta
                            "Atom_cHouseNumber_Person",
                            "Atom_cZip_Person",
                            "Atom_cCity_Person",
-                           "Atom_cState_Person",
                            "Atom_cCountry_Person",
+                           "Atom_cState_Person",
                            "Atom_cFirstName",
                            "Atom_cLastName",
                            "Atom_cGsmNumber_Person",

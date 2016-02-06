@@ -81,9 +81,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CONTROLS\Country\State_ISO_3166.csproj">
+    <ProjectReference Include="..\..\CONTROLS\Country\Country_ISO_3166.csproj">
       <Project>{1562473f-cfcb-4dfd-81ba-153988dc2d25}</Project>
-      <Name>State_ISO_3166</Name>
+      <Name>Country_ISO_3166</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DB_PLATFORM\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>

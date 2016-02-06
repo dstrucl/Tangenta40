@@ -79,8 +79,8 @@ namespace SQLTableControl
                                                         "cHouseNumber_Person",
                                                         "cCity_Person",
                                                         "cZIP_Person",
-                                                        "cState_Person",
                                                         "cCountry_Person",
+                                                        "cState_Person",
                                                         "PersonData",
                                                         "PersonImage"
                                                         };

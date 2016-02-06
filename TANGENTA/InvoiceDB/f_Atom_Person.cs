@@ -32,8 +32,8 @@ namespace InvoiceDB
                                       string_v HouseNumber_v,
                                       string_v City_v,
                                       string_v ZIP_v,
-                                      string_v State_v,
                                       string_v Country_v,
+                                      string_v State_v,
                                       string_v CardNumber_v,
                                       string_v CardType_v,
                                       string_v Image_Hash_v,
@@ -138,8 +138,8 @@ namespace InvoiceDB
                                             HouseNumber_v,
                                             ZIP_v,
                                             City_v,
-                                            State_v,
                                             Country_v,
+                                            State_v,
                                             ref Atom_cAddress_Person_ID_v
                                             ))
             {
@@ -290,8 +290,8 @@ namespace InvoiceDB
                             Atom_Person_$_acadrper_$_ahounper_$$HouseNumber,
                             Atom_Person_$_acadrper_$_acitper_$$City,
                             Atom_Person_$_acadrper_$_azipper_$$ZIP,
-                            Atom_Person_$_acadrper_$_astper_$$State,
-                            Atom_Person_$_acadrper_$_acouper_$$Country,
+                            Atom_Person_$_acadrper_$_astper_$$Country,
+                            Atom_Person_$_acadrper_$_acouper_$$State,
                             Atom_Person_$$CardNumber,
                             Atom_Person_$_acardtper_$$CardType,
                             Atom_Person_$_aperimg_$$Image_Data
@@ -317,8 +317,8 @@ namespace InvoiceDB
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_ahounper_$$HouseNumber"]),
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_azipper_$$ZIP"]),
                                                          DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acitper_$$City"]),
-                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_astper_$$State"]),
-                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acouper_$$Country"]));
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_astper_$$Country"]),
+                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_Person_$_acadrper_$_acouper_$$State"]));
                     return univ_per;
                 }
                 else

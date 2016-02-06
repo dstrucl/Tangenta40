@@ -125,7 +125,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -174,7 +177,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -220,7 +226,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -263,7 +272,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -303,7 +315,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -340,7 +355,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -374,7 +392,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -405,7 +426,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -433,7 +457,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -458,7 +485,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -480,7 +510,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -499,7 +532,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -515,7 +551,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -528,7 +567,10 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -538,12 +580,25 @@ namespace Tangenta
                                                                         {
                                                                             if (UpgradeDB_1_15_to_1_16())
                                                                             {
-                                                                                return true;
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
                                                                             }
                                                                         }
                                                                         else
                                                                         {
-                                                                            MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                                                            if (sOldDBVersion.Equals("1.16"))
+                                                                            {
+                                                                                if (UpgradeDB_1_16_to_1_17())
+                                                                                {
+                                                                                    return true;
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
@@ -561,6 +616,332 @@ namespace Tangenta
                 }
             }
             return false;
+        }
+
+        private bool UpgradeDB_1_16_to_1_17()
+        {
+            string Err = null;
+            string sql = null;
+            if (DBSync.DBSync.Drop_VIEWs())
+            {
+                sql = @"
+                        PRAGMA foreign_keys = OFF;
+                        DROP TABLE cCountry_Person;
+                        CREATE TABLE cCountry_Person
+                          (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                          'Country' varchar(264) UNIQUE  NOT NULL UNIQUE,
+                          'Country_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
+                          'Country_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
+                          'Country_ISO_3166_num' smallint NOT NULL UNIQUE
+                          )";
+
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    sql = @"INSERT INTO cCountry_Person (Country,
+						 Country_ISO_3166_a2,
+						Country_ISO_3166_a3,
+						Country_ISO_3166_num)
+						SELECT 
+						State,
+						State_ISO_3166_a2,
+						State_ISO_3166_a3,
+						State_ISO_3166_num
+						FROM cState_Person";
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+
+                        sql = @"
+                        PRAGMA foreign_keys = OFF;
+                        DROP TABLE cCountry_Org;
+                        CREATE TABLE cCountry_Org
+                          (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                          'Country' varchar(264) UNIQUE  NOT NULL UNIQUE,
+                          'Country_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
+                          'Country_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
+                          'Country_ISO_3166_num' smallint NOT NULL UNIQUE
+                          )";
+
+                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        {
+                            sql = @"INSERT INTO cCountry_Org (Country,
+						             Country_ISO_3166_a2,
+						            Country_ISO_3166_a3,
+						            Country_ISO_3166_num)
+						            SELECT 
+						            State,
+						            State_ISO_3166_a2,
+						            State_ISO_3166_a3,
+						            State_ISO_3166_num
+						            FROM cState_Org";
+                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+                                sql = @"
+                                PRAGMA foreign_keys = OFF;
+                                DROP TABLE Atom_cCountry_Person;
+                                CREATE TABLE Atom_cCountry_Person
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                  'Country' varchar(264) UNIQUE  NOT NULL UNIQUE,
+                                  'Country_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
+                                  'Country_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
+                                  'Country_ISO_3166_num' smallint NOT NULL UNIQUE
+                                  )";
+
+                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                {
+                                    sql = @"INSERT INTO Atom_cCountry_Person (Country,
+						                             Country_ISO_3166_a2,
+						                            Country_ISO_3166_a3,
+						                            Country_ISO_3166_num)
+						                            SELECT 
+						                            State,
+						                            State_ISO_3166_a2,
+						                            State_ISO_3166_a3,
+						                            State_ISO_3166_num
+						                            FROM Atom_cState_Person";
+                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                    {
+
+                                        sql = @"
+                                                    PRAGMA foreign_keys = OFF;
+                                                    DROP TABLE Atom_cCountry_Org;
+                                                    CREATE TABLE Atom_cCountry_Org
+                                                      (
+                                                      'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                      'Country' varchar(264) UNIQUE  NOT NULL UNIQUE,
+                                                      'Country_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
+                                                      'Country_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
+                                                      'Country_ISO_3166_num' smallint NOT NULL UNIQUE
+                                                      )";
+
+                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                        {
+                                            sql = @"INSERT INTO Atom_cCountry_Org (Country,
+						                                    Country_ISO_3166_a2,
+						                                    Country_ISO_3166_a3,
+						                                    Country_ISO_3166_num)
+						                                    SELECT 
+						                                    State,
+						                                    State_ISO_3166_a2,
+						                                    State_ISO_3166_a3,
+						                                    State_ISO_3166_num
+						                                    FROM Atom_cState_Org";
+                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                            {
+                                                sql = @"Update caddress_person set cCountry_Person_ID = cState_Person_ID";
+                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                {
+                                                    sql = @"Update caddress_person set cState_Person_ID = null";
+                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                    {
+                                                        sql = @"Update caddress_org set cCountry_Org_ID = cState_Org_ID";
+                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                        {
+                                                            sql = @"Update caddress_org set cState_Org_ID = null";
+                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                            {
+                                                                sql = @"Update atom_caddress_person set Atom_cCountry_Person_ID = Atom_cState_Person_ID";
+                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                {
+                                                                    sql = @"Update atom_caddress_person set Atom_cState_Person_ID = null";
+                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                    {
+                                                                        sql = @"Update atom_caddress_org set atom_cCountry_Org_ID = atom_cState_Org_ID";
+                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                        {
+                                                                            sql = @"Update atom_caddress_org set atom_cState_Org_ID = null";
+                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                            {
+                                                                                sql = @"Update atom_caddress_org set atom_cState_Org_ID = null";
+                                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                {
+                                                                                    sql = @"DROP TABLE cState_Person;
+                                                                                            CREATE TABLE cState_Person
+                                                                                              (
+                                                                                              'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                              'State' varchar(264) UNIQUE  NOT NULL UNIQUE
+                                                                                              )";
+                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                    {
+                                                                                        sql = @"DROP TABLE cState_Org;
+                                                                                                CREATE TABLE cState_Org
+                                                                                                  (
+                                                                                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                                  'State' varchar(264) UNIQUE  NOT NULL UNIQUE
+                                                                                                  )";
+                                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                        {
+
+                                                                                            sql = @"DROP TABLE Atom_cState_Person;
+                                                                                            CREATE TABLE Atom_cState_Person
+                                                                                              (
+                                                                                              'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                              'State' varchar(264) UNIQUE  NOT NULL UNIQUE
+                                                                                              )";
+                                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                            {
+                                                                                                sql = @"DROP TABLE Atom_cState_Org;
+                                                                                                CREATE TABLE Atom_cState_Org
+                                                                                                  (
+                                                                                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                                  'State' varchar(264) UNIQUE  NOT NULL UNIQUE
+                                                                                                  )";
+                                                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                {
+                                                                                                    sql = @"PRAGMA foreign_keys = ON;";
+                                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                    {
+
+
+                                                                                                        if (DBSync.DBSync.Create_VIEWs())
+                                                                                                        {
+                                                                                                            Set_DatBase_Version("1.17");
+                                                                                                            return true;
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            return false;
+                                                                                                        }
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                                        return false;
+                                                                                                    }
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                                    return false;
+                                                                                                }
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                                return false;
+                                                                                            }
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                            return false;
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                        return false;
+                                                                                    }
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                    return false;
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                return false;
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                            return false;
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                        return false;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                    return false;
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                return false;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                            return false;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                        return false;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                    return false;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                return false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                            return false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
         }
 
         private bool UpgradeDB_1_15_to_1_16()
@@ -924,7 +1305,7 @@ namespace Tangenta
         {
             string Err = null;
             string sql = null;
-            string[] stables = new string[] { "Atom_cState_Org", "Atom_cState_Person", "cState_Org", "cState_Person" };
+            string[] stables = new string[] { "Atom_cCountry_Org", "Atom_cCountry_Person", "cCountry_Org", "cCountry_Person" };
             foreach (string stbl in stables)
             {
                 if (DBSync.DBSync.TableExists(stbl, ref Err))
@@ -934,12 +1315,12 @@ namespace Tangenta
                     CREATE TABLE "+ stbl + @"
                       (
                       'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                      'State' varchar(264) UNIQUE  NOT NULL UNIQUE,
-                      'State_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
-                      'State_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
-                      'State_ISO_3166_num' smallint NOT NULL UNIQUE
+                      'Country' varchar(264) UNIQUE  NOT NULL UNIQUE,
+                      'Country_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
+                      'Country_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
+                      'Country_ISO_3166_num' smallint NOT NULL UNIQUE
                       );
-                    Insert into "+stbl+@" (State,State_ISO_3166_a2,State_ISO_3166_a3,State_ISO_3166_num)values('Slovenija','SI','SVN',705);
+                    Insert into "+stbl+@" (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num)values('Slovenija','SI','SVN',705);
                     PRAGMA foreign_keys = ON;";
                 }
                 else
@@ -948,12 +1329,12 @@ namespace Tangenta
                     CREATE TABLE "+ stbl + @"
                       (
                       'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                      'State' varchar(264) UNIQUE  NOT NULL UNIQUE,
-                      'State_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
-                      'State_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
-                      'State_ISO_3166_num' smallint NOT NULL UNIQUE
+                      'Country' varchar(264) UNIQUE  NOT NULL UNIQUE,
+                      'Country_ISO_3166_a2' varchar(5)   NOT NULL UNIQUE,
+                      'Country_ISO_3166_a3' varchar(5)  NOT NULL UNIQUE,
+                      'Country_ISO_3166_num' smallint NOT NULL UNIQUE
                       );
-                    Insert into "+ stbl + @" (State,State_ISO_3166_a2,State_ISO_3166_a3,State_ISO_3166_num)values('Slovenija','SI','SVN',705);
+                    Insert into "+ stbl + @" (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num)values('Slovenija','SI','SVN',705);
                     PRAGMA foreign_keys = ON;";
                 }
                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))

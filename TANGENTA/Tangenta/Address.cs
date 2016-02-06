@@ -23,11 +23,11 @@ namespace Tangenta
         public string_v HouseNumber_v = null;
         public string_v ZIP_v = null;
         public string_v City_v = null;
-        public string_v State_v = null;
-        public string_v State_ISO_3166_a2_v = null;
-        public string_v State_ISO_3166_a3_v = null;
-        public short_v State_ISO_3166_num_v = null;
         public string_v Country_v = null;
+        public string_v Country_ISO_3166_a2_v = null;
+        public string_v Country_ISO_3166_a3_v = null;
+        public short_v Country_ISO_3166_num_v = null;
+        public string_v State_v = null;
 
         public long ID = -1;
 
@@ -35,14 +35,14 @@ namespace Tangenta
         public string HouseNumber  { get { return HouseNumber_v.vs; } }
         public string ZIP          { get { return ZIP_v.vs; } }
         public string City { get { return City_v.vs; } }
-        public string State             { get { return State_v.vs; } }
-        public string State_ISO_3166_a2 { get { return State_ISO_3166_a2_v.vs; } }
-        public string State_ISO_3166_a3 { get { return State_ISO_3166_a3_v.vs; } }
-        public short State_ISO_3166_num { get { return State_ISO_3166_num_v.v; } }
+        public string Country            { get { return Country_v.vs; } }
+        public string Country_ISO_3166_a2 { get { return Country_ISO_3166_a2_v.vs; } }
+        public string Country_ISO_3166_a3 { get { return Country_ISO_3166_a3_v.vs; } }
+        public short Country_ISO_3166_num { get { return Country_ISO_3166_num_v.v; } }
 
-        public string Country {
+        public string State {
                         get {
-                                return Country_v.vs;
+                                return State_v.vs;
                             }
                                 }
 
@@ -54,11 +54,11 @@ namespace Tangenta
             pa.HouseNumber_v = string_v.Copy(this.HouseNumber_v);
             pa.ZIP_v = string_v.Copy(this.ZIP_v);
             pa.City_v = string_v.Copy(this.City_v);
-            pa.State_v = string_v.Copy(this.State_v);
             pa.Country_v = string_v.Copy(this.Country_v);
-            pa.State_ISO_3166_a2_v = string_v.Copy(this.State_ISO_3166_a2_v);
-            pa.State_ISO_3166_a3_v = string_v.Copy(this.State_ISO_3166_a3_v);
-            pa.State_ISO_3166_num_v = short_v.Copy(this.State_ISO_3166_num_v);
+            pa.State_v = string_v.Copy(this.State_v);
+            pa.Country_ISO_3166_a2_v = string_v.Copy(this.Country_ISO_3166_a2_v);
+            pa.Country_ISO_3166_a3_v = string_v.Copy(this.Country_ISO_3166_a3_v);
+            pa.Country_ISO_3166_num_v = short_v.Copy(this.Country_ISO_3166_num_v);
 
             return pa;
         }
@@ -125,21 +125,21 @@ namespace Tangenta
                                                 return false;
                                             }
                                         }
-                                        else if (c.Name.Equals("State"))
+                                        else if (c.Name.Equals("Country"))
                                         {
                                             string tbl_name = col.fKey.fTable.TableName;
-                                            if (!GetAddressElementID(tbl_name, new string[] { "State", "State_ISO_3166_a2", "State_ISO_3166_a3", "State_ISO_3166_num" },
-                                                                                                new object[] { State, State_ISO_3166_a2 , State_ISO_3166_a3, State_ISO_3166_num },
+                                            if (!GetAddressElementID(tbl_name, new string[] { "Country", "Country_ISO_3166_a2", "Country_ISO_3166_a3", "Country_ISO_3166_num" },
+                                                                                                new object[] { Country, Country_ISO_3166_a2 , Country_ISO_3166_a3, Country_ISO_3166_num },
                                                                                                 ref col.fKey.reference_ID))
                                             {
                                                 return false;
                                             }
                                         }
-                                        else if (c.Name.Equals("Country"))
+                                        else if (c.Name.Equals("State"))
                                         {
-                                            if (Country_v != null)
+                                            if (State_v != null)
                                             {
-                                                if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, Country, ref col.fKey.reference_ID))
+                                                if (!GetAddressElementID(col.fKey.fTable.TableName, c.Name, State, ref col.fKey.reference_ID))
                                                 {
                                                     return false;
                                                 }

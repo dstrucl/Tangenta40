@@ -36,8 +36,8 @@ namespace Tangenta
         internal string HouseNumber = null;
         internal string ZIP = null;
         internal string City = null;
-        internal string Country = null;
         internal string State = null;
+        internal string Cuntry= null;
         internal DateTime DateOfBirth = DateTime.MinValue;
         public long Person_ID = -1;
         public long CustomerPerson_ID = -1;
@@ -88,8 +88,8 @@ namespace Tangenta
                                   PersonData_$_cadrper_$_chounper_$$HouseNumber,
                                   PersonData_$_cadrper_$_zipper_$$ZIP,
                                   PersonData_$_cadrper_$_ccitper_$$City,
-                                  PersonData_$_cadrper_$_ccouper_$$Country,
-                                  PersonData_$_cadrper_$_cstper_$$State
+                                  PersonData_$_cadrper_$_ccouper_$$State,
+                                  PersonData_$_cadrper_$_cstper_$$Country
             ";
 
             Customer_Person_EditMode = eCustomer_Person_EditMode.SELECT_ALL;
@@ -134,8 +134,8 @@ namespace Tangenta
                     this.HouseNumber = Customer_Assign_dlg.HouseNumber;
                     this.ZIP = Customer_Assign_dlg.ZIP;
                     this.City = Customer_Assign_dlg.City;
-                    this.Country = Customer_Assign_dlg.Country;
                     this.State = Customer_Assign_dlg.State;
+                    this.State= Customer_Assign_dlg.Country;
                     this.DateOfBirth = Customer_Assign_dlg.DateOfBirth;
                     this.Person_ID = Customer_Assign_dlg.Person_ID;
                     this.CustomerPerson_ID = Customer_Assign_dlg.CustomerPerson_ID;

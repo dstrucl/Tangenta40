@@ -56,7 +56,7 @@ namespace SQLTableControl.TableDocking_Form
         {
             //if (!bDefaultView)
             //{
-            //    m_CurrentViewXml.State = CurViewXml.ViewXmlState.NEW_VIEW;
+            //    m_CurrentViewXml.State= CurViewXml.ViewXmlState.NEW_VIEW;
             //}
 
             if (m_ControlCollection.Count > 0)
@@ -93,11 +93,11 @@ namespace SQLTableControl.TableDocking_Form
                     }
                 }
 
-                if (m_CurrentViewXml.State == CurViewXml.ViewXmlState.NEW_VIEW)
+                if (m_CurrentViewXml.State== CurViewXml.ViewXmlState.NEW_VIEW)
                 {
                     m_TableDockingFormXml.m_ViewXml.Add(m_CurrentViewXml.m_ViewXml);
                 }
-                else if ((m_CurrentViewXml.State == CurViewXml.ViewXmlState.DEFAULT_VIEW)||(m_CurrentViewXml.State == CurViewXml.ViewXmlState.EXISTING_VIEW))
+                else if ((m_CurrentViewXml.State== CurViewXml.ViewXmlState.DEFAULT_VIEW)||(m_CurrentViewXml.State== CurViewXml.ViewXmlState.EXISTING_VIEW))
                 {
                     if (!xDefaultViewXml.FillColumnXmlList(m_ControlCollection))
                     {
@@ -161,7 +161,7 @@ namespace SQLTableControl.TableDocking_Form
                 }
                 else
                 {
-                    m_CurrentViewXml.State = CurViewXml.ViewXmlState.NEW_VIEW; //It is new view and it will be default View
+                    m_CurrentViewXml.State= CurViewXml.ViewXmlState.NEW_VIEW; //It is new view and it will be default View
                 }
 
                 m_CurrentViewXml.m_ViewXml.Name = this.txtViewName.Text;

@@ -74,8 +74,8 @@ namespace InvoiceDB
               cHouseNumber_Org.HouseNumber as " + m_cpis.sHouseNumber + @",
               cCity_Org.City as " + m_cpis.sCity + @",
               cZIP_Org.ZIP as " + m_cpis.sZIP + @",
+              cCountry_Org.Country as " + m_cpis.sCountry+ @",
               cState_Org.State as " + m_cpis.sState + @",
-              cCountry_Org.Country as " + m_cpis.sCountry + @",
               s1.Name as " + m_cpis.ss1_name + @",
               s2.Name as " + m_cpis.ss2_name + @", 
               s3.Name as " + m_cpis.ss3_name + @"
@@ -99,8 +99,8 @@ namespace InvoiceDB
               left Join cHouseNumber_Org on cAddress_Org.cHouseNumber_Org_ID = cHouseNumber_Org.ID
               left Join cCity_Org on cAddress_Org.cCity_Org_ID = cCity_Org.ID
               left Join cZIP_Org on cAddress_Org.cZIP_Org_ID = cZIP_Org.ID
-              left Join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
               left Join cCountry_Org on cAddress_Org.cCountry_Org_ID = cCountry_Org.ID
+              left Join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
               left Join Item_ParentGroup1 s1 ON ptm.Item_ParentGroup1_ID = s1.ID
               left Join Item_ParentGroup2 s2 ON s1.Item_ParentGroup2_ID = s2.ID
               left Join Item_ParentGroup3 s3 ON s2.Item_ParentGroup3_ID = s3.ID
@@ -289,8 +289,8 @@ namespace InvoiceDB
               left Join cHouseNumber_Org on cAddress_Org.cHouseNumber_Org_ID = cHouseNumber_Org.ID
               left Join cCity_Org on cAddress_Org.cCity_Org_ID = cCity_Org.ID
               left Join cZIP_Org on cAddress_Org.cZIP_Org_ID = cZIP_Org.ID
-              left Join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
               left Join cCountry_Org on cAddress_Org.cCountry_Org_ID = cCountry_Org.ID
+              left Join cState_Org on cAddress_Org.cState_Org_ID = cState_Org.ID
               left Join Item_ParentGroup1 s1 ON ptm.Item_ParentGroup1_ID = s1.ID
               left Join Item_ParentGroup2 s2 ON s1.Item_ParentGroup2_ID = s2.ID
               left Join Item_ParentGroup3 s3 ON s2.Item_ParentGroup3_ID = s3.ID

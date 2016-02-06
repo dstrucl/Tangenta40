@@ -149,7 +149,7 @@ namespace ShopB
             return iRes;
         }
 
-        private void SetGridButtonState(DataGridView dgv, int rowIndex, int columnIndex, PushButtonState pushButtonState)
+        private void SetGridButtonCountry(DataGridView dgv, int rowIndex, int columnIndex, PushButtonState pushButtonState)
         {
             if ((rowIndex > -1) && (columnIndex > -1))
             {
@@ -161,7 +161,7 @@ namespace ShopB
 
                     if (buttonCell.Enabled)
                     {
-                        buttonCell.ButtonState = pushButtonState;
+                        buttonCell.ButtonState= pushButtonState;
                     }
                 }
             }
@@ -176,21 +176,21 @@ namespace ShopB
 
         private void dgv_ShopB_Items_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            SetGridButtonState(dgv_ShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Pressed);
+            SetGridButtonCountry(dgv_ShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Pressed);
         }
         private void dgv_ShopB_Items_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            SetGridButtonState(dgv_ShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Hot);
+            SetGridButtonCountry(dgv_ShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Hot);
         }
 
         private void dgv_ShopB_Items_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
-            SetGridButtonState(dgv_ShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
+            SetGridButtonCountry(dgv_ShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
         }
 
         private void dgv_ShopB_Items_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
-            SetGridButtonState(dgv_ShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
+            SetGridButtonCountry(dgv_ShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
             ShopBItemSelect(e.RowIndex);
         }
 
@@ -424,7 +424,7 @@ namespace ShopB
 
             if ((e.ColumnIndex >= 0)&&(e.RowIndex>=0))
             {
-                SetGridButtonState(dgv_SelectedShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
+                SetGridButtonCountry(dgv_SelectedShopB_Items, e.RowIndex, e.ColumnIndex, PushButtonState.Normal);
                 if (dgv_SelectedShopB_Items.Columns[e.ColumnIndex].Name.Equals(column_SelectedShopBItem_btn_deselect))
                 {
                     ShopBItemDeselect(e.RowIndex);

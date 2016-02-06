@@ -244,8 +244,8 @@ namespace InvoiceDB
                                 Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber,
                                 Atom_OrganisationData_$_acadrorg_$_acitorg_$$City,
                                 Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP,
-                                Atom_OrganisationData_$_acadrorg_$_astorg_$$State,
-                                Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country,
+                                Atom_OrganisationData_$_acadrorg_$_astorg_$$Country,
+                                Atom_OrganisationData_$_acadrorg_$_acouorg_$$State,
                                 Atom_OrganisationData_$_cphnnorg_$$PhoneNumber,
                                 Atom_OrganisationData_$_cfaxnorg_$$FaxNumber,
                                 Atom_OrganisationData_$_cemailorg_$$Email,
@@ -269,8 +269,8 @@ namespace InvoiceDB
                     Address.HouseNumber = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]);
                     Address.City = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acitorg_$$City"]);
                     Address.ZIP = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP"]);
-                    Address.State = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$State"]);
-                    Address.Country = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country"]);
+                    Address.State= DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$Country"]);
+                    Address.State = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$State"]);
                     PhoneNumber = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cphnnorg_$$PhoneNumber"]);
                     FaxNumber = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cfaxnorg_$$FaxNumber"]);
                     Email = DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_cemailorg_$$Email"]);
@@ -306,8 +306,8 @@ namespace InvoiceDB
                                 Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber,
                                 Atom_OrganisationData_$_acadrorg_$_acitorg_$$City,
                                 Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP,
-                                Atom_OrganisationData_$_acadrorg_$_astorg_$$State,
-                                Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country,
+                                Atom_OrganisationData_$_acadrorg_$_astorg_$$Country,
+                                Atom_OrganisationData_$_acadrorg_$_acouorg_$$State,
                                 Atom_OrganisationData_$_cphnnorg_$$PhoneNumber,
                                 Atom_OrganisationData_$_cfaxnorg_$$FaxNumber,
                                 Atom_OrganisationData_$_cemailorg_$$Email,
@@ -340,8 +340,8 @@ namespace InvoiceDB
                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_ahounorg_$$HouseNumber"]),
                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_aziporg_$$ZIP"]),
                                                         DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acitorg_$$City"]),
-                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$State"]),
-                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$Country"]));
+                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_astorg_$$Country"]),
+                                                        DBTypes.tf._set_string(dt.Rows[0]["Atom_OrganisationData_$_acadrorg_$_acouorg_$$State"]));
                     return univ_org;
                 }
                 else
