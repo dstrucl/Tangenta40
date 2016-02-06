@@ -56,7 +56,7 @@ namespace Country_ISO_3166
         {
             this.dgvx_ISO_3166.SelectionChanged -= new System.EventHandler(this.dgvx_ISO_3166_SelectionChanged);
             string s = txt_SelectCountry.Text + "*";
-            DataRow[] drs = dt_ISO_3166.Select("CuntryLIKE '" + s+"'");
+            DataRow[] drs = dt_ISO_3166.Select("Country LIKE '" + s+"'");
             if (drs.Count()>0)
             {
                 int iRowIndex = dt_ISO_3166.Rows.IndexOf(drs[0]);

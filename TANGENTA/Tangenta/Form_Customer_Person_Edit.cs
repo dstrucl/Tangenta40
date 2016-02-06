@@ -37,7 +37,7 @@ namespace Tangenta
         internal string ZIP = null;
         internal string City = null;
         internal string State = null;
-        internal string Cuntry= null;
+        internal string Country= null;
         internal DateTime DateOfBirth = DateTime.MinValue;
         public long Person_ID = -1;
         public long CustomerPerson_ID = -1;

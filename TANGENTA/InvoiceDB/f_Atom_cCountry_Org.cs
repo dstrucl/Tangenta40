@@ -57,7 +57,7 @@ namespace InvoiceDB
                         
                         dt.Columns.Clear();
                         dt.Clear();
-                        sql = @"select ID from Atom_cCountry_Org where Cuntry= "+ spar_Country+ " and  Country_ISO_3166_a2 = "+ spar_Country_ISO_3166_a2 + " and Country_ISO_3166_a3 = " + spar_Country_ISO_3166_a3 + " and Country_ISO_3166_num = " + spar_Country_ISO_3166_num;
+                        sql = @"select ID from Atom_cCountry_Org where Country= "+ spar_Country+ " and  Country_ISO_3166_a2 = "+ spar_Country_ISO_3166_a2 + " and Country_ISO_3166_a3 = " + spar_Country_ISO_3166_a3 + " and Country_ISO_3166_num = " + spar_Country_ISO_3166_num;
                         if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
                         {
                             if (dt.Rows.Count > 0)
@@ -88,13 +88,13 @@ namespace InvoiceDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_Atom_cCountry_Org:Get:1:No Cuntryfor cCountry_Org_ID =" + cCountry_Org_ID.ToString());
+                        LogFile.Error.Show("ERROR:f_Atom_cCountry_Org:Get:1:No Country for cCountry_Org_ID =" + cCountry_Org_ID.ToString());
                         return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:f_Atom_cCountry_Org:Get:2:No Cuntryfor cCountry_Org_ID =" + cCountry_Org_ID.ToString());
+                    LogFile.Error.Show("ERROR:f_Atom_cCountry_Org:Get:2:No Country for cCountry_Org_ID =" + cCountry_Org_ID.ToString());
                     return false;
                 }
             }
@@ -125,7 +125,7 @@ namespace InvoiceDB
                 lpar.Add(par_state_ISO_3166_num_v);
 
 
-                string sql = @"select ID from Atom_cCountry_Org where Cuntry= "+ spar_state_v 
+                string sql = @"select ID from Atom_cCountry_Org where Country= "+ spar_state_v 
                                                                             + " and Country_ISO_3166_a2 = " + spar_state_ISO_3166_a2_v 
                                                                             + " and Country_ISO_3166_a3 =" + spar_state_ISO_3166_a3_v
                                                                             + " and Country_ISO_3166_num =" + spar_state_ISO_3166_num_v;

@@ -45,7 +45,7 @@ namespace InvoiceDB
                               Office_Data_$_cadrorg_$_chounorg.HouseNumber AS Office_Data_$_cadrorg_$_chounorg_$$HouseNumber,
                               Office_Data_$_cadrorg_$_ccitorg.City AS Office_Data_$_cadrorg_$_ccitorg_$$City,
                               Office_Data_$_cadrorg_$_cziporg.ZIP AS Office_Data_$_cadrorg_$_cziporg_$$ZIP,
-                              Office_Data_$_cadrorg_$_cstorg.CuntryAS Office_Data_$_cadrorg_$_cstorg_$$Country,
+                              Office_Data_$_cadrorg_$_cstorg.Country AS Office_Data_$_cadrorg_$_cstorg_$$Country,
                               Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_a2 AS Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
                               Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_a3 AS Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
                               Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_num AS Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,

@@ -31,7 +31,7 @@ namespace UniversalInvoice
         public TemplateToken tHouseNumber = null;
         public TemplateToken tZIP = null;
         public TemplateToken tCity = null;
-        public TemplateToken tCuntry= null;
+        public TemplateToken tCountry= null;
         public TemplateToken tState = null;
 
         public List<TemplateToken> list = new List<TemplateToken>();

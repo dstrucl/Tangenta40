@@ -62,7 +62,7 @@ namespace InvoiceDB
         public int icol_HouseNumber = -1;
         public int icol_City = -1;
         public int icol_ZIP = -1;
-        public int icol_Cuntry= -1;
+        public int icol_Country= -1;
         public int icol_State = -1;
         public int icol_s1_name = -1;
         public int icol_s2_name = -1;
@@ -177,7 +177,7 @@ namespace InvoiceDB
             icol_HouseNumber = dt.Columns.IndexOf(sHouseNumber);
             icol_City = dt.Columns.IndexOf(sCity);
             icol_ZIP = dt.Columns.IndexOf(sZIP);
-            icol_Cuntry= dt.Columns.IndexOf(sCountry);
+            icol_Country= dt.Columns.IndexOf(sCountry);
             icol_State = dt.Columns.IndexOf(sState);
             icol_s1_name = dt.Columns.IndexOf(ss1_name);
             icol_s2_name = dt.Columns.IndexOf(ss2_name);

@@ -244,7 +244,7 @@ namespace LanguageControl
         public static ltext lngt_cHouseNumber = new ltext ("House Number","Hišna številka");
         public static ltext lngt_cStrAddr = new ltext ("Street Address","Naslov ulice");
         public static ltext lngt_cCity = new ltext ("City","Mesto");
-        public static ltext lngt_cCuntry= new ltext ("Country","Država");
+        public static ltext lngt_cCountry= new ltext ("Country","Država");
         public static ltext lngt_cState = new ltext ("State","Dežela");
         public static ltext lngt_cPhoneNumber = new ltext ("Phone Number","Telefonska številka");
         public static ltext lngt_cFaxNumber = new ltext ("Fax Number","Faks");

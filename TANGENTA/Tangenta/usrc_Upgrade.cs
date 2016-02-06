@@ -730,78 +730,219 @@ namespace Tangenta
 						                                    FROM Atom_cState_Org";
                                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                             {
-                                                sql = @"Update caddress_person set cCountry_Person_ID = cState_Person_ID";
+                                                sql = @"
+                                                CREATE TABLE cAddress_Person_backup
+                                                    (
+                                                    'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                    cStreetName_Person_ID  INTEGER  NOT NULL REFERENCES cStreetName_Person(ID),
+                                                    cHouseNumber_Person_ID  INTEGER  NOT NULL REFERENCES cHouseNumber_Person(ID),
+                                                    cCity_Person_ID  INTEGER  NOT NULL REFERENCES cCity_Person(ID),
+                                                    cZIP_Person_ID  INTEGER  NOT NULL REFERENCES cZIP_Person(ID),
+                                                    cState_Person_ID  INTEGER  NULL REFERENCES cState_Person(ID),
+                                                    cCountry_Person_ID  INTEGER NOT NULL REFERENCES cCountry_Person(ID)
+                                                    )";
                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                 {
-                                                    sql = @"Update caddress_person set cState_Person_ID = null";
+                                                    sql = @"INSERT INTO cAddress_Person_backup (
+                                                        cStreetName_Person_ID,
+						                                cHouseNumber_Person_ID,
+						                                cCity_Person_ID,
+						                                cZIP_Person_ID,
+                                                        cState_Person_ID,
+                                                        cCountry_Person_ID
+                                                        )
+						                                SELECT 
+                                                        cStreetName_Person_ID,
+						                                cHouseNumber_Person_ID,
+						                                cCity_Person_ID,
+						                                cZIP_Person_ID,
+                                                        cCountry_Person_ID,
+                                                        cState_Person_ID
+						                                FROM cAddress_Person";
                                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                     {
-                                                        sql = @"Update caddress_org set cCountry_Org_ID = cState_Org_ID";
+                                                        sql = @"PRAGMA foreign_keys = OFF;
+                                                                DROP TABLE cAddress_Person;
+                                                                ALTER TABLE cAddress_Person_backup RENAME TO cAddress_Person;";
                                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                         {
-                                                            sql = @"Update caddress_org set cState_Org_ID = null";
+                                                            sql = @"
+                                                                CREATE TABLE cAddress_Org_backup
+                                                                  (
+                                                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                   cStreetName_Org_ID  INTEGER  NOT NULL REFERENCES cStreetName_Org(ID),
+                                                                   cHouseNumber_Org_ID  INTEGER  NOT NULL REFERENCES cHouseNumber_Org(ID),
+                                                                   cCity_Org_ID  INTEGER  NOT NULL REFERENCES cCity_Org(ID),
+                                                                   cZIP_Org_ID  INTEGER  NOT NULL REFERENCES cZIP_Org(ID),
+                                                                   cState_Org_ID  INTEGER  NULL REFERENCES cState_Org(ID),
+                                                                   cCountry_Org_ID  INTEGER NOT NULL REFERENCES cCountry_Org(ID)
+                                                                  )";
                                                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                             {
-                                                                sql = @"Update atom_caddress_person set Atom_cCountry_Person_ID = Atom_cState_Person_ID";
+                                                                sql = @"INSERT INTO cAddress_Org_backup (
+                                                                cStreetName_Org_ID,
+						                                        cHouseNumber_Org_ID,
+						                                        cCity_Org_ID,
+						                                        cZIP_Org_ID,
+                                                                cState_Org_ID,
+                                                                cCountry_Org_ID
+                                                                )
+						                                        SELECT 
+                                                                cStreetName_Org_ID,
+						                                        cHouseNumber_Org_ID,
+						                                        cCity_Org_ID,
+						                                        cZIP_Org_ID,
+                                                                cCountry_Org_ID,
+                                                                cState_Org_ID
+						                                        FROM cAddress_Org";
                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                 {
-                                                                    sql = @"Update atom_caddress_person set Atom_cState_Person_ID = null";
+                                                                    sql = @"PRAGMA foreign_keys = OFF;
+                                                                            DROP TABLE cAddress_Org;
+                                                                            ALTER TABLE cAddress_Org_backup RENAME TO cAddress_Org;";
                                                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                     {
-                                                                        sql = @"Update atom_caddress_org set atom_cCountry_Org_ID = atom_cState_Org_ID";
-                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                                                                        {
-                                                                            sql = @"Update atom_caddress_org set atom_cState_Org_ID = null";
+                                                                        sql = @"
+                                                                            CREATE TABLE Atom_cAddress_Person_backup
+                                                                                (
+                                                                                'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                Atom_cStreetName_Person_ID  INTEGER  NOT NULL REFERENCES cStreetName_Person(ID),
+                                                                                Atom_cHouseNumber_Person_ID  INTEGER  NOT NULL REFERENCES cHouseNumber_Person(ID),
+                                                                                Atom_cCity_Person_ID  INTEGER  NOT NULL REFERENCES cCity_Person(ID),
+                                                                                Atom_cZIP_Person_ID  INTEGER  NOT NULL REFERENCES cZIP_Person(ID),
+                                                                                Atom_cState_Person_ID  INTEGER  NULL REFERENCES cState_Person(ID),
+                                                                                Atom_cCountry_Person_ID  INTEGER NOT NULL REFERENCES cCountry_Person(ID)
+                                                                                )";
                                                                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                             {
-                                                                                sql = @"Update atom_caddress_org set atom_cState_Org_ID = null";
+                                                                            sql = @"INSERT INTO Atom_cAddress_Person_backup (
+                                                                                    Atom_cStreetName_Person_ID,
+						                                                            Atom_cHouseNumber_Person_ID,
+						                                                            Atom_cCity_Person_ID,
+						                                                            Atom_cZIP_Person_ID,
+                                                                                    Atom_cState_Person_ID,
+                                                                                    Atom_cCountry_Person_ID
+                                                                                    )
+						                                                            SELECT 
+                                                                                    Atom_cStreetName_Person_ID,
+						                                                            Atom_cHouseNumber_Person_ID,
+						                                                            Atom_cCity_Person_ID,
+						                                                            Atom_cZIP_Person_ID,
+                                                                                    Atom_cCountry_Person_ID,
+                                                                                    Atom_cState_Person_ID
+						                                                            FROM Atom_cAddress_Person";
+                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                            {
+                                                                                sql = @"PRAGMA foreign_keys = OFF;
+                                                                                        DROP TABLE Atom_cAddress_Person;
+                                                                                        ALTER TABLE Atom_cAddress_Person_backup RENAME TO Atom_cAddress_Person;";
                                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                 {
-                                                                                    sql = @"DROP TABLE cState_Person;
-                                                                                            CREATE TABLE cState_Person
-                                                                                              (
-                                                                                              'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                                                              'State' varchar(264) UNIQUE  NOT NULL UNIQUE
-                                                                                              )";
+                                                                                    sql = @"
+                                                                                    CREATE TABLE Atom_cAddress_Org_backup
+                                                                                      (
+                                                                                      'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                       Atom_cStreetName_Org_ID  INTEGER  NOT NULL REFERENCES cStreetName_Org(ID),
+                                                                                       Atom_cHouseNumber_Org_ID  INTEGER  NOT NULL REFERENCES cHouseNumber_Org(ID),
+                                                                                       Atom_cCity_Org_ID  INTEGER  NOT NULL REFERENCES cCity_Org(ID),
+                                                                                       Atom_cZIP_Org_ID  INTEGER  NOT NULL REFERENCES cZIP_Org(ID),
+                                                                                       Atom_cState_Org_ID  INTEGER  NULL REFERENCES cState_Org(ID),
+                                                                                       Atom_cCountry_Org_ID  INTEGER NOT NULL REFERENCES cCountry_Org(ID)
+                                                                                      )";
                                                                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                     {
-                                                                                        sql = @"DROP TABLE cState_Org;
-                                                                                                CREATE TABLE cState_Org
-                                                                                                  (
-                                                                                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                                                                  'State' varchar(264) UNIQUE  NOT NULL UNIQUE
-                                                                                                  )";
+                                                                                        sql = @"INSERT INTO Atom_cAddress_Org_backup (
+                                                                                                Atom_cStreetName_Org_ID,
+						                                                                        Atom_cHouseNumber_Org_ID,
+						                                                                        Atom_cCity_Org_ID,
+						                                                                        Atom_cZIP_Org_ID,
+                                                                                                Atom_cState_Org_ID,
+                                                                                                Atom_cCountry_Org_ID
+                                                                                                )
+						                                                                        SELECT 
+                                                                                                Atom_cStreetName_Org_ID,
+						                                                                        Atom_cHouseNumber_Org_ID,
+						                                                                        Atom_cCity_Org_ID,
+						                                                                        Atom_cZIP_Org_ID,
+                                                                                                Atom_cCountry_Org_ID,
+                                                                                                Atom_cState_Org_ID
+						                                                                        FROM Atom_cAddress_Org";
                                                                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                         {
-
-                                                                                            sql = @"DROP TABLE Atom_cState_Person;
-                                                                                            CREATE TABLE Atom_cState_Person
-                                                                                              (
-                                                                                              'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                                                              'State' varchar(264) UNIQUE  NOT NULL UNIQUE
-                                                                                              )";
+                                                                                            sql = @"PRAGMA foreign_keys = OFF;
+                                                                                                    DROP TABLE Atom_cAddress_Org;
+                                                                                                    ALTER TABLE Atom_cAddress_Org_backup RENAME TO Atom_cAddress_Org;";
                                                                                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                             {
-                                                                                                sql = @"DROP TABLE Atom_cState_Org;
-                                                                                                CREATE TABLE Atom_cState_Org
-                                                                                                  (
-                                                                                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                                                                  'State' varchar(264) UNIQUE  NOT NULL UNIQUE
-                                                                                                  )";
+
+                                                                                                sql = @"PRAGMA foreign_keys = OFF;
+                                                                                                        DROP TABLE cState_Person;
+                                                                                                        CREATE TABLE cState_Person
+                                                                                                          (
+                                                                                                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                                          'State' varchar(264) UNIQUE  NOT NULL UNIQUE
+                                                                                                          )";
+
                                                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                                 {
-                                                                                                    sql = @"PRAGMA foreign_keys = ON;";
+                                                                                                    sql = @"PRAGMA foreign_keys = OFF;
+                                                                                                            DROP TABLE cState_Org;
+                                                                                                            CREATE TABLE cState_Org
+                                                                                                              (
+                                                                                                              'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                                              'State' varchar(264) UNIQUE  NOT NULL UNIQUE
+                                                                                                              )";
                                                                                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                                     {
-
-
-                                                                                                        if (DBSync.DBSync.Create_VIEWs())
+                                                                                                        sql = @"
+                                                                                                        PRAGMA foreign_keys = OFF;
+                                                                                                        DROP TABLE Atom_cState_Person;
+                                                                                                        CREATE TABLE Atom_cState_Person
+                                                                                                          (
+                                                                                                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                                          'State' varchar(264) UNIQUE  NOT NULL UNIQUE
+                                                                                                          )";
+                                                                                                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                                         {
-                                                                                                            Set_DatBase_Version("1.17");
-                                                                                                            return true;
+                                                                                                            sql = @"PRAGMA foreign_keys = OFF;
+                                                                                                            DROP TABLE Atom_cState_Org;
+                                                                                                            CREATE TABLE Atom_cState_Org
+                                                                                                              (
+                                                                                                              'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                                                              'State' varchar(264) UNIQUE  NOT NULL UNIQUE
+                                                                                                              )";
+                                                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                            {
+                                                                                                                sql = @"PRAGMA foreign_keys = ON;";
+                                                                                                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                                                                                                {
+
+
+                                                                                                                    if (DBSync.DBSync.Create_VIEWs())
+                                                                                                                    {
+                                                                                                                        Set_DatBase_Version("1.17");
+                                                                                                                        return true;
+                                                                                                                    }
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                        return false;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                                                    return false;
+                                                                                                                }
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                                                                                                                return false;
+                                                                                                            }
                                                                                                         }
                                                                                                         else
                                                                                                         {
+                                                                                                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_16_to_1_17_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
                                                                                                             return false;
                                                                                                         }
                                                                                                     }

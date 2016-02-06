@@ -1160,7 +1160,7 @@ namespace BlagajnaDataBaseDef
             t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cHouseNumber_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "House Number ID", "Hišna številka ID") );
             t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cCity_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "City ID", "Mesto ID") );
             t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cZIP_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "ZIP ID", "Številka Pošte ID") );
-            t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cCountry_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "CuntryID", "Država ID") );
+            t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cCountry_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Country ID", "Država ID") );
             t_cAddress_Person.AddColumn((Object)mt.m_cAddress_Person.m_cState_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Dežela ID") );
             m_DBTables.items.Add(t_cAddress_Person);
 
@@ -1171,7 +1171,7 @@ namespace BlagajnaDataBaseDef
             t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cHouseNumber_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "House Number ID", "Hišna številka ID") );
             t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cCity_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "City ID", "Mesto ID") );
             t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cZIP_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "ZIP ID", "Številka Pošte ID") );
-            t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cCountry_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "CuntryID", "Država ID") );
+            t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cCountry_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Country ID", "Država ID") );
             t_cAddress_Org.AddColumn((Object)mt.m_cAddress_Org.m_cState_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Dežela ID") );
             m_DBTables.items.Add(t_cAddress_Org);
 
@@ -1182,7 +1182,7 @@ namespace BlagajnaDataBaseDef
             t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cHouseNumber_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "House Number ID", "Hišna številka ID") );
             t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cCity_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "City ID", "Mesto ID") );
             t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cZIP_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "ZIP ID", "Številka Pošte ID") );
-            t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cCountry_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "CuntryID", "Država ID") );
+            t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cCountry_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Country ID", "Država ID") );
             t_Atom_cAddress_Person.AddColumn((Object)mt.m_Atom_cAddress_Person.m_Atom_cState_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Dežela ID") );
             m_DBTables.items.Add(t_Atom_cAddress_Person);
 
@@ -1193,7 +1193,7 @@ namespace BlagajnaDataBaseDef
             t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cHouseNumber_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "House Number ID", "Hišna številka ID") );
             t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cCity_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "City ID", "Mesto ID") );
             t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cZIP_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "ZIP ID", "Številka Pošte ID") );
-            t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cCountry_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "CuntryID", "Država ID") );
+            t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cCountry_Org, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Country ID", "Država ID") );
             t_Atom_cAddress_Org.AddColumn((Object)mt.m_Atom_cAddress_Org.m_Atom_cState_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "State ID", "Dežela ID") );
             m_DBTables.items.Add(t_Atom_cAddress_Org);
 

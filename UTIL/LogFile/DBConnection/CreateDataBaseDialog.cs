@@ -291,10 +291,10 @@ namespace LogFile
             // 
             this.lblFileSizeAtInitState.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblFileSizeAtInitState.Location = new System.Drawing.Point(13, 39);
-            this.lblFileSizeAtInitState.Name = "lblFileSizeAtInitCountry";
+            this.lblFileSizeAtInitState.Name = "lblFileSizeAtInitState";
             this.lblFileSizeAtInitState.Size = new System.Drawing.Size(196, 16);
             this.lblFileSizeAtInitState.TabIndex = 8;
-            this.lblFileSizeAtInitState.Text = "File Size At Init Cuntryin MB:";
+            this.lblFileSizeAtInitState.Text = "File Size At Init State in MB:";
             // 
             // groupBox2
             // 

@@ -58,7 +58,7 @@ namespace ShopB
             }
         }
 
-        // PushButton CuntryProperty
+        // PushButton 
         public PushButtonState ButtonState
         {
             get { return _buttonState; }

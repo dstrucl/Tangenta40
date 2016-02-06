@@ -59,7 +59,7 @@ namespace InvoiceDB
                                 ( (  Atom_OrganisationData.cFaxNumber_Org_ID is null  and   OrganisationData.cFaxNumber_Org_ID is null  ) or  ( Atom_OrganisationData.cFaxNumber_Org_ID = OrganisationData.cFaxNumber_Org_ID ) ) and
                                 ( (  cCity_Org.City is null ) and  Atom_cCity_Org.City is null   ) or  (cCity_Org.City = Atom_cCity_Org.City  ) and
                                 ( (  cZip_Org.ZIP is null  and  Atom_cZIP_Org.ZIP is null  )or  (cZip_Org.ZIP = Atom_cZIP_Org.ZIP ) ) and
-                                ( ( cCountry_Org.Cuntryis null  and   Atom_cCountry_Org.Cuntryis null )  or  ( cCountry_Org.State= Atom_cCountry_Org.State) ) and
+                                ( ( cCountry_Org.Country is null  and   Atom_cCountry_Org.Country is null )  or  ( cCountry_Org.Country = Atom_cCountry_Org.Country) ) and
                                 ( ( cState_Org.State is null and  Atom_cState_Org.State is null  ) or  (cState_Org.State = Atom_cState_Org.State ) ) and
                                 myCompany.id = " + myCompany_ID.ToString();
 

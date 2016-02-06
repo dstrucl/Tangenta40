@@ -294,7 +294,7 @@ namespace DBConnectionControl40
             this.lblFileSizeAtInitState.Name = "lblFileSizeAtInitCountry";
             this.lblFileSizeAtInitState.Size = new System.Drawing.Size(196, 16);
             this.lblFileSizeAtInitState.TabIndex = 8;
-            this.lblFileSizeAtInitState.Text = "File Size At Init Cuntryin MB:";
+            this.lblFileSizeAtInitState.Text = "File Size At Init state in MB:";
             // 
             // groupBox2
             // 

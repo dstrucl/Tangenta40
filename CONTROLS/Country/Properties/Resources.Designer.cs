@@ -63,7 +63,7 @@ namespace State.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Cuntry{
+        internal static System.Drawing.Icon Country{
             get {
                 object obj = ResourceManager.GetObject("Country", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
