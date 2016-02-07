@@ -245,8 +245,6 @@ namespace Tangenta
                     LogFile.Error.Show("ERROR:usrc_InvoiceMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
                 }
             }
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
             Program.Cursor_Arrow();
         }
 

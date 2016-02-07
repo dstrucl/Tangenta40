@@ -17,6 +17,30 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_FURS_BarCode = new ltext("FURS Bar (QR) code", "Davčna QR ali bar koda");
+
+        public static ltext s_InternetConnectionISOK_maybe_FURS_server_is_not_online = new ltext("Your computer has Internet Connection."
+                                                                                                 + "\r\nIf there is no communication with DURS please call them to check if their server is online!",
+                                                                                                 "Vaš računalnik ima povezavo v svetovni splet (\"internet\")."
+                                                                                                 + "\r\nČe še vedno ne uspete poslati podatke na DURS, preverite na DURS-u, če njihov strežnik za potrjevanje računov deluje.");
+
+
+        public static ltext s_NoInternetConnection = new ltext("You have no Internet Connection!"
+                                                                + "\r\nPlease check your cable connection or Wifi Connection!"
+                                                            , "Nimate povezave na svetovni splet (\"Internet\")!"
+                                                            + "\r\nČe ste na brezžični povezavi preverite ali le ta deluje, sicer pa preverite ali je mrežni kabel sploh priključen v vaš rečunalnik."
+                                                            );
+
+        public static ltext s_CheckInternetConnection = new ltext("Check Internet Connection", "Preveri povezavo na svetovni splet");
+        public static ltext s_InvoiceNotSentOK = new ltext("Invoice was not sent to DURS !", "Račun ni bil uspešno poslan ali potrjen na davčni upravi");
+        public static ltext s_InstructionToTryToSendFURSDataAgain = new ltext("Data was not send to DURS!\r\nYou can:"
+                                                                              + "\r\n\r\n   1. click \"Send invoice data to DURS again\" button after you have checked your internet connection ! or"
+                                                                              + "\r\n\r\n   2. click \"Cancel\" button to write invoice data into Sales Book Invoice.",
+                                                                              "Račun ni bil supešno poslan davčni upravi!\r\n\r\nIzberete lahko:"
+                                                                              + "\r\n\r\n   1. kliknite gumb \"Ponovno pošlji račun davčni upravi\" v kolikor ste preverili, da imate povezavo na svetovni splet ali pa"
+                                                                              + "\r\n\r\n   2. kliknite gumb \"Prekini\" kjer boste potem morali račun vpisati v vezano knjigo računov,"
+                                                                              + "r\n      le to pa boste lahko poslali davčni upravi, ko bo zopet povezava z davčno upravo delovala.");
+        public static ltext s_TryToSendFURSDataAgain = new ltext("Send invoice data to DURS again", "Ponovno pošlji račun davčni upravi");
         public static ltext s_Total = new ltext("TOTAL", "SKUPAJ");
 
         public static ltext s_AreYouSure_ToResetSettingsToInitialvalues = new ltext("Do you realy want to reset all settings to initial values?\r\nIf yes, you will lost all user settings you have defined.", "Ste prepričani, da zares želite ponastaviti nastavitve na začetno programsko vrednost?\r\nV kolikor ste, vedite, da boste izgubili vse nastavitve ki ste jih ročno vnesli.");

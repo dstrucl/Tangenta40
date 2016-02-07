@@ -189,20 +189,27 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID, ref string barcode_value, ref Image Image_QR)
         {
-            LastMessageID++;
-            Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
-            FormFURSCommunication = new FormFURSCommunication(this, msg);
-            if (FormFURSCommunication.ShowDialog()== DialogResult.OK)
+            for (;;)
             {
-                UniqeMsgID = FormFURSCommunication.ProtectedID;
-                UniqueInvID = FormFURSCommunication.UniqueInvoiceID;
-                barcode_value = FormFURSCommunication.BarCodeValue;
-                Image_QR = FormFURSCommunication.Image_QRCode;
-                return Result_MessageBox_Post.OK;
-            }
-            else
-            {
-                return Result_MessageBox_Post.ERROR;
+                LastMessageID++;
+                Thread_FVI_Message msg = new Thread_FVI_Message(LastMessageID, Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE, xml);
+                FormFURSCommunication = new FormFURSCommunication(this, msg);
+                if (FormFURSCommunication.ShowDialog() == DialogResult.OK)
+                {
+                    UniqeMsgID = FormFURSCommunication.ProtectedID;
+                    UniqueInvID = FormFURSCommunication.UniqueInvoiceID;
+                    barcode_value = FormFURSCommunication.BarCodeValue;
+                    Image_QR = FormFURSCommunication.Image_QRCode;
+                    return Result_MessageBox_Post.OK;
+                }
+                else
+                {
+                    FormFURSCommunicationERRORhandler frm_com_err_handler = new FormFURSCommunicationERRORhandler(FormFURSCommunication.ErrorMessage);
+                    if (frm_com_err_handler.ShowDialog(this) == DialogResult.Cancel)
+                    {
+                        return Result_MessageBox_Post.ERROR;
+                    }
+                }
             }
         }
 

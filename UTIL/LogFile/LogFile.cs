@@ -13,6 +13,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Threading;
 using LanguageControl;
+using System.Net;
 
 namespace LogFile
 {
@@ -54,6 +55,24 @@ namespace LogFile
         private static Mutex Mutex = new Mutex();
         private static int MutexTimeout_in_ms = 2000;
         internal static List<CanNotWriteLogClass> list_exlog = new List<CanNotWriteLogClass>();
+
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    using (var stream = client.OpenRead("http://wwww.google.com"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public static bool WriteLog2DBOnProgramExit
         {

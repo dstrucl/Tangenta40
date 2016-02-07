@@ -63,7 +63,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ColorDraft" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">255, 255, 180</Value>
+      <Value Profile="(Default)">220, 255, 220</Value>
     </Setting>
     <Setting Name="ColorStorno" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">255, 200, 200</Value>
@@ -118,6 +118,15 @@
     </Setting>
     <Setting Name="eShopsInUse" Type="System.String" Scope="User">
       <Value Profile="(Default)">ABC</Value>
+    </Setting>
+    <Setting Name="ColorFurs_InvoiceConfirmed" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">255, 255, 192</Value>
+    </Setting>
+    <Setting Name="ColorFurs_SalesBookInvoiceConfirmed" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">255, 224, 192</Value>
+    </Setting>
+    <Setting Name="ColorFurs_SalesBookInvoiceNotConfirmed" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">192, 255, 255</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -265,7 +265,7 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("255, 255, 180")]
+        [global::System.Configuration.DefaultSettingValueAttribute("220, 255, 220")]
         public global::System.Drawing.Color ColorDraft {
             get {
                 return ((global::System.Drawing.Color)(this["ColorDraft"]));
@@ -488,6 +488,42 @@ namespace Tangenta.Properties {
             }
             set {
                 this["eShopsInUse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 255, 192")]
+        public global::System.Drawing.Color ColorFurs_InvoiceConfirmed {
+            get {
+                return ((global::System.Drawing.Color)(this["ColorFurs_InvoiceConfirmed"]));
+            }
+            set {
+                this["ColorFurs_InvoiceConfirmed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("255, 224, 192")]
+        public global::System.Drawing.Color ColorFurs_SalesBookInvoiceConfirmed {
+            get {
+                return ((global::System.Drawing.Color)(this["ColorFurs_SalesBookInvoiceConfirmed"]));
+            }
+            set {
+                this["ColorFurs_SalesBookInvoiceConfirmed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192, 255, 255")]
+        public global::System.Drawing.Color ColorFurs_SalesBookInvoiceNotConfirmed {
+            get {
+                return ((global::System.Drawing.Color)(this["ColorFurs_SalesBookInvoiceNotConfirmed"]));
+            }
+            set {
+                this["ColorFurs_SalesBookInvoiceNotConfirmed"] = value;
             }
         }
     }
