@@ -1430,5 +1430,53 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
                 this["fursD_StreetNumberAdt"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Last_SalesBookInvoice_SerialNumber {
+            get {
+                return ((string)(this["Last_SalesBookInvoice_SerialNumber"]));
+            }
+            set {
+                this["Last_SalesBookInvoice_SerialNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Last_SalesBookInvoice_SetNumber {
+            get {
+                return ((int)(this["Last_SalesBookInvoice_SetNumber"]));
+            }
+            set {
+                this["Last_SalesBookInvoice_SetNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int MAX_SalesBookInvoice_SetNumber {
+            get {
+                return ((int)(this["MAX_SalesBookInvoice_SetNumber"]));
+            }
+            set {
+                this["MAX_SalesBookInvoice_SetNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\d{4}[-]\\d{7}")]
+        public string SalesBookInvoice_SerialNumber_RegularExpression_pattern {
+            get {
+                return ((string)(this["SalesBookInvoice_SerialNumber_RegularExpression_pattern"]));
+            }
+            set {
+                this["SalesBookInvoice_SerialNumber_RegularExpression_pattern"] = value;
+            }
+        }
     }
 }

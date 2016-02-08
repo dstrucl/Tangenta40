@@ -63,6 +63,7 @@ namespace FiscalVerificationOfInvoices_SLO
         public string FursCertificateFileName { get; set; }
         public string FursCertificatePassword { get; set; }
         public string FursWebServiceURL { get; set; }
+
         public string FursXmlNamespace { get; set; }
         public string FursD_BuildingNumber { get; set; }
         public string FursD_BuildingSectionNumber { get; set; }
@@ -74,6 +75,7 @@ namespace FiscalVerificationOfInvoices_SLO
         public string FursD_PremiseType { get; set; }
         public string FursD_MyOrgTaxID { get; set; }
         public string FursD_BussinesPremiseID { get; set; }
+        public string FursD_ElectronicDeviceID { get; set; }
         public string FursD_InvoiceAuthorTaxID { get; set; }
 
         public string XML_Template_FVI_SLO_SalesBook
@@ -92,6 +94,7 @@ namespace FiscalVerificationOfInvoices_SLO
         #endregion
 
         #region Metods
+
         public usrc_FVI_SLO()
         {
             InitializeComponent();
@@ -121,9 +124,14 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
+        internal string FURS_InvoiceNumber(int invoiceNumber)
+        {
+            return FursD_BussinesPremiseID + "-" + FursD_ElectronicDeviceID + "-" + invoiceNumber.ToString();
+        }
+
         public void Write_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber,ref string xSerialNumber,ref string xSetNumber,ref string xInvoiceNumber)
         {
-          Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(Invoice_ID, FiscalYear, InvoiceNumber, null, null, null, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
+            Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(this,Invoice_ID, FiscalYear, InvoiceNumber, null, null, null, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
             fsb.ShowDialog();
             xSerialNumber = fsb.SerialNumber;
             xSetNumber = fsb.SetNumber;
@@ -133,7 +141,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public void Update_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber, ref string xSerialNumber, ref string xSetNumber, ref string xInvoiceNumber)
         {
-          Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(Invoice_ID, FiscalYear, InvoiceNumber, xSerialNumber, xSetNumber, xInvoiceNumber, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
+          Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(this,Invoice_ID, FiscalYear, InvoiceNumber, xSerialNumber, xSetNumber, xInvoiceNumber, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
           fsb.ShowDialog();
           xSerialNumber = fsb.SerialNumber;
           xSetNumber = fsb.SetNumber;

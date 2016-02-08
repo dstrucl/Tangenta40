@@ -28,15 +28,15 @@ namespace Tangenta
             rdb_ItemsAndProformaInvoices.Checked = false;
             rdb_ProformaInvoices.Checked = false;
             m_usrc_InvoiceMan = x_usrc_InvoiceMan;
-            if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.Items)
+            if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.Shops)
             {
                 rdb_Items.Checked = true;
             }
-            else if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.Items_and_ProformaInvoices)
+            else if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.Shops_and_InvoiceTable)
             {
                 rdb_ItemsAndProformaInvoices.Checked = true;
             }
-            else if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.ProformaInvoices)
+            else if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.InvoiceTable)
             {
                 rdb_ProformaInvoices.Checked = true;
             }
@@ -55,7 +55,7 @@ namespace Tangenta
         {
             if (rdb_Items.Checked)
             {
-                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.Items);
+                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.Shops);
             }
             Close();
             DialogResult = DialogResult.OK;
@@ -65,7 +65,7 @@ namespace Tangenta
         {
             if (rdb_ItemsAndProformaInvoices.Checked)
             {
-                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.Items_and_ProformaInvoices);
+                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.Shops_and_InvoiceTable);
                 if (m_usrc_InvoiceMan.Customer_Changed)
                 {
                     m_usrc_InvoiceMan.Customer_Changed = false;
@@ -80,7 +80,7 @@ namespace Tangenta
         {
             if (rdb_ProformaInvoices.Checked)
             {
-                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.ProformaInvoices);
+                m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.InvoiceTable);
                 if (m_usrc_InvoiceMan.Customer_Changed)
                 {
                     m_usrc_InvoiceMan.Customer_Changed = false;

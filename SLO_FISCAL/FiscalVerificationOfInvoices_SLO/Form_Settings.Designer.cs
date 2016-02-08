@@ -41,8 +41,17 @@
             this.rdb_FURS_Environment = new System.Windows.Forms.RadioButton();
             this.rdb_FURS_TEST_Environment = new System.Windows.Forms.RadioButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.txt_SalesBookInvoice_Current_SerialNumber = new System.Windows.Forms.TextBox();
+            this.grp_SalesBookInvoice = new System.Windows.Forms.GroupBox();
+            this.lbl_SalesBookInvoice_Current_SerialNumber = new System.Windows.Forms.Label();
+            this.lbl_SalesBookInvoice_Last_SetNumber = new System.Windows.Forms.Label();
+            this.lbl_SalesBookInvoice_SerialNumber_Format = new System.Windows.Forms.Label();
+            this.txt_SalesBookInvoice_SerialNumber_Format = new System.Windows.Forms.TextBox();
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook = new System.Windows.Forms.Label();
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook = new System.Windows.Forms.NumericUpDown();
             this.usrc_FURS_environment_settings = new FiscalVerificationOfInvoices_SLO.usrc_FURS_environment_settings();
             this.usrc_FURS_environment_settings_TEST = new FiscalVerificationOfInvoices_SLO.usrc_FURS_environment_settings();
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).BeginInit();
@@ -50,12 +59,15 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.grp_SalesBookInvoice.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_SalesBookInvoice_Last_SetNumber)).BeginInit();
             this.SuspendLayout();
             // 
             // chk_DebugAndTest
             // 
             this.chk_DebugAndTest.AutoSize = true;
-            this.chk_DebugAndTest.Location = new System.Drawing.Point(573, 38);
+            this.chk_DebugAndTest.Location = new System.Drawing.Point(345, 36);
             this.chk_DebugAndTest.Name = "chk_DebugAndTest";
             this.chk_DebugAndTest.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chk_DebugAndTest.Size = new System.Drawing.Size(91, 17);
@@ -145,7 +157,7 @@
             // 
             // nm_QRSizeWidth
             // 
-            this.nm_QRSizeWidth.Location = new System.Drawing.Point(594, 12);
+            this.nm_QRSizeWidth.Location = new System.Drawing.Point(431, 8);
             this.nm_QRSizeWidth.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -168,7 +180,7 @@
             // lbl_QRSizeWidth
             // 
             this.lbl_QRSizeWidth.AutoSize = true;
-            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(505, 15);
+            this.lbl_QRSizeWidth.Location = new System.Drawing.Point(342, 11);
             this.lbl_QRSizeWidth.Name = "lbl_QRSizeWidth";
             this.lbl_QRSizeWidth.Size = new System.Drawing.Size(82, 13);
             this.lbl_QRSizeWidth.TabIndex = 16;
@@ -214,9 +226,101 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_FURS_environment_settings_TEST);
-            this.splitContainer1.Size = new System.Drawing.Size(669, 739);
+            this.splitContainer1.Size = new System.Drawing.Size(910, 739);
             this.splitContainer1.SplitterDistance = 363;
             this.splitContainer1.TabIndex = 22;
+            // 
+            // txt_SalesBookInvoice_Current_SerialNumber
+            // 
+            this.txt_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(126, 18);
+            this.txt_SalesBookInvoice_Current_SerialNumber.Name = "txt_SalesBookInvoice_Current_SerialNumber";
+            this.txt_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(90, 20);
+            this.txt_SalesBookInvoice_Current_SerialNumber.TabIndex = 24;
+            this.txt_SalesBookInvoice_Current_SerialNumber.Text = "1234-1234567";
+            // 
+            // grp_SalesBookInvoice
+            // 
+            this.grp_SalesBookInvoice.Controls.Add(this.nm_UpDn_SalesBookInvoice_Last_SetNumber);
+            this.grp_SalesBookInvoice.Controls.Add(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook);
+            this.grp_SalesBookInvoice.Controls.Add(this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook);
+            this.grp_SalesBookInvoice.Controls.Add(this.lbl_SalesBookInvoice_SerialNumber_Format);
+            this.grp_SalesBookInvoice.Controls.Add(this.txt_SalesBookInvoice_SerialNumber_Format);
+            this.grp_SalesBookInvoice.Controls.Add(this.lbl_SalesBookInvoice_Last_SetNumber);
+            this.grp_SalesBookInvoice.Controls.Add(this.lbl_SalesBookInvoice_Current_SerialNumber);
+            this.grp_SalesBookInvoice.Controls.Add(this.txt_SalesBookInvoice_Current_SerialNumber);
+            this.grp_SalesBookInvoice.Location = new System.Drawing.Point(508, 6);
+            this.grp_SalesBookInvoice.Name = "grp_SalesBookInvoice";
+            this.grp_SalesBookInvoice.Size = new System.Drawing.Size(405, 69);
+            this.grp_SalesBookInvoice.TabIndex = 27;
+            this.grp_SalesBookInvoice.TabStop = false;
+            this.grp_SalesBookInvoice.Text = "Vezana knjiga računov";
+            // 
+            // lbl_SalesBookInvoice_Current_SerialNumber
+            // 
+            this.lbl_SalesBookInvoice_Current_SerialNumber.AutoSize = true;
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(2, 22);
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Name = "lbl_SalesBookInvoice_Current_SerialNumber";
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(121, 13);
+            this.lbl_SalesBookInvoice_Current_SerialNumber.TabIndex = 28;
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Text = "Tekoča serijska številka";
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // lbl_SalesBookInvoice_Last_SetNumber
+            // 
+            this.lbl_SalesBookInvoice_Last_SetNumber.AutoSize = true;
+            this.lbl_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(4, 48);
+            this.lbl_SalesBookInvoice_Last_SetNumber.Name = "lbl_SalesBookInvoice_Last_SetNumber";
+            this.lbl_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(102, 13);
+            this.lbl_SalesBookInvoice_Last_SetNumber.TabIndex = 29;
+            this.lbl_SalesBookInvoice_Last_SetNumber.Text = "Zadnja številka seta";
+            // 
+            // lbl_SalesBookInvoice_SerialNumber_Format
+            // 
+            this.lbl_SalesBookInvoice_SerialNumber_Format.AutoSize = true;
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(229, 21);
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Name = "lbl_SalesBookInvoice_SerialNumber_Format";
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(42, 13);
+            this.lbl_SalesBookInvoice_SerialNumber_Format.TabIndex = 31;
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Text = "Format:";
+            // 
+            // txt_SalesBookInvoice_SerialNumber_Format
+            // 
+            this.txt_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(273, 18);
+            this.txt_SalesBookInvoice_SerialNumber_Format.Name = "txt_SalesBookInvoice_SerialNumber_Format";
+            this.txt_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(126, 20);
+            this.txt_SalesBookInvoice_SerialNumber_Format.TabIndex = 30;
+            this.txt_SalesBookInvoice_SerialNumber_Format.Text = "1234-1234567";
+            // 
+            // lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook
+            // 
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.AutoSize = true;
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Location = new System.Drawing.Point(163, 48);
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Name = "lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook";
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Size = new System.Drawing.Size(180, 13);
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.TabIndex = 33;
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Text = "Število vseh setov znotraj ene knjige";
+            // 
+            // nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook
+            // 
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Location = new System.Drawing.Point(346, 45);
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Name = "nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook";
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Size = new System.Drawing.Size(54, 20);
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.TabIndex = 34;
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             // 
             // usrc_FURS_environment_settings
             // 
@@ -226,7 +330,7 @@
             this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
-            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(665, 359);
+            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(906, 359);
             this.usrc_FURS_environment_settings.TabIndex = 18;
             // 
             // usrc_FURS_environment_settings_TEST
@@ -237,15 +341,38 @@
             this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
-            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(665, 368);
+            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(906, 368);
             this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
+            // 
+            // nm_UpDn_SalesBookInvoice_Last_SetNumber
+            // 
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(107, 45);
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Name = "nm_UpDn_SalesBookInvoice_Last_SetNumber";
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(51, 20);
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.TabIndex = 35;
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(684, 858);
+            this.ClientSize = new System.Drawing.Size(925, 858);
+            this.Controls.Add(this.grp_SalesBookInvoice);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.rdb_FURS_TEST_Environment);
             this.Controls.Add(this.rdb_FURS_Environment);
@@ -269,6 +396,10 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.grp_SalesBookInvoice.ResumeLayout(false);
+            this.grp_SalesBookInvoice.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_SalesBookInvoice_Last_SetNumber)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,5 +421,14 @@
         private System.Windows.Forms.RadioButton rdb_FURS_Environment;
         private System.Windows.Forms.RadioButton rdb_FURS_TEST_Environment;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TextBox txt_SalesBookInvoice_Current_SerialNumber;
+        private System.Windows.Forms.GroupBox grp_SalesBookInvoice;
+        private System.Windows.Forms.Label lbl_SalesBookInvoice_Current_SerialNumber;
+        private System.Windows.Forms.Label lbl_SalesBookInvoice_Last_SetNumber;
+        private System.Windows.Forms.Label lbl_SalesBookInvoice_SerialNumber_Format;
+        private System.Windows.Forms.TextBox txt_SalesBookInvoice_SerialNumber_Format;
+        private System.Windows.Forms.NumericUpDown nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook;
+        private System.Windows.Forms.Label lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook;
+        private System.Windows.Forms.NumericUpDown nm_UpDn_SalesBookInvoice_Last_SetNumber;
     }
 }

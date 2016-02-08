@@ -128,5 +128,8 @@
     <Setting Name="ColorFurs_SalesBookInvoiceNotConfirmed" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">192, 255, 255</Value>
     </Setting>
+    <Setting Name="eManagerMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Shops&amp;InvoiceTable</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

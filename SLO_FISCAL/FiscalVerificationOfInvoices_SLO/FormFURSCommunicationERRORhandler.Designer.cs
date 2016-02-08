@@ -38,9 +38,9 @@
             // btn_TryAagin
             // 
             this.btn_TryAagin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_TryAagin.Location = new System.Drawing.Point(269, 198);
+            this.btn_TryAagin.Location = new System.Drawing.Point(269, 302);
             this.btn_TryAagin.Name = "btn_TryAagin";
-            this.btn_TryAagin.Size = new System.Drawing.Size(306, 40);
+            this.btn_TryAagin.Size = new System.Drawing.Size(272, 55);
             this.btn_TryAagin.TabIndex = 0;
             this.btn_TryAagin.Text = "Try Again";
             this.btn_TryAagin.UseVisualStyleBackColor = true;
@@ -48,10 +48,11 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Cancel.Location = new System.Drawing.Point(581, 198);
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Cancel.Location = new System.Drawing.Point(547, 302);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(105, 40);
+            this.btn_Cancel.Size = new System.Drawing.Size(234, 55);
             this.btn_Cancel.TabIndex = 1;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;
@@ -66,7 +67,7 @@
             this.lbl_Message.ForeColor = System.Drawing.Color.Blue;
             this.lbl_Message.Location = new System.Drawing.Point(6, 50);
             this.lbl_Message.Name = "lbl_Message";
-            this.lbl_Message.Size = new System.Drawing.Size(680, 141);
+            this.lbl_Message.Size = new System.Drawing.Size(774, 245);
             this.lbl_Message.TabIndex = 2;
             this.lbl_Message.Text = "label1";
             // 
@@ -78,16 +79,16 @@
             this.lbl_ErrorMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.lbl_ErrorMessage.Location = new System.Drawing.Point(6, 9);
             this.lbl_ErrorMessage.Name = "lbl_ErrorMessage";
-            this.lbl_ErrorMessage.Size = new System.Drawing.Size(680, 40);
+            this.lbl_ErrorMessage.Size = new System.Drawing.Size(774, 40);
             this.lbl_ErrorMessage.TabIndex = 3;
             this.lbl_ErrorMessage.Text = "label1";
             // 
             // btn_CheckInternetConnection
             // 
             this.btn_CheckInternetConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_CheckInternetConnection.Location = new System.Drawing.Point(6, 198);
+            this.btn_CheckInternetConnection.Location = new System.Drawing.Point(6, 302);
             this.btn_CheckInternetConnection.Name = "btn_CheckInternetConnection";
-            this.btn_CheckInternetConnection.Size = new System.Drawing.Size(256, 40);
+            this.btn_CheckInternetConnection.Size = new System.Drawing.Size(256, 55);
             this.btn_CheckInternetConnection.TabIndex = 4;
             this.btn_CheckInternetConnection.Text = "Check Internet_Connection";
             this.btn_CheckInternetConnection.UseVisualStyleBackColor = true;
@@ -97,7 +98,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(695, 242);
+            this.ClientSize = new System.Drawing.Size(789, 363);
             this.ControlBox = false;
             this.Controls.Add(this.btn_CheckInternetConnection);
             this.Controls.Add(this.lbl_ErrorMessage);

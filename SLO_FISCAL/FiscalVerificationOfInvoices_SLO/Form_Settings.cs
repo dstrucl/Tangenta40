@@ -45,6 +45,10 @@ namespace FiscalVerificationOfInvoices_SLO
             this.rdb_FURS_Environment.Checked = false;
             this.usrc_FURS_environment_settings.Init(false, m_usrc_FVI_SLO);
             this.usrc_FURS_environment_settings_TEST.Init(true, m_usrc_FVI_SLO);
+            this.txt_SalesBookInvoice_Current_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Value = Convert.ToDecimal(Properties.Settings.Default.Last_SalesBookInvoice_SetNumber);
+            this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Value = Convert.ToDecimal(Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber);
 
             if (Properties.Settings.Default.fursTEST_Environment)
             {
@@ -115,6 +119,11 @@ namespace FiscalVerificationOfInvoices_SLO
             Properties.Settings.Default.timeOutInSec = Convert.ToInt32(this.nm_UpDown_timeOutInSec.Value);
             Properties.Settings.Default.timeToShowSuccessfulFURSResult = Convert.ToInt32(this.nm_TimeToShoqSuccessfulFURS_Transaction.Value);
             Properties.Settings.Default.QRImageWidth = Convert.ToInt32(this.nm_QRSizeWidth.Value);
+
+            Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber = this.txt_SalesBookInvoice_Current_SerialNumber.Text;
+            Properties.Settings.Default.Last_SalesBookInvoice_SetNumber = Convert.ToInt32(nm_UpDn_SalesBookInvoice_Last_SetNumber.Value);
+            Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern = this.txt_SalesBookInvoice_SerialNumber_Format.Text;
+            Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber = Convert.ToInt32(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Value);
             Properties.Settings.Default.Save();
 
 
@@ -127,6 +136,9 @@ namespace FiscalVerificationOfInvoices_SLO
             this.Close();
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

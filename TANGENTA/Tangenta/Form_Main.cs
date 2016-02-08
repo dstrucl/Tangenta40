@@ -120,10 +120,6 @@ namespace Tangenta
                 this.Text += " DIAGNOSTIC";
             }
 
-            //if (Program.m_SQLite_Support == null)
-            //{
-            //    Program.m_SQLite_Support = new SQLite_Support(this);
-            //}
 
             ProgramDiagnostic.Diagnostic.Enabled = false;
             if (Program.ProgramDiagnostic)

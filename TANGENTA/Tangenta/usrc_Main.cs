@@ -33,11 +33,6 @@ namespace Tangenta
         public usrc_Main()
         {
             InitializeComponent();
-            Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
-            if (Program.bReset2FactorySettings)
-            {
-                Program.usrc_FVI_SLO1.Settings_Reset(this);
-            }
             Program.usrc_Printer1 = this.usrc_Printer1;
         }
 
@@ -45,6 +40,16 @@ namespace Tangenta
         {
             Main_Form = main_Form;
             bool bUpgradeDone = false;
+            if (Program.b_FVI_SLO)
+            {
+                Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
+                Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.CasshierName;
+            }
+            if (Program.bReset2FactorySettings)
+            {
+                Program.usrc_FVI_SLO1.Settings_Reset(this);
+            }
+
             if (m_usrc_DBSettings.Read_DBSettings(ref bUpgradeDone))
             {
                 if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())

@@ -23,8 +23,8 @@ namespace Tangenta
     {
         internal bool Customer_Changed = false;
 
-        public enum eMode { Items, ProformaInvoices, Items_and_ProformaInvoices };
-        public eMode Mode = eMode.Items_and_ProformaInvoices;
+        public enum eMode { Shops, InvoiceTable, Shops_and_InvoiceTable };
+        public eMode Mode = eMode.Shops_and_InvoiceTable;
         Form m_pparent = null;
         public List<Tangenta.usrc_Invoice.InvoiceType> List_InvoiceType = new List<Tangenta.usrc_Invoice.InvoiceType>();
         public Tangenta.usrc_Invoice.InvoiceType InvoiceType_Invoice = null;
@@ -41,37 +41,48 @@ namespace Tangenta
 
         public void SetInitialMode()
         {
-            Mode = eMode.Items_and_ProformaInvoices;
-            if (m_usrc_Invoice.m_ShopABC!=null)
+            string sManagerMode = Properties.Settings.Default.eManagerMode;
+            if ((sManagerMode.Contains("Shops")) && (sManagerMode.Contains("InvoiceTable")))
             {
-                if (m_usrc_Invoice.m_ShopABC.m_CurrentInvoice!=null)
-                {
-                    if (m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.bDraft)
-                    {
-                        Mode = eMode.Items;
-                    }
-                }
+                Mode = eMode.Shops_and_InvoiceTable;
+            }
+            else if (sManagerMode.Equals("Shops"))
+            {
+                Mode = eMode.Shops;
+            }
+            else if (sManagerMode.Equals(";"))
+            {
+                Mode = eMode.InvoiceTable;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_InvoiceMan:SetInitialMode:Properties.Settings.Default.eManagerMode may have only these values:\"Shops\",\"InvoiceTable\" or \"Shops@InvoiceTable\"");
+                Mode = eMode.Shops_and_InvoiceTable;
             }
         }
 
         public void SetMode(eMode mode)
         {
             Mode = mode;
-            if (mode == eMode.Items)
+            if (mode == eMode.Shops)
             {
                 splitContainer1.Panel2Collapsed = true;
                 splitContainer1.Panel1Collapsed = false;
+                Properties.Settings.Default.eManagerMode = "Shops";
             }
-            else if (mode == eMode.ProformaInvoices)
+            else if (mode == eMode.InvoiceTable)
             {
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel1Collapsed = true;
+                Properties.Settings.Default.eManagerMode = "InvoiceTable";
             }
             else
             {
                 splitContainer1.Panel2Collapsed = false;
                 splitContainer1.Panel1Collapsed = false;
+                Properties.Settings.Default.eManagerMode = "Shops&InvoiceTable";
             }
+            Properties.Settings.Default.Save();
         }
 
         internal bool Init(Form pparent)
@@ -207,7 +218,7 @@ namespace Tangenta
         private void m_usrc_Invoice_ProformaInvoiceSaved(long ProformaInvoice_id)
         {
             splitContainer1.Panel2Collapsed = false;
-            SetMode(eMode.Items_and_ProformaInvoices);
+            SetMode(eMode.Shops_and_InvoiceTable);
             this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear);
         }
 

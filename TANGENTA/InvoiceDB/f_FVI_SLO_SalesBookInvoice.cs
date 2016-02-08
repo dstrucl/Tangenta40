@@ -66,5 +66,42 @@ namespace InvoiceDB
                 return false;
             }
         }
+
+        public static bool Select_SalesBookInvoice_NotSent(ShopABC xInvoiceDB, ref List<InvoiceData> list, string xCasshierName)
+        {
+            if (list==null)
+            {
+                list = new List<InvoiceData>();
+            }
+            list.Clear();
+            string sql = @"select ID from ProformaInvoice pi
+                                inner join Invoice inv on pi.Invoice_ID = inv.ID
+                                inner join FVI_SLO_SalesBookInvoice fvisbi on fvisbi.Invoice_ID = inv.ID
+                                left join FVI_SLO_Response fvires on fvires.Invoice_ID = inv.ID
+                                where pi.Draft = 0 and fvires.BarCodeValue is null and fvisbi.SetNumber is not null";
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        long proforma_invoice_id = (long)dr["ID"];
+                        InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB, proforma_invoice_id, true, xCasshierName);
+                        if (xInvoiceData.Read_ProformaInvoice())
+                        {
+                            list.Add(xInvoiceData);
+                        }
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:SelectNotSent:Get:" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

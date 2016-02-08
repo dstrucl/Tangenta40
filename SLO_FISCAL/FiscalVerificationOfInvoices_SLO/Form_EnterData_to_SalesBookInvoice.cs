@@ -14,6 +14,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +22,7 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class Form_EnterData_to_SalesBookInvoice : Form
     {
+        private usrc_FVI_SLO m_usrc_FVI_SLO;
         public enum eMode { WRITE, UPDATE };
         private eMode m_eMode = eMode.WRITE;
 
@@ -41,9 +43,10 @@ namespace FiscalVerificationOfInvoices_SLO
             get { return m_InvoiceNumber; }
         }
 
-        public Form_EnterData_to_SalesBookInvoice(long Invoice_ID,int FiscalYear, int InvoiceNumber, string xSerialNaumber, string xSetNumber,string xInvoiceNumber, eMode xEmode)
+        public Form_EnterData_to_SalesBookInvoice(usrc_FVI_SLO xusrc_FVI_SLO, long Invoice_ID,int FiscalYear, int InvoiceNumber, string xSerialNaumber, string xSetNumber,string xInvoiceNumber, eMode xEmode)
         {
             InitializeComponent();
+            m_usrc_FVI_SLO = xusrc_FVI_SLO;
             lngRPM.s_SalesBookInvoice.Text(this);
             m_SerialNumber = xSerialNaumber;
             m_eMode = xEmode;
@@ -51,14 +54,21 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 case eMode.WRITE:
                     this.lbl_Msg.Text = "Vpišete podatke iz vezane knjige računov za račun:" + FiscalYear.ToString() + "/" + InvoiceNumber.ToString();
-                    txt_SerialNumber.Text = "";
-                    txt_SetNumber.Text = "";
-                    txt_InvoiceNumber.Text = "";
+                    txt_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
+                    nm_UpDown_SetNumber.Value = Convert.ToDecimal(Properties.Settings.Default.Last_SalesBookInvoice_SetNumber);
+                    txt_InvoiceNumber.Text = m_usrc_FVI_SLO.FURS_InvoiceNumber(InvoiceNumber);
                     this.btn_Write.Text = "Zapiši";
                     break;
                 case eMode.UPDATE:
                     txt_SerialNumber.Text = m_SerialNumber;
-                    txt_SetNumber.Text = xSetNumber;
+                    try
+                    {
+                        nm_UpDown_SetNumber.Value = Convert.ToDecimal(xSetNumber);
+                    }
+                    catch
+                    {
+                        nm_UpDown_SetNumber.Value = 0;
+                    }
                     txt_InvoiceNumber.Text = xInvoiceNumber;
                     this.btn_Write.Text = "Popravi";
                     this.lbl_Msg.Text = "Popravite podatke iz vezane knjige računov za račun:" + FiscalYear.ToString() + "/" + InvoiceNumber.ToString();
@@ -67,10 +77,37 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
+        private int SetNext(int last_SalesBookInvoice_SetNumber)
+        {
+            try
+            {
+                int set_number = last_SalesBookInvoice_SetNumber;
+                set_number++;
+                if (set_number > Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber)
+                {
+                    MessageBox.Show(lngRPM.s_LastSetNumberIsMoreThan_MAX_SalesBookInvoice_SetNumber.s+"\r\n" + lngRPM.s_TakeNewSalesBookInvoiceAndWriteItsSerialNumberFirst.s);
+                    txt_SerialNumber.Text = "";
+                    txt_SerialNumber.Focus();
+                    return 1;
+                }
+                else
+                {
+                    return set_number;
+                }
+            }
+            catch
+            {
+                return last_SalesBookInvoice_SetNumber;
+            }
+        }
+
         private void btn_Write_Click(object sender, EventArgs e)
         {
             if (Check())
             {
+                Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber = this.txt_SerialNumber.Text;
+                Properties.Settings.Default.Last_SalesBookInvoice_SetNumber = Convert.ToInt32(this.nm_UpDown_SetNumber.Value);
+                Properties.Settings.Default.Save();
                 Close();
                 DialogResult = DialogResult.OK;
             }
@@ -82,51 +119,34 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 if (Check_SetNumber())
                 {
-                    if (Check_InvoiceNumber())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Številka računa iz vezane knjige računov ni ustrezna !");
-                    }
+                    m_InvoiceNumber = txt_InvoiceNumber.Text;
+                    return true;
                 }
-                else
-                {
-                    MessageBox.Show("Številka posameznega obrazca iz vezane knjige računov ni ustrezna !");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Serijska številka vezane knjige računov ne ustreza!");
             }
             return false;
         }
 
-        private bool Check_InvoiceNumber()
-        {
-            if (txt_InvoiceNumber.Text.Length > 0)
-            {
-                m_InvoiceNumber = txt_InvoiceNumber.Text;
-                return true;
-            }
-            else
-            {
-                m_InvoiceNumber = "";
-            }
-            return false;
-        }
 
         private bool Check_SetNumber()
         {
-            if (txt_SetNumber.Text.Length > 0)
+            if (nm_UpDown_SetNumber.Value > 0)
             {
-                m_SetNumber = txt_SetNumber.Text;
-                return true;
+                if (nm_UpDown_SetNumber.Value <= Convert.ToDecimal(Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber))
+                {
+                    m_SetNumber = nm_UpDown_SetNumber.Value.ToString();
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show(this, lngRPM.s_SalesBookInvoice_SetNumber_GraterThanAllSetsDefinedInSettings.s);
+                    return false;
+                }
+                
             }
             else
             {
                 m_SetNumber = "";
+                MessageBox.Show(this, lngRPM.s_SalesBookInvoice_SetNumber_Not_OK.s);
             }
             return false;
         }
@@ -135,14 +155,36 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (txt_SerialNumber.Text.Length > 0)
             {
-                m_SerialNumber = txt_SerialNumber.Text;
-                return true;
+                Regex regexpr = new Regex(Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern);
+                if (regexpr.IsMatch(txt_SerialNumber.Text))
+                {
+                    m_SerialNumber = txt_SerialNumber.Text;
+                    return true;
+                }
+                else
+                {
+                    if (MessageBox.Show(this,lngRPM.sSalesBookInvoice_SerialNumber_does_not_match_patern.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
+                    {
+                        m_SerialNumber = txt_SerialNumber.Text;
+                        return true;
+                    }
+                    return false;
+                }
+                
             }
-            else
-            {
-                m_SerialNumber = "";
-            }
+            m_SerialNumber = "";
             return false;
+        }
+
+        private void Form_EnterData_to_SalesBookInvoice_Load(object sender, EventArgs e)
+        {
+            this.timer_SetNext.Enabled = true;
+        }
+
+        private void timer_SetNext_Tick(object sender, EventArgs e)
+        {
+            this.timer_SetNext.Enabled = false;
+            nm_UpDown_SetNumber.Value = Convert.ToDecimal(SetNext(Convert.ToInt32(nm_UpDown_SetNumber.Value)));
         }
     }
 }

@@ -22,21 +22,21 @@ using ShopA_dbfunc;
 
 namespace InvoiceDB
 {
-    public class FURS_Response_data
-    {
-        public string UniqueMessageID = null;
-        public string UniqueInvoiceID = null;
-        public string BarCodeValue = null;
-        public Image Image_QRcode = null;
+    //public class FURS_Response_data
+    //{
+    //    public string ZOI = null;
+    //    public string EOR = null;
+    //    public string BarCodeValue = null;
+    //    public Image Image_QRcode = null;
 
-        public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID,string furs_barcode_value, Image furs_Image_QRcode)
-        {
-            this.UniqueMessageID = furs_UniqeMsgID;
-            this.UniqueInvoiceID = furs_UniqeInvID;
-            this.BarCodeValue = furs_barcode_value;
-            this.Image_QRcode = furs_Image_QRcode;
-        }
-    }
+    //    public FURS_Response_data(string furs_UniqeMsgID, string furs_UniqeInvID,string furs_barcode_value, Image furs_Image_QRcode)
+    //    {
+    //        this.ZOI = furs_UniqeMsgID;
+    //        this.EOR = furs_UniqeInvID;
+    //        this.BarCodeValue = furs_barcode_value;
+    //        this.Image_QRcode = furs_Image_QRcode;
+    //    }
+    //}
 
     public class InvoiceData
     {
@@ -47,8 +47,19 @@ namespace InvoiceDB
         private string CasshierName = "";
 
 
+        public string_v FURS_ZOI_v = null;
+        public string_v FURS_EOR_v = null;
+        public string_v FURS_QR_v = null;
+        public Image    FURS_Image_QRcode = null;
 
-        public FURS_Response_data FURS_Response_Data = null;
+        public string_v FURS_SalesBookInvoice_InvoiceNumber_v = null;
+        public string_v FURS_SalesBookInvoice_SetNumber_v = null;
+        public string_v FURS_SalesBookInvoice_SerialNumber = null;
+
+
+
+
+        //public FURS_Response_data FURS_Response_Data = null;
 
         public DataTable dt_ProformaInvoice = new DataTable();
         public DataTable dt_ShopB_Items = new DataTable();
@@ -291,16 +302,16 @@ namespace InvoiceDB
             lpar.Add(par_Invoice_ID);
 
             string spar_MessageID = "@par_MessageID";
-            SQL_Parameter par_MessageID = new SQL_Parameter(spar_MessageID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_Response_Data.UniqueMessageID);
+            SQL_Parameter par_MessageID = new SQL_Parameter(spar_MessageID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_ZOI_v.v);
             lpar.Add(par_MessageID);
 
 
             string spar_UniqueInvoiceID = "@par_UniqueInvoiceID";
-            SQL_Parameter par_UniqueInvoiceID = new SQL_Parameter(spar_UniqueInvoiceID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_Response_Data.UniqueInvoiceID);
+            SQL_Parameter par_UniqueInvoiceID = new SQL_Parameter(spar_UniqueInvoiceID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_EOR_v.v);
             lpar.Add(par_UniqueInvoiceID);
 
             string spar_BarCodeValue = "@par_BarCodeValue";
-            SQL_Parameter par_BarCodeValue = new SQL_Parameter(spar_BarCodeValue, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_Response_Data.BarCodeValue);
+            SQL_Parameter par_BarCodeValue = new SQL_Parameter(spar_BarCodeValue, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_QR_v.v);
             lpar.Add(par_BarCodeValue);
 
             DateTime resp_datetime = DateTime.Now;
@@ -332,14 +343,14 @@ namespace InvoiceDB
             {
                 Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
             }
-            Invoice_FURS_Token.tUniqueMessageID.Set(FURS_Response_Data.UniqueMessageID);
-            Invoice_FURS_Token.tUniqueInvoiceID.Set(FURS_Response_Data.UniqueInvoiceID);
+            Invoice_FURS_Token.tUniqueMessageID.Set(this.FURS_ZOI_v.v);
+            Invoice_FURS_Token.tUniqueInvoiceID.Set(this.FURS_EOR_v.v);
 
-            if (FURS_Response_Data.Image_QRcode != null)
+            if (this.FURS_Image_QRcode != null)
             {
                 using (MemoryStream m = new MemoryStream())
                 {
-                    FURS_Response_Data.Image_QRcode.Save(m, FURS_Response_Data.Image_QRcode.RawFormat);
+                    this.FURS_Image_QRcode.Save(m, this.FURS_Image_QRcode.RawFormat);
                     byte[] imageBytes = m.ToArray();
 
                     // Convert byte[] to Base64 String
@@ -355,20 +366,17 @@ namespace InvoiceDB
         {
             string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where Invoice_ID = " + Invoice_ID.ToString();
             string Err = null;
-            FURS_Response_Data = null;
             if (DBSync.DBSync.ReadDataTable(ref dt,sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    string UniqMsgID = (string)dt.Rows[0]["MessageID"];
-                    string UniqInvID = (string)dt.Rows[0]["UniqueInvoiceID"];
-                    string QRBarCodeValue = (string)dt.Rows[0]["BarCodeValue"];
-                    Image img_QR=null;
-                    FURS_Response_Data = new FURS_Response_data(UniqMsgID, UniqInvID, QRBarCodeValue, img_QR);
+                    FURS_ZOI_v = tf.set_string(dt.Rows[0]["MessageID"]);
+                    FURS_EOR_v = tf.set_string(dt.Rows[0]["UniqueInvoiceID"]);
+                    FURS_QR_v = tf.set_string(dt.Rows[0]["BarCodeValue"]);
+                    this.FURS_Image_QRcode =null;
                 }
                 else
                 {
-                    FURS_Response_Data = null;
                     if (Invoice_FURS_Token == null)
                     {
                         Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
@@ -480,7 +488,7 @@ namespace InvoiceDB
 
 
 
-        public bool Read_ProformaInvoice(ref DataTable dt_FURS_Response_Data)
+        public bool Read_ProformaInvoice()
         {
             string sql = null;
             ProformaInvoice_Reference_ID_v = null;
@@ -526,6 +534,12 @@ namespace InvoiceDB
                                  acusper.ID as Atom_Customer_Person_ID,
                                  jpi.EventTime,
                                  jpit.Name as JOURNAL_ProformaInvoice_Type_Name,
+                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.MessageID As JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$MessageID,
+                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.UniqueInvoiceID As JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$UniqueInvoiceID,
+                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.BarCodeValue As JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$BarCodeValue,
+                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.InvoiceNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$InvoiceNumber,
+                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.SetNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SetNumber,
+                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.SerialNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SerialNumber,
                                  inv.Invoice_Reference_ID
                                  from JOURNAL_ProformaInvoice jpi
                                  inner join JOURNAL_ProformaInvoice_Type jpit on jpi.JOURNAL_ProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
@@ -539,6 +553,8 @@ namespace InvoiceDB
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                  left join Invoice inv on pi.Invoice_ID = inv.ID
+                                 LEFT JOIN FVI_SLO_Response JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres ON JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.Invoice_ID = inv.ID and JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.Invoice_ID = pi.Invoice_ID
+                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi ON JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.Invoice_ID = inv.ID and JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.Invoice_ID = pi.Invoice_ID
                                  left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                  left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                  left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
@@ -784,7 +800,13 @@ namespace InvoiceDB
                         {
                             if (!Draft)
                             {
-                                this.Read_FURS_Response_Data(Invoice_ID_v.v,ref dt_FURS_Response_Data);
+
+                                  FURS_ZOI_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$MessageID"]);
+                                  FURS_EOR_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$UniqueInvoiceID"]);
+                                  FURS_QR_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$BarCodeValue"]);
+                                  FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$InvoiceNumber"]); 
+                                  FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SetNumber"]); 
+                                  FURS_SalesBookInvoice_SerialNumber =  DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SerialNumber"]); 
                             }
                         }
 

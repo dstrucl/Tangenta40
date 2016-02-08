@@ -27,7 +27,7 @@ namespace FiscalVerificationOfInvoices_SLO
             lngRPM.s_Error.Text(this.lbl_ErrorMessage,":"+errorMessage);
             lngRPM.s_InvoiceNotSentOK.Text(this);
             lngRPM.s_TryToSendFURSDataAgain.Text(this.btn_TryAagin);
-            lngRPM.s_Cancel.Text(this.btn_Cancel);
+            lngRPM.s_GoToSalesBookInvoice.Text(this.btn_Cancel);
             lngRPM.s_InstructionToTryToSendFURSDataAgain.Text(this.lbl_Message);
         }
 

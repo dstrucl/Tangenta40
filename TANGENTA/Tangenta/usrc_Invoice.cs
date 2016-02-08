@@ -1708,7 +1708,6 @@ namespace Tangenta
 
                     if (m_ShopABC.m_CurrentInvoice.Exist)
                     {
-                        DataTable dt_FURS_ResponseData = new DataTable();
                         if (m_ShopABC.m_CurrentInvoice.bDraft)
                         {
 
@@ -1716,11 +1715,11 @@ namespace Tangenta
                             if (UpdateInvoicePriceInDraft())
                             {
                                 m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.CasshierName);
-                                if (m_InvoiceData.Read_ProformaInvoice(ref dt_FURS_ResponseData)) // read Proforma Invoice again from DataBase
+                                if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                                 {
-                                    if (dt_FURS_ResponseData.Rows.Count>0)
+                                    if (m_InvoiceData.FURS_QR_v != null)
                                     {
-                                        m_InvoiceData.FURS_Response_Data.Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_Response_Data.BarCodeValue);
+                                        m_InvoiceData.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_QR_v.v);
                                         m_InvoiceData.Set_Invoice_Furs_Token();
 
                                     }
@@ -1739,11 +1738,11 @@ namespace Tangenta
                         else
                         {
                             m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.CasshierName);
-                            if (m_InvoiceData.Read_ProformaInvoice(ref dt_FURS_ResponseData)) // read Proforma Invoice again from DataBase
+                            if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
-                                if (dt_FURS_ResponseData.Rows.Count > 0)
+                                if (m_InvoiceData.FURS_QR_v != null)
                                 {
-                                    m_InvoiceData.FURS_Response_Data.Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_Response_Data.BarCodeValue);
+                                    m_InvoiceData.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_QR_v.v);
                                     m_InvoiceData.Set_Invoice_Furs_Token();
                                 }
                                 Form_PrintExistingInvoice frm_Print_Existing_invoice = new Form_PrintExistingInvoice(m_InvoiceData);
@@ -1821,9 +1820,8 @@ namespace Tangenta
 
                                     if (Program.b_FVI_SLO)
                                     {
-                                        DataTable dt_xFURS_ResponseData = new DataTable();
                                         InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.CasshierName);
-                                        if (xInvoiceData.Read_ProformaInvoice(ref dt_xFURS_ResponseData)) // read Proforma Invoice again from DataBase
+                                        if (xInvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                                         {
 
                                             string furs_XML = xInvoiceData.Create_furs_InvoiceXML(true,Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, Properties.Settings.Default.CasshierName, Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID, stornoReferenceInvoiceNumber, stornoReferenceInvoiceIssueDateTime);
@@ -1833,12 +1831,13 @@ namespace Tangenta
                                             Image img_QR = null;
                                             if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
                                             {
-                                                xInvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue, img_QR);
+                                                xInvoiceData.FURS_ZOI_v = new string_v(furs_UniqeMsgID);  
+                                                xInvoiceData.FURS_EOR_v = new string_v(furs_UniqeInvID);
+                                                xInvoiceData.FURS_QR_v = new string_v(furs_BarCodeValue);
                                                 xInvoiceData.Write_FURS_Response_Data();
                                             }
                                             else
                                             {
-                                                MessageBox.Show("Storno računa ni bil uspešno poslan na furs, zato ga boste vpisali v VEZANO KNJIGO RAČUNOV!");
                                                 string xSerialNumber = null;
                                                 string xSetNumber = null;
                                                 string xInvoiceNumber = null;

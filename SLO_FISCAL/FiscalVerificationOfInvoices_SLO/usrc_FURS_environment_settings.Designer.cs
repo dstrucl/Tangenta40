@@ -43,6 +43,8 @@
             // 
             // txt_fursXmlNamespace
             // 
+            this.txt_fursXmlNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_fursXmlNamespace.Location = new System.Drawing.Point(140, 78);
             this.txt_fursXmlNamespace.Name = "txt_fursXmlNamespace";
             this.txt_fursXmlNamespace.Size = new System.Drawing.Size(281, 20);
@@ -59,6 +61,8 @@
             // 
             // txt_fursWebServiceURL
             // 
+            this.txt_fursWebServiceURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_fursWebServiceURL.Location = new System.Drawing.Point(140, 50);
             this.txt_fursWebServiceURL.Name = "txt_fursWebServiceURL";
             this.txt_fursWebServiceURL.Size = new System.Drawing.Size(281, 20);
@@ -75,6 +79,7 @@
             // 
             // txt_CertificatePassword
             // 
+            this.txt_CertificatePassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_CertificatePassword.Location = new System.Drawing.Point(502, 22);
             this.txt_CertificatePassword.Name = "txt_CertificatePassword";
             this.txt_CertificatePassword.Size = new System.Drawing.Size(148, 20);
@@ -82,6 +87,7 @@
             // 
             // lbl_Certificate_Password
             // 
+            this.lbl_Certificate_Password.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Certificate_Password.AutoSize = true;
             this.lbl_Certificate_Password.Location = new System.Drawing.Point(453, 25);
             this.lbl_Certificate_Password.Name = "lbl_Certificate_Password";
@@ -106,7 +112,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_CertificateFile.Location = new System.Drawing.Point(140, 21);
             this.txt_CertificateFile.Name = "txt_CertificateFile";
-            this.txt_CertificateFile.Size = new System.Drawing.Size(267, 20);
+            this.txt_CertificateFile.Size = new System.Drawing.Size(262, 20);
             this.txt_CertificateFile.TabIndex = 11;
             // 
             // lbl_CertificateFileName

@@ -526,5 +526,17 @@ namespace Tangenta.Properties {
                 this["ColorFurs_SalesBookInvoiceNotConfirmed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Shops&InvoiceTable")]
+        public string eManagerMode {
+            get {
+                return ((string)(this["eManagerMode"]));
+            }
+            set {
+                this["eManagerMode"] = value;
+            }
+        }
     }
 }

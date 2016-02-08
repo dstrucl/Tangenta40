@@ -64,6 +64,8 @@
             // 
             // txt_BuildingNumber
             // 
+            this.txt_BuildingNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_BuildingNumber.Location = new System.Drawing.Point(504, 145);
             this.txt_BuildingNumber.Name = "txt_BuildingNumber";
             this.txt_BuildingNumber.Size = new System.Drawing.Size(125, 20);
@@ -88,6 +90,8 @@
             // 
             // txt_BuildingSectionNumber
             // 
+            this.txt_BuildingSectionNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_BuildingSectionNumber.Location = new System.Drawing.Point(504, 168);
             this.txt_BuildingSectionNumber.Name = "txt_BuildingSectionNumber";
             this.txt_BuildingSectionNumber.Size = new System.Drawing.Size(125, 20);
@@ -104,6 +108,8 @@
             // 
             // txt_Community
             // 
+            this.txt_Community.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Community.Location = new System.Drawing.Point(503, 91);
             this.txt_Community.Name = "txt_Community";
             this.txt_Community.Size = new System.Drawing.Size(125, 20);
@@ -120,6 +126,8 @@
             // 
             // txt_CadastralNumber
             // 
+            this.txt_CadastralNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_CadastralNumber.Location = new System.Drawing.Point(504, 123);
             this.txt_CadastralNumber.Name = "txt_CadastralNumber";
             this.txt_CadastralNumber.Size = new System.Drawing.Size(125, 20);
@@ -202,8 +210,6 @@
             // 
             // txt_BussinesPremiseID
             // 
-            this.txt_BussinesPremiseID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_BussinesPremiseID.Location = new System.Drawing.Point(206, 20);
             this.txt_BussinesPremiseID.Name = "txt_BussinesPremiseID";
             this.txt_BussinesPremiseID.Size = new System.Drawing.Size(107, 20);
@@ -220,6 +226,8 @@
             // 
             // Btn_Add_PP_to_FURS
             // 
+            this.Btn_Add_PP_to_FURS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Btn_Add_PP_to_FURS.Location = new System.Drawing.Point(500, 194);
             this.Btn_Add_PP_to_FURS.Name = "Btn_Add_PP_to_FURS";
             this.Btn_Add_PP_to_FURS.Size = new System.Drawing.Size(129, 31);
@@ -246,6 +254,8 @@
             // 
             // txt_City
             // 
+            this.txt_City.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_City.Location = new System.Drawing.Point(503, 46);
             this.txt_City.Name = "txt_City";
             this.txt_City.Size = new System.Drawing.Size(125, 20);
@@ -253,6 +263,8 @@
             // 
             // txt_PostNumber
             // 
+            this.txt_PostNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_PostNumber.Location = new System.Drawing.Point(503, 68);
             this.txt_PostNumber.Name = "txt_PostNumber";
             this.txt_PostNumber.Size = new System.Drawing.Size(125, 20);
@@ -260,6 +272,8 @@
             // 
             // txt_StreetName
             // 
+            this.txt_StreetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_StreetName.Location = new System.Drawing.Point(503, 1);
             this.txt_StreetName.Name = "txt_StreetName";
             this.txt_StreetName.Size = new System.Drawing.Size(125, 20);
@@ -310,6 +324,8 @@
             // 
             // txt_StreetNumberAdt
             // 
+            this.txt_StreetNumberAdt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_StreetNumberAdt.Location = new System.Drawing.Point(547, 24);
             this.txt_StreetNumberAdt.Name = "txt_StreetNumberAdt";
             this.txt_StreetNumberAdt.Size = new System.Drawing.Size(40, 20);

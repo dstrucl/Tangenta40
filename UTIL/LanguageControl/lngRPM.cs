@@ -17,6 +17,21 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_SalesBookInvoice_SetNumber_GraterThanAllSetsDefinedInSettings = new ltext("Set number is greater the number of all sets.Please ask tehnical support to change settings.", "Vnesli ste številko seta iz vezane knjige računov, ki je večja od števila vseh setov.\r\nPokličite tehnično podporo, da spremeni nastavite, ali pa vnesite pravo številko.");
+
+        public static ltext s_GoToSalesBookInvoice = new ltext("Write into SalesBookInvoice", "Vpišite v vezano knjgo računov");
+        public static ltext s_SalesBookInvoice_SetNumber_Not_OK = new ltext("SalesBookInvoice set number is not OK!", "Številka seta iz vezane knjige računov ni ustrezna!");
+        public static ltext sSalesBookInvoice_SerialNumber_does_not_match_patern = new ltext("SalesBook serial number does not match patern ####-####### where '#' means number 0-9!"
+                                                                                              + "\r\nPlease write serial number in proper format or ask technical support to change Regular Expression pattern in Settings."
+                                                                                              + "\r\nIf you press Yes, serial number with wrong format will be accepted, otherwise press No ?",
+                                                                                              "Serijska številka vezane knjige računov ne ustreza formatu ####-####### (štiri številke, minus nato še sedem številk)!"
+                                                                                              + "\r\nVpišite serijsko številko v navedenem formatu ali pa naj vam tehnična podpora spremeni format za serijsko številko v nastavitvah."
+                                                                                             + "\r\nV kolikor izberete Da (Yes) bo serijska številka sprejeta ne glede na format, če kliknete Ne(No) nadaljujete z vnosom?");
+
+
+
+        public static ltext s_LastSetNumberIsMoreThan_MAX_SalesBookInvoice_SetNumber = new ltext("SetNumber in SalesBookInvoice exceeded maximum set number which is set to:", "Številka seta v vezani knjigi računov presega zadnjo številko seta ki je:");
+        public static ltext s_TakeNewSalesBookInvoiceAndWriteItsSerialNumberFirst = new ltext("Use new SalesBookInvoice and enter it's serial number first!", "Vzemite novo vezano knjigo računov in vpišite najprej njeno serijsko številko!");
         public static ltext s_FURS_BarCode = new ltext("FURS Bar (QR) code", "Davčna QR ali bar koda");
 
         public static ltext s_InternetConnectionISOK_maybe_FURS_server_is_not_online = new ltext("Your computer has Internet Connection."
@@ -35,10 +50,10 @@ namespace LanguageControl
         public static ltext s_InvoiceNotSentOK = new ltext("Invoice was not sent to DURS !", "Račun ni bil uspešno poslan ali potrjen na davčni upravi");
         public static ltext s_InstructionToTryToSendFURSDataAgain = new ltext("Data was not send to DURS!\r\nYou can:"
                                                                               + "\r\n\r\n   1. click \"Send invoice data to DURS again\" button after you have checked your internet connection ! or"
-                                                                              + "\r\n\r\n   2. click \"Cancel\" button to write invoice data into Sales Book Invoice.",
+                                                                              + "\r\n\r\n   2. click \"Write into SalesBookInvoice\" button to write invoice data into Sales Book Invoice.",
                                                                               "Račun ni bil supešno poslan davčni upravi!\r\n\r\nIzberete lahko:"
                                                                               + "\r\n\r\n   1. kliknite gumb \"Ponovno pošlji račun davčni upravi\" v kolikor ste preverili, da imate povezavo na svetovni splet ali pa"
-                                                                              + "\r\n\r\n   2. kliknite gumb \"Prekini\" kjer boste potem morali račun vpisati v vezano knjigo računov,"
+                                                                              + "\r\n\r\n   2. kliknite gumb \"Vpišite v vezano knjigo računov\" kjer boste potem morali račun vpisati v vezano knjigo računov,"
                                                                               + "r\n      le to pa boste lahko poslali davčni upravi, ko bo zopet povezava z davčno upravo delovala.");
         public static ltext s_TryToSendFURSDataAgain = new ltext("Send invoice data to DURS again", "Ponovno pošlji račun davčni upravi");
         public static ltext s_Total = new ltext("TOTAL", "SKUPAJ");

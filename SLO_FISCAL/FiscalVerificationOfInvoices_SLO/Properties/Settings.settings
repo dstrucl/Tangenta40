@@ -973,5 +973,17 @@
     <Setting Name="fursD_StreetNumberAdt" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Last_SalesBookInvoice_SerialNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Last_SalesBookInvoice_SetNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MAX_SalesBookInvoice_SetNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="SalesBookInvoice_SerialNumber_RegularExpression_pattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\d{4}[-]\d{7}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
