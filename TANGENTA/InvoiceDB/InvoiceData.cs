@@ -1181,7 +1181,7 @@ namespace InvoiceDB
 
                 // salesbook stuff
                 XmlNodeList ndl_SetNumber = xdoc.GetElementsByTagName("fu:SetNumber");
-                ndl_SetNumber.Item(0).InnerText = SalesBookSetNumber;
+                ndl_SetNumber.Item(0).InnerText = Convert.ToInt32(SalesBookSetNumber).ToString("D2") ;
 
                 XmlNodeList ndl_SerialNumber = xdoc.GetElementsByTagName("fu:SerialNumber");
                 ndl_SerialNumber.Item(0).InnerText = SalesBookSerialNumber;
