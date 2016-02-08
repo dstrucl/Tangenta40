@@ -96,7 +96,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             string UniqueInvoiceID = null;
             string BarCodeValue = null;
             Image Image_QR = null;
-            usrc_FVI_SLO1.Send_SingleInvoice( xml,this, ref UniqueMsgID,ref UniqueInvoiceID,ref BarCodeValue,ref Image_QR);
+            usrc_FVI_SLO1.Send_SingleInvoice(false, xml,this, ref UniqueMsgID,ref UniqueInvoiceID,ref BarCodeValue,ref Image_QR);
         }
 
 

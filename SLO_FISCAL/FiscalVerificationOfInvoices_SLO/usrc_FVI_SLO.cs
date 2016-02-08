@@ -6,8 +6,10 @@
 */
 #endregion
 
+using InvoiceDB;
 using LanguageControl;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 //using System.Collections.Generic;
 //using System.ComponentModel;
@@ -129,6 +131,22 @@ namespace FiscalVerificationOfInvoices_SLO
             return FursD_BussinesPremiseID + "-" + FursD_ElectronicDeviceID + "-" + invoiceNumber.ToString();
         }
 
+        public void Check_SalesBookInvoice(ShopABC xShopABC)
+        {
+            List<InvoiceData> InvoiceData_List = null;
+            if (f_FVI_SLO_SalesBookInvoice.Select_SalesBookInvoice_NotSent(xShopABC, ref InvoiceData_List, FursD_ElectronicDeviceID))
+            {
+                if (InvoiceData_List != null)
+                {
+                    if (InvoiceData_List.Count > 0)
+                    {
+                        Form_SalesBookInvoice_Send frm_sbi_send = new Form_SalesBookInvoice_Send(this, InvoiceData_List);
+                        frm_sbi_send.ShowDialog();
+                    }
+                }
+            }
+        }
+
         public void Write_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber,ref string xSerialNumber,ref string xSetNumber,ref string xInvoiceNumber)
         {
             Form_EnterData_to_SalesBookInvoice fsb = new Form_EnterData_to_SalesBookInvoice(this,Invoice_ID, FiscalYear, InvoiceNumber, null, null, null, Form_EnterData_to_SalesBookInvoice.eMode.WRITE);
@@ -138,6 +156,7 @@ namespace FiscalVerificationOfInvoices_SLO
             xInvoiceNumber = fsb.InvoiceNumber;
 
         }
+
 
         public void Update_SalesBookInvoice(long Invoice_ID, int FiscalYear, int InvoiceNumber, ref string xSerialNumber, ref string xSetNumber, ref string xInvoiceNumber)
         {
@@ -180,6 +199,22 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
+        internal bool Send_SalesBookInvoice(Control pctrl,InvoiceData invoiceData, ref string ZOI,ref string EOR, ref string barCodeValue, ref Image img_QR)
+        {
+            string Xml_SalesBookInvoice_template = Properties.Resources.FVI_SLO_SalesBook;
+            string Xml_SalesBookInvoice = invoiceData.Create_furs_SalesBookInvoiceXML(Xml_SalesBookInvoice_template, FursD_MyOrgTaxID, FursD_BussinesPremiseID, invoiceData.FURS_SalesBookInvoice_SetNumber_v.v, invoiceData.FURS_SalesBookInvoice_SerialNumber.v);
+            if (Send_SingleInvoice(true,Xml_SalesBookInvoice, pctrl, ref ZOI, ref EOR, ref barCodeValue, ref img_QR)== Result_MessageBox_Post.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+
         public bool End()
         {
             if (bRun)
@@ -195,7 +230,7 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
-        public Result_MessageBox_Post Send_SingleInvoice(string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID, ref string barcode_value, ref Image Image_QR)
+        public Result_MessageBox_Post Send_SingleInvoice(bool bSendSalesBookInvoice,string xml, Control ParentForm, ref string UniqeMsgID, ref string UniqueInvID, ref string barcode_value, ref Image Image_QR)
         {
             for (;;)
             {
@@ -212,10 +247,17 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    FormFURSCommunicationERRORhandler frm_com_err_handler = new FormFURSCommunicationERRORhandler(FormFURSCommunication.ErrorMessage);
-                    if (frm_com_err_handler.ShowDialog(this) == DialogResult.Cancel)
+                    if (bSendSalesBookInvoice)
                     {
                         return Result_MessageBox_Post.ERROR;
+                    }
+                    else
+                    {
+                        FormFURSCommunicationERRORhandler frm_com_err_handler = new FormFURSCommunicationERRORhandler(FormFURSCommunication.ErrorMessage);
+                        if (frm_com_err_handler.ShowDialog(this) == DialogResult.Cancel)
+                        {
+                            return Result_MessageBox_Post.ERROR;
+                        }
                     }
                 }
             }

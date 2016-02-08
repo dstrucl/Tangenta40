@@ -69,7 +69,14 @@ namespace Tangenta
                             {
                                 if (Program.b_FVI_SLO)
                                 {
-                                    if (!this.usrc_FVI_SLO1.Start(ref Err))
+                                    if (this.usrc_FVI_SLO1.Start(ref Err))
+                                    {
+                                        if (Program.b_FVI_SLO)
+                                        {
+                                            Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC);
+                                        }
+                                    }
+                                    else
                                     {
                                         LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
                                         return false;

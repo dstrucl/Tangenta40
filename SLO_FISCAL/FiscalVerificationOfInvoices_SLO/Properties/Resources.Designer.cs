@@ -63,6 +63,16 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Exit {
+            get {
+                object obj = ResourceManager.GetObject("Exit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap FURS_Settings {
             get {
                 object obj = ResourceManager.GetObject("FURS_Settings", resourceCulture);
@@ -126,7 +136,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         ///					&lt;fu:BuildingSectionNumber&gt;3&lt;/fu:BuildingSectionNumber&gt;
         ///				&lt;/fu:PropertyID&gt;
         ///				&lt;fu:Address&gt;
-        ///					&lt;fu:Street&gt;Dunajska cesta&lt;/ [rest of string was truncated]&quot;;.
+        ///					&lt;fu:Street&gt;Dun [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string FVI_SLO_BussinesPremises {
             get {

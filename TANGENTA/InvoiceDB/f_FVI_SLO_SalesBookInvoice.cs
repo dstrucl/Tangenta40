@@ -69,12 +69,7 @@ namespace InvoiceDB
 
         public static bool Select_SalesBookInvoice_NotSent(ShopABC xInvoiceDB, ref List<InvoiceData> list, string xCasshierName)
         {
-            if (list==null)
-            {
-                list = new List<InvoiceData>();
-            }
-            list.Clear();
-            string sql = @"select ID from ProformaInvoice pi
+            string sql = @"select pi.ID from ProformaInvoice pi
                                 inner join Invoice inv on pi.Invoice_ID = inv.ID
                                 inner join FVI_SLO_SalesBookInvoice fvisbi on fvisbi.Invoice_ID = inv.ID
                                 left join FVI_SLO_Response fvires on fvires.Invoice_ID = inv.ID
@@ -85,6 +80,11 @@ namespace InvoiceDB
             {
                 if (dt.Rows.Count > 0)
                 {
+                    if (list == null)
+                    {
+                        list = new List<InvoiceData>();
+                    }
+                    list.Clear();
                     foreach (DataRow dr in dt.Rows)
                     {
                         long proforma_invoice_id = (long)dr["ID"];
@@ -94,6 +94,10 @@ namespace InvoiceDB
                             list.Add(xInvoiceData);
                         }
                     }
+                }
+                else
+                {
+                    list = null;
                 }
                 return true;
             }

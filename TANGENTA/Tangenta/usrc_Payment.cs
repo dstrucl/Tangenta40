@@ -205,7 +205,7 @@ namespace Tangenta
                         string furs_UniqeMsgID = null;
                         string furs_UniqeInvID = null;
                         string furs_BarCodeValue = null;
-                        if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID,ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
+                        if (Program.usrc_FVI_SLO1.Send_SingleInvoice(false,furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID,ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
                         {
                             m_InvoiceData.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
                             m_InvoiceData.FURS_EOR_v = new string_v(furs_UniqeInvID);

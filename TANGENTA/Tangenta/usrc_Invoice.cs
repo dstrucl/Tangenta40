@@ -690,6 +690,7 @@ namespace Tangenta
                                         if (Program.bStartup)
                                         {
                                             Program.bStartup = false;
+
                                             if (DBSync.DBSync.DB_for_Blagajna.Settings.StockCheckAtStartup.TextValue.Equals("1"))
                                             {
                                                 bool ExpiryItemsFound = false;
@@ -1829,7 +1830,7 @@ namespace Tangenta
                                             string furs_UniqeInvID = null;
                                             string furs_BarCodeValue = null;
                                             Image img_QR = null;
-                                            if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
+                                            if (Program.usrc_FVI_SLO1.Send_SingleInvoice(false,furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
                                             {
                                                 xInvoiceData.FURS_ZOI_v = new string_v(furs_UniqeMsgID);  
                                                 xInvoiceData.FURS_EOR_v = new string_v(furs_UniqeInvID);

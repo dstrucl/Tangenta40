@@ -17,6 +17,20 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_SalesBookInvoice_UnsentMsg = new ltext("Send unsent invoices from SalesBookInvoice in ten days after invoice issue date!", "Pošljite neposlane račune iz vezane knjige računov najkasneje v desetih dneh od izstavitve računa!");
+        public static ltext s_SendtoDurs = new ltext("Send", "Pošlji");
+        public static ltext s_Issuer_FirstName = new ltext("Issuer first name", "Ime blagajnika");
+        public static ltext s_Issuer_LastName = new ltext("Issuer last name", "Priimek blagajnika");
+        public static ltext s_FinancialYear = new ltext("Financial Year", "Poslovno leto");
+        public static ltext s_InvoiceNumber = new ltext("Invoice Number in Financial Year", "Številka računa v poslovnem letu");
+        public static ltext s_IssueDate = new ltext("Issue date", "Čas izdaje računa");
+        public static ltext s_GrossSum = new ltext("Total", "Znesek računa");
+        public static ltext s_TaxSum = new ltext("Tax", "Davek");
+        public static ltext s_NetSum = new ltext("Net sum", "Neto cena");
+        public static ltext s_SalesBook_SerialNumber = new ltext("SalesBookInvoice Serial Number", "Serijska številka vezane knjige računov");
+        public static ltext s_SalesBook_SetNumber = new ltext("SalesBookInvoice Set Number", "Številka seta vezane knjige računov");
+        public static ltext s_SalesBook_InvoiceNumber = new ltext("SalesBookInvoice Invoice Number", "Številka računa");
+
         public static ltext s_SalesBookInvoice_SetNumber_GraterThanAllSetsDefinedInSettings = new ltext("Set number is greater the number of all sets.Please ask tehnical support to change settings.", "Vnesli ste številko seta iz vezane knjige računov, ki je večja od števila vseh setov.\r\nPokličite tehnično podporo, da spremeni nastavite, ali pa vnesite pravo številko.");
 
         public static ltext s_GoToSalesBookInvoice = new ltext("Write into SalesBookInvoice", "Vpišite v vezano knjgo računov");
