@@ -47,7 +47,10 @@ namespace DBConnectionControl40
             my_ConnectionDialog_enum = ConnectionConnectionDialog_type;
             m_ParentForm = parentForm;
             InitializeComponent();
-
+            if (con.RecentItemsFolder.Length ==0)
+            {
+                con.RecentItemsFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            }
             this.cmb_ServerName.RecentItemsFolder = con.RecentItemsFolder;
             this.cmb_DataBaseName.RecentItemsFolder = con.RecentItemsFolder;
             this.cmb_UserName.RecentItemsFolder = con.RecentItemsFolder;

@@ -480,6 +480,9 @@
     <EmbeddedResource Include="Form_Expiry_Check.resx">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Edit.resx">
+      <DependentUpon>Form_myOrg_Edit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_myOrg_Person_Edit.resx">
       <DependentUpon>Form_myOrg_Person_Edit.cs</DependentUpon>
     </EmbeddedResource>

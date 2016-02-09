@@ -104,11 +104,11 @@ namespace Tangenta
             string s_JOURNAL_ProformaInvoice_Type_ID_InvoiceStornoTime = GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString();
             if (bInvoice)
             {
-                cond = " where JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID is not null ";
+                cond = " where JOURNAL_ProformaInvoice_$_pinv_$_inv.ID is not null ";
             }
             else
             {
-                cond = " where JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID is null ";
+                cond = " where JOURNAL_ProformaInvoice_$_pinv_$_inv.ID is null ";
             }
 
             if (ExtraCondition!=null)
@@ -124,7 +124,7 @@ namespace Tangenta
 
             if (iFinancialYear > 0)
             {
-                cond += " and JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear = " + iFinancialYear.ToString();
+                cond += " and JOURNAL_ProformaInvoice_$_pinv.FinancialYear = " + iFinancialYear.ToString();
             }
 
             string sql = null;
@@ -445,7 +445,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt ON
                     INNER JOIN Atom_WorkingPlace JOURNAL_ProformaInvoice_$_awperiod_$_awplace ON JOURNAL_ProformaInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_ProformaInvoice_$_awperiod_$_awplace.ID
                     INNER JOIN Atom_Computer JOURNAL_ProformaInvoice_$_awperiod_$_acomp ON JOURNAL_ProformaInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_ProformaInvoice_$_awperiod_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt ON JOURNAL_ProformaInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt.ID
-                    " + cond + " and ((JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceStornoTime + ")) order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
+                    " + cond + " and ((JOURNAL_ProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_ProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceStornoTime + ")) order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
             }
             else
             {
@@ -519,7 +519,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt ON
                     INNER JOIN Atom_WorkingPlace JOURNAL_ProformaInvoice_$_awperiod_$_awplace ON JOURNAL_ProformaInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_ProformaInvoice_$_awperiod_$_awplace.ID
                     INNER JOIN Atom_Computer JOURNAL_ProformaInvoice_$_awperiod_$_acomp ON JOURNAL_ProformaInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_ProformaInvoice_$_awperiod_$_acomp.ID
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt ON JOURNAL_ProformaInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt.ID
-                    " + cond + " and ((JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceStornoTime + ")) order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
+                    " + cond + " and ((JOURNAL_ProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_ProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_ProformaInvoice_Type_ID_InvoiceStornoTime + ")) order by JOURNAL_ProformaInvoice_$_pinv.FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
             }
             int iCurrentSelectedRow = -1;
             if (!bNew)
