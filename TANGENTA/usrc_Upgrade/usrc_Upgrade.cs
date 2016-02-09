@@ -5,15 +5,10 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
-
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SQLTableControl;
 using BlagajnaTableClass;
@@ -21,12 +16,24 @@ using DBConnectionControl40;
 using LanguageControl;
 using DBTypes;
 using InvoiceDB;
-using LogFile;
+using ThreadProcessor;
 
 namespace usrc_Upgrade
 {
     public partial class usrc_Upgrade : UserControl
     {
+        public class Upgrade
+        {
+            public string DBVersion = null;
+            public ThreadP_Message.delegate_Procedure procedure;
+            public Upgrade(string DBVer, ThreadP_Message.delegate_Procedure proc)
+            {
+                DBVersion = DBVer;
+                procedure = proc;
+            }
+        }
+
+
         public delegate void delegate_Backup();
         public event delegate_Backup Backup;
         public enum eUpgrade {none,from_1_04_to_105};
@@ -35,594 +42,39 @@ namespace usrc_Upgrade
         Database_Upgrade_WindowsForm_Thread wfp_ui_thread = null;
         List<TableDataItem> TableDataItem_List = new List<TableDataItem>();
 
+        public Upgrade[] UpgradeArray = null;
+
         public usrc_Upgrade()
         {
             InitializeComponent();
+            UpgradeArray = new Upgrade[] 
+            {
+                new Upgrade("1.0",UpgradeDB_1_0_to_1_01),
+                new Upgrade("1.01",UpgradeDB_1_01_to_1_02),
+                new Upgrade("1.02",UpgradeDB_1_02_to_1_03),
+                new Upgrade("1.03",UpgradeDB_1_03_to_1_04),
+                new Upgrade("1.04",UpgradeDB_1_04_to_1_05),
+                new Upgrade("1.05",UpgradeDB_1_05_to_1_06),
+                new Upgrade("1.06",UpgradeDB_1_06_to_1_07),
+                new Upgrade("1.07",UpgradeDB_1_07_to_1_08),
+                new Upgrade("1.08",UpgradeDB_1_08_to_1_09),
+                new Upgrade("1.09",UpgradeDB_1_09_to_1_10),
+                new Upgrade("1.10",UpgradeDB_1_10_to_1_11),
+                new Upgrade("1.11",UpgradeDB_1_11_to_1_12),
+                new Upgrade("1.12",UpgradeDB_1_12_to_1_13),
+                new Upgrade("1.13",UpgradeDB_1_13_to_1_14),
+                new Upgrade("1.14",UpgradeDB_1_14_to_1_15),
+                new Upgrade("1.15",UpgradeDB_1_15_to_1_16),
+                new Upgrade("1.16",UpgradeDB_1_16_to_1_17)
+            };
         }
-        internal bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err)
+        public bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err)
         {
-            if (sOldDBVersion.Equals("1.0"))
-            {
-                if (UpgradeDB_1_0_to_1_01())
-                {
-                    if (UpgradeDB_1_01_to_1_02())
-                    {
-                        if (UpgradeDB_1_02_to_1_03())
-                        {
-                            if (UpgradeDB_1_03_to_1_04())
-                            {
-                                if (UpgradeDB_1_04_to_1_05())
-                                {
-                                    if (UpgradeDB_1_05_to_1_06())
-                                    {
-                                        if (UpgradeDB_1_06_to_1_07())
-                                        {
-                                            if (UpgradeDB_1_07_to_1_08())
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                return true;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (sOldDBVersion.Equals("1.01"))
-                {
-                    if (UpgradeDB_1_01_to_1_02())
-                    {
-                        if (UpgradeDB_1_02_to_1_03())
-                        {
-                            if (UpgradeDB_1_03_to_1_04())
-                            {
-                                if (UpgradeDB_1_04_to_1_05())
-                                {
-                                    if (UpgradeDB_1_05_to_1_06())
-                                    {
-                                        if (UpgradeDB_1_06_to_1_07())
-                                        {
-                                            if (UpgradeDB_1_07_to_1_08())
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (sOldDBVersion.Equals("1.02"))
-                    {
-                        if (UpgradeDB_1_02_to_1_03())
-                        {
-                            if (UpgradeDB_1_03_to_1_04())
-                            {
-                                if (UpgradeDB_1_04_to_1_05())
-                                {
-                                    if (UpgradeDB_1_05_to_1_06())
-                                    {
-                                        if (UpgradeDB_1_06_to_1_07())
-                                        {
-                                            if (UpgradeDB_1_07_to_1_08())
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (sOldDBVersion.Equals("1.03"))
-                        {
-                            if (UpgradeDB_1_03_to_1_04())
-                            {
-                                if (UpgradeDB_1_04_to_1_05())
-                                {
-                                    if (UpgradeDB_1_05_to_1_06())
-                                    {
-                                        if (UpgradeDB_1_06_to_1_07())
-                                        {
-                                            if (UpgradeDB_1_07_to_1_08())
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (sOldDBVersion.Equals("1.04"))
-                            {
-                                if (UpgradeDB_1_04_to_1_05())
-                                {
-                                    if (UpgradeDB_1_05_to_1_06())
-                                    {
-                                        if (UpgradeDB_1_06_to_1_07())
-                                        {
-                                            if (UpgradeDB_1_07_to_1_08())
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (sOldDBVersion.Equals("1.05"))
-                                {
-                                    if (UpgradeDB_1_05_to_1_06())
-                                    {
-                                        if (UpgradeDB_1_06_to_1_07())
-                                        {
-                                            if (UpgradeDB_1_07_to_1_08())
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if (sOldDBVersion.Equals("1.06"))
-                                    {
-                                        if (UpgradeDB_1_06_to_1_07())
-                                        {
-                                            if (UpgradeDB_1_07_to_1_08())
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (sOldDBVersion.Equals("1.07"))
-                                        {
-                                            if (UpgradeDB_1_07_to_1_08())
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (sOldDBVersion.Equals("1.08"))
-                                            {
-                                                if (UpgradeDB_1_08_to_1_09())
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (sOldDBVersion.Equals("1.09"))
-                                                {
-                                                    if (UpgradeDB_1_09_to_1_10())
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (sOldDBVersion.Equals("1.10"))
-                                                    {
-                                                        if (UpgradeDB_1_10_to_1_11())
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        if (sOldDBVersion.Equals("1.11"))
-                                                        {
-                                                            if (UpgradeDB_1_11_to_1_12())
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            if (sOldDBVersion.Equals("1.12"))
-                                                            {
-                                                                if (UpgradeDB_1_12_to_1_13())
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                if (sOldDBVersion.Equals("1.13"))
-                                                                {
-                                                                    if (UpgradeDB_1_13_to_1_14())
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (sOldDBVersion.Equals("1.14"))
-                                                                    {
-                                                                        if (UpgradeDB_1_14_to_1_15())
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (sOldDBVersion.Equals("1.15"))
-                                                                        {
-                                                                            if (UpgradeDB_1_15_to_1_16())
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            if (sOldDBVersion.Equals("1.16"))
-                                                                            {
-                                                                                if (UpgradeDB_1_16_to_1_17())
-                                                                                {
-                                                                                    return true;
-                                                                                }
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                MessageBox.Show("Nadgradnja iz verzije " + sOldDBVersion + " na verzijo " + sNewDBVersion + " ni programsko podprta !");
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
             return false;
         }
 
-        private bool UpgradeDB_1_16_to_1_17()
+        private object UpgradeDB_1_16_to_1_17(object obj,ref string Err)
         {
-            string Err = null;
             string sql = null;
             if (DBSync.DBSync.Drop_VIEWs())
             {
@@ -1087,9 +539,8 @@ namespace usrc_Upgrade
             }
         }
 
-        private bool UpgradeDB_1_15_to_1_16()
+        private object UpgradeDB_1_15_to_1_16(object obj, ref string Err)
         {
-            string Err = null;
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
@@ -1114,9 +565,8 @@ namespace usrc_Upgrade
             return false;
         }
 
-        private bool UpgradeDB_1_14_to_1_15()
+        private object UpgradeDB_1_14_to_1_15(object obj, ref string Err)
         {
-            string Err = null;
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
@@ -1186,7 +636,8 @@ namespace usrc_Upgrade
             }
             return false;
         }
-        private bool UpgradeDB_1_13_to_1_14()
+
+        private object UpgradeDB_1_13_to_1_14(object obj, ref string Err)
         {
             if (DBSync.DBSync.Drop_VIEWs())
             {
@@ -1203,10 +654,8 @@ namespace usrc_Upgrade
             return false;
         }
 
-
-        private bool UpgradeDB_1_12_to_1_13()
+        private object UpgradeDB_1_12_to_1_13(object obj, ref string Err)
         {
-            string Err = null;
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
@@ -1259,9 +708,8 @@ namespace usrc_Upgrade
             return false;
         }
 
-        private bool UpgradeDB_1_11_to_1_12()
+        private object UpgradeDB_1_11_to_1_12(object obj, ref string Err)
         {
-            string Err = null;
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
@@ -1326,9 +774,8 @@ namespace usrc_Upgrade
             return false;
         }
 
-        private bool UpgradeDB_1_10_to_1_11()
+        private object UpgradeDB_1_10_to_1_11(object obj, ref string Err)
         {
-            string Err = null;
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
@@ -1378,9 +825,8 @@ namespace usrc_Upgrade
             return false;
         }
 
-        private bool UpgradeDB_1_09_to_1_10()
+        private object UpgradeDB_1_09_to_1_10(object obj, ref string Err)
         {
-            string Err = null;
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
@@ -1442,11 +888,8 @@ namespace usrc_Upgrade
             return false;
         }
 
-
-
-        private bool UpgradeDB_1_08_to_1_09()
+        private object UpgradeDB_1_08_to_1_09(object obj, ref string Err)
         {
-            string Err = null;
             string sql = null;
             string[] stables = new string[] { "Atom_cCountry_Org", "Atom_cCountry_Person", "cCountry_Org", "cCountry_Person" };
             foreach (string stbl in stables)
@@ -1495,7 +938,7 @@ namespace usrc_Upgrade
 
         }
 
-        private bool UpgradeDB_1_07_to_1_08()
+        private object UpgradeDB_1_07_to_1_08(object obj, ref string Err)
         {
             if (UpgradeDB_1_07_to_1_08_Change_Table_Person())
             {
@@ -1518,239 +961,7 @@ namespace usrc_Upgrade
             return false;
         }
 
-
-        private bool UpgradeDB_1_07_to_1_08_Change_Table_Atom_Office()
-        {
-            string Err = null;
-            string sql = @"CREATE TABLE Atom_Office_backup
-                          (
-                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                           Atom_myCompany_ID  INTEGER  NOT NULL REFERENCES Atom_myCompany(ID),
-                          'Name' varchar(264) NOT NULL 
-                          )
-            ";
-            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-            {
-                sql = @"INSERT INTO Atom_Office_backup SELECT * FROM Atom_Office";
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                {
-                    sql = @"PRAGMA foreign_keys = OFF;
-                            DROP TABLE Atom_Office;
-                            ALTER TABLE Atom_Office_backup RENAME TO Atom_Office;
-                            PRAGMA foreign_keys = ON;";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Office:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Office:sql=" + sql + "\r\nErr=" + Err);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Office:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-
-
-        private bool UpgradeDB_1_07_to_1_08_Change_Table_Person()
-        {
-            string Err = null;
-            string sql = @"CREATE TABLE Person_backup
-                          (
-                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                          'Gender' BIT NOT NULL,
-                           cFirstName_ID  INTEGER  NOT NULL REFERENCES cFirstName(ID),
-                           cLastName_ID  INTEGER  NULL REFERENCES cLastName(ID),
-                          'DateOfBirth' DATETIME NULL,
-                          'Tax_ID' varchar(32) NULL,
-                          'Registration_ID' varchar(50) NULL
-                          )
-            ";
-            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-            {
-                sql = @"INSERT INTO Person_backup SELECT * FROM Person";
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                {
-                    sql = @"PRAGMA foreign_keys = OFF;
-                            DROP TABLE Person;
-                            ALTER TABLE Person_backup RENAME TO Person;
-                            PRAGMA foreign_keys = ON;";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-
-        private bool UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person()
-        {
-            string Err = null;
-            string sql = @"CREATE TABLE Atom_Person_backup
-                          (
-                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                          'Gender' BIT NOT NULL,
-                           Atom_cFirstName_ID  INTEGER  NOT NULL REFERENCES Atom_cFirstName(ID),
-                           Atom_cLastName_ID  INTEGER  NULL REFERENCES Atom_cLastName(ID),
-                          'DateOfBirth' DATETIME NULL,
-                          'Tax_ID'  varchar(32) NULL,
-                          'Registration_ID' varchar(50) NULL,
-                           Atom_cGsmNumber_Person_ID  INTEGER  NULL REFERENCES Atom_cGsmNumber_Person(ID),
-                           Atom_cPhoneNumber_Person_ID  INTEGER  NULL REFERENCES Atom_cPhoneNumber_Person(ID),
-                           Atom_cEmail_Person_ID  INTEGER  NULL REFERENCES Atom_cEmail_Person(ID),
-                           Atom_cAddress_Person_ID  INTEGER  NULL REFERENCES Atom_cAddress_Person(ID),
-                          'CardNumber' varchar(50) NULL,
-                           Atom_cCardType_Person_ID  INTEGER  NULL REFERENCES Atom_cCardType_Person(ID),
-                           Atom_PersonImage_ID  INTEGER  NULL REFERENCES Atom_PersonImage(ID)
-                          )
-            ";
-            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-            {
-                sql = @"INSERT INTO Atom_Person_backup SELECT * FROM Atom_Person";
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                {
-                    sql = @"PRAGMA foreign_keys = OFF;
-                            DROP TABLE Atom_Person;
-                            ALTER TABLE Atom_Person_backup RENAME TO Atom_Person;
-                            PRAGMA foreign_keys = ON;";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-
-        private bool UpgradeDB_1_07_to_1_08_Change_Table_Organisation()
-        {
-            string Err = null;
-            string sql = @"CREATE TABLE Organisation_backup
-                          (
-                            'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                            'Name' varchar(264) NOT NULL,
-                            'Tax_ID' varchar(32) NOT NULL,
-                            'Registration_ID' varchar(50) NULL
-                          )
-            ";
-            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-            {
-                sql = @"INSERT INTO Organisation_backup SELECT * FROM Organisation";
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                {
-                    sql = @"PRAGMA foreign_keys = OFF;
-                            DROP TABLE Organisation;
-                            ALTER TABLE Organisation_backup RENAME TO Organisation;
-                            PRAGMA foreign_keys = ON;";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Organisation:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Organisation:sql=" + sql + "\r\nErr=" + Err);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Organisation:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-
-        }
-
-        private bool UpgradeDB_1_07_to_1_08_Change_Table_Atom_Organisation()
-        {
-            string Err = null;
-            string sql = @"CREATE TABLE Atom_Organisation_backup
-                          (
-                            'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                            'Name' varchar(264) NOT NULL,
-                            'Tax_ID' varchar(32) NOT NULL,
-                            'Registration_ID' varchar(50) NULL
-                          )
-            ";
-            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-            {
-                sql = @"INSERT INTO Atom_Organisation_backup SELECT * FROM Atom_Organisation";
-                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                {
-                    sql = @"PRAGMA foreign_keys = OFF;
-                            DROP TABLE Atom_Organisation;
-                            ALTER TABLE Atom_Organisation_backup RENAME TO Atom_Organisation;
-                            PRAGMA foreign_keys = ON;";
-                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Organisation:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Organisation:sql=" + sql + "\r\nErr=" + Err);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Organisation:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-
-        }
-
-
-        private bool UpgradeDB_1_06_to_1_07()
+        private object UpgradeDB_1_06_to_1_07(object obj, ref string Err)
         {
             if (DBSync.DBSync.Drop_VIEWs())
             {
@@ -1770,7 +981,7 @@ namespace usrc_Upgrade
             return false;
         }
 
-        private bool UpgradeDB_1_05_to_1_06()
+        private object UpgradeDB_1_05_to_1_06(object obj, ref string Err)
         {
             //DBSync.DBSync.DB_for_Blagajna
             if (DBSync.DBSync.Drop_VIEWs())
@@ -1784,10 +995,425 @@ namespace usrc_Upgrade
             return false;
         }
 
-        private bool UpgradeDB_1_02_to_1_03()
+        private object UpgradeDB_1_04_to_1_05(object obj, ref string Err)
+        {
+            Check_DB_1_04();
+            m_Old_tables_1_04_to_1_05 = new Old_tables_1_04_to_1_05();
+            if (m_Old_tables_1_04_to_1_05.Read())
+            {
+                m_eUpgrade = eUpgrade.from_1_04_to_105;
+                wfp_ui_thread = new Database_Upgrade_WindowsForm_Thread();
+                wfp_ui_thread.Start();
+
+
+                List<DataTable> dt_List = new List<DataTable>();
+                string Message_Title = " 1.04 -> 1.05";
+
+                SQLTable tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(PersonData));
+                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                SQLTable xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_PersonData = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+
+                TableDataItem_List.Add(dt_PersonData);
+
+
+                Err = null;
+                Message_Title = " 1.04 -> 1.05";
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany));
+                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_myCompany = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_myCompany);
+
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany));
+                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_Atom_myCompany = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_Atom_myCompany);
+
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item));
+                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_Price_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_Price_Item);
+
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_SimpleItem));
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_Price_SimpleItem);
+
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationAccount));
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_OrganisationAccount = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_OrganisationAccount);
+
+
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_Price_SimpleItem));
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_Atom_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_Atom_Price_SimpleItem);
+
+
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_ProformaInvoice_Price_Item_Stock));
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_Atom_ProformaInvoice_Price_Item_Stock = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_Atom_ProformaInvoice_Price_Item_Stock);
+
+
+                Err = null;
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.DBSettings));
+                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_DBSettings = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_DBSettings);
+
+                Err = null;
+                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.BaseCurrency));
+                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
+                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+                xtbl = new SQLTable(tbl);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                TableDataItem dt_BaseCurrency = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                if (Err != null)
+                {
+
+                    wfp_ui_thread.End();
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                    return false;
+                }
+                TableDataItem_List.Add(dt_BaseCurrency);
+
+
+                wfp_ui_thread.Message(lngRPM.s_BackupOfExistingDatabase.s + DBSync.DBSync.DataBase + " -> " + DBSync.DBSync.DataBase_BackupTemp);
+
+                if (DBSync.DBSync.DB_for_Blagajna.DataBase_Make_BackupTemp())
+                {
+                    if (DBSync.DBSync.DB_for_Blagajna.DataBase_Delete())
+                    {
+                        if (DBSync.DBSync.DB_for_Blagajna.DataBase_Create())
+                        {
+                            wfp_ui_thread.Message(lngRPM.s_ImportData.s);
+                            if (Write_TableDataItem_List(m_eUpgrade, m_Old_tables_1_04_to_1_05))
+                            {
+                                // Correct Item's Units
+                                Set_DatBase_Version("1.05");
+                                string sql = "update item set Unit_ID=1";
+                                object ores = null;
+                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                                {
+                                    wfp_ui_thread.End();
+                                    return true;
+                                }
+                                else
+                                {
+                                    wfp_ui_thread.End();
+                                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
+                                    return false;
+                                }
+
+                            }
+                        }
+                    }
+                }
+                wfp_ui_thread.End();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private object UpgradeDB_1_03_to_1_04(object obj, ref string Err)
         {
             // correct taxation
-            string Err = null;
+            string sql = @"select apsi.ID,RetailSimpleItemPrice,Discount,iQuantity,RetailSimpleItemPriceWithDiscount,ExtraDiscount,Rate from atom_price_simpleitem apsi 
+                            inner join atom_taxation at on apsi.atom_taxation_ID = at.ID";
+            DataTable dt_atom_price_simpleitem1 = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt_atom_price_simpleitem1, sql, ref Err))
+            {
+                if (dt_atom_price_simpleitem1.Rows.Count > 0)
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                    foreach (DataRow dr in dt_atom_price_simpleitem1.Rows)
+                    {
+                        lpar.Clear();
+                        long ID = (long)dr["ID"];
+                        decimal RetailSimpleItemPrice = (decimal)dr["RetailSimpleItemPrice"];
+                        decimal Discount = (decimal)dr["Discount"];
+                        int iQuantity = (int)dr["iQuantity"];
+                        decimal RetailSimpleItemPriceWithDiscount = (decimal)dr["RetailSimpleItemPriceWithDiscount"];
+                        decimal ExtraDiscount = (decimal)dr["ExtraDiscount"];
+                        decimal Taxation_Rate = (decimal)dr["Rate"];
+                        decimal RetailSimpleItemPriceAll = RetailSimpleItemPrice * iQuantity;
+                        decimal RetailSimpleItemPriceWithDiscount_Calculated = RetailSimpleItemPrice * iQuantity;
+                        decimal TaxPrice = 0;
+                        decimal RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax = 0;
+
+                        int decimal_places = 2;
+                        if (GlobalData.BaseCurrency != null)
+                        {
+                            decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
+                        }
+                        decimal dQuantity = Convert.ToDecimal(iQuantity);
+                        StaticLib.Func.CalculatePrice(RetailSimpleItemPriceAll, dQuantity, Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount_Calculated, ref TaxPrice, ref RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax, decimal_places);
+                        string spar_TaxPrice = "@par_TaxPrice";
+                        SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
+                        lpar.Add(par_TaxPrice);
+                        sql = " update atom_price_simpleitem set TaxPrice=" + spar_TaxPrice + " where ID = " + ID.ToString();
+                        object ores = null;
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                }
+
+                string Column_PrefixTable = "invoicetable_";
+                sql = @" select 
+                            pi.ID,
+                            Atom_myCompany_Person_ID,
+                            Draft,
+                            DraftNumber,
+                            FinancialYear,
+                            NumberInFinancialYear,
+                            ProformaInvoiceTime,
+                            FirstPrintTime,
+                            NetSum,
+                            Discount,
+                            EndSum,
+                            TaxSum,
+                            GrossSum,
+                            Atom_Customer_Person_ID,
+                            Atom_Customer_Org_ID,
+                            WarrantyExist,
+                            WarrantyConditions,
+                            WarrantyDurationType,
+                            WarrantyDuration,
+                            ProformaInvoiceDuration,
+                            ProformaInvoiceDurationType,
+                            TermsOfPayment_ID,
+                            Invoice_ID,
+                            i.PaymentDeadline as " + Column_PrefixTable + @"PaymentDeadline,
+                            i.MethodOfPayment_ID as " + Column_PrefixTable + @"MethodOfPayment_ID,
+                            i.Paid as " + Column_PrefixTable + @"Paid,
+                            i.Storno as " + Column_PrefixTable + @"Storno
+                            from ProformaInvoice  pi
+                            inner join Invoice i on i.ID = pi.Invoice_ID";
+                DataTable dt_ProformaInvoice = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
+                {
+                    if (dt_ProformaInvoice.Rows.Count > 0)
+                    {
+                        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                        List<ProformaInvoice_Connection_Class> ProformaInvoice_con_List = new List<ProformaInvoice_Connection_Class>();
+                        string sErrors = "";
+                        foreach (DataRow dr in dt_ProformaInvoice.Rows)
+                        {
+                            lpar.Clear();
+                            long proformainvoice_ID = (long)dr["ID"];
+                            string sql_atom_price_simpleitem = "select * from atom_price_simpleitem where ProformaInvoice_ID = " + proformainvoice_ID.ToString();
+                            ProformaInvoice_Connection_Class picc = new ProformaInvoice_Connection_Class();
+                            picc.ID = proformainvoice_ID;
+                            DataTable dt_atom_price_simpleitem2 = new DataTable();
+                            if (DBSync.DBSync.ReadDataTable(ref dt_atom_price_simpleitem2, sql_atom_price_simpleitem, ref Err))
+                            {
+                                if (dt_atom_price_simpleitem2.Rows.Count > 0)
+                                {
+                                    decimal TaxSum = 0;
+                                    decimal NetSum = 0;
+                                    decimal GrossSum = 0;
+                                    foreach (DataRow dr_atom_price_simpleitem in dt_atom_price_simpleitem2.Rows)
+                                    {
+                                        GrossSum += (decimal)dr_atom_price_simpleitem["RetailSimpleItemPriceWithDiscount"];
+                                        TaxSum += (decimal)dr_atom_price_simpleitem["TaxPrice"];
+                                    }
+                                    NetSum = GrossSum - TaxSum;
+                                    string sNumber = ((int)dr["FinancialYear"]).ToString() + "/" + ((int)dr["NumberInFinancialYear"]).ToString();
+                                    if ((decimal)dr["NetSum"] != NetSum)
+                                    {
+                                        sErrors += lngRPM.s_WrongNetSum.s + ((decimal)dr["NetSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealNetSumIs.s + NetSum.ToString() + "\r\n";
+                                        dr["NetSum"] = NetSum;
+                                    }
+                                    if ((decimal)dr["TaxSum"] != TaxSum)
+                                    {
+                                        sErrors += lngRPM.s_WrongTaxSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealTaxSumIs.s + TaxSum.ToString() + "\r\n";
+                                        dr["TaxSum"] = TaxSum;
+                                    }
+                                    if ((decimal)dr["GrossSum"] != GrossSum)
+                                    {
+                                        sErrors += lngRPM.s_WrongGrossSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealGrossSumIs.s + GrossSum.ToString() + "\r\n";
+                                        dr["GrossSum"] = GrossSum;
+                                    }
+                                }
+                                picc.dt_atom_price_simpleitem = dt_atom_price_simpleitem2;
+                                string sql_journal_proformainvoice = "select * from journal_proformainvoice where ProformaInvoice_ID = " + proformainvoice_ID.ToString();
+                                DataTable dt_journal_proformainvoice = new DataTable();
+                                if (DBSync.DBSync.ReadDataTable(ref dt_journal_proformainvoice, sql_journal_proformainvoice, ref Err))
+                                {
+                                    picc.dt_journal_proformainvoice = dt_journal_proformainvoice;
+                                    ProformaInvoice_con_List.Add(picc);
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                        if (sErrors.Length > 0)
+                        {
+                            MessageBox.Show(this, sErrors, "Errors:", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+
+
+                        if (DeleteTable_And_ResetAutoincrement("journal_proformainvoice"))
+                        {
+                            if (DeleteTable_And_ResetAutoincrement("atom_price_simpleitem"))
+                            {
+                                if (DeleteTable_And_ResetAutoincrement("ProformaInvoice"))
+                                {
+                                    if (DeleteTable_And_ResetAutoincrement("Invoice"))
+                                    {
+
+                                        foreach (DataRow dr in dt_ProformaInvoice.Rows)
+                                        {
+                                            long new_Invoice_id = -1;
+                                            if (fs.WriteRow("Invoice", dr, Column_PrefixTable, true, ref new_Invoice_id))
+                                            {
+                                                dr["Invoice_ID"] = new_Invoice_id;
+                                                long new_ProformaInvoice_id = -1;
+                                                if (fs.WriteRow("ProformaInvoice", dr, Column_PrefixTable, false, ref new_ProformaInvoice_id))
+                                                {
+                                                    ProformaInvoice_Connection_Class xpicc = Get_ProformaInvoice_Connection_Class(ProformaInvoice_con_List, (long)dr["ID"]);
+                                                    if (xpicc != null)
+                                                    {
+                                                        if (!xpicc.WriteNew(new_ProformaInvoice_id))
+                                                        {
+                                                            return false;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (Set_DatBase_Version("1.04"))
+                                        {
+                                            return true;
+                                        }
+                                        else
+                                        {
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return false;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        private object UpgradeDB_1_02_to_1_03(object obj, ref string Err)
+        {
+            // correct taxation
             string sql = @"select apsi.ID,RetailSimpleItemPrice,Discount,iQuantity,RetailSimpleItemPriceWithDiscount,ExtraDiscount,Rate from atom_price_simpleitem apsi 
                             inner join atom_taxation at on apsi.atom_taxation_ID = at.ID";
             DataTable dt_atom_price_simpleitem1 = new DataTable();
@@ -1994,609 +1620,77 @@ namespace usrc_Upgrade
             }
         }
 
-        private bool UpgradeDB_1_03_to_1_04()
+        private object UpgradeDB_1_01_to_1_02(object obj, ref string Err)
         {
-            // correct taxation
-            string Err = null;
-            string sql = @"select apsi.ID,RetailSimpleItemPrice,Discount,iQuantity,RetailSimpleItemPriceWithDiscount,ExtraDiscount,Rate from atom_price_simpleitem apsi 
-                            inner join atom_taxation at on apsi.atom_taxation_ID = at.ID";
-            DataTable dt_atom_price_simpleitem1 = new DataTable();
-            if (DBSync.DBSync.ReadDataTable(ref dt_atom_price_simpleitem1, sql, ref Err))
+            wfp_ui_thread = new Database_Upgrade_WindowsForm_Thread();
+            wfp_ui_thread.Start();
+
+            List<DataTable> dt_List = new List<DataTable>();
+            SQLTable tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item));
+            wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + " 1.01 -> 1.02");
+            wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+            SQLTable xtbl = new SQLTable(tbl);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            TableDataItem dt_Price_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+            if (Err != null)
             {
-                if (dt_atom_price_simpleitem1.Rows.Count > 0)
-                {
-                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                    foreach (DataRow dr in dt_atom_price_simpleitem1.Rows)
-                    {
-                        lpar.Clear();
-                        long ID = (long)dr["ID"];
-                        decimal RetailSimpleItemPrice = (decimal)dr["RetailSimpleItemPrice"];
-                        decimal Discount = (decimal)dr["Discount"];
-                        int iQuantity = (int)dr["iQuantity"];
-                        decimal RetailSimpleItemPriceWithDiscount = (decimal)dr["RetailSimpleItemPriceWithDiscount"];
-                        decimal ExtraDiscount = (decimal)dr["ExtraDiscount"];
-                        decimal Taxation_Rate = (decimal)dr["Rate"];
-                        decimal RetailSimpleItemPriceAll = RetailSimpleItemPrice * iQuantity;
-                        decimal RetailSimpleItemPriceWithDiscount_Calculated = RetailSimpleItemPrice * iQuantity;
-                        decimal TaxPrice = 0;
-                        decimal RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax = 0;
 
-                        int decimal_places = 2;
-                        if (GlobalData.BaseCurrency != null)
-                        {
-                            decimal_places = GlobalData.BaseCurrency.DecimalPlaces;
-                        }
-                        decimal dQuantity = Convert.ToDecimal(iQuantity);
-                        StaticLib.Func.CalculatePrice(RetailSimpleItemPriceAll, dQuantity,Discount, ExtraDiscount, Taxation_Rate, ref RetailSimpleItemPriceWithDiscount_Calculated, ref TaxPrice, ref RetailSimpleItemPriceWithDiscount_Calculated_WithoutTax, decimal_places);
-                        string spar_TaxPrice = "@par_TaxPrice";
-                        SQL_Parameter par_TaxPrice = new SQL_Parameter(spar_TaxPrice, SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
-                        lpar.Add(par_TaxPrice);
-                        sql = " update atom_price_simpleitem set TaxPrice=" + spar_TaxPrice + " where ID = " + ID.ToString();
-                        object ores = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
-                            return false;
-                        }
-                    }
-                }
-
-                string Column_PrefixTable = "invoicetable_";
-                sql = @" select 
-                            pi.ID,
-                            Atom_myCompany_Person_ID,
-                            Draft,
-                            DraftNumber,
-                            FinancialYear,
-                            NumberInFinancialYear,
-                            ProformaInvoiceTime,
-                            FirstPrintTime,
-                            NetSum,
-                            Discount,
-                            EndSum,
-                            TaxSum,
-                            GrossSum,
-                            Atom_Customer_Person_ID,
-                            Atom_Customer_Org_ID,
-                            WarrantyExist,
-                            WarrantyConditions,
-                            WarrantyDurationType,
-                            WarrantyDuration,
-                            ProformaInvoiceDuration,
-                            ProformaInvoiceDurationType,
-                            TermsOfPayment_ID,
-                            Invoice_ID,
-                            i.PaymentDeadline as " + Column_PrefixTable + @"PaymentDeadline,
-                            i.MethodOfPayment_ID as " + Column_PrefixTable + @"MethodOfPayment_ID,
-                            i.Paid as " + Column_PrefixTable + @"Paid,
-                            i.Storno as " + Column_PrefixTable + @"Storno
-                            from ProformaInvoice  pi
-                            inner join Invoice i on i.ID = pi.Invoice_ID";
-                DataTable dt_ProformaInvoice = new DataTable();
-                if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
-                {
-                    if (dt_ProformaInvoice.Rows.Count > 0)
-                    {
-                        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                        List<ProformaInvoice_Connection_Class> ProformaInvoice_con_List = new List<ProformaInvoice_Connection_Class>();
-                        string sErrors = "";
-                        foreach (DataRow dr in dt_ProformaInvoice.Rows)
-                        {
-                            lpar.Clear();
-                            long proformainvoice_ID = (long)dr["ID"];
-                            string sql_atom_price_simpleitem = "select * from atom_price_simpleitem where ProformaInvoice_ID = " + proformainvoice_ID.ToString();
-                            ProformaInvoice_Connection_Class picc = new ProformaInvoice_Connection_Class();
-                            picc.ID = proformainvoice_ID;
-                            DataTable dt_atom_price_simpleitem2 = new DataTable();
-                            if (DBSync.DBSync.ReadDataTable(ref dt_atom_price_simpleitem2, sql_atom_price_simpleitem, ref Err))
-                            {
-                                if (dt_atom_price_simpleitem2.Rows.Count > 0)
-                                {
-                                    decimal TaxSum = 0;
-                                    decimal NetSum = 0;
-                                    decimal GrossSum = 0;
-                                    foreach (DataRow dr_atom_price_simpleitem in dt_atom_price_simpleitem2.Rows)
-                                    {
-                                        GrossSum += (decimal)dr_atom_price_simpleitem["RetailSimpleItemPriceWithDiscount"];
-                                        TaxSum += (decimal)dr_atom_price_simpleitem["TaxPrice"];
-                                    }
-                                    NetSum = GrossSum - TaxSum;
-                                    string sNumber = ((int)dr["FinancialYear"]).ToString() + "/" + ((int)dr["NumberInFinancialYear"]).ToString();
-                                    if ((decimal)dr["NetSum"] != NetSum)
-                                    {
-                                        sErrors += lngRPM.s_WrongNetSum.s + ((decimal)dr["NetSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealNetSumIs.s + NetSum.ToString() + "\r\n";
-                                        dr["NetSum"] = NetSum;
-                                    }
-                                    if ((decimal)dr["TaxSum"] != TaxSum)
-                                    {
-                                        sErrors += lngRPM.s_WrongTaxSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealTaxSumIs.s + TaxSum.ToString() + "\r\n";
-                                        dr["TaxSum"] = TaxSum;
-                                    }
-                                    if ((decimal)dr["GrossSum"] != GrossSum)
-                                    {
-                                        sErrors += lngRPM.s_WrongGrossSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealGrossSumIs.s + GrossSum.ToString() + "\r\n";
-                                        dr["GrossSum"] = GrossSum;
-                                    }
-                                }
-                                picc.dt_atom_price_simpleitem = dt_atom_price_simpleitem2;
-                                string sql_journal_proformainvoice = "select * from journal_proformainvoice where ProformaInvoice_ID = " + proformainvoice_ID.ToString();
-                                DataTable dt_journal_proformainvoice = new DataTable();
-                                if (DBSync.DBSync.ReadDataTable(ref dt_journal_proformainvoice, sql_journal_proformainvoice, ref Err))
-                                {
-                                    picc.dt_journal_proformainvoice = dt_journal_proformainvoice;
-                                    ProformaInvoice_con_List.Add(picc);
-                                }
-                                else
-                                {
-                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
-                                return false;
-                            }
-                        }
-                        if (sErrors.Length > 0)
-                        {
-                            MessageBox.Show(this, sErrors, "Errors:", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
-
-
-                        if (DeleteTable_And_ResetAutoincrement("journal_proformainvoice"))
-                        {
-                            if (DeleteTable_And_ResetAutoincrement("atom_price_simpleitem"))
-                            {
-                                if (DeleteTable_And_ResetAutoincrement("ProformaInvoice"))
-                                {
-                                    if (DeleteTable_And_ResetAutoincrement("Invoice"))
-                                    {
-
-                                        foreach (DataRow dr in dt_ProformaInvoice.Rows)
-                                        {
-                                            long new_Invoice_id = -1;
-                                            if (fs.WriteRow("Invoice", dr, Column_PrefixTable, true, ref new_Invoice_id))
-                                            {
-                                                dr["Invoice_ID"] = new_Invoice_id;
-                                                long new_ProformaInvoice_id = -1;
-                                                if (fs.WriteRow("ProformaInvoice", dr, Column_PrefixTable, false, ref new_ProformaInvoice_id))
-                                                {
-                                                    ProformaInvoice_Connection_Class xpicc = Get_ProformaInvoice_Connection_Class(ProformaInvoice_con_List, (long)dr["ID"]);
-                                                    if (xpicc != null)
-                                                    {
-                                                        if (!xpicc.WriteNew(new_ProformaInvoice_id))
-                                                        {
-                                                            return false;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        if (Set_DatBase_Version("1.04"))
-                                        {
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_02_to_1_03:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-
-        private ProformaInvoice_Connection_Class Get_ProformaInvoice_Connection_Class(List<ProformaInvoice_Connection_Class> ProformaInvoice_con_List, long ProformaInvoice_ID)
-        {
-            foreach (ProformaInvoice_Connection_Class picc in ProformaInvoice_con_List)
-            {
-                if (picc.ID == ProformaInvoice_ID)
-                {
-                    return picc;
-                }
-            }
-            return null;
-        }
-
-
-
-        public bool DeleteTable_And_ResetAutoincrement(string tbl_name)
-        {
-            // now write
-            string Err = null;
-            object ores = null;
-            string sql = "Delete from " + tbl_name;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
-            {
-                sql = "UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = '" + tbl_name + "'";
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
-                {
-                    return true;
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:DeleteTable_And_ResetAutoincrement:sql = " + sql + "\r\nErr=" + Err);
-                    return false;
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Upgrade:DeleteTable_And_ResetAutoincrement:sql = " + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-
-        private bool UpgradeDB_1_04_to_1_05()
-        {
-            Check_DB_1_04();
-            m_Old_tables_1_04_to_1_05 = new Old_tables_1_04_to_1_05();
-            if (m_Old_tables_1_04_to_1_05.Read())
-            {
-                m_eUpgrade = eUpgrade.from_1_04_to_105;
-                wfp_ui_thread = new Database_Upgrade_WindowsForm_Thread();
-                wfp_ui_thread.Start();
-
-
-                List<DataTable> dt_List = new List<DataTable>();
-                string Err = null;
-                string Message_Title = " 1.04 -> 1.05";
-
-                SQLTable tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(PersonData));
-                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                SQLTable xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_PersonData = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-
-                TableDataItem_List.Add(dt_PersonData);
-
-
-                Err = null;
-                Message_Title = " 1.04 -> 1.05";
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany));
-                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_myCompany = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_myCompany);
-
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany));
-                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_Atom_myCompany = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_Atom_myCompany);
-
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item));
-                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_Price_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_Price_Item);
-
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_SimpleItem));
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_Price_SimpleItem);
-
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationAccount));
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_OrganisationAccount = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_OrganisationAccount);
-
-
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_Price_SimpleItem));
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_Atom_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_Atom_Price_SimpleItem);
-
-
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_ProformaInvoice_Price_Item_Stock));
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_Atom_ProformaInvoice_Price_Item_Stock = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_Atom_ProformaInvoice_Price_Item_Stock);
-
-
-                Err = null;
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.DBSettings));
-                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_DBSettings = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_DBSettings);
-
-                Err = null;
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.BaseCurrency));
-                wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
-                wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-                xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                TableDataItem dt_BaseCurrency = new TableDataItem(xtbl, ref dt_List, null, ref Err);
-                if (Err != null)
-                {
-
-                    wfp_ui_thread.End();
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                    return false;
-                }
-                TableDataItem_List.Add(dt_BaseCurrency);
-
-
-                wfp_ui_thread.Message(lngRPM.s_BackupOfExistingDatabase.s + DBSync.DBSync.DataBase + " -> " + DBSync.DBSync.DataBase_BackupTemp);
-
-                if (DBSync.DBSync.DB_for_Blagajna.DataBase_Make_BackupTemp())
-                {
-                    if (DBSync.DBSync.DB_for_Blagajna.DataBase_Delete())
-                    {
-                        if (DBSync.DBSync.DB_for_Blagajna.DataBase_Create())
-                        {
-                            wfp_ui_thread.Message(lngRPM.s_ImportData.s);
-                            if (Write_TableDataItem_List(m_eUpgrade, m_Old_tables_1_04_to_1_05))
-                            {
-                                // Correct Item's Units
-                                Set_DatBase_Version("1.05");
-                                string sql = "update item set Unit_ID=1";
-                                object ores = null;
-                                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
-                                {
-                                    wfp_ui_thread.End();
-                                    return true;
-                                }
-                                else
-                                {
-                                    wfp_ui_thread.End();
-                                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
-                                    return false;
-                                }
-
-                            }
-                        }
-                    }
-                }
                 wfp_ui_thread.End();
-                return true;
-            }
-            else
-            {
+                LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_01_to_1_02:TableName=" + tbl.TableName + ";Err=" + Err);
                 return false;
             }
-        }
+            TableDataItem_List.Add(dt_Price_Item);
 
-        private bool Check_DB_1_04()
-        {
-            string Err  = null;
-            string sql = "select ID,FinancialYear,NumberInFinancialYear,NetSum,TaxSum,GrossSum from ProformaInvoice where Draft=0";
-            DataTable dt_ProformaInvoice = new DataTable();
-            DataTable dt_Atom_Price_SimpleItem = new DataTable();
-            DataTable dt_Atom_ProformaInvoice_Price_Item_Stock = new DataTable();
-            DataTable dt_Atom_Price_Item = new DataTable();
-            string sErrMsg = "";
-            if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
+            tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_SimpleItem));
+            wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+            xtbl = new SQLTable(tbl);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            TableDataItem dt_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+            if (Err != null)
             {
-                sql = "select ID,RetailSimpleItemPrice,iQuantity,TaxPrice,ProformaInvoice_ID from Atom_Price_SimpleItem";
-                if (DBSync.DBSync.ReadDataTable(ref dt_Atom_Price_SimpleItem, sql, ref Err))
-                {
-                    sql = "select ID,RetailPriceWithDiscount,dQuantity,Atom_Price_Item_ID,ProformaInvoice_ID from Atom_ProformaInvoice_Price_Item_Stock";
-                    if (DBSync.DBSync.ReadDataTable(ref dt_Atom_ProformaInvoice_Price_Item_Stock, sql, ref Err))
-                    {
-                        sql = "select ID,RetailPricePerUnit from Atom_Price_Item";
-                        if (DBSync.DBSync.ReadDataTable(ref dt_Atom_Price_Item, sql, ref Err))
-                        {
-                            long ProformaInvoice_ID = -1;
-                            int iFinancialYear = -1;
-                            int iNumberInFinancialYear = -1;
-                            decimal NetSum = -1;
-                            decimal TaxSum = -1;
-                            decimal GrossSum = -1;
-                            decimal ItemsGrossSum = -1;
-                            foreach (DataRow dr in dt_ProformaInvoice.Rows)
-                            {
-                                ProformaInvoice_ID = (long)dr["ID"];
-                                iFinancialYear = (int)dr["FinancialYear"];
-                                iNumberInFinancialYear = (int)dr["NumberInFinancialYear"];
-                                NetSum = (decimal)dr["NetSum"];
-                                TaxSum = (decimal)dr["TaxSum"];
-                                GrossSum = (decimal)dr["GrossSum"];
-                                List<long> Atom_Price_SimpleItem_ID_list = new List<long>();
-                                long Atom_Price_SimpleItem_ID = -1;
-                                GetItemsSum(ProformaInvoice_ID, dt_Atom_Price_SimpleItem, dt_Atom_ProformaInvoice_Price_Item_Stock, dt_Atom_Price_Item, ref ItemsGrossSum, ref Atom_Price_SimpleItem_ID);
-                                if (ItemsGrossSum == GrossSum)
-                                {
-                                    continue;
-                                }
-                                else
-                                {
-                                    sErrMsg += "ERROR:Proforma_Invoice_ID = " + ProformaInvoice_ID.ToString() + " GrossSum=" + GrossSum.ToString() + " ItemsGrossSum = " + ItemsGrossSum.ToString() + "\r\n";
-                                    if (((ProformaInvoice_ID == 45) || (ProformaInvoice_ID == 47) || (ProformaInvoice_ID == 89)) && (Atom_Price_SimpleItem_ID>=0))
-                                    {
-                                        string sql_update = "update Atom_Price_SimpleItem set iQuantity = 1 where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and ID =" + Atom_Price_SimpleItem_ID.ToString();
-                                        object ores=null;
-                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql_update,null,ref ores,ref Err))
-                                        {
-                                            LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                            if (sErrMsg.Length > 0)
-                            {
-                                LogFile.Error.Show("Check_DB_1_04:Errors:\r\n" + sErrMsg);
-                            }
-                            return true;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
-                            return false;
-
-                        }
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
-                    return false;
-
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql="+sql+"\r\nErr="+Err);
+                wfp_ui_thread.End();
+                LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_01_to_1_02:TableName=" + tbl.TableName + ";Err=" + Err);
                 return false;
-
             }
-        }
+            TableDataItem_List.Add(dt_Price_SimpleItem);
 
-        private void GetItemsSum(long ProformaInvoice_ID,  DataTable dt_Atom_Price_SimpleItem, DataTable dt_Atom_ProformaInvoice_Price_Item_Stock, DataTable dt_Atom_Price_Item, ref decimal ItemsGrossSum, ref long Atom_Price_SimpleItem_ID)
-        {
-            decimal dsum = 0;
-            DataRow[] drs_Atom_Price_SimpleItem = dt_Atom_Price_SimpleItem.Select("ProformaInvoice_ID=" + ProformaInvoice_ID.ToString());
-            if (drs_Atom_Price_SimpleItem.Count()>0)
+            tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationAccount));
+            wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
+            xtbl = new SQLTable(tbl);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            TableDataItem dt_OrganisationAccount = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+            if (Err != null)
             {
-                int iQuantity = -1;
-                
-                int icol_iQuantity = dt_Atom_Price_SimpleItem.Columns.IndexOf("iQuantity");
-                int icol_RetailPriceWithDiscount = dt_Atom_Price_SimpleItem.Columns.IndexOf("RetailSimpleItemPrice");
-                
-                decimal dRetailPriceWithDiscount = -1;
-                foreach (DataRow dr_Atom_Price_SimpleItem in drs_Atom_Price_SimpleItem)
-                {
-                    iQuantity = (int)dr_Atom_Price_SimpleItem[icol_iQuantity];
-                    Atom_Price_SimpleItem_ID = (long)dr_Atom_Price_SimpleItem["ID"];
-                    dRetailPriceWithDiscount =(decimal)dr_Atom_Price_SimpleItem[icol_RetailPriceWithDiscount];
-                    dsum += dRetailPriceWithDiscount * iQuantity;
-                }
+                wfp_ui_thread.End();
+                LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_01_to_1_02:TableName=" + tbl.TableName + ";Err=" + Err);
+                return false;
             }
+            TableDataItem_List.Add(dt_OrganisationAccount);
 
-            DataRow[] drs_Atom_ProformaInvoice_Price_Item_Stock = dt_Atom_ProformaInvoice_Price_Item_Stock.Select("ProformaInvoice_ID=" + ProformaInvoice_ID.ToString());
-            if (drs_Atom_ProformaInvoice_Price_Item_Stock.Count()>0)
+
+            wfp_ui_thread.Message(lngRPM.s_BackupOfExistingDatabase.s + DBSync.DBSync.DataBase + " -> " + DBSync.DBSync.DataBase_BackupTemp);
+
+            if (DBSync.DBSync.DB_for_Blagajna.DataBase_Make_BackupTemp())
             {
-                decimal dQuantity = -1;
-                int icol_iQuantity = dt_Atom_ProformaInvoice_Price_Item_Stock.Columns.IndexOf("dQuantity");
-                int icol_Atom_Price_Item_ID = dt_Atom_ProformaInvoice_Price_Item_Stock.Columns.IndexOf("Atom_Price_Item_ID");
-
-                decimal dRetailPricePerUnit = -1;
-                
-                foreach (DataRow dr_Atom_ProformaInvoice_Price_Item_Stock in drs_Atom_ProformaInvoice_Price_Item_Stock)
+                if (DBSync.DBSync.DB_for_Blagajna.DataBase_Delete())
                 {
-                    dQuantity = (decimal)dr_Atom_ProformaInvoice_Price_Item_Stock[icol_iQuantity];
-                    long Atom_Price_Item_ID = (long)dr_Atom_ProformaInvoice_Price_Item_Stock[icol_Atom_Price_Item_ID];
-                    DataRow[] drs_Atom_Price_Item = dt_Atom_Price_Item.Select("ID="+Atom_Price_Item_ID.ToString());
-                    if (drs_Atom_Price_Item.Count()==1)
+                    if (DBSync.DBSync.DB_for_Blagajna.DataBase_Create())
                     {
-                        dRetailPricePerUnit = (decimal)drs_Atom_Price_Item[0]["RetailPricePerUnit"];
-                        dsum += decimal.Round(dQuantity * dRetailPricePerUnit,2);
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Upgrade:GetItemsSum:drs_Atom_Price_Item.Count()!=1");
+                        wfp_ui_thread.Message(lngRPM.s_ImportData.s);
+                        if (Write_TableDataItem_List(m_eUpgrade, m_Old_tables_1_04_to_1_05))
+                        {
+                            Set_DatBase_Version("1.02");
+                        }
                     }
                 }
             }
-            ItemsGrossSum = dsum;
+            wfp_ui_thread.End();
+            return true;
         }
 
-        private bool UpgradeDB_1_0_to_1_01()
+        private object UpgradeDB_1_0_to_1_01(object o, ref string Err)
         {
             SQLTable tbl_Logo = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Logo));
-            string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Logo.sql_CreateTable, null, ref Err))
             {
                 SQLTable tbl_Atom_Logo = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_Logo));
@@ -2822,75 +1916,419 @@ namespace usrc_Upgrade
             return false;
         }
 
-        private bool UpgradeDB_1_01_to_1_02()
+
+        private bool UpgradeDB_1_07_to_1_08_Change_Table_Atom_Office()
         {
-            wfp_ui_thread = new Database_Upgrade_WindowsForm_Thread();
-            wfp_ui_thread.Start();
-
-
-            List<DataTable> dt_List = new List<DataTable>();
             string Err = null;
-            SQLTable tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item));
-            wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + " 1.01 -> 1.02");
-            wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-            SQLTable xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-            TableDataItem dt_Price_Item = new TableDataItem(xtbl, ref dt_List,null, ref Err);
-            if (Err != null)
+            string sql = @"CREATE TABLE Atom_Office_backup
+                          (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                           Atom_myCompany_ID  INTEGER  NOT NULL REFERENCES Atom_myCompany(ID),
+                          'Name' varchar(264) NOT NULL 
+                          )
+            ";
+            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
             {
-
-                wfp_ui_thread.End();
-                LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_01_to_1_02:TableName=" + tbl.TableName + ";Err=" + Err);
-                return false;
-            }
-            TableDataItem_List.Add(dt_Price_Item);
-
-            tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_SimpleItem));
-            wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-            xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-            TableDataItem dt_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List,null, ref Err);
-            if (Err != null)
-            {
-                wfp_ui_thread.End();
-                LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_01_to_1_02:TableName=" + tbl.TableName + ";Err=" + Err);
-                return false;
-            }
-            TableDataItem_List.Add(dt_Price_SimpleItem);
-
-            tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationAccount));
-            wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
-            xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-            TableDataItem dt_OrganisationAccount = new TableDataItem(xtbl, ref dt_List,null, ref Err);
-            if (Err != null)
-            {
-                wfp_ui_thread.End();
-                LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_01_to_1_02:TableName=" + tbl.TableName + ";Err=" + Err);
-                return false;
-            }
-            TableDataItem_List.Add(dt_OrganisationAccount);
-
-
-            wfp_ui_thread.Message(lngRPM.s_BackupOfExistingDatabase.s + DBSync.DBSync.DataBase + " -> " + DBSync.DBSync.DataBase_BackupTemp);
-
-            if (DBSync.DBSync.DB_for_Blagajna.DataBase_Make_BackupTemp())
-            {
-                if (DBSync.DBSync.DB_for_Blagajna.DataBase_Delete())
+                sql = @"INSERT INTO Atom_Office_backup SELECT * FROM Atom_Office";
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
-                    if (DBSync.DBSync.DB_for_Blagajna.DataBase_Create())
+                    sql = @"PRAGMA foreign_keys = OFF;
+                            DROP TABLE Atom_Office;
+                            ALTER TABLE Atom_Office_backup RENAME TO Atom_Office;
+                            PRAGMA foreign_keys = ON;";
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
-                        wfp_ui_thread.Message(lngRPM.s_ImportData.s);
-                        if (Write_TableDataItem_List(m_eUpgrade,m_Old_tables_1_04_to_1_05))
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Office:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Office:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Office:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        private bool UpgradeDB_1_07_to_1_08_Change_Table_Person()
+        {
+            string Err = null;
+            string sql = @"CREATE TABLE Person_backup
+                          (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                          'Gender' BIT NOT NULL,
+                           cFirstName_ID  INTEGER  NOT NULL REFERENCES cFirstName(ID),
+                           cLastName_ID  INTEGER  NULL REFERENCES cLastName(ID),
+                          'DateOfBirth' DATETIME NULL,
+                          'Tax_ID' varchar(32) NULL,
+                          'Registration_ID' varchar(50) NULL
+                          )
+            ";
+            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+            {
+                sql = @"INSERT INTO Person_backup SELECT * FROM Person";
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    sql = @"PRAGMA foreign_keys = OFF;
+                            DROP TABLE Person;
+                            ALTER TABLE Person_backup RENAME TO Person;
+                            PRAGMA foreign_keys = ON;";
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        private bool UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person()
+        {
+            string Err = null;
+            string sql = @"CREATE TABLE Atom_Person_backup
+                          (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                          'Gender' BIT NOT NULL,
+                           Atom_cFirstName_ID  INTEGER  NOT NULL REFERENCES Atom_cFirstName(ID),
+                           Atom_cLastName_ID  INTEGER  NULL REFERENCES Atom_cLastName(ID),
+                          'DateOfBirth' DATETIME NULL,
+                          'Tax_ID'  varchar(32) NULL,
+                          'Registration_ID' varchar(50) NULL,
+                           Atom_cGsmNumber_Person_ID  INTEGER  NULL REFERENCES Atom_cGsmNumber_Person(ID),
+                           Atom_cPhoneNumber_Person_ID  INTEGER  NULL REFERENCES Atom_cPhoneNumber_Person(ID),
+                           Atom_cEmail_Person_ID  INTEGER  NULL REFERENCES Atom_cEmail_Person(ID),
+                           Atom_cAddress_Person_ID  INTEGER  NULL REFERENCES Atom_cAddress_Person(ID),
+                          'CardNumber' varchar(50) NULL,
+                           Atom_cCardType_Person_ID  INTEGER  NULL REFERENCES Atom_cCardType_Person(ID),
+                           Atom_PersonImage_ID  INTEGER  NULL REFERENCES Atom_PersonImage(ID)
+                          )
+            ";
+            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+            {
+                sql = @"INSERT INTO Atom_Person_backup SELECT * FROM Atom_Person";
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    sql = @"PRAGMA foreign_keys = OFF;
+                            DROP TABLE Atom_Person;
+                            ALTER TABLE Atom_Person_backup RENAME TO Atom_Person;
+                            PRAGMA foreign_keys = ON;";
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Person:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Person:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        private bool UpgradeDB_1_07_to_1_08_Change_Table_Organisation()
+        {
+            string Err = null;
+            string sql = @"CREATE TABLE Organisation_backup
+                          (
+                            'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                            'Name' varchar(264) NOT NULL,
+                            'Tax_ID' varchar(32) NOT NULL,
+                            'Registration_ID' varchar(50) NULL
+                          )
+            ";
+            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+            {
+                sql = @"INSERT INTO Organisation_backup SELECT * FROM Organisation";
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    sql = @"PRAGMA foreign_keys = OFF;
+                            DROP TABLE Organisation;
+                            ALTER TABLE Organisation_backup RENAME TO Organisation;
+                            PRAGMA foreign_keys = ON;";
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Organisation:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Organisation:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Organisation:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+
+        }
+
+        private bool UpgradeDB_1_07_to_1_08_Change_Table_Atom_Organisation()
+        {
+            string Err = null;
+            string sql = @"CREATE TABLE Atom_Organisation_backup
+                          (
+                            'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                            'Name' varchar(264) NOT NULL,
+                            'Tax_ID' varchar(32) NOT NULL,
+                            'Registration_ID' varchar(50) NULL
+                          )
+            ";
+            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+            {
+                sql = @"INSERT INTO Atom_Organisation_backup SELECT * FROM Atom_Organisation";
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    sql = @"PRAGMA foreign_keys = OFF;
+                            DROP TABLE Atom_Organisation;
+                            ALTER TABLE Atom_Organisation_backup RENAME TO Atom_Organisation;
+                            PRAGMA foreign_keys = ON;";
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Organisation:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Organisation:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_07_to_1_08_Change_Table_Atom_Organisation:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+
+        }
+
+        private ProformaInvoice_Connection_Class Get_ProformaInvoice_Connection_Class(List<ProformaInvoice_Connection_Class> ProformaInvoice_con_List, long ProformaInvoice_ID)
+        {
+            foreach (ProformaInvoice_Connection_Class picc in ProformaInvoice_con_List)
+            {
+                if (picc.ID == ProformaInvoice_ID)
+                {
+                    return picc;
+                }
+            }
+            return null;
+        }
+
+
+
+        public bool DeleteTable_And_ResetAutoincrement(string tbl_name)
+        {
+            // now write
+            string Err = null;
+            object ores = null;
+            string sql = "Delete from " + tbl_name;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+            {
+                sql = "UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = '" + tbl_name + "'";
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:DeleteTable_And_ResetAutoincrement:sql = " + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Upgrade:DeleteTable_And_ResetAutoincrement:sql = " + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+
+        private bool Check_DB_1_04()
+        {
+            string Err  = null;
+            string sql = "select ID,FinancialYear,NumberInFinancialYear,NetSum,TaxSum,GrossSum from ProformaInvoice where Draft=0";
+            DataTable dt_ProformaInvoice = new DataTable();
+            DataTable dt_Atom_Price_SimpleItem = new DataTable();
+            DataTable dt_Atom_ProformaInvoice_Price_Item_Stock = new DataTable();
+            DataTable dt_Atom_Price_Item = new DataTable();
+            string sErrMsg = "";
+            if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
+            {
+                sql = "select ID,RetailSimpleItemPrice,iQuantity,TaxPrice,ProformaInvoice_ID from Atom_Price_SimpleItem";
+                if (DBSync.DBSync.ReadDataTable(ref dt_Atom_Price_SimpleItem, sql, ref Err))
+                {
+                    sql = "select ID,RetailPriceWithDiscount,dQuantity,Atom_Price_Item_ID,ProformaInvoice_ID from Atom_ProformaInvoice_Price_Item_Stock";
+                    if (DBSync.DBSync.ReadDataTable(ref dt_Atom_ProformaInvoice_Price_Item_Stock, sql, ref Err))
+                    {
+                        sql = "select ID,RetailPricePerUnit from Atom_Price_Item";
+                        if (DBSync.DBSync.ReadDataTable(ref dt_Atom_Price_Item, sql, ref Err))
                         {
-                            Set_DatBase_Version("1.02");
+                            long ProformaInvoice_ID = -1;
+                            int iFinancialYear = -1;
+                            int iNumberInFinancialYear = -1;
+                            decimal NetSum = -1;
+                            decimal TaxSum = -1;
+                            decimal GrossSum = -1;
+                            decimal ItemsGrossSum = -1;
+                            foreach (DataRow dr in dt_ProformaInvoice.Rows)
+                            {
+                                ProformaInvoice_ID = (long)dr["ID"];
+                                iFinancialYear = (int)dr["FinancialYear"];
+                                iNumberInFinancialYear = (int)dr["NumberInFinancialYear"];
+                                NetSum = (decimal)dr["NetSum"];
+                                TaxSum = (decimal)dr["TaxSum"];
+                                GrossSum = (decimal)dr["GrossSum"];
+                                List<long> Atom_Price_SimpleItem_ID_list = new List<long>();
+                                long Atom_Price_SimpleItem_ID = -1;
+                                GetItemsSum(ProformaInvoice_ID, dt_Atom_Price_SimpleItem, dt_Atom_ProformaInvoice_Price_Item_Stock, dt_Atom_Price_Item, ref ItemsGrossSum, ref Atom_Price_SimpleItem_ID);
+                                if (ItemsGrossSum == GrossSum)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    sErrMsg += "ERROR:Proforma_Invoice_ID = " + ProformaInvoice_ID.ToString() + " GrossSum=" + GrossSum.ToString() + " ItemsGrossSum = " + ItemsGrossSum.ToString() + "\r\n";
+                                    if (((ProformaInvoice_ID == 45) || (ProformaInvoice_ID == 47) || (ProformaInvoice_ID == 89)) && (Atom_Price_SimpleItem_ID>=0))
+                                    {
+                                        string sql_update = "update Atom_Price_SimpleItem set iQuantity = 1 where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and ID =" + Atom_Price_SimpleItem_ID.ToString();
+                                        object ores=null;
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql_update,null,ref ores,ref Err))
+                                        {
+                                            LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                            if (sErrMsg.Length > 0)
+                            {
+                                LogFile.Error.Show("Check_DB_1_04:Errors:\r\n" + sErrMsg);
+                            }
+                            return true;
                         }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Upgrade:Check_DB_1_04:sql="+sql+"\r\nErr="+Err);
+                return false;
+
+            }
+        }
+
+        private void GetItemsSum(long ProformaInvoice_ID,  DataTable dt_Atom_Price_SimpleItem, DataTable dt_Atom_ProformaInvoice_Price_Item_Stock, DataTable dt_Atom_Price_Item, ref decimal ItemsGrossSum, ref long Atom_Price_SimpleItem_ID)
+        {
+            decimal dsum = 0;
+            DataRow[] drs_Atom_Price_SimpleItem = dt_Atom_Price_SimpleItem.Select("ProformaInvoice_ID=" + ProformaInvoice_ID.ToString());
+            if (drs_Atom_Price_SimpleItem.Count()>0)
+            {
+                int iQuantity = -1;
+                
+                int icol_iQuantity = dt_Atom_Price_SimpleItem.Columns.IndexOf("iQuantity");
+                int icol_RetailPriceWithDiscount = dt_Atom_Price_SimpleItem.Columns.IndexOf("RetailSimpleItemPrice");
+                
+                decimal dRetailPriceWithDiscount = -1;
+                foreach (DataRow dr_Atom_Price_SimpleItem in drs_Atom_Price_SimpleItem)
+                {
+                    iQuantity = (int)dr_Atom_Price_SimpleItem[icol_iQuantity];
+                    Atom_Price_SimpleItem_ID = (long)dr_Atom_Price_SimpleItem["ID"];
+                    dRetailPriceWithDiscount =(decimal)dr_Atom_Price_SimpleItem[icol_RetailPriceWithDiscount];
+                    dsum += dRetailPriceWithDiscount * iQuantity;
+                }
+            }
+
+            DataRow[] drs_Atom_ProformaInvoice_Price_Item_Stock = dt_Atom_ProformaInvoice_Price_Item_Stock.Select("ProformaInvoice_ID=" + ProformaInvoice_ID.ToString());
+            if (drs_Atom_ProformaInvoice_Price_Item_Stock.Count()>0)
+            {
+                decimal dQuantity = -1;
+                int icol_iQuantity = dt_Atom_ProformaInvoice_Price_Item_Stock.Columns.IndexOf("dQuantity");
+                int icol_Atom_Price_Item_ID = dt_Atom_ProformaInvoice_Price_Item_Stock.Columns.IndexOf("Atom_Price_Item_ID");
+
+                decimal dRetailPricePerUnit = -1;
+                
+                foreach (DataRow dr_Atom_ProformaInvoice_Price_Item_Stock in drs_Atom_ProformaInvoice_Price_Item_Stock)
+                {
+                    dQuantity = (decimal)dr_Atom_ProformaInvoice_Price_Item_Stock[icol_iQuantity];
+                    long Atom_Price_Item_ID = (long)dr_Atom_ProformaInvoice_Price_Item_Stock[icol_Atom_Price_Item_ID];
+                    DataRow[] drs_Atom_Price_Item = dt_Atom_Price_Item.Select("ID="+Atom_Price_Item_ID.ToString());
+                    if (drs_Atom_Price_Item.Count()==1)
+                    {
+                        dRetailPricePerUnit = (decimal)drs_Atom_Price_Item[0]["RetailPricePerUnit"];
+                        dsum += decimal.Round(dQuantity * dRetailPricePerUnit,2);
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Upgrade:GetItemsSum:drs_Atom_Price_Item.Count()!=1");
                     }
                 }
             }
-            wfp_ui_thread.End();
-            return true;
+            ItemsGrossSum = dsum;
         }
+
+
 
         private bool Set_DatBase_Version(string Version)
         {

@@ -59,5 +59,15 @@ namespace usrc_Upgrade.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UpgradeDataBase {
+            get {
+                object obj = ResourceManager.GetObject("UpgradeDataBase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
