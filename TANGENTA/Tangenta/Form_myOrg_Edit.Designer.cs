@@ -134,7 +134,7 @@
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
-            // Form_MyCompany_Person_Data_Edit
+            // Form_myOrg_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -143,7 +143,7 @@
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_MyCompany_Person_Data_Edit";
+            this.Name = "Form_myOrg_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MyCompanyData_EditForm";
             this.Load += new System.EventHandler(this.MyCompanyData_EditForm_Load);

@@ -5,7 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
-
+//Form_myOrg_Edit.Designer.cs:line 145
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +38,7 @@ namespace Tangenta
         {
             dt_my_company.Clear();
             string sql = null;
-             sql = @"select * from Atom_myCompany_VIEW";
+             sql = @"select * from myCompany_VIEW";
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_my_company,sql,ref Err))

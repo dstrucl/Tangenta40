@@ -60,7 +60,7 @@ namespace InvoiceDB
                                 LEFT JOIN cZIP_Org Office_Data_$_cadrorg_$_cziporg ON Office_Data_$_cadrorg.cZIP_Org_ID = Office_Data_$_cadrorg_$_cziporg.ID
                                 LEFT JOIN cCountry_Org Office_Data_$_cadrorg_$_cstorg ON Office_Data_$_cadrorg.cCountry_Org_ID = Office_Data_$_cadrorg_$_cstorg.ID
                                 LEFT JOIN cState_Org Office_Data_$_cadrorg_$_ccouorg ON Office_Data_$_cadrorg.cState_Org_ID = Office_Data_$_cadrorg_$_ccouorg.ID
-                              where Office_Data_$_office_$$ID = " + Office_ID_v.v.ToString();
+                              where Office_Data_$_office.ID = " + Office_ID_v.v.ToString();
 
                 DataTable dt = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
