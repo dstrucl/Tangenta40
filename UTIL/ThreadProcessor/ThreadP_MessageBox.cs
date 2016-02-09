@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ThreadProcessor
 {
-    public enum Result_MessageBox_Get { OK,TIMEOUT,EMPTY};
+    public enum Result_MessageBox_Get { OK,TIMEOUT,EMPTY, ERROR};
     public enum Result_MessageBox_Post { OK, TIMEOUT, FULL, ERROR };
 
     public class ThreadP_MessageBox

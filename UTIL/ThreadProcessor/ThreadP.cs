@@ -52,7 +52,22 @@ namespace ThreadProcessor
                                 object oParam = p_message.ParameterAsObject;
                                 string Err = null;
                                 object oResult = proc(oParam, ref Err);
-                                xThreadP2Ctrl_Message.Set(0, ThreadP2Ctrl_Message.eMessage.MESSAGE, proc, oResult, Err);
+                                if (oResult is bool)
+                                {
+                                    if (!(bool)oResult)
+                                    {
+                                        xThreadP2Ctrl_Message.Set(0, ThreadP2Ctrl_Message.eMessage.ERROR, proc, oResult, Err);
+                                    }
+                                    else
+                                    {
+                                        xThreadP2Ctrl_Message.Set(0, ThreadP2Ctrl_Message.eMessage.MESSAGE, proc, oResult, Err);
+                                    }
+                                }
+                                else
+                                {
+                                    xThreadP2Ctrl_Message.Set(0, ThreadP2Ctrl_Message.eMessage.MESSAGE, proc, oResult, Err);
+                                }
+
                                 xThreadP2Ctrl_MessageBox.Post(xThreadP2Ctrl_Message);
                                 break;
 

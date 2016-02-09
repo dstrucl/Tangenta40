@@ -77,7 +77,7 @@ namespace ThreadProcessor
             {
                 msg.Message = m_obuff[pOut].Message;
                 msg.Procedure = m_obuff[pOut].Procedure;
-                msg.ParameterAsObject = m_obuff[pOut].Procedure;
+                msg.ParameterAsObject = m_obuff[pOut].ParameterAsObject;
                 msg.Message_ID = m_obuff[pOut].Message_ID;
                 m_obuff[pOut].Message = ThreadP_Message.eMessage.NONE;
                 m_obuff[pOut].Procedure = null;

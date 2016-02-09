@@ -1,6 +1,6 @@
 ﻿namespace usrc_Upgrade
 {
-    partial class usrc_Upgrade
+    partial class usrc_Upgrade_inThread
     {
         /// <summary> 
         /// Required designer variable.

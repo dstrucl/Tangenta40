@@ -79,7 +79,7 @@ namespace ThreadProcessor
         {
             Message_ID = xMessage_ID;
             Message = xMessage;
-            m_ParameterAsObject = procedure;
+            Procedure = procedure;
             m_ParameterAsObject = parameterasobject;
         }
     }

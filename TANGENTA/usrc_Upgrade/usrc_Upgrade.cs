@@ -20,7 +20,7 @@ using ThreadProcessor;
 
 namespace usrc_Upgrade
 {
-    public partial class usrc_Upgrade : UserControl
+    public partial class usrc_Upgrade_inThread : UserControl
     {
         public class Upgrade
         {
@@ -44,7 +44,7 @@ namespace usrc_Upgrade
 
         public Upgrade[] UpgradeArray = null;
 
-        public usrc_Upgrade()
+        public usrc_Upgrade_inThread()
         {
             InitializeComponent();
             UpgradeArray = new Upgrade[] 
@@ -70,7 +70,18 @@ namespace usrc_Upgrade
         }
         public bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err)
         {
-            return false;
+            int i = 0;
+            int iCount = UpgradeArray.Length;
+            for (i = 0; i < iCount;i++)
+            {
+                if (UpgradeArray[i].DBVersion.Equals(sOldDBVersion))
+                {
+                    int j = i;
+                    usrc_Upgrade.Form_Upgrade_inThread frm_upgr = new usrc_Upgrade.Form_Upgrade_inThread(this, UpgradeArray, j);
+                    frm_upgr.ShowDialog();
+                }
+            }
+            return true;
         }
 
         private object UpgradeDB_1_16_to_1_17(object obj,ref string Err)
@@ -779,7 +790,7 @@ namespace usrc_Upgrade
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
-                string stbl = "ProformaInvoice_Image";
+                string stbl = "ProformaInvoice_Notice";
                 if (DBSync.DBSync.TableExists(stbl, ref Err))
                 {
 
@@ -817,7 +828,7 @@ namespace usrc_Upgrade
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_08_to_1_09:sql = " + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_10_to_1_11:sql = " + sql + "\r\nErr=" + Err);
                     return false;
                 }
 
@@ -2424,7 +2435,7 @@ namespace usrc_Upgrade
             }
         }
 
-        internal bool Write2DB(Database_Upgrade_WindowsForm_Thread wfp_ui_thread,usrc_Upgrade.eUpgrade eUpgr,Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
+        internal bool Write2DB(Database_Upgrade_WindowsForm_Thread wfp_ui_thread,usrc_Upgrade_inThread.eUpgrade eUpgr,Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
         {
             string Err = null;
             foreach (TableDataItem xtdi in fkey_TableDataItem_List)
@@ -2432,7 +2443,7 @@ namespace usrc_Upgrade
                 xtdi.Write2DB(wfp_ui_thread, eUpgr, m_Old_tables_1_04_to_1_05);
             }
 
-            if (eUpgr == usrc_Upgrade.eUpgrade.from_1_04_to_105)
+            if (eUpgr == usrc_Upgrade_inThread.eUpgrade.from_1_04_to_105)
             {
                 if (this.tbl.TableName.ToLower().Equals("pricelist"))
                 {
@@ -2522,7 +2533,7 @@ namespace usrc_Upgrade
                         }
                         else
                         {
-                            if (eUpgr == usrc_Upgrade.eUpgrade.from_1_04_to_105)
+                            if (eUpgr == usrc_Upgrade_inThread.eUpgrade.from_1_04_to_105)
                             {
                                 if (dcol.ColumnName.ToLower().Equals("mycompany_person_id"))
                                 {
