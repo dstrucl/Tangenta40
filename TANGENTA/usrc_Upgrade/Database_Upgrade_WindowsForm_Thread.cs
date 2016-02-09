@@ -13,8 +13,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using uwpf_GUI;
 
-namespace Tangenta
+namespace usrc_Upgrade
 {
     class Database_Upgrade_WindowsForm_Thread
     {

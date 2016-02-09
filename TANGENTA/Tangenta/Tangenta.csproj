@@ -42,7 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
@@ -54,7 +54,7 @@
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
@@ -85,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
-    <Compile Include="Database_Upgrade_WindowsForm_Thread.cs" />
     <Compile Include="DURS_Izpis_Postavka.cs" />
     <Compile Include="EscPos_RP58 .cs" />
     <Compile Include="EscPos_RP80.cs" />
@@ -438,12 +437,6 @@
     <Compile Include="usrc_PurchasePriceList_Edit.Designer.cs">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Upgrade.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Upgrade.Designer.cs">
-      <DependentUpon>usrc_Upgrade.cs</DependentUpon>
-    </Compile>
     <Compile Include="uwpf_UndefinedPriceForItem.xaml.cs">
       <DependentUpon>uwpf_UndefinedPriceForItem.xaml</DependentUpon>
     </Compile>
@@ -689,9 +682,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="usrc_Upgrade.resx">
-      <DependentUpon>usrc_Upgrade.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -832,6 +822,10 @@
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
       <Name>UniversalInvoice</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\usrc_Upgrade\usrc_Upgrade.csproj">
+      <Project>{7eea3e02-1c5d-4451-9976-4f65f2ce1492}</Project>
+      <Name>usrc_Upgrade</Name>
     </ProjectReference>
     <ProjectReference Include="..\uwpf_GUI\uwpfGUI.csproj">
       <Project>{f0cc2d06-fa8d-4b08-8b7c-9e0e03babdc3}</Project>
@@ -1050,6 +1044,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7EEA3E02-1C5D-4451-9976-4F65F2CE1492}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>usrc_Upgrade</RootNamespace>
+    <AssemblyName>usrc_Upgrade</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database_Upgrade_WindowsForm_Thread.cs" />
+    <Compile Include="Form_Upgrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Upgrade.Designer.cs">
+      <DependentUpon>Form_Upgrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_Upgrade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Upgrade.Designer.cs">
+      <DependentUpon>usrc_Upgrade.cs</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form_Upgrade.resx">
+      <DependentUpon>Form_Upgrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Upgrade.resx">
+      <DependentUpon>usrc_Upgrade.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DB_PLATFORM\DBConectionControl40\DBConnectionControl40.csproj">
+      <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
+      <Name>DBConnectionControl40</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\DBSync\DBSync.csproj">
+      <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
+      <Name>DBSync</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\DBTypes\DBTypes.csproj">
+      <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DB_PLATFORM\SQLTableControl\SQLTableControl.csproj">
+      <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
+      <Name>SQLTableControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StaticLib\StaticLib.csproj">
+      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
+      <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\ThreadProcessor\ThreadProcessor.csproj">
+      <Project>{51e8c8bc-b176-40e5-b452-c80d9421ab79}</Project>
+      <Name>ThreadProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
+      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
+      <Name>BlagajnaDataBaseDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>BlagajnaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>InvoiceDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uwpf_GUI\uwpfGUI.csproj">
+      <Project>{f0cc2d06-fa8d-4b08-8b7c-9e0e03babdc3}</Project>
+      <Name>uwpfGUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UpgradeDataBase.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

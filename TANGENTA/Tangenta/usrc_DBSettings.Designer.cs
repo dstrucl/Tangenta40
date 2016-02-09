@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿
+
+namespace Tangenta
 {
     partial class usrc_DBSettings
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.btn_Settings = new System.Windows.Forms.Button();
-            this.m_usrc_Upgrade = new Tangenta.usrc_Upgrade();
+            this.m_usrc_Upgrade = new usrc_Upgrade.usrc_Upgrade_inThread();
             this.SuspendLayout();
             // 
             // btn_Settings
@@ -48,7 +50,7 @@
             this.m_usrc_Upgrade.Name = "m_usrc_Upgrade";
             this.m_usrc_Upgrade.Size = new System.Drawing.Size(43, 33);
             this.m_usrc_Upgrade.TabIndex = 1;
-            this.m_usrc_Upgrade.Backup += new Tangenta.usrc_Upgrade.delegate_Backup(this.m_usrc_Upgrade_Backup);
+            this.m_usrc_Upgrade.Backup += new usrc_Upgrade.usrc_Upgrade_inThread.delegate_Backup(this.m_usrc_Upgrade_Backup);
             this.m_usrc_Upgrade.Load += new System.EventHandler(this.m_usrc_Upgrade_Load);
             // 
             // usrc_DBSettings
@@ -65,6 +67,6 @@
         #endregion
 
         private System.Windows.Forms.Button btn_Settings;
-        private usrc_Upgrade m_usrc_Upgrade;
+        private usrc_Upgrade.usrc_Upgrade_inThread m_usrc_Upgrade;
     }
 }
