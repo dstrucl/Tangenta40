@@ -55,7 +55,7 @@ namespace Tangenta
                 if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
                 {
                     string Err = null;
-                    if (this.m_usrc_InvoiceMan.m_usrc_Invoice.GetCompanyData())
+                    if (this.m_usrc_InvoiceMan.m_usrc_Invoice.GetCompanyData(this))
                     {
                         if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
                         {

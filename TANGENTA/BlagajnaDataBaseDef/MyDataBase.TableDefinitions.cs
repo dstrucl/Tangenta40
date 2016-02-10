@@ -50,7 +50,7 @@ namespace BlagajnaDataBaseDef
     }
     partial class MyDataBase_Blagajna
     {
-        public const string VERSION = "1.17";
+        public const string VERSION = "1.19";
         public Settings Settings = null;
 
         /* 1 */
@@ -927,7 +927,7 @@ namespace BlagajnaDataBaseDef
             t_myCompany_Person.AddColumn((Object)mt.m_myCompany_Person.Active, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.CheckBox_default_true, new ltext( "Active", "Aktivna") );
             t_myCompany_Person.AddColumn((Object)mt.m_myCompany_Person.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Description", "Opis") );
             t_myCompany_Person.AddColumn((Object)mt.m_myCompany_Person.m_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "My Company Person ID", "Oseba v podjetju ID") );
-            t_myCompany_Person.AddColumn((Object)mt.m_myCompany_Person.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Office ID", "Poslovna enota ID") );
+            t_myCompany_Person.AddColumn((Object)mt.m_myCompany_Person.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext( "Office ID", "Poslovna enota ID") );
             m_DBTables.items.Add(t_myCompany_Person);
 
         /* 51 */
@@ -1202,7 +1202,7 @@ namespace BlagajnaDataBaseDef
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.RetailPricePerUnit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Retail Price Per Unit", "Maloprodajna cena na komad") );
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Discount", "Popust") );
-            t_Price_Item.AddColumn((Object)mt.m_Price_Item.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Taxation ID", "Obdavčitev ID") );
+            t_Price_Item.AddColumn((Object)mt.m_Price_Item.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext( "Taxation ID", "Obdavčitev ID") );
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext( "Item ID", "Artikel ID") );
             t_Price_Item.AddColumn((Object)mt.m_Price_Item.m_PriceList, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext( "Price List ID", "Cenik ID") );
             m_DBTables.items.Add(t_Price_Item);
@@ -1775,8 +1775,9 @@ namespace BlagajnaDataBaseDef
         /* 153 */
             t_Office =  new SQLTable((Object)new Office(),"office", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Office);
             t_Office.AddColumn((Object)mt.m_Office.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Office.AddColumn((Object)mt.m_Office.m_myCompany, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "My Company ID", "Moja oragnizacija ID") );
             t_Office.AddColumn((Object)mt.m_Office.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Office Name", "Ime poslovne enote") );
+            t_Office.AddColumn((Object)mt.m_Office.ShortName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("Office Short Name", "Kratko ime"));
+            t_Office.AddColumn((Object)mt.m_Office.m_myCompany, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.ReadOnlyTable, new ltext("My Company ID", "Moja oragnizacija ID"));
             m_DBTables.items.Add(t_Office);
 
 
@@ -1801,6 +1802,7 @@ namespace BlagajnaDataBaseDef
             t_Atom_Office.AddColumn((Object)mt.m_Atom_Office.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Atom_Office.AddColumn((Object)mt.m_Atom_Office.m_Atom_myCompany, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "My Company archive ID", "Moja oragnizacija arhiv ID") );
             t_Atom_Office.AddColumn((Object)mt.m_Atom_Office.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office Name archive", "Ime poslovne enote") );
+            t_Atom_Office.AddColumn((Object)mt.m_Atom_Office.ShortName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office Short Name", "Kratko Ime poslovne enote"));
             m_DBTables.items.Add(t_Atom_Office);
 
         /* 157 */
@@ -1857,18 +1859,16 @@ namespace BlagajnaDataBaseDef
         /* 163 */
             t_Office_Data  = new SQLTable((Object)new Office_Data(),"officed", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Office_Data);
             t_Office_Data.AddColumn((Object)mt.m_Office_Data.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Office_Data.AddColumn((Object)mt.m_Office_Data.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office ID", "Poslovna enota ID") );
-            t_Office_Data.AddColumn((Object)mt.m_Office_Data.m_cAddress_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office address ID", "Poslovna enota naslov ID") );
-            t_Office_Data.AddColumn((Object)mt.m_Office_Data.m_myCompany_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office CEA ID", "Vodja poslovne enote ID") );
-            t_Office_Data.AddColumn((Object)mt.m_Office_Data.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office Description", "Poslovna enota opis") );
+            t_Office_Data.AddColumn((Object)mt.m_Office_Data.m_cAddress_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office address ID", "Poslovna enota naslov ID"));
+            t_Office_Data.AddColumn((Object)mt.m_Office_Data.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office Description", "Poslovna enota opis"));
+            t_Office_Data.AddColumn((Object)mt.m_Office_Data.m_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.ReadOnlyTable, new ltext( "Office ID", "Poslovna enota ID") );
             m_DBTables.items.Add(t_Office_Data);
 
         /* 164 */
             t_Atom_Office_Data = new SQLTable((Object)new Atom_Office_Data(),"aofficed", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_Office_Data);
             t_Atom_Office_Data.AddColumn((Object)mt.m_Atom_Office_Data.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_Office_Data.AddColumn((Object)mt.m_Atom_Office_Data.m_Atom_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office archive ID", "Poslovna enota arhiv ID") );
+            t_Atom_Office_Data.AddColumn((Object)mt.m_Atom_Office_Data.m_Atom_Office, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext( "Office archive ID", "Poslovna enota arhiv ID") );
             t_Atom_Office_Data.AddColumn((Object)mt.m_Atom_Office_Data.m_Atom_cAddress_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office address archive ID", "Poslovna enota naslov arhiv ID") );
-            t_Atom_Office_Data.AddColumn((Object)mt.m_Atom_Office_Data.m_Atom_myCompany_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office CEA archive ID", "Vodja poslovne enote arhiv ID") );
             t_Atom_Office_Data.AddColumn((Object)mt.m_Atom_Office_Data.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Office Description", "Poslovna enota opis") );
             m_DBTables.items.Add(t_Atom_Office_Data);
 
@@ -1947,7 +1947,6 @@ namespace BlagajnaDataBaseDef
          /* 173 */
             t_FVI_SLO_RealEstateBP = new SQLTable((Object)new FVI_SLO_RealEstateBP(), "fvislore", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_FVI_SLO_RealEstateBP);
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.m_Office_Data, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Office Data ID", "Poslovna enota podatki ID"));
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.BuildingNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("BuildingNumber", "Številka stavbe"));
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.BuildingSectionNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("BuildingSectionNumber", "Številka dela stavbe"));
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.Community, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Community", "Naselje"));
@@ -1956,6 +1955,7 @@ namespace BlagajnaDataBaseDef
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.ClosingTag, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("ClosingTag", "ZaprtjePoslovnegaProstora"));
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.SoftwareSupplier_TaxNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SW supplier tax number", "Davčna številka dobavitelja programske opreme ali vzdrževalca"));
             t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.PremiseType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Premise Type", "Vrsta poslovnega prostora"));
+            t_FVI_SLO_RealEstateBP.AddColumn((Object)mt.m_FVI_SLO_RealEstateBP.m_Office_Data, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.ReadOnlyTable, new ltext("Office Data ID", "Poslovna enota podatki ID"));
             m_DBTables.items.Add(t_FVI_SLO_RealEstateBP);
 
 

@@ -21,7 +21,6 @@ namespace LanguageControl
         private ltext ltext;
         string[] m_sText = null;
         DataTable dt_Translations = new DataTable();
-        bool bChanged = false;
 
         public Form_ltext_Edit(ltext xltext, ref string[] sText)
         {

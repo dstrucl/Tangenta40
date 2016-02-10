@@ -38,10 +38,8 @@ namespace InvoiceDB
         public static string_v Logo_Hash_v = null;
         public static byte_array_v Logo_Image_Data_v = null;
         public static string_v Logo_Description_v = null;
-
+        public static List<myOrg_Office> myOrg_Office_list = new List<myOrg_Office>();
         public static List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
-        public static myOrg_Person myOrg_Person_LoggedIn = null;
-
 
 
         public static bool Get(long myCompany_id)
@@ -160,6 +158,7 @@ namespace InvoiceDB
                     myOrg.Address_v.State_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_ccouorg_$$State"]);
                     if (myOrg.ID_v != null)
                     {
+                        myOrg_Office_List.Get(myOrg.ID_v.v, ref myOrg.myOrg_Office_list);
                         myOrg_Person_List.Get(myOrg.ID_v.v, ref myOrg.myOrg_Person_list);
                     }
                 }

@@ -108,6 +108,24 @@
     <Compile Include="Form_myOrg_Edit.Designer.cs">
       <DependentUpon>Form_myOrg_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.Designer.cs">
+      <DependentUpon>Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_myOrg_Office_Data.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Office_Data.Designer.cs">
+      <DependentUpon>Form_myOrg_Office_Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_myOrg_Office.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_myOrg_Office.Designer.cs">
+      <DependentUpon>Form_myOrg_Office.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_myOrg_Person_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -482,6 +500,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_myOrg_Edit.resx">
       <DependentUpon>Form_myOrg_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.resx">
+      <DependentUpon>Form_myOrg_Office_Data_FVI_SLO_RealEstateBP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Office_Data.resx">
+      <DependentUpon>Form_myOrg_Office_Data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_myOrg_Office.resx">
+      <DependentUpon>Form_myOrg_Office.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_myOrg_Person_Edit.resx">
       <DependentUpon>Form_myOrg_Person_Edit.cs</DependentUpon>
