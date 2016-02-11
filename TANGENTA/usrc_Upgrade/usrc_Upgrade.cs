@@ -36,8 +36,8 @@ namespace usrc_Upgrade
 
         public delegate void delegate_Backup();
         public event delegate_Backup Backup;
-        public enum eUpgrade {none,from_1_04_to_105};
-        public Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05 =null;
+        public enum eUpgrade { none, from_1_04_to_105 };
+        public Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05 = null;
         internal eUpgrade m_eUpgrade = eUpgrade.none;
         Database_Upgrade_WindowsForm_Thread wfp_ui_thread = null;
         List<TableDataItem> TableDataItem_List = new List<TableDataItem>();
@@ -47,7 +47,7 @@ namespace usrc_Upgrade
         public usrc_Upgrade_inThread()
         {
             InitializeComponent();
-            UpgradeArray = new Upgrade[] 
+            UpgradeArray = new Upgrade[]
             {
                 new Upgrade("1.0",UpgradeDB_1_0_to_1_01),
                 new Upgrade("1.01",UpgradeDB_1_01_to_1_02),
@@ -65,14 +65,16 @@ namespace usrc_Upgrade
                 new Upgrade("1.13",UpgradeDB_1_13_to_1_14),
                 new Upgrade("1.14",UpgradeDB_1_14_to_1_15),
                 new Upgrade("1.15",UpgradeDB_1_15_to_1_16),
-                new Upgrade("1.16",UpgradeDB_1_16_to_1_17)
+                new Upgrade("1.16",UpgradeDB_1_16_to_1_17),
+                new Upgrade("1.17",UpgradeDB_1_17_to_1_18),
+                new Upgrade("1.18",UpgradeDB_1_18_to_1_19)
             };
         }
         public bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err)
         {
             int i = 0;
             int iCount = UpgradeArray.Length;
-            for (i = 0; i < iCount;i++)
+            for (i = 0; i < iCount; i++)
             {
                 if (UpgradeArray[i].DBVersion.Equals(sOldDBVersion))
                 {
@@ -83,6 +85,346 @@ namespace usrc_Upgrade
             }
             return true;
         }
+
+        private object UpgradeDB_1_18_to_1_19(object obj, ref string Err)
+        {
+            if (DBSync.DBSync.Drop_VIEWs())
+            {
+                string sql = null;
+                //Repair StudioMarjetka DataBase
+                string stbl = "Office_Data_backup";
+                if (DBSync.DBSync.TableExists(stbl, ref Err))
+                {
+                    sql = "DROP TABLE Office_Data_backup";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                stbl = "Atom_Office_Data_backup";
+                if (DBSync.DBSync.TableExists(stbl, ref Err))
+                {
+                    sql = "DROP TABLE Atom_Office_Data_backup";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+
+                sql = @"
+                        CREATE TABLE Office_Data_backup
+                          (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                           Office_ID  INTEGER  NOT NULL REFERENCES Office(ID),
+                           cAddress_Org_ID  INTEGER  NULL REFERENCES cAddress_Org(ID),
+                          'Description' varchar(2000) NULL
+
+                          )";
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    sql = @"
+                            insert into Office_Data_backup
+                            (
+                             Office_ID,
+                             cAddress_Org_ID, 
+                             Description
+                            )
+                            select
+                            Office_ID,
+                            cAddress_Org_ID,
+                            Description
+                            from office_data
+                            ";
+
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        sql = @"
+                            CREATE TABLE Atom_Office_Data_backup
+                              (
+                              'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                               Atom_Office_ID  INTEGER  NOT NULL REFERENCES Atom_Office(ID),
+                               Atom_cAddress_Org_ID  INTEGER  NULL REFERENCES Atom_cAddress_Org(ID),
+                              'Description' varchar(2000) NULL
+                              )";
+                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        {
+                            sql = @"
+                                insert into Atom_Office_Data_backup
+                                (
+                                Atom_Office_ID,
+                                Atom_cAddress_Org_ID, 
+                                Description
+                                )
+                                select
+                                Atom_Office_ID,
+                                Atom_cAddress_Org_ID,
+                                Description
+                                from Atom_Office_Data
+                                ";
+                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+
+                                sql = @"PRAGMA foreign_keys = OFF;
+                                    DROP TABLE Office_Data;
+                                    DROP TABLE Atom_Office_Data;
+                                    ALTER TABLE Office_Data_backup RENAME TO Office_Data;
+                                    ALTER TABLE Atom_Office_Data_backup RENAME TO Atom_Office_Data; 
+                                    PRAGMA foreign_keys = ON; ";
+                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                {
+                                    if (DBSync.DBSync.Create_VIEWs())
+                                    {
+                                        Set_DatBase_Version("1.19");
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private object UpgradeDB_1_17_to_1_18(object obj, ref string Err)
+        {
+            if (DBSync.DBSync.Drop_VIEWs())
+            {
+                string sql = null;
+                //Repair StudioMarjetka DataBase
+                if (DBSync.DBSync.DataBase.Contains("StudioMarjetka"))
+                {
+                    sql = "Update Atom_Organisation set Registration_ID = '3802809000'";
+
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                    sql = "Update Atom_OrganisationData set Atom_Organisation_ID = 1 , Atom_Logo_ID = 1";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Update Atom_Office set Atom_myCompany_ID = 1";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Update Atom_myCompany_Person set Atom_Office_ID = 1";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Update Atom_WorkPeriod set Atom_myCompany_Person_ID = 1";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Delete from Atom_myCompany_Person where ID in (2,3)";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Delete from Atom_Office where ID = 2";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Delete from Atom_myCompany where ID = 2";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Delete from Atom_OrganisationData where ID = 2";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Delete from Atom_Organisation where ID = 2";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                string stbl = "Office_backup";
+                if (DBSync.DBSync.TableExists(stbl, ref Err))
+                {
+                    sql = "DROP TABLE Office_backup";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                stbl = "Atom_Office_backup";
+                if (DBSync.DBSync.TableExists(stbl, ref Err))
+                {
+                    sql = "DROP TABLE Atom_Office_backup";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+
+                sql = @"
+                    CREATE TABLE Office_backup
+                    (
+                    'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                    myCompany_ID  INTEGER  NOT NULL REFERENCES myCompany(ID),
+                    'Name' varchar(264) UNIQUE NOT NULL, 
+                    'ShortName' varchar(10) UNIQUE  NOT NULL
+                    )";
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    sql = @"
+                            insert into Office_backup
+                            (
+                             myCompany_ID,
+                            Name, 
+                            ShortName
+                            )
+                            select
+                            myCompany_ID,
+                            Name,
+                            'KUNAVE6'
+                            from office
+                            ";
+
+                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        sql = @"
+                            CREATE TABLE Atom_Office_backup
+                            (
+                            'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                             Atom_myCompany_ID  INTEGER  NOT NULL REFERENCES Atom_myCompany(ID),
+                            'Name' varchar(264) UNIQUE NOT NULL, 
+                            'ShortName' varchar(10) UNIQUE  NOT NULL
+                            )";
+                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        {
+                            sql = @"
+                                insert into Atom_Office_backup
+                                (
+                                Atom_myCompany_ID,
+                                Name, 
+                                ShortName
+                                )
+                                select
+                                Atom_myCompany_ID,
+                                Name,
+                                'KUNAVE6'
+                                from Atom_office
+                                ";
+                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+
+                                sql = @"PRAGMA foreign_keys = OFF;
+                                    DROP TABLE Office;
+                                    DROP TABLE Atom_Office;
+                                    ALTER TABLE Office_backup RENAME TO Office;
+                                    ALTER TABLE Atom_Office_backup RENAME TO Atom_Office; 
+                                    PRAGMA foreign_keys = ON; ";
+                                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                {
+                                    if (DBSync.DBSync.Create_VIEWs())
+                                    {
+                                        Set_DatBase_Version("1.18");
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    
 
         private object UpgradeDB_1_16_to_1_17(object obj,ref string Err)
         {

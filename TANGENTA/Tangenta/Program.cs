@@ -26,44 +26,57 @@ namespace Tangenta
 {
     static class Program
     {
-        public static bool bStartup = true;
 
-        public const string PRESS_DATA_XML = "PressDB.xml";
+        #region Constants
+        const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
+        const string const_command_RESETNEW = "RESETNEW";
+        const string const_command_SYMULATOR = "SYMULATOR";
+        const string const_command_RS232MONITOR = "RS232MONITOR";
+        const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
+        #endregion
 
-        public const int const_NoLimit = -1;
-        public const string const_inifile_prefix = "Blagajna_";
+        #region Variables
+        internal static bool bStartup = true;
 
-        
+        internal static string IniFileName = "Tangenta.ini";
+        internal static string IniFolder = "";
+        internal static string IniFile = "";
+
+        internal static usrc_FVI_SLO usrc_FVI_SLO1 = null;
+        internal static usrc_Printer usrc_Printer1 = null;
+
+        internal static Form_Main MainForm = null;
+
+        internal static bool bShowCommandLineHelp = false;
+        internal static bool bDemo = false;
+
+        internal static List<CommandLineHelp.CommandLineHelp> command_line_help = new List<CommandLineHelp.CommandLineHelp>();
+
+        internal static bool bChangeConnection = false;
+        internal static bool bSymulator = false;
+        internal static bool bRS232Monitor = false;
+        internal static bool b_FVI_SLO = true;
+        internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
+        internal static bool bReset2FactorySettings = false;
+
+        private static bool m_bProgramDiagnostic = false;
+        #endregion
+
+        #region External WIN_API
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("User32")]
         extern public static int GetGuiResources(IntPtr hProcess, int uiFlags);
+        #endregion
 
-
-        public static string IniFileName = "Tangenta.ini";
-        public static string IniFolder = "";
-        public static string IniFile = "";
-
-        public static usrc_FVI_SLO usrc_FVI_SLO1 = null;
-        public static usrc_Printer usrc_Printer1 = null;
-
-
-        
-
-        internal static string UserName = "UserName not defined";
-
-
-        internal static Form_Main MainForm = null;
-
-        private static bool m_bProgramDiagnostic = false;
+        #region Properties
 
         public static string Shops_in_use
         {
             get { return Properties.Settings.Default.eShopsInUse; }
         }
-
 
         public static long myCompany_Person_ID
         {
@@ -80,42 +93,25 @@ namespace Tangenta
             }
         }
 
-
-
         public static bool ProgramDiagnostic
         {
             get { return m_bProgramDiagnostic; }
         }
 
-        
+        #endregion
 
+        #region Methods
 
-        public static int getGuiResourcesUserCount()
+        internal static int getGuiResourcesUserCount()
         {
             return GetGuiResources(System.Diagnostics.Process.GetCurrentProcess().Handle, 1);
         }
 
 
-        const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
-        const string const_command_RESETNEW = "RESETNEW";
-        const string const_command_SYMULATOR = "SYMULATOR";
-        const string const_command_RS232MONITOR = "RS232MONITOR";
-        const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
-
-        internal static bool bShowCommandLineHelp = false;
-        internal static bool bDemo = false;
-
-        public static List<CommandLineHelp.CommandLineHelp> command_line_help = new List<CommandLineHelp.CommandLineHelp>();
-
-        internal static bool bChangeConnection = false;
-        internal static bool bSymulator = false;
-        internal static bool bRS232Monitor = false;
-        internal static bool b_FVI_SLO = true;
-        internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
-        internal static bool bReset2FactorySettings = false;
 
 
-        public static int Get_BaseCurrency_DecimalPlaces()
+
+        internal static int Get_BaseCurrency_DecimalPlaces()
         {
             if (GlobalData.BaseCurrency != null)
             {
@@ -127,6 +123,39 @@ namespace Tangenta
                 return 0;
             }
         }
+
+        internal static void Cursor_Wait()
+        {
+            if (MainForm != null)
+            {
+                MainForm.Cursor = Cursors.WaitCursor;
+            }
+        }
+
+        internal static void Cursor_Arrow()
+        {
+            if (MainForm != null)
+            {
+                MainForm.Cursor = Cursors.Arrow;
+            }
+        }
+
+
+        internal static string GetInvoiceNumber(bool bDraft, int FinancialYear, int NumberInFinancialYear, int DraftNumber)
+        {
+            string sNumber = null;
+            if (bDraft)
+            {
+                sNumber = FinancialYear.ToString() + "/" + lngRPM.s_Draft.s + " " + DraftNumber.ToString();
+            }
+            else
+            {
+                sNumber = FinancialYear.ToString() + "/" + NumberInFinancialYear.ToString();
+            }
+            return sNumber;
+        }
+
+        #endregion
 
         /// <summary>
         /// The main entry point for the application.
@@ -215,20 +244,11 @@ namespace Tangenta
                 {
                     MessageBox.Show("ERROR Loading LogFile Settings ! Err=" + Err);
                 }
-                //Settings_Kig_Programski_Paket.Settings.m_eType = Settings_Kig_Programski_Paket.Settings.eType.DataBase_Settings;
-
-                //Settings_Kig_Programski_Paket.Settings_List.Load(
-
-
 
                 LogFile.LogFile.InitLogFile(CommandLineArguments);
+
                 LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
 
-                //if (!CrystalReportInstalled(ref VersionOfCrystalReport))
-                //{
-                //    MessageBox.Show("Error: Crystal Report Not Installed!\r\nYou must install Crystal Report befor starting " + Application.ProductName + "!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //    return;
-                //}
                 LanguageControl.DynSettings.LoadLanguages();
                 LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Blagajna.Settings.LanguageID; ;
                 LanguageControl.DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
@@ -240,8 +260,6 @@ namespace Tangenta
                     MessageBox.Show(lngRPM.s_Another_instance_is_running.s);
                     return;
                 }
-
-
 
 
                 bool createdNew = true;
@@ -304,42 +322,5 @@ namespace Tangenta
             }
 
         }
-
-
-
-
-        internal static void Cursor_Wait()
-        {
-            if (MainForm!=null)
-            {
-                MainForm.Cursor = Cursors.WaitCursor;
-            }
-        }
-
-        internal static void Cursor_Arrow()
-        {
-            if (MainForm != null)
-            {
-                MainForm.Cursor = Cursors.Arrow;
-            }
-        }
-
-  
-        internal static string GetInvoiceNumber(bool bDraft, int FinancialYear, int NumberInFinancialYear, int DraftNumber)
-        {
-             string sNumber = null;
-            if (bDraft)
-            {
-                sNumber = FinancialYear.ToString() + "/"+lngRPM.s_Draft.s + " " + DraftNumber.ToString();
-            }
-            else
-            {
-                sNumber = FinancialYear.ToString() + "/" + NumberInFinancialYear.ToString();
-            }
-            return sNumber;
-        }
-
-      
     }
-
 }

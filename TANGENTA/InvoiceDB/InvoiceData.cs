@@ -559,7 +559,7 @@ namespace InvoiceDB
                                  inner join Atom_myCompany_Person amcp on awp.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID and aoffd.Atom_myCompany_Person_ID = awp.Atom_myCompany_Person_ID
+                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID 
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
@@ -636,7 +636,7 @@ namespace InvoiceDB
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                  inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID and aoffd.Atom_myCompany_Person_ID = awp.Atom_myCompany_Person_ID
+                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID

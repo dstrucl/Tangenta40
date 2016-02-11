@@ -27,11 +27,13 @@ namespace Tangenta
         SQLTable tbl = null;
         //bool bclose = false;
 
-        public Form_myOrg_Edit(SQLTableControl.DBTableControl xdbTables,SQLTable xtbl)
+        public Form_myOrg_Edit(SQLTableControl.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew)
         {
             InitializeComponent();
             dbTables = xdbTables;
             tbl = xtbl;
+            usrc_EditRow.AllowUserToAddNew = bAllowNew;
+            lngRPM.s_Edit_Offices.Text(btn_Office);
         }
 
         private bool InitDataTable(long ID)
@@ -71,6 +73,11 @@ namespace Tangenta
                 {
                     long Identity = (long)dt_my_company.Rows[0]["ID"];
                     usrc_EditRow.ShowTableRow(Identity);
+                    usrc_EditRow.AllowUserToAddNew = false;
+                }
+                else
+                {
+                    usrc_EditRow.AllowUserToAddNew = true;
                 }
                 Cursor = Cursors.Arrow;
                 return true;
@@ -180,6 +187,22 @@ namespace Tangenta
         private void btn_BankAccounts_Click(object sender, EventArgs e)
         {
             Edit_OrganisationAccount();
+        }
+
+        private void usrc_EditRow_after_InsertInDataBase(SQLTable m_tbl, long id, bool bRes)
+        {
+            if (bRes)
+            {
+                usrc_EditRow.AllowUserToAddNew = false;
+            }
+        }
+
+        private void btn_Office_Edit(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            Form_myOrg_Office frm_office = new Form_myOrg_Office();
+            frm_office.ShowDialog();
+            this.Cursor = Cursors.Arrow;
         }
     }
 }

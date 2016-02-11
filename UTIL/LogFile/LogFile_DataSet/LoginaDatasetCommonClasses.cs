@@ -993,9 +993,7 @@ WHERE id = " + GetIDValue(Columns);
 // Start Class XView
 public class XView
 {
-    private bool bRead = false;
     public enum CompareResult { o1_EQ_o2, o1_GT_o2, o1_LT_o2, not_comapared };
-    private string m_sql_UpdateAll = "";
     private List<Command> Commands = new List<Command>();
 
     protected string tablename;
@@ -1090,7 +1088,7 @@ public class XView
 
     public bool read(int Limit,ref string csError)
     {
-        bRead = true;
+        bool bRead = true;
         dt.Clear();
         List<Log_SQL_Parameter> lPar = new List<Log_SQL_Parameter>();
         string sql_select = "SELECT ";
@@ -1202,9 +1200,7 @@ public class XView
 // Start Class XTableFunction
 public class XTableFunction
 {
-    private bool bRead = false;
     public enum CompareResult { o1_EQ_o2, o1_GT_o2, o1_LT_o2, not_comapared };
-    private string m_sql_UpdateAll = "";
     private List<Command> Commands = new List<Command>();
 
     protected string tablefunctionname;
@@ -1300,7 +1296,7 @@ public class XTableFunction
 
     public bool read(int Limit,ref string csError)
     {
-        bRead = true;
+        bool bRead = true;
         dt.Clear();
         List<Log_SQL_Parameter> lPar = new List<Log_SQL_Parameter>();
         string sql_select = "SELECT ";

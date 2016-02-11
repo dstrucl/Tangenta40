@@ -17,6 +17,10 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        
+        public static ltext s_Edit_Office_Data_FVI_SLO_RealEstateBP = new ltext("Office Data for FURS!", "Podatki poslovne enote potrebni za davčno potrjevanje");
+        public static ltext s_Edit_Office_Data = new ltext("Other Office Data!", "Ostali podatki poslovne enote");
+        public static ltext s_Edit_Offices = new ltext("Offices of your organisation!", "Poslovne enote vaše oragnizacije");
         public static ltext s_SalesBookInvoice_UnsentMsg = new ltext("Send unsent invoices from SalesBookInvoice in ten days after invoice issue date!", "Pošljite neposlane račune iz vezane knjige računov najkasneje v desetih dneh od izstavitve računa!");
         public static ltext s_SendtoDurs = new ltext("Send", "Pošlji");
         public static ltext s_Issuer_FirstName = new ltext("Issuer first name", "Ime blagajnika");
@@ -519,6 +523,15 @@ namespace LanguageControl
 
         public static ltext s_No_MyCompany_Country= new ltext("There is no country of your company. You must enter country of your company!",
                                                              "Ni podatka v kateri državi je vaše podjetje. Vnesti morate državo v kateri je podjetje");
+
+        public static ltext s_No_Office = new ltext("There is no office of your organisation. You must have at least one office in your organisation!",
+                                                         "Vaše podjetje nima poslovnih enot,\nVpisati morate vsaj eno poslovno enoto!");
+
+        public static ltext s_No_Office_Data = new ltext("There is no office address of your organisation. You must have office address in your organisation!",
+                                                         "Vaše podjetje nima dodatnih  potakov poslovne enot (naslov, opis..),\nVpisati morate še podatke poslovne enote!");
+
+        public static ltext s_No_Office_Data_FVI_SLO_RealEstateBP = new ltext("Missing Real Estate Data for your office. You need them for Fiscal verification of invoices in Slovenia!",
+                                                                              "Vaša poslovna enota nima podatkov o poslovnem prosturu potrebnih za davčno potrjevanje računov,\nVpisati morate še podatke o poslovnem prostoru, ki so potrebni za davčno potrjevanje računov!");
 
         public static ltext s_No_MyCompany_Person = new ltext("There is no person of your company which is active. You must enter person of your company! (Also Check if Active flag is set!)",
                                                               "Vaše podjetje nima vsaj ene osebe, ki bi bila označena za aktivno.\nVnesti morate osebo ali osebe v vašem podjetju in pri tem mora imeti imeti najmanj ena oseba odkljukano, da je aktivna!");

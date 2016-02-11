@@ -30,13 +30,11 @@ namespace ComboBox_Recent
 
         public Font myFont;
         private bool bDisplayTime = true;
-        private ContextMenu mnuContextMenu = null;
         private bool Insert_on_KeyPress = true;
         private char KeyToInsert = '\r';
         DataTable dt;
         private int max_count = 10;
         //public string[] my_items = new string[max_count];
-        private string m_Identifier;
 
         private string FileName;
         private string FolderName = "";
@@ -138,7 +136,7 @@ namespace ComboBox_Recent
                 }
                 Init();
             }
-            catch (Exception ex)
+            catch /*(Exception ex)*/
             {
                 //MessageBox.Show("Error: Can not delete or create recent list file :\"" + FileName + "\"!\r\n Exception = " + ex);
             }

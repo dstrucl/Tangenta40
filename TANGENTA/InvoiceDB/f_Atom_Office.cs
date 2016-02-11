@@ -23,13 +23,15 @@ namespace InvoiceDB
         {
 
             string Office_Name = null;
+            string Office_ShortName = null;
             long myCompany_ID = -1;
 
             string sql = @"select 
                             o.Name as Office_Name,
+                            o.ShortName as Office_ShortName,
                             o.myCompany_ID
                             from Office o
-                            where o.ID = "+Office_ID.ToString();
+                            where o.ID = " + Office_ID.ToString();
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
@@ -46,6 +48,18 @@ namespace InvoiceDB
                         LogFile.Error.Show("ERROR:f_Atom_Office:Get:No Office_Name is null!");
                         return false;
                     }
+
+                    object o_Office_ShortName = dt.Rows[0]["Office_ShortName"];
+                    if (o_Office_ShortName is string)
+                    {
+                        Office_ShortName = (string)o_Office_ShortName;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:f_Atom_Office:Get:No Office_ShortName is null!");
+                        return false;
+                    }
+
                     object o_myCompany_ID = dt.Rows[0]["myCompany_ID"];
                     if (o_myCompany_ID is long)
                     {
@@ -78,6 +92,22 @@ namespace InvoiceDB
                             sval_Atom_Office_Name = "null";
                         }
 
+                        string scond_Atom_Office_ShortName = null;
+                        string sval_Atom_Office_ShortName = "null";
+                        if (Office_ShortName != null)
+                        {
+                            string spar_Office_ShortName = "@par_Office_ShortName";
+                            SQL_Parameter par_Office_ShortName = new SQL_Parameter(spar_Office_ShortName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Office_ShortName);
+                            lpar.Add(par_Office_ShortName);
+                            scond_Atom_Office_ShortName = "ShortName = " + spar_Office_ShortName;
+                            sval_Atom_Office_ShortName = spar_Office_ShortName;
+                        }
+                        else
+                        {
+                            scond_Atom_Office_ShortName = "ShortName is null";
+                            sval_Atom_Office_ShortName = "null";
+                        }
+
                         string scond_Atom_myCompany_ID = null;
                         string sval_Atom_myCompany_ID = "null";
                         if (Atom_myCompany_ID >= 0)
@@ -94,7 +124,7 @@ namespace InvoiceDB
                             sval_Atom_myCompany_ID = "null";
                         }
 
-                        sql = @"select ID from Atom_Office where (" + scond_Atom_Office_Name + ")and(" + scond_Atom_myCompany_ID + ")";
+                        sql = @"select ID from Atom_Office where (" + scond_Atom_Office_Name + ")and("+ scond_Atom_Office_ShortName + ")and(" + scond_Atom_myCompany_ID + ")";
                         dt.Clear();
                         dt.Columns.Clear();
                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -107,9 +137,12 @@ namespace InvoiceDB
                             else
                             {
                                 sql = @"insert into Atom_Office (Atom_myCompany_ID,
-                                                                    Name) values ("
+                                                                    Name,
+                                                                    ShortName) values 
+                                                                    ("
                                                                         + sval_Atom_myCompany_ID + ","
-                                                                        + sval_Atom_Office_Name +
+                                                                        + sval_Atom_Office_Name + ","
+                                                                        + sval_Atom_Office_ShortName +
                                                                         ")";
                                 object objretx = null;
                                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_ID, ref objretx, ref Err, "Atom_Office"))

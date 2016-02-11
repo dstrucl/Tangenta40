@@ -1018,20 +1018,22 @@ namespace BlagajnaTableClass
         public AccessRights m_AccessRights = new AccessRights();
     }
 
+    public class ShortName:DB_varchar_10
+    {
+
+    }
     public class Office
     {
         public ID ID = new ID();
         public myCompany m_myCompany = new myCompany();
         public Name Name = new Name();
+        public ShortName ShortName = new ShortName();
     }
-
-
 
     public class Office_Data
     {
         public ID ID = new ID();
         public Office m_Office = new Office();
-        public myCompany_Person m_myCompany_Person = new myCompany_Person();
         public cAddress_Org m_cAddress_Org = new cAddress_Org();
         public Description Description = new Description();
     }
@@ -1079,7 +1081,7 @@ namespace BlagajnaTableClass
         public ID ID = new ID();
         public Atom_myCompany m_Atom_myCompany = new Atom_myCompany();
         public Name Name = new Name();
-        public Description m_Description = new Description();
+        public ShortName ShortName = new ShortName();
     }
 
     public class Atom_Office_Data
@@ -1087,7 +1089,6 @@ namespace BlagajnaTableClass
         public ID ID = new ID();
         public Atom_Office m_Atom_Office = new Atom_Office();
         public Atom_cAddress_Org m_Atom_cAddress_Org = new Atom_cAddress_Org();
-        public Atom_myCompany_Person m_Atom_myCompany_Person = new Atom_myCompany_Person();
         public Description Description = new Description();
     }
 
