@@ -92,5 +92,13 @@ namespace Tangenta
                 this.Close();
             }
         }
+
+        private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        {
+            if (bRes)
+            { 
+                usrc_EditTable1.AllowUserToAddNew = false;
+            }
+        }
     }
 }

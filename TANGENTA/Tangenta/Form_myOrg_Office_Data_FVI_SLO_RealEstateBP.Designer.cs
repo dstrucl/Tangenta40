@@ -50,6 +50,7 @@
             this.usrc_EditTable1.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.usrc_EditTable1.FillTable += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
             this.usrc_EditTable1.after_New += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
+            this.usrc_EditTable1.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable1_after_InsertInDataBase);
             // 
             // btn_Cancel
             // 
