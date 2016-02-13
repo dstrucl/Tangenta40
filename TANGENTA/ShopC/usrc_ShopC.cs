@@ -62,6 +62,12 @@ namespace ShopC
             m_InvoiceDB = xm_InvoiceDB;
             DBtcn = xDBtcn;
 
+            if (DBtcn == null)
+            {
+                LogFile.Error.Show("ERROR:usrc_ShopC:Init:DBtcn == null!");
+                DBtcn = new DBTablesAndColumnNames();
+            }
+
             lngRPM.s_Shop_C.Text(lbl_ShopC_Name);
 
             this.usrc_Atom_ItemsList.Init(usrc_ItemList, xm_InvoiceDB, xDBtcn);

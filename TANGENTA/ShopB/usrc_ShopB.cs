@@ -95,6 +95,11 @@ namespace ShopB
             col_Discount = null;
             dgv_total_discount_column = null;
 
+            if (DBtcn == null)
+            {
+                LogFile.Error.Show("ERROR:usrc_ShopB:Init:DBtcn == null!");
+                DBtcn = new DBTablesAndColumnNames();
+            }
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index, DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_Selected_Atom_Price_ShopBItem_ID, DBtcn.column_Selected_Atom_Price_ShopBItem_ID_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemName, DBtcn.column_SelectedShopBItemName_TYPE);
