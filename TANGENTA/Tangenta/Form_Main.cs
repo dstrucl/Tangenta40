@@ -51,6 +51,9 @@ namespace Tangenta
             {
                 LogFile.Error.Show("ERROR:Get_RecentItemsFolder(ref rfolder) failed!");
             }
+
+           // Properties.Settings.Default.SplitterPositions =
+           
         }
 
 
