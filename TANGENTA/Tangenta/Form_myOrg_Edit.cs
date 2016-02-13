@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using SQLTableControl;
 using BlagajnaTableClass;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -194,6 +195,7 @@ namespace Tangenta
             if (bRes)
             {
                 usrc_EditRow.AllowUserToAddNew = false;
+                myOrg.Get(1);
             }
         }
 

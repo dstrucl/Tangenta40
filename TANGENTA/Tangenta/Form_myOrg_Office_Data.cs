@@ -92,14 +92,18 @@ namespace Tangenta
 
         private void usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
         {
-            if (Program.b_FVI_SLO)
+            if (bRes)
             {
-                this.Cursor = Cursors.WaitCursor;
-                Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_offd_fvislo_resbp = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(ID);
-                frm_offd_fvislo_resbp.ShowDialog();
-                this.Cursor = Cursors.Arrow;
+                myOrg.Get(1);
+                if (Program.b_FVI_SLO)
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_offd_fvislo_resbp = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(ID);
+                    frm_offd_fvislo_resbp.ShowDialog();
+                    this.Cursor = Cursors.Arrow;
+                }
+                this.usrc_EditTable1.AllowUserToAddNew = false; //Only one row !!!
             }
-            this.usrc_EditTable1.AllowUserToAddNew = false; //Only one row !!!
         }
 
         private void btn_FVI_SLO_RealEstateBP_Click(object sender, EventArgs e)

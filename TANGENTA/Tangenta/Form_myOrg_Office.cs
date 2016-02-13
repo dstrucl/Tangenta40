@@ -90,6 +90,7 @@ namespace Tangenta
                 Form_myOrg_Office_Data frm_offdata = new Form_myOrg_Office_Data(ID);
                 frm_offdata.ShowDialog(this);
                 this.Cursor = Cursors.Arrow;
+                myOrg.Get(1);
             }
         }
 
