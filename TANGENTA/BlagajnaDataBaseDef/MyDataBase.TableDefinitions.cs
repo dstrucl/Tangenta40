@@ -1467,10 +1467,10 @@ namespace BlagajnaDataBaseDef
         /* 113 */
             t_BankAccount = new SQLTable((Object)new BankAccount(),"bankacc", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_BankAccount);
             t_BankAccount.AddColumn((Object)mt.m_BankAccount.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_BankAccount.AddColumn((Object)mt.m_BankAccount.m_Bank, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Bank ID", "Banka ID") );
             t_BankAccount.AddColumn((Object)mt.m_BankAccount.TRR, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Account", "TRR") );
             t_BankAccount.AddColumn((Object)mt.m_BankAccount.Active, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.CheckBox_default_true, new ltext( "Active", "Aktiven") );
             t_BankAccount.AddColumn((Object)mt.m_BankAccount.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Description", "Opis") );
+            t_BankAccount.AddColumn((Object)mt.m_BankAccount.m_Bank, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Bank ID", "Banka ID"));
             m_DBTables.items.Add(t_BankAccount);
 
         /* 114 */

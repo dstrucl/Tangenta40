@@ -41,17 +41,17 @@
             this.rdb_FURS_Environment = new System.Windows.Forms.RadioButton();
             this.rdb_FURS_TEST_Environment = new System.Windows.Forms.RadioButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.txt_SalesBookInvoice_Current_SerialNumber = new System.Windows.Forms.TextBox();
-            this.grp_SalesBookInvoice = new System.Windows.Forms.GroupBox();
-            this.lbl_SalesBookInvoice_Current_SerialNumber = new System.Windows.Forms.Label();
-            this.lbl_SalesBookInvoice_Last_SetNumber = new System.Windows.Forms.Label();
-            this.lbl_SalesBookInvoice_SerialNumber_Format = new System.Windows.Forms.Label();
-            this.txt_SalesBookInvoice_SerialNumber_Format = new System.Windows.Forms.TextBox();
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook = new System.Windows.Forms.Label();
-            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook = new System.Windows.Forms.NumericUpDown();
             this.usrc_FURS_environment_settings = new FiscalVerificationOfInvoices_SLO.usrc_FURS_environment_settings();
             this.usrc_FURS_environment_settings_TEST = new FiscalVerificationOfInvoices_SLO.usrc_FURS_environment_settings();
+            this.txt_SalesBookInvoice_Current_SerialNumber = new System.Windows.Forms.TextBox();
+            this.grp_SalesBookInvoice = new System.Windows.Forms.GroupBox();
             this.nm_UpDn_SalesBookInvoice_Last_SetNumber = new System.Windows.Forms.NumericUpDown();
+            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook = new System.Windows.Forms.NumericUpDown();
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook = new System.Windows.Forms.Label();
+            this.lbl_SalesBookInvoice_SerialNumber_Format = new System.Windows.Forms.Label();
+            this.txt_SalesBookInvoice_SerialNumber_Format = new System.Windows.Forms.TextBox();
+            this.lbl_SalesBookInvoice_Last_SetNumber = new System.Windows.Forms.Label();
+            this.lbl_SalesBookInvoice_Current_SerialNumber = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).BeginInit();
@@ -60,8 +60,8 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.grp_SalesBookInvoice.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_SalesBookInvoice_Last_SetNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook)).BeginInit();
             this.SuspendLayout();
             // 
             // chk_DebugAndTest
@@ -230,6 +230,28 @@
             this.splitContainer1.SplitterDistance = 363;
             this.splitContainer1.TabIndex = 22;
             // 
+            // usrc_FURS_environment_settings
+            // 
+            this.usrc_FURS_environment_settings.AutoScroll = true;
+            this.usrc_FURS_environment_settings.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_FURS_environment_settings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
+            this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
+            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(906, 359);
+            this.usrc_FURS_environment_settings.TabIndex = 18;
+            // 
+            // usrc_FURS_environment_settings_TEST
+            // 
+            this.usrc_FURS_environment_settings_TEST.AutoScroll = true;
+            this.usrc_FURS_environment_settings_TEST.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_FURS_environment_settings_TEST.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
+            this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
+            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(906, 368);
+            this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
+            // 
             // txt_SalesBookInvoice_Current_SerialNumber
             // 
             this.txt_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(126, 18);
@@ -255,50 +277,27 @@
             this.grp_SalesBookInvoice.TabStop = false;
             this.grp_SalesBookInvoice.Text = "Vezana knjiga računov";
             // 
-            // lbl_SalesBookInvoice_Current_SerialNumber
+            // nm_UpDn_SalesBookInvoice_Last_SetNumber
             // 
-            this.lbl_SalesBookInvoice_Current_SerialNumber.AutoSize = true;
-            this.lbl_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(2, 22);
-            this.lbl_SalesBookInvoice_Current_SerialNumber.Name = "lbl_SalesBookInvoice_Current_SerialNumber";
-            this.lbl_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(121, 13);
-            this.lbl_SalesBookInvoice_Current_SerialNumber.TabIndex = 28;
-            this.lbl_SalesBookInvoice_Current_SerialNumber.Text = "Tekoča serijska številka";
-            this.lbl_SalesBookInvoice_Current_SerialNumber.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // lbl_SalesBookInvoice_Last_SetNumber
-            // 
-            this.lbl_SalesBookInvoice_Last_SetNumber.AutoSize = true;
-            this.lbl_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(4, 48);
-            this.lbl_SalesBookInvoice_Last_SetNumber.Name = "lbl_SalesBookInvoice_Last_SetNumber";
-            this.lbl_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(102, 13);
-            this.lbl_SalesBookInvoice_Last_SetNumber.TabIndex = 29;
-            this.lbl_SalesBookInvoice_Last_SetNumber.Text = "Zadnja številka seta";
-            // 
-            // lbl_SalesBookInvoice_SerialNumber_Format
-            // 
-            this.lbl_SalesBookInvoice_SerialNumber_Format.AutoSize = true;
-            this.lbl_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(229, 21);
-            this.lbl_SalesBookInvoice_SerialNumber_Format.Name = "lbl_SalesBookInvoice_SerialNumber_Format";
-            this.lbl_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(42, 13);
-            this.lbl_SalesBookInvoice_SerialNumber_Format.TabIndex = 31;
-            this.lbl_SalesBookInvoice_SerialNumber_Format.Text = "Format:";
-            // 
-            // txt_SalesBookInvoice_SerialNumber_Format
-            // 
-            this.txt_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(273, 18);
-            this.txt_SalesBookInvoice_SerialNumber_Format.Name = "txt_SalesBookInvoice_SerialNumber_Format";
-            this.txt_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(126, 20);
-            this.txt_SalesBookInvoice_SerialNumber_Format.TabIndex = 30;
-            this.txt_SalesBookInvoice_SerialNumber_Format.Text = "1234-1234567";
-            // 
-            // lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook
-            // 
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.AutoSize = true;
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Location = new System.Drawing.Point(163, 48);
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Name = "lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook";
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Size = new System.Drawing.Size(180, 13);
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.TabIndex = 33;
-            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Text = "Število vseh setov znotraj ene knjige";
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(107, 45);
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Name = "nm_UpDn_SalesBookInvoice_Last_SetNumber";
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(51, 20);
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.TabIndex = 35;
+            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             // 
             // nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook
             // 
@@ -322,49 +321,50 @@
             0,
             0});
             // 
-            // usrc_FURS_environment_settings
+            // lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook
             // 
-            this.usrc_FURS_environment_settings.AutoScroll = true;
-            this.usrc_FURS_environment_settings.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_FURS_environment_settings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
-            this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
-            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(906, 359);
-            this.usrc_FURS_environment_settings.TabIndex = 18;
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.AutoSize = true;
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Location = new System.Drawing.Point(163, 48);
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Name = "lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook";
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Size = new System.Drawing.Size(180, 13);
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.TabIndex = 33;
+            this.lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Text = "Število vseh setov znotraj ene knjige";
             // 
-            // usrc_FURS_environment_settings_TEST
+            // lbl_SalesBookInvoice_SerialNumber_Format
             // 
-            this.usrc_FURS_environment_settings_TEST.AutoScroll = true;
-            this.usrc_FURS_environment_settings_TEST.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_FURS_environment_settings_TEST.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
-            this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
-            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(906, 368);
-            this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
+            this.lbl_SalesBookInvoice_SerialNumber_Format.AutoSize = true;
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(229, 21);
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Name = "lbl_SalesBookInvoice_SerialNumber_Format";
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(42, 13);
+            this.lbl_SalesBookInvoice_SerialNumber_Format.TabIndex = 31;
+            this.lbl_SalesBookInvoice_SerialNumber_Format.Text = "Format:";
             // 
-            // nm_UpDn_SalesBookInvoice_Last_SetNumber
+            // txt_SalesBookInvoice_SerialNumber_Format
             // 
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(107, 45);
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Name = "nm_UpDn_SalesBookInvoice_Last_SetNumber";
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(51, 20);
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.TabIndex = 35;
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
+            this.txt_SalesBookInvoice_SerialNumber_Format.Location = new System.Drawing.Point(273, 18);
+            this.txt_SalesBookInvoice_SerialNumber_Format.Name = "txt_SalesBookInvoice_SerialNumber_Format";
+            this.txt_SalesBookInvoice_SerialNumber_Format.Size = new System.Drawing.Size(126, 20);
+            this.txt_SalesBookInvoice_SerialNumber_Format.TabIndex = 30;
+            this.txt_SalesBookInvoice_SerialNumber_Format.Text = "1234-1234567";
+            // 
+            // lbl_SalesBookInvoice_Last_SetNumber
+            // 
+            this.lbl_SalesBookInvoice_Last_SetNumber.AutoSize = true;
+            this.lbl_SalesBookInvoice_Last_SetNumber.Location = new System.Drawing.Point(4, 48);
+            this.lbl_SalesBookInvoice_Last_SetNumber.Name = "lbl_SalesBookInvoice_Last_SetNumber";
+            this.lbl_SalesBookInvoice_Last_SetNumber.Size = new System.Drawing.Size(102, 13);
+            this.lbl_SalesBookInvoice_Last_SetNumber.TabIndex = 29;
+            this.lbl_SalesBookInvoice_Last_SetNumber.Text = "Zadnja številka seta";
+            // 
+            // lbl_SalesBookInvoice_Current_SerialNumber
+            // 
+            this.lbl_SalesBookInvoice_Current_SerialNumber.AutoSize = true;
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Location = new System.Drawing.Point(2, 22);
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Name = "lbl_SalesBookInvoice_Current_SerialNumber";
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(121, 13);
+            this.lbl_SalesBookInvoice_Current_SerialNumber.TabIndex = 28;
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Text = "Tekoča serijska številka";
+            this.lbl_SalesBookInvoice_Current_SerialNumber.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form_Settings
             // 
@@ -389,6 +389,7 @@
             this.Name = "Form_Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nastavitve za komunikacijo z DAVČNO UPRAVO";
+            this.Load += new System.EventHandler(this.Form_Settings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).EndInit();
@@ -398,8 +399,8 @@
             this.splitContainer1.ResumeLayout(false);
             this.grp_SalesBookInvoice.ResumeLayout(false);
             this.grp_SalesBookInvoice.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDn_SalesBookInvoice_Last_SetNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
