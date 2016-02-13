@@ -5,7 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
-
+//Form_myOrg_Edit.Designer.cs:line 145
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using SQLTableControl;
 using BlagajnaTableClass;
+using InvoiceDB;
 
 namespace Tangenta
 {
@@ -27,18 +28,20 @@ namespace Tangenta
         SQLTable tbl = null;
         //bool bclose = false;
 
-        public Form_myOrg_Edit(SQLTableControl.DBTableControl xdbTables,SQLTable xtbl)
+        public Form_myOrg_Edit(SQLTableControl.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew)
         {
             InitializeComponent();
             dbTables = xdbTables;
             tbl = xtbl;
+            usrc_EditRow.AllowUserToAddNew = bAllowNew;
+            lngRPM.s_Edit_Offices.Text(btn_Office);
         }
 
         private bool InitDataTable(long ID)
         {
             dt_my_company.Clear();
             string sql = null;
-             sql = @"select * from Atom_myCompany_VIEW";
+             sql = @"select * from myCompany_VIEW";
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_my_company,sql,ref Err))
@@ -71,6 +74,11 @@ namespace Tangenta
                 {
                     long Identity = (long)dt_my_company.Rows[0]["ID"];
                     usrc_EditRow.ShowTableRow(Identity);
+                    usrc_EditRow.AllowUserToAddNew = false;
+                }
+                else
+                {
+                    usrc_EditRow.AllowUserToAddNew = true;
                 }
                 Cursor = Cursors.Arrow;
                 return true;
@@ -180,6 +188,23 @@ namespace Tangenta
         private void btn_BankAccounts_Click(object sender, EventArgs e)
         {
             Edit_OrganisationAccount();
+        }
+
+        private void usrc_EditRow_after_InsertInDataBase(SQLTable m_tbl, long id, bool bRes)
+        {
+            if (bRes)
+            {
+                usrc_EditRow.AllowUserToAddNew = false;
+                myOrg.Get(1);
+            }
+        }
+
+        private void btn_Office_Edit(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            Form_myOrg_Office frm_office = new Form_myOrg_Office();
+            frm_office.ShowDialog();
+            this.Cursor = Cursors.Arrow;
         }
     }
 }

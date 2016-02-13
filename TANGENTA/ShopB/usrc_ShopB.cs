@@ -72,7 +72,7 @@ namespace ShopB
         public event delegate_ExtraDiscount aa_ExtraDiscount = null;
 
 
-        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use)
         {
             lngRPM.s_Shop_B.Text(lbl_ShopB_Name);
 
@@ -95,6 +95,11 @@ namespace ShopB
             col_Discount = null;
             dgv_total_discount_column = null;
 
+            if (DBtcn == null)
+            {
+                LogFile.Error.Show("ERROR:usrc_ShopB:Init:DBtcn == null!");
+                DBtcn = new DBTablesAndColumnNames();
+            }
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index, DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_Selected_Atom_Price_ShopBItem_ID, DBtcn.column_Selected_Atom_Price_ShopBItem_ID_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItemName, DBtcn.column_SelectedShopBItemName_TYPE);
@@ -110,7 +115,7 @@ namespace ShopB
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_Count, DBtcn.column_SelectedShopBItem_Count_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ExtraDiscount, DBtcn.column_SelectedShopBItem_ExtraDiscount_TYPE);
             string Err = null;
-            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, ref Err);
+             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use, ref Err);
         }
 
         public void SetMode(eMode mode)

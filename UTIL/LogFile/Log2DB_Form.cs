@@ -107,7 +107,6 @@ namespace LogFile
 
         private void btn_Attachment_Click(object sender, EventArgs e)
         {
-            string Err = null;
             int iAttachmentCount = this.dgv_Attachments.Rows.Count;
             LogAttachments_Form log_attachment_form = new LogAttachments_Form(iAttachmentCount);
             if (log_attachment_form.ShowDialog() == DialogResult.OK)

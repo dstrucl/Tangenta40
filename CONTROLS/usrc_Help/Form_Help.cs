@@ -20,7 +20,6 @@ namespace usrc_Help
 {
     public partial class Form_Help : Form
     {
-        string HelpFile = null;
         public Form_Help()
         {
             InitializeComponent();

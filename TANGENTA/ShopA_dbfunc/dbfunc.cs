@@ -47,7 +47,7 @@ namespace ShopA_dbfunc
                             INNER JOIN Atom_ItemShopA Atom_ItemShopA_Price_$_aisha ON Atom_ItemShopA_Price.Atom_ItemShopA_ID = Atom_ItemShopA_Price_$_aisha.ID
                             INNER JOIN Taxation Atom_ItemShopA_Price_$_aisha_$_tax ON Atom_ItemShopA_Price_$_aisha.Taxation_ID = Atom_ItemShopA_Price_$_aisha_$_tax.ID
                             LEFT JOIN Unit Atom_ItemShopA_Price_$_aisha_$_u ON Atom_ItemShopA_Price_$_aisha.Unit_ID = Atom_ItemShopA_Price_$_aisha_$_u.ID
-                            where Atom_ItemShopA_Price_$_pinv_$$ID = " + ProformaInvoice_ID.ToString();
+                            where Atom_ItemShopA_Price_$_pinv.ID = " + ProformaInvoice_ID.ToString();
             dt.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {

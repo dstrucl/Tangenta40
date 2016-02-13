@@ -68,7 +68,7 @@
             this.txt_MyCompany.Margin = new System.Windows.Forms.Padding(2);
             this.txt_MyCompany.Multiline = true;
             this.txt_MyCompany.Name = "txt_MyCompany";
-            this.txt_MyCompany.Size = new System.Drawing.Size(824, 34);
+            this.txt_MyCompany.Size = new System.Drawing.Size(335, 34);
             this.txt_MyCompany.TabIndex = 1;
             // 
             // lbl_MyCompany

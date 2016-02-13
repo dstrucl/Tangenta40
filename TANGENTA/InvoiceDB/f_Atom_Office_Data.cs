@@ -23,13 +23,11 @@ namespace InvoiceDB
         {
 
             long cAddress_Org_ID = -1;
-            long myCompany_Person_ID = -1;
             long Office_ID = -1;
             string Description = null;
             string sql = @"select 
                             od.Office_ID,
                             od.cAddress_Org_ID,
-                            od.myCompany_Person_ID,
                             od.Description
                             from Office_Data od
                             where od.ID = " + Office_Data_ID.ToString();
@@ -62,16 +60,6 @@ namespace InvoiceDB
                         return false;
                     }
 
-                    object o_myCompany_Person_ID = dt.Rows[0]["myCompany_Person_ID"];
-                    if (o_myCompany_Person_ID is long)
-                    {
-                        myCompany_Person_ID = (long)o_cAddress_Org_ID;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:myCompany_Person_ID is null!");
-                        return false;
-                    }
 
                     object o_Description = dt.Rows[0]["Description"];
                     if (o_Description is string)
@@ -79,7 +67,6 @@ namespace InvoiceDB
                         Description = (string)o_Description;
                     }
 
-                    long Atom_myCompany_Person_ID = -1;
                     long Atom_cAddress_Org_ID = -1;
                     long Atom_Office_ID = -1;
 
@@ -88,60 +75,56 @@ namespace InvoiceDB
                         if (f_Atom_cAddress_Org.Get(cAddress_Org_ID, ref Atom_cAddress_Org_ID))
                         {
                             DBTypes.string_v Office_Name = new DBTypes.string_v();
-                            if (f_Atom_myCompany_Person.Get(myCompany_Person_ID, ref Atom_myCompany_Person_ID, ref Office_Name))
+                            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                            string scond_Description = null;
+                            string sval_Description = "null";
+                            if (Description != null)
                             {
-                                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                                string scond_Description = null;
-                                string sval_Description = "null";
-                                if (Description != null)
+                                string spar_Description = "@par_Description";
+                                SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Description);
+                                lpar.Add(par_Description);
+                                scond_Description = "Description = " + spar_Description;
+                                sval_Description = spar_Description;
+                            }
+                            else
+                            {
+                                scond_Description = "Description is null";
+                                sval_Description = "null";
+                            }
+
+
+                            sql = @"select
+                                    ID
+                                    from Atom_Office_Data
+                                    where  Atom_Office_ID = " + Atom_Office_ID.ToString() + @" and 
+                                            Atom_cAddress_Org_ID = " + Atom_cAddress_Org_ID.ToString() + @" and
+                                            " + scond_Description;
+                            dt.Clear();
+                            dt.Columns.Clear();
+                            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                            {
+                                if (dt.Rows.Count>0)
                                 {
-                                    string spar_Description = "@par_Description";
-                                    SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Description);
-                                    lpar.Add(par_Description);
-                                    scond_Description = "Description = " + spar_Description;
-                                    sval_Description = spar_Description;
+                                    Atom_Office_Data_ID = (long)dt.Rows[0]["ID"];
+                                    return true;
                                 }
                                 else
                                 {
-                                    scond_Description = "Description is null";
-                                    sval_Description = "null";
-                                }
-
-
-                                sql = @"select
-                                        ID
-                                        from Atom_Office_Data
-                                        where  Atom_Office_ID = " + Atom_Office_ID.ToString() + @" and 
-                                               Atom_cAddress_Org_ID = " + Atom_cAddress_Org_ID.ToString() + @" and
-                                               Atom_myCompany_Person_ID = " + Atom_myCompany_Person_ID.ToString() + @" and 
-                                               " + scond_Description;
-                                dt.Clear();
-                                dt.Columns.Clear();
-                                if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
-                                {
-                                    if (dt.Rows.Count>0)
+                                    sql = @"insert into Atom_Office_Data (Atom_Office_ID,Atom_cAddress_Org_ID,Description) values (" + Atom_Office_ID.ToString() + "," + Atom_cAddress_Org_ID.ToString() + "," +  sval_Description + ")";
+                                    object objretx = null;
+                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_Data_ID, ref objretx, ref Err, "Atom_Office_Data"))
                                     {
-                                        Atom_Office_Data_ID = (long)dt.Rows[0]["ID"];
                                         return true;
                                     }
                                     else
                                     {
-                                        sql = @"insert into Atom_Office_Data (Atom_Office_ID,Atom_cAddress_Org_ID,Atom_myCompany_Person_ID,Description) values (" + Atom_Office_ID.ToString() + "," + Atom_cAddress_Org_ID.ToString() + "," + Atom_myCompany_Person_ID.ToString() + "," + sval_Description + ")";
-                                        object objretx = null;
-                                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_Data_ID, ref objretx, ref Err, "Atom_Office_Data"))
-                                        {
-                                            return true;
-                                        }
-                                        else
-                                        {
-                                            LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:" + sql + "\r\nErr=" + Err);
-                                        }
+                                        LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:" + sql + "\r\nErr=" + Err);
                                     }
                                 }
-                                else
-                                {
-                                    LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:sql=" + sql + "\r\nErr=" + Err);
-                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:sql=" + sql + "\r\nErr=" + Err);
                             }
                         }
                     }

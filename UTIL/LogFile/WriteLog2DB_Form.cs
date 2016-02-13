@@ -92,14 +92,12 @@ namespace LogFile
         private void timer_WriteLog_Tick(object sender, EventArgs e)
         {
             
-            string Res = null;
             string Err = null;
             timer_WriteLog.Enabled = false;
             string sLine = null;
             DateTime LogTime = DateTime.Now;
             string LogType = null;
             string LogDescription = null;
-            int Log_id = -1;
             int iCount = 0;
             string sql = @"DECLARE @Ret_code_CopyRight_Logina_AuthorDamjanStrucl int
                            DECLARE @Par_LogWrite_Log_id int

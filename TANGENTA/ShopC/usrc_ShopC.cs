@@ -54,13 +54,19 @@ namespace ShopC
         }
 
 
-        public void Init(InvoiceDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        public void Init(InvoiceDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, string ShopsInUse)
         {
             //Program.iGDIcUser502 = Program.getGuiResourcesUserCount();
 
             //m_usrc_Invoice = x_usrc_Invoice;
             m_InvoiceDB = xm_InvoiceDB;
             DBtcn = xDBtcn;
+
+            if (DBtcn == null)
+            {
+                LogFile.Error.Show("ERROR:usrc_ShopC:Init:DBtcn == null!");
+                DBtcn = new DBTablesAndColumnNames();
+            }
 
             lngRPM.s_Shop_C.Text(lbl_ShopC_Name);
 
@@ -70,7 +76,8 @@ namespace ShopC
             this.usrc_ItemList.ItemAdded += new usrc_ItemList.delegate_ItemAdded(usrc_ItemList_ItemAdded);
             this.usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
             string Err = null;
-            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC, ref Err);
+            
+             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC,ShopsInUse, ref Err);
         }
 
         void usrc_Atom_ItemsList_After_Atom_Item_Remove()

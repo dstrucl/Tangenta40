@@ -1,6 +1,6 @@
-﻿namespace Tangenta
+﻿namespace usrc_Upgrade
 {
-    partial class usrc_Upgrade
+    partial class usrc_Upgrade_inThread
     {
         /// <summary> 
         /// Required designer variable.
@@ -36,7 +36,7 @@
             this.btn_Upgrade.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Upgrade.Image = global::Tangenta.Properties.Resources.UpgradeDataBase;
+            this.btn_Upgrade.Image = Properties.Resources.UpgradeDataBase;
             this.btn_Upgrade.Location = new System.Drawing.Point(0, 0);
             this.btn_Upgrade.Name = "btn_Upgrade";
             this.btn_Upgrade.Size = new System.Drawing.Size(27, 24);

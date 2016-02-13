@@ -37,20 +37,27 @@ namespace PriseLists
             get
             {
                 object o_ID = cmb_PriceListType.SelectedValue;
-                if (o_ID.GetType() == typeof(long))
+                if (o_ID != null)
                 {
-                    return (long)o_ID;
+                    if (o_ID.GetType() == typeof(long))
+                    {
+                        return (long)o_ID;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:PriceList_ID is not selected!");
+                        return -1;
+                    }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:PriceList_ID is not selected!");
                     return -1;
                 }
             }
         }
 
 
-        public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType, ref string Err)
+        public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse, ref string Err)
         {
             m_eShopType = xeShopType;
             m_Currency_ID = Currency_ID;
@@ -69,29 +76,33 @@ namespace PriseLists
                 }
                 else
                 {
-                    if (MessageBox.Show(this, lngRPM.s_NoPriceList_AskToCreatePriceList.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    bool bAsk = ((ShopsInUse.Contains("B") && (xeShopType == usrc_PriceList_Edit.eShopType.ShopB) ) || ((ShopsInUse.Contains("C") && (xeShopType == usrc_PriceList_Edit.eShopType.ShopC))));
+                    if (bAsk)
                     {
-                        Form_PriceList_Edit PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType);
-                        if (PriceListType_Edit_dlg.ShowDialog()== DialogResult.OK)
+                        if (MessageBox.Show(this, lngRPM.s_NoPriceList_AskToCreatePriceList.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
-                            if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
+                            Form_PriceList_Edit PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType);
+                            if (PriceListType_Edit_dlg.ShowDialog() == DialogResult.OK)
                             {
-                                if (xPriceList_Count > 0)
+                                if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
                                 {
-                                    this.cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
-                                    this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
-                                    this.cmb_PriceListType.ValueMember = "xPriceList_ID";
+                                    if (xPriceList_Count > 0)
+                                    {
+                                        this.cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
+                                        this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
+                                        this.cmb_PriceListType.ValueMember = "xPriceList_ID";
+                                    }
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show(Err);
+                                    return false;
                                 }
                             }
                             else
                             {
-                                LogFile.Error.Show(Err);
                                 return false;
                             }
-                        }
-                        else
-                        {
-                            return false;
                         }
                     }
                 }

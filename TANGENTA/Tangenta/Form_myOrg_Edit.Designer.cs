@@ -35,6 +35,7 @@
             this.dgvx_MyCompany = new DataGridView_2xls.DataGridView2xls();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.btn_Office = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -53,6 +54,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btn_Office);
             this.splitContainer1.Panel1.Controls.Add(this.btn_BankAccounts);
             this.splitContainer1.Panel1.Controls.Add(this.usrc_EditRow);
             // 
@@ -65,7 +67,7 @@
             // 
             // btn_BankAccounts
             // 
-            this.btn_BankAccounts.Location = new System.Drawing.Point(4, 2);
+            this.btn_BankAccounts.Location = new System.Drawing.Point(276, 12);
             this.btn_BankAccounts.Name = "btn_BankAccounts";
             this.btn_BankAccounts.Size = new System.Drawing.Size(191, 26);
             this.btn_BankAccounts.TabIndex = 10;
@@ -91,6 +93,7 @@
             this.usrc_EditRow.Title = "";
             this.usrc_EditRow.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditRow.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.usrc_EditRow.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditRow.delegate_after_InsertInDataBase(this.usrc_EditRow_after_InsertInDataBase);
             this.usrc_EditRow.Update += new SQLTableControl.TableDocking_Form.usrc_EditRow.delegate_Update(this.usrc_EditTable_Update);
             // 
             // dgvx_MyCompany
@@ -134,7 +137,17 @@
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
-            // Form_MyCompany_Person_Data_Edit
+            // btn_Office
+            // 
+            this.btn_Office.Location = new System.Drawing.Point(4, 12);
+            this.btn_Office.Name = "btn_Office";
+            this.btn_Office.Size = new System.Drawing.Size(266, 26);
+            this.btn_Office.TabIndex = 11;
+            this.btn_Office.Text = "Organisation Bank Account";
+            this.btn_Office.UseVisualStyleBackColor = true;
+            this.btn_Office.Click += new System.EventHandler(this.btn_Office_Edit);
+            // 
+            // Form_myOrg_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -143,7 +156,7 @@
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_MyCompany_Person_Data_Edit";
+            this.Name = "Form_myOrg_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MyCompanyData_EditForm";
             this.Load += new System.EventHandler(this.MyCompanyData_EditForm_Load);
@@ -164,5 +177,6 @@
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Button btn_BankAccounts;
+        private System.Windows.Forms.Button btn_Office;
     }
 }
