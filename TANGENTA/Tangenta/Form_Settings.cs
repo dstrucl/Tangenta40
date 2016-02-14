@@ -19,6 +19,7 @@ using BlagajnaTableClass;
 using LanguageControl;
 using InvoiceDB;
 
+
 namespace Tangenta
 {
     public partial class Form_Settings : Form
@@ -235,6 +236,13 @@ namespace Tangenta
         private void btn_LogFile_Click(object sender, EventArgs e)
         {
             LogFile.LogFile.LogManager();
+        }
+
+        private void BtnSetDefaulViewSettings_Click(object sender, EventArgs e)
+        {
+    
+           Form_Main mform = (Form_Main)m_usrc_Main.Parent;
+            mform.SetSplitContainerPositions(false,ref Program.ListOfAllSplitConatinerControls,Program.SplitConatinerControlsDefaulValues);
         }
     }
 }

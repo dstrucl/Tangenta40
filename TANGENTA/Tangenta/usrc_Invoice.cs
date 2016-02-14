@@ -20,6 +20,7 @@ using ShopA;
 using ShopB;
 using ShopC;
 using System.Drawing;
+using System.Linq;
 
 namespace Tangenta
 {
@@ -501,6 +502,10 @@ namespace Tangenta
             lngRPM.s_Total.Text(this.lbl_Sum);
             //SetMode(m_mode);
 
+
+  
+
+
         }
 
         internal void SetMode(emode mode)
@@ -847,9 +852,12 @@ namespace Tangenta
             if (bInitialise)
             {
                 lngRPM.s_Head.Text(chk_Head);
-                chk_Head.Checked = true;
+                chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
                 chk_Head.CheckedChanged += chk_Head_CheckedChanged;
-                if (Initialise(pparent, xusrc_InvoiceMan))
+
+                 splitContainer2.Panel1Collapsed = !chk_Head.Checked;
+
+                    if (Initialise(pparent, xusrc_InvoiceMan))
                 {
                     if (GetReceiptPrinter())
                     {
@@ -875,6 +883,9 @@ namespace Tangenta
             {
                 splitContainer2.Panel1Collapsed = true;
             }
+
+            Properties.Settings.Default.InvoiceHeaderChecked = chk_Head.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private bool DoGetCurrent(long ID)
@@ -2057,5 +2068,7 @@ namespace Tangenta
         {
             EditMyCompany_Data(false);
         }
+
+
     }
 }

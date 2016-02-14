@@ -538,5 +538,29 @@ namespace Tangenta.Properties {
                 this["eManagerMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool InvoiceHeaderChecked {
+            get {
+                return ((bool)(this["InvoiceHeaderChecked"]));
+            }
+            set {
+                this["InvoiceHeaderChecked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SplitContainerDistanceUserSettings {
+            get {
+                return ((string)(this["SplitContainerDistanceUserSettings"]));
+            }
+            set {
+                this["SplitContainerDistanceUserSettings"] = value;
+            }
+        }
     }
 }
