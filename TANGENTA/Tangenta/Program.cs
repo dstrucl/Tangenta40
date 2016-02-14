@@ -60,6 +60,9 @@ namespace Tangenta
         internal static bool bReset2FactorySettings = false;
 
         private static bool m_bProgramDiagnostic = false;
+
+        public static List<Control> ListOfAllSplitConatinerControls = new List<Control>(); // used for save user resize 
+        public static string SplitConatinerControlsDefaulValues = "";
         #endregion
 
         #region External WIN_API

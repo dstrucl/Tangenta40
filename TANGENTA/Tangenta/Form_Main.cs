@@ -27,7 +27,6 @@ namespace Tangenta
 
         internal string m_XmlFileName = null;
 
-
         public Form_Main()
         {
             LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Main()before InitializeComponent()!");
@@ -52,8 +51,138 @@ namespace Tangenta
                 LogFile.Error.Show("ERROR:Get_RecentItemsFolder(ref rfolder) failed!");
             }
 
-           // Properties.Settings.Default.SplitterPositions =
-           
+            // Properties.Settings.Default.SplitterPositions =
+            
+        }
+
+        private void Main_Form_Load(object sender, EventArgs e)
+        {
+            //string Err = null;
+            this.Text = lngRPM.s_Cashier.s;
+            if (Program.bDemo)
+            {
+                this.Text += " DEMO";
+            }
+            if (Program.bSymulator)
+            {
+                this.Text += " (WITH INPUT SYMULATION)";
+            }
+            if (Program.ProgramDiagnostic)
+            {
+                this.Text += " DIAGNOSTIC";
+            }
+
+
+            ProgramDiagnostic.Diagnostic.Enabled = false;
+            if (Program.ProgramDiagnostic)
+            {
+                ProgramDiagnostic.Diagnostic.Enabled = true;
+                this.KeyUp += new KeyEventHandler(Main_Form_KeyUp);
+            }
+
+            m_XmlFileName = XML_ROOT_NAME;
+
+            string IniFileFolder = Properties.Settings.Default.IniFileFolder;
+            string sDBType = Properties.Settings.Default.DBType;
+            bool bResult = DBSync.DBSync.Init(this, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection);
+
+            Properties.Settings.Default.IniFileFolder = IniFileFolder;
+
+            Properties.Settings.Default.DBType = sDBType;
+            Properties.Settings.Default.Save();
+
+            GetAllSplitContainerControlsRecusive<Control>(ref Program.ListOfAllSplitConatinerControls, this);
+            SetSplitContainerPositions(true, ref Program.ListOfAllSplitConatinerControls, Properties.Settings.Default.SplitContainerDistanceUserSettings);
+
+
+            if (bResult)
+            {
+                if (m_usrc_Main.Init(this))
+                {
+                    return;
+                }
+            }
+            this.Close();
+            DialogResult = DialogResult.Abort;
+        }
+
+        public void GetAllSplitContainerControlsRecusive<T>(ref List<Control> retlist, Control control) where T : Control
+        {
+            List<Control> tmpList = null;
+            foreach (Control item in control.Controls)
+            {
+                var ctr = item as T;
+                if (ctr != null)
+                {
+                    string a = ctr.Name;
+                    Type t = ctr.GetType();
+                    if (t.Equals(typeof(SplitContainer)))
+                    {
+                        retlist.Add(ctr);
+                    }
+                    if (ctr.HasChildren)
+                    {
+                        if ( tmpList == null) tmpList = new List<Control>();
+                        tmpList.Add(item);
+                    }
+                }
+            }
+
+            if (tmpList != null)
+            {
+                for (int i = 0; i < tmpList.Count; i++)
+                {
+                    GetAllSplitContainerControlsRecusive<T>(ref retlist, tmpList.ElementAt(i));
+                }
+            }
+
+        }
+
+        public  void SetSplitContainerPositions(bool firstime, ref List<Control> ctllist,string settingValues)
+        {
+            int i = 0;
+            string[] distances = settingValues.Split(';');
+
+            foreach (Control item in ctllist)
+            {
+                var ctr = item as SplitContainer;
+                if (ctr != null)
+                {
+                    if (firstime)// at first time save design values for 
+                    {
+                        if (Program.SplitConatinerControlsDefaulValues.Length > 0) Program.SplitConatinerControlsDefaulValues += ";";
+                        Program.SplitConatinerControlsDefaulValues += ctr.SplitterDistance;
+                  }
+
+                    int size = 0;
+                    if (i < distances.Length) int.TryParse(distances[i].Trim(), out size);
+
+                    int mesaurewith = ctr.Height;
+                    if (ctr.Orientation == Orientation.Vertical) mesaurewith = ctr.Width;
+                    if (size >= ctr.Panel1MinSize && size< mesaurewith - ctr.Panel2MinSize) //=SplitterDistance must be between Panel1MinSize and Width - Panel2MinSize.
+                       {
+                            ctr.SplitterDistance = size;
+                    }
+                    i++;
+                }
+            }
+        }
+
+        public  void SaveSplitContainerPositions(ref List<Control> ctllist)
+        {
+            string distances ="";
+            foreach (Control item in ctllist)
+            {
+                var ctr = item as SplitContainer;
+                if (ctr != null)
+                {
+                    if (distances.Length !=0) distances += ";";
+                    distances += ctr.SplitterDistance;
+                }
+            }
+
+            Properties.Settings.Default.SplitContainerDistanceUserSettings= distances;
+            Properties.Settings.Default.Save();
         }
 
 
@@ -106,51 +235,6 @@ namespace Tangenta
             }
         }
 
-        private void Main_Form_Load(object sender, EventArgs e)
-        {
-            //string Err = null;
-            this.Text = lngRPM.s_Cashier.s;
-            if (Program.bDemo)
-            {
-                this.Text += " DEMO";
-            }
-            if (Program.bSymulator)
-            {
-                this.Text += " (WITH INPUT SYMULATION)";
-            }
-            if (Program.ProgramDiagnostic)
-            {
-                this.Text += " DIAGNOSTIC";
-            }
-
-
-            ProgramDiagnostic.Diagnostic.Enabled = false;
-            if (Program.ProgramDiagnostic)
-            {
-                ProgramDiagnostic.Diagnostic.Enabled = true;
-                this.KeyUp += new KeyEventHandler(Main_Form_KeyUp);
-            }
-
-            m_XmlFileName = XML_ROOT_NAME;
-
-            string IniFileFolder = Properties.Settings.Default.IniFileFolder;
-            string sDBType = Properties.Settings.Default.DBType;
-            bool bResult = DBSync.DBSync.Init(this,Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType,false,Program.bChangeConnection);
-
-            Properties.Settings.Default.IniFileFolder = IniFileFolder;
-
-            Properties.Settings.Default.DBType = sDBType;
-            Properties.Settings.Default.Save();
-            if (bResult)
-            {
-                if (m_usrc_Main.Init(this))
-                {
-                    return;
-                }
-            }
-            this.Close();
-            DialogResult = DialogResult.Abort;
-        }
 
         void Main_Form_KeyUp(object sender, KeyEventArgs e)
         {
@@ -262,6 +346,8 @@ namespace Tangenta
                     Program.usrc_FVI_SLO1.End();
                 }
             }
+
+            SaveSplitContainerPositions(ref Program.ListOfAllSplitConatinerControls);
         }
 
         private void m_usrc_Main_Exit_Click()

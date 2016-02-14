@@ -550,5 +550,17 @@ namespace Tangenta.Properties {
                 this["InvoiceHeaderChecked"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SplitContainerDistanceUserSettings {
+            get {
+                return ((string)(this["SplitContainerDistanceUserSettings"]));
+            }
+            set {
+                this["SplitContainerDistanceUserSettings"] = value;
+            }
+        }
     }
 }
