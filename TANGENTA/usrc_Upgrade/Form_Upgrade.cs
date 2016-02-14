@@ -49,7 +49,6 @@ namespace usrc_Upgrade
             m_iCurrentItem =  this.listBox1.Items.Add(sItem);
             m_ThreadP_Message = new ThreadProcessor.ThreadP_Message(MessageID, ThreadProcessor.ThreadP_Message.eMessage.TASK, upgradeArray[m_j].procedure, null);
             thread.message_box.Post(m_ThreadP_Message);
-            m_j++;
             timer_GetMessage.Enabled = true;
         }
 

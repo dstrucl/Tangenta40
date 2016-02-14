@@ -300,7 +300,6 @@ Global
 		{060072A4-7185-426B-ACF6-91A90AC8B6B5}.Release|x64.ActiveCfg = Release|Any CPU
 		{060072A4-7185-426B-ACF6-91A90AC8B6B5}.Release|x64.Build.0 = Release|Any CPU
 		{060072A4-7185-426B-ACF6-91A90AC8B6B5}.Release|x86.ActiveCfg = Release|x86
-		{060072A4-7185-426B-ACF6-91A90AC8B6B5}.Release|x86.Build.0 = Release|x86
 		{060072A4-7185-426B-ACF6-91A90AC8B6B5}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{060072A4-7185-426B-ACF6-91A90AC8B6B5}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 		{060072A4-7185-426B-ACF6-91A90AC8B6B5}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU

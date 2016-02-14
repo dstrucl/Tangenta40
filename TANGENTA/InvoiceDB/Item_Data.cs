@@ -113,7 +113,7 @@ namespace InvoiceDB
             Warranty_ID = tf.set_long(xdr["Warranty_ID"]);
             Warranty_WarrantyConditions = tf.set_string(xdr["Warranty_WarrantyConditions"]);
             Warranty_WarrantyDuration = tf.set_int(xdr["Warranty_WarrantyDuration"]);
-            Warranty_WarrantyDurationType = tf.set_short(xdr["Warranty_WarrantyDurationType"]);
+            Warranty_WarrantyDurationType = tf.set_short(fs.MyConvertToShort(xdr["Warranty_WarrantyDurationType"]));
             Taxation_ID = tf.set_long(xdr["Taxation_ID"]);
             Taxation_Name = tf.set_string(xdr["Taxation_Name"]);
             Taxation_Rate = tf.set_decimal(xdr["Taxation_Rate"]);
