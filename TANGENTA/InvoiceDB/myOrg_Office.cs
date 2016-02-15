@@ -130,7 +130,7 @@ namespace InvoiceDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:myOrg_Office:Get:(Office_ID_v == null)");
+                    LogFile.Error.Show("ERROR:myOrg_Office:Get:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }

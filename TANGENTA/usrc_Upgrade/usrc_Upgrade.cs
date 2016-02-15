@@ -132,10 +132,10 @@ namespace usrc_Upgrade
                              Description
                             )
                             select
-                            Office_ID,
+                            1,
                             cAddress_Org_ID,
                             Description
-                            from office_data
+                            from office_data where ID = 1;
                             ";
 
                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
@@ -150,6 +150,34 @@ namespace usrc_Upgrade
                               )";
                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
+                            sql = "update Atom_Office_Data set Atom_Office_ID = 1";
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+
+                            sql = "update Atom_FVI_SLO_RealEstateBP set Atom_Office_Data_ID = 1";
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+
+                            sql = "delete from Atom_FVI_SLO_RealEstateBP  where ID > 1";
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+
+                            sql = "delete from Atom_Office_Data where ID > 1";
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_18_to_1_19:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+
                             sql = @"
                                 insert into Atom_Office_Data_backup
                                 (
@@ -228,14 +256,8 @@ namespace usrc_Upgrade
                 //Repair StudioMarjetka DataBase
                 if (DBSync.DBSync.DataBase.Contains("StudioMarjetka"))
                 {
-                    sql = "Update Atom_Organisation set Registration_ID = '3802809000'";
 
-                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                    sql = "Update Atom_OrganisationData set Atom_Organisation_ID = 1 , Atom_Logo_ID = 1";
+                    sql = "Update Atom_Office set Atom_myCompany_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
@@ -249,7 +271,20 @@ namespace usrc_Upgrade
                         return false;
                     }
 
-                    sql = "Update Atom_myCompany_Person set Atom_Office_ID = 1";
+                    sql = "Update Atom_Office_Data set Atom_myCompany_Person_ID = 1";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Update Atom_Organisation set Registration_ID = '3802809000'";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                    sql = "Update Atom_OrganisationData set Atom_Organisation_ID = 1 , Atom_Logo_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
@@ -263,35 +298,84 @@ namespace usrc_Upgrade
                         return false;
                     }
 
-                    sql = "Delete from Atom_myCompany_Person where ID in (2,3)";
+                    sql = "Update Atom_myCompany_Person set Atom_Person_ID = 1,Atom_Office_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Delete from Atom_Office where ID = 2";
+                    sql = "delete from Atom_myCompany_Person where ID > 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Delete from Atom_myCompany where ID = 2";
+                    sql = "Update Office set myCompany_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Delete from Atom_OrganisationData where ID = 2";
+                    sql = @"PRAGMA foreign_keys = OFF;
+                           Delete from Office where ID = 2";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Delete from Atom_Organisation where ID = 2";
+                    sql = "Update Atom_Office set Atom_myCompany_ID = 1";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = "Delete from Atom_myCompany_Person where ID > 1";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+
+                    sql = @"PRAGMA foreign_keys = OFF;
+                           Delete from Atom_myCompany_Person where ID in (2,3)";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = @"PRAGMA foreign_keys = OFF;
+                            Delete from Atom_Office where ID = 2";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = @"PRAGMA foreign_keys = OFF;
+                           Delete from Atom_myCompany where ID = 2";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = @"PRAGMA foreign_keys = OFF;
+                           Delete from Atom_OrganisationData where ID = 2";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    sql = @"PRAGMA foreign_keys = OFF;
+                            Delete from Atom_Organisation where ID = 2";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);

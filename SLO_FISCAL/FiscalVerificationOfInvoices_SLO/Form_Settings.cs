@@ -38,17 +38,17 @@ namespace FiscalVerificationOfInvoices_SLO
             lngRPM.s_Furs_Environment.Text(rdb_FURS_Environment);
             lngRPM.s_Furs_Test_Environment.Text(rdb_FURS_TEST_Environment);
 
-            this.nm_UpDown_timeOutInSec.Value = Convert.ToDecimal(Properties.Settings.Default.timeOutInSec);
-            this.nm_TimeToShoqSuccessfulFURS_Transaction.Value = Convert.ToDecimal(Properties.Settings.Default.timeToShowSuccessfulFURSResult);
-            this.nm_QRSizeWidth.Value = Convert.ToDecimal(Properties.Settings.Default.QRImageWidth);
+            SetValue(nm_UpDown_timeOutInSec,Properties.Settings.Default.timeOutInSec);
+            SetValue(this.nm_TimeToShoqSuccessfulFURS_Transaction, Properties.Settings.Default.timeToShowSuccessfulFURSResult);
+            SetValue(this.nm_QRSizeWidth, Properties.Settings.Default.QRImageWidth);
             this.rdb_FURS_TEST_Environment.Checked = false;
             this.rdb_FURS_Environment.Checked = false;
             this.usrc_FURS_environment_settings.Init(false, m_usrc_FVI_SLO);
             this.usrc_FURS_environment_settings_TEST.Init(true, m_usrc_FVI_SLO);
             this.txt_SalesBookInvoice_Current_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
-            this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Value = Convert.ToDecimal(Properties.Settings.Default.Last_SalesBookInvoice_SetNumber);
+            SetValue(nm_UpDn_SalesBookInvoice_Last_SetNumber, Properties.Settings.Default.Last_SalesBookInvoice_SetNumber);
             this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
-            this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Value = Convert.ToDecimal(Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber);
+            SetValue(nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook, Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber);
 
             if (Properties.Settings.Default.fursTEST_Environment)
             {
@@ -68,6 +68,26 @@ namespace FiscalVerificationOfInvoices_SLO
             chk_DebugAndTest.Checked = Properties.Settings.Default.DEBUG;
             chk_DebugAndTest.CheckedChanged += Chk_DebugAndTest_CheckedChanged;
 
+        }
+
+        private void SetValue(NumericUpDown nm_UpDn, int i)
+        {
+            decimal d = Convert.ToDecimal(i);
+            if (nm_UpDn.Minimum > d)
+            {
+                nm_UpDn.Value = nm_UpDn.Minimum;
+            }
+            else
+            {
+                if (nm_UpDn.Maximum < d)
+                {
+                    nm_UpDn.Value = nm_UpDn.Maximum;
+                }
+                else
+                {
+                    nm_UpDn.Value = d;
+                }
+            }
         }
 
         private void Rdb_FURS_Environment_CheckedChanged(object sender, EventArgs e)
