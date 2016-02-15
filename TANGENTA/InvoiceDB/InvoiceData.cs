@@ -40,7 +40,7 @@ namespace InvoiceDB
 
     public class InvoiceData
     {
-        public enum eType { DRAFT_INVOICE,INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
+        public enum eType { DRAFT_INVOICE, INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
 
         public eType m_eType = eType.UNKNOWN;
         private bool b_FVI_SLO = false;
@@ -50,7 +50,7 @@ namespace InvoiceDB
         public string_v FURS_ZOI_v = null;
         public string_v FURS_EOR_v = null;
         public string_v FURS_QR_v = null;
-        public Image    FURS_Image_QRcode = null;
+        public Image FURS_Image_QRcode = null;
 
         public string_v FURS_SalesBookInvoice_InvoiceNumber_v = null;
         public string_v FURS_SalesBookInvoice_SetNumber_v = null;
@@ -73,8 +73,8 @@ namespace InvoiceDB
         public int NumberInFinancialYear = -1;
         public bool Draft = true;
 
-        public DateTime_v IssueDate_v=null;
-        public DateTime_v StornoIssueDate_v=null;
+        public DateTime_v IssueDate_v = null;
+        public DateTime_v StornoIssueDate_v = null;
 
 
         public string Currency_Symbol = null;
@@ -177,7 +177,7 @@ namespace InvoiceDB
                     sUnitName = (string)oUnitName;
                 }
 
-                decimal dQuantity = -1;    
+                decimal dQuantity = -1;
                 object oQuantity = dr["Atom_ItemShopA_Price_$$dQuantity"];
                 if (oQuantity is decimal)
                 {
@@ -200,7 +200,7 @@ namespace InvoiceDB
                 decimal dRetailPricePerUnitWithDiscount = 0;
                 if (dr["Atom_ItemShopA_Price_$$PricePerUnit"] is decimal)
                 {
-                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr["Atom_ItemShopA_Price_$$PricePerUnit"]*(1- Discount),GlobalData.BaseCurrency.DecimalPlaces);
+                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr["Atom_ItemShopA_Price_$$PricePerUnit"] * (1 - Discount), GlobalData.BaseCurrency.DecimalPlaces);
                 }
 
 
@@ -267,7 +267,7 @@ namespace InvoiceDB
                 }
                 decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
 
-                decimal taxation_rate  = DBTypes.tf._set_decimal(dr["Atom_Taxation_Rate"]);
+                decimal taxation_rate = DBTypes.tf._set_decimal(dr["Atom_Taxation_Rate"]);
                 decimal tax_price = DBTypes.tf._set_decimal(dr["TaxPrice"]);
                 string tax_name = DBTypes.tf._set_string(dr["Atom_Taxation_Name"]);
                 taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
@@ -293,7 +293,7 @@ namespace InvoiceDB
 
         }
 
-        
+
         public bool Write_FURS_Response_Data()
         {
             object oret = null;
@@ -307,14 +307,14 @@ namespace InvoiceDB
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
-                if (dt.Rows.Count>0)
+                if (dt.Rows.Count > 0)
                 {
-                    LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\n Invoice was confirmed in the past: Invoice_ID"+ Invoice_ID_v.v.ToString()+ " fvi_slo_response.ID="+((long)dt.Rows[0]["ID"]).ToString());
+                    LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\n Invoice was confirmed in the past: Invoice_ID" + Invoice_ID_v.v.ToString() + " fvi_slo_response.ID=" + ((long)dt.Rows[0]["ID"]).ToString());
                     return true;
 
                 }
             }
-                string spar_MessageID = "@par_MessageID";
+            string spar_MessageID = "@par_MessageID";
             SQL_Parameter par_MessageID = new SQL_Parameter(spar_MessageID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_ZOI_v.v);
             lpar.Add(par_MessageID);
 
@@ -333,9 +333,9 @@ namespace InvoiceDB
             lpar.Add(par_Response_DateTime);
 
 
-            sql = "insert into fvi_slo_response (Invoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID +","+ spar_BarCodeValue + "," + spar_Response_DateTime + ")";
+            sql = "insert into fvi_slo_response (Invoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ")";
             long id = -1;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar, ref id, ref oret,ref Err, "fvi_slo_response"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, "fvi_slo_response"))
             {
                 Set_Invoice_Furs_Token();
                 return true;
@@ -377,14 +377,14 @@ namespace InvoiceDB
         {
             string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where Invoice_ID = " + Invoice_ID.ToString();
             string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt,sql, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
                     FURS_ZOI_v = tf.set_string(dt.Rows[0]["MessageID"]);
                     FURS_EOR_v = tf.set_string(dt.Rows[0]["UniqueInvoiceID"]);
                     FURS_QR_v = tf.set_string(dt.Rows[0]["BarCodeValue"]);
-                    this.FURS_Image_QRcode =null;
+                    this.FURS_Image_QRcode = null;
                 }
                 else
                 {
@@ -439,7 +439,7 @@ namespace InvoiceDB
             }
         }
 
-        public void Fill_Sold_ShopC_ItemsData(List<object> xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST,ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        public void Fill_Sold_ShopC_ItemsData(List<object> xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
         {
 
             int i;
@@ -477,7 +477,7 @@ namespace InvoiceDB
 
                 taxSum.Add(tax_price, ItemsNetPrice, tax_name, taxation_rate);
 
-                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix,lngRPM.s_Shop_B,
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
                                                              DBTypes.tf._set_string(appisd.Atom_Item_UniqueName.v),
                                                              DBTypes.tf._set_decimal(appisd.RetailPricePerUnit.v),
                                                              DBTypes.tf._set_string(appisd.Atom_Unit_Name.v),
@@ -677,7 +677,7 @@ namespace InvoiceDB
                         string_v EventName_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_Type_Name"]);
                         if (Draft)
                         {
-                                this.m_eType = eType.DRAFT_INVOICE;
+                            this.m_eType = eType.DRAFT_INVOICE;
                         }
                         else
                         {
@@ -768,7 +768,7 @@ namespace InvoiceDB
                         GrossSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
                         taxsum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
                         NetSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
-                        
+
 
                         if (b_FVI_SLO)
                         {
@@ -812,12 +812,12 @@ namespace InvoiceDB
                             if (!Draft)
                             {
 
-                                  FURS_ZOI_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$MessageID"]);
-                                  FURS_EOR_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$UniqueInvoiceID"]);
-                                  FURS_QR_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$BarCodeValue"]);
-                                  FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$InvoiceNumber"]); 
-                                  FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SetNumber"]); 
-                                  FURS_SalesBookInvoice_SerialNumber =  DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SerialNumber"]); 
+                                FURS_ZOI_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$MessageID"]);
+                                FURS_EOR_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$UniqueInvoiceID"]);
+                                FURS_QR_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$BarCodeValue"]);
+                                FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$InvoiceNumber"]);
+                                FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SetNumber"]);
+                                FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SerialNumber"]);
                             }
                         }
 
@@ -838,8 +838,8 @@ namespace InvoiceDB
                         {
                             CustomerOrganisation = new UniversalInvoice.Organisation(lngToken.st_Customer);
                         }
-                        
-                        
+
+
                         if (dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
                         {
                             long Atom_Customer_Person_ID = (long)dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"];
@@ -851,7 +851,7 @@ namespace InvoiceDB
                         }
 
                         long xProformaInvoice_ID = ProformaInvoice_ID;
-                        if (ProformaInvoice_Reference_ID_v!=null)
+                        if (ProformaInvoice_Reference_ID_v != null)
                         {
                             xProformaInvoice_ID = ProformaInvoice_Reference_ID_v.v;
                         }
@@ -883,7 +883,7 @@ namespace InvoiceDB
                                 taxSum = new StaticLib.TaxSum();
                                 Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold);
                                 Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold);
-                                Fill_Sold_ShopC_ItemsData(xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST,lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold);
+                                Fill_Sold_ShopC_ItemsData(xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold);
 
                                 InvoiceToken = new UniversalInvoice.InvoiceToken();
 
@@ -987,7 +987,7 @@ namespace InvoiceDB
                 }
             }
 
-            UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(lngToken.st_Customer, 
+            UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(lngToken.st_Customer,
                                                        null,
                                                        null,
                                                        null,
@@ -1015,7 +1015,7 @@ namespace InvoiceDB
                 s += "\r\n" + tt.lt.s;
             }
 
-            UniversalInvoice.Person xCustomerPerson = new UniversalInvoice.Person(lngToken.st_Customer,false,
+            UniversalInvoice.Person xCustomerPerson = new UniversalInvoice.Person(lngToken.st_Customer, false,
                                                        null,
                                                        null,
                                                        DateTime.MinValue,
@@ -1057,11 +1057,11 @@ namespace InvoiceDB
             }
         }
 
-        public string Create_furs_InvoiceXML(bool bStorno,string InvoiceXmlTemplate,string FursD_MyOrgTaxID,string FursD_BussinesPremiseID,string CasshierName, string FursD_InvoiceAuthorTaxID,string stornoReferenceInvoiceNumber, string stornoReferenceInvoiceIssueDateTime)
+        public string Create_furs_InvoiceXML(bool bStorno, string InvoiceXmlTemplate, string FursD_MyOrgTaxID, string FursD_BussinesPremiseID, string CasshierName, string FursD_InvoiceAuthorTaxID, string stornoReferenceInvoiceNumber, string stornoReferenceInvoiceIssueDateTime)
         {
             try
             {
-//                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_Invoice;
+                //                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_Invoice;
                 XmlDocument xdoc = new XmlDocument();
                 xdoc.LoadXml(InvoiceXmlTemplate);
                 XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
@@ -1086,9 +1086,9 @@ namespace InvoiceDB
                 foreach (StaticLib.Tax tax in taxSum.TaxList)
                 {
                     string sVat = "<fu:VAT>\r\n" +
-                                          "<fu:TaxRate>" + sStorno(bStorno)+ fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
-                                          "<fu:TaxableAmount>" + sStorno(bStorno)  + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
-                                          "<fu:TaxAmount>" + sStorno(bStorno)+ fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
+                                          "<fu:TaxRate>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
+                                          "<fu:TaxableAmount>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
+                                          "<fu:TaxAmount>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
                                    "</fu:VAT>" + "\r\n";
                     s_innertext += sVat;
                 }
@@ -1113,9 +1113,9 @@ namespace InvoiceDB
 
                     XmlNode xReferenceInvoice = xdoc.CreateNode("element", "ReferenceInvoice", ns);
                     XmlNode xReferenceInvoiceIdentifier = xdoc.CreateNode("element", "ReferenceInvoiceIdentifier", ns);
-                    XmlNode xBusinessPremiseID = xdoc.CreateNode("element", "BusinessPremiseID", ns); 
-                    XmlNode xElectronicDeviceID = xdoc.CreateNode("element", "ElectronicDeviceID", ns); 
-                    XmlNode xInvoiceNumber = xdoc.CreateNode("element", "InvoiceNumber", ns); 
+                    XmlNode xBusinessPremiseID = xdoc.CreateNode("element", "BusinessPremiseID", ns);
+                    XmlNode xElectronicDeviceID = xdoc.CreateNode("element", "ElectronicDeviceID", ns);
+                    XmlNode xInvoiceNumber = xdoc.CreateNode("element", "InvoiceNumber", ns);
                     XmlNode xReferenceInvoiceIssueDateTime = xdoc.CreateNode("element", "ReferenceInvoiceIssueDateTime", ns);
                     xReferenceInvoice.Prefix = "fu";
                     xReferenceInvoiceIdentifier.Prefix = "fu";
@@ -1173,7 +1173,7 @@ namespace InvoiceDB
                 XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
                 ndl_InvoiceNumber.Item(0).InnerText = NumberInFinancialYear.ToString();
                 XmlNodeList ndl_InvoiceAmount = xdoc.GetElementsByTagName("fu:InvoiceAmount");
-                ndl_InvoiceAmount.Item(0).InnerText =  fs.GetFursDecimalString(GrossSum);
+                ndl_InvoiceAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
                 XmlNodeList ndl_PaymentAmount = xdoc.GetElementsByTagName("fu:PaymentAmount");
                 ndl_PaymentAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
 
@@ -1182,9 +1182,9 @@ namespace InvoiceDB
                 foreach (StaticLib.Tax tax in taxSum.TaxList)
                 {
                     string sVat = "<fu:VAT>\r\n" +
-                                          "<fu:TaxRate>" +  fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
+                                          "<fu:TaxRate>" + fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
                                           "<fu:TaxableAmount>" + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
-                                          "<fu:TaxAmount>"  + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
+                                          "<fu:TaxAmount>" + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
                                    "</fu:VAT>" + "\r\n";
                     s_innertext += sVat;
                 }
@@ -1192,11 +1192,11 @@ namespace InvoiceDB
 
                 // salesbook stuff
                 XmlNodeList ndl_SetNumber = xdoc.GetElementsByTagName("fu:SetNumber");
-                ndl_SetNumber.Item(0).InnerText = Convert.ToInt32(SalesBookSetNumber).ToString("D2") ;
+                ndl_SetNumber.Item(0).InnerText = Convert.ToInt32(SalesBookSetNumber).ToString("D2");
 
                 XmlNodeList ndl_SerialNumber = xdoc.GetElementsByTagName("fu:SerialNumber");
                 ndl_SerialNumber.Item(0).InnerText = SalesBookSerialNumber;
-                
+
 
                 string InvoiceXml = XmlDcoumentToString(xdoc);
                 return InvoiceXml;
@@ -1329,6 +1329,24 @@ namespace InvoiceDB
                                 {
                                     tCurrency = itms.token.tCurrency;
                                 }
+                            }
+                            if (itms.dQuantity <= 0)
+                            {
+                                itms.token.tQuantity.Set("");
+                                itms.token.tUnit.Set("");
+                                itms.token.tPricePerUnit.Set("");
+                            }
+
+                            if (itms.TotalDiscount <= 0)
+                            {
+                                itms.token.tDiscount.Set("");
+                                itms.token.tDiscountPercent.Set("");
+                                itms.token.tExtraDiscount.Set("");
+                                itms.token.tExtraDiscountPercent.Set("");
+                                itms.token.tTotalDiscount.Set("");
+                                itms.token.tTotalDiscountPercent.Set("");
+
+
                             }
                             string sRow = itms.token.tItemName.Replace(tr_RowTemplate);
                             sRow = itms.token.tPricePerUnit.Replace(sRow);
