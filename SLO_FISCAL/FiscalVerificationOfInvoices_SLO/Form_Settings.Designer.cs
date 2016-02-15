@@ -226,7 +226,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_FURS_environment_settings_TEST);
-            this.splitContainer1.Size = new System.Drawing.Size(910, 739);
+            this.splitContainer1.Size = new System.Drawing.Size(901, 739);
             this.splitContainer1.SplitterDistance = 363;
             this.splitContainer1.TabIndex = 22;
             // 
@@ -238,7 +238,7 @@
             this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
-            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(906, 359);
+            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(897, 359);
             this.usrc_FURS_environment_settings.TabIndex = 18;
             // 
             // usrc_FURS_environment_settings_TEST
@@ -249,7 +249,7 @@
             this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
-            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(906, 368);
+            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(897, 368);
             this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
             // 
             // txt_SalesBookInvoice_Current_SerialNumber
@@ -371,7 +371,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(925, 858);
+            this.ClientSize = new System.Drawing.Size(916, 858);
             this.Controls.Add(this.grp_SalesBookInvoice);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.rdb_FURS_TEST_Environment);
