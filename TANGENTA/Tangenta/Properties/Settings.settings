@@ -131,5 +131,11 @@
     <Setting Name="eManagerMode" Type="System.String" Scope="User">
       <Value Profile="(Default)">Shops&amp;InvoiceTable</Value>
     </Setting>
+    <Setting Name="InvoiceHeaderChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SplitContainerDistanceUserSettings" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

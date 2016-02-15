@@ -45,6 +45,7 @@
             this.chk_FullScreen = new System.Windows.Forms.CheckBox();
             this.btn_Shops_in_use = new System.Windows.Forms.Button();
             this.btn_LogFile = new System.Windows.Forms.Button();
+            this.BtnSetDefaulViewSettings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Stock
@@ -233,11 +234,22 @@
             this.btn_LogFile.UseVisualStyleBackColor = true;
             this.btn_LogFile.Click += new System.EventHandler(this.btn_LogFile_Click);
             // 
+            // BtnSetDefaulViewSettings
+            // 
+            this.BtnSetDefaulViewSettings.Location = new System.Drawing.Point(15, 84);
+            this.BtnSetDefaulViewSettings.Name = "BtnSetDefaulViewSettings";
+            this.BtnSetDefaulViewSettings.Size = new System.Drawing.Size(137, 31);
+            this.BtnSetDefaulViewSettings.TabIndex = 17;
+            this.BtnSetDefaulViewSettings.Text = "Ponastavi pogled";
+            this.BtnSetDefaulViewSettings.UseVisualStyleBackColor = true;
+            this.BtnSetDefaulViewSettings.Click += new System.EventHandler(this.BtnSetDefaulViewSettings_Click);
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(793, 89);
+            this.ClientSize = new System.Drawing.Size(793, 120);
+            this.Controls.Add(this.BtnSetDefaulViewSettings);
             this.Controls.Add(this.btn_LogFile);
             this.Controls.Add(this.btn_Shops_in_use);
             this.Controls.Add(this.chk_FullScreen);
@@ -282,5 +294,6 @@
         private System.Windows.Forms.CheckBox chk_FullScreen;
         private System.Windows.Forms.Button btn_Shops_in_use;
         private System.Windows.Forms.Button btn_LogFile;
+        private System.Windows.Forms.Button BtnSetDefaulViewSettings;
     }
 }

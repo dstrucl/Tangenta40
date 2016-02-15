@@ -296,12 +296,25 @@ namespace InvoiceDB
         
         public bool Write_FURS_Response_Data()
         {
+            object oret = null;
+            string Err = null;
+            string sql = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Invoice_ID = "@par_Invoice_ID";
             SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Invoice_ID_v.v);
             lpar.Add(par_Invoice_ID);
+            sql = "select ID from fvi_slo_response where Invoice_ID = " + spar_Invoice_ID;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\n Invoice was confirmed in the past: Invoice_ID"+ Invoice_ID_v.v.ToString()+ " fvi_slo_response.ID="+((long)dt.Rows[0]["ID"]).ToString());
+                    return true;
 
-            string spar_MessageID = "@par_MessageID";
+                }
+            }
+                string spar_MessageID = "@par_MessageID";
             SQL_Parameter par_MessageID = new SQL_Parameter(spar_MessageID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_ZOI_v.v);
             lpar.Add(par_MessageID);
 
@@ -320,10 +333,8 @@ namespace InvoiceDB
             lpar.Add(par_Response_DateTime);
 
 
-            string sql = "insert into fvi_slo_response (Invoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID +","+ spar_BarCodeValue + "," + spar_Response_DateTime + ")";
+            sql = "insert into fvi_slo_response (Invoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID +","+ spar_BarCodeValue + "," + spar_Response_DateTime + ")";
             long id = -1;
-            object oret = null;
-            string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar, ref id, ref oret,ref Err, "fvi_slo_response"))
             {
                 Set_Invoice_Furs_Token();
@@ -1181,7 +1192,7 @@ namespace InvoiceDB
 
                 // salesbook stuff
                 XmlNodeList ndl_SetNumber = xdoc.GetElementsByTagName("fu:SetNumber");
-                ndl_SetNumber.Item(0).InnerText = SalesBookSetNumber;
+                ndl_SetNumber.Item(0).InnerText = Convert.ToInt32(SalesBookSetNumber).ToString("D2") ;
 
                 XmlNodeList ndl_SerialNumber = xdoc.GetElementsByTagName("fu:SerialNumber");
                 ndl_SerialNumber.Item(0).InnerText = SalesBookSerialNumber;

@@ -46,11 +46,11 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lbl_MyOrganisation = new System.Windows.Forms.Label();
             this.btn_MyOrganisation = new System.Windows.Forms.Button();
+            this.usrc_Customer = new Tangenta.usrc_Customer();
             this.btn_CodeTables = new System.Windows.Forms.Button();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
             this.usrc_Notice1 = new Tangenta.usrc_Notice();
-            this.usrc_Customer = new Tangenta.usrc_Customer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -169,7 +169,7 @@
             // lbl_Currency
             // 
             this.lbl_Currency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Currency.Location = new System.Drawing.Point(637, 9);
             this.lbl_Currency.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Currency.Name = "lbl_Currency";
@@ -225,7 +225,7 @@
             // 
             // chk_Head
             // 
-            this.chk_Head.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chk_Head.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.chk_Head.Location = new System.Drawing.Point(222, 2);
             this.chk_Head.Name = "chk_Head";
             this.chk_Head.Size = new System.Drawing.Size(83, 28);
@@ -282,6 +282,21 @@
             this.btn_MyOrganisation.UseVisualStyleBackColor = true;
             this.btn_MyOrganisation.Click += new System.EventHandler(this.btn_MyOrganisation_Click);
             // 
+            // usrc_Customer
+            // 
+            this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Customer.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_Customer.Location = new System.Drawing.Point(368, 45);
+            this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_Customer.Name = "usrc_Customer";
+            this.usrc_Customer.Size = new System.Drawing.Size(647, 29);
+            this.usrc_Customer.TabIndex = 33;
+            this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
+            this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
+            this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
+            this.usrc_Customer.Load += new System.EventHandler(this.usrc_Customer_Load);
+            // 
             // btn_CodeTables
             // 
             this.btn_CodeTables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -301,10 +316,10 @@
             // 
             this.chk_Storno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chk_Storno.AutoSize = true;
-            this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Storno.Location = new System.Drawing.Point(822, 3);
+            this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chk_Storno.Location = new System.Drawing.Point(837, 3);
             this.chk_Storno.Name = "chk_Storno";
-            this.chk_Storno.Size = new System.Drawing.Size(84, 28);
+            this.chk_Storno.Size = new System.Drawing.Size(69, 21);
             this.chk_Storno.TabIndex = 39;
             this.chk_Storno.Text = "Storno";
             this.chk_Storno.UseVisualStyleBackColor = true;
@@ -312,12 +327,12 @@
             // 
             // btn_Show_Shops
             // 
-            this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Show_Shops.Location = new System.Drawing.Point(305, -1);
             this.btn_Show_Shops.Name = "btn_Show_Shops";
             this.btn_Show_Shops.Size = new System.Drawing.Size(191, 32);
             this.btn_Show_Shops.TabIndex = 41;
-            this.btn_Show_Shops.Text = "Izberi trgovine";
+            this.btn_Show_Shops.Text = "trgovine";
             this.btn_Show_Shops.UseVisualStyleBackColor = true;
             this.btn_Show_Shops.Click += new System.EventHandler(this.btn_Select_Shops_Click);
             // 
@@ -330,21 +345,6 @@
             this.usrc_Notice1.Name = "usrc_Notice1";
             this.usrc_Notice1.Size = new System.Drawing.Size(567, 42);
             this.usrc_Notice1.TabIndex = 40;
-            // 
-            // usrc_Customer
-            // 
-            this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Customer.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_Customer.Location = new System.Drawing.Point(368, 45);
-            this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_Customer.Name = "usrc_Customer";
-            this.usrc_Customer.Size = new System.Drawing.Size(647, 29);
-            this.usrc_Customer.TabIndex = 33;
-            this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
-            this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
-            this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
-            this.usrc_Customer.Load += new System.EventHandler(this.usrc_Customer_Load);
             // 
             // usrc_Invoice
             // 

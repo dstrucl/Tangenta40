@@ -33,13 +33,15 @@ namespace FiscalVerificationOfInvoices_SLO
         public Form_Settings(usrc_FVI_SLO x_usrc_FVI_SLO)
         {
             InitializeComponent();
-            m_usrc_FVI_SLO = x_usrc_FVI_SLO;
 
-            lngRPM.s_Furs_Environment.Text(rdb_FURS_Environment);
-            lngRPM.s_Furs_Test_Environment.Text(rdb_FURS_TEST_Environment);
+            try
+            {
+                m_usrc_FVI_SLO = x_usrc_FVI_SLO;
 
             SetValue(nm_UpDown_timeOutInSec,Properties.Settings.Default.timeOutInSec);
+                lngRPM.s_Furs_Environment.Text(rdb_FURS_Environment);
             SetValue(this.nm_TimeToShoqSuccessfulFURS_Transaction, Properties.Settings.Default.timeToShowSuccessfulFURSResult);
+                lngRPM.s_Furs_Test_Environment.Text(rdb_FURS_TEST_Environment);
             SetValue(this.nm_QRSizeWidth, Properties.Settings.Default.QRImageWidth);
             this.rdb_FURS_TEST_Environment.Checked = false;
             this.rdb_FURS_Environment.Checked = false;
@@ -50,24 +52,38 @@ namespace FiscalVerificationOfInvoices_SLO
             this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
             SetValue(nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook, Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber);
 
-            if (Properties.Settings.Default.fursTEST_Environment)
-            {
-                this.rdb_FURS_TEST_Environment.Checked = true;
-                this.usrc_FURS_environment_settings.Enabled = false;
-                this.usrc_FURS_environment_settings_TEST.Enabled = true;
-            }
-            else
-            {
-                this.rdb_FURS_Environment.Checked = true;
-                this.usrc_FURS_environment_settings.Enabled = true;
-                this.usrc_FURS_environment_settings_TEST.Enabled = false;
-            }
+                this.nm_UpDown_timeOutInSec.Value = Convert.ToDecimal(Properties.Settings.Default.timeOutInSec);
+                this.nm_TimeToShoqSuccessfulFURS_Transaction.Value = Convert.ToDecimal(Properties.Settings.Default.timeToShowSuccessfulFURSResult);
+                this.nm_QRSizeWidth.Value = Convert.ToDecimal(Properties.Settings.Default.QRImageWidth);
+                this.rdb_FURS_TEST_Environment.Checked = false;
+                this.rdb_FURS_Environment.Checked = false;
+                this.usrc_FURS_environment_settings.Init(false, m_usrc_FVI_SLO);
+                this.usrc_FURS_environment_settings_TEST.Init(true, m_usrc_FVI_SLO);
+                this.txt_SalesBookInvoice_Current_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
+                this.nm_UpDn_SalesBookInvoice_Last_SetNumber.Value = Convert.ToDecimal(Properties.Settings.Default.Last_SalesBookInvoice_SetNumber);
+                this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
+                this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Value = Convert.ToDecimal(Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber);
 
-            rdb_FURS_TEST_Environment.CheckedChanged += Rdb_FURS_TEST_Environment_CheckedChanged;
-            rdb_FURS_Environment.CheckedChanged += Rdb_FURS_Environment_CheckedChanged;
-            chk_DebugAndTest.Checked = Properties.Settings.Default.DEBUG;
-            chk_DebugAndTest.CheckedChanged += Chk_DebugAndTest_CheckedChanged;
+                if (Properties.Settings.Default.fursTEST_Environment)
+                {
+                    this.rdb_FURS_TEST_Environment.Checked = true;
+                    this.usrc_FURS_environment_settings.Enabled = false;
+                    this.usrc_FURS_environment_settings_TEST.Enabled = true;
+                }
+                else
+                {
+                    this.rdb_FURS_Environment.Checked = true;
+                    this.usrc_FURS_environment_settings.Enabled = true;
+                    this.usrc_FURS_environment_settings_TEST.Enabled = false;
+                }
 
+                rdb_FURS_TEST_Environment.CheckedChanged += Rdb_FURS_TEST_Environment_CheckedChanged;
+                rdb_FURS_Environment.CheckedChanged += Rdb_FURS_Environment_CheckedChanged;
+                chk_DebugAndTest.Checked = Properties.Settings.Default.DEBUG;
+                chk_DebugAndTest.CheckedChanged += Chk_DebugAndTest_CheckedChanged;
+            }
+            catch 
+            { }
         }
 
         private void SetValue(NumericUpDown nm_UpDn, int i)
@@ -157,6 +173,11 @@ namespace FiscalVerificationOfInvoices_SLO
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form_Settings_Load(object sender, EventArgs e)
         {
 
         }
