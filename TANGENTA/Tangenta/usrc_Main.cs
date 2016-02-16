@@ -19,6 +19,7 @@ using SQLTableControl;
 using LanguageControl;
 using BlagajnaTableClass;
 using InvoiceDB;
+using UpgradeDB;
 
 namespace Tangenta
 {
@@ -27,13 +28,14 @@ namespace Tangenta
         Form Main_Form = null;
         public delegate void delegate_Exit_Click();
         public event delegate_Exit_Click Exit_Click;
+        private UpgradeDB_inThread m_UpgradeDB = null;
 
-       
 
         public usrc_Main()
         {
             InitializeComponent();
             Program.usrc_Printer1 = this.usrc_Printer1;
+            m_UpgradeDB = new UpgradeDB_inThread(this);
         }
 
         internal bool Init(Form main_Form)
@@ -50,7 +52,7 @@ namespace Tangenta
                 Program.usrc_FVI_SLO1.Settings_Reset(this);
             }
 
-            if (m_usrc_DBSettings.Read_DBSettings(ref bUpgradeDone))
+            if (m_UpgradeDB.Read_DBSettings(ref bUpgradeDone))
             {
                 if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
                 {

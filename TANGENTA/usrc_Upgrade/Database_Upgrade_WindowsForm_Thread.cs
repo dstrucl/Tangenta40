@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using uwpf_GUI;
 
-namespace usrc_Upgrade
+namespace UpgradeDB
 {
     class Database_Upgrade_WindowsForm_Thread
     {

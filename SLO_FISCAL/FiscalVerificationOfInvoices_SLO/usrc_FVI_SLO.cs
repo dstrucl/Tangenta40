@@ -324,7 +324,7 @@ namespace FiscalVerificationOfInvoices_SLO
                         case usrc_FVI_SLO_Message.eMessage.ERROR:
                             btn_FVI.Enabled = true;
                             bRun = false;
-                            LogFile.Error.Show(message.ErrorMessage);
+                            LogFile.Error.Show(lngRPM.s_FVI_SLO_Error.s+":"+message.ErrorMessage);
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.Thread_FVI_START:

@@ -1250,24 +1250,29 @@ namespace InvoiceDB
             html_doc_template = Invoice_Author.token.tLastName.Replace(html_doc_template);
             html_doc_template = Invoice_Author.token.tTaxID.Replace(html_doc_template);
 
-            foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.token.list)
+            if (CustomerOrganisation != null)
             {
-                html_doc_template = tt.Replace(html_doc_template);
-            }
+                foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.token.list)
+                {
+                    html_doc_template = tt.Replace(html_doc_template);
+                }
 
-            foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.Address.token.list)
-            {
-                html_doc_template = tt.Replace(html_doc_template);
+                foreach (UniversalInvoice.TemplateToken tt in CustomerOrganisation.Address.token.list)
+                {
+                    html_doc_template = tt.Replace(html_doc_template);
+                }
             }
-
-            foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.token.list)
+            if (CustomerPerson != null)
             {
-                html_doc_template = tt.Replace(html_doc_template);
-            }
+                foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.token.list)
+                {
+                    html_doc_template = tt.Replace(html_doc_template);
+                }
 
-            foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.Address.token.list)
-            {
-                html_doc_template = tt.Replace(html_doc_template);
+                foreach (UniversalInvoice.TemplateToken tt in CustomerPerson.Address.token.list)
+                {
+                    html_doc_template = tt.Replace(html_doc_template);
+                }
             }
 
 

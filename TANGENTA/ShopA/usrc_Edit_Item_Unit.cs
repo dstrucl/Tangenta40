@@ -150,7 +150,7 @@ namespace ShopA
             dPricePerUnit_v = new decimal_v();
             dQuantity_v = new decimal_v();
             m_Unit = new Unit();
-            lbl_Price.Text = "";
+            //lbl_Price.Text = "";
             chk_Unit.CheckedChanged += Chk_Unit_CheckedChanged;
             chk_Unit.Checked = false;
             enable(chk_Unit.Checked);
@@ -164,7 +164,7 @@ namespace ShopA
                 this.nm_dQuantity.Enabled = true;
                 this.nm_PricePerUnit.Enabled = true;
                 this.lbl_Item_Unit.Enabled = true;
-                this.lbl_Price.Enabled = true;
+                //this.lbl_Price.Enabled = true;
                 this.lbl_PricePerUnit.Enabled = true;
                 this.lbl_Quantity.Enabled = true;
             }
@@ -174,7 +174,7 @@ namespace ShopA
                 this.nm_dQuantity.Enabled = false;
                 this.nm_PricePerUnit.Enabled = false;
                 this.lbl_Item_Unit.Enabled = false;
-                this.lbl_Price.Enabled = false;
+                //this.lbl_Price.Enabled = false;
                 this.lbl_PricePerUnit.Enabled = false;
                 this.lbl_Quantity.Enabled = false;
             }
@@ -302,7 +302,7 @@ namespace ShopA
             dPriceSum_v.v = nm_PricePerUnit.Value * nm_dQuantity.Value;
             dQuantity_v.v = nm_dQuantity.Value;
             dPricePerUnit_v.v = nm_PricePerUnit.Value;
-            lngRPM.s_Price_for.Text(lbl_Price, dQuantity_v.v.ToString() + " " + cmb_Unit.Text + " = " + dPriceSum_v.v.ToString() +" "+ GlobalData.BaseCurrency.Symbol);
+            //lngRPM.s_Price_for.Text(lbl_Price, dQuantity_v.v.ToString() + " " + cmb_Unit.Text + " = " + dPriceSum_v.v.ToString() +" "+ GlobalData.BaseCurrency.Symbol);
         }
 
         private void cmb_Unit_SelectedValueChanged(object sender, EventArgs e)

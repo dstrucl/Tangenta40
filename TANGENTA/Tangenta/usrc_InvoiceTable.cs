@@ -368,10 +368,6 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt ON
 
 
                 sql = @"SELECT
-
-                    JOURNAL_ProformaInvoice_$_pinv.FinancialYear AS JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear,
-                    JOURNAL_ProformaInvoice_$_pinv.Draft AS JOURNAL_ProformaInvoice_$_pinv_$$Draft,
-                    JOURNAL_ProformaInvoice_$_pinv.DraftNumber AS JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber,
                     JOURNAL_ProformaInvoice_$_pinv.NumberInFinancialYear AS JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear,
                     JOURNAL_ProformaInvoice_$_pinv.GrossSum AS JOURNAL_ProformaInvoice_$_pinv_$$GrossSum,
                     JOURNAL_ProformaInvoice.EventTime AS JOURNAL_ProformaInvoice_$$EventTime,
@@ -380,6 +376,9 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt ON
                     JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay.PaymentType AS JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$PaymentType,
                     JOURNAL_ProformaInvoice_$_pinv.NetSum AS JOURNAL_ProformaInvoice_$_pinv_$$NetSum,
                     JOURNAL_ProformaInvoice_$_pinv.TaxSum AS JOURNAL_ProformaInvoice_$_pinv_$$TaxSum,
+                    JOURNAL_ProformaInvoice_$_pinv.FinancialYear AS JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear,
+                    JOURNAL_ProformaInvoice_$_pinv.Draft AS JOURNAL_ProformaInvoice_$_pinv_$$Draft,
+                    JOURNAL_ProformaInvoice_$_pinv.DraftNumber AS JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber,
                     JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
                     JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aphnnper.PhoneNumber AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aphnnper_$$PhoneNumber,
                     JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aemailper.Email AS JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aemailper_$$Email,

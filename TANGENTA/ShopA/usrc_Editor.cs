@@ -215,5 +215,15 @@ namespace ShopA
                 m_tool_SelectItem.Focus();
             }
         }
+
+        private void lbl_Tax_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_Tax_Value_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

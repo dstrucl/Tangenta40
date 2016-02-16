@@ -405,11 +405,11 @@
     <Compile Include="usrc_Customer.Designer.cs">
       <DependentUpon>usrc_Customer.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_DBSettings.cs">
+    <Compile Include="usrc_Settings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_DBSettings.Designer.cs">
-      <DependentUpon>usrc_DBSettings.cs</DependentUpon>
+    <Compile Include="usrc_Settings.Designer.cs">
+      <DependentUpon>usrc_Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_InvoiceMan.cs">
       <SubType>UserControl</SubType>
@@ -656,8 +656,8 @@
     <EmbeddedResource Include="usrc_Customer.resx">
       <DependentUpon>usrc_Customer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_DBSettings.resx">
-      <DependentUpon>usrc_DBSettings.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_Settings.resx">
+      <DependentUpon>usrc_Settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_InvoiceMan.resx">
       <DependentUpon>usrc_InvoiceMan.cs</DependentUpon>
@@ -869,9 +869,9 @@
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
       <Name>UniversalInvoice</Name>
     </ProjectReference>
-    <ProjectReference Include="..\usrc_Upgrade\usrc_Upgrade.csproj">
+    <ProjectReference Include="..\usrc_Upgrade\UpgradeDB.csproj">
       <Project>{7eea3e02-1c5d-4451-9976-4f65f2ce1492}</Project>
-      <Name>usrc_Upgrade</Name>
+      <Name>UpgradeDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\uwpf_GUI\uwpfGUI.csproj">
       <Project>{f0cc2d06-fa8d-4b08-8b7c-9e0e03babdc3}</Project>
@@ -1075,6 +1075,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\Settings.bmp" />
     <None Include="Resources\PrinterSettings.bmp" />
     <None Include="Resources\SaveHtml.bmp" />
     <None Include="Resources\SelectRow.bmp" />

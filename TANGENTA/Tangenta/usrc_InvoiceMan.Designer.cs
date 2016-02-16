@@ -58,8 +58,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.m_usrc_InvoiceTable);
-            this.splitContainer1.Size = new System.Drawing.Size(1395, 688);
-            this.splitContainer1.SplitterDistance = 836;
+            this.splitContainer1.Size = new System.Drawing.Size(961, 685);
+            this.splitContainer1.SplitterDistance = 629;
             this.splitContainer1.TabIndex = 0;
             // 
             // cmb_InvoiceType
@@ -123,7 +123,7 @@
             this.m_usrc_Invoice.Margin = new System.Windows.Forms.Padding(2);
             this.m_usrc_Invoice.myCompany_Person_ID = ((long)(0));
             this.m_usrc_Invoice.Name = "m_usrc_Invoice";
-            this.m_usrc_Invoice.Size = new System.Drawing.Size(824, 678);
+            this.m_usrc_Invoice.Size = new System.Drawing.Size(617, 675);
             this.m_usrc_Invoice.TabIndex = 0;
             this.m_usrc_Invoice.Storno += new Tangenta.usrc_Invoice.delegate_Storno(this.m_usrc_Invoice_Storno);
             this.m_usrc_Invoice.aa_ProformaInvoiceSaved += new Tangenta.usrc_Invoice.delegate_ProformaInvoiceSaved(this.m_usrc_Invoice_ProformaInvoiceSaved);
@@ -137,7 +137,7 @@
             this.m_usrc_InvoiceTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_usrc_InvoiceTable.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_InvoiceTable.Name = "m_usrc_InvoiceTable";
-            this.m_usrc_InvoiceTable.Size = new System.Drawing.Size(551, 684);
+            this.m_usrc_InvoiceTable.Size = new System.Drawing.Size(324, 681);
             this.m_usrc_InvoiceTable.TabIndex = 0;
             this.m_usrc_InvoiceTable.SelectedInvoiceChanged += new Tangenta.usrc_InvoiceTable.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
@@ -151,7 +151,7 @@
             this.Controls.Add(this.cmb_InvoiceType);
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_InvoiceMan";
-            this.Size = new System.Drawing.Size(1394, 723);
+            this.Size = new System.Drawing.Size(960, 720);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

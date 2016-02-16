@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace usrc_Upgrade
+namespace UpgradeDB
 {
     public partial class Form_Upgrade_inThread : Form
     {
         private int m_j;
-        private usrc_Upgrade_inThread m_usrc_Upgrade = null;
-        private usrc_Upgrade_inThread.Upgrade[] upgradeArray;
+        private UpgradeDB_inThread m_Upgrade_inThread = null;
+        private UpgradeDB_inThread.Upgrade[] upgradeArray;
         ThreadProcessor.ThreadP thread = null;
         decimal dverOld = 0;
         decimal dverNew = 0;
@@ -26,10 +26,10 @@ namespace usrc_Upgrade
         ThreadProcessor.ThreadP2Ctrl_Message m_ThreadP2Ctrl_Message = null;
         int m_iCurrentItem = -1;
 
-        public Form_Upgrade_inThread(usrc_Upgrade_inThread xusrc_Upgrade, usrc_Upgrade_inThread.Upgrade[] upgradeArray, int j)
+        public Form_Upgrade_inThread(UpgradeDB_inThread xUpgrade_inThread, UpgradeDB_inThread.Upgrade[] upgradeArray, int j)
         {
             InitializeComponent();
-            m_usrc_Upgrade = xusrc_Upgrade;
+            m_Upgrade_inThread = xUpgrade_inThread;
             this.upgradeArray = upgradeArray;
             this.m_j = j;
             thread = new ThreadProcessor.ThreadP();

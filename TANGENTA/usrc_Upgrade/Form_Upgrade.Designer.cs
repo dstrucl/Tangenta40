@@ -1,4 +1,4 @@
-﻿namespace usrc_Upgrade
+﻿namespace UpgradeDB
 {
     partial class Form_Upgrade_inThread
     {

@@ -28,16 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Stock = new System.Windows.Forms.Button();
-            this.btn_MyCompany = new System.Windows.Forms.Button();
-            this.btn_SimpleItems = new System.Windows.Forms.Button();
-            this.btn_Stranke = new System.Windows.Forms.Button();
-            this.btn_BuyerCompany = new System.Windows.Forms.Button();
-            this.btn_Invoice = new System.Windows.Forms.Button();
-            this.btn_Taxations = new System.Windows.Forms.Button();
-            this.btn_ItemName = new System.Windows.Forms.Button();
-            this.btn_DataBaseConnection = new System.Windows.Forms.Button();
-            this.btn_DeleteInvoices = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Settings));
             this.chk_AllowToEditText = new System.Windows.Forms.CheckBox();
             this.cmb_Language = new System.Windows.Forms.ComboBox();
             this.lbl_Language = new System.Windows.Forms.Label();
@@ -46,126 +37,8 @@
             this.btn_Shops_in_use = new System.Windows.Forms.Button();
             this.btn_LogFile = new System.Windows.Forms.Button();
             this.BtnSetDefaulViewSettings = new System.Windows.Forms.Button();
+            this.btn_CodeTables = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btn_Stock
-            // 
-            this.btn_Stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Stock.Location = new System.Drawing.Point(7, 125);
-            this.btn_Stock.Name = "btn_Stock";
-            this.btn_Stock.Size = new System.Drawing.Size(145, 82);
-            this.btn_Stock.TabIndex = 0;
-            this.btn_Stock.Text = "ZALOGE";
-            this.btn_Stock.UseVisualStyleBackColor = true;
-            this.btn_Stock.Visible = false;
-            this.btn_Stock.Click += new System.EventHandler(this.btn_Stock_Click);
-            // 
-            // btn_MyCompany
-            // 
-            this.btn_MyCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_MyCompany.Location = new System.Drawing.Point(460, 125);
-            this.btn_MyCompany.Name = "btn_MyCompany";
-            this.btn_MyCompany.Size = new System.Drawing.Size(145, 82);
-            this.btn_MyCompany.TabIndex = 1;
-            this.btn_MyCompany.Text = "MOJE PODJETJE";
-            this.btn_MyCompany.UseVisualStyleBackColor = true;
-            this.btn_MyCompany.Visible = false;
-            this.btn_MyCompany.Click += new System.EventHandler(this.btn_MyCompany_Click);
-            // 
-            // btn_SimpleItems
-            // 
-            this.btn_SimpleItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_SimpleItems.Location = new System.Drawing.Point(158, 125);
-            this.btn_SimpleItems.Name = "btn_SimpleItems";
-            this.btn_SimpleItems.Size = new System.Drawing.Size(145, 82);
-            this.btn_SimpleItems.TabIndex = 2;
-            this.btn_SimpleItems.Text = "STORITVE";
-            this.btn_SimpleItems.UseVisualStyleBackColor = true;
-            this.btn_SimpleItems.Visible = false;
-            this.btn_SimpleItems.Click += new System.EventHandler(this.btn_SimpleItems_Click);
-            // 
-            // btn_Stranke
-            // 
-            this.btn_Stranke.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Stranke.Location = new System.Drawing.Point(309, 213);
-            this.btn_Stranke.Name = "btn_Stranke";
-            this.btn_Stranke.Size = new System.Drawing.Size(145, 82);
-            this.btn_Stranke.TabIndex = 3;
-            this.btn_Stranke.Text = "STRANKE";
-            this.btn_Stranke.UseVisualStyleBackColor = true;
-            this.btn_Stranke.Visible = false;
-            this.btn_Stranke.Click += new System.EventHandler(this.btn_Stranke_Click);
-            // 
-            // btn_BuyerCompany
-            // 
-            this.btn_BuyerCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_BuyerCompany.Location = new System.Drawing.Point(158, 213);
-            this.btn_BuyerCompany.Name = "btn_BuyerCompany";
-            this.btn_BuyerCompany.Size = new System.Drawing.Size(145, 82);
-            this.btn_BuyerCompany.TabIndex = 4;
-            this.btn_BuyerCompany.Text = "STRANKE PODJETJA";
-            this.btn_BuyerCompany.UseVisualStyleBackColor = true;
-            this.btn_BuyerCompany.Visible = false;
-            this.btn_BuyerCompany.Click += new System.EventHandler(this.btn_BuyerCompany_Click);
-            // 
-            // btn_Invoice
-            // 
-            this.btn_Invoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Invoice.Location = new System.Drawing.Point(611, 125);
-            this.btn_Invoice.Name = "btn_Invoice";
-            this.btn_Invoice.Size = new System.Drawing.Size(145, 82);
-            this.btn_Invoice.TabIndex = 5;
-            this.btn_Invoice.Text = "IZDANI RAČUNI";
-            this.btn_Invoice.UseVisualStyleBackColor = true;
-            this.btn_Invoice.Visible = false;
-            // 
-            // btn_Taxations
-            // 
-            this.btn_Taxations.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Taxations.Location = new System.Drawing.Point(7, 213);
-            this.btn_Taxations.Name = "btn_Taxations";
-            this.btn_Taxations.Size = new System.Drawing.Size(145, 82);
-            this.btn_Taxations.TabIndex = 6;
-            this.btn_Taxations.Text = "Davčne stopnje";
-            this.btn_Taxations.UseVisualStyleBackColor = true;
-            this.btn_Taxations.Visible = false;
-            this.btn_Taxations.Click += new System.EventHandler(this.btn_Taxations_Click);
-            // 
-            // btn_ItemName
-            // 
-            this.btn_ItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_ItemName.Location = new System.Drawing.Point(309, 125);
-            this.btn_ItemName.Name = "btn_ItemName";
-            this.btn_ItemName.Size = new System.Drawing.Size(145, 82);
-            this.btn_ItemName.TabIndex = 7;
-            this.btn_ItemName.Text = "Artikli";
-            this.btn_ItemName.UseVisualStyleBackColor = true;
-            this.btn_ItemName.Visible = false;
-            this.btn_ItemName.Click += new System.EventHandler(this.btn_Item_Click);
-            // 
-            // btn_DataBaseConnection
-            // 
-            this.btn_DataBaseConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_DataBaseConnection.Location = new System.Drawing.Point(460, 213);
-            this.btn_DataBaseConnection.Name = "btn_DataBaseConnection";
-            this.btn_DataBaseConnection.Size = new System.Drawing.Size(145, 82);
-            this.btn_DataBaseConnection.TabIndex = 8;
-            this.btn_DataBaseConnection.Text = "Podatkovna Baza";
-            this.btn_DataBaseConnection.UseVisualStyleBackColor = true;
-            this.btn_DataBaseConnection.Visible = false;
-            this.btn_DataBaseConnection.Click += new System.EventHandler(this.btn_DataBaseConnection_Click);
-            // 
-            // btn_DeleteInvoices
-            // 
-            this.btn_DeleteInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_DeleteInvoices.Location = new System.Drawing.Point(15, 312);
-            this.btn_DeleteInvoices.Name = "btn_DeleteInvoices";
-            this.btn_DeleteInvoices.Size = new System.Drawing.Size(158, 37);
-            this.btn_DeleteInvoices.TabIndex = 9;
-            this.btn_DeleteInvoices.Text = "Zbriši račune";
-            this.btn_DeleteInvoices.UseVisualStyleBackColor = true;
-            this.btn_DeleteInvoices.Visible = false;
-            this.btn_DeleteInvoices.Click += new System.EventHandler(this.btn_DeleteInvoices_Click);
             // 
             // chk_AllowToEditText
             // 
@@ -226,7 +99,7 @@
             // 
             // btn_LogFile
             // 
-            this.btn_LogFile.Location = new System.Drawing.Point(348, 47);
+            this.btn_LogFile.Location = new System.Drawing.Point(316, 47);
             this.btn_LogFile.Name = "btn_LogFile";
             this.btn_LogFile.Size = new System.Drawing.Size(293, 31);
             this.btn_LogFile.TabIndex = 16;
@@ -244,11 +117,27 @@
             this.BtnSetDefaulViewSettings.UseVisualStyleBackColor = true;
             this.BtnSetDefaulViewSettings.Click += new System.EventHandler(this.BtnSetDefaulViewSettings_Click);
             // 
+            // btn_CodeTables
+            // 
+            this.btn_CodeTables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_CodeTables.AutoEllipsis = true;
+            this.btn_CodeTables.Image = ((System.Drawing.Image)(resources.GetObject("btn_CodeTables.Image")));
+            this.btn_CodeTables.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_CodeTables.Location = new System.Drawing.Point(236, 82);
+            this.btn_CodeTables.Name = "btn_CodeTables";
+            this.btn_CodeTables.Size = new System.Drawing.Size(105, 32);
+            this.btn_CodeTables.TabIndex = 35;
+            this.btn_CodeTables.Text = "Code tables";
+            this.btn_CodeTables.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_CodeTables.UseVisualStyleBackColor = true;
+            this.btn_CodeTables.Click += new System.EventHandler(this.btn_CodeTables_Click);
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(793, 120);
+            this.ClientSize = new System.Drawing.Size(793, 200);
+            this.Controls.Add(this.btn_CodeTables);
             this.Controls.Add(this.BtnSetDefaulViewSettings);
             this.Controls.Add(this.btn_LogFile);
             this.Controls.Add(this.btn_Shops_in_use);
@@ -257,16 +146,6 @@
             this.Controls.Add(this.lbl_Language);
             this.Controls.Add(this.cmb_Language);
             this.Controls.Add(this.chk_AllowToEditText);
-            this.Controls.Add(this.btn_DeleteInvoices);
-            this.Controls.Add(this.btn_DataBaseConnection);
-            this.Controls.Add(this.btn_ItemName);
-            this.Controls.Add(this.btn_Taxations);
-            this.Controls.Add(this.btn_Invoice);
-            this.Controls.Add(this.btn_BuyerCompany);
-            this.Controls.Add(this.btn_Stranke);
-            this.Controls.Add(this.btn_SimpleItems);
-            this.Controls.Add(this.btn_MyCompany);
-            this.Controls.Add(this.btn_Stock);
             this.Name = "Form_Settings";
             this.Text = "Edit_Form";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Settings_FormClosing);
@@ -276,17 +155,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_Stock;
-        private System.Windows.Forms.Button btn_MyCompany;
-        private System.Windows.Forms.Button btn_SimpleItems;
-        private System.Windows.Forms.Button btn_Stranke;
-        private System.Windows.Forms.Button btn_BuyerCompany;
-        private System.Windows.Forms.Button btn_Invoice;
-        private System.Windows.Forms.Button btn_Taxations;
-        private System.Windows.Forms.Button btn_ItemName;
-        private System.Windows.Forms.Button btn_DataBaseConnection;
-        private System.Windows.Forms.Button btn_DeleteInvoices;
         private System.Windows.Forms.CheckBox chk_AllowToEditText;
         private System.Windows.Forms.ComboBox cmb_Language;
         private System.Windows.Forms.Label lbl_Language;
@@ -295,5 +163,6 @@
         private System.Windows.Forms.Button btn_Shops_in_use;
         private System.Windows.Forms.Button btn_LogFile;
         private System.Windows.Forms.Button BtnSetDefaulViewSettings;
+        private System.Windows.Forms.Button btn_CodeTables;
     }
 }

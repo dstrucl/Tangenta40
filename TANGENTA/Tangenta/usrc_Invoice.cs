@@ -491,7 +491,6 @@ namespace Tangenta
             //btn_BuyerSelect.Text = lngRPM.s_BuyerSelect.s;
             lngRPM.s_Issue.Text(btn_Issue);
             lngRPM.s_chk_Storno.Text(chk_Storno);
-            lngRPM.s_CodeTables.Text(btn_CodeTables);
 
             lngRPM.s_Shop_AB = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_B.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_B.sText(1));
             lngRPM.s_Shop_BC = new ltext(lngRPM.s_Shop_B.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_B.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
@@ -2017,11 +2016,6 @@ namespace Tangenta
 
         public long myCompany_Person_ID { get; set; }
 
-        private void btn_CodeTables_Click(object sender, EventArgs e)
-        {
-            Form_CodeTables fct_dlg = new Form_CodeTables();
-            fct_dlg.ShowDialog();
-        }
 
         private void usrc_Customer_Customer_Org_Changed(long Customer_Org_ID)
         {

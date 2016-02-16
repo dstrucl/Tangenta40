@@ -89,7 +89,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopA_dbfunc", "TANGENTA\Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadProcessor", "UTIL\ThreadProcessor\ThreadProcessor.csproj", "{51E8C8BC-B176-40E5-B452-C80D9421AB79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "usrc_Upgrade", "TANGENTA\usrc_Upgrade\usrc_Upgrade.csproj", "{7EEA3E02-1C5D-4451-9976-4F65F2CE1492}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpgradeDB", "TANGENTA\usrc_Upgrade\UpgradeDB.csproj", "{7EEA3E02-1C5D-4451-9976-4F65F2CE1492}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramDiagnostic", "UTIL\ProgramDiagnostic\ProgramDiagnostic.csproj", "{88F14AAD-B6BC-415A-9195-C3314ADDEA6F}"
 EndProject

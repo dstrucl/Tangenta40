@@ -37,7 +37,7 @@
             this.m_usrc_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_usrc_Main.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_Main.Name = "m_usrc_Main";
-            this.m_usrc_Main.Size = new System.Drawing.Size(896, 616);
+            this.m_usrc_Main.Size = new System.Drawing.Size(1004, 616);
             this.m_usrc_Main.TabIndex = 0;
             this.m_usrc_Main.Exit_Click += new Tangenta.usrc_Main.delegate_Exit_Click(this.m_usrc_Main_Exit_Click);
             this.m_usrc_Main.Load += new System.EventHandler(this.m_usrc_Main_Load);
@@ -46,14 +46,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(896, 616);
+            this.ClientSize = new System.Drawing.Size(1004, 616);
             this.Controls.Add(this.m_usrc_Main);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Form_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.WindowState= System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Form_Load);
             this.ResumeLayout(false);

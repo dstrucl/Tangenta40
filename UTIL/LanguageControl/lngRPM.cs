@@ -17,7 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
-        
+        public static ltext s_FVI_SLO_Error = new ltext("Error in communication with Tax Administration ", "Napaka v komunikaciji z davčno upravo");
         public static ltext s_Edit_Office_Data_FVI_SLO_RealEstateBP = new ltext("Office Data for FURS!", "Podatki poslovne enote potrebni za davčno potrjevanje");
         public static ltext s_Edit_Office_Data = new ltext("Other Office Data!", "Ostali podatki poslovne enote");
         public static ltext s_Edit_Offices = new ltext("Offices of your organisation!", "Poslovne enote vaše oragnizacije");
@@ -84,7 +84,7 @@ namespace LanguageControl
         public static ltext s_TaxRate_must_be_defined = new ltext("Tax rate name must be defined!", "Davčna stopnja mora biti določena!");
         public static ltext s_Item_name_must_be_defined = new ltext("Item name must be defined!", "Ime postavke mora biti določen!");
 
-        public static ltext s_Show_Shops = new ltext("Show Shops", "Prikaži prodajalne");
+        public static ltext s_Show_Shops = new ltext("Shops", "Prodajalne");
 
         public static ltext s_YouMustSelectAtLeastOneShop = new ltext("You must select at least on shop!", "Izbrati morate najmanj eno prodajalno!");
 

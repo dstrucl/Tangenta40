@@ -7,8 +7,8 @@
     <ProjectGuid>{7EEA3E02-1C5D-4451-9976-4F65F2CE1492}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>usrc_Upgrade</RootNamespace>
-    <AssemblyName>usrc_Upgrade</AssemblyName>
+    <RootNamespace>UpgradeDB</RootNamespace>
+    <AssemblyName>UpgradeDB</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -78,11 +78,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Upgrade.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Upgrade.Designer.cs">
-      <DependentUpon>usrc_Upgrade.cs</DependentUpon>
+    <Compile Include="Upgrade_inThread.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -93,9 +90,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Upgrade.resx">
-      <DependentUpon>usrc_Upgrade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

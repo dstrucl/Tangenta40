@@ -17,10 +17,11 @@ using LanguageControl;
 using DBTypes;
 using InvoiceDB;
 using ThreadProcessor;
+using System.ComponentModel;
 
-namespace usrc_Upgrade
+namespace UpgradeDB
 {
-    public partial class usrc_Upgrade_inThread : UserControl
+    public partial class UpgradeDB_inThread :Component
     {
         public class Upgrade
         {
@@ -34,6 +35,8 @@ namespace usrc_Upgrade
         }
 
 
+        private Control m_parent_ctrl = null;
+
         public delegate void delegate_Backup();
         public event delegate_Backup Backup;
         public enum eUpgrade { none, from_1_04_to_105 };
@@ -44,9 +47,9 @@ namespace usrc_Upgrade
 
         public Upgrade[] UpgradeArray = null;
 
-        public usrc_Upgrade_inThread()
+        public UpgradeDB_inThread(Control xparent_ctrl )
         {
-            InitializeComponent();
+            m_parent_ctrl = xparent_ctrl;
             UpgradeArray = new Upgrade[]
             {
                 new Upgrade("1.0",UpgradeDB_1_0_to_1_01),
@@ -79,7 +82,7 @@ namespace usrc_Upgrade
                 if (UpgradeArray[i].DBVersion.Equals(sOldDBVersion))
                 {
                     int j = i;
-                    usrc_Upgrade.Form_Upgrade_inThread frm_upgr = new usrc_Upgrade.Form_Upgrade_inThread(this, UpgradeArray, j);
+                    Form_Upgrade_inThread frm_upgr = new Form_Upgrade_inThread(this, UpgradeArray, j);
                     frm_upgr.ShowDialog();
                 }
             }
@@ -1787,7 +1790,7 @@ namespace usrc_Upgrade
                         }
                         if (sErrors.Length > 0)
                         {
-                            MessageBox.Show(this, sErrors, "Errors:", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            MessageBox.Show(m_parent_ctrl, sErrors, "Errors:", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
 
 
@@ -1997,7 +2000,7 @@ namespace usrc_Upgrade
                         }
                         if (sErrors.Length > 0)
                         {
-                            MessageBox.Show(this, sErrors, "Errors:", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            MessageBox.Show(m_parent_ctrl, sErrors, "Errors:", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
 
                         //if (DeleteTable_And_ResetAutoincrement("journal_proformainvoice"))
@@ -2815,6 +2818,190 @@ namespace usrc_Upgrade
             }
         }
 
+        public bool Read_DBSettings_Version(ref bool bUpgradeDone, ref string Err)
+        {
+            string xTextValue = null;
+            bool xReadOnly = false;
+            bUpgradeDone = false;
+            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Blagajna.Settings.Version.Name,
+                                   ref xTextValue,
+                                   ref xReadOnly,
+                                   ref Err))
+            {
+                case fs.enum_GetDBSettings.DBSettings_OK:
+                    if (xTextValue.Equals(DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            bUpgradeDone = UpgradeDB(xTextValue, DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue, ref Err);
+                            return true;
+                        }
+                        else
+                        {
+                            Err = "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue;
+                            return false;
+                        }
+                    }
+
+
+                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                    LogFile.Error.Show(Err);
+                    return false;
+
+
+
+                case fs.enum_GetDBSettings.No_Data_Rows:
+
+                    if (CheckDemo())
+                    {
+                        if (fs.Init_Sample_DB(ref Err))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show(Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (fs.Init_Default_DB(ref Err))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show(Err);
+                            return false;
+                        }
+                    }
+
+                case fs.enum_GetDBSettings.No_TextValue:
+                    return false;
+
+                case fs.enum_GetDBSettings.No_ReadOnly:
+                    return false;
+                default:
+                    Err = "ERROR enum_GetDBSettings not handled!";
+                    return false;
+
+            }
+
+        }
+
+
+        public  bool Read_DBSettings(ref bool bUpgradeDone)
+        {
+            string Err = null;
+            if (Read_DBSettings_Version(ref bUpgradeDone, ref Err))
+            {
+                if (GlobalData.JOURNAL_ProformaInvoice_Type_definitions.Read())
+                {
+                    if (Read_DBSettings_LastInvoiceType(bUpgradeDone, ref Err))
+                    {
+                        if (fs.Read_DBSettings_StockCheckAtStartup(bUpgradeDone, ref Err))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private  bool Read_DBSettings_LastInvoiceType(bool bUpgradeDone, ref string Err)
+        {
+            string xTextValue = null;
+            bool xReadOnly = false;
+            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Blagajna.Settings.LastInvoiceType.Name,
+                                   ref xTextValue,
+                                   ref xReadOnly,
+                                   ref Err))
+            {
+                case fs.enum_GetDBSettings.DBSettings_OK:
+                    if (!xReadOnly)
+                    {
+                        DBSync.DBSync.DB_for_Blagajna.Settings.LastInvoiceType.TextValue = xTextValue;
+                    }
+                    return true;
+
+
+                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                    LogFile.Error.Show(Err);
+                    return false;
+
+                case fs.enum_GetDBSettings.No_Data_Rows:
+                    if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke studia Marjetka?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        if (fs.Init_Sample_DB(ref Err))
+                        {
+                            return false;
+                            //$$$
+                            //if (Get_BaseCurrency(ref Err))
+                            //{
+                            //    return true;
+                            //}
+                            //else
+                            //{
+                            //    LogFile.Error.Show("ERROR:1:enum_GetDBSettings.No_Data_Rows:Get_BaseCurrency:Err = " + Err);
+                            //    return false;
+                            //}
+                        }
+                        else
+                        {
+                            LogFile.Error.Show(Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (bUpgradeDone)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            if (fs.Init_Default_DB(ref Err))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_DBSettings:Init_Default_DB:Err=" + Err);
+                                return false;
+                            }
+                        }
+                    }
+                //break;
+
+                case fs.enum_GetDBSettings.No_TextValue:
+                    return false;
+
+                case fs.enum_GetDBSettings.No_ReadOnly:
+                    return false;
+                default:
+                    Err = "ERROR enum_GetDBSettings not handled!";
+                    return false;
+            }
+        }
+
+        private bool CheckDemo()
+        {
+            if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke studia Marjetka?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 
     public class TableDataItem
@@ -2861,7 +3048,7 @@ namespace usrc_Upgrade
             }
         }
 
-        internal bool Write2DB(Database_Upgrade_WindowsForm_Thread wfp_ui_thread,usrc_Upgrade_inThread.eUpgrade eUpgr,Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
+        internal bool Write2DB(Database_Upgrade_WindowsForm_Thread wfp_ui_thread,UpgradeDB_inThread.eUpgrade eUpgr,Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
         {
             string Err = null;
             foreach (TableDataItem xtdi in fkey_TableDataItem_List)
@@ -2869,7 +3056,7 @@ namespace usrc_Upgrade
                 xtdi.Write2DB(wfp_ui_thread, eUpgr, m_Old_tables_1_04_to_1_05);
             }
 
-            if (eUpgr == usrc_Upgrade_inThread.eUpgrade.from_1_04_to_105)
+            if (eUpgr == UpgradeDB_inThread.eUpgrade.from_1_04_to_105)
             {
                 if (this.tbl.TableName.ToLower().Equals("pricelist"))
                 {
@@ -2959,7 +3146,7 @@ namespace usrc_Upgrade
                         }
                         else
                         {
-                            if (eUpgr == usrc_Upgrade_inThread.eUpgrade.from_1_04_to_105)
+                            if (eUpgr == UpgradeDB_inThread.eUpgrade.from_1_04_to_105)
                             {
                                 if (dcol.ColumnName.ToLower().Equals("mycompany_person_id"))
                                 {

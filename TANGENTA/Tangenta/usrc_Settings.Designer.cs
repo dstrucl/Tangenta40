@@ -1,6 +1,8 @@
-﻿namespace usrc_Upgrade
+﻿
+
+namespace Tangenta
 {
-    partial class usrc_Upgrade_inThread
+    partial class usrc_Settings
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,34 +30,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Upgrade = new System.Windows.Forms.Button();
+            this.btn_Settings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btn_Upgrade
+            // btn_Settings
             // 
-            this.btn_Upgrade.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Upgrade.Image = Properties.Resources.UpgradeDataBase;
-            this.btn_Upgrade.Location = new System.Drawing.Point(0, 0);
-            this.btn_Upgrade.Name = "btn_Upgrade";
-            this.btn_Upgrade.Size = new System.Drawing.Size(27, 24);
-            this.btn_Upgrade.TabIndex = 0;
-            this.btn_Upgrade.UseVisualStyleBackColor = true;
-            this.btn_Upgrade.Click += new System.EventHandler(this.btn_Upgrade_Click);
+            this.btn_Settings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Settings.Image = global::Tangenta.Properties.Resources.Settings;
+            this.btn_Settings.Location = new System.Drawing.Point(0, 0);
+            this.btn_Settings.Name = "btn_Settings";
+            this.btn_Settings.Size = new System.Drawing.Size(65, 31);
+            this.btn_Settings.TabIndex = 0;
+            this.btn_Settings.UseVisualStyleBackColor = true;
+            this.btn_Settings.Click += new System.EventHandler(this.btn_Settings_Click);
             // 
-            // usrc_Upgrade
+            // usrc_Settings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.Controls.Add(this.btn_Upgrade);
-            this.Name = "usrc_Upgrade";
-            this.Size = new System.Drawing.Size(28, 25);
+            this.Controls.Add(this.btn_Settings);
+            this.Name = "usrc_Settings";
+            this.Size = new System.Drawing.Size(65, 31);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btn_Upgrade;
+        private System.Windows.Forms.Button btn_Settings;
     }
 }

@@ -91,8 +91,8 @@ namespace Tangenta
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();
 
-            GetAllSplitContainerControlsRecusive<Control>(ref Program.ListOfAllSplitConatinerControls, this);
-            SetSplitContainerPositions(true, ref Program.ListOfAllSplitConatinerControls, Properties.Settings.Default.SplitContainerDistanceUserSettings);
+            //GetAllSplitContainerControlsRecusive<Control>(ref Program.ListOfAllSplitConatinerControls, this);
+            //SetSplitContainerPositions(true, ref Program.ListOfAllSplitConatinerControls, Properties.Settings.Default.SplitContainerDistanceUserSettings);
 
 
             if (bResult)
@@ -347,7 +347,7 @@ namespace Tangenta
                 }
             }
 
-            SaveSplitContainerPositions(ref Program.ListOfAllSplitConatinerControls);
+            //SaveSplitContainerPositions(ref Program.ListOfAllSplitConatinerControls);
         }
 
         private void m_usrc_Main_Exit_Click()
