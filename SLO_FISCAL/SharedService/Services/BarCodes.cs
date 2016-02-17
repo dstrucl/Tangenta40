@@ -1,4 +1,9 @@
-﻿
+﻿// <copyright file="BarCodes.cs" company="MNet">
+//     Copyright (c) Matjaz Prtenjak All rights reserved.
+// </copyright>
+// <author>Matjaz Prtenjak</author>
+//-----------------------------------------------------------------------
+
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -46,16 +51,18 @@ namespace MNet.SLOTaxService.Services
       return Image.FromStream(stream);
     }
 
-    public static Image DrawQRCode(int qrImageSize, ImageFormat imgFormat,string UniqueInvoiceID)
-    {
-        QrEncoder qrEncoder = new QrEncoder(ErrorCorrectionLevel.M);
-        QrCode qrCode = qrEncoder.Encode(UniqueInvoiceID);
+        //TANGENTA dodano
+        public static Image DrawQRCode(int qrImageSize, ImageFormat imgFormat, string UniqueInvoiceID)
+        {
+            QrEncoder qrEncoder = new QrEncoder(ErrorCorrectionLevel.M);
+            QrCode qrCode = qrEncoder.Encode(UniqueInvoiceID);
 
-        GraphicsRenderer renderer = new GraphicsRenderer(new FixedCodeSize(qrImageSize, QuietZoneModules.Two), Brushes.Black, Brushes.White);
-        MemoryStream stream = new MemoryStream();
-        renderer.WriteToStream(qrCode.Matrix, imgFormat, stream);
-        return Image.FromStream(stream);
-    }
+            GraphicsRenderer renderer = new GraphicsRenderer(new FixedCodeSize(qrImageSize, QuietZoneModules.Two), Brushes.Black, Brushes.White);
+            MemoryStream stream = new MemoryStream();
+            renderer.WriteToStream(qrCode.Matrix, imgFormat, stream);
+            return Image.FromStream(stream);
+        }
+
 
         private BarCodes(XmlDocument invoice)
     {

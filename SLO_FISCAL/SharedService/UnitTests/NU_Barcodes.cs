@@ -1,4 +1,9 @@
-﻿
+﻿// <copyright file="NU_Barcodes.cs" company="MNet">
+//     Copyright (c) Matjaz Prtenjak All rights reserved.
+// </copyright>
+// <author>Matjaz Prtenjak</author>
+//-----------------------------------------------------------------------
+
 using System;
 using System.Xml;
 using MNet.SLOTaxService.Modulo;

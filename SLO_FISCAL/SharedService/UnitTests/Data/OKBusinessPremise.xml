@@ -1,7 +1,4 @@
-﻿<!--
-Sample license text.
--->
-<fu:BusinessPremiseRequest xmlns:fu="http://www.fu.gov.si/" Id="OK">
+﻿<fu:BusinessPremiseRequest xmlns:fu="http://www.fu.gov.si/" Id="OK">
   <fu:BusinessPremise>
     <fu:TaxNumber>10129014</fu:TaxNumber>
     <fu:BusinessPremiseID>TRGOVINA1</fu:BusinessPremiseID>

@@ -1,4 +1,9 @@
-﻿
+﻿// <copyright file="ProtectiveMark.cs" company="MNet">
+//     Copyright (c) Matjaz Prtenjak All rights reserved.
+// </copyright>
+// <author>Matjaz Prtenjak</author>
+//-----------------------------------------------------------------------
+
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
@@ -43,7 +48,7 @@ namespace MNet.SLOTaxService.Services
 
     private string getNodeValue(XmlElement parentElement, string nodeName)
     {
-      XmlNode node = XmlHelperFunctions.GetSubNode(parentElement, nodeName);
+      XmlNode node = XmlHelperFunctions.GetFirstSubNode(parentElement, nodeName);
       if (node == null) return string.Empty;
 
       return node.InnerText;

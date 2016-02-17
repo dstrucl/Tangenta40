@@ -101,12 +101,13 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             InitializeComponent();
             btn_FVI.Enabled = false;
-            LoadSettingsValues(FursTESTEnvironment);
-            
+
         }
 
         private void usrc_FVI_SLO_Load(object sender, EventArgs e)
         {
+            // it shoud be here because constructor accures before init in parent form 
+            LoadSettingsValues(FursTESTEnvironment);
         }
 
         public bool Start(string xcertificateFileName, string xCertPass, string xfursWebServiceURL, string xfursXmlNamespace, int xtimeOutInSec, Control ParentForm, ref string ErrReason)
