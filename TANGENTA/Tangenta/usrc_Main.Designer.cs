@@ -90,22 +90,6 @@
             // usrc_FVI_SLO1
             // 
             this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_FVI_SLO1.FursCertificateFileName = "";
-            this.usrc_FVI_SLO1.FursCertificatePassword = "";
-            this.usrc_FVI_SLO1.FursD_BuildingNumber = "";
-            this.usrc_FVI_SLO1.FursD_BuildingSectionNumber = "";
-            this.usrc_FVI_SLO1.FursD_BussinesPremiseID = "KUNAVE6";
-            this.usrc_FVI_SLO1.FursD_CadastralNumber = "";
-            this.usrc_FVI_SLO1.FursD_ClosingTag = "";
-            this.usrc_FVI_SLO1.FursD_Community = "";
-            this.usrc_FVI_SLO1.FursD_ElectronicDeviceID = null;
-            this.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID = "10329048";
-            this.usrc_FVI_SLO1.FursD_MyOrgTaxID = "10329048";
-            this.usrc_FVI_SLO1.FursD_PremiseType = "99999999";
-            this.usrc_FVI_SLO1.FursD_SoftwareSupplierTaxID = "99999999";
-            this.usrc_FVI_SLO1.FursD_ValidityDate = new System.DateTime(2100, 1, 1, 0, 0, 0, 0);
-            this.usrc_FVI_SLO1.FursWebServiceURL = "https://blagajne.fu.gov.si:9003/v1/cash_registers";
-            this.usrc_FVI_SLO1.FursXmlNamespace = "http://www.fu.gov.si/";
             this.usrc_FVI_SLO1.Location = new System.Drawing.Point(627, 1);
             this.usrc_FVI_SLO1.MessageBox_Length = 100;
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";

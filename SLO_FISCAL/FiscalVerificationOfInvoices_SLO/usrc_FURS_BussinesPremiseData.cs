@@ -183,22 +183,6 @@ namespace FiscalVerificationOfInvoices_SLO
                     Properties.Settings.Default.fursD_ClosingTag = "";
 
             }
-
-            //reset variables on main control
-            m_usrc_FVI_SLO.FursD_BuildingNumber = this.txt_BuildingNumber.Text;
-            m_usrc_FVI_SLO.FursD_BuildingSectionNumber = this.txt_BuildingSectionNumber.Text;
-            m_usrc_FVI_SLO.FursD_Community = this.txt_Community.Text;
-            m_usrc_FVI_SLO.FursD_CadastralNumber = this.txt_CadastralNumber.Text;
-            m_usrc_FVI_SLO.FursD_ValidityDate = this.dt_ValidityDate.Value;
-            m_usrc_FVI_SLO.FursD_SoftwareSupplierTaxID = this.txt_SoftwareSupplier_TaxNumber.Text;
-            m_usrc_FVI_SLO.FursD_PremiseType = this.txt_PremiseType.Text;
-            m_usrc_FVI_SLO.FursD_MyOrgTaxID = this.txt_MyOrganisation_TaxID.Text;
-            m_usrc_FVI_SLO.FursD_BussinesPremiseID = this.txt_BussinesPremiseID.Text;
-            m_usrc_FVI_SLO.FursD_InvoiceAuthorTaxID = this.txt_InvoiceAuthor_TaxID.Text;
-            if (this.Chk_StoreClosed.Checked == true)
-                m_usrc_FVI_SLO.FursD_ClosingTag = "Z";
-            else
-                m_usrc_FVI_SLO.FursD_ClosingTag = "";
         }
 
         private void Btn_Add_PP_to_FURS_Click(object sender, EventArgs e)

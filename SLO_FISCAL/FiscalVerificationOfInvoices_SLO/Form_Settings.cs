@@ -154,12 +154,6 @@ namespace FiscalVerificationOfInvoices_SLO
             Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern = this.txt_SalesBookInvoice_SerialNumber_Format.Text;
             Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber = Convert.ToInt32(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Value);
             Properties.Settings.Default.Save();
-
-
-            //certificateFileName = Properties.Settings.Default.furscertificateFileName;
-            //CertPass = Properties.Settings.Default.fursCertPass;
-            //fursWebServiceURL = Properties.Settings.Default.fursWebServiceURL;
-            //fursXmlNamespace = Properties.Settings.Default.fursXmlNamespace;
             timeOutInSec = Properties.Settings.Default.timeOutInSec;
             this.DialogResult = DialogResult.OK;
             this.Close();
