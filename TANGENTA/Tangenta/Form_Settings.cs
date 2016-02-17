@@ -27,6 +27,7 @@ namespace Tangenta
         private int default_language_ID = -1;
         private int newLanguage = -1;
         private usrc_Main m_usrc_Main;
+        private bool bChanged = false;
 
         public Form_Settings()
         {
@@ -36,11 +37,14 @@ namespace Tangenta
         public Form_Settings(usrc_Main usrc_Main)
         {
             InitializeComponent();
+            lngRPM.sProgramSettings.Text(this);
             lngRPM.s_CodeTables.Text(btn_CodeTables);
             lngRPM.s_LogFile.Text(btn_LogFile);
             lngRPM.s_Language.Text(lbl_Language);
             lngRPM.s_FullScreen.Text(chk_FullScreen);
             lngRPM.s_Shops_In_Use.Text(btn_Shops_in_use);
+            lngRPM.s_chk_AllowToEditText.Text(chk_AllowToEditText);
+            lngRPM.s_ElectronicDevice_ID.Text(lbL_ElectronicDevice_ID);
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
             cmb_Language.DataSource = DynSettings.s_language.sTextArr;
@@ -52,13 +56,20 @@ namespace Tangenta
             chk_AllowToEditText.CheckedChanged += chk_AllowToEditText_CheckedChanged;
             chk_FullScreen.Checked = Properties.Settings.Default.FullScreen;
             chk_FullScreen.CheckedChanged += Chk_FullScreen_CheckedChanged;
+            this.txt_ElectronicDevice_ID.Text = Properties.Settings.Default.ElectronicDevice_ID;
+            this.txt_ElectronicDevice_ID.TextChanged += Txt_ElectronicDevice_ID_TextChanged;
             m_usrc_Main = usrc_Main;
+        }
+
+        private void Txt_ElectronicDevice_ID_TextChanged(object sender, EventArgs e)
+        {
+            bChanged = true;
         }
 
         private void Chk_FullScreen_CheckedChanged(object sender, EventArgs e)
         {
+            bChanged = true;
             Properties.Settings.Default.FullScreen = chk_FullScreen.Checked;
-            Properties.Settings.Default.Save();
             if (Properties.Settings.Default.FullScreen)
             {
                 Program.MainForm.WindowState= FormWindowState.Maximized;
@@ -73,10 +84,9 @@ namespace Tangenta
 
         void chk_AllowToEditText_CheckedChanged(object sender, EventArgs e)
         {
+            bChanged = true;
             DynSettings.AllowToEditText = chk_AllowToEditText.Checked;
             Properties.Settings.Default.AllowToEditLanguageText = DynSettings.AllowToEditText;
-            Properties.Settings.Default.Save();
-
         }
 
 
@@ -90,8 +100,8 @@ namespace Tangenta
 
         private void cmb_Language_SelectedIndexChanged(object sender, EventArgs e)
         {
+            bChanged = true;
             newLanguage = cmb_Language.SelectedIndex;
-            
         }
 
         private void btn_Exit_Click(object sender, EventArgs e)
@@ -103,9 +113,16 @@ namespace Tangenta
         {
             if (newLanguage != default_language_ID)
             {
+                bChanged = true;
                 Properties.Settings.Default.LanguageID = newLanguage;
-                Properties.Settings.Default.Save();
                 XMessage.Box.Show(this, lngRPM.s_YouHaveChangedLanguageYouMustRestartProgramToUseNewLanguage, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+            }
+            if (bChanged)
+            {
+                if (MessageBox.Show(this,lngRPM.s_Save_Settings_Question.s,"?",MessageBoxButtons.YesNo, MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
+                {
+                    Properties.Settings.Default.ElectronicDevice_ID = this.txt_ElectronicDevice_ID.Text;
+                }
             }
         }
 
@@ -120,12 +137,12 @@ namespace Tangenta
             LogFile.LogFile.LogManager();
         }
 
-        private void BtnSetDefaulViewSettings_Click(object sender, EventArgs e)
-        {
+        //private void BtnSetDefaulViewSettings_Click(object sender, EventArgs e)
+        //{
     
-           Form_Main mform = (Form_Main)m_usrc_Main.Parent;
-            mform.SetSplitContainerPositions(false,ref Program.ListOfAllSplitConatinerControls,Program.SplitConatinerControlsDefaulValues);
-        }
+        //   Form_Main mform = (Form_Main)m_usrc_Main.Parent;
+        //    mform.SetSplitContainerPositions(false,ref Program.ListOfAllSplitConatinerControls,Program.SplitConatinerControlsDefaulValues);
+        //}
 
         private void usrc_Printer1_Load(object sender, EventArgs e)
         {

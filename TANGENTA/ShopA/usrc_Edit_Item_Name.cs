@@ -61,5 +61,10 @@ namespace ShopA
                 }
             }
         }
+
+        internal void Clear()
+        {
+            this.txt_ItemName.Clear();
+        }
     }
 }

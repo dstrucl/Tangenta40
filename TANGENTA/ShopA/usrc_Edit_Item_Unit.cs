@@ -143,6 +143,11 @@ namespace ShopA
             get { return chk_Unit.Checked; }
         }
 
+        internal void Clear()
+        {
+            chk_Unit.Checked = false;
+        }
+
         public usrc_Edit_Item_Unit()
         {
             InitializeComponent();

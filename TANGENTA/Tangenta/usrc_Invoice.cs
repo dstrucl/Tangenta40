@@ -1862,7 +1862,7 @@ namespace Tangenta
                             // print draft invoice
                             if (UpdateInvoicePriceInDraft())
                             {
-                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.CasshierName);
+                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.ElectronicDevice_ID);
                                 if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                                 {
                                     if (m_InvoiceData.FURS_QR_v != null)
@@ -1885,7 +1885,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.CasshierName);
+                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
                             if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (m_InvoiceData.FURS_QR_v != null)
@@ -1968,11 +1968,11 @@ namespace Tangenta
 
                                     if (Program.b_FVI_SLO)
                                     {
-                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.CasshierName);
+                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
                                         if (xInvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
                                         {
 
-                                            string furs_XML = xInvoiceData.Create_furs_InvoiceXML(true,Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, Properties.Settings.Default.CasshierName, Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID, stornoReferenceInvoiceNumber, stornoReferenceInvoiceIssueDateTime);
+                                            string furs_XML = xInvoiceData.Create_furs_InvoiceXML(true,Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, Properties.Settings.Default.ElectronicDevice_ID, Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID, stornoReferenceInvoiceNumber, stornoReferenceInvoiceIssueDateTime);
                                             string furs_UniqeMsgID = null;
                                             string furs_UniqeInvID = null;
                                             string furs_BarCodeValue = null;

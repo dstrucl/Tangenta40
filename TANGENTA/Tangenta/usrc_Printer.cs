@@ -418,7 +418,7 @@ namespace Tangenta
 
                 Printer.wr_NewLine(1);
                 Printer.wr_String("Številka računa za FURS:\n");
-                Printer.wr_String(Program.usrc_FVI_SLO1.FursD_BussinesPremiseID + "-" + Properties.Settings.Default.CasshierName+"-"+ xInvoiceData.NumberInFinancialYear.ToString());
+                Printer.wr_String(Program.usrc_FVI_SLO1.FursD_BussinesPremiseID + "-" + Properties.Settings.Default.ElectronicDevice_ID+"-"+ xInvoiceData.NumberInFinancialYear.ToString());
                 Printer.wr_NewLine(1);
                 Printer.wr_String("Oseba, ki je izdala račun:\n");
                 Printer.wr_String(xInvoiceData.Invoice_Author.FirstName+" "+ xInvoiceData.Invoice_Author.LastName);

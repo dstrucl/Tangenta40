@@ -29,9 +29,10 @@ namespace DBSync
         public string m_XmlFileName = null;
         public string m_IniFileFolder = null;
         public string m_DataBaseType = null;
-        private bool m_bReset = false; 
+        private bool m_bReset = false;
+        private string m_sDataBaseVersion = null;
 
-        public Form_DBmanager(Form xparent_form,bool bxReset, string xm_XmlFileName, string xIniFileFolder, string xDataBaseType, string xBackupFolder)
+        public Form_DBmanager(Form xparent_form,bool bxReset, string xm_XmlFileName, string xIniFileFolder, string xDataBaseType, string xBackupFolder, string sDataBaseVersion)
         {
             InitializeComponent();
             m_parent_form = xparent_form;
@@ -40,6 +41,7 @@ namespace DBSync
             m_DataBaseType = xDataBaseType;
             m_BackupFolder = xBackupFolder;
             m_bReset = bxReset;
+            m_sDataBaseVersion = sDataBaseVersion;
             Init();
         }
 
@@ -48,7 +50,7 @@ namespace DBSync
             btn_Backup.Visible = false;
             lngRPM.s_Database.Text(this);
             lngRPM.s_SelectDatabase.Text(btn_Change);
-            string database_info = "\r\n" + DBSync.ServerType + "\r\n" + lngConn.s_Server.s + ":" + DBSync.DataSource + "\r\n" + lngConn.s_DataBase.s + ":" + DBSync.DataBase;
+            string database_info = "\r\n" + DBSync.ServerType + "\r\n" + lngConn.s_Server.s + ":" + DBSync.DataSource + "\r\n" + lngConn.s_DataBase.s + ":" + DBSync.DataBase +"\r\n"+ lngRPM.s_DataBaseVersion.s +":" + m_sDataBaseVersion;
             lngRPM.s_DatabaseInfo.Text(lbl_DataBaseInfo, database_info);
             if (m_DataBaseType != null)
             {

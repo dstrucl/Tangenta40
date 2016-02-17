@@ -54,5 +54,10 @@ namespace ShopA
                 }
             }
         }
+
+        internal void Clear()
+        {
+            this.txt_Item_Description.Clear();
+        }
     }
 }

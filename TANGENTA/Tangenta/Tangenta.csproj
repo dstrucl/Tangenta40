@@ -405,12 +405,6 @@
     <Compile Include="usrc_Customer.Designer.cs">
       <DependentUpon>usrc_Customer.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Settings.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Settings.Designer.cs">
-      <DependentUpon>usrc_Settings.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_InvoiceMan.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -655,9 +649,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Customer.resx">
       <DependentUpon>usrc_Customer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Settings.resx">
-      <DependentUpon>usrc_Settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_InvoiceMan.resx">
       <DependentUpon>usrc_InvoiceMan.cs</DependentUpon>
@@ -1075,6 +1066,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\ProgramSettings.ico" />
     <None Include="Resources\Settings.bmp" />
     <None Include="Resources\PrinterSettings.bmp" />
     <None Include="Resources\SaveHtml.bmp" />

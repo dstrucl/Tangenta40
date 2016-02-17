@@ -90,7 +90,7 @@ namespace DBSync
         public static Form_DBmanager.eResult DBMan(Form parentform,bool bReset, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,ref string xBackupFolder)
         {
             m_BackupFolder = xBackupFolder;
-            Form_DBmanager dbman_dlg = new Form_DBmanager(parentform, bReset, m_XmlFileName, IniFileFolder, DataBaseType,m_BackupFolder);
+            Form_DBmanager dbman_dlg = new Form_DBmanager(parentform, bReset, m_XmlFileName, IniFileFolder, DataBaseType,m_BackupFolder, DB_for_Blagajna.Settings.Version.TextValue);
             dbman_dlg.ShowDialog();
             m_BackupFolder = dbman_dlg.m_BackupFolder;
             xBackupFolder = m_BackupFolder;

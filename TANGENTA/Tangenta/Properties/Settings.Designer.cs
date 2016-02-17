@@ -445,13 +445,13 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Blagajna1")]
-        public string CasshierName {
+        [global::System.Configuration.DefaultSettingValueAttribute("B1")]
+        public string ElectronicDevice_ID {
             get {
-                return ((string)(this["CasshierName"]));
+                return ((string)(this["ElectronicDevice_ID"]));
             }
             set {
-                this["CasshierName"] = value;
+                this["ElectronicDevice_ID"] = value;
             }
         }
         

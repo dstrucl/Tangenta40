@@ -17,6 +17,11 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+
+        public static ltext s_DataBaseVersion = new ltext("DataBaseVersion", "Verzija podatkovne baze:");
+        public static ltext s_ElectronicDevice_ID = new ltext("Electronic Device ID", "Oznaka blagajne");
+        public static ltext s_chk_AllowToEditText = new ltext("Allow to edit controls text", "Urejanje besedil v oknih");
+        public static ltext s_RecentText = new ltext("Recent Text", "Nedavni tekst");
         public static ltext s_FVI_SLO_Error = new ltext("Error in communication with Tax Administration ", "Napaka v komunikaciji z davčno upravo");
         public static ltext s_Edit_Office_Data_FVI_SLO_RealEstateBP = new ltext("Office Data for FURS!", "Podatki poslovne enote potrebni za davčno potrjevanje");
         public static ltext s_Edit_Office_Data = new ltext("Other Office Data!", "Ostali podatki poslovne enote");
@@ -429,7 +434,7 @@ namespace LanguageControl
         public static ltext s_Cashier = new ltext("Cashier", "Tangenta");
         public static ltext s_null_means_nod_data = new ltext("null means no data", "nič pomeni da podatka ni");
         public static ltext s_ValueMustBeUnique = new ltext("Value must be unique!", "Podatek mora biti unikaten!");
-        public static ltext s_null = new ltext("null", "nič");
+        public static ltext s_null = new ltext("null", "brez");
 
         public static ltext s_CanNotBeNull = new ltext(": can not be undefined",
                                                                  ": ne sme biti nedoločeno!");

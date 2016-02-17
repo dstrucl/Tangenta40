@@ -93,9 +93,20 @@ namespace ShopA
                     if (AddRow!=null)
                     {
                         AddRow(m_Atom_ItemShopA_Price);
+                        this.Clear();
                     }
                 }
             }
+        }
+
+        private void Clear()
+        {
+            this.usrc_Edit_Item_Name1.Clear();
+            this.usrc_Edit_Item_Description1.Clear();
+            this.usrc_Edit_Item_Price1.Clear();
+            this.usrc_Edit_Item_Unit1.Clear();
+
+
         }
 
         internal void Form_Tool_SelectItem_FormClosed()

@@ -62,5 +62,10 @@ namespace ShopA
             Fill(ref m_Atom_ItemShopA_Price);
 
         }
+
+        internal void Clear()
+        {
+            this.nm_Price.ResetText();
+        }
     }
 }

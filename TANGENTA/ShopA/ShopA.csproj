@@ -60,6 +60,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TextBoxRecent">
+      <HintPath>..\..\CONTROLS\TextBoxRecent\obj\Debug\TextBoxRecent.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataGridViewButtonImageCell.cs" />

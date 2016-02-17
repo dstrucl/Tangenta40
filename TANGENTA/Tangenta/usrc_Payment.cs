@@ -200,7 +200,7 @@ namespace Tangenta
 
                     if (Program.b_FVI_SLO)
                     {
-                        string furs_XML = m_InvoiceData.Create_furs_InvoiceXML(false,Properties.Resources.FVI_SLO_Invoice,Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,Properties.Settings.Default.CasshierName,Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID,"","");
+                        string furs_XML = m_InvoiceData.Create_furs_InvoiceXML(false,Properties.Resources.FVI_SLO_Invoice,Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,Properties.Settings.Default.ElectronicDevice_ID,Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID,"","");
                         Image img_QR = null;
                         string furs_UniqeMsgID = null;
                         string furs_UniqeInvID = null;
