@@ -1,7 +1,4 @@
-﻿<!--
-Sample license text.
--->
-<fu:BusinessPremiseRequest xmlns:fu="http://www.fu.gov.si/" Id="OK">
+﻿<fu:BusinessPremiseRequest xmlns:fu="http://www.fu.gov.si/" Id="OK">
   <fu:Header>
     <fu:MessageID>4e64a93a-40fa-4c02-afb1-488534b85e4c</fu:MessageID>
     <fu:DateTime>2015-07-17T09:30:47Z</fu:DateTime>

@@ -1,7 +1,4 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!--
-Sample license text.
--->
 <fu:InvoiceRequest xmlns:fu="http://www.fu.gov.si/" Id="OK1">
   <fu:Invoice>
     <fu:TaxNumber>99999862</fu:TaxNumber>

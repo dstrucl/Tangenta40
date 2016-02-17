@@ -55,6 +55,7 @@
             this.Controls.Add(this.btn_FVI);
             this.Name = "usrc_FVI_SLO";
             this.Size = new System.Drawing.Size(33, 26);
+            this.Load += new System.EventHandler(this.usrc_FVI_SLO_Load);
             this.ResumeLayout(false);
 
         }

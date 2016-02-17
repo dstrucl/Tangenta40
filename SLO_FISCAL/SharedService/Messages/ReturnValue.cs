@@ -1,4 +1,9 @@
-﻿
+﻿// <copyright file="ReturnValue.cs" company="MNet">
+//     Copyright (c) Matjaz Prtenjak All rights reserved.
+// </copyright>
+// <author>Matjaz Prtenjak</author>
+//-----------------------------------------------------------------------
+
 using System.Xml;
 using MNet.SLOTaxService.Services;
 using MNet.SLOTaxService.Utils;
@@ -119,6 +124,8 @@ namespace MNet.SLOTaxService.Messages
       this.BarCodes = (id == null) ? null : BarCodes.Create(checkedDocument);
     }
 
-    public  XmlDocument originalMessage;
-  }
+        //TANGENTA dodano
+        //private XmlDocument originalMessage;
+        public XmlDocument originalMessage;
+    }
 }

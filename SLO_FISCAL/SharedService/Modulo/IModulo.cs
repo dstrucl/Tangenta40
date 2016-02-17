@@ -1,4 +1,9 @@
-﻿
+﻿// <copyright file="IModulo.cs" company="MNet">
+//     Copyright (c) Matjaz Prtenjak All rights reserved.
+// </copyright>
+// <author>Matjaz Prtenjak</author>
+//-----------------------------------------------------------------------
+
 namespace MNet.SLOTaxService.Modulo
 {
   internal interface IModulo

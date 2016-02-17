@@ -1,4 +1,9 @@
-﻿
+﻿// <copyright file="TaxService.cs" company="MNet">
+//     Copyright (c) Matjaz Prtenjak All rights reserved.
+// </copyright>
+// <author>Matjaz Prtenjak</author>
+//-----------------------------------------------------------------------
+
 using System.Xml;
 using MNet.SLOTaxService.Messages;
 using MNet.SLOTaxService.Services;
