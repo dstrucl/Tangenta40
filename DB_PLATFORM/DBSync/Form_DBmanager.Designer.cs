@@ -43,6 +43,7 @@
             this.btn_Change.TabIndex = 3;
             this.btn_Change.Text = "Select Another Database";
             this.btn_Change.UseVisualStyleBackColor = true;
+            this.btn_Change.Visible = false;
             this.btn_Change.Click += new System.EventHandler(this.btn_Change_Click);
             // 
             // lbl_DataBaseInfo

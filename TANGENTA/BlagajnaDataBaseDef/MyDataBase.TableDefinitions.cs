@@ -10,6 +10,7 @@ using System.Text;
 using BlagajnaTableClass;
 using SQLTableControl;
 using LanguageControl;
+using DBConnectionControl40;
 
 namespace BlagajnaDataBaseDef
 {
@@ -796,7 +797,7 @@ namespace BlagajnaDataBaseDef
             m_DBTables.items.Add(t_cCardType_Person);
 
             /* 36 */
-            t_DBSettings = new SQLTable((Object)new DBSettings(),"dbset", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cCardType_Perosn);
+            t_DBSettings = new SQLTable((Object)new BlagajnaTableClass.DBSettings(),"dbset", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cCardType_Perosn);
             t_DBSettings.AddColumn((Object)mt.m_DBSettings.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_DBSettings.AddColumn((Object)mt.m_DBSettings.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "Name", "Ime Nastavitve") );
             t_DBSettings.AddColumn((Object)mt.m_DBSettings.TextValue, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Value", "Vrednost Nastavitve") );

@@ -175,7 +175,6 @@ namespace DBConnectionControl40
             {
                 BackupFolder = frm_backup.BackupFolder;
             }
-
         }
     }
 }

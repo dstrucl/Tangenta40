@@ -81,7 +81,8 @@ namespace DBSync
 
         private void btn_Backup_Click(object sender, EventArgs e)
         {
-            DBSync.DB_for_Blagajna.CreateNewConnection(m_parent_form, DBSync.LocalDB_data_SQLite, ref m_BackupFolder);
+
+            DBSync.DB_for_Blagajna.Backup(m_parent_form, DBSync.LocalDB_data_SQLite, ref m_BackupFolder);
         }
     }
 }

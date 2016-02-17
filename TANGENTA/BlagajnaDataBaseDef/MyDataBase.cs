@@ -71,6 +71,21 @@ namespace BlagajnaDataBaseDef
             return false;
         }
 
+        public void Backup(Form m_parent_form, object olocalDB_data_SQLite, ref string m_BackupFolder)
+        {
+            if (olocalDB_data_SQLite is LocalDB_data)
+            {
+                LocalDB_data localDB_data_SQLite = (LocalDB_data)olocalDB_data_SQLite;
+                Form_Backup_SQLite frm_backup = new Form_Backup_SQLite(localDB_data_SQLite.DataBaseFilePath+ localDB_data_SQLite.DataBaseFileName, localDB_data_SQLite.DataBaseFileName, m_BackupFolder);
+                if (frm_backup.ShowDialog() == DialogResult.OK)
+                {
+                    m_BackupFolder = frm_backup.BackupFolder;
+                }
+            }
+        }
+    
+
+
         public bool MakeConnection(Form pParentForm, Object DB_Param)
         {
 

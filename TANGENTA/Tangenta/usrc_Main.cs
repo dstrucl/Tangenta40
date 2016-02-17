@@ -202,7 +202,6 @@ namespace Tangenta
             Properties.Settings.Default.BackupFolder = BackupFolder;
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();
-            Init(Main_Form);
         }
     }
 }
