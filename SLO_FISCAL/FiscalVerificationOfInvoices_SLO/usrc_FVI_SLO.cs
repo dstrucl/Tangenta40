@@ -122,7 +122,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    return Properties.Settings.Default.fursWebServiceURL_TEST;
+                    return Properties.Settings.Default.fursWebServiceURL;
                 }
             }
         }
