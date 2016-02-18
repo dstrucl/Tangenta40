@@ -60,9 +60,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TextBoxRecent">
-      <HintPath>..\..\CONTROLS\TextBoxRecent\obj\Debug\TextBoxRecent.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataGridViewButtonImageCell.cs" />
@@ -173,6 +170,10 @@
     <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\TextBoxRecent\TextBoxRecent.csproj">
+      <Project>{c086ec32-85f5-43ca-a457-040ca7beaa9e}</Project>
+      <Name>TextBoxRecent</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DB_PLATFORM\DBSync\DBSync.csproj">
       <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
