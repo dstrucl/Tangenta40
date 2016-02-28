@@ -250,6 +250,7 @@ namespace LanguageControl
         public static ltext s_WriteReasonForStorno = new ltext("Write reason text to reverse invoice!", "Napisati morate razlog za stornacijo računa!");
         public static ltext s_Price = new ltext("Price", "Cena");
         public static ltext s_Storno_Instruction = new ltext("To reverse Invoice select or write reason and click STORNO button", "Za stornacijo računa izberite ali napišite razlog in kliknite na gumb Storno");
+        public static ltext s_STORNO = new ltext("REVERSE", "STORNO");
         public static ltext s_Storno = new ltext("Reverse Invoice", "Stornacija računa");
         public static ltext s_DURS_Files = new ltext("Durs files:", "Datoteki za DURS:");
         public static ltext s_DURS_files_Saved_OK = new ltext(" are saved ok.", " sta uspešno zapisani.");

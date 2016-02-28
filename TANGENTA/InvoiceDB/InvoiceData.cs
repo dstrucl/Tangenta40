@@ -69,9 +69,13 @@ namespace InvoiceDB
         public long_v Invoice_ID_v = null;
         public long_v ProformaInvoice_Reference_ID_v = null;
 
+
         public int FinancialYear = -1;
         public int NumberInFinancialYear = -1;
         public bool Draft = true;
+        public bool_v Invoice_Storno_v = null;
+        public string_v Invoice_Reference_Type_v = null;
+
 
         public DateTime_v IssueDate_v = null;
         public DateTime_v StornoIssueDate_v = null;
@@ -144,7 +148,7 @@ namespace InvoiceDB
 
 
 
-        public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
         {
             int i;
             int end_index = start_index + count;
@@ -195,7 +199,14 @@ namespace InvoiceDB
                 decimal taxation_rate = DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate"]);
                 decimal tax_price = DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$TAX"]);
                 string tax_name = DBTypes.tf._set_string(dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Name"]);
-                taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
+                if (bInvoiceStorno)
+                {
+                    taxSum.Add(-tax_price, -price_without_tax, tax_name, taxation_rate);
+                }
+                else
+                { 
+                    taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
+                }
 
                 decimal dRetailPricePerUnitWithDiscount = 0;
                 if (dr["Atom_ItemShopA_Price_$$PricePerUnit"] is decimal)
@@ -203,6 +214,14 @@ namespace InvoiceDB
                     dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr["Atom_ItemShopA_Price_$$PricePerUnit"] * (1 - Discount), GlobalData.BaseCurrency.DecimalPlaces);
                 }
 
+                decimal dprice_without_tax = DBTypes.tf._set_decimal(price_without_tax);
+                decimal dEndPriceWithDiscountAndTax = DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"]);
+                if (bInvoiceStorno)
+                {
+                    tax_price = tax_price * -1;
+                    dprice_without_tax = dprice_without_tax * -1;
+                    dEndPriceWithDiscountAndTax = dEndPriceWithDiscountAndTax * -1;
+                }
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
                                                              DBTypes.tf._set_string(dr["Atom_ItemShopA_Price_$_aisha_$$Name"]),
@@ -216,9 +235,10 @@ namespace InvoiceDB
                                                              DBTypes.tf._set_string(GlobalData.BaseCurrency.Symbol),
                                                              taxation_rate,
                                                              DBTypes.tf._set_decimal(TotalDiscount),
-                                                             DBTypes.tf._set_decimal(price_without_tax),
+                                                             dprice_without_tax,
                                                              tax_price,
-                                                             DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"]));
+                                                             dEndPriceWithDiscountAndTax
+                                                            );
 
                 j++;
             }
@@ -227,7 +247,7 @@ namespace InvoiceDB
 
 
 
-        public void Fill_Sold_ShopB_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        public void Fill_Sold_ShopB_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
         {
             int i;
             int end_index = start_index + count;
@@ -270,7 +290,25 @@ namespace InvoiceDB
                 decimal taxation_rate = DBTypes.tf._set_decimal(dr["Atom_Taxation_Rate"]);
                 decimal tax_price = DBTypes.tf._set_decimal(dr["TaxPrice"]);
                 string tax_name = DBTypes.tf._set_string(dr["Atom_Taxation_Name"]);
-                taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
+
+                if (bInvoiceStorno)
+                {
+                    taxSum.Add(-tax_price, -price_without_tax, tax_name, taxation_rate);
+                }
+                else
+                {
+                    taxSum.Add(tax_price, price_without_tax, tax_name, taxation_rate);
+                }
+
+
+                
+                decimal dEndPriceWithDiscountAndTax = DBTypes.tf._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]);
+                if (bInvoiceStorno)
+                {
+                    tax_price = tax_price * -1;
+                    price_without_tax = price_without_tax * -1;
+                    dEndPriceWithDiscountAndTax = dEndPriceWithDiscountAndTax * -1;
+                }
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
                                                              DBTypes.tf._set_string(dr["Name"]),
@@ -284,9 +322,10 @@ namespace InvoiceDB
                                                              DBTypes.tf._set_string(dr["Atom_Currency_Symbol"]),
                                                              taxation_rate,
                                                              DBTypes.tf._set_decimal(TotalDiscount),
-                                                             DBTypes.tf._set_decimal(price_without_tax),
+                                                             price_without_tax,
                                                              tax_price,
-                                                             DBTypes.tf._set_decimal(dr["RetailSimpleItemPriceWithDiscount"]));
+                                                             dEndPriceWithDiscountAndTax
+                                                             );
 
                 j++;
             }
@@ -439,7 +478,7 @@ namespace InvoiceDB
             }
         }
 
-        public void Fill_Sold_ShopC_ItemsData(List<object> xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count)
+        public void Fill_Sold_ShopC_ItemsData(List<object> xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
         {
 
             int i;
@@ -475,7 +514,26 @@ namespace InvoiceDB
                 decimal tax_price = ItemsTaxPrice;
                 string tax_name = appisd.Atom_Taxation_Name.v;
 
-                taxSum.Add(tax_price, ItemsNetPrice, tax_name, taxation_rate);
+                if (bInvoiceStorno)
+                {
+                    taxSum.Add(-tax_price, -ItemsNetPrice, tax_name, taxation_rate);
+                }
+                else
+                {
+                    taxSum.Add(tax_price, ItemsNetPrice, tax_name, taxation_rate);
+                }
+
+
+                decimal dRetailItemsPriceWithDiscount = DBTypes.tf._set_decimal(RetailItemsPriceWithDiscount);
+                tax_price = DBTypes.tf._set_decimal(ItemsTaxPrice);
+                decimal dprice_without_tax = DBTypes.tf._set_decimal(ItemsNetPrice);
+                if (bInvoiceStorno)
+                {
+                    tax_price = tax_price * -1;
+                    dprice_without_tax = dprice_without_tax * -1;
+                    dRetailItemsPriceWithDiscount = dRetailItemsPriceWithDiscount * -1;
+                }
+
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
                                                              DBTypes.tf._set_string(appisd.Atom_Item_UniqueName.v),
@@ -489,9 +547,10 @@ namespace InvoiceDB
                                                              DBTypes.tf._set_string(appisd.Atom_Currency_Symbol.v),
                                                              taxation_rate,
                                                              DBTypes.tf._set_decimal(TotalDiscount),
-                                                             DBTypes.tf._set_decimal(ItemsNetPrice),
-                                                             DBTypes.tf._set_decimal(ItemsTaxPrice),
-                                                             DBTypes.tf._set_decimal(RetailItemsPriceWithDiscount));
+                                                             dprice_without_tax,
+                                                             tax_price,
+                                                             dRetailItemsPriceWithDiscount
+                                                            );
                 j++;
             }
 
@@ -551,6 +610,8 @@ namespace InvoiceDB
                                  JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.InvoiceNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$InvoiceNumber,
                                  JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.SetNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SetNumber,
                                  JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.SerialNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SerialNumber,
+                                 inv.Storno,
+                                 inv.Invoice_Reference_Type,
                                  inv.Invoice_Reference_ID
                                  from JOURNAL_ProformaInvoice jpi
                                  inner join JOURNAL_ProformaInvoice_Type jpit on jpi.JOURNAL_ProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
@@ -628,6 +689,8 @@ namespace InvoiceDB
                                  acusper.ID as Atom_Customer_Person_ID,
                                  jpi.EventTime,
                                  jpit.Name as JOURNAL_ProformaInvoice_Type_Name,
+                                 inv.Storno,
+                                 inv.Invoice_Reference_Type,
                                  inv.Invoice_Reference_ID
                                  from JOURNAL_ProformaInvoice jpi
                                  inner join JOURNAL_ProformaInvoice_Type jpit on jpi.JOURNAL_ProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
@@ -672,9 +735,13 @@ namespace InvoiceDB
                     try
                     {
                         Draft = DBTypes.tf._set_bool(dt_ProformaInvoice.Rows[0]["Draft"]);
+                        Invoice_Storno_v = DBTypes.tf.set_bool(dt_ProformaInvoice.Rows[0]["Storno"]);
+                        Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["Invoice_Reference_Type"]);
+                        ProformaInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_Reference_ID"]);
                         Invoice_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_ProformaInvoice.Rows[0]["EventTime"]);
                         string_v EventName_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_Type_Name"]);
+
                         if (Draft)
                         {
                             this.m_eType = eType.DRAFT_INVOICE;
@@ -694,7 +761,6 @@ namespace InvoiceDB
                                     {
                                         this.m_eType = eType.STORNO;
                                         this.StornoIssueDate_v = EventTime_v.Clone();
-                                        ProformaInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_Reference_ID"]);
                                         if (ProformaInvoice_Reference_ID_v != null)
                                         {
                                             if (IssueDate_v == null)
@@ -764,11 +830,33 @@ namespace InvoiceDB
                             }
                         }
 
+                        bool bInvoiceStorno = false;
+                        if (Invoice_Reference_Type_v != null)
+                        {
+                            if (Invoice_Reference_Type_v.v.Equals("STORNO"))
+                            {
+                                if (ProformaInvoice_Reference_ID_v != null)
+                                {
+                                    bInvoiceStorno = true;
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_ProformaInvoice:ProformaInvoice_Reference_ID_v can not be null when Invoice_Reference_Type_v equals 'STORNO'");
+                                }
+                            }
+                        }
+
 
                         GrossSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
                         taxsum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
                         NetSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
 
+                        if (bInvoiceStorno)
+                        {
+                            if (GrossSum > 0) GrossSum = GrossSum * -1;
+                            if (taxsum > 0) taxsum = taxsum * -1;
+                            if (NetSum > 0) NetSum = NetSum * -1;
+                        }
 
                         if (b_FVI_SLO)
                         {
@@ -881,15 +969,24 @@ namespace InvoiceDB
 
                                 ItemsSold = new UniversalInvoice.ItemSold[iCountShopAItemsSold + iCountShopBItemsSold + iCountShopCItemsSold];
                                 taxSum = new StaticLib.TaxSum();
-                                Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold);
-                                Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold);
-                                Fill_Sold_ShopC_ItemsData(xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold);
+
+
+                                Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
+                                Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
+                                Fill_Sold_ShopC_ItemsData(xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
 
                                 InvoiceToken = new UniversalInvoice.InvoiceToken();
 
                                 InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
                                 InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
                                 InvoiceToken.tCashier.Set(CasshierName);
+
+                                InvoiceToken.tStorno.Set("");
+                                if (bInvoiceStorno)
+                                {
+                                    InvoiceToken.tStorno.Set(lngRPM.s_STORNO.s);
+                                }
+
 
                                 if (!Draft)
                                 {

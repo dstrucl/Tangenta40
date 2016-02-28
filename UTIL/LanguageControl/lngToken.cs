@@ -45,6 +45,8 @@ namespace LanguageControl
 
         public static ltext st_Notice = new ltext("Notice", "Dopis");
         public static ltext st_Footer = new ltext("Footer", "Noga");
+        public static ltext st_Storno = new ltext("Storno", "Stornacija");
+
 
     }
 }

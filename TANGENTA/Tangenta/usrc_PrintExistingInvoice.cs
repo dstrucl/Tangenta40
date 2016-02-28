@@ -116,9 +116,20 @@ namespace Tangenta
 
         private bool GetInvoiceTime(ref DateTime dtInvoiceTime)
         {
+            string sJournal_ProformaInvoice_Type_Name = "InvoiceTime";
+            if (m_InvoiceData!=null)
+            {
+                if (m_InvoiceData.Invoice_Reference_Type_v!=null)
+                {
+                    if (m_InvoiceData.Invoice_Reference_Type_v.v.Equals("STORNO"))
+                    {
+                        sJournal_ProformaInvoice_Type_Name = "InvoiceStornoTime";
+                    }
+                }
+            }
             string sql = @"select   JOURNAL_ProformaInvoice_$$EventTime
                                     from JOURNAL_ProformaInvoice_VIEW where 
-                                    JOURNAL_ProformaInvoice_$_jpinvt_$$Name = 'InvoiceTime' and
+                                    JOURNAL_ProformaInvoice_$_jpinvt_$$Name = '"+ sJournal_ProformaInvoice_Type_Name + @"' and
                                     JOURNAL_ProformaInvoice_$_pinv_$$ID = " + ProformaInvoice_ID.ToString() + " order by ID desc";
             dt.Clear();
             string Err = null;
