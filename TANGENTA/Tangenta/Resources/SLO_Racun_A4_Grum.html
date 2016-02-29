@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Račun</title>
+    <style>
+            .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    a {
+        color: #5D6975;
+        text-decoration: underline;
+    }
+
+    body {
+        position: relative;
+        width: 21cm;  
+        height: 29.7cm; 
+        margin: 0 auto; 
+        color: #001028;
+        background: #FFFFFF; 
+        font-family: Arial, sans-serif; 
+        font-size: 16px; 
+        font-family: Arial;
+    }
+
+    header {
+        padding: 10px 0;
+        margin-bottom: 30px;
+    }
+
+    #logo {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #logo img {
+        width: 90px;
+    }
+
+    h1 {
+        border-top: 1px solid  #5D6975;
+        border-bottom: 1px solid  #5D6975;
+        color: #5D6975;
+        font-size: 2.4em;
+        line-height: 1.4em;
+        font-weight: normal;
+        text-align: center;
+        margin: 0 0 20px 0;
+        /* background: url(dimension.png); */
+    }
+
+    #project {
+        float: left;
+    }
+
+    #project span {
+        color: #5D6975;
+        text-align: right;
+        width: 96px;
+        margin-right: 10px;
+        display: inline-block;
+        font-size: 0.8em;
+    }
+
+    #company {
+        float: right;
+        text-align: right;
+    }
+
+    #project div,
+    #company div {
+        white-space: nowrap;        
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 20px;
+    }
+
+    table tr:nth-child(2n-1) td {
+        background: #F5F5F5;
+    }
+
+    table th,
+    table td {
+        text-align: center;
+    }
+
+    table th {
+        padding: 5px 20px;
+        color: #5D6975;
+        border-bottom: 1px solid #C1CED9;
+        white-space: nowrap;        
+        font-weight: normal;
+    }
+
+    table .item
+    {
+        text-align: left;
+    }
+
+    table td {
+        padding: 20px;
+        text-align: right;
+    }
+
+    table td.service,
+    table td.desc {
+        vertical-align: top;
+    }
+
+    table td.priceperunit,
+    table td.discount,
+    table td.qty,
+    table td.taxrate,
+    table td.price_neto,
+    table td.tax,
+    table td.price_with_tax
+    {
+        font-size: 1.2em;
+    }
+	
+	table td.total_neto,
+	table td.taxsum,
+	table td.tax_95,
+	table td.grand_total,
+    {
+        font-size: 1.5em;
+    }
+	
+
+    table td.grand_total {
+        border-top: 1px solid #5D6975;;
+    }
+
+    #notices .notice {
+        color: #5D6975;
+        font-size: 1.2em;
+    }
+
+    footer {
+        color: #5D6975;
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        bottom: 0;
+        border-top: 1px solid #C1CED9;
+        padding: 8px 0;
+        text-align: center;
+    }
+    </style> 
+  </head>
+  <body>
+    <header class="clearfix">
+      <h1>Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@) (@@Račun_Stornacija@@)</h1>
+      <div id="company" class="clearfix">
+        <div>IZDAJATELJ:(@@Moja_Organizacija_Ime@@)</div>
+        <div>(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)</div>
+        <div>(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)</div>
+        <div>Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) </div>
+        <div>Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) </div>
+        <div>Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) </div>
+        <div>Oznaka blagajne:(@@Račun_OznakaBlagajne@@) </div>
+        <div>Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)</div>
+        <div><a href="email:(@@Moja_Organizacija_Email@@)">E-Pošta:(@@Moja_Organizacija_Email@@)</a></div>
+        <div><a href="http:(@@Moja_Organizacija_DomačaStran@@)">Domača stran:(@@Moja_Organizacija_DomačaStran@@)</a></div>
+      </div>
+      <div id="project">
+        <div><span>NASLOVU</span>(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)</div>
+        <div><span></span>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
+        <div><span></span>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
+        <div><span>E-POŠTA</span> <a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)">(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)</a></div>
+        <div><span>Datum rač.:</span>(@@Račun_Datum_izdaje_računa@@)</div>
+        <div><span>Datum zapadlosti:</span>(@@Račun_Datum_zapadlosti_računa@@)</div>
+      </div>
+    </header>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th class="item">Artikel ali storitev</th>
+            <th>Cena na enoto</th>
+	    <th>Popust</th>
+            <th>Merska Enota</th>
+            <th>Količina</th>
+            <th>Davčna stopnja</th>
+            <th>Cena brez DDV</th>
+            <th>Davek DDV</th>
+            <th>Cena z DDV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row">
+            <td class="service">(@@Račun_StoritevAliArtikel_Ime@@)</td>
+            <td class="priceperunit">(@@Račun_StoritevAliArtikel_CenaNaEnoto@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+            <td class="discount">(@@Račun_StoritevAliArtikel_CelotenPopust@@)</td>
+            <td class="unit">(@@Račun_StoritevAliArtikel_MerskaEnota@@)</td>
+            <td class="qty">(@@Račun_StoritevAliArtikel_Količina@@)</td>
+            <td class="taxrate">(@@Račun_StoritevAliArtikel_DavčnaStopnjaVProcentih@@)</td>
+            <td class="price_neto">(@@Račun_StoritevAliArtikel_Cena_Brez_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+            <td class="tax">(@@Račun_StoritevAliArtikel_Davek@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+            <td class="price_with_tax">(@@Račun_StoritevAliArtikel_Cena_z_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+          </tr>
+		  
+          <tr>
+		 
+            <td class="total_neto" colspan="4">SKUPAJ BREZ DAVKA</td>
+           <td colspan="2" class="total_neto">(@@Račun_CenaSkupajBrezDavka@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+          </tr>
+          <tr class="taxsum">
+            <td class="tax_95" colspan="4">(@@Račun_ImeDavčneStopnje@@)</td>
+            <td colspan="2" class="tax_95">(@@Račun_DavekSkupaj@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="grand_total">Končna cena z davkom</td>
+            <td colspan="2" class="grand_total">(@@Račun_KončnaCenaZDavkom@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div id="FURS">
+        <div>FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"</div>
+        <div>FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"</div>
+		<img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" />
+      </div>
+     <!-- <div id="notices">
+        <div>DOPIS</div>
+        <div class="notice">(@@Račun_Dopis@@)</div>
+      </div> -->
+    </main>
+   <!--   <footer>
+      (@@Račun_Noga@@)
+    </footer>-->
+  </body>
+</html>
