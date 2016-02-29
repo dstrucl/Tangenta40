@@ -1339,6 +1339,7 @@ namespace InvoiceDB
             InvoiceToken.tDateOfIssue.Set(stime);
             InvoiceToken.tDateOfMaturity.Set(stime);
 
+            html_doc_template = InvoiceToken.tStorno.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tFiscalYear.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tInvoiceNumber.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tIssuerOfInvoice.Replace(html_doc_template);
