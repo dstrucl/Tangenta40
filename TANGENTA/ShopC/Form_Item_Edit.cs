@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using DBTypes;
 using InvoiceDB;
 
@@ -27,7 +27,7 @@ namespace ShopC
 
         public List<long> List_of_Inserted_Items_ID = null; 
         DataTable dt_Item = new DataTable();
-        SQLTableControl.DBTableControl dbTables = null;
+        CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         long_v ID_v = null;
         string ColumnOrderBy = "";
@@ -40,7 +40,7 @@ namespace ShopC
 
         public bool bShopC_Item_NotIn_PriceList = false;
 
-        public Form_Item_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -54,7 +54,7 @@ namespace ShopC
 
         }
 
-        public Form_Item_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
+        public Form_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -204,7 +204,7 @@ namespace ShopC
             m_bChanged = true;
         }
 
-        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTableControl.SQLTable pSQL_Table, System.Collections.Generic.List<SQLTableControl.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, SQLTableControl.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Item"))

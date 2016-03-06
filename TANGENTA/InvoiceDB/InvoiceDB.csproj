@@ -140,37 +140,37 @@
     <Compile Include="xUnitList.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CONTROLS\XMessage\XMessage.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DB_PLATFORM\DBConectionControl40\DBConnectionControl40.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DB_PLATFORM\DBSync\DBSync.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
       <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
       <Name>DBSync</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DB_PLATFORM\DBTypes\DBTypes.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DB_PLATFORM\SQLTableControl\SQLTableControl.csproj">
+    <ProjectReference Include="..\..\CodeTables\SQLTableControl\CodeTables.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
-      <Name>SQLTableControl</Name>
+      <Name>CodeTables</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\StaticLib\StaticLib.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
+    <ProjectReference Include="..\BlagajnaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
-      <Name>BlagajnaDataBaseDef</Name>
+      <Name>TangentaDataBaseDef</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
+    <ProjectReference Include="..\BlagajnaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
-      <Name>BlagajnaTableClass</Name>
+      <Name>TangentaTableClass</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopA_dbfunc\ShopA_dbfunc.csproj">
       <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
@@ -180,11 +180,11 @@
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
       <Name>UniversalInvoice</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>

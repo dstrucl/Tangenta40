@@ -22,7 +22,7 @@ namespace Tangenta
 {
     public partial class Form_Main : Form
     {
-        public const string XML_ROOT_NAME = "Blagajna_Xml";
+        public const string XML_ROOT_NAME = "Tangenta_Xml";
         public string RecentItemsFolder = null;
 
         internal string m_XmlFileName = null;

@@ -1,9 +1,9 @@
 ﻿// Copyright (c) 2011 rubicon IT GmbH
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBTypes;
 using InvoiceDB;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,13 +30,13 @@ namespace Tangenta
             if (myOrg.ID_v != null)
             {
                 myCompany_ID = myOrg.ID_v.v;
-                tbl_Office = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Office)));
+                tbl_Office = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Office)));
                 this.Text = lngRPM.s_Edit_Offices.s;
                 this.usrc_EditTable1.Title = lngRPM.s_Edit_Offices.s;
                 long_v myCompany_ID_v = new long_v(myCompany_ID);
                 string selection = "Office_$$Name,Office_$$ShortName,Office_$_mc_$_orgd_$_org_$$Name,Office_$_mc_$_orgd_$_orgt_$$OrganisationTYPE,Office_$_mc_$_orgd_$_org_$$Tax_ID,ID";
                 string where_condition = " where Office_$_mc_$$ID = " + myCompany_ID.ToString() + " ";
-                if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Office, selection, ColumnToOrderBy, false, null, null, false))
+                if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office, selection, ColumnToOrderBy, false, null, null, false))
                 {
                     usrc_EditTable1.FillInitialData();
                 }
@@ -63,7 +63,7 @@ namespace Tangenta
             if (m_tbl.TableName.ToLower().Equals("mycompany"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con, myCompany_ID, true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, myCompany_ID, true, ref Err);
             }
         }
 

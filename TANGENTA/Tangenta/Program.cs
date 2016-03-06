@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using BlagajnaDataBaseDef;
+using TangentaDataBaseDef;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.IO;
@@ -218,7 +218,7 @@ namespace Tangenta
                             if (MessageBox.Show(lngRPM.s_AreYouSure_ToResetSettingsToInitialvalues.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                             {
                                 Properties.Settings.Default.Reset();
-                                SQLTableControl.ASet.Settings_Reset();
+                                CodeTables.ASet.Settings_Reset();
                                 bReset2FactorySettings = true;
                             }
                             else
@@ -253,7 +253,7 @@ namespace Tangenta
                 LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
 
                 LanguageControl.DynSettings.LoadLanguages();
-                LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Blagajna.Settings.LanguageID; ;
+                LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
                 LanguageControl.DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
 
 

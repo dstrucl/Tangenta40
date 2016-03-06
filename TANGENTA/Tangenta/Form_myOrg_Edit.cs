@@ -15,8 +15,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using InvoiceDB;
 
 namespace Tangenta
@@ -24,11 +24,11 @@ namespace Tangenta
     public partial class Form_myOrg_Edit : Form
     {
         DataTable dt_my_company = new DataTable();
-        SQLTableControl.DBTableControl dbTables = null;
+        CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         //bool bclose = false;
 
-        public Form_myOrg_Edit(SQLTableControl.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew)
+        public Form_myOrg_Edit(CodeTables.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -161,8 +161,8 @@ namespace Tangenta
 
         internal bool Edit_OrganisationData()
         {
-            SQLTable tbl_OrganisationData = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationData)));
-            OrganisationData_EditForm edt_Item_dlg = new OrganisationData_EditForm(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_OrganisationData = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationData)));
+            OrganisationData_EditForm edt_Item_dlg = new OrganisationData_EditForm(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationData,
                                                             " OrganisationData_$_org_$$Name desc");
             edt_Item_dlg.ShowDialog();
@@ -172,8 +172,8 @@ namespace Tangenta
 
         internal bool Edit_OrganisationAccount()
         {
-            SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationAccount)));
-            Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
+            Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationAccount,
                                                             " OrganisationAccount_$_org_$$Name desc");
             edt_Item_dlg.ShowDialog();

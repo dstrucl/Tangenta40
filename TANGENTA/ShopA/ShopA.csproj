@@ -167,41 +167,41 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CONTROLS\TextBoxRecent\TextBoxRecent.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\TextBoxRecent\TextBoxRecent.csproj">
       <Project>{c086ec32-85f5-43ca-a457-040ca7beaa9e}</Project>
       <Name>TextBoxRecent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DB_PLATFORM\DBSync\DBSync.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
       <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
       <Name>DBSync</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DB_PLATFORM\DBTypes\DBTypes.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DB_PLATFORM\SQLTableControl\SQLTableControl.csproj">
+    <ProjectReference Include="..\..\CodeTables\SQLTableControl\CodeTables.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
-      <Name>SQLTableControl</Name>
+      <Name>CodeTables</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlagajnaDataBaseDef\BlagajnaDataBaseDef.csproj">
+    <ProjectReference Include="..\BlagajnaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
-      <Name>BlagajnaDataBaseDef</Name>
+      <Name>TangentaDataBaseDef</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlagajnaTableClass\BlagajnaTableClass.csproj">
+    <ProjectReference Include="..\BlagajnaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
-      <Name>BlagajnaTableClass</Name>
+      <Name>TangentaTableClass</Name>
     </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>

@@ -11,8 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Windows.Forms;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 
 namespace InvoiceDB
 {

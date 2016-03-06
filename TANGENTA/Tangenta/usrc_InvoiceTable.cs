@@ -15,8 +15,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using DBConnectionControl40;
 using LanguageControl;
 using InvoiceDB;
@@ -551,8 +551,8 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_ProformaInvoice_$_awperiod_$_awperiodt ON
 
                 SetLabels();
                 //this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged); // Add Handler
-                SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(ProformaInvoice)));
-                tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
+                SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(ProformaInvoice)));
+                tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 dgvx_XInvoice.Columns["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$BarCodeValue"].HeaderText = lngRPM.s_FURS_BarCode.s;
                 iRowsCount = dt_XInvoice.Rows.Count;
                 if (!bNew)

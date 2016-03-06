@@ -31,8 +31,8 @@
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.usrc_EditTable_PurchasePriceList = new SQLTableControl.TableDocking_Form.usrc_EditTable();
-            this.usrc_EditTable_PurchaseItem = new SQLTableControl.TableDocking_Form.usrc_EditTable();
+            this.usrc_EditTable_PurchasePriceList = new CodeTables.TableDocking_Form.usrc_EditTable();
+            this.usrc_EditTable_PurchaseItem = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.txt_PriceList_Name = new System.Windows.Forms.TextBox();
             this.lbl_PurchasePrice_Date = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -102,9 +102,9 @@
             this.usrc_EditTable_PurchasePriceList.Title = "label1";
             this.usrc_EditTable_PurchasePriceList.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable_PurchasePriceList.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable_PurchasePriceList.before_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_before_InsertInDataBase(this.usrc_EditTable_PurchasePrice_before_InsertInDataBase);
-            this.usrc_EditTable_PurchasePriceList.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_PurchasePrice_after_InsertInDataBase);
-            this.usrc_EditTable_PurchasePriceList.SelectedIndexChanged += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_SelectedIndexChanged(this.usrc_EditTable_PriceList_SelectedIndexChanged);
+            this.usrc_EditTable_PurchasePriceList.before_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_before_InsertInDataBase(this.usrc_EditTable_PurchasePrice_before_InsertInDataBase);
+            this.usrc_EditTable_PurchasePriceList.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_PurchasePrice_after_InsertInDataBase);
+            this.usrc_EditTable_PurchasePriceList.SelectedIndexChanged += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_SelectedIndexChanged(this.usrc_EditTable_PriceList_SelectedIndexChanged);
             // 
             // usrc_EditTable_PurchaseItem
             // 
@@ -156,7 +156,7 @@
         }
 
 
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable_PurchasePriceList;
+        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable_PurchasePriceList;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -164,6 +164,6 @@
         private System.Windows.Forms.Label lbl_PurchasePrice_Date;
 
         #endregion
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable_PurchaseItem;
+        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable_PurchaseItem;
     }
 }

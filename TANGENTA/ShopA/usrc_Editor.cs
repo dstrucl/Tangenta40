@@ -15,8 +15,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InvoiceDB;
-using BlagajnaTableClass;
-using SQLTableControl;
+using TangentaTableClass;
+using CodeTables;
 
 namespace ShopA
 {
@@ -197,8 +197,8 @@ namespace ShopA
 
         public bool EditShopAItem()
         {
-            SQLTable tbl_ShopAItem = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_ItemShopA)));
-            Form_ShopAItem_Edit edt_ShopAItem_dlg = new Form_ShopAItem_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_ShopAItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ItemShopA)));
+            Form_ShopAItem_Edit edt_ShopAItem_dlg = new Form_ShopAItem_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                     tbl_ShopAItem,
                                                                     "Atom_ItemShopA_$$Name asc");
             edt_ShopAItem_dlg.ShowDialog();

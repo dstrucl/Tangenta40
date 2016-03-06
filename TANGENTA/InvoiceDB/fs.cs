@@ -7,7 +7,7 @@
 #endregion
 using DBConnectionControl40;
 using DBTypes;
-using SQLTableControl;
+using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -45,7 +45,7 @@ namespace InvoiceDB
 
         public static enum_GetDBSettings GetDBSettings(string Name, ref string TextValue, ref bool bReadOnly, ref string Err)
         {
-            SQLTable tbl_DBSettings = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(DBSettings));
+            SQLTable tbl_DBSettings = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DBSettings));
             DataTable dt_DBSettings = new DataTable();
             string colName = "Name";
             string colTextValue = "TextValue";
@@ -96,12 +96,12 @@ namespace InvoiceDB
 
         public static bool Init_Default_DB(ref string Err)
         {
-            string s_DBSettings_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.DBSettings)).TableName;
-            string s_col_Name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.DBSettings)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_DBSettings.Name.GetType()).Name;
-            string s_col_TextValue = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.DBSettings)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_DBSettings.TextValue.GetType()).Name;
-            string s_col_ReadOnly = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.DBSettings)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_DBSettings.ReadOnly.GetType()).Name;
+            string s_DBSettings_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DBSettings)).TableName;
+            string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DBSettings)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_DBSettings.Name.GetType()).Name;
+            string s_col_TextValue = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DBSettings)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_DBSettings.TextValue.GetType()).Name;
+            string s_col_ReadOnly = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DBSettings)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_DBSettings.ReadOnly.GetType()).Name;
 
-            string sql_DB_Version = "insert into " + s_DBSettings_table_name + " ( " + s_col_Name + "," + s_col_TextValue + "," + s_col_ReadOnly + " ) values ('" + DBSync.DBSync.DB_for_Blagajna.Settings.Version.Name + "','" + DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue + "'," + Convert.ToInt32(DBSync.DBSync.DB_for_Blagajna.Settings.Version.ReadOnly).ToString() + ")";
+            string sql_DB_Version = "insert into " + s_DBSettings_table_name + " ( " + s_col_Name + "," + s_col_TextValue + "," + s_col_ReadOnly + " ) values ('" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name + "','" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "'," + Convert.ToInt32(DBSync.DBSync.DB_for_Tangenta.Settings.Version.ReadOnly).ToString() + ")";
             string sql_DB_LastInvoiceType = "insert into " + s_DBSettings_table_name + " ( " + s_col_Name + "," + s_col_TextValue + "," + s_col_ReadOnly + " ) values ('LastInvoiceType','Invoice',0)";
             string sql_DB_StockCheckAtStartup = "insert into " + s_DBSettings_table_name + " ( " + s_col_Name + "," + s_col_TextValue + "," + s_col_ReadOnly + " ) values ('StockCheckAtStartup','1',0)";
             object Result = null;
@@ -126,16 +126,16 @@ namespace InvoiceDB
 
         public static bool Init_Currency_Table(ref string Err)
         {
-            string s_Currency_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Currency)).TableName;
-            string s_col_Name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Currency.Name.GetType()).Name;
-            string s_col_Abbreviation = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Currency.Abbreviation.GetType()).Name;
-            string s_col_Symbol = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Currency.Symbol.GetType()).Name;
-            string s_col_CurrencyCode = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Currency.CurrencyCode.GetType()).Name;
-            string s_col_DecimalPlaces = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Currency.DecimalPlaces.GetType()).Name;
+            string s_Currency_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Currency)).TableName;
+            string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Currency.Name.GetType()).Name;
+            string s_col_Abbreviation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Currency.Abbreviation.GetType()).Name;
+            string s_col_Symbol = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Currency.Symbol.GetType()).Name;
+            string s_col_CurrencyCode = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Currency.CurrencyCode.GetType()).Name;
+            string s_col_DecimalPlaces = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Currency.DecimalPlaces.GetType()).Name;
 
             xCurrencyList xCurrencyList = new xCurrencyList();
 
-            DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.BatchOpen = true;
+            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = true;
             string sql_Currency = "insert into " + s_Currency_table_name + " ( " + s_col_Name + "," + s_col_Abbreviation + "," + s_col_Symbol + "," + s_col_CurrencyCode + "," + s_col_DecimalPlaces + " ) values (";
             foreach (xCurrency currency in xCurrencyList.m_CurrencyList)
             {
@@ -145,24 +145,24 @@ namespace InvoiceDB
                 if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
                 {
                     Err = "ERROR::InvoiceDB:fs:Init_Currency_Table:Err=" + Err;
-                    DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.Disconnect();
-                    DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.BatchOpen = false;
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
                     return false;
                 }
             }
-            DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.Disconnect();
-            DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.BatchOpen = false;
+            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
             return true;
         }
 
         private static bool Init_Unit_Table(ref string Err)
         {
-            string s_Unit_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Unit)).TableName;
-            string s_col_Name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Unit.Name.GetType()).Name;
-            string s_col_Symbol = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Unit.Symbol.GetType()).Name;
-            string s_col_DecimalPlaces = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Unit.DecimalPlaces.GetType()).Name;
-            string s_col_StorageOption = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Unit.StorageOption.GetType()).Name;
-            string s_col_Description = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Unit.Description.GetType()).Name;
+            string s_Unit_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).TableName;
+            string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Name.GetType()).Name;
+            string s_col_Symbol = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Symbol.GetType()).Name;
+            string s_col_DecimalPlaces = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.DecimalPlaces.GetType()).Name;
+            string s_col_StorageOption = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.StorageOption.GetType()).Name;
+            string s_col_Description = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Description.GetType()).Name;
 
             xUnitList xUnitList = new xUnitList();
 
@@ -207,7 +207,7 @@ namespace InvoiceDB
         {
             string xTextValue = null;
             bool xReadOnly = false;
-            switch (GetDBSettings(DBSync.DBSync.DB_for_Blagajna.Settings.StockCheckAtStartup.Name,
+            switch (GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name,
                                    ref xTextValue,
                                    ref xReadOnly,
                                    ref Err))
@@ -215,7 +215,7 @@ namespace InvoiceDB
                 case enum_GetDBSettings.DBSettings_OK:
                     if (!xReadOnly)
                     {
-                        DBSync.DBSync.DB_for_Blagajna.Settings.StockCheckAtStartup.TextValue = xTextValue;
+                        DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue = xTextValue;
                     }
                     return true;
 

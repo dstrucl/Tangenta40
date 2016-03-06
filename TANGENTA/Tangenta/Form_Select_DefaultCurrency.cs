@@ -15,8 +15,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LogFile;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using LanguageControl;
 
 namespace Tangenta
@@ -56,7 +56,7 @@ namespace Tangenta
                 if (dtCurrency.Rows.Count > 0)
                 {
                     dgvx_Currency.DataSource = dtCurrency;
-                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person)));
+                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany_Person)));
                     tbl.Set_DataGridViewImageColumns_Headers(dgvx_Currency);
                     return true;
                 }

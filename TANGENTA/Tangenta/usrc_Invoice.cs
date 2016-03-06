@@ -11,8 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using BlagajnaTableClass;
-using SQLTableControl;
+using TangentaTableClass;
+using CodeTables;
 using LanguageControl;
 using DBTypes;
 using InvoiceDB;
@@ -150,8 +150,8 @@ namespace Tangenta
 
         private bool M_usrc_ShopA_EditUnits()
         {
-            SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Unit)));
-            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Unit, "ID asc");
+            SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Unit)));
+            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc");
             if (unit_dlg.ShowDialog() == DialogResult.OK)
             {
                 GetUnits();
@@ -458,8 +458,15 @@ namespace Tangenta
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrc_Invoice:public long PriceList_ID:this.usrc_PriceList==null");
-                    return -1;
+                    if (this.DesignMode)
+                    {
+                        return -1;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Invoice:public long PriceList_ID:this.usrc_PriceList==null");
+                        return -1;
+                    }
                 }
             }
         }
@@ -474,8 +481,15 @@ namespace Tangenta
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrc_Invoice:public long PriceList_ID:this.usrc_PriceList==null");
-                    return -1;
+                    if (this.DesignMode)
+                    {
+                        return -1;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Invoice:public long PriceList_ID:this.usrc_PriceList==null");
+                        return -1;
+                    }
                 }
             }
         }
@@ -630,7 +644,7 @@ namespace Tangenta
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany))), bAllowNew);
+            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany))), bAllowNew);
             dres = edt_my_company_dlg.ShowDialog(this);
 
             if (dres == DialogResult.OK)
@@ -752,7 +766,7 @@ namespace Tangenta
                                             {
                                                 Program.bStartup = false;
 
-                                                if (DBSync.DBSync.DB_for_Blagajna.Settings.StockCheckAtStartup.TextValue.Equals("1"))
+                                                if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
                                                 {
                                                     bool ExpiryItemsFound = false;
                                                     string sNoExpiryDate = null;
@@ -954,8 +968,8 @@ namespace Tangenta
 
         private bool Edit_Taxation()
         {
-            SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
-            Form_Taxation_Edit tax_dlg = new Form_Taxation_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Taxation, "ID asc");
+            SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
+            Form_Taxation_Edit tax_dlg = new Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc");
             if (tax_dlg.ShowDialog() == DialogResult.OK)
             {
                 return true;
@@ -968,8 +982,8 @@ namespace Tangenta
 
         private bool Edit_Units()
         {
-            SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Unit)));
-            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Unit, "ID asc");
+            SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Unit)));
+            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc");
             if (unit_dlg.ShowDialog() == DialogResult.OK)
             {
                 return true;

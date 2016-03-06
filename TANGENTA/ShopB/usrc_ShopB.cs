@@ -14,8 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using LanguageControl;
 using DBConnectionControl40;
 using InvoiceDB;
@@ -631,7 +631,7 @@ namespace ShopB
 
         public bool GetShopBItemData(ref int iCount)
         {
-            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem));
+            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem));
 
 
             string sql_ShopBItem = @"SELECT 
@@ -700,7 +700,7 @@ namespace ShopB
         public bool Get_Price_ShopBItem_Data(ref int iCount_Price_ShopBItem_Data,long PriceList_id)
         {
             m_PriceList_id = PriceList_id;
-            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem));
+            SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem));
 
             if (SetGroups(PriceList_id))
             {
@@ -733,8 +733,8 @@ namespace ShopB
 
         public bool EditShopBItem()
         {
-            SQLTable tbl_ShopBItem=new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(SimpleItem)));
-            Form_ShopBItem_Edit edt_ShopBItem_dlg = new Form_ShopBItem_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_ShopBItem=new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem)));
+            Form_ShopBItem_Edit edt_ShopBItem_dlg = new Form_ShopBItem_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                     tbl_ShopBItem,
                                                                     "SimpleItem_$$Code desc");
             edt_ShopBItem_dlg.ShowDialog();

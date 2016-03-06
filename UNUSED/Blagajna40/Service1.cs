@@ -7,7 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 
-namespace Blagajna40
+namespace Tangenta40
 {
     public partial class Service1 : ServiceBase
     {

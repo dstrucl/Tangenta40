@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using DBTypes;
 
-namespace BlagajnaTableClass
+namespace TangentaTableClass
 {
     public class Width : DB_decimal2
     {

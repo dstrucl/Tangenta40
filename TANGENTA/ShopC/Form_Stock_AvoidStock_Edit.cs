@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using DBTypes;
 
 

@@ -15,18 +15,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 
 namespace Tangenta
 {
     public partial class Form_Warranty_Edit : Form
     {
         DataTable dt_Warranty = new DataTable();
-        SQLTableControl.DBTableControl dbTables = null;
+        CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         string ColumnOrderBy = null;
 
-        public Form_Warranty_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy)
+        public Form_Warranty_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy)
         {
             InitializeComponent();
 
@@ -104,7 +104,7 @@ namespace Tangenta
 
         public bool Changed { get; set; }
 
-        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTableControl.SQLTable pSQL_Table, System.Collections.Generic.List<SQLTableControl.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, SQLTableControl.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = false;
 

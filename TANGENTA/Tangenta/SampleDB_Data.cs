@@ -23,42 +23,42 @@ namespace Tangenta
 
     public static class SampleDB_Data
     {
-        public static BlagajnaTableClass.Taxation m_Taxation = new BlagajnaTableClass.Taxation();
+        public static TangentaTableClass.Taxation m_Taxation = new TangentaTableClass.Taxation();
 
-        public static BlagajnaTableClass.cStreetName_Org m_cStreetName_Org = new BlagajnaTableClass.cStreetName_Org();
-        public static BlagajnaTableClass.cHouseNumber_Org m_cHouseNumber_Org = new BlagajnaTableClass.cHouseNumber_Org();
-        public static BlagajnaTableClass.cCity_Org m_cCity_Org = new BlagajnaTableClass.cCity_Org();
-        public static BlagajnaTableClass.cZIP_Org m_cZIP_Org = new BlagajnaTableClass.cZIP_Org();
-        public static BlagajnaTableClass.cCountry_Org m_cCountry_Org = new BlagajnaTableClass.cCountry_Org();
-        public static BlagajnaTableClass.cState_Org m_cState_Org = new BlagajnaTableClass.cState_Org();
+        public static TangentaTableClass.cStreetName_Org m_cStreetName_Org = new TangentaTableClass.cStreetName_Org();
+        public static TangentaTableClass.cHouseNumber_Org m_cHouseNumber_Org = new TangentaTableClass.cHouseNumber_Org();
+        public static TangentaTableClass.cCity_Org m_cCity_Org = new TangentaTableClass.cCity_Org();
+        public static TangentaTableClass.cZIP_Org m_cZIP_Org = new TangentaTableClass.cZIP_Org();
+        public static TangentaTableClass.cCountry_Org m_cCountry_Org = new TangentaTableClass.cCountry_Org();
+        public static TangentaTableClass.cState_Org m_cState_Org = new TangentaTableClass.cState_Org();
 
-        public static BlagajnaTableClass.myCompany m_myCompany = new BlagajnaTableClass.myCompany();
+        public static TangentaTableClass.myCompany m_myCompany = new TangentaTableClass.myCompany();
 
-        public static BlagajnaTableClass.OrganisationData m_OrganisationData = new BlagajnaTableClass.OrganisationData();
+        public static TangentaTableClass.OrganisationData m_OrganisationData = new TangentaTableClass.OrganisationData();
 
-        public static BlagajnaTableClass.cAddress_Org m_cAddress_Org = new BlagajnaTableClass.cAddress_Org();
+        public static TangentaTableClass.cAddress_Org m_cAddress_Org = new TangentaTableClass.cAddress_Org();
 
-        public static BlagajnaTableClass.cOrgTYPE m_cOrgTYPE = new BlagajnaTableClass.cOrgTYPE();
+        public static TangentaTableClass.cOrgTYPE m_cOrgTYPE = new TangentaTableClass.cOrgTYPE();
 
-        public static List<BlagajnaTableClass.Person> m_List_Person = new List<BlagajnaTableClass.Person>();
-        public static List<BlagajnaTableClass.myCompany_Person> m_List_myCompany_Person = new List<BlagajnaTableClass.myCompany_Person>();
+        public static List<TangentaTableClass.Person> m_List_Person = new List<TangentaTableClass.Person>();
+        public static List<TangentaTableClass.myCompany_Person> m_List_myCompany_Person = new List<TangentaTableClass.myCompany_Person>();
 
 
-        public static List<BlagajnaTableClass.Price_SimpleItem> m_List_Price_SimpleItem = new List<BlagajnaTableClass.Price_SimpleItem>();
+        public static List<TangentaTableClass.Price_SimpleItem> m_List_Price_SimpleItem = new List<TangentaTableClass.Price_SimpleItem>();
 
-        public static List<BlagajnaTableClass.Expiry> m_List_Expiry = new List<BlagajnaTableClass.Expiry>();
+        public static List<TangentaTableClass.Expiry> m_List_Expiry = new List<TangentaTableClass.Expiry>();
 
-        public static List<BlagajnaTableClass.Item> m_List_Item = new List<BlagajnaTableClass.Item>();
+        public static List<TangentaTableClass.Item> m_List_Item = new List<TangentaTableClass.Item>();
 
-        public static List<BlagajnaTableClass.Item_Image> m_List_Item_Image = new List<BlagajnaTableClass.Item_Image>();
+        public static List<TangentaTableClass.Item_Image> m_List_Item_Image = new List<TangentaTableClass.Item_Image>();
 
-        public static List<BlagajnaTableClass.OrganisationData> m_List_OrganisationData_Supplier = new List<BlagajnaTableClass.OrganisationData>();
+        public static List<TangentaTableClass.OrganisationData> m_List_OrganisationData_Supplier = new List<TangentaTableClass.OrganisationData>();
 
-        public static List<BlagajnaTableClass.Supplier> m_List_Supplier = new List<BlagajnaTableClass.Supplier>();
+        public static List<TangentaTableClass.Supplier> m_List_Supplier = new List<TangentaTableClass.Supplier>();
 
-        public static List<BlagajnaTableClass.PurchasePrice_Item> m_List_PurchasePrice_Item = new List<BlagajnaTableClass.PurchasePrice_Item>();
+        public static List<TangentaTableClass.PurchasePrice_Item> m_List_PurchasePrice_Item = new List<TangentaTableClass.PurchasePrice_Item>();
 
-        public static List<BlagajnaTableClass.Stock> m_List_Stock = new List<BlagajnaTableClass.Stock>();
+        public static List<TangentaTableClass.Stock> m_List_Stock = new List<TangentaTableClass.Stock>();
 
         public static long myCompany_Person_id = -1;
         public static long myCompany_PersonAccount_id = -1;
@@ -66,7 +66,7 @@ namespace Tangenta
 
         public static void Init_SimpleItem()
         {
-            BlagajnaTableClass.Price_SimpleItem PriceList_SimpleItem = new BlagajnaTableClass.Price_SimpleItem();
+            TangentaTableClass.Price_SimpleItem PriceList_SimpleItem = new TangentaTableClass.Price_SimpleItem();
 
             PriceList_SimpleItem.m_Taxation.ID.val = 1;
             PriceList_SimpleItem.m_SimpleItem.Name.val = "Pedikira";
@@ -76,7 +76,7 @@ namespace Tangenta
 
             m_List_Price_SimpleItem.Add(PriceList_SimpleItem);
 
-            PriceList_SimpleItem = new BlagajnaTableClass.Price_SimpleItem();
+            PriceList_SimpleItem = new TangentaTableClass.Price_SimpleItem();
 
             PriceList_SimpleItem.m_Taxation.ID.val = 1;
             PriceList_SimpleItem.m_SimpleItem.Name.val = "Manikura";
@@ -86,7 +86,7 @@ namespace Tangenta
 
             m_List_Price_SimpleItem.Add(PriceList_SimpleItem);
 
-            PriceList_SimpleItem = new BlagajnaTableClass.Price_SimpleItem();
+            PriceList_SimpleItem = new TangentaTableClass.Price_SimpleItem();
 
             PriceList_SimpleItem.m_Taxation.ID.val = 1;
             PriceList_SimpleItem.m_SimpleItem.Name.val = "Nega obraza";
@@ -100,59 +100,59 @@ namespace Tangenta
 
         private static void Init_Item()
         {
-            BlagajnaTableClass.Item_Image Item_Image_VITAMIN_PACKUNG  = new BlagajnaTableClass.Item_Image();
+            TangentaTableClass.Item_Image Item_Image_VITAMIN_PACKUNG  = new TangentaTableClass.Item_Image();
             Item_Image_VITAMIN_PACKUNG.Image_Data.val = ImageToByte2(Properties.Resources.VITAMIN_PACKUNG);
             Item_Image_VITAMIN_PACKUNG.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_VITAMIN_PACKUNG.Image_Data.val);
             m_List_Item_Image.Add(Item_Image_VITAMIN_PACKUNG);
 
-            BlagajnaTableClass.Item_Image Item_Image_VITAMIN_SUPREME = new BlagajnaTableClass.Item_Image();
+            TangentaTableClass.Item_Image Item_Image_VITAMIN_SUPREME = new TangentaTableClass.Item_Image();
             Item_Image_VITAMIN_SUPREME.Image_Data.val = ImageToByte2(Properties.Resources.VITAMIN_SUPREME);
             Item_Image_VITAMIN_SUPREME.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_VITAMIN_SUPREME.Image_Data.val);
             m_List_Item_Image.Add(Item_Image_VITAMIN_SUPREME);
 
-            BlagajnaTableClass.Item_Image Item_Image_Active_Concentrate_Repair_Complex = new BlagajnaTableClass.Item_Image();
+            TangentaTableClass.Item_Image Item_Image_Active_Concentrate_Repair_Complex = new TangentaTableClass.Item_Image();
             Item_Image_Active_Concentrate_Repair_Complex.Image_Data.val = ImageToByte2(Properties.Resources.Active_Concentrate_Repair_Complex);
             Item_Image_Active_Concentrate_Repair_Complex.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Active_Concentrate_Repair_Complex.Image_Data.val);
             m_List_Item_Image.Add(Item_Image_Active_Concentrate_Repair_Complex);
 
-            BlagajnaTableClass.Item_Image Item_Image_Beautipharm_Self_Bronzer = new BlagajnaTableClass.Item_Image();
+            TangentaTableClass.Item_Image Item_Image_Beautipharm_Self_Bronzer = new TangentaTableClass.Item_Image();
             Item_Image_Beautipharm_Self_Bronzer.Image_Data.val = ImageToByte2(Properties.Resources.Beautipharm_Self_Bronzer);
             Item_Image_Beautipharm_Self_Bronzer.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Self_Bronzer.Image_Data.val);
             m_List_Item_Image.Add(Item_Image_Beautipharm_Self_Bronzer);
 
 
-            BlagajnaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_30_High = new BlagajnaTableClass.Item_Image();
+            TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_30_High = new TangentaTableClass.Item_Image();
             Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_30_HIGH);
             Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Data.val);
             m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_30_High);
 
 
-            BlagajnaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium = new BlagajnaTableClass.Item_Image();
+            TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium = new TangentaTableClass.Item_Image();
             Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_20_MEDIUM);
             Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Data.val);
             m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium);
 
             
-            BlagajnaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic = new BlagajnaTableClass.Item_Image();
+            TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic = new TangentaTableClass.Item_Image();
             Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_12_BASIC);
             Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Data.val);
             m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic);
 
-            BlagajnaTableClass.Expiry Expiry1 = new BlagajnaTableClass.Expiry();
+            TangentaTableClass.Expiry Expiry1 = new TangentaTableClass.Expiry();
             Expiry1.ExpectedShelfLifeInDays.val = 60;
             Expiry1.SaleBeforeExpiryDateInDays.val = 30;
             Expiry1.DiscardBeforeExpiryDateInDays.val = 15;
             Expiry1.ExpiryDescription.val = @"";
             m_List_Expiry.Add(Expiry1);
 
-            BlagajnaTableClass.Expiry Expiry2 = new BlagajnaTableClass.Expiry();
+            TangentaTableClass.Expiry Expiry2 = new TangentaTableClass.Expiry();
             Expiry2.ExpectedShelfLifeInDays.val = 70;
             Expiry2.SaleBeforeExpiryDateInDays.val = 25;
             Expiry2.DiscardBeforeExpiryDateInDays.val = 14;
             Expiry2.ExpiryDescription.val = @"";
             m_List_Expiry.Add(Expiry2);
 
-            BlagajnaTableClass.Expiry Expiry3 = new BlagajnaTableClass.Expiry();
+            TangentaTableClass.Expiry Expiry3 = new TangentaTableClass.Expiry();
             Expiry3.ExpectedShelfLifeInDays.val = 90;
             Expiry3.SaleBeforeExpiryDateInDays.val = 40;
             Expiry3.DiscardBeforeExpiryDateInDays.val = 30;
@@ -163,7 +163,7 @@ namespace Tangenta
 
 
 
-            BlagajnaTableClass.Item Item = new BlagajnaTableClass.Item();
+            TangentaTableClass.Item Item = new TangentaTableClass.Item();
             Item.UniqueName.val = "VITAMIN PACKUNG ver 1";
             Item.Name.val = "VITAMIN PACKUNG";
             Item.Code.val = 1;
@@ -177,7 +177,7 @@ Tip: Leave on for 20 minutes, and evening full massage.
 
             m_List_Item.Add(Item);
 
-            Item = new BlagajnaTableClass.Item();
+            Item = new TangentaTableClass.Item();
             Item.UniqueName.val = "VITAMIN SUPREME ver 1";
             Item.Name.val = "VITAMIN SUPREME";
             Item.Code.val = 2;
@@ -191,7 +191,7 @@ Tip: Leave on for 20 minutes, and evening full massage.
 
             m_List_Item.Add(Item);
 
-            Item = new BlagajnaTableClass.Item();
+            Item = new TangentaTableClass.Item();
 
             Item.UniqueName.val = "ACTIVE CONCENTRATE REPAIR COMPLEX ver 1";
             Item.Name.val = "ACTIVE CONCENTRATE REPAIR COMPLEX";
@@ -205,7 +205,7 @@ Apply ACTIVE CONCENTRATE REPAIR COMPLEX to a clean, dry skin before using day- o
             Item.m_Expiry.ID.val = 3;
             m_List_Item.Add(Item);
 
-            Item = new BlagajnaTableClass.Item();
+            Item = new TangentaTableClass.Item();
 
             Item.UniqueName.val = "Beautipharm® Self Bronzer ver 2";
             Item.Name.val = "Beautipharm® Self Bronzer";
@@ -223,7 +223,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             m_List_Item.Add(Item);
 
 
-            Item = new BlagajnaTableClass.Item();
+            Item = new TangentaTableClass.Item();
 
             Item.UniqueName.val = "Lavolind ver 3";
             Item.Name.val = "Lavolind";
@@ -237,7 +237,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             Item.m_Expiry.ID.val = 2;
             m_List_Item.Add(Item);
 
-            Item = new BlagajnaTableClass.Item();
+            Item = new TangentaTableClass.Item();
             Item.UniqueName.val = "Beautipharm® Sun Milk SPF 30 High ver 1.0";
             Item.Name.val = "Beautipharm® Sun Milk SPF 30 High";
             Item.Code.val = 6;
@@ -247,7 +247,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             m_List_Item.Add(Item);
 
             
-            Item = new BlagajnaTableClass.Item();
+            Item = new TangentaTableClass.Item();
             Item.UniqueName.val = "Beautipharm® Sun Milk SPF 20 Medium ver 1.0";
             Item.Name.val = "Beautipharm® Sun Milk SPF 20 Medium";
             Item.Code.val = 7;
@@ -257,7 +257,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             m_List_Item.Add(Item);
 
              
-            Item = new BlagajnaTableClass.Item();
+            Item = new TangentaTableClass.Item();
             Item.UniqueName.val = "Beautipharm® Sun Milk SPF 12 Basic ver 1.0";
             Item.Name.val = "Beautipharm® Sun Milk SPF 12 Basic";
             Item.Code.val = 8;
@@ -271,9 +271,9 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
         public static void Init_PurchaseCompany()
         {
 
-            BlagajnaTableClass.Organisation org = new BlagajnaTableClass.Organisation();
-            BlagajnaTableClass.OrganisationData orgdata = new BlagajnaTableClass.OrganisationData();
-            BlagajnaTableClass.Supplier supplier = new BlagajnaTableClass.Supplier();
+            TangentaTableClass.Organisation org = new TangentaTableClass.Organisation();
+            TangentaTableClass.OrganisationData orgdata = new TangentaTableClass.OrganisationData();
+            TangentaTableClass.Supplier supplier = new TangentaTableClass.Supplier();
 
             org.Name.val = "Linde Eckstein GmbH + CO.KG";
             orgdata.m_Organisation = org;
@@ -293,8 +293,8 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         private static void Init_myCompany_Person()
         {
-            BlagajnaTableClass.Person Person1 = new BlagajnaTableClass.Person();
-            BlagajnaTableClass.myCompany_Person myCompany_Person1 = new BlagajnaTableClass.myCompany_Person();
+            TangentaTableClass.Person Person1 = new TangentaTableClass.Person();
+            TangentaTableClass.myCompany_Person myCompany_Person1 = new TangentaTableClass.myCompany_Person();
             Person1.m_cFirstName.FirstName.val = "Marjetka";
             Person1.m_cLastName.LastName.val = "Hrnčič-Štrucl";
             m_List_Person.Add(Person1);
@@ -306,8 +306,8 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             myCompany_Person1.Password.val="1234";
             m_List_myCompany_Person.Add(myCompany_Person1);
 
-            BlagajnaTableClass.Person Person2 = new BlagajnaTableClass.Person();
-            BlagajnaTableClass.myCompany_Person myCompany_Person2 = new BlagajnaTableClass.myCompany_Person();
+            TangentaTableClass.Person Person2 = new TangentaTableClass.Person();
+            TangentaTableClass.myCompany_Person myCompany_Person2 = new TangentaTableClass.myCompany_Person();
             Person2.m_cFirstName.FirstName.val = "Damjan";
             Person2.m_cLastName.LastName.val = "Štrucl-Hrnčič";
             m_List_Person.Add(Person2);
@@ -323,7 +323,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
         }
         private static void Init_Stock()
         {
-            BlagajnaTableClass.Stock Stock = new BlagajnaTableClass.Stock();
+            TangentaTableClass.Stock Stock = new TangentaTableClass.Stock();
             Stock.m_PurchasePrice_Item.ID.val = 1;
             Stock.ImportTime.val = DateTime.Now;
             Stock.ExpiryDate.val = Stock.ImportTime.val.AddDays(60);
@@ -334,7 +334,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
             m_List_Stock.Add(Stock);
 
-            Stock = new BlagajnaTableClass.Stock();
+            Stock = new TangentaTableClass.Stock();
             Stock.m_PurchasePrice_Item.ID.val = 2;
             Stock.ImportTime.val = DateTime.Now.AddDays(-3);
             Stock.ExpiryDate.val = Stock.ImportTime.val.AddDays(90);
@@ -342,7 +342,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
             m_List_Stock.Add(Stock);
 
-            Stock = new BlagajnaTableClass.Stock();
+            Stock = new TangentaTableClass.Stock();
             Stock.m_PurchasePrice_Item.ID.val = 2;
             Stock.ImportTime.val = DateTime.Now.AddDays(-2);
             Stock.ExpiryDate.val = Stock.ImportTime.val.AddDays(90);
@@ -350,7 +350,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
             m_List_Stock.Add(Stock);
 
-            Stock = new BlagajnaTableClass.Stock();
+            Stock = new TangentaTableClass.Stock();
             Stock.m_PurchasePrice_Item.ID.val = 2;
             Stock.ImportTime.val = DateTime.Now;
             Stock.ExpiryDate.val = Stock.ImportTime.val.AddDays(90);
@@ -358,7 +358,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
             m_List_Stock.Add(Stock);
 
-            Stock = new BlagajnaTableClass.Stock();
+            Stock = new TangentaTableClass.Stock();
             Stock.m_PurchasePrice_Item.ID.val = 2;
             Stock.ImportTime.val = DateTime.Now;
             Stock.ExpiryDate.val = Stock.ImportTime.val.AddDays(90);
@@ -366,7 +366,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
             m_List_Stock.Add(Stock);
 
-            Stock = new BlagajnaTableClass.Stock();
+            Stock = new TangentaTableClass.Stock();
             Stock.m_PurchasePrice_Item.ID.val = 3;
             Stock.ImportTime.val = DateTime.Now;
             Stock.ExpiryDate.val = Stock.ImportTime.val.AddDays(60);
@@ -374,7 +374,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
             m_List_Stock.Add(Stock);
 
-            Stock = new BlagajnaTableClass.Stock();
+            Stock = new TangentaTableClass.Stock();
             Stock.m_PurchasePrice_Item.ID.val = 4;
             Stock.ImportTime.val = DateTime.Now;
             Stock.ExpiryDate.val = Stock.ImportTime.val.AddDays(70);
@@ -383,7 +383,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             m_List_Stock.Add(Stock);
 
 
-            Stock = new BlagajnaTableClass.Stock();
+            Stock = new TangentaTableClass.Stock();
             Stock.m_PurchasePrice_Item.ID.val = 5;
             Stock.ImportTime.val = DateTime.Now;
             Stock.ExpiryDate.val = Stock.ImportTime.val.AddDays(30);
@@ -421,9 +421,9 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         public static bool Init_DB_Taxation(ref string Err)
         {
-            string s_Taxation_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Taxation)).TableName;
-            string s_col_Name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Taxation)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Taxation.Name.GetType()).Name;
-            string s_col_Rate = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Taxation)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Taxation.Rate.GetType()).Name;
+            string s_Taxation_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Taxation)).TableName;
+            string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Taxation)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Taxation.Name.GetType()).Name;
+            string s_col_Rate = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Taxation)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Taxation.Rate.GetType()).Name;
             string s_Rate = m_Taxation.Rate.val.ToString();
             s_Rate = s_Rate.Replace(",", ".");
             long id = -1;
@@ -548,17 +548,17 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
         public static bool Init_DB_SimpleItem(ref string Err)
         {
             DBTablesAndColumnNames DBtcn = new DBTablesAndColumnNames();
-            string s_SimpleItem_Image_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem_Image)).TableName;
-            string s_SimpleItem_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem)).TableName;
-            string s_Image_Hash = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem_Image)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_SimpleItem_Image.Image_Hash.GetType()).Name;
-            string s_Image_Data = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem_Image)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_SimpleItem_Image.Image_Data.GetType()).Name;
-            string s_col_Name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_SimpleItem.Name.GetType()).Name;
-            string s_col_Code = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_SimpleItem.Code.GetType()).Name;
-            string s_col_Abbreviation = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_SimpleItem.Abbreviation.GetType()).Name;
-            string s_col_SimpleItemImage_ID = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_SimpleItem.m_SimpleItem_Image.GetType()).Name;
-            string s_col_ToOffer = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_SimpleItem.ToOffer.GetType()).Name;
+            string s_SimpleItem_Image_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem_Image)).TableName;
+            string s_SimpleItem_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem)).TableName;
+            string s_Image_Hash = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem_Image)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_SimpleItem_Image.Image_Hash.GetType()).Name;
+            string s_Image_Data = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem_Image)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_SimpleItem_Image.Image_Data.GetType()).Name;
+            string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_SimpleItem.Name.GetType()).Name;
+            string s_col_Code = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_SimpleItem.Code.GetType()).Name;
+            string s_col_Abbreviation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_SimpleItem.Abbreviation.GetType()).Name;
+            string s_col_SimpleItemImage_ID = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_SimpleItem.m_SimpleItem_Image.GetType()).Name;
+            string s_col_ToOffer = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.SimpleItem)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_SimpleItem.ToOffer.GetType()).Name;
 
-            foreach (BlagajnaTableClass.Price_SimpleItem pl_SimpleItem in m_List_Price_SimpleItem)
+            foreach (TangentaTableClass.Price_SimpleItem pl_SimpleItem in m_List_Price_SimpleItem)
             {
                 List<DBConnectionControl40.SQL_Parameter> lsql_par = null;
                 Byte[] Image_Data = null;
@@ -648,17 +648,17 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         public static bool Init_DB_Expiry(ref string Err)
         {
-            string s_Expiry_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Expiry)).TableName;
-            string s_col_ExpectedShelfLifeInDays = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Expiry)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Expiry.ExpectedShelfLifeInDays.GetType()).Name;
-            string s_col_SaleBeforeExpiryDateInDays = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Expiry)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Expiry.SaleBeforeExpiryDateInDays.GetType()).Name;
-            string s_col_DiscardBeforeExpiryDateInDays = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Expiry)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Expiry.DiscardBeforeExpiryDateInDays.GetType()).Name;
-            string s_col_ExpiryDescription = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Expiry)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Expiry.ExpiryDescription.GetType()).Name;
+            string s_Expiry_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Expiry)).TableName;
+            string s_col_ExpectedShelfLifeInDays = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Expiry)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Expiry.ExpectedShelfLifeInDays.GetType()).Name;
+            string s_col_SaleBeforeExpiryDateInDays = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Expiry)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Expiry.SaleBeforeExpiryDateInDays.GetType()).Name;
+            string s_col_DiscardBeforeExpiryDateInDays = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Expiry)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Expiry.DiscardBeforeExpiryDateInDays.GetType()).Name;
+            string s_col_ExpiryDescription = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Expiry)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Expiry.ExpiryDescription.GetType()).Name;
 
-            //            string s_col_Warranty = Program.LocalDB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Expiry)).FindColumn(Program.LocalDB_for_Blagajna.mt.m_Expiry.Warranty.GetType()).Name;
-            //            string s_col_NeverExpires = Program.LocalDB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Expiry)).FindColumn(Program.LocalDB_for_Blagajna.mt.m_Expiry.NeverExpires.GetType()).Name;
+            //            string s_col_Warranty = Program.LocalDB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Expiry)).FindColumn(Program.LocalDB_for_Tangenta.mt.m_Expiry.Warranty.GetType()).Name;
+            //            string s_col_NeverExpires = Program.LocalDB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Expiry)).FindColumn(Program.LocalDB_for_Tangenta.mt.m_Expiry.NeverExpires.GetType()).Name;
 
 
-            foreach (BlagajnaTableClass.Expiry Expiry in m_List_Expiry)
+            foreach (TangentaTableClass.Expiry Expiry in m_List_Expiry)
             {
                 
 
@@ -690,22 +690,22 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
         public static bool Init_DB_Item(ref string Err)
         {
 
-            string s_Item_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).TableName;
-            string s_col_UniqueName = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Item.UniqueName.GetType()).Name;
-            string s_col_Name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Item.Name.GetType()).Name;
-            string s_col_Code = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Item.Code.GetType()).Name;
-            string s_col_barcode = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Item.barcode.GetType()).Name;
-            string s_col_Description = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Item.Description.GetType()).Name;
+            string s_Item_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).TableName;
+            string s_col_UniqueName = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Item.UniqueName.GetType()).Name;
+            string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Item.Name.GetType()).Name;
+            string s_col_Code = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Item.Code.GetType()).Name;
+            string s_col_barcode = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Item.barcode.GetType()).Name;
+            string s_col_Description = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Item.Description.GetType()).Name;
 
-            string s_col_Item_Image_ID = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item_Image)).TableName + "_"+ DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item_Image)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Item_Image.ID.GetType()).Name;
+            string s_col_Item_Image_ID = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item_Image)).TableName + "_"+ DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item_Image)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Item_Image.ID.GetType()).Name;
 
 
-//            string s_col_Warranty = Program.LocalDB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).FindColumn(Program.LocalDB_for_Blagajna.mt.m_Item.Warranty.GetType()).Name;
-//            string s_col_NeverExpires = Program.LocalDB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).FindColumn(Program.LocalDB_for_Blagajna.mt.m_Item.NeverExpires.GetType()).Name;
+//            string s_col_Warranty = Program.LocalDB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).FindColumn(Program.LocalDB_for_Tangenta.mt.m_Item.Warranty.GetType()).Name;
+//            string s_col_NeverExpires = Program.LocalDB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).FindColumn(Program.LocalDB_for_Tangenta.mt.m_Item.NeverExpires.GetType()).Name;
 
-            string s_col_ToOffer = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Item.ToOffer.GetType()).Name;
+            string s_col_ToOffer = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Item)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Item.ToOffer.GetType()).Name;
 
-            foreach (BlagajnaTableClass.Item item in m_List_Item)
+            foreach (TangentaTableClass.Item item in m_List_Item)
             {
                 List<DBConnectionControl40.SQL_Parameter> lsql_par = null;
                 lsql_par = new List<DBConnectionControl40.SQL_Parameter>();
@@ -845,7 +845,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         public static bool Init_DB_Supplier(ref string Err)
         {
-            foreach (BlagajnaTableClass.OrganisationData Supplier_OrganisationData in m_List_OrganisationData_Supplier)
+            foreach (TangentaTableClass.OrganisationData Supplier_OrganisationData in m_List_OrganisationData_Supplier)
             {
                 long Organisation_id = -1;
                 long OrganisationAccount_id = -1;
@@ -893,21 +893,21 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         public static bool Init_DB_PriceList_Item(ref string Err)
         {
-            //string s_col_Taxation_ID = Program.LocalDB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Price_Item)).FindColumn(Program.LocalDB_for_Blagajna.mt.m_PriceList_Item.m_Taxation.GetType()).Name;
-            //string s_col_PurchasePricePerUnit = Program.LocalDB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Price_Item)).FindColumn(Program.LocalDB_for_Blagajna.mt.m_PriceList_Item.PurchasePricePerUnit.GetType()).Name;
-            //string s_col_RetailPricePerUnit = Program.LocalDB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Price_Item)).FindColumn(Program.LocalDB_for_Blagajna.mt.m_PriceList_Item.RetailPricePerUnit.GetType()).Name;
+            //string s_col_Taxation_ID = Program.LocalDB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Price_Item)).FindColumn(Program.LocalDB_for_Tangenta.mt.m_PriceList_Item.m_Taxation.GetType()).Name;
+            //string s_col_PurchasePricePerUnit = Program.LocalDB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Price_Item)).FindColumn(Program.LocalDB_for_Tangenta.mt.m_PriceList_Item.PurchasePricePerUnit.GetType()).Name;
+            //string s_col_RetailPricePerUnit = Program.LocalDB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Price_Item)).FindColumn(Program.LocalDB_for_Tangenta.mt.m_PriceList_Item.RetailPricePerUnit.GetType()).Name;
             return false;
         }
 
         public static bool Init_DB_Stock(ref string Err)
         {
-            string s_Stock_table_name = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Stock)).TableName;
-            string s_col_PurchasePrice_Item_ID = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Stock)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Stock.m_PurchasePrice_Item.GetType()).Name;
-            string s_col_ImportTime = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Stock)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Stock.ImportTime.GetType()).Name;
-            string s_col_ExpiryDate = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Stock)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Stock.ExpiryDate.GetType()).Name;
-            string s_col_Quantity = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.Stock)).FindColumn(DBSync.DBSync.DB_for_Blagajna.mt.m_Stock.dQuantity.GetType()).Name;
+            string s_Stock_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Stock)).TableName;
+            string s_col_PurchasePrice_Item_ID = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Stock)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Stock.m_PurchasePrice_Item.GetType()).Name;
+            string s_col_ImportTime = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Stock)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Stock.ImportTime.GetType()).Name;
+            string s_col_ExpiryDate = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Stock)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Stock.ExpiryDate.GetType()).Name;
+            string s_col_Quantity = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Stock)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Stock.dQuantity.GetType()).Name;
 
-            foreach (BlagajnaTableClass.Stock Stock in m_List_Stock)
+            foreach (TangentaTableClass.Stock Stock in m_List_Stock)
             {
                 List<DBConnectionControl40.SQL_Parameter> lsql_par = null;
 

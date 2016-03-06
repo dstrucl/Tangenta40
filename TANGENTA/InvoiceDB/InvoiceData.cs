@@ -226,7 +226,7 @@ namespace InvoiceDB
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
                                                              DBTypes.tf._set_string(dr["Atom_ItemShopA_Price_$_aisha_$$Name"]),
                                                              DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$PricePerUnit"]),
-                                                             "", // no unit
+                                                             sUnitName, 
                                                              dRetailPricePerUnitWithDiscount,
                                                              tax_name,
                                                              dQuantity,

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrc_EditTable1 = new SQLTableControl.TableDocking_Form.usrc_EditTable();
+            this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.btn_FVI_SLO_RealEstateBP = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -49,9 +49,9 @@
             this.usrc_EditTable1.Title = "Urejanje Poslovnih enot";
             this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable1.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable1.FillTable += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
-            this.usrc_EditTable1.after_New += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
-            this.usrc_EditTable1.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable1_after_InsertInDataBase);
+            this.usrc_EditTable1.FillTable += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
+            this.usrc_EditTable1.after_New += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
+            this.usrc_EditTable1.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable1_after_InsertInDataBase);
             // 
             // btn_Cancel
             // 
@@ -94,7 +94,7 @@
 
         #endregion
 
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable1;
+        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable1;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Button btn_FVI_SLO_RealEstateBP;
     }

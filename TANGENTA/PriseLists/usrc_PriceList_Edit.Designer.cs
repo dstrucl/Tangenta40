@@ -31,10 +31,10 @@
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.usrc_EditTable_PriceList = new SQLTableControl.TableDocking_Form.usrc_EditTable();
+            this.usrc_EditTable_PriceList = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.txt_PriceList_Name = new System.Windows.Forms.TextBox();
             this.lbl_PriceList_Name = new System.Windows.Forms.Label();
-            this.usrc_EditTable_Shop_Prices = new SQLTableControl.TableDocking_Form.usrc_EditTable();
+            this.usrc_EditTable_Shop_Prices = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.rdb_OnlyUnvalid = new System.Windows.Forms.RadioButton();
             this.rdb_All = new System.Windows.Forms.RadioButton();
             this.rdb_OnlyValid = new System.Windows.Forms.RadioButton();
@@ -105,9 +105,9 @@
             this.usrc_EditTable_PriceList.Title = "label1";
             this.usrc_EditTable_PriceList.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable_PriceList.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable_PriceList.before_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_before_InsertInDataBase(this.usrc_EditTable_PriceList_before_InsertInDataBase);
-            this.usrc_EditTable_PriceList.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_PriceList_after_InsertInDataBase);
-            this.usrc_EditTable_PriceList.SelectedIndexChanged += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_SelectedIndexChanged(this.usrc_EditTable_PriceList_SelectedIndexChanged);
+            this.usrc_EditTable_PriceList.before_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_before_InsertInDataBase(this.usrc_EditTable_PriceList_before_InsertInDataBase);
+            this.usrc_EditTable_PriceList.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_PriceList_after_InsertInDataBase);
+            this.usrc_EditTable_PriceList.SelectedIndexChanged += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_SelectedIndexChanged(this.usrc_EditTable_PriceList_SelectedIndexChanged);
             // 
             // txt_PriceList_Name
             // 
@@ -142,7 +142,7 @@
             this.usrc_EditTable_Shop_Prices.Title = "label1";
             this.usrc_EditTable_Shop_Prices.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable_Shop_Prices.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable_Shop_Prices.CellFormatting += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_CellFormatting(this.usrc_EditTable_Shop_Prices_CellFormatting);
+            this.usrc_EditTable_Shop_Prices.CellFormatting += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_CellFormatting(this.usrc_EditTable_Shop_Prices_CellFormatting);
             // 
             // rdb_OnlyUnvalid
             // 
@@ -203,7 +203,7 @@
         }
 
 
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable_PriceList;
+        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable_PriceList;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -211,7 +211,7 @@
         private System.Windows.Forms.RadioButton rdb_OnlyUnvalid;
         private System.Windows.Forms.RadioButton rdb_All;
         private System.Windows.Forms.RadioButton rdb_OnlyValid;
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable_Shop_Prices;
+        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable_Shop_Prices;
         private System.Windows.Forms.Label lbl_PriceList_Name;
         private System.Windows.Forms.TextBox txt_PriceList_Name;
     }

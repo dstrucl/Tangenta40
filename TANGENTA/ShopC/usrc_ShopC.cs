@@ -13,8 +13,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using BlagajnaTableClass;
-using SQLTableControl;
+using TangentaTableClass;
+using CodeTables;
 using LanguageControl;
 using InvoiceDB;
 using PriseLists;
@@ -113,7 +113,7 @@ namespace ShopC
 
         public bool GetItemData(ref int iCount)
         {
-            SQLTable tbl_Item = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Item));
+            SQLTable tbl_Item = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item));
 
 
             string sql_Item = @"SELECT 
@@ -223,9 +223,9 @@ namespace ShopC
 
         private bool EditStock()
         {
-            SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Stock)));
-            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Item)));
-            Form_Stock_Edit edt_Stock_dlg = new Form_Stock_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
+            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
+            Form_Stock_Edit edt_Stock_dlg = new Form_Stock_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                               tbl_Stock,
                                                               "Stock_$_ppi_$_i_$$Code asc");
             edt_Stock_dlg.ShowDialog();
@@ -256,8 +256,8 @@ namespace ShopC
 
         public bool EditItem()
         {
-            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Item)));
-            Form_Item_Edit edt_Item_dlg = new Form_Item_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
+            Form_Item_Edit edt_Item_dlg = new Form_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
                                                             "Item_$$Code desc");
             edt_Item_dlg.ShowDialog();

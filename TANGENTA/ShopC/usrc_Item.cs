@@ -14,9 +14,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBTypes;
-using SQLTableControl;
+using CodeTables;
 using LanguageControl;
 using InvoiceDB;
 using FormDiscount;
@@ -524,9 +524,9 @@ namespace ShopC
             {
                 if (dCountInBaskets == 0)
                 {
-                    SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Stock)));
-                    SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Item)));
-                    Form_StockItem_Edit edt_ItemStock_dlg = new Form_StockItem_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+                    SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
+                    SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
+                    Form_StockItem_Edit edt_ItemStock_dlg = new Form_StockItem_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                       tbl_Stock,
                                                                       " where Stock_$_ppi_$_i_$$ID = " + m_Item_Data.Item_ID.v.ToString()+" ",
                                                                       "Stock_$_ppi_$_i_$$Code desc",m_Item_Data);
@@ -549,8 +549,8 @@ namespace ShopC
         private bool EditItem()
         {
             long ID = m_Item_Data.Item_ID.v;
-            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Item)));
-            Form_Item_Edit edt_Item_dlg = new Form_Item_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
+            Form_Item_Edit edt_Item_dlg = new Form_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
                                                             "Item_$$Code desc", ID);
             edt_Item_dlg.ShowDialog();

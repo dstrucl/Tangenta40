@@ -14,8 +14,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using LanguageControl;
 using DBTypes;
 
@@ -43,7 +43,7 @@ namespace Tangenta
             lbl_Buyer.Text = lngRPM.s_Buyer.s + ":";
             lbl_CardNumber.Text = lngRPM.s_CardNumber.s + ":";
             lbl_TypeOfBuyerCard.Text = lngRPM.s_Type.s + ":";
-            this.btn_BuyerSelect.Image = SQLTableControl.Globals.Image_SelectRow;
+            this.btn_BuyerSelect.Image = CodeTables.Globals.Image_SelectRow;
             CustomerItemType_List = new List<CustomerItem>();
             CustomerItemType_List.Add(new CustomerItem(CustomerItem.eCustomerType.PERSON));
             CustomerItemType_List.Add(new CustomerItem(CustomerItem.eCustomerType.ORGANISATION));
@@ -73,8 +73,8 @@ namespace Tangenta
 
         internal bool Edit_Customer_Person()
         {
-            SQLTable tbl_Customer_Person = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(PersonData)));
-            Form_Customer_Person_Edit Customer_Person_dlg = new Form_Customer_Person_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_Customer_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PersonData)));
+            Form_Customer_Person_Edit Customer_Person_dlg = new Form_Customer_Person_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Customer_Person,
                                                             "PersonData_$_per_$_cln_$$LastName desc");
 
@@ -97,8 +97,8 @@ namespace Tangenta
 
         internal bool Edit_Customer_Organisation()
         {
-            SQLTable tbl_Customer_Org = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Customer_Org)));
-            Form_Customer_Org_Edit edt_Item_dlg = new Form_Customer_Org_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_Customer_Org = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Customer_Org)));
+            Form_Customer_Org_Edit edt_Item_dlg = new Form_Customer_Org_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Customer_Org,
                                                             "Customer_Org_$_orgd_$_org_$$Name desc");
             edt_Item_dlg.ShowDialog();
@@ -123,8 +123,8 @@ namespace Tangenta
 
         private void Select_Customer_Person()
         {
-            SQLTable tbl_Customer_Person = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Customer_Person)));
-            tbl_Customer_Person.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            SQLTable tbl_Customer_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Customer_Person)));
+            tbl_Customer_Person.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
             string sql = @"SELECT
             Customer_Person.ID,
             Customer_Person_$_per.ID AS Customer_Person_$_per_$$ID,
@@ -183,7 +183,7 @@ namespace Tangenta
                                                     };
 
 
-            SQLTableControl.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(sql, tbl_Customer_Person, DBSync.DBSync.DB_for_Blagajna.m_DBTables, sColumnsToView);
+            CodeTables.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(sql, tbl_Customer_Person, DBSync.DBSync.DB_for_Tangenta.m_DBTables, sColumnsToView);
             if (selectID_Table_Assistant_Form.ShowDialog()==DialogResult.OK)
             {
                 if (Customer_Person_ID_v == null)
@@ -200,8 +200,8 @@ namespace Tangenta
 
         private void Select_Customer_Org()
         {
-            SQLTable tbl_Customer_Org = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Customer_Org)));
-            tbl_Customer_Org.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            SQLTable tbl_Customer_Org = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Customer_Org)));
+            tbl_Customer_Org.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
             string[] sColumnsToView = new string[] { "Customer_Org_$_orgd_$_org_$$Name",
                                                      "Customer_Org_$_orgd_$_org_$$Tax_ID",
                                                      "Customer_Org_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName",
@@ -217,7 +217,7 @@ namespace Tangenta
                                                     "Customer_Org_$_orgd_$_cfaxnorg_$$FaxNumber"
                                                     };
 
-            SQLTableControl.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(tbl_Customer_Org, DBSync.DBSync.DB_for_Blagajna.m_DBTables, sColumnsToView);
+            CodeTables.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(tbl_Customer_Org, DBSync.DBSync.DB_for_Tangenta.m_DBTables, sColumnsToView);
             if (selectID_Table_Assistant_Form.ShowDialog() == DialogResult.OK)
             {
                 if (Customer_Org_ID_v == null)

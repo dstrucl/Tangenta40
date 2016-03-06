@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DBTypes;
-using SQLTableControl;
+using CodeTables;
 using DBConnectionControl40;
 using System.Data;
 

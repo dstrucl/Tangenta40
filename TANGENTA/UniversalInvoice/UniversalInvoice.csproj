@@ -77,15 +77,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DB_PLATFORM\DBTypes\DBTypes.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\StaticLib\StaticLib.csproj">
-      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
-      <Name>StaticLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>

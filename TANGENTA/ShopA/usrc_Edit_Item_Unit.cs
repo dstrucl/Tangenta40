@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InvoiceDB;
-using BlagajnaTableClass;
+using TangentaTableClass;
 using LanguageControl;
 using DBTypes;
 

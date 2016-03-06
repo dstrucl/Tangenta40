@@ -15,10 +15,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using DBTypes;
-using BlagajnaTableClass;
-using SQLTableControl.TableDocking_Form;
+using TangentaTableClass;
+using CodeTables.TableDocking_Form;
 using InvoiceDB;
 
 namespace Tangenta
@@ -30,12 +30,12 @@ namespace Tangenta
 
         List<long> List_of_Inserted_Items_ID = null; 
         DataTable dt_Item = new DataTable();
-        SQLTableControl.DBTableControl dbTables = null;
+        CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         long_v ID_v = null;
         string ColumnOrderBy = "";
 
-        public Form_Customer_Org_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -45,7 +45,7 @@ namespace Tangenta
 
         }
 
-        public Form_Customer_Org_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,long ID)
+        public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,long ID)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -135,8 +135,8 @@ namespace Tangenta
 
         internal bool Edit_OrganisationData()
         {
-            SQLTable tbl_OrganisationData = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationData)));
-            OrganisationData_EditForm edt_Item_dlg = new OrganisationData_EditForm(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_OrganisationData = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationData)));
+            OrganisationData_EditForm edt_Item_dlg = new OrganisationData_EditForm(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationData,
                                                             " OrganisationData_$_org_$$Name desc");
             edt_Item_dlg.ShowDialog();
@@ -146,8 +146,8 @@ namespace Tangenta
 
         internal bool Edit_OrganisationAccount()
         {
-            SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationAccount)));
-            Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
+            Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationAccount,
                                                             " OrganisationAccount_$_org_$$Name desc");
             edt_Item_dlg.ShowDialog();

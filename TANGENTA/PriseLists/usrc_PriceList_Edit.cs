@@ -13,8 +13,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using LanguageControl;
 
 namespace PriseLists
@@ -90,7 +90,7 @@ namespace PriseLists
                 case ePriceListMode.SELECT_ALL:
                     break;
             }
-            bool bRes = usrc_EditTable_PriceList.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_PriceList, selection, "ID asc", bEditUndefined, sWhereCondition, null, false);
+            bool bRes = usrc_EditTable_PriceList.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PriceList, selection, "ID asc", bEditUndefined, sWhereCondition, null, false);
             if (bRes)
             {
                 if (usrc_EditTable_PriceList.dt_Data.Rows.Count == 0)
@@ -154,9 +154,9 @@ namespace PriseLists
             // Now create price lists
             if (bRes)
             {
-                 SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
-                tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                SelectID_Table_Assistant_Form  SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation,DBSync.DBSync.DB_for_Blagajna.m_DBTables,null);
+                 SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
+                tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                SelectID_Table_Assistant_Form  SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation,DBSync.DBSync.DB_for_Tangenta.m_DBTables,null);
                 SelectID_Table_dlg.ShowDialog();
                 long id_Taxation = SelectID_Table_dlg.ID;
                 if (id_Taxation >= 0)
@@ -173,8 +173,8 @@ namespace PriseLists
                         {
                             if (tbl_Price_SimpleItem == null)
                             {
-                                tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_SimpleItem)));
-                                tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                                tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
+                                tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                             }
                             else
                             {
@@ -193,7 +193,7 @@ namespace PriseLists
                                                   Price_SimpleItem_$_si_$$Code,
                                                   Price_SimpleItem_$_pl_$$Name
                                                   ";
-                            if (this.usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Price_SimpleItem, selection, "Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
+                            if (this.usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, "Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
                             {
                             }
                         }
@@ -211,8 +211,8 @@ namespace PriseLists
                         {
                             if (tbl_Price_Item == null)
                             {
-                                tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item)));
-                                tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                                tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
+                                tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                             }
                             else
                             {
@@ -233,7 +233,7 @@ namespace PriseLists
                                                   Price_Item_$_pl_$$Name
                                                   ";
                             string where_condition = " where Price_Item_$_pl_$$ID = " + ID.ToString() + " ";
-                            if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Price_Item, selection, " Price_Item_$_i_$$Code desc ", false, where_condition, null, false))
+                            if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, " Price_Item_$_i_$$Code desc ", false, where_condition, null, false))
                             {
                                 if (!SetPriceListName(ID, ref Err))
                                 {
@@ -314,8 +314,8 @@ namespace PriseLists
                 {
                     if (tbl_Price_SimpleItem == null)
                     {
-                        tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_SimpleItem)));
-                        tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                        tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
+                        tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                     }
                     else
                     {
@@ -350,7 +350,7 @@ namespace PriseLists
                     }
 
 
-                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Price_SimpleItem, selection, sOrder_by_UndefinedFirst + " Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
+                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, sOrder_by_UndefinedFirst + " Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
                     {
 
                     }
@@ -359,8 +359,8 @@ namespace PriseLists
                 {
                     if (tbl_Price_Item == null)
                     {
-                        tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item)));
-                        tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                        tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
+                        tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                     }
                     else
                     {
@@ -393,7 +393,7 @@ namespace PriseLists
                     {
                         sOrder_by_UndefinedFirst = " Price_Item_$_i_$_ipg1_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name, Price_Item_$$RetailPricePerUnit asc, ";
                     }
-                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Price_Item, selection, sOrder_by_UndefinedFirst + " Price_Item_$_i_$$Code desc", false, where_condition, null, false))
+                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, sOrder_by_UndefinedFirst + " Price_Item_$_i_$$Code desc", false, where_condition, null, false))
                     {
 
                     }
@@ -468,7 +468,7 @@ namespace PriseLists
         }
 
 
-        private bool usrc_EditTable_SimpleItem_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, SQLTableControl.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_SimpleItem_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
         {
             if (pSQL_Table.TableName.ToLower().Equals("taxation"))
             {

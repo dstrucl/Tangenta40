@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using DBTypes;
 using InvoiceDB;
 
@@ -29,7 +29,7 @@ namespace Tangenta
         List<long> List_of_Inserted_Items_ID = null;
 
         DataTable dt_Item = new DataTable();
-        SQLTableControl.DBTableControl dbTables = null;
+        CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         public long_v ID_v = null;
         string ColumnOrderBy = "";
@@ -37,7 +37,7 @@ namespace Tangenta
 
         public bool bPriceListChanged = false;
 
-        public Form_Templates(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -51,7 +51,7 @@ namespace Tangenta
 
         }
 
-        public Form_Templates(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
+        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -195,7 +195,7 @@ namespace Tangenta
             m_bChanged = true;
         }
 
-        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTableControl.SQLTable pSQL_Table, System.Collections.Generic.List<SQLTableControl.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, SQLTableControl.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(CodeTables.SQLTable pSQL_Table, System.Collections.Generic.List<CodeTables.usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Item"))

@@ -14,18 +14,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 
 namespace ShopA
 {
     public partial class Form_ShopAItem_Edit : Form
     {
         DataTable dt_ShopBItem = new DataTable();
-        SQLTableControl.DBTableControl dbTables = null;
+        CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         bool bclose = false;
 
-        public Form_ShopAItem_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl, string ColumnToOrderBy)
+        public Form_ShopAItem_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string ColumnToOrderBy)
         {
             InitializeComponent();
             dbTables = xdbTables;

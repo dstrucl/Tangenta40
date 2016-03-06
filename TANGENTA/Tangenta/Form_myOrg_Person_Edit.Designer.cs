@@ -30,7 +30,7 @@
         {
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.usrc_EditTable1 = new SQLTableControl.TableDocking_Form.usrc_EditTable();
+            this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.SuspendLayout();
             // 
             // btn_OK
@@ -71,8 +71,8 @@
             this.usrc_EditTable1.Title = "";
             this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable1.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable1.FillTable += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
-            this.usrc_EditTable1.after_New += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
+            this.usrc_EditTable1.FillTable += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
+            this.usrc_EditTable1.after_New += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
             // 
             // Form_myOrg_Person_Edit
             // 
@@ -93,6 +93,6 @@
         #endregion
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable1;
+        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable1;
     }
 }

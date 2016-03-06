@@ -5,11 +5,11 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBConnectionControl40;
 using DBTypes;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

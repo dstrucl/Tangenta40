@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-using SQLTableControl;
+using CodeTables;
 using System.Windows.Forms;
 using LanguageControl;
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBTypes;
 
 namespace InvoiceDB

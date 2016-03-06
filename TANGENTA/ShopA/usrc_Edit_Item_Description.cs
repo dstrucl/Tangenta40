@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBTypes;
 
 namespace ShopA

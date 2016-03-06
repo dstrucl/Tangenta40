@@ -14,7 +14,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using BlagajnaTableClass;
+using TangentaTableClass;
 using LanguageControl;
 
 namespace ShopC

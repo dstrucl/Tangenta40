@@ -1,4 +1,4 @@
-﻿namespace Blagajna40
+﻿namespace Tangenta40
 {
     partial class Service1
     {

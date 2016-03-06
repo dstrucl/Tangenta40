@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blagajna
+namespace Tangenta
 {
     public static class f_JOURNAL_Invoice_Type
     {
@@ -17,7 +17,7 @@ namespace Blagajna
             string sql = null;
 
             sql = @"select ID from JOURNAL_Invoice_Type where Name = '" + Name + "'";
-            if (Program.LocalDB_for_Blagajna.m_DBTables.m_con.ReadDataTable(ref dt, sql, null, ref Err))
+            if (Program.LocalDB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, null, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
@@ -44,7 +44,7 @@ namespace Blagajna
 
                     sql = @"insert into JOURNAL_Invoice_Type (Name,Description)values(" + sPar_Name + "," + sPar_Description + ")";
                     object objretx = null;
-                    if (Program.LocalDB_for_Blagajna.m_DBTables.m_con.ExecuteNonQuerySQLReturnID(sql, null, ref JOURNAL_Invoice_type_ID, ref objretx, ref Err, "JOURNAL_Invoice_Type"))
+                    if (Program.LocalDB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQLReturnID(sql, null, ref JOURNAL_Invoice_type_ID, ref objretx, ref Err, "JOURNAL_Invoice_Type"))
                     {
                         return true;
                     }

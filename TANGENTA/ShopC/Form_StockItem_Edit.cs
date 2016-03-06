@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using DBTypes;
 using InvoiceDB;
 
@@ -23,7 +23,7 @@ namespace ShopC
     public partial class Form_StockItem_Edit : Form
     {
         DataTable dt_Stock = new DataTable();
-        SQLTableControl.DBTableControl dbTables = null;
+        CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         bool bclose = false;
         bool bInitData = false;
@@ -31,7 +31,7 @@ namespace ShopC
         long_v PurchasePrice_Item_ID = null;
         private bool m_bChanged = false;
 
-        public Form_StockItem_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl,string where_condition, string ColumnToOrderBy,InvoiceDB.Item_Data x_Item_Data)
+        public Form_StockItem_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string where_condition, string ColumnToOrderBy,InvoiceDB.Item_Data x_Item_Data)
         {
             InitializeComponent();
             m_Item_Data = x_Item_Data;
@@ -79,13 +79,13 @@ namespace ShopC
                 if (m_tbl.TableName.ToLower().Equals("purchaseprice_item"))
                 {
                     string Err = null;
-                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con, PurchasePrice_Item_ID.v, true,ref Err);
+                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, PurchasePrice_Item_ID.v, true,ref Err);
                 }
             }
             else if (m_tbl.TableName.ToLower().Equals("item"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con, m_Item_Data.Item_ID.v,true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, m_Item_Data.Item_ID.v,true, ref Err);
             }
         }
 
@@ -186,7 +186,7 @@ namespace ShopC
             get { return m_bChanged; } 
         }
 
-        private bool m_usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, SQLTableControl.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
+        private bool m_usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther(SQLTable pSQL_Table, List<usrc_RowReferencedFromTable> usrc_RowReferencedFromTable_List, CodeTables.ID_v id_v, ref bool bCancelDialog, ref ltext Instruction)
         {
             bCancelDialog = true;
             if (pSQL_Table.TableName.Equals("Stock"))

@@ -16,8 +16,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using InvoiceDB;
 using ShopA_dbfunc;
-using BlagajnaTableClass;
-using SQLTableControl;
+using TangentaTableClass;
+using CodeTables;
 using DBTypes;
 using System.Windows.Forms.VisualStyles;
 
@@ -47,7 +47,7 @@ namespace ShopA
         public usrc_ShopA()
         {
             InitializeComponent();
-            t_Atom_ItemShopA_Price = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_ItemShopA_Price)));
+            t_Atom_ItemShopA_Price = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ItemShopA_Price)));
         }
 
         public void Init(ShopABC xm_ShopABC, DBTablesAndColumnNames xDBtcn)
@@ -75,7 +75,7 @@ namespace ShopA
             if (dbfunc.Read_ShopA_Price_Item_Table(xProformaInvoice_ID, ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
-                t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
+                t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 HideNotImportantColumns();
             }
         }
@@ -99,7 +99,7 @@ namespace ShopA
             if (dbfunc.Read_ShopA_Price_Item_Table(m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID,ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
-                t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
+                t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 HideNotImportantColumns();
 
                 if (dt_Item_Price.Rows.Count > 0)

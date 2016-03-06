@@ -12,7 +12,7 @@ using System.Text;
 using System.Data;
 using LogFile;
 using DBTypes;
-using SQLTableControl;
+using CodeTables;
 
 namespace InvoiceDB
 {

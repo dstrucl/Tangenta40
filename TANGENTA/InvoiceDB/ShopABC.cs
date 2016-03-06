@@ -9,8 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BlagajnaTableClass;
-using SQLTableControl;
+using TangentaTableClass;
+using CodeTables;
 using System.Windows.Forms.VisualStyles;
 using LanguageControl;
 using DBTypes;
@@ -23,7 +23,7 @@ namespace InvoiceDB
     {
 
 
-        BlagajnaTableClass.SQL_Database_Tables_Definition td = null;
+        TangentaTableClass.SQL_Database_Tables_Definition td = null;
         DBTablesAndColumnNames DBtcn = null;
 
         public xTaxationList m_xTaxationList = null;
@@ -35,10 +35,10 @@ namespace InvoiceDB
 
         public bool Get(ref long Invoice_ID, bool bDraft, long ID, ref string Err)
         {
-            //SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Invoice));
-            //SQLTable tbl_ProformaInvoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(ProformaInvoice));
-            //SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
-            //SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany));
+            //SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Invoice));
+            //SQLTable tbl_ProformaInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(ProformaInvoice));
+            //SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
+            //SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany));
 
             string cond = null;
             if (ID >= 0)
@@ -325,7 +325,7 @@ namespace InvoiceDB
         public ShopABC(DBTablesAndColumnNames xDBtcn)
         {
             m_CurrentInvoice = new CurrentInvoice(this, xDBtcn);
-            td = DBSync.DBSync.DB_for_Blagajna.mt;
+            td = DBSync.DBSync.DB_for_Tangenta.mt;
             DBtcn = xDBtcn;
 
         }

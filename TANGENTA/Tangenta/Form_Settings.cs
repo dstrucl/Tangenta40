@@ -14,8 +14,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using LanguageControl;
 using InvoiceDB;
 
@@ -122,6 +122,7 @@ namespace Tangenta
                 if (MessageBox.Show(this,lngRPM.s_Save_Settings_Question.s,"?",MessageBoxButtons.YesNo, MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
                 {
                     Properties.Settings.Default.ElectronicDevice_ID = this.txt_ElectronicDevice_ID.Text;
+                    Properties.Settings.Default.Save();
                 }
             }
         }

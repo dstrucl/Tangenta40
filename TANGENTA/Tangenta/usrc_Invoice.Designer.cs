@@ -171,10 +171,10 @@
             // 
             this.lbl_Currency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Currency.Location = new System.Drawing.Point(416, 6);
+            this.lbl_Currency.Location = new System.Drawing.Point(412, 6);
             this.lbl_Currency.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_Currency.Name = "lbl_Currency";
-            this.lbl_Currency.Size = new System.Drawing.Size(59, 14);
+            this.lbl_Currency.Size = new System.Drawing.Size(74, 17);
             this.lbl_Currency.TabIndex = 25;
             this.lbl_Currency.Text = "Valuta:";
             this.lbl_Currency.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -183,10 +183,10 @@
             // 
             this.txt_Currency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Currency.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_Currency.Location = new System.Drawing.Point(517, 2);
+            this.txt_Currency.Location = new System.Drawing.Point(523, 2);
             this.txt_Currency.Name = "txt_Currency";
             this.txt_Currency.ReadOnly = true;
-            this.txt_Currency.Size = new System.Drawing.Size(51, 24);
+            this.txt_Currency.Size = new System.Drawing.Size(47, 24);
             this.txt_Currency.TabIndex = 27;
             // 
             // btn_SelectBaseCurrency
@@ -194,7 +194,7 @@
             this.btn_SelectBaseCurrency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_SelectBaseCurrency.AutoEllipsis = true;
             this.btn_SelectBaseCurrency.Image = ((System.Drawing.Image)(resources.GetObject("btn_SelectBaseCurrency.Image")));
-            this.btn_SelectBaseCurrency.Location = new System.Drawing.Point(479, 0);
+            this.btn_SelectBaseCurrency.Location = new System.Drawing.Point(487, -1);
             this.btn_SelectBaseCurrency.Name = "btn_SelectBaseCurrency";
             this.btn_SelectBaseCurrency.Size = new System.Drawing.Size(34, 29);
             this.btn_SelectBaseCurrency.TabIndex = 28;
@@ -229,7 +229,7 @@
             this.chk_Head.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.chk_Head.Location = new System.Drawing.Point(191, 1);
             this.chk_Head.Name = "chk_Head";
-            this.chk_Head.Size = new System.Drawing.Size(71, 28);
+            this.chk_Head.Size = new System.Drawing.Size(64, 28);
             this.chk_Head.TabIndex = 37;
             this.chk_Head.Text = "Glava";
             this.chk_Head.UseVisualStyleBackColor = true;
@@ -289,7 +289,7 @@
             // 
             this.chk_Storno.AutoSize = true;
             this.chk_Storno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_Storno.Location = new System.Drawing.Point(351, 4);
+            this.chk_Storno.Location = new System.Drawing.Point(346, 4);
             this.chk_Storno.Name = "chk_Storno";
             this.chk_Storno.Size = new System.Drawing.Size(69, 21);
             this.chk_Storno.TabIndex = 39;
@@ -302,7 +302,7 @@
             this.btn_Show_Shops.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Show_Shops.Location = new System.Drawing.Point(254, 0);
             this.btn_Show_Shops.Name = "btn_Show_Shops";
-            this.btn_Show_Shops.Size = new System.Drawing.Size(91, 29);
+            this.btn_Show_Shops.Size = new System.Drawing.Size(89, 29);
             this.btn_Show_Shops.TabIndex = 41;
             this.btn_Show_Shops.Text = "trgovine";
             this.btn_Show_Shops.UseVisualStyleBackColor = true;

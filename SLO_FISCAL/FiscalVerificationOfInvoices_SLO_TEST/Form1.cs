@@ -127,7 +127,7 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Blagajna.Settings.LanguageID; ;
+            LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
 
             btn_Start_Click(null, null);
         }

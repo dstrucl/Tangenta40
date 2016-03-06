@@ -5,8 +5,8 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
-using BlagajnaTableClass;
-using SQLTableControl;
+using TangentaTableClass;
+using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +32,7 @@ namespace ShopA
             InitializeComponent();
             m_Atom_ItemShopA = xAtom_ItemShopA;
             m_usrc_Editor = xusrc_Editor;
-            t_Atom_ItemShopA = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_ItemShopA)));
+            t_Atom_ItemShopA = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ItemShopA)));
         }
 
         public bool Reload()
@@ -64,7 +64,7 @@ namespace ShopA
             if (DBSync.DBSync.ReadDataTable(ref dt_Atom_ItemShopA,sql,ref Err))
             {
                 this.dgvx_Item.DataSource = dt_Atom_ItemShopA;
-                t_Atom_ItemShopA.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_Item, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
+                t_Atom_ItemShopA.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_Item, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 dgvx_Item.Columns["ID"].Visible = false;
                 dgvx_Item.Columns["Atom_ItemShopA_$_tax_$$ID"].Visible = false;
                 dgvx_Item.Columns["Atom_ItemShopA_$_u_$$ID"].Visible = false;

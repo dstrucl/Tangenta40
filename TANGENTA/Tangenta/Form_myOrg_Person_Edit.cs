@@ -6,10 +6,10 @@
 */
 #endregion
 
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBTypes;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,7 +36,7 @@ namespace Tangenta
         {
             InitializeComponent();
             m_Office_ID = xOffice_ID;
-            tbl_myCompany_Person = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person)));
+            tbl_myCompany_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany_Person)));
             this.Text = lngRPM.s_Edit_Office_Data.s;
             this.usrc_EditTable1.Title = lngRPM.s_Edit_Office_Data.s;
             string selection = @"  myCompany_Person_$_per_$_cfn_$$FirstName,
@@ -54,7 +54,7 @@ namespace Tangenta
             {
                 Office_ID_v = new long_v(m_Office_ID);
             }
-            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_myCompany_Person, selection, ColumnToOrderBy, false, " where  myCompany_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false))
+            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_myCompany_Person, selection, ColumnToOrderBy, false, " where  myCompany_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false))
             {
                 usrc_EditTable1.FillInitialData();
             }
@@ -95,7 +95,7 @@ namespace Tangenta
             if (m_tbl.TableName.ToLower().Equals("office"))
             {
                 string Err = null;
-                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con, m_Office_ID, true, ref Err);
+                m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, m_Office_ID, true, ref Err);
             }
         }
 

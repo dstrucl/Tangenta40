@@ -123,9 +123,9 @@ namespace Tangenta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Blagajna_Icon {
+        internal static System.Drawing.Icon Tangenta_Icon {
             get {
-                object obj = ResourceManager.GetObject("Blagajna_Icon", resourceCulture);
+                object obj = ResourceManager.GetObject("Tangenta_Icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

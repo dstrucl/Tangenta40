@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 
 namespace ShopB
 {
@@ -23,7 +23,7 @@ namespace ShopB
         public List<long> List_of_Inserted_Items_ID = null;
 
         DataTable dt_ShopBItem = new DataTable();
-        SQLTableControl.DBTableControl dbTables = null;
+        CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         bool bclose = false;
 
@@ -33,7 +33,7 @@ namespace ShopB
             get { return m_bChanged; }
         }
 
-        public Form_ShopBItem_Edit(SQLTableControl.DBTableControl xdbTables, SQLTable xtbl, string ColumnToOrderBy)
+        public Form_ShopBItem_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string ColumnToOrderBy)
         {
             InitializeComponent();
             m_bChanged = false;

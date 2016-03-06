@@ -78,11 +78,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CONTROLS\XMessage\XMessage.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DB_PLATFORM\DBTypes\DBTypes.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
@@ -90,7 +90,7 @@
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>InvoiceDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>

@@ -13,8 +13,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using LanguageControl;
 
 namespace PriseLists
@@ -30,8 +30,8 @@ namespace PriseLists
             InitializeComponent();
             m_eShopType = xeShopType;
             bEditUndefined = xbEditUndefined;
-            m_tbl_PriceList = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(PriceList)));
-            m_tbl_PriceList.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            m_tbl_PriceList = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PriceList)));
+            m_tbl_PriceList.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
             this.Text = lngRPM.s_PriceListType.s;
         }
 

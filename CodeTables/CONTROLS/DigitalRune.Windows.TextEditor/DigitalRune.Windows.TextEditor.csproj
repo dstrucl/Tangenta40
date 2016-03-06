@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}</ProjectGuid>
+    <AssemblyName>DigitalRune.Windows.TextEditor</AssemblyName>
+    <OutputTarget>Library</OutputTarget>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>False</NoStdLib>
+    <NoConfig>False</NoConfig>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DigitalRune.Windows.TextEditor</RootNamespace>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>98041856</BaseAddress>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FileAlignment>4096</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>False</Optimize>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <OutputPath>..\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DATACONSISTENCYTEST</DefineConstants>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <CodeAnalysisRules>-Microsoft.Design#CA1012;-Microsoft.Design#CA2210;-Microsoft.Design#CA1040;-Microsoft.Design#CA1005;-Microsoft.Design#CA1020;-Microsoft.Design#CA1021;-Microsoft.Design#CA1010;-Microsoft.Design#CA1011;-Microsoft.Design#CA1009;-Microsoft.Design#CA1050;-Microsoft.Design#CA1026;-Microsoft.Design#CA1019;-Microsoft.Design#CA1031;-Microsoft.Design#CA1047;-Microsoft.Design#CA1000;-Microsoft.Design#CA1048;-Microsoft.Design#CA1051;-Microsoft.Design#CA1002;-Microsoft.Design#CA1061;-Microsoft.Design#CA1006;-Microsoft.Design#CA1046;-Microsoft.Design#CA1045;-Microsoft.Design#CA1038;-Microsoft.Design#CA1008;-Microsoft.Design#CA1028;-Microsoft.Design#CA1004;-Microsoft.Design#CA1035;-Microsoft.Design#CA1063;-Microsoft.Design#CA1032;-Microsoft.Design#CA1023;-Microsoft.Design#CA1033;-Microsoft.Design#CA1039;-Microsoft.Design#CA1016;-Microsoft.Design#CA1014;-Microsoft.Design#CA1017;-Microsoft.Design#CA1018;-Microsoft.Design#CA1027;-Microsoft.Design#CA1059;-Microsoft.Design#CA1060;-Microsoft.Design#CA1034;-Microsoft.Design#CA1013;-Microsoft.Design#CA1036;-Microsoft.Design#CA1044;-Microsoft.Design#CA1041;-Microsoft.Design#CA1025;-Microsoft.Design#CA1052;-Microsoft.Design#CA1053;-Microsoft.Design#CA1057;-Microsoft.Design#CA1058;-Microsoft.Design#CA1001;-Microsoft.Design#CA1049;-Microsoft.Design#CA1054;-Microsoft.Design#CA1056;-Microsoft.Design#CA1055;-Microsoft.Design#CA1030;-Microsoft.Design#CA1003;-Microsoft.Design#CA1007;-Microsoft.Design#CA1043;-Microsoft.Design#CA1024;-Microsoft.Design#CA1062;-Microsoft.Globalization#CA1301;-Microsoft.Globalization#CA1302;-Microsoft.Globalization#CA1303;-Microsoft.Globalization#CA1306;-Microsoft.Globalization#CA1304;-Microsoft.Globalization#CA1305;-Microsoft.Globalization#CA1300;-Microsoft.Mobility#CA1600;-Microsoft.Mobility#CA1601;-Microsoft.Naming#CA1718;-Microsoft.Naming#CA1720;-Microsoft.Naming#CA1700;-Microsoft.Naming#CA1712;-Microsoft.Naming#CA1713;-Microsoft.Naming#CA1709;-Microsoft.Naming#CA1708;-Microsoft.Naming#CA1715;-Microsoft.Naming#CA1710;-Microsoft.Naming#CA1707;-Microsoft.Naming#CA1722;-Microsoft.Naming#CA1711;-Microsoft.Naming#CA1716;-Microsoft.Naming#CA1705;-Microsoft.Naming#CA1725;-Microsoft.Naming#CA1719;-Microsoft.Naming#CA1721;-Microsoft.Naming#CA1706;-Microsoft.Naming#CA1724;-Microsoft.Naming#CA1726;-Microsoft.Performance#CA1809;-Microsoft.Performance#CA1811;-Microsoft.Performance#CA1812;-Microsoft.Performance#CA1807;-Microsoft.Performance#CA1813;-Microsoft.Performance#CA1823;-Microsoft.Performance#CA1816;-Microsoft.Performance#CA1817;-Microsoft.Performance#CA1800;-Microsoft.Performance#CA1818;-Microsoft.Performance#CA1805;-Microsoft.Performance#CA1810;-Microsoft.Performance#CA1822;-Microsoft.Performance#CA1815;-Microsoft.Performance#CA1814;-Microsoft.Performance#CA1819;-Microsoft.Performance#CA1804;-Microsoft.Performance#CA1820;-Microsoft.Performance#CA1802;-Microsoft.Security#CA2116;-Microsoft.Security#CA2117;-Microsoft.Security#CA2105;-Microsoft.Security#CA2115;-Microsoft.Security#CA2104;-Microsoft.Security#CA2122;-Microsoft.Security#CA2114;-Microsoft.Security#CA2123;-Microsoft.Security#CA2111;-Microsoft.Security#CA2108;-Microsoft.Security#CA2107;-Microsoft.Security#CA2103;-Microsoft.Security#CA2100;-Microsoft.Security#CA2118;-Microsoft.Security#CA2109;-Microsoft.Security#CA2119;-Microsoft.Security#CA2106;-Microsoft.Security#CA2112;-Microsoft.Security#CA2110;-Microsoft.Security#CA2120;-Microsoft.Security#CA2101;-Microsoft.Security#CA2121;-Microsoft.Security#CA2126;-Microsoft.Security#CA2124;-Microsoft.Usage#CA2209;-Microsoft.Usage#CA2236;-Microsoft.Usage#CA2227;-Microsoft.Usage#CA2213;-Microsoft.Usage#CA2216;-Microsoft.Usage#CA2215;-Microsoft.Usage#CA2214;-Microsoft.Usage#CA2222;-Microsoft.Usage#CA2202;-Microsoft.Usage#CA1806;-Microsoft.Usage#CA2217;-Microsoft.Usage#CA2212;-Microsoft.Usage#CA2219;-Microsoft.Usage#CA2201;-Microsoft.Usage#CA2228;-Microsoft.Usage#CA2221;-Microsoft.Usage#CA2220;-Microsoft.Usage#CA2240;-Microsoft.Usage#CA2229;-Microsoft.Usage#CA2238;-Microsoft.Usage#CA2207;-Microsoft.Usage#CA2208;-Microsoft.Usage#CA2235;-Microsoft.Usage#CA2237;-Microsoft.Usage#CA2232;-Microsoft.Usage#CA2223;-Microsoft.Usage#CA2211;-Microsoft.Usage#CA2233;-Microsoft.Usage#CA2225;-Microsoft.Usage#CA2226;-Microsoft.Usage#CA2231;-Microsoft.Usage#CA2224;-Microsoft.Usage#CA2218;-Microsoft.Usage#CA2234;-Microsoft.Usage#CA2241;-Microsoft.Usage#CA2239;-Microsoft.Usage#CA2200;-Microsoft.Usage#CA1801;-Microsoft.Usage#CA2205;-Microsoft.Usage#CA2230</CodeAnalysisRules>
+    <DocumentationFile>bin\Debug\DigitalRune.Windows.TextEditor.XML</DocumentationFile>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>True</Optimize>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <OutputPath>..\Release\</OutputPath>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugType>Full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>None</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DATACONSISTENCYTEST</DefineConstants>
+    <BaseAddress>98041856</BaseAddress>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DocumentationFile>bin\Debug\DigitalRune.Windows.TextEditor.XML</DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRules>-Microsoft.Design#CA1012;-Microsoft.Design#CA2210;-Microsoft.Design#CA1040;-Microsoft.Design#CA1005;-Microsoft.Design#CA1020;-Microsoft.Design#CA1021;-Microsoft.Design#CA1010;-Microsoft.Design#CA1011;-Microsoft.Design#CA1009;-Microsoft.Design#CA1050;-Microsoft.Design#CA1026;-Microsoft.Design#CA1019;-Microsoft.Design#CA1031;-Microsoft.Design#CA1047;-Microsoft.Design#CA1000;-Microsoft.Design#CA1048;-Microsoft.Design#CA1051;-Microsoft.Design#CA1002;-Microsoft.Design#CA1061;-Microsoft.Design#CA1006;-Microsoft.Design#CA1046;-Microsoft.Design#CA1045;-Microsoft.Design#CA1038;-Microsoft.Design#CA1008;-Microsoft.Design#CA1028;-Microsoft.Design#CA1004;-Microsoft.Design#CA1035;-Microsoft.Design#CA1063;-Microsoft.Design#CA1032;-Microsoft.Design#CA1023;-Microsoft.Design#CA1033;-Microsoft.Design#CA1039;-Microsoft.Design#CA1016;-Microsoft.Design#CA1014;-Microsoft.Design#CA1017;-Microsoft.Design#CA1018;-Microsoft.Design#CA1027;-Microsoft.Design#CA1059;-Microsoft.Design#CA1060;-Microsoft.Design#CA1034;-Microsoft.Design#CA1013;-Microsoft.Design#CA1036;-Microsoft.Design#CA1044;-Microsoft.Design#CA1041;-Microsoft.Design#CA1025;-Microsoft.Design#CA1052;-Microsoft.Design#CA1053;-Microsoft.Design#CA1057;-Microsoft.Design#CA1058;-Microsoft.Design#CA1001;-Microsoft.Design#CA1049;-Microsoft.Design#CA1054;-Microsoft.Design#CA1056;-Microsoft.Design#CA1055;-Microsoft.Design#CA1030;-Microsoft.Design#CA1003;-Microsoft.Design#CA1007;-Microsoft.Design#CA1043;-Microsoft.Design#CA1024;-Microsoft.Design#CA1062;-Microsoft.Globalization#CA1301;-Microsoft.Globalization#CA1302;-Microsoft.Globalization#CA1303;-Microsoft.Globalization#CA1306;-Microsoft.Globalization#CA1304;-Microsoft.Globalization#CA1305;-Microsoft.Globalization#CA1300;-Microsoft.Mobility#CA1600;-Microsoft.Mobility#CA1601;-Microsoft.Naming#CA1718;-Microsoft.Naming#CA1720;-Microsoft.Naming#CA1700;-Microsoft.Naming#CA1712;-Microsoft.Naming#CA1713;-Microsoft.Naming#CA1709;-Microsoft.Naming#CA1708;-Microsoft.Naming#CA1715;-Microsoft.Naming#CA1710;-Microsoft.Naming#CA1707;-Microsoft.Naming#CA1722;-Microsoft.Naming#CA1711;-Microsoft.Naming#CA1716;-Microsoft.Naming#CA1705;-Microsoft.Naming#CA1725;-Microsoft.Naming#CA1719;-Microsoft.Naming#CA1721;-Microsoft.Naming#CA1706;-Microsoft.Naming#CA1724;-Microsoft.Naming#CA1726;-Microsoft.Performance#CA1809;-Microsoft.Performance#CA1811;-Microsoft.Performance#CA1812;-Microsoft.Performance#CA1807;-Microsoft.Performance#CA1813;-Microsoft.Performance#CA1823;-Microsoft.Performance#CA1816;-Microsoft.Performance#CA1817;-Microsoft.Performance#CA1800;-Microsoft.Performance#CA1818;-Microsoft.Performance#CA1805;-Microsoft.Performance#CA1810;-Microsoft.Performance#CA1822;-Microsoft.Performance#CA1815;-Microsoft.Performance#CA1814;-Microsoft.Performance#CA1819;-Microsoft.Performance#CA1804;-Microsoft.Performance#CA1820;-Microsoft.Performance#CA1802;-Microsoft.Security#CA2116;-Microsoft.Security#CA2117;-Microsoft.Security#CA2105;-Microsoft.Security#CA2115;-Microsoft.Security#CA2104;-Microsoft.Security#CA2122;-Microsoft.Security#CA2114;-Microsoft.Security#CA2123;-Microsoft.Security#CA2111;-Microsoft.Security#CA2108;-Microsoft.Security#CA2107;-Microsoft.Security#CA2103;-Microsoft.Security#CA2100;-Microsoft.Security#CA2118;-Microsoft.Security#CA2109;-Microsoft.Security#CA2119;-Microsoft.Security#CA2106;-Microsoft.Security#CA2112;-Microsoft.Security#CA2110;-Microsoft.Security#CA2120;-Microsoft.Security#CA2101;-Microsoft.Security#CA2121;-Microsoft.Security#CA2126;-Microsoft.Security#CA2124;-Microsoft.Usage#CA2209;-Microsoft.Usage#CA2236;-Microsoft.Usage#CA2227;-Microsoft.Usage#CA2213;-Microsoft.Usage#CA2216;-Microsoft.Usage#CA2215;-Microsoft.Usage#CA2214;-Microsoft.Usage#CA2222;-Microsoft.Usage#CA2202;-Microsoft.Usage#CA1806;-Microsoft.Usage#CA2217;-Microsoft.Usage#CA2212;-Microsoft.Usage#CA2219;-Microsoft.Usage#CA2201;-Microsoft.Usage#CA2228;-Microsoft.Usage#CA2221;-Microsoft.Usage#CA2220;-Microsoft.Usage#CA2240;-Microsoft.Usage#CA2229;-Microsoft.Usage#CA2238;-Microsoft.Usage#CA2207;-Microsoft.Usage#CA2208;-Microsoft.Usage#CA2235;-Microsoft.Usage#CA2237;-Microsoft.Usage#CA2232;-Microsoft.Usage#CA2223;-Microsoft.Usage#CA2211;-Microsoft.Usage#CA2233;-Microsoft.Usage#CA2225;-Microsoft.Usage#CA2226;-Microsoft.Usage#CA2231;-Microsoft.Usage#CA2224;-Microsoft.Usage#CA2218;-Microsoft.Usage#CA2234;-Microsoft.Usage#CA2241;-Microsoft.Usage#CA2239;-Microsoft.Usage#CA2200;-Microsoft.Usage#CA1801;-Microsoft.Usage#CA2205;-Microsoft.Usage#CA2230</CodeAnalysisRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\..\Release\</OutputPath>
+    <BaseAddress>98041856</BaseAddress>
+    <Optimize>true</Optimize>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>None</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\CompletionActions.cs" />
+    <Compile Include="Document\Bookmarks\BookmarkRenderer.cs" />
+    <Compile Include="Document\Bookmarks\IBookmarkFactory.cs" />
+    <Compile Include="Document\DefaultDocument.cs" />
+    <Compile Include="Document\DocumentEventArgs.cs" />
+    <Compile Include="Document\DocumentFactory.cs" />
+    <Compile Include="Document\Folding\CSharpFoldingStrategy.cs" />
+    <Compile Include="Document\Folding\Fold.cs" />
+    <Compile Include="Document\Folding\HlslFoldingStrategy.cs" />
+    <Compile Include="Document\Folding\XmlFoldingStrategy.cs" />
+    <Compile Include="Document\Formatting\CSharpFormattingStrategy.cs" />
+    <Compile Include="Document\Formatting\DocumentAccessor.cs" />
+    <Compile Include="Document\Formatting\HlslFormattingStrategy.cs" />
+    <Compile Include="Document\Formatting\Indentation.cs" />
+    <Compile Include="Document\Highlighting\HighlightingDefinitionInvalidException.cs" />
+    <Compile Include="Document\IDocument.cs" />
+    <Compile Include="Document\ISegment.cs" />
+    <Compile Include="Document\LineManager\DeferredEventList.cs" />
+    <Compile Include="Document\LineManager\LineCountChangedEventArgs.cs" />
+    <Compile Include="Document\LineManager\LineEventArgs.cs" />
+    <Compile Include="Document\LineManager\LineManager.cs" />
+    <Compile Include="Document\LineManager\LineSegmentTree.cs" />
+    <Compile Include="Document\Markers\MarkerType.cs" />
+    <Compile Include="Document\TextAnchor.cs" />
+    <Compile Include="Document\TextLocation.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\CheckedList.cs" />
+    <Compile Include="Utilities\MouseWheelHandler.cs" />
+    <Compile Include="Utilities\TextHelper.cs" />
+    <Compile Include="Document\Bookmarks\BookmarkManager.cs" />
+    <Compile Include="Document\Formatting\DefaultFormattingStrategy.cs" />
+    <Compile Include="Document\Formatting\IFormattingStrategy.cs" />
+    <Compile Include="Document\Highlighting\DefaultHighlightingStrategy.cs" />
+    <Compile Include="Document\Highlighting\FontContainer.cs" />
+    <Compile Include="Document\Highlighting\HighlightBackground.cs" />
+    <Compile Include="Document\Highlighting\HighlightColor.cs" />
+    <Compile Include="Document\Highlighting\HighlightingColorNotFoundException.cs" />
+    <Compile Include="Document\Highlighting\HighlightingDefinitionParser.cs" />
+    <Compile Include="Document\Highlighting\HighlightingManager.cs" />
+    <Compile Include="Document\Highlighting\HighlightingStrategyFactory.cs" />
+    <Compile Include="Document\Highlighting\HighlightRuleSet.cs" />
+    <Compile Include="Document\Highlighting\IHighlightingStrategy.cs" />
+    <Compile Include="Document\Highlighting\NextMarker.cs" />
+    <Compile Include="Document\Highlighting\PrevMarker.cs" />
+    <Compile Include="Document\Highlighting\Span.cs" />
+    <Compile Include="Document\Highlighting\TextWord.cs" />
+    <Compile Include="Document\LineManager\LineSegment.cs" />
+    <Compile Include="Document\LineManager\LineLengthChangedEventArgs.cs" />
+    <Compile Include="Document\TextBuffer\GapTextBufferStrategy.cs" />
+    <Compile Include="Document\TextBuffer\ITextBufferStrategy.cs" />
+    <Compile Include="GUI\Completion\AbstractCompletionDataProvider.cs" />
+    <Compile Include="GUI\Completion\AbstractCompletionWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Completion\CompletionEventArgs.cs" />
+    <Compile Include="GUI\Completion\CompletionListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Completion\CompletionWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Completion\DeclarationViewWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Completion\DefaultCompletionData.cs" />
+    <Compile Include="GUI\Completion\ICompletionData.cs" />
+    <Compile Include="GUI\Completion\ICompletionDataProvider.cs" />
+    <Compile Include="GUI\Completion\TextCompletionDataProvider.cs" />
+    <Compile Include="GUI\Insight\AbstractInsightDataProvider.cs" />
+    <Compile Include="GUI\Insight\IInsightDataProvider.cs" />
+    <Compile Include="GUI\Insight\InsightEventArgs.cs" />
+    <Compile Include="GUI\Insight\InsightWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\TextEditorControl_EditActions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\TextEditorControl_Update.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Snippets\SnippetCompletionData.cs" />
+    <Compile Include="GUI\TextEditorControl_Completion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\TextEditorControl_Insight.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\TextEditorControl_Printing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Document\Highlighting\LookupTable.cs" />
+    <Compile Include="GUI\TextEditorControl_TextEditorProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\TextEditorControl_ToolTips.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Undo\UndoableDelete.cs" />
+    <Compile Include="Undo\UndoableInsert.cs" />
+    <Compile Include="Undo\UndoableReplace.cs" />
+    <Compile Include="Actions\ClipBoardActions.cs" />
+    <Compile Include="Actions\CaretActions.cs" />
+    <Compile Include="Actions\HomeEndActions.cs" />
+    <Compile Include="Actions\IEditAction.cs" />
+    <Compile Include="Actions\MiscActions.cs" />
+    <Compile Include="Actions\SelectionActions.cs" />
+    <Compile Include="Document\Selection\ISelection.cs" />
+    <Compile Include="Document\Selection\DefaultSelection.cs" />
+    <Compile Include="Document\Folding\IFoldingStrategy.cs" />
+    <Compile Include="GUI\Ime.cs" />
+    <Compile Include="GUI\TextAreaUpdate.cs" />
+    <Compile Include="Document\Selection\SelectionManager.cs" />
+    <Compile Include="Utilities\Red-Black Tree\AugmentableRedBlackTree.cs" />
+    <Compile Include="Utilities\Red-Black Tree\IRedBlackTreeHost.cs" />
+    <Compile Include="Utilities\Red-Black Tree\RedBlackTreeIterator.cs" />
+    <Compile Include="Utilities\Red-Black Tree\RedBlackTreeNode.cs" />
+    <Compile Include="Utilities\RtfWriter.cs" />
+    <Compile Include="Document\Folding\FoldingManager.cs" />
+    <Compile Include="GUI\Tip\TipPainter.cs" />
+    <Compile Include="GUI\Tip\TipSection.cs" />
+    <Compile Include="GUI\Tip\TipText.cs" />
+    <Compile Include="GUI\Tip\TipSplitter.cs" />
+    <Compile Include="GUI\Tip\TipSpacer.cs" />
+    <Compile Include="GUI\Tip\TipPainterTools.cs" />
+    <Compile Include="Document\ITextEditorProperties.cs" />
+    <Compile Include="GUI\Caret.cs" />
+    <Compile Include="GUI\TextArea.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\TextEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\TextEditorControl_Base.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\TextAreaClipboardHandler.cs" />
+    <Compile Include="GUI\TextView.cs" />
+    <Compile Include="GUI\LineNumberMargin.cs" />
+    <Compile Include="GUI\AbstractMargin.cs" />
+    <Compile Include="Undo\IUndoableOperation.cs" />
+    <Compile Include="Undo\UndoQueue.cs" />
+    <Compile Include="Undo\UndoStack.cs" />
+    <Compile Include="GUI\TextAreaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\TextAreaMouseHandler.cs" />
+    <Compile Include="Document\Highlighting\SyntaxModes\ISyntaxModeFileProvider.cs" />
+    <Compile Include="Document\Highlighting\SyntaxModes\SyntaxMode.cs" />
+    <Compile Include="Document\Highlighting\SyntaxModes\ResourceSyntaxModeProvider.cs" />
+    <Compile Include="GUI\IconMargin.cs" />
+    <Compile Include="GUI\FoldMargin.cs" />
+    <Compile Include="Document\Highlighting\SyntaxModes\FileSyntaxModeProvider.cs" />
+    <Compile Include="Document\Selection\ColumnRange.cs" />
+    <Compile Include="GUI\TextAreaDragDropHandler.cs" />
+    <Compile Include="GUI\BracketHighlighter.cs" />
+    <Compile Include="Actions\BookmarkActions.cs" />
+    <Compile Include="Actions\FoldActions.cs" />
+    <Compile Include="Actions\FormatActions.cs" />
+    <Compile Include="Document\DefaultTextEditorProperties.cs" />
+    <Compile Include="Document\Markers\MarkerStrategy.cs" />
+    <Compile Include="Document\Markers\Marker.cs" />
+    <Compile Include="GUI\BrushRegistry.cs" />
+    <Compile Include="GUI\HRuler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\Bookmarks\Bookmark.cs" />
+    <Compile Include="Document\Bookmarks\BookmarkEventHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\TextArea.resx">
+      <DependentUpon>TextArea.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\TextEditorControl_Base.resx">
+      <DependentUpon>TextEditorControl_Base.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ASPX.xshd" />
+    <EmbeddedResource Include="Resources\BAT-Mode.xshd" />
+    <EmbeddedResource Include="Resources\CPP-Mode.xshd" />
+    <EmbeddedResource Include="Resources\Coco-Mode.xshd" />
+    <EmbeddedResource Include="Resources\CSharp-Mode.xshd" />
+    <EmbeddedResource Include="Resources\HTML-Mode.xshd" />
+    <EmbeddedResource Include="Resources\HLSL-Mode.xshd" />
+    <EmbeddedResource Include="Resources\Cg-Mode.xshd" />
+    <EmbeddedResource Include="Resources\TextEditorControl.bmp" />
+    <EmbeddedResource Include="Resources\Java-Mode.xshd" />
+    <EmbeddedResource Include="Resources\JavaScript-Mode.xshd" />
+    <EmbeddedResource Include="Resources\Mode.xsd">
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PHP-Mode.xshd" />
+    <EmbeddedResource Include="Resources\RightArrow.cur" />
+    <EmbeddedResource Include="Resources\SyntaxModes.xml" />
+    <EmbeddedResource Include="Resources\Tex-Mode.xshd" />
+    <EmbeddedResource Include="Resources\VBNET-Mode.xshd" />
+    <EmbeddedResource Include="Resources\XML-Mode.xshd" />
+    <Compile Include="Utilities\FileReader.cs" />
+    <EmbeddedResource Include="Resources\Boo.xshd" />
+    <Compile Include="GUI\ToolTipRequestEventArgs.cs" />
+    <Compile Include="Document\Highlighting\SpanStack.cs" />
+    <Compile Include="Snippets\SnippetCompletionDataProvider.cs" />
+    <Compile Include="Snippets\Snippet.cs" />
+    <Compile Include="Document\Formatting\XmlFormattingStrategy.cs" />
+    <Compile Include="Utilities\WeakCollection.cs" />
+    <EmbeddedResource Include="Resources\Patch-Mode.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="License.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="DigitalRune.Windows.TextEditor.licenseheader" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

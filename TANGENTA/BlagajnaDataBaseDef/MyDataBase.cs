@@ -7,29 +7,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DBConnectionControl40;
-using SQLTableControl;
+using CodeTables;
 using LanguageControl;
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBTypes;
 using Country_ISO_3166;
 
-namespace BlagajnaDataBaseDef
+namespace TangentaDataBaseDef
 {
-    public partial class MyDataBase_Blagajna
+    public partial class MyDataBase_Tangenta
     {
 
         //        public DBTypes.SQL_Database_Tables_Definition mt_DB;
 
         public ISO_3166_Table m_ISO_3166_Table = new ISO_3166_Table();
 
-        public BlagajnaTableClass.SQL_Database_Tables_Definition mt;
+        public TangentaTableClass.SQL_Database_Tables_Definition mt;
 
         public DBTableControl m_DBTables = null;
 
-        public MyDataBase_Blagajna(Form pForm, string XmlRootName, string xmlIniFileFolder)
+        public MyDataBase_Tangenta(Form pForm, string XmlRootName, string xmlIniFileFolder)
         {
             // TODO: Complete member initialization
-            mt = new BlagajnaTableClass.SQL_Database_Tables_Definition();
+            mt = new TangentaTableClass.SQL_Database_Tables_Definition();
 
             m_DBTables = new DBTableControl(pForm, XmlRootName, xmlIniFileFolder);
 

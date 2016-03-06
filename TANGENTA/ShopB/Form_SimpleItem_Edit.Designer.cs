@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrc_EditTable = new SQLTableControl.TableDocking_Form.usrc_EditTable();
+            this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.rdb_OnlyNotInOffer = new System.Windows.Forms.RadioButton();
             this.rdb_All = new System.Windows.Forms.RadioButton();
             this.rdb_OnlyInOffer = new System.Windows.Forms.RadioButton();
@@ -52,8 +52,8 @@
             this.usrc_EditTable.Title = "";
             this.usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_after_InsertInDataBase);
-            this.usrc_EditTable.after_UpdateDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.usrc_EditTable_after_UpdateDataBase);
+            this.usrc_EditTable.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_after_InsertInDataBase);
+            this.usrc_EditTable.after_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.usrc_EditTable_after_UpdateDataBase);
             // 
             // rdb_OnlyNotInOffer
             // 
@@ -133,7 +133,7 @@
 
         #endregion
 
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable;
+        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable;
         private System.Windows.Forms.RadioButton rdb_OnlyNotInOffer;
         private System.Windows.Forms.RadioButton rdb_All;
         private System.Windows.Forms.RadioButton rdb_OnlyInOffer;

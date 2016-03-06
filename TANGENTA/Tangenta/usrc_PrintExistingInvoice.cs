@@ -16,7 +16,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using DBConnectionControl40;
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBTypes;
 using InvoiceDB;
 
@@ -73,8 +73,8 @@ namespace Tangenta
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 dgvx_Journal_InvoicePrint.DataSource = dt;
-                SQLTableControl.SQLTable tbl = new SQLTableControl.SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(JOURNAL_ProformaInvoice)));
-                tbl.SetVIEW_DataGridViewImageColumns_Headers(dgvx_Journal_InvoicePrint, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
+                CodeTables.SQLTable tbl = new CodeTables.SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_ProformaInvoice)));
+                tbl.SetVIEW_DataGridViewImageColumns_Headers(dgvx_Journal_InvoicePrint, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 dgvx_Journal_InvoicePrint.Columns["JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"].HeaderText = lngRPM.s_FirstNameOfPersonThatPrintedInvoice.s;
                 dgvx_Journal_InvoicePrint.Columns["JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"].HeaderText = lngRPM.s_LastNameOfPersonThatPrintedInvoice.s;
                 if (dt.Rows.Count>0)

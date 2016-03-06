@@ -14,8 +14,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using LanguageControl;
 
 namespace Tangenta
@@ -36,7 +36,7 @@ namespace Tangenta
             this.usrc_EditTable_PurchasePriceList.Title = "";
         }
 
-        public bool Init(SQLTableControl.DBTableControl dbTables,SQLTable tbl,ref string Err)
+        public bool Init(CodeTables.DBTableControl dbTables,SQLTable tbl,ref string Err)
         {
             tbl.CreateTableTree(dbTables.items);
             string selection = @"ID,
@@ -49,7 +49,7 @@ namespace Tangenta
                                  PurchasePrice_$$ValidFrom,
                                  PurchasePrice_$$ValidTo
             ";
-            return usrc_EditTable_PurchasePriceList.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl,selection, "ID asc",false,null,null,false);
+            return usrc_EditTable_PurchasePriceList.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl,selection, "ID asc",false,null,null,false);
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -73,9 +73,9 @@ namespace Tangenta
             // Now create price lists
             if (bRes)
             {
-                SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Taxation)));
-                tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
-                SelectID_Table_Assistant_Form  SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation,DBSync.DBSync.DB_for_Blagajna.m_DBTables,null);
+                SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
+                tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                SelectID_Table_Assistant_Form  SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation,DBSync.DBSync.DB_for_Tangenta.m_DBTables,null);
                 SelectID_Table_dlg.ShowDialog();
                 long id_Taxation = SelectID_Table_dlg.ID;
                 if (id_Taxation>=0)
@@ -86,8 +86,8 @@ namespace Tangenta
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                     {
-                        SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item)));
-                        tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                        SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
+                        tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                         string where_condition = " where PurchasePrice_$_ID = " + ID.ToString() + " ";
                         string selection = @"ID,
                                  PurchasePrice_Item_$$PurchasePricePerUnit,
@@ -99,7 +99,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_i_$$Code
             ";
 
-                        if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false))
+                        if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false))
                         {
                             Edit_PurchasePrice_Item(id_Taxation);
                         }
@@ -122,8 +122,8 @@ namespace Tangenta
             {
                 if (dt_PurchasePrice_Item.Rows.Count > 0)
                 {
-                    SQLTable tbl_PurchasePrice_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(PurchasePrice_Item)));
-                    tbl_PurchasePrice_Item.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                    SQLTable tbl_PurchasePrice_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PurchasePrice_Item)));
+                    tbl_PurchasePrice_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                     string selection = @"ID,
                                  PurchasePrice_Item_$$PurchasePricePerUnit,
                                  PurchasePrice_Item_$_pp_$_Cur_$$Symbol,
@@ -137,7 +137,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_pp_$_myCompany_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
-                    if (this.usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false))
+                    if (this.usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false))
                     {
                         return;
                     }
@@ -156,8 +156,8 @@ namespace Tangenta
                             object ores = null;
                             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                             {
-                                SQLTable tbl_PurchasePrice_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(PurchasePrice_Item)));
-                                tbl_PurchasePrice_Item.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                                SQLTable tbl_PurchasePrice_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PurchasePrice_Item)));
+                                tbl_PurchasePrice_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                                 string selection = @"ID,
                                  PurchasePrice_Item_$$PurchasePricePerUnit,
                                  PurchasePrice_Item_$_pp_$_Cur_$$Symbol,
@@ -171,7 +171,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_pp_$_myCompany_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
-                                if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false))
+                                if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false))
                                 {
                                     return;
                                 }
@@ -206,8 +206,8 @@ namespace Tangenta
         private void usrc_EditTable_PriceList_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
         {
             string where_condition = " where PurchasePrice_Item_$_pp_$$ID = " + ID.ToString() + " ";
-            SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item)));
-            tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            SQLTable tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
+            tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
             string selection = @"ID,
                                  PurchasePrice_Item_$$PurchasePricePerUnit,
                                  PurchasePrice_Item_$_pp_$_Cur_$$Symbol,
@@ -218,7 +218,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_i_$$Code
 ";
 
-            if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Blagajna.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false))
+            if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false))
             {
 
             }

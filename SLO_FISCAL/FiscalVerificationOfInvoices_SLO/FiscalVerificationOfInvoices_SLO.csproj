@@ -254,7 +254,7 @@
     <Content Include="Resources\TAX_Office_Transmission_ERROR.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DB_PLATFORM\DBTypes\DBTypes.csproj">
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3C726999-1AD1-4321-8D63-D1136A3F071C}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
@@ -266,11 +266,11 @@
       <Project>{1494CE99-385C-42CC-8FFF-75597007DA72}</Project>
       <Name>UniversalInvoice</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+    <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>

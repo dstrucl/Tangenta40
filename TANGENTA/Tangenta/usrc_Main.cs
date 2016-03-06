@@ -15,9 +15,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SQLTableControl;
+using CodeTables;
 using LanguageControl;
-using BlagajnaTableClass;
+using TangentaTableClass;
 using InvoiceDB;
 using UpgradeDB;
 
@@ -104,7 +104,7 @@ namespace Tangenta
 
                         //    XMessage.Box.Show(Program.MainForm, lngRPM.s_No_CompanyData, "!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information, System.Windows.Forms.MessageBoxDefaultButton.Button1);
                         //    DialogResult dres = DialogResult.Ignore;
-                        //    Form_MyCompany_Person_Data_Edit edt_my_company_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Blagajna.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany))));
+                        //    Form_MyCompany_Person_Data_Edit edt_my_company_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany))));
                         //    dres = edt_my_company_dlg.ShowDialog();
                         //    if (dres == DialogResult.OK)
                         //    {

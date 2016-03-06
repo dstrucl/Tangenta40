@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_StockItem_Edit));
             this.lbl_Item_Stock = new System.Windows.Forms.Label();
             this.lbl_Item = new System.Windows.Forms.Label();
-            this.m_usrc_EditTable = new SQLTableControl.TableDocking_Form.usrc_EditTable();
+            this.m_usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.SuspendLayout();
             // 
             // lbl_Item_Stock
@@ -69,12 +69,12 @@
             this.m_usrc_EditTable.Title = "";
             this.m_usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
             this.m_usrc_EditTable.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.m_usrc_EditTable.FillTable += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.m_usrc_EditTable_FillTable);
-            this.m_usrc_EditTable.SetInputControlProperties += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_SetInputControlProperties(this.m_usrc_EditTable_SetInputControlProperties);
-            this.m_usrc_EditTable.after_New += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_New(this.m_usrc_EditTable_after_New);
-            this.m_usrc_EditTable.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.m_usrc_EditTable_after_InsertInDataBase);
-            this.m_usrc_EditTable.after_UpdateDataBase += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.m_usrc_EditTable_after_UpdateDataBase);
-            this.m_usrc_EditTable.RowReferenceFromTable_Check_NoChangeToOther += new SQLTableControl.TableDocking_Form.usrc_EditTable.delegate_RowReferenceFromTable_Check_NoChangeToOther(this.m_usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther);
+            this.m_usrc_EditTable.FillTable += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.m_usrc_EditTable_FillTable);
+            this.m_usrc_EditTable.SetInputControlProperties += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_SetInputControlProperties(this.m_usrc_EditTable_SetInputControlProperties);
+            this.m_usrc_EditTable.after_New += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_New(this.m_usrc_EditTable_after_New);
+            this.m_usrc_EditTable.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.m_usrc_EditTable_after_InsertInDataBase);
+            this.m_usrc_EditTable.after_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.m_usrc_EditTable_after_UpdateDataBase);
+            this.m_usrc_EditTable.RowReferenceFromTable_Check_NoChangeToOther += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_RowReferenceFromTable_Check_NoChangeToOther(this.m_usrc_EditTable_RowReferenceFromTable_Check_NoChangeToOther);
             // 
             // Form_StockItem_Edit
             // 
@@ -96,7 +96,7 @@
 
         #endregion
 
-        private SQLTableControl.TableDocking_Form.usrc_EditTable m_usrc_EditTable;
+        private CodeTables.TableDocking_Form.usrc_EditTable m_usrc_EditTable;
         private System.Windows.Forms.Label lbl_Item_Stock;
         private System.Windows.Forms.Label lbl_Item;
 

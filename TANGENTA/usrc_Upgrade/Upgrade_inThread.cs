@@ -10,8 +10,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using SQLTableControl;
-using BlagajnaTableClass;
+using CodeTables;
+using TangentaTableClass;
 using DBConnectionControl40;
 using LanguageControl;
 using DBTypes;
@@ -1423,7 +1423,7 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_05_to_1_06(object obj, ref string Err)
         {
-            //DBSync.DBSync.DB_for_Blagajna
+            //DBSync.DBSync.DB_for_Tangenta
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 if (DBSync.DBSync.Create_VIEWs())
@@ -1449,11 +1449,11 @@ namespace UpgradeDB
                 List<DataTable> dt_List = new List<DataTable>();
                 string Message_Title = " 1.04 -> 1.05";
 
-                SQLTable tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(PersonData));
+                SQLTable tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PersonData));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 SQLTable xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_PersonData = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1468,11 +1468,11 @@ namespace UpgradeDB
 
                 Err = null;
                 Message_Title = " 1.04 -> 1.05";
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_myCompany = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1483,11 +1483,11 @@ namespace UpgradeDB
                 }
                 TableDataItem_List.Add(dt_myCompany);
 
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_Atom_myCompany = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1498,11 +1498,11 @@ namespace UpgradeDB
                 }
                 TableDataItem_List.Add(dt_Atom_myCompany);
 
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_Price_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1513,10 +1513,10 @@ namespace UpgradeDB
                 }
                 TableDataItem_List.Add(dt_Price_Item);
 
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_SimpleItem));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem));
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1526,10 +1526,10 @@ namespace UpgradeDB
                 }
                 TableDataItem_List.Add(dt_Price_SimpleItem);
 
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationAccount));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount));
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_OrganisationAccount = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1540,10 +1540,10 @@ namespace UpgradeDB
                 TableDataItem_List.Add(dt_OrganisationAccount);
 
 
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_Price_SimpleItem));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Price_SimpleItem));
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_Atom_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1554,10 +1554,10 @@ namespace UpgradeDB
                 TableDataItem_List.Add(dt_Atom_Price_SimpleItem);
 
 
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_ProformaInvoice_Price_Item_Stock));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ProformaInvoice_Price_Item_Stock));
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_Atom_ProformaInvoice_Price_Item_Stock = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1569,11 +1569,11 @@ namespace UpgradeDB
 
 
                 Err = null;
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.DBSettings));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DBSettings));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_DBSettings = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1585,11 +1585,11 @@ namespace UpgradeDB
                 TableDataItem_List.Add(dt_DBSettings);
 
                 Err = null;
-                tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(BlagajnaTableClass.BaseCurrency));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.BaseCurrency));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
-                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+                xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 TableDataItem dt_BaseCurrency = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
@@ -1603,11 +1603,11 @@ namespace UpgradeDB
 
                 wfp_ui_thread.Message(lngRPM.s_BackupOfExistingDatabase.s + DBSync.DBSync.DataBase + " -> " + DBSync.DBSync.DataBase_BackupTemp);
 
-                if (DBSync.DBSync.DB_for_Blagajna.DataBase_Make_BackupTemp())
+                if (DBSync.DBSync.DB_for_Tangenta.DataBase_Make_BackupTemp())
                 {
-                    if (DBSync.DBSync.DB_for_Blagajna.DataBase_Delete())
+                    if (DBSync.DBSync.DB_for_Tangenta.DataBase_Delete())
                     {
-                        if (DBSync.DBSync.DB_for_Blagajna.DataBase_Create())
+                        if (DBSync.DBSync.DB_for_Tangenta.DataBase_Create())
                         {
                             wfp_ui_thread.Message(lngRPM.s_ImportData.s);
                             if (Write_TableDataItem_List(m_eUpgrade, m_Old_tables_1_04_to_1_05))
@@ -2066,11 +2066,11 @@ namespace UpgradeDB
             wfp_ui_thread.Start();
 
             List<DataTable> dt_List = new List<DataTable>();
-            SQLTable tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_Item));
+            SQLTable tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item));
             wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + " 1.01 -> 1.02");
             wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
             SQLTable xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
             TableDataItem dt_Price_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
             if (Err != null)
             {
@@ -2081,10 +2081,10 @@ namespace UpgradeDB
             }
             TableDataItem_List.Add(dt_Price_Item);
 
-            tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Price_SimpleItem));
+            tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem));
             wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
             xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
             TableDataItem dt_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
             if (Err != null)
             {
@@ -2094,10 +2094,10 @@ namespace UpgradeDB
             }
             TableDataItem_List.Add(dt_Price_SimpleItem);
 
-            tbl = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationAccount));
+            tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount));
             wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
             xtbl = new SQLTable(tbl);
-            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Blagajna.m_DBTables.items);
+            xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
             TableDataItem dt_OrganisationAccount = new TableDataItem(xtbl, ref dt_List, null, ref Err);
             if (Err != null)
             {
@@ -2110,11 +2110,11 @@ namespace UpgradeDB
 
             wfp_ui_thread.Message(lngRPM.s_BackupOfExistingDatabase.s + DBSync.DBSync.DataBase + " -> " + DBSync.DBSync.DataBase_BackupTemp);
 
-            if (DBSync.DBSync.DB_for_Blagajna.DataBase_Make_BackupTemp())
+            if (DBSync.DBSync.DB_for_Tangenta.DataBase_Make_BackupTemp())
             {
-                if (DBSync.DBSync.DB_for_Blagajna.DataBase_Delete())
+                if (DBSync.DBSync.DB_for_Tangenta.DataBase_Delete())
                 {
-                    if (DBSync.DBSync.DB_for_Blagajna.DataBase_Create())
+                    if (DBSync.DBSync.DB_for_Tangenta.DataBase_Create())
                     {
                         wfp_ui_thread.Message(lngRPM.s_ImportData.s);
                         if (Write_TableDataItem_List(m_eUpgrade, m_Old_tables_1_04_to_1_05))
@@ -2130,10 +2130,10 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_0_to_1_01(object o, ref string Err)
         {
-            SQLTable tbl_Logo = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Logo));
+            SQLTable tbl_Logo = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Logo));
             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Logo.sql_CreateTable, null, ref Err))
             {
-                SQLTable tbl_Atom_Logo = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_Logo));
+                SQLTable tbl_Atom_Logo = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Logo));
                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_Logo.sql_CreateTable, null, ref Err))
                 {
                     string sql = "alter table OrganisationData add column Logo_ID NULL references Logo(ID)";
@@ -2148,10 +2148,10 @@ namespace UpgradeDB
                                 sql = "DROP VIEW Atom_OrganisationData_VIEW";
                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                 {
-                                    SQLTable tbl_OrganisationData = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(OrganisationData));
+                                    SQLTable tbl_OrganisationData = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationData));
                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_OrganisationData.sql_CreateView, null, ref Err))
                                     {
-                                        SQLTable tbl_Atom_OrganisationData = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_OrganisationData));
+                                        SQLTable tbl_Atom_OrganisationData = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_OrganisationData));
                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_OrganisationData.sql_CreateView, null, ref Err))
                                         {
 
@@ -2291,38 +2291,38 @@ namespace UpgradeDB
                                                         sql = "DROP VIEW myCompany_Person_VIEW";
                                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                         {
-                                                            SQLTable tbl_myCompany_Person = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany_Person));
+                                                            SQLTable tbl_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany_Person));
                                                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_myCompany_Person.sql_CreateView, null, ref Err))
                                                             {
                                                                 sql = "DROP VIEW myCompany_VIEW";
                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                 {
-                                                                    SQLTable tbl_myCompany = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(myCompany));
+                                                                    SQLTable tbl_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany));
                                                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_myCompany.sql_CreateView, null, ref Err))
                                                                     {
                                                                         sql = "DROP VIEW Atom_myCompany_Person_VIEW";
                                                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                         {
-                                                                            SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
+                                                                            SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
                                                                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myCompany_Person.sql_CreateView, null, ref Err))
                                                                             {
                                                                                 sql = "DROP VIEW Atom_myCompany_VIEW";
                                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                 {
-                                                                                    SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Atom_myCompany));
+                                                                                    SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany));
                                                                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myCompany.sql_CreateView, null, ref Err))
                                                                                     {
 
                                                                                         sql = "DROP VIEW ProformaInvoice_VIEW";
                                                                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                         {
-                                                                                            SQLTable tbl_ProformaInvoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(ProformaInvoice));
+                                                                                            SQLTable tbl_ProformaInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(ProformaInvoice));
                                                                                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_ProformaInvoice.sql_CreateView, null, ref Err))
                                                                                             {
                                                                                                 sql = "DROP VIEW JOURNAL_ProformaInvoice_VIEW";
                                                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                                 {
-                                                                                                    SQLTable tbl_JOURNAL_ProformaInvoice = DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(JOURNAL_ProformaInvoice));
+                                                                                                    SQLTable tbl_JOURNAL_ProformaInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_ProformaInvoice));
                                                                                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_JOURNAL_ProformaInvoice.sql_CreateView, null, ref Err))
                                                                                                     {
                                                                                                         if (Set_DatBase_Version("1.01"))
@@ -2823,26 +2823,26 @@ namespace UpgradeDB
             string xTextValue = null;
             bool xReadOnly = false;
             bUpgradeDone = false;
-            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Blagajna.Settings.Version.Name,
+            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
                                    ref xTextValue,
                                    ref xReadOnly,
                                    ref Err))
             {
                 case fs.enum_GetDBSettings.DBSettings_OK:
-                    if (xTextValue.Equals(DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue))
+                    if (xTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
                     {
                         return true;
                     }
                     else
                     {
-                        if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            bUpgradeDone = UpgradeDB(xTextValue, DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue, ref Err);
+                            bUpgradeDone = UpgradeDB(xTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
                             return true;
                         }
                         else
                         {
-                            Err = "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Blagajna.Settings.Version.TextValue;
+                            Err = "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
                             return false;
                         }
                     }
@@ -2918,7 +2918,7 @@ namespace UpgradeDB
         {
             string xTextValue = null;
             bool xReadOnly = false;
-            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Blagajna.Settings.LastInvoiceType.Name,
+            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.LastInvoiceType.Name,
                                    ref xTextValue,
                                    ref xReadOnly,
                                    ref Err))
@@ -2926,7 +2926,7 @@ namespace UpgradeDB
                 case fs.enum_GetDBSettings.DBSettings_OK:
                     if (!xReadOnly)
                     {
-                        DBSync.DBSync.DB_for_Blagajna.Settings.LastInvoiceType.TextValue = xTextValue;
+                        DBSync.DBSync.DB_for_Tangenta.Settings.LastInvoiceType.TextValue = xTextValue;
                     }
                     return true;
 

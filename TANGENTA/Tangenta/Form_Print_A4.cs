@@ -6,11 +6,11 @@
 */
 #endregion
 
-using BlagajnaTableClass;
+using TangentaTableClass;
 using DBTypes;
 using InvoiceDB;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -93,8 +93,8 @@ namespace Tangenta
         }
         private void btn_EditTemplates_Click(object sender, EventArgs e)
         {
-            SQLTable tbl_doc = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(doc)));
-            Form_Templates edt_doc_dlg = new Form_Templates(DBSync.DBSync.DB_for_Blagajna.m_DBTables,
+            SQLTable tbl_doc = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(doc)));
+            Form_Templates edt_doc_dlg = new Form_Templates(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_doc,
                                                             "doc_$$Name");
             if (edt_doc_dlg.ShowDialog() == DialogResult.OK)
@@ -114,11 +114,11 @@ namespace Tangenta
             string Err = null;
             string sql = "update doc set bDefault = 0";
             object objres = null;
-            if (DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null, ref objres, ref Err))
+            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null, ref objres, ref Err))
             {
                 sql = "update doc set bDefault = 1 where id = " + id.ToString();
                 objres = null;
-                if (DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null, ref objres, ref Err))
+                if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null, ref objres, ref Err))
                 {
                     return true;
                 }
@@ -141,7 +141,7 @@ namespace Tangenta
             string Err = null;
             string sql = "select doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where ID = " + id.ToString();
             DataTable dt = new DataTable();
-            if (DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.ReadDataTable(ref dt,sql,ref Err))
+            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt,sql,ref Err))
             {
                 if (dt.Rows.Count>0)
                 {
@@ -200,7 +200,7 @@ namespace Tangenta
             bool Commpressed = false;
             string sql = "select id,doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where doc_$$bDefault = 1";
             DataTable dt = new DataTable();
-            if (DBSync.DBSync.DB_for_Blagajna.m_DBTables.m_con.ReadDataTable(ref dt, sql, ref Err))
+            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {

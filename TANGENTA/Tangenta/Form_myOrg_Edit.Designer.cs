@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_myOrg_Edit));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btn_BankAccounts = new System.Windows.Forms.Button();
-            this.usrc_EditRow = new SQLTableControl.TableDocking_Form.usrc_EditRow();
+            this.usrc_EditRow = new CodeTables.TableDocking_Form.usrc_EditRow();
             this.dgvx_MyCompany = new DataGridView_2xls.DataGridView2xls();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
@@ -93,8 +93,8 @@
             this.usrc_EditRow.Title = "";
             this.usrc_EditRow.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditRow.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditRow.after_InsertInDataBase += new SQLTableControl.TableDocking_Form.usrc_EditRow.delegate_after_InsertInDataBase(this.usrc_EditRow_after_InsertInDataBase);
-            this.usrc_EditRow.Update += new SQLTableControl.TableDocking_Form.usrc_EditRow.delegate_Update(this.usrc_EditTable_Update);
+            this.usrc_EditRow.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_after_InsertInDataBase(this.usrc_EditRow_after_InsertInDataBase);
+            this.usrc_EditRow.Update += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_Update(this.usrc_EditTable_Update);
             // 
             // dgvx_MyCompany
             // 
@@ -172,7 +172,7 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private SQLTableControl.TableDocking_Form.usrc_EditRow usrc_EditRow;
+        private CodeTables.TableDocking_Form.usrc_EditRow usrc_EditRow;
         private DataGridView_2xls.DataGridView2xls dgvx_MyCompany;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;

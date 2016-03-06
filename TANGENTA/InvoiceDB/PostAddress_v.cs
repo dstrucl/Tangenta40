@@ -7,7 +7,7 @@
 #endregion
 using DBConnectionControl40;
 using DBTypes;
-using SQLTableControl;
+using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.Data;

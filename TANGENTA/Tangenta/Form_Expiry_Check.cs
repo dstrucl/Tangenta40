@@ -6,10 +6,10 @@
 */
 #endregion
 
-using BlagajnaTableClass;
+using TangentaTableClass;
 using InvoiceDB;
 using LanguageControl;
-using SQLTableControl;
+using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -95,8 +95,8 @@ namespace Tangenta
                 if (fs.ExpiryCheckData(ref dt_ExpiryCheck))
                 {
                     dgvx_ExpiryCheck.DataSource = dt_ExpiryCheck;
-                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Stock)));
-                    tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ExpiryCheck, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
+                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
+                    tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ExpiryCheck, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 }
                 else
                 {
@@ -107,8 +107,8 @@ namespace Tangenta
             else
             {
                 dgvx_ExpiryCheck.DataSource = dt_ExpiryCheck;
-                SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Blagajna.m_DBTables.GetTable(typeof(Stock)));
-                tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ExpiryCheck, DBSync.DBSync.DB_for_Blagajna.m_DBTables);
+                SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
+                tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ExpiryCheck, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
             }
         }
 

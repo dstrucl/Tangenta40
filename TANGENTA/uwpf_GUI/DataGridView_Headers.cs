@@ -11,13 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Data;
-using SQLTableControl;
+using CodeTables;
 
 namespace uwpf_GUI
 {
     public static class DataGridView_Headers
     {
-        public static void SetVIEW_DataGridViewImageColumns_Headers(DataGrid dgvx, SQLTableControl.DBTableControl xdbTables,SQLTableControl.SQLTable tbl)
+        public static void SetVIEW_DataGridViewImageColumns_Headers(DataGrid dgvx, CodeTables.DBTableControl xdbTables,CodeTables.SQLTable tbl)
         {
             foreach (DataGridColumn col in dgvx.Columns)
             {
@@ -56,7 +56,7 @@ namespace uwpf_GUI
             }
         }
 
-        private static Column FindColumn(SQLTableControl.SQLTable tbl,string column_name)
+        private static Column FindColumn(CodeTables.SQLTable tbl,string column_name)
         {
             foreach (Column col in tbl.Column)
             {

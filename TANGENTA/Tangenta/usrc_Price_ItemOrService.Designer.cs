@@ -30,7 +30,7 @@
         {
             this.lbl_PriceListType = new System.Windows.Forms.Label();
             this.txt_PriceListType = new System.Windows.Forms.TextBox();
-            this.usrc_EditTable = new SQLTableControl.TableDocking_Form.usrc_EditTable();
+            this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.SuspendLayout();
             // 
             // lbl_PriceListType
@@ -83,6 +83,6 @@
 
         private System.Windows.Forms.Label lbl_PriceListType;
         private System.Windows.Forms.TextBox txt_PriceListType;
-        private SQLTableControl.TableDocking_Form.usrc_EditTable usrc_EditTable;
+        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable;
     }
 }
