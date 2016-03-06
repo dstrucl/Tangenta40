@@ -1085,10 +1085,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(SolutionDir)NetRevisionTool.exe" /info /patch "$(ProjectDir)\Properties"</PreBuildEvent>
+    <PreBuildEvent>"$(SolutionDir)bin\NetRevisionTool.exe" /info /patch "$(ProjectDir)Properties"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)NetRevisionTool.exe" /restore "$(ProjectDir)\Properties"</PostBuildEvent>
+    <PostBuildEvent>"$(SolutionDir)bin\NetRevisionTool.exe" /restore "$(ProjectDir)Properties"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
