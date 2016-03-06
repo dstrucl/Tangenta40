@@ -78,7 +78,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>..\..\Release\</OutputPath>
+    <OutputPath>..\..\..\Release\</OutputPath>
     <BaseAddress>98041856</BaseAddress>
     <Optimize>true</Optimize>
     <FileAlignment>512</FileAlignment>
