@@ -250,7 +250,10 @@ namespace Tangenta
             try
             {
                 int iRowsCount = -1;
-                string sInvoiceCondition = " and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString() + " ";
+                string scond = m_usrc_InvoiceTable.cond.Replace("$_inv.ID","$_inv_$$ID");
+                scond = scond.Replace("$_pinv.FinancialYear", "$_pinv_$$FinancialYear");
+
+                string sInvoiceCondition = " and (JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString() + " or JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() +  ") ";
                 string sql = @" select 
                             JOURNAL_ProformaInvoice_$_pinv_$$ID as ID,
                             JOURNAL_ProformaInvoice_$_pinv_$$Draft,
@@ -286,7 +289,7 @@ namespace Tangenta
                             JOURNAL_ProformaInvoice_$_pinv_$$Discount,
                             JOURNAL_ProformaInvoice_$_pinv_$$EndSum,
                             JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID
-                            from JOURNAL_ProformaInvoice_VIEW " + m_usrc_InvoiceTable.cond + sInvoiceCondition + " order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
+                            from JOURNAL_ProformaInvoice_VIEW " + scond + sInvoiceCondition + " order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
                 string Err = null;
                 bool bRes = DBSync.DBSync.ReadDataTable(ref dt_XML_Invoices, sql, m_usrc_InvoiceTable.lpar_ExtraCondition, ref Err);
 
@@ -318,6 +321,7 @@ namespace Tangenta
                         int ic_Organisation_City = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg_$$City");
                         int ic_PaymentType = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$PaymentType");
 
+                        dt_Dokument.Clear();
                         dt_Dokument.Columns["Datum_dokumenta"].DataType = typeof(string);
                         dt_Dokument.Columns["Datum_dur"].DataType = typeof(string);
                         dt_Dokument.Columns["Datum_prejema_izdaje"].DataType = typeof(string);
@@ -375,14 +379,22 @@ namespace Tangenta
                                     //string gl22_OPOMBE = "";
                                     bool bCash = false;
 
-                                    if (((string)dt_XML_Invoices.Rows[i][ic_PaymentType]).ToLower().Contains("gotovina"))
+                                    object oPaymentType = dt_XML_Invoices.Rows[i][ic_PaymentType];
+                                    if (oPaymentType is string)
                                     {
-                                        bCash = true;
-                                        gl12_Znesek_placila_z_gotovino_skupaj_z_DDV = gl9_Znesek_Racuna_skupaj_z_DDV;
-                                    }
-                                    else if (((string)dt_XML_Invoices.Rows[i][ic_PaymentType]).ToLower().Contains("kartica"))
-                                    {
-                                        gl13_Znesek_placila_s_placilno_kartico_skupaj_z_DDV = gl9_Znesek_Racuna_skupaj_z_DDV;
+                                        if (((string)oPaymentType).ToLower().Contains("gotovina"))
+                                        {
+                                            bCash = true;
+                                            gl12_Znesek_placila_z_gotovino_skupaj_z_DDV = gl9_Znesek_Racuna_skupaj_z_DDV;
+                                        }
+                                        else if (((string)oPaymentType).ToLower().Contains("kartica"))
+                                        {
+                                            gl13_Znesek_placila_s_placilno_kartico_skupaj_z_DDV = gl9_Znesek_Racuna_skupaj_z_DDV;
+                                        }
+                                        else
+                                        {
+                                            gl14_Znesek_placila_na_drug_nacin_skupaj_z_DDV = gl9_Znesek_Racuna_skupaj_z_DDV;
+                                        }
                                     }
                                     else
                                     {

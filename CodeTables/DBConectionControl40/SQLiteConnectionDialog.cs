@@ -138,6 +138,11 @@ namespace DBConnectionControl40
         private void btn_SelectFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog fdlg = new OpenFileDialog();
+            string sDirectory = cmbR_FilePath.Text;
+            if (Directory.Exists(sDirectory))
+            {
+                fdlg.InitialDirectory = sDirectory;
+            }
             if (fdlg.ShowDialog(this) == DialogResult.OK)
             {
                 string sFileName = Path.GetFileName(fdlg.FileName);
