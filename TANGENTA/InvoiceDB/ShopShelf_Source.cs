@@ -81,6 +81,64 @@ namespace InvoiceDB
             Stock_Data_List.Clear();
         }
 
+        private static bool IsNull_Stock_ExpiryDate(Stock_Data z)
+        {
+            if (z == null)
+            {
+                return true;
+            }
+            else
+            {
+                if (z.Stock_ExpiryDate == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        private static int Compare_Stock_ExpiryDate(Stock_Data x, Stock_Data y)
+        {
+            if (IsNull_Stock_ExpiryDate(x))
+            {
+                if (IsNull_Stock_ExpiryDate(y))
+                {
+                    // If x is null and y is null, they're
+                    // equal. 
+                    return 0;
+                }
+                else
+                {
+                    // If x is null and y is not null, y
+                    // is greater. 
+                    return -1;
+                }
+            }
+            else
+            {
+                // If x is not null...
+                //
+                if (IsNull_Stock_ExpiryDate(y))
+                // ...and y is null, x is greater.
+                {
+                    return 1;
+                }
+                else
+                {
+                    // ...and y is not null, compare the 
+                    // lengths of the two strings.
+                    //
+                    int retval = x.Stock_ExpiryDate.v.CompareTo(y.Stock_ExpiryDate.v);
+                    return retval;
+                }
+            }
+
+        }
+
+
         public void Add_Stock_Data(Item_Data xItem_Data, decimal xFactoryQuantity,decimal xStockQuantity,  bool b_from_factory)
         {
             if (b_from_factory)
@@ -96,7 +154,7 @@ namespace InvoiceDB
             else
             {
                 decimal dquantity = xStockQuantity;
-                xItem_Data.Stock_Data_List.Sort((x, y) => x.Stock_ExpiryDate.v.CompareTo(y.Stock_ExpiryDate.v));
+                xItem_Data.Stock_Data_List.Sort((x, y) => Compare_Stock_ExpiryDate(x,y));
                 foreach (Stock_Data sd in xItem_Data.Stock_Data_List)
                 {
                     if (dquantity > 0)
