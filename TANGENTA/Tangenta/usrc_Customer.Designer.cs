@@ -157,7 +157,7 @@
             this.Controls.Add(this.txt_Buyer);
             this.Controls.Add(this.lbl_Buyer);
             this.Name = "usrc_Customer";
-            this.Size = new System.Drawing.Size(912, 32);
+            this.Size = new System.Drawing.Size(912, 33);
             this.ResumeLayout(false);
             this.PerformLayout();
 
