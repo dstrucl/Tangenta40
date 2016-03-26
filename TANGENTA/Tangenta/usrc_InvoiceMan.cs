@@ -28,8 +28,8 @@ namespace Tangenta
         Form m_pparent = null;
         public List<Tangenta.usrc_Invoice.InvoiceType> List_InvoiceType = new List<Tangenta.usrc_Invoice.InvoiceType>();
         public Tangenta.usrc_Invoice.InvoiceType InvoiceType_Invoice = null;
-        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_Invoice_From_ProformaInvoice = null;
-        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_ProformaInvoice = null;
+        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_Invoice_From_DocInvoice = null;
+        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_DocInvoice = null;
         public DataTable dt_FinancialYears = new DataTable();
 
         public usrc_InvoiceMan()
@@ -91,10 +91,10 @@ namespace Tangenta
             m_pparent = pparent;
             InvoiceType_Invoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.Invoice);
             List_InvoiceType.Add(InvoiceType_Invoice);
-            InvoiceType_Invoice_From_ProformaInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice_From_ProformaInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
-            List_InvoiceType.Add(InvoiceType_Invoice_From_ProformaInvoice);
-            InvoiceType_ProformaInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_ProformaInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
-            List_InvoiceType.Add(InvoiceType_ProformaInvoice);
+            InvoiceType_Invoice_From_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice_From_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.DocInvoice);
+            List_InvoiceType.Add(InvoiceType_Invoice_From_DocInvoice);
+            InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.DocInvoice);
+            List_InvoiceType.Add(InvoiceType_DocInvoice);
             this.cmb_InvoiceType.DataSource = null;
             this.cmb_InvoiceType.DataSource = List_InvoiceType;
             this.cmb_InvoiceType.DisplayMember = "InvoiceType_Text";
@@ -134,7 +134,7 @@ namespace Tangenta
         private bool SetFinancialYears()
         {
             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
-            string sql = "select distinct FinancialYear from ProformaInvoice";
+            string sql = "select distinct FinancialYear from DocInvoice";
             string Err = null;
             dt_FinancialYears.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_FinancialYears,sql,ref Err))
@@ -215,18 +215,18 @@ namespace Tangenta
         }
 
 
-        private void m_usrc_Invoice_ProformaInvoiceSaved(long ProformaInvoice_id)
+        private void m_usrc_Invoice_DocInvoiceSaved(long DocInvoice_id)
         {
             splitContainer1.Panel2Collapsed = false;
             SetMode(eMode.Shops_and_InvoiceTable);
             this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear);
         }
 
-        private void m_usrc_InvoiceTable_SelectedInvoiceChanged(long ProformaInvoice_ID,bool bInitialise)
+        private void m_usrc_InvoiceTable_SelectedInvoiceChanged(long DocInvoice_ID,bool bInitialise)
         {
-            if (ProformaInvoice_ID >= 0)
+            if (DocInvoice_ID >= 0)
             {
-                if (m_usrc_Invoice.Init(m_pparent, this, ProformaInvoice_ID, bInitialise))
+                if (m_usrc_Invoice.Init(m_pparent, this, DocInvoice_ID, bInitialise))
                 {
                 }
             }

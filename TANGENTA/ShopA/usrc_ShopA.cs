@@ -67,12 +67,12 @@ namespace ShopA
             }
             dt_Item_Price.Clear();
             this.dgvx_ShopA.DataSource = null;
-            long xProformaInvoice_ID = m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID;
-            if (m_ShopABC.m_CurrentInvoice.StornoProformaInvoice_ID_v != null)
+            long xDocInvoice_ID = m_ShopABC.m_CurrentInvoice.DocInvoice_ID;
+            if (m_ShopABC.m_CurrentInvoice.StornoDocInvoice_ID_v != null)
             {
-                xProformaInvoice_ID = m_ShopABC.m_CurrentInvoice.StornoProformaInvoice_ID_v.v;
+                xDocInvoice_ID = m_ShopABC.m_CurrentInvoice.StornoDocInvoice_ID_v.v;
             }
-            if (dbfunc.Read_ShopA_Price_Item_Table(xProformaInvoice_ID, ref dt_Item_Price))
+            if (dbfunc.Read_ShopA_Price_Item_Table(xDocInvoice_ID, ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
                 t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
@@ -83,11 +83,11 @@ namespace ShopA
         private void HideNotImportantColumns()
         {
             this.dgvx_ShopA.Columns["ID"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_pinv_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_dinv_$$ID"].Visible = false;
             this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_tax_$$ID"].Visible = false;
             this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$ID"].Visible = false;
             this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$$ID"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_pinv_$$Draft"].Visible = false;
+            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_dinv_$$Draft"].Visible = false;
             this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol"].Visible = false;
             this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces"].Visible = false;
         }
@@ -96,7 +96,7 @@ namespace ShopA
         {
             dt_Item_Price.Clear();
             this.dgvx_ShopA.DataSource = null;
-            if (dbfunc.Read_ShopA_Price_Item_Table(m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID,ref dt_Item_Price))
+            if (dbfunc.Read_ShopA_Price_Item_Table(m_ShopABC.m_CurrentInvoice.DocInvoice_ID,ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
                 t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
@@ -114,8 +114,8 @@ namespace ShopA
                         oDecimalPlaces = null;
                     }
                     m_Atom_ItemShopA_Price.ID.type_v = tf.set_long(dt_Item_Price.Rows[0]["ID"]);
-                    m_Atom_ItemShopA_Price.m_ProformaInvoice.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_pinv_$$ID"]);
-                    m_Atom_ItemShopA_Price.m_ProformaInvoice.Draft.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_pinv_$$Draft"]);
+                    m_Atom_ItemShopA_Price.m_DocInvoice.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_dinv_$$ID"]);
+                    m_Atom_ItemShopA_Price.m_DocInvoice.Draft.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_dinv_$$Draft"]);
                     m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$$ID"]);
                     m_Atom_ItemShopA_Price.m_Atom_ItemShopA.Name.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$$Name"]);
                     m_Atom_ItemShopA_Price.m_Atom_ItemShopA.Name.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$$Description"]);
@@ -170,8 +170,8 @@ namespace ShopA
         }
         /*
                         Atom_ItemShopA_Price.ID,
-                                    Atom_ItemShopA_Price_$_pinv_$$ID,
-                                    Atom_ItemShopA_Price_$_pinv_$$Draft,
+                                    Atom_ItemShopA_Price_$_dinv_$$ID,
+                                    Atom_ItemShopA_Price_$_dinv_$$Draft,
                                     Atom_ItemShopA_Price_$_aisha_$$ID,
                                     Atom_ItemShopA_Price_$_aisha_$$Name,
                                     Atom_ItemShopA_Price_$_aisha_$$Description,
@@ -193,8 +193,8 @@ namespace ShopA
         {
             DataRow dr = dt_Item_Price.NewRow();
             dr["ID"] = m_Atom_ItemShopA_Price.ID.type_v.v;
-            dr["Atom_ItemShopA_Price_$_pinv_$$ID"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_ProformaInvoice.ID.type_v);
-            dr["Atom_ItemShopA_Price_$_pinv_$$Draft"] = 1;
+            dr["Atom_ItemShopA_Price_$_dinv_$$ID"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_DocInvoice.ID.type_v);
+            dr["Atom_ItemShopA_Price_$_dinv_$$Draft"] = 1;
             dr["Atom_ItemShopA_Price_$_aisha_$$Name"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.Name.type_v);
             dr["Atom_ItemShopA_Price_$_aisha_$$Description"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.Description.type_v);
             dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$ID"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Taxation.ID.type_v);

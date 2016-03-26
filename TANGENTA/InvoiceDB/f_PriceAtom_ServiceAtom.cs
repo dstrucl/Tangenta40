@@ -19,7 +19,7 @@ namespace InvoiceDB
     public static class f_Atom_Price_ShopBItem
     {
         public static bool Get(long Price_SimpleItem_ID,
-                                 long ProformaInvoice_ID,
+                                 long DocInvoice_ID,
                                  ref long Atom_Price_SimpleItem_ID,
                                  ref int Quantity,
                                  ref decimal RetailSimpleItemPrice,
@@ -32,7 +32,7 @@ namespace InvoiceDB
                                  ref decimal PriceWithoutTax
                                  )
         {
-            if (Find_Atom_Price_SimpleItem_ID(ProformaInvoice_ID, Price_SimpleItem_ID, ref Atom_Price_SimpleItem_ID, ref Quantity, ref RetailSimpleItemPrice, ref Discount, ref ExtraDiscount, ref taxRate, ref taxName, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice))
+            if (Find_Atom_Price_SimpleItem_ID(DocInvoice_ID, Price_SimpleItem_ID, ref Atom_Price_SimpleItem_ID, ref Quantity, ref RetailSimpleItemPrice, ref Discount, ref ExtraDiscount, ref taxRate, ref taxName, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice))
             {
                 if (Atom_Price_SimpleItem_ID >= 0)
                 {
@@ -99,7 +99,7 @@ namespace InvoiceDB
                                                              Atom_SimpleItem_ID,
                                                              Atom_PriceList_ID,
                                                              Atom_Taxation_ID,
-                                                             ProformaInvoice_ID
+                                                             DocInvoice_ID
                                                             )
                                                             values
                                                             (" + sparam_RetailSimpleItemPrice + @",
@@ -111,7 +111,7 @@ namespace InvoiceDB
                                                              " + Atom_SimpleItem_ID.ToString() + @",
                                                              " + Atom_PriceList_ID.ToString() + @",
                                                              " + Atom_Taxation_ID.ToString() + @",
-                                                             " + ProformaInvoice_ID.ToString() + @"
+                                                             " + DocInvoice_ID.ToString() + @"
                                                             )";
                                     object objretx = null;
                                     string Err = null;
@@ -202,7 +202,7 @@ namespace InvoiceDB
         }
 
         private static bool Find_Atom_Price_SimpleItem_ID(
-                                                          long ProformaInvoice_ID,
+                                                          long DocInvoice_ID,
                                                           long Price_SimpleItem_ID, 
                                                           ref long Atom_Price_SimpleItem_ID,
                                                           ref int Quantity,
@@ -239,7 +239,7 @@ namespace InvoiceDB
 												        Atom_SimpleItem_Name.Name = SimpleItem.Name 
                                 inner join Atom_Taxation on Atom_Price_SimpleItem.Atom_Taxation_ID = Atom_Taxation.ID
                                 inner join Taxation on Taxation.Name = Atom_Taxation.Name and Taxation.Rate = Atom_Taxation.Rate
-                                where SimpleItem.ToOffer = 1 and ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and Price_SimpleItem.ID =  " + Price_SimpleItem_ID.ToString();
+                                where SimpleItem.ToOffer = 1 and DocInvoice_ID = " + DocInvoice_ID.ToString() + " and Price_SimpleItem.ID =  " + Price_SimpleItem_ID.ToString();
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_SimpleItem_ID, ref Err))
             {

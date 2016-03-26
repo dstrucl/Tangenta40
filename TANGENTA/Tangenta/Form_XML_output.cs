@@ -153,42 +153,42 @@ namespace Tangenta
             try
             {
                 int iRowsCount = -1;
-                string sInvoiceCondition = " and JOURNAL_ProformaInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString() +" ";
+                string sInvoiceCondition = " and JOURNAL_DocInvoice_$_jpinvt_$$ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString() +" ";
                 string sql = @" select 
-                            JOURNAL_ProformaInvoice_$_pinv_$$ID as ID,
-                            JOURNAL_ProformaInvoice_$_pinv_$$Draft,
-                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Tax_ID,
-                            JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear,
-                            JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear,
-                            JOURNAL_ProformaInvoice_$$EventTime,
-                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Name,
-                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astrnorg_$$StreetName,
-                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_ahounorg_$$HouseNumber,
-                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_aziporg_$$ZIP,
-                            JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg_$$City,
-                            JOURNAL_ProformaInvoice_$_pinv_$$GrossSum,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acfn_$$FirstName,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acln_$$LastName,
-                            JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$PaymentType,
-                            JOURNAL_ProformaInvoice_$_pinv_$$NetSum,
-                            JOURNAL_ProformaInvoice_$_pinv_$$TaxSum,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_astrnper_$$StreetName,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_ahounper_$$HouseNumber,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_azipper_$$ZIP,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acadrper_$_acitper_$$City,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aphnnper_$$PhoneNumber,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_aemailper_$$Email,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$$DateOfBirth,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_aorg_$$Name,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_aorg_$$Tax_ID,
-                            JOURNAL_ProformaInvoice_$_pinv_$_acusorg_$_aorg_$$Registration_ID
-                            JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Paid,
-                            JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Storno,
-                            JOURNAL_ProformaInvoice_$_pinv_$$Discount,
-                            JOURNAL_ProformaInvoice_$_pinv_$$EndSum,
-                            JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID
-                            from JOURNAL_ProformaInvoice_VIEW " + m_usrc_InvoiceTable.cond +sInvoiceCondition+" order by JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear desc,JOURNAL_ProformaInvoice_$_pinv_$$Draft desc, JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear desc, JOURNAL_ProformaInvoice_$_pinv_$$DraftNumber desc";
+                            JOURNAL_DocInvoice_$_dinv_$$ID as ID,
+                            JOURNAL_DocInvoice_$_dinv_$$Draft,
+                            JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Tax_ID,
+                            JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
+                            JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
+                            JOURNAL_DocInvoice_$$EventTime,
+                            JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Name,
+                            JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astrnorg_$$StreetName,
+                            JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_ahounorg_$$HouseNumber,
+                            JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_aziporg_$$ZIP,
+                            JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg_$$City,
+                            JOURNAL_DocInvoice_$_dinv_$$GrossSum,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
+                            JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType,
+                            JOURNAL_DocInvoice_$_dinv_$$NetSum,
+                            JOURNAL_DocInvoice_$_dinv_$$TaxSum,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acadrper_$_astrnper_$$StreetName,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acadrper_$_ahounper_$$HouseNumber,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acadrper_$_azipper_$$ZIP,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acadrper_$_acitper_$$City,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper_$$PhoneNumber,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper_$$Email,
+                            JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$$DateOfBirth,
+                            JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Name,
+                            JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Tax_ID,
+                            JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Registration_ID
+                            JOURNAL_DocInvoice_$_dinv_$_inv_$$Paid,
+                            JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno,
+                            JOURNAL_DocInvoice_$_dinv_$$Discount,
+                            JOURNAL_DocInvoice_$_dinv_$$EndSum,
+                            JOURNAL_DocInvoice_$_dinv_$_inv_$$ID
+                            from JOURNAL_DocInvoice_VIEW " + m_usrc_InvoiceTable.cond +sInvoiceCondition+" order by JOURNAL_DocInvoice_$_dinv_$$FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
                 string Err = null;
                 bool bRes = DBSync.DBSync.ReadDataTable(ref dt_XML_Invoices, sql, m_usrc_InvoiceTable.lpar_ExtraCondition, ref Err);
                 if (bRes)
@@ -198,20 +198,20 @@ namespace Tangenta
                     if (iRowsCount>0)
                     {
                         int i = 0;
-                        int ic_Invoice_ID = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_pinv_$_inv_$$ID");
+                        int ic_Invoice_ID = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_inv_$$ID");
                         int ic_ID = dt_XML_Invoices.Columns.IndexOf("ID");
-                        int ic_Draft = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_pinv_$$Draft");
-                        int ic_TaxNumber = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Tax_ID");
-                        int ic_FinancialYear = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear");
-                        int ic_NumberInFinancialYear = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear");
-                        int ic_ProformaInvoiceTime = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$$EventTime");
-                        int ic_GrossSum = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_pinv_$$GrossSum");
-                        int ic_Organisation_Name = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Name");
-                        int ic_Organisation_StreetName = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astrnorg_$$StreetName");
-                        int ic_Organisation_HouseNumber = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_ahounorg_$$HouseNumber");
-                        int ic_Organisation_ZIP = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_aziporg_$$ZIP");
-                        int ic_Organisation_City = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg_$$City");
-                        int ic_PaymentType = dt_XML_Invoices.Columns.IndexOf("JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$PaymentType");
+                        int ic_Draft = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
+                        int ic_TaxNumber = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Tax_ID");
+                        int ic_FinancialYear = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$FinancialYear");
+                        int ic_NumberInFinancialYear = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear");
+                        int ic_DocInvoiceTime = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$$EventTime");
+                        int ic_GrossSum = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$GrossSum");
+                        int ic_Organisation_Name = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg_$$Name");
+                        int ic_Organisation_StreetName = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_astrnorg_$$StreetName");
+                        int ic_Organisation_HouseNumber = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_ahounorg_$$HouseNumber");
+                        int ic_Organisation_ZIP = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_aziporg_$$ZIP");
+                        int ic_Organisation_City = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg_$_acitorg_$$City");
+                        int ic_PaymentType = dt_XML_Invoices.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType");
                         for (i=0;i<iRowsCount;i++)
                         {
                             if ((bool)  dt_XML_Invoices.Rows[i][ic_Draft])
@@ -222,7 +222,7 @@ namespace Tangenta
                             {
 
                                 long Invoice_ID = (long)dt_XML_Invoices.Rows[i][ic_Invoice_ID];
-                                long ProformaInvoice_ID = (long)dt_XML_Invoices.Rows[i][ic_ID];
+                                long DocInvoice_ID = (long)dt_XML_Invoices.Rows[i][ic_ID];
                                 string Davcna_Stevilka = (string)dt_XML_Invoices.Rows[i][ic_TaxNumber];
                                 if (!Davcna_Stevilka.ToUpper().Contains("SI"))
                                 {
@@ -230,8 +230,8 @@ namespace Tangenta
                                 }
                                 string gl1_Davcna_stevilka_zavezanca_za_davek = Davcna_Stevilka;
                                 string gl2_Stevilka_racuna = Program.GetInvoiceNumber(false, (int)dt_XML_Invoices.Rows[i][ic_FinancialYear], (int)dt_XML_Invoices.Rows[i][ic_NumberInFinancialYear], -1);
-                                string gl3_Datum_Racuna_DDMMLL = fs.Date_DDMMYYYY((DateTime)dt_XML_Invoices.Rows[i][ic_ProformaInvoiceTime]);
-                                string gl4_Ura_izdaje_racuna_HH_MM = fs.Time_HH_MM(':',(DateTime)dt_XML_Invoices.Rows[i][ic_ProformaInvoiceTime]);
+                                string gl3_Datum_Racuna_DDMMLL = fs.Date_DDMMYYYY((DateTime)dt_XML_Invoices.Rows[i][ic_DocInvoiceTime]);
+                                string gl4_Ura_izdaje_racuna_HH_MM = fs.Time_HH_MM(':',(DateTime)dt_XML_Invoices.Rows[i][ic_DocInvoiceTime]);
                                 string gl5_Oznaka_Poslovne_Enote = "P1";
                                 string gl6_Oznaka_Elektronske_Naprave = "1";
                                 string gl7_Firma_ime_in_sedez_kupca = "";// (string)dt_XML_Invoices.Rows[i][ic_Organisation_Name] + " " + (string)dt_XML_Invoices.Rows[i][ic_Organisation_StreetName] + " " + (string)dt_XML_Invoices.Rows[i][ic_Organisation_HouseNumber];
@@ -263,10 +263,10 @@ namespace Tangenta
                                 {
                                     gl14_Znesek_placila_na_drug_nacin_skupaj_z_DDV = gl9_Znesek_Racuna_skupaj_z_DDV;
                                 }
-                                XML_postavka.Create(ProformaInvoice_ID,
+                                XML_postavka.Create(DocInvoice_ID,
                                                         gl1_Davcna_stevilka_zavezanca_za_davek,
                                                         gl2_Stevilka_racuna,
-                                                        (DateTime)dt_XML_Invoices.Rows[i][ic_ProformaInvoiceTime],
+                                                        (DateTime)dt_XML_Invoices.Rows[i][ic_DocInvoiceTime],
                                                         gl5_Oznaka_Poslovne_Enote,
                                                         gl6_Oznaka_Elektronske_Naprave,
                                                         ref gl10_Obracunan_DDV_po_9_5,
@@ -279,7 +279,7 @@ namespace Tangenta
                                 DataRow dr_IZPIS_RACUNI_GLAVE = dt_IZPIS_RACUNI_GLAVE.NewRow();
                                 dr_IZPIS_RACUNI_GLAVE[Invoices.c_Davcna_stevilka_zavezanca_za_davek] = gl1_Davcna_stevilka_zavezanca_za_davek;
                                 dr_IZPIS_RACUNI_GLAVE[Invoices.c_Stevilka_Racuna] = gl2_Stevilka_racuna;
-                                dr_IZPIS_RACUNI_GLAVE[Invoices.c_Cas_Racuna] = (DateTime)dt_XML_Invoices.Rows[i][ic_ProformaInvoiceTime];
+                                dr_IZPIS_RACUNI_GLAVE[Invoices.c_Cas_Racuna] = (DateTime)dt_XML_Invoices.Rows[i][ic_DocInvoiceTime];
                                 dr_IZPIS_RACUNI_GLAVE[Invoices.c_Oznaka_Poslovne_Enote] = gl5_Oznaka_Poslovne_Enote;
                                 dr_IZPIS_RACUNI_GLAVE[Invoices.c_Oznaka_Elektronske_Naprave] = gl6_Oznaka_Elektronske_Naprave;
                                 dr_IZPIS_RACUNI_GLAVE[Invoices.c_Firma_ime_in_sedez_kupca] = gl7_Firma_ime_in_sedez_kupca;

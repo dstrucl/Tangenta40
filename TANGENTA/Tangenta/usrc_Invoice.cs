@@ -43,8 +43,8 @@ namespace Tangenta
         public delegate void delegate_Storno(bool bStorno);
         public event delegate_Storno Storno = null;
 
-        public delegate void delegate_ProformaInvoiceSaved(long ProformaInvoice_id);
-        public event delegate_ProformaInvoiceSaved aa_ProformaInvoiceSaved;
+        public delegate void delegate_DocInvoiceSaved(long DocInvoice_id);
+        public event delegate_DocInvoiceSaved aa_DocInvoiceSaved;
 
         public delegate void delegate_Customer_Person_Changed(long Customer_Person_ID);
         public event delegate_Customer_Person_Changed aa_Customer_Person_Changed = null;
@@ -94,8 +94,8 @@ namespace Tangenta
         public enum enum_Invoice
         {
             Invoice,
-            ProformaInvoice,
-            Invoice_From_ProformaInvoice
+            DocInvoice,
+            Invoice_From_DocInvoice
         };
 
 
@@ -414,11 +414,11 @@ namespace Tangenta
                     case enum_Invoice.Invoice:
                         m_InvoiceTypeName = "Invoice";
                         break;
-                    case enum_Invoice.Invoice_From_ProformaInvoice:
-                        m_InvoiceTypeName = "Invoice_From_ProformaInvoice";
+                    case enum_Invoice.Invoice_From_DocInvoice:
+                        m_InvoiceTypeName = "Invoice_From_DocInvoice";
                         break;
-                    case enum_Invoice.ProformaInvoice:
-                        m_InvoiceTypeName = "ProformaInvoice";
+                    case enum_Invoice.DocInvoice:
+                        m_InvoiceTypeName = "DocInvoice";
                         break;
                 }
             }
@@ -1413,10 +1413,10 @@ namespace Tangenta
                     return GetCurrentInvoice(ID);
 
 
-                case enum_Invoice.ProformaInvoice:
-                    return GetProformaInvoiceDraft();
-                case enum_Invoice.Invoice_From_ProformaInvoice:
-                    return SelectProformaInvoice();
+                case enum_Invoice.DocInvoice:
+                    return GetDocInvoiceDraft();
+                case enum_Invoice.Invoice_From_DocInvoice:
+                    return SelectDocInvoice();
             }
             return false;
 
@@ -1484,12 +1484,12 @@ namespace Tangenta
 
         }
 
-        private bool GetProformaInvoiceDraft()
+        private bool GetDocInvoiceDraft()
         {
             throw new NotImplementedException();
         }
 
-        private bool SelectProformaInvoice()
+        private bool SelectDocInvoice()
         {
             throw new NotImplementedException();
         }
@@ -1660,10 +1660,10 @@ namespace Tangenta
                     }
                     return;
 
-                case enum_Invoice.ProformaInvoice:
+                case enum_Invoice.DocInvoice:
                     return;
 
-                case enum_Invoice.Invoice_From_ProformaInvoice:
+                case enum_Invoice.Invoice_From_DocInvoice:
                     return;
             }
             return;
@@ -1782,7 +1782,7 @@ namespace Tangenta
             GrossSum = dsum_GrossSum;
             NetSum = dsum_NetSum;
             string sGrossSum = "";
-            if (m_ShopABC.m_CurrentInvoice.StornoProformaInvoice_ID_v == null)
+            if (m_ShopABC.m_CurrentInvoice.StornoDocInvoice_ID_v == null)
             {
                 sGrossSum  = dsum_GrossSum.ToString();
                 this.lbl_Sum.ForeColor = Color.Black;
@@ -1840,7 +1840,7 @@ namespace Tangenta
             DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
             lpar.Add(par_NetSum);
 
-            string sql_SetPrice = "update proformainvoice set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID.ToString();
+            string sql_SetPrice = "update docinvoice set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.DocInvoice_ID.ToString();
             object ores = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
@@ -1876,8 +1876,8 @@ namespace Tangenta
                             // print draft invoice
                             if (UpdateInvoicePriceInDraft())
                             {
-                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.ElectronicDevice_ID);
-                                if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
+                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.DocInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.ElectronicDevice_ID);
+                                if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                                 {
                                     if (m_InvoiceData.FURS_QR_v != null)
                                     {
@@ -1889,9 +1889,9 @@ namespace Tangenta
                                     Form_Payment payment_frm = new Form_Payment(m_InvoiceData);
                                     if (payment_frm.ShowDialog() == DialogResult.OK)
                                     {
-                                        if (aa_ProformaInvoiceSaved != null)
+                                        if (aa_DocInvoiceSaved != null)
                                         {
-                                            aa_ProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID);
+                                            aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.DocInvoice_ID);
                                         }
                                     }
                                 }
@@ -1899,8 +1899,8 @@ namespace Tangenta
                         }
                         else
                         {
-                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
-                            if (m_InvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
+                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.DocInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
+                            if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (m_InvoiceData.FURS_QR_v != null)
                                 {
@@ -1970,9 +1970,9 @@ namespace Tangenta
                                 if (MessageBox.Show(this,sInvoiceToStorno + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                                 {
     
-                                    long Storno_ProformaInvoice_ID = -1;
+                                    long Storno_DocInvoice_ID = -1;
                                     DateTime stornoInvoiceIssueDateTime = new DateTime();
-                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_ProformaInvoice_ID,true, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
+                                    if (m_ShopABC.m_CurrentInvoice.Storno(ref Storno_DocInvoice_ID,true, frm_storno_dlg.m_Reason,ref stornoInvoiceIssueDateTime))
                                     {
                                         if (Storno != null)
                                         {
@@ -1982,8 +1982,8 @@ namespace Tangenta
 
                                     if (Program.b_FVI_SLO)
                                     {
-                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_ProformaInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
-                                        if (xInvoiceData.Read_ProformaInvoice()) // read Proforma Invoice again from DataBase
+                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
+                                        if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                                         {
 
                                             string furs_XML = xInvoiceData.Create_furs_InvoiceXML(true,Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, Properties.Settings.Default.ElectronicDevice_ID, Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID, stornoReferenceInvoiceNumber, stornoReferenceInvoiceIssueDateTime);

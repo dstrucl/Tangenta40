@@ -17,28 +17,28 @@ using System.Threading.Tasks;
 
 namespace InvoiceDB
 {
-    public class ProformaInvoice_Connection_Class
+    public class DocInvoice_Connection_Class
     {
         public long ID = -1;
         public DataTable dt_atom_price_simpleitem = null;
-        public DataTable dt_journal_proformainvoice = null;
+        public DataTable dt_journal_docinvoice = null;
 
-        public bool WriteNew(long new_ProformaInvoice_id)
+        public bool WriteNew(long new_DocInvoice_id)
         {
             foreach (DataRow dr in dt_atom_price_simpleitem.Rows)
             {
-                dr["ProformaInvoice_ID"] = new_ProformaInvoice_id;
+                dr["DocInvoice_ID"] = new_DocInvoice_id;
                 long atom_price_simpleitem_ID = -1;
                 if (!fs.WriteRow("atom_price_simpleitem", dr, null, false, ref atom_price_simpleitem_ID))
                 {
                     return false;
                 }
             }
-            foreach (DataRow dr in dt_journal_proformainvoice.Rows)
+            foreach (DataRow dr in dt_journal_docinvoice.Rows)
             {
-                dr["ProformaInvoice_ID"] = new_ProformaInvoice_id;
-                long journal_proformainvoice_ID = -1;
-                if (!fs.WriteRow("journal_proformainvoice", dr, null, false, ref journal_proformainvoice_ID))
+                dr["DocInvoice_ID"] = new_DocInvoice_id;
+                long journal_docinvoice_ID = -1;
+                if (!fs.WriteRow("journal_docinvoice", dr, null, false, ref journal_docinvoice_ID))
                 {
                     return false;
                 }

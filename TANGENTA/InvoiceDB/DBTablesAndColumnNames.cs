@@ -37,7 +37,7 @@ namespace InvoiceDB
         public string stbl_TermsOfPayment_TableName = null;
         public string stbl_Invoice_TableName = null;
         public string stbl_Taxation_TableName = null;
-        public string stbl_ProformaInvoice_TableName = null;
+        public string stbl_DocInvoice_TableName = null;
 
         public string stbl_ShopBItem_TableName = null;
         public string stbl_ShopBItem_Image_TableName = null;
@@ -57,7 +57,7 @@ namespace InvoiceDB
         public string stbl_Atom_Item_ExpiryDescription_TableName = null;
         public string stbl_Atom_Warranty_TableName = null;
 
-        public string stbl_ProformaInvoice_Atom_Item_Stock_TableName = null;
+        public string stbl_DocInvoice_Atom_Item_Stock_TableName = null;
 
         public string col_Invoice_ID;
         public string col_FinancialYear;
@@ -179,40 +179,40 @@ namespace InvoiceDB
         public string colmyCompany_BankName;
         public string colmyCompany_TRR;
 
-        public string colProformaInvoice_ID;
-        public string colProformaInvoice_as_ID;
+        public string colDocInvoice_ID;
+        public string colDocInvoice_as_ID;
 
-        public string colProformaInvoice_myCompany_Person_ID;
-        public string colProformaInvoice_as_myCompany_Person_ID;
+        public string colDocInvoice_myCompany_Person_ID;
+        public string colDocInvoice_as_myCompany_Person_ID;
 
-        public string colProformaInvoice_Atom_myCompany_Person_ID;
-        public string colProformaInvoice_as_Atom_myCompany_Person_ID;
+        public string colDocInvoice_Atom_myCompany_Person_ID;
+        public string colDocInvoice_as_Atom_myCompany_Person_ID;
 
-        public string colProformaInvoice_myCompany_ID;
-        public string colProformaInvoice_as_myCompany_ID;
+        public string colDocInvoice_myCompany_ID;
+        public string colDocInvoice_as_myCompany_ID;
 
-        public string colProformaInvoice_FinancialYear;
-        public string colProformaInvoice_as_FinancialYear;
-        public string colProformaInvoice_NumberInFinancialYear;
-        public string colProformaInvoice_as_NumberInFinancialYear;
-        public string colProformaInvoice_Draft;
-        public string colProformaInvoice_PrintTime;
-        public string colProformaInvoice_as_PrintTime;
-        public string colProformaInvoice_NetSum;
-        public string colProformaInvoice_Discount;
-        public string colProformaInvoice_EndSum;
-        public string colProformaInvoice_TaxSum;
-        public string colProformaInvoice_GrossSum;
-        public string colProformaInvoice_BuyerAtom_Person_ID;
-        public string colProformaInvoice_BuyerCompanyAtom_ID;
-        public string colProformaInvoice_WarrantyExists;
-        public string colProformaInvoice_WarrantyDurationType;
-        public string colProformaInvoice_WarrantyDuration;
-        public string colProformaInvoice_WarrantyConditions;
-        public string colProformaInvoice_ProformaInvoiceDuration;
-        public string colProformaInvoice_ProformaInvoiceDurationType;
-        public string colProformaInvoice_TermsOfPayment_ID;
-        public string colProformaInvoice_Invoice_ID;
+        public string colDocInvoice_FinancialYear;
+        public string colDocInvoice_as_FinancialYear;
+        public string colDocInvoice_NumberInFinancialYear;
+        public string colDocInvoice_as_NumberInFinancialYear;
+        public string colDocInvoice_Draft;
+        public string colDocInvoice_PrintTime;
+        public string colDocInvoice_as_PrintTime;
+        public string colDocInvoice_NetSum;
+        public string colDocInvoice_Discount;
+        public string colDocInvoice_EndSum;
+        public string colDocInvoice_TaxSum;
+        public string colDocInvoice_GrossSum;
+        public string colDocInvoice_BuyerAtom_Person_ID;
+        public string colDocInvoice_BuyerCompanyAtom_ID;
+        public string colDocInvoice_WarrantyExists;
+        public string colDocInvoice_WarrantyDurationType;
+        public string colDocInvoice_WarrantyDuration;
+        public string colDocInvoice_WarrantyConditions;
+        public string colDocInvoice_DocInvoiceDuration;
+        public string colDocInvoice_DocInvoiceDurationType;
+        public string colDocInvoice_TermsOfPayment_ID;
+        public string colDocInvoice_Invoice_ID;
 
         public string colInvoice_ID;
         public string colInvoice_InvoiceTime;
@@ -232,7 +232,7 @@ namespace InvoiceDB
             SQLTable tbl_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Person));
             SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany));
             SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
-            SQLTable tbl_ProformaInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(ProformaInvoice));
+            SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
             SQLTable tbl_Atom_Customer_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Customer_Person));
             SQLTable tbl_Atom_Customer_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Customer_Org));
             SQLTable tbl_TermsOfPayment = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TermsOfPayment));
@@ -262,7 +262,7 @@ namespace InvoiceDB
             SQLTable tbl_Atom_Warranty = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Warranty));
             SQLTable tbl_Atom_Item = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Item));
             SQLTable tbl_Atom_Expiry = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Expiry));
-            SQLTable tbl_ProformaInvoice_Atom_Item_Stock = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ProformaInvoice_Price_Item_Stock));
+            SQLTable tbl_DocInvoice_Atom_Item_Stock = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_DocInvoice_Price_Item_Stock));
 
             stbl_myCompany_TableName = tbl_myCompany.TableName;
 
@@ -281,7 +281,7 @@ namespace InvoiceDB
             stbl_Atom_Taxation_TableName = tbl_Atom_Taxation.TableName;
             stbl_Atom_Item_WarrantyConditions_TableName = tbl_Atom_Warranty.TableName;
             stbl_Atom_Item_TableName = tbl_Atom_Item.TableName;
-            stbl_ProformaInvoice_Atom_Item_Stock_TableName = tbl_ProformaInvoice_Atom_Item_Stock.TableName;
+            stbl_DocInvoice_Atom_Item_Stock_TableName = tbl_DocInvoice_Atom_Item_Stock.TableName;
 
             stbl_Atom_Item_ExpiryDescription_TableName = tbl_Atom_Expiry.TableName;
 
@@ -296,7 +296,7 @@ namespace InvoiceDB
             stbl_BuyerCompanyAtom_TableName = tbl_Atom_Customer_Org.TableName;
             stbl_TermsOfPayment_TableName = tbl_TermsOfPayment.TableName;
 
-            stbl_ProformaInvoice_TableName = tbl_ProformaInvoice.TableName;
+            stbl_DocInvoice_TableName = tbl_DocInvoice.TableName;
 
             stbl_Invoice_TableName = tbl_Invoice.TableName;
 
@@ -313,8 +313,8 @@ namespace InvoiceDB
             stbl_Atom_Warranty_TableName = tbl_Atom_Warranty.TableName;
 
             col_Invoice_ID = stbl_Invoice_TableName + "_" + GetName(td.m_Invoice.ID.GetType());
-            col_FinancialYear = GetName(td.m_ProformaInvoice.FinancialYear.GetType());
-            col_NumberInFinancialYear = GetName(td.m_ProformaInvoice.NumberInFinancialYear.GetType());
+            col_FinancialYear = GetName(td.m_DocInvoice.FinancialYear.GetType());
+            col_NumberInFinancialYear = GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
 
             colmyCompany_Person_ID = stbl_myCompany_Person_TableName + "." + GetName(td.m_myCompany_Person.ID.GetType());
             colmyCompany_ID = stbl_myCompany_TableName + "." + GetName(td.m_myCompany.ID.GetType());
@@ -357,41 +357,41 @@ namespace InvoiceDB
 
 
 
-            colProformaInvoice_ID = stbl_ProformaInvoice_TableName + "." + GetName(td.m_ProformaInvoice.ID.GetType());
-            colProformaInvoice_as_ID = stbl_ProformaInvoice_TableName + "_" + GetName(td.m_ProformaInvoice.ID.GetType());
+            colDocInvoice_ID = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.ID.GetType());
+            colDocInvoice_as_ID = stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.ID.GetType());
 
-            colProformaInvoice_myCompany_Person_ID = stbl_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.ID.GetType());
-            colProformaInvoice_as_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "_" + GetName(td.m_Atom_myCompany_Person.ID.GetType());
+            colDocInvoice_myCompany_Person_ID = stbl_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.ID.GetType());
+            colDocInvoice_as_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "_" + GetName(td.m_Atom_myCompany_Person.ID.GetType());
 
-            colProformaInvoice_Atom_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.ID.GetType());
-            colProformaInvoice_as_Atom_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "_" + GetName(td.m_Atom_myCompany_Person.ID.GetType());
+            colDocInvoice_Atom_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.ID.GetType());
+            colDocInvoice_as_Atom_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "_" + GetName(td.m_Atom_myCompany_Person.ID.GetType());
 
-            colProformaInvoice_myCompany_ID = stbl_myCompany_TableName + "." + GetName(td.m_myCompany.ID.GetType());
-            colProformaInvoice_as_myCompany_ID = stbl_myCompany_TableName + "_" + GetName(td.m_myCompany.ID.GetType());
+            colDocInvoice_myCompany_ID = stbl_myCompany_TableName + "." + GetName(td.m_myCompany.ID.GetType());
+            colDocInvoice_as_myCompany_ID = stbl_myCompany_TableName + "_" + GetName(td.m_myCompany.ID.GetType());
 
-            colProformaInvoice_FinancialYear = GetName(td.m_ProformaInvoice.FinancialYear.GetType());
-            colProformaInvoice_NumberInFinancialYear = GetName(td.m_ProformaInvoice.NumberInFinancialYear.GetType());
+            colDocInvoice_FinancialYear = GetName(td.m_DocInvoice.FinancialYear.GetType());
+            colDocInvoice_NumberInFinancialYear = GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
 
-            colProformaInvoice_Draft = GetName(td.m_ProformaInvoice.Draft.GetType());
-            colProformaInvoice_NetSum = GetName(td.m_ProformaInvoice.NetSum.GetType());
-            colProformaInvoice_Discount = GetName(td.m_ProformaInvoice.Discount.GetType());
-            colProformaInvoice_EndSum = GetName(td.m_ProformaInvoice.EndSum.GetType());
-            colProformaInvoice_TaxSum = GetName(td.m_ProformaInvoice.TaxSum.GetType());
-            colProformaInvoice_GrossSum = GetName(td.m_ProformaInvoice.GrossSum.GetType()); ;
-            colProformaInvoice_BuyerAtom_Person_ID = stbl_BuyerAtom_Person_TableName + "_" + GetName(td.m_BuyerAtom_Person.ID.GetType());
-            colProformaInvoice_BuyerCompanyAtom_ID = stbl_BuyerCompanyAtom_TableName + "_" + GetName(td.m_Atom_Organisation.ID.GetType());
-            colProformaInvoice_WarrantyExists = GetName(td.m_ProformaInvoice.WarrantyExist.GetType());
-            colProformaInvoice_WarrantyDurationType = GetName(td.m_ProformaInvoice.WarrantyDurationType.GetType());
-            colProformaInvoice_WarrantyDuration = GetName(td.m_ProformaInvoice.WarrantyDuration.GetType());
-            colProformaInvoice_WarrantyConditions = GetName(td.m_ProformaInvoice.WarrantyConditions.GetType());
-            colProformaInvoice_ProformaInvoiceDuration = GetName(td.m_ProformaInvoice.ProformaInvoiceDuration.GetType());
-            colProformaInvoice_ProformaInvoiceDurationType = GetName(td.m_ProformaInvoice.ProformaInvoiceDurationType.GetType());
-            colProformaInvoice_TermsOfPayment_ID = stbl_TermsOfPayment_TableName + "_" + GetName(td.m_TermsOfPayment.ID.GetType());
-            colProformaInvoice_FinancialYear = stbl_ProformaInvoice_TableName + "." + GetName(td.m_ProformaInvoice.FinancialYear.GetType());
-            colProformaInvoice_as_FinancialYear = stbl_ProformaInvoice_TableName + "_" + GetName(td.m_ProformaInvoice.FinancialYear.GetType());
-            colProformaInvoice_NumberInFinancialYear = stbl_ProformaInvoice_TableName + "." + GetName(td.m_ProformaInvoice.NumberInFinancialYear.GetType());
-            colProformaInvoice_as_NumberInFinancialYear = stbl_ProformaInvoice_TableName + "_" + GetName(td.m_ProformaInvoice.NumberInFinancialYear.GetType());
-            colProformaInvoice_Invoice_ID = stbl_ProformaInvoice_TableName + "." + stbl_Invoice_TableName + "_" + GetName(td.m_Invoice.ID.GetType());
+            colDocInvoice_Draft = GetName(td.m_DocInvoice.Draft.GetType());
+            colDocInvoice_NetSum = GetName(td.m_DocInvoice.NetSum.GetType());
+            colDocInvoice_Discount = GetName(td.m_DocInvoice.Discount.GetType());
+            colDocInvoice_EndSum = GetName(td.m_DocInvoice.EndSum.GetType());
+            colDocInvoice_TaxSum = GetName(td.m_DocInvoice.TaxSum.GetType());
+            colDocInvoice_GrossSum = GetName(td.m_DocInvoice.GrossSum.GetType()); ;
+            colDocInvoice_BuyerAtom_Person_ID = stbl_BuyerAtom_Person_TableName + "_" + GetName(td.m_BuyerAtom_Person.ID.GetType());
+            colDocInvoice_BuyerCompanyAtom_ID = stbl_BuyerCompanyAtom_TableName + "_" + GetName(td.m_Atom_Organisation.ID.GetType());
+            colDocInvoice_WarrantyExists = GetName(td.m_DocInvoice.WarrantyExist.GetType());
+            colDocInvoice_WarrantyDurationType = GetName(td.m_DocInvoice.WarrantyDurationType.GetType());
+            colDocInvoice_WarrantyDuration = GetName(td.m_DocInvoice.WarrantyDuration.GetType());
+            colDocInvoice_WarrantyConditions = GetName(td.m_DocInvoice.WarrantyConditions.GetType());
+            colDocInvoice_DocInvoiceDuration = GetName(td.m_DocInvoice.DocInvoiceDuration.GetType());
+            colDocInvoice_DocInvoiceDurationType = GetName(td.m_DocInvoice.DocInvoiceDurationType.GetType());
+            colDocInvoice_TermsOfPayment_ID = stbl_TermsOfPayment_TableName + "_" + GetName(td.m_TermsOfPayment.ID.GetType());
+            colDocInvoice_FinancialYear = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.FinancialYear.GetType());
+            colDocInvoice_as_FinancialYear = stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.FinancialYear.GetType());
+            colDocInvoice_NumberInFinancialYear = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
+            colDocInvoice_as_NumberInFinancialYear = stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
+            colDocInvoice_Invoice_ID = stbl_DocInvoice_TableName + "." + stbl_Invoice_TableName + "_" + GetName(td.m_Invoice.ID.GetType());
 
             colInvoice_ID = stbl_Invoice_TableName + "." + GetName(td.m_Invoice.ID.GetType());
             colInvoice_PaymentDeadline = stbl_Invoice_TableName + "." + GetName(td.m_Invoice.PaymentDeadline.GetType());

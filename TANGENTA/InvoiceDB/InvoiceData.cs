@@ -61,13 +61,13 @@ namespace InvoiceDB
 
         //public FURS_Response_data FURS_Response_Data = null;
 
-        public DataTable dt_ProformaInvoice = new DataTable();
+        public DataTable dt_DocInvoice = new DataTable();
         public DataTable dt_ShopB_Items = new DataTable();
         public DataTable dt_ShopA_Items = new DataTable();
 
-        public long ProformaInvoice_ID = -1;
+        public long DocInvoice_ID = -1;
         public long_v Invoice_ID_v = null;
-        public long_v ProformaInvoice_Reference_ID_v = null;
+        public long_v DocInvoice_Reference_ID_v = null;
 
 
         public int FinancialYear = -1;
@@ -131,10 +131,10 @@ namespace InvoiceDB
         }
 
 
-        public InvoiceData(InvoiceDB.ShopABC xInvoiceDB, long xProformaInvoice_ID, bool xb_FVI_SLO, string xCasshierName)
+        public InvoiceData(InvoiceDB.ShopABC xInvoiceDB, long xDocInvoice_ID, bool xb_FVI_SLO, string xCasshierName)
         {
             m_ShopABC = xInvoiceDB;
-            ProformaInvoice_ID = xProformaInvoice_ID;
+            DocInvoice_ID = xDocInvoice_ID;
             Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
             b_FVI_SLO = xb_FVI_SLO;
             CasshierName = xCasshierName;
@@ -445,9 +445,9 @@ namespace InvoiceDB
             }
         }
 
-        public bool Save(ref long proformaInvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        public bool Save(ref long docinvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
-            return m_ShopABC.m_CurrentInvoice.Save(ref ProformaInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
+            return m_ShopABC.m_CurrentInvoice.Save(ref DocInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
         }
 
         public bool SetInvoiceTime(DateTime_v issue_time)
@@ -478,7 +478,7 @@ namespace InvoiceDB
             }
         }
 
-        public void Fill_Sold_ShopC_ItemsData(List<object> xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
+        public void Fill_Sold_ShopC_ItemsData(List<object> xAtom_DocInvoice_Price_Item_Stock_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
         {
 
             int i;
@@ -488,7 +488,7 @@ namespace InvoiceDB
 
             for (i = start_index; i < end_index; i++)
             {
-                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST[j];
+                Atom_DocInvoice_Price_Item_Stock_Data appisd = (Atom_DocInvoice_Price_Item_Stock_Data)xAtom_DocInvoice_Price_Item_Stock_Data_LIST[j];
 
                 decimal Discount = appisd.Discount.v;
 
@@ -558,10 +558,10 @@ namespace InvoiceDB
 
 
 
-        public bool Read_ProformaInvoice()
+        public bool Read_DocInvoice()
         {
             string sql = null;
-            ProformaInvoice_Reference_ID_v = null;
+            DocInvoice_Reference_ID_v = null;
             if (b_FVI_SLO)
             {
 
@@ -603,19 +603,19 @@ namespace InvoiceDB
                                  acusorg.ID as Atom_Customer_Org_ID,
                                  acusper.ID as Atom_Customer_Person_ID,
                                  jpi.EventTime,
-                                 jpit.Name as JOURNAL_ProformaInvoice_Type_Name,
-                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.MessageID As JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$MessageID,
-                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.UniqueInvoiceID As JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$UniqueInvoiceID,
-                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.BarCodeValue As JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$BarCodeValue,
-                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.InvoiceNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$InvoiceNumber,
-                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.SetNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SetNumber,
-                                 JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.SerialNumber AS JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SerialNumber,
+                                 jpit.Name as JOURNAL_DocInvoice_Type_Name,
+                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.MessageID As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$MessageID,
+                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.UniqueInvoiceID As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$UniqueInvoiceID,
+                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$BarCodeValue,
+                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber,
+                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber,
+                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
                                  inv.Storno,
                                  inv.Invoice_Reference_Type,
                                  inv.Invoice_Reference_ID
-                                 from JOURNAL_ProformaInvoice jpi
-                                 inner join JOURNAL_ProformaInvoice_Type jpit on jpi.JOURNAL_ProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
-                                 inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
+                                 from JOURNAL_DocInvoice jpi
+                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
+                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                  inner join Atom_myCompany_Person amcp on awp.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
@@ -625,8 +625,8 @@ namespace InvoiceDB
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                  left join Invoice inv on pi.Invoice_ID = inv.ID
-                                 LEFT JOIN FVI_SLO_Response JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres ON JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.Invoice_ID = inv.ID and JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisres.Invoice_ID = pi.Invoice_ID
-                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi ON JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.Invoice_ID = inv.ID and JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi.Invoice_ID = pi.Invoice_ID
+                                 LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.Invoice_ID = inv.ID and JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.Invoice_ID = pi.Invoice_ID
+                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.Invoice_ID = inv.ID and JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.Invoice_ID = pi.Invoice_ID
                                  left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                  left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                  left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
@@ -646,7 +646,7 @@ namespace InvoiceDB
                                  left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
                                  left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
                                  left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                 where pi.ID = " + ProformaInvoice_ID.ToString();
+                                 where pi.ID = " + DocInvoice_ID.ToString();
             }
             else
             {
@@ -688,13 +688,13 @@ namespace InvoiceDB
                                  acusorg.ID as Atom_Customer_Org_ID,
                                  acusper.ID as Atom_Customer_Person_ID,
                                  jpi.EventTime,
-                                 jpit.Name as JOURNAL_ProformaInvoice_Type_Name,
+                                 jpit.Name as JOURNAL_DocInvoice_Type_Name,
                                  inv.Storno,
                                  inv.Invoice_Reference_Type,
                                  inv.Invoice_Reference_ID
-                                 from JOURNAL_ProformaInvoice jpi
-                                 inner join JOURNAL_ProformaInvoice_Type jpit on jpi.JOURNAL_ProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
-                                 inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
+                                 from JOURNAL_DocInvoice jpi
+                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
+                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                  inner join Atom_myCompany_Person amcp on Atom_WorkPeriod.Atom_myCompany_Person_ID = amcp.ID
                                  inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
@@ -725,22 +725,22 @@ namespace InvoiceDB
                                  left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
                                  left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
                                  left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                 where pi.ID = " + ProformaInvoice_ID.ToString();
+                                 where pi.ID = " + DocInvoice_ID.ToString();
             }
             string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
             {
-                if (dt_ProformaInvoice.Rows.Count == 1)
+                if (dt_DocInvoice.Rows.Count == 1)
                 {
                     try
                     {
-                        Draft = DBTypes.tf._set_bool(dt_ProformaInvoice.Rows[0]["Draft"]);
-                        Invoice_Storno_v = DBTypes.tf.set_bool(dt_ProformaInvoice.Rows[0]["Storno"]);
-                        Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["Invoice_Reference_Type"]);
-                        ProformaInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_Reference_ID"]);
-                        Invoice_ID_v = DBTypes.tf.set_long(dt_ProformaInvoice.Rows[0]["Invoice_ID"]);
-                        DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_ProformaInvoice.Rows[0]["EventTime"]);
-                        string_v EventName_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_Type_Name"]);
+                        Draft = DBTypes.tf._set_bool(dt_DocInvoice.Rows[0]["Draft"]);
+                        Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
+                        Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
+                        DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
+                        Invoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_ID"]);
+                        DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["EventTime"]);
+                        string_v EventName_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_Type_Name"]);
 
                         if (Draft)
                         {
@@ -761,11 +761,11 @@ namespace InvoiceDB
                                     {
                                         this.m_eType = eType.STORNO;
                                         this.StornoIssueDate_v = EventTime_v.Clone();
-                                        if (ProformaInvoice_Reference_ID_v != null)
+                                        if (DocInvoice_Reference_ID_v != null)
                                         {
                                             if (IssueDate_v == null)
                                             {
-                                                sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                                sql = "select EventTime from JOURNAL_DocInvoice where DocInvoice_ID = " + DocInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
                                                 DataTable dt = new DataTable();
                                                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                 {
@@ -775,19 +775,19 @@ namespace InvoiceDB
                                                     }
                                                     else
                                                     {
-                                                        LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                        LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
                                                     }
 
                                                 }
                                                 else
                                                 {
-                                                    LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
+                                                    LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:sql=" + sql + "\r\nERR=" + Err);
                                                 }
                                             }
                                         }
                                         else
                                         {
-                                            LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! ProformaInvoice_Reference_ID_v must be defined!");
+                                            LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:this error should not happen! DocInvoice_Reference_ID_v must be defined!");
                                         }
                                     }
                                     else
@@ -795,7 +795,7 @@ namespace InvoiceDB
                                         if (IssueDate_v == null)
                                         {
 
-                                            sql = "select EventTime from JOURNAL_ProformaInvoice where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and JOURNAL_ProformaInvoice_Type_ID = " + GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                            sql = "select EventTime from JOURNAL_DocInvoice where DocInvoice_ID = " + DocInvoice_ID.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
                                             DataTable dt = new DataTable();
                                             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                             {
@@ -805,13 +805,13 @@ namespace InvoiceDB
                                                 }
                                                 else
                                                 {
-                                                    LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                    LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
                                                 }
 
                                             }
                                             else
                                             {
-                                                LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:sql=" + sql + "\r\nERR=" + Err);
+                                                LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:sql=" + sql + "\r\nERR=" + Err);
                                             }
                                         }
 
@@ -821,7 +821,7 @@ namespace InvoiceDB
                                 }
                                 else
                                 {
-                                    LogFile.Error.Show("ERROR:InvoiceData:Read_ProformaInvoice:this error should not happen! EventName must be defined!");
+                                    LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:this error should not happen! EventName must be defined!");
                                 }
                             }
                             else
@@ -835,21 +835,21 @@ namespace InvoiceDB
                         {
                             if (Invoice_Reference_Type_v.v.Equals("STORNO"))
                             {
-                                if (ProformaInvoice_Reference_ID_v != null)
+                                if (DocInvoice_Reference_ID_v != null)
                                 {
                                     bInvoiceStorno = true;
                                 }
                                 else
                                 {
-                                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_ProformaInvoice:ProformaInvoice_Reference_ID_v can not be null when Invoice_Reference_Type_v equals 'STORNO'");
+                                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocInvoice:DocInvoice_Reference_ID_v can not be null when Invoice_Reference_Type_v equals 'STORNO'");
                                 }
                             }
                         }
 
 
-                        GrossSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["GrossSum"]);
-                        taxsum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["TaxSum"]);
-                        NetSum = DBTypes.tf._set_decimal(dt_ProformaInvoice.Rows[0]["NetSum"]);
+                        GrossSum = DBTypes.tf._set_decimal(dt_DocInvoice.Rows[0]["GrossSum"]);
+                        taxsum = DBTypes.tf._set_decimal(dt_DocInvoice.Rows[0]["TaxSum"]);
+                        NetSum = DBTypes.tf._set_decimal(dt_DocInvoice.Rows[0]["NetSum"]);
 
                         if (bInvoiceStorno)
                         {
@@ -862,61 +862,61 @@ namespace InvoiceDB
                         {
 
                             //this.FVI_SLO_RealEstateBP = new UniversalInvoice.FVI_SLO_RealEstateBP(lngToken.st_Invoice,
-                            //                                                                             DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["BuildingNumber"]),
-                            //                                                                             DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["BuildingSectionNumber"]),
-                            //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Community"]),
-                            //                                                                             DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["CadastralNumber"]),
-                            //                                                                             DBTypes.tf._set_DateTime(dt_ProformaInvoice.Rows[0]["ValidityDate"]),
-                            //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["ClosingTag"]),
-                            //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["SoftwareSupplier_TaxNumber"]),
-                            //                                                                             DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["PremiseType"])   );
+                            //                                                                             DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["BuildingNumber"]),
+                            //                                                                             DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["BuildingSectionNumber"]),
+                            //                                                                             DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Community"]),
+                            //                                                                             DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["CadastralNumber"]),
+                            //                                                                             DBTypes.tf._set_DateTime(dt_DocInvoice.Rows[0]["ValidityDate"]),
+                            //                                                                             DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["ClosingTag"]),
+                            //                                                                             DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["SoftwareSupplier_TaxNumber"]),
+                            //                                                                             DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["PremiseType"])   );
                         }
 
-                        //byte[] barr_logoData = (byte[])dt_ProformaInvoice.Rows[0]["Logo_Data"];
-                        MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Name"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Tax_ID"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Registration_ID"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Atom_Office_Name"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["BankName"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["TRR"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Email"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["HomePage"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["PhoneNumber"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["FaxNumber"]),
-                                                                   DBTypes.tf._set_byte_array(dt_ProformaInvoice.Rows[0]["Logo_Data"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["StreetName"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["HouseNumber"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["ZIP"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["City"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["Country"]),
-                                                                   DBTypes.tf._set_string(dt_ProformaInvoice.Rows[0]["State"]));
+                        //byte[] barr_logoData = (byte[])dt_DocInvoice.Rows[0]["Logo_Data"];
+                        MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Name"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Tax_ID"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Registration_ID"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Atom_Office_Name"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["BankName"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["TRR"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Email"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["HomePage"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["PhoneNumber"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["FaxNumber"]),
+                                                                   DBTypes.tf._set_byte_array(dt_DocInvoice.Rows[0]["Logo_Data"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["StreetName"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["HouseNumber"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["ZIP"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["City"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Country"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["State"]));
 
 
-                        FinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["FinancialYear"]);
-                        NumberInFinancialYear = DBTypes.tf._set_int(dt_ProformaInvoice.Rows[0]["NumberInFinancialYear"]);
+                        FinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["FinancialYear"]);
+                        NumberInFinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["NumberInFinancialYear"]);
 
                         if (b_FVI_SLO)
                         {
                             if (!Draft)
                             {
 
-                                FURS_ZOI_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$MessageID"]);
-                                FURS_EOR_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$UniqueInvoiceID"]);
-                                FURS_QR_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_fvisbi_$$BarCodeValue"]);
-                                FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$InvoiceNumber"]);
-                                FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SetNumber"]);
-                                FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_ProformaInvoice.Rows[0]["JOURNAL_ProformaInvoice_$_pinv_$_iinv_$_fvisbi_$$SerialNumber"]);
+                                FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$MessageID"]);
+                                FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$UniqueInvoiceID"]);
+                                FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$BarCodeValue"]);
+                                FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber"]);
+                                FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber"]);
+                                FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber"]);
                             }
                         }
 
-                        object oAtom_MyOrganisation_Person_ID = dt_ProformaInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
+                        object oAtom_MyOrganisation_Person_ID = dt_DocInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
                         if (oAtom_MyOrganisation_Person_ID is long)
                         {
                             long Atom_MyOrganisation_Person_ID = (long)oAtom_MyOrganisation_Person_ID;
                             Invoice_Author = f_Atom_Person.GetData(lngToken.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
                         }
 
-                        object oAtom_Customer_Org_ID = dt_ProformaInvoice.Rows[0]["Atom_Customer_Org_ID"];
+                        object oAtom_Customer_Org_ID = dt_DocInvoice.Rows[0]["Atom_Customer_Org_ID"];
                         if (oAtom_Customer_Org_ID is long)
                         {
                             long Atom_Customer_Org_ID = (long)oAtom_Customer_Org_ID;
@@ -928,9 +928,9 @@ namespace InvoiceDB
                         }
 
 
-                        if (dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
+                        if (dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
                         {
-                            long Atom_Customer_Person_ID = (long)dt_ProformaInvoice.Rows[0]["Atom_Customer_Person_ID"];
+                            long Atom_Customer_Person_ID = (long)dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"];
                             CustomerPerson = f_Atom_Customer_Person.GetData(lngToken.st_Customer, Atom_Customer_Person_ID);
                         }
                         else
@@ -938,34 +938,34 @@ namespace InvoiceDB
                             CustomerPerson = new UniversalInvoice.Person(lngToken.st_Customer);
                         }
 
-                        long xProformaInvoice_ID = ProformaInvoice_ID;
-                        if (ProformaInvoice_Reference_ID_v != null)
+                        long xDocInvoice_ID = DocInvoice_ID;
+                        if (DocInvoice_Reference_ID_v != null)
                         {
-                            xProformaInvoice_ID = ProformaInvoice_Reference_ID_v.v;
+                            xDocInvoice_ID = DocInvoice_Reference_ID_v.v;
                         }
 
-                        if (dbfunc.Read_ShopA_Price_Item_Table(xProformaInvoice_ID, ref dt_ShopA_Items))
+                        if (dbfunc.Read_ShopA_Price_Item_Table(xDocInvoice_ID, ref dt_ShopA_Items))
                         {
-                            if (m_ShopABC.Read_ShopB_Price_Item_Table(xProformaInvoice_ID, ref dt_ShopB_Items))
+                            if (m_ShopABC.Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref dt_ShopB_Items))
                             {
-                                List<object> xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST = new List<object>();
+                                List<object> xAtom_DocInvoice_Price_Item_Stock_Data_LIST = new List<object>();
                                 if (this.m_eType == eType.STORNO)
                                 {
-                                    if (!m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(xProformaInvoice_ID, ref xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST))
+                                    if (!m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(xDocInvoice_ID, ref xAtom_DocInvoice_Price_Item_Stock_Data_LIST))
                                     {
                                         return false;
                                     }
                                 }
                                 else
                                 {
-                                    xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST = m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST;
+                                    xAtom_DocInvoice_Price_Item_Stock_Data_LIST = m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST;
                                 }
 
 
                                 int iCountShopAItemsSold = dt_ShopA_Items.Rows.Count;
                                 int iCountShopBItemsSold = dt_ShopB_Items.Rows.Count;
 
-                                int iCountShopCItemsSold = xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count;
+                                int iCountShopCItemsSold = xAtom_DocInvoice_Price_Item_Stock_Data_LIST.Count;
 
                                 ItemsSold = new UniversalInvoice.ItemSold[iCountShopAItemsSold + iCountShopBItemsSold + iCountShopCItemsSold];
                                 taxSum = new StaticLib.TaxSum();
@@ -973,7 +973,7 @@ namespace InvoiceDB
 
                                 Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
                                 Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
-                                Fill_Sold_ShopC_ItemsData(xAtom_ProformaInvoice_Price_Item_Stock_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
+                                Fill_Sold_ShopC_ItemsData(xAtom_DocInvoice_Price_Item_Stock_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
 
                                 InvoiceToken = new UniversalInvoice.InvoiceToken();
 
@@ -1012,19 +1012,19 @@ namespace InvoiceDB
                     }
                     catch (Exception ex)
                     {
-                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_ProformaInvoice:Exception=" + ex.Message);
+                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocInvoice:Exception=" + ex.Message);
                         return false;
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_ProformaInvoice:dt_ProformaInvoice.Rows.Count != 1! for ProformaInvoice_ID=" + ProformaInvoice_ID.ToString() + "!\r\nsql = " + sql);
+                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocInvoice:dt_DocInvoice.Rows.Count != 1! for DocInvoice_ID=" + DocInvoice_ID.ToString() + "!\r\nsql = " + sql);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_ProformaInvoice:Err=" + Err);
+                LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocInvoice:Err=" + Err);
                 return false;
             }
         }
@@ -1474,8 +1474,8 @@ namespace InvoiceDB
 
                         //string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
                         //string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
-                        //long journal_proformainvoice_id = -1;
-                        //f_Journal_ProformaInvoice.Write(m_usrc_Print.ProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
+                        //long journal_docinvoice_id = -1;
+                        //f_Journal_DocInvoice.Write(m_usrc_Print.DocInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
                         int itr_taxsum_start = html_doc_template.IndexOf("<tr class=\"taxsum\">", 0);
                         if (itr_taxsum_start > 0)
                         {

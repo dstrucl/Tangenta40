@@ -198,8 +198,8 @@ namespace ShopC
         internal bool CountInBaskets(ref decimal count_in_baskets)
         {
             string sql = @"select dQuantity 
-                            from Atom_ProformaInvoice_Price_Item_Stock  appis
-                            inner join ProformaInvoice pi on appis.ProformaInvoice_ID = pi.ID
+                            from Atom_DocInvoice_Price_Item_Stock  appis
+                            inner join DocInvoice pi on appis.DocInvoice_ID = pi.ID
                             where pi.Draft = 1 and appis.Stock_ID is not null";
             DataTable dt = new DataTable();
             string Err = null;

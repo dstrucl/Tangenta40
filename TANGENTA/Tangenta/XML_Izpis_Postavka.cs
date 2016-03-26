@@ -28,7 +28,7 @@ namespace Tangenta
         {
             frm_parent = frm;
         }
-        internal bool Create(long ProformaInvoice_ID,
+        internal bool Create(long DocInvoice_ID,
                              string gl1_Davcna_stevilka_zavezanca_za_davek,
                              string gl2_Stevilka_racuna,
                              DateTime InovoiceTime,
@@ -57,7 +57,7 @@ namespace Tangenta
                                     inner join atom_simpleitem  asi on apsi.atom_simpleitem_ID = asi.ID
                                     inner join atom_simpleitem_name  asin on asi.atom_simpleitem_name_ID = asin.ID
                                     inner join Atom_Taxation atax on apsi.Atom_Taxation_ID = atax.ID
-                                    where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString();
+                                    where DocInvoice_ID = " + DocInvoice_ID.ToString();
             DataTable dt_simple_item_tax = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt_simple_item_tax, sql, ref Err))
             {
@@ -84,13 +84,13 @@ namespace Tangenta
                                 atax.Name as Taxation_Name,
                                 atax.Rate,
                                 au.Name as UnitName
-                                from atom_proformainvoice_price_item_stock  appis
+                                from atom_docinvoice_price_item_stock  appis
                                 inner join atom_price_item api on appis.atom_price_item_ID = api.ID
                                 inner join atom_item ai on api.atom_item_ID = ai.ID
                                 inner join atom_unit au on ai.atom_unit_ID = au.ID
                                 inner join atom_item_name ain on ai.atom_item_name_ID = ain.ID
                                 inner join Atom_Taxation atax on api.Atom_Taxation_ID = atax.ID
-                                where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString();
+                                where DocInvoice_ID = " + DocInvoice_ID.ToString();
                 DataTable dt_item_tax = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt_item_tax, sql, ref Err))
                 {

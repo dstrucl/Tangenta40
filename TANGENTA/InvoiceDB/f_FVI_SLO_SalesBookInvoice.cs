@@ -69,7 +69,7 @@ namespace InvoiceDB
 
         public static bool Select_SalesBookInvoice_NotSent(ShopABC xInvoiceDB, ref List<InvoiceData> list, string xCasshierName)
         {
-            string sql = @"select pi.ID from ProformaInvoice pi
+            string sql = @"select pi.ID from DocInvoice pi
                                 inner join Invoice inv on pi.Invoice_ID = inv.ID
                                 inner join FVI_SLO_SalesBookInvoice fvisbi on fvisbi.Invoice_ID = inv.ID
                                 left join FVI_SLO_Response fvires on fvires.Invoice_ID = inv.ID
@@ -89,7 +89,7 @@ namespace InvoiceDB
                     {
                         long proforma_invoice_id = (long)dr["ID"];
                         InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB, proforma_invoice_id, true, xCasshierName);
-                        if (xInvoiceData.Read_ProformaInvoice())
+                        if (xInvoiceData.Read_DocInvoice())
                         {
                             list.Add(xInvoiceData);
                         }

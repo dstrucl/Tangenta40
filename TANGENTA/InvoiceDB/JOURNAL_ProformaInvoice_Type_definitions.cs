@@ -16,19 +16,19 @@ using System.Threading.Tasks;
 
 namespace InvoiceDB
 {
-    public class JOURNAL_ProformaInvoice_Type_definitions
+    public class JOURNAL_DocInvoice_Type_definitions
     {
         public journaltype InvoiceDraftTime = null;
         public journaltype InvoiceTime = null;
         public journaltype InvoicePaidTime = null;
         public journaltype InvoiceStornoTime = null;
 
-        public journaltype ProformaInvoiceTime = null;
+        public journaltype DocInvoiceTime = null;
 
         List<journaltype> journaltype_list = new List<journaltype>();
 
 
-        public JOURNAL_ProformaInvoice_Type_definitions()
+        public JOURNAL_DocInvoice_Type_definitions()
         {
             InvoiceDraftTime = new journaltype("InvoiceDraftTime", lngRPM.s_InvoiceDraftTime_description.s); ;
             journaltype_list.Add(InvoiceDraftTime);
@@ -39,15 +39,15 @@ namespace InvoiceDB
             InvoiceStornoTime = new journaltype("InvoiceStornoTime", lngRPM.s_InvoiceStornoTime_description.s); ;
             journaltype_list.Add(InvoiceStornoTime);
 
-            ProformaInvoiceTime = new journaltype("ProformaInvoiceTime", lngRPM.s_ProformaInvoiceTime_description.s);
-            journaltype_list.Add(ProformaInvoiceTime);
+            DocInvoiceTime = new journaltype("DocInvoiceTime", lngRPM.s_DocInvoiceTime_description.s);
+            journaltype_list.Add(DocInvoiceTime);
 
         }
 
         public bool Read()
         {
             string Err = null;
-            string sql = "select ID,Name,Description from JOURNAL_ProformaInvoice_Type";
+            string sql = "select ID,Name,Description from JOURNAL_DocInvoice_Type";
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
             {
@@ -67,7 +67,7 @@ namespace InvoiceDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:JOURNAL_ProformaInvoice_Type_definitions:Read:Err=" +Err);
+                LogFile.Error.Show("ERROR:JOURNAL_DocInvoice_Type_definitions:Read:Err=" +Err);
                 return false;
             }
         }
@@ -109,18 +109,18 @@ namespace InvoiceDB
                 }
             }
 
-            string sql = "insert into JOURNAL_ProformaInvoice_Type (Name,Description) values ("+sval_Name+","+sval_Description+")";
+            string sql = "insert into JOURNAL_DocInvoice_Type (Name,Description) values ("+sval_Name+","+sval_Description+")";
             long jrt_id =-1;
             object oret = null;
             string Err = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref jrt_id,ref oret,ref Err,"JOURNAL_ProformaInvoice_Type"))
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,lpar,ref jrt_id,ref oret,ref Err,"JOURNAL_DocInvoice_Type"))
             {
                 jrt.ID = jrt_id;
                 return true;
             }
             else
             {
-                LogFile.Error.Show("ERROR:JOURNAL_ProformaInvoice_Type_definitions:Set:Err= "+Err);
+                LogFile.Error.Show("ERROR:JOURNAL_DocInvoice_Type_definitions:Set:Err= "+Err);
                 return false;
             }
         }

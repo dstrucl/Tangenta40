@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 
 namespace InvoiceDB
 {
-    public class Atom_ProformaInvoice_Price_Item_Stock_Data
+    public class Atom_DocInvoice_Price_Item_Stock_Data
     {
-        public long_v Atom_ProformaInvoice_Price_Item_Stock_ID = null;
-        public long_v ProformaInvoice_ID = null;
+        public long_v Atom_DocInvoice_Price_Item_Stock_ID = null;
+        public long_v DocInvoice_ID = null;
         public long_v Atom_Price_Item_ID = null;
         public long_v Atom_Item_ID = null;
         public decimal_v RetailPricePerUnit = null;
@@ -82,29 +82,29 @@ namespace InvoiceDB
         }
 
         public void Set(DataRow dria,
-                            ref List<object> Atom_ProformaInvoice_Price_Item_Stock_Data_list)
+                            ref List<object> Atom_DocInvoice_Price_Item_Stock_Data_list)
         {
             Stock_Data stock_data = null;
             int i = 0;
-            int iCount = Atom_ProformaInvoice_Price_Item_Stock_Data_list.Count;
+            int iCount = Atom_DocInvoice_Price_Item_Stock_Data_list.Count;
             Atom_Item_ID = tf.set_long(dria["Atom_Item_ID"]);
 
             if (Atom_Item_ID != null)
             {
                 for (i = 0; i < iCount; i++)
                 {
-                    if (((Atom_ProformaInvoice_Price_Item_Stock_Data)Atom_ProformaInvoice_Price_Item_Stock_Data_list[i]).Atom_Item_ID.v == Atom_Item_ID.v)
+                    if (((Atom_DocInvoice_Price_Item_Stock_Data)Atom_DocInvoice_Price_Item_Stock_Data_list[i]).Atom_Item_ID.v == Atom_Item_ID.v)
                     {
                         stock_data = new Stock_Data();
                         stock_data.Set(dria);
-                        ((Atom_ProformaInvoice_Price_Item_Stock_Data)Atom_ProformaInvoice_Price_Item_Stock_Data_list[i]).m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
+                        ((Atom_DocInvoice_Price_Item_Stock_Data)Atom_DocInvoice_Price_Item_Stock_Data_list[i]).m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
                         return;
                     }
                 }
 
                 m_ShopShelf_Source.Clear();
-                Atom_ProformaInvoice_Price_Item_Stock_ID = tf.set_long(dria["Atom_ProformaInvoice_Price_Item_Stock_ID"]);
-                ProformaInvoice_ID = tf.set_long(dria["ProformaInvoice_ID"]);
+                Atom_DocInvoice_Price_Item_Stock_ID = tf.set_long(dria["Atom_DocInvoice_Price_Item_Stock_ID"]);
+                DocInvoice_ID = tf.set_long(dria["DocInvoice_ID"]);
                 Atom_Price_Item_ID = tf.set_long(dria["Atom_Price_Item_ID"]);
                 dQuantity_all = tf.set_decimal(dria["dQuantity"]);
                 RetailPricePerUnit = tf.set_decimal(dria["RetailPricePerUnit"]);
@@ -158,21 +158,21 @@ namespace InvoiceDB
                 stock_data.Set(dria);
                 m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
 
-                Atom_ProformaInvoice_Price_Item_Stock_Data_list.Add(this);
+                Atom_DocInvoice_Price_Item_Stock_Data_list.Add(this);
             }
             else
             {
-                LogFile.Error.Show("ERROR:Atom_ProformaInvoice_Price_Item_Stock_Data:Set(DataRow dria,..):Atom_Item_ID == null");
+                LogFile.Error.Show("ERROR:Atom_DocInvoice_Price_Item_Stock_Data:Set(DataRow dria,..):Atom_Item_ID == null");
             }
         }
 
 
-        public void Set(object xusrc_Item, Item_Data xItem_Data,long xProformaInvoice_ID, decimal xFactoryQuantity, decimal xStockQuantity, bool b_from_factory)
+        public void Set(object xusrc_Item, Item_Data xItem_Data,long xDocInvoice_ID, decimal xFactoryQuantity, decimal xStockQuantity, bool b_from_factory)
         {
             m_ShopShelf_Source.Clear();
-            Atom_ProformaInvoice_Price_Item_Stock_ID = null;
-            ProformaInvoice_ID = new long_v();
-            ProformaInvoice_ID.v = xProformaInvoice_ID;
+            Atom_DocInvoice_Price_Item_Stock_ID = null;
+            DocInvoice_ID = new long_v();
+            DocInvoice_ID.v = xDocInvoice_ID;
             Atom_Price_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);
 
 

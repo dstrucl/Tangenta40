@@ -72,14 +72,14 @@
             this.lbl_FromFactory = new System.Windows.Forms.Label();
             this.txt_V_FromStock = new System.Windows.Forms.TextBox();
             this.lbl_FromStock = new System.Windows.Forms.Label();
-            this.dgv_ProformaInvoice_Atom_Item_Stock = new DataGridView_2xls.DataGridView2xls();
+            this.dgv_DocInvoice_Atom_Item_Stock = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.grp_Waranty.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Atom_Item)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProformaInvoice_Atom_Item_Stock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_DocInvoice_Atom_Item_Stock)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -132,7 +132,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.lbl_FromFactory);
             this.splitContainer1.Panel2.Controls.Add(this.txt_V_FromStock);
             this.splitContainer1.Panel2.Controls.Add(this.lbl_FromStock);
-            this.splitContainer1.Panel2.Controls.Add(this.dgv_ProformaInvoice_Atom_Item_Stock);
+            this.splitContainer1.Panel2.Controls.Add(this.dgv_DocInvoice_Atom_Item_Stock);
             this.splitContainer1.Size = new System.Drawing.Size(857, 425);
             this.splitContainer1.SplitterDistance = 290;
             this.splitContainer1.TabIndex = 0;
@@ -562,17 +562,17 @@
             this.lbl_FromStock.Text = "Količina vzeta iz skladišča:";
             this.lbl_FromStock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // dgv_ProformaInvoice_Atom_Item_Stock
+            // dgv_DocInvoice_Atom_Item_Stock
             // 
-            this.dgv_ProformaInvoice_Atom_Item_Stock.AllowUserToAddRows = false;
-            this.dgv_ProformaInvoice_Atom_Item_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgv_DocInvoice_Atom_Item_Stock.AllowUserToAddRows = false;
+            this.dgv_DocInvoice_Atom_Item_Stock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_ProformaInvoice_Atom_Item_Stock.DataGridViewWithRowNumber = false;
-            this.dgv_ProformaInvoice_Atom_Item_Stock.Location = new System.Drawing.Point(7, 40);
-            this.dgv_ProformaInvoice_Atom_Item_Stock.Name = "dgv_ProformaInvoice_Atom_Item_Stock";
-            this.dgv_ProformaInvoice_Atom_Item_Stock.Size = new System.Drawing.Size(841, 88);
-            this.dgv_ProformaInvoice_Atom_Item_Stock.TabIndex = 39;
+            this.dgv_DocInvoice_Atom_Item_Stock.DataGridViewWithRowNumber = false;
+            this.dgv_DocInvoice_Atom_Item_Stock.Location = new System.Drawing.Point(7, 40);
+            this.dgv_DocInvoice_Atom_Item_Stock.Name = "dgv_DocInvoice_Atom_Item_Stock";
+            this.dgv_DocInvoice_Atom_Item_Stock.Size = new System.Drawing.Size(841, 88);
+            this.dgv_DocInvoice_Atom_Item_Stock.TabIndex = 39;
             // 
             // usrc_Atom_Item_View
             // 
@@ -590,7 +590,7 @@
             this.grp_Waranty.ResumeLayout(false);
             this.grp_Waranty.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Atom_Item)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_ProformaInvoice_Atom_Item_Stock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_DocInvoice_Atom_Item_Stock)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -635,7 +635,7 @@
         private System.Windows.Forms.Label lbl_FromFactory;
         private System.Windows.Forms.TextBox txt_V_FromStock;
         private System.Windows.Forms.Label lbl_FromStock;
-        private DataGridView_2xls.DataGridView2xls dgv_ProformaInvoice_Atom_Item_Stock;
+        private DataGridView_2xls.DataGridView2xls dgv_DocInvoice_Atom_Item_Stock;
         private System.Windows.Forms.Label lbl_V_Quantity;
         private System.Windows.Forms.Label lbl_Quantity;
         private System.Windows.Forms.Label lbl_Expiry;

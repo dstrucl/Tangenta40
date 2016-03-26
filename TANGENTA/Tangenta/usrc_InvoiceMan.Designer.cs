@@ -126,7 +126,7 @@
             this.m_usrc_Invoice.Size = new System.Drawing.Size(617, 675);
             this.m_usrc_Invoice.TabIndex = 0;
             this.m_usrc_Invoice.Storno += new Tangenta.usrc_Invoice.delegate_Storno(this.m_usrc_Invoice_Storno);
-            this.m_usrc_Invoice.aa_ProformaInvoiceSaved += new Tangenta.usrc_Invoice.delegate_ProformaInvoiceSaved(this.m_usrc_Invoice_ProformaInvoiceSaved);
+            this.m_usrc_Invoice.aa_DocInvoiceSaved += new Tangenta.usrc_Invoice.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
             this.m_usrc_Invoice.aa_Customer_Person_Changed += new Tangenta.usrc_Invoice.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
             this.m_usrc_Invoice.aa_Customer_Org_Changed += new Tangenta.usrc_Invoice.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
             this.m_usrc_Invoice.aa_PriceListChanged += new Tangenta.usrc_Invoice.delegate_PriceListChanged(this.m_usrc_Invoice_PriceListChanged);

@@ -121,7 +121,7 @@ namespace Tangenta
 
 
             //ReceiptPrinter.Print(ep.InitializePrinter());
-            long journal_proformainvoice_id = -1;
+            long journal_docinvoice_id = -1;
 
             try
             {
@@ -289,20 +289,20 @@ namespace Tangenta
 
                 //}
 
-                ////Atom_ProformaInvoice_Price_Item_Stock.ID AS Atom_ProformaInvoice_Price_Item_Stock_ID,
-                ////Atom_ProformaInvoice_Price_Item_Stock.ProformaInvoice_ID,
-                ////ProformaInvoice.Atom_myCompany_Person_ID,
-                ////Atom_ProformaInvoice_Price_Item_Stock.Stock_ID,
-                ////Atom_ProformaInvoice_Price_Item_Stock.Atom_Price_Item_ID,
+                ////Atom_DocInvoice_Price_Item_Stock.ID AS Atom_DocInvoice_Price_Item_Stock_ID,
+                ////Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID,
+                ////DocInvoice.Atom_myCompany_Person_ID,
+                ////Atom_DocInvoice_Price_Item_Stock.Stock_ID,
+                ////Atom_DocInvoice_Price_Item_Stock.Atom_Price_Item_ID,
                 ////Atom_Item.ID as Atom_Item_ID,
                 ////itm.ID as Item_ID,
                 ////Atom_Price_Item.RetailPricePerUnit,
                 ////Atom_Price_Item.Discount,
-                ////Atom_ProformaInvoice_Price_Item_Stock.RetailPriceWithDiscount,
-                ////Atom_ProformaInvoice_Price_Item_Stock.TaxPrice,
-                ////Atom_ProformaInvoice_Price_Item_Stock.ExtraDiscount,
-                ////Atom_ProformaInvoice_Price_Item_Stock.dQuantity,
-                ////Atom_ProformaInvoice_Price_Item_Stock.ExpiryDate,
+                ////Atom_DocInvoice_Price_Item_Stock.RetailPriceWithDiscount,
+                ////Atom_DocInvoice_Price_Item_Stock.TaxPrice,
+                ////Atom_DocInvoice_Price_Item_Stock.ExtraDiscount,
+                ////Atom_DocInvoice_Price_Item_Stock.dQuantity,
+                ////Atom_DocInvoice_Price_Item_Stock.ExpiryDate,
                 ////Atom_Item.UniqueName AS Atom_Item_UniqueName,
                 ////Atom_Item_Name.Name AS Atom_Item_Name_Name,
                 ////Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
@@ -334,7 +334,7 @@ namespace Tangenta
                 ////Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces
                 //Printer.wr_NewLine();
 
-                //foreach (Atom_ProformaInvoice_Price_Item_Stock_Data appisd in xInvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST)
+                //foreach (Atom_DocInvoice_Price_Item_Stock_Data appisd in xInvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.Atom_DocInvoice_Price_Item_Stock_Data_LIST)
                 //{
                 //    string Item_UniqueName = appisd.Atom_Item_UniqueName.v;
 
@@ -450,13 +450,13 @@ namespace Tangenta
 
                 string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
                 string s_journal_invoice_description = Printer.PrinterName;
-                f_Journal_ProformaInvoice.Write(xInvoiceData.ProformaInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
+                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
             }
             catch (Exception ex)
             {
                 string s_journal_invoice_type = lngRPM.s_journal_invoice_type_PrintError.s + Printer.PrinterName + "\nErr=" + ex.Message;
                 string s_journal_invoice_description = Printer.PrinterName;
-                f_Journal_ProformaInvoice.Write(xInvoiceData.ProformaInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_proformainvoice_id);
+                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
             }
         }
 
@@ -523,17 +523,17 @@ namespace Tangenta
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0)
+            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Count > 0)
             {
-                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST[0];
-                if (o_Data is Atom_ProformaInvoice_Price_Item_Stock_Data)
+                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST[0];
+                if (o_Data is Atom_DocInvoice_Price_Item_Stock_Data)
                 {
-                    return (int)((Atom_ProformaInvoice_Price_Item_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;
+                    return (int)((Atom_DocInvoice_Price_Item_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;
                 }
             }
-            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows.Count > 0)
+            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_DocInvoice_Atom_Item_Stock.Rows.Count > 0)
             {
-                object o_Currency_DecimalPlaces = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_ProformaInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
+                object o_Currency_DecimalPlaces = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_DocInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
                 if (o_Currency_DecimalPlaces.GetType() == typeof(int))
                 {
                     return (int)o_Currency_DecimalPlaces;
@@ -559,20 +559,20 @@ namespace Tangenta
             foreach (DataRow dr in m_usrc_InvoiceTable.dt_XInvoice.Rows)
             {
 
-                if ((bool)dr["JOURNAL_ProformaInvoice_$_pinv_$$Draft"])
+                if ((bool)dr["JOURNAL_DocInvoice_$_dinv_$$Draft"])
                 {
                     continue;
                 }
                 else
                 {
                     Printer.wr_NewLine();
-                    int iFinYear = (int)dr["JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear"];
-                    int iNumberInFinancialYear = (int)dr["JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear"];
-                    string payment_type = (string)dr["JOURNAL_ProformaInvoice_$_pinv_$_inv_$_metopay_$$PaymentType"];
-                    decimal GrossSum = (decimal)dr["JOURNAL_ProformaInvoice_$_pinv_$$GrossSum"];
-                    bool Storno = (bool)dr["JOURNAL_ProformaInvoice_$_pinv_$_inv_$$Storno"];
-                    DateTime ProformaInvoice_Date = (DateTime)dr["JOURNAL_ProformaInvoice_$$EventTime"];
-                    sLine = ProformaInvoice_Date.ToString() + ":";
+                    int iFinYear = (int)dr["JOURNAL_DocInvoice_$_dinv_$$FinancialYear"];
+                    int iNumberInFinancialYear = (int)dr["JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear"];
+                    string payment_type = (string)dr["JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType"];
+                    decimal GrossSum = (decimal)dr["JOURNAL_DocInvoice_$_dinv_$$GrossSum"];
+                    bool Storno = (bool)dr["JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno"];
+                    DateTime DocInvoice_Date = (DateTime)dr["JOURNAL_DocInvoice_$$EventTime"];
+                    sLine = DocInvoice_Date.ToString() + ":";
                     Printer.wr_Paragraph(sLine);
                     if (Storno)
                     {

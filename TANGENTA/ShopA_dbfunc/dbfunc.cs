@@ -20,13 +20,13 @@ namespace ShopA_dbfunc
     public static class dbfunc
     {
 
-        public static bool Read_ShopA_Price_Item_Table(long ProformaInvoice_ID,ref DataTable dt)
+        public static bool Read_ShopA_Price_Item_Table(long DocInvoice_ID,ref DataTable dt)
         {
             string Err = null;
             string sql = @"SELECT 
                             Atom_ItemShopA_Price.ID,
-                            Atom_ItemShopA_Price_$_pinv.ID AS Atom_ItemShopA_Price_$_pinv_$$ID,
-                            Atom_ItemShopA_Price_$_pinv.Draft AS Atom_ItemShopA_Price_$_pinv_$$Draft,
+                            Atom_ItemShopA_Price_$_pinv.ID AS Atom_ItemShopA_Price_$_dinv_$$ID,
+                            Atom_ItemShopA_Price_$_pinv.Draft AS Atom_ItemShopA_Price_$_dinv_$$Draft,
                             Atom_ItemShopA_Price_$_aisha.ID AS Atom_ItemShopA_Price_$_aisha_$$ID,
                             Atom_ItemShopA_Price_$_aisha.Name AS Atom_ItemShopA_Price_$_aisha_$$Name,
                             Atom_ItemShopA_Price_$_aisha.Description AS Atom_ItemShopA_Price_$_aisha_$$Description,
@@ -43,11 +43,11 @@ namespace ShopA_dbfunc
                             Atom_ItemShopA_Price.EndPriceWithDiscountAndTax AS Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax,
                             Atom_ItemShopA_Price.TAX AS Atom_ItemShopA_Price_$$TAX
                             FROM Atom_ItemShopA_Price 
-                            INNER JOIN ProformaInvoice Atom_ItemShopA_Price_$_pinv ON Atom_ItemShopA_Price.ProformaInvoice_ID = Atom_ItemShopA_Price_$_pinv.ID
+                            INNER JOIN DocInvoice Atom_ItemShopA_Price_$_pinv ON Atom_ItemShopA_Price.DocInvoice_ID = Atom_ItemShopA_Price_$_pinv.ID
                             INNER JOIN Atom_ItemShopA Atom_ItemShopA_Price_$_aisha ON Atom_ItemShopA_Price.Atom_ItemShopA_ID = Atom_ItemShopA_Price_$_aisha.ID
                             INNER JOIN Taxation Atom_ItemShopA_Price_$_aisha_$_tax ON Atom_ItemShopA_Price_$_aisha.Taxation_ID = Atom_ItemShopA_Price_$_aisha_$_tax.ID
                             LEFT JOIN Unit Atom_ItemShopA_Price_$_aisha_$_u ON Atom_ItemShopA_Price_$_aisha.Unit_ID = Atom_ItemShopA_Price_$_aisha_$_u.ID
-                            where Atom_ItemShopA_Price_$_pinv.ID = " + ProformaInvoice_ID.ToString();
+                            where Atom_ItemShopA_Price_$_pinv.ID = " + DocInvoice_ID.ToString();
             dt.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
@@ -72,15 +72,15 @@ namespace ShopA_dbfunc
                 string sval = null;
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.set(Atom_ItemShopA_ID);
-                m_Atom_ItemShopA_Price.m_ProformaInvoice.ID.setsqlp(ref lpar, "ProformaInvoice_ID", ref scond, ref sval);
+                m_Atom_ItemShopA_Price.m_DocInvoice.ID.setsqlp(ref lpar, "DocInvoice_ID", ref scond, ref sval);
                 m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
                 m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
                 m_Atom_ItemShopA_Price.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
                 m_Atom_ItemShopA_Price.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
                 m_Atom_ItemShopA_Price.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
                 m_Atom_ItemShopA_Price.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
-                string sql = "insert into Atom_ItemShopA_Price (ProformaInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
-                              + m_Atom_ItemShopA_Price.m_ProformaInvoice.ID.value + ","
+                string sql = "insert into Atom_ItemShopA_Price (DocInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
+                              + m_Atom_ItemShopA_Price.m_DocInvoice.ID.value + ","
                               + m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.value + ","
                               + m_Atom_ItemShopA_Price.Discount.value + ","
                               + m_Atom_ItemShopA_Price.dQuantity.value + ","

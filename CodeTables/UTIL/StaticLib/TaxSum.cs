@@ -42,7 +42,7 @@ namespace StaticLib
             }
         }
 
-        //internal bool Create(long ProformaInvoice_ID)
+        //internal bool Create(long DocInvoice_ID)
         //{
         //    string Err = null;
         //    string sql = @" select apsi.TaxPrice,
@@ -50,7 +50,7 @@ namespace StaticLib
         //                           atax.Rate
         //                           from atom_price_simpleitem  apsi
         //                           inner join Atom_Taxation atax on apsi.Atom_Taxation_ID = atax.ID
-        //                           where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString();
+        //                           where DocInvoice_ID = " + DocInvoice_ID.ToString();
         //    DataTable dt_simple_item_tax = new DataTable();
         //    if (DBSync.DBSync.ReadDataTable(ref dt_simple_item_tax, sql, ref Err))
         //    {
@@ -62,10 +62,10 @@ namespace StaticLib
         //        sql = @" select appis.TaxPrice,
         //                           atax.Name,
         //                           atax.Rate
-        //                           from atom_proformainvoice_price_item_stock  appis
+        //                           from atom_docinvoice_price_item_stock  appis
         //                           inner join atom_price_item api on appis.atom_price_item_ID = api.ID
         //                           inner join Atom_Taxation atax on api.Atom_Taxation_ID = atax.ID
-        //                           where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString();
+        //                           where DocInvoice_ID = " + DocInvoice_ID.ToString();
         //        DataTable dt_item_tax = new DataTable();
         //        if (DBSync.DBSync.ReadDataTable(ref dt_item_tax, sql, ref Err))
         //        {

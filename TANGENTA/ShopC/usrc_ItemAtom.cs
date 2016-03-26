@@ -21,7 +21,7 @@ namespace ShopC
 {
     public partial class usrc_Atom_Item : UserControl
     {
-        public InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data m_appisd = null;
+        public InvoiceDB.Atom_DocInvoice_Price_Item_Stock_Data m_appisd = null;
         public long Item_ID = -1;
         public delegate void delegate_btn_RemoveClick(usrc_Atom_Item x_usrc_Atom_Item, bool bFactory);
         public event delegate_btn_RemoveClick btn_RemoveClick = null;
@@ -58,7 +58,7 @@ namespace ShopC
 
         }
 
-        internal void DoPaint(InvoiceDB.ShopABC xInvoiceDB, Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        internal void DoPaint(InvoiceDB.ShopABC xInvoiceDB, Atom_DocInvoice_Price_Item_Stock_Data appisd)
         {
             //appisd.Set(m_dr);
             m_InvoiceDB = xInvoiceDB;
@@ -249,7 +249,7 @@ namespace ShopC
             }
         }
 
-        internal void GetPrices(InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data appisd,
+        internal void GetPrices(InvoiceDB.Atom_DocInvoice_Price_Item_Stock_Data appisd,
                                 ref decimal Discount, ref decimal ExtraDiscount, ref decimal RetailPrice, ref decimal RetailPriceWithDiscount,
                                 ref decimal TaxPrice,
                                 ref string TaxName,

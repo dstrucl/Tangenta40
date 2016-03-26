@@ -1153,7 +1153,7 @@ namespace UpgradeDB
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
-                string stbl = "ProformaInvoice_Notice";
+                string stbl = "DocInvoice_Notice";
                 if (DBSync.DBSync.TableExists(stbl, ref Err))
                 {
 
@@ -1167,12 +1167,12 @@ namespace UpgradeDB
                           'Description' varchar(2000) NULL
                       );
 
-                    CREATE TABLE ProformaInvoice_Notice
+                    CREATE TABLE DocInvoice_Notice
                       (
                           'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                           ProformaInvoice_ID  INTEGER  NOT NULL REFERENCES ProformaInvoice(ID),
+                           DocInvoice_ID  INTEGER  NOT NULL REFERENCES DocInvoice(ID),
                            Notice_ID  INTEGER  NOT NULL REFERENCES Notice(ID),
-                           ProformaInvoice_ImageLib_ID  INTEGER  NULL REFERENCES ProformaInvoice_ImageLib(ID)
+                           DocInvoice_ImageLib_ID  INTEGER  NULL REFERENCES DocInvoice_ImageLib(ID)
                       );
                     PRAGMA foreign_keys = ON;";
                 }
@@ -1187,12 +1187,12 @@ namespace UpgradeDB
                           'Description' varchar(2000) NULL
                       );
 
-                    CREATE TABLE ProformaInvoice_Notice
+                    CREATE TABLE DocInvoice_Notice
                       (
                           'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                           ProformaInvoice_ID  INTEGER  NOT NULL REFERENCES ProformaInvoice(ID),
+                           DocInvoice_ID  INTEGER  NOT NULL REFERENCES DocInvoice(ID),
                            Notice_ID  INTEGER  NOT NULL REFERENCES Notice(ID),
-                           ProformaInvoice_ImageLib_ID  INTEGER  NULL REFERENCES ProformaInvoice_ImageLib(ID)
+                           DocInvoice_ImageLib_ID  INTEGER  NULL REFERENCES DocInvoice_ImageLib(ID)
                       );
                     ";
                 }
@@ -1219,30 +1219,30 @@ namespace UpgradeDB
             if (DBSync.DBSync.Drop_VIEWs())
             {
                 string sql = null;
-                string stbl = "ProformaInvoice_Notice";
+                string stbl = "DocInvoice_Notice";
                 if (DBSync.DBSync.TableExists(stbl, ref Err))
                 {
 
                     sql = @"PRAGMA foreign_keys = OFF;
                     DROP TABLE " + stbl + @";
-                    CREATE TABLE ProformaInvoice_Notice
+                    CREATE TABLE DocInvoice_Notice
                       (
                           'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                           ProformaInvoice_ID  INTEGER  NOT NULL REFERENCES ProformaInvoice(ID),
+                           DocInvoice_ID  INTEGER  NOT NULL REFERENCES DocInvoice(ID),
                           'NoticeText' TEXT NULL,
-                           ProformaInvoice_ImageLib_ID  INTEGER  NULL REFERENCES ProformaInvoice_ImageLib(ID)
+                           DocInvoice_ImageLib_ID  INTEGER  NULL REFERENCES DocInvoice_ImageLib(ID)
                       );
                     PRAGMA foreign_keys = ON;";
                 }
                 else
                 {
                     sql = @"
-                    CREATE TABLE ProformaInvoice_Notice
+                    CREATE TABLE DocInvoice_Notice
                       (
                           'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                           ProformaInvoice_ID  INTEGER  NOT NULL REFERENCES ProformaInvoice(ID),
+                           DocInvoice_ID  INTEGER  NOT NULL REFERENCES DocInvoice(ID),
                           'NoticeText' TEXT NULL,
-                           ProformaInvoice_ImageLib_ID  INTEGER  NULL REFERENCES ProformaInvoice_ImageLib(ID)
+                           DocInvoice_ImageLib_ID  INTEGER  NULL REFERENCES DocInvoice_ImageLib(ID)
                           
                       );
                     ";
@@ -1554,18 +1554,18 @@ namespace UpgradeDB
                 TableDataItem_List.Add(dt_Atom_Price_SimpleItem);
 
 
-                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ProformaInvoice_Price_Item_Stock));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_DocInvoice_Price_Item_Stock));
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
                 xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                TableDataItem dt_Atom_ProformaInvoice_Price_Item_Stock = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                TableDataItem dt_Atom_DocInvoice_Price_Item_Stock = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
                     wfp_ui_thread.End();
                     LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
                     return false;
                 }
-                TableDataItem_List.Add(dt_Atom_ProformaInvoice_Price_Item_Stock);
+                TableDataItem_List.Add(dt_Atom_DocInvoice_Price_Item_Stock);
 
 
                 Err = null;
@@ -1699,7 +1699,7 @@ namespace UpgradeDB
                             DraftNumber,
                             FinancialYear,
                             NumberInFinancialYear,
-                            ProformaInvoiceTime,
+                            DocInvoiceTime,
                             FirstPrintTime,
                             NetSum,
                             Discount,
@@ -1712,31 +1712,31 @@ namespace UpgradeDB
                             WarrantyConditions,
                             WarrantyDurationType,
                             WarrantyDuration,
-                            ProformaInvoiceDuration,
-                            ProformaInvoiceDurationType,
+                            DocInvoiceDuration,
+                            DocInvoiceDurationType,
                             TermsOfPayment_ID,
                             Invoice_ID,
                             i.PaymentDeadline as " + Column_PrefixTable + @"PaymentDeadline,
                             i.MethodOfPayment_ID as " + Column_PrefixTable + @"MethodOfPayment_ID,
                             i.Paid as " + Column_PrefixTable + @"Paid,
                             i.Storno as " + Column_PrefixTable + @"Storno
-                            from ProformaInvoice  pi
+                            from DocInvoice  pi
                             inner join Invoice i on i.ID = pi.Invoice_ID";
-                DataTable dt_ProformaInvoice = new DataTable();
-                if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
+                DataTable dt_DocInvoice = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
                 {
-                    if (dt_ProformaInvoice.Rows.Count > 0)
+                    if (dt_DocInvoice.Rows.Count > 0)
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                        List<ProformaInvoice_Connection_Class> ProformaInvoice_con_List = new List<ProformaInvoice_Connection_Class>();
+                        List<DocInvoice_Connection_Class> DocInvoice_con_List = new List<DocInvoice_Connection_Class>();
                         string sErrors = "";
-                        foreach (DataRow dr in dt_ProformaInvoice.Rows)
+                        foreach (DataRow dr in dt_DocInvoice.Rows)
                         {
                             lpar.Clear();
-                            long proformainvoice_ID = (long)dr["ID"];
-                            string sql_atom_price_simpleitem = "select * from atom_price_simpleitem where ProformaInvoice_ID = " + proformainvoice_ID.ToString();
-                            ProformaInvoice_Connection_Class picc = new ProformaInvoice_Connection_Class();
-                            picc.ID = proformainvoice_ID;
+                            long docinvoice_ID = (long)dr["ID"];
+                            string sql_atom_price_simpleitem = "select * from atom_price_simpleitem where DocInvoice_ID = " + docinvoice_ID.ToString();
+                            DocInvoice_Connection_Class picc = new DocInvoice_Connection_Class();
+                            picc.ID = docinvoice_ID;
                             DataTable dt_atom_price_simpleitem2 = new DataTable();
                             if (DBSync.DBSync.ReadDataTable(ref dt_atom_price_simpleitem2, sql_atom_price_simpleitem, ref Err))
                             {
@@ -1754,27 +1754,27 @@ namespace UpgradeDB
                                     string sNumber = ((int)dr["FinancialYear"]).ToString() + "/" + ((int)dr["NumberInFinancialYear"]).ToString();
                                     if ((decimal)dr["NetSum"] != NetSum)
                                     {
-                                        sErrors += lngRPM.s_WrongNetSum.s + ((decimal)dr["NetSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealNetSumIs.s + NetSum.ToString() + "\r\n";
+                                        sErrors += lngRPM.s_WrongNetSum.s + ((decimal)dr["NetSum"]).ToString() + lngRPM.s_ForDocInvoiceNumber.s + sNumber + lngRPM.s_RealNetSumIs.s + NetSum.ToString() + "\r\n";
                                         dr["NetSum"] = NetSum;
                                     }
                                     if ((decimal)dr["TaxSum"] != TaxSum)
                                     {
-                                        sErrors += lngRPM.s_WrongTaxSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealTaxSumIs.s + TaxSum.ToString() + "\r\n";
+                                        sErrors += lngRPM.s_WrongTaxSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForDocInvoiceNumber.s + sNumber + lngRPM.s_RealTaxSumIs.s + TaxSum.ToString() + "\r\n";
                                         dr["TaxSum"] = TaxSum;
                                     }
                                     if ((decimal)dr["GrossSum"] != GrossSum)
                                     {
-                                        sErrors += lngRPM.s_WrongGrossSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealGrossSumIs.s + GrossSum.ToString() + "\r\n";
+                                        sErrors += lngRPM.s_WrongGrossSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForDocInvoiceNumber.s + sNumber + lngRPM.s_RealGrossSumIs.s + GrossSum.ToString() + "\r\n";
                                         dr["GrossSum"] = GrossSum;
                                     }
                                 }
                                 picc.dt_atom_price_simpleitem = dt_atom_price_simpleitem2;
-                                string sql_journal_proformainvoice = "select * from journal_proformainvoice where ProformaInvoice_ID = " + proformainvoice_ID.ToString();
-                                DataTable dt_journal_proformainvoice = new DataTable();
-                                if (DBSync.DBSync.ReadDataTable(ref dt_journal_proformainvoice, sql_journal_proformainvoice, ref Err))
+                                string sql_journal_docinvoice = "select * from journal_docinvoice where DocInvoice_ID = " + docinvoice_ID.ToString();
+                                DataTable dt_journal_docinvoice = new DataTable();
+                                if (DBSync.DBSync.ReadDataTable(ref dt_journal_docinvoice, sql_journal_docinvoice, ref Err))
                                 {
-                                    picc.dt_journal_proformainvoice = dt_journal_proformainvoice;
-                                    ProformaInvoice_con_List.Add(picc);
+                                    picc.dt_journal_docinvoice = dt_journal_docinvoice;
+                                    DocInvoice_con_List.Add(picc);
                                 }
                                 else
                                 {
@@ -1794,28 +1794,28 @@ namespace UpgradeDB
                         }
 
 
-                        if (DeleteTable_And_ResetAutoincrement("journal_proformainvoice"))
+                        if (DeleteTable_And_ResetAutoincrement("journal_docinvoice"))
                         {
                             if (DeleteTable_And_ResetAutoincrement("atom_price_simpleitem"))
                             {
-                                if (DeleteTable_And_ResetAutoincrement("ProformaInvoice"))
+                                if (DeleteTable_And_ResetAutoincrement("DocInvoice"))
                                 {
                                     if (DeleteTable_And_ResetAutoincrement("Invoice"))
                                     {
 
-                                        foreach (DataRow dr in dt_ProformaInvoice.Rows)
+                                        foreach (DataRow dr in dt_DocInvoice.Rows)
                                         {
                                             long new_Invoice_id = -1;
                                             if (fs.WriteRow("Invoice", dr, Column_PrefixTable, true, ref new_Invoice_id))
                                             {
                                                 dr["Invoice_ID"] = new_Invoice_id;
-                                                long new_ProformaInvoice_id = -1;
-                                                if (fs.WriteRow("ProformaInvoice", dr, Column_PrefixTable, false, ref new_ProformaInvoice_id))
+                                                long new_DocInvoice_id = -1;
+                                                if (fs.WriteRow("DocInvoice", dr, Column_PrefixTable, false, ref new_DocInvoice_id))
                                                 {
-                                                    ProformaInvoice_Connection_Class xpicc = Get_ProformaInvoice_Connection_Class(ProformaInvoice_con_List, (long)dr["ID"]);
+                                                    DocInvoice_Connection_Class xpicc = Get_DocInvoice_Connection_Class(DocInvoice_con_List, (long)dr["ID"]);
                                                     if (xpicc != null)
                                                     {
-                                                        if (!xpicc.WriteNew(new_ProformaInvoice_id))
+                                                        if (!xpicc.WriteNew(new_DocInvoice_id))
                                                         {
                                                             return false;
                                                         }
@@ -1909,7 +1909,7 @@ namespace UpgradeDB
                             DraftNumber,
                             FinancialYear,
                             NumberInFinancialYear,
-                            ProformaInvoiceTime,
+                            DocInvoiceTime,
                             FirstPrintTime,
                             NetSum,
                             Discount,
@@ -1922,31 +1922,31 @@ namespace UpgradeDB
                             WarrantyConditions,
                             WarrantyDurationType,
                             WarrantyDuration,
-                            ProformaInvoiceDuration,
-                            ProformaInvoiceDurationType,
+                            DocInvoiceDuration,
+                            DocInvoiceDurationType,
                             TermsOfPayment_ID,
                             Invoice_ID,
                             i.PaymentDeadline as " + Column_PrefixTable + @"PaymentDeadline,
                             i.MethodOfPayment_ID as " + Column_PrefixTable + @"MethodOfPayment_ID,
                             i.Paid as " + Column_PrefixTable + @"Paid,
                             i.Storno as " + Column_PrefixTable + @"Storno
-                            from ProformaInvoice  pi
+                            from DocInvoice  pi
                             inner join Invoice i on i.ID = pi.Invoice_ID";
-                DataTable dt_ProformaInvoice = new DataTable();
-                if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
+                DataTable dt_DocInvoice = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
                 {
-                    if (dt_ProformaInvoice.Rows.Count > 0)
+                    if (dt_DocInvoice.Rows.Count > 0)
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                        List<ProformaInvoice_Connection_Class> ProformaInvoice_con_List = new List<ProformaInvoice_Connection_Class>();
+                        List<DocInvoice_Connection_Class> DocInvoice_con_List = new List<DocInvoice_Connection_Class>();
                         string sErrors = "";
-                        foreach (DataRow dr in dt_ProformaInvoice.Rows)
+                        foreach (DataRow dr in dt_DocInvoice.Rows)
                         {
                             lpar.Clear();
-                            long proformainvoice_ID = (long)dr["ID"];
-                            string sql_atom_price_simpleitem = "select * from atom_price_simpleitem where ProformaInvoice_ID = " + proformainvoice_ID.ToString();
-                            ProformaInvoice_Connection_Class picc = new ProformaInvoice_Connection_Class();
-                            picc.ID = proformainvoice_ID;
+                            long docinvoice_ID = (long)dr["ID"];
+                            string sql_atom_price_simpleitem = "select * from atom_price_simpleitem where DocInvoice_ID = " + docinvoice_ID.ToString();
+                            DocInvoice_Connection_Class picc = new DocInvoice_Connection_Class();
+                            picc.ID = docinvoice_ID;
                             DataTable dt_atom_price_simpleitem2 = new DataTable();
                             if (DBSync.DBSync.ReadDataTable(ref dt_atom_price_simpleitem2, sql_atom_price_simpleitem, ref Err))
                             {
@@ -1964,27 +1964,27 @@ namespace UpgradeDB
                                     string sNumber = ((int)dr["FinancialYear"]).ToString() + "/" + ((int)dr["NumberInFinancialYear"]).ToString();
                                     if ((decimal)dr["NetSum"] != NetSum)
                                     {
-                                        sErrors += lngRPM.s_WrongNetSum.s + ((decimal)dr["NetSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealNetSumIs.s + NetSum.ToString() + "\r\n";
+                                        sErrors += lngRPM.s_WrongNetSum.s + ((decimal)dr["NetSum"]).ToString() + lngRPM.s_ForDocInvoiceNumber.s + sNumber + lngRPM.s_RealNetSumIs.s + NetSum.ToString() + "\r\n";
                                         dr["NetSum"] = NetSum;
                                     }
                                     if ((decimal)dr["TaxSum"] != TaxSum)
                                     {
-                                        sErrors += lngRPM.s_WrongTaxSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealTaxSumIs.s + TaxSum.ToString() + "\r\n";
+                                        sErrors += lngRPM.s_WrongTaxSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForDocInvoiceNumber.s + sNumber + lngRPM.s_RealTaxSumIs.s + TaxSum.ToString() + "\r\n";
                                         dr["TaxSum"] = TaxSum;
                                     }
                                     if ((decimal)dr["GrossSum"] != GrossSum)
                                     {
-                                        sErrors += lngRPM.s_WrongGrossSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForProformaInvoiceNumber.s + sNumber + lngRPM.s_RealGrossSumIs.s + GrossSum.ToString() + "\r\n";
+                                        sErrors += lngRPM.s_WrongGrossSum.s + ((decimal)dr["TaxSum"]).ToString() + lngRPM.s_ForDocInvoiceNumber.s + sNumber + lngRPM.s_RealGrossSumIs.s + GrossSum.ToString() + "\r\n";
                                         dr["GrossSum"] = GrossSum;
                                     }
                                 }
                                 picc.dt_atom_price_simpleitem = dt_atom_price_simpleitem2;
-                                string sql_journal_proformainvoice = "select * from journal_proformainvoice where ProformaInvoice_ID = " + proformainvoice_ID.ToString();
-                                DataTable dt_journal_proformainvoice = new DataTable();
-                                if (DBSync.DBSync.ReadDataTable(ref dt_journal_proformainvoice, sql_journal_proformainvoice, ref Err))
+                                string sql_journal_docinvoice = "select * from journal_docinvoice where DocInvoice_ID = " + docinvoice_ID.ToString();
+                                DataTable dt_journal_docinvoice = new DataTable();
+                                if (DBSync.DBSync.ReadDataTable(ref dt_journal_docinvoice, sql_journal_docinvoice, ref Err))
                                 {
-                                    picc.dt_journal_proformainvoice = dt_journal_proformainvoice;
-                                    ProformaInvoice_con_List.Add(picc);
+                                    picc.dt_journal_docinvoice = dt_journal_docinvoice;
+                                    DocInvoice_con_List.Add(picc);
                                 }
                                 else
                                 {
@@ -2003,28 +2003,28 @@ namespace UpgradeDB
                             MessageBox.Show(m_parent_ctrl, sErrors, "Errors:", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
 
-                        //if (DeleteTable_And_ResetAutoincrement("journal_proformainvoice"))
+                        //if (DeleteTable_And_ResetAutoincrement("journal_docinvoice"))
                         //{
                         //    if (DeleteTable_And_ResetAutoincrement("atom_price_simpleitem"))
                         //    {
-                        //        if (DeleteTable_And_ResetAutoincrement("ProformaInvoice"))
+                        //        if (DeleteTable_And_ResetAutoincrement("DocInvoice"))
                         //        {
                         //            if (DeleteTable_And_ResetAutoincrement("Invoice"))
                         //            {
 
-                        //                foreach (DataRow dr in dt_ProformaInvoice.Rows)
+                        //                foreach (DataRow dr in dt_DocInvoice.Rows)
                         //                {
                         //                    long new_Invoice_id = -1;
                         //                    if (fs.WriteRow("Invoice", dr,  Column_PrefixTable, true, ref new_Invoice_id))
                         //                    {
                         //                        dr["Invoice_ID"] = new_Invoice_id;
-                        //                        long new_ProformaInvoice_id = -1;
-                        //                        if (fs.WriteRow("ProformaInvoice", dr, Column_PrefixTable, false, ref new_ProformaInvoice_id))
+                        //                        long new_DocInvoice_id = -1;
+                        //                        if (fs.WriteRow("DocInvoice", dr, Column_PrefixTable, false, ref new_DocInvoice_id))
                         //                        {
-                        //                            ProformaInvoice_Connection_Class xpicc = Get_ProformaInvoice_Connection_Class(ProformaInvoice_con_List,(long)dr["ID"]);
+                        //                            DocInvoice_Connection_Class xpicc = Get_DocInvoice_Connection_Class(DocInvoice_con_List,(long)dr["ID"]);
                         //                            if (xpicc !=null)
                         //                            {
-                        //                                if (!xpicc.WriteNew(new_ProformaInvoice_id))
+                        //                                if (!xpicc.WriteNew(new_DocInvoice_id))
                         //                                {
                         //                                    return false;
                         //                                }
@@ -2313,17 +2313,17 @@ namespace UpgradeDB
                                                                                     if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myCompany.sql_CreateView, null, ref Err))
                                                                                     {
 
-                                                                                        sql = "DROP VIEW ProformaInvoice_VIEW";
+                                                                                        sql = "DROP VIEW DocInvoice_VIEW";
                                                                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                         {
-                                                                                            SQLTable tbl_ProformaInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(ProformaInvoice));
-                                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_ProformaInvoice.sql_CreateView, null, ref Err))
+                                                                                            SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
+                                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_DocInvoice.sql_CreateView, null, ref Err))
                                                                                             {
-                                                                                                sql = "DROP VIEW JOURNAL_ProformaInvoice_VIEW";
+                                                                                                sql = "DROP VIEW JOURNAL_DocInvoice_VIEW";
                                                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                                 {
-                                                                                                    SQLTable tbl_JOURNAL_ProformaInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_ProformaInvoice));
-                                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_JOURNAL_ProformaInvoice.sql_CreateView, null, ref Err))
+                                                                                                    SQLTable tbl_JOURNAL_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_DocInvoice));
+                                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_JOURNAL_DocInvoice.sql_CreateView, null, ref Err))
                                                                                                     {
                                                                                                         if (Set_DatBase_Version("1.01"))
                                                                                                         {
@@ -2586,11 +2586,11 @@ namespace UpgradeDB
 
         }
 
-        private ProformaInvoice_Connection_Class Get_ProformaInvoice_Connection_Class(List<ProformaInvoice_Connection_Class> ProformaInvoice_con_List, long ProformaInvoice_ID)
+        private DocInvoice_Connection_Class Get_DocInvoice_Connection_Class(List<DocInvoice_Connection_Class> DocInvoice_con_List, long DocInvoice_ID)
         {
-            foreach (ProformaInvoice_Connection_Class picc in ProformaInvoice_con_List)
+            foreach (DocInvoice_Connection_Class picc in DocInvoice_con_List)
             {
-                if (picc.ID == ProformaInvoice_ID)
+                if (picc.ID == DocInvoice_ID)
                 {
                     return picc;
                 }
@@ -2630,33 +2630,33 @@ namespace UpgradeDB
         private bool Check_DB_1_04()
         {
             string Err  = null;
-            string sql = "select ID,FinancialYear,NumberInFinancialYear,NetSum,TaxSum,GrossSum from ProformaInvoice where Draft=0";
-            DataTable dt_ProformaInvoice = new DataTable();
+            string sql = "select ID,FinancialYear,NumberInFinancialYear,NetSum,TaxSum,GrossSum from DocInvoice where Draft=0";
+            DataTable dt_DocInvoice = new DataTable();
             DataTable dt_Atom_Price_SimpleItem = new DataTable();
-            DataTable dt_Atom_ProformaInvoice_Price_Item_Stock = new DataTable();
+            DataTable dt_Atom_DocInvoice_Price_Item_Stock = new DataTable();
             DataTable dt_Atom_Price_Item = new DataTable();
             string sErrMsg = "";
-            if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice, sql, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
             {
-                sql = "select ID,RetailSimpleItemPrice,iQuantity,TaxPrice,ProformaInvoice_ID from Atom_Price_SimpleItem";
+                sql = "select ID,RetailSimpleItemPrice,iQuantity,TaxPrice,DocInvoice_ID from Atom_Price_SimpleItem";
                 if (DBSync.DBSync.ReadDataTable(ref dt_Atom_Price_SimpleItem, sql, ref Err))
                 {
-                    sql = "select ID,RetailPriceWithDiscount,dQuantity,Atom_Price_Item_ID,ProformaInvoice_ID from Atom_ProformaInvoice_Price_Item_Stock";
-                    if (DBSync.DBSync.ReadDataTable(ref dt_Atom_ProformaInvoice_Price_Item_Stock, sql, ref Err))
+                    sql = "select ID,RetailPriceWithDiscount,dQuantity,Atom_Price_Item_ID,DocInvoice_ID from Atom_DocInvoice_Price_Item_Stock";
+                    if (DBSync.DBSync.ReadDataTable(ref dt_Atom_DocInvoice_Price_Item_Stock, sql, ref Err))
                     {
                         sql = "select ID,RetailPricePerUnit from Atom_Price_Item";
                         if (DBSync.DBSync.ReadDataTable(ref dt_Atom_Price_Item, sql, ref Err))
                         {
-                            long ProformaInvoice_ID = -1;
+                            long DocInvoice_ID = -1;
                             int iFinancialYear = -1;
                             int iNumberInFinancialYear = -1;
                             decimal NetSum = -1;
                             decimal TaxSum = -1;
                             decimal GrossSum = -1;
                             decimal ItemsGrossSum = -1;
-                            foreach (DataRow dr in dt_ProformaInvoice.Rows)
+                            foreach (DataRow dr in dt_DocInvoice.Rows)
                             {
-                                ProformaInvoice_ID = (long)dr["ID"];
+                                DocInvoice_ID = (long)dr["ID"];
                                 iFinancialYear = (int)dr["FinancialYear"];
                                 iNumberInFinancialYear = (int)dr["NumberInFinancialYear"];
                                 NetSum = (decimal)dr["NetSum"];
@@ -2664,17 +2664,17 @@ namespace UpgradeDB
                                 GrossSum = (decimal)dr["GrossSum"];
                                 List<long> Atom_Price_SimpleItem_ID_list = new List<long>();
                                 long Atom_Price_SimpleItem_ID = -1;
-                                GetItemsSum(ProformaInvoice_ID, dt_Atom_Price_SimpleItem, dt_Atom_ProformaInvoice_Price_Item_Stock, dt_Atom_Price_Item, ref ItemsGrossSum, ref Atom_Price_SimpleItem_ID);
+                                GetItemsSum(DocInvoice_ID, dt_Atom_Price_SimpleItem, dt_Atom_DocInvoice_Price_Item_Stock, dt_Atom_Price_Item, ref ItemsGrossSum, ref Atom_Price_SimpleItem_ID);
                                 if (ItemsGrossSum == GrossSum)
                                 {
                                     continue;
                                 }
                                 else
                                 {
-                                    sErrMsg += "ERROR:Proforma_Invoice_ID = " + ProformaInvoice_ID.ToString() + " GrossSum=" + GrossSum.ToString() + " ItemsGrossSum = " + ItemsGrossSum.ToString() + "\r\n";
-                                    if (((ProformaInvoice_ID == 45) || (ProformaInvoice_ID == 47) || (ProformaInvoice_ID == 89)) && (Atom_Price_SimpleItem_ID>=0))
+                                    sErrMsg += "ERROR:Proforma_Invoice_ID = " + DocInvoice_ID.ToString() + " GrossSum=" + GrossSum.ToString() + " ItemsGrossSum = " + ItemsGrossSum.ToString() + "\r\n";
+                                    if (((DocInvoice_ID == 45) || (DocInvoice_ID == 47) || (DocInvoice_ID == 89)) && (Atom_Price_SimpleItem_ID>=0))
                                     {
-                                        string sql_update = "update Atom_Price_SimpleItem set iQuantity = 1 where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + " and ID =" + Atom_Price_SimpleItem_ID.ToString();
+                                        string sql_update = "update Atom_Price_SimpleItem set iQuantity = 1 where DocInvoice_ID = " + DocInvoice_ID.ToString() + " and ID =" + Atom_Price_SimpleItem_ID.ToString();
                                         object ores=null;
                                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql_update,null,ref ores,ref Err))
                                         {
@@ -2719,10 +2719,10 @@ namespace UpgradeDB
             }
         }
 
-        private void GetItemsSum(long ProformaInvoice_ID,  DataTable dt_Atom_Price_SimpleItem, DataTable dt_Atom_ProformaInvoice_Price_Item_Stock, DataTable dt_Atom_Price_Item, ref decimal ItemsGrossSum, ref long Atom_Price_SimpleItem_ID)
+        private void GetItemsSum(long DocInvoice_ID,  DataTable dt_Atom_Price_SimpleItem, DataTable dt_Atom_DocInvoice_Price_Item_Stock, DataTable dt_Atom_Price_Item, ref decimal ItemsGrossSum, ref long Atom_Price_SimpleItem_ID)
         {
             decimal dsum = 0;
-            DataRow[] drs_Atom_Price_SimpleItem = dt_Atom_Price_SimpleItem.Select("ProformaInvoice_ID=" + ProformaInvoice_ID.ToString());
+            DataRow[] drs_Atom_Price_SimpleItem = dt_Atom_Price_SimpleItem.Select("DocInvoice_ID=" + DocInvoice_ID.ToString());
             if (drs_Atom_Price_SimpleItem.Count()>0)
             {
                 int iQuantity = -1;
@@ -2740,19 +2740,19 @@ namespace UpgradeDB
                 }
             }
 
-            DataRow[] drs_Atom_ProformaInvoice_Price_Item_Stock = dt_Atom_ProformaInvoice_Price_Item_Stock.Select("ProformaInvoice_ID=" + ProformaInvoice_ID.ToString());
-            if (drs_Atom_ProformaInvoice_Price_Item_Stock.Count()>0)
+            DataRow[] drs_Atom_DocInvoice_Price_Item_Stock = dt_Atom_DocInvoice_Price_Item_Stock.Select("DocInvoice_ID=" + DocInvoice_ID.ToString());
+            if (drs_Atom_DocInvoice_Price_Item_Stock.Count()>0)
             {
                 decimal dQuantity = -1;
-                int icol_iQuantity = dt_Atom_ProformaInvoice_Price_Item_Stock.Columns.IndexOf("dQuantity");
-                int icol_Atom_Price_Item_ID = dt_Atom_ProformaInvoice_Price_Item_Stock.Columns.IndexOf("Atom_Price_Item_ID");
+                int icol_iQuantity = dt_Atom_DocInvoice_Price_Item_Stock.Columns.IndexOf("dQuantity");
+                int icol_Atom_Price_Item_ID = dt_Atom_DocInvoice_Price_Item_Stock.Columns.IndexOf("Atom_Price_Item_ID");
 
                 decimal dRetailPricePerUnit = -1;
                 
-                foreach (DataRow dr_Atom_ProformaInvoice_Price_Item_Stock in drs_Atom_ProformaInvoice_Price_Item_Stock)
+                foreach (DataRow dr_Atom_DocInvoice_Price_Item_Stock in drs_Atom_DocInvoice_Price_Item_Stock)
                 {
-                    dQuantity = (decimal)dr_Atom_ProformaInvoice_Price_Item_Stock[icol_iQuantity];
-                    long Atom_Price_Item_ID = (long)dr_Atom_ProformaInvoice_Price_Item_Stock[icol_Atom_Price_Item_ID];
+                    dQuantity = (decimal)dr_Atom_DocInvoice_Price_Item_Stock[icol_iQuantity];
+                    long Atom_Price_Item_ID = (long)dr_Atom_DocInvoice_Price_Item_Stock[icol_Atom_Price_Item_ID];
                     DataRow[] drs_Atom_Price_Item = dt_Atom_Price_Item.Select("ID="+Atom_Price_Item_ID.ToString());
                     if (drs_Atom_Price_Item.Count()==1)
                     {
@@ -2900,7 +2900,7 @@ namespace UpgradeDB
             string Err = null;
             if (Read_DBSettings_Version(ref bUpgradeDone, ref Err))
             {
-                if (GlobalData.JOURNAL_ProformaInvoice_Type_definitions.Read())
+                if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
                 {
                     if (Read_DBSettings_LastInvoiceType(bUpgradeDone, ref Err))
                     {
@@ -3109,7 +3109,7 @@ namespace UpgradeDB
 
 
                 }
-                else if (this.tbl.TableName.ToLower().Equals("proformainvoice"))
+                else if (this.tbl.TableName.ToLower().Equals("docinvoice"))
                 {
                     DateTime dtStart = new DateTime(2015, 4, 29);
                     DateTime_v dtEnd_v = new DateTime_v();
@@ -3122,7 +3122,7 @@ namespace UpgradeDB
             string sql_insert_columns = null;
             string sql_insert_values = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            bool bProformaInvoiceTime = false;
+            bool bDocInvoiceTime = false;
             bool bFirstPrintTime = false;
             bool bPaid = false;
             bool bStorno = false;
@@ -3161,7 +3161,7 @@ namespace UpgradeDB
                                 }
                                 else
                                 {
-                                    if (this.tbl.TableName.ToLower().Equals("proformainvoice"))
+                                    if (this.tbl.TableName.ToLower().Equals("docinvoice"))
                                     {
                                         if (dcol.ColumnName.ToLower().Equals("atom_mycompany_person_id"))
                                         {
@@ -3190,9 +3190,9 @@ namespace UpgradeDB
                             {
                                 bFirstPrintTime = true;
                             }
-                            else if (dcol.ColumnName.ToLower().Equals("proformainvoicetime"))
+                            else if (dcol.ColumnName.ToLower().Equals("docinvoicetime"))
                             {
-                                bProformaInvoiceTime = true;
+                                bDocInvoiceTime = true;
                             }
                             else
                             {
@@ -3225,12 +3225,12 @@ namespace UpgradeDB
                         }
                     }
 
-                    if (bProformaInvoiceTime)
+                    if (bDocInvoiceTime)
                     { 
-                        if (dr["proformainvoicetime"] is DateTime)
+                        if (dr["docinvoicetime"] is DateTime)
                         {
                             InvoiceTime_v = new DateTime_v();
-                            InvoiceTime_v.v = (DateTime)dr["proformainvoicetime"];
+                            InvoiceTime_v.v = (DateTime)dr["docinvoicetime"];
                         }
                     }
 
@@ -3239,7 +3239,7 @@ namespace UpgradeDB
                         if (dr["Paid"] is bool)
                         {
                             PaidTime_v = new DateTime_v();
-                            PaidTime_v.v = GetProformaInvoiceTime(old_id,m_Old_tables_1_04_to_1_05);
+                            PaidTime_v.v = GetDocInvoiceTime(old_id,m_Old_tables_1_04_to_1_05);
                         }
                     }
 
@@ -3266,16 +3266,16 @@ namespace UpgradeDB
                     {
                         dr["OLD_ID"] = old_id;
                         dr["id"] = new_id;
-                        if (tname.ToLower().Equals("proformainvoice"))
+                        if (tname.ToLower().Equals("docinvoice"))
                         { 
-                            long Journal_ProformaInvoice_ID = -1;
-                            f_Journal_ProformaInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.Name, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceDraftTime.Description, InvoiceTime_v, ref Journal_ProformaInvoice_ID);
+                            long Journal_DocInvoice_ID = -1;
+                            f_Journal_DocInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.Name, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.Description, InvoiceTime_v, ref Journal_DocInvoice_ID);
                             if (dr["Draft"] is bool)
                             {
                                 if (!(bool)dr["Draft"])
                                 { 
-                                    f_Journal_ProformaInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.Name, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.Description ,InvoiceTime_v, ref Journal_ProformaInvoice_ID);
-                                    f_Journal_ProformaInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoicePaidTime.Name, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoicePaidTime.Description, InvoiceTime_v, ref Journal_ProformaInvoice_ID);
+                                    f_Journal_DocInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.Name, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.Description ,InvoiceTime_v, ref Journal_DocInvoice_ID);
+                                    f_Journal_DocInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoicePaidTime.Name, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoicePaidTime.Description, InvoiceTime_v, ref Journal_DocInvoice_ID);
                                 }
                             }
                         }
@@ -3308,30 +3308,30 @@ namespace UpgradeDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Upgrade:GetInvoiceStornoTime:Err id =" + Invoice_id.ToString() + " not found in table ProformaInvoice!");
+                LogFile.Error.Show("ERROR:usrc_Upgrade:GetInvoiceStornoTime:Err id =" + Invoice_id.ToString() + " not found in table DocInvoice!");
                 return DateTime.Now;
             }
         }
 
-        private DateTime GetProformaInvoiceTime(long id, Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
+        private DateTime GetDocInvoiceTime(long id, Old_tables_1_04_to_1_05 m_Old_tables_1_04_to_1_05)
         {
 
-            DataRow[] drs = m_Old_tables_1_04_to_1_05.dt_ProformaInvoice.Select("id=" + id.ToString());
+            DataRow[] drs = m_Old_tables_1_04_to_1_05.dt_DocInvoice.Select("id=" + id.ToString());
             if (drs.Count()>0)
             {
-                if (drs[0]["ProformaInvoiceTime"] is DateTime)
+                if (drs[0]["DocInvoiceTime"] is DateTime)
                 { 
-                    return (DateTime)drs[0]["ProformaInvoiceTime"];
+                    return (DateTime)drs[0]["DocInvoiceTime"];
                 }
                 else
                 {
-                    //LogFile.Error.Show("ERROR:usrc_Upgrade:GetProformaInvoiceTime:ProformaInvoiceTime type = " + drs[0]["ProformaInvoiceTime"].GetType().ToString());
+                    //LogFile.Error.Show("ERROR:usrc_Upgrade:GetDocInvoiceTime:DocInvoiceTime type = " + drs[0]["DocInvoiceTime"].GetType().ToString());
                     return DateTime.Now;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Upgrade:GetProformaInvoiceTime:Err id =" + id.ToString() + " not found in table ProformaInvoice!");
+                LogFile.Error.Show("ERROR:usrc_Upgrade:GetDocInvoiceTime:Err id =" + id.ToString() + " not found in table DocInvoice!");
                 return DateTime.Now;
             }
         }
@@ -3458,15 +3458,15 @@ namespace UpgradeDB
 
     public class Old_tables_1_04_to_1_05
     {
-        public DataTable dt_ProformaInvoice = new DataTable();
+        public DataTable dt_DocInvoice = new DataTable();
         public DataTable dt_Invoice = new DataTable();
         public DataTable dt_Journal_Invoice = new DataTable();
         public DataTable dt_Journal_Invoice_Type = new DataTable();
         public bool Read()
         {
             string Err = null;
-            string sql = "select * from ProformaInvoice";
-            if (DBSync.DBSync.ReadDataTable(ref dt_ProformaInvoice,sql, ref Err))
+            string sql = "select * from DocInvoice";
+            if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice,sql, ref Err))
             {
                 sql = "select * from Invoice";
                 if (DBSync.DBSync.ReadDataTable(ref dt_Invoice,sql, ref Err))

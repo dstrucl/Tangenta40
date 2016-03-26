@@ -169,15 +169,15 @@ namespace Tangenta
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
-            DateTime_v ProformaInvoiceTime = new DateTime_v();
-            ProformaInvoiceTime.v = DateTime.Now;
+            DateTime_v DocInvoiceTime = new DateTime_v();
+            DocInvoiceTime.v = DateTime.Now;
             if (PaymentType == GlobalData.ePaymentType.CASH)
             {
-                DoPrint(PaymentType, sPaymentMethod, txt_AmountReceived.Text, txt_ToReturn.Text, ProformaInvoiceTime);
+                DoPrint(PaymentType, sPaymentMethod, txt_AmountReceived.Text, txt_ToReturn.Text, DocInvoiceTime);
             }
             else
             {
-                DoPrint(PaymentType, sPaymentMethod, null, null, ProformaInvoiceTime);
+                DoPrint(PaymentType, sPaymentMethod, null, null, DocInvoiceTime);
             }
 
             if (OK != null)
@@ -189,9 +189,9 @@ namespace Tangenta
 
         private void DoPrint(GlobalData.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
-            long ProformaInvoice_ID = -1;
+            long DocInvoice_ID = -1;
             int xNumberInFinancialYear = -1;
-            if (m_InvoiceData.Save(ref ProformaInvoice_ID, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, ref xNumberInFinancialYear))
+            if (m_InvoiceData.Save(ref DocInvoice_ID, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, ref xNumberInFinancialYear))
             {
                 m_InvoiceData.Set_NumberInFinancialYear(xNumberInFinancialYear);
 

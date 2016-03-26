@@ -28,7 +28,7 @@ namespace InvoiceDB
         public DataTable dtCurrent_Invoice = new DataTable();
         public DataTable dtCurrent_Atom_Price_ShopBItem = new DataTable();
 
-        public DataTable dtCurrent_Atom_ProformaInvoice_Price_Item_Stock = new DataTable();
+        public DataTable dtCurrent_Atom_DocInvoice_Price_Item_Stock = new DataTable();
 
         public ShopShelf m_ShopShelf = new ShopShelf();
         public Basket m_Basket = new Basket();
@@ -40,8 +40,8 @@ namespace InvoiceDB
         public int DraftNumber;
         public long Invoice_ID;
 
-        public long ProformaInvoice_ID;
-        public long_v StornoProformaInvoice_ID_v = null;
+        public long DocInvoice_ID;
+        public long_v StornoDocInvoice_ID_v = null;
         public string_v Invoice_Reference_Type_v= null;
 
         public long_v Atom_Customer_Person_ID_v = null;
@@ -57,7 +57,7 @@ namespace InvoiceDB
             FinancialYear = DateTime.Now.Year;
             NumberInFinancialYear = 1;
             Invoice_ID = -1;
-            ProformaInvoice_ID = -1;
+            DocInvoice_ID = -1;
         }
 
 
@@ -67,7 +67,7 @@ namespace InvoiceDB
                                            DataTable dt_SimpleItems)
         {
             long Atom_SimpleItem_ID;
-            long Atom_Price_SimpleItem_ProformaInvoice_ID;
+            long Atom_Price_SimpleItem_DocInvoice_ID;
             long Atom_Price_SimpleItem_SimpleItem_ID;
             long Atom_Price_SimpleItem_Atom_SimpleItem_Name_ID;
             long_v Atom_Price_SimpleItem_Atom_SimpleItem_Image_ID_v;
@@ -88,7 +88,7 @@ namespace InvoiceDB
             foreach (DataRow drsa in dtCurrent_Atom_Price_ShopBItem.Rows)
             {
                 Atom_SimpleItem_ID = (long)drsa["ID"];
-                Atom_Price_SimpleItem_ProformaInvoice_ID = (long)drsa["ProformaInvoice_ID"];
+                Atom_Price_SimpleItem_DocInvoice_ID = (long)drsa["DocInvoice_ID"];
                 Atom_Price_SimpleItem_SimpleItem_ID = (long)drsa["SimpleItem_ID"];
                 Atom_Price_SimpleItem_Atom_SimpleItem_Name_ID = (long)drsa["Atom_SimpleItem_Name_ID"];
                 if (drsa["Atom_SimpleItem_Image_ID"] is long)
@@ -158,13 +158,13 @@ namespace InvoiceDB
 
 
 
-        public bool Insert_ProformaInvoice_Atom_Price_Items_Stock(ref Atom_ProformaInvoice_Price_Item_Stock_Data appisd, bool b_from_stock
+        public bool Insert_DocInvoice_Atom_Price_Items_Stock(ref Atom_DocInvoice_Price_Item_Stock_Data appisd, bool b_from_stock
                                                                     )
         {
-            return Get_Atom_ProformaInvoice_Price_Item_Stock(ref appisd, b_from_stock);
+            return Get_Atom_DocInvoice_Price_Item_Stock(ref appisd, b_from_stock);
         }
 
-        private bool Get_Atom_ProformaInvoice_Price_Item_Stock(ref Atom_ProformaInvoice_Price_Item_Stock_Data appisd, bool b_from_stock)
+        private bool Get_Atom_DocInvoice_Price_Item_Stock(ref Atom_DocInvoice_Price_Item_Stock_Data appisd, bool b_from_stock)
         {
             long Atom_Price_Item_ID = -1;
             if (Get_Atom_Price_Item(ref appisd))
@@ -261,23 +261,23 @@ namespace InvoiceDB
                         sValue_ExpiryDate = "null";
                     }
 
-                    string sql_select_Atom_ProformaInvoice_Price_Item_Stock_ID = @"select ID as ProformaInvoice_PrriceAtom_Atom_Item_Stock_ID, 
+                    string sql_select_Atom_DocInvoice_Price_Item_Stock_ID = @"select ID as DocInvoice_PrriceAtom_Atom_Item_Stock_ID, 
                                                                     dQuantity,
                                                                     ExtraDiscount,
                                                                     RetailPriceWithDiscount,
                                                                     TaxPrice
-                                                                    from Atom_ProformaInvoice_Price_Item_Stock 
-                                                                    where ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + @" and
+                                                                    from Atom_DocInvoice_Price_Item_Stock 
+                                                                    where DocInvoice_ID = " + DocInvoice_ID.ToString() + @" and
                                                                             Atom_Price_Item_ID = " + Atom_Price_Item_ID.ToString() + @" and "
                                                                                     + scond_ExpiryDate + @" and "
                                                                                     + scond_Stock_ID;
                     DataTable dt = new DataTable();
                     string Err = null;
-                    if (DBSync.DBSync.ReadDataTable(ref dt, sql_select_Atom_ProformaInvoice_Price_Item_Stock_ID, lpar, ref Err))
+                    if (DBSync.DBSync.ReadDataTable(ref dt, sql_select_Atom_DocInvoice_Price_Item_Stock_ID, lpar, ref Err))
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            appisd.Atom_ProformaInvoice_Price_Item_Stock_ID = tf.set_long(dt.Rows[0]["ProformaInvoice_PrriceAtom_Atom_Item_Stock_ID"]);
+                            appisd.Atom_DocInvoice_Price_Item_Stock_ID = tf.set_long(dt.Rows[0]["DocInvoice_PrriceAtom_Atom_Item_Stock_ID"]);
                             // appisd.dQuantity_all.v = appisd.m_Warehouse.dQuantity_all;
                             appisd.RetailPriceWithDiscount = tf.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
                             appisd.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
@@ -290,13 +290,13 @@ namespace InvoiceDB
 
 
 
-                            string sql_insert_Atom_ProformaInvoice_Price_Item_Stock_ID = @"insert into Atom_ProformaInvoice_Price_Item_Stock 
+                            string sql_insert_Atom_DocInvoice_Price_Item_Stock_ID = @"insert into Atom_DocInvoice_Price_Item_Stock 
                                                                             (
                                                                             dQuantity,
                                                                             ExtraDiscount,
                                                                             RetailPriceWithDiscount,
                                                                             TaxPrice,
-                                                                            ProformaInvoice_ID,
+                                                                            DocInvoice_ID,
                                                                             Atom_Price_Item_ID,
                                                                             ExpiryDate,
                                                                             Stock_ID
@@ -307,16 +307,16 @@ namespace InvoiceDB
                                                                             " + spar_ExtraDiscount + @",
                                                                             " + spar_RetailPriceWithDiscount + @",
                                                                             " + spar_TaxPrice + @",
-                                                                            " + ProformaInvoice_ID.ToString() + @",
+                                                                            " + DocInvoice_ID.ToString() + @",
                                                                             " + Atom_Price_Item_ID.ToString() + @",
                                                                             " + sValue_ExpiryDate + @", 
                                                                             " + sValue_Stock_ID
                                                                                     + ")";
                             object objret = null;
-                            long Atom_ProformaInvoice_Price_Item_Stock_ID = -1;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_Atom_ProformaInvoice_Price_Item_Stock_ID, lpar, ref Atom_ProformaInvoice_Price_Item_Stock_ID, ref objret, ref Err, DBtcn.stbl_ProformaInvoice_Atom_Item_Stock_TableName))
+                            long Atom_DocInvoice_Price_Item_Stock_ID = -1;
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_Atom_DocInvoice_Price_Item_Stock_ID, lpar, ref Atom_DocInvoice_Price_Item_Stock_ID, ref objret, ref Err, DBtcn.stbl_DocInvoice_Atom_Item_Stock_TableName))
                             {
-                                appisd.Atom_ProformaInvoice_Price_Item_Stock_ID = tf.set_long(Atom_ProformaInvoice_Price_Item_Stock_ID);
+                                appisd.Atom_DocInvoice_Price_Item_Stock_ID = tf.set_long(Atom_DocInvoice_Price_Item_Stock_ID);
 
                                 if (Stock_ID != null)
                                 {
@@ -325,14 +325,14 @@ namespace InvoiceDB
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:Get_ProformaInvoice_Atom_Item_Stock:insert into ProformaInvoice_Atom_Item_Stock failed!\r\nErr=" + Err);
+                                LogFile.Error.Show("ERROR:Get_DocInvoice_Atom_Item_Stock:insert into DocInvoice_Atom_Item_Stock failed!\r\nErr=" + Err);
                                 return false;
                             }
                         }
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:Get_Atom_ProformaInvoice_Price_Item_Stock:select ID as ProformaInvoice_Atom_Item_Stock_ID from ProformaInvoice_Atom_Item_Stock failed!\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:Get_Atom_DocInvoice_Price_Item_Stock:select ID as DocInvoice_Atom_Item_Stock_ID from DocInvoice_Atom_Item_Stock failed!\r\nErr=" + Err);
                         return false;
                     }
 
@@ -346,7 +346,7 @@ namespace InvoiceDB
             }
         }
 
-        private bool Get_Atom_Price_Item(ref Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        private bool Get_Atom_Price_Item(ref Atom_DocInvoice_Price_Item_Stock_Data appisd)
         {
             long Atom_Taxation_ID = -1;
             if (Get_Atom_Taxation_ID(appisd.Atom_Taxation_Name, appisd.Atom_Taxation_Rate, ref Atom_Taxation_ID))
@@ -478,7 +478,7 @@ namespace InvoiceDB
             }
         }
 
-        private bool Get_Atom_Item(ref Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        private bool Get_Atom_Item(ref Atom_DocInvoice_Price_Item_Stock_Data appisd)
         {
             string Err = null;
             string sAtom_Item_Name_ID = null;
@@ -773,7 +773,7 @@ namespace InvoiceDB
             }
         }
 
-        private bool Get_Atom_Unit_ID(Atom_ProformaInvoice_Price_Item_Stock_Data appisd, ref long Atom_Unit_ID)
+        private bool Get_Atom_Unit_ID(Atom_DocInvoice_Price_Item_Stock_Data appisd, ref long Atom_Unit_ID)
         {
             string Err = null;
             string scond_Unit_Name = null;
@@ -909,7 +909,7 @@ namespace InvoiceDB
 
         public bool Update_Customer_Remove()
         {
-            string sql = "update ProformaInvoice set Atom_Customer_Org_ID = null,Atom_Customer_Person_ID = null where ID = " + this.ProformaInvoice_ID.ToString();
+            string sql = "update DocInvoice set Atom_Customer_Org_ID = null,Atom_Customer_Person_ID = null where ID = " + this.DocInvoice_ID.ToString();
             string Err = null;
             object ores = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
@@ -1114,7 +1114,7 @@ namespace InvoiceDB
         bool Get_Atom_Warranty(short_v Warranty_WarrantyDurationType,
                               int_v Warranty_WarrantyDuration,
                               string_v Warranty_WarrantyConditions,
-                              ref Atom_ProformaInvoice_Price_Item_Stock_Data pias,
+                              ref Atom_DocInvoice_Price_Item_Stock_Data pias,
                               ref long Atom_Warranty_ID, ref string Err)
         {
             string scond_WarrantyDurationType = null;
@@ -1399,12 +1399,12 @@ namespace InvoiceDB
             if (sIn_ID_list != null)
             {
                 sIn_ID_list += ")";
-                string sql_Delete_ProformaInvoice_Atom_Item_Stock = "delete from Atom_ProformaInvoice_Price_Item_Stock where (ProformaInvoice_ID = " + ProformaInvoice_ID.ToString() + ") and Atom_ProformaInvoice_Price_Item_Stock.Stock_ID is null and Atom_Price_Item_ID in " + sIn_ID_list;
+                string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from Atom_DocInvoice_Price_Item_Stock where (DocInvoice_ID = " + DocInvoice_ID.ToString() + ") and Atom_DocInvoice_Price_Item_Stock.Stock_ID is null and Atom_Price_Item_ID in " + sIn_ID_list;
                 object objret = null;
                 string Err = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_ProformaInvoice_Atom_Item_Stock, null, ref objret, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
                 {
-                    string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from Atom_ProformaInvoice_Price_Item_Stock)";
+                    string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from Atom_DocInvoice_Price_Item_Stock)";
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref objret, ref Err))
                     {
                         string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
@@ -1438,7 +1438,7 @@ namespace InvoiceDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:Remove_usrc_Atom_Item_Factory_Items:delete from Atom_ProformaInvoice_Price_Item_Stock:Err=" + Err);
+                    LogFile.Error.Show("ERROR:Remove_usrc_Atom_Item_Factory_Items:delete from Atom_DocInvoice_Price_Item_Stock:Err=" + Err);
                     return false;
                 }
             }
@@ -1449,7 +1449,7 @@ namespace InvoiceDB
             }
         }
 
-        public bool Save(ref long xProformaInvoice_ID, GlobalData.ePaymentType ePaymentType, string p1, string p2, string p3, ref int xNumberInFinancialYear)
+        public bool Save(ref long xDocInvoice_ID, GlobalData.ePaymentType ePaymentType, string p1, string p2, string p3, ref int xNumberInFinancialYear)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_PrintTime = "@par_PrintTime";
@@ -1462,10 +1462,10 @@ namespace InvoiceDB
             if (GetNewNumberInFinancialYear())
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
-                sql = "update ProformaInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + ProformaInvoice_ID.ToString(); // Close Proforma Invoice
+                sql = "update DocInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + DocInvoice_ID.ToString(); // Close Proforma Invoice
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
                 {
-                    xProformaInvoice_ID = ProformaInvoice_ID;
+                    xDocInvoice_ID = DocInvoice_ID;
                     return true;
                 }
                 else
@@ -1489,7 +1489,7 @@ namespace InvoiceDB
             {
                 cond = "Invoice_ID is null";
             }
-            string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from ProformaInvoice where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and " + cond + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+            string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from DocInvoice where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and " + cond + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -1523,7 +1523,7 @@ namespace InvoiceDB
             {
                 if (xAtom_Customer_Person_ID_v != null)
                 {
-                    string sql = "update ProformaInvoice set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID_v.v.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.ProformaInvoice_ID.ToString();
+                    string sql = "update DocInvoice set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID_v.v.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.DocInvoice_ID.ToString();
                     string Err = null;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
@@ -1551,7 +1551,7 @@ namespace InvoiceDB
             {
                 if (xAtom_Customer_Org_ID_v != null)
                 {
-                    string sql = "update ProformaInvoice set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID_v.v.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.ProformaInvoice_ID.ToString();
+                    string sql = "update DocInvoice set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID_v.v.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.DocInvoice_ID.ToString();
                     string Err = null;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
@@ -1580,19 +1580,19 @@ namespace InvoiceDB
         {
             if (issue_time != null)
             {
-                long Journal_ProformaInvoice_ID = -1;
-                return f_Journal_ProformaInvoice.Write(this.ProformaInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_ProformaInvoice_ID);
+                long Journal_DocInvoice_ID = -1;
+                return f_Journal_DocInvoice.Write(this.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
             }
             else
             {
-                LogFile.Error.Show("ERROR:CurrentInvoice:SetProformaInvoiceTime:issue_time is null");
+                LogFile.Error.Show("ERROR:CurrentInvoice:SetDocInvoiceTime:issue_time is null");
                 return false;
 
             }
         }
 
 
-        public bool Storno(ref long Storno_ProformaInvoice_ID,  bool bStorno, string sReason,ref  DateTime retissue_time)
+        public bool Storno(ref long Storno_DocInvoice_ID,  bool bStorno, string sReason,ref  DateTime retissue_time)
         {
             object ores = null;
             string Err = null;
@@ -1613,11 +1613,11 @@ namespace InvoiceDB
                         WarrantyConditions,
                         WarrantyDurationType,
                         WarrantyDuration,
-                        ProformaInvoiceDuration,
-                        ProformaInvoiceDurationType,
+                        DocInvoiceDuration,
+                        DocInvoiceDurationType,
                         TermsOfPayment_ID,
                         Invoice_ID
-                  from ProformaInvoice where ProformaInvoice.ID  = " + ProformaInvoice_ID.ToString();
+                  from DocInvoice where DocInvoice.ID  = " + DocInvoice_ID.ToString();
             if (DBSync.DBSync.ReadDataTable(ref dt_ProfInv, sql, ref Err))
             {
                 long_v Invoice_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Invoice_ID"]);
@@ -1634,8 +1634,8 @@ namespace InvoiceDB
                 string_v WarrantyConditions_v = tf.set_string(dt_ProfInv.Rows[0]["WarrantyConditions"]);
                 int_v WarrantyDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDurationType"]);
                 int_v WarrantyDuration_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDuration"]);
-                long_v ProformaInvoiceDuration_v = tf.set_long(dt_ProfInv.Rows[0]["ProformaInvoiceDuration"]);
-                int_v ProformaInvoiceDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["ProformaInvoiceDurationType"]);
+                long_v DocInvoiceDuration_v = tf.set_long(dt_ProfInv.Rows[0]["DocInvoiceDuration"]);
+                int_v DocInvoiceDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["DocInvoiceDurationType"]);
                 long_v TermsOfPayment_ID_v = tf.set_long(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
                 int iNewNumberInFinancialYear = -1;
                 GetNewNumberInFinancialYear(ref iNewNumberInFinancialYear);
@@ -1648,7 +1648,7 @@ namespace InvoiceDB
                 sql = " update invoice set Storno  = " + sBit + " where ID = " + this.Invoice_ID.ToString();
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
-                    sql = @"insert into Invoice (PaymentDeadline,MethodOfPayment_ID,Paid,Storno,Invoice_Reference_ID,Invoice_Reference_Type) values (null,null,null,1," + ProformaInvoice_ID.ToString() + ",'STORNO')";
+                    sql = @"insert into Invoice (PaymentDeadline,MethodOfPayment_ID,Paid,Storno,Invoice_Reference_ID,Invoice_Reference_Type) values (null,null,null,1," + DocInvoice_ID.ToString() + ",'STORNO')";
                     long Storno_Invoice_ID = -1;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Storno_Invoice_ID, ref ores, ref Err, "Invoice"))
                     {
@@ -1659,7 +1659,7 @@ namespace InvoiceDB
                         GrossSum_v.v = -GrossSum_v.v;
 
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                        sql = @"insert into ProformaInvoice (
+                        sql = @"insert into DocInvoice (
                                                         Draft,
                                                         DraftNumber,
                                                         FinancialYear,
@@ -1675,8 +1675,8 @@ namespace InvoiceDB
                                                         WarrantyConditions,
                                                         WarrantyDurationType,
                                                         WarrantyDuration,
-                                                        ProformaInvoiceDuration,
-                                                        ProformaInvoiceDurationType,
+                                                        DocInvoiceDuration,
+                                                        DocInvoiceDurationType,
                                                         TermsOfPayment_ID,
                                                         Invoice_ID)
                                                         values
@@ -1696,19 +1696,19 @@ namespace InvoiceDB
                                                                  + GetParam("WarrantyConditions", ref lpar, WarrantyConditions_v) + ","
                                                                  + GetParam("WarrantyDurationType", ref lpar, WarrantyDurationType_v) + ","
                                                                  + GetParam("WarrantyDuration", ref lpar, WarrantyDuration_v) + ","
-                                                                 + GetParam("ProformaInvoiceDuration", ref lpar, ProformaInvoiceDuration_v) + ","
-                                                                 + GetParam("ProformaInvoiceDurationType", ref lpar, ProformaInvoiceDurationType_v) + ","
+                                                                 + GetParam("DocInvoiceDuration", ref lpar, DocInvoiceDuration_v) + ","
+                                                                 + GetParam("DocInvoiceDurationType", ref lpar, DocInvoiceDurationType_v) + ","
                                                                  + GetParam("TermsOfPayment_ID", ref lpar, TermsOfPayment_ID_v) + ","
                                                                  + GetParam("Invoice_ID", ref lpar, Storno_Invoice_ID_v) + ")";
 
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_ProformaInvoice_ID, ref ores, ref Err, "ProformaInvoice"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoice_ID, ref ores, ref Err, "DocInvoice"))
                         {
-                            long Journal_ProformaInvoice_ID = -1;
+                            long Journal_DocInvoice_ID = -1;
                             DateTime_v issue_time = new DateTime_v(DateTime.Now);
 
                             retissue_time = issue_time.v;
 
-                            if (f_Journal_ProformaInvoice.Write(Storno_ProformaInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_ProformaInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_ProformaInvoice_ID))
+                            if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
                             {
                                 long JOURNAL_Invoice_ID = -1;
                                 if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))

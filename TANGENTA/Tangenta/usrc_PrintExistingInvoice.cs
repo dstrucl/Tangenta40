@@ -28,11 +28,11 @@ namespace Tangenta
         public event delegate_Cancel Cancel;
 
         public InvoiceData m_InvoiceData = null;
-        DateTime_v ProformaInvoiceTime_v = null;
+        DateTime_v DocInvoiceTime_v = null;
         DataTable dt = new DataTable();
 
 
-        long ProformaInvoice_ID = -1;
+        long DocInvoice_ID = -1;
         public usrc_PrintExistingInvoice()
         {
             InitializeComponent();
@@ -45,7 +45,7 @@ namespace Tangenta
         {
 
             m_InvoiceData = xInvoiceData;
-            ProformaInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.ProformaInvoice_ID;
+            DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.DocInvoice_ID;
             lbl_Invoice_value.Text = InvoiceNumber;
             btn_Print.Text = lngRPM.s_Print.s;
             return ShowJournal();
@@ -55,37 +55,37 @@ namespace Tangenta
         public bool ShowJournal()
         {
             string sql = @"select   ID,
-                                    JOURNAL_ProformaInvoice_$_pinv_$$FinancialYear,
-                                    JOURNAL_ProformaInvoice_$_pinv_$$NumberInFinancialYear,
-                                    JOURNAL_ProformaInvoice_$_jpinvt_$$Name,
-                                    JOURNAL_ProformaInvoice_$_jpinvt_$$Description,
-                                    JOURNAL_ProformaInvoice_$$EventTime,
-                                    JOURNAL_ProformaInvoice_$_pinv_$$GrossSum,
-                                    JOURNAL_ProformaInvoice_$_pinv_$$TaxSum,
-                                    JOURNAL_ProformaInvoice_$_pinv_$$NetSum,
-                                    JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acfn_$$FirstName,
-                                    JOURNAL_ProformaInvoice_$_pinv_$_acusper_$_aper_$_acln_$$LastName,
-                                    JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
-                                    JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName
-                                    from JOURNAL_ProformaInvoice_VIEW where JOURNAL_ProformaInvoice_$_pinv_$$ID = " + ProformaInvoice_ID.ToString() + " order by ID desc";
+                                    JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
+                                    JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
+                                    JOURNAL_DocInvoice_$_jpinvt_$$Name,
+                                    JOURNAL_DocInvoice_$_jpinvt_$$Description,
+                                    JOURNAL_DocInvoice_$$EventTime,
+                                    JOURNAL_DocInvoice_$_dinv_$$GrossSum,
+                                    JOURNAL_DocInvoice_$_dinv_$$TaxSum,
+                                    JOURNAL_DocInvoice_$_dinv_$$NetSum,
+                                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
+                                    JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
+                                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                                    JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName
+                                    from JOURNAL_DocInvoice_VIEW where JOURNAL_DocInvoice_$_dinv_$$ID = " + DocInvoice_ID.ToString() + " order by ID desc";
             dt.Clear();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 dgvx_Journal_InvoicePrint.DataSource = dt;
-                CodeTables.SQLTable tbl = new CodeTables.SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_ProformaInvoice)));
+                CodeTables.SQLTable tbl = new CodeTables.SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_DocInvoice)));
                 tbl.SetVIEW_DataGridViewImageColumns_Headers(dgvx_Journal_InvoicePrint, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                dgvx_Journal_InvoicePrint.Columns["JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"].HeaderText = lngRPM.s_FirstNameOfPersonThatPrintedInvoice.s;
-                dgvx_Journal_InvoicePrint.Columns["JOURNAL_ProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"].HeaderText = lngRPM.s_LastNameOfPersonThatPrintedInvoice.s;
+                dgvx_Journal_InvoicePrint.Columns["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"].HeaderText = lngRPM.s_FirstNameOfPersonThatPrintedInvoice.s;
+                dgvx_Journal_InvoicePrint.Columns["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"].HeaderText = lngRPM.s_LastNameOfPersonThatPrintedInvoice.s;
                 if (dt.Rows.Count>0)
                 {
-                    if (dt.Rows[0]["JOURNAL_ProformaInvoice_$$EventTime"] is DateTime)
+                    if (dt.Rows[0]["JOURNAL_DocInvoice_$$EventTime"] is DateTime)
                     {
-                        if (ProformaInvoiceTime_v==null)
+                        if (DocInvoiceTime_v==null)
                         {
-                            ProformaInvoiceTime_v = new DateTime_v();
+                            DocInvoiceTime_v = new DateTime_v();
                         }
-                        ProformaInvoiceTime_v.v = (DateTime)dt.Rows[0]["JOURNAL_ProformaInvoice_$$EventTime"];
+                        DocInvoiceTime_v.v = (DateTime)dt.Rows[0]["JOURNAL_DocInvoice_$$EventTime"];
                     }
                 }
                 return true;
@@ -104,33 +104,33 @@ namespace Tangenta
             DateTime dtInvoiceTime = DateTime.MinValue;
             if (GetInvoiceTime(ref dtInvoiceTime))
             {
-                if (ProformaInvoiceTime_v == null)
+                if (DocInvoiceTime_v == null)
                 {
-                    ProformaInvoiceTime_v = new DateTime_v();
+                    DocInvoiceTime_v = new DateTime_v();
                 }
-                ProformaInvoiceTime_v.v = dtInvoiceTime;
-                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, GlobalData.ePaymentType.NONE, null, null, null, ProformaInvoiceTime_v);
+                DocInvoiceTime_v.v = dtInvoiceTime;
+                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, GlobalData.ePaymentType.NONE, null, null, null, DocInvoiceTime_v);
                 ShowJournal();
             }
         }
 
         private bool GetInvoiceTime(ref DateTime dtInvoiceTime)
         {
-            string sJournal_ProformaInvoice_Type_Name = "InvoiceTime";
+            string sJournal_DocInvoice_Type_Name = "InvoiceTime";
             if (m_InvoiceData!=null)
             {
                 if (m_InvoiceData.Invoice_Reference_Type_v!=null)
                 {
                     if (m_InvoiceData.Invoice_Reference_Type_v.v.Equals("STORNO"))
                     {
-                        sJournal_ProformaInvoice_Type_Name = "InvoiceStornoTime";
+                        sJournal_DocInvoice_Type_Name = "InvoiceStornoTime";
                     }
                 }
             }
-            string sql = @"select   JOURNAL_ProformaInvoice_$$EventTime
-                                    from JOURNAL_ProformaInvoice_VIEW where 
-                                    JOURNAL_ProformaInvoice_$_jpinvt_$$Name = '"+ sJournal_ProformaInvoice_Type_Name + @"' and
-                                    JOURNAL_ProformaInvoice_$_pinv_$$ID = " + ProformaInvoice_ID.ToString() + " order by ID desc";
+            string sql = @"select   JOURNAL_DocInvoice_$$EventTime
+                                    from JOURNAL_DocInvoice_VIEW where 
+                                    JOURNAL_DocInvoice_$_jpinvt_$$Name = '"+ sJournal_DocInvoice_Type_Name + @"' and
+                                    JOURNAL_DocInvoice_$_dinv_$$ID = " + DocInvoice_ID.ToString() + " order by ID desc";
             dt.Clear();
             string Err = null;
             DataTable xdt = new DataTable();
@@ -138,7 +138,7 @@ namespace Tangenta
             {
                 if (xdt.Rows.Count>0)
                 {
-                    dtInvoiceTime = (DateTime)xdt.Rows[0]["JOURNAL_ProformaInvoice_$$EventTime"];
+                    dtInvoiceTime = (DateTime)xdt.Rows[0]["JOURNAL_DocInvoice_$$EventTime"];
                     return true;
                 }
                 else

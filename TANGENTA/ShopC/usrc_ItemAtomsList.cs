@@ -108,7 +108,7 @@ namespace ShopC
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
+                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_DocInvoice_Price_Item_Stock_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
                 }
             }
             else
@@ -130,21 +130,21 @@ namespace ShopC
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
+                    LogFile.Error.Show("ERROR:usrs_ItemAtomsList:usrc_Atom_Item_RemoveClick:this.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_DocInvoice_Price_Item_Stock_Data_LIST.Remove(x_usrc_Atom_Item.m_appisd) failed !");
                 }
             }
-            this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0;
+            this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Count > 0;
         }
 
 
         internal void SetCurrentInvoice_SelectedItems()
         {
 
-            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST, 5, usrc_Atom_Item_array);
+            m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST, 5, usrc_Atom_Item_array);
             this.m_usrc_ItemList.Reset();
             if (this.m_ShopBC.m_CurrentInvoice.bDraft)
             {
-                this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.Count > 0;
+                this.btn_ClearAll.Visible = this.m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Count > 0;
             }
             else
             {
@@ -159,7 +159,7 @@ namespace ShopC
             usrc_Atom_Item usrc_atom_item = (usrc_Atom_Item)o_usrc;
             if (bVisible)
             {
-                Atom_ProformaInvoice_Price_Item_Stock_Data appisd = (Atom_ProformaInvoice_Price_Item_Stock_Data)o_data;
+                Atom_DocInvoice_Price_Item_Stock_Data appisd = (Atom_DocInvoice_Price_Item_Stock_Data)o_data;
                 usrc_atom_item.DoPaint(this.m_ShopBC,appisd);
                 usrc_atom_item.Visible = true;
                 usrc_atom_item.Enabled = true;
@@ -173,11 +173,11 @@ namespace ShopC
         }
 
 
-        internal usrc_Atom_Item AddFromStock(InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        internal usrc_Atom_Item AddFromStock(InvoiceDB.Atom_DocInvoice_Price_Item_Stock_Data appisd)
         {
-            if (m_ShopBC.m_CurrentInvoice.Insert_ProformaInvoice_Atom_Price_Items_Stock(ref appisd,true))
+            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(ref appisd,true))
             {
-                int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.IndexOf(appisd);
+                int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.IndexOf(appisd);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
                 if (usrc_itema != null)
                 {
@@ -192,13 +192,13 @@ namespace ShopC
             }
         }
 
-        internal usrc_Atom_Item AddFromFactory(InvoiceDB.Atom_ProformaInvoice_Price_Item_Stock_Data appisd)
+        internal usrc_Atom_Item AddFromFactory(InvoiceDB.Atom_DocInvoice_Price_Item_Stock_Data appisd)
         {
 
-            if (m_ShopBC.m_CurrentInvoice.Insert_ProformaInvoice_Atom_Price_Items_Stock(ref appisd,false))
+            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(ref appisd,false))
             {
 
-                int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_ProformaInvoice_Price_Item_Stock_Data_LIST.IndexOf(appisd);
+                int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.IndexOf(appisd);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
                 if (usrc_itema!=null)
                 {

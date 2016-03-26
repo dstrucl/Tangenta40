@@ -29,7 +29,7 @@ namespace InvoiceDB
         public static long Atom_myCompany_Person_ID = -1;
         public static long Atom_WorkPeriod_ID = -1;
 
-        public static JOURNAL_ProformaInvoice_Type_definitions JOURNAL_ProformaInvoice_Type_definitions = new JOURNAL_ProformaInvoice_Type_definitions();
+        public static JOURNAL_DocInvoice_Type_definitions JOURNAL_DocInvoice_Type_definitions = new JOURNAL_DocInvoice_Type_definitions();
         public static xCurrency BaseCurrency = null;
 
         public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
