@@ -32,7 +32,14 @@ namespace ThreadProcessor
             {
                 if (message_buff.Get(ref Message))
                 {
-                    res = Result_MessageBox_Get.OK;
+                    if (Message.Message == ThreadP2Ctrl_Message.eMessage.ERROR)
+                    {
+                        res = Result_MessageBox_Get.ERROR;
+                    }
+                    else
+                    {
+                        res = Result_MessageBox_Get.OK;
+                    }
                 }
                 else
                 {

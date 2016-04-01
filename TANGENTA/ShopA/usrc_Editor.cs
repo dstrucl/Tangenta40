@@ -22,7 +22,7 @@ namespace ShopA
 {
     public partial class usrc_Editor : UserControl
     {
-        public delegate void delegate_AddRow(Atom_ItemShopA_Price m_Atom_ItemShopA_Price);
+        public delegate void delegate_AddRow(DocInvoice_ShopA_Item m_Atom_ItemShopA_Price);
         public event delegate_AddRow AddRow = null;
         public delegate bool delegate_EditUnis();
         public event delegate_EditUnis EditUnits;
@@ -30,7 +30,7 @@ namespace ShopA
 
 
         ShopABC m_ShopABC = null;
-        Atom_ItemShopA_Price m_Atom_ItemShopA_Price = null;
+        DocInvoice_ShopA_Item m_Atom_ItemShopA_Price = null;
         public decimal TaxValue = 0;
         public decimal EndNetPrice = 0;
         public decimal Discount = 0;
@@ -49,7 +49,7 @@ namespace ShopA
 
         }
 
-        internal void Init(ShopABC xShopABC, Atom_ItemShopA_Price xAtom_ItemShopA_Price)
+        internal void Init(ShopABC xShopABC, DocInvoice_ShopA_Item xAtom_ItemShopA_Price)
         {
             m_ShopABC = xShopABC;
             m_Atom_ItemShopA_Price = xAtom_ItemShopA_Price;

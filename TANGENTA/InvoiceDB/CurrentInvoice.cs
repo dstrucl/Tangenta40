@@ -1613,8 +1613,8 @@ namespace InvoiceDB
                         WarrantyConditions,
                         WarrantyDurationType,
                         WarrantyDuration,
-                        DocInvoiceDuration,
-                        DocInvoiceDurationType,
+                        DocDuration,
+                        DocDurationType,
                         TermsOfPayment_ID,
                         Invoice_ID
                   from DocInvoice where DocInvoice.ID  = " + DocInvoice_ID.ToString();
@@ -1634,8 +1634,8 @@ namespace InvoiceDB
                 string_v WarrantyConditions_v = tf.set_string(dt_ProfInv.Rows[0]["WarrantyConditions"]);
                 int_v WarrantyDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDurationType"]);
                 int_v WarrantyDuration_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDuration"]);
-                long_v DocInvoiceDuration_v = tf.set_long(dt_ProfInv.Rows[0]["DocInvoiceDuration"]);
-                int_v DocInvoiceDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["DocInvoiceDurationType"]);
+                long_v DocDuration_v = tf.set_long(dt_ProfInv.Rows[0]["DocDuration"]);
+                int_v DocDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["DocDurationType"]);
                 long_v TermsOfPayment_ID_v = tf.set_long(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
                 int iNewNumberInFinancialYear = -1;
                 GetNewNumberInFinancialYear(ref iNewNumberInFinancialYear);
@@ -1675,8 +1675,8 @@ namespace InvoiceDB
                                                         WarrantyConditions,
                                                         WarrantyDurationType,
                                                         WarrantyDuration,
-                                                        DocInvoiceDuration,
-                                                        DocInvoiceDurationType,
+                                                        DocDuration,
+                                                        DocDurationType,
                                                         TermsOfPayment_ID,
                                                         Invoice_ID)
                                                         values
@@ -1696,8 +1696,8 @@ namespace InvoiceDB
                                                                  + GetParam("WarrantyConditions", ref lpar, WarrantyConditions_v) + ","
                                                                  + GetParam("WarrantyDurationType", ref lpar, WarrantyDurationType_v) + ","
                                                                  + GetParam("WarrantyDuration", ref lpar, WarrantyDuration_v) + ","
-                                                                 + GetParam("DocInvoiceDuration", ref lpar, DocInvoiceDuration_v) + ","
-                                                                 + GetParam("DocInvoiceDurationType", ref lpar, DocInvoiceDurationType_v) + ","
+                                                                 + GetParam("DocDuration", ref lpar, DocDuration_v) + ","
+                                                                 + GetParam("DocDurationType", ref lpar, DocDurationType_v) + ","
                                                                  + GetParam("TermsOfPayment_ID", ref lpar, TermsOfPayment_ID_v) + ","
                                                                  + GetParam("Invoice_ID", ref lpar, Storno_Invoice_ID_v) + ")";
 

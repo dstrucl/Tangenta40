@@ -18,6 +18,7 @@ using DBTypes;
 using InvoiceDB;
 using ThreadProcessor;
 using System.ComponentModel;
+using System.IO;
 
 namespace UpgradeDB
 {
@@ -36,6 +37,7 @@ namespace UpgradeDB
 
 
         private Control m_parent_ctrl = null;
+        public string m_Full_backup_filename = null;
 
         public delegate void delegate_Backup();
         public event delegate_Backup Backup;
@@ -70,10 +72,11 @@ namespace UpgradeDB
                 new Upgrade("1.15",UpgradeDB_1_15_to_1_16),
                 new Upgrade("1.16",UpgradeDB_1_16_to_1_17),
                 new Upgrade("1.17",UpgradeDB_1_17_to_1_18),
-                new Upgrade("1.18",UpgradeDB_1_18_to_1_19)
+                new Upgrade("1.18",UpgradeDB_1_18_to_1_19),
+                new Upgrade("1.19",UpgradeDB_1_19_to_1_20)
             };
         }
-        public bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err)
+        public bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err, string xBackupFileName)
         {
             int i = 0;
             int iCount = UpgradeArray.Length;
@@ -82,16 +85,345 @@ namespace UpgradeDB
                 if (UpgradeArray[i].DBVersion.Equals(sOldDBVersion))
                 {
                     int j = i;
-                    Form_Upgrade_inThread frm_upgr = new Form_Upgrade_inThread(this, UpgradeArray, j);
+                    Form_Upgrade_inThread frm_upgr = new Form_Upgrade_inThread(this, UpgradeArray, j, xBackupFileName);
                     frm_upgr.ShowDialog();
                 }
             }
             return true;
         }
 
+        private object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
+        {
+            string[] new_tables = new string[] {"DocInvoice",
+                                                "DocProformaInvoice",
+                                                "DocInvoice_ShopC_Item",
+                                                "DocProformaInvoice_ShopC_Item",
+                                                "DocInvoice_ShopB_Item",
+                                                "DocProformaInvoice_ShopB_Item",
+                                                "Doc_ImageLib",
+                                                "DocInvoice_Notice",
+                                                "DocProformaInvoice_Notice",
+                                                "DocInvoice_Image",
+                                                "DocProformaInvoice_Image",
+                                                "JOURNAL_DocInvoice_Type",
+                                                "JOURNAL_DocProformaInvoice_Type",
+                                                "JOURNAL_DocInvoice",
+                                                "JOURNAL_DocProformaInvoice",
+                                                "DocInvoice_ShopA_Item",
+                                                "DocProformaInvoice_ShopA_Item"
+                                                };
+            if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+            {
+                string sql = @"insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_ProformaInvoice_Type;
+                               insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_Invoice_Type;
+                               insert into DocInvoice
+                               (
+                               Draft,
+                               DraftNumber,
+                               FinancialYear,
+                               NumberInFinancialYear,
+                               NetSum,
+                               Discount,
+                               EndSum,
+                               TaxSum,
+                               GrossSum,
+                               Atom_Customer_Person_ID,
+                               Atom_Customer_Org_ID,
+                               WarrantyExist,
+                               WarrantyConditions,
+                               WarrantyDurationType,
+                               WarrantyDuration,
+                               TermsOfPayment_ID,
+                               PaymentDeadline,
+                               MethodOfPayment_ID,
+                               Paid,
+                               Storno,
+                               Invoice_Reference_ID,
+                               Invoice_Reference_Type
+                               )
+                               select 
+                                pi.Draft,
+                                pi.DraftNumber,
+                                pi.FinancialYear,
+                                pi.NumberInFinancialYear,
+                                pi.NetSum,
+                                pi.Discount,
+                                pi.EndSum,
+                                pi.TaxSum,
+                                pi.GrossSum,
+                                pi.Atom_Customer_Person_ID,
+                                pi.Atom_Customer_Org_ID,
+                                pi.WarrantyExist,
+                                pi.WarrantyConditions,
+                                pi.WarrantyDurationType,
+                                pi.WarrantyDuration,
+                                pi.TermsOfPayment_ID,
+                                inv.PaymentDeadline,
+                                inv.MethodOfPayment_ID,
+                                inv.Paid,
+                                inv.Storno,
+                                inv.Invoice_Reference_ID,
+                                inv.Invoice_Reference_Type
+                                from ProformaInvoice pi
+                                left join Invoice inv on pi.Invoice_ID = inv.ID;
+
+                                Insert into DocInvoice_ShopA_Item
+                                (
+                                    DocInvoice_ID,
+                                    Atom_ItemShopA_ID,
+                                    Discount,
+                                    dQuantity,
+                                    PricePerUnit,
+                                    EndPriceWithDiscountAndTax,
+                                    TAX
+                                )
+                                select
+                                    ProformaInvoice_ID,
+                                    Atom_ItemShopA_ID,
+                                    Discount,    
+                                    dQuantity,
+                                    PricePerUnit,
+                                    EndPriceWithDiscountAndTax,
+                                    TAX
+                                from Atom_ItemShopA_Price;
+
+                                Insert into DocInvoice_ShopB_Item
+                                (
+                                    RetailSimpleItemPrice,
+                                    Discount,
+                                    iQuantity,
+                                    RetailSimpleItemPriceWithDiscount,
+                                    ExtraDiscount,
+                                    TaxPrice,
+                                    Atom_SimpleItem_ID,
+                                    Atom_PriceList_ID,
+                                    Atom_Taxation_ID,
+                                    DocInvoice_ID   
+                                )
+                                select
+                                    RetailSimpleItemPrice,
+                                    Discount,
+                                    iQuantity,
+                                    RetailSimpleItemPriceWithDiscount,
+                                    ExtraDiscount,
+                                    TaxPrice,
+                                    Atom_SimpleItem_ID,
+                                    Atom_PriceList_ID,
+                                    Atom_Taxation_ID,
+                                    ProformaInvoice_ID
+                                from Atom_Price_SimpleItem;
+
+                                Insert into DocInvoice_ShopC_Item
+                                (
+                                    dQuantity,
+                                    ExtraDiscount,
+                                    RetailPriceWithDiscount,
+                                    TaxPrice,
+                                    DocInvoice_ID,
+                                    Atom_Price_Item_ID,
+                                    ExpiryDate,
+                                    Stock_ID
+                                )
+                                select
+                                   dQuantity,
+                                   ExtraDiscount,
+                                   RetailPriceWithDiscount,
+                                   TaxPrice,
+                                   ProformaInvoice_ID,
+                                   Atom_Price_Item_ID,
+                                   ExpiryDate,
+                                   Stock_ID
+                                from Atom_ProformaInvoice_Price_Item_Stock;
+
+                ";
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+
+                sql = @"select
+                           jpi.JOURNAL_ProformaInvoice_Type_ID,
+                           jpi.ProformaInvoice_ID,
+                           jpi.EventTime as jpi_EventTime,
+                           jpi.Atom_WorkPeriod_ID as  jpi_Atom_WorkPeriod_ID,
+                           ji.JOURNAL_Invoice_Type_ID,
+                           ji.Invoice_ID,
+                           ji.EventTime as ji_EventTime,
+                           ji.Atom_WorkPeriod_ID as ji_Atom_WorkPeriod_ID
+                       from JOURNAL_ProformaInvoice jpi
+		       inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
+                       left join JOURNAL_Invoice ji on pi.Invoice_ID = ji.Invoice_ID
+		       Group by
+                           jpi.JOURNAL_ProformaInvoice_Type_ID,
+                           jpi.ProformaInvoice_ID,
+                           jpi.EventTime,
+                           jpi.Atom_WorkPeriod_ID,
+                           ji.JOURNAL_Invoice_Type_ID,
+                           ji.Invoice_ID,
+                           ji.EventTime,
+                           ji.Atom_WorkPeriod_ID
+                ";
+                DataTable dt = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
+                {
+                    int iCount = dt.Rows.Count;
+                    int i;
+
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                    for (i=0;i< iCount;i++)
+                    {
+                        DataRow dr = dt.Rows[i];
+                        lpar.Clear();
+                        string spar_JOURNAL_DocInvoice_Type_ID = "@par_JOURNAL_DocInvoice_Type_ID";
+                        SQL_Parameter par_JOURNAL_DocInvoice_Type_ID = new SQL_Parameter(spar_JOURNAL_DocInvoice_Type_ID,SQL_Parameter.eSQL_Parameter.Bigint,false, dr["JOURNAL_ProformaInvoice_Type_ID"]);
+                        lpar.Add(par_JOURNAL_DocInvoice_Type_ID);
+
+                        string spar_DocInvoice_ID = "@par_DocInvoice_ID";
+                        SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ProformaInvoice_ID"]);
+                        lpar.Add(par_DocInvoice_ID);
+
+                        string spar_EventTime = "@par_EventTime";
+                        SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dr["jpi_EventTime"]);
+                        lpar.Add(par_EventTime);
+
+                        string spar_jpi_Atom_WorkPeriod_ID = "@par_jpi_Atom_WorkPeriod_ID";
+                        SQL_Parameter par_jpi_Atom_WorkPeriod_ID = new SQL_Parameter(spar_jpi_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["jpi_Atom_WorkPeriod_ID"]);
+                        lpar.Add(par_jpi_Atom_WorkPeriod_ID);
+
+                        sql = @"insert into JOURNAL_DocInvoice 
+                                ( 
+                                    JOURNAL_DocInvoice_Type_ID,
+                                    DocInvoice_ID,
+                                    EventTime,
+                                    Atom_WorkPeriod_ID
+                                )
+                                values
+                                (
+                                 " + spar_JOURNAL_DocInvoice_Type_ID + @",
+                                 " + spar_DocInvoice_ID + @",
+                                 " + spar_EventTime + @",
+                                 " + spar_jpi_Atom_WorkPeriod_ID + @"
+                                )";
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql,lpar, ref Err))
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+
+                        lpar.Clear();
+                        if (dr["JOURNAL_Invoice_Type_ID"] is long)
+                        {
+                            long i_JOURNAL_Invoice_Type_ID = (long)dr["JOURNAL_Invoice_Type_ID"] + 6;
+                            par_JOURNAL_DocInvoice_Type_ID = new SQL_Parameter(spar_JOURNAL_DocInvoice_Type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, i_JOURNAL_Invoice_Type_ID);
+                            lpar.Add(par_JOURNAL_DocInvoice_Type_ID);
+
+                            par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ProformaInvoice_ID"]);
+                            lpar.Add(par_DocInvoice_ID);
+
+                            par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dr["ji_EventTime"]);
+                            lpar.Add(par_EventTime);
+
+                            par_jpi_Atom_WorkPeriod_ID = new SQL_Parameter(spar_jpi_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ji_Atom_WorkPeriod_ID"]);
+                            lpar.Add(par_jpi_Atom_WorkPeriod_ID);
+
+                            sql = @"insert into JOURNAL_DocInvoice 
+                                ( 
+                                    JOURNAL_DocInvoice_Type_ID,
+                                    DocInvoice_ID,
+                                    EventTime,
+                                    Atom_WorkPeriod_ID
+                                )
+                                values
+                                (
+                                 " + spar_JOURNAL_DocInvoice_Type_ID + @",
+                                 " + spar_DocInvoice_ID + @",
+                                 " + spar_EventTime + @",
+                                 " + spar_jpi_Atom_WorkPeriod_ID + @"
+                                )";
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                    }
+                    if (DBSync.DBSync.Drop_VIEWs(ref Err))
+                    {
+                        sql = @"Drop Table Atom_ProformaInvoice_Price_Item_Stock;
+                                Drop Table Atom_Price_SimpleItem;
+                                Drop Table Atom_ItemShopA_Price;
+                                Drop Table JOURNAL_ProformaInvoice;
+                                Drop Table JOURNAL_Invoice;
+                                Drop Table JOURNAL_ProformaInvoice_TYPE;
+                                Drop Table JOURNAL_Invoice_TYPE;
+                                Drop Table JOURNAL_Delivery;
+                                Drop Table JOURNAL_Delivery_TYPE;
+                                Drop Table Delivery;
+                                Drop Table ProformaInvoice_Notice;
+                                Drop Table ProformaInvoice_ImageLib;
+                        ";
+                        if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        {
+                            sql = @"CREATE TABLE FVI_SLO_Response_backup
+                      (
+                      'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                       DocInvoice_ID  INTEGER  NOT NULL REFERENCES DocInvoice(ID),
+                      'MessageID' varchar(45) NULL,
+                      'UniqueInvoiceID' varchar(45) NULL,
+                      'BarCodeValue' varchar(64) NULL,
+                      'Response_DateTime' DATETIME NULL
+                      )
+                        ";
+                            new_tables = new string[] {"Delivery",
+                                                "JOURNAL_Delivery_Type",
+                                                "JOURNAL_Delivery"
+                                                };
+                            if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+                            {
+                                if (DBSync.DBSync.Create_VIEWs())
+                                {
+                                    Set_DatBase_Version("1.20");
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                Err = "ERROR:function UpgradeDB_1_19_to_1_20 not implemented";
+                return false;
+            }
+        }
+
+
         private object UpgradeDB_1_18_to_1_19(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
                 //Repair StudioMarjetka DataBase
@@ -253,7 +585,7 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_17_to_1_18(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
                 //Repair StudioMarjetka DataBase
@@ -516,7 +848,7 @@ namespace UpgradeDB
         private object UpgradeDB_1_16_to_1_17(object obj,ref string Err)
         {
             string sql = null;
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 sql = @"
                         PRAGMA foreign_keys = OFF;
@@ -981,7 +1313,7 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_15_to_1_16(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
                 sql = @"
@@ -1007,7 +1339,7 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_14_to_1_15(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
                 sql = @"
@@ -1047,7 +1379,7 @@ namespace UpgradeDB
                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
                             string[] new_tables = new string[] { "FVI_SLO_SalesBookInvoice"};
-                            if (DBSync.DBSync.CreateTables(new_tables))
+                            if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                             {
                                 if (DBSync.DBSync.Create_VIEWs())
                                 {
@@ -1079,10 +1411,10 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_13_to_1_14(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string[] new_tables = new string[] {"Atom_ItemShopA", "Atom_ItemShopA_Image",  "Atom_ItemShopA_Price" };
-                if (DBSync.DBSync.CreateTables(new_tables))
+                if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
                     if (DBSync.DBSync.Create_VIEWs())
                     {
@@ -1096,7 +1428,7 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_12_to_1_13(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
                 string stbl = "FVI_SLO_Response";
@@ -1150,7 +1482,7 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_11_to_1_12(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
                 string stbl = "DocInvoice_Notice";
@@ -1216,7 +1548,7 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_10_to_1_11(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
                 string stbl = "DocInvoice_Notice";
@@ -1267,7 +1599,7 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_09_to_1_10(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
                 string stbl = "Atom_myCompany_Person";
@@ -1310,7 +1642,7 @@ namespace UpgradeDB
                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
                     string[] new_tables = new string[] { "FVI_SLO_RealEstateBP", "FVI_SLO_Response", "Atom_FVI_SLO_RealEstateBP" };
-                    if (DBSync.DBSync.CreateTables(new_tables))
+                    if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                     {
                         if (DBSync.DBSync.Create_VIEWs())
                         {
@@ -1403,10 +1735,10 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_06_to_1_07(object obj, ref string Err)
         {
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string[] new_tables = new string[] { "doc_page_type", "Language", "doc_type", "doc", "JOURNAL_doc_Type", "JOURNAL_doc"};
-                if (DBSync.DBSync.CreateTables(new_tables))
+                if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
                     if (DBSync.DBSync.Create_VIEWs())
                     {
@@ -1424,7 +1756,7 @@ namespace UpgradeDB
         private object UpgradeDB_1_05_to_1_06(object obj, ref string Err)
         {
             //DBSync.DBSync.DB_for_Tangenta
-            if (DBSync.DBSync.Drop_VIEWs())
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 if (DBSync.DBSync.Create_VIEWs())
                 {
@@ -1540,7 +1872,7 @@ namespace UpgradeDB
                 TableDataItem_List.Add(dt_OrganisationAccount);
 
 
-                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Price_SimpleItem));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopB_Item));
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
                 xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
@@ -1554,7 +1886,7 @@ namespace UpgradeDB
                 TableDataItem_List.Add(dt_Atom_Price_SimpleItem);
 
 
-                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_DocInvoice_Price_Item_Stock));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopC_Item));
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
                 xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
@@ -1712,8 +2044,8 @@ namespace UpgradeDB
                             WarrantyConditions,
                             WarrantyDurationType,
                             WarrantyDuration,
-                            DocInvoiceDuration,
-                            DocInvoiceDurationType,
+                            DocDuration,
+                            DocDurationType,
                             TermsOfPayment_ID,
                             Invoice_ID,
                             i.PaymentDeadline as " + Column_PrefixTable + @"PaymentDeadline,
@@ -1922,8 +2254,8 @@ namespace UpgradeDB
                             WarrantyConditions,
                             WarrantyDurationType,
                             WarrantyDuration,
-                            DocInvoiceDuration,
-                            DocInvoiceDurationType,
+                            DocDuration,
+                            DocDurationType,
                             TermsOfPayment_ID,
                             Invoice_ID,
                             i.PaymentDeadline as " + Column_PrefixTable + @"PaymentDeadline,
@@ -2823,6 +3155,7 @@ namespace UpgradeDB
             string xTextValue = null;
             bool xReadOnly = false;
             bUpgradeDone = false;
+            Restore_if_UpgradeBackupFileExists(ref m_Full_backup_filename);
             switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
                                    ref xTextValue,
                                    ref xReadOnly,
@@ -2837,7 +3170,7 @@ namespace UpgradeDB
                     {
                         if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            bUpgradeDone = UpgradeDB(xTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
+                            bUpgradeDone = UpgradeDB(xTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err, m_Full_backup_filename);
                             return true;
                         }
                         else
@@ -2894,6 +3227,50 @@ namespace UpgradeDB
 
         }
 
+        private bool Restore_if_UpgradeBackupFileExists(ref string full_backup_filename)
+        {
+
+            string full_backup_folder = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseFilePath;
+            string DB_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseName;
+            full_backup_filename = null;
+            if (full_backup_folder != null)
+            {
+                if (full_backup_folder.Length > 0)
+                {
+                    if (full_backup_folder[full_backup_folder.Length - 1] != '\\')
+                    {
+                        full_backup_folder += '\\';
+                    }
+                    full_backup_filename = full_backup_folder+"UpgradeBackup_" + DB_Name;
+                    if (File.Exists(full_backup_filename))
+                    {
+                        string stext = lngRPM.s_UpgradeBackupFileExist_restore_old_Database.s.Replace("%s", full_backup_filename);
+                        if (MessageBox.Show(stext,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button1)== DialogResult.Yes)
+                        {
+                            try
+                            {
+                                string sOrgDBFile = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SQLiteDataBaseFile;
+                                File.Copy(full_backup_filename, sOrgDBFile, true);
+                                File.Delete(full_backup_filename);
+                                return true;
+                            }
+                            catch (Exception ex)
+                            {
+                                LogFile.Error.Show("ERROR:UpgradeDB_inThread:Restore_if_BackupFileExist:Backup file=\"" + full_backup_filename + "\"\r\nException="+ex.Message);
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
+            LogFile.Error.Show("ERROR:usrc_Upgrade:Form_Upgrade_Load:Backup file=\"" + full_backup_filename + "\" not created!");
+            return false;
+
+        }
 
         public  bool Read_DBSettings(ref bool bUpgradeDone)
         {

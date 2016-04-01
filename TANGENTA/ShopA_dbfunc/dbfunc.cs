@@ -61,7 +61,7 @@ namespace ShopA_dbfunc
         }
 
 
-        public static bool insert(Atom_ItemShopA_Price m_Atom_ItemShopA_Price, ref long Atom_ItemShopA_Price_ID)
+        public static bool insert(DocInvoice_ShopA_Item m_Atom_ItemShopA_Price, ref long Atom_ItemShopA_Price_ID)
         {
             long Atom_ItemShopA_ID = -1;
             

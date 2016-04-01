@@ -15,7 +15,8 @@ namespace LanguageControl
     public static class lngTName
     {
         public static ltext lngt_t_FVI_SLO_SalesBookInvoice = new ltext("Sales Book Invoice", "Vezana knjiga računov");
-        public static ltext lngt_t_Atom_ItemShopA_Price = new ltext("Shopa A Item Price", "Prodajalna A artikli in cene");
+        public static ltext lngt_t_DocInvoice_ShopA_Item = new ltext("Invoice ShopA Item ", "Artikli prodajalne A na računu");
+        public static ltext lngt_t_DocProformaInvoice_ShopA_Item = new ltext("Proforma invoice ShopA Item ", "Artikli prodajalne A na pred-računu");
         public static ltext lngt_t_Atom_ItemShopA = new ltext("Shopa A Item", "Prodajalna A Artikli");
         public static ltext lngt_t_Atom_Unit_ShopA = new ltext("Shopa A Unit", "Prodajalna A merske enote");
         public static ltext lngt_t_Atom_ItemShopA_Image = new ltext("Shopa A Item Image", "Prodajalna A Slika Artikla");
@@ -73,8 +74,8 @@ namespace LanguageControl
         public static ltext lngt_JOURNAL_PriceList = new ltext("Journal PriceList", "Dnevnik Cenik");
         public static ltext lngt_JOURNAL_SimpleItem = new ltext("Journal SimpleItem", "Dnevnik SimpleItem");
         public static ltext lngt_JOURNAL_Item = new ltext("Journal Item", "Dnevnik Artikel");
-        public static ltext lngt_JOURNAL_DocInvoice = new ltext("Journal Proforma Invoice", "Dnevnik Predračun");
-        public static ltext lngt_JOURNAL_Invoice = new ltext("Journal Invoice", "Dnevnik Račun");
+        public static ltext lngt_JOURNAL_DocProformaInvoice = new ltext("Journal Proforma Invoice", "Dnevnik Predračun");
+        public static ltext lngt_JOURNAL_DocInvoice = new ltext("Journal Invoice", "Dnevnik Račun");
 
         public static ltext lngt_JOURNAL_Invoice_Type = new ltext("Journal event  Invoice", "Dogodek Račun tip");
         public static ltext lngt_JOURNAL_Stock_Type = new ltext("Journal event  Stock", "Dogodek skladišče");
@@ -86,7 +87,8 @@ namespace LanguageControl
         public static ltext lngt_JOURNAL_myCompany_Type = new ltext("Journal event  my company", "Dogodek moja organizacija");
         public static ltext lngt_JOURNAL_SimpleItem_Type = new ltext("Journal event  SimpleItem", "Dogodek storitve");
         public static ltext lngt_JOURNAL_Item_Type = new ltext("Journal event  item", "Dogodek artikli");
-        public static ltext lngt_JOURNAL_DocInvoice_Type = new ltext("Journal event  DocInvoice Account", "Dogodek predračun");
+        public static ltext lngt_JOURNAL_DocInvoice_Type = new ltext("Journal event  DocInvoice", "Dogodek računa");
+        public static ltext lngt_JOURNAL_DocProformaInvoice_Type = new ltext("Journal event  DocProformaInvoice", "Dogodek predračuna");
         public static ltext lngt_JOURNAL_PriceList_Type = new ltext("Journal event  PriceList Account", "Dogodek cenik");
 
 
@@ -112,7 +114,8 @@ namespace LanguageControl
         public static ltext lngt_Units = new ltext("Measurement unit", "Merska enota");
         public static ltext lngt_UnitsArchive = new ltext("Measurement unit archive", "Merska enota arhiv");
         public static ltext lngt_PurchasePriceList = new ltext("Purchase price list", "NABAVNI CENIK");
-        public static ltext lngt_Atom_Price_SimpleItem = new ltext("SimpleItem price archive", "Cenik storitev arhiv");
+        public static ltext lngt_DocInvoice_ShopB_Item = new ltext("Invoice ShopB Item", "Artikli trgovine B na računu");
+        public static ltext lngt_DocProformaInvoice_ShopB_Item = new ltext("Proforma Invoice ShopB Item", "Artikli trgovine B na pred-računu");
         public static ltext lngt_Atom_Price_Item = new ltext("Price Item archive", "Cena Artikel arhiv");
         public static ltext lngt_PriceListType = new ltext("Price List Type", "Tip cenika");
         public static ltext lngt_PriceListTypeAtom = new ltext("Price List Type archive", "Tip cenika arhiv ");
@@ -216,13 +219,20 @@ namespace LanguageControl
         public static ltext lngt_BuyerAtom_Person = new ltext("Buyer Person arh", "Kupec oseba arhiv");
         public static ltext lngt_Atom_myCompany = new ltext("My Company arh", "Moje podjetje arhiv");
         public static ltext lngt_Atom_myCompany_Person = new ltext("My Company Person arh", "Zaposleni arhiv");
-        public static ltext lngt_DocInvoice_Atom_Item_Stock = new ltext("Proforma Invoice Price Item Stock archive", "Cena-Artikel-skladišče arhiv");
+        public static ltext lngt_t_DocInvoice_ShopC_Item = new ltext("Invoice ShopC Item", "Artikli prodajalne C na računu");
+        public static ltext lngt_t_DocProformaInvoice_ShopC_Item = new ltext("Proforma Invoice ShopC Item", "Artikli prodajalne C na pred-računu");
         public static ltext lngt_myCompany_Person = new ltext("myCommpany_Person", "Oseba podjetja");
         public static ltext lngt_TermsOfPayment = new ltext("TermsOfPayment", "Plačilni pogoji");
-        public static ltext lngt_Invoice_Image = new ltext("Invoice_Image", "Račun Slika");
-        public static ltext lngt_DocInvoice_Image = new ltext("DocInvoice Image", "Predračun Slika");
+        public static ltext lngt_Invoice_Image = new ltext("Invoice Image", "Račun Slika");
+        public static ltext lngt_ProformaInvoice_Image = new ltext("Proforma Invoice Image", "Predračun Slika");
+        public static ltext lngt_DocInvoice_Image = new ltext("Invoice Image", "Slike računa");
+        public static ltext lngt_DocInvoice_Notice = new ltext("Invoice Notice", "Dopis na računu");
+        public static ltext lngt_DocProformaInvoice_Notice = new ltext("Proforma Invoice Notice", "Dopis na predračunu");
+        public static ltext lngt_DocProformaInvoice_Image = new ltext("Doc Proforma Invoice Image", "Slike predračuna");
+        public static ltext lngt_Doc_ImageLib = new ltext("Document image library", "Knjižnica slik za dokumente");
 
-        public static ltext lngt_DocInvoice = new ltext("DocInvoice", "Predračun");
+        public static ltext lngt_DocInvoice = new ltext("Invoice", "Račun");
+        public static ltext lngt_DocProformaInvoice = new ltext("Proforma Invoice", "Predračun");
 
         public static ltext lngt_Atom_SimpleItem_Image = new ltext("SimpleItem Image Archive", "Slika storitve arhiv");
 

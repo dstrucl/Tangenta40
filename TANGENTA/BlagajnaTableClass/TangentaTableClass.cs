@@ -1,6 +1,4 @@
-﻿
-using DBTypes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -798,11 +796,11 @@ namespace TangentaTableClass
     {
     }
 
-    public class DocInvoiceDuration:DB_Int64
+    public class DocDuration:DB_Int64
     {
     }
 
-    public class DocInvoiceDurationType: DB_smallInt
+    public class DocDurationType: DB_smallInt
     {
     }
 
@@ -867,9 +865,6 @@ namespace TangentaTableClass
 
     }
 
-    public class InvoiceImage : DB_Image
-    {
-    }
 
     public class Draft : DB_bit
     {
@@ -1327,7 +1322,7 @@ namespace TangentaTableClass
             public Atom_Unit m_Atom_Unit = new Atom_Unit();
     }
 
-    public class Atom_DocInvoice_Price_Item_Stock
+    public class DocInvoice_ShopC_Item
     {
         public ID ID = new ID();
         public DocInvoice m_DocInvoice = new DocInvoice();
@@ -1338,6 +1333,19 @@ namespace TangentaTableClass
         public RetailPriceWithDiscount RetailPriceWithDiscount = new RetailPriceWithDiscount();
         public TaxPrice TaxPrice = new TaxPrice();
         public ExpiryDate ExpiryDate = new ExpiryDate(); 
+    }
+
+    public class DocProformaInvoice_ShopC_Item
+    {
+        public ID ID = new ID();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public Atom_Price_Item m_Atom_Price_Item = new Atom_Price_Item();
+        public Stock m_Stock = new Stock();
+        public dQuantity dQuantity = new dQuantity();
+        public ExtraDiscount ExtraDiscount = new ExtraDiscount();
+        public RetailPriceWithDiscount RetailPriceWithDiscount = new RetailPriceWithDiscount();
+        public TaxPrice TaxPrice = new TaxPrice();
+        public ExpiryDate ExpiryDate = new ExpiryDate();
     }
 
 
@@ -1538,7 +1546,7 @@ namespace TangentaTableClass
         public ExchangeRateSource m_ExchangeRateSource = new ExchangeRateSource();
     }
 
-    public class Atom_Price_SimpleItem
+    public class DocInvoice_ShopB_Item
     {
         public ID ID = new ID();
         public Atom_PriceList m_Atom_PriceList = new Atom_PriceList();
@@ -1551,6 +1559,21 @@ namespace TangentaTableClass
         public TaxPrice TaxPrice = new TaxPrice();
         public Atom_Taxation m_Atom_Taxation = new Atom_Taxation();
         public DocInvoice m_DocInvoice = new DocInvoice();
+    }
+
+    public class DocProformaInvoice_ShopB_Item
+    {
+        public ID ID = new ID();
+        public Atom_PriceList m_Atom_PriceList = new Atom_PriceList();
+        public Atom_SimpleItem m_Atom_SimpleItem = new Atom_SimpleItem();
+        public RetailSimpleItemPrice RetailSimpleItemPrice = new RetailSimpleItemPrice();
+        public Discount Discount = new Discount();
+        public iQuantity iQuantity = new iQuantity();
+        public RetailSimpleItemPriceWithDiscount RetailSimpleItemPriceWithDiscount = new RetailSimpleItemPriceWithDiscount();
+        public ExtraDiscount ExtraDiscount = new ExtraDiscount();
+        public TaxPrice TaxPrice = new TaxPrice();
+        public Atom_Taxation m_Atom_Taxation = new Atom_Taxation();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
     }
 
 
@@ -1634,17 +1657,6 @@ namespace TangentaTableClass
 
     }
 
-    public class Invoice
-    {
-        public ID ID = new ID();
-        public PaymentDeadline PaymentDeadline = new PaymentDeadline();
-        public MethodOfPayment m_MethodOfPayment = new MethodOfPayment();
-        public Paid Paid = new Paid();
-        public Storno Storno = new Storno();
-        public Invoice_Reference_ID Invoice_Reference_ID  = new Invoice_Reference_ID();
-        public Invoice_Reference_Type Invoice_Reference_Type = new Invoice_Reference_Type();
-    }
-
 
     public class  TermsOfPayment 
     {
@@ -1681,7 +1693,6 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public FinancialYear FinancialYear = new FinancialYear();
         public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
-        public Invoice m_Invoice = new Invoice();
         public Draft Draft = new Draft();
         public DraftNumber DraftNumber = new DraftNumber();
         public NetSum NetSum = new NetSum();
@@ -1695,12 +1706,39 @@ namespace TangentaTableClass
         public WarrantyDurationType WarrantyDurationType = new WarrantyDurationType();
         public WarrantyDuration WarrantyDuration = new WarrantyDuration();
         public WarrantyConditions WarrantyConditions = new WarrantyConditions();
-        public DocInvoiceDuration DocInvoiceDuration = new DocInvoiceDuration();
-        public DocInvoiceDurationType DocInvoiceDurationType = new DocInvoiceDurationType();
+        public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
+        public PaymentDeadline PaymentDeadline = new PaymentDeadline();
+        public MethodOfPayment m_MethodOfPayment = new MethodOfPayment();
+        public Paid Paid = new Paid();
+        public Storno Storno = new Storno();
+        public Invoice_Reference_ID Invoice_Reference_ID = new Invoice_Reference_ID();
+        public Invoice_Reference_Type Invoice_Reference_Type = new Invoice_Reference_Type();
+    }
+
+    public class DocProformaInvoice
+    {
+        public ID ID = new ID();
+        public FinancialYear FinancialYear = new FinancialYear();
+        public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
+        public Draft Draft = new Draft();
+        public DraftNumber DraftNumber = new DraftNumber();
+        public NetSum NetSum = new NetSum();
+        public Discount Discount = new Discount();
+        public EndSum EndSum = new EndSum();
+        public TaxSum TaxSum = new TaxSum();
+        public GrossSum GrossSum = new GrossSum();
+        public Atom_Customer_Person m_Atom_Customer_Person = new Atom_Customer_Person();
+        public Atom_Customer_Org m_Atom_Customer_Org = new Atom_Customer_Org();
+        public WarrantyExist WarrantyExist = new WarrantyExist();
+        public WarrantyDurationType WarrantyDurationType = new WarrantyDurationType();
+        public WarrantyDuration WarrantyDuration = new WarrantyDuration();
+        public WarrantyConditions WarrantyConditions = new WarrantyConditions();
+        public DocDuration DocDuration = new DocDuration();
+        public DocDurationType DocDurationType = new DocDurationType();
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
     }
 
-    public class DocInvoice_ImageLib
+    public class Doc_ImageLib
     {
         public ID ID = new ID();
         public Image_Hash Image_Hash = new Image_Hash();
@@ -1721,16 +1759,29 @@ namespace TangentaTableClass
         public ID ID = new ID();
         public DocInvoice m_DocInvoice = new DocInvoice();
         public Notice m_Notice = new Notice();
-        public DocInvoice_ImageLib m_DocInvoice_ImageLib = new DocInvoice_ImageLib();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
     }
 
-    public class Invoice_Image
+    public class DocProformaInvoice_Notice
     {
         public ID ID = new ID();
-        public Image_Hash Image_Hash = new Image_Hash();
-        public InvoiceImage InvoiceImage = new InvoiceImage();
-        public Description Description = new Description();
-        public Invoice m_Invoice = new Invoice();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public Notice m_Notice = new Notice();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
+    }
+
+    public class DocInvoice_Image
+    {
+        public ID ID = new ID();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
+        public DocInvoice m_DocInvoice = new DocInvoice();
+    }
+
+    public class DocProformaInvoice_Image
+    {
+        public ID ID = new ID();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
     }
 
     public class DBSettings
@@ -1756,6 +1807,13 @@ namespace TangentaTableClass
     }
 
     public class JOURNAL_DocInvoice_Type
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class JOURNAL_DocProformaInvoice_Type
     {
         public ID ID = new ID();
         public Name Name = new Name();
@@ -1826,11 +1884,11 @@ namespace TangentaTableClass
     }
 
 
-    public class JOURNAL_Invoice
+    public class JOURNAL_DocProformaInvoice
     {
         public ID ID = new ID();
-        public JOURNAL_Invoice_Type m_JOURNAL_Invoice_Type = new JOURNAL_Invoice_Type();
-        public Invoice m_Invoice = new Invoice();
+        public JOURNAL_DocProformaInvoice_Type m_JOURNAL_DocProformaInvoice_Type = new JOURNAL_DocProformaInvoice_Type();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
         public EventTime EventTime = new EventTime();
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
@@ -2097,7 +2155,7 @@ namespace TangentaTableClass
     public class FVI_SLO_Response
     {
         public ID ID = new ID();
-        public Invoice m_Invoice = new Invoice();
+        public DocInvoice m_DocInvoice = new DocInvoice();
         public Response_DateTime Response_DateTime = new Response_DateTime();
         public MessageID MessageID = new MessageID();
         public UniqueInvoiceID UniqueInvoiceID = new UniqueInvoiceID();
@@ -2122,7 +2180,7 @@ namespace TangentaTableClass
     public class FVI_SLO_SalesBookInvoice
     {
         public ID ID = new ID();
-        public Invoice m_Invoice = new Invoice();
+        public DocInvoice m_DocInvoice = new DocInvoice();
         public InvoiceNumber InvoiceNumber = new InvoiceNumber();
         public SetNumber SetNumber = new SetNumber();
         public SerialNumber SerialNumber = new SerialNumber();
@@ -2154,7 +2212,7 @@ namespace TangentaTableClass
     }
 
 
-    public class Atom_ItemShopA_Price
+    public class DocInvoice_ShopA_Item
     {
         public ID ID = new ID();
         public DocInvoice m_DocInvoice = new DocInvoice();
@@ -2166,6 +2224,17 @@ namespace TangentaTableClass
         public TAX TAX = new TAX();
     }
 
+    public class DocProformaInvoice_ShopA_Item
+    {
+        public ID ID = new ID();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public Atom_ItemShopA m_Atom_ItemShopA = new Atom_ItemShopA();
+        public dQuantity dQuantity = new dQuantity();
+        public Discount Discount = new Discount();
+        public PricePerUnit PricePerUnit = new PricePerUnit();
+        public EndPriceWithDiscountAndTax EndPriceWithDiscountAndTax = new EndPriceWithDiscountAndTax();
+        public TAX TAX = new TAX();
+    }
 
     public class SQL_Database_Tables_Definition
     {
@@ -2231,24 +2300,34 @@ namespace TangentaTableClass
 
         /* 27 */
         public Item m_Item = new Item();
+
         /* 28 */
         public Taxation m_Taxation = new Taxation();
+        
         /* 29 */
         public Stock m_Stock = new Stock();
+        
         /* 30 */
         public SimpleItem m_SimpleItem = new SimpleItem();
+
         /* 31 */
         public MethodOfPayment m_MethodOfPayment = new MethodOfPayment();
+
         /* 32 */
-        public Invoice m_Invoice = new Invoice();
+        public JOURNAL_DocProformaInvoice_Type m_JOURNAL_DocProformaInvoice_Type = new JOURNAL_DocProformaInvoice_Type();
+        
         /* 33 */
         public Atom_Item m_Atom_Item = new Atom_Item();
+        
         /* 34 */
         public Atom_SimpleItem m_Atom_SimpleItem = new Atom_SimpleItem();
+        
         /* 35 */
         public cCardType_Person m_cCardType_Person = new cCardType_Person();
+        
         /* 36 */
         public DBSettings m_DBSettings = new DBSettings();
+        
         /* 37 */
         public Atom_Item_Image m_Atom_Item_Image = new Atom_Item_Image();
 
@@ -2280,10 +2359,10 @@ namespace TangentaTableClass
         public DocInvoice_Notice m_DocInvoice_Notice = new DocInvoice_Notice();
 
         /* 47 */
-        public DocInvoice_ImageLib m_DocInvoice_ImageLib = new DocInvoice_ImageLib();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
 
         /* 48 */
-        public Invoice_Image m_Invoice_Image = new Invoice_Image();
+        public DocInvoice_Image m_DocInvoice_Image = new DocInvoice_Image();
 
         /* 49 */
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
@@ -2292,7 +2371,7 @@ namespace TangentaTableClass
         public myCompany_Person m_myCompany_Person = new myCompany_Person();
 
         /* 51 */
-        public Atom_DocInvoice_Price_Item_Stock m_Atom_DocInvoice_Price_Item_Stock = new Atom_DocInvoice_Price_Item_Stock();
+        public DocInvoice_ShopC_Item m_DocInvoice_ShopC_Item = new DocInvoice_ShopC_Item();
 
         /* 52 */
         public Atom_myCompany_Person m_Atom_myCompany_Person = new Atom_myCompany_Person();
@@ -2424,7 +2503,7 @@ namespace TangentaTableClass
         public Atom_Price_Item m_Atom_Price_Item = new Atom_Price_Item();
 
         /* 95 */
-        public Atom_Price_SimpleItem m_Atom_Price_SimpleItem = new Atom_Price_SimpleItem();
+        public DocInvoice_ShopB_Item m_DocInvoice_ShopB_Item = new DocInvoice_ShopB_Item();
 
         /* 96 */
         public PersonImage m_PersonImage = new PersonImage();
@@ -2520,10 +2599,10 @@ namespace TangentaTableClass
         public JOURNAL_Stock_Type m_JOURNAL_Stock_Type = new JOURNAL_Stock_Type();
 
         /* 127 */
-        public JOURNAL_Invoice m_JOURNAL_Invoice = new JOURNAL_Invoice();
+        public JOURNAL_DocInvoice m_JOURNAL_DocInvoice = new JOURNAL_DocInvoice();
 
         /* 128 */
-        public JOURNAL_DocInvoice m_JOURNAL_DocInvoice = new JOURNAL_DocInvoice();
+        public JOURNAL_DocProformaInvoice m_JOURNAL_DocProformaInvoice = new JOURNAL_DocProformaInvoice();
 
         /* 129 */
         public JOURNAL_Item m_JOURNAL_Item = new JOURNAL_Item();
@@ -2676,10 +2755,27 @@ namespace TangentaTableClass
         public Atom_ItemShopA m_Atom_ItemShopA = new Atom_ItemShopA();
 
         /* 179 */
-        public Atom_ItemShopA_Price m_Atom_ItemShopA_Price = new Atom_ItemShopA_Price();
+        public DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item = new DocInvoice_ShopA_Item();
 
         /* 180 */
         public FVI_SLO_SalesBookInvoice m_FVI_SLO_SalesBookInvoice = new FVI_SLO_SalesBookInvoice();
 
+        /* 181 */
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+
+        /* 182 */
+        public DocProformaInvoice_ShopC_Item m_DocProformaInvoice_ShopC_Item = new DocProformaInvoice_ShopC_Item();
+
+        /* 183 */
+        public DocProformaInvoice_ShopB_Item m_DocProformaInvoice_ShopB_Item = new DocProformaInvoice_ShopB_Item();
+
+        /* 184 */
+        public DocProformaInvoice_Notice m_DocProformaInvoice_Notice = new DocProformaInvoice_Notice();
+
+        /* 185 */
+        public DocProformaInvoice_Image m_DocProformaInvoice_Image = new DocProformaInvoice_Image();
+
+        /* 186 */
+        public DocProformaInvoice_ShopA_Item m_DocProformaInvoice_ShopA_Item = new DocProformaInvoice_ShopA_Item();
     }
 }

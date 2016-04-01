@@ -480,6 +480,52 @@ namespace DBConnectionControl40
             }
         }
 
+        public string DataBaseName
+        {
+            get
+            {
+                switch (m_DBType)
+                {
+                    case eDBType.MSSQL:
+                        return null;
+
+                    case eDBType.MYSQL:
+                        return null;
+
+                    case eDBType.SQLITE:
+                        int i = m_conData_SQLITE.DataBaseFile.LastIndexOf('\\');
+                        if (i > 0)
+                        {
+                            return m_conData_SQLITE.DataBaseFile.Substring(i+1);
+                        }
+                        else
+                        {
+                            return m_conData_SQLITE.DataBaseFile;
+                        }
+
+                }
+                return null;
+            }
+            set
+            {
+                switch (m_DBType)
+                {
+                    case eDBType.MSSQL:
+                        MessageBox.Show("Error setting property DataBaseFile in module DBConnection. MSSQL server does not support DataBaseFile definition");
+                        break;
+
+                    case eDBType.MYSQL:
+                        MessageBox.Show("Error setting property DataBaseFilePath in module DBConnection. MYSQL server does not support DataBaseFilePath definition");
+                        break;
+
+                    case eDBType.SQLITE:
+                        m_conData_SQLITE.DataBaseFile = value;
+                        break;
+
+                }
+            }
+        }
+        
         public string SQLiteDataBaseFile
         {
             get
@@ -515,7 +561,6 @@ namespace DBConnectionControl40
                         break;
 
                 }
-                return;
             }
         }
 
@@ -550,10 +595,11 @@ namespace DBConnectionControl40
                         return m_conData_MSSQL.m_strDataBaseFilePath;
 
                     case eDBType.MYSQL:
-                        return null;
+                        LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Error: Property:DataBaseFilePath is not supported for eDBType.MYSQL!");
+                        return null; 
 
                     case eDBType.SQLITE:
-                        return null;
+                        return m_conData_SQLITE.m_DataBaseFilePath;
 
                 }
                 return null;
@@ -3188,6 +3234,7 @@ namespace DBConnectionControl40
              set { m_LogTableName = value; }
 
          }
+
         #endregion PUBLIC MEMBER FUNCTIONS
         #endregion PUBLIC
 
@@ -3680,18 +3727,18 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool DataBase_Backup()
+        public bool DataBase_Backup(string BackupFullFileNamePath)
         {
             switch (m_DBType)
             {
                 case eDBType.MYSQL:
-                    return DataBase_Make_Backup_MYSQL();
+                    return DataBase_Make_Backup_MYSQL(BackupFullFileNamePath);
 
                 case eDBType.MSSQL:
-                    return DataBase_Make_Backup_MSSQL();
+                    return DataBase_Make_Backup_MSSQL(BackupFullFileNamePath);
 
                 case eDBType.SQLITE:
-                    return DataBase_Make_Backup_SQLite();
+                    return DataBase_Make_Backup_SQLite(BackupFullFileNamePath);
 
                 default:
                     MessageBox.Show("Error eSQLType in function: public bool DataBase_Make_BackupTemp( ..)");
@@ -3699,23 +3746,72 @@ namespace DBConnectionControl40
             }
         }
 
-        private bool DataBase_Make_Backup_MYSQL()
+        public bool DataBase_Restore(string BackupFullFileNamePath)
         {
-            throw new NotImplementedException();
+            switch (m_DBType)
+            {
+                case eDBType.MYSQL:
+                    return DataBase_Restore_MYSQL(BackupFullFileNamePath);
+
+                case eDBType.MSSQL:
+                    return DataBase_Restore_MSSQL(BackupFullFileNamePath);
+
+                case eDBType.SQLITE:
+                    return DataBase_Restore_SQLite(BackupFullFileNamePath);
+
+                default:
+                    MessageBox.Show("Error eSQLType in function: public bool DataBase_Make_BackupTemp( ..)");
+                    return false;
+            }
         }
 
-        private bool DataBase_Make_Backup_MSSQL()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool DataBase_Make_Backup_SQLite()
+        private bool DataBase_Restore_SQLite(string BackupFullFileNamePath)
         {
             string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
             string DestinationFullFileNamePath = GetBackUpName();
             try
             {
-                File.Copy(FullFileNamePath, DestinationFullFileNamePath);
+                File.Copy(BackupFullFileNamePath, FullFileNamePath,true);
+                return true;
+
+            }
+            catch (Exception Ex)
+            {
+                LogFile.Error.Show("ERROR:DBConnection:DataBase_Restore_SQLite:Backup file = \""+ BackupFullFileNamePath +"\"\r\nException = " + Ex.Message);
+                return false;
+            }
+        }
+
+        private bool DataBase_Restore_MSSQL(string backupName)
+        {
+            LogFile.Error.Show("ERROR:DBConnection:DataBase_Restore_MSSQL:Not implemented !");
+            return false;
+        }
+
+        private bool DataBase_Restore_MYSQL(string backupName)
+        {
+            LogFile.Error.Show("ERROR:DBConnection:DataBase_Restore_MYSQL:Not implemented !");
+            return false;
+        }
+
+        private bool DataBase_Make_Backup_MYSQL(string BackupFullFileNamePath)
+        {
+            LogFile.Error.Show("ERROR:DBConnection:DataBase_Make_Backup_MSSQL: Procedure not implemented!");
+            return false;
+        }
+
+        private bool DataBase_Make_Backup_MSSQL(string BackupFullFileNamePath)
+        {
+            LogFile.Error.Show("ERROR:DBConnection:DataBase_Make_Backup_MSSQL: Procedure not implemented!");
+            return false;
+        }
+
+        private bool DataBase_Make_Backup_SQLite(string BackupFullFileNamePath)
+        {
+            string FullFileNamePath = this.m_conData_SQLITE.DataBaseFile;
+            try
+            {
+                File.Copy(FullFileNamePath, BackupFullFileNamePath);
                 return true;
 
             }

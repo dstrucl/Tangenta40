@@ -83,7 +83,16 @@ namespace TangentaDataBaseDef
                 }
             }
         }
-    
+
+        public bool Backup(string full_backup_filename)
+        {
+            return m_DBTables.m_con.DataBase_Backup(full_backup_filename);
+        }
+
+        public bool Restore(string full_backup_filename)
+        {
+            return m_DBTables.m_con.DataBase_Restore(full_backup_filename);
+        }
 
 
         public bool MakeConnection(Form pParentForm, Object DB_Param)
@@ -97,9 +106,9 @@ namespace TangentaDataBaseDef
             this.m_DBTables.Init(eDBType);
         }
 
-        public bool DropViews()
+        public bool DropViews(ref string Err)
         {
-            return this.m_DBTables.DropVIEWs();
+            return this.m_DBTables.DropVIEWs(ref Err);
         }
 
         public bool Create_VIEWs()
@@ -218,6 +227,15 @@ namespace TangentaDataBaseDef
         //    m_DBTables.items.Add(tbl_DBm_Document);
         //}
 
+        public bool DataBase_Backup(string full_backup_filename)
+        {
+            return this.m_DBTables.DataBase_Backup(full_backup_filename);
+        }
+
+        public bool DataBase_Restore(string full_backup_filename)
+        {
+            return this.m_DBTables.DataBase_Restore(full_backup_filename);
+        }
 
         public bool DataBase_Make_BackupTemp()
         {

@@ -17,7 +17,8 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
-
+        
+        public static ltext s_UpgradeBackupFileExist_restore_old_Database = new ltext("Upgrade failed, Database backup file exists. Restore DataBase \"%s\" (Yes/No) ?", "Nadgradnja podatkovne baze je bila neuspešna.\r\n Povrnem podatkovno bazo v prejšne stanje iz datoteke:\"%s\" (Da/Ne) ?");
         public static ltext s_CanNotReadDataBaseFile = new ltext("ERRRO:Can not read database file.", "NAPAKA:Neuspešno branje podatkovne baze.");
         public static ltext s_DataBaseVersion = new ltext("DataBaseVersion", "Verzija podatkovne baze:");
         public static ltext s_ElectronicDevice_ID = new ltext("Electronic Device ID", "Oznaka blagajne");

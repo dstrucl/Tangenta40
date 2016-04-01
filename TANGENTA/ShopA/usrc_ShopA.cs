@@ -41,13 +41,13 @@ namespace ShopA
         ShopABC m_ShopABC = null;
         DBTablesAndColumnNames DBtcn = null;
         public DataTable dt_Item_Price = new DataTable();
-        Atom_ItemShopA_Price m_Atom_ItemShopA_Price = new Atom_ItemShopA_Price();
+        DocInvoice_ShopA_Item m_Atom_ItemShopA_Price = new DocInvoice_ShopA_Item();
         SQLTable t_Atom_ItemShopA_Price = null;
 
         public usrc_ShopA()
         {
             InitializeComponent();
-            t_Atom_ItemShopA_Price = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ItemShopA_Price)));
+            t_Atom_ItemShopA_Price = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
         }
 
         public void Init(ShopABC xm_ShopABC, DBTablesAndColumnNames xDBtcn)
@@ -189,7 +189,7 @@ namespace ShopA
                                     Atom_ItemShopA_Price_$$TAX
         */
 
-        private void usrc_Editor1_AddRow(Atom_ItemShopA_Price m_Atom_ItemShopA_Price)
+        private void usrc_Editor1_AddRow(DocInvoice_ShopA_Item m_Atom_ItemShopA_Price)
         {
             DataRow dr = dt_Item_Price.NewRow();
             dr["ID"] = m_Atom_ItemShopA_Price.ID.type_v.v;

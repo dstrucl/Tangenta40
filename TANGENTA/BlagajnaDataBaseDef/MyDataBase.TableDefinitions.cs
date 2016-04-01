@@ -51,7 +51,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.19";
+        public const string VERSION = "1.20";
         public Settings Settings = null;
 
         /* 1 */
@@ -117,7 +117,7 @@ namespace TangentaDataBaseDef
         /* 31 */
         public SQLTable t_MethodOfPayment = null;
         /* 32 */
-        public SQLTable t_Invoice = null;
+        public SQLTable t_JOURNAL_DocProformaInvoice_Type = null;
         /* 33 */
         public SQLTable t_Atom_Item = null;
         /* 34 */
@@ -147,15 +147,15 @@ namespace TangentaDataBaseDef
         /* 46 */
         public SQLTable t_DocInvoice_Notice = null;
         /* 47 */
-        public SQLTable t_DocInvoice_ImageLib = null;
+        public SQLTable t_Doc_ImageLib = null;
         /* 48 */
-        public SQLTable t_Invoice_Image = null;
+        public SQLTable t_DocInvoice_Image = null;
         /* 49 */
         public SQLTable t_TermsOfPayment = null;
         /* 50 */
         public SQLTable t_myCompany_Person = null;
         /* 51 */
-        public SQLTable t_Atom_DocInvoice_Price_Item_Stock = null;
+        public SQLTable t_DocInvoice_ShopC_Item = null;
         /* 52 */
         public SQLTable t_Atom_myCompany_Person = null;
         /* 53 */
@@ -269,7 +269,7 @@ namespace TangentaDataBaseDef
         public SQLTable t_Atom_Price_Item = null;
 
         /* 95 */
-        public SQLTable t_Atom_Price_SimpleItem = null;
+        public SQLTable t_DocInvoice_ShopB_Item = null;
 
         /* 96 */
         public SQLTable t_PersonImage = null;
@@ -365,10 +365,10 @@ namespace TangentaDataBaseDef
         public SQLTable t_JOURNAL_Stock_Type = null;
 
         /* 127 */
-        public SQLTable t_JOURNAL_Invoice = null;
+        public SQLTable t_JOURNAL_DocInvoice = null;
 
         /* 128 */
-        public SQLTable t_JOURNAL_DocInvoice = null;
+        public SQLTable t_JOURNAL_DocProformaInvoice = null;
 
         /* 129 */
         public SQLTable t_JOURNAL_Item = null;
@@ -521,10 +521,28 @@ namespace TangentaDataBaseDef
         public SQLTable t_Atom_ItemShopA = null;
 
         /* 179 */
-        public SQLTable t_Atom_ItemShopA_Price = null;
+        public SQLTable t_DocInvoice_ShopA_Item = null;
 
         /* 180 */
         public SQLTable t_FVI_SLO_SalesBookInvoice = null;
+
+        /* 181 */
+        public SQLTable t_DocProformaInvoice = null;
+
+        /* 182 */
+        public SQLTable t_DocProformaInvoice_ShopC_Item = null;
+
+        /* 183 */
+        public SQLTable t_DocProformaInvoice_ShopB_Item = null;
+
+        /* 184 */
+        public SQLTable t_DocProformaInvoice_Notice = null;
+
+        /* 185 */
+        public SQLTable t_DocProformaInvoice_Image = null;
+
+        /* 186 */
+        public SQLTable t_DocProformaInvoice_ShopA_Item = null;
 
 
         public void Define_SQL_Database_Tables() // constructor;
@@ -759,15 +777,11 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_MethodOfPayment);
 
             /* 32 */
-            t_Invoice = new SQLTable((Object)new Invoice(),"inv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Invoice);
-            t_Invoice.AddColumn((Object)mt.m_Invoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Invoice.AddColumn((Object)mt.m_Invoice.PaymentDeadline, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Payment Deadline", "Rok plačila") );
-            t_Invoice.AddColumn((Object)mt.m_Invoice.m_MethodOfPayment, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Method Of Payment ID", "Način Plačila ID") );
-            t_Invoice.AddColumn((Object)mt.m_Invoice.Paid, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Paid", "Plačano") );
-            t_Invoice.AddColumn((Object)mt.m_Invoice.Storno, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Storno", "Stornirano") );
-            t_Invoice.AddColumn((Object)mt.m_Invoice.Invoice_Reference_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Reference ID", "Referenca na račun ID"));
-            t_Invoice.AddColumn((Object)mt.m_Invoice.Invoice_Reference_Type, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Reference Type", "Vrsta reference na račun"));
-            m_DBTables.items.Add(t_Invoice);
+            t_JOURNAL_DocProformaInvoice_Type = new SQLTable((Object)new JOURNAL_DocProformaInvoice_Type(), "jdpinvt", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_DocProformaInvoice_Type);
+            t_JOURNAL_DocProformaInvoice_Type.AddColumn((Object)mt.m_JOURNAL_DocInvoice_Type.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_DocProformaInvoice_Type.AddColumn((Object)mt.m_JOURNAL_DocInvoice_Type.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Type Name", "Ime"));
+            t_JOURNAL_DocProformaInvoice_Type.AddColumn((Object)mt.m_JOURNAL_DocInvoice_Type.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_JOURNAL_DocProformaInvoice_Type);
 
 
             /* 33 */
@@ -863,55 +877,57 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Atom_SimpleItem_Image);
 
 
-        /* 45 */
-            t_DocInvoice = new SQLTable((Object)new DocInvoice(),"dinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocInvoice);
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Draft, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Draft", "Osnutek") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.DraftNumber, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Draft Number", "Številka Osnutka") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.FinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Financial Year", "Obračunsko Leto") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.NumberInFinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Number in Financial Year", "Številka v Obračunskem Letu") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.NetSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Net Sum", "Cena brez DDV") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Discount, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Discount", "Popust") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.EndSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "End Sum", "Cena s popustom") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.TaxSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Tax Sum", "DDV") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.GrossSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Gross Sum", "Cena za plačilo") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_Atom_Customer_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Customer Person archive ID", "Oseba Kupec arhiv ID") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_Atom_Customer_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Customer Company archive ID", "Kupec Organizacija arhiv ID") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyExist, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Warranty", "Garancija") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyConditions, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Warranty conditions", "Garancijski pogoji") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyDurationType, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Warranty Duration Type", "Tip trajanja garancije") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyDuration, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Warranty Duration", "Garancijski čas") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.DocInvoiceDuration, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Proforma Duration", "Čas veljavnosti ponudbe") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.DocInvoiceDurationType, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Proforma Duration Type", "Veljavnosti ponudbe v") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_TermsOfPayment, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "TermsOfPayment ID", "Plačilni pogoji ID") );
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_Invoice, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Invoice ID", "Račun ID") );
+            /* 45 */
+            t_DocInvoice = new SQLTable((Object)new DocInvoice(), "dinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Invoice);
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Draft, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft", "Osnutek"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.DraftNumber, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft Number", "Številka Osnutka"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.FinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Financial Year", "Obračunsko Leto"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.NumberInFinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Number in Financial Year", "Številka v Obračunskem Letu"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.NetSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Net Sum", "Cena brez DDV"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Discount, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Discount", "Popust"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.EndSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("End Sum", "Cena s popustom"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.TaxSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Tax Sum", "DDV"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.GrossSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Gross Sum", "Cena za plačilo"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_Atom_Customer_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer Person archive ID", "Oseba Kupec arhiv ID"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_Atom_Customer_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer Company archive ID", "Kupec Organizacija arhiv ID"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyExist, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty", "Garancija"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyConditions, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty conditions", "Garancijski pogoji"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyDurationType, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration Type", "Tip trajanja garancije"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyDuration, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration", "Garancijski čas"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_TermsOfPayment, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("TermsOfPayment ID", "Plačilni pogoji ID"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.PaymentDeadline, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Payment Deadline", "Rok plačila"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_MethodOfPayment, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Method Of Payment ID", "Način Plačila ID"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Paid, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Paid", "Plačano"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Storno, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Storno", "Stornirano"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Invoice_Reference_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Reference ID", "Referenca na račun ID"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Invoice_Reference_Type, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Reference Type", "Vrsta reference na račun"));
             m_DBTables.items.Add(t_DocInvoice);
 
-        /* 46 */
-            t_DocInvoice_Notice = new SQLTable((Object)new DocInvoice_Notice(),"pinvnotice", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocInvoice_Image);
+
+            /* 46 */
+            t_DocInvoice_Notice = new SQLTable((Object)new DocInvoice_Notice(),"dinvnotice", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocInvoice_Notice);
             t_DocInvoice_Notice.AddColumn((Object)mt.m_DocInvoice_Notice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_DocInvoice_Notice.AddColumn((Object)mt.m_DocInvoice_Notice.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "DocInvoice ID", "Predračun ID") );
             t_DocInvoice_Notice.AddColumn((Object)mt.m_DocInvoice_Notice.m_Notice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Notice ID", "Dopis ID"));
-            t_DocInvoice_Notice.AddColumn((Object)mt.m_DocInvoice_Notice.m_DocInvoice_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "DocInvoice_ImageLib _ID", "Knjižnica slik ID") );            
+            t_DocInvoice_Notice.AddColumn((Object)mt.m_DocInvoice_Notice.m_Doc_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "ImageLib _ID", "Knjižnica slik ID") );            
             m_DBTables.items.Add(t_DocInvoice_Notice);
 
         /* 47 */
-            t_DocInvoice_ImageLib = new SQLTable((Object)new DocInvoice_ImageLib(),"pinvimgl", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocInvoice_Image);
-            t_DocInvoice_ImageLib.AddColumn((Object)mt.m_DocInvoice_ImageLib.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_DocInvoice_ImageLib.AddColumn((Object)mt.m_DocInvoice_ImageLib.Image_Hash, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "Image Hash", "Ident slike") );            
-            t_DocInvoice_ImageLib.AddColumn((Object)mt.m_DocInvoice_ImageLib.Image_Data, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.PictureBox, new ltext( "Image", "Slika") );            
-            t_DocInvoice_ImageLib.AddColumn((Object)mt.m_DocInvoice_ImageLib.Description, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.TextBox, new ltext( "Image Description", "Opis slike") );            
-            m_DBTables.items.Add(t_DocInvoice_ImageLib);
+            t_Doc_ImageLib = new SQLTable((Object)new Doc_ImageLib(),"dimgl", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocInvoice_Image);
+            t_Doc_ImageLib.AddColumn((Object)mt.m_Doc_ImageLib.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_Doc_ImageLib.AddColumn((Object)mt.m_Doc_ImageLib.Image_Hash, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "Image Hash", "Ident slike") );
+            t_Doc_ImageLib.AddColumn((Object)mt.m_Doc_ImageLib.Image_Data, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.PictureBox, new ltext( "Image", "Slika") );
+            t_Doc_ImageLib.AddColumn((Object)mt.m_Doc_ImageLib.Description, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.TextBox, new ltext( "Image Description", "Opis slike") );            
+            m_DBTables.items.Add(t_Doc_ImageLib);
 
 
-        /* 48 */
-            t_Invoice_Image = new SQLTable((Object)new Invoice_Image(), "invimg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Invoice_Image);
-            t_Invoice_Image.AddColumn((Object)mt.m_Invoice_Image.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Invoice_Image.AddColumn((Object)mt.m_Invoice_Image.Image_Hash, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox_ReadOnly, new ltext( "Image Hash", "Ident slike") );
-            t_Invoice_Image.AddColumn((Object)mt.m_Invoice_Image.Description, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.PictureBox, new ltext( "Image description", "Opis slike") );
-            t_Invoice_Image.AddColumn((Object)mt.m_Invoice_Image.m_Invoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.PictureBox, new ltext( "Image", "Slika") );
-            t_Invoice_Image.AddColumn((Object)mt.m_Invoice_Image.InvoiceImage, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.TextBox, new ltext( "Image", "Slike") );
-            m_DBTables.items.Add(t_Invoice_Image);
+            /* 48 */
+            t_DocInvoice_Image = new SQLTable((Object)new DocInvoice_Image(), "dinvimg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Invoice_Image);
+            t_DocInvoice_Image.AddColumn((Object)mt.m_DocInvoice_Image.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_DocInvoice_Image.AddColumn((Object)mt.m_DocInvoice_Image.m_Doc_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox_ReadOnly, new ltext( "Doc Image Lib ID", "Knjižnica slik dokumentov ID") );
+            t_DocInvoice_Image.AddColumn((Object)mt.m_DocInvoice_Image.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.PictureBox, new ltext( "Invoice ID", "Račun ID") );
+            m_DBTables.items.Add(t_DocInvoice_Image);
 
         /* 49 */
             t_TermsOfPayment = new SQLTable((Object)new TermsOfPayment(),"trmpay", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_TermsOfPayment);
@@ -932,17 +948,17 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_myCompany_Person);
 
         /* 51 */
-            t_Atom_DocInvoice_Price_Item_Stock = new SQLTable((Object)new Atom_DocInvoice_Price_Item_Stock(),"apinvpis", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocInvoice_Atom_Item_Stock);
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Selected Quantity", "Izbrana Količina") );
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Extra Discount", "Dodatni Popust") );
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.RetailPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "RetailSimpleItemPrice with discount", "Prodajna cena s popustom") );
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Tax price", "Davek") );
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Proforma Invoice ID", "Predračun ID") );            
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.m_Atom_Price_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Price-Item arh ID", "Cena-Artikel arh ID") );
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.ExpiryDate,Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Expiry Date", "Rok uporabe") );
-            t_Atom_DocInvoice_Price_Item_Stock.AddColumn((Object)mt.m_Atom_DocInvoice_Price_Item_Stock.m_Stock, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Stock ID", "Zaloga ID") );
-            m_DBTables.items.Add(t_Atom_DocInvoice_Price_Item_Stock);
+            t_DocInvoice_ShopC_Item = new SQLTable((Object)new DocInvoice_ShopC_Item(),"dinvshci", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_DocProformaInvoice_ShopC_Item);
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Selected Quantity", "Izbrana Količina") );
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Extra Discount", "Dodatni Popust") );
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.RetailPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "RetailSimpleItemPrice with discount", "Prodajna cena s popustom") );
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Tax price", "Davek") );
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Invoice ID", "Račun ID") );            
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.m_Atom_Price_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Price-Item arh ID", "Cena-Artikel arh ID") );
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.ExpiryDate,Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Expiry Date", "Rok uporabe") );
+            t_DocInvoice_ShopC_Item.AddColumn((Object)mt.m_DocInvoice_ShopC_Item.m_Stock, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext( "Stock ID", "Zaloga ID") );
+            m_DBTables.items.Add(t_DocInvoice_ShopC_Item);
 
         /* 52 */
             t_Atom_myCompany_Person = new SQLTable((Object)new Atom_myCompany_Person(),"amcper", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_myCompany_Person);
@@ -1306,19 +1322,19 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Atom_Price_Item);
 
         /* 95 */
-            t_Atom_Price_SimpleItem  = new SQLTable((Object)new Atom_Price_SimpleItem(),"apsi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_Price_SimpleItem);
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.RetailSimpleItemPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Retail SimpleItem price", "Cena storitve") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Discount", "Popust") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.iQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Quantity", "Količina") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.RetailSimpleItemPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "RetailSimpleItemPrice with discount", "Prodajna cena s popustom") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Extra Discount", "Dodatni Popust") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Tax price", "Davek") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.m_Atom_SimpleItem, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "SimpleItem archive ID", "Artikel/Storitev arhiv ID") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.m_Atom_PriceList, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Price SimpleItem archive ID", "Cenik artikel/storitev arhiv ID") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.m_Atom_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Taxation archive ID", "Obdavćitev arhiv ID") );
-            t_Atom_Price_SimpleItem.AddColumn((Object)mt.m_Atom_Price_SimpleItem.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "DocInvoice ID", "Pred-Račun ID") );
-            m_DBTables.items.Add(t_Atom_Price_SimpleItem);
+            t_DocInvoice_ShopB_Item  = new SQLTable((Object)new DocInvoice_ShopB_Item(),"dinvshbi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocInvoice_ShopB_Item);
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.RetailSimpleItemPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Retail SimpleItem price", "Cena storitve") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Discount", "Popust") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.iQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Quantity", "Količina") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.RetailSimpleItemPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "RetailSimpleItemPrice with discount", "Prodajna cena s popustom") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Extra Discount", "Dodatni Popust") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Tax price", "Davek") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.m_Atom_SimpleItem, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "SimpleItem archive ID", "Artikel/Storitev arhiv ID") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.m_Atom_PriceList, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Price SimpleItem archive ID", "Cenik artikel/storitev arhiv ID") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.m_Atom_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Taxation archive ID", "Obdavćitev arhiv ID") );
+            t_DocInvoice_ShopB_Item.AddColumn((Object)mt.m_DocInvoice_ShopB_Item.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Invoice ID", "Račun ID") );
+            m_DBTables.items.Add(t_DocInvoice_ShopB_Item);
 
          /* 96 */
             t_PersonImage = new SQLTable((Object)new PersonImage(),"perimg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_PersonImage);
@@ -1569,22 +1585,22 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_JOURNAL_Stock_Type);
 
         /* 127 */
-            t_JOURNAL_Invoice = new SQLTable((Object)new JOURNAL_Invoice(),"jinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_Invoice);
-            t_JOURNAL_Invoice.AddColumn((Object)mt.m_JOURNAL_Invoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_JOURNAL_Invoice.AddColumn((Object)mt.m_JOURNAL_Invoice.m_JOURNAL_Invoice_Type, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Journal event invoice ID", "Dogodek račun ID") );
-            t_JOURNAL_Invoice.AddColumn((Object)mt.m_JOURNAL_Invoice.m_Invoice, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Invoice ID", "Račun ID") );
-            t_JOURNAL_Invoice.AddColumn((Object)mt.m_JOURNAL_Invoice.EventTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Event time", "Čas dogodka") );
-            t_JOURNAL_Invoice.AddColumn((Object)mt.m_JOURNAL_Invoice.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Work shift ID", "Šiht ID") );
-            m_DBTables.items.Add(t_JOURNAL_Invoice);
+            t_JOURNAL_DocInvoice = new SQLTable((Object)new JOURNAL_DocInvoice(),"jdinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_DocInvoice);
+            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.m_JOURNAL_DocInvoice_Type, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Journal event invoice ID", "Dogodek račun ID") );
+            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.m_DocInvoice, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Invoice ID", "Račun ID") );
+            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.EventTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Event time", "Čas dogodka") );
+            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Work shift ID", "Šiht ID") );
+            m_DBTables.items.Add(t_JOURNAL_DocInvoice);
 
         /* 128 */
-            t_JOURNAL_DocInvoice = new SQLTable((Object)new JOURNAL_DocInvoice(),"jpinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_DocInvoice);
-            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.m_JOURNAL_DocInvoice_Type, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Journal event proforma-invoice ID", "Dogodek predračun ID") );
-            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Proforma Invoice ID", "Predračun ID") );
-            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Event time", "Čas dogodka") );
-            t_JOURNAL_DocInvoice.AddColumn((Object)mt.m_JOURNAL_DocInvoice.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID") );
-            m_DBTables.items.Add(t_JOURNAL_DocInvoice);
+            t_JOURNAL_DocProformaInvoice = new SQLTable((Object)new JOURNAL_DocProformaInvoice(),"jdpinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_DocProformaInvoice);
+            t_JOURNAL_DocProformaInvoice.AddColumn((Object)mt.m_JOURNAL_DocProformaInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_JOURNAL_DocProformaInvoice.AddColumn((Object)mt.m_JOURNAL_DocProformaInvoice.m_JOURNAL_DocProformaInvoice_Type, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Journal event proforma-invoice ID", "Dogodek predračun ID") );
+            t_JOURNAL_DocProformaInvoice.AddColumn((Object)mt.m_JOURNAL_DocProformaInvoice.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Proforma Invoice ID", "Predračun ID") );
+            t_JOURNAL_DocProformaInvoice.AddColumn((Object)mt.m_JOURNAL_DocProformaInvoice.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Event time", "Čas dogodka") );
+            t_JOURNAL_DocProformaInvoice.AddColumn((Object)mt.m_JOURNAL_DocProformaInvoice.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID") );
+            m_DBTables.items.Add(t_JOURNAL_DocProformaInvoice);
 
 
         /* 129 */
@@ -1963,7 +1979,7 @@ namespace TangentaDataBaseDef
         /* 174 */
             t_FVI_SLO_Response = new SQLTable((Object)new FVI_SLO_Response(), "fvisloresp", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_FVI_SLO_Response); ;
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.m_Invoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
+            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.MessageID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Message ID", "Transakcija ID"));
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.UniqueInvoiceID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("UniqueInvoiceID", "Enkratna identifikacijska oznaka računa"));
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.BarCodeValue, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("QR BarCode", "QR bar koda"));
@@ -2015,25 +2031,105 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Atom_ItemShopA);
 
             /* 179 */
-            t_Atom_ItemShopA_Price = new SQLTable((Object)new Atom_ItemShopA_Price(), "aishap", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_ItemShopA_Price);
-            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Proforma invoice ID", "Predračun ID"));
-            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.m_Atom_ItemShopA, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Shop A Item ID", "Prodajalna A artikel ID"));
-            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Discount", "Popust"));
-            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.dQuantity, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Quantity", "Količina"));
-            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.PricePerUnit, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price per unit", "Cena na enoto"));
-            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("End price", "Končna cena"));
-            t_Atom_ItemShopA_Price.AddColumn((Object)mt.m_Atom_ItemShopA_Price.TAX, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("TAX", "Davek"));
-            m_DBTables.items.Add(t_Atom_ItemShopA_Price);
+            t_DocInvoice_ShopA_Item = new SQLTable((Object)new DocInvoice_ShopA_Item(), "dinvshai", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_DocInvoice_ShopA_Item);
+            t_DocInvoice_ShopA_Item.AddColumn((Object)mt.m_DocInvoice_ShopA_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocInvoice_ShopA_Item.AddColumn((Object)mt.m_DocInvoice_ShopA_Item.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Proforma invoice ID", "Predračun ID"));
+            t_DocInvoice_ShopA_Item.AddColumn((Object)mt.m_DocInvoice_ShopA_Item.m_Atom_ItemShopA, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Shop A Item ID", "Prodajalna A artikel ID"));
+            t_DocInvoice_ShopA_Item.AddColumn((Object)mt.m_DocInvoice_ShopA_Item.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Discount", "Popust"));
+            t_DocInvoice_ShopA_Item.AddColumn((Object)mt.m_DocInvoice_ShopA_Item.dQuantity, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Quantity", "Količina"));
+            t_DocInvoice_ShopA_Item.AddColumn((Object)mt.m_DocInvoice_ShopA_Item.PricePerUnit, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price per unit", "Cena na enoto"));
+            t_DocInvoice_ShopA_Item.AddColumn((Object)mt.m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("End price", "Končna cena"));
+            t_DocInvoice_ShopA_Item.AddColumn((Object)mt.m_DocInvoice_ShopA_Item.TAX, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("TAX", "Davek"));
+            m_DBTables.items.Add(t_DocInvoice_ShopA_Item);
 
             /* 180 */
             t_FVI_SLO_SalesBookInvoice = new SQLTable((Object)new FVI_SLO_SalesBookInvoice(), "fvisbi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_FVI_SLO_SalesBookInvoice);
             t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.m_Invoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
+            t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
             t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.InvoiceNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Number ID", "Številka Računa ID"));
             t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.SetNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Set Number", "Številka posameznega obrazca iz vezane knjige računov"));
             t_FVI_SLO_SalesBookInvoice.AddColumn((Object)mt.m_FVI_SLO_SalesBookInvoice.SerialNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Serial Number", "Serijska številka vezane knjige računov"));
             m_DBTables.items.Add(t_FVI_SLO_SalesBookInvoice);
+
+            /* 181 */
+            t_DocProformaInvoice = new SQLTable((Object)new DocProformaInvoice(), "dpinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocProformaInvoice);
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.Draft, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft", "Osnutek"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.DraftNumber, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft Number", "Številka Osnutka"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.FinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Financial Year", "Obračunsko Leto"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.NumberInFinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Number in Financial Year", "Številka v Obračunskem Letu"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.NetSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Net Sum", "Cena brez DDV"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.Discount, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Discount", "Popust"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.EndSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("End Sum", "Cena s popustom"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.TaxSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Tax Sum", "DDV"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.GrossSum, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Gross Sum", "Cena za plačilo"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_Atom_Customer_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer Person archive ID", "Oseba Kupec arhiv ID"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_Atom_Customer_Org, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customer Company archive ID", "Kupec Organizacija arhiv ID"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.WarrantyExist, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty", "Garancija"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.WarrantyConditions, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty conditions", "Garancijski pogoji"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.WarrantyDurationType, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration Type", "Tip trajanja garancije"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.WarrantyDuration, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration", "Garancijski čas"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_TermsOfPayment, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("TermsOfPayment ID", "Plačilni pogoji ID"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.DocDuration, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Duration", "Veljavnost ponudbe"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.DocDurationType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Duration Type", "Tip veljavnosti ponudbe"));
+            m_DBTables.items.Add(t_DocProformaInvoice);
+
+            /* 182 */
+            t_DocProformaInvoice_ShopC_Item = new SQLTable((Object)new DocProformaInvoice_ShopC_Item(), "dpinvshci", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_DocProformaInvoice_ShopC_Item);
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Selected Quantity", "Izbrana Količina"));
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Extra Discount", "Dodatni Popust"));
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.RetailPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("RetailSimpleItemPrice with discount", "Prodajna cena s popustom"));
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax price", "Davek"));
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Proforma Invoice ID", "Predračun ID"));
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.m_Atom_Price_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Price-Item arh ID", "Cena-Artikel arh ID"));
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Expiry Date", "Rok uporabe"));
+            t_DocProformaInvoice_ShopC_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopC_Item.m_Stock, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Stock ID", "Zaloga ID"));
+            m_DBTables.items.Add(t_DocProformaInvoice_ShopC_Item);
+
+            /* 183 */
+            t_DocProformaInvoice_ShopB_Item = new SQLTable((Object)new DocProformaInvoice_ShopB_Item(), "dpinvshbi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocProformaInvoice_ShopB_Item);
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.RetailSimpleItemPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Retail SimpleItem price", "Cena storitve"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Discount", "Popust"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.iQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Quantity", "Količina"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.RetailSimpleItemPriceWithDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("RetailSimpleItemPrice with discount", "Prodajna cena s popustom"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.ExtraDiscount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Extra Discount", "Dodatni Popust"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.TaxPrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax price", "Davek"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.m_Atom_SimpleItem, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("SimpleItem archive ID", "Artikel/Storitev arhiv ID"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.m_Atom_PriceList, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price SimpleItem archive ID", "Cenik artikel/storitev arhiv ID"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.m_Atom_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Taxation archive ID", "Obdavćitev arhiv ID"));
+            t_DocProformaInvoice_ShopB_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopB_Item.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
+            m_DBTables.items.Add(t_DocProformaInvoice_ShopB_Item);
+
+            /* 184 */
+            t_DocProformaInvoice_Notice = new SQLTable((Object)new DocProformaInvoice_Notice(), "dpinvnotice", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocProformaInvoice_Notice);
+            t_DocProformaInvoice_Notice.AddColumn((Object)mt.m_DocProformaInvoice_Notice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocProformaInvoice_Notice.AddColumn((Object)mt.m_DocProformaInvoice_Notice.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("DocProformaInvoice ID", "Predračun ID"));
+            t_DocProformaInvoice_Notice.AddColumn((Object)mt.m_DocProformaInvoice_Notice.m_Notice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("Notice ID", "Dopis ID"));
+            t_DocProformaInvoice_Notice.AddColumn((Object)mt.m_DocProformaInvoice_Notice.m_Doc_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox, new ltext("ImageLib _ID", "Knjižnica slik ID"));
+            m_DBTables.items.Add(t_DocProformaInvoice_Notice);
+
+            /* 185 */
+            t_DocProformaInvoice_Image = new SQLTable((Object)new DocProformaInvoice_Image(), "dpinvimg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_ProformaInvoice_Image);
+            t_DocProformaInvoice_Image.AddColumn((Object)mt.m_DocProformaInvoice_Image.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocProformaInvoice_Image.AddColumn((Object)mt.m_DocProformaInvoice_Image.m_Doc_ImageLib, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.TextBox_ReadOnly, new ltext("Doc Image Lib ID", "Knjižnica slik dokumentov ID"));
+            t_DocProformaInvoice_Image.AddColumn((Object)mt.m_DocProformaInvoice_Image.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.PictureBox, new ltext("Proforma Invoice ID", "Predračun ID"));
+            m_DBTables.items.Add(t_DocProformaInvoice_Image);
+
+            /* 186 */
+            t_DocProformaInvoice_ShopA_Item = new SQLTable((Object)new DocProformaInvoice_ShopA_Item(), "dpinvshai", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_DocProformaInvoice_ShopA_Item);
+            t_DocProformaInvoice_ShopA_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopA_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_DocProformaInvoice_ShopA_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopA_Item.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Proforma invoice ID", "Predračun ID"));
+            t_DocProformaInvoice_ShopA_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopA_Item.m_Atom_ItemShopA, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Shop A Item ID", "Prodajalna A artikel ID"));
+            t_DocProformaInvoice_ShopA_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopA_Item.Discount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Discount", "Popust"));
+            t_DocProformaInvoice_ShopA_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopA_Item.dQuantity, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Quantity", "Količina"));
+            t_DocProformaInvoice_ShopA_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopA_Item.PricePerUnit, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Price per unit", "Cena na enoto"));
+            t_DocProformaInvoice_ShopA_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopA_Item.EndPriceWithDiscountAndTax, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("End price", "Končna cena"));
+            t_DocProformaInvoice_ShopA_Item.AddColumn((Object)mt.m_DocProformaInvoice_ShopA_Item.TAX, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("TAX", "Davek"));
+            m_DBTables.items.Add(t_DocProformaInvoice_ShopA_Item);
+
+
         }
     }
  }

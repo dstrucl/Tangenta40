@@ -50,7 +50,7 @@ namespace ShopC
                 if (dt_DocInvoice_Atom_Item_Stock_view.Rows.Count > 0)
                 {
                     dgv_DocInvoice_Atom_Item_Stock.DataSource = dt_DocInvoice_Atom_Item_Stock_view;
-                    DBSync.DBSync.DB_for_Tangenta.t_Atom_DocInvoice_Price_Item_Stock.SetView_DataGridViewImageColumns_Headers((DataGridView)dgv_DocInvoice_Atom_Item_Stock);
+                    DBSync.DBSync.DB_for_Tangenta.t_DocInvoice_ShopC_Item.SetView_DataGridViewImageColumns_Headers((DataGridView)dgv_DocInvoice_Atom_Item_Stock);
                     foreach (DataGridViewColumn c in dgv_DocInvoice_Atom_Item_Stock.Columns)
                     {
                         c.Visible = false;

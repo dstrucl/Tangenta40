@@ -33,9 +33,9 @@ namespace DBSync
         public static DBConnection.eDBType m_DBType = DBConnection.eDBType.SQLITE;
         public static string m_BackupFolder;
 
-        public static bool Drop_VIEWs()
+        public static bool Drop_VIEWs(ref string Err)
         {
-            return DB_for_Tangenta.DropViews();
+            return DB_for_Tangenta.DropViews(ref Err);
         }
 
         public static bool Create_VIEWs()
@@ -201,27 +201,30 @@ namespace DBSync
             return DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, sTableName);
         }
 
-        public static bool CreateTables(string[] new_tables)
+        public static bool CreateTables(string[] new_tables,ref string Err)
         {
-            string Err = null;
+            Err = null;
             foreach (string stbl in new_tables)
             {
+                string err = null;
                 SQLTable tbl = DB_for_Tangenta.m_DBTables.GetTable(stbl);
                 if (tbl != null)
                 {
-                    if (DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL_NoMultiTrans(tbl.sql_CreateTable,null, ref Err))
+                    if (DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL_NoMultiTrans(tbl.sql_CreateTable,null, ref err))
                     {
                         continue;
                     }
                     else
                     {
                         LogFile.Error.Show("ERROR:DBSync:DBSync:CreateTables:sql=" + tbl.sql_CreateTable + "\r\nErr=" + Err);
+                        Err = err;
                         return false;
                     }
                 }
                 else
                 {
                     LogFile.Error.Show("ERROR:DBSync:DBSync:CreateTables:Table " + stbl + " not found in m_DBTables.items !");
+                    Err = err;
                     return false;
                 }
             }

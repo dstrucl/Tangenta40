@@ -79,8 +79,8 @@ namespace InvoiceDB
                         JOURNAL_DocInvoice_$_dinv_$$WarrantyDurationType,
                         JOURNAL_DocInvoice_$_dinv_$$WarrantyDuration,
                         JOURNAL_DocInvoice_$_dinv_$$WarrantyConditions,
-                        JOURNAL_DocInvoice_$_dinv_$$DocInvoiceDuration,
-                        JOURNAL_DocInvoice_$_dinv_$$DocInvoiceDurationType,
+                        JOURNAL_DocInvoice_$_dinv_$$DocDuration,
+                        JOURNAL_DocInvoice_$_dinv_$$DocDurationType,
                         JOURNAL_DocInvoice_$_dinv_$_trmpay_$$ID,
                         JOURNAL_DocInvoice_$_dinv_$_inv_$$ID,
                         JOURNAL_DocInvoice_$_dinv_$_inv_$$PaymentDeadline,
@@ -372,12 +372,12 @@ namespace InvoiceDB
                     }
                 }
 
-                string sql_SetDraftInvoice = "insert into " + DBtcn.stbl_Invoice_TableName
+                string sql_SetDraftInvoice = "insert into " + DBtcn.stbl_DocInvoice_TableName
                                        + "("
-                                            + DBtcn.GetName(td.m_Invoice.PaymentDeadline.GetType()) + ","
-                                            + DBtcn.GetName(td.m_Invoice.m_MethodOfPayment.GetType()) + "_ID,"
-                                            + DBtcn.GetName(td.m_Invoice.Paid.GetType()) + ","
-                                            + DBtcn.GetName(td.m_Invoice.Storno.GetType())
+                                            + DBtcn.GetName(td.m_DocInvoice.PaymentDeadline.GetType()) + ","
+                                            + DBtcn.GetName(td.m_DocInvoice.m_MethodOfPayment.GetType()) + "_ID,"
+                                            + DBtcn.GetName(td.m_DocInvoice.Paid.GetType()) + ","
+                                            + DBtcn.GetName(td.m_DocInvoice.Storno.GetType())
                                        + @") values ( null,"
                                             + "null,"
                                             + "0,"
@@ -385,7 +385,7 @@ namespace InvoiceDB
                                           + ")";
                 m_CurrentInvoice.dtCurrent_Invoice.Clear();
                 object objret = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftInvoice, null, ref Invoice_ID, ref objret, ref Err, DBtcn.stbl_Invoice_TableName))
+                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftInvoice, null, ref Invoice_ID, ref objret, ref Err, DBtcn.stbl_DocInvoice_TableName))
                 {
                     long Atom_myCompany_Person_ID = -1;
                     this.m_CurrentInvoice.Invoice_ID = Invoice_ID;
@@ -397,7 +397,7 @@ namespace InvoiceDB
                         //**TODO
                         string sql_SetDraftDocInvoice = "insert into " + DBtcn.stbl_DocInvoice_TableName
                        + "("
-                            + DBtcn.GetName(td.m_DocInvoice.m_Invoice.GetType()) + "_ID,"
+                            + DBtcn.GetName(td.m_DocInvoice.GetType()) + "_ID,"
                             + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
                             + DBtcn.GetName(td.m_DocInvoice.Draft.GetType())
@@ -407,14 +407,14 @@ namespace InvoiceDB
                             + m_CurrentInvoice.DraftNumber.ToString() + ","
                             + "1"
                           + ")";
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref this.m_CurrentInvoice.DocInvoice_ID, ref objret, ref Err, DBtcn.stbl_Invoice_TableName))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref this.m_CurrentInvoice.DocInvoice_ID, ref objret, ref Err, DBtcn.stbl_DocInvoice_TableName))
                         {
                             long Journal_DocInvoice_ID = -1;
                             return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:SetDraft:insert into " + DBtcn.stbl_Invoice_TableName + ":\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:SetDraft:insert into " + DBtcn.stbl_DocInvoice_TableName + ":\r\nErr=" + Err);
                             return false;
                         }
                     }

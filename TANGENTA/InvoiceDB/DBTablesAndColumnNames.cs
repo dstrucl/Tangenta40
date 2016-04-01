@@ -35,9 +35,8 @@ namespace InvoiceDB
         public string stbl_BuyerAtom_Person_TableName = null;
         public string stbl_BuyerCompanyAtom_TableName = null;
         public string stbl_TermsOfPayment_TableName = null;
-        public string stbl_Invoice_TableName = null;
-        public string stbl_Taxation_TableName = null;
         public string stbl_DocInvoice_TableName = null;
+        public string stbl_Taxation_TableName = null;
 
         public string stbl_ShopBItem_TableName = null;
         public string stbl_ShopBItem_Image_TableName = null;
@@ -59,7 +58,6 @@ namespace InvoiceDB
 
         public string stbl_DocInvoice_Atom_Item_Stock_TableName = null;
 
-        public string col_Invoice_ID;
         public string col_FinancialYear;
         public string col_NumberInFinancialYear;
 
@@ -209,8 +207,8 @@ namespace InvoiceDB
         public string colDocInvoice_WarrantyDurationType;
         public string colDocInvoice_WarrantyDuration;
         public string colDocInvoice_WarrantyConditions;
-        public string colDocInvoice_DocInvoiceDuration;
-        public string colDocInvoice_DocInvoiceDurationType;
+        public string colDocInvoice_DocDuration;
+        public string colDocInvoice_DocDurationType;
         public string colDocInvoice_TermsOfPayment_ID;
         public string colDocInvoice_Invoice_ID;
 
@@ -236,7 +234,6 @@ namespace InvoiceDB
             SQLTable tbl_Atom_Customer_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Customer_Person));
             SQLTable tbl_Atom_Customer_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Customer_Org));
             SQLTable tbl_TermsOfPayment = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TermsOfPayment));
-            SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Invoice));
             SQLTable tbl_Taxation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation));
             SQLTable tbl_ShopBItem = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem));
             SQLTable tbl_ShopBItem_Image = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem_Image));
@@ -262,7 +259,7 @@ namespace InvoiceDB
             SQLTable tbl_Atom_Warranty = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Warranty));
             SQLTable tbl_Atom_Item = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Item));
             SQLTable tbl_Atom_Expiry = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Expiry));
-            SQLTable tbl_DocInvoice_Atom_Item_Stock = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_DocInvoice_Price_Item_Stock));
+            SQLTable tbl_DocInvoice_Atom_Item_Stock = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopC_Item));
 
             stbl_myCompany_TableName = tbl_myCompany.TableName;
 
@@ -298,7 +295,7 @@ namespace InvoiceDB
 
             stbl_DocInvoice_TableName = tbl_DocInvoice.TableName;
 
-            stbl_Invoice_TableName = tbl_Invoice.TableName;
+            stbl_DocInvoice_TableName = tbl_DocInvoice.TableName;
 
             stbl_Taxation_TableName = tbl_Taxation.TableName;
 
@@ -312,7 +309,6 @@ namespace InvoiceDB
 
             stbl_Atom_Warranty_TableName = tbl_Atom_Warranty.TableName;
 
-            col_Invoice_ID = stbl_Invoice_TableName + "_" + GetName(td.m_Invoice.ID.GetType());
             col_FinancialYear = GetName(td.m_DocInvoice.FinancialYear.GetType());
             col_NumberInFinancialYear = GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
 
@@ -384,20 +380,17 @@ namespace InvoiceDB
             colDocInvoice_WarrantyDurationType = GetName(td.m_DocInvoice.WarrantyDurationType.GetType());
             colDocInvoice_WarrantyDuration = GetName(td.m_DocInvoice.WarrantyDuration.GetType());
             colDocInvoice_WarrantyConditions = GetName(td.m_DocInvoice.WarrantyConditions.GetType());
-            colDocInvoice_DocInvoiceDuration = GetName(td.m_DocInvoice.DocInvoiceDuration.GetType());
-            colDocInvoice_DocInvoiceDurationType = GetName(td.m_DocInvoice.DocInvoiceDurationType.GetType());
             colDocInvoice_TermsOfPayment_ID = stbl_TermsOfPayment_TableName + "_" + GetName(td.m_TermsOfPayment.ID.GetType());
             colDocInvoice_FinancialYear = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.FinancialYear.GetType());
             colDocInvoice_as_FinancialYear = stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.FinancialYear.GetType());
             colDocInvoice_NumberInFinancialYear = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
             colDocInvoice_as_NumberInFinancialYear = stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
-            colDocInvoice_Invoice_ID = stbl_DocInvoice_TableName + "." + stbl_Invoice_TableName + "_" + GetName(td.m_Invoice.ID.GetType());
+            colDocInvoice_Invoice_ID = stbl_DocInvoice_TableName + "." + stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.ID.GetType());
 
-            colInvoice_ID = stbl_Invoice_TableName + "." + GetName(td.m_Invoice.ID.GetType());
-            colInvoice_PaymentDeadline = stbl_Invoice_TableName + "." + GetName(td.m_Invoice.PaymentDeadline.GetType());
-            colInvoice_m_MethodOfPayment = stbl_Invoice_TableName + "." + GetName(td.m_Invoice.m_MethodOfPayment.GetType()) + "_ID";
-            colInvoice_Paid = stbl_Invoice_TableName + "." + GetName(td.m_Invoice.Paid.GetType());
-            colInvoice_Storno = stbl_Invoice_TableName + "." + GetName(td.m_Invoice.Storno.GetType()); ;
+            colInvoice_PaymentDeadline = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.PaymentDeadline.GetType());
+            colInvoice_m_MethodOfPayment = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.m_MethodOfPayment.GetType()) + "_ID";
+            colInvoice_Paid = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.Paid.GetType());
+            colInvoice_Storno = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.Storno.GetType()); ;
 
 
         }

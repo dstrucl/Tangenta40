@@ -1161,8 +1161,9 @@ namespace CodeTables
             }
             return true;
         }
-        public bool DropVIEWs()
+        public bool DropVIEWs(ref string Err)
         {
+            Err = null;
             StringBuilder m_strSQLDrop =  this.SQLcmd_DropAll_Views(m_con);
 
             string sql = m_strSQLDrop.ToString();
@@ -1186,7 +1187,8 @@ namespace CodeTables
             }
             else
             {
-                LogFile.Error.Show(lngRPM.s_err_AllTablesDroped.s + "\n\nException = " + csErrorMsg);
+                Err = lngRPM.s_err_AllTablesDroped.s + "\n\nException = " + csErrorMsg;
+                LogFile.Error.Show(Err);
                 return false;
             }
         }
@@ -1513,6 +1515,16 @@ namespace CodeTables
                 }
             }
             return null;
+        }
+
+        public bool DataBase_Backup(string full_back_up_file_name)
+        {
+            return this.m_con.DataBase_Backup(full_back_up_file_name);
+        }
+
+        public bool DataBase_Restore(string full_back_up_file_name)
+        {
+            return this.m_con.DataBase_Restore(full_back_up_file_name);
         }
 
         public bool DataBase_Make_BackupTemp()
