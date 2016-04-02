@@ -192,7 +192,14 @@ namespace UpgradeDB
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            if (DB_Restore())
+            if (bError)
+            {
+                if (DB_Restore())
+                {
+                    this.DB_Backup_delete();
+                }
+            }
+            else
             {
                 this.DB_Backup_delete();
             }

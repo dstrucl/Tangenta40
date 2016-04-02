@@ -104,11 +104,11 @@ namespace Tangenta
             string s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString();
             if (bInvoice)
             {
-                cond = " where JOURNAL_DocInvoice_$_dinv_$_inv.ID is not null ";
+                cond = " where JOURNAL_DocInvoice_$_dinv.ID is not null ";
             }
             else
             {
-                cond = " where JOURNAL_DocInvoice_$_dinv_$_inv.ID is null ";
+                cond = " where JOURNAL_DocInvoice_$_dinv.ID is null ";
             }
 
             if (ExtraCondition!=null)
@@ -198,14 +198,14 @@ JOURNAL_DocInvoice_$_pinv.DocDuration AS JOURNAL_DocInvoice_$_dinv_$$DocDuration
 JOURNAL_DocInvoice_$_pinv.DocDurationType AS JOURNAL_DocInvoice_$_dinv_$$DocDurationType,
 JOURNAL_DocInvoice_$_dinv_$_trmpay.ID AS JOURNAL_DocInvoice_$_dinv_$_trmpay_$$ID,
 JOURNAL_DocInvoice_$_dinv_$_trmpay.Description AS JOURNAL_DocInvoice_$_dinv_$_trmpay_$$Description,
-JOURNAL_DocInvoice_$_dinv_$_inv.ID AS JOURNAL_DocInvoice_$_dinv_$_inv_$$ID,
-JOURNAL_DocInvoice_$_dinv_$_inv.PaymentDeadline AS JOURNAL_DocInvoice_$_dinv_$_inv_$$PaymentDeadline,
-JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay.ID AS JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$ID,
-JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay.PaymentType AS JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType,
-JOURNAL_DocInvoice_$_dinv_$_inv.Paid AS JOURNAL_DocInvoice_$_dinv_$_inv_$$Paid,
-JOURNAL_DocInvoice_$_dinv_$_inv.Storno AS JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno,
-JOURNAL_DocInvoice_$_dinv_$_inv.Invoice_Reference_ID AS JOURNAL_DocInvoice_$_dinv_$_inv_$$Invoice_Reference_ID,
-JOURNAL_DocInvoice_$_dinv_$_inv.Invoice_Reference_Type AS JOURNAL_DocInvoice_$_dinv_$_inv_$$Invoice_Reference_Type,
+JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID,
+JOURNAL_DocInvoice_$_dinv.PaymentDeadline AS JOURNAL_DocInvoice_$_dinv_$$PaymentDeadline,
+JOURNAL_DocInvoice_$_dinv_$_metopay.ID AS JOURNAL_DocInvoice_$_dinv_$_metopay_$$ID,
+JOURNAL_DocInvoice_$_dinv_$_metopay.PaymentType AS JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType,
+JOURNAL_DocInvoice_$_dinv.Paid AS JOURNAL_DocInvoice_$_dinv_$$Paid,
+JOURNAL_DocInvoice_$_dinv.Storno AS JOURNAL_DocInvoice_$_dinv_$$Storno,
+JOURNAL_DocInvoice_$_dinv.Invoice_Reference_ID AS JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID,
+JOURNAL_DocInvoice_$_dinv.Invoice_Reference_Type AS JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type,
   JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
 JOURNAL_DocInvoice_$_awperiod.ID AS JOURNAL_DocInvoice_$_awperiod_$$ID,
 JOURNAL_DocInvoice_$_awperiod_$_amcper.ID AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$ID,
@@ -324,8 +324,8 @@ LEFT JOIN Atom_PersonImage JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aperimg 
 LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_pinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
 LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
 LEFT JOIN TermsOfPayment JOURNAL_DocInvoice_$_dinv_$_trmpay ON JOURNAL_DocInvoice_$_pinv.TermsOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_trmpay.ID
-LEFT JOIN Invoice JOURNAL_DocInvoice_$_dinv_$_inv ON JOURNAL_DocInvoice_$_pinv.Invoice_ID = JOURNAL_DocInvoice_$_dinv_$_inv.ID
-LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay ON JOURNAL_DocInvoice_$_dinv_$_inv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay.ID
+LEFT JOIN Invoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice_$_pinv.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_metopay ON JOURNAL_DocInvoice_$_dinv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_metopay.ID
 INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
 INNER JOIN Atom_myCompany_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myCompany_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
 INNER JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
@@ -373,7 +373,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
-                    JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay.PaymentType AS JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType,
+                    JOURNAL_DocInvoice_$_dinv_$_metopay.PaymentType AS JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType,
                     JOURNAL_DocInvoice_$_pinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
                     JOURNAL_DocInvoice_$_pinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                     JOURNAL_DocInvoice_$_pinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
@@ -386,22 +386,22 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Name AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Name,
                     JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Tax_ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Tax_ID,
                     JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Registration_ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Registration_ID,
-                    JOURNAL_DocInvoice_$_dinv_$_inv.Paid AS JOURNAL_DocInvoice_$_dinv_$_inv_$$Paid,
-                    JOURNAL_DocInvoice_$_dinv_$_inv.Storno AS JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno,
+                    JOURNAL_DocInvoice_$_dinv.Paid AS JOURNAL_DocInvoice_$_dinv_$$Paid,
+                    JOURNAL_DocInvoice_$_dinv.Storno AS JOURNAL_DocInvoice_$_dinv_$$Storno,
                     JOURNAL_DocInvoice_$_pinv.Discount AS JOURNAL_DocInvoice_$_dinv_$$Discount,
                     JOURNAL_DocInvoice_$_pinv.EndSum AS JOURNAL_DocInvoice_$_dinv_$$EndSum,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper.UserName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$UserName,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
-                    JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$BarCodeValue,
-                    JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber,
-                    JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
+                    JOURNAL_DocInvoice_$_dinv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue,
+                    JOURNAL_DocInvoice_$_dinv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber,
+                    JOURNAL_DocInvoice_$_dinv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber,
+                    JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
                     JOURNAL_DocInvoice_$_pinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
                     JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID,
-                    JOURNAL_DocInvoice_$_dinv_$_inv.ID AS JOURNAL_DocInvoice_$_dinv_$_inv_$$ID,
-                    JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.ID AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$ID
+                    JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID,
+                    JOURNAL_DocInvoice_$_dinv_$_fvisbi.ID AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$ID
                     FROM JOURNAL_DocInvoice
                     INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
                     INNER JOIN DocInvoice JOURNAL_DocInvoice_$_pinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_pinv.ID
@@ -417,10 +417,9 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_pinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
                     LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
                     LEFT JOIN TermsOfPayment JOURNAL_DocInvoice_$_dinv_$_trmpay ON JOURNAL_DocInvoice_$_pinv.TermsOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_trmpay.ID
-                    LEFT JOIN Invoice JOURNAL_DocInvoice_$_dinv_$_inv ON JOURNAL_DocInvoice_$_pinv.Invoice_ID = JOURNAL_DocInvoice_$_dinv_$_inv.ID
-                    LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.Invoice_ID = JOURNAL_DocInvoice_$_dinv_$_inv.ID and JOURNAL_DocInvoice_$_pinv.Invoice_ID = JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.Invoice_ID
-                    LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.Invoice_ID = JOURNAL_DocInvoice_$_dinv_$_inv.ID and JOURNAL_DocInvoice_$_pinv.Invoice_ID = JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.Invoice_ID
-                    LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay ON JOURNAL_DocInvoice_$_dinv_$_inv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay.ID
+                    LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
+                    LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                    LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_metopay ON JOURNAL_DocInvoice_$_dinv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_metopay.ID
                     INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
                     INNER JOIN Atom_myCompany_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myCompany_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
                     INNER JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
@@ -457,7 +456,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
-                    JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay.PaymentType AS JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType,
+                    JOURNAL_DocInvoice_$_dinv_$_metopay.PaymentType AS JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType,
                     JOURNAL_DocInvoice_$_pinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
                     JOURNAL_DocInvoice_$_pinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
@@ -467,8 +466,8 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Name AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Name,
                     JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Tax_ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Tax_ID,
                     JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.Registration_ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg_$$Registration_ID,
-                    JOURNAL_DocInvoice_$_dinv_$_inv.Paid AS JOURNAL_DocInvoice_$_dinv_$_inv_$$Paid,
-                    JOURNAL_DocInvoice_$_dinv_$_inv.Storno AS JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno,
+                    JOURNAL_DocInvoice_$_dinv.Paid AS JOURNAL_DocInvoice_$_dinv_$$Paid,
+                    JOURNAL_DocInvoice_$_dinv.Storno AS JOURNAL_DocInvoice_$_dinv_$$Storno,
                     JOURNAL_DocInvoice_$_pinv.Discount AS JOURNAL_DocInvoice_$_dinv_$$Discount,
                     JOURNAL_DocInvoice_$_pinv.EndSum AS JOURNAL_DocInvoice_$_dinv_$$EndSum,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper.UserName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$UserName,
@@ -477,7 +476,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
                     JOURNAL_DocInvoice_$_pinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
                     JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID,
-                    JOURNAL_DocInvoice_$_dinv_$_inv.ID AS JOURNAL_DocInvoice_$_dinv_$_inv_$$ID
+                    JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID
                     FROM JOURNAL_DocInvoice
                     INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
                     INNER JOIN DocInvoice JOURNAL_DocInvoice_$_pinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_pinv.ID
@@ -493,8 +492,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_pinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
                     LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
                     LEFT JOIN TermsOfPayment JOURNAL_DocInvoice_$_dinv_$_trmpay ON JOURNAL_DocInvoice_$_pinv.TermsOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_trmpay.ID
-                    LEFT JOIN Invoice JOURNAL_DocInvoice_$_dinv_$_inv ON JOURNAL_DocInvoice_$_pinv.Invoice_ID = JOURNAL_DocInvoice_$_dinv_$_inv.ID
-                    LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay ON JOURNAL_DocInvoice_$_dinv_$_inv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay.ID
+                    LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_metopay ON JOURNAL_DocInvoice_$_dinv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_metopay.ID
                     INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
                     INNER JOIN Atom_myCompany_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myCompany_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
                     INNER JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
@@ -541,10 +539,10 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
             {
                 dgvx_XInvoice.DataSource = dt_XInvoice;
                 iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
-                iColIndex_DocInvoice_Invoice_Storno = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno");
+                iColIndex_DocInvoice_Invoice_Storno = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Storno");
                 if (Program.b_FVI_SLO)
                 {
-                    iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$BarCodeValue"); ;
+                    iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"); ;
                     iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber"); ;
                 }
 
@@ -553,7 +551,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                 //this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged); // Add Handler
                 SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
                 tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$BarCodeValue"].HeaderText = lngRPM.s_FURS_BarCode.s;
+                dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"].HeaderText = lngRPM.s_FURS_BarCode.s;
                 iRowsCount = dt_XInvoice.Rows.Count;
                 if (!bNew)
                 {
@@ -601,7 +599,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
 
             int iColDraft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
             int iCol = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$GrossSum");
-            int iColPayment = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType");
+            int iColPayment = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType");
             
             int iCount = dt_XInvoice.Rows.Count;
             int i = 0;

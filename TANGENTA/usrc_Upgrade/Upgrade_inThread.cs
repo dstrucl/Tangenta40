@@ -497,6 +497,7 @@ namespace UpgradeDB
                             {
                                 if (DBSync.DBSync.Create_VIEWs())
                                 {
+                                    CheckDataBaseTables(ref Err);
                                     Set_DatBase_Version("1.20");
                                     return true;
                                 }
@@ -533,6 +534,106 @@ namespace UpgradeDB
             }
         }
 
+        private bool CheckDataBaseTables(ref string Err)
+        {
+            string sql = "SELECT name FROM sqlite_master WHERE type='table';";
+            List<string> missing_table_list = new List<string>();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt,sql, ref Err))
+            {
+                string exsist_in_m_DBTables_items = "exsist_in_m_DBTables_items";
+                dt.Columns.Add(new DataColumn(exsist_in_m_DBTables_items, typeof(bool)));
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dr[exsist_in_m_DBTables_items] = false;
+                }
+                int iCount_items = DBSync.DBSync.DB_for_Tangenta.m_DBTables.items.Count;
+                int i;
+                for (i=0;i< iCount_items; i++)
+                {
+                    string table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.items[i].TableName;
+                    DataRow[] drs =  dt.Select("name = '" + table_name + "'");
+                    if (drs.Count() > 0)
+                    {
+                        foreach (DataRow dr in drs)
+                        {
+                            dr[exsist_in_m_DBTables_items] = true;
+                        }
+                        continue;
+                    }
+                    else
+                    {
+                        missing_table_list.Add(table_name);
+                    }
+                }
+                Err = null;
+                DataRow[] drs2 = dt.Select(exsist_in_m_DBTables_items + "= false");
+                if (drs2.Count()>0)
+                {
+                    string slist = "";
+                    foreach (DataRow dr in drs2)
+                    {
+                        if (((string)dr["name"]).Equals("sqlite_sequence"))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            slist += "\r\n'" + (string)dr["name"] + "',";
+                        }
+                    }
+                    if (slist.Length>0)
+                    {
+                        Err = "ERROR:There are tables in DataBase " + DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataSource + " which are not used in program:" + slist;
+                    }
+                }
+                if (missing_table_list.Count > 0)
+                {
+                    if (Err == null)
+                    {
+                        Err = "ERROR:Tables:";
+                    }
+                    else
+                    {
+                        Err += "\r\n\r\nERROR:Tables:";
+                    }
+
+                    iCount_items = missing_table_list.Count;
+                    i = 0;
+                    for (;;)
+                    {
+                        if (i < iCount_items)
+                        {
+                            Err += "\r\n'" + missing_table_list[i] + "'";
+                        }
+                        i++;
+                        if (i == iCount_items)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Err += ",";
+                        }
+                    }
+                    Err += "\r\n are not defined in DataBase '" + DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataSource + "'";
+                }
+                if (Err == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show(Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
 
         private object UpgradeDB_1_18_to_1_19(object obj, ref string Err)
         {
