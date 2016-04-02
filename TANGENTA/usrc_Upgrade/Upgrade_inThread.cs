@@ -242,113 +242,232 @@ namespace UpgradeDB
                     return false;
                 }
 
-                sql = @"select
-                           jpi.JOURNAL_ProformaInvoice_Type_ID,
-                           jpi.ProformaInvoice_ID,
-                           jpi.EventTime as jpi_EventTime,
-                           jpi.Atom_WorkPeriod_ID as  jpi_Atom_WorkPeriod_ID,
-                           ji.JOURNAL_Invoice_Type_ID,
-                           ji.Invoice_ID,
-                           ji.EventTime as ji_EventTime,
-                           ji.Atom_WorkPeriod_ID as ji_Atom_WorkPeriod_ID
-                       from JOURNAL_ProformaInvoice jpi
-		       inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
-                       left join JOURNAL_Invoice ji on pi.Invoice_ID = ji.Invoice_ID
-		       Group by
-                           jpi.JOURNAL_ProformaInvoice_Type_ID,
-                           jpi.ProformaInvoice_ID,
-                           jpi.EventTime,
-                           jpi.Atom_WorkPeriod_ID,
-                           ji.JOURNAL_Invoice_Type_ID,
-                           ji.Invoice_ID,
-                           ji.EventTime,
-                           ji.Atom_WorkPeriod_ID
-                ";
-                DataTable dt = new DataTable();
-                if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
+                //       sql = @"select
+                //                  jpi.JOURNAL_ProformaInvoice_Type_ID,
+                //                  jpi.ProformaInvoice_ID,
+                //                  jpi.EventTime as jpi_EventTime,
+                //                  jpi.Atom_WorkPeriod_ID as  jpi_Atom_WorkPeriod_ID,
+                //                  ji.JOURNAL_Invoice_Type_ID,
+                //                  ji.Invoice_ID,
+                //                  ji.EventTime as ji_EventTime,
+                //                  ji.Atom_WorkPeriod_ID as ji_Atom_WorkPeriod_ID
+                //              from JOURNAL_ProformaInvoice jpi
+                //inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
+                //              left join JOURNAL_Invoice ji on pi.Invoice_ID = ji.Invoice_ID
+                //Group by
+                //                  jpi.JOURNAL_ProformaInvoice_Type_ID,
+                //                  jpi.ProformaInvoice_ID,
+                //                  jpi.EventTime,
+                //                  jpi.Atom_WorkPeriod_ID,
+                //                  ji.JOURNAL_Invoice_Type_ID,
+                //                  ji.Invoice_ID,
+                //                  ji.EventTime,
+                //                  ji.Atom_WorkPeriod_ID
+                //       ";
+                //       DataTable dt = new DataTable();
+                //       if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
+                //       {
+                //           int iCount = dt.Rows.Count;
+                //           int i;
+
+                //           List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                //           for (i=0;i< iCount;i++)
+                //           {
+                //               DataRow dr = dt.Rows[i];
+                //               lpar.Clear();
+                //               string spar_JOURNAL_DocInvoice_Type_ID = "@par_JOURNAL_DocInvoice_Type_ID";
+                //               SQL_Parameter par_JOURNAL_DocInvoice_Type_ID = new SQL_Parameter(spar_JOURNAL_DocInvoice_Type_ID,SQL_Parameter.eSQL_Parameter.Bigint,false, dr["JOURNAL_ProformaInvoice_Type_ID"]);
+                //               lpar.Add(par_JOURNAL_DocInvoice_Type_ID);
+
+                //               string spar_DocInvoice_ID = "@par_DocInvoice_ID";
+                //               SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ProformaInvoice_ID"]);
+                //               lpar.Add(par_DocInvoice_ID);
+
+                //               string spar_EventTime = "@par_EventTime";
+                //               SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dr["jpi_EventTime"]);
+                //               lpar.Add(par_EventTime);
+
+                //               string spar_jpi_Atom_WorkPeriod_ID = "@par_jpi_Atom_WorkPeriod_ID";
+                //               SQL_Parameter par_jpi_Atom_WorkPeriod_ID = new SQL_Parameter(spar_jpi_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["jpi_Atom_WorkPeriod_ID"]);
+                //               lpar.Add(par_jpi_Atom_WorkPeriod_ID);
+
+                //               sql = @"insert into JOURNAL_DocInvoice 
+                //                       ( 
+                //                           JOURNAL_DocInvoice_Type_ID,
+                //                           DocInvoice_ID,
+                //                           EventTime,
+                //                           Atom_WorkPeriod_ID
+                //                       )
+                //                       values
+                //                       (
+                //                        " + spar_JOURNAL_DocInvoice_Type_ID + @",
+                //                        " + spar_DocInvoice_ID + @",
+                //                        " + spar_EventTime + @",
+                //                        " + spar_jpi_Atom_WorkPeriod_ID + @"
+                //                       )";
+                //               if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql,lpar, ref Err))
+                //               {
+                //                   LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                //                   return false;
+                //               }
+
+                //               lpar.Clear();
+                //               if (dr["JOURNAL_Invoice_Type_ID"] is long)
+                //               {
+                //                   long i_JOURNAL_Invoice_Type_ID = (long)dr["JOURNAL_Invoice_Type_ID"] + 6;
+                //                   par_JOURNAL_DocInvoice_Type_ID = new SQL_Parameter(spar_JOURNAL_DocInvoice_Type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, i_JOURNAL_Invoice_Type_ID);
+                //                   lpar.Add(par_JOURNAL_DocInvoice_Type_ID);
+
+                //                   par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ProformaInvoice_ID"]);
+                //                   lpar.Add(par_DocInvoice_ID);
+
+                //                   par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dr["ji_EventTime"]);
+                //                   lpar.Add(par_EventTime);
+
+                //                   par_jpi_Atom_WorkPeriod_ID = new SQL_Parameter(spar_jpi_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ji_Atom_WorkPeriod_ID"]);
+                //                   lpar.Add(par_jpi_Atom_WorkPeriod_ID);
+
+                //                   sql = @"insert into JOURNAL_DocInvoice 
+                //                       ( 
+                //                           JOURNAL_DocInvoice_Type_ID,
+                //                           DocInvoice_ID,
+                //                           EventTime,
+                //                           Atom_WorkPeriod_ID
+                //                       )
+                //                       values
+                //                       (
+                //                        " + spar_JOURNAL_DocInvoice_Type_ID + @",
+                //                        " + spar_DocInvoice_ID + @",
+                //                        " + spar_EventTime + @",
+                //                        " + spar_jpi_Atom_WorkPeriod_ID + @"
+                //                       )";
+                //                   if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
+                //                   {
+                //                       LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                //                       return false;
+                //                   }
+                //               }
+                //           }
+
+                sql = @" DROP TABLE IF EXISTS JOURNAL_DocInvoice_temp;
+                          CREATE TABLE JOURNAL_DocInvoice_temp
+                          (
+                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                           JOURNAL_DocInvoice_Type_ID  INTEGER  NOT NULL REFERENCES JOURNAL_DocInvoice_Type(ID),
+                           DocInvoice_ID  INTEGER  NULL REFERENCES DocInvoice(ID),
+                          'EventTime' DATETIME NULL,
+                           Atom_WorkPeriod_ID  INTEGER  NOT NULL REFERENCES Atom_WorkPeriod(ID)
+                          );
+
+                          insert into JOURNAL_DocInvoice_temp
+                          (
+                            JOURNAL_DocInvoice_Type_ID,
+                            DocInvoice_ID,
+                            EventTime,
+                            Atom_WorkPeriod_ID
+                          )
+                        select
+                                JOURNAL_ProformaInvoice_Type_ID,
+                                ProformaInvoice_ID,
+                                EventTime,
+                                Atom_WorkPeriod_ID
+                            from JOURNAL_ProformaInvoice;
+
+                          insert into JOURNAL_DocInvoice_temp
+                          (
+                            JOURNAL_DocInvoice_Type_ID,
+                            DocInvoice_ID,
+                            EventTime,
+                            Atom_WorkPeriod_ID
+                          )
+                            select
+                                ji.JOURNAL_Invoice_Type_ID + 6 as JOURNAL_DocInvoice_Type_ID,
+                                pi.ID,
+                                ji.EventTime as ji_EventTime,
+                                ji.Atom_WorkPeriod_ID as ji_Atom_WorkPeriod_ID
+                                from JOURNAL_Invoice ji
+                                inner join ProformaInvoice pi on pi.Invoice_ID = ji.ID;
+
+                          insert into JOURNAL_DocInvoice
+                          (
+                            JOURNAL_DocInvoice_Type_ID,
+                            DocInvoice_ID,
+                            EventTime,
+                            Atom_WorkPeriod_ID
+                          )
+                          select 
+                            JOURNAL_DocInvoice_Type_ID,
+                            DocInvoice_ID,
+                            EventTime,
+                            Atom_WorkPeriod_ID
+                            from JOURNAL_DocInvoice_temp order by EventTime asc;
+
+                           DROP TABLE JOURNAL_DocInvoice_temp;
+
+                      ALTER TABLE FVI_SLO_Response RENAME TO FVI_SLO_Response_temp;
+
+                      CREATE TABLE FVI_SLO_Response
+                      (
+                      'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                       DocInvoice_ID  INTEGER  NOT NULL REFERENCES DocInvoice(ID),
+                      'MessageID' varchar(45) NULL,
+                      'UniqueInvoiceID' varchar(45) NULL,
+                      'BarCodeValue' varchar(64) NULL,
+                      'Response_DateTime' DATETIME NULL
+                      );
+
+                    insert into FVI_SLO_Response
+                    (
+                        DocInvoice_ID,
+                        MessageID,
+                        UniqueInvoiceID,
+                        BarCodeValue,
+                        Response_DateTime
+                    )
+                    select 
+                        pi.ID,
+                        MessageID,
+                        UniqueInvoiceID,
+                        BarCodeValue,
+                        Response_DateTime
+                    from FVI_SLO_Response_temp fsit
+                    inner join ProformaInvoice pi on pi.Invoice_ID = fsit.Invoice_ID;
+
+                    DROP TABLE FVI_SLO_Response_temp;
+
+                    ALTER TABLE FVI_SLO_SalesBookInvoice RENAME TO FVI_SLO_SalesBookInvoice_temp;
+
+                    CREATE TABLE FVI_SLO_SalesBookInvoice
+                      (
+                      'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                       DocInvoice_ID  INTEGER  NOT NULL REFERENCES DocInvoice(ID),
+                      'InvoiceNumber' varchar(25) NOT NULL,
+                      'SetNumber' varchar(5) NOT NULL,
+                      'SerialNumber' varchar(25) NOT NULL
+                      );
+
+                    insert into FVI_SLO_SalesBookInvoice
+                    (
+                        DocInvoice_ID,
+                        InvoiceNumber,
+                        SetNumber,
+                        SerialNumber
+                    )
+                    select 
+                        pi.ID,
+                        InvoiceNumber,
+                        SetNumber,
+                        SerialNumber
+                    from FVI_SLO_SalesBookInvoice_temp fsbit
+                    inner join ProformaInvoice pi on pi.Invoice_ID = fsbit.Invoice_ID;
+
+                    DROP TABLE FVI_SLO_SalesBookInvoice_temp;
+
+                    ";
+
+                if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
-                    int iCount = dt.Rows.Count;
-                    int i;
-
-                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-
-                    for (i=0;i< iCount;i++)
-                    {
-                        DataRow dr = dt.Rows[i];
-                        lpar.Clear();
-                        string spar_JOURNAL_DocInvoice_Type_ID = "@par_JOURNAL_DocInvoice_Type_ID";
-                        SQL_Parameter par_JOURNAL_DocInvoice_Type_ID = new SQL_Parameter(spar_JOURNAL_DocInvoice_Type_ID,SQL_Parameter.eSQL_Parameter.Bigint,false, dr["JOURNAL_ProformaInvoice_Type_ID"]);
-                        lpar.Add(par_JOURNAL_DocInvoice_Type_ID);
-
-                        string spar_DocInvoice_ID = "@par_DocInvoice_ID";
-                        SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ProformaInvoice_ID"]);
-                        lpar.Add(par_DocInvoice_ID);
-
-                        string spar_EventTime = "@par_EventTime";
-                        SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dr["jpi_EventTime"]);
-                        lpar.Add(par_EventTime);
-
-                        string spar_jpi_Atom_WorkPeriod_ID = "@par_jpi_Atom_WorkPeriod_ID";
-                        SQL_Parameter par_jpi_Atom_WorkPeriod_ID = new SQL_Parameter(spar_jpi_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["jpi_Atom_WorkPeriod_ID"]);
-                        lpar.Add(par_jpi_Atom_WorkPeriod_ID);
-
-                        sql = @"insert into JOURNAL_DocInvoice 
-                                ( 
-                                    JOURNAL_DocInvoice_Type_ID,
-                                    DocInvoice_ID,
-                                    EventTime,
-                                    Atom_WorkPeriod_ID
-                                )
-                                values
-                                (
-                                 " + spar_JOURNAL_DocInvoice_Type_ID + @",
-                                 " + spar_DocInvoice_ID + @",
-                                 " + spar_EventTime + @",
-                                 " + spar_jpi_Atom_WorkPeriod_ID + @"
-                                )";
-                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql,lpar, ref Err))
-                        {
-                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
-                            return false;
-                        }
-
-                        lpar.Clear();
-                        if (dr["JOURNAL_Invoice_Type_ID"] is long)
-                        {
-                            long i_JOURNAL_Invoice_Type_ID = (long)dr["JOURNAL_Invoice_Type_ID"] + 6;
-                            par_JOURNAL_DocInvoice_Type_ID = new SQL_Parameter(spar_JOURNAL_DocInvoice_Type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, i_JOURNAL_Invoice_Type_ID);
-                            lpar.Add(par_JOURNAL_DocInvoice_Type_ID);
-
-                            par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ProformaInvoice_ID"]);
-                            lpar.Add(par_DocInvoice_ID);
-
-                            par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dr["ji_EventTime"]);
-                            lpar.Add(par_EventTime);
-
-                            par_jpi_Atom_WorkPeriod_ID = new SQL_Parameter(spar_jpi_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ji_Atom_WorkPeriod_ID"]);
-                            lpar.Add(par_jpi_Atom_WorkPeriod_ID);
-
-                            sql = @"insert into JOURNAL_DocInvoice 
-                                ( 
-                                    JOURNAL_DocInvoice_Type_ID,
-                                    DocInvoice_ID,
-                                    EventTime,
-                                    Atom_WorkPeriod_ID
-                                )
-                                values
-                                (
-                                 " + spar_JOURNAL_DocInvoice_Type_ID + @",
-                                 " + spar_DocInvoice_ID + @",
-                                 " + spar_EventTime + @",
-                                 " + spar_jpi_Atom_WorkPeriod_ID + @"
-                                )";
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
-                            {
-                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
-                                return false;
-                            }
-                        }
-                    }
                     if (DBSync.DBSync.Drop_VIEWs(ref Err))
                     {
                         sql = @"Drop Table Atom_ProformaInvoice_Price_Item_Stock;
@@ -363,19 +482,13 @@ namespace UpgradeDB
                                 Drop Table Delivery;
                                 Drop Table ProformaInvoice_Notice;
                                 Drop Table ProformaInvoice_ImageLib;
+                                Drop Table Invoice_Image;
+                                Drop Table ProformaInvoice;
+                                Drop Table Invoice;
                         ";
                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
-                            sql = @"CREATE TABLE FVI_SLO_Response_backup
-                      (
-                      'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                       DocInvoice_ID  INTEGER  NOT NULL REFERENCES DocInvoice(ID),
-                      'MessageID' varchar(45) NULL,
-                      'UniqueInvoiceID' varchar(45) NULL,
-                      'BarCodeValue' varchar(64) NULL,
-                      'Response_DateTime' DATETIME NULL
-                      )
-                        ";
+
                             new_tables = new string[] {"Delivery",
                                                 "JOURNAL_Delivery_Type",
                                                 "JOURNAL_Delivery"
