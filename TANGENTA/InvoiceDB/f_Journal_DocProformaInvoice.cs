@@ -16,9 +16,9 @@ using System.Threading.Tasks;
 
 namespace InvoiceDB
 {
-    public static class f_Journal_Invoice
+    public static class f_Journal_DocProformaInvoice
     {
-        public static bool Write(long Invoice_ID, long Atom_WorkPeriod_ID, string Event_Type, string Event_Description, DateTime_v event_time, ref long journal_invoice_id)
+        public static bool Write(long DocProformaInvoice_ID, long Atom_WorkPeriod_ID, string Event_Type, string Event_Description, DateTime_v event_time, ref long journal_invoice_id)
         {
             long journal_invoice_type_id = -1;
             if (Get_journal_invoice_type_id(Event_Type, Event_Description, ref journal_invoice_type_id))
@@ -28,9 +28,9 @@ namespace InvoiceDB
                 SQL_Parameter par_journal_invoice_type_id = new SQL_Parameter(spar_journal_invoice_type_id, SQL_Parameter.eSQL_Parameter.Bigint, false, journal_invoice_type_id);
                 lpar.Add(par_journal_invoice_type_id);
 
-                string spar_Invoice_ID = "@par_Invoice_ID";
-                SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Invoice_ID);
-                lpar.Add(par_Invoice_ID);
+                string spar_DocProformaInvoice_ID = "@par_DocProformaInvoice_ID";
+                SQL_Parameter par_DocProfromaInvoice_ID = new SQL_Parameter(spar_DocProformaInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocProformaInvoice_ID);
+                lpar.Add(par_DocProfromaInvoice_ID);
 
                 string spar_Atom_WorkPeriod_ID = "@par_Atom_WorkPeriod_ID";
                 SQL_Parameter par_Atom_WorkPeriod_ID = new SQL_Parameter(spar_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_WorkPeriod_ID);
@@ -44,7 +44,7 @@ namespace InvoiceDB
                 string spar_EventTime = "@par_EventTime";
                 SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dtime);
                 lpar.Add(par_EventTime);
-                string sql = "insert into journal_invoice (journal_invoice_type_id,Invoice_ID,EventTime,Atom_WorkPeriod_ID)values(" + spar_journal_invoice_type_id + "," + spar_Invoice_ID + "," + spar_EventTime + "," + spar_Atom_WorkPeriod_ID + ")";
+                string sql = "insert into journal_docproformainvoice (journal_invoice_type_id,DocProformaInvoice_ID,EventTime,Atom_WorkPeriod_ID)values(" + spar_journal_invoice_type_id + "," + spar_DocProformaInvoice_ID + "," + spar_EventTime + "," + spar_Atom_WorkPeriod_ID + ")";
                 object ores = null;
                 string Err = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref journal_invoice_id, ref ores, ref Err, "journal_invoice"))

@@ -97,8 +97,8 @@
     <Compile Include="f_doc_page_type.cs" />
     <Compile Include="f_doc_type.cs" />
     <Compile Include="f_FVI_SLO_SalesBookInvoice.cs" />
-    <Compile Include="f_Journal_Invoice.cs" />
-    <Compile Include="f_Journal_ProformaInvoice.cs" />
+    <Compile Include="f_Journal_DocProformaInvoice.cs" />
+    <Compile Include="f_Journal_DocInvoice.cs" />
     <Compile Include="f_JOURNAL_Stock.cs" />
     <Compile Include="f_Language.cs" />
     <Compile Include="f_Office.cs" />

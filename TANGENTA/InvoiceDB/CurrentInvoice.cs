@@ -1715,13 +1715,13 @@ namespace InvoiceDB
                             if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
                             {
                                 long JOURNAL_Invoice_ID = -1;
-                                if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
+                                if (f_Journal_DocProformaInvoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
                                 {
-                                    if (f_Journal_Invoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
+                                    if (f_Journal_DocProformaInvoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
                                     {
-                                        if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
+                                        if (f_Journal_DocProformaInvoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
                                         {
-                                            if (f_Journal_Invoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
+                                            if (f_Journal_DocProformaInvoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
                                             {
                                                 return true;
                                             }
