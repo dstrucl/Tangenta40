@@ -33,7 +33,7 @@ namespace InvoiceDB
         public CurrentInvoice m_CurrentInvoice = null;
 
 
-        public bool Get(ref long Invoice_ID, bool bDraft, long ID, ref string Err)
+        public bool Get(bool bDraft, long ID, ref string Err)
         {
             //SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Invoice));
             //SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
@@ -82,14 +82,13 @@ namespace InvoiceDB
                         JOURNAL_DocInvoice_$_dinv_$$DocDuration,
                         JOURNAL_DocInvoice_$_dinv_$$DocDurationType,
                         JOURNAL_DocInvoice_$_dinv_$_trmpay_$$ID,
-                        JOURNAL_DocInvoice_$_dinv_$_inv_$$ID,
-                        JOURNAL_DocInvoice_$_dinv_$_inv_$$PaymentDeadline,
-                        JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$ID,
-                        JOURNAL_DocInvoice_$_dinv_$_inv_$_metopay_$$PaymentType,
-                        JOURNAL_DocInvoice_$_dinv_$_inv_$$Paid,
-                        JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno,
-                        JOURNAL_DocInvoice_$_dinv_$_inv_$$Invoice_Reference_ID,
-                        JOURNAL_DocInvoice_$_dinv_$_inv_$$Invoice_Reference_Type
+                        JOURNAL_DocInvoice_$_dinv_$$PaymentDeadline,
+                        JOURNAL_DocInvoice_$_dinv_$_metopay_$$ID,
+                        JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType,
+                        JOURNAL_DocInvoice_$_dinv_$$Paid,
+                        JOURNAL_DocInvoice_$_dinv_$$Storno,
+                        JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID,
+                        JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type
                         from JOURNAL_DocInvoice_VIEW " + cond;
 
 
@@ -100,12 +99,11 @@ namespace InvoiceDB
                 {
                     m_CurrentInvoice.Exist = true;
                     m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Draft"];
-                    m_CurrentInvoice.Invoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$$ID"];
                     m_CurrentInvoice.DocInvoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"];
-                    m_CurrentInvoice.StornoDocInvoice_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$$Invoice_Reference_ID"]);
-                    m_CurrentInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$$Invoice_Reference_Type"]);
+                    m_CurrentInvoice.StornoDocInvoice_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
+                    m_CurrentInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
                     m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$FinancialYear"];
-                    m_CurrentInvoice.bStorno = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$$Storno"];
+                    m_CurrentInvoice.bStorno = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Storno"];
 
                     object o_Atom_Customer_Person_ID = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID"];
                     if (o_Atom_Customer_Person_ID is long)

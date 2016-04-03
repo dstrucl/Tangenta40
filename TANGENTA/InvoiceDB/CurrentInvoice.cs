@@ -38,7 +38,6 @@ namespace InvoiceDB
         public int FinancialYear;
         public int NumberInFinancialYear;
         public int DraftNumber;
-        public long Invoice_ID;
 
         public long DocInvoice_ID;
         public long_v StornoDocInvoice_ID_v = null;
@@ -56,7 +55,6 @@ namespace InvoiceDB
             DBtcn = xDBtcn;
             FinancialYear = DateTime.Now.Year;
             NumberInFinancialYear = 1;
-            Invoice_ID = -1;
             DocInvoice_ID = -1;
         }
 
@@ -1478,18 +1476,19 @@ namespace InvoiceDB
 
         private bool GetNewNumberInFinancialYear(ref int xNumberInFinancialYear)
         {
-            string cond = null;
+            //string cond = null;
             int iLimit = 1;
-
-            if (Invoice_ID >= 0)
-            {
-                cond = "Invoice_ID is not null";
-            }
-            else
-            {
-                cond = "Invoice_ID is null";
-            }
-            string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from DocInvoice where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and " + cond + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+            /* CHECK_and_CORRECT */
+            //if (Invoice_ID >= 0)
+            //{
+            //    cond = "Invoice_ID is not null";
+            //}
+            //else
+            //{
+            //    cond = "Invoice_ID is null";
+            //}
+            //string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from DocInvoice where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and " + cond + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+            string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from DocInvoice where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -1645,12 +1644,17 @@ namespace InvoiceDB
                 {
                     sBit = "1";
                 }
-                sql = " update invoice set Storno  = " + sBit + " where ID = " + this.Invoice_ID.ToString();
+                sql = " update Docinvoice set Storno  = " + sBit + " where ID = " + this.DocInvoice_ID.ToString();
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
-                    sql = @"insert into Invoice (PaymentDeadline,MethodOfPayment_ID,Paid,Storno,Invoice_Reference_ID,Invoice_Reference_Type) values (null,null,null,1," + DocInvoice_ID.ToString() + ",'STORNO')";
+                    sql = @"update Invoice set PaymentDeadline = null,
+                                           set MethodOfPayment_ID = null,
+                                           set Paid = null,
+                                           set Storno = 1,
+                                           Invoice_Reference_ID = "+ Storno_DocInvoice_ID.ToString()+@",
+                                           Invoice_Reference_Type ='STORNO' where DocInvoice_ID = " + this.DocInvoice_ID.ToString();
                     long Storno_Invoice_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Storno_Invoice_ID, ref ores, ref Err, "Invoice"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref ores, ref Err))
                     {
                         long_v Storno_Invoice_ID_v = new long_v(Storno_Invoice_ID);
 
