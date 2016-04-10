@@ -17,7 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
-        
+        public static ltext s_DataBaseIsEmpty_InsertInitialData = new ltext("Database is empty. Insert common sample data of organisation which name is Company1 and you can change this data later to your real organisation data? (Yes/No)", "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke neke splošne organizacije z imenom Podjetje1,\r\nsami pa lahko potem kadarkoli te podatke spremenite v podatke vaše organizacije? (Da/Ne)");
         public static ltext s_UpgradeBackupFileExist_restore_old_Database = new ltext("Upgrade failed, Database backup file exists. Restore DataBase \"%s\" (Yes/No) ?", "Nadgradnja podatkovne baze je bila neuspešna.\r\n Povrnem podatkovno bazo v prejšne stanje iz datoteke:\"%s\" (Da/Ne) ?");
         public static ltext s_CanNotReadDataBaseFile = new ltext("ERRRO:Can not read database file.", "NAPAKA:Neuspešno branje podatkovne baze.");
         public static ltext s_DataBaseVersion = new ltext("DataBaseVersion", "Verzija podatkovne baze:");

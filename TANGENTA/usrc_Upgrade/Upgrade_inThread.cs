@@ -3403,7 +3403,7 @@ namespace UpgradeDB
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
 
-                    if (CheckDemo())
+                    if (CheckInsertDefaultOrganisation())
                     {
                         if (fs.Init_Sample_DB(ref Err))
                         {
@@ -3581,9 +3581,9 @@ namespace UpgradeDB
             }
         }
 
-        private bool CheckDemo()
+        private bool CheckInsertDefaultOrganisation()
         {
-            if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke studia Marjetka?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show(m_parent_ctrl, lngRPM.s_DataBaseIsEmpty_InsertInitialData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 return true;
             }

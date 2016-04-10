@@ -123,16 +123,6 @@ namespace Tangenta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Tangenta_Icon {
-            get {
-                object obj = ResourceManager.GetObject("Tangenta_Icon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
         internal static System.Drawing.Icon Cash {
             get {
                 object obj = ResourceManager.GetObject("Cash", resourceCulture);
@@ -1087,6 +1077,16 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Icon Storno {
             get {
                 object obj = ResourceManager.GetObject("Storno", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Tangenta_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Tangenta_Icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

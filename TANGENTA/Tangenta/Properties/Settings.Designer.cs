@@ -25,18 +25,6 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int LanguageID {
-            get {
-                return ((int)(this["LanguageID"]));
-            }
-            set {
-                this["LanguageID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string RecentItemsFolder {
             get {
@@ -445,13 +433,13 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("B1")]
-        public string ElectronicDevice_ID {
+        [global::System.Configuration.DefaultSettingValueAttribute("Blagajna1")]
+        public string CasshierName {
             get {
-                return ((string)(this["ElectronicDevice_ID"]));
+                return ((string)(this["CasshierName"]));
             }
             set {
-                this["ElectronicDevice_ID"] = value;
+                this["CasshierName"] = value;
             }
         }
         
@@ -560,6 +548,30 @@ namespace Tangenta.Properties {
             }
             set {
                 this["SplitContainerDistanceUserSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int LanguageID {
+            get {
+                return ((int)(this["LanguageID"]));
+            }
+            set {
+                this["LanguageID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ElectronicDevice_ID {
+            get {
+                return ((string)(this["ElectronicDevice_ID"]));
+            }
+            set {
+                this["ElectronicDevice_ID"] = value;
             }
         }
     }

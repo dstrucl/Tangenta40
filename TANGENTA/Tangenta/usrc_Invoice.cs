@@ -1425,54 +1425,45 @@ namespace Tangenta
 
         private bool GetCurrentInvoice(long DocInvoice_ID)
         {
-            string Err = null;
-            //
-            if (m_ShopABC.Get(true, DocInvoice_ID, ref Err)) // try to get draft
+        string Err = null;
+        //
+        if (m_ShopABC.Get(true, DocInvoice_ID, ref Err)) // try to get draft
+        {
+                this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
+                if (m_ShopABC.m_CurrentInvoice.bDraft)
+                {
+                    SetMode(emode.edit_eInvoiceType);
+                    this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
+                    this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                }
+                else
+                {
+                    SetMode(emode.view_eInvoiceType);
+                    this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
+                    this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
+                    chk_Storno_CanBe_ManualyChanged = false;
+                    this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.bStorno;
+                    chk_Storno_CanBe_ManualyChanged = true;
+                }
+                this.m_usrc_ShopC.Reset();
+                return true;
+            }
+            else
             {
+                SetMode(emode.view_eInvoiceType);
+                if (m_ShopABC.Get(false, DocInvoice_ID, ref Err)) // Get invoice with Invoice_ID
+                {
                     this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
-                    if (m_ShopABC.m_CurrentInvoice.bDraft)
-                    {
-                        SetMode(emode.edit_eInvoiceType);
-                        this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
-                        this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
-                    }
-                    else
-                    {
-                        SetMode(emode.view_eInvoiceType);
-                        this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
-                        this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
-                        chk_Storno_CanBe_ManualyChanged = false;
-                        this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.bStorno;
-                        chk_Storno_CanBe_ManualyChanged = true;
-                    }
+                    this.m_usrc_ShopC.Clear();
+                    this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                     this.m_usrc_ShopC.Reset();
                     return true;
                 }
                 else
                 {
-                    SetMode(emode.view_eInvoiceType);
-                    if (m_ShopABC.Get(ref Invoice_ID, false, ID, ref Err)) // Get invoice with Invoice_ID
-                    {
-                        if (Invoice_ID >= 0)
-                        {
-                            this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
-                            this.m_usrc_ShopC.Clear();
-                            this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
-                        }
-                        this.m_usrc_ShopC.Reset();
-                        return true;
-                    }
-                    else
-                    {
-                        this.m_usrc_ShopC.Reset();
-                        return false;
-                    }
+                    this.m_usrc_ShopC.Reset();
+                    return false;
                 }
-            }
-            else
-            {
-                this.m_usrc_ShopC.Reset();
-                return false;
             }
         }
 
@@ -1669,11 +1660,11 @@ namespace Tangenta
 
         private bool SetNewInvoiceDraft(int FinancialYear)
         {
-            long Invoice_ID = -1;
+            long DocInvoice_ID = -1;
             string Err = null;
-            if (m_ShopABC.SetNewDraft_Invoice(FinancialYear, this, ref Invoice_ID, Last_myCompany_Person_id, ref Err))
+            if (m_ShopABC.SetNewDraft_Invoice(FinancialYear, this, ref DocInvoice_ID, Last_myCompany_Person_id, ref Err))
             {
-                if (m_ShopABC.m_CurrentInvoice.Invoice_ID >= 0)
+                if (m_ShopABC.m_CurrentInvoice.DocInvoice_ID >= 0)
                 {
                     this.txt_Number.Text = m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentInvoice.DraftNumber.ToString();
                     SetMode(emode.edit_eInvoiceType);
@@ -1957,7 +1948,7 @@ namespace Tangenta
                     {
                         if (MessageBox.Show(this, lngRPM.s_Invoice.s + ": " + txt_Number.Text + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentInvoice.Invoice_ID);
+                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentInvoice.DocInvoice_ID);
 
                             if (frm_storno_dlg.ShowDialog()==DialogResult.Yes)
                             {

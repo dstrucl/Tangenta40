@@ -37,7 +37,7 @@ namespace Tangenta
         int Currency_DecimalPlaces = -1;
         decimal GrossSum = 0;
         public string sPaymentMethod = null;
-        long Invoice_ID = -1;
+        long DocInvoice_ID = -1;
         public usrc_Payment()
         {
             InitializeComponent();
@@ -79,7 +79,7 @@ namespace Tangenta
         public bool Init(InvoiceData xInvoiceData, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
             m_InvoiceData = xInvoiceData;
-            Invoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.Invoice_ID;
+            DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.DocInvoice_ID;
             Currency_DecimalPlaces = xCurrency_DecimalPlaces;
             GrossSum = xGrossSum;
             txt__Amount.Text = GrossSum.ToString();
@@ -133,7 +133,7 @@ namespace Tangenta
                         return;
                     }
                 }
-                sql = "update invoice set methodofpayment_id = " + methodofpayment_id.ToString() + " where id = " + Invoice_ID.ToString();
+                sql = "update invoice set methodofpayment_id = " + methodofpayment_id.ToString() + " where id = " + DocInvoice_ID.ToString();
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objret, ref Err))
                 {
                     sPaymentMethod = sMethod;

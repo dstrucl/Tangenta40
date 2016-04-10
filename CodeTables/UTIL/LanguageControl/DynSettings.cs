@@ -12,6 +12,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Data;
+using System.Drawing;
 
 namespace LanguageControl
 {
@@ -140,6 +141,12 @@ namespace LanguageControl
                 MessageBox.Show("ERROR:DynSettings:SaveLanguages:Exception=" + ex.Message + "\r\nStackTrace=" + ex.StackTrace);
                 return false;
             }
+        }
+
+        public static void SelectLanguage(Icon Program_icon, string Program_name,int Language_ID)
+        {
+            Form_SelectLanguage frm_sel_language = new Form_SelectLanguage(Program_icon, Program_name, Language_ID);
+            frm_sel_language.ShowDialog();
         }
     }
 }
