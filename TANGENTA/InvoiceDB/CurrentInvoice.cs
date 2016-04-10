@@ -1615,11 +1615,14 @@ namespace InvoiceDB
                         DocDuration,
                         DocDurationType,
                         TermsOfPayment_ID,
-                        Invoice_ID
-                  from DocInvoice where DocInvoice.ID  = " + DocInvoice_ID.ToString();
+                        PaymentDeadline,
+                        MethodOfPayment_ID
+                        Paid,
+                        Storno,
+                        Invoice_Reference_ID,
+                        Invoice_Reference_Type from DocInvoice where DocInvoice.ID  = " + DocInvoice_ID.ToString();
             if (DBSync.DBSync.ReadDataTable(ref dt_ProfInv, sql, ref Err))
             {
-                long_v Invoice_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Invoice_ID"]);
                 int_v DraftNumber_v = tf.set_int(dt_ProfInv.Rows[0]["DraftNumber"]);
                 int_v FinancialYear_v = tf.set_int(dt_ProfInv.Rows[0]["FinancialYear"]);
                 decimal_v NetSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["NetSum"]);
@@ -1639,73 +1642,74 @@ namespace InvoiceDB
                 int iNewNumberInFinancialYear = -1;
                 GetNewNumberInFinancialYear(ref iNewNumberInFinancialYear);
                 int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
-                string sBit = "0";
-                if (bStorno)
-                {
-                    sBit = "1";
-                }
-                sql = " update Docinvoice set Storno  = " + sBit + " where ID = " + this.DocInvoice_ID.ToString();
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
-                {
-                    sql = @"update Invoice set PaymentDeadline = null,
-                                           set MethodOfPayment_ID = null,
-                                           set Paid = null,
-                                           set Storno = 1,
-                                           Invoice_Reference_ID = "+ Storno_DocInvoice_ID.ToString()+@",
-                                           Invoice_Reference_Type ='STORNO' where DocInvoice_ID = " + this.DocInvoice_ID.ToString();
-                    long Storno_Invoice_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null,  ref ores, ref Err))
-                    {
-                        long_v Storno_Invoice_ID_v = new long_v(Storno_Invoice_ID);
 
-                        NetSum_v.v = -NetSum_v.v;
-                        TaxSum_v.v = -TaxSum_v.v;
-                        GrossSum_v.v = -GrossSum_v.v;
+                long_v Storno_Invoice_ID_v = new long_v(DocInvoice_ID);
 
-                        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                        sql = @"insert into DocInvoice (
-                                                        Draft,
-                                                        DraftNumber,
-                                                        FinancialYear,
-                                                        NumberInFinancialYear,
-                                                        NetSum,
-                                                        Discount,
-                                                        EndSum,
-                                                        TaxSum,
-                                                        GrossSum,
-                                                        Atom_Customer_Person_ID,
-                                                        Atom_Customer_Org_ID,
-                                                        WarrantyExist,
-                                                        WarrantyConditions,
-                                                        WarrantyDurationType,
-                                                        WarrantyDuration,
-                                                        DocDuration,
-                                                        DocDurationType,
-                                                        TermsOfPayment_ID,
-                                                        Invoice_ID)
-                                                        values
-                                                        (
-                                                            0,"
-                                                                 + GetParam("DraftNumber", ref lpar, DraftNumber_v) + ","
-                                                                 + GetParam("FinancialYear", ref lpar, FinancialYear_v) + ","
-                                                                 + GetParam("NumberInFinancialYear", ref lpar, iNewNumberInFinancialYear_v) + ","
-                                                                 + GetParam("NetSum", ref lpar, NetSum_v) + ","
-                                                                 + GetParam("Discount", ref lpar, Discount_v) + ","
-                                                                 + GetParam("EndSum", ref lpar, EndSum_v) + ","
-                                                                 + GetParam("TaxSum", ref lpar, TaxSum_v) + ","
-                                                                 + GetParam("GrossSum", ref lpar, GrossSum_v) + ","
-                                                                 + GetParam("Atom_Customer_Person_ID", ref lpar, Atom_Customer_Person_ID_v) + ","
-                                                                 + GetParam("Atom_Customer_Org_ID", ref lpar, Atom_Customer_Org_ID_v) + ","
-                                                                 + GetParam("WarrantyExist", ref lpar, WarrantyExist_v) + ","
-                                                                 + GetParam("WarrantyConditions", ref lpar, WarrantyConditions_v) + ","
-                                                                 + GetParam("WarrantyDurationType", ref lpar, WarrantyDurationType_v) + ","
-                                                                 + GetParam("WarrantyDuration", ref lpar, WarrantyDuration_v) + ","
-                                                                 + GetParam("DocDuration", ref lpar, DocDuration_v) + ","
-                                                                 + GetParam("DocDurationType", ref lpar, DocDurationType_v) + ","
-                                                                 + GetParam("TermsOfPayment_ID", ref lpar, TermsOfPayment_ID_v) + ","
-                                                                 + GetParam("Invoice_ID", ref lpar, Storno_Invoice_ID_v) + ")";
+                NetSum_v.v = -NetSum_v.v;
+                TaxSum_v.v = -TaxSum_v.v;
+                GrossSum_v.v = -GrossSum_v.v;
+
+                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                sql = @"insert into DocInvoice (
+                                                Draft,
+                                                DraftNumber,
+                                                FinancialYear,
+                                                NumberInFinancialYear,
+                                                NetSum,
+                                                Discount,
+                                                EndSum,
+                                                TaxSum,
+                                                GrossSum,
+                                                Atom_Customer_Person_ID,
+                                                Atom_Customer_Org_ID,
+                                                WarrantyExist,
+                                                WarrantyConditions,
+                                                WarrantyDurationType,
+                                                WarrantyDuration,
+                                                DocDuration,
+                                                DocDurationType,
+                                                TermsOfPayment_ID,
+                                                Invoice_Reference_ID,
+                                                Storno,
+                                                Invoice_Reference_Type
+                                                )
+                                                values
+                                                (
+                                                    0,"
+                                                            + GetParam("DraftNumber", ref lpar, DraftNumber_v) + ","
+                                                            + GetParam("FinancialYear", ref lpar, FinancialYear_v) + ","
+                                                            + GetParam("NumberInFinancialYear", ref lpar, iNewNumberInFinancialYear_v) + ","
+                                                            + GetParam("NetSum", ref lpar, NetSum_v) + ","
+                                                            + GetParam("Discount", ref lpar, Discount_v) + ","
+                                                            + GetParam("EndSum", ref lpar, EndSum_v) + ","
+                                                            + GetParam("TaxSum", ref lpar, TaxSum_v) + ","
+                                                            + GetParam("GrossSum", ref lpar, GrossSum_v) + ","
+                                                            + GetParam("Atom_Customer_Person_ID", ref lpar, Atom_Customer_Person_ID_v) + ","
+                                                            + GetParam("Atom_Customer_Org_ID", ref lpar, Atom_Customer_Org_ID_v) + ","
+                                                            + GetParam("WarrantyExist", ref lpar, WarrantyExist_v) + ","
+                                                            + GetParam("WarrantyConditions", ref lpar, WarrantyConditions_v) + ","
+                                                            + GetParam("WarrantyDurationType", ref lpar, WarrantyDurationType_v) + ","
+                                                            + GetParam("WarrantyDuration", ref lpar, WarrantyDuration_v) + ","
+                                                            + GetParam("DocDuration", ref lpar, DocDuration_v) + ","
+                                                            + GetParam("DocDurationType", ref lpar, DocDurationType_v) + ","
+                                                            + GetParam("TermsOfPayment_ID", ref lpar, TermsOfPayment_ID_v) + ","
+                                                            + GetParam("Invoice_Reference_ID", ref lpar, Storno_Invoice_ID_v) + @",
+                                                            1,
+                                                            'STORNO'
+                                                            )";
 
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Storno_DocInvoice_ID, ref ores, ref Err, "DocInvoice"))
+                        {
+                            string sBit = "0";
+                            if (bStorno)
+                            {
+                                sBit = "1";
+                            }
+                            sql = " update Docinvoice set Storno  = " + sBit + @",
+                                                   Invoice_Reference_ID = " + Storno_DocInvoice_ID.ToString() + @",
+                                                   Invoice_Reference_Type = 'STORNO' where ID = " + this.DocInvoice_ID.ToString();
+
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                         {
                             long Journal_DocInvoice_ID = -1;
                             DateTime_v issue_time = new DateTime_v(DateTime.Now);
@@ -1714,20 +1718,7 @@ namespace InvoiceDB
 
                             if (f_Journal_DocInvoice.Write(Storno_DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID, issue_time, ref Journal_DocInvoice_ID))
                             {
-                                long JOURNAL_Invoice_ID = -1;
-                                if (f_Journal_DocProformaInvoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
-                                {
-                                    if (f_Journal_DocProformaInvoice.Write(Invoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
-                                    {
-                                        if (f_Journal_DocProformaInvoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno, null, null, ref JOURNAL_Invoice_ID))
-                                        {
-                                            if (f_Journal_DocProformaInvoice.Write(Storno_Invoice_ID_v.v, GlobalData.Atom_WorkPeriod_ID, GlobalData.const_Storno_with_description, sReason, null, ref JOURNAL_Invoice_ID))
-                                            {
-                                                return true;
-                                            }
-                                        }
-                                    }
-                                }
+                                  return true;
                             }
                             return false;
                         }
@@ -1749,12 +1740,6 @@ namespace InvoiceDB
                     return false;
                 }
             }
-            else
-            {
-                LogFile.Error.Show("ERROR:CurrentInvoice:Storno:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
 
         private string GetParam(string scol_name, ref List<SQL_Parameter> lpar, object type_v)
         {

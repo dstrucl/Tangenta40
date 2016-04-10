@@ -1423,15 +1423,12 @@ namespace Tangenta
         }
 
 
-        private bool GetCurrentInvoice(long ID)
+        private bool GetCurrentInvoice(long DocInvoice_ID)
         {
             string Err = null;
-            long Invoice_ID = -1;
             //
-            if (m_ShopABC.Get(ref Invoice_ID, true, ID, ref Err)) // try to get draft
+            if (m_ShopABC.Get(true, DocInvoice_ID, ref Err)) // try to get draft
             {
-                if (Invoice_ID >= 0)
-                {
                     this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
                     if (m_ShopABC.m_CurrentInvoice.bDraft)
                     {
