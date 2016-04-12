@@ -24,7 +24,7 @@ namespace Tangenta
     {
         public const string XML_ROOT_NAME = "Tangenta_Xml";
         public string RecentItemsFolder = null;
-
+        public usrc_Startup m_usrc_Startup = null;
         internal string m_XmlFileName = null;
 
         public Form_Main()
@@ -52,7 +52,11 @@ namespace Tangenta
             }
 
             // Properties.Settings.Default.SplitterPositions =
-            
+            m_usrc_Main.Visible = false;
+            m_usrc_Startup = new usrc_Startup();
+            m_usrc_Startup.Visible = true;
+            m_usrc_Startup.Dock = DockStyle.Fill;
+            this.Controls.Add(m_usrc_Startup);
         }
 
         private void Main_Form_Load(object sender, EventArgs e)
@@ -99,6 +103,10 @@ namespace Tangenta
             {
                 if (m_usrc_Main.Init(this))
                 {
+                    this.Controls.Remove(m_usrc_Startup);
+                    m_usrc_Startup.Dispose();
+                    m_usrc_Startup = null;
+                    m_usrc_Main.Visible = true;
                     return;
                 }
             }

@@ -129,6 +129,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Return_to_shop_shelf_data.cs" />
+    <Compile Include="SampleDB.cs" />
     <Compile Include="ShopABC.cs" />
     <Compile Include="ShopShelf.cs" />
     <Compile Include="ShopShelf_Source.cs" />

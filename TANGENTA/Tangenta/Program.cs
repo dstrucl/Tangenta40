@@ -168,30 +168,10 @@ namespace Tangenta
 
         #endregion
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        private static void Parse_CommandLineArguments(string[] CommandLineArguments)
         {
-
-
-            try
+            if (CommandLineArguments != null)
             {
-
-                string Err = null;
-
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-
-                string[] CommandLineArguments = System.Environment.GetCommandLineArgs();
-
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lngRPM.s_commandline_RESETNEW.s));
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
-                command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
-
                 foreach (string s in CommandLineArguments)
                 {
 
@@ -236,7 +216,47 @@ namespace Tangenta
                         }
                     }
                 }
+            }       
+        }
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
 
+
+            try
+            {
+
+                string Err = null;
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                string[] CommandLineArguments = System.Environment.GetCommandLineArgs();
+
+                Parse_CommandLineArguments(CommandLineArguments);
+
+                if (bShowCommandLineHelp)
+                {
+
+                    command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
+                    command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lngRPM.s_commandline_RESETNEW.s));
+                    command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
+                    command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
+                    command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
+                    CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, Properties.Resources.Exit);
+                    if (hlp_frm.ShowDialog() == DialogResult.OK)
+                    {
+                        CommandLineArguments = hlp_frm.CommandLineArguments;
+                        Parse_CommandLineArguments(CommandLineArguments);
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
 
 
                 IniFolder = Application.CommonAppDataPath;
@@ -294,14 +314,7 @@ namespace Tangenta
                     {
                         LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "Mutex Tangenta createdNew.");
 
-                        if (bShowCommandLineHelp)
-                        {
-                            CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help);
-                            if (hlp_frm.ShowDialog() == DialogResult.Cancel)
-                            {
-                                return;
-                            }
-                        }
+                        
                         MainForm = new Form_Main();
                         Application.Run(MainForm);
                     }

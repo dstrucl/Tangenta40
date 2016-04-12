@@ -456,6 +456,12 @@
     <Compile Include="usrc_PurchasePriceList_Edit.Designer.cs">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Startup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Startup.Designer.cs">
+      <DependentUpon>usrc_Startup.cs</DependentUpon>
+    </Compile>
     <Compile Include="uwpf_UndefinedPriceForItem.xaml.cs">
       <DependentUpon>uwpf_UndefinedPriceForItem.xaml</DependentUpon>
     </Compile>
@@ -710,6 +716,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="usrc_Startup.resx">
+      <DependentUpon>usrc_Startup.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

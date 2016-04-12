@@ -21,15 +21,50 @@ namespace CommandLineHelp
     {
         List<CommandLineHelp> m_CommandLineHelpList = null;
         CommandLineHelp_ItemControl helpctrl_last;
+        Image ImageCancel = null;
 
-        public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList)
+        public string[] CommandLineArguments = null;
+
+        public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList, Image xImageCancel)
         {
             InitializeComponent();
             m_CommandLineHelpList = CommandLineHelpList;
+            ImageCancel = xImageCancel;
+            if (ImageCancel != null)
+            {
+                btn_Cancel.Text = "";
+                btn_Cancel.Image = ImageCancel;
+                btn_Cancel.ImageAlign = ContentAlignment.MiddleCenter;
+            }
+            else
+            {
+                this.btn_Cancel.Text = lngRPM.s_Cancel.s;
+            }
         }
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
+            List<string> cmds = new List<string>();
+            foreach (Control ctrl in this.panel_Help.Controls)
+            {
+                if (ctrl is CommandLineHelp_ItemControl)
+                {
+                    if (((CommandLineHelp_ItemControl)ctrl).Selected)
+                    {
+                        cmds.Add(((CommandLineHelp_ItemControl)ctrl).Command);
+                    }
+                }
+            }
+            int iCount = cmds.Count;
+            if (iCount > 0)
+            {
+                CommandLineArguments = new string[cmds.Count];
+                int i = 0;
+                for (i=0;i< iCount;i++)
+                {
+                    CommandLineArguments[i] = cmds[i];
+                }
+            }
             DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -42,7 +77,7 @@ namespace CommandLineHelp
 
         private void CommandLineHelp_Form_Load(object sender, EventArgs e)
         {
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
+            
             int y = 10;
             foreach (CommandLineHelp cmdlnhlp in m_CommandLineHelpList)
             {

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace InvoiceDB
 {
-    class f_Atom_Organisation
+    public class f_Atom_Organisation
     {
         public static bool Get(string_v Organisation_Name_v,
                                  string_v Tax_ID_v,

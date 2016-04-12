@@ -15,6 +15,7 @@ using System.Threading;
 using LanguageControl;
 using System.Net;
 using System.Drawing;
+using System.Reflection;
 
 namespace LogFile
 {
@@ -101,19 +102,22 @@ namespace LogFile
 
         private static bool GetLogLevelFromCommandLineArguments(string[] CommandLineArguments, ref int level)
         {
-            if (CommandLineArguments.Length > 0)
+            if (CommandLineArguments != null)
             {
-                foreach (string sArg in CommandLineArguments)
+                if (CommandLineArguments.Length > 0)
                 {
-                    string csArgs = sArg.ToLower();
-                    int iLogLevel = csArgs.LastIndexOf(LOGLEVEL);
-                    if (iLogLevel >= 0)
+                    foreach (string sArg in CommandLineArguments)
                     {
-                        string sa = csArgs.Substring(iLogLevel + LOGLEVEL.Length);
-                        if (sa.Length > 0)
+                        string csArgs = sArg.ToLower();
+                        int iLogLevel = csArgs.LastIndexOf(LOGLEVEL);
+                        if (iLogLevel >= 0)
                         {
-                            level = Convert.ToInt32(sa);
-                            return true;
+                            string sa = csArgs.Substring(iLogLevel + LOGLEVEL.Length);
+                            if (sa.Length > 0)
+                            {
+                                level = Convert.ToInt32(sa);
+                                return true;
+                            }
                         }
                     }
                 }
@@ -226,7 +230,24 @@ namespace LogFile
             {
                 if (bFirstWrite)
                 {
-                    bFirstWrite = false;
+                    
+                    LogFile.LogFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName)+"\\Log";
+                    if (!Directory.Exists(LogFile.LogFolder))
+                    {
+                        Directory.CreateDirectory(LogFile.LogFolder);
+                    }
+                    if (Directory.Exists(LogFile.LogFolder))
+                    {
+                        LogFile.LogFileName = "Log.txt";
+                        LogFile.Log_File = LogFile.LogFolder + "\\" + LogFile.LogFileName;
+                        if (xWrite(Level, type, s))
+                        {
+                            Settings.LogFile = LogFile.LogFileName;
+                            Settings.LogFolder = LogFile.LogFolder;
+                            Settings.Save();
+                            return;
+                        }
+                    }
                     for (;;)
                     {
                         MessageBox.Show(lngRPM.s_LogFile.s + ":" + lngRPM.s_Error.s + ":" + lngRPM.s_CanNotWriteOrDeleteFileInFolder.s + ":\"" + Log_File + "\"");

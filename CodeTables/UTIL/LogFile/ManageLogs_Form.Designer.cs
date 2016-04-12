@@ -56,7 +56,7 @@
             // nmUpDown_LogLevel
             // 
             this.nmUpDown_LogLevel.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nmUpDown_LogLevel.Location = new System.Drawing.Point(279, 138);
+            this.nmUpDown_LogLevel.Location = new System.Drawing.Point(279, 146);
             this.nmUpDown_LogLevel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nmUpDown_LogLevel.Name = "nmUpDown_LogLevel";
             this.nmUpDown_LogLevel.Size = new System.Drawing.Size(163, 27);
@@ -110,7 +110,7 @@
             this.btnBrowse.Location = new System.Drawing.Point(785, 101);
             this.btnBrowse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(117, 25);
+            this.btnBrowse.Size = new System.Drawing.Size(117, 28);
             this.btnBrowse.TabIndex = 4;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -141,7 +141,7 @@
             // lLogLevel
             // 
             this.lLogLevel.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lLogLevel.Location = new System.Drawing.Point(8, 138);
+            this.lLogLevel.Location = new System.Drawing.Point(8, 146);
             this.lLogLevel.Name = "lLogLevel";
             this.lLogLevel.Size = new System.Drawing.Size(265, 28);
             this.lLogLevel.TabIndex = 10;
@@ -160,18 +160,20 @@
             // 
             // txt_LogFileName
             // 
+            this.txt_LogFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_LogFileName.Location = new System.Drawing.Point(176, 63);
-            this.txt_LogFileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_LogFileName.Margin = new System.Windows.Forms.Padding(4);
             this.txt_LogFileName.Name = "txt_LogFileName";
-            this.txt_LogFileName.Size = new System.Drawing.Size(605, 22);
+            this.txt_LogFileName.Size = new System.Drawing.Size(605, 27);
             this.txt_LogFileName.TabIndex = 12;
             // 
             // txt_LogFolder
             // 
+            this.txt_LogFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_LogFolder.Location = new System.Drawing.Point(176, 102);
-            this.txt_LogFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_LogFolder.Margin = new System.Windows.Forms.Padding(4);
             this.txt_LogFolder.Name = "txt_LogFolder";
-            this.txt_LogFolder.Size = new System.Drawing.Size(605, 22);
+            this.txt_LogFolder.Size = new System.Drawing.Size(605, 27);
             this.txt_LogFolder.TabIndex = 14;
             // 
             // lbl_LogFolder
@@ -231,7 +233,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt__ExceptionLogs.Location = new System.Drawing.Point(7, 320);
-            this.txt__ExceptionLogs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt__ExceptionLogs.Margin = new System.Windows.Forms.Padding(4);
             this.txt__ExceptionLogs.Multiline = true;
             this.txt__ExceptionLogs.Name = "txt__ExceptionLogs";
             this.txt__ExceptionLogs.ReadOnly = true;
@@ -258,7 +260,7 @@
             // 
             this.chk_WriteLog2DB_on_exit.AutoSize = true;
             this.chk_WriteLog2DB_on_exit.Location = new System.Drawing.Point(359, 238);
-            this.chk_WriteLog2DB_on_exit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chk_WriteLog2DB_on_exit.Margin = new System.Windows.Forms.Padding(4);
             this.chk_WriteLog2DB_on_exit.Name = "chk_WriteLog2DB_on_exit";
             this.chk_WriteLog2DB_on_exit.Size = new System.Drawing.Size(302, 21);
             this.chk_WriteLog2DB_on_exit.TabIndex = 20;
@@ -268,10 +270,11 @@
             // 
             // lst_ActiveLogLevels
             // 
+            this.lst_ActiveLogLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lst_ActiveLogLevels.FormattingEnabled = true;
-            this.lst_ActiveLogLevels.ItemHeight = 16;
-            this.lst_ActiveLogLevels.Location = new System.Drawing.Point(463, 138);
-            this.lst_ActiveLogLevels.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lst_ActiveLogLevels.ItemHeight = 20;
+            this.lst_ActiveLogLevels.Location = new System.Drawing.Point(463, 146);
+            this.lst_ActiveLogLevels.Margin = new System.Windows.Forms.Padding(4);
             this.lst_ActiveLogLevels.Name = "lst_ActiveLogLevels";
             this.lst_ActiveLogLevels.Size = new System.Drawing.Size(319, 84);
             this.lst_ActiveLogLevels.TabIndex = 21;
@@ -280,7 +283,7 @@
             // 
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_OK.Location = new System.Drawing.Point(17, 574);
-            this.btn_OK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_OK.Margin = new System.Windows.Forms.Padding(4);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(88, 36);
             this.btn_OK.TabIndex = 22;
@@ -290,8 +293,8 @@
             // 
             // ManageLogs_Form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(983, 622);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.lst_ActiveLogLevels);

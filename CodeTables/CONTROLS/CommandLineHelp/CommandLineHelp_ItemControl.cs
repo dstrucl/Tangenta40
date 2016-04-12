@@ -18,9 +18,30 @@ namespace CommandLineHelp
 {
     internal partial class CommandLineHelp_ItemControl : UserControl
     {
+        private string m_command = null;
+
+        public string Command
+        {
+            get  { return m_command; }
+            set { m_command = value; }
+        }
+
+        public bool Selected
+        {
+            get { return this.chk_select.Checked; }
+        }
         public CommandLineHelp_ItemControl(CommandLineHelp chlp)
         {
             InitializeComponent();
+            m_command = chlp.Command;
+            if (m_command!=null)
+            {
+                chk_select.Visible = true;
+            }
+            else
+            {
+                chk_select.Visible = false;
+            }
             this.txt_Help.Text = chlp.Command + " = " + chlp.description;
         }
     }
