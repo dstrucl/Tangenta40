@@ -21,6 +21,7 @@ using DBConnectionControl40;
 using DBTypes;
 using FiscalVerificationOfInvoices_SLO;
 using InvoiceDB;
+using System.Reflection;
 
 namespace Tangenta
 {
@@ -101,6 +102,13 @@ namespace Tangenta
             get { return m_bProgramDiagnostic; }
         }
 
+        public static string AssemblyName
+        {
+            get
+            {
+                return typeof(Tangenta.Program).Assembly.GetName().Name;
+            }
+        }
         #endregion
 
         #region Methods
@@ -242,6 +250,8 @@ namespace Tangenta
                 }
                 IniFile = IniFolder + IniFileName;
 
+                LogFile.LogFile.Image_Cancel = Properties.Resources.Exit;
+
                 LogFile.Settings.m_eType = LogFile.Settings.eType.IniFile_Settings;
                 if (!LogFile.Settings.Load(bReset2FactorySettings,IniFile, ref Err))
                 {
@@ -255,12 +265,17 @@ namespace Tangenta
                 LanguageControl.DynSettings.LoadLanguages();
                 if (Properties.Settings.Default.LanguageID < 0)
                 {
-                   LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon,"TANGENTA",-1);
-                    Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
-                    Properties.Settings.Default.Save();
+                    if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1,Properties.Resources.Exit))
+                    {
+                        Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
+                        Properties.Settings.Default.Save();
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-                
-                LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
+                LogFile.Language.id = LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
                 LanguageControl.DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
 
 

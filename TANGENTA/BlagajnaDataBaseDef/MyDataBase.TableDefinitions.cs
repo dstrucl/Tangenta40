@@ -1933,7 +1933,7 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_JOURNAL_doc);
 
         /* 170 */
-            t_Language = new SQLTable((Object)new Language(), "lng", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Language);
+            t_Language = new SQLTable((Object)new TangentaTableClass.Language(), "lng", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Language);
             t_Language.AddColumn((Object)mt.m_Language.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_Language.AddColumn((Object)mt.m_Language.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Language", "Jezik"));
             t_Language.AddColumn((Object)mt.m_Language.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));

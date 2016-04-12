@@ -143,10 +143,18 @@ namespace LanguageControl
             }
         }
 
-        public static void SelectLanguage(Icon Program_icon, string Program_name,int Language_ID)
+        public static bool SelectLanguage(Icon Program_icon, string Program_name,int Language_ID, Image xImage_Cancel)
         {
-            Form_SelectLanguage frm_sel_language = new Form_SelectLanguage(Program_icon, Program_name, Language_ID);
-            frm_sel_language.ShowDialog();
+            Form_SelectLanguage frm_sel_language = new Form_SelectLanguage(Program_icon, Program_name, Language_ID, xImage_Cancel);
+            if (frm_sel_language.ShowDialog()==DialogResult.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

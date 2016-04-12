@@ -20,15 +20,21 @@ namespace LogFile
         public static string[] sFilter = { "Log Files |*.txt|All files|*.*", "Log datoteke|*.txt|Vse datoteke|*.*" };
         public static string[] slLogManager = { "Log Manager", "Pregled nad Logi" };
         public static string[] slLogFile = { "Log File", "Log Datoteka" };
+        public static string[] slbl_LogFolder = { "Log Folder", "Log Mapa" };
+        
+        public static string[] slLogFileName = { "Log File Name", "Ime Log Datoteke" };
+        public static string[] s_SaveLogSettings = { "Save new Log settings ?", "Shranim dnevniške nastavitve ?" };
         public static string[] sbtnBrowse             = { "Browse", "Izberi" };
         public static string[] sbtn_View              = { "View", "Poglej" };
+        public static string[] sbtn_Delete = { "Delete", "Zbriši" };
+
         public static string[] sbtn_SetDefaultLogFile = { "Set Default Log File", "Nastavi privzeto Log datoteko" };
         public static string[] sbtnCancel             = { "Cancel", "Prekini" };
         public static string[] sbtn_SaveSettings      = { "Save Settings", "Shrani nastavitve" };
         public static string[] slDefaultLogFile       = { "Default Log File:", "Privzeta Log Datoteka:" };
         public static string[] slLogLevel             = { "Write Log  after Level:", "Piši Log nad nivojem:" };
         public static string[] s_chk_WriteLog2DB_on_exit = { "Write Log to DataBase on program exit","Prepiši LogFile v podatkovno bazo ob zaključku programa"};
-        
-        
+        public static string[] s_lbl_MutexTimeout = { "Mutex Timeout in ms", "Mutex Timeout v ms" };
+
     }
 }

@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Threading;
 using LanguageControl;
 using System.Net;
+using System.Drawing;
 
 namespace LogFile
 {
@@ -55,6 +56,7 @@ namespace LogFile
         private static Mutex Mutex = new Mutex();
         private static int MutexTimeout_in_ms = 2000;
         internal static List<CanNotWriteLogClass> list_exlog = new List<CanNotWriteLogClass>();
+        public static Image Image_Cancel = null;
 
         public static bool CheckForInternetConnection()
         {
@@ -228,7 +230,7 @@ namespace LogFile
                     for (;;)
                     {
                         MessageBox.Show(lngRPM.s_LogFile.s + ":" + lngRPM.s_Error.s + ":" + lngRPM.s_CanNotWriteOrDeleteFileInFolder.s + ":\"" + Log_File + "\"");
-                        ManageLogs_Form mng_log = new ManageLogs_Form();
+                        ManageLogs_Form mng_log = new ManageLogs_Form(Image_Cancel);
                         if (mng_log.ShowDialog()==DialogResult.OK)
                         {
                             if (xWrite(Level, type, s))
@@ -267,7 +269,7 @@ namespace LogFile
             }
             if (ManageLogsDlg == null)
             {
-                ManageLogsDlg = new ManageLogs_Form();
+                ManageLogsDlg = new ManageLogs_Form(Image_Cancel);
                 ManageLogsDlg.Show();
             }
             ManageLogsDlg.Activate();

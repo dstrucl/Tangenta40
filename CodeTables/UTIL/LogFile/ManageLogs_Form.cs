@@ -19,9 +19,11 @@ namespace LogFile
 {
     public partial class ManageLogs_Form : Form
     {
-        public ManageLogs_Form()
+        Image Image_Cancel = null;
+        public ManageLogs_Form(Image xImage_Cancel)
         {
             InitializeComponent();
+            Image_Cancel = xImage_Cancel;
             if (LogFile.m_eType == LogFile.eType.CLIENT)
             {
                 this.btn_Log2DB.Enabled = false;
@@ -32,6 +34,16 @@ namespace LogFile
                 this.btn_Log2DB.Enabled = true;
                 this.chk_WriteLog2DB_on_exit.Enabled = true;
             }
+            if (Image_Cancel!=null)
+            {
+                btnCancel.Text = "";
+                btnCancel.Image = Image_Cancel;
+                btnCancel.ImageAlign = ContentAlignment.MiddleCenter;
+            }
+            else
+            {
+                btnCancel.Text = Language.sbtnCancel[Language.id];
+            }
         }
 
 
@@ -39,12 +51,16 @@ namespace LogFile
         {
             txtLogFile.Text = LogFile.Log_File;
             this.Text = Language.slLogManager[Language.id];
+            lbl_LogFileName.Text = Language.slLogFileName[Language.id];
             lLogFile.Text = Language.slLogFile[Language.id];
             btnBrowse.Text = Language.sbtnBrowse[Language.id];
             btn_View.Text = Language.sbtn_View[Language.id];
-            btnCancel.Text = Language.sbtnCancel[Language.id];
+            lbl_LogFolder.Text = Language.slbl_LogFolder[Language.id];
+            btn_Delete.Text = Language.sbtn_Delete[Language.id];
             btn_SaveSettings.Text = Language.sbtn_SaveSettings[Language.id];
             chk_WriteLog2DB_on_exit.Text = Language.s_chk_WriteLog2DB_on_exit[Language.id];
+            lbl_MutexTimeout.Text = Language.s_lbl_MutexTimeout[Language.id];
+  
             lLogLevel.Text = Language.slLogLevel[Language.id];
             nmUpDown_LogLevel.Value = Convert.ToDecimal(LogFile.LogLevel);
             chk_WriteLog2DB_on_exit.Checked = LogFile.WriteLog2DBOnProgramExit;
@@ -79,7 +95,7 @@ namespace LogFile
 
         private bool SaveSettings()
         {
-            if (MessageBox.Show(this, "Save new Log settings ?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            if (MessageBox.Show(this,Language.s_SaveLogSettings[Language.id], "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
             {
                 Settings.LogFolder = txt_LogFolder.Text;
                 Settings.LogFile = txt_LogFileName.Text;

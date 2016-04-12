@@ -86,6 +86,7 @@
     <Compile Include="Form_SelectLanguage.Designer.cs">
       <DependentUpon>Form_SelectLanguage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Language.cs" />
     <Compile Include="lngToken.cs" />
     <Compile Include="ltext.cs" />
     <Compile Include="Form_ltext_Edit.cs">

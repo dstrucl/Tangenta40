@@ -33,6 +33,7 @@
             this.pic_Program_Icon = new System.Windows.Forms.PictureBox();
             this.lbl_ProgramName = new System.Windows.Forms.Label();
             this.btn_OK = new System.Windows.Forms.Button();
+            this.btn_Cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Program_Icon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,12 +82,23 @@
             this.btn_OK.UseVisualStyleBackColor = true;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.Location = new System.Drawing.Point(302, 132);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(84, 36);
+            this.btn_Cancel.TabIndex = 5;
+            this.btn_Cancel.Text = "Cancel";
+            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            // 
             // Form_SelectLanguage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(405, 176);
             this.ControlBox = false;
+            this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.lbl_ProgramName);
             this.Controls.Add(this.pic_Program_Icon);
@@ -109,5 +121,6 @@
         private System.Windows.Forms.PictureBox pic_Program_Icon;
         private System.Windows.Forms.Label lbl_ProgramName;
         private System.Windows.Forms.Button btn_OK;
+        private System.Windows.Forms.Button btn_Cancel;
     }
 }
