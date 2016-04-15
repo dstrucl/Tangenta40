@@ -456,12 +456,6 @@
     <Compile Include="usrc_PurchasePriceList_Edit.Designer.cs">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Startup.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Startup.Designer.cs">
-      <DependentUpon>usrc_Startup.cs</DependentUpon>
-    </Compile>
     <Compile Include="uwpf_UndefinedPriceForItem.xaml.cs">
       <DependentUpon>uwpf_UndefinedPriceForItem.xaml</DependentUpon>
     </Compile>
@@ -716,9 +710,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="usrc_Startup.resx">
-      <DependentUpon>usrc_Startup.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -867,6 +858,10 @@
     <ProjectReference Include="..\ShopC\ShopC.csproj">
       <Project>{3d077dc4-bdab-414f-8907-c902b91fcb0e}</Project>
       <Name>ShopC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Startup\Startup.csproj">
+      <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
+      <Name>Startup</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>

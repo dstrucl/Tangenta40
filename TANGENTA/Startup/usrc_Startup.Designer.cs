@@ -1,4 +1,4 @@
-﻿namespace Tangenta
+﻿namespace Startup
 {
     partial class usrc_Startup
     {

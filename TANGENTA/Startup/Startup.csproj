@@ -16,23 +16,22 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Check">
-      <HintPath>..\CodeTables\CONTROLS\Check\obj\Debug\Check.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -53,6 +52,12 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="startup_step.cs" />
+    <Compile Include="usrc_Startup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Startup.Designer.cs">
+      <DependentUpon>usrc_Startup.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_startup_step.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -61,15 +66,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeTables\UTIL\ThreadProcessor\ThreadProcessor.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Check\Check.csproj">
+      <Project>{5bfcffe6-c6cd-48e6-8bd5-05e6b17dd82c}</Project>
+      <Name>Check</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\ThreadProcessor\ThreadProcessor.csproj">
       <Project>{51e8c8bc-b176-40e5-b452-c80d9421ab79}</Project>
       <Name>ThreadProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>InvoiceDB</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Startup.resx">
+      <DependentUpon>usrc_Startup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_startup_step.resx">
       <DependentUpon>usrc_startup_step.cs</DependentUpon>

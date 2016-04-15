@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using DBConnectionControl40;
 using LanguageControl;
 using System.IO;
+using Startup;
 
 namespace Tangenta
 {
@@ -53,10 +54,8 @@ namespace Tangenta
 
             // Properties.Settings.Default.SplitterPositions =
             m_usrc_Main.Visible = false;
-            m_usrc_Startup = new usrc_Startup();
-            m_usrc_Startup.Visible = true;
-            m_usrc_Startup.Dock = DockStyle.Fill;
-            this.Controls.Add(m_usrc_Startup);
+            m_usrc_Startup = new usrc_Startup(this);
+           
         }
 
         private void Main_Form_Load(object sender, EventArgs e)
