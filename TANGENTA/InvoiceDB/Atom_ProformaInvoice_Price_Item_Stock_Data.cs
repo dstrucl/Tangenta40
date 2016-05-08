@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace InvoiceDB
 {
-    public class Atom_DocInvoice_Price_Item_Stock_Data
+    public class Atom_DocInvoice_ShopC_Item_Price_Stock_Data
     {
         public long_v Atom_DocInvoice_Price_Item_Stock_ID = null;
         public long_v DocInvoice_ID = null;
@@ -93,11 +93,11 @@ namespace InvoiceDB
             {
                 for (i = 0; i < iCount; i++)
                 {
-                    if (((Atom_DocInvoice_Price_Item_Stock_Data)Atom_DocInvoice_Price_Item_Stock_Data_list[i]).Atom_Item_ID.v == Atom_Item_ID.v)
+                    if (((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)Atom_DocInvoice_Price_Item_Stock_Data_list[i]).Atom_Item_ID.v == Atom_Item_ID.v)
                     {
                         stock_data = new Stock_Data();
                         stock_data.Set(dria);
-                        ((Atom_DocInvoice_Price_Item_Stock_Data)Atom_DocInvoice_Price_Item_Stock_Data_list[i]).m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
+                        ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)Atom_DocInvoice_Price_Item_Stock_Data_list[i]).m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
                         return;
                     }
                 }

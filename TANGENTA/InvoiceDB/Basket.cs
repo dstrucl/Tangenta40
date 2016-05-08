@@ -26,7 +26,7 @@ namespace InvoiceDB
         {
             while (m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Count > 0)
             {
-                Atom_DocInvoice_Price_Item_Stock_Data appisd = (Atom_DocInvoice_Price_Item_Stock_Data)m_Atom_DocInvoice_Price_Item_Stock_Data_LIST[0];
+                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)m_Atom_DocInvoice_Price_Item_Stock_Data_LIST[0];
                 if (appisd.dQuantity_FromStock > 0)
                 {
                     Remove_and_put_back_to_ShopShelf(appisd, xShopShelf);
@@ -44,19 +44,18 @@ namespace InvoiceDB
             string Err = null;
             string sql_select_DocInvoice_Atom_Item_Stock = @"
             SELECT 
-            Atom_DocInvoice_Price_Item_Stock.ID AS Atom_DocInvoice_Price_Item_Stock_ID,
-            Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID,
-            Atom_DocInvoice_Price_Item_Stock.Stock_ID,
-            Atom_DocInvoice_Price_Item_Stock.Atom_Price_Item_ID,
+            DocInvoice_ShopC_Item.DocInvoice_ID,
+            DocInvoice_ShopC_Item.Stock_ID,
+            DocInvoice_ShopC_Item.Atom_Price_Item_ID,
             Atom_Item.ID as Atom_Item_ID,
             itm.ID as Item_ID,
             Atom_Price_Item.RetailPricePerUnit,
             Atom_Price_Item.Discount,
-            Atom_DocInvoice_Price_Item_Stock.RetailPriceWithDiscount,
-            Atom_DocInvoice_Price_Item_Stock.TaxPrice,
-            Atom_DocInvoice_Price_Item_Stock.ExtraDiscount,
-            Atom_DocInvoice_Price_Item_Stock.dQuantity,
-            Atom_DocInvoice_Price_Item_Stock.ExpiryDate,
+            DocInvoice_ShopC_Item.RetailPriceWithDiscount,
+            DocInvoice_ShopC_Item.TaxPrice,
+            DocInvoice_ShopC_Item.ExtraDiscount,
+            DocInvoice_ShopC_Item.dQuantity,
+            DocInvoice_ShopC_Item.ExpiryDate,
             Atom_Item.UniqueName AS Atom_Item_UniqueName,
             Atom_Item_Name.Name AS Atom_Item_Name_Name,
             Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
@@ -91,32 +90,31 @@ namespace InvoiceDB
             itm_g1.Name as s1_name,
             itm_g2.Name as s2_name, 
             itm_g3.Name as s3_name
-            FROM Atom_DocInvoice_Price_Item_Stock 
-            INNER JOIN  Atom_Price_Item on Atom_DocInvoice_Price_Item_Stock.Atom_Price_Item_ID = Atom_Price_Item.ID
+            FROM DocInvoice_ShopC_Item 
+            INNER JOIN  Atom_Price_Item on DocInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID
             INNER JOIN  Atom_PriceList on Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID
             INNER JOIN  Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
             INNER JOIN  Atom_Taxation on Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID
-            INNER JOIN  DocInvoice ON Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID = DocInvoice.ID 
-            INNER JOIN  Invoice ON DocInvoice.Invoice_ID = Invoice.ID
+            INNER JOIN  DocInvoice ON DocInvoice_ShopC_Item.DocInvoice_ID = DocInvoice.ID 
             INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
             INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
             INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
             LEFT JOIN  Item itm ON Atom_Item.UniqueName = itm.UniqueName
             LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
             LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
-            LEFT JOIN  Stock ON Atom_DocInvoice_Price_Item_Stock.Stock_ID = Stock.ID 
+            LEFT JOIN  Stock ON DocInvoice_ShopC_Item.Stock_ID = Stock.ID 
             LEFT JOIN  PurchasePrice_Item puitms ON Stock.PurchasePrice_Item_ID = puitms.ID 
             LEFT JOIN  Item_ParentGroup1 itm_g1 ON itm.Item_ParentGroup1_ID = itm_g1.ID 
             LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
             LEFT JOIN  Item_ParentGroup3 itm_g3 ON itm_g2.Item_ParentGroup3_ID = itm_g3.ID 
             LEFT JOIN  TermsOfPayment ON DocInvoice.TermsOfPayment_ID = TermsOfPayment.ID 
-            LEFT JOIN  MethodOfPayment ON Invoice.MethodOfPayment_ID = MethodOfPayment.ID 
+            LEFT JOIN  MethodOfPayment ON DocInvoice.MethodOfPayment_ID = MethodOfPayment.ID 
             LEFT JOIN  Atom_Item_barcode ON Atom_Item.Atom_Item_barcode_ID = Atom_Item_barcode.ID 
             LEFT JOIN  Atom_Item_Description ON Atom_Item.Atom_Item_Description_ID = Atom_Item_Description.ID 
             LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
             LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
             LEFT JOIN  Item_Image ON itm.Item_Image_ID = Item_Image.ID 
-            where Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID = " + DocInvoice_ID.ToString();
+            where DocInvoice_ShopC_Item.DocInvoice_ID = " + DocInvoice_ID.ToString();
             m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Clear();
             dtDraft_DocInvoice_Atom_Item_Stock.Clear();
             dtDraft_DocInvoice_Atom_Item_Stock.Columns.Clear();
@@ -129,7 +127,7 @@ namespace InvoiceDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:Read_DocInvoice_Atom_Item_Stock_Table:select ... from DocInvoice_Atom_Item_Stock:\r\n Err=" + Err);
+                LogFile.Error.Show("ERROR:DocInvoice_ShopC_Item:sql="+ sql_select_DocInvoice_Atom_Item_Stock + ":\r\n Err=" + Err);
                 return false;
             }
         }
@@ -140,14 +138,14 @@ namespace InvoiceDB
             int iCount = xdtDraft_DocInvoice_Atom_Item_Stock.Rows.Count;
             for (i = 0; i < iCount; i++)
             {
-                Atom_DocInvoice_Price_Item_Stock_Data appisd = new Atom_DocInvoice_Price_Item_Stock_Data();
+                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = new Atom_DocInvoice_ShopC_Item_Price_Stock_Data();
                 appisd.Set(xdtDraft_DocInvoice_Atom_Item_Stock.Rows[i], ref xAtom_DocInvoice_Price_Item_Stock_Data_LIST);
             }
         }
 
 
 
-        public bool RemoveFactory(Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        public bool RemoveFactory(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             string sql = @"select appis.ID from Atom_DocInvoice_price_item_stock  appis
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
@@ -230,7 +228,7 @@ namespace InvoiceDB
             }
         }
 
-        private void RemoveFactory_from_list(Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        private void RemoveFactory_from_list(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             List<Stock_Data> Stock_Data_to_remove_List = new List<Stock_Data>();
             foreach (Stock_Data sd in appisd.m_ShopShelf_Source.Stock_Data_List)
@@ -252,7 +250,7 @@ namespace InvoiceDB
             }
 
         }
-        private void RemoveStock_from_list(Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        private void RemoveStock_from_list(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             List<Stock_Data> Stock_Data_to_remove_List = new List<Stock_Data>();
             foreach (Stock_Data sd in appisd.m_ShopShelf_Source.Stock_Data_List)
@@ -304,7 +302,7 @@ namespace InvoiceDB
         }
 
 
-        public bool Remove_and_put_back_to_ShopShelf(Atom_DocInvoice_Price_Item_Stock_Data appisd, ShopShelf shopShelf)
+        public bool Remove_and_put_back_to_ShopShelf(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ShopShelf shopShelf)
         {
             string sql = @"select appis.ID,
                                   s.ID as Stock_ID,
@@ -417,13 +415,13 @@ namespace InvoiceDB
 
 
 
-        public Atom_DocInvoice_Price_Item_Stock_Data Contains(Item_Data m_Item_Data)
+        public Atom_DocInvoice_ShopC_Item_Price_Stock_Data Contains(Item_Data m_Item_Data)
         {
             foreach (object o in this.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST)
             {
-                if (((Atom_DocInvoice_Price_Item_Stock_Data)o).Atom_Item_UniqueName.v.Equals(m_Item_Data.Item_UniqueName.v))
+                if (((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).Atom_Item_UniqueName.v.Equals(m_Item_Data.Item_UniqueName.v))
                 {
-                    return ((Atom_DocInvoice_Price_Item_Stock_Data)o);
+                    return ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o);
                 }
             }
             return null;
@@ -433,21 +431,21 @@ namespace InvoiceDB
         {
             foreach (object o in this.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST)
             {
-                decimal dQuantity = ((Atom_DocInvoice_Price_Item_Stock_Data)o).dQuantity_FromFactory + ((Atom_DocInvoice_Price_Item_Stock_Data)o).dQuantity_FromStock;
+                decimal dQuantity = ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).dQuantity_FromFactory + ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).dQuantity_FromStock;
                 decimal RetailPriceWithDisount = 0;
                 decimal tax_price = 0;
                 decimal net_price = 0;
-                StaticLib.Func.CalculatePrice(((Atom_DocInvoice_Price_Item_Stock_Data)o).RetailPricePerUnit.v,
+                StaticLib.Func.CalculatePrice(((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).RetailPricePerUnit.v,
                                         dQuantity,
-                                        ((Atom_DocInvoice_Price_Item_Stock_Data)o).Discount.v,
-                                        ((Atom_DocInvoice_Price_Item_Stock_Data)o).ExtraDiscount.v,
-                                        ((Atom_DocInvoice_Price_Item_Stock_Data)o).Atom_Taxation_Rate.v,
+                                        ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).Discount.v,
+                                        ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).ExtraDiscount.v,
+                                        ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).Atom_Taxation_Rate.v,
                                         ref RetailPriceWithDisount,
                                         ref tax_price,
                                         ref net_price,
-                                        ((Atom_DocInvoice_Price_Item_Stock_Data)o).Atom_Currency_DecimalPlaces.v);
+                                        ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).Atom_Currency_DecimalPlaces.v);
 
-                TaxSum.Add(tax_price, net_price, ((Atom_DocInvoice_Price_Item_Stock_Data)o).Atom_Taxation_Name.v, ((Atom_DocInvoice_Price_Item_Stock_Data)o).Atom_Taxation_Rate.v);
+                TaxSum.Add(tax_price, net_price, ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).Atom_Taxation_Name.v, ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o).Atom_Taxation_Rate.v);
 
                 dsum_GrossSum_Basket += RetailPriceWithDisount;
                 dsum_TaxSum_Basket += tax_price;
@@ -455,9 +453,9 @@ namespace InvoiceDB
             }
         }
 
-        public void Add(long xDocInvoice_ID,object xusrc_Item,Item_Data xItemData,decimal xFactoryQuantity, decimal xStockQuantity,  ref Atom_DocInvoice_Price_Item_Stock_Data appisd, bool b_from_factory)
+        public void Add(long xDocInvoice_ID,object xusrc_Item,Item_Data xItemData,decimal xFactoryQuantity, decimal xStockQuantity,  ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_factory)
         {
-            foreach (Atom_DocInvoice_Price_Item_Stock_Data appisdx in m_Atom_DocInvoice_Price_Item_Stock_Data_LIST)
+            foreach (Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisdx in m_Atom_DocInvoice_Price_Item_Stock_Data_LIST)
             {
                 if (appisdx.Item_ID.v == xItemData.Item_ID.v)
                 {
@@ -466,7 +464,7 @@ namespace InvoiceDB
                     return;
                 }
             }
-            appisd = new Atom_DocInvoice_Price_Item_Stock_Data();
+            appisd = new Atom_DocInvoice_ShopC_Item_Price_Stock_Data();
             appisd.Set(xusrc_Item, xItemData, xDocInvoice_ID, xFactoryQuantity, xStockQuantity, b_from_factory);
             m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Add(appisd);
 

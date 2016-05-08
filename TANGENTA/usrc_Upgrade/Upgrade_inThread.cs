@@ -185,7 +185,7 @@ namespace UpgradeDB
                                     PricePerUnit,
                                     EndPriceWithDiscountAndTax,
                                     TAX
-                                from Atom_ItemShopA_Price;
+                                from DocInvoice_ShopA_Item;
 
                                 Insert into DocInvoice_ShopB_Item
                                 (
@@ -211,7 +211,7 @@ namespace UpgradeDB
                                     Atom_PriceList_ID,
                                     Atom_Taxation_ID,
                                     ProformaInvoice_ID
-                                from Atom_Price_SimpleItem;
+                                from DocInvoice_ShopB_Item;
 
                                 Insert into DocInvoice_ShopC_Item
                                 (
@@ -471,8 +471,8 @@ namespace UpgradeDB
                     if (DBSync.DBSync.Drop_VIEWs(ref Err))
                     {
                         sql = @"Drop Table Atom_ProformaInvoice_Price_Item_Stock;
-                                Drop Table Atom_Price_SimpleItem;
-                                Drop Table Atom_ItemShopA_Price;
+                                Drop Table DocInvoice_ShopB_Item;
+                                Drop Table DocInvoice_ShopA_Item;
                                 Drop Table JOURNAL_ProformaInvoice;
                                 Drop Table JOURNAL_Invoice;
                                 Drop Table JOURNAL_ProformaInvoice_TYPE;
@@ -1627,7 +1627,7 @@ namespace UpgradeDB
         {
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
-                string[] new_tables = new string[] {"Atom_ItemShopA", "Atom_ItemShopA_Image",  "Atom_ItemShopA_Price" };
+                string[] new_tables = new string[] {"Atom_ItemShopA", "Atom_ItemShopA_Image",  "DocInvoice_ShopA_Item" };
                 if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
                     if (DBSync.DBSync.Create_VIEWs())
@@ -2090,14 +2090,14 @@ namespace UpgradeDB
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
                 xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                TableDataItem dt_Atom_Price_SimpleItem = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                TableDataItem dt_DocInvoice_ShopB_Item = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
                     wfp_ui_thread.End();
                     LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
                     return false;
                 }
-                TableDataItem_List.Add(dt_Atom_Price_SimpleItem);
+                TableDataItem_List.Add(dt_DocInvoice_ShopB_Item);
 
 
                 tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopC_Item));
@@ -3178,14 +3178,14 @@ namespace UpgradeDB
             string Err  = null;
             string sql = "select ID,FinancialYear,NumberInFinancialYear,NetSum,TaxSum,GrossSum from DocInvoice where Draft=0";
             DataTable dt_DocInvoice = new DataTable();
-            DataTable dt_Atom_Price_SimpleItem = new DataTable();
+            DataTable dt_DocInvoice_ShopB_Item = new DataTable();
             DataTable dt_Atom_DocInvoice_Price_Item_Stock = new DataTable();
             DataTable dt_Atom_Price_Item = new DataTable();
             string sErrMsg = "";
             if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
             {
-                sql = "select ID,RetailSimpleItemPrice,iQuantity,TaxPrice,DocInvoice_ID from Atom_Price_SimpleItem";
-                if (DBSync.DBSync.ReadDataTable(ref dt_Atom_Price_SimpleItem, sql, ref Err))
+                sql = "select ID,RetailSimpleItemPrice,iQuantity,TaxPrice,DocInvoice_ID from DocInvoice_ShopB_Item";
+                if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice_ShopB_Item, sql, ref Err))
                 {
                     sql = "select ID,RetailPriceWithDiscount,dQuantity,Atom_Price_Item_ID,DocInvoice_ID from Atom_DocInvoice_Price_Item_Stock";
                     if (DBSync.DBSync.ReadDataTable(ref dt_Atom_DocInvoice_Price_Item_Stock, sql, ref Err))
@@ -3208,9 +3208,9 @@ namespace UpgradeDB
                                 NetSum = (decimal)dr["NetSum"];
                                 TaxSum = (decimal)dr["TaxSum"];
                                 GrossSum = (decimal)dr["GrossSum"];
-                                List<long> Atom_Price_SimpleItem_ID_list = new List<long>();
-                                long Atom_Price_SimpleItem_ID = -1;
-                                GetItemsSum(DocInvoice_ID, dt_Atom_Price_SimpleItem, dt_Atom_DocInvoice_Price_Item_Stock, dt_Atom_Price_Item, ref ItemsGrossSum, ref Atom_Price_SimpleItem_ID);
+                                List<long> DocInvoice_ShopB_Item_ID_list = new List<long>();
+                                long DocInvoice_ShopB_Item_ID = -1;
+                                GetItemsSum(DocInvoice_ID, dt_DocInvoice_ShopB_Item, dt_Atom_DocInvoice_Price_Item_Stock, dt_Atom_Price_Item, ref ItemsGrossSum, ref DocInvoice_ShopB_Item_ID);
                                 if (ItemsGrossSum == GrossSum)
                                 {
                                     continue;
@@ -3218,9 +3218,9 @@ namespace UpgradeDB
                                 else
                                 {
                                     sErrMsg += "ERROR:Proforma_Invoice_ID = " + DocInvoice_ID.ToString() + " GrossSum=" + GrossSum.ToString() + " ItemsGrossSum = " + ItemsGrossSum.ToString() + "\r\n";
-                                    if (((DocInvoice_ID == 45) || (DocInvoice_ID == 47) || (DocInvoice_ID == 89)) && (Atom_Price_SimpleItem_ID>=0))
+                                    if (((DocInvoice_ID == 45) || (DocInvoice_ID == 47) || (DocInvoice_ID == 89)) && (DocInvoice_ShopB_Item_ID>=0))
                                     {
-                                        string sql_update = "update Atom_Price_SimpleItem set iQuantity = 1 where DocInvoice_ID = " + DocInvoice_ID.ToString() + " and ID =" + Atom_Price_SimpleItem_ID.ToString();
+                                        string sql_update = "update DocInvoice_ShopB_Item set iQuantity = 1 where DocInvoice_ID = " + DocInvoice_ID.ToString() + " and ID =" + DocInvoice_ShopB_Item_ID.ToString();
                                         object ores=null;
                                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql_update,null,ref ores,ref Err))
                                         {
@@ -3265,23 +3265,23 @@ namespace UpgradeDB
             }
         }
 
-        private void GetItemsSum(long DocInvoice_ID,  DataTable dt_Atom_Price_SimpleItem, DataTable dt_Atom_DocInvoice_Price_Item_Stock, DataTable dt_Atom_Price_Item, ref decimal ItemsGrossSum, ref long Atom_Price_SimpleItem_ID)
+        private void GetItemsSum(long DocInvoice_ID,  DataTable dt_DocInvoice_ShopB_Item, DataTable dt_Atom_DocInvoice_Price_Item_Stock, DataTable dt_Atom_Price_Item, ref decimal ItemsGrossSum, ref long DocInvoice_ShopB_Item_ID)
         {
             decimal dsum = 0;
-            DataRow[] drs_Atom_Price_SimpleItem = dt_Atom_Price_SimpleItem.Select("DocInvoice_ID=" + DocInvoice_ID.ToString());
-            if (drs_Atom_Price_SimpleItem.Count()>0)
+            DataRow[] drs_DocInvoice_ShopB_Item = dt_DocInvoice_ShopB_Item.Select("DocInvoice_ID=" + DocInvoice_ID.ToString());
+            if (drs_DocInvoice_ShopB_Item.Count()>0)
             {
                 int iQuantity = -1;
                 
-                int icol_iQuantity = dt_Atom_Price_SimpleItem.Columns.IndexOf("iQuantity");
-                int icol_RetailPriceWithDiscount = dt_Atom_Price_SimpleItem.Columns.IndexOf("RetailSimpleItemPrice");
+                int icol_iQuantity = dt_DocInvoice_ShopB_Item.Columns.IndexOf("iQuantity");
+                int icol_RetailPriceWithDiscount = dt_DocInvoice_ShopB_Item.Columns.IndexOf("RetailSimpleItemPrice");
                 
                 decimal dRetailPriceWithDiscount = -1;
-                foreach (DataRow dr_Atom_Price_SimpleItem in drs_Atom_Price_SimpleItem)
+                foreach (DataRow dr_DocInvoice_ShopB_Item in drs_DocInvoice_ShopB_Item)
                 {
-                    iQuantity = (int)dr_Atom_Price_SimpleItem[icol_iQuantity];
-                    Atom_Price_SimpleItem_ID = (long)dr_Atom_Price_SimpleItem["ID"];
-                    dRetailPriceWithDiscount =(decimal)dr_Atom_Price_SimpleItem[icol_RetailPriceWithDiscount];
+                    iQuantity = (int)dr_DocInvoice_ShopB_Item[icol_iQuantity];
+                    DocInvoice_ShopB_Item_ID = (long)dr_DocInvoice_ShopB_Item["ID"];
+                    dRetailPriceWithDiscount =(decimal)dr_DocInvoice_ShopB_Item[icol_RetailPriceWithDiscount];
                     dsum += dRetailPriceWithDiscount * iQuantity;
                 }
             }

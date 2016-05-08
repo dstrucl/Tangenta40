@@ -526,9 +526,9 @@ namespace Tangenta
             if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Count > 0)
             {
                 object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST[0];
-                if (o_Data is Atom_DocInvoice_Price_Item_Stock_Data)
+                if (o_Data is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
                 {
-                    return (int)((Atom_DocInvoice_Price_Item_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;
+                    return (int)((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;
                 }
             }
             if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_DocInvoice_Atom_Item_Stock.Rows.Count > 0)

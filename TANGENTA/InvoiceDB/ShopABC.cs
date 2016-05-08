@@ -79,8 +79,6 @@ namespace InvoiceDB
                         JOURNAL_DocInvoice_$_dinv_$$WarrantyDurationType,
                         JOURNAL_DocInvoice_$_dinv_$$WarrantyDuration,
                         JOURNAL_DocInvoice_$_dinv_$$WarrantyConditions,
-                        JOURNAL_DocInvoice_$_dinv_$$DocDuration,
-                        JOURNAL_DocInvoice_$_dinv_$$DocDurationType,
                         JOURNAL_DocInvoice_$_dinv_$_trmpay_$$ID,
                         JOURNAL_DocInvoice_$_dinv_$$PaymentDeadline,
                         JOURNAL_DocInvoice_$_dinv_$_metopay_$$ID,
@@ -181,26 +179,26 @@ namespace InvoiceDB
         }
 
 
-        public bool Read_ShopB_Price_Item_Table(long DocInvoice_ID, ref DataTable dt_Atom_Price_SimpleItem)
+        public bool Read_ShopB_Price_Item_Table(long DocInvoice_ID, ref DataTable dt_DocInvoice_ShopB_Item)
         {
             string Err = null;
-            string sql_select_Atom_Price_SimpleItem = @"SELECT 
-                                                Atom_Price_SimpleItem.ID, 
-                                                Atom_Price_SimpleItem.DocInvoice_ID, 
-                                                Atom_Price_SimpleItem.Atom_PriceList_ID,
-                                                Atom_Price_SimpleItem.RetailSimpleItemPrice,
-                                                Atom_Price_SimpleItem.Discount,
-                                                Atom_Price_SimpleItem.ExtraDiscount,
-                                                Atom_Price_SimpleItem.TaxPrice, 
-                                                Atom_Price_SimpleItem.RetailSimpleItemPriceWithDiscount,
+            string sql_select_DocInvoice_ShopB_Item = @"SELECT 
+                                                DocInvoice_ShopB_Item.ID, 
+                                                DocInvoice_ShopB_Item.DocInvoice_ID, 
+                                                DocInvoice_ShopB_Item.Atom_PriceList_ID,
+                                                DocInvoice_ShopB_Item.RetailSimpleItemPrice,
+                                                DocInvoice_ShopB_Item.Discount,
+                                                DocInvoice_ShopB_Item.ExtraDiscount,
+                                                DocInvoice_ShopB_Item.TaxPrice, 
+                                                DocInvoice_ShopB_Item.RetailSimpleItemPriceWithDiscount,
                                                 Atom_PriceList.Name As Atom_PriceList_Name,
-                                                Atom_Price_SimpleItem.Atom_Taxation_ID,
+                                                DocInvoice_ShopB_Item.Atom_Taxation_ID,
                                                 Atom_Taxation.Name As Atom_Taxation_Name,
                                                 Atom_Taxation.Rate As Atom_Taxation_Rate,
                                                 Atom_SimpleItem.SimpleItem_ID, 
                                                 Atom_SimpleItem.Atom_SimpleItem_Name_ID, 
                                                 Atom_SimpleItem.Atom_SimpleItem_Image_ID, 
-                                                Atom_Price_SimpleItem.iQuantity, 
+                                                DocInvoice_ShopB_Item.iQuantity, 
                                                 Atom_SimpleItem_Name.Name,
                                                 Atom_SimpleItem_Name.Abbreviation, 
                                                 Atom_PriceList.Name AS Atom_PriceList_Name,
@@ -208,17 +206,16 @@ namespace InvoiceDB
                                                 Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
                                                 Atom_Currency.Symbol AS Atom_Currency_Symbol,
                                                 Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces 
-                                                from Atom_Price_SimpleItem
-                                                inner join Atom_PriceList on Atom_Price_SimpleItem.Atom_PriceList_ID = Atom_PriceList.ID
+                                                from DocInvoice_ShopB_Item
+                                                inner join Atom_PriceList on DocInvoice_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
                                                 inner join Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
-                                                inner join Atom_Taxation on Atom_Price_SimpleItem.Atom_Taxation_ID = Atom_Taxation.ID
-                                                inner join Atom_SimpleItem on Atom_Price_SimpleItem.Atom_SimpleItem_ID = Atom_SimpleItem.ID
-                                                Inner Join DocInvoice on DocInvoice.ID = Atom_Price_SimpleItem.DocInvoice_ID 
-                                                Inner Join Invoice on DocInvoice.Invoice_ID = Invoice.ID 
+                                                inner join Atom_Taxation on DocInvoice_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
+                                                inner join Atom_SimpleItem on DocInvoice_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
+                                                Inner Join DocInvoice on DocInvoice.ID = DocInvoice_ShopB_Item.DocInvoice_ID 
                                                 Inner Join Atom_SimpleItem_Name on Atom_SimpleItem_Name.ID = Atom_SimpleItem.Atom_SimpleItem_Name_ID
-                                                where DocInvoice.Invoice_ID is not null and Atom_Price_SimpleItem.DocInvoice_ID = " + DocInvoice_ID.ToString();
-            dt_Atom_Price_SimpleItem.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref dt_Atom_Price_SimpleItem, sql_select_Atom_Price_SimpleItem, ref Err))
+                                                where DocInvoice_ShopB_Item.DocInvoice_ID = " + DocInvoice_ID.ToString();
+            dt_DocInvoice_ShopB_Item.Clear();
+            if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice_ShopB_Item, sql_select_DocInvoice_ShopB_Item, ref Err))
             {
                 return true;
             }
@@ -454,7 +451,7 @@ namespace InvoiceDB
 
 
 
-        bool Get_Atom_Price_SimpleItem_ID(long DocInvoice_ID,
+        bool Get_DocInvoice_ShopB_Item_ID(long DocInvoice_ID,
                                        long Price_SimpleItem_ID,
                                        long Atom_SimpleItem_Name_ID,
                                        long Atom_SimpleItem_Image_ID,
@@ -463,7 +460,7 @@ namespace InvoiceDB
                                        decimal Atom_SimpleItem_RetailSimpleItemPriceWithDiscount,
                                        string Atom_SimpleItem_Abbreviation,
                                        string Atom_SimpleItem_Image_ID_string,
-                                       ref long Atom_Price_SimpleItem_ID
+                                       ref long DocInvoice_ShopB_Item_ID
                                        )
         {
             if (Get_Atom_SimpleItem_ID(DocInvoice_ID,
@@ -475,7 +472,7 @@ namespace InvoiceDB
                                     Atom_SimpleItem_RetailSimpleItemPriceWithDiscount,
                                     Atom_SimpleItem_Abbreviation,
                                     Atom_SimpleItem_Image_ID_string,
-                                    ref Atom_Price_SimpleItem_ID))
+                                    ref DocInvoice_ShopB_Item_ID))
             {
                 return true;
             }
@@ -686,7 +683,7 @@ namespace InvoiceDB
         }
 
 
-        public bool Update_SelectedSimpleItem(long Atom_Price_SimpleItem_ID,
+        public bool Update_SelectedSimpleItem(long DocInvoice_ShopB_Item_ID,
                                              int iCount,
                                              decimal Discount,
                                              decimal ExtraDiscount,
@@ -705,7 +702,7 @@ namespace InvoiceDB
             }
             List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
             bool bUpdate_Atom_SimpleItem_Taxation_ID = false;
-            int irow_Atom_SimpleItem = (int)FindRowIndex_In_dtDraft_Atom_SimpleItem(Atom_Price_SimpleItem_ID);
+            int irow_Atom_SimpleItem = (int)FindRowIndex_In_dtDraft_Atom_SimpleItem(DocInvoice_ShopB_Item_ID);
             long new_Atom_Taxation_ID = -1;
             if (irow_Atom_SimpleItem >= 0)
             {
@@ -788,7 +785,7 @@ namespace InvoiceDB
                 {
                     to_update_Atom_Taxation_ID = Atom_Taxation_ID;
                 }
-                string sql_update_Atom_SimpleItem = @"Update  Atom_Price_SimpleItem
+                string sql_update_Atom_SimpleItem = @"Update  DocInvoice_ShopB_Item
                                                   set iQuantity = " + iCount.ToString() + @",
                                                       RetailSimpleItemPrice = " + param_RetailSimpleItemPrice + @",
                                                       Discount = " + param_Discount + @",
@@ -796,7 +793,7 @@ namespace InvoiceDB
                                                       TaxPrice = " + param_TaxPrice + @",
                                                       Atom_Taxation_ID = " + to_update_Atom_Taxation_ID.ToString() + @",
                                                       RetailSimpleItemPriceWithDiscount = " + param_RetailSimpleItemPriceWithDiscount + @"
-                                                   where ID = " + Atom_Price_SimpleItem_ID.ToString();
+                                                   where ID = " + DocInvoice_ShopB_Item_ID.ToString();
                 object ores = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql_update_Atom_SimpleItem, lpar, ref ores, ref Err))
                 {
@@ -814,10 +811,10 @@ namespace InvoiceDB
             }
         }
 
-        private int FindRowIndex_In_dtDraft_Atom_SimpleItem(long Atom_Price_SimpleItem_ID)
+        private int FindRowIndex_In_dtDraft_Atom_SimpleItem(long DocInvoice_ShopB_Item_ID)
         {
             DataRow[] foundRows;
-            foundRows = m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Select("ID=" + Atom_Price_SimpleItem_ID.ToString());
+            foundRows = m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Select("ID=" + DocInvoice_ShopB_Item_ID.ToString());
             if (foundRows.Count() > 0)
             {
                 return m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem.Rows.IndexOf(foundRows[0]);
@@ -828,10 +825,10 @@ namespace InvoiceDB
             }
         }
 
-        public bool Delete_SelectedSimpleItem(long Atom_Price_SimpleItem_ID, ref string Err)
+        public bool Delete_SelectedSimpleItem(long DocInvoice_ShopB_Item_ID, ref string Err)
         {
-            string sql_delete_Atom_SimpleItem = @"delete from Atom_Price_SimpleItem
-                                                   where ID = " + Atom_Price_SimpleItem_ID.ToString();
+            string sql_delete_Atom_SimpleItem = @"delete from DocInvoice_ShopB_Item
+                                                   where ID = " + DocInvoice_ShopB_Item_ID.ToString();
             object ores = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_delete_Atom_SimpleItem, null, ref ores, ref Err))
             {

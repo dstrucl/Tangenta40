@@ -51,15 +51,15 @@ namespace ShopA
             nm_Price.ValueChanged += Nm_Price_ValueChanged;
         }
 
-        internal void Fill(ref DocInvoice_ShopA_Item m_Atom_ItemShopA_Price)
+        internal void Fill(ref DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item)
         {
-            m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.set(nm_Price.Value);
+            m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.set(nm_Price.Value);
 
         }
-        internal void Fill(ref DocInvoice_ShopA_Item m_Atom_ItemShopA_Price, decimal calculated_end_price)
+        internal void Fill(ref DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, decimal calculated_end_price)
         {
             this.nm_Price.Value = calculated_end_price;
-            Fill(ref m_Atom_ItemShopA_Price);
+            Fill(ref m_DocInvoice_ShopA_Item);
 
         }
 

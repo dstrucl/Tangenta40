@@ -81,7 +81,7 @@ namespace ShopC
                     {
                         DataRow dria = dt_DocInvoice_Atom_Item_Stock_view.Rows[i];
 
-                        Atom_DocInvoice_Price_Item_Stock_Data appisd = new Atom_DocInvoice_Price_Item_Stock_Data();
+                        Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = new Atom_DocInvoice_ShopC_Item_Price_Stock_Data();
                         appisd.Set(dria,ref appisd_List);
 
                         if (dria[iCol_Stock_ExpiryDate] is DateTime)
@@ -89,7 +89,7 @@ namespace ShopC
                             dria[iCol_ExpiryDate] = dria[iCol_Stock_ExpiryDate];
                         }
                     }
-                    Atom_DocInvoice_Price_Item_Stock_Data xappisd= (Atom_DocInvoice_Price_Item_Stock_Data)appisd_List[0];
+                    Atom_DocInvoice_ShopC_Item_Price_Stock_Data xappisd= (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)appisd_List[0];
                     this.txt_Atom_Item_Name.Text = xappisd.Atom_Item_Name_Name.v;
                     if (xappisd.Atom_Item_Description_Description != null)
                     {

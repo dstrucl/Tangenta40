@@ -109,14 +109,14 @@ namespace Tangenta
             if (m_usrc_Invoice.Get_BaseCurrency(ref Err))
             {
                 int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,true,Properties.Settings.Default.FinancialYear);
-                if (iRowsCount == 0)
-                {
-                    if (!m_usrc_Invoice.Init(m_pparent, this,-1, true))
+                //                if (iRowsCount == 0)
+                //                {
+                if (!m_usrc_Invoice.Init(m_pparent, this,-1, true))
                     {
                         Program.Cursor_Arrow();
                         return false;
                     }
-                }
+                //}
                 SetInitialMode();
                 SetMode(Mode);
                 Program.Cursor_Arrow();

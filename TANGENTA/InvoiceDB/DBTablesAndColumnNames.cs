@@ -94,7 +94,7 @@ namespace InvoiceDB
         public string column_SelectedShopBItem_dt_ShopBItem_Index = "SelectedSimpleItem_dt_SimpleItem_Index";
         public Type column_SelectedShopBItem_dt_ShopBItem_Index_TYPE = typeof(int);
 
-        public string column_Selected_Atom_Price_ShopBItem_ID = "Selected_Atom_Price_SimpleItem_ID";
+        public string column_Selected_Atom_Price_ShopBItem_ID = "Selected_DocInvoice_ShopB_Item_ID";
         public Type column_Selected_Atom_Price_ShopBItem_ID_TYPE = typeof(long);
 
         public string column_SelectedShopBItemName = "SelectedSimpleItemName";

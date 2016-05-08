@@ -311,7 +311,7 @@ namespace InvoiceDB
             }
         }
 
-        public int GetIndex(Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        public int GetIndex(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             foreach (object o in items)
             {

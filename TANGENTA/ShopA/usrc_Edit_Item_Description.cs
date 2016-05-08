@@ -26,7 +26,7 @@ namespace ShopA
             InitializeComponent();
         }
 
-        internal void Fill(ref DocInvoice_ShopA_Item m_Atom_ItemShopA_Price)
+        internal void Fill(ref DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item)
         {
             throw new NotImplementedException();
         }

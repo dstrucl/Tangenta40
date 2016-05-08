@@ -70,9 +70,8 @@ namespace InvoiceDB
         public static bool Select_SalesBookInvoice_NotSent(ShopABC xInvoiceDB, ref List<InvoiceData> list, string xCasshierName)
         {
             string sql = @"select pi.ID from DocInvoice pi
-                                inner join Invoice inv on pi.Invoice_ID = inv.ID
-                                inner join FVI_SLO_SalesBookInvoice fvisbi on fvisbi.Invoice_ID = inv.ID
-                                left join FVI_SLO_Response fvires on fvires.Invoice_ID = inv.ID
+                                inner join FVI_SLO_SalesBookInvoice fvisbi on fvisbi.DocInvoice_ID = pi.ID
+                                left join FVI_SLO_Response fvires on fvires.DocInvoice_ID = pi.ID
                                 where pi.Draft = 0 and fvires.BarCodeValue is null and fvisbi.SetNumber is not null";
             DataTable dt = new DataTable();
             string Err = null;

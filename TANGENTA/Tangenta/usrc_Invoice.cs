@@ -1726,10 +1726,10 @@ namespace Tangenta
 
             foreach (DataRow dr in this.m_usrc_ShopA.dt_Item_Price.Rows)
             {
-                decimal price = (decimal)dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"];
-                decimal tax = (decimal)dr["Atom_ItemShopA_Price_$$TAX"];
-                decimal tax_rate = (decimal)dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate"];
-                string tax_name = (string)dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Name"];
+                decimal price = (decimal)dr["DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"];
+                decimal tax = (decimal)dr["DocInvoice_ShopA_Item_$$TAX"];
+                decimal tax_rate = (decimal)dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Rate"];
+                string tax_name = (string)dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Name"];
                 dsum_GrossSum += price;
                 TaxSum.Add(tax, 0, tax_name, tax_rate);
                 dsum_NetSum += price - tax;
@@ -1991,9 +1991,9 @@ namespace Tangenta
                                                 string xSerialNumber = null;
                                                 string xSetNumber = null;
                                                 string xInvoiceNumber = null;
-                                                Program.usrc_FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.Invoice_ID_v.v, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                                                Program.usrc_FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.DocInvoice_ID_v.v, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
                                                 long FVI_SLO_SalesBookInvoice_ID = -1;
-                                                if (InvoiceDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.Invoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                                                if (InvoiceDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.DocInvoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
                                                 {
                                                     MessageBox.Show("Storno računa je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
                                                 }

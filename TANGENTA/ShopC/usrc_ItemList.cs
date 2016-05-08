@@ -183,7 +183,7 @@ namespace ShopC
 
         }
 
-        internal bool Show(InvoiceDB.Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        internal bool Show(InvoiceDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             string[] sGroupArr = new string[3];
             sGroupArr[0] = appisd.s1_name;

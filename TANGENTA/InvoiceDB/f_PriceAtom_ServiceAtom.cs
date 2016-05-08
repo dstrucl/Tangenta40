@@ -20,7 +20,7 @@ namespace InvoiceDB
     {
         public static bool Get(long Price_SimpleItem_ID,
                                  long DocInvoice_ID,
-                                 ref long Atom_Price_SimpleItem_ID,
+                                 ref long DocInvoice_ShopB_Item_ID,
                                  ref int Quantity,
                                  ref decimal RetailSimpleItemPrice,
                                  ref decimal Discount,
@@ -32,9 +32,9 @@ namespace InvoiceDB
                                  ref decimal PriceWithoutTax
                                  )
         {
-            if (Find_Atom_Price_SimpleItem_ID(DocInvoice_ID, Price_SimpleItem_ID, ref Atom_Price_SimpleItem_ID, ref Quantity, ref RetailSimpleItemPrice, ref Discount, ref ExtraDiscount, ref taxRate, ref taxName, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice))
+            if (Find_DocInvoice_ShopB_Item_ID(DocInvoice_ID, Price_SimpleItem_ID, ref DocInvoice_ShopB_Item_ID, ref Quantity, ref RetailSimpleItemPrice, ref Discount, ref ExtraDiscount, ref taxRate, ref taxName, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice))
             {
-                if (Atom_Price_SimpleItem_ID >= 0)
+                if (DocInvoice_ShopB_Item_ID >= 0)
                 {
                     return true;
                 }
@@ -89,7 +89,7 @@ namespace InvoiceDB
                                     string sparam_TaxPrice = "@par_TaxPrice";
                                     DBConnectionControl40.SQL_Parameter par_TaxPrice = new DBConnectionControl40.SQL_Parameter(sparam_TaxPrice, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
                                     lpar.Add(par_TaxPrice);
-                                    string sql = @"insert into Atom_Price_SimpleItem 
+                                    string sql = @"insert into DocInvoice_ShopB_Item 
                                                             (RetailSimpleItemPrice,
                                                              Discount,
                                                              iQuantity,
@@ -115,13 +115,13 @@ namespace InvoiceDB
                                                             )";
                                     object objretx = null;
                                     string Err = null;
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Price_SimpleItem_ID, ref objretx, ref Err, "Atom_Price_SimpleItem"))
+                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopB_Item_ID, ref objretx, ref Err, "DocInvoice_ShopB_Item"))
                                     {
                                         return true;
                                     }
                                     else
                                     {
-                                        LogFile.Error.Show("ERROR:f_Atom_Price_SimpleItem:Get:" + sql + "\r\nErr=" + Err);
+                                        LogFile.Error.Show("ERROR:f_DocInvoice_ShopB_Item:Get:" + sql + "\r\nErr=" + Err);
                                         return false;
                                     }
                                 }
@@ -192,19 +192,19 @@ namespace InvoiceDB
             }
             else
             {
-                LogFile.Error.Show(@"ERROR:Find_Atom_Price_SimpleItem_ID:select
-                                Atom_Price_SimpleItem.ID as Atom_Price_SimpleItem_ID
-                                from Atom_Price_SimpleItem:\r\nErr=" + Err);
+                LogFile.Error.Show(@"ERROR:Find_DocInvoice_ShopB_Item_ID:select
+                                DocInvoice_ShopB_Item.ID as DocInvoice_ShopB_Item_ID
+                                from DocInvoice_ShopB_Item:\r\nErr=" + Err);
                 return false;
             }
 
 
         }
 
-        private static bool Find_Atom_Price_SimpleItem_ID(
+        private static bool Find_DocInvoice_ShopB_Item_ID(
                                                           long DocInvoice_ID,
                                                           long Price_SimpleItem_ID, 
-                                                          ref long Atom_Price_SimpleItem_ID,
+                                                          ref long DocInvoice_ShopB_Item_ID,
                                                           ref int Quantity,
                                                           ref decimal RetailSimpleItemPrice,
                                                           ref decimal Discount,
@@ -219,25 +219,25 @@ namespace InvoiceDB
             int decimal_places = GlobalData.Get_BaseCurrency_DecimalPlaces();
 
             string sql_find_Atom_SimpleItem_ID = @"select
-                                Atom_Price_SimpleItem.ID as Atom_Price_SimpleItem_ID,
-                                Atom_Price_SimpleItem.RetailSimpleItemPrice,
-                                Atom_Price_SimpleItem.Discount,
-                                Atom_Price_SimpleItem.iQuantity,
-                                Atom_Price_SimpleItem.RetailSimpleItemPriceWithDiscount,
-                                Atom_Price_SimpleItem.ExtraDiscount,
-                                Atom_Price_SimpleItem.TaxPrice,
+                                DocInvoice_ShopB_Item.ID as DocInvoice_ShopB_Item_ID,
+                                DocInvoice_ShopB_Item.RetailSimpleItemPrice,
+                                DocInvoice_ShopB_Item.Discount,
+                                DocInvoice_ShopB_Item.iQuantity,
+                                DocInvoice_ShopB_Item.RetailSimpleItemPriceWithDiscount,
+                                DocInvoice_ShopB_Item.ExtraDiscount,
+                                DocInvoice_ShopB_Item.TaxPrice,
                                 Atom_Taxation.Rate,
                                 Atom_Taxation.Name
-                                from Atom_Price_SimpleItem
-                                inner join Atom_PriceList on Atom_Price_SimpleItem.Atom_PriceList_ID = Atom_PriceList.ID
-                                inner join Atom_SimpleItem on Atom_Price_SimpleItem.Atom_SimpleItem_ID = Atom_SimpleItem.ID
+                                from DocInvoice_ShopB_Item
+                                inner join Atom_PriceList on DocInvoice_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
+                                inner join Atom_SimpleItem on DocInvoice_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
 				                inner join Atom_SimpleItem_Name on Atom_SimpleItem.Atom_SimpleItem_Name_ID = Atom_SimpleItem_Name.ID
                                 inner join PriceList on Atom_PriceList.Name = PriceList.Name
                                 inner join Price_SimpleItem on Price_SimpleItem.PriceList_ID = PriceList.ID
                                 inner join SimpleItem on   Price_SimpleItem.SimpleItem_ID = SimpleItem.ID and
                                                         Atom_SimpleItem_Name.Abbreviation = SimpleItem.Abbreviation and
 												        Atom_SimpleItem_Name.Name = SimpleItem.Name 
-                                inner join Atom_Taxation on Atom_Price_SimpleItem.Atom_Taxation_ID = Atom_Taxation.ID
+                                inner join Atom_Taxation on DocInvoice_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
                                 inner join Taxation on Taxation.Name = Atom_Taxation.Name and Taxation.Rate = Atom_Taxation.Rate
                                 where SimpleItem.ToOffer = 1 and DocInvoice_ID = " + DocInvoice_ID.ToString() + " and Price_SimpleItem.ID =  " + Price_SimpleItem_ID.ToString();
 
@@ -245,7 +245,7 @@ namespace InvoiceDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_Price_SimpleItem_ID = (long)dt.Rows[0]["Atom_Price_SimpleItem_ID"];
+                    DocInvoice_ShopB_Item_ID = (long)dt.Rows[0]["DocInvoice_ShopB_Item_ID"];
                     Quantity = (int)dt.Rows[0]["iQuantity"];
                     RetailSimpleItemPrice = (decimal)dt.Rows[0]["RetailSimpleItemPrice"];
                     Discount = (decimal)dt.Rows[0]["Discount"];
@@ -257,15 +257,15 @@ namespace InvoiceDB
                 }
                 else
                 {
-                    Atom_Price_SimpleItem_ID = -1;
+                    DocInvoice_ShopB_Item_ID = -1;
                 }
                 return true;
             }
             else
             {
-                LogFile.Error.Show(@"ERROR:Find_Atom_Price_SimpleItem_ID:select
-                                Atom_Price_SimpleItem.ID as Atom_Price_SimpleItem_ID
-                                from Atom_Price_SimpleItem:\r\nErr=" + Err);
+                LogFile.Error.Show(@"ERROR:Find_DocInvoice_ShopB_Item_ID:select
+                                DocInvoice_ShopB_Item.ID as DocInvoice_ShopB_Item_ID
+                                from DocInvoice_ShopB_Item:\r\nErr=" + Err);
                 return false;
             }
 

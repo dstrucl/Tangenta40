@@ -65,76 +65,76 @@ namespace InvoiceDB
                                            DataTable dt_SimpleItems)
         {
             long Atom_SimpleItem_ID;
-            long Atom_Price_SimpleItem_DocInvoice_ID;
-            long Atom_Price_SimpleItem_SimpleItem_ID;
-            long Atom_Price_SimpleItem_Atom_SimpleItem_Name_ID;
-            long_v Atom_Price_SimpleItem_Atom_SimpleItem_Image_ID_v;
-            long Atom_Price_SimpleItem_Atom_Taxation_ID;
-            int Atom_Price_SimpleItem_Quantity;
-            string Atom_Price_SimpleItem_Atom_SimpleItem_Atom_SimpleItem_Name;
-            string Atom_Price_SimpleItem_Atom_SimpleItem_Atom_SimpleItem_Abbreviation;
-            decimal Atom_Price_SimpleItem_RetailSimpleItemPrice;
-            decimal Atom_Price_SimpleItem_Discount;
-            string Atom_Price_SimpleItem_Atom_Taxation_Name;
-            decimal Atom_Price_SimpleItem_Atom_Taxation_Rate;
-            decimal Atom_Price_SimpleItem_TaxPrice;
-            decimal Atom_Price_SimpleItem_RetailSimpleItemPriceWithDiscount;
-            decimal Atom_Price_SimpleItem_PriceWithoutTax;
-            decimal Atom_Price_SimpleItem_ExtraDiscount;
+            long DocInvoice_ShopB_Item_DocInvoice_ID;
+            long DocInvoice_ShopB_Item_SimpleItem_ID;
+            long DocInvoice_ShopB_Item_Atom_SimpleItem_Name_ID;
+            long_v DocInvoice_ShopB_Item_Atom_SimpleItem_Image_ID_v;
+            long DocInvoice_ShopB_Item_Atom_Taxation_ID;
+            int DocInvoice_ShopB_Item_Quantity;
+            string DocInvoice_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Name;
+            string DocInvoice_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Abbreviation;
+            decimal DocInvoice_ShopB_Item_RetailSimpleItemPrice;
+            decimal DocInvoice_ShopB_Item_Discount;
+            string DocInvoice_ShopB_Item_Atom_Taxation_Name;
+            decimal DocInvoice_ShopB_Item_Atom_Taxation_Rate;
+            decimal DocInvoice_ShopB_Item_TaxPrice;
+            decimal DocInvoice_ShopB_Item_RetailSimpleItemPriceWithDiscount;
+            decimal DocInvoice_ShopB_Item_PriceWithoutTax;
+            decimal DocInvoice_ShopB_Item_ExtraDiscount;
 
             dt_SelectedSimpleItem.Clear();
             foreach (DataRow drsa in dtCurrent_Atom_Price_ShopBItem.Rows)
             {
                 Atom_SimpleItem_ID = (long)drsa["ID"];
-                Atom_Price_SimpleItem_DocInvoice_ID = (long)drsa["DocInvoice_ID"];
-                Atom_Price_SimpleItem_SimpleItem_ID = (long)drsa["SimpleItem_ID"];
-                Atom_Price_SimpleItem_Atom_SimpleItem_Name_ID = (long)drsa["Atom_SimpleItem_Name_ID"];
+                DocInvoice_ShopB_Item_DocInvoice_ID = (long)drsa["DocInvoice_ID"];
+                DocInvoice_ShopB_Item_SimpleItem_ID = (long)drsa["SimpleItem_ID"];
+                DocInvoice_ShopB_Item_Atom_SimpleItem_Name_ID = (long)drsa["Atom_SimpleItem_Name_ID"];
                 if (drsa["Atom_SimpleItem_Image_ID"] is long)
                 {
-                    Atom_Price_SimpleItem_Atom_SimpleItem_Image_ID_v = new long_v();
-                    Atom_Price_SimpleItem_Atom_SimpleItem_Image_ID_v.v = (long)drsa["Atom_SimpleItem_Image_ID"];
+                    DocInvoice_ShopB_Item_Atom_SimpleItem_Image_ID_v = new long_v();
+                    DocInvoice_ShopB_Item_Atom_SimpleItem_Image_ID_v.v = (long)drsa["Atom_SimpleItem_Image_ID"];
                 }
                 else
                 {
-                    Atom_Price_SimpleItem_Atom_SimpleItem_Image_ID_v = null;
+                    DocInvoice_ShopB_Item_Atom_SimpleItem_Image_ID_v = null;
                 }
-                Atom_Price_SimpleItem_Atom_Taxation_ID = (long)drsa["Atom_Taxation_ID"];
-                Atom_Price_SimpleItem_Quantity = (int)drsa["iQuantity"];
-                Atom_Price_SimpleItem_Atom_SimpleItem_Atom_SimpleItem_Name = (string)drsa["Name"];
-                Atom_Price_SimpleItem_Atom_SimpleItem_Atom_SimpleItem_Abbreviation = (string)drsa["Abbreviation"];
-                Atom_Price_SimpleItem_RetailSimpleItemPrice = (decimal)drsa["RetailSimpleItemPrice"];
-                Atom_Price_SimpleItem_Discount = (decimal)drsa["Discount"];
-                Atom_Price_SimpleItem_ExtraDiscount = (decimal)drsa["ExtraDiscount"];
-                Atom_Price_SimpleItem_Atom_Taxation_Name = (string)drsa["Atom_Taxation_Name"];
-                Atom_Price_SimpleItem_Atom_Taxation_Rate = (decimal)drsa["Atom_Taxation_Rate"];
-                Atom_Price_SimpleItem_TaxPrice = (decimal)drsa["TaxPrice"];
-                Atom_Price_SimpleItem_RetailSimpleItemPriceWithDiscount = (decimal)drsa["RetailSimpleItemPriceWithDiscount"];
+                DocInvoice_ShopB_Item_Atom_Taxation_ID = (long)drsa["Atom_Taxation_ID"];
+                DocInvoice_ShopB_Item_Quantity = (int)drsa["iQuantity"];
+                DocInvoice_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Name = (string)drsa["Name"];
+                DocInvoice_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Abbreviation = (string)drsa["Abbreviation"];
+                DocInvoice_ShopB_Item_RetailSimpleItemPrice = (decimal)drsa["RetailSimpleItemPrice"];
+                DocInvoice_ShopB_Item_Discount = (decimal)drsa["Discount"];
+                DocInvoice_ShopB_Item_ExtraDiscount = (decimal)drsa["ExtraDiscount"];
+                DocInvoice_ShopB_Item_Atom_Taxation_Name = (string)drsa["Atom_Taxation_Name"];
+                DocInvoice_ShopB_Item_Atom_Taxation_Rate = (decimal)drsa["Atom_Taxation_Rate"];
+                DocInvoice_ShopB_Item_TaxPrice = (decimal)drsa["TaxPrice"];
+                DocInvoice_ShopB_Item_RetailSimpleItemPriceWithDiscount = (decimal)drsa["RetailSimpleItemPriceWithDiscount"];
 
-                Atom_Price_SimpleItem_PriceWithoutTax = Atom_Price_SimpleItem_RetailSimpleItemPriceWithDiscount - Atom_Price_SimpleItem_TaxPrice;
+                DocInvoice_ShopB_Item_PriceWithoutTax = DocInvoice_ShopB_Item_RetailSimpleItemPriceWithDiscount - DocInvoice_ShopB_Item_TaxPrice;
 
                 DataRow dr = dt_SelectedSimpleItem.NewRow();
-                dr[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index] = Find_dt_SimpleItem_Index(dt_SimpleItems, Atom_Price_SimpleItem_SimpleItem_ID);
+                dr[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index] = Find_dt_SimpleItem_Index(dt_SimpleItems, DocInvoice_ShopB_Item_SimpleItem_ID);
                 dr[DBtcn.column_Selected_Atom_Price_ShopBItem_ID] = Atom_SimpleItem_ID;
-                dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = Atom_Price_SimpleItem_SimpleItem_ID;
-                dr[DBtcn.column_SelectedShopBItem_Count] = Atom_Price_SimpleItem_Quantity;
-                dr[DBtcn.column_SelectedShopBItemName] = Atom_Price_SimpleItem_Atom_SimpleItem_Atom_SimpleItem_Name;
-                dr[DBtcn.column_SelectedShopBItemPriceWithoutTax] = Atom_Price_SimpleItem_PriceWithoutTax;
-                dr[DBtcn.column_SelectedShopBItemPriceTax] = Atom_Price_SimpleItem_TaxPrice;
-                dr[DBtcn.column_SelectedShopBItem_TaxName] = Atom_Price_SimpleItem_Atom_Taxation_Name;
-                dr[DBtcn.column_SelectedShopBItem_TaxRate] = Atom_Price_SimpleItem_Atom_Taxation_Rate;
-                dr[DBtcn.column_SelectedShopBItem_ExtraDiscount] = Atom_Price_SimpleItem_ExtraDiscount;
-                dr[DBtcn.column_SelectedShopBItemPrice] = Atom_Price_SimpleItem_RetailSimpleItemPriceWithDiscount;
+                dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = DocInvoice_ShopB_Item_SimpleItem_ID;
+                dr[DBtcn.column_SelectedShopBItem_Count] = DocInvoice_ShopB_Item_Quantity;
+                dr[DBtcn.column_SelectedShopBItemName] = DocInvoice_ShopB_Item_Atom_SimpleItem_Atom_SimpleItem_Name;
+                dr[DBtcn.column_SelectedShopBItemPriceWithoutTax] = DocInvoice_ShopB_Item_PriceWithoutTax;
+                dr[DBtcn.column_SelectedShopBItemPriceTax] = DocInvoice_ShopB_Item_TaxPrice;
+                dr[DBtcn.column_SelectedShopBItem_TaxName] = DocInvoice_ShopB_Item_Atom_Taxation_Name;
+                dr[DBtcn.column_SelectedShopBItem_TaxRate] = DocInvoice_ShopB_Item_Atom_Taxation_Rate;
+                dr[DBtcn.column_SelectedShopBItem_ExtraDiscount] = DocInvoice_ShopB_Item_ExtraDiscount;
+                dr[DBtcn.column_SelectedShopBItemPrice] = DocInvoice_ShopB_Item_RetailSimpleItemPriceWithDiscount;
                 dt_SelectedSimpleItem.Rows.Add(dr);
                 int index = dt_SelectedSimpleItem.Rows.IndexOf(dr);
-                if (Atom_Price_SimpleItem_ExtraDiscount != 0)
+                if (DocInvoice_ShopB_Item_ExtraDiscount != 0)
                 {
                     try
                     {
-                        dgv_SelectedSimpleItems.Rows[index].Cells["btn_discount"].Value = Atom_Price_SimpleItem_ExtraDiscount;
+                        dgv_SelectedSimpleItems.Rows[index].Cells["btn_discount"].Value = DocInvoice_ShopB_Item_ExtraDiscount;
                     }
                     catch
                     {
-                        dgv_SelectedSimpleItems.Rows[index].Cells["SelectedSimpleItem_ExtraDiscount"].Value = Atom_Price_SimpleItem_ExtraDiscount;
+                        dgv_SelectedSimpleItems.Rows[index].Cells["SelectedSimpleItem_ExtraDiscount"].Value = DocInvoice_ShopB_Item_ExtraDiscount;
                     }
                 }
             }
@@ -156,13 +156,13 @@ namespace InvoiceDB
 
 
 
-        public bool Insert_DocInvoice_Atom_Price_Items_Stock(ref Atom_DocInvoice_Price_Item_Stock_Data appisd, bool b_from_stock
+        public bool Insert_DocInvoice_Atom_Price_Items_Stock(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock
                                                                     )
         {
             return Get_Atom_DocInvoice_Price_Item_Stock(ref appisd, b_from_stock);
         }
 
-        private bool Get_Atom_DocInvoice_Price_Item_Stock(ref Atom_DocInvoice_Price_Item_Stock_Data appisd, bool b_from_stock)
+        private bool Get_Atom_DocInvoice_Price_Item_Stock(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock)
         {
             long Atom_Price_Item_ID = -1;
             if (Get_Atom_Price_Item(ref appisd))
@@ -344,7 +344,7 @@ namespace InvoiceDB
             }
         }
 
-        private bool Get_Atom_Price_Item(ref Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        private bool Get_Atom_Price_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             long Atom_Taxation_ID = -1;
             if (Get_Atom_Taxation_ID(appisd.Atom_Taxation_Name, appisd.Atom_Taxation_Rate, ref Atom_Taxation_ID))
@@ -476,7 +476,7 @@ namespace InvoiceDB
             }
         }
 
-        private bool Get_Atom_Item(ref Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        private bool Get_Atom_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             string Err = null;
             string sAtom_Item_Name_ID = null;
@@ -771,7 +771,7 @@ namespace InvoiceDB
             }
         }
 
-        private bool Get_Atom_Unit_ID(Atom_DocInvoice_Price_Item_Stock_Data appisd, ref long Atom_Unit_ID)
+        private bool Get_Atom_Unit_ID(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ref long Atom_Unit_ID)
         {
             string Err = null;
             string scond_Unit_Name = null;
@@ -1112,7 +1112,7 @@ namespace InvoiceDB
         bool Get_Atom_Warranty(short_v Warranty_WarrantyDurationType,
                               int_v Warranty_WarrantyDuration,
                               string_v Warranty_WarrantyConditions,
-                              ref Atom_DocInvoice_Price_Item_Stock_Data pias,
+                              ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data pias,
                               ref long Atom_Warranty_ID, ref string Err)
         {
             string scond_WarrantyDurationType = null;

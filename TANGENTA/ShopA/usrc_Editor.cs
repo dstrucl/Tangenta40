@@ -22,7 +22,7 @@ namespace ShopA
 {
     public partial class usrc_Editor : UserControl
     {
-        public delegate void delegate_AddRow(DocInvoice_ShopA_Item m_Atom_ItemShopA_Price);
+        public delegate void delegate_AddRow(DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item);
         public event delegate_AddRow AddRow = null;
         public delegate bool delegate_EditUnis();
         public event delegate_EditUnis EditUnits;
@@ -30,7 +30,7 @@ namespace ShopA
 
 
         ShopABC m_ShopABC = null;
-        DocInvoice_ShopA_Item m_Atom_ItemShopA_Price = null;
+        DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item = null;
         public decimal TaxValue = 0;
         public decimal EndNetPrice = 0;
         public decimal Discount = 0;
@@ -49,10 +49,10 @@ namespace ShopA
 
         }
 
-        internal void Init(ShopABC xShopABC, DocInvoice_ShopA_Item xAtom_ItemShopA_Price)
+        internal void Init(ShopABC xShopABC, DocInvoice_ShopA_Item xDocInvoice_ShopA_Item)
         {
             m_ShopABC = xShopABC;
-            m_Atom_ItemShopA_Price = xAtom_ItemShopA_Price;
+            m_DocInvoice_ShopA_Item = xDocInvoice_ShopA_Item;
             this.usrc_Edit_Item_Tax1.Init(m_ShopABC.m_xTaxationList);
             this.usrc_Edit_Item_Unit1.Init(m_ShopABC.m_xUnitList);
             chk_PriceWithTax.Checked = Properties.Settings.Default.EnterPriceWithTax;
@@ -70,29 +70,29 @@ namespace ShopA
         {
             if (Fill())
             {
-                m_Atom_ItemShopA_Price.TAX.set(TaxValue);
-                m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.set(EndPriceWithDiscountAndTax);
-                m_Atom_ItemShopA_Price.Discount.set(Discount);
-                m_Atom_ItemShopA_Price.m_DocInvoice.ID.set(m_ShopABC.m_CurrentInvoice.DocInvoice_ID);
+                m_DocInvoice_ShopA_Item.TAX.set(TaxValue);
+                m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.set(EndPriceWithDiscountAndTax);
+                m_DocInvoice_ShopA_Item.Discount.set(Discount);
+                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.set(m_ShopABC.m_CurrentInvoice.DocInvoice_ID);
                 if (this.usrc_Edit_Item_Unit1.UnitsEnabled)
                 {
-                    m_Atom_ItemShopA_Price.PricePerUnit.set(usrc_Edit_Item_Unit1.PricePerUnit);
-                    m_Atom_ItemShopA_Price.dQuantity.set(usrc_Edit_Item_Unit1.Quantity);
+                    m_DocInvoice_ShopA_Item.PricePerUnit.set(usrc_Edit_Item_Unit1.PricePerUnit);
+                    m_DocInvoice_ShopA_Item.dQuantity.set(usrc_Edit_Item_Unit1.Quantity);
 
                 }
                 else
                 {
-                    m_Atom_ItemShopA_Price.PricePerUnit.set(null);
-                    m_Atom_ItemShopA_Price.dQuantity.set(null);
+                    m_DocInvoice_ShopA_Item.PricePerUnit.set(null);
+                    m_DocInvoice_ShopA_Item.dQuantity.set(null);
                 }
-                long Atom_ItemShopA_Price_ID = -1;
-                if (ShopA_dbfunc.dbfunc.insert(m_Atom_ItemShopA_Price, ref Atom_ItemShopA_Price_ID))
+                long DocInvoice_ShopA_Item_ID = -1;
+                if (ShopA_dbfunc.dbfunc.insert(m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID))
                 {
                     // Add Row
-                    m_Atom_ItemShopA_Price.ID.set(Atom_ItemShopA_Price_ID);
+                    m_DocInvoice_ShopA_Item.ID.set(DocInvoice_ShopA_Item_ID);
                     if (AddRow!=null)
                     {
-                        AddRow(m_Atom_ItemShopA_Price);
+                        AddRow(m_DocInvoice_ShopA_Item);
                         this.Clear();
                     }
                 }
@@ -116,13 +116,13 @@ namespace ShopA
 
         private bool Fill()
         {
-            if (this.usrc_Edit_Item_Name1.Fill(ref m_Atom_ItemShopA_Price.m_Atom_ItemShopA))
+            if (this.usrc_Edit_Item_Name1.Fill(ref m_DocInvoice_ShopA_Item.m_Atom_ItemShopA))
             {
-                if (this.usrc_Edit_Item_Tax1.Fill(ref m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Taxation))
+                if (this.usrc_Edit_Item_Tax1.Fill(ref m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation))
                 {
-                    this.usrc_Edit_Item_Description1.Fill(ref m_Atom_ItemShopA_Price.m_Atom_ItemShopA);
-                    this.usrc_Edit_Item_Unit1.Fill(ref m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit);
-                    this.usrc_Edit_Item_Price1.Fill(ref m_Atom_ItemShopA_Price);
+                    this.usrc_Edit_Item_Description1.Fill(ref m_DocInvoice_ShopA_Item.m_Atom_ItemShopA);
+                    this.usrc_Edit_Item_Unit1.Fill(ref m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit);
+                    this.usrc_Edit_Item_Price1.Fill(ref m_DocInvoice_ShopA_Item);
                     return true;
                 }
 
@@ -218,7 +218,7 @@ namespace ShopA
         {
             if (m_tool_SelectItem == null)
             {
-                m_tool_SelectItem = new Form_Tool_SelectItem(m_Atom_ItemShopA_Price.m_Atom_ItemShopA,this);
+                m_tool_SelectItem = new Form_Tool_SelectItem(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA,this);
                 m_tool_SelectItem.Show(this);
             }
             else

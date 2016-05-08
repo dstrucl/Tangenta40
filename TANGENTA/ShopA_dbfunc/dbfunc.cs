@@ -24,30 +24,30 @@ namespace ShopA_dbfunc
         {
             string Err = null;
             string sql = @"SELECT 
-                            Atom_ItemShopA_Price.ID,
-                            Atom_ItemShopA_Price_$_pinv.ID AS Atom_ItemShopA_Price_$_dinv_$$ID,
-                            Atom_ItemShopA_Price_$_pinv.Draft AS Atom_ItemShopA_Price_$_dinv_$$Draft,
-                            Atom_ItemShopA_Price_$_aisha.ID AS Atom_ItemShopA_Price_$_aisha_$$ID,
-                            Atom_ItemShopA_Price_$_aisha.Name AS Atom_ItemShopA_Price_$_aisha_$$Name,
-                            Atom_ItemShopA_Price_$_aisha.Description AS Atom_ItemShopA_Price_$_aisha_$$Description,
-                            Atom_ItemShopA_Price_$_aisha_$_tax.ID AS Atom_ItemShopA_Price_$_aisha_$_tax_$$ID,
-                            Atom_ItemShopA_Price_$_aisha_$_tax.Name AS Atom_ItemShopA_Price_$_aisha_$_tax_$$Name,
-                            Atom_ItemShopA_Price_$_aisha_$_tax.Rate AS Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate,
-                            Atom_ItemShopA_Price_$_aisha_$_u.ID AS Atom_ItemShopA_Price_$_aisha_$_u_$$ID,
-                            Atom_ItemShopA_Price_$_aisha_$_u.Name AS Atom_ItemShopA_Price_$_aisha_$_u_$$Name,
-                            Atom_ItemShopA_Price_$_aisha_$_u.Symbol AS Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol,
-                            Atom_ItemShopA_Price_$_aisha_$_u.DecimalPlaces AS Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces,
-                            Atom_ItemShopA_Price.Discount AS Atom_ItemShopA_Price_$$Discount,
-                            Atom_ItemShopA_Price.dQuantity AS Atom_ItemShopA_Price_$$dQuantity,
-                            Atom_ItemShopA_Price.PricePerUnit AS Atom_ItemShopA_Price_$$PricePerUnit,
-                            Atom_ItemShopA_Price.EndPriceWithDiscountAndTax AS Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax,
-                            Atom_ItemShopA_Price.TAX AS Atom_ItemShopA_Price_$$TAX
-                            FROM Atom_ItemShopA_Price 
-                            INNER JOIN DocInvoice Atom_ItemShopA_Price_$_pinv ON Atom_ItemShopA_Price.DocInvoice_ID = Atom_ItemShopA_Price_$_pinv.ID
-                            INNER JOIN Atom_ItemShopA Atom_ItemShopA_Price_$_aisha ON Atom_ItemShopA_Price.Atom_ItemShopA_ID = Atom_ItemShopA_Price_$_aisha.ID
-                            INNER JOIN Taxation Atom_ItemShopA_Price_$_aisha_$_tax ON Atom_ItemShopA_Price_$_aisha.Taxation_ID = Atom_ItemShopA_Price_$_aisha_$_tax.ID
-                            LEFT JOIN Unit Atom_ItemShopA_Price_$_aisha_$_u ON Atom_ItemShopA_Price_$_aisha.Unit_ID = Atom_ItemShopA_Price_$_aisha_$_u.ID
-                            where Atom_ItemShopA_Price_$_pinv.ID = " + DocInvoice_ID.ToString();
+                            DocInvoice_ShopA_Item.ID,
+                            DocInvoice_ShopA_Item_$_pinv.ID AS DocInvoice_ShopA_Item_$_dinv_$$ID,
+                            DocInvoice_ShopA_Item_$_pinv.Draft AS DocInvoice_ShopA_Item_$_dinv_$$Draft,
+                            DocInvoice_ShopA_Item_$_aisha.ID AS DocInvoice_ShopA_Item_$_aisha_$$ID,
+                            DocInvoice_ShopA_Item_$_aisha.Name AS DocInvoice_ShopA_Item_$_aisha_$$Name,
+                            DocInvoice_ShopA_Item_$_aisha.Description AS DocInvoice_ShopA_Item_$_aisha_$$Description,
+                            DocInvoice_ShopA_Item_$_aisha_$_tax.ID AS DocInvoice_ShopA_Item_$_aisha_$_tax_$$ID,
+                            DocInvoice_ShopA_Item_$_aisha_$_tax.Name AS DocInvoice_ShopA_Item_$_aisha_$_tax_$$Name,
+                            DocInvoice_ShopA_Item_$_aisha_$_tax.Rate AS DocInvoice_ShopA_Item_$_aisha_$_tax_$$Rate,
+                            DocInvoice_ShopA_Item_$_aisha_$_u.ID AS DocInvoice_ShopA_Item_$_aisha_$_u_$$ID,
+                            DocInvoice_ShopA_Item_$_aisha_$_u.Name AS DocInvoice_ShopA_Item_$_aisha_$_u_$$Name,
+                            DocInvoice_ShopA_Item_$_aisha_$_u.Symbol AS DocInvoice_ShopA_Item_$_aisha_$_u_$$Symbol,
+                            DocInvoice_ShopA_Item_$_aisha_$_u.DecimalPlaces AS DocInvoice_ShopA_Item_$_aisha_$_u_$$DecimalPlaces,
+                            DocInvoice_ShopA_Item.Discount AS DocInvoice_ShopA_Item_$$Discount,
+                            DocInvoice_ShopA_Item.dQuantity AS DocInvoice_ShopA_Item_$$dQuantity,
+                            DocInvoice_ShopA_Item.PricePerUnit AS DocInvoice_ShopA_Item_$$PricePerUnit,
+                            DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax AS DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax,
+                            DocInvoice_ShopA_Item.TAX AS DocInvoice_ShopA_Item_$$TAX
+                            FROM DocInvoice_ShopA_Item 
+                            INNER JOIN DocInvoice DocInvoice_ShopA_Item_$_pinv ON DocInvoice_ShopA_Item.DocInvoice_ID = DocInvoice_ShopA_Item_$_pinv.ID
+                            INNER JOIN Atom_ItemShopA DocInvoice_ShopA_Item_$_aisha ON DocInvoice_ShopA_Item.Atom_ItemShopA_ID = DocInvoice_ShopA_Item_$_aisha.ID
+                            INNER JOIN Taxation DocInvoice_ShopA_Item_$_aisha_$_tax ON DocInvoice_ShopA_Item_$_aisha.Taxation_ID = DocInvoice_ShopA_Item_$_aisha_$_tax.ID
+                            LEFT JOIN Unit DocInvoice_ShopA_Item_$_aisha_$_u ON DocInvoice_ShopA_Item_$_aisha.Unit_ID = DocInvoice_ShopA_Item_$_aisha_$_u.ID
+                            where DocInvoice_ShopA_Item_$_pinv.ID = " + DocInvoice_ID.ToString();
             dt.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
@@ -61,34 +61,34 @@ namespace ShopA_dbfunc
         }
 
 
-        public static bool insert(DocInvoice_ShopA_Item m_Atom_ItemShopA_Price, ref long Atom_ItemShopA_Price_ID)
+        public static bool insert(DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref long DocInvoice_ShopA_Item_ID)
         {
             long Atom_ItemShopA_ID = -1;
             
-            if (get(m_Atom_ItemShopA_Price.m_Atom_ItemShopA, ref Atom_ItemShopA_ID))
+            if (get(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA, ref Atom_ItemShopA_ID))
             {
                 string Err = null;
                 string scond = null;
                 string sval = null;
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.set(Atom_ItemShopA_ID);
-                m_Atom_ItemShopA_Price.m_DocInvoice.ID.setsqlp(ref lpar, "DocInvoice_ID", ref scond, ref sval);
-                m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
-                m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
-                m_Atom_ItemShopA_Price.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
-                m_Atom_ItemShopA_Price.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
-                m_Atom_ItemShopA_Price.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
-                m_Atom_ItemShopA_Price.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
-                string sql = "insert into Atom_ItemShopA_Price (DocInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
-                              + m_Atom_ItemShopA_Price.m_DocInvoice.ID.value + ","
-                              + m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.value + ","
-                              + m_Atom_ItemShopA_Price.Discount.value + ","
-                              + m_Atom_ItemShopA_Price.dQuantity.value + ","
-                              + m_Atom_ItemShopA_Price.PricePerUnit.value + ","
-                              + m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.value + ","
-                              + m_Atom_ItemShopA_Price.TAX.value + ")";
+                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.set(Atom_ItemShopA_ID);
+                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.setsqlp(ref lpar, "DocInvoice_ID", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
+                string sql = "insert into DocInvoice_ShopA_Item (DocInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
+                              + m_DocInvoice_ShopA_Item.m_DocInvoice.ID.value + ","
+                              + m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.value + ","
+                              + m_DocInvoice_ShopA_Item.Discount.value + ","
+                              + m_DocInvoice_ShopA_Item.dQuantity.value + ","
+                              + m_DocInvoice_ShopA_Item.PricePerUnit.value + ","
+                              + m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.value + ","
+                              + m_DocInvoice_ShopA_Item.TAX.value + ")";
                 object oret = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_ItemShopA_Price_ID, ref oret, ref Err, "Atom_ItemShopA_Price"))
+                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopA_Item_ID, ref oret, ref Err, "DocInvoice_ShopA_Item"))
                 {
                     return true;
                 }
@@ -154,7 +154,7 @@ namespace ShopA_dbfunc
         public static bool delete(long atom_ItemShopA_Price_ID)
         {
             string Err = null;
-            string sql = @"delete from Atom_ItemShopA_Price
+            string sql = @"delete from DocInvoice_ShopA_Item
                                                    where ID = " + atom_ItemShopA_Price_ID.ToString();
             object ores = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))

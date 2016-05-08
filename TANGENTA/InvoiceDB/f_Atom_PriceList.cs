@@ -92,7 +92,7 @@ namespace InvoiceDB
             }
         }
 
-        public static bool Get(ref Atom_DocInvoice_Price_Item_Stock_Data appisd, ref long Atom_PriceList_ID)
+        public static bool Get(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ref long Atom_PriceList_ID)
         {
             string Err = null;
             if (appisd.Atom_PriceList_Name != null)

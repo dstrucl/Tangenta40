@@ -41,13 +41,13 @@ namespace ShopA
         ShopABC m_ShopABC = null;
         DBTablesAndColumnNames DBtcn = null;
         public DataTable dt_Item_Price = new DataTable();
-        DocInvoice_ShopA_Item m_Atom_ItemShopA_Price = new DocInvoice_ShopA_Item();
-        SQLTable t_Atom_ItemShopA_Price = null;
+        DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item = new DocInvoice_ShopA_Item();
+        SQLTable t_DocInvoice_ShopA_Item = null;
 
         public usrc_ShopA()
         {
             InitializeComponent();
-            t_Atom_ItemShopA_Price = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
+            t_DocInvoice_ShopA_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopA_Item)));
         }
 
         public void Init(ShopABC xm_ShopABC, DBTablesAndColumnNames xDBtcn)
@@ -75,7 +75,7 @@ namespace ShopA
             if (dbfunc.Read_ShopA_Price_Item_Table(xDocInvoice_ID, ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
-                t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
+                t_DocInvoice_ShopA_Item.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 HideNotImportantColumns();
             }
         }
@@ -83,13 +83,13 @@ namespace ShopA
         private void HideNotImportantColumns()
         {
             this.dgvx_ShopA.Columns["ID"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_dinv_$$ID"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_tax_$$ID"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$ID"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$$ID"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_dinv_$$Draft"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol"].Visible = false;
-            this.dgvx_ShopA.Columns["Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces"].Visible = false;
+            this.dgvx_ShopA.Columns["DocInvoice_ShopA_Item_$_dinv_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["DocInvoice_ShopA_Item_$_aisha_$_tax_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["DocInvoice_ShopA_Item_$_aisha_$_u_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["DocInvoice_ShopA_Item_$_aisha_$$ID"].Visible = false;
+            this.dgvx_ShopA.Columns["DocInvoice_ShopA_Item_$_dinv_$$Draft"].Visible = false;
+            this.dgvx_ShopA.Columns["DocInvoice_ShopA_Item_$_aisha_$_u_$$Symbol"].Visible = false;
+            this.dgvx_ShopA.Columns["DocInvoice_ShopA_Item_$_aisha_$_u_$$DecimalPlaces"].Visible = false;
         }
 
         public void SetDraft()
@@ -99,12 +99,12 @@ namespace ShopA
             if (dbfunc.Read_ShopA_Price_Item_Table(m_ShopABC.m_CurrentInvoice.DocInvoice_ID,ref dt_Item_Price))
             {
                 this.dgvx_ShopA.DataSource = dt_Item_Price;
-                t_Atom_ItemShopA_Price.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
+                t_DocInvoice_ShopA_Item.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_ShopA, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 HideNotImportantColumns();
 
                 if (dt_Item_Price.Rows.Count > 0)
                 {
-                    object oDecimalPlaces = dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces"];
+                    object oDecimalPlaces = dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$_u_$$DecimalPlaces"];
                     if ((oDecimalPlaces is int)||(oDecimalPlaces is short))
                     {
                         oDecimalPlaces = Convert.ToInt16(oDecimalPlaces);
@@ -113,24 +113,24 @@ namespace ShopA
                     {
                         oDecimalPlaces = null;
                     }
-                    m_Atom_ItemShopA_Price.ID.type_v = tf.set_long(dt_Item_Price.Rows[0]["ID"]);
-                    m_Atom_ItemShopA_Price.m_DocInvoice.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_dinv_$$ID"]);
-                    m_Atom_ItemShopA_Price.m_DocInvoice.Draft.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_dinv_$$Draft"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$$ID"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.Name.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$$Name"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.Name.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$$Description"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Taxation.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_tax_$$ID"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Taxation.Name.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_tax_$$Name"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Taxation.Rate.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.ID.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$ID"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.Name.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$Name"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.Symbol.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol"]);
-                    m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(oDecimalPlaces);
-                    m_Atom_ItemShopA_Price.Discount.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$Discount"]);
-                    m_Atom_ItemShopA_Price.dQuantity.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$dQuantity"]);
-                    m_Atom_ItemShopA_Price.PricePerUnit.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$PricePerUnit"]);
-                    m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"]);
-                    m_Atom_ItemShopA_Price.TAX.set(dt_Item_Price.Rows[0]["Atom_ItemShopA_Price_$$TAX"]);
+                    m_DocInvoice_ShopA_Item.ID.type_v = tf.set_long(dt_Item_Price.Rows[0]["ID"]);
+                    m_DocInvoice_ShopA_Item.m_DocInvoice.ID.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_dinv_$$ID"]);
+                    m_DocInvoice_ShopA_Item.m_DocInvoice.Draft.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_dinv_$$Draft"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$$ID"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.Name.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$$Name"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.Name.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$$Description"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.ID.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$_tax_$$ID"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.Name.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Name"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.Rate.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Rate"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.ID.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$_u_$$ID"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.Name.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$_u_$$Name"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.Symbol.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$_aisha_$_u_$$Symbol"]);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(oDecimalPlaces);
+                    m_DocInvoice_ShopA_Item.Discount.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$$Discount"]);
+                    m_DocInvoice_ShopA_Item.dQuantity.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$$dQuantity"]);
+                    m_DocInvoice_ShopA_Item.PricePerUnit.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$$PricePerUnit"]);
+                    m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"]);
+                    m_DocInvoice_ShopA_Item.TAX.set(dt_Item_Price.Rows[0]["DocInvoice_ShopA_Item_$$TAX"]);
                 }
                 if (dgvxc_btn_Remove == null)
                 {
@@ -139,7 +139,7 @@ namespace ShopA
                     dgvxc_btn_Remove.Text = "-";
                     dgvxc_btn_Remove.Name = column_deselect;
                     this.dgvx_ShopA.Columns.Add(dgvxc_btn_Remove);
-                    this.usrc_Editor1.Init(m_ShopABC, m_Atom_ItemShopA_Price);
+                    this.usrc_Editor1.Init(m_ShopABC, m_DocInvoice_ShopA_Item);
                 }
 
 
@@ -169,51 +169,51 @@ namespace ShopA
 
         }
         /*
-                        Atom_ItemShopA_Price.ID,
-                                    Atom_ItemShopA_Price_$_dinv_$$ID,
-                                    Atom_ItemShopA_Price_$_dinv_$$Draft,
-                                    Atom_ItemShopA_Price_$_aisha_$$ID,
-                                    Atom_ItemShopA_Price_$_aisha_$$Name,
-                                    Atom_ItemShopA_Price_$_aisha_$$Description,
-                                    Atom_ItemShopA_Price_$_aisha_$_tax_$$ID,
-                                    Atom_ItemShopA_Price_$_aisha_$_tax_$$Name,
-                                    Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate,
-                                    Atom_ItemShopA_Price_$_aisha_$_u_$$ID,
-                                    Atom_ItemShopA_Price_$_aisha_$_u_$$Name,
-                                    Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol,
-                                    Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces,
-                                    Atom_ItemShopA_Price_$$Discount,
-                                    Atom_ItemShopA_Price_$$dQuantity,
-                                    Atom_ItemShopA_Price_$$PricePerUnit,
-                                    Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax,
-                                    Atom_ItemShopA_Price_$$TAX
+                        DocInvoice_ShopA_Item.ID,
+                                    DocInvoice_ShopA_Item_$_dinv_$$ID,
+                                    DocInvoice_ShopA_Item_$_dinv_$$Draft,
+                                    DocInvoice_ShopA_Item_$_aisha_$$ID,
+                                    DocInvoice_ShopA_Item_$_aisha_$$Name,
+                                    DocInvoice_ShopA_Item_$_aisha_$$Description,
+                                    DocInvoice_ShopA_Item_$_aisha_$_tax_$$ID,
+                                    DocInvoice_ShopA_Item_$_aisha_$_tax_$$Name,
+                                    DocInvoice_ShopA_Item_$_aisha_$_tax_$$Rate,
+                                    DocInvoice_ShopA_Item_$_aisha_$_u_$$ID,
+                                    DocInvoice_ShopA_Item_$_aisha_$_u_$$Name,
+                                    DocInvoice_ShopA_Item_$_aisha_$_u_$$Symbol,
+                                    DocInvoice_ShopA_Item_$_aisha_$_u_$$DecimalPlaces,
+                                    DocInvoice_ShopA_Item_$$Discount,
+                                    DocInvoice_ShopA_Item_$$dQuantity,
+                                    DocInvoice_ShopA_Item_$$PricePerUnit,
+                                    DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax,
+                                    DocInvoice_ShopA_Item_$$TAX
         */
 
-        private void usrc_Editor1_AddRow(DocInvoice_ShopA_Item m_Atom_ItemShopA_Price)
+        private void usrc_Editor1_AddRow(DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item)
         {
             DataRow dr = dt_Item_Price.NewRow();
-            dr["ID"] = m_Atom_ItemShopA_Price.ID.type_v.v;
-            dr["Atom_ItemShopA_Price_$_dinv_$$ID"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_DocInvoice.ID.type_v);
-            dr["Atom_ItemShopA_Price_$_dinv_$$Draft"] = 1;
-            dr["Atom_ItemShopA_Price_$_aisha_$$Name"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.Name.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$$Description"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.Description.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$ID"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Taxation.ID.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Name"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Taxation.Name.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Taxation.Rate.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$_u_$$ID"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.ID.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$_u_$$Name"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.Name.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$_u_$$Symbol"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.Symbol.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$_u_$$DecimalPlaces"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.m_Unit.DecimalPlaces.type_v);
-            dr["Atom_ItemShopA_Price_$_aisha_$$ID"] = tf.type_v_ret(m_Atom_ItemShopA_Price.m_Atom_ItemShopA.ID.type_v);
-            dr["Atom_ItemShopA_Price_$$Discount"] = tf.type_v_ret(m_Atom_ItemShopA_Price.Discount.type_v);
-            dr["Atom_ItemShopA_Price_$$dQuantity"] = tf.type_v_ret(m_Atom_ItemShopA_Price.dQuantity.type_v);
-            dr["Atom_ItemShopA_Price_$$PricePerUnit"] = tf.type_v_ret(m_Atom_ItemShopA_Price.PricePerUnit.type_v);
-            dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"] = tf.type_v_ret(m_Atom_ItemShopA_Price.EndPriceWithDiscountAndTax.type_v);
-            dr["Atom_ItemShopA_Price_$$TAX"] = tf.type_v_ret(m_Atom_ItemShopA_Price.TAX.type_v);
+            dr["ID"] = m_DocInvoice_ShopA_Item.ID.type_v.v;
+            dr["DocInvoice_ShopA_Item_$_dinv_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_DocInvoice.ID.type_v);
+            dr["DocInvoice_ShopA_Item_$_dinv_$$Draft"] = 1;
+            dr["DocInvoice_ShopA_Item_$_aisha_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.Name.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$$Description"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.Description.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.ID.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.Name.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Rate"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Taxation.Rate.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.ID.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$Name"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.Name.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$Symbol"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.Symbol.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$DecimalPlaces"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.m_Unit.DecimalPlaces.type_v);
+            dr["DocInvoice_ShopA_Item_$_aisha_$$ID"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.type_v);
+            dr["DocInvoice_ShopA_Item_$$Discount"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.Discount.type_v);
+            dr["DocInvoice_ShopA_Item_$$dQuantity"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.dQuantity.type_v);
+            dr["DocInvoice_ShopA_Item_$$PricePerUnit"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.PricePerUnit.type_v);
+            dr["DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.type_v);
+            dr["DocInvoice_ShopA_Item_$$TAX"] = tf.type_v_ret(m_DocInvoice_ShopA_Item.TAX.type_v);
             dt_Item_Price.Rows.Add(dr);
             if (aa_ItemAdded != null)
             {
-                aa_ItemAdded(m_Atom_ItemShopA_Price.ID.type_v.v, dt_Item_Price);
+                aa_ItemAdded(m_DocInvoice_ShopA_Item.ID.type_v.v, dt_Item_Price);
             }
         }
 
@@ -251,13 +251,13 @@ namespace ShopA
         private void ItemDeselect(int iSelectedItemRow)
         {
             DataRow dr = dt_Item_Price.Rows[iSelectedItemRow];
-            long Atom_ItemShopA_Price_ID = (long) dr["ID"];
-            if (dbfunc.delete(Atom_ItemShopA_Price_ID))
+            long DocInvoice_ShopA_Item_ID = (long) dr["ID"];
+            if (dbfunc.delete(DocInvoice_ShopA_Item_ID))
             {
                 dt_Item_Price.Rows.Remove(dr);
                 if (aa_ItemRemoved!=null)
                 {
-                    aa_ItemRemoved(Atom_ItemShopA_Price_ID, dt_Item_Price);
+                    aa_ItemRemoved(DocInvoice_ShopA_Item_ID, dt_Item_Price);
                 }
             }
         }

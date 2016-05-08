@@ -66,7 +66,7 @@ namespace InvoiceDB
         public DataTable dt_ShopA_Items = new DataTable();
 
         public long DocInvoice_ID = -1;
-        public long_v Invoice_ID_v = null;
+        public long_v DocInvoice_ID_v = null;
         public long_v DocInvoice_Reference_ID_v = null;
 
 
@@ -158,7 +158,7 @@ namespace InvoiceDB
                 DataRow dr = dt_ShopA_Items.Rows[j];
 
                 decimal Discount = 0;
-                object oDiscount = dr["Atom_ItemShopA_Price_$$Discount"];
+                object oDiscount = dr["DocInvoice_ShopA_Item_$$Discount"];
                 if (oDiscount is decimal)
                 {
                     Discount = (decimal)oDiscount;
@@ -168,37 +168,37 @@ namespace InvoiceDB
                 decimal TotalDiscount = Discount;
 
                 decimal RetailSimpleItemPriceWithDiscount = 0;
-                object o_RetailSimpleItemPriceWithDiscount = dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"];
+                object o_RetailSimpleItemPriceWithDiscount = dr["DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"];
                 if (o_RetailSimpleItemPriceWithDiscount.GetType() == typeof(decimal))
                 {
                     RetailSimpleItemPriceWithDiscount = (decimal)o_RetailSimpleItemPriceWithDiscount;
                 }
 
                 string sUnitName = "";
-                object oUnitName = dr["Atom_ItemShopA_Price_$_aisha_$_u_$$Name"];
+                object oUnitName = dr["DocInvoice_ShopA_Item_$_aisha_$_u_$$Name"];
                 if (oUnitName is string)
                 {
                     sUnitName = (string)oUnitName;
                 }
 
                 decimal dQuantity = -1;
-                object oQuantity = dr["Atom_ItemShopA_Price_$$dQuantity"];
+                object oQuantity = dr["DocInvoice_ShopA_Item_$$dQuantity"];
                 if (oQuantity is decimal)
                 {
                     dQuantity = (decimal)oQuantity;
                 }
 
                 decimal TaxPrice = -1;
-                object oTaxPrice = dr["Atom_ItemShopA_Price_$$TAX"];
+                object oTaxPrice = dr["DocInvoice_ShopA_Item_$$TAX"];
                 if (oTaxPrice is decimal)
                 {
                     TaxPrice = (decimal)oTaxPrice;
                 }
                 decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
 
-                decimal taxation_rate = DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Rate"]);
-                decimal tax_price = DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$TAX"]);
-                string tax_name = DBTypes.tf._set_string(dr["Atom_ItemShopA_Price_$_aisha_$_tax_$$Name"]);
+                decimal taxation_rate = DBTypes.tf._set_decimal(dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Rate"]);
+                decimal tax_price = DBTypes.tf._set_decimal(dr["DocInvoice_ShopA_Item_$$TAX"]);
+                string tax_name = DBTypes.tf._set_string(dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Name"]);
                 if (bInvoiceStorno)
                 {
                     taxSum.Add(-tax_price, -price_without_tax, tax_name, taxation_rate);
@@ -209,13 +209,13 @@ namespace InvoiceDB
                 }
 
                 decimal dRetailPricePerUnitWithDiscount = 0;
-                if (dr["Atom_ItemShopA_Price_$$PricePerUnit"] is decimal)
+                if (dr["DocInvoice_ShopA_Item_$$PricePerUnit"] is decimal)
                 {
-                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr["Atom_ItemShopA_Price_$$PricePerUnit"] * (1 - Discount), GlobalData.BaseCurrency.DecimalPlaces);
+                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr["DocInvoice_ShopA_Item_$$PricePerUnit"] * (1 - Discount), GlobalData.BaseCurrency.DecimalPlaces);
                 }
 
                 decimal dprice_without_tax = DBTypes.tf._set_decimal(price_without_tax);
-                decimal dEndPriceWithDiscountAndTax = DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$EndPriceWithDiscountAndTax"]);
+                decimal dEndPriceWithDiscountAndTax = DBTypes.tf._set_decimal(dr["DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"]);
                 if (bInvoiceStorno)
                 {
                     tax_price = tax_price * -1;
@@ -224,13 +224,13 @@ namespace InvoiceDB
                 }
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
-                                                             DBTypes.tf._set_string(dr["Atom_ItemShopA_Price_$_aisha_$$Name"]),
-                                                             DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$PricePerUnit"]),
+                                                             DBTypes.tf._set_string(dr["DocInvoice_ShopA_Item_$_aisha_$$Name"]),
+                                                             DBTypes.tf._set_decimal(dr["DocInvoice_ShopA_Item_$$PricePerUnit"]),
                                                              sUnitName, 
                                                              dRetailPricePerUnitWithDiscount,
                                                              tax_name,
                                                              dQuantity,
-                                                             DBTypes.tf._set_decimal(dr["Atom_ItemShopA_Price_$$Discount"]),
+                                                             DBTypes.tf._set_decimal(dr["DocInvoice_ShopA_Item_$$Discount"]),
                                                              DBTypes.tf._set_decimal(0),
                                                              DBTypes.tf._set_string(GlobalData.BaseCurrency.Symbol),
                                                              taxation_rate,
@@ -340,7 +340,7 @@ namespace InvoiceDB
             string sql = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Invoice_ID = "@par_Invoice_ID";
-            SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Invoice_ID_v.v);
+            SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID_v.v);
             lpar.Add(par_Invoice_ID);
             sql = "select ID from fvi_slo_response where Invoice_ID = " + spar_Invoice_ID;
             DataTable dt = new DataTable();
@@ -348,7 +348,7 @@ namespace InvoiceDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\n Invoice was confirmed in the past: Invoice_ID" + Invoice_ID_v.v.ToString() + " fvi_slo_response.ID=" + ((long)dt.Rows[0]["ID"]).ToString());
+                    LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\n Invoice was confirmed in the past: Invoice_ID" + DocInvoice_ID_v.v.ToString() + " fvi_slo_response.ID=" + ((long)dt.Rows[0]["ID"]).ToString());
                     return true;
 
                 }
@@ -488,7 +488,7 @@ namespace InvoiceDB
 
             for (i = start_index; i < end_index; i++)
             {
-                Atom_DocInvoice_Price_Item_Stock_Data appisd = (Atom_DocInvoice_Price_Item_Stock_Data)xAtom_DocInvoice_Price_Item_Stock_Data_LIST[j];
+                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)xAtom_DocInvoice_Price_Item_Stock_Data_LIST[j];
 
                 decimal Discount = appisd.Discount.v;
 
@@ -566,7 +566,7 @@ namespace InvoiceDB
             {
 
                 sql = @"select
-                                 inv.ID as Invoice_ID,
+                                 pi.ID as DocInvoice_ID,
                                  pi.FinancialYear,
                                  pi.NumberInFinancialYear,
                                  pi.Draft,
@@ -604,15 +604,15 @@ namespace InvoiceDB
                                  acusper.ID as Atom_Customer_Person_ID,
                                  jpi.EventTime,
                                  jpit.Name as JOURNAL_DocInvoice_Type_Name,
-                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.MessageID As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$MessageID,
-                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.UniqueInvoiceID As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$UniqueInvoiceID,
-                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$BarCodeValue,
-                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber,
-                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber,
-                                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
-                                 inv.Storno,
-                                 inv.Invoice_Reference_Type,
-                                 inv.Invoice_Reference_ID
+                                 JOURNAL_DocInvoice_$_dinv_$_fvisres.MessageID As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID,
+                                 JOURNAL_DocInvoice_$_dinv_$_fvisres.UniqueInvoiceID As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID,
+                                 JOURNAL_DocInvoice_$_dinv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue,
+                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber,
+                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber,
+                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber,
+                                 pi.Storno,
+                                 pi.Invoice_Reference_Type,
+                                 pi.Invoice_Reference_ID
                                  from JOURNAL_DocInvoice jpi
                                  inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
                                  inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
@@ -624,12 +624,11 @@ namespace InvoiceDB
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
-                                 left join Invoice inv on pi.Invoice_ID = inv.ID
-                                 LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.Invoice_ID = inv.ID and JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.Invoice_ID = pi.Invoice_ID
-                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.Invoice_ID = inv.ID and JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.Invoice_ID = pi.Invoice_ID
+                                 LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = pi.ID 
+                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = pi.ID 
                                  left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                  left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                 left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
+                                 left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
                                  left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
                                  left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
                                  left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
@@ -650,8 +649,91 @@ namespace InvoiceDB
             }
             else
             {
+
+                //select
+                //                 pi.ID as DocInvoice_ID,
+                //                 pi.FinancialYear,
+                //                 pi.NumberInFinancialYear,
+                //                 pi.Draft,
+                //                 mpay.PaymentType,
+                //                 GrossSum,
+                //                 TaxSum,
+                //                 NetSum,
+                //                 ao.Name,
+                //                 ao.Tax_ID,
+                //                 ao.Registration_ID,
+                //                 Atom_cStreetName_Org.StreetName,
+                //                 Atom_cHouseNumber_Org.HouseNumber,
+                //                 Atom_cCity_Org.City,
+                //                 Atom_cZIP_Org.ZIP,
+                //                 Atom_cCountry_Org.Country,
+                //                 Atom_cState_Org.State,
+                //                 cEmail_Org.Email,
+                //                 aorgd_hp.HomePage,
+                //                 cPhoneNumber_Org.PhoneNumber,
+                //                 cFaxNumber_Org.FaxNumber,
+                //                 aorgd.BankName,
+                //                 aorgd.TRR,
+                //                 aoff.Name as Atom_Office_Name,
+                //                 apfn.FirstName as My_Organisation_Person_FirstName,
+                //                 apln.LastName as My_Organisation_Person_LastName,
+                //                 ap.ID as Atom_MyOrganisation_Person_ID,
+                //                 ao.Tax_ID as My_Organisation_Tax_ID,
+                //                 ap.CardNumber,
+                //                 amcp.UserName as My_Organisation_Person_UserName,
+                //                 amcp.Job as My_Organisation_Job,
+                //                 Atom_Logo.Image_Hash as Logo_Hash,
+                //                 Atom_Logo.Image_Data as Logo_Data,
+                //                 Atom_Logo.Description as Logo_Description,
+                //                 acusorg.ID as Atom_Customer_Org_ID,
+                //                 acusper.ID as Atom_Customer_Person_ID,
+                //                 jpi.EventTime,
+                //                 jpit.Name as JOURNAL_DocInvoice_Type_Name,
+                //                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.MessageID As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$MessageID,
+                //                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.UniqueInvoiceID As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$UniqueInvoiceID,
+                //                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$BarCodeValue,
+                //                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber,
+                //                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber,
+                //                 JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
+                //                 pi.Storno,
+                //                 pi.Invoice_Reference_Type,
+                //                 pi.Invoice_Reference_ID
+                //                 from JOURNAL_DocInvoice jpi
+                //                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and((jpit.ID = 1) or(jpit.ID = 4))
+                //                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
+                //                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
+                //                 inner join Atom_myCompany_Person amcp on awp.Atom_myCompany_Person_ID = amcp.ID
+                //                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
+                //                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
+                //                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
+                //                 inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
+                //                 inner join Atom_OrganisationData aorgd on amc.Atom_OrganisationData_ID = aorgd.ID
+                //                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                //                 LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = pi.ID
+                //                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = pi.ID
+                //                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID
+                //                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID
+                //                 left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
+                //                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
+                //                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
+                //                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
+                //                 left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
+                //                 left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
+                //                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
+                //                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
+                //                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
+                //                 left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                //                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
+                //                 left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                //                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
+                //                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
+                //                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
+                //                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
+                //                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
+                //                 where pi.ID = 579
+
                 sql = @"select
-                                 inv.ID as Invoice_ID,
+                                 pi.ID as DocInvoice_ID,
                                  pi.FinancialYear,
                                  pi.NumberInFinancialYear,
                                  pi.Draft,
@@ -689,9 +771,9 @@ namespace InvoiceDB
                                  acusper.ID as Atom_Customer_Person_ID,
                                  jpi.EventTime,
                                  jpit.Name as JOURNAL_DocInvoice_Type_Name,
-                                 inv.Storno,
-                                 inv.Invoice_Reference_Type,
-                                 inv.Invoice_Reference_ID
+                                 pi.Storno,
+                                 pi.Invoice_Reference_Type,
+                                 pi.Invoice_Reference_ID
                                  from JOURNAL_DocInvoice jpi
                                  inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
                                  inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
@@ -703,12 +785,9 @@ namespace InvoiceDB
                                  inner join Atom_myCompany amc on aoff.Atom_myCompany_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
-                                 left join Invoice inv on pi.Invoice_ID = inv.ID
-                                 left join JOURNAL_Invoice jinv on jinv.Invoice_ID = inv.ID
-                                 left join JOURNAL_Invoice_Type jinvt on jinv.JOURNAL_Invoice_Type_ID = jinvt.ID
                                  left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                  left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                 left join MethodOfPayment mpay on inv.MethodOfPayment_ID = mpay.ID
+                                 left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
                                  left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
                                  left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
                                  left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
@@ -738,7 +817,7 @@ namespace InvoiceDB
                         Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
                         Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
                         DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
-                        Invoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_ID"]);
+                        DocInvoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["DocInvoice_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["EventTime"]);
                         string_v EventName_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_Type_Name"]);
 
@@ -748,7 +827,7 @@ namespace InvoiceDB
                         }
                         else
                         {
-                            if (Invoice_ID_v != null)
+                            if (DocInvoice_ID_v != null)
                             {
                                 if (EventName_v != null)
                                 {
@@ -900,12 +979,12 @@ namespace InvoiceDB
                             if (!Draft)
                             {
 
-                                FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$MessageID"]);
-                                FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$UniqueInvoiceID"]);
-                                FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_inv_$_fvisbi_$$BarCodeValue"]);
-                                FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber"]);
-                                FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SetNumber"]);
-                                FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber"]);
+                                FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
+                                FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
+                                FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"]);
+                                FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
+                                FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
+                                FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
                             }
                         }
 

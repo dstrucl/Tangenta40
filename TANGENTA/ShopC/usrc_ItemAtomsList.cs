@@ -159,7 +159,7 @@ namespace ShopC
             usrc_Atom_Item usrc_atom_item = (usrc_Atom_Item)o_usrc;
             if (bVisible)
             {
-                Atom_DocInvoice_Price_Item_Stock_Data appisd = (Atom_DocInvoice_Price_Item_Stock_Data)o_data;
+                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)o_data;
                 usrc_atom_item.DoPaint(this.m_ShopBC,appisd);
                 usrc_atom_item.Visible = true;
                 usrc_atom_item.Enabled = true;
@@ -173,7 +173,7 @@ namespace ShopC
         }
 
 
-        internal usrc_Atom_Item AddFromStock(InvoiceDB.Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        internal usrc_Atom_Item AddFromStock(InvoiceDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(ref appisd,true))
             {
@@ -192,7 +192,7 @@ namespace ShopC
             }
         }
 
-        internal usrc_Atom_Item AddFromFactory(InvoiceDB.Atom_DocInvoice_Price_Item_Stock_Data appisd)
+        internal usrc_Atom_Item AddFromFactory(InvoiceDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
 
             if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(ref appisd,false))
