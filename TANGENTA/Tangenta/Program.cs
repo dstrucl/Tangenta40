@@ -82,13 +82,13 @@ namespace Tangenta
             get { return Properties.Settings.Default.eShopsInUse; }
         }
 
-        public static long myCompany_Person_ID
+        public static long myOrganisation_Person_ID
         {
             get
             {
                 if (MainForm != null)
                 {
-                    return MainForm.myCompany_Person_ID;
+                    return MainForm.myOrganisation_Person_ID;
                 }
                 else
                 {

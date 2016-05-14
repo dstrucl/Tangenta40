@@ -103,7 +103,7 @@ namespace ShopC
             return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false);
 
         }
-        private void MyCompanyData_EditForm_Load(object sender, EventArgs e)
+        private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)
         {
             ItemEditMode = eItem_EditMode.SELECT_VALID;
             rdb_OnlyInOffer.Checked = true;

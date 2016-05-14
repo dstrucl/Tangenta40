@@ -71,6 +71,7 @@
     <Compile Include="fs.cs" />
     <Compile Include="f_Atom_cAddress_Org.cs" />
     <Compile Include="f_Atom_cCity_Org.cs" />
+    <Compile Include="f_Atom_cCountry_Person.cs" />
     <Compile Include="f_Atom_cState_Org.cs" />
     <Compile Include="f_Atom_cHouseNumber_Org.cs" />
     <Compile Include="f_Atom_Computer.cs" />
@@ -80,8 +81,8 @@
     <Compile Include="f_Atom_cZIP_Org.cs" />
     <Compile Include="f_Atom_FVI_SLO_RealEstateBP.cs" />
     <Compile Include="f_Atom_Logo.cs" />
-    <Compile Include="f_Atom_myCompany.cs" />
-    <Compile Include="f_Atom_myCompany_Person.cs" />
+    <Compile Include="f_Atom_myOrganisation.cs" />
+    <Compile Include="f_Atom_myOrganisation_Person.cs" />
     <Compile Include="f_Atom_Office.cs" />
     <Compile Include="f_Atom_Office_Data.cs" />
     <Compile Include="f_Atom_Organisation.cs" />
@@ -105,7 +106,7 @@
     <Compile Include="f_PriceAtom_ServiceAtom.cs" />
     <Compile Include="f_PriceList.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />
-    <Compile Include="f_SimpleItemAtom.cs" />
+    <Compile Include="f_Atom_ShopBItem.cs" />
     <Compile Include="f_SimpleItemAtom_Image.cs" />
     <Compile Include="f_SimpleItemAtom_Name.cs" />
     <Compile Include="f_TaxationAtom.cs" />
@@ -141,6 +142,10 @@
     <Compile Include="xUnitList.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Country\Country_ISO_3166.csproj">
+      <Project>{1562473f-cfcb-4dfd-81ba-153988dc2d25}</Project>
+      <Name>Country_ISO_3166</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>

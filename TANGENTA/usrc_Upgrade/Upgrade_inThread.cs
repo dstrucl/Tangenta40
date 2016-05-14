@@ -185,7 +185,7 @@ namespace UpgradeDB
                                     PricePerUnit,
                                     EndPriceWithDiscountAndTax,
                                     TAX
-                                from DocInvoice_ShopA_Item;
+                                from Atom_ItemShopA_Price;
 
                                 Insert into DocInvoice_ShopB_Item
                                 (
@@ -211,7 +211,7 @@ namespace UpgradeDB
                                     Atom_PriceList_ID,
                                     Atom_Taxation_ID,
                                     ProformaInvoice_ID
-                                from DocInvoice_ShopB_Item;
+                                from Atom_Price_SimpleItem;
 
                                 Insert into DocInvoice_ShopC_Item
                                 (
@@ -241,114 +241,6 @@ namespace UpgradeDB
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
-
-                //       sql = @"select
-                //                  jpi.JOURNAL_ProformaInvoice_Type_ID,
-                //                  jpi.ProformaInvoice_ID,
-                //                  jpi.EventTime as jpi_EventTime,
-                //                  jpi.Atom_WorkPeriod_ID as  jpi_Atom_WorkPeriod_ID,
-                //                  ji.JOURNAL_Invoice_Type_ID,
-                //                  ji.Invoice_ID,
-                //                  ji.EventTime as ji_EventTime,
-                //                  ji.Atom_WorkPeriod_ID as ji_Atom_WorkPeriod_ID
-                //              from JOURNAL_ProformaInvoice jpi
-                //inner join ProformaInvoice pi on jpi.ProformaInvoice_ID = pi.ID
-                //              left join JOURNAL_Invoice ji on pi.Invoice_ID = ji.Invoice_ID
-                //Group by
-                //                  jpi.JOURNAL_ProformaInvoice_Type_ID,
-                //                  jpi.ProformaInvoice_ID,
-                //                  jpi.EventTime,
-                //                  jpi.Atom_WorkPeriod_ID,
-                //                  ji.JOURNAL_Invoice_Type_ID,
-                //                  ji.Invoice_ID,
-                //                  ji.EventTime,
-                //                  ji.Atom_WorkPeriod_ID
-                //       ";
-                //       DataTable dt = new DataTable();
-                //       if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
-                //       {
-                //           int iCount = dt.Rows.Count;
-                //           int i;
-
-                //           List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-
-                //           for (i=0;i< iCount;i++)
-                //           {
-                //               DataRow dr = dt.Rows[i];
-                //               lpar.Clear();
-                //               string spar_JOURNAL_DocInvoice_Type_ID = "@par_JOURNAL_DocInvoice_Type_ID";
-                //               SQL_Parameter par_JOURNAL_DocInvoice_Type_ID = new SQL_Parameter(spar_JOURNAL_DocInvoice_Type_ID,SQL_Parameter.eSQL_Parameter.Bigint,false, dr["JOURNAL_ProformaInvoice_Type_ID"]);
-                //               lpar.Add(par_JOURNAL_DocInvoice_Type_ID);
-
-                //               string spar_DocInvoice_ID = "@par_DocInvoice_ID";
-                //               SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ProformaInvoice_ID"]);
-                //               lpar.Add(par_DocInvoice_ID);
-
-                //               string spar_EventTime = "@par_EventTime";
-                //               SQL_Parameter par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dr["jpi_EventTime"]);
-                //               lpar.Add(par_EventTime);
-
-                //               string spar_jpi_Atom_WorkPeriod_ID = "@par_jpi_Atom_WorkPeriod_ID";
-                //               SQL_Parameter par_jpi_Atom_WorkPeriod_ID = new SQL_Parameter(spar_jpi_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["jpi_Atom_WorkPeriod_ID"]);
-                //               lpar.Add(par_jpi_Atom_WorkPeriod_ID);
-
-                //               sql = @"insert into JOURNAL_DocInvoice 
-                //                       ( 
-                //                           JOURNAL_DocInvoice_Type_ID,
-                //                           DocInvoice_ID,
-                //                           EventTime,
-                //                           Atom_WorkPeriod_ID
-                //                       )
-                //                       values
-                //                       (
-                //                        " + spar_JOURNAL_DocInvoice_Type_ID + @",
-                //                        " + spar_DocInvoice_ID + @",
-                //                        " + spar_EventTime + @",
-                //                        " + spar_jpi_Atom_WorkPeriod_ID + @"
-                //                       )";
-                //               if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql,lpar, ref Err))
-                //               {
-                //                   LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
-                //                   return false;
-                //               }
-
-                //               lpar.Clear();
-                //               if (dr["JOURNAL_Invoice_Type_ID"] is long)
-                //               {
-                //                   long i_JOURNAL_Invoice_Type_ID = (long)dr["JOURNAL_Invoice_Type_ID"] + 6;
-                //                   par_JOURNAL_DocInvoice_Type_ID = new SQL_Parameter(spar_JOURNAL_DocInvoice_Type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, i_JOURNAL_Invoice_Type_ID);
-                //                   lpar.Add(par_JOURNAL_DocInvoice_Type_ID);
-
-                //                   par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ProformaInvoice_ID"]);
-                //                   lpar.Add(par_DocInvoice_ID);
-
-                //                   par_EventTime = new SQL_Parameter(spar_EventTime, SQL_Parameter.eSQL_Parameter.Datetime, false, dr["ji_EventTime"]);
-                //                   lpar.Add(par_EventTime);
-
-                //                   par_jpi_Atom_WorkPeriod_ID = new SQL_Parameter(spar_jpi_Atom_WorkPeriod_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, dr["ji_Atom_WorkPeriod_ID"]);
-                //                   lpar.Add(par_jpi_Atom_WorkPeriod_ID);
-
-                //                   sql = @"insert into JOURNAL_DocInvoice 
-                //                       ( 
-                //                           JOURNAL_DocInvoice_Type_ID,
-                //                           DocInvoice_ID,
-                //                           EventTime,
-                //                           Atom_WorkPeriod_ID
-                //                       )
-                //                       values
-                //                       (
-                //                        " + spar_JOURNAL_DocInvoice_Type_ID + @",
-                //                        " + spar_DocInvoice_ID + @",
-                //                        " + spar_EventTime + @",
-                //                        " + spar_jpi_Atom_WorkPeriod_ID + @"
-                //                       )";
-                //                   if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
-                //                   {
-                //                       LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
-                //                       return false;
-                //                   }
-                //               }
-                //           }
 
                 sql = @" DROP TABLE IF EXISTS JOURNAL_DocInvoice_temp;
                           CREATE TABLE JOURNAL_DocInvoice_temp
@@ -471,8 +363,8 @@ namespace UpgradeDB
                     if (DBSync.DBSync.Drop_VIEWs(ref Err))
                     {
                         sql = @"Drop Table Atom_ProformaInvoice_Price_Item_Stock;
-                                Drop Table DocInvoice_ShopB_Item;
-                                Drop Table DocInvoice_ShopA_Item;
+                                Drop Table Atom_Price_SimpleItem;
+                                Drop Table Atom_ItemShopA_Price;
                                 Drop Table JOURNAL_ProformaInvoice;
                                 Drop Table JOURNAL_Invoice;
                                 Drop Table JOURNAL_ProformaInvoice_TYPE;
@@ -488,18 +380,284 @@ namespace UpgradeDB
                         ";
                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
+                            sql = @"
+                                  PRAGMA foreign_keys = OFF;
 
-                            new_tables = new string[] {"Delivery",
+                                  CREATE TABLE myOrganisation
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   OrganisationData_ID  INTEGER  NOT NULL REFERENCES OrganisationData(ID) UNIQUE 
+                                  );
+
+                                  CREATE TABLE Atom_myOrganisation
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   Atom_OrganisationData_ID  INTEGER  NOT NULL REFERENCES Atom_OrganisationData(ID)  
+                                  );
+
+                                 CREATE TABLE JOURNAL_myOrganisation_Type
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                  'Name' varchar(264) NOT NULL,
+                                  'Description' varchar(2000) NULL
+                                  );
+
+                                 CREATE TABLE JOURNAL_myOrganisation
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   JOURNAL_myOrganisation_Type_ID  INTEGER  NOT NULL REFERENCES JOURNAL_myOrganisation_Type(ID),
+                                   myOrganisation_ID  INTEGER  NOT NULL REFERENCES myOrganisation(ID),
+                                  'EventTime' DATETIME NOT NULL,
+                                   Atom_WorkPeriod_ID  INTEGER  NOT NULL REFERENCES Atom_WorkPeriod(ID)
+                                  );
+
+                                 CREATE TABLE JOURNAL_myOrganisation_Person_Type
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                  'Name' varchar(264) NOT NULL,
+                                  'Description' varchar(2000) NULL
+                                  );
+
+                                CREATE TABLE myOrganisation_Person
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                  'UserName' varchar(32) UNIQUE  NOT NULL UNIQUE ,
+                                  'Password' varchar(32) NULL,
+                                  'Job' varchar(264) NULL,
+                                  'Active' BIT NOT NULL,
+                                  'Description' varchar(2000) NULL,
+                                   Person_ID  INTEGER  NOT NULL REFERENCES Person(ID),
+                                   Office_ID  INTEGER  NOT NULL REFERENCES Office(ID)
+                                  );
+
+                                CREATE TABLE JOURNAL_myOrganisation_Person
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   JOURNAL_myOrganisation_Person_Type_ID  INTEGER  NOT NULL REFERENCES JOURNAL_myOrganisation_Person_Type(ID),
+                                   myOrganisation_Person_ID  INTEGER  NOT NULL REFERENCES myOrganisation_Person(ID),
+                                  'EventTime' DATETIME NOT NULL,
+                                   Atom_WorkPeriod_ID  INTEGER  NOT NULL REFERENCES Atom_WorkPeriod(ID)
+                                  );
+
+                                CREATE TABLE myOrganisation_Person_AccessRights
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   AccessRights_ID  INTEGER  NOT NULL REFERENCES AccessRights(ID),
+                                   myOrganisation_Person_ID  INTEGER  NOT NULL REFERENCES myCompany_Person(ID) 
+                                  );
+
+
+                                CREATE TABLE Atom_myOrganisation_Person
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                  'UserName' varchar(32) NOT NULL,
+                                   Atom_Person_ID  INTEGER  NOT NULL REFERENCES Atom_Person(ID),
+                                   Atom_Office_ID  INTEGER  NOT NULL REFERENCES Atom_Office(ID),
+                                  'Job' varchar(264) NULL,
+                                  'Description' varchar(2000) NULL
+                                  );
+
+                                CREATE TABLE Atom_WorkPeriod_new
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   Atom_myOrganisation_Person_ID  INTEGER  NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
+                                   Atom_WorkingPlace_ID  INTEGER  NOT NULL REFERENCES Atom_WorkingPlace(ID),
+                                   Atom_Computer_ID  INTEGER  NOT NULL REFERENCES Atom_Computer(ID),
+                                  'LoginTime' DATETIME NULL,
+                                  'LogoutTime' DATETIME NULL,
+                                   Atom_WorkPeriod_TYPE_ID  INTEGER  NULL REFERENCES Atom_WorkPeriod_TYPE(ID)
+                                );
+
+                                CREATE TABLE JOURNAL_myOrganisation_Person_AccessRights_TYPE
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                  'Name' varchar(264) NOT NULL,
+                                  'Description' varchar(2000) NULL
+                                  );
+
+                                CREATE TABLE JOURNAL_myOrganisation_Person_AccessRights
+                                  (
+                                  'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                  myOrganisation_Person_AccessRights_TYPE_ID INTEGER  NOT NULL REFERENCES myOrganisation_Person_AccessRights_TYPE(ID),
+                                  myOrganisation_Person_AccessRights_ID INTEGER  NOT NULL REFERENCES myOrganisation_Person_AccessRights(ID),
+                                  'EventTime' DATETIME NOT NULL,
+                                   Atom_WorkPeriod_ID  INTEGER  NOT NULL REFERENCES Atom_WorkPeriod(ID)
+                                  );
+
+                                CREATE TABLE Office_new
+                                (
+                                 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                  myOrganisation_ID  INTEGER  NOT NULL REFERENCES myOrganisation(ID),
+                                 'Name' varchar(264) UNIQUE NOT NULL,
+                                 'ShortName' varchar(10) UNIQUE  NOT NULL
+                                );
+
+                                CREATE TABLE Atom_Office_new
+                                (
+                                'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                 Atom_myOrganisation_ID  INTEGER  NOT NULL REFERENCES Atom_myOrganisation(ID),
+                                'Name' varchar(264) UNIQUE NOT NULL,
+                                'ShortName' varchar(10) UNIQUE  NOT NULL
+                                );
+
+                                insert into myOrganisation
+                                (
+                                  OrganisationData_ID
+                                )
+                                select
+                                  OrganisationData_ID
+                                from myCompany;
+
+
+                                insert into myOrganisation_Person
+                                (
+                                  UserName,
+                                  Password,
+                                  Job,
+                                  Active,
+                                  Description,
+                                  Person_ID,
+                                  Office_ID
+                                )
+                                select
+                                  UserName,
+                                  Password,
+                                  Job,
+                                  Active,
+                                  Description,
+                                  Person_ID,
+                                  Office_ID
+                                from myCompany_Person;
+
+                                insert into myOrganisation_Person_AccessRights
+                                  (
+                                   AccessRights_ID,
+                                   myOrganisation_Person_ID
+                                  )
+                                  select
+                                   AccessRights_ID,
+                                   myCompany_Person_ID
+                                 from myCompany_Person_AccessRights;
+
+
+                                insert into Atom_myOrganisation_Person
+                                (
+                                  UserName,
+                                  Job,
+                                  Description,
+                                  Atom_Person_ID,
+                                  Atom_Office_ID
+                                )
+                                select
+                                  UserName,
+                                  Job,
+                                  Description,
+                                  Atom_Person_ID,
+                                  Atom_Office_ID
+                                from Atom_myCompany_Person;
+
+                                insert into Atom_myOrganisation
+                                (
+                                    Atom_OrganisationData_ID
+                                )
+                                select
+                                  Atom_OrganisationData_ID
+                                from Atom_myCompany;
+
+                                insert into Atom_WorkPeriod_new
+                                  (
+                                   Atom_myOrganisation_Person_ID,
+                                   Atom_WorkingPlace_ID,
+                                   Atom_Computer_ID,
+                                   LoginTime,
+                                   LogoutTime,
+                                   Atom_WorkPeriod_TYPE_ID
+                                  )
+                                select
+                                  Atom_myCompany_Person_ID,
+                                  Atom_WorkingPlace_ID,
+                                  Atom_Computer_ID,
+                                  LoginTime,
+                                  LogoutTime,
+                                  Atom_WorkPeriod_TYPE_ID
+                                from Atom_WorkPeriod;
+
+                                insert into Office_new
+                                (
+                                 myOrganisation_ID,
+                                 Name,
+                                 ShortName
+                                )
+                                select
+                                  myCompany_ID,
+                                  Name,
+                                  ShortName
+                                from Office;
+
+                                insert into Atom_Office_new
+                                (
+                                    Atom_myOrganisation_ID,
+                                    Name,
+                                    ShortName
+                                )
+                                select
+                                  Atom_myCompany_ID,
+                                  Name,
+                                  ShortName
+                                from Atom_Office;
+
+
+                                DROP TABLE Atom_Office;
+                                ALTER TABLE Atom_Office_new RENAME TO Atom_Office;
+
+
+                                DROP TABLE Office;
+                                ALTER TABLE Office_new RENAME TO Office;
+
+                                DROP TABLE Atom_WorkPeriod;
+                                ALTER TABLE Atom_WorkPeriod_new RENAME TO Atom_WorkPeriod;
+                                Drop Table JOURNAL_myCompany;
+                                Drop Table JOURNAL_myCompany_TYPE;
+                                Drop Table myCompany_Person_AccessRights;
+                                Drop Table myCompany_Person;
+                                Drop Table Atom_myCompany_Person;
+                                Drop Table Atom_myCompany;
+                                Drop Table myCompany;
+
+                                PRAGMA foreign_keys = ON;
+
+                                ";
+
+                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+                                string sdb = DBSync.DBSync.DataBase;
+
+                                if (sdb.Contains("StudioMarjetka"))
+                                {
+                                    sql = "update Atom_WorkPeriod set Atom_myOrganisation_Person_ID = 2";
+                                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                    {
+                                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                        return false;
+                                    }
+                                }
+
+                                    new_tables = new string[] {"Delivery",
                                                 "JOURNAL_Delivery_Type",
                                                 "JOURNAL_Delivery"
                                                 };
-                            if (DBSync.DBSync.CreateTables(new_tables, ref Err))
-                            {
-                                if (DBSync.DBSync.Create_VIEWs())
+                                if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                                 {
-                                    CheckDataBaseTables(ref Err);
-                                    Set_DatBase_Version("1.20");
-                                    return true;
+                                    if (DBSync.DBSync.Create_VIEWs())
+                                    {
+                                        CheckDataBaseTables(ref Err);
+                                        Set_DatBase_Version("1.20");
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
                                 }
                                 else
                                 {
@@ -508,6 +666,7 @@ namespace UpgradeDB
                             }
                             else
                             {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
                             }
                         }
@@ -806,21 +965,21 @@ namespace UpgradeDB
                 if (DBSync.DBSync.DataBase.Contains("StudioMarjetka"))
                 {
 
-                    sql = "Update Atom_Office set Atom_myCompany_ID = 1";
+                    sql = "Update Atom_Office set Atom_myOrganisation_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Update Atom_Office set Atom_myCompany_ID = 1";
+                    sql = "Update Atom_Office set Atom_myOrganisation_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Update Atom_Office_Data set Atom_myCompany_Person_ID = 1";
+                    sql = "Update Atom_Office_Data set Atom_myOrganisation_Person_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
@@ -840,28 +999,28 @@ namespace UpgradeDB
                         return false;
                     }
 
-                    sql = "Update Atom_WorkPeriod set Atom_myCompany_Person_ID = 1";
+                    sql = "Update Atom_WorkPeriod set Atom_myOrganisation_Person_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Update Atom_myCompany_Person set Atom_Person_ID = 1,Atom_Office_ID = 1";
+                    sql = "Update Atom_myOrganisation_Person set Atom_Person_ID = 1,Atom_Office_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "delete from Atom_myCompany_Person where ID > 1";
+                    sql = "delete from Atom_myOrganisation_Person where ID > 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Update Office set myCompany_ID = 1";
+                    sql = "Update Office set myOrganisation_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
@@ -876,14 +1035,14 @@ namespace UpgradeDB
                         return false;
                     }
 
-                    sql = "Update Atom_Office set Atom_myCompany_ID = 1";
+                    sql = "Update Atom_Office set Atom_myOrganisation_ID = 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
 
-                    sql = "Delete from Atom_myCompany_Person where ID > 1";
+                    sql = "Delete from Atom_myOrganisation_Person where ID > 1";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
@@ -892,7 +1051,7 @@ namespace UpgradeDB
 
 
                     sql = @"PRAGMA foreign_keys = OFF;
-                           Delete from Atom_myCompany_Person where ID in (2,3)";
+                           Delete from Atom_myOrganisation_Person where ID in (2,3)";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
@@ -908,7 +1067,7 @@ namespace UpgradeDB
                     }
 
                     sql = @"PRAGMA foreign_keys = OFF;
-                           Delete from Atom_myCompany where ID = 2";
+                           Delete from Atom_myOrganisation where ID = 2";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                     {
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_17_to_1_18:sql=" + sql + "\r\nErr=" + Err);
@@ -956,7 +1115,7 @@ namespace UpgradeDB
                     CREATE TABLE Office_backup
                     (
                     'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                    myCompany_ID  INTEGER  NOT NULL REFERENCES myCompany(ID),
+                    myOrganisation_ID  INTEGER  NOT NULL REFERENCES myOrganisation(ID),
                     'Name' varchar(264) UNIQUE NOT NULL, 
                     'ShortName' varchar(10) UNIQUE  NOT NULL
                     )";
@@ -965,12 +1124,12 @@ namespace UpgradeDB
                     sql = @"
                             insert into Office_backup
                             (
-                             myCompany_ID,
+                             myOrganisation_ID,
                             Name, 
                             ShortName
                             )
                             select
-                            myCompany_ID,
+                            myOrganisation_ID,
                             Name,
                             'KUNAVE6'
                             from office
@@ -982,7 +1141,7 @@ namespace UpgradeDB
                             CREATE TABLE Atom_Office_backup
                             (
                             'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                             Atom_myCompany_ID  INTEGER  NOT NULL REFERENCES Atom_myCompany(ID),
+                             Atom_myOrganisation_ID  INTEGER  NOT NULL REFERENCES Atom_myOrganisation(ID),
                             'Name' varchar(264) UNIQUE NOT NULL, 
                             'ShortName' varchar(10) UNIQUE  NOT NULL
                             )";
@@ -991,12 +1150,12 @@ namespace UpgradeDB
                             sql = @"
                                 insert into Atom_Office_backup
                                 (
-                                Atom_myCompany_ID,
+                                Atom_myOrganisation_ID,
                                 Name, 
                                 ShortName
                                 )
                                 select
-                                Atom_myCompany_ID,
+                                Atom_myOrganisation_ID,
                                 Name,
                                 'KUNAVE6'
                                 from Atom_office
@@ -1816,7 +1975,7 @@ namespace UpgradeDB
             if (DBSync.DBSync.Drop_VIEWs(ref Err))
             {
                 string sql = null;
-                string stbl = "Atom_myCompany_Person";
+                string stbl = "Atom_myOrganisation_Person";
                 if (DBSync.DBSync.TableExists(stbl, ref Err))
                 {
 
@@ -2014,12 +2173,12 @@ namespace UpgradeDB
 
                 Err = null;
                 Message_Title = " 1.04 -> 1.05";
-                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
                 xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                TableDataItem dt_myCompany = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                TableDataItem dt_myOrganisation = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
 
@@ -2027,14 +2186,14 @@ namespace UpgradeDB
                     LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
                     return false;
                 }
-                TableDataItem_List.Add(dt_myCompany);
+                TableDataItem_List.Add(dt_myOrganisation);
 
-                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany));
+                tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
                 wfp_ui_thread.Message(lngRPM.s_ReadTable.s + tbl.TableName);
                 xtbl = new SQLTable(tbl);
                 xtbl.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                TableDataItem dt_Atom_myCompany = new TableDataItem(xtbl, ref dt_List, null, ref Err);
+                TableDataItem dt_Atom_myOrganisation = new TableDataItem(xtbl, ref dt_List, null, ref Err);
                 if (Err != null)
                 {
 
@@ -2042,7 +2201,7 @@ namespace UpgradeDB
                     LogFile.Error.Show("ERROR:usrc_Upgrade:UpgradeDB_1_04_to_1_05:TableName=" + tbl.TableName + ";Err=" + Err);
                     return false;
                 }
-                TableDataItem_List.Add(dt_Atom_myCompany);
+                TableDataItem_List.Add(dt_Atom_myOrganisation);
 
                 tbl = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item));
                 wfp_ui_thread.Message("$$$" + lngRPM.s_UpgradeDatabase.s + Message_Title);
@@ -2240,7 +2399,7 @@ namespace UpgradeDB
                 string Column_PrefixTable = "invoicetable_";
                 sql = @" select 
                             pi.ID,
-                            Atom_myCompany_Person_ID,
+                            Atom_myOrganisation_Person_ID,
                             Draft,
                             DraftNumber,
                             FinancialYear,
@@ -2450,7 +2609,7 @@ namespace UpgradeDB
                 string Column_PrefixTable = "invoicetable_";
                 sql = @" select 
                             pi.ID,
-                            Atom_myCompany_Person_ID,
+                            Atom_myOrganisation_Person_ID,
                             Draft,
                             DraftNumber,
                             FinancialYear,
@@ -2748,10 +2907,10 @@ namespace UpgradeDB
                                               'ValidTo' DATETIME NULL,
                                               'Description' varchar(2000) NULL,
                                                Atom_Currency_ID  INTEGER  NOT NULL REFERENCES Atom_Currency(ID),
-                                               Atom_myCompany_Person_ID  INTEGER  NOT NULL REFERENCES Atom_myCompany_Person(ID)
+                                               Atom_myOrganisation_Person_ID  INTEGER  NOT NULL REFERENCES Atom_myOrganisation_Person(ID)
                                               );
-                                            INSERT INTO Atom_PriceList_tmp (id, Name, Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID,Atom_myCompany_Person_ID)
-                                                SELECT id, Name, Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID,Atom_myCompany_Person_ID FROM Atom_PriceList;
+                                            INSERT INTO Atom_PriceList_tmp (id, Name, Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID,Atom_myOrganisation_Person_ID)
+                                                SELECT id, Name, Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID,Atom_myOrganisation_Person_ID FROM Atom_PriceList;
                                             DROP TABLE Atom_PriceList;
                                             ALTER TABLE Atom_PriceList_tmp RENAME TO Atom_PriceList;
 
@@ -2760,7 +2919,7 @@ namespace UpgradeDB
                                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                             {
                                                 DataTable dt = new DataTable();
-                                                sql = "select Organisation_ID from myCompany order by ID desc";
+                                                sql = "select Organisation_ID from myOrganisation order by ID desc";
                                                 long Organisation_ID = -1;
                                                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                 {
@@ -2770,8 +2929,8 @@ namespace UpgradeDB
                                                     }
                                                 }
                                                 sql = @"PRAGMA foreign_keys = OFF;
-                                                DROP TABLE myCompany;
-                                                CREATE TABLE myCompany
+                                                DROP TABLE myOrganisation;
+                                                CREATE TABLE myOrganisation
                                                     (
                                                     'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                     OrganisationData_ID  INTEGER  NOT NULL REFERENCES OrganisationData(ID) UNIQUE
@@ -2788,7 +2947,7 @@ namespace UpgradeDB
                                                             if (dt.Rows.Count > 0)
                                                             {
                                                                 OrganisationData_ID = (long)dt.Rows[0]["ID"];
-                                                                sql = "insert into myCompany (OrganisationData_ID)values(" + OrganisationData_ID.ToString() + ");";
+                                                                sql = "insert into myOrganisation (OrganisationData_ID)values(" + OrganisationData_ID.ToString() + ");";
                                                                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                 {
                                                                     return false;
@@ -2798,7 +2957,7 @@ namespace UpgradeDB
                                                     }
 
                                                     dt.Clear();
-                                                    sql = "select Atom_Organisation_ID from Atom_myCompany order by ID desc";
+                                                    sql = "select Atom_Organisation_ID from Atom_myOrganisation order by ID desc";
                                                     long Atom_Organisation_ID = -1;
                                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                     {
@@ -2808,8 +2967,8 @@ namespace UpgradeDB
                                                         }
                                                     }
                                                     sql = @"PRAGMA foreign_keys = OFF;
-                                                    DROP TABLE Atom_myCompany;
-                                                    CREATE TABLE Atom_myCompany
+                                                    DROP TABLE Atom_myOrganisation;
+                                                    CREATE TABLE Atom_myOrganisation
                                                         (
                                                         'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                                         Atom_OrganisationData_ID  INTEGER  NOT NULL REFERENCES Atom_OrganisationData(ID) UNIQUE
@@ -2826,7 +2985,7 @@ namespace UpgradeDB
                                                                 if (dt.Rows.Count > 0)
                                                                 {
                                                                     Atom_OrganisationData_ID = (long)dt.Rows[0]["ID"];
-                                                                    sql = "insert into Atom_myCompany (Atom_OrganisationData_ID)values(" + Atom_OrganisationData_ID.ToString() + ");";
+                                                                    sql = "insert into Atom_myOrganisation (Atom_OrganisationData_ID)values(" + Atom_OrganisationData_ID.ToString() + ");";
                                                                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                     {
                                                                         return false;
@@ -2834,29 +2993,29 @@ namespace UpgradeDB
                                                                 }
                                                             }
                                                         }
-                                                        sql = "DROP VIEW myCompany_Person_VIEW";
+                                                        sql = "DROP VIEW myOrganisation_Person_VIEW";
                                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                         {
-                                                            SQLTable tbl_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany_Person));
-                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_myCompany_Person.sql_CreateView, null, ref Err))
+                                                            SQLTable tbl_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person));
+                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_myOrganisation_Person.sql_CreateView, null, ref Err))
                                                             {
-                                                                sql = "DROP VIEW myCompany_VIEW";
+                                                                sql = "DROP VIEW myOrganisation_VIEW";
                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                 {
-                                                                    SQLTable tbl_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany));
-                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_myCompany.sql_CreateView, null, ref Err))
+                                                                    SQLTable tbl_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation));
+                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_myOrganisation.sql_CreateView, null, ref Err))
                                                                     {
-                                                                        sql = "DROP VIEW Atom_myCompany_Person_VIEW";
+                                                                        sql = "DROP VIEW Atom_myOrganisation_Person_VIEW";
                                                                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                         {
-                                                                            SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
-                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myCompany_Person.sql_CreateView, null, ref Err))
+                                                                            SQLTable tbl_Atom_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation_Person));
+                                                                            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myOrganisation_Person.sql_CreateView, null, ref Err))
                                                                             {
-                                                                                sql = "DROP VIEW Atom_myCompany_VIEW";
+                                                                                sql = "DROP VIEW Atom_myOrganisation_VIEW";
                                                                                 if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                                                                 {
-                                                                                    SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany));
-                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myCompany.sql_CreateView, null, ref Err))
+                                                                                    SQLTable tbl_Atom_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation));
+                                                                                    if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(tbl_Atom_myOrganisation.sql_CreateView, null, ref Err))
                                                                                     {
 
                                                                                         sql = "DROP VIEW DocInvoice_VIEW";
@@ -2909,7 +3068,7 @@ namespace UpgradeDB
             string sql = @"CREATE TABLE Atom_Office_backup
                           (
                           'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                           Atom_myCompany_ID  INTEGER  NOT NULL REFERENCES Atom_myCompany(ID),
+                           Atom_myOrganisation_ID  INTEGER  NOT NULL REFERENCES Atom_myOrganisation(ID),
                           'Name' varchar(264) NOT NULL 
                           )
             ";
@@ -3653,13 +3812,13 @@ namespace UpgradeDB
                 {
                     if (GlobalData.Office_ID<0)
                     { 
-                        string sql = "insert into Office (myCompany_ID,Name)values(1,'P1')";
+                        string sql = "insert into Office (myOrganisation_ID,Name)values(1,'P1')";
                         object oret = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql,null,ref GlobalData.Office_ID,ref oret, ref Err,"Office"))
                         {
-                            sql = "insert into myCompany_Person (UserName,Password,Job,Active,Description,Person_ID,Office_ID)values('marjetkah',null,'Direktor',1,'Direktorica in lastnica podjetja',1,1)";
-                            long x_myCompany_Person_ID = -1;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref x_myCompany_Person_ID, ref oret, ref Err, "Office"))
+                            sql = "insert into myOrganisation_Person (UserName,Password,Job,Active,Description,Person_ID,Office_ID)values('marjetkah',null,'Direktor',1,'Direktorica in lastnica podjetja',1,1)";
+                            long x_myOrganisation_Person_ID = -1;
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref x_myOrganisation_Person_ID, ref oret, ref Err, "Office"))
                             {
                                 
                             }
@@ -3682,7 +3841,7 @@ namespace UpgradeDB
                     object oret = null;
                     if (GlobalData.Atom_Office_ID < 0)
                     {
-                        sql = "insert into Atom_Office (Atom_myCompany_ID,Name)values(1,'P1')";
+                        sql = "insert into Atom_Office (Atom_myOrganisation_ID,Name)values(1,'P1')";
                         if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref GlobalData.Atom_Office_ID, ref oret, ref Err, "Atom_Office"))
                         {
                             LogFile.Error.Show("ERROR:usrc_Upgrade:Write2DB:sql=" + sql + "\r\nErr=" + Err);
@@ -3739,13 +3898,13 @@ namespace UpgradeDB
                         {
                             if (eUpgr == UpgradeDB_inThread.eUpgrade.from_1_04_to_105)
                             {
-                                if (dcol.ColumnName.ToLower().Equals("mycompany_person_id"))
+                                if (dcol.ColumnName.ToLower().Equals("myorganisation_person_id"))
                                 {
                                     continue;
                                 }
                                 if (this.tbl.TableName.ToLower().Equals("atom_pricelist"))
                                 {
-                                    if (dcol.ColumnName.ToLower().Equals("atom_mycompany_person_id"))
+                                    if (dcol.ColumnName.ToLower().Equals("atom_myorganisation_person_id"))
                                     {
                                         continue;
                                     }
@@ -3754,7 +3913,7 @@ namespace UpgradeDB
                                 {
                                     if (this.tbl.TableName.ToLower().Equals("docinvoice"))
                                     {
-                                        if (dcol.ColumnName.ToLower().Equals("atom_mycompany_person_id"))
+                                        if (dcol.ColumnName.ToLower().Equals("atom_myorganisation_person_id"))
                                         {
                                             continue;
                                         }

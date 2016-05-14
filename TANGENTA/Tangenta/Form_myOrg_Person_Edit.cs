@@ -28,25 +28,25 @@ namespace Tangenta
         SQLTable tbl = null;
         long_v ID_v = null;
         private long m_Office_ID;
-        private SQLTable tbl_myCompany_Person;
-        private string ColumnToOrderBy = "myCompany_Person_$_per_$_cln_$$LastName asc";
+        private SQLTable tbl_myOrganisation_Person;
+        private string ColumnToOrderBy = "myOrganisation_Person_$_per_$_cln_$$LastName asc";
         //bool bclose = false;
 
         public Form_myOrg_Person_Edit(long xOffice_ID)
         {
             InitializeComponent();
             m_Office_ID = xOffice_ID;
-            tbl_myCompany_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany_Person)));
+            tbl_myOrganisation_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person)));
             this.Text = lngRPM.s_Edit_Office_Data.s;
             this.usrc_EditTable1.Title = lngRPM.s_Edit_Office_Data.s;
-            string selection = @"  myCompany_Person_$_per_$_cfn_$$FirstName,
-                                    myCompany_Person_$_per_$_cln_$$LastName,
-                                    myCompany_Person_$_per_$$DateOfBirth,
-                                    myCompany_Person_$_per_$$Tax_ID,
-                                    myCompany_Person_$_per_$$Registration_ID,
-                                    myCompany_Person_$_office_$_mc_$_orgd_$_org_$$Name,
-                                    myCompany_Person_$_office_$$Name,
-                                    myCompany_Person_$_office_$$ShortName,
+            string selection = @"  myOrganisation_Person_$_per_$_cfn_$$FirstName,
+                                    myOrganisation_Person_$_per_$_cln_$$LastName,
+                                    myOrganisation_Person_$_per_$$DateOfBirth,
+                                    myOrganisation_Person_$_per_$$Tax_ID,
+                                    myOrganisation_Person_$_per_$$Registration_ID,
+                                    myOrganisation_Person_$_office_$_mo_$_orgd_$_org_$$Name,
+                                    myOrganisation_Person_$_office_$$Name,
+                                    myOrganisation_Person_$_office_$$ShortName,
                                     ID
             ";
             long_v Office_ID_v = null;
@@ -54,7 +54,7 @@ namespace Tangenta
             {
                 Office_ID_v = new long_v(m_Office_ID);
             }
-            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_myCompany_Person, selection, ColumnToOrderBy, false, " where  myCompany_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false))
+            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_myOrganisation_Person, selection, ColumnToOrderBy, false, " where  myOrganisation_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false))
             {
                 usrc_EditTable1.FillInitialData();
             }

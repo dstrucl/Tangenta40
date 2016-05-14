@@ -11,7 +11,7 @@ namespace InvoiceDB
 {
     public static class myOrg_Office_List
     {
-        public static bool Get(long myCompany_id, ref List<myOrg_Office> myOrg_Office_list)
+        public static bool Get(long myOrganisation_id, ref List<myOrg_Office> myOrg_Office_list)
         {
 
             DataTable dt = new DataTable();
@@ -19,7 +19,7 @@ namespace InvoiceDB
             string sql = null;
             sql = @"select
                         ID
-                        FROM Office where myCompany_ID = " + myCompany_id.ToString();
+                        FROM Office where myOrganisation_ID = " + myOrganisation_id.ToString();
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))

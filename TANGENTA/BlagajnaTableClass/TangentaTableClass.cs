@@ -61,7 +61,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class SCompany :DB_varchar_2000
+    public class SOrganisation :DB_varchar_2000
     {
     }
 
@@ -129,7 +129,7 @@ namespace TangentaTableClass
 
 
 
-    public class Company_id:DB_Int64
+    public class Organisation_id:DB_Int64
     {
     }
 
@@ -967,7 +967,7 @@ namespace TangentaTableClass
         public Person m_Person = new Person();
     }
 
-    public class myCompany
+    public class myOrganisation
     {
         public ID ID = new ID();
 //        public Organisation m_Organisation = new Organisation();
@@ -1006,12 +1006,29 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
-    public class myCompany_Person_AccessRights
+    public class myOrganisation_Person_AccessRights
     {
         public ID ID = new ID();
-        public myCompany_Person m_myCompany_Person = new myCompany_Person();
+        public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
         public AccessRights m_AccessRights = new AccessRights();
     }
+
+    public class JOURNAL_myOrganisation_Person_AccessRights_TYPE
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class JOURNAL_myOrganisation_Person_AccessRights
+    {
+        public ID ID = new ID();
+        public myOrganisation_Person_AccessRights m_myOrganisation_Person_AccessRights = new myOrganisation_Person_AccessRights();
+        public JOURNAL_myOrganisation_Person_AccessRights_TYPE m_JOURNAL_myOrganisation_Person_AccessRights_TYPE = new JOURNAL_myOrganisation_Person_AccessRights_TYPE();
+        public EventTime EventTime = new EventTime();
+        public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
+    }
+
 
     public class ShortName:DB_varchar_10
     {
@@ -1020,7 +1037,7 @@ namespace TangentaTableClass
     public class Office
     {
         public ID ID = new ID();
-        public myCompany m_myCompany = new myCompany();
+        public myOrganisation m_myOrganisation = new myOrganisation();
         public Name Name = new Name();
         public ShortName ShortName = new ShortName();
     }
@@ -1034,7 +1051,7 @@ namespace TangentaTableClass
     }
 
 
-    public class myCompany_Person
+    public class myOrganisation_Person
     {
         public ID ID = new ID();
         public Office m_Office = new Office();
@@ -1044,6 +1061,22 @@ namespace TangentaTableClass
         public Password Password = new Password();
         public Job Job = new Job();
         public Description Description = new Description();
+    }
+
+    public class JOURNAL_myOrganisation_Person_TYPE
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+    public class JOURNAL_myOrganisation_Person
+    {
+        public ID ID = new ID();
+        public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
+        public JOURNAL_myOrganisation_Person_TYPE m_JOURNAL_myOrganisation_Person_TYPE = new JOURNAL_myOrganisation_Person_TYPE();
+        public EventTime EventTime = new EventTime();
+        public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
     public class Atom_Computer
@@ -1064,7 +1097,7 @@ namespace TangentaTableClass
     }
 
 
-    public class Atom_myCompany
+    public class Atom_myOrganisation
     {
         public ID ID = new ID();
         public Atom_OrganisationData m_Atom_OrganisationData = new Atom_OrganisationData();
@@ -1074,7 +1107,7 @@ namespace TangentaTableClass
     public class Atom_Office
     {
         public ID ID = new ID();
-        public Atom_myCompany m_Atom_myCompany = new Atom_myCompany();
+        public Atom_myOrganisation m_Atom_myOrganisation = new Atom_myOrganisation();
         public Name Name = new Name();
         public ShortName ShortName = new ShortName();
     }
@@ -1087,7 +1120,7 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
-    public class Atom_myCompany_Person
+    public class Atom_myOrganisation_Person
     {
         public ID ID = new ID();
         public Atom_Office m_Atom_Office = new Atom_Office();
@@ -1123,7 +1156,7 @@ namespace TangentaTableClass
     public class Atom_WorkPeriod
     {
         public ID ID = new ID();
-        public Atom_myCompany_Person m_Atom_myCompany_Person = new Atom_myCompany_Person();
+        public Atom_myOrganisation_Person m_Atom_myOrganisation_Person = new Atom_myOrganisation_Person();
         public Atom_WorkingPlace m_Atom_WorkingPlace  = new Atom_WorkingPlace();
         public Atom_Computer m_Atom_Computer = new Atom_Computer();
         public LoginTime LoginTime = new LoginTime();
@@ -1828,7 +1861,7 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
     
-    public class JOURNAL_myCompany_Type
+    public class JOURNAL_myOrganisation_Type
     {
         public ID ID = new ID();
         public Name Name = new Name();
@@ -1925,11 +1958,11 @@ namespace TangentaTableClass
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
-    public class JOURNAL_myCompany
+    public class JOURNAL_myOrganisation
     {
         public ID ID = new ID();
-        public JOURNAL_myCompany_Type m_JOURNAL_myCompany_Type = new JOURNAL_myCompany_Type();
-        public myCompany m_myCompany = new myCompany();
+        public JOURNAL_myOrganisation_Type m_JOURNAL_myOrganisation_Type = new JOURNAL_myOrganisation_Type();
+        public myOrganisation m_myOrganisation = new myOrganisation();
         public EventTime EventTime = new EventTime();
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
@@ -2287,7 +2320,7 @@ namespace TangentaTableClass
         public Organisation m_Organisation = new Organisation();
 
         /* 25 */
-        public myCompany m_myCompany = new myCompany();
+        public myOrganisation m_myOrganisation = new myOrganisation();
 
         /* 26 */
         public Reference m_Reference = new Reference();
@@ -2362,16 +2395,16 @@ namespace TangentaTableClass
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
 
         /* 50 */
-        public myCompany_Person m_myCompany_Person = new myCompany_Person();
+        public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
 
         /* 51 */
         public DocInvoice_ShopC_Item m_DocInvoice_ShopC_Item = new DocInvoice_ShopC_Item();
 
         /* 52 */
-        public Atom_myCompany_Person m_Atom_myCompany_Person = new Atom_myCompany_Person();
+        public Atom_myOrganisation_Person m_Atom_myOrganisation_Person = new Atom_myOrganisation_Person();
 
         /* 53 */
-        public Atom_myCompany m_Atom_myCompany = new Atom_myCompany();
+        public Atom_myOrganisation m_Atom_myOrganisation = new Atom_myOrganisation();
 
         /* 54 */
         public Atom_Person m_BuyerAtom_Person = new Atom_Person();
@@ -2512,7 +2545,7 @@ namespace TangentaTableClass
         public AccessRights m_AccessRights = new AccessRights();
 
         /* 100 */
-        public myCompany_Person_AccessRights m_myCompany_Person_AccessRights = new myCompany_Person_AccessRights();
+        public myOrganisation_Person_AccessRights m_myOrganisation_Person_AccessRights = new myOrganisation_Person_AccessRights();
 
         /* 101 */
         public OrganisationData m_OrganisationData = new OrganisationData();
@@ -2569,7 +2602,7 @@ namespace TangentaTableClass
         public JOURNAL_SimpleItem_Type m_JOURNAL_SimpleItem_Type = new JOURNAL_SimpleItem_Type();
 
         /* 119 */
-        public JOURNAL_myCompany_Type m_JOURNAL_myCompany_Type = new JOURNAL_myCompany_Type();
+        public JOURNAL_myOrganisation_Type m_JOURNAL_myOrganisation_Type = new JOURNAL_myOrganisation_Type();
 
         /* 120 */
         public JOURNAL_Person_Type m_JOURNAL_Person_Type = new JOURNAL_Person_Type();
@@ -2605,7 +2638,7 @@ namespace TangentaTableClass
         public JOURNAL_PriceList m_JOURNAL_PriceList = new JOURNAL_PriceList();
 
         /* 131 */
-        public JOURNAL_myCompany m_JOURNAL_myCompany = new JOURNAL_myCompany();
+        public JOURNAL_myOrganisation m_JOURNAL_myOrganisation = new JOURNAL_myOrganisation();
 
         /* 132 */
         public JOURNAL_Person m_JOURNAL_Person = new JOURNAL_Person();
@@ -2768,5 +2801,18 @@ namespace TangentaTableClass
 
         /* 185 */
         public DocProformaInvoice_ShopA_Item m_DocProformaInvoice_ShopA_Item = new DocProformaInvoice_ShopA_Item();
+
+        /* 186 */
+        public JOURNAL_myOrganisation_Person_AccessRights_TYPE m_JOURNAL_myOrganisation_Person_AccessRights_TYPE = new JOURNAL_myOrganisation_Person_AccessRights_TYPE();
+
+        /* 187 */
+        public JOURNAL_myOrganisation_Person_AccessRights m_JOURNAL_myOrganisation_Person_AccessRights = new JOURNAL_myOrganisation_Person_AccessRights();
+
+        /* 188 */
+        public JOURNAL_myOrganisation_Person_TYPE m_JOURNAL_myOrganisation_Person_TYPE = new JOURNAL_myOrganisation_Person_TYPE();
+
+        /* 189 */
+        public JOURNAL_myOrganisation_Person m_JOURNAL_myOrganisation_Person = new JOURNAL_myOrganisation_Person();
+
     }
 }

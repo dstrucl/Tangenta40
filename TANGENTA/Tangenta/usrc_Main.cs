@@ -57,7 +57,7 @@ namespace Tangenta
                 if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
                 {
                     string Err = null;
-                    if (this.m_usrc_InvoiceMan.m_usrc_Invoice.GetCompanyData(this))
+                    if (this.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData(this))
                     {
                         if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
                         {
@@ -102,9 +102,9 @@ namespace Tangenta
                         //if (Program.bStartup && Err == null)
                         //{
 
-                        //    XMessage.Box.Show(Program.MainForm, lngRPM.s_No_CompanyData, "!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information, System.Windows.Forms.MessageBoxDefaultButton.Button1);
+                        //    XMessage.Box.Show(Program.MainForm, lngRPM.s_No_OrganisationData, "!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information, System.Windows.Forms.MessageBoxDefaultButton.Button1);
                         //    DialogResult dres = DialogResult.Ignore;
-                        //    Form_MyCompany_Person_Data_Edit edt_my_company_dlg = new Form_MyCompany_Person_Data_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany))));
+                        //    Form_MyOrganisation_Person_Data_Edit edt_my_company_dlg = new Form_MyOrganisation_Person_Data_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))));
                         //    dres = edt_my_company_dlg.ShowDialog();
                         //    if (dres == DialogResult.OK)
                         //    {
@@ -166,12 +166,12 @@ namespace Tangenta
         }
 
 
-        public long myCompany_Person_ID {
+        public long myOrganisation_Person_ID {
             get
             {
                 if (this.m_usrc_InvoiceMan != null)
                 {
-                    return this.m_usrc_InvoiceMan.myCompany_Person_ID;
+                    return this.m_usrc_InvoiceMan.myOrganisation_Person_ID;
                 }
                 else
                 {

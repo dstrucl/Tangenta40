@@ -269,7 +269,7 @@
       &lt;/div&gt;
       &lt;h1&gt;INVOICE 3-2-1&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
-        &lt;div&gt;Company Name&lt;/div&gt;
+        &lt;div&gt;Organisation Name&lt;/div&gt;
         &lt;div&gt;455 Foggy Heights,&lt;br /&gt; AZ 85004, US&lt;/div&gt;
         &lt;div&gt;(602) 519-0450&lt;/div&gt;
         &lt;div&gt;&lt;a href="mailto:company@example.com"&gt;company@example.com&lt;/a&gt;&lt;/div&gt;
@@ -500,7 +500,7 @@
       &lt;/div&gt;
       &lt;h1&gt;INVOICE 3-2-1&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
-        &lt;div&gt;Company Name&lt;/div&gt;
+        &lt;div&gt;Organisation Name&lt;/div&gt;
         &lt;div&gt;455 Foggy Heights,&lt;br /&gt; AZ 85004, US&lt;/div&gt;
         &lt;div&gt;(602) 519-0450&lt;/div&gt;
         &lt;div&gt;&lt;a href="mailto:company@example.com"&gt;company@example.com&lt;/a&gt;&lt;/div&gt;

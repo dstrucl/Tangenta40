@@ -293,11 +293,11 @@ namespace Tangenta
 
 
 
-        public long myCompany_Person_ID { 
+        public long myOrganisation_Person_ID { 
             get
             { if (this.m_usrc_Invoice!=null)
                 {
-                    return this.m_usrc_Invoice.myCompany_Person_ID;
+                    return this.m_usrc_Invoice.myOrganisation_Person_ID;
                 }
             else
             {

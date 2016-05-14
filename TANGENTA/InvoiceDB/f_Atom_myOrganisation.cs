@@ -16,17 +16,17 @@ using CodeTables;
 
 namespace InvoiceDB
 {
-    public static class f_Atom_myCompany
+    public static class f_Atom_myOrganisation
     {
-        public static bool Get(long myCompany_ID, ref long Atom_myCompany_ID)
+        public static bool Get(long myOrganisation_ID, ref long Atom_myOrganisation_ID)
         {
             string Err = null;
             DataTable dt = new DataTable();
 
-            string sql_find_Atom_myCompany_ID = @"select
-                                Atom_myCompany.ID as Atom_myCompany_ID
-                                from Atom_myCompany
-                                inner join Atom_OrganisationData on Atom_myCompany.Atom_OrganisationData_ID = Atom_OrganisationData.ID
+            string sql_find_Atom_myOrganisation_ID = @"select
+                                Atom_myOrganisation.ID as Atom_myOrganisation_ID
+                                from Atom_myOrganisation
+                                inner join Atom_OrganisationData on Atom_myOrganisation.Atom_OrganisationData_ID = Atom_OrganisationData.ID
                                 inner join Atom_Organisation on Atom_OrganisationData.Atom_Organisation_ID = Atom_Organisation.ID
                                 left join Atom_cAddress_Org on Atom_OrganisationData.Atom_cAddress_Org_ID = Atom_cAddress_Org.ID
                                 left join Atom_cStreetName_Org on Atom_cAddress_Org.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
@@ -39,7 +39,7 @@ namespace InvoiceDB
                                            and ((Organisation.Tax_ID = Atom_Organisation.Tax_ID) or ( Organisation.Tax_ID is null and  Atom_Organisation.Tax_ID is null))
                                            and ((Organisation.Registration_ID = Atom_Organisation.Registration_ID) or (Organisation.Registration_ID is null and Atom_Organisation.Registration_ID is null))
                                 left  join OrganisationData on OrganisationData.Organisation_ID = Organisation.ID
-				                left  join myCompany on myCompany.OrganisationData_ID = OrganisationData.ID
+				                left  join myOrganisation on myOrganisation.OrganisationData_ID = OrganisationData.ID
                                 left  join cAddress_Org on OrganisationData.cAddress_Org_ID = cAddress_Org.ID
                                 left  join cStreetName_Org on cAddress_Org.cStreetName_Org_ID = cStreetName_Org.ID
                                 left  join cHouseNumber_Org on cAddress_Org.cHouseNumber_Org_ID = cHouseNumber_Org.ID
@@ -61,23 +61,23 @@ namespace InvoiceDB
                                 ( (  cZip_Org.ZIP is null  and  Atom_cZIP_Org.ZIP is null  )or  (cZip_Org.ZIP = Atom_cZIP_Org.ZIP ) ) and
                                 ( ( cCountry_Org.Country is null  and   Atom_cCountry_Org.Country is null )  or  ( cCountry_Org.Country = Atom_cCountry_Org.Country) ) and
                                 ( ( cState_Org.State is null and  Atom_cState_Org.State is null  ) or  (cState_Org.State = Atom_cState_Org.State ) ) and
-                                myCompany.id = " + myCompany_ID.ToString();
+                                myOrganisation.id = " + myOrganisation_ID.ToString();
 
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_myCompany_ID, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_myOrganisation_ID, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_myCompany_ID = (long)dt.Rows[0]["Atom_myCompany_ID"];
+                    Atom_myOrganisation_ID = (long)dt.Rows[0]["Atom_myOrganisation_ID"];
                     return true;
                 }
                 else
                 {
-                    ID_v Atom_myCompany_iD_v = null;
+                    ID_v Atom_myOrganisation_iD_v = null;
                     if (myOrg.Name_v == null)
                     {   
                         myOrg.Get(1);
                     }
-                    if (!f_Atom_myCompany.Get(myOrg.Name_v,
+                    if (!f_Atom_myOrganisation.Get(myOrg.Name_v,
                                               myOrg.Tax_ID_v,
                                               myOrg.Registration_ID_v,
                                               myOrg.OrganisationTYPE_v,
@@ -91,18 +91,18 @@ namespace InvoiceDB
                                               myOrg.Logo_Hash_v,
                                               myOrg.Logo_Image_Data_v,
                                               myOrg.Logo_Description_v,
-                                              ref Atom_myCompany_iD_v))
+                                              ref Atom_myOrganisation_iD_v))
                     {
                         return false;
                     }
-                    if (Atom_myCompany_iD_v != null)
+                    if (Atom_myOrganisation_iD_v != null)
                     {
-                        Atom_myCompany_ID = Atom_myCompany_iD_v.v;
+                        Atom_myOrganisation_ID = Atom_myOrganisation_iD_v.v;
                         return true;
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:InsertInto_Atom_myCompany_Person:Atom_myCompany_iD_v == null!");
+                        LogFile.Error.Show("ERROR:InsertInto_Atom_myOrganisation_Person:Atom_myOrganisation_iD_v == null!");
                         return false;
                     }
 
@@ -110,7 +110,7 @@ namespace InvoiceDB
             }
             else
             {
-                LogFile.Error.Show(@"ERROR:Find_Atom_myCompany_Person_ID:select ...from Atom_myCompany:\r\nErr=" + Err);
+                LogFile.Error.Show(@"ERROR:Find_Atom_myOrganisation_Person_ID:select ...from Atom_myOrganisation:\r\nErr=" + Err);
                 return false; 
             }
 
@@ -169,7 +169,7 @@ namespace InvoiceDB
                                 ))
             {
                 DataTable dt = new DataTable();
-                string sql_select = "select ID from Atom_myCompany where Atom_OrganisationData_ID = " + Atom_OrganisationData_ID_v.v.ToString();
+                string sql_select = "select ID from Atom_myOrganisation where Atom_OrganisationData_ID = " + Atom_OrganisationData_ID_v.v.ToString();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql_select, null, ref Err))
                 {
                     if (dt.Rows.Count > 0)
@@ -183,28 +183,28 @@ namespace InvoiceDB
                     }
                     else
                     {
-                        long Atom_myCompany_id = -1;
-                        string sql_insert = " insert into Atom_myCompany  (Atom_OrganisationData_ID) values (" + Atom_OrganisationData_ID_v.v.ToString() + ")";
+                        long Atom_myOrganisation_id = -1;
+                        string sql_insert = " insert into Atom_myOrganisation  (Atom_OrganisationData_ID) values (" + Atom_OrganisationData_ID_v.v.ToString() + ")";
                         object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref Atom_myCompany_id, ref oret, ref Err, "Atom_myCompany"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, null, ref Atom_myOrganisation_id, ref oret, ref Err, "Atom_myOrganisation"))
                         {
                             if (iD_v == null)
                             {
                                 iD_v = new ID_v();
                             }
-                            iD_v.v = Atom_myCompany_id;
+                            iD_v.v = Atom_myOrganisation_id;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:Insert_Atom_myCompany:sql_insert:Err=" + Err);
+                            LogFile.Error.Show("ERROR:Insert_Atom_myOrganisation:sql_insert:Err=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:myOrg:Insert_Atom_myCompany:sql_select=" + sql_select + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:myOrg:Insert_Atom_myOrganisation:sql_select=" + sql_select + "\r\nErr=" + Err);
                     return false;
                 }
             }

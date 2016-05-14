@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_Invoice));
-            this.txt_MyCompany = new System.Windows.Forms.TextBox();
-            this.lbl_MyCompany = new System.Windows.Forms.Label();
+            this.txt_MyOrganisation = new System.Windows.Forms.TextBox();
+            this.lbl_Issuer = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.cmb_select_my_Company_Person = new System.Windows.Forms.ComboBox();
+            this.cmb_select_my_Organisation_Person = new System.Windows.Forms.ComboBox();
             this.txt_Number = new System.Windows.Forms.TextBox();
             this.lbl_Number = new System.Windows.Forms.Label();
-            this.btn_edit_MyCompany_Person = new System.Windows.Forms.Button();
+            this.btn_edit_MyOrganisation_Person = new System.Windows.Forms.Button();
             this.lbl_Currency = new System.Windows.Forms.Label();
             this.txt_Currency = new System.Windows.Forms.TextBox();
             this.btn_SelectBaseCurrency = new System.Windows.Forms.Button();
@@ -61,27 +61,27 @@
             this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // txt_MyCompany
+            // txt_MyOrganisation
             // 
-            this.txt_MyCompany.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txt_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_MyCompany.Location = new System.Drawing.Point(191, 8);
-            this.txt_MyCompany.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_MyCompany.Multiline = true;
-            this.txt_MyCompany.Name = "txt_MyCompany";
-            this.txt_MyCompany.Size = new System.Drawing.Size(374, 34);
-            this.txt_MyCompany.TabIndex = 1;
+            this.txt_MyOrganisation.Location = new System.Drawing.Point(191, 8);
+            this.txt_MyOrganisation.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_MyOrganisation.Multiline = true;
+            this.txt_MyOrganisation.Name = "txt_MyOrganisation";
+            this.txt_MyOrganisation.Size = new System.Drawing.Size(374, 34);
+            this.txt_MyOrganisation.TabIndex = 1;
             // 
-            // lbl_MyCompany
+            // lbl_Issuer
             // 
-            this.lbl_MyCompany.AutoSize = true;
-            this.lbl_MyCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_MyCompany.Location = new System.Drawing.Point(8, 50);
-            this.lbl_MyCompany.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lbl_MyCompany.Name = "lbl_MyCompany";
-            this.lbl_MyCompany.Size = new System.Drawing.Size(78, 17);
-            this.lbl_MyCompany.TabIndex = 2;
-            this.lbl_MyCompany.Text = "Izdajatelj:";
+            this.lbl_Issuer.AutoSize = true;
+            this.lbl_Issuer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Issuer.Location = new System.Drawing.Point(8, 50);
+            this.lbl_Issuer.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_Issuer.Name = "lbl_Issuer";
+            this.lbl_Issuer.Size = new System.Drawing.Size(78, 17);
+            this.lbl_Issuer.TabIndex = 2;
+            this.lbl_Issuer.Text = "Izdajatelj:";
             // 
             // splitContainer1
             // 
@@ -129,14 +129,14 @@
             this.splitContainer3.SplitterDistance = 128;
             this.splitContainer3.TabIndex = 0;
             // 
-            // cmb_select_my_Company_Person
+            // cmb_select_my_Organisation_Person
             // 
-            this.cmb_select_my_Company_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cmb_select_my_Company_Person.FormattingEnabled = true;
-            this.cmb_select_my_Company_Person.Location = new System.Drawing.Point(132, 47);
-            this.cmb_select_my_Company_Person.Name = "cmb_select_my_Company_Person";
-            this.cmb_select_my_Company_Person.Size = new System.Drawing.Size(185, 24);
-            this.cmb_select_my_Company_Person.TabIndex = 21;
+            this.cmb_select_my_Organisation_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cmb_select_my_Organisation_Person.FormattingEnabled = true;
+            this.cmb_select_my_Organisation_Person.Location = new System.Drawing.Point(132, 47);
+            this.cmb_select_my_Organisation_Person.Name = "cmb_select_my_Organisation_Person";
+            this.cmb_select_my_Organisation_Person.Size = new System.Drawing.Size(185, 24);
+            this.cmb_select_my_Organisation_Person.TabIndex = 21;
             // 
             // txt_Number
             // 
@@ -157,15 +157,15 @@
             this.lbl_Number.TabIndex = 23;
             this.lbl_Number.Text = "Številka:";
             // 
-            // btn_edit_MyCompany_Person
+            // btn_edit_MyOrganisation_Person
             // 
-            this.btn_edit_MyCompany_Person.Image = ((System.Drawing.Image)(resources.GetObject("btn_edit_MyCompany_Person.Image")));
-            this.btn_edit_MyCompany_Person.Location = new System.Drawing.Point(91, 45);
-            this.btn_edit_MyCompany_Person.Name = "btn_edit_MyCompany_Person";
-            this.btn_edit_MyCompany_Person.Size = new System.Drawing.Size(35, 28);
-            this.btn_edit_MyCompany_Person.TabIndex = 17;
-            this.btn_edit_MyCompany_Person.UseVisualStyleBackColor = true;
-            this.btn_edit_MyCompany_Person.Click += new System.EventHandler(this.btn_edit_MyCompany_Click_1);
+            this.btn_edit_MyOrganisation_Person.Image = ((System.Drawing.Image)(resources.GetObject("btn_edit_MyOrganisation_Person.Image")));
+            this.btn_edit_MyOrganisation_Person.Location = new System.Drawing.Point(91, 45);
+            this.btn_edit_MyOrganisation_Person.Name = "btn_edit_MyOrganisation_Person";
+            this.btn_edit_MyOrganisation_Person.Size = new System.Drawing.Size(35, 28);
+            this.btn_edit_MyOrganisation_Person.TabIndex = 17;
+            this.btn_edit_MyOrganisation_Person.UseVisualStyleBackColor = true;
+            this.btn_edit_MyOrganisation_Person.Click += new System.EventHandler(this.btn_edit_MyOrganisation_Click_1);
             // 
             // lbl_Currency
             // 
@@ -247,12 +247,12 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer2.Panel1.Controls.Add(this.lbl_MyOrganisation);
+            this.splitContainer2.Panel1.Controls.Add(this.lbl_Issuer);
             this.splitContainer2.Panel1.Controls.Add(this.btn_MyOrganisation);
-            this.splitContainer2.Panel1.Controls.Add(this.txt_MyCompany);
-            this.splitContainer2.Panel1.Controls.Add(this.lbl_MyCompany);
-            this.splitContainer2.Panel1.Controls.Add(this.btn_edit_MyCompany_Person);
-            this.splitContainer2.Panel1.Controls.Add(this.cmb_select_my_Company_Person);
+            this.splitContainer2.Panel1.Controls.Add(this.txt_MyOrganisation);
+            this.splitContainer2.Panel1.Controls.Add(this.lbl_MyOrganisation);
+            this.splitContainer2.Panel1.Controls.Add(this.btn_edit_MyOrganisation_Person);
+            this.splitContainer2.Panel1.Controls.Add(this.cmb_select_my_Organisation_Person);
             this.splitContainer2.Panel1.Controls.Add(this.usrc_Customer);
             // 
             // splitContainer2.Panel2
@@ -273,7 +273,7 @@
             this.lbl_MyOrganisation.Name = "lbl_MyOrganisation";
             this.lbl_MyOrganisation.Size = new System.Drawing.Size(138, 17);
             this.lbl_MyOrganisation.TabIndex = 34;
-            this.lbl_MyOrganisation.Text = "Moja Organizacija";
+            this.lbl_MyOrganisation.Text = "My Organisation";
             // 
             // btn_MyOrganisation
             // 
@@ -369,11 +369,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txt_MyCompany;
-        private System.Windows.Forms.Label lbl_MyCompany;
+        private System.Windows.Forms.TextBox txt_MyOrganisation;
+        private System.Windows.Forms.Label lbl_Issuer;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btn_edit_MyCompany_Person;
-        private System.Windows.Forms.ComboBox cmb_select_my_Company_Person;
+        private System.Windows.Forms.Button btn_edit_MyOrganisation_Person;
+        private System.Windows.Forms.ComboBox cmb_select_my_Organisation_Person;
         private System.Windows.Forms.TextBox txt_Number;
         private System.Windows.Forms.Label lbl_Number;
         private System.Windows.Forms.Label lbl_Currency;

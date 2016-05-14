@@ -35,12 +35,12 @@
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.usrc_EditRow = new CodeTables.TableDocking_Form.usrc_EditRow();
-            this.dgvx_MyCompany = new DataGridView_2xls.DataGridView2xls();
+            this.dgvx_MyOrganisation = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_MyCompany)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_MyOrganisation)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -61,7 +61,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dgvx_MyCompany);
+            this.splitContainer1.Panel2.Controls.Add(this.dgvx_MyOrganisation);
             this.splitContainer1.Size = new System.Drawing.Size(1082, 725);
             this.splitContainer1.SplitterDistance = 582;
             this.splitContainer1.SplitterWidth = 5;
@@ -135,25 +135,25 @@
             this.usrc_EditRow.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_after_InsertInDataBase(this.usrc_EditRow_after_InsertInDataBase);
             this.usrc_EditRow.Update += new CodeTables.TableDocking_Form.usrc_EditRow.delegate_Update(this.usrc_EditTable_Update);
             // 
-            // dgvx_MyCompany
+            // dgvx_MyOrganisation
             // 
-            this.dgvx_MyCompany.AllowUserToAddRows = false;
-            this.dgvx_MyCompany.AllowUserToDeleteRows = false;
-            this.dgvx_MyCompany.AllowUserToOrderColumns = true;
-            this.dgvx_MyCompany.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvx_MyOrganisation.AllowUserToAddRows = false;
+            this.dgvx_MyOrganisation.AllowUserToDeleteRows = false;
+            this.dgvx_MyOrganisation.AllowUserToOrderColumns = true;
+            this.dgvx_MyOrganisation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_MyCompany.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvx_MyCompany.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgvx_MyCompany.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_MyCompany.DataGridViewWithRowNumber = false;
-            this.dgvx_MyCompany.Location = new System.Drawing.Point(4, 8);
-            this.dgvx_MyCompany.Margin = new System.Windows.Forms.Padding(4);
-            this.dgvx_MyCompany.MultiSelect = false;
-            this.dgvx_MyCompany.Name = "dgvx_MyCompany";
-            this.dgvx_MyCompany.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_MyCompany.Size = new System.Drawing.Size(1070, 121);
-            this.dgvx_MyCompany.TabIndex = 0;
+            this.dgvx_MyOrganisation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvx_MyOrganisation.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvx_MyOrganisation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_MyOrganisation.DataGridViewWithRowNumber = false;
+            this.dgvx_MyOrganisation.Location = new System.Drawing.Point(4, 8);
+            this.dgvx_MyOrganisation.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvx_MyOrganisation.MultiSelect = false;
+            this.dgvx_MyOrganisation.Name = "dgvx_MyOrganisation";
+            this.dgvx_MyOrganisation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_MyOrganisation.Size = new System.Drawing.Size(1070, 121);
+            this.dgvx_MyOrganisation.TabIndex = 0;
             // 
             // Form_myOrg_Edit
             // 
@@ -167,13 +167,13 @@
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_myOrg_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MyCompanyData_EditForm";
-            this.Load += new System.EventHandler(this.MyCompanyData_EditForm_Load);
+            this.Text = "MyOrganisationData_EditForm";
+            this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_MyCompany)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_MyOrganisation)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -182,7 +182,7 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private CodeTables.TableDocking_Form.usrc_EditRow usrc_EditRow;
-        private DataGridView_2xls.DataGridView2xls dgvx_MyCompany;
+        private DataGridView_2xls.DataGridView2xls dgvx_MyOrganisation;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Button btn_BankAccounts;

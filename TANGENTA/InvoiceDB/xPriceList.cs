@@ -25,12 +25,12 @@ namespace InvoiceDB
             public DBTypes.DateTime_v ValidTo = null;
             public DBTypes.DateTime_v CreationDate = null;
             public DBTypes.string_v Description = null;
-            //public DBTypes.string_v myCompany_Person_UserName = null;
-            //public DBTypes.string_v myCompany_Person_FirstName = null;
-            //public DBTypes.string_v myCompany_Person_LastName = null;
-            //public DBTypes.string_v myCompany_Person_Job = null;
-            //public DBTypes.string_v myCompany_Person_Description = null;
-            //public DBTypes.bool_v myCompany_Person_Active = null;
+            //public DBTypes.string_v myOrganisation_Person_UserName = null;
+            //public DBTypes.string_v myOrganisation_Person_FirstName = null;
+            //public DBTypes.string_v myOrganisation_Person_LastName = null;
+            //public DBTypes.string_v myOrganisation_Person_Job = null;
+            //public DBTypes.string_v myOrganisation_Person_Description = null;
+            //public DBTypes.bool_v myOrganisation_Person_Active = null;
             public xCurrency m_xCurrency = new xCurrency();
 
             public string xPriceList_Name
@@ -104,87 +104,87 @@ namespace InvoiceDB
                     {
                         Description = null;
                     }
-                    //object omyCompany_Person_UserName = dt_xPriceList.Rows[index]["UserName"];
-                    //if (omyCompany_Person_UserName.GetType() == typeof(string))
+                    //object omyOrganisation_Person_UserName = dt_xPriceList.Rows[index]["UserName"];
+                    //if (omyOrganisation_Person_UserName.GetType() == typeof(string))
                     //{
-                    //    if (myCompany_Person_UserName == null)
+                    //    if (myOrganisation_Person_UserName == null)
                     //    {
-                    //        myCompany_Person_UserName = new DBTypes.string_v();
+                    //        myOrganisation_Person_UserName = new DBTypes.string_v();
                     //    }
-                    //    myCompany_Person_UserName.v = (string)omyCompany_Person_UserName;
+                    //    myOrganisation_Person_UserName.v = (string)omyOrganisation_Person_UserName;
                     //}
                     //else
                     //{
-                    //    myCompany_Person_UserName = null;
+                    //    myOrganisation_Person_UserName = null;
                     //}
 
-                    //object omyCompany_Person_FirstName = dt_xPriceList.Rows[index]["FirstName"];
-                    //if (omyCompany_Person_FirstName.GetType() == typeof(string))
+                    //object omyOrganisation_Person_FirstName = dt_xPriceList.Rows[index]["FirstName"];
+                    //if (omyOrganisation_Person_FirstName.GetType() == typeof(string))
                     //{
-                    //    if (myCompany_Person_FirstName == null)
+                    //    if (myOrganisation_Person_FirstName == null)
                     //    {
-                    //        myCompany_Person_FirstName = new DBTypes.string_v();
+                    //        myOrganisation_Person_FirstName = new DBTypes.string_v();
                     //    }
-                    //    myCompany_Person_FirstName.v = (string)omyCompany_Person_FirstName;
+                    //    myOrganisation_Person_FirstName.v = (string)omyOrganisation_Person_FirstName;
                     //}
                     //else
                     //{
-                    //    myCompany_Person_FirstName = null;
+                    //    myOrganisation_Person_FirstName = null;
                     //}
-                    //object omyCompany_Person_LastName = dt_xPriceList.Rows[index]["LastName"];
-                    //if (omyCompany_Person_LastName.GetType() == typeof(string))
+                    //object omyOrganisation_Person_LastName = dt_xPriceList.Rows[index]["LastName"];
+                    //if (omyOrganisation_Person_LastName.GetType() == typeof(string))
                     //{
-                    //    if (myCompany_Person_LastName == null)
+                    //    if (myOrganisation_Person_LastName == null)
                     //    {
-                    //        myCompany_Person_LastName = new DBTypes.string_v();
+                    //        myOrganisation_Person_LastName = new DBTypes.string_v();
                     //    }
-                    //    myCompany_Person_LastName.v = (string)omyCompany_Person_LastName;
+                    //    myOrganisation_Person_LastName.v = (string)omyOrganisation_Person_LastName;
                     //}
                     //else
                     //{
-                    //    myCompany_Person_LastName = null;
+                    //    myOrganisation_Person_LastName = null;
                     //}
 
-                    //object omyCompany_Person_Job = dt_xPriceList.Rows[index]["Job"];
-                    //if (omyCompany_Person_Job.GetType() == typeof(string))
+                    //object omyOrganisation_Person_Job = dt_xPriceList.Rows[index]["Job"];
+                    //if (omyOrganisation_Person_Job.GetType() == typeof(string))
                     //{
-                    //    if (myCompany_Person_Job == null)
+                    //    if (myOrganisation_Person_Job == null)
                     //    {
-                    //        myCompany_Person_Job = new DBTypes.string_v();
+                    //        myOrganisation_Person_Job = new DBTypes.string_v();
                     //    }
-                    //    myCompany_Person_Job.v = (string)omyCompany_Person_Job;
+                    //    myOrganisation_Person_Job.v = (string)omyOrganisation_Person_Job;
                     //}
                     //else
                     //{
-                    //    myCompany_Person_Job = null;
+                    //    myOrganisation_Person_Job = null;
                     //}
 
-                    //object omyCompany_Person_Description = dt_xPriceList.Rows[index]["myCompany_Person_Description"];
-                    //if (omyCompany_Person_Description.GetType() == typeof(string))
+                    //object omyOrganisation_Person_Description = dt_xPriceList.Rows[index]["myOrganisation_Person_Description"];
+                    //if (omyOrganisation_Person_Description.GetType() == typeof(string))
                     //{
-                    //    if (myCompany_Person_Description == null)
+                    //    if (myOrganisation_Person_Description == null)
                     //    {
-                    //        myCompany_Person_Description = new DBTypes.string_v();
+                    //        myOrganisation_Person_Description = new DBTypes.string_v();
                     //    }
-                    //    myCompany_Person_Description.v = (string)omyCompany_Person_Description;
+                    //    myOrganisation_Person_Description.v = (string)omyOrganisation_Person_Description;
                     //}
                     //else
                     //{
-                    //    myCompany_Person_Description = null;
+                    //    myOrganisation_Person_Description = null;
                     //}
 
-                    //object omyCompany_Person_Active = dt_xPriceList.Rows[index]["Active"];
-                    //if (omyCompany_Person_Active.GetType() == typeof(bool))
+                    //object omyOrganisation_Person_Active = dt_xPriceList.Rows[index]["Active"];
+                    //if (omyOrganisation_Person_Active.GetType() == typeof(bool))
                     //{
-                    //    if (myCompany_Person_Active == null)
+                    //    if (myOrganisation_Person_Active == null)
                     //    {
-                    //        myCompany_Person_Active = new DBTypes.bool_v();
+                    //        myOrganisation_Person_Active = new DBTypes.bool_v();
                     //    }
-                    //    myCompany_Person_Active.v = (bool)omyCompany_Person_Active;
+                    //    myOrganisation_Person_Active.v = (bool)omyOrganisation_Person_Active;
                     //}
                     //else
                     //{
-                    //    myCompany_Person_Active = null;
+                    //    myOrganisation_Person_Active = null;
                     //}
 
 
@@ -259,12 +259,12 @@ namespace InvoiceDB
             //              PriceList.ValidTo,
             //              PriceList.CreationDate,
             //              PriceList.Description,
-            //              myCompany_Person.UserName,
+            //              myOrganisation_Person.UserName,
             //              cFirstName.FirstName,
             //              cLastName.LastName,
-            //              myCompany_Person.Active,
-            //              myCompany_Person.Job,
-            //              PersonData.Description as myCompany_Person_Description,
+            //              myOrganisation_Person.Active,
+            //              myOrganisation_Person.Job,
+            //              PersonData.Description as myOrganisation_Person_Description,
             //              Currency.ID as Currency_ID,
             //              Currency.Name as Currency_Name,
             //              Currency.Abbreviation as Currency_Abbreviation,
@@ -272,8 +272,8 @@ namespace InvoiceDB
             //              Currency.CurrencyCode as Currency_CurrencyCode
             //            FROM PriceList 
             //            INNER JOIN Currency ON Currency.ID = PriceList.Currency_ID 
-            //            LEFT JOIN myCompany_Person ON myCompany_Person.ID = PriceList.myCompany_Person_ID 
-            //            LEFT JOIN Person ON myCompany_Person.Person_ID = Person.ID 
+            //            LEFT JOIN myOrganisation_Person ON myOrganisation_Person.ID = PriceList.myOrganisation_Person_ID 
+            //            LEFT JOIN Person ON myOrganisation_Person.Person_ID = Person.ID 
             //            LEFT JOIN cFirstName ON Person.cFirstName_ID = cFirstName.ID 
             //            LEFT JOIN cLastName ON Person.cLastName_ID = cLastName.ID 
             //            LEFT JOIN PersonData ON PersonData.Person_ID = Person.ID 
@@ -331,14 +331,14 @@ namespace InvoiceDB
               PriceList.ValidTo,
               PriceList.CreationDate,
               PriceList.Description,
-              myCompany_Person.ID as myCompany_Person_ID
-              myCompany_PersonData.ID as myCompany_PersonData_ID
-              myCompany_PersonData.UserName,
-              myCompany_PersonData.FirstName,
-              myCompany_PersonData.LastName,
-              myCompany_PersonData.Active,
-              myCompany_PersonData.Job,
-              myCompany_PersonData.Description as myCompany_Person_Description,
+              myOrganisation_Person.ID as myOrganisation_Person_ID
+              myOrganisation_PersonData.ID as myOrganisation_PersonData_ID
+              myOrganisation_PersonData.UserName,
+              myOrganisation_PersonData.FirstName,
+              myOrganisation_PersonData.LastName,
+              myOrganisation_PersonData.Active,
+              myOrganisation_PersonData.Job,
+              myOrganisation_PersonData.Description as myOrganisation_Person_Description,
               Currency.ID as Currency_ID,
               Currency.Name as Currency_Name,
               Currency.Abbreviation as Currency_Abbreviation,
@@ -346,8 +346,8 @@ namespace InvoiceDB
               Currency.CurrencyCode as Currency_CurrencyCode
             FROM PriceList 
             INNER JOIN Currency ON Currency.ID = PriceList.Currency_ID 
-            LEFT JOIN myCompany_Person ON myCompany_Person.ID = PriceList.myCompany_Person_ID 
-            LEFT JOIN myCompany_PersonData ON myCompany_PersonData.ID = myCompany_Person.myCompany_PersonData_ID 
+            LEFT JOIN myOrganisation_Person ON myOrganisation_Person.ID = PriceList.myOrganisation_Person_ID 
+            LEFT JOIN myOrganisation_PersonData ON myOrganisation_PersonData.ID = myOrganisation_Person.myOrganisation_PersonData_ID 
             where PriceList.ID = " + PriceList_ID.ToString();
             dt_xPriceList.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_xPriceList, sql_select_PriceList, null, ref Err))

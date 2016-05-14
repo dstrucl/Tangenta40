@@ -194,7 +194,9 @@ namespace InvoiceDB
         {
             if (Init_Default_DB(ref Err))
             {
-                return true;
+                SampleDB sbd = new SampleDB();
+                bool bRes = sbd.Write();
+                return bRes;
             }
             else
             {

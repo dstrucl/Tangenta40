@@ -19,7 +19,7 @@ namespace InvoiceDB
         {
             public static bool Get(
                                     string Office_Name,
-                                    long myCompany_ID,
+                                    long myOrganisation_ID,
                                     ref long Office_ID)
             {
 
@@ -41,24 +41,24 @@ namespace InvoiceDB
                     sval_Office_Name = "null";
                 }
 
-                string scond_myCompany_ID = null;
-                string sval_myCompany_ID = "null";
-                if (myCompany_ID >= 0)
+                string scond_myOrganisation_ID = null;
+                string sval_myOrganisation_ID = "null";
+                if (myOrganisation_ID >= 0)
                 {
-                    string spar_myCompany_ID = "@par_myCompany_ID";
-                    SQL_Parameter par_myCompany_ID = new SQL_Parameter(spar_myCompany_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, myCompany_ID);
-                    lpar.Add(par_myCompany_ID);
-                    scond_myCompany_ID = "myCompany_ID = " + spar_myCompany_ID;
-                    sval_myCompany_ID = spar_myCompany_ID;
+                    string spar_myOrganisation_ID = "@par_myOrganisation_ID";
+                    SQL_Parameter par_myOrganisation_ID = new SQL_Parameter(spar_myOrganisation_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, myOrganisation_ID);
+                    lpar.Add(par_myOrganisation_ID);
+                    scond_myOrganisation_ID = "myOrganisation_ID = " + spar_myOrganisation_ID;
+                    sval_myOrganisation_ID = spar_myOrganisation_ID;
                 }
                 else
                 {
-                    scond_myCompany_ID = "myCompany_ID is null";
-                    sval_myCompany_ID = "null";
+                    scond_myOrganisation_ID = "myOrganisation_ID is null";
+                    sval_myOrganisation_ID = "null";
                 }
 
                 string sql = @"select ID from Office
-                                        where (" + scond_Office_Name + ") and (" + scond_myCompany_ID + ")";
+                                        where (" + scond_Office_Name + ") and (" + scond_myOrganisation_ID + ")";
                 string Err = null;
                 DataTable dt = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -70,9 +70,9 @@ namespace InvoiceDB
                     }
                     else
                     {
-                        sql = @"insert into Office (myCompany_ID,
+                        sql = @"insert into Office (myOrganisation_ID,
                                                             Name) values ("
-                                                                + sval_myCompany_ID + ","
+                                                                + sval_myOrganisation_ID + ","
                                                                 + sval_Office_Name +
                                                                 ")";
                         object objretx = null;

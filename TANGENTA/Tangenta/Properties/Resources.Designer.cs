@@ -163,9 +163,9 @@ namespace Tangenta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon CompanyLogo {
+        internal static System.Drawing.Icon OrganisationLogo {
             get {
-                object obj = ResourceManager.GetObject("CompanyLogo", resourceCulture);
+                object obj = ResourceManager.GetObject("OrganisationLogo", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -392,7 +392,7 @@ namespace Tangenta.Properties {
         ///	&lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot; bgcolor=gray&gt;
-        ///&lt;p&gt;@@CompanyName&lt;/p&gt;
+        ///&lt;p&gt;@@OrganisationName&lt;/p&gt;
         ///&lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
         ///&lt;p&gt;@@ZIP @@City&lt;/p&gt;
         ///&lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -421,7 +421,7 @@ namespace Tangenta.Properties {
         ///	&lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot; bgcolor=gray&gt;
-        ///&lt;p&gt;@@CompanyName&lt;/p&gt;
+        ///&lt;p&gt;@@OrganisationName&lt;/p&gt;
         ///&lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
         ///&lt;p&gt;@@ZIP @@City&lt;/p&gt;
         ///&lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -483,7 +483,7 @@ namespace Tangenta.Properties {
         ///	&lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot; bgcolor=gray&gt;
-        ///&lt;p&gt;@@CompanyName&lt;/p&gt;
+        ///&lt;p&gt;@@OrganisationName&lt;/p&gt;
         ///&lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
         ///&lt;p&gt;@@ZIP @@City&lt;/p&gt;
         ///&lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -512,7 +512,7 @@ namespace Tangenta.Properties {
         ///	&lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot; bgcolor=gray&gt;
-        ///&lt;p&gt;@@CompanyName&lt;/p&gt;
+        ///&lt;p&gt;@@OrganisationName&lt;/p&gt;
         ///&lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
         ///&lt;p&gt;@@ZIP @@City&lt;/p&gt;
         ///&lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -574,7 +574,7 @@ namespace Tangenta.Properties {
         ///	&lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot; bgcolor=gray&gt;
-        ///&lt;p&gt;@@CompanyName&lt;/p&gt;
+        ///&lt;p&gt;@@OrganisationName&lt;/p&gt;
         ///&lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
         ///&lt;p&gt;@@ZIP @@City&lt;/p&gt;
         ///&lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -603,7 +603,7 @@ namespace Tangenta.Properties {
         ///	&lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot; bgcolor=gray&gt;
-        ///&lt;p&gt;@@CompanyName&lt;/p&gt;
+        ///&lt;p&gt;@@OrganisationName&lt;/p&gt;
         ///&lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
         ///&lt;p&gt;@@ZIP @@City&lt;/p&gt;
         ///&lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -665,7 +665,7 @@ namespace Tangenta.Properties {
         ///	&lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot; bgcolor=gray&gt;
-        ///&lt;p&gt;@@CompanyName&lt;/p&gt;
+        ///&lt;p&gt;@@OrganisationName&lt;/p&gt;
         ///&lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
         ///&lt;p&gt;@@ZIP @@City&lt;/p&gt;
         ///&lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -694,7 +694,7 @@ namespace Tangenta.Properties {
         ///	&lt;/style&gt;
         ///&lt;/head&gt;
         ///&lt;body lang=&quot;sl-SI&quot; dir=&quot;ltr&quot; bgcolor=gray&gt;
-        ///&lt;p&gt;@@CompanyName&lt;/p&gt;
+        ///&lt;p&gt;@@OrganisationName&lt;/p&gt;
         ///&lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
         ///&lt;p&gt;@@ZIP @@City&lt;/p&gt;
         ///&lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -795,9 +795,9 @@ namespace Tangenta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon MyCompany {
+        internal static System.Drawing.Icon MyOrganisation {
             get {
-                object obj = ResourceManager.GetObject("MyCompany", resourceCulture);
+                object obj = ResourceManager.GetObject("MyOrganisation", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

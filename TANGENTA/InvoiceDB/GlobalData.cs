@@ -26,7 +26,7 @@ namespace InvoiceDB
         public static long Atom_Office_ID = -1;
         public static long Atom_Computer_ID = -1;
         public static long Atom_WorkingPlace_ID = -1;
-        public static long Atom_myCompany_Person_ID = -1;
+        public static long Atom_myOrganisation_Person_ID = -1;
         public static long Atom_WorkPeriod_ID = -1;
 
         public static JOURNAL_DocInvoice_Type_definitions JOURNAL_DocInvoice_Type_definitions = new JOURNAL_DocInvoice_Type_definitions();
@@ -40,10 +40,10 @@ namespace InvoiceDB
         {
             if (Atom_WorkPeriod_ID < 0)
             {
-                if (Atom_myCompany_Person_ID < 0)
+                if (Atom_myOrganisation_Person_ID < 0)
                 {
                     string_v office_name = null;
-                    if (f_Atom_myCompany_Person.Get(1, ref Atom_myCompany_Person_ID, ref office_name))
+                    if (f_Atom_myOrganisation_Person.Get(1, ref Atom_myOrganisation_Person_ID, ref office_name))
                     {
                         if (f_WorkingPlace.Get(office_name.v, "Tangenta 1", ref WorkingPlace_ID))
                         {
@@ -56,7 +56,7 @@ namespace InvoiceDB
                                     {
                                         Atom_WorkPeriod_Type_Description = "Stari šiht od 29.4.2015 do " + dtEnd_v.v.Day.ToString() + "." + dtEnd_v.v.Month.ToString() + "." + dtEnd_v.v.Year.ToString();
                                     }
-                                    if (f_Atom_WorkPeriod.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, Atom_myCompany_Person_ID, Atom_WorkingPlace_ID, Atom_Computer_ID, dtStart, dtEnd_v, ref Atom_WorkPeriod_ID))
+                                    if (f_Atom_WorkPeriod.Get(Atom_WorkPeriod_Type_Name, Atom_WorkPeriod_Type_Description, Atom_myOrganisation_Person_ID, Atom_WorkingPlace_ID, Atom_Computer_ID, dtStart, dtEnd_v, ref Atom_WorkPeriod_ID))
                                     {
                                         return true;
                                     }

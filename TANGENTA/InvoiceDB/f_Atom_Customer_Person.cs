@@ -49,6 +49,9 @@ namespace InvoiceDB
                             string_v City_v = null;
                             string_v ZIP_v = null;
                             string_v Country_v = null;
+                            string_v Country_ISO_3166_a2_v = null;
+                            string_v Country_ISO_3166_a3_v = null;
+                            short_v  Country_ISO_3166_num_v = null;
                             string_v State_v = null;
                             string_v CardNumber_v = null;
                             string_v CardType_v = null;
@@ -63,6 +66,9 @@ namespace InvoiceDB
                                             PersonData_$_cadrper_$_ccitper_$$City,
                                             PersonData_$_cadrper_$_zipper_$$ZIP,
                                             PersonData_$_cadrper_$_cstper_$$Country,
+                                            PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_a2,
+                                            PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_a3,
+                                            PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_num,
                                             PersonData_$_cadrper_$_ccouper_$$State,
                                             PersonData_$$CardNumber,
                                             PersonData_$_cardtper_$$CardType,
@@ -83,6 +89,9 @@ namespace InvoiceDB
                                     City_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccitper_$$City"]);
                                     ZIP_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_zipper_$$ZIP"]);
                                     Country_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country"]);
+                                    Country_ISO_3166_a2_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_a2"]);
+                                    Country_ISO_3166_a3_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_a3"]);
+                                    Country_ISO_3166_num_v = tf.set_short(dt.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_num"]);
                                     State_v = tf.set_string(dt.Rows[0]["PersonData_$_cadrper_$_ccouper_$$State"]);
                                     CardNumber_v = tf.set_string(dt.Rows[0]["PersonData_$$CardNumber"]);
                                     CardType_v = tf.set_string(dt.Rows[0]["PersonData_$_cardtper_$$CardType"]);
@@ -106,6 +115,9 @@ namespace InvoiceDB
                                                         City_v,
                                                         ZIP_v,
                                                         Country_v,
+                                                        Country_ISO_3166_a2_v,
+                                                        Country_ISO_3166_a3_v,
+                                                        Country_ISO_3166_num_v,
                                                         State_v,
                                                         CardNumber_v,
                                                         CardType_v,

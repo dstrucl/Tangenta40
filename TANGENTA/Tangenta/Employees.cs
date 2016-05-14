@@ -56,16 +56,16 @@ namespace Tangenta
             get { return m_Active; }
         }
 
-        private long m_myCompany_ID = 1;
-        public long myCompany_ID
+        private long m_myOrganisation_ID = 1;
+        public long myOrganisation_ID
         {
-            get { return m_myCompany_ID; }
+            get { return m_myOrganisation_ID; }
         }
 
-        private long m_myCompany_Person_ID = 1;
-        public long myCompany_Person_ID
+        private long m_myOrganisation_Person_ID = 1;
+        public long myOrganisation_Person_ID
         {
-            get { return m_myCompany_Person_ID; }
+            get { return m_myOrganisation_Person_ID; }
         }
         public string Person
         {
@@ -79,8 +79,8 @@ namespace Tangenta
                         object xPassword,
                         object xDescription,
                         bool xActive,
-                        long x_myCompany_ID,
-                        long x_myCompany_Person_ID
+                        long x_myOrganisation_ID,
+                        long x_myOrganisation_Person_ID
                         )
         {
             m_FirstName = xFirstName;
@@ -90,8 +90,8 @@ namespace Tangenta
             m_Password = set_string(xPassword);
             m_Description = set_string(xDescription);
             m_Active = xActive;
-            m_myCompany_ID = x_myCompany_ID;
-            m_myCompany_Person_ID = x_myCompany_Person_ID;
+            m_myOrganisation_ID = x_myOrganisation_ID;
+            m_myOrganisation_Person_ID = x_myOrganisation_Person_ID;
         }
         private string set_string(object obj)
         {

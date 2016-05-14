@@ -41,14 +41,14 @@ namespace Tangenta
         {
             dt_my_company.Clear();
             string sql = null;
-             sql = @"select * from myCompany_VIEW";
+             sql = @"select * from myOrganisation_VIEW";
 
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_my_company,sql,ref Err))
             {
-                dgvx_MyCompany.DataSource = dt_my_company;
-                tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_MyCompany, dbTables);
-                foreach (DataGridViewColumn dgvc in dgvx_MyCompany.Columns)
+                dgvx_MyOrganisation.DataSource = dt_my_company;
+                tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_MyOrganisation, dbTables);
+                foreach (DataGridViewColumn dgvc in dgvx_MyOrganisation.Columns)
                 {
                     if (dgvc.HeaderText.Equals("ID"))
                     {
@@ -91,10 +91,10 @@ namespace Tangenta
 
         }
 
-        private void MyCompanyData_EditForm_Load(object sender, EventArgs e)
+        private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)
         {
             this.btn_BankAccounts.Text = lngRPM.s_BankAccounts.s;
-            this.Text = lngRPM.s_MyCompany.s;
+            this.Text = lngRPM.s_MyOrganisation.s;
             if (!Init())
             {
                 Close();
@@ -135,7 +135,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourCompanyData, "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOrganisationData, "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 }
             }
         }
@@ -150,7 +150,7 @@ namespace Tangenta
             }
             else
             {
-                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotEnterYourCompanyData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotEnterYourOrganisationData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     Close();
                     DialogResult = DialogResult.Cancel;

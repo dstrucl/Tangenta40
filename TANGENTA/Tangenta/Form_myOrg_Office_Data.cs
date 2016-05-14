@@ -31,7 +31,7 @@ namespace Tangenta
             tbl_Office_Data = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Office_Data)));
             this.Text = lngRPM.s_Edit_Office_Data.s;
             this.usrc_EditTable1.Title = lngRPM.s_Edit_Office_Data.s;
-            string selection = @" Office_Data_$_office_$_mc_$_orgd_$_org_$$Name,
+            string selection = @" Office_Data_$_office_$_mo_$_orgd_$_org_$$Name,
                                     Office_Data_$_office_$$Name,
                                     Office_Data_$_office_$$ShortName,
                                     Office_Data_$_cadrorg_$_cstrnorg_$$StreetName,

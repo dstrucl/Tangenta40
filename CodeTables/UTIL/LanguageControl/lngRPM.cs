@@ -18,7 +18,7 @@ namespace LanguageControl
     public static class lngRPM
     {
         public static ltext s_StartupProgram = new ltext("Program Startup", "Zagon Programa Tangenta");
-        public static ltext s_DataBaseIsEmpty_InsertInitialData = new ltext("Database is empty. Insert common sample data of organisation which name is Company1 and you can change this data later to your real organisation data? (Yes/No)", "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke neke splošne organizacije z imenom Podjetje1,\r\nsami pa lahko potem kadarkoli te podatke spremenite v podatke vaše organizacije? (Da/Ne)");
+        public static ltext s_DataBaseIsEmpty_InsertInitialData = new ltext("Database is empty. Insert common sample data of organisation which name is Organisation1 and you can change this data later to your real organisation data? (Yes/No)", "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke neke splošne organizacije z imenom Podjetje1,\r\nsami pa lahko potem kadarkoli te podatke spremenite v podatke vaše organizacije? (Da/Ne)");
         public static ltext s_UpgradeBackupFileExist_restore_old_Database = new ltext("Upgrade failed, Database backup file exists. Restore DataBase \"%s\" (Yes/No) ?", "Nadgradnja podatkovne baze je bila neuspešna.\r\n Povrnem podatkovno bazo v prejšne stanje iz datoteke:\"%s\" (Da/Ne) ?");
         public static ltext s_CanNotReadDataBaseFile = new ltext("ERRRO:Can not read database file.", "NAPAKA:Neuspešno branje podatkovne baze.");
         public static ltext s_DataBaseVersion = new ltext("DataBaseVersion", "Verzija podatkovne baze:");
@@ -133,9 +133,9 @@ namespace LanguageControl
         public static ltext s_FVI_SLO_RealEstateBP_has_no_Data = new ltext("No data for Fiscal Verification system in Slovenia. \r\nYou can not do fiscal verification until you enter RealEstate data!", "Ni vnešenih podatkov o poslovnem prosturu potrebnih za davčno upravo.\r\nPotrejavanje računov ne bo delalo dokler ne vnesete podatkov o poslovnem prostoru!");
         public static ltext s_btn_Tokens = new ltext("View replacement word", "Ključne besede za izdelavo predlog");
         public static ltext s_Form_Select_Country_ISO_3166_Title = new ltext("Select State", "Izberite Državo");
-        public static ltext s_YouMustEnterYourCompanyData = new ltext("You must enter your organisation data. Without organisation data program can not run!", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati!");
+        public static ltext s_YouMustEnterYourOrganisationData = new ltext("You must enter your organisation data. Without organisation data program can not run!", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati!");
 
-        public static ltext s_YouDidNotEnterYourCompanyData = new ltext("You did not enter your organisation data. Without organisation data program can not run! Program will end? ", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati! Program se konča ?");
+        public static ltext s_YouDidNotEnterYourOrganisationData = new ltext("You did not enter your organisation data. Without organisation data program can not run! Program will end? ", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati! Program se konča ?");
 
         public static ltext s_YouDidNotWriteDataToDB_SaveData_YesOrNo = new ltext("Write to Data Base.\r\n(Press Yes or No)?", "Vpišem podatke v podatkovno bazo?\r\n(Pritisni gumb Da ali Ne) ?");
 
@@ -510,27 +510,27 @@ namespace LanguageControl
         public static ltext s_Issuer = new ltext("Issuer",
                                                     "Izstavitelj");
 
-        public static ltext s_MyCompany = new ltext("My organisation",
+        public static ltext s_MyOrganisation = new ltext("My organisation",
                                                     "Moja oragnizacija");
 
 
-        public static ltext s_No_CompanyData = new ltext("There is no data about your company. You must enter your company data first!",
+        public static ltext s_No_OrganisationData = new ltext("There is no data about your company. You must enter your company data first!",
                                                          "Ni podatkov o vašem podjetju. Najprej morate vnesti podatke o svojem podjetju");
 
 
-        public static ltext s_No_MyCompany_StreetName = new ltext("There is no Street Name address of your company. You must enter Street Name address of your company!",
+        public static ltext s_No_MyOrganisation_StreetName = new ltext("There is no Street Name address of your company. You must enter Street Name address of your company!",
                                                          "Ni podatka o naslovu ulice vašega podjetja. Vnesti morate naslov ulice vašega podjetja");
 
-        public static ltext s_No_MyCompany_HouseNumber = new ltext("There is no house number of your company. You must enter house number of your company!",
+        public static ltext s_No_MyOrganisation_HouseNumber = new ltext("There is no house number of your company. You must enter house number of your company!",
                                                          "Ni podatka o hišni številki vašega podjetja. Vnesti morate hišno številko vašega podjetja");
 
-        public static ltext s_No_MyCompany_ZIP = new ltext("There is no ZIP of your company. You must enter ZIP of your company!",
+        public static ltext s_No_MyOrganisation_ZIP = new ltext("There is no ZIP of your company. You must enter ZIP of your company!",
                                                          "Ni podatka o številki pošte vašega podjetja. Vnesti morate številko pošte vašega podjetja");
 
-        public static ltext s_No_MyCompany_City = new ltext("There is no city of your company. You must enter city of your company!",
+        public static ltext s_No_MyOrganisation_City = new ltext("There is no city of your company. You must enter city of your company!",
                                                          "Ni podatka o kraju vašega podjetja. Vnesti morate kraj vašega podjetja");
 
-        public static ltext s_No_MyCompany_Country= new ltext("There is no country of your company. You must enter country of your company!",
+        public static ltext s_No_MyOrganisation_Country= new ltext("There is no country of your company. You must enter country of your company!",
                                                              "Ni podatka v kateri državi je vaše podjetje. Vnesti morate državo v kateri je podjetje");
 
         public static ltext s_No_Office = new ltext("There is no office of your organisation. You must have at least one office in your organisation!",
@@ -542,14 +542,14 @@ namespace LanguageControl
         public static ltext s_No_Office_Data_FVI_SLO_RealEstateBP = new ltext("Missing Real Estate Data for your office. You need them for Fiscal verification of invoices in Slovenia!",
                                                                               "Vaša poslovna enota nima podatkov o poslovnem prosturu potrebnih za davčno potrjevanje računov,\nVpisati morate še podatke o poslovnem prostoru, ki so potrebni za davčno potrjevanje računov!");
 
-        public static ltext s_No_MyCompany_Person = new ltext("There is no person of your company which is active. You must enter person of your company! (Also Check if Active flag is set!)",
+        public static ltext s_No_MyOrganisation_Person = new ltext("There is no person of your company which is active. You must enter person of your company! (Also Check if Active flag is set!)",
                                                               "Vaše podjetje nima vsaj ene osebe, ki bi bila označena za aktivno.\nVnesti morate osebo ali osebe v vašem podjetju in pri tem mora imeti imeti najmanj ena oseba odkljukano, da je aktivna!");
 
 
-        public static ltext s_No_MyCompany_name = new ltext("There is no name of your company. You must enter name of your company!",
+        public static ltext s_No_MyOrganisation_name = new ltext("There is no name of your company. You must enter name of your company!",
                                                             "Vaše podjetje nima imena. Vnesti morate ime vašega podjetja");
 
-        public static ltext s_No_MyCompany_Tax_ID = new ltext("There is no Tax ID of your company. You must enter Tax ID of your company!",
+        public static ltext s_No_MyOrganisation_Tax_ID = new ltext("There is no Tax ID of your company. You must enter Tax ID of your company!",
                                                             "Vaše podjetje nima davčne številke. Vnesti morate davčno številko vašega podjetja");
         
         public static ltext sRowsCount = new ltext("Rows count = ", "Število vrstic = ");
@@ -1880,7 +1880,7 @@ namespace LanguageControl
        public static ltext s_GroupBoxImport_VehicleData = new ltext ("Tables for vehicle data ",
                                                         "Tabele povezane z vozili");
 
-       public static ltext s_GroupBoxImport_CompanyData = new ltext ("Tables for companies data ",
+       public static ltext s_GroupBoxImport_OrganisationData = new ltext ("Tables for companies data ",
                                                        "Tabele povezane s podjetji");
 
        public static ltext s_Person = new ltext ("Person",
@@ -1936,9 +1936,7 @@ namespace LanguageControl
        public static ltext s_Email =  new ltext ("Email",
                                           "Elektronski naslov");
 
-       public static ltext s_Company =  new ltext ("Company",
-                                         "Podjetje");
-
+       
        public static ltext s_Organisation = new ltext("Organisation",
                                                       "Organizacija");
 

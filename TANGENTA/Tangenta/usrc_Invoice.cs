@@ -56,8 +56,8 @@ namespace Tangenta
         public event delegate_PriceListChanged aa_PriceListChanged = null;
 
 
-        public long Last_myCompany_id = 1;
-        public long Last_myCompany_Person_id = 1;
+        public long Last_myOrganisation_id = 1;
+        public long Last_myOrganisation_Person_id = 1;
 
         public emode m_mode = emode.view_eInvoiceType;
 
@@ -66,10 +66,10 @@ namespace Tangenta
         public InvoiceDB.ShopABC m_ShopABC = null;
         public InvoiceData m_InvoiceData = null;
 
-        public long myCompany_Person_id
+        public long myOrganisation_Person_id
         {
             get {
-                object oSelvalue = this.cmb_select_my_Company_Person.SelectedValue;
+                object oSelvalue = this.cmb_select_my_Organisation_Person.SelectedValue;
                 if (oSelvalue is long)
                 {
                     return (long)oSelvalue;
@@ -426,19 +426,19 @@ namespace Tangenta
         }
 
 
-        public enum enum_GetCompany_Person_Data { MyCompany_Data_OK,
-            No_MyCompany_Tax_ID,
-            No_MyCompany_name,
-            No_MyCompany_StreetName,
-            No_MyCompany_HouseNumber,
-            No_MyCompany_ZIP,
-            No_MyCompany_City,
-            No_MyCompany_Country,
-            No_MyCompany_State,
-            No_MyCompanyData,
-            No_MyCompany_Person_FirstName,
-            No_MyCompany_Person,
-            Error_Load_MyCompany_data
+        public enum enum_GetOrganisation_Person_Data { MyOrganisation_Data_OK,
+            No_MyOrganisation_Tax_ID,
+            No_MyOrganisation_name,
+            No_MyOrganisation_StreetName,
+            No_MyOrganisation_HouseNumber,
+            No_MyOrganisation_ZIP,
+            No_MyOrganisation_City,
+            No_MyOrganisation_Country,
+            No_MyOrganisation_State,
+            No_MyOrganisationData,
+            No_MyOrganisation_Person_FirstName,
+            No_MyOrganisation_Person,
+            Error_Load_MyOrganisation_data
 
         };
 
@@ -499,7 +499,7 @@ namespace Tangenta
             InitializeComponent();
             m_mode = emode.view_eInvoiceType;
             lngRPM.s_Show_Shops.Text(btn_Show_Shops);
-            lngRPM.s_Issuer.Text(lbl_MyCompany);
+            lngRPM.s_Issuer.Text(lbl_MyOrganisation);
             lngRPM.s_Number.Text(lbl_Number);
             lngRPM.s_Currency.Text(lbl_Currency);
             //btn_BuyerSelect.Text = lngRPM.s_BuyerSelect.s;
@@ -511,7 +511,7 @@ namespace Tangenta
             lngRPM.s_Shop_AC = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
             lngRPM.s_Shop_ABC = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_B.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_B.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
 
-            lngRPM.s_MyCompany.Text(lbl_MyOrganisation);
+            lngRPM.s_MyOrganisation.Text(lbl_MyOrganisation);
             lngRPM.s_Total.Text(this.lbl_Sum);
             //SetMode(m_mode);
 
@@ -560,7 +560,7 @@ namespace Tangenta
 
         }
 
-        private bool EditMyCompany_Person_Data(int Index)
+        private bool EditMyOrganisation_Person_Data(int Index)
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
@@ -640,11 +640,11 @@ namespace Tangenta
             }
         }
 
-        private bool EditMyCompany_Data(bool bAllowNew)
+        private bool EditMyOrganisation_Data(bool bAllowNew)
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany))), bAllowNew);
+            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew);
             dres = edt_my_company_dlg.ShowDialog(this);
 
             if (dres == DialogResult.OK)
@@ -1213,7 +1213,7 @@ namespace Tangenta
 
 
 
-        internal bool GetCompanyData(usrc_Main x_usrc_Main )
+        internal bool GetOrganisationData(usrc_Main x_usrc_Main )
         {
             string sAddress = null;
             for (;;)
@@ -1222,14 +1222,14 @@ namespace Tangenta
                 {
                     if (myOrg.Name_v == null)
                     {
-                        // DataBase is empty No Company Data First select Shops In use !
+                        // DataBase is empty No Organisation Data First select Shops In use !
                         Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(x_usrc_Main);
                         frm_shops_in_use.ShowDialog(x_usrc_Main);
 
 
 
-                        MessageBox.Show(lngRPM.s_No_CompanyData.s);
-                        if (EditMyCompany_Data(true))
+                        MessageBox.Show(lngRPM.s_No_OrganisationData.s);
+                        if (EditMyOrganisation_Data(true))
                         {
                             continue;
                         }
@@ -1240,8 +1240,8 @@ namespace Tangenta
                     }
                     if (myOrg.Tax_ID_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyCompany_Tax_ID.s);
-                        if (EditMyCompany_Data(false))
+                        MessageBox.Show(lngRPM.s_No_MyOrganisation_Tax_ID.s);
+                        if (EditMyOrganisation_Data(false))
                         {
                             continue;
                         }
@@ -1253,8 +1253,8 @@ namespace Tangenta
 
                     if (myOrg.Address_v.StreetName_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyCompany_StreetName.s);
-                        if (EditMyCompany_Data(false))
+                        MessageBox.Show(lngRPM.s_No_MyOrganisation_StreetName.s);
+                        if (EditMyOrganisation_Data(false))
                         {
                             continue;
                         }
@@ -1266,8 +1266,8 @@ namespace Tangenta
 
                     if (myOrg.Address_v.HouseNumber_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyCompany_HouseNumber.s);
-                        if (EditMyCompany_Data(false))
+                        MessageBox.Show(lngRPM.s_No_MyOrganisation_HouseNumber.s);
+                        if (EditMyOrganisation_Data(false))
                         {
                             continue;
                         }
@@ -1279,8 +1279,8 @@ namespace Tangenta
 
                     if (myOrg.Address_v.ZIP_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyCompany_ZIP.s);
-                        if (EditMyCompany_Data(false))
+                        MessageBox.Show(lngRPM.s_No_MyOrganisation_ZIP.s);
+                        if (EditMyOrganisation_Data(false))
                         {
                             continue;
                         }
@@ -1291,8 +1291,8 @@ namespace Tangenta
                     }
                     if (myOrg.Address_v.City_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyCompany_City.s);
-                        if (EditMyCompany_Data(false))
+                        MessageBox.Show(lngRPM.s_No_MyOrganisation_City.s);
+                        if (EditMyOrganisation_Data(false))
                         {
                             continue;
                         }
@@ -1304,8 +1304,8 @@ namespace Tangenta
 
                     if (myOrg.Address_v.Country_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyCompany_Country.s);
-                        if (EditMyCompany_Data(false))
+                        MessageBox.Show(lngRPM.s_No_MyOrganisation_Country.s);
+                        if (EditMyOrganisation_Data(false))
                         {
                             continue;
                         }
@@ -1361,8 +1361,8 @@ namespace Tangenta
 
                     if (myOrg.myOrg_Person_list.Count== 0)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyCompany_Person.s);
-                        if (EditMyCompany_Person_Data(0))
+                        MessageBox.Show(lngRPM.s_No_MyOrganisation_Person.s);
+                        if (EditMyOrganisation_Person_Data(0))
                         {
                             continue;
                         }
@@ -1393,13 +1393,13 @@ namespace Tangenta
                         sRegistration_ID = myOrg.Registration_ID_v.vs;
                     }
 
-                    this.txt_MyCompany.Text = myOrg.Name_v.vs + "," + sAddress
+                    this.txt_MyOrganisation.Text = myOrg.Name_v.vs + "," + sAddress
                         + "\r\nDavčna Številka:" + myOrg.Tax_ID_v.vs
                         + "\r\nMatična Številka:" + sRegistration_ID
                         + "\r\nTelefon:" + sPhoneNumber
                         + "\r\nEmail:" + sEmail
                         + "\r\nDomača stran:" + sHomePage;
-                     Fill_MyCompany_Person();
+                     Fill_MyOrganisation_Person();
                      return true;
                 }
             }
@@ -1442,7 +1442,14 @@ namespace Tangenta
                     this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
                     this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                     chk_Storno_CanBe_ManualyChanged = false;
-                    this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.bStorno;
+                    if (m_ShopABC.m_CurrentInvoice.bStorno_v != null)
+                    { 
+                        this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.bStorno_v.v;
+                    }
+                    else
+                    {
+                        this.chk_Storno.Checked = false;
+                    }
                     chk_Storno_CanBe_ManualyChanged = true;
                 }
                 this.m_usrc_ShopC.Reset();
@@ -1565,21 +1572,21 @@ namespace Tangenta
         }
 
 
-        internal void Fill_MyCompany_Person()
+        internal void Fill_MyOrganisation_Person()
         {
             DataTable dtEmployees = new DataTable();
             string sql_my_company_person = @"Select ID,
-                                            myCompany_Person_$_office_$_mc_$$ID,
-                                            myCompany_Person_$_per_$_cfn_$$FirstName,
-                                            myCompany_Person_$_per_$_cln_$$LastName,
-                                            myCompany_Person_$$Job,
-                                            myCompany_Person_$$UserName,
-                                            myCompany_Person_$$Password,
-                                            myCompany_Person_$$Description,
-                                            myCompany_Person_$$Active
-                                            from myCompany_Person_VIEW
-                                            where myCompany_Person_$_office_$_mc_$$ID = " + Last_myCompany_id.ToString()
-                                              + " and myCompany_Person_$$Active = 1";
+                                            myOrganisation_Person_$_office_$_mo_$$ID,
+                                            myOrganisation_Person_$_per_$_cfn_$$FirstName,
+                                            myOrganisation_Person_$_per_$_cln_$$LastName,
+                                            myOrganisation_Person_$$Job,
+                                            myOrganisation_Person_$$UserName,
+                                            myOrganisation_Person_$$Password,
+                                            myOrganisation_Person_$$Description,
+                                            myOrganisation_Person_$$Active
+                                            from myOrganisation_Person_VIEW
+                                            where myOrganisation_Person_$_office_$_mo_$$ID = " + Last_myOrganisation_id.ToString()
+                                              + " and myOrganisation_Person_$$Active = 1";
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dtEmployees, sql_my_company_person, ref Err))
             {
@@ -1587,27 +1594,27 @@ namespace Tangenta
                 {
                     foreach (DataRow dr in dtEmployees.Rows)
                     {
-                        Employee employee = new Employee((string)dr["myCompany_Person_$_per_$_cfn_$$FirstName"],
-                                                         (string)dr["myCompany_Person_$_per_$_cln_$$LastName"],
-                                                            dr["myCompany_Person_$$Job"],
-                                                            dr["myCompany_Person_$$UserName"],
-                                                            dr["myCompany_Person_$$Password"],
-                                                            dr["myCompany_Person_$$Description"],
-                                                          (bool)dr["myCompany_Person_$$Active"],
+                        Employee employee = new Employee((string)dr["myOrganisation_Person_$_per_$_cfn_$$FirstName"],
+                                                         (string)dr["myOrganisation_Person_$_per_$_cln_$$LastName"],
+                                                            dr["myOrganisation_Person_$$Job"],
+                                                            dr["myOrganisation_Person_$$UserName"],
+                                                            dr["myOrganisation_Person_$$Password"],
+                                                            dr["myOrganisation_Person_$$Description"],
+                                                          (bool)dr["myOrganisation_Person_$$Active"],
                                                           (long)dr["ID"],
-                                                          (long)dr["myCompany_Person_$_office_$_mc_$$ID"]
+                                                          (long)dr["myOrganisation_Person_$_office_$_mo_$$ID"]
                                                           );
                         Employees.Add(employee);
                     }
-                    this.cmb_select_my_Company_Person.DataSource = Employees;
-                    this.cmb_select_my_Company_Person.DisplayMember = "Person";
-                    this.cmb_select_my_Company_Person.ValueMember = "myCompany_Person_ID";
-                    this.cmb_select_my_Company_Person.SelectedItem = Last_myCompany_Person_id;
+                    this.cmb_select_my_Organisation_Person.DataSource = Employees;
+                    this.cmb_select_my_Organisation_Person.DisplayMember = "Person";
+                    this.cmb_select_my_Organisation_Person.ValueMember = "myOrganisation_Person_ID";
+                    this.cmb_select_my_Organisation_Person.SelectedItem = Last_myOrganisation_Person_id;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Invoice:Fill_MyCompany_Person:Err=" + Err);
+                LogFile.Error.Show("ERROR:usrc_Invoice:Fill_MyOrganisation_Person:Err=" + Err);
             }
         }
 
@@ -1622,7 +1629,7 @@ namespace Tangenta
 
         }
 
-        private void btn_edit_MyCompany_Click(object sender, EventArgs e)
+        private void btn_edit_MyOrganisation_Click(object sender, EventArgs e)
         {
 
         }
@@ -1662,7 +1669,7 @@ namespace Tangenta
         {
             long DocInvoice_ID = -1;
             string Err = null;
-            if (m_ShopABC.SetNewDraft_Invoice(FinancialYear, this, ref DocInvoice_ID, Last_myCompany_Person_id, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, this, ref DocInvoice_ID, Last_myOrganisation_Person_id, ref Err))
             {
                 if (m_ShopABC.m_CurrentInvoice.DocInvoice_ID >= 0)
                 {
@@ -1679,16 +1686,16 @@ namespace Tangenta
             }
         }
 
-        private void btn_edit_MyCompany_Click_1(object sender, EventArgs e)
+        private void btn_edit_MyOrganisation_Click_1(object sender, EventArgs e)
         {
-            EditMyCompany_Person_Data(0);
+            EditMyOrganisation_Person_Data(0);
             myOrg.Get(1);
-            if (Last_myCompany_Person_id >= 0)
+            if (Last_myOrganisation_Person_id >= 0)
             {
-                long Atom_myCompany_Person_ID = -1;
+                long Atom_myOrganisation_Person_ID = -1;
                 string_v office_name = null;
                // string Err = null;
-                f_Atom_myCompany_Person.Get(Last_myCompany_Person_id, ref Atom_myCompany_Person_ID, ref office_name);
+                f_Atom_myOrganisation_Person.Get(Last_myOrganisation_Person_id, ref Atom_myOrganisation_Person_ID, ref office_name);
             }
         }
 
@@ -1848,12 +1855,12 @@ namespace Tangenta
             {
                 if (m_ShopABC.m_CurrentInvoice != null)
                 {
-                    long myCompany_Person_id = -1;
-                    object o_myCompany_Person_id = cmb_select_my_Company_Person.SelectedItem;
-                    if (o_myCompany_Person_id is Tangenta.Employee)
+                    long myOrganisation_Person_id = -1;
+                    object o_myOrganisation_Person_id = cmb_select_my_Organisation_Person.SelectedItem;
+                    if (o_myOrganisation_Person_id is Tangenta.Employee)
                     {
-                        Tangenta.Employee employe = (Tangenta.Employee)o_myCompany_Person_id;
-                        myCompany_Person_id = employe.myCompany_Person_ID;
+                        Tangenta.Employee employe = (Tangenta.Employee)o_myOrganisation_Person_id;
+                        myOrganisation_Person_id = employe.myOrganisation_Person_ID;
                     }
 
                     if (m_ShopABC.m_CurrentInvoice.Exist)
@@ -1942,7 +1949,13 @@ namespace Tangenta
 
             if (chk_Storno_CanBe_ManualyChanged)
             {
-                if (chk_Storno.Checked!=m_ShopABC.m_CurrentInvoice.bStorno)
+                bool bstorno = false;
+                if (m_ShopABC.m_CurrentInvoice.bStorno_v!= null)
+                {
+                    bstorno = m_ShopABC.m_CurrentInvoice.bStorno_v.v;
+                }
+                
+                if (chk_Storno.Checked!=bstorno)
                 {
                     if (chk_Storno.Checked)
                     {
@@ -2016,7 +2029,7 @@ namespace Tangenta
         }
 
 
-        public long myCompany_Person_ID { get; set; }
+        public long myOrganisation_Person_ID { get; set; }
 
 
         private void usrc_Customer_Customer_Org_Changed(long Customer_Org_ID)
@@ -2062,7 +2075,7 @@ namespace Tangenta
 
         private void btn_MyOrganisation_Click(object sender, EventArgs e)
         {
-            EditMyCompany_Data(false);
+            EditMyOrganisation_Data(false);
         }
 
 

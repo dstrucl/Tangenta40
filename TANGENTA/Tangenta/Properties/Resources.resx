@@ -186,7 +186,7 @@
 	&lt;/style&gt;
 &lt;/head&gt;
 &lt;body lang="sl-SI" dir="ltr" bgcolor=gray&gt;
-&lt;p&gt;@@CompanyName&lt;/p&gt;
+&lt;p&gt;@@OrganisationName&lt;/p&gt;
 &lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
 &lt;p&gt;@@ZIP @@City&lt;/p&gt;
 &lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -439,7 +439,7 @@
       &lt;/div&gt;
       &lt;h1&gt;INVOICE 3-2-1&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
-        &lt;div&gt;Company Name&lt;/div&gt;
+        &lt;div&gt;Organisation Name&lt;/div&gt;
         &lt;div&gt;455 Foggy Heights,&lt;br /&gt; AZ 85004, US&lt;/div&gt;
         &lt;div&gt;(602) 519-0450&lt;/div&gt;
         &lt;div&gt;&lt;a href="mailto:company@example.com"&gt;company@example.com&lt;/a&gt;&lt;/div&gt;
@@ -545,8 +545,8 @@
   <data name="Print" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Print.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CompanyLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CompanyLogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="OrganisationLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OrganisationLogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Storno" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Storno.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -590,8 +590,8 @@
   <data name="SelectSimpleItemDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SelectServiceDisabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MyCompany" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MyCompany.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MyOrganisation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MyOrganisation.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SelectRow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SelectRow.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -748,7 +748,7 @@
       &lt;/div&gt;
       &lt;h1&gt;INVOICE 3-2-1&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
-        &lt;div&gt;Company Name&lt;/div&gt;
+        &lt;div&gt;Organisation Name&lt;/div&gt;
         &lt;div&gt;455 Foggy Heights,&lt;br /&gt; AZ 85004, US&lt;/div&gt;
         &lt;div&gt;(602) 519-0450&lt;/div&gt;
         &lt;div&gt;&lt;a href="mailto:company@example.com"&gt;company@example.com&lt;/a&gt;&lt;/div&gt;
@@ -979,7 +979,7 @@
       &lt;/div&gt;
       &lt;h1&gt;INVOICE 3-2-1&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
-        &lt;div&gt;Company Name&lt;/div&gt;
+        &lt;div&gt;Organisation Name&lt;/div&gt;
         &lt;div&gt;455 Foggy Heights,&lt;br /&gt; AZ 85004, US&lt;/div&gt;
         &lt;div&gt;(602) 519-0450&lt;/div&gt;
         &lt;div&gt;&lt;a href="mailto:company@example.com"&gt;company@example.com&lt;/a&gt;&lt;/div&gt;
@@ -1210,7 +1210,7 @@
       &lt;/div&gt;
       &lt;h1&gt;INVOICE 3-2-1&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
-        &lt;div&gt;Company Name&lt;/div&gt;
+        &lt;div&gt;Organisation Name&lt;/div&gt;
         &lt;div&gt;455 Foggy Heights,&lt;br /&gt; AZ 85004, US&lt;/div&gt;
         &lt;div&gt;(602) 519-0450&lt;/div&gt;
         &lt;div&gt;&lt;a href="mailto:company@example.com"&gt;company@example.com&lt;/a&gt;&lt;/div&gt;
@@ -1300,7 +1300,7 @@
 	&lt;/style&gt;
 &lt;/head&gt;
 &lt;body lang="sl-SI" dir="ltr" bgcolor=gray&gt;
-&lt;p&gt;@@CompanyName&lt;/p&gt;
+&lt;p&gt;@@OrganisationName&lt;/p&gt;
 &lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
 &lt;p&gt;@@ZIP @@City&lt;/p&gt;
 &lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -1340,7 +1340,7 @@
 	&lt;/style&gt;
 &lt;/head&gt;
 &lt;body lang="sl-SI" dir="ltr" bgcolor=gray&gt;
-&lt;p&gt;@@CompanyName&lt;/p&gt;
+&lt;p&gt;@@OrganisationName&lt;/p&gt;
 &lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
 &lt;p&gt;@@ZIP @@City&lt;/p&gt;
 &lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -1380,7 +1380,7 @@
 	&lt;/style&gt;
 &lt;/head&gt;
 &lt;body lang="sl-SI" dir="ltr" bgcolor=gray&gt;
-&lt;p&gt;@@CompanyName&lt;/p&gt;
+&lt;p&gt;@@OrganisationName&lt;/p&gt;
 &lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
 &lt;p&gt;@@ZIP @@City&lt;/p&gt;
 &lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -1420,7 +1420,7 @@
 	&lt;/style&gt;
 &lt;/head&gt;
 &lt;body lang="sl-SI" dir="ltr" bgcolor=gray&gt;
-&lt;p&gt;@@CompanyName&lt;/p&gt;
+&lt;p&gt;@@OrganisationName&lt;/p&gt;
 &lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
 &lt;p&gt;@@ZIP @@City&lt;/p&gt;
 &lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -1460,7 +1460,7 @@
 	&lt;/style&gt;
 &lt;/head&gt;
 &lt;body lang="sl-SI" dir="ltr" bgcolor=gray&gt;
-&lt;p&gt;@@CompanyName&lt;/p&gt;
+&lt;p&gt;@@OrganisationName&lt;/p&gt;
 &lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
 &lt;p&gt;@@ZIP @@City&lt;/p&gt;
 &lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -1500,7 +1500,7 @@
 	&lt;/style&gt;
 &lt;/head&gt;
 &lt;body lang="sl-SI" dir="ltr" bgcolor=gray&gt;
-&lt;p&gt;@@CompanyName&lt;/p&gt;
+&lt;p&gt;@@OrganisationName&lt;/p&gt;
 &lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
 &lt;p&gt;@@ZIP @@City&lt;/p&gt;
 &lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;
@@ -1540,7 +1540,7 @@
 	&lt;/style&gt;
 &lt;/head&gt;
 &lt;body lang="sl-SI" dir="ltr" bgcolor=gray&gt;
-&lt;p&gt;@@CompanyName&lt;/p&gt;
+&lt;p&gt;@@OrganisationName&lt;/p&gt;
 &lt;p&gt;@@StreetName @@HouseNumber&lt;/p&gt;
 &lt;p&gt;@@ZIP @@City&lt;/p&gt;
 &lt;p&gt;Domača stran:@@HomePage&lt;/p&gt;

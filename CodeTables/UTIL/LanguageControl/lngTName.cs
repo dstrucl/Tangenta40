@@ -14,6 +14,11 @@ namespace LanguageControl
 {
     public static class lngTName
     {
+        
+        public static ltext lngt_t_JOURNAL_myOrganisation_Person = new ltext("myOrganisation Person event", "Dogodek osebe moje organizacije");
+        public static ltext lngt_t_JOURNAL_myOrganisation_Person_TYPE = new ltext("myOrganisation Person event type", "Vrsta dogodka osebe moje organizacije");
+        public static ltext lngt_t_JOURNAL_myOrganisation_Person_AccessRights_TYPE = new ltext("myOrganisation Person AccessRights event type", "Vrsta dogodka pravic osebe moje organizacije");
+        public static ltext lngt_t_JOURNAL_myOrganisation_Person_AccessRights = new ltext("myOrganisation Person AccessRights event", "Dogodek pravic osebe moje organizacije");
         public static ltext lngt_t_FVI_SLO_SalesBookInvoice = new ltext("Sales Book Invoice", "Vezana knjiga računov");
         public static ltext lngt_t_DocInvoice_ShopA_Item = new ltext("Invoice ShopA Item ", "Artikli prodajalne A na računu");
         public static ltext lngt_t_DocProformaInvoice_ShopA_Item = new ltext("Proforma invoice ShopA Item ", "Artikli prodajalne A na pred-računu");
@@ -70,7 +75,7 @@ namespace LanguageControl
         public static ltext lngt_JOURNAL_Customer_Person = new ltext("Journal customer person", "Dnevnik stranka fizična oseba");
 
         public static ltext lngt_JOURNAL_Person = new ltext("Journal person", "Dnevnik fizične osebe");
-        public static ltext lngt_JOURNAL_myCompany = new ltext("Journal myCompany", "Dnevnik moja organizacija");
+        public static ltext lngt_JOURNAL_myOrganisation = new ltext("Journal myOrganisation", "Dnevnik moja organizacija");
         public static ltext lngt_JOURNAL_PriceList = new ltext("Journal PriceList", "Dnevnik Cenik");
         public static ltext lngt_JOURNAL_SimpleItem = new ltext("Journal SimpleItem", "Dnevnik SimpleItem");
         public static ltext lngt_JOURNAL_Item = new ltext("Journal Item", "Dnevnik Artikel");
@@ -83,8 +88,8 @@ namespace LanguageControl
         public static ltext lngt_JOURNAL_PurchasePrice_Type = new ltext("Journal event  purchase price", "Dogodek nabavne cene");
         public static ltext lngt_JOURNAL_Customer_Org_Type = new ltext("Journal event  customer organisation", "Dogodek stranke pravne osebe");
         public static ltext lngt_JOURNAL_Customer_Person_Type = new ltext("Journal event  customer person", "Dogodek stranke fizične osebe");
-        public static ltext lngt_JOURNAL_myCompany_Person_Type = new ltext("Journal event  employee", "Dogodek zaposleni");
-        public static ltext lngt_JOURNAL_myCompany_Type = new ltext("Journal event  my company", "Dogodek moja organizacija");
+        public static ltext lngt_JOURNAL_myOrganisation_Person_Type = new ltext("Journal event  employee", "Dogodek zaposleni");
+        public static ltext lngt_JOURNAL_myOrganisation_Type = new ltext("Journal event  my company", "Dogodek moja organizacija");
         public static ltext lngt_JOURNAL_SimpleItem_Type = new ltext("Journal event  SimpleItem", "Dogodek storitve");
         public static ltext lngt_JOURNAL_Item_Type = new ltext("Journal event  item", "Dogodek artikli");
         public static ltext lngt_JOURNAL_DocInvoice_Type = new ltext("Journal event  DocInvoice", "Dogodek računa");
@@ -108,9 +113,9 @@ namespace LanguageControl
         public static ltext lngt_PurchasePrice = new ltext("Purchase price", "Nabavna cena");
         public static ltext lngt_Atom_OrganisationData = new ltext("Organisation Data archive", "Podatki o organizaciji arhiv");
         public static ltext lngt_OrganisationData = new ltext("Organisation Data", "Podatki o organizaciji");
-        public static ltext lngt_myCompany_Person_AccessRights = new ltext("My Company Person Access Rights", "Dostopne pravice osebe v podjetju");
+        public static ltext lngt_myOrganisation_Person_AccessRights = new ltext("My Organisation Person Access Rights", "Dostopne pravice osebe v podjetju");
         public static ltext lngt_AccessRights = new ltext("Access Rights", "Dostopne pravice");
-        public static ltext lngt_myCompany_PersonData = new ltext("My Company Person Data", "Podatki o uporabniku v podjetju");
+        public static ltext lngt_myOrganisation_PersonData = new ltext("My Organisation Person Data", "Podatki o uporabniku v podjetju");
         public static ltext lngt_Units = new ltext("Measurement unit", "Merska enota");
         public static ltext lngt_UnitsArchive = new ltext("Measurement unit archive", "Merska enota arhiv");
         public static ltext lngt_PurchasePriceList = new ltext("Purchase price list", "NABAVNI CENIK");
@@ -198,7 +203,7 @@ namespace LanguageControl
         public static ltext lngt_Taxation = new ltext("Taxation", "Davki");
         public static ltext lngt_ItemName = new ltext("Item Name", "Ime artikla");
         public static ltext lngt_Reference = new ltext("Reference", "Sklic");
-        public static ltext lngt_myCompany = new ltext("My Company", "Moja Firma");
+        public static ltext lngt_myOrganisation = new ltext("My Organisation", "Moja Firma");
         public static ltext lngt_Organisation = new ltext("Organisation", "Organizacija");
         public static ltext lngt_cOrgType = new ltext("Organisation Type", "Tip organizacije");
         public static ltext lngt_BuyerPerson = new ltext("Person", "Fizična oseba");
@@ -217,11 +222,11 @@ namespace LanguageControl
 
         public static ltext lngt_Atom_Organisation = new ltext("Organisation archive", "Organizacija arhiv");
         public static ltext lngt_BuyerAtom_Person = new ltext("Buyer Person arh", "Kupec oseba arhiv");
-        public static ltext lngt_Atom_myCompany = new ltext("My Company arh", "Moje podjetje arhiv");
-        public static ltext lngt_Atom_myCompany_Person = new ltext("My Company Person arh", "Zaposleni arhiv");
+        public static ltext lngt_Atom_myOrganisation = new ltext("My Organisation arh", "Moje podjetje arhiv");
+        public static ltext lngt_Atom_myOrganisation_Person = new ltext("My Organisation Person arh", "Zaposleni arhiv");
         public static ltext lngt_t_DocInvoice_ShopC_Item = new ltext("Invoice ShopC Item", "Artikli prodajalne C na računu");
         public static ltext lngt_t_DocProformaInvoice_ShopC_Item = new ltext("Proforma Invoice ShopC Item", "Artikli prodajalne C na pred-računu");
-        public static ltext lngt_myCompany_Person = new ltext("myCommpany_Person", "Oseba podjetja");
+        public static ltext lngt_myOrganisation_Person = new ltext("myCommpany_Person", "Oseba podjetja");
         public static ltext lngt_TermsOfPayment = new ltext("TermsOfPayment", "Plačilni pogoji");
         public static ltext lngt_Invoice_Image = new ltext("Invoice Image", "Račun Slika");
         public static ltext lngt_ProformaInvoice_Image = new ltext("Proforma Invoice Image", "Predračun Slika");
@@ -263,7 +268,6 @@ namespace LanguageControl
         public static ltext lngt_cZIP = new ltext ("ZIP","Poštna številka");
         public static ltext lngt_cAddress = new ltext ("Address","Naslov");
         public static ltext lngt_cOrganisation = new ltext("Organisation", "Organizacija");
-        public static ltext lngt_cCompany = new ltext ("Company","Podjetje");
         public static ltext lngt_cVehicleCategory = new ltext ("Vehicle Category","Kategorija vozila");
         public static ltext lngt_cOwnerTYPE = new ltext ("Owner type","Vrsta lastništva");
         public static ltext lngt_cOwner = new ltext ("Owner","Lastnik");
@@ -290,7 +294,7 @@ namespace LanguageControl
 
         public static ltext lngt_cLocationTYPE = new ltext ("Location Type","Tip lokacije");
         public static ltext lngt_cLocation = new ltext ("Location","Lokacija");
-        public static ltext lngt_cSCompany = new ltext ("Support Company","Servisna služba");
+        public static ltext lngt_cSOrganisation = new ltext ("Support Organisation","Servisna služba");
         public static ltext lngt_cDInvTYPE = new ltext ("Device Type","Vrsta naprave");
         public static ltext lngt_cDInv = new ltext ("Device","Naprava");
         public static ltext lngt_cPicture = new ltext ("Picture","Fotografija");
@@ -357,10 +361,10 @@ namespace LanguageControl
         public static ltext lngt_cLocation_Org = new ltext("Organisation Location","Lokacija Organizacije");
         public static ltext lngt_cLocation_FC_Police = new ltext("Field Control Location","Lokacija kontrole na terenu");
         public static ltext lngt_cLocation_TehServis = new ltext("Inspection SimpleItem Location","Lokacija Tehničnega servisa");
-        public static ltext lngt_cSCompany_Carina = new ltext("Support company for Customs","Servisna služba za carino");
-        public static ltext lngt_cSCompany_FC_Police = new ltext("Support company for Police", "Servisna služba za policijo");
-        public static ltext lngt_cSCompany_Person = new ltext("Support company for Perosnal Administration", "Servisna služba adminsitracije osebnih podatkov");
-        public static ltext lngt_cSCompany_TehServis = new ltext("Support company for Inspection SimpleItem", "Servisna služba za tehnični servis");
+        public static ltext lngt_cSOrganisation_Carina = new ltext("Support company for Customs","Servisna služba za carino");
+        public static ltext lngt_cSOrganisation_FC_Police = new ltext("Support company for Police", "Servisna služba za policijo");
+        public static ltext lngt_cSOrganisation_Person = new ltext("Support company for Perosnal Administration", "Servisna služba adminsitracije osebnih podatkov");
+        public static ltext lngt_cSOrganisation_TehServis = new ltext("Support company for Inspection SimpleItem", "Servisna služba za tehnični servis");
         public static ltext lngt_cDInvTYPE_Carina = new ltext("Inventory type of Customs","Tip carinske opreme");
         public static ltext lngt_cDInvTYPE_FC_Police = new ltext("Inventory type of Police Field Control", "Tip policijske opreme na terenu");
         public static ltext lngt_cDInvTYPE_Person = new ltext("Inventory type of Personal Administration", "Tip opreme adminsitracije osebnih podatkov");

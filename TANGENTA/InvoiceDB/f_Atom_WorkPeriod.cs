@@ -22,7 +22,7 @@ namespace InvoiceDB
 
         public static bool Get(string Atom_WorkPeriod_Type_Name,
                                  string Atom_WorkPeriod_Type_Description,
-                                 long   Atom_myCompany_Person_ID,
+                                 long   Atom_myOrganisation_Person_ID,
                                  long   Atom_WorkingPlace_ID,
                                  long   Atom_Computer_ID,
                                  DateTime Login_time,
@@ -51,20 +51,20 @@ namespace InvoiceDB
                     sval_Atom_WorkPeriod_Type_ID = "null";
                 }
 
-                string scond_Atom_myCompany_Person_ID = null;
-                string sval_Atom_myCompany_Person_ID = "null";
-                if (Atom_myCompany_Person_ID >= 0)
+                string scond_Atom_myOrganisation_Person_ID = null;
+                string sval_Atom_myOrganisation_Person_ID = "null";
+                if (Atom_myOrganisation_Person_ID >= 0)
                 {
-                    string spar_Atom_myCompany_Person_ID = "@par_Atom_myCompany_Person_ID";
-                    SQL_Parameter par_Atom_myCompany_Person_ID = new SQL_Parameter(spar_Atom_myCompany_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_myCompany_Person_ID);
-                    lpar.Add(par_Atom_myCompany_Person_ID);
-                    scond_Atom_myCompany_Person_ID = "Atom_myCompany_Person_ID = " + spar_Atom_myCompany_Person_ID;
-                    sval_Atom_myCompany_Person_ID = spar_Atom_myCompany_Person_ID;
+                    string spar_Atom_myOrganisation_Person_ID = "@par_Atom_myOrganisation_Person_ID";
+                    SQL_Parameter par_Atom_myOrganisation_Person_ID = new SQL_Parameter(spar_Atom_myOrganisation_Person_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_myOrganisation_Person_ID);
+                    lpar.Add(par_Atom_myOrganisation_Person_ID);
+                    scond_Atom_myOrganisation_Person_ID = "Atom_myOrganisation_Person_ID = " + spar_Atom_myOrganisation_Person_ID;
+                    sval_Atom_myOrganisation_Person_ID = spar_Atom_myOrganisation_Person_ID;
                 }
                 else
                 {
-                    scond_Atom_myCompany_Person_ID = "Atom_myCompany_Person_ID is null";
-                    sval_Atom_myCompany_Person_ID = "null";
+                    scond_Atom_myOrganisation_Person_ID = "Atom_myOrganisation_Person_ID is null";
+                    sval_Atom_myOrganisation_Person_ID = "null";
                 }
 
                 string scond_Atom_WorkingPlace_ID = null;
@@ -136,7 +136,7 @@ namespace InvoiceDB
                 DataTable dt = new DataTable();
 
                 string sql = @"select ID from Atom_WorkPeriod
-                                            where (" + scond_Atom_WorkPeriod_Type_ID + ") and (" + scond_Atom_myCompany_Person_ID + ") and (" + scond_Atom_WorkingPlace_ID + ") and (" + scond_Atom_Computer_ID + ") and (" + scond_Login_time + ") and (" + scond_Logout_time + ")";
+                                            where (" + scond_Atom_WorkPeriod_Type_ID + ") and (" + scond_Atom_myOrganisation_Person_ID + ") and (" + scond_Atom_WorkingPlace_ID + ") and (" + scond_Atom_Computer_ID + ") and (" + scond_Login_time + ") and (" + scond_Logout_time + ")";
 
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                 {
@@ -148,13 +148,13 @@ namespace InvoiceDB
                     else
                     {
                         sql = @"insert into Atom_WorkPeriod (Atom_WorkPeriod_TYPE_ID,
-                                                               Atom_myCompany_Person_ID,
+                                                               Atom_myOrganisation_Person_ID,
                                                                Atom_WorkingPlace_ID,
                                                                Atom_Computer_ID,
                                                                LoginTime,
                                                                LogoutTime) values (" 
                                                                 + sval_Atom_WorkPeriod_Type_ID +","
-                                                                + sval_Atom_myCompany_Person_ID +","
+                                                                + sval_Atom_myOrganisation_Person_ID +","
                                                                 + sval_Atom_WorkingPlace_ID +","
                                                                 + sval_Atom_Computer_ID +","
                                                                 + sval_Login_time +","

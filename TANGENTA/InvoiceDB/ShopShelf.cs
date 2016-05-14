@@ -69,7 +69,7 @@ namespace InvoiceDB
               Warranty.WarrantyConditions as " + m_cpis.sWarranty_WarrantyConditions + @",
               Warranty.WarrantyDuration as " + m_cpis.sWarranty_WarrantyDuration + @",
               Warranty.WarrantyDurationType as " + m_cpis.sWarranty_WarrantyDurationType + @",
-			  Organisation.Name as " + m_cpis.sPurchaseCompany_Name + @",
+			  Organisation.Name as " + m_cpis.sPurchaseOrganisation_Name + @",
 			  cStreetName_Org.StreetName as " + m_cpis.sStreetName + @",
               cHouseNumber_Org.HouseNumber as " + m_cpis.sHouseNumber + @",
               cCity_Org.City as " + m_cpis.sCity + @",

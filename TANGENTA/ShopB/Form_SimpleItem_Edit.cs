@@ -48,7 +48,7 @@ namespace ShopB
         }
 
 
-        private void MyCompanyData_EditForm_Load(object sender, EventArgs e)
+        private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)
         {
             if (bclose)
             {

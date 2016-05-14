@@ -375,12 +375,12 @@ namespace Tangenta
 
         }
 
-        public long myCompany_Person_ID 
+        public long myOrganisation_Person_ID 
         { 
             get {
                     if (this.m_usrc_Main!=null)
                     {
-                        return this.m_usrc_Main.myCompany_Person_ID;
+                        return this.m_usrc_Main.myOrganisation_Person_ID;
                     }
                     else
                     {

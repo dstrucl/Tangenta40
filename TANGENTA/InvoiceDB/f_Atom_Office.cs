@@ -24,12 +24,12 @@ namespace InvoiceDB
 
             string Office_Name = null;
             string Office_ShortName = null;
-            long myCompany_ID = -1;
+            long myOrganisation_ID = -1;
 
             string sql = @"select 
                             o.Name as Office_Name,
                             o.ShortName as Office_ShortName,
-                            o.myCompany_ID
+                            o.myOrganisation_ID
                             from Office o
                             where o.ID = " + Office_ID.ToString();
             DataTable dt = new DataTable();
@@ -60,10 +60,10 @@ namespace InvoiceDB
                         return false;
                     }
 
-                    object o_myCompany_ID = dt.Rows[0]["myCompany_ID"];
-                    if (o_myCompany_ID is long)
+                    object o_myOrganisation_ID = dt.Rows[0]["myOrganisation_ID"];
+                    if (o_myOrganisation_ID is long)
                     {
-                        myCompany_ID = (long)o_myCompany_ID;
+                        myOrganisation_ID = (long)o_myOrganisation_ID;
                     }
                     else
                     {
@@ -71,8 +71,8 @@ namespace InvoiceDB
                         return false;
                     }
 
-                    long Atom_myCompany_ID = -1;
-                    if (f_Atom_myCompany.Get(myCompany_ID, ref Atom_myCompany_ID))
+                    long Atom_myOrganisation_ID = -1;
+                    if (f_Atom_myOrganisation.Get(myOrganisation_ID, ref Atom_myOrganisation_ID))
                     {
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
@@ -108,23 +108,23 @@ namespace InvoiceDB
                             sval_Atom_Office_ShortName = "null";
                         }
 
-                        string scond_Atom_myCompany_ID = null;
-                        string sval_Atom_myCompany_ID = "null";
-                        if (Atom_myCompany_ID >= 0)
+                        string scond_Atom_myOrganisation_ID = null;
+                        string sval_Atom_myOrganisation_ID = "null";
+                        if (Atom_myOrganisation_ID >= 0)
                         {
-                            string spar_Atom_myCompany_ID = "@par_Atom_myCompany_ID";
-                            SQL_Parameter par_Atom_myCompany_ID = new SQL_Parameter(spar_Atom_myCompany_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_myCompany_ID);
-                            lpar.Add(par_Atom_myCompany_ID);
-                            scond_Atom_myCompany_ID = "Atom_myCompany_ID = " + spar_Atom_myCompany_ID;
-                            sval_Atom_myCompany_ID = spar_Atom_myCompany_ID;
+                            string spar_Atom_myOrganisation_ID = "@par_Atom_myOrganisation_ID";
+                            SQL_Parameter par_Atom_myOrganisation_ID = new SQL_Parameter(spar_Atom_myOrganisation_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_myOrganisation_ID);
+                            lpar.Add(par_Atom_myOrganisation_ID);
+                            scond_Atom_myOrganisation_ID = "Atom_myOrganisation_ID = " + spar_Atom_myOrganisation_ID;
+                            sval_Atom_myOrganisation_ID = spar_Atom_myOrganisation_ID;
                         }
                         else
                         {
-                            scond_Atom_myCompany_ID = "Atom_myCompany_ID is null";
-                            sval_Atom_myCompany_ID = "null";
+                            scond_Atom_myOrganisation_ID = "Atom_myOrganisation_ID is null";
+                            sval_Atom_myOrganisation_ID = "null";
                         }
 
-                        sql = @"select ID from Atom_Office where (" + scond_Atom_Office_Name + ")and("+ scond_Atom_Office_ShortName + ")and(" + scond_Atom_myCompany_ID + ")";
+                        sql = @"select ID from Atom_Office where (" + scond_Atom_Office_Name + ")and("+ scond_Atom_Office_ShortName + ")and(" + scond_Atom_myOrganisation_ID + ")";
                         dt.Clear();
                         dt.Columns.Clear();
                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -136,11 +136,11 @@ namespace InvoiceDB
                             }
                             else
                             {
-                                sql = @"insert into Atom_Office (Atom_myCompany_ID,
+                                sql = @"insert into Atom_Office (Atom_myOrganisation_ID,
                                                                     Name,
                                                                     ShortName) values 
                                                                     ("
-                                                                        + sval_Atom_myCompany_ID + ","
+                                                                        + sval_Atom_myOrganisation_ID + ","
                                                                         + sval_Atom_Office_Name + ","
                                                                         + sval_Atom_Office_ShortName +
                                                                         ")";
@@ -172,7 +172,7 @@ namespace InvoiceDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:f_Atom_Office:Get:No Company data link for Office_ID=" + Office_ID.ToString());
+                    LogFile.Error.Show("ERROR:f_Atom_Office:Get:No Organisation data link for Office_ID=" + Office_ID.ToString());
                     return false;
                 }
             }

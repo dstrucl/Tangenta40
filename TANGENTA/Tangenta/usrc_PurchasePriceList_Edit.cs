@@ -131,10 +131,10 @@ namespace Tangenta
                                  PurchasePrice_Item_$_tax_$$Name,
                                  PurchasePrice_Item_$_tax_$$Rate,
                                  PurchasePrice_Item_$_pp_$$Valid,
-                                 PurchasePrice_Item_$_pp_$_myCompany_Person_$_myCompany_$$Name,
-                                 PurchasePrice_Item_$_pp_$_myCompany_Person_$$UserName,
-                                 PurchasePrice_Item_$_pp_$_myCompany_Person_$$FirstName,
-                                 PurchasePrice_Item_$_pp_$_myCompany_Person_$$LastName
+                                 PurchasePrice_Item_$_pp_$_myOrganisation_Person_$_myOrganisation_$$Name,
+                                 PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$UserName,
+                                 PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$FirstName,
+                                 PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
                     if (this.usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false))
@@ -165,10 +165,10 @@ namespace Tangenta
                                  PurchasePrice_Item_$_tax_$$Name,
                                  PurchasePrice_Item_$_tax_$$Rate,
                                  PurchasePrice_Item_$_pp_$$Valid,
-                                 PurchasePrice_Item_$_pp_$_myCompany_Person_$_myCompany_$$Name,
-                                 PurchasePrice_Item_$_pp_$_myCompany_Person_$$UserName,
-                                 PurchasePrice_Item_$_pp_$_myCompany_Person_$$FirstName,
-                                 PurchasePrice_Item_$_pp_$_myCompany_Person_$$LastName
+                                 PurchasePrice_Item_$_pp_$_myOrganisation_Person_$_myOrganisation_$$Name,
+                                 PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$UserName,
+                                 PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$FirstName,
+                                 PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
                                 if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false))

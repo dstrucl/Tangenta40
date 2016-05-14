@@ -64,8 +64,8 @@ namespace InvoiceDB
         public string_v Taxation_Name = null;
         public decimal_v Taxation_Rate = null;
         public decimal_v PurchasePricePerUnit = null;
-        public string_v PurchaseCompany_Name = null;
-        public PostAddress_v PurchaseCompany_Address = new PostAddress_v();
+        public string_v PurchaseOrganisation_Name = null;
+        public PostAddress_v PurchaseOrganisation_Address = new PostAddress_v();
         public DateTime_v ExpiryDate;
         public string s1_name;
         public string s2_name;
@@ -118,12 +118,12 @@ namespace InvoiceDB
             Taxation_Name = tf.set_string(xdr["Taxation_Name"]);
             Taxation_Rate = tf.set_decimal(xdr["Taxation_Rate"]);
             PurchasePricePerUnit = tf.set_decimal(xdr["PurchasePricePerUnit"]);
-            PurchaseCompany_Name = tf.set_string(xdr["PurchaseCompany_Name"]);
-            PurchaseCompany_Address.StreetName_v = tf.set_string(xdr["StreetName"]);
-            PurchaseCompany_Address.HouseNumber_v = tf.set_string(xdr["HouseNumber"]);
-            PurchaseCompany_Address.City_v = tf.set_string(xdr["City"]);
-            PurchaseCompany_Address.ZIP_v = tf.set_string(xdr["ZIP"]);
-            PurchaseCompany_Address.Country_v = tf.set_string(xdr["Country"]);
+            PurchaseOrganisation_Name = tf.set_string(xdr["PurchaseOrganisation_Name"]);
+            PurchaseOrganisation_Address.StreetName_v = tf.set_string(xdr["StreetName"]);
+            PurchaseOrganisation_Address.HouseNumber_v = tf.set_string(xdr["HouseNumber"]);
+            PurchaseOrganisation_Address.City_v = tf.set_string(xdr["City"]);
+            PurchaseOrganisation_Address.ZIP_v = tf.set_string(xdr["ZIP"]);
+            PurchaseOrganisation_Address.Country_v = tf.set_string(xdr["Country"]);
             if (xdr["s1_name"] is string)
             {
                 s1_name = (string)xdr["s1_name"];

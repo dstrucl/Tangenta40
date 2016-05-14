@@ -20,19 +20,19 @@ using System.Windows.Forms;
 
 namespace InvoiceDB
 {
-    public static class f_Atom_myCompany_Person
+    public static class f_Atom_myOrganisation_Person
     {
-        public static bool Get(long myCompany_Person_ID, ref long Atom_myCompany_Person_ID, ref string_v office_name)
+        public static bool Get(long myOrganisation_Person_ID, ref long Atom_myOrganisation_Person_ID, ref string_v office_name)
         {
             string Err = null;
             DataTable dt = new DataTable();
-            long myCompany_ID = -1;
+            long myOrganisation_ID = -1;
             long Office_ID = -1;
             long Person_ID = -1;
-            if (Find_myCompany_Office(myCompany_Person_ID, ref Person_ID, ref myCompany_ID, ref Office_ID, ref Err))
+            if (Find_myOrganisation_Office(myOrganisation_Person_ID, ref Person_ID, ref myOrganisation_ID, ref Office_ID, ref Err))
             {
-                long Atom_myCompany_ID = -1;
-                if (f_Atom_myCompany.Get(myCompany_ID, ref Atom_myCompany_ID))
+                long Atom_myOrganisation_ID = -1;
+                if (f_Atom_myOrganisation.Get(myOrganisation_ID, ref Atom_myOrganisation_ID))
                 {
                     long Atom_Office_ID = -1;
                     if (f_Atom_Office.Get(Office_ID,ref Atom_Office_ID))
@@ -54,6 +54,9 @@ namespace InvoiceDB
                         string_v City_v = null;
                         string_v ZIP_v = null;
                         string_v Country_v = null;
+                        string_v Country_ISO_3166_a2_v = null;
+                        string_v Country_ISO_3166_a3_v = null;
+                        short_v  Country_ISO_3166_num_v = null;
                         string_v State_v = null;
                         string_v CardNumber_v = null;
                         string_v CardType_v = null;
@@ -61,34 +64,34 @@ namespace InvoiceDB
                         byte_array_v Image_Data_v = null;
                         
                         string sql = @"select
-                                        myCompany_Person_$_per_$$ID,
-                                        myCompany_Person_$$UserName,
-                                        myCompany_Person_$$Job,
-                                        myCompany_Person_$$Description,
-                                        myCompany_Person_$_per_$$Gender,
-                                        myCompany_Person_$_per_$_cfn_$$FirstName,
-                                        myCompany_Person_$_per_$_cln_$$LastName,
-                                        myCompany_Person_$_per_$$DateOfBirth,
-                                        myCompany_Person_$_per_$$Tax_ID,
-                                        myCompany_Person_$_per_$$Registration_ID,
-                                        myCompany_Person_$_office_$$Name
-                                        from myCompany_Person_VIEW where ID = " + myCompany_Person_ID.ToString();
+                                        myOrganisation_Person_$_per_$$ID,
+                                        myOrganisation_Person_$$UserName,
+                                        myOrganisation_Person_$$Job,
+                                        myOrganisation_Person_$$Description,
+                                        myOrganisation_Person_$_per_$$Gender,
+                                        myOrganisation_Person_$_per_$_cfn_$$FirstName,
+                                        myOrganisation_Person_$_per_$_cln_$$LastName,
+                                        myOrganisation_Person_$_per_$$DateOfBirth,
+                                        myOrganisation_Person_$_per_$$Tax_ID,
+                                        myOrganisation_Person_$_per_$$Registration_ID,
+                                        myOrganisation_Person_$_office_$$Name
+                                        from myOrganisation_Person_VIEW where ID = " + myOrganisation_Person_ID.ToString();
                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
                         {
                             if (dt.Rows.Count>0)
                             {
                                 long_v Person_ID_v = null;
-                                Person_ID_v =  tf.set_long(dt.Rows[0]["myCompany_Person_$_per_$$ID"]);
-                                UserName_v = tf.set_string(dt.Rows[0]["myCompany_Person_$$UserName"]);
-                                Job_v = tf.set_string(dt.Rows[0]["myCompany_Person_$$Job"]);
-                                Description_v= tf.set_string(dt.Rows[0]["myCompany_Person_$$Description"]);
-                                Gender_v  =  tf.set_bool(dt.Rows[0]["myCompany_Person_$_per_$$Gender"]);
-                                FirstName_v = tf.set_string(dt.Rows[0]["myCompany_Person_$_per_$_cfn_$$FirstName"]);
-                                LastName_v = tf.set_string(dt.Rows[0]["myCompany_Person_$_per_$_cln_$$LastName"]);
-                                DateOfBirth_v = tf.set_DateTime(dt.Rows[0]["myCompany_Person_$_per_$$DateOfBirth"]);
-                                Tax_ID_v = tf.set_string(dt.Rows[0]["myCompany_Person_$_per_$$Tax_ID"]);
-                                Registration_ID_v = tf.set_string(dt.Rows[0]["myCompany_Person_$_per_$$Registration_ID"]);
-                                office_name = tf.set_string(dt.Rows[0]["myCompany_Person_$_office_$$Name"]);
+                                Person_ID_v =  tf.set_long(dt.Rows[0]["myOrganisation_Person_$_per_$$ID"]);
+                                UserName_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$$UserName"]);
+                                Job_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$$Job"]);
+                                Description_v= tf.set_string(dt.Rows[0]["myOrganisation_Person_$$Description"]);
+                                Gender_v  =  tf.set_bool(dt.Rows[0]["myOrganisation_Person_$_per_$$Gender"]);
+                                FirstName_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$_per_$_cfn_$$FirstName"]);
+                                LastName_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$_per_$_cln_$$LastName"]);
+                                DateOfBirth_v = tf.set_DateTime(dt.Rows[0]["myOrganisation_Person_$_per_$$DateOfBirth"]);
+                                Tax_ID_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$_per_$$Tax_ID"]);
+                                Registration_ID_v = tf.set_string(dt.Rows[0]["myOrganisation_Person_$_per_$$Registration_ID"]);
+                                office_name = tf.set_string(dt.Rows[0]["myOrganisation_Person_$_office_$$Name"]);
                                 DataTable dt_PersonData = new DataTable();
                                 sql = @"select
                                         PersonData_$_cgsmnper_$$GsmNumber,
@@ -99,12 +102,15 @@ namespace InvoiceDB
                                         PersonData_$_cadrper_$_ccitper_$$City,
                                         PersonData_$_cadrper_$_zipper_$$ZIP,
                                         PersonData_$_cadrper_$_cstper_$$Country,
+                                        PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_a2,
+                                        PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_a3,
+                                        PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_num,
                                         PersonData_$_cadrper_$_ccouper_$$State,
                                         PersonData_$$CardNumber,
                                         PersonData_$_cardtper_$$CardType,
                                         PersonData_$_perimg_$$Image_Hash,
                                         PersonData_$_perimg_$$Image_Data
-                                        from PersonData_VIEW where PersonData_$_per_$$ID = "+ Person_ID.ToString();
+                                        from PersonData_VIEW where PersonData_$_per_$$ID = " + Person_ID.ToString();
 
                                 if (DBSync.DBSync.ReadDataTable(ref dt_PersonData, sql, null, ref Err))
                                 {
@@ -118,6 +124,9 @@ namespace InvoiceDB
                                         City_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_ccitper_$$City"]);
                                         ZIP_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_zipper_$$ZIP"]);
                                         Country_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country"]);
+                                        Country_ISO_3166_a2_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_a2"]);
+                                        Country_ISO_3166_a3_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_a3"]);
+                                        Country_ISO_3166_num_v = tf.set_short(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_cstper_$$Country_ISO_3166_num"]);
                                         State_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cadrper_$_ccouper_$$State"]);
                                         CardNumber_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$$CardNumber"]);
                                         CardType_v = tf.set_string(dt_PersonData.Rows[0]["PersonData_$_cardtper_$$CardType"]);
@@ -127,7 +136,7 @@ namespace InvoiceDB
                                 }
                                 else
                                 {
-                                    LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:sql="+sql+"\r\nErr="+Err);
+                                    LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Get:sql="+sql+"\r\nErr="+Err);
                                     return false;
                                 }
 
@@ -146,6 +155,9 @@ namespace InvoiceDB
                                                         City_v,
                                                         ZIP_v,
                                                         Country_v,
+                                                        Country_ISO_3166_a2_v,
+                                                        Country_ISO_3166_a3_v,
+                                                        Country_ISO_3166_num_v,
                                                         State_v,
                                                         CardNumber_v,
                                                         CardType_v,
@@ -236,36 +248,36 @@ namespace InvoiceDB
                                         sval_Description = "null";
                                     }
 
-                                    sql = @"select ID from atom_mycompany_person where ("+scond_UserName+") and ("+scond_Atom_Office_ID+ ") and (" + scond_Atom_Person_ID + ")and(" + scond_Job+")and("+scond_Description+")";
+                                    sql = @"select ID from atom_myorganisation_person where ("+scond_UserName+") and ("+scond_Atom_Office_ID+ ") and (" + scond_Atom_Person_ID + ")and(" + scond_Job+")and("+scond_Description+")";
                                     dt.Clear();
                                     dt.Columns.Clear();
                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                                     {
                                         if (dt.Rows.Count>0)
                                         {
-                                            Atom_myCompany_Person_ID = (long)dt.Rows[0]["ID"];
+                                            Atom_myOrganisation_Person_ID = (long)dt.Rows[0]["ID"];
                                             return true;
                                         }
                                         else
                                         {
-                                            sql = @"insert into  atom_mycompany_person (UserName,Atom_Office_ID,Atom_Person_ID,Job,Description)values(" + sval_UserName+","+sval_Atom_Office_ID+"," + sval_Atom_Person_ID + "," + sval_Job+","+sval_Description+")";
+                                            sql = @"insert into  atom_myorganisation_person (UserName,Atom_Office_ID,Atom_Person_ID,Job,Description)values(" + sval_UserName+","+sval_Atom_Office_ID+"," + sval_Atom_Person_ID + "," + sval_Job+","+sval_Description+")";
                                             dt.Clear();
                                             dt.Columns.Clear();
                                             object oret = null;
-                                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar,ref Atom_myCompany_Person_ID,ref oret, ref Err,"atom_mycompany_person"))
+                                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar,ref Atom_myOrganisation_Person_ID,ref oret, ref Err,"atom_myorganisation_person"))
                                             {
                                                 return true;
                                             }
                                             else
                                             {
-                                                LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:sql="+sql+"\r\nErr="+Err);
+                                                LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Get:sql="+sql+"\r\nErr="+Err);
                                                 return false;
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:sql="+sql+"\r\nErr="+Err);
+                                        LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Get:sql="+sql+"\r\nErr="+Err);
                                         return false;
                                     }
                                 }
@@ -276,13 +288,13 @@ namespace InvoiceDB
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:myCompany_Person for myCompany_Person_ID = " +myCompany_Person_ID.ToString()+ " not found !");
+                                LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Get:myOrganisation_Person for myOrganisation_Person_ID = " +myOrganisation_Person_ID.ToString()+ " not found !");
                                 return false;
                             }
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Get:slq="+sql+"\r\nErr="+Err);
+                            LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Get:slq="+sql+"\r\nErr="+Err);
                             return false;
                         }
                     }
@@ -310,28 +322,28 @@ namespace InvoiceDB
         }
 
 
-        private static bool Find_myCompany_Office(long myCompany_Person_ID, ref long Person_ID, ref long myCompany_ID, ref long Office_ID, ref string Err)
+        private static bool Find_myOrganisation_Office(long myOrganisation_Person_ID, ref long Person_ID, ref long myOrganisation_ID, ref long Office_ID, ref string Err)
         {
             DataTable dt = new DataTable();
-            string smyCompany_Person_ID = myCompany_Person_ID.ToString();
+            string smyOrganisation_Person_ID = myOrganisation_Person_ID.ToString();
             string sql = @"select mcp.Office_ID,
-                                  o.myCompany_ID,
+                                  o.myOrganisation_ID,
                                   mcp.Person_ID 
-                                  from myCompany_Person mcp
+                                  from myOrganisation_Person mcp
                                   inner join Office o on mcp.Office_ID = o.ID
-                                  where mcp.ID = " + smyCompany_Person_ID;
+                                  where mcp.ID = " + smyOrganisation_Person_ID;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    myCompany_ID = (long)dt.Rows[0]["myCompany_ID"];
+                    myOrganisation_ID = (long)dt.Rows[0]["myOrganisation_ID"];
                     Person_ID = (long)dt.Rows[0]["Person_ID"];
                     Office_ID = (long)dt.Rows[0]["Office_ID"];
                     return true;
                 }
                 else
                 {
-                    myCompany_ID = -1;
+                    myOrganisation_ID = -1;
                     Person_ID = -1;
                     Err = null;
                     return false;
@@ -339,7 +351,7 @@ namespace InvoiceDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_Atom_myCompany_Person:Find_myCompany:" + sql + "\r\n:Err=" + Err);
+                LogFile.Error.Show("ERROR:f_Atom_myOrganisation_Person:Find_myOrganisation:" + sql + "\r\n:Err=" + Err);
                 return false;
             }
 

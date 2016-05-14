@@ -42,10 +42,10 @@ namespace InvoiceDB
         public static List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
 
 
-        public static bool Get(long myCompany_id)
+        public static bool Get(long myOrg_id)
         {
 
-            DataTable dt_myCompany = new DataTable();
+            DataTable dt_myOrganisation = new DataTable();
             myOrg.ID_v = null;
             myOrg.Name_v = null;
             myOrg.Tax_ID_v = null;
@@ -68,94 +68,94 @@ namespace InvoiceDB
             myOrg.Address_v.State_v = null;
 
             string sql = null;
-            if (myCompany_id >= 0)
+            if (myOrg_id >= 0)
             {
                 sql = @"Select 
                             ID,
-                            myCompany_$_orgd_$$ID,
-                            myCompany_$_orgd_$_org_$$ID,
-                            myCompany_$_orgd_$_org_$$Name,
-                            myCompany_$_orgd_$_org_$$Tax_ID,
-                            myCompany_$_orgd_$_org_$$Registration_ID,
-                            myCompany_$_orgd_$_orgt_$$OrganisationTYPE,
-                            myCompany_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
-                            myCompany_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
-                            myCompany_$_orgd_$_cadrorg_$_ccitorg_$$City,
-                            myCompany_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
-                            myCompany_$_orgd_$_cadrorg_$_ccouorg_$$State,
-                            myCompany_$_orgd_$_cphnnorg_$$PhoneNumber,
-                            myCompany_$_orgd_$_cfaxnorg_$$FaxNumber,
-                            myCompany_$_orgd_$_cemailorg_$$Email,
-                            myCompany_$_orgd_$_chomepgorg_$$HomePage,
-                            myCompany_$_orgd_$_logo_$$Image_Hash,
-                            myCompany_$_orgd_$_logo_$$Image_Data,
-                            myCompany_$_orgd_$_logo_$$Description
-                            from myCompany_VIEW where ID = " + myCompany_id.ToString();
+                            myOrganisation_$_orgd_$$ID,
+                            myOrganisation_$_orgd_$_org_$$ID,
+                            myOrganisation_$_orgd_$_org_$$Name,
+                            myOrganisation_$_orgd_$_org_$$Tax_ID,
+                            myOrganisation_$_orgd_$_org_$$Registration_ID,
+                            myOrganisation_$_orgd_$_orgt_$$OrganisationTYPE,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
+                            myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccitorg_$$City,
+                            myOrganisation_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$State,
+                            myOrganisation_$_orgd_$_cphnnorg_$$PhoneNumber,
+                            myOrganisation_$_orgd_$_cfaxnorg_$$FaxNumber,
+                            myOrganisation_$_orgd_$_cemailorg_$$Email,
+                            myOrganisation_$_orgd_$_chomepgorg_$$HomePage,
+                            myOrganisation_$_orgd_$_logo_$$Image_Hash,
+                            myOrganisation_$_orgd_$_logo_$$Image_Data,
+                            myOrganisation_$_orgd_$_logo_$$Description
+                            from myOrganisation_VIEW where ID = " + myOrg_id.ToString();
             }
             else
             {
                 sql = @"Select 
                             ID,
-                            myCompany_$_orgd_$$ID,
-                            myCompany_$_orgd_$_org_$$ID,
-                            myCompany_$_orgd_$_org_$$Name,
-                            myCompany_$_orgd_$_org_$$Tax_ID,
-                            myCompany_$_orgd_$_org_$$Registration_ID,
-                            myCompany_$_orgd_$_orgt_$$OrganisationTYPE,
-                            myCompany_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
-                            myCompany_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
-                            myCompany_$_orgd_$_cadrorg_$_ccitorg_$$City,
-                            myCompany_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
-                            myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
-                            myCompany_$_orgd_$_cadrorg_$_ccouorg_$$State,
-                            myCompany_$_orgd_$_cphnnorg_$$PhoneNumber,
-                            myCompany_$_orgd_$_cfaxnorg_$$FaxNumber,
-                            myCompany_$_orgd_$_cemailorg_$$Email,
-                            myCompany_$_orgd_$_chomepgorg_$$HomePage,
-                            myCompany_$_orgd_$_logo_$$Image_Hash,
-                            myCompany_$_orgd_$_logo_$$Image_Data,
-                            myCompany_$_orgd_$_logo_$$Description
-                            from myCompany_VIEW";
+                            myOrganisation_$_orgd_$$ID,
+                            myOrganisation_$_orgd_$_org_$$ID,
+                            myOrganisation_$_orgd_$_org_$$Name,
+                            myOrganisation_$_orgd_$_org_$$Tax_ID,
+                            myOrganisation_$_orgd_$_org_$$Registration_ID,
+                            myOrganisation_$_orgd_$_orgt_$$OrganisationTYPE,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
+                            myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccitorg_$$City,
+                            myOrganisation_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$State,
+                            myOrganisation_$_orgd_$_cphnnorg_$$PhoneNumber,
+                            myOrganisation_$_orgd_$_cfaxnorg_$$FaxNumber,
+                            myOrganisation_$_orgd_$_cemailorg_$$Email,
+                            myOrganisation_$_orgd_$_chomepgorg_$$HomePage,
+                            myOrganisation_$_orgd_$_logo_$$Image_Hash,
+                            myOrganisation_$_orgd_$_logo_$$Image_Data,
+                            myOrganisation_$_orgd_$_logo_$$Description
+                            from myOrganisation_VIEW";
 
             }
             string Err = null;
-            dt_myCompany.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref dt_myCompany, sql, ref Err))
+            dt_myOrganisation.Clear();
+            if (DBSync.DBSync.ReadDataTable(ref dt_myOrganisation, sql, ref Err))
             {
-                if (dt_myCompany.Rows.Count > 0)
+                if (dt_myOrganisation.Rows.Count > 0)
                 {
-                    myOrg.ID_v = tf.set_long(dt_myCompany.Rows[0]["ID"]);
-                    myOrg.Name_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_org_$$Name"]);
-                    myOrg.Tax_ID_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_org_$$Tax_ID"]);
-                    myOrg.Registration_ID_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_org_$$Registration_ID"]);
-                    myOrg.OrganisationTYPE_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_orgt_$$OrganisationTYPE"]);
-                    myOrg.PhoneNumber_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cphnnorg_$$PhoneNumber"]);
-                    myOrg.FaxNumber_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cfaxnorg_$$FaxNumber"]);
-                    myOrg.HomePage_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_chomepgorg_$$HomePage"]);
-                    myOrg.Email_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cemailorg_$$Email"]);
-                    myOrg.Logo_Image_Data_v = tf.set_byte_array(dt_myCompany.Rows[0]["myCompany_$_orgd_$_logo_$$Image_Data"]);
-                    myOrg.Logo_Hash_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_logo_$$Image_Hash"]);
+                    myOrg.ID_v = tf.set_long(dt_myOrganisation.Rows[0]["ID"]);
+                    myOrg.Name_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Name"]);
+                    myOrg.Tax_ID_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Tax_ID"]);
+                    myOrg.Registration_ID_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Registration_ID"]);
+                    myOrg.OrganisationTYPE_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_orgt_$$OrganisationTYPE"]);
+                    myOrg.PhoneNumber_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cphnnorg_$$PhoneNumber"]);
+                    myOrg.FaxNumber_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cfaxnorg_$$FaxNumber"]);
+                    myOrg.HomePage_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_chomepgorg_$$HomePage"]);
+                    myOrg.Email_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cemailorg_$$Email"]);
+                    myOrg.Logo_Image_Data_v = tf.set_byte_array(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_logo_$$Image_Data"]);
+                    myOrg.Logo_Hash_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_logo_$$Image_Hash"]);
                     if (myOrg.Logo_Image_Data_v != null)
                     {
                         ImageConverter ic = new ImageConverter();
                         myOrg.Logo = (Image)ic.ConvertFrom(myOrg.Logo_Image_Data_v.v);
                     }
-                    myOrg.Address_v.StreetName_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName"]);
-                    myOrg.Address_v.HouseNumber_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber"]);
-                    myOrg.Address_v.ZIP_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cziporg_$$ZIP"]);
-                    myOrg.Address_v.City_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_ccitorg_$$City"]);
-                    myOrg.Address_v.Country_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country"]);
-                    myOrg.Address_v.Country_ISO_3166_a2_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2"]);
-                    myOrg.Address_v.Country_ISO_3166_a3_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3"]);
-                    myOrg.Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num"]));
-                    myOrg.Address_v.State_v = tf.set_string(dt_myCompany.Rows[0]["myCompany_$_orgd_$_cadrorg_$_ccouorg_$$State"]);
+                    myOrg.Address_v.StreetName_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName"]);
+                    myOrg.Address_v.HouseNumber_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber"]);
+                    myOrg.Address_v.ZIP_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cziporg_$$ZIP"]);
+                    myOrg.Address_v.City_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccitorg_$$City"]);
+                    myOrg.Address_v.Country_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country"]);
+                    myOrg.Address_v.Country_ISO_3166_a2_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2"]);
+                    myOrg.Address_v.Country_ISO_3166_a3_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3"]);
+                    myOrg.Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num"]));
+                    myOrg.Address_v.State_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$State"]);
                     if (myOrg.ID_v != null)
                     {
                         myOrg_Office_List.Get(myOrg.ID_v.v, ref myOrg.myOrg_Office_list);

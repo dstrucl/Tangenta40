@@ -327,7 +327,7 @@ LEFT JOIN TermsOfPayment JOURNAL_DocInvoice_$_dinv_$_trmpay ON JOURNAL_DocInvoic
 LEFT JOIN Invoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice_$_dinv.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
 LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_metopay ON JOURNAL_DocInvoice_$_dinv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_metopay.ID
 INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
-INNER JOIN Atom_myCompany_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myCompany_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
+INNER JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
 INNER JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
 INNER JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
 LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
@@ -344,7 +344,7 @@ LEFT JOIN Atom_cState_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aca
 LEFT JOIN Atom_cCardType_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper.ID
 LEFT JOIN Atom_PersonImage JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_PersonImage_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg.ID
 INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ID
-INNER JOIN Atom_myCompany JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myCompany_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
+INNER JOIN Atom_myOrganisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myOrganisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
 INNER JOIN Atom_OrganisationData JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.Atom_OrganisationData_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.ID
 INNER JOIN Atom_Organisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
 LEFT JOIN Atom_cAddress_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_cAddress_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_acadrorg.ID
@@ -421,7 +421,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
                     LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_metopay ON JOURNAL_DocInvoice_$_dinv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_metopay.ID
                     INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
-                    INNER JOIN Atom_myCompany_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myCompany_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
+                    INNER JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
                     INNER JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
                     INNER JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
                     LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
@@ -431,7 +431,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     LEFT JOIN Atom_cCardType_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper.ID
                     LEFT JOIN Atom_PersonImage JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_PersonImage_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg.ID
                     INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ID
-                    INNER JOIN Atom_myCompany JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myCompany_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
+                    INNER JOIN Atom_myOrganisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myOrganisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
                     INNER JOIN Atom_OrganisationData JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.Atom_OrganisationData_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.ID
                     INNER JOIN Atom_Organisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
                     LEFT JOIN cPhoneNumber_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cPhoneNumber_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg.ID
@@ -494,7 +494,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     LEFT JOIN TermsOfPayment JOURNAL_DocInvoice_$_dinv_$_trmpay ON JOURNAL_DocInvoice_$_dinv.TermsOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_trmpay.ID
                     LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_metopay ON JOURNAL_DocInvoice_$_dinv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_metopay.ID
                     INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
-                    INNER JOIN Atom_myCompany_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myCompany_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
+                    INNER JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
                     INNER JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
                     INNER JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
                     LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
@@ -504,7 +504,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     LEFT JOIN Atom_cCardType_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cCardType_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acardtper.ID
                     LEFT JOIN Atom_PersonImage JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_PersonImage_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_aperimg.ID
                     INNER JOIN Atom_Office JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Office_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.ID
-                    INNER JOIN Atom_myCompany JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myCompany_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
+                    INNER JOIN Atom_myOrganisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Atom_myOrganisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.ID
                     INNER JOIN Atom_OrganisationData JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc.Atom_OrganisationData_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.ID
                     INNER JOIN Atom_Organisation JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.Atom_Organisation_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_aorg.ID
                     LEFT JOIN cPhoneNumber_Org JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd.cPhoneNumber_Org_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$_amc_$_aorgd_$_cphnnorg.ID
@@ -542,8 +542,8 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                 iColIndex_DocInvoice_Invoice_Storno = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Storno");
                 if (Program.b_FVI_SLO)
                 {
-                    iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"); ;
-                    iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber"); ;
+                    iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"); 
+                    iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber"); 
                 }
 
 
@@ -803,7 +803,12 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     {
                         e.CellStyle.BackColor = ColorDraft;
                     }
-                    else if ((bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno])
+                    bool bxstorno = false;
+                    if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno] is bool)
+                    {
+                        bxstorno = (bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno];
+                    }
+                    else if (bxstorno)
                     {
                         e.CellStyle.BackColor = ColorStorno;
                     }

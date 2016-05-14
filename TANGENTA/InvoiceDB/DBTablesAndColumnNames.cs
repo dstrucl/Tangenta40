@@ -17,11 +17,11 @@ namespace InvoiceDB
 {
     public class DBTablesAndColumnNames
     {
-        public string stbl_Atom_myCompany_Person_TableName = null;
-        public string stbl_Atom_myCompany_TableName = null;
-        public string stbl_myCompany_TableName = null;
-        public string stbl_myCompany_Person_TableName = null;
-        public string stbl_myCompany_PersonData_TableName = null;
+        public string stbl_Atom_myOrganisation_Person_TableName = null;
+        public string stbl_Atom_myOrganisation_TableName = null;
+        public string stbl_myOrganisation_TableName = null;
+        public string stbl_myOrganisation_Person_TableName = null;
+        public string stbl_myOrganisation_PersonData_TableName = null;
 
         public string stbl_cStreetName_Org_TableName = null;
         public string stbl_cHouseNumber_Org_TableName = null;
@@ -33,7 +33,7 @@ namespace InvoiceDB
         public string stbl_cAddress_Org_TableName = null;
 
         public string stbl_BuyerAtom_Person_TableName = null;
-        public string stbl_BuyerCompanyAtom_TableName = null;
+        public string stbl_BuyerOrganisationAtom_TableName = null;
         public string stbl_TermsOfPayment_TableName = null;
         public string stbl_DocInvoice_TableName = null;
         public string stbl_Taxation_TableName = null;
@@ -83,8 +83,8 @@ namespace InvoiceDB
         public string colStockVIEW_Item_NeverExpires = "Item_NeverExpires";
         public string colStockVIEW_Item_ExpiryDescription = "Item_ExpiryDescription";
         public string colStockVIEW_Item_ToOffer = "Item_ToOffer";
-        public string colStockVIEW_PurchaseCompany_Name = "PurchaseCompany_Name";
-        public string colStockVIEW_PurchaseCompany_Address = "PurchaseCompany_Address";
+        public string colStockVIEW_PurchaseOrganisation_Name = "PurchaseOrganisation_Name";
+        public string colStockVIEW_PurchaseOrganisation_Address = "PurchaseOrganisation_Address";
         public string colStockVIEW_Taxation_Rate = "Taxation_Rate";
         public string colStockVIEW_Stock_PurchasePricePerUnit = "Stock_PurchasePricePerUnit";
         public string colStockVIEW_Stock_RetailPricePerUnit = "Stock_RetailPricePerUnit";
@@ -125,8 +125,8 @@ namespace InvoiceDB
         public Type column_SelectedShopBItem_ExtraDiscount_TYPE = typeof(decimal);
 
 
-        public string colmyCompany_ID;
-        public string colmyCompany_as_ID;
+        public string colmyOrganisation_ID;
+        public string colmyOrganisation_as_ID;
 
 
         public string col_cAddress_Org_cStreetName_Org_ID;
@@ -138,56 +138,56 @@ namespace InvoiceDB
 
 
 
-        public string colmyCompany_Person_as_company_Person_ID;
-        public string colmyCompany_Person_as_Office_ID;
+        public string colmyOrganisation_Person_as_company_Person_ID;
+        public string colmyOrganisation_Person_as_Office_ID;
 
-        public string colmyCompany_Person_ID;
+        public string colmyOrganisation_Person_ID;
 
-        public string colAtom_myCompany_Person_Atom_myCompany_ID;
-        public string colAtom_myCompany_Person_as_Atom_myCompany_ID;
-        public string colAtom_myCompany_Person_as_Atom_Person_ID;
-        public string colAtom_myCompany_Person_Job;
-        public string colAtom_myCompany_Person_UserName;
-        public string colAtom_myCompany_Person_Description;
+        public string colAtom_myOrganisation_Person_Atom_myOrganisation_ID;
+        public string colAtom_myOrganisation_Person_as_Atom_myOrganisation_ID;
+        public string colAtom_myOrganisation_Person_as_Atom_Person_ID;
+        public string colAtom_myOrganisation_Person_Job;
+        public string colAtom_myOrganisation_Person_UserName;
+        public string colAtom_myOrganisation_Person_Description;
 
-        public string colAtom_myCompany_ID;
-        public string colAtom_myCompany_as_ID;
-        public string colAtom_myCompany_Name;
-        public string colAtom_myCompany_Atom_cAddress_Org;
-        public string colAtom_myCompany_TaxID;
-        public string colAtom_myCompany_as_TaxID;
-        public string colAtom_myCompany_Company_id;
-        public string colAtom_myCompany_PhoneNumber;
-        public string colAtom_myCompany_Email;
-        public string colAtom_myCompany_HomePage;
-
-
-        public string colmyCompany_Person_Office_ID;
-
-        public string colmyCompany_Name;
+        public string colAtom_myOrganisation_ID;
+        public string colAtom_myOrganisation_as_ID;
+        public string colAtom_myOrganisation_Name;
+        public string colAtom_myOrganisation_Atom_cAddress_Org;
+        public string colAtom_myOrganisation_TaxID;
+        public string colAtom_myOrganisation_as_TaxID;
+        public string colAtom_myOrganisation_Organisation_id;
+        public string colAtom_myOrganisation_PhoneNumber;
+        public string colAtom_myOrganisation_Email;
+        public string colAtom_myOrganisation_HomePage;
 
 
+        public string colmyOrganisation_Person_Office_ID;
 
-        public string colmyCompany_TaxID;
-        public string colmyCompany_as_TaxID;
-        public string colmyCompany_Company_id;
-        public string colmyCompany_PhoneNumber;
-        public string colmyCompany_Email;
-        public string colmyCompany_HomePage;
-        public string colmyCompany_BankName;
-        public string colmyCompany_TRR;
+        public string colmyOrganisation_Name;
+
+
+
+        public string colmyOrganisation_TaxID;
+        public string colmyOrganisation_as_TaxID;
+        public string colmyOrganisation_Organisation_id;
+        public string colmyOrganisation_PhoneNumber;
+        public string colmyOrganisation_Email;
+        public string colmyOrganisation_HomePage;
+        public string colmyOrganisation_BankName;
+        public string colmyOrganisation_TRR;
 
         public string colDocInvoice_ID;
         public string colDocInvoice_as_ID;
 
-        public string colDocInvoice_myCompany_Person_ID;
-        public string colDocInvoice_as_myCompany_Person_ID;
+        public string colDocInvoice_myOrganisation_Person_ID;
+        public string colDocInvoice_as_myOrganisation_Person_ID;
 
-        public string colDocInvoice_Atom_myCompany_Person_ID;
-        public string colDocInvoice_as_Atom_myCompany_Person_ID;
+        public string colDocInvoice_Atom_myOrganisation_Person_ID;
+        public string colDocInvoice_as_Atom_myOrganisation_Person_ID;
 
-        public string colDocInvoice_myCompany_ID;
-        public string colDocInvoice_as_myCompany_ID;
+        public string colDocInvoice_myOrganisation_ID;
+        public string colDocInvoice_as_myOrganisation_ID;
 
         public string colDocInvoice_FinancialYear;
         public string colDocInvoice_as_FinancialYear;
@@ -202,7 +202,7 @@ namespace InvoiceDB
         public string colDocInvoice_TaxSum;
         public string colDocInvoice_GrossSum;
         public string colDocInvoice_BuyerAtom_Person_ID;
-        public string colDocInvoice_BuyerCompanyAtom_ID;
+        public string colDocInvoice_BuyerOrganisationAtom_ID;
         public string colDocInvoice_WarrantyExists;
         public string colDocInvoice_WarrantyDurationType;
         public string colDocInvoice_WarrantyDuration;
@@ -225,11 +225,11 @@ namespace InvoiceDB
             TangentaTableClass.SQL_Database_Tables_Definition td = DBSync.DBSync.DB_for_Tangenta.mt;
 
 
-            SQLTable tbl_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany));
-            SQLTable tbl_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myCompany_Person));
+            SQLTable tbl_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation));
+            SQLTable tbl_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person));
             SQLTable tbl_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Person));
-            SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany));
-            SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
+            SQLTable tbl_Atom_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation));
+            SQLTable tbl_Atom_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation_Person));
             SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
             SQLTable tbl_Atom_Customer_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Customer_Person));
             SQLTable tbl_Atom_Customer_Org = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Customer_Org));
@@ -261,7 +261,7 @@ namespace InvoiceDB
             SQLTable tbl_Atom_Expiry = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_Expiry));
             SQLTable tbl_DocInvoice_Atom_Item_Stock = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice_ShopC_Item));
 
-            stbl_myCompany_TableName = tbl_myCompany.TableName;
+            stbl_myOrganisation_TableName = tbl_myOrganisation.TableName;
 
             stbl_cStreetName_Org_TableName = tbl_cStreetName_Org.TableName;
             stbl_cHouseNumber_Org_TableName = tbl_cHouseNumber_Org.TableName;
@@ -282,15 +282,15 @@ namespace InvoiceDB
 
             stbl_Atom_Item_ExpiryDescription_TableName = tbl_Atom_Expiry.TableName;
 
-            stbl_Atom_myCompany_TableName = tbl_Atom_myCompany.TableName;
-            stbl_Atom_myCompany_Person_TableName = tbl_Atom_myCompany_Person.TableName;
+            stbl_Atom_myOrganisation_TableName = tbl_Atom_myOrganisation.TableName;
+            stbl_Atom_myOrganisation_Person_TableName = tbl_Atom_myOrganisation_Person.TableName;
 
 
-            stbl_myCompany_Person_TableName = tbl_myCompany_Person.TableName;
-            stbl_myCompany_PersonData_TableName = tbl_Person.TableName;
+            stbl_myOrganisation_Person_TableName = tbl_myOrganisation_Person.TableName;
+            stbl_myOrganisation_PersonData_TableName = tbl_Person.TableName;
             stbl_BuyerAtom_Person_TableName = tbl_Atom_Customer_Person.TableName;
 
-            stbl_BuyerCompanyAtom_TableName = tbl_Atom_Customer_Org.TableName;
+            stbl_BuyerOrganisationAtom_TableName = tbl_Atom_Customer_Org.TableName;
             stbl_TermsOfPayment_TableName = tbl_TermsOfPayment.TableName;
 
             stbl_DocInvoice_TableName = tbl_DocInvoice.TableName;
@@ -312,8 +312,8 @@ namespace InvoiceDB
             col_FinancialYear = GetName(td.m_DocInvoice.FinancialYear.GetType());
             col_NumberInFinancialYear = GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
 
-            colmyCompany_Person_ID = stbl_myCompany_Person_TableName + "." + GetName(td.m_myCompany_Person.ID.GetType());
-            colmyCompany_ID = stbl_myCompany_TableName + "." + GetName(td.m_myCompany.ID.GetType());
+            colmyOrganisation_Person_ID = stbl_myOrganisation_Person_TableName + "." + GetName(td.m_myOrganisation_Person.ID.GetType());
+            colmyOrganisation_ID = stbl_myOrganisation_TableName + "." + GetName(td.m_myOrganisation.ID.GetType());
 
             col_cAddress_Org_cHouseNumber_Org_ID = stbl_cAddress_Org_TableName + "." + GetName(td.m_cAddress_Org.m_cHouseNumber_Org.GetType()) + "_ID";
             col_cAddress_Org_cZIP_Org_ID = stbl_cAddress_Org_TableName + "." + GetName(td.m_cAddress_Org.m_cZIP_Org.GetType()) + "_ID";
@@ -324,31 +324,31 @@ namespace InvoiceDB
 
 
 
-            colmyCompany_Person_as_company_Person_ID = stbl_myCompany_Person_TableName + "_" + GetName(td.m_myCompany_Person.ID.GetType());
-            colmyCompany_Person_ID = stbl_myCompany_Person_TableName + "." + GetName(td.m_myCompany_Person.ID.GetType());
-            colmyCompany_ID = stbl_myCompany_TableName + "." + GetName(td.m_myCompany.ID.GetType());
-            colmyCompany_as_ID = stbl_myCompany_TableName + "_" + GetName(td.m_myCompany.ID.GetType());
+            colmyOrganisation_Person_as_company_Person_ID = stbl_myOrganisation_Person_TableName + "_" + GetName(td.m_myOrganisation_Person.ID.GetType());
+            colmyOrganisation_Person_ID = stbl_myOrganisation_Person_TableName + "." + GetName(td.m_myOrganisation_Person.ID.GetType());
+            colmyOrganisation_ID = stbl_myOrganisation_TableName + "." + GetName(td.m_myOrganisation.ID.GetType());
+            colmyOrganisation_as_ID = stbl_myOrganisation_TableName + "_" + GetName(td.m_myOrganisation.ID.GetType());
 
-            colmyCompany_Person_Office_ID = stbl_myCompany_Person_TableName + "." + GetName(td.m_myCompany_Person.m_Office.ID.GetType());
-            colmyCompany_Person_as_Office_ID = stbl_myCompany_Person_TableName + "_" + GetName(td.m_myCompany_Person.m_Office.ID.GetType());
+            colmyOrganisation_Person_Office_ID = stbl_myOrganisation_Person_TableName + "." + GetName(td.m_myOrganisation_Person.m_Office.ID.GetType());
+            colmyOrganisation_Person_as_Office_ID = stbl_myOrganisation_Person_TableName + "_" + GetName(td.m_myOrganisation_Person.m_Office.ID.GetType());
 
-            colAtom_myCompany_Person_Atom_myCompany_ID = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.m_Atom_Office.ID.GetType());
-            colAtom_myCompany_Person_as_Atom_myCompany_ID = stbl_Atom_myCompany_Person_TableName + "_" + GetName(td.m_Atom_myCompany_Person.m_Atom_Office.ID.GetType());
-            colAtom_myCompany_Person_as_Atom_Person_ID = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.m_Atom_Person.ID.GetType());
-            colAtom_myCompany_Person_Job = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.Job.GetType());
-            colAtom_myCompany_Person_UserName = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.UserName.GetType());
-            colAtom_myCompany_Person_Description = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.Description.GetType());
+            colAtom_myOrganisation_Person_Atom_myOrganisation_ID = stbl_Atom_myOrganisation_Person_TableName + "." + GetName(td.m_Atom_myOrganisation_Person.m_Atom_Office.ID.GetType());
+            colAtom_myOrganisation_Person_as_Atom_myOrganisation_ID = stbl_Atom_myOrganisation_Person_TableName + "_" + GetName(td.m_Atom_myOrganisation_Person.m_Atom_Office.ID.GetType());
+            colAtom_myOrganisation_Person_as_Atom_Person_ID = stbl_Atom_myOrganisation_Person_TableName + "." + GetName(td.m_Atom_myOrganisation_Person.m_Atom_Person.ID.GetType());
+            colAtom_myOrganisation_Person_Job = stbl_Atom_myOrganisation_Person_TableName + "." + GetName(td.m_Atom_myOrganisation_Person.Job.GetType());
+            colAtom_myOrganisation_Person_UserName = stbl_Atom_myOrganisation_Person_TableName + "." + GetName(td.m_Atom_myOrganisation_Person.UserName.GetType());
+            colAtom_myOrganisation_Person_Description = stbl_Atom_myOrganisation_Person_TableName + "." + GetName(td.m_Atom_myOrganisation_Person.Description.GetType());
 
-            colAtom_myCompany_ID = stbl_Atom_myCompany_TableName + "." + GetName(td.m_Atom_myCompany.ID.GetType());
-            colAtom_myCompany_as_ID = stbl_Atom_myCompany_TableName + "_" + GetName(td.m_Atom_myCompany.ID.GetType());
+            colAtom_myOrganisation_ID = stbl_Atom_myOrganisation_TableName + "." + GetName(td.m_Atom_myOrganisation.ID.GetType());
+            colAtom_myOrganisation_as_ID = stbl_Atom_myOrganisation_TableName + "_" + GetName(td.m_Atom_myOrganisation.ID.GetType());
 
 
-            //colmyCompany_cStreetName_Org_ID = GetName(td.m_myCompany.m_cStreetName_Org.GetType());
-            //colmyCompany_cHouseNumber_Org_ID = GetName(td.m_myCompany.m_cHouseNumber_Org.GetType());
-            //colmyCompany_cCity_Org_ID = GetName(td.m_myCompany.m_cCity_Org.GetType());
-            //colmyCompany_cCountry_Org_ID = GetName(td.m_myCompany.m_cCountry_Org.GetType());
-            //colmyCompany_cState_Org_ID = GetName(td.m_myCompany.m_cState_Org.GetType());
-            //colmyCompany_cZIP_Org_ID = GetName(td.m_myCompany.m_cZIP_Org.GetType());
+            //colmyOrganisation_cStreetName_Org_ID = GetName(td.m_myOrganisation.m_cStreetName_Org.GetType());
+            //colmyOrganisation_cHouseNumber_Org_ID = GetName(td.m_myOrganisation.m_cHouseNumber_Org.GetType());
+            //colmyOrganisation_cCity_Org_ID = GetName(td.m_myOrganisation.m_cCity_Org.GetType());
+            //colmyOrganisation_cCountry_Org_ID = GetName(td.m_myOrganisation.m_cCountry_Org.GetType());
+            //colmyOrganisation_cState_Org_ID = GetName(td.m_myOrganisation.m_cState_Org.GetType());
+            //colmyOrganisation_cZIP_Org_ID = GetName(td.m_myOrganisation.m_cZIP_Org.GetType());
 
 
 
@@ -356,14 +356,14 @@ namespace InvoiceDB
             colDocInvoice_ID = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.ID.GetType());
             colDocInvoice_as_ID = stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.ID.GetType());
 
-            colDocInvoice_myCompany_Person_ID = stbl_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.ID.GetType());
-            colDocInvoice_as_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "_" + GetName(td.m_Atom_myCompany_Person.ID.GetType());
+            colDocInvoice_myOrganisation_Person_ID = stbl_myOrganisation_Person_TableName + "." + GetName(td.m_Atom_myOrganisation_Person.ID.GetType());
+            colDocInvoice_as_myOrganisation_Person_ID = stbl_Atom_myOrganisation_Person_TableName + "_" + GetName(td.m_Atom_myOrganisation_Person.ID.GetType());
 
-            colDocInvoice_Atom_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "." + GetName(td.m_Atom_myCompany_Person.ID.GetType());
-            colDocInvoice_as_Atom_myCompany_Person_ID = stbl_Atom_myCompany_Person_TableName + "_" + GetName(td.m_Atom_myCompany_Person.ID.GetType());
+            colDocInvoice_Atom_myOrganisation_Person_ID = stbl_Atom_myOrganisation_Person_TableName + "." + GetName(td.m_Atom_myOrganisation_Person.ID.GetType());
+            colDocInvoice_as_Atom_myOrganisation_Person_ID = stbl_Atom_myOrganisation_Person_TableName + "_" + GetName(td.m_Atom_myOrganisation_Person.ID.GetType());
 
-            colDocInvoice_myCompany_ID = stbl_myCompany_TableName + "." + GetName(td.m_myCompany.ID.GetType());
-            colDocInvoice_as_myCompany_ID = stbl_myCompany_TableName + "_" + GetName(td.m_myCompany.ID.GetType());
+            colDocInvoice_myOrganisation_ID = stbl_myOrganisation_TableName + "." + GetName(td.m_myOrganisation.ID.GetType());
+            colDocInvoice_as_myOrganisation_ID = stbl_myOrganisation_TableName + "_" + GetName(td.m_myOrganisation.ID.GetType());
 
             colDocInvoice_FinancialYear = GetName(td.m_DocInvoice.FinancialYear.GetType());
             colDocInvoice_NumberInFinancialYear = GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
@@ -375,7 +375,7 @@ namespace InvoiceDB
             colDocInvoice_TaxSum = GetName(td.m_DocInvoice.TaxSum.GetType());
             colDocInvoice_GrossSum = GetName(td.m_DocInvoice.GrossSum.GetType()); ;
             colDocInvoice_BuyerAtom_Person_ID = stbl_BuyerAtom_Person_TableName + "_" + GetName(td.m_BuyerAtom_Person.ID.GetType());
-            colDocInvoice_BuyerCompanyAtom_ID = stbl_BuyerCompanyAtom_TableName + "_" + GetName(td.m_Atom_Organisation.ID.GetType());
+            colDocInvoice_BuyerOrganisationAtom_ID = stbl_BuyerOrganisationAtom_TableName + "_" + GetName(td.m_Atom_Organisation.ID.GetType());
             colDocInvoice_WarrantyExists = GetName(td.m_DocInvoice.WarrantyExist.GetType());
             colDocInvoice_WarrantyDurationType = GetName(td.m_DocInvoice.WarrantyDurationType.GetType());
             colDocInvoice_WarrantyDuration = GetName(td.m_DocInvoice.WarrantyDuration.GetType());

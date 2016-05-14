@@ -57,7 +57,7 @@ namespace InvoiceDB
         public int icol_Warranty_WarrantyConditions = -1;
         public int icol_Warranty_WarrantyDuration = -1;
         public int icol_Warranty_WarrantyDurationType = -1;
-        public int icol_PurchaseCompany_Name = -1;
+        public int icol_PurchaseOrganisation_Name = -1;
         public int icol_StreetName = -1;
         public int icol_HouseNumber = -1;
         public int icol_City = -1;
@@ -113,7 +113,7 @@ namespace InvoiceDB
         public string sWarranty_WarrantyConditions = "Warranty_WarrantyConditions";
         public string sWarranty_WarrantyDuration = "Warranty_WarrantyDuration";
         public string sWarranty_WarrantyDurationType = "Warranty_WarrantyDurationType";
-        public string sPurchaseCompany_Name = "PurchaseCompany_Name";
+        public string sPurchaseOrganisation_Name = "PurchaseOrganisation_Name";
         public string sStreetName = "StreetName";
         public string sHouseNumber = "HouseNumber";
         public string sCity = "City";
@@ -172,7 +172,7 @@ namespace InvoiceDB
             icol_Warranty_WarrantyConditions = dt.Columns.IndexOf(sWarranty_WarrantyConditions);
             icol_Warranty_WarrantyDuration = dt.Columns.IndexOf(sWarranty_WarrantyDuration);
             icol_Warranty_WarrantyDurationType = dt.Columns.IndexOf(sWarranty_WarrantyDurationType);
-            icol_PurchaseCompany_Name = dt.Columns.IndexOf(sPurchaseCompany_Name);
+            icol_PurchaseOrganisation_Name = dt.Columns.IndexOf(sPurchaseOrganisation_Name);
             icol_StreetName = dt.Columns.IndexOf(sStreetName);
             icol_HouseNumber = dt.Columns.IndexOf(sHouseNumber);
             icol_City = dt.Columns.IndexOf(sCity);

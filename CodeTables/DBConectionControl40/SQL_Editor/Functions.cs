@@ -1198,7 +1198,7 @@ namespace SqlBuilder
 
 		/// <summary>
 		/// Converts the first character of each word to uppercase
-		/// e.g. COMPUTER.Domain.Company.com  --> Computer.Domain.Company.com
+		/// e.g. COMPUTER.Domain.Organisation.com  --> Computer.Domain.Organisation.com
 		/// If s_In is a filename, the file extension will always be lowercase
 		/// </summary>
 		public static string FirstToUpper(string s_In, bool b_IsFile)

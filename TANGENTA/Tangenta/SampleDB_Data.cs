@@ -32,7 +32,7 @@ namespace Tangenta
         public static TangentaTableClass.cCountry_Org m_cCountry_Org = new TangentaTableClass.cCountry_Org();
         public static TangentaTableClass.cState_Org m_cState_Org = new TangentaTableClass.cState_Org();
 
-        public static TangentaTableClass.myCompany m_myCompany = new TangentaTableClass.myCompany();
+        public static TangentaTableClass.myOrganisation m_myOrganisation = new TangentaTableClass.myOrganisation();
 
         public static TangentaTableClass.OrganisationData m_OrganisationData = new TangentaTableClass.OrganisationData();
 
@@ -41,7 +41,7 @@ namespace Tangenta
         public static TangentaTableClass.cOrgTYPE m_cOrgTYPE = new TangentaTableClass.cOrgTYPE();
 
         public static List<TangentaTableClass.Person> m_List_Person = new List<TangentaTableClass.Person>();
-        public static List<TangentaTableClass.myCompany_Person> m_List_myCompany_Person = new List<TangentaTableClass.myCompany_Person>();
+        public static List<TangentaTableClass.myOrganisation_Person> m_List_myOrganisation_Person = new List<TangentaTableClass.myOrganisation_Person>();
 
 
         public static List<TangentaTableClass.Price_SimpleItem> m_List_Price_SimpleItem = new List<TangentaTableClass.Price_SimpleItem>();
@@ -60,9 +60,9 @@ namespace Tangenta
 
         public static List<TangentaTableClass.Stock> m_List_Stock = new List<TangentaTableClass.Stock>();
 
-        public static long myCompany_Person_id = -1;
-        public static long myCompany_PersonAccount_id = -1;
-        public static  long myCompany_ID = -1;
+        public static long myOrganisation_Person_id = -1;
+        public static long myOrganisation_PersonAccount_id = -1;
+        public static  long myOrganisation_ID = -1;
 
         public static void Init_SimpleItem()
         {
@@ -268,7 +268,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         }
 
-        public static void Init_PurchaseCompany()
+        public static void Init_PurchaseOrganisation()
         {
 
             TangentaTableClass.Organisation org = new TangentaTableClass.Organisation();
@@ -291,33 +291,33 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         }
 
-        private static void Init_myCompany_Person()
+        private static void Init_myOrganisation_Person()
         {
             TangentaTableClass.Person Person1 = new TangentaTableClass.Person();
-            TangentaTableClass.myCompany_Person myCompany_Person1 = new TangentaTableClass.myCompany_Person();
+            TangentaTableClass.myOrganisation_Person myOrganisation_Person1 = new TangentaTableClass.myOrganisation_Person();
             Person1.m_cFirstName.FirstName.val = "Marjetka";
             Person1.m_cLastName.LastName.val = "Hrnčič-Štrucl";
             m_List_Person.Add(Person1);
 
-            myCompany_Person1.m_Person = Person1;
-            myCompany_Person1.UserName.val = "marjetka";
-            myCompany_Person1.Active.val = true;
-            myCompany_Person1.Job.val = "direktor";
-            myCompany_Person1.Password.val="1234";
-            m_List_myCompany_Person.Add(myCompany_Person1);
+            myOrganisation_Person1.m_Person = Person1;
+            myOrganisation_Person1.UserName.val = "marjetka";
+            myOrganisation_Person1.Active.val = true;
+            myOrganisation_Person1.Job.val = "direktor";
+            myOrganisation_Person1.Password.val="1234";
+            m_List_myOrganisation_Person.Add(myOrganisation_Person1);
 
             TangentaTableClass.Person Person2 = new TangentaTableClass.Person();
-            TangentaTableClass.myCompany_Person myCompany_Person2 = new TangentaTableClass.myCompany_Person();
+            TangentaTableClass.myOrganisation_Person myOrganisation_Person2 = new TangentaTableClass.myOrganisation_Person();
             Person2.m_cFirstName.FirstName.val = "Damjan";
             Person2.m_cLastName.LastName.val = "Štrucl-Hrnčič";
             m_List_Person.Add(Person2);
 
-            myCompany_Person2.m_Person = Person2;
-            myCompany_Person2.UserName.val = "damjan";
-            myCompany_Person2.Active.val = true;
-            myCompany_Person2.Job.val = "zunanji sodelavec";
-            myCompany_Person2.Password.val = "1234";
-            m_List_myCompany_Person.Add(myCompany_Person2);
+            myOrganisation_Person2.m_Person = Person2;
+            myOrganisation_Person2.UserName.val = "damjan";
+            myOrganisation_Person2.Active.val = true;
+            myOrganisation_Person2.Job.val = "zunanji sodelavec";
+            myOrganisation_Person2.Password.val = "1234";
+            m_List_myOrganisation_Person.Add(myOrganisation_Person2);
 
 
         }
@@ -408,7 +408,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             // Item
             Init_Item();
 
-            Init_PurchaseCompany();
+            Init_PurchaseOrganisation();
             // Stock
 
             Init_Stock();
@@ -440,7 +440,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
 
 
-        public static bool Init_DB_myCompany(ref string Err)
+        public static bool Init_DB_myOrganisation(ref string Err)
         {
             
             long_v Tax_ID = new long_v();
@@ -481,7 +481,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                                          ref OrganisationData_id, 
                                          ref Err))
             {
-                if (fs.GetID("myCompany", new string[] { "Organisation_ID" }, new string[] { Organisation_id.ToString() }, null, ref myCompany_ID, ref Err))
+                if (fs.GetID("myOrganisation", new string[] { "Organisation_ID" }, new string[] { Organisation_id.ToString() }, null, ref myOrganisation_ID, ref Err))
                 {
                     return true;
                 }
@@ -490,7 +490,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
         }
 
 
-        public static bool Init_DB_myCompany_Person(ref string Err)
+        public static bool Init_DB_myOrganisation_Person(ref string Err)
         {
             DateTime DateOfBirth = DateTime.Parse("20/04/1996");
             long_v TaxID = new long_v();
@@ -518,10 +518,10 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                                                   AccountDescription,
                                                   true,
                                                   ref Person_id,
-                                                  ref myCompany_PersonAccount_id,
+                                                  ref myOrganisation_PersonAccount_id,
                                                   ref Err))
             {
-                if (fs.GetID("myCompany_Person", new string[] { "UserName", "Password", "Job","Active", "Person_ID", "myCompany_ID" }, new string[] { "'marjetkah'", "'1234'", "'direktor in lastnik'","1", Person_id.ToString(), myCompany_ID.ToString() }, null, ref myCompany_Person_id, ref Err))
+                if (fs.GetID("myOrganisation_Person", new string[] { "UserName", "Password", "Job","Active", "Person_ID", "myOrganisation_ID" }, new string[] { "'marjetkah'", "'1234'", "'direktor in lastnik'","1", Person_id.ToString(), myOrganisation_ID.ToString() }, null, ref myOrganisation_Person_id, ref Err))
                 {
                     return true;
                 }
@@ -798,7 +798,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                     SQL_Parameter par_PurchasePriceDate = new SQL_Parameter(spar_PurchasePriceDate, SQL_Parameter.eSQL_Parameter.Datetime, false, dtNow);
                     lpar.Add(par_PurchasePriceDate);
 
-//                    string sql_PurchasePrice_Item = @"insert into PurchasePrice_Item (PurchasePricePerUnit,PurchasePriceDate,Currency_ID,Taxation_ID,PurchaseCompany_ID,Item_ID,ReferenceNote) values 
+//                    string sql_PurchasePrice_Item = @"insert into PurchasePrice_Item (PurchasePricePerUnit,PurchasePriceDate,Currency_ID,Taxation_ID,PurchaseOrganisation_ID,Item_ID,ReferenceNote) values 
 //                                                                  (@par_PurchasePricePerUnit,@par_PurchasePriceDate,1,1,1," + Item_ID.ToString() + ",null)";
                     long PurchasePrice_ID = -1;
                     if (fs.GetID("PurchasePrice",new string[] {"PurchasePricePerUnit",
@@ -947,9 +947,9 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
         {
             if (Init_DB_Taxation(ref Err))
             {
-                if (Init_DB_myCompany(ref Err))
+                if (Init_DB_myOrganisation(ref Err))
                 {
-                    if (Init_DB_myCompany_Person(ref Err))
+                    if (Init_DB_myOrganisation_Person(ref Err))
                     {
                         if (Init_DB_SimpleItem(ref Err))
                         {
@@ -1056,7 +1056,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                                                   "ValidTo",
                                                   "CreationDate",
                                                   "Description",
-                                                  "myCompany_Person_ID",
+                                                  "myOrganisation_Person_ID",
                                                   },
                                   new string[]{"1",
                                                   spar_Name,

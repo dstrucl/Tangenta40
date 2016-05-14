@@ -58,7 +58,7 @@
             this.Name = "Form_ShopBItem_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShopBItem_EditForm";
-            this.Load += new System.EventHandler(this.MyCompanyData_EditForm_Load);
+            this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);
             this.ResumeLayout(false);
 
         }

@@ -37,8 +37,8 @@ namespace InvoiceDB
         {
             //SQLTable tbl_Invoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Invoice));
             //SQLTable tbl_DocInvoice = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice));
-            //SQLTable tbl_Atom_myCompany_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany_Person));
-            //SQLTable tbl_Atom_myCompany = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myCompany));
+            //SQLTable tbl_Atom_myOrganisation_Person = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation_Person));
+            //SQLTable tbl_Atom_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation));
 
             string cond = null;
             if (ID >= 0)
@@ -101,7 +101,7 @@ namespace InvoiceDB
                     m_CurrentInvoice.StornoDocInvoice_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
                     m_CurrentInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
                     m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$FinancialYear"];
-                    m_CurrentInvoice.bStorno = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Storno"];
+                    m_CurrentInvoice.bStorno_v = tf.set_bool(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Storno"]);
 
                     object o_Atom_Customer_Person_ID = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID"];
                     if (o_Atom_Customer_Person_ID is long)
@@ -324,14 +324,14 @@ namespace InvoiceDB
 
         }
 
-        public bool SetNewDraft_Invoice(int iFinancialYear, Control pParent, ref long Invoice_ID,
-                                  long myCompany_Person_ID,
+        public bool SetNewDraft_DocInvoice(int iFinancialYear, Control pParent, ref long DocInvoice_ID,
+                                  long myOrganisation_Person_ID,
                                   ref string Err)
         {
             DataTable dt = new DataTable();
             int xDraftNumber = -1;
             int iLimit = 1;
-            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "DraftNumber from DocInvoice where Invoice_ID is not null order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "DraftNumber from DocInvoice order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             if (!DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 LogFile.Error.Show("ERROR:InvoiceDB:SetNewDraft:sql=" + sql + "\r\nErr=" + Err);
@@ -349,7 +349,7 @@ namespace InvoiceDB
 
             dt.Clear();
             dt.Columns.Clear();
-            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,Invoice_ID,DraftNumber from DocInvoice where FinancialYear = " + iFinancialYear.ToString() + " and Invoice_ID is not null order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,DraftNumber from DocInvoice where FinancialYear = " + iFinancialYear.ToString() + " order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count == 1)
@@ -357,32 +357,32 @@ namespace InvoiceDB
                     //Draft already set
                     try
                     {
-                        Invoice_ID = (long)dt.Rows[0]["Invoice_ID"];
+                        DocInvoice_ID = (long)dt.Rows[0]["ID"];
                     }
                     catch (Exception ex)
                     {
-                        LogFile.Error.Show("ERROR:InvoiceDB:SetNewDraft: Invoice_ID is not defined in DocInvoice! Exception =" + ex.Message);
+                        LogFile.Error.Show("ERROR:InvoiceDB:SetNewDraft: ID is not defined in DocInvoice! Exception =" + ex.Message);
                         return false;
                     }
                 }
 
-                long Atom_myCompany_Person_ID = -1;
+                long Atom_myOrganisation_Person_ID = -1;
                 m_CurrentInvoice.FinancialYear = iFinancialYear;
                 m_CurrentInvoice.DraftNumber = xDraftNumber;
                 string_v office_name = null;
-                if (f_Atom_myCompany_Person.Get(myCompany_Person_ID, ref Atom_myCompany_Person_ID, ref office_name))
+                if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name))
                 {
                     //**TODO
                     string sql_SetDraftDocInvoice = "insert into " + DBtcn.stbl_DocInvoice_TableName
                     + "("
-                        + DBtcn.GetName(td.m_DocInvoice.GetType()) + "_ID,"
                         + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
                         + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
-                        + DBtcn.GetName(td.m_DocInvoice.Draft.GetType())
+                        + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
+                        + DBtcn.GetName(td.m_DocInvoice.Storno.GetType())
                     + @") values ( "
-                    + Invoice_ID.ToString() + ","
                         + m_CurrentInvoice.FinancialYear.ToString() + ","
                         + m_CurrentInvoice.DraftNumber.ToString() + ","
+                        + "1,"
                         + "1"
                         + ")";
                     object objret = null;
@@ -412,31 +412,31 @@ namespace InvoiceDB
 
 
 
-        private bool Find_Atom_myCompany_Person_ID(long Atom_myCompany_ID, ref long Atom_myCompany_Person_ID, ref string Err)
+        private bool Find_Atom_myOrganisation_Person_ID(long Atom_myOrganisation_ID, ref long Atom_myOrganisation_Person_ID, ref string Err)
         {
             DataTable dt = new DataTable();
-            string sql_find_Atom_myCompany_Person_ID = @"select
-                                Atom_myCompany_Person.ID as Atom_myCompany_Person_ID
-                                from Atom_myCompany_Person
-                                inner join myCompany_Person on Atom_myCompany_Person.UserName = myCompany_Person.UserName
-                                where Atom_myCompany_Person.Atom_myCompany_ID = " + Atom_myCompany_ID.ToString();
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_myCompany_Person_ID, ref Err))
+            string sql_find_Atom_myOrganisation_Person_ID = @"select
+                                Atom_myOrganisation_Person.ID as Atom_myOrganisation_Person_ID
+                                from Atom_myOrganisation_Person
+                                inner join myOrganisation_Person on Atom_myOrganisation_Person.UserName = myOrganisation_Person.UserName
+                                where Atom_myOrganisation_Person.Atom_myOrganisation_ID = " + Atom_myOrganisation_ID.ToString();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_myOrganisation_Person_ID, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    Atom_myCompany_Person_ID = (long)dt.Rows[0]["Atom_myCompany_Person_ID"];
+                    Atom_myOrganisation_Person_ID = (long)dt.Rows[0]["Atom_myOrganisation_Person_ID"];
                 }
                 else
                 {
-                    Atom_myCompany_Person_ID = -1;
+                    Atom_myOrganisation_Person_ID = -1;
                 }
                 return true;
             }
             else
             {
-                LogFile.Error.Show(@"ERROR:Find_Atom_myCompany_Person_ID: select
-                                Atom_myCompany_Person.ID as Atom_myCompany_Person_ID
-                                from Atom_myCompany_Person:\r\nErr=" + Err);
+                LogFile.Error.Show(@"ERROR:Find_Atom_myOrganisation_Person_ID: select
+                                Atom_myOrganisation_Person.ID as Atom_myOrganisation_Person_ID
+                                from Atom_myOrganisation_Person:\r\nErr=" + Err);
                 return false;
             }
         }

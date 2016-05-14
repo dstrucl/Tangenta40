@@ -84,7 +84,7 @@
             this.Controls.Add(this.btn_OK);
             this.Name = "Form_myOrg_Person_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MyCompanyData_EditForm";
+            this.Text = "MyOrganisationData_EditForm";
             this.Load += new System.EventHandler(this.Form_myOrg_Person_Edit_Load);
             this.ResumeLayout(false);
 

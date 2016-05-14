@@ -121,7 +121,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_Invoice.Location = new System.Drawing.Point(6, 5);
             this.m_usrc_Invoice.Margin = new System.Windows.Forms.Padding(2);
-            this.m_usrc_Invoice.myCompany_Person_ID = ((long)(0));
+            this.m_usrc_Invoice.myOrganisation_Person_ID = ((long)(0));
             this.m_usrc_Invoice.Name = "m_usrc_Invoice";
             this.m_usrc_Invoice.Size = new System.Drawing.Size(617, 675);
             this.m_usrc_Invoice.TabIndex = 0;

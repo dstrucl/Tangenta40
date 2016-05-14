@@ -133,7 +133,7 @@ namespace Tangenta
                         return;
                     }
                 }
-                sql = "update invoice set methodofpayment_id = " + methodofpayment_id.ToString() + " where id = " + DocInvoice_ID.ToString();
+                sql = "update docinvoice set methodofpayment_id = " + methodofpayment_id.ToString() + " where id = " + DocInvoice_ID.ToString();
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref objret, ref Err))
                 {
                     sPaymentMethod = sMethod;

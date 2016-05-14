@@ -47,7 +47,7 @@ namespace InvoiceDB
         public long_v Atom_Customer_Org_ID_v = null;
         public bool bDraft = false;
         public bool Exist = false;
-        public bool bStorno = false;
+        public bool_v bStorno_v = null;
 
         public CurrentInvoice(ShopABC xInvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
