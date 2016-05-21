@@ -666,7 +666,7 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_cCity_Org);
 
             /* 17 */
-            t_cCountry_Org = new SQLTable((Object)new cCountry_Org(),"cstorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cCountry_Org);
+            t_cCountry_Org = new SQLTable((Object)new cCountry_Org(), "ccouorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cCountry_Org);
             t_cCountry_Org.SetInputControls = m_ISO_3166_Table.SetInputControls;
             t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_cCountry_Org.AddColumn((Object)mt.m_cCountry_Org.Country, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "Country", "Država") );
@@ -676,7 +676,7 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_cCountry_Org);
 
             /* 18 */
-            t_cState_Org = new SQLTable((Object)new cState_Org(),"ccouorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cState_Org);
+            t_cState_Org = new SQLTable((Object)new cState_Org(), "cstorg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_cState_Org);
             t_cState_Org.AddColumn((Object)mt.m_cState_Org.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_cState_Org.AddColumn((Object)mt.m_cState_Org.State, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox, new ltext( "State", "Dežela") );
             m_DBTables.items.Add(t_cState_Org);

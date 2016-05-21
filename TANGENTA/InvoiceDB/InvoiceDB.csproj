@@ -93,7 +93,15 @@
     <Compile Include="f_Atom_WorkingPlace.cs" />
     <Compile Include="f_Atom_WorkPeriod.cs" />
     <Compile Include="f_Atom_WorkPeriod_Type.cs" />
+    <Compile Include="f_cAddress_Org.cs" />
+    <Compile Include="f_cCity_Org.cs" />
+    <Compile Include="f_cCountry_Org.cs" />
+    <Compile Include="f_cHouseNumber_Org.cs" />
+    <Compile Include="f_cOrgTYPE.cs" />
+    <Compile Include="f_cState_Org.cs" />
+    <Compile Include="f_cStreetName_Org.cs" />
     <Compile Include="f_CurrencyAtom.cs" />
+    <Compile Include="f_cZIP_org.cs" />
     <Compile Include="f_doc.cs" />
     <Compile Include="f_doc_page_type.cs" />
     <Compile Include="f_doc_type.cs" />
@@ -102,7 +110,10 @@
     <Compile Include="f_Journal_DocInvoice.cs" />
     <Compile Include="f_JOURNAL_Stock.cs" />
     <Compile Include="f_Language.cs" />
+    <Compile Include="f_Logo.cs" />
     <Compile Include="f_Office.cs" />
+    <Compile Include="f_Organisation.cs" />
+    <Compile Include="f_OrganisationData.cs" />
     <Compile Include="f_PriceAtom_ServiceAtom.cs" />
     <Compile Include="f_PriceList.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />
