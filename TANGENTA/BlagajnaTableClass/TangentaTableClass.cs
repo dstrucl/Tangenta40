@@ -951,6 +951,50 @@ namespace TangentaTableClass
         public Atom_Logo m_Atom_Logo = new Atom_Logo();
     }
 
+    public class Atom_Bank
+    {
+        public ID ID = new ID();
+        public Atom_Organisation m_Atom_Organisation = new Atom_Organisation();
+    }
+    public class Atom_BankAccount
+    {
+        public ID ID = new ID();
+        public Atom_Bank m_Atom_Bank = new Atom_Bank();
+        public TRR TRR = new TRR();
+        public Active Active = new Active();
+        public Description Description = new Description();
+    }
+
+    public class Atom_OrganisationAccount
+    {
+        public ID ID = new ID();
+        public Atom_Organisation m_Atom_Organisation = new Atom_Organisation();
+        public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
+        public Description Description = new Description();
+    }
+
+    public class Atom_PersonData
+    {
+        public ID ID = new ID();
+        public Atom_Person m_Atom_Person = new Atom_Person();
+        public Atom_cAddress_Person m_Atom_cAddress_Person = new Atom_cAddress_Person();
+        public Atom_cPhoneNumber_Person m_Atom_cPhoneNumber_Person = new Atom_cPhoneNumber_Person();
+        public Atom_cGsmNumber_Person m_Atom_cGsmNumber_Person = new Atom_cGsmNumber_Person();
+        public Atom_cEmail_Person m_Atom_cEmail_Person = new Atom_cEmail_Person();
+        public CardNumber CardNumber = new CardNumber();
+        public Atom_cCardType_Person m_Atom_cCardType_Person = new Atom_cCardType_Person();
+        public Description Description = new Description();
+        public Atom_PersonImage m_Atom_PersonImage = new Atom_PersonImage();
+    }
+
+    public class Atom_PersonAccount
+    {
+        public ID ID = new ID();
+        public Atom_Person m_Atom_Person = new Atom_Person();
+        public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
+        public Description Description = new Description();
+    }
+
     public class Atom_Logo
     {
         public ID ID = new ID();
@@ -2263,6 +2307,44 @@ namespace TangentaTableClass
         public TAX TAX = new TAX();
     }
 
+    public class TableName : DB_varchar_264
+    {
+
+    }
+    public class Table_RowID : DB_Int64
+    {
+
+    }
+
+    public class JOURNAL_Name
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
+
+    public class JOURNAL_TableName
+    {
+        public ID ID = new ID();
+        public TableName TableName = new TableName();
+    }
+
+    public class JOURNAL_TYPE
+    {
+        public ID ID = new ID();
+        public JOURNAL_TableName m_JOURNAL_TableName = new JOURNAL_TableName();
+        public JOURNAL_Name m_JOURNAL_Name = new JOURNAL_Name();
+        public Description Description = new Description();
+    }
+
+    public class JOURNAL
+    {
+        public ID ID = new ID();
+        public JOURNAL_TYPE m_JOURNAL_TYPE = new JOURNAL_TYPE();
+        public Table_RowID Table_RowID = new Table_RowID();
+        public EventTime EventTime = new EventTime();
+        public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
+    }
+
     public class SQL_Database_Tables_Definition
     {
 
@@ -2813,6 +2895,34 @@ namespace TangentaTableClass
 
         /* 189 */
         public JOURNAL_myOrganisation_Person m_JOURNAL_myOrganisation_Person = new JOURNAL_myOrganisation_Person();
+
+        /* 190 */
+        public Atom_Bank m_Atom_Bank = new Atom_Bank();
+
+        /* 191 */
+        public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
+
+        /* 192 */
+        public Atom_OrganisationAccount m_Atom_OrganisationAccount = new Atom_OrganisationAccount();
+
+        /* 193 */
+        public Atom_PersonData m_Atom_PersonData = new Atom_PersonData();
+
+        /* 194 */
+        public Atom_PersonAccount m_Atom_PersonAccount = new Atom_PersonAccount();
+
+        /* 195 */
+        public JOURNAL_Name m_JOURNAL_Name = new JOURNAL_Name();
+
+        /* 196 */
+        public JOURNAL_TableName m_JOURNAL_TableName = new JOURNAL_TableName();
+
+        /* 197 */
+        public JOURNAL_TYPE m_JOURNAL_TYPE = new JOURNAL_TYPE();
+
+        /* 198 */
+        public JOURNAL m_JOURNAL = new JOURNAL();
+
 
     }
 }

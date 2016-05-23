@@ -553,6 +553,34 @@ namespace TangentaDataBaseDef
         /* 189 */
         public SQLTable t_JOURNAL_myOrganisation_Person = null;
 
+        /* 190 */
+        public SQLTable t_Atom_Bank = null;
+                        
+        /* 191 */       
+        public SQLTable t_Atom_BankAccount = null;
+                        
+        /* 192 */       
+        public SQLTable t_Atom_OrganisationAccount = null;
+
+        /* 193 */       
+        public SQLTable t_Atom_PersonData = null;
+
+        /* 194 */
+        public SQLTable t_Atom_PersonAccount = null;
+
+        /* 195 */
+        public SQLTable t_JOURNAL_Name = null;
+
+        /* 196 */
+        public SQLTable t_JOURNAL_TableName = null;
+
+        /* 197 */
+        public SQLTable t_JOURNAL_TYPE = null;
+
+        /* 198 */
+        public SQLTable t_JOURNAL = null;
+
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -2161,7 +2189,79 @@ namespace TangentaDataBaseDef
             t_JOURNAL_myOrganisation_Person.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
             m_DBTables.items.Add(t_JOURNAL_myOrganisation_Person);
 
+
+            /* 190 */
+            t_Atom_Bank = new SQLTable((Object)new Atom_Bank(), "ab", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_Bank);
+            t_Atom_Bank.AddColumn((Object)mt.m_Atom_Bank.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_Bank.AddColumn((Object)mt.m_Atom_Bank.m_Atom_Organisation, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Archive Organisation ID", "Arhiv Organizacije ID"));
+            m_DBTables.items.Add(t_Atom_Bank);
+
+            /* 191 */
+            t_Atom_BankAccount = new SQLTable((Object)new Atom_BankAccount(), "abc", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_BankAccount);
+            t_Atom_BankAccount.AddColumn((Object)mt.m_Atom_BankAccount.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_BankAccount.AddColumn((Object)mt.m_Atom_BankAccount.m_Atom_Bank,Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive Bank ID", "Arhiv Banke ID"));
+            t_Atom_BankAccount.AddColumn((Object)mt.m_Atom_BankAccount.Active, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Active", "Aktiven"));
+            t_Atom_BankAccount.AddColumn((Object)mt.m_Atom_BankAccount.TRR, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Bank Account", "TRR"));
+            t_Atom_BankAccount.AddColumn((Object)mt.m_Atom_BankAccount.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_Atom_BankAccount);
+
+            /* 192 */
+            t_Atom_OrganisationAccount = new SQLTable((Object)new Atom_OrganisationAccount(), "aoc", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_OrganisationAccount);
+            t_Atom_OrganisationAccount.AddColumn((Object)mt.m_Atom_OrganisationAccount.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_OrganisationAccount.AddColumn((Object)mt.m_Atom_OrganisationAccount.m_Atom_BankAccount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive Bank Account ID", "Arhiv Bančni račun ID"));
+            t_Atom_OrganisationAccount.AddColumn((Object)mt.m_Atom_OrganisationAccount.m_Atom_Organisation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive Organisation ID", "Arhiv Organizacije ID"));
+            t_Atom_OrganisationAccount.AddColumn((Object)mt.m_Atom_OrganisationAccount.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_Atom_OrganisationAccount);
+
+            /* 193 */
+            t_Atom_PersonData = new SQLTable((Object)new Atom_PersonData(), "apd", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_PersonData);
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.m_Atom_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive person ID", "Arhiv osebe ID"));
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.m_Atom_cAddress_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive Address Person ID", "Arhiv naslov osebe ID"));
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.m_Atom_cCardType_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive Card Type ID", "Arhiv vrsta kartice ID"));
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.CardNumber, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Card number", "Številka kartice zaupanja"));
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.m_Atom_cEmail_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive email person ID", "Arhiv e-naslovov osebe ID"));
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.m_Atom_cGsmNumber_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive person gsm number ID", "Arhiv gsm številka  osebe ID"));
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.m_Atom_cPhoneNumber_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive person phone number ID", "Arhiv tel. številka  osebe ID"));
+            t_Atom_PersonData.AddColumn((Object)mt.m_Atom_PersonData.m_Atom_PersonImage, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive person image ID", "Arhiv slika osebe ID"));
+            m_DBTables.items.Add(t_Atom_PersonData);
+
+            /* 194 */
+            t_Atom_PersonAccount = new SQLTable((Object)new Atom_PersonAccount(), "apa", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_PersonAccount);
+            t_Atom_PersonAccount.AddColumn((Object)mt.m_Atom_PersonAccount.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_PersonAccount.AddColumn((Object)mt.m_Atom_PersonAccount.m_Atom_BankAccount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive Bank Account ID", "Arhiv bančni račun ID"));
+            t_Atom_PersonAccount.AddColumn((Object)mt.m_Atom_PersonAccount.m_Atom_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Archive Person ID", "Arhiv oseba ID"));
+            m_DBTables.items.Add(t_Atom_PersonAccount);
+
+            /* 195 */
+            t_JOURNAL_Name = new SQLTable((Object)new JOURNAL_Name(), "jn", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL_Name);
+            t_JOURNAL_Name.AddColumn((Object)mt.m_JOURNAL_Name.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_Name.AddColumn((Object)mt.m_JOURNAL_Name.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("JOURNAL type name", "Ime vrste dogodka"));
+            m_DBTables.items.Add(t_JOURNAL_Name);
+
+            /* 196 */
+            t_JOURNAL_TableName = new SQLTable((Object)new JOURNAL_TableName(), "jtn", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL_TableName);
+            t_JOURNAL_TableName.AddColumn((Object)mt.m_JOURNAL_TableName.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_TableName.AddColumn((Object)mt.m_JOURNAL_TableName.TableName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Table Name", "Ime tabele"));
+            m_DBTables.items.Add(t_JOURNAL_TableName);
+
+            /* 197 */
+            t_JOURNAL_TYPE = new SQLTable((Object)new JOURNAL_TYPE(), "jt", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL_TYPE);
+            t_JOURNAL_TYPE.AddColumn((Object)mt.m_JOURNAL_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_TYPE.AddColumn((Object)mt.m_JOURNAL_TYPE.m_JOURNAL_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("JOURNAL event Name", "Ime dogodka"));
+            t_JOURNAL_TYPE.AddColumn((Object)mt.m_JOURNAL_TYPE.m_JOURNAL_TableName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("JOURNAL TableName ID", "Ime tabele dogodka ID"));
+            t_JOURNAL_TYPE.AddColumn((Object)mt.m_JOURNAL_TYPE.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_JOURNAL_TYPE);
+
+            /* 198 */
+            t_JOURNAL = new SQLTable((Object)new JOURNAL(), "j", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL);
+            t_JOURNAL.AddColumn((Object)mt.m_JOURNAL.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL.AddColumn((Object)mt.m_JOURNAL.m_JOURNAL_TYPE, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Journal type ID", "Vrsta dogodka ID"));
+            t_JOURNAL.AddColumn((Object)mt.m_JOURNAL.Table_RowID, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event Table Row ID", "Vrstica tabele dogodka ID"));
+            t_JOURNAL.AddColumn((Object)mt.m_JOURNAL.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event Time", "Čas dogodka"));
+            t_JOURNAL.AddColumn((Object)mt.m_JOURNAL.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
+            m_DBTables.items.Add(t_JOURNAL);
         }
-    }
+}
  }
 

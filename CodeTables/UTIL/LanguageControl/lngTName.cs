@@ -14,7 +14,20 @@ namespace LanguageControl
 {
     public static class lngTName
     {
-        
+
+        public static ltext lngt_t_Atom_Bank = new ltext("Archive Bank", "Arhiv bank");
+        public static ltext lngt_t_Atom_BankAccount = new ltext("Archive Bank Account", "Arhiv bančnih računov");
+        public static ltext lngt_t_Atom_OrganisationAccount = new ltext("Archive Organisation Account", "Arhiv bančnih računov organizacije");
+        public static ltext lngt_t_Atom_PersonData = new ltext("Archive Personal Data", "Arhiv osebnih podatkov");
+        public static ltext lngt_t_Atom_PersonAccount = new ltext("Archive Person Bank Accounts", "Arhiv osebnih bančnih računov");
+        public static ltext lngt_t_JOURNAL_Name = new ltext("JOURNAL type name", "Ime vrste dogodka");
+        public static ltext lngt_t_JOURNAL_TableName = new ltext("JOURNAL Table Name", "Tabela dogodka");
+        public static ltext lngt_t_JOURNAL_TYPE = new ltext("JOURNAL type", "Vrsta dogodka");
+        public static ltext lngt_t_JOURNAL = new ltext("JOURNAL", "Dnevnik dogodkov");
+
+
+
+
         public static ltext lngt_t_JOURNAL_myOrganisation_Person = new ltext("myOrganisation Person event", "Dogodek osebe moje organizacije");
         public static ltext lngt_t_JOURNAL_myOrganisation_Person_TYPE = new ltext("myOrganisation Person event type", "Vrsta dogodka osebe moje organizacije");
         public static ltext lngt_t_JOURNAL_myOrganisation_Person_AccessRights_TYPE = new ltext("myOrganisation Person AccessRights event type", "Vrsta dogodka pravic osebe moje organizacije");

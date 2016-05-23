@@ -110,8 +110,18 @@ namespace UpgradeDB
                                                 "JOURNAL_DocInvoice",
                                                 "JOURNAL_DocProformaInvoice",
                                                 "DocInvoice_ShopA_Item",
-                                                "DocProformaInvoice_ShopA_Item"
+                                                "DocProformaInvoice_ShopA_Item",
+                                                "Atom_Bank",
+                                                "Atom_BankAccount",
+                                                "Atom_OrganisationAccount",
+                                                "Atom_PersonData",
+                                                "Atom_PersonAccount",
+                                                "JOURNAL_Name",
+                                                "JOURNAL_TableName",
+                                                "JOURNAL_TYPE",
+                                                "JOURNAL"
                                                 };
+
             if (DBSync.DBSync.CreateTables(new_tables, ref Err))
             {
                 string sql = @"insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_ProformaInvoice_Type;

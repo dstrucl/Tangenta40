@@ -16,12 +16,12 @@ using DBTypes;
 
 namespace InvoiceDB
 {
-    public static class f_cZIP_Org
+    public static class f_cZIP_Person
     {
-        public static bool Get(string ZIP, ref long cZIP_Org_ID)
+        public static bool Get(string ZIP, ref long cZIP_Person_ID)
         {
             string Err = null;
-           
+
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string scond_ZIP = null;
             string sval_ZIP = "null";
@@ -39,37 +39,37 @@ namespace InvoiceDB
                 sval_ZIP = "null";
             }
             DataTable dt = new DataTable();
-            string sql = @"select ID from cZIP_Org where " + scond_ZIP;
+            string sql = @"select ID from cZIP_Person where " + scond_ZIP;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    cZIP_Org_ID = (long)dt.Rows[0]["ID"];
+                    cZIP_Person_ID = (long)dt.Rows[0]["ID"];
                     return true;
                 }
                 else
                 {
-                    sql = @"insert into cZIP_Org (ZIP) values (" + sval_ZIP + ")";
+                    sql = @"insert into cZIP_Person (ZIP) values (" + sval_ZIP + ")";
                     object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Org_ID, ref objretx, ref Err, "cZIP_Org"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Person_ID, ref objretx, ref Err, "cZIP_Person"))
                     {
                         return true;
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_cZIP_Org:Get:sql=" + sql + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:f_cZIP_Person:Get:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_cZIP_Org:Get:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:f_cZIP_Person:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
-       }
+        }
 
-        internal static bool Get(string_v zIP_v, ref long_v cZIP_Org_ID_v)
+        internal static bool Get(string_v zIP_v, ref long_v cZIP_Person_ID_v)
         {
             if (zIP_v != null)
             {
@@ -77,50 +77,50 @@ namespace InvoiceDB
                 string spar = "@par";
                 SQL_Parameter par = new SQL_Parameter(spar, SQL_Parameter.eSQL_Parameter.Nvarchar, false, zIP_v.v);
                 lpar.Add(par);
-                string sql = @"select ID from cZIP_Org where ZIP = @par";
+                string sql = @"select ID from cZIP_Person where ZIP = @par";
                 DataTable dt = new DataTable();
                 string Err = null;
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (cZIP_Org_ID_v == null)
+                        if (cZIP_Person_ID_v == null)
                         {
-                            cZIP_Org_ID_v = new long_v();
+                            cZIP_Person_ID_v = new long_v();
                         }
-                        cZIP_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cZIP_Person_ID_v.v = (long)dt.Rows[0]["ID"];
                         return true;
                     }
                     else
                     {
-                        sql = @"insert into cZIP_Org (ZIP) values (@par)";
-                        long cZIP_Org_ID = -1;
+                        sql = @"insert into cZIP_Person (ZIP) values (@par)";
+                        long cZIP_Person_ID = -1;
                         object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Org_ID, ref oret, ref Err, "cZIP_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cZIP_Person_ID, ref oret, ref Err, "cZIP_Person"))
                         {
-                            if (cZIP_Org_ID_v == null)
+                            if (cZIP_Person_ID_v == null)
                             {
-                                cZIP_Org_ID_v = new long_v();
+                                cZIP_Person_ID_v = new long_v();
                             }
-                            cZIP_Org_ID_v.v = cZIP_Org_ID;
+                            cZIP_Person_ID_v.v = cZIP_Person_ID;
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:InvoiceDB:f_cZIP_Org:Get(string_v zIP_v, ref long_v atom_cZIP_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:InvoiceDB:f_cZIP_Person:Get(string_v zIP_v, ref long_v atom_cZIP_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceDB:f_cZIP_Org:Get(string_v zIP_v, ref long_v atom_cZIP_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:InvoiceDB:f_cZIP_Person:Get(string_v zIP_v, ref long_v atom_cZIP_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:f_cZIP_Org:Get(string_v zIP_v, ref long_v atom_cZIP_Org_ID_v) zIP_v may not be null!");
+                LogFile.Error.Show("ERROR:InvoiceDB:f_cZIP_Person:Get(string_v zIP_v, ref long_v atom_cZIP_Person_ID_v) zIP_v may not be null!");
                 return false;
             }
         }
