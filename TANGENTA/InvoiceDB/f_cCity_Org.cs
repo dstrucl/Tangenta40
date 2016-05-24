@@ -99,7 +99,7 @@ namespace InvoiceDB
                         sql = @"insert into cCity_Org (City) values (@par)";
                         long cCity_Org_ID = -1;
                         object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Org_ID, ref oret, ref Err, "Atom_cCity_Org"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cCity_Org_ID, ref oret, ref Err, "cCity_Org"))
                         {
                             if (cCity_Org_ID_v == null)
                             {

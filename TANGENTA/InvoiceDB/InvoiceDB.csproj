@@ -124,9 +124,12 @@
     <Compile Include="f_JOURNAL_Stock.cs" />
     <Compile Include="f_Language.cs" />
     <Compile Include="f_Logo.cs" />
+    <Compile Include="f_myOrganisation.cs" />
+    <Compile Include="f_myOrganisation_Person.cs" />
     <Compile Include="f_Office.cs" />
     <Compile Include="f_Organisation.cs" />
     <Compile Include="f_OrganisationData.cs" />
+    <Compile Include="f_Person.cs" />
     <Compile Include="f_PriceAtom_ServiceAtom.cs" />
     <Compile Include="f_PriceList.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />

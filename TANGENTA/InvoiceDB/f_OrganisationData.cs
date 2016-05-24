@@ -32,15 +32,10 @@ namespace InvoiceDB
                                 string_v Logo_Hash_v,
                                 byte_array_v Image_Data_v,
                                 string_v Logo_Description_v,
-                                string_v BankName_v,
-                                string_v TRR_v,
                                 ref long_v OrganisationData_ID_v)
         {
             string Err = null;
-            string BankName_condition = null;
-            string BankName_Value = null;
-            string TRR_Value = null;
-            string TRR_condition = null;
+         
 
             //  long_v Atom_Organisation_ID_v = null;
             long_v OrganisationTYPE_ID_v = null;
@@ -104,7 +99,7 @@ namespace InvoiceDB
 
 
                     long_v Logo_ID_v = null;
-                    string Logo_ID_cond = "Atom_Logo_ID is null";
+                    string Logo_ID_cond = "Logo_ID is null";
                     string Logo_ID_Value = "null";
                     // = null;
                     //if (Logo != null)
@@ -117,37 +112,37 @@ namespace InvoiceDB
                         if (Logo_ID_v != null)
                         {
                             Logo_ID_Value = Logo_ID_v.v.ToString();
-                            Logo_ID_cond = "Atom_Logo_ID = " + Logo_ID_Value;
+                            Logo_ID_cond = "Logo_ID = " + Logo_ID_Value;
                         }
                     }
 
 
                     List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                    if (BankName_v != null)
-                    {
-                        BankName_Value = "@par_BankName";
-                        SQL_Parameter par_BankName = new SQL_Parameter(BankName_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, BankName_v.v);
-                        lpar.Add(par_BankName);
-                        BankName_condition = " BankName = " + par_BankName.Name + " ";
-                    }
-                    else
-                    {
-                        BankName_condition = " BankName is null ";
-                        BankName_Value = "null";
-                    }
+                    //if (BankName_v != null)
+                    //{
+                    //    BankName_Value = "@par_BankName";
+                    //    SQL_Parameter par_BankName = new SQL_Parameter(BankName_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, BankName_v.v);
+                    //    lpar.Add(par_BankName);
+                    //    BankName_condition = " BankName = " + par_BankName.Name + " ";
+                    //}
+                    //else
+                    //{
+                    //    BankName_condition = " BankName is null ";
+                    //    BankName_Value = "null";
+                    //}
 
-                    if (TRR_v != null)
-                    {
-                        TRR_Value = "@par_TRR";
-                        SQL_Parameter par_TRR = new SQL_Parameter(TRR_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, TRR_v.v);
-                        lpar.Add(par_TRR);
-                        TRR_condition = " TRR = " + par_TRR.Name + " ";
-                    }
-                    else
-                    {
-                        TRR_condition = " TRR is null ";
-                        TRR_Value = "null";
-                    }
+                    //if (TRR_v != null)
+                    //{
+                    //    TRR_Value = "@par_TRR";
+                    //    SQL_Parameter par_TRR = new SQL_Parameter(TRR_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, TRR_v.v);
+                    //    lpar.Add(par_TRR);
+                    //    TRR_condition = " TRR = " + par_TRR.Name + " ";
+                    //}
+                    //else
+                    //{
+                    //    TRR_condition = " TRR is null ";
+                    //    TRR_Value = "null";
+                    //}
 
                     string cOrgTYPE_ID_condition = null;
                     string cOrgTYPE_ID_value = null;
@@ -179,8 +174,6 @@ namespace InvoiceDB
                                                                                     " + cEmail_Org_ID_v_cond + @" and  
                                                                                     " + cPhoneNumber_Org_ID_v_cond + @" and  
                                                                                     " + cFaxNumber_Org_ID_v_cond + @" and  
-                                                                                    " + BankName_condition + @" and  
-                                                                                    " + TRR_condition + @" and
                                                                                     " + Logo_ID_cond;
                     DataTable dt = new DataTable();
                     if (DBSync.DBSync.ReadDataTable(ref dt, sql_select, lpar, ref Err))
@@ -196,7 +189,7 @@ namespace InvoiceDB
                         }
                         else
                         {
-                            string sql_insert = @"insert into OrganisationData (Organisation_ID,cOrgTYPE_ID,cAddress_Org_ID,cHomePage_Org_ID,cEmail_Org_ID,cPhoneNumber_Org_ID,cFaxNumber_Org_ID,BankName,TRR,Logo_ID) values (
+                            string sql_insert = @"insert into OrganisationData (Organisation_ID,cOrgTYPE_ID,cAddress_Org_ID,cHomePage_Org_ID,cEmail_Org_ID,cPhoneNumber_Org_ID,cFaxNumber_Org_ID,Logo_ID) values (
                                                                                     " + Organisation_ID.ToString() + @",
                                                                                     " + cOrgTYPE_ID_value + @",
                                                                                     " + cAdressAtom_Org_iD_v.v.ToString() + @",
@@ -204,18 +197,16 @@ namespace InvoiceDB
                                                                                     " + cEmail_Org_ID_v_Value + @",
                                                                                     " + cPhoneNumber_Org_ID_v_Value + @",
                                                                                     " + cFaxNumber_Org_ID_v_Value + @",
-                                                                                    " + BankName_Value + @",
-                                                                                    " + TRR_Value + @",
                                                                                     " + Logo_ID_Value + ")";
                             object oret = null;
-                            long Atom_OrganisationData_ID = -1;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_OrganisationData_ID, ref oret, ref Err, "Atom_OrganisationData"))
+                            long OrganisationData_ID = -1;
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref OrganisationData_ID, ref oret, ref Err, "OrganisationData"))
                             {
                                 if (OrganisationData_ID_v == null)
                                 {
                                     OrganisationData_ID_v = new long_v();
                                 }
-                                OrganisationData_ID_v.v = Atom_OrganisationData_ID;
+                                OrganisationData_ID_v.v = OrganisationData_ID;
                                 return true;
                             }
                             else

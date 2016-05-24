@@ -68,7 +68,7 @@ namespace InvoiceDB
             }
         }
 
-        internal static bool Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v)
+        internal static bool Get(string_v houseNumber_v, ref long_v cHouseNumber_Org_ID_v)
         {
             if (houseNumber_v != null)
             {
@@ -83,11 +83,11 @@ namespace InvoiceDB
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        if (atom_cHouseNumber_Org_ID_v == null)
+                        if (cHouseNumber_Org_ID_v == null)
                         {
-                            atom_cHouseNumber_Org_ID_v = new long_v();
+                            cHouseNumber_Org_ID_v = new long_v();
                         }
-                        atom_cHouseNumber_Org_ID_v.v = (long)dt.Rows[0]["ID"];
+                        cHouseNumber_Org_ID_v.v = (long)dt.Rows[0]["ID"];
                         return true;
                     }
                     else
@@ -97,11 +97,11 @@ namespace InvoiceDB
                         object oret = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cHouseNumber_Org_ID, ref oret, ref Err, "cHouseNumber_Org"))
                         {
-                            if (atom_cHouseNumber_Org_ID_v == null)
+                            if (cHouseNumber_Org_ID_v == null)
                             {
-                                atom_cHouseNumber_Org_ID_v = new long_v();
+                                cHouseNumber_Org_ID_v = new long_v();
                             }
-                            atom_cHouseNumber_Org_ID_v.v = cHouseNumber_Org_ID;
+                            cHouseNumber_Org_ID_v.v = cHouseNumber_Org_ID;
                             return true;
                         }
                         else

@@ -18,7 +18,8 @@ namespace InvoiceDB
         public static class f_Office
         {
             public static bool Get(
-                                    string Office_Name,
+                                    string Name,
+                                    string ShortName,
                                     long myOrganisation_ID,
                                     ref long Office_ID)
             {
@@ -27,10 +28,10 @@ namespace InvoiceDB
 
                 string scond_Office_Name = null;
                 string sval_Office_Name = "null";
-                if (Office_Name != null)
+                if (Name != null)
                 {
                     string spar_Office_Name = "@par_Office_Name";
-                    SQL_Parameter par_Office_Name = new SQL_Parameter(spar_Office_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Office_Name);
+                    SQL_Parameter par_Office_Name = new SQL_Parameter(spar_Office_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
                     lpar.Add(par_Office_Name);
                     scond_Office_Name = "Name = " + spar_Office_Name;
                     sval_Office_Name = spar_Office_Name;
@@ -41,7 +42,22 @@ namespace InvoiceDB
                     sval_Office_Name = "null";
                 }
 
-                string scond_myOrganisation_ID = null;
+            string scond_Office_ShortName = null;
+            string sval_Office_ShortName = "null";
+            if (ShortName != null)
+            {
+                string spar_Office_ShortName = "@par_Office_ShortName";
+                SQL_Parameter par_Office_ShortName = new SQL_Parameter(spar_Office_ShortName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, ShortName);
+                lpar.Add(par_Office_ShortName);
+                scond_Office_ShortName = "ShortName = " + spar_Office_ShortName;
+                sval_Office_ShortName = spar_Office_ShortName;
+            }
+            else
+            {
+                scond_Office_ShortName = "ShortName is null";
+                sval_Office_ShortName = "null";
+            }
+            string scond_myOrganisation_ID = null;
                 string sval_myOrganisation_ID = "null";
                 if (myOrganisation_ID >= 0)
                 {
@@ -71,9 +87,11 @@ namespace InvoiceDB
                     else
                     {
                         sql = @"insert into Office (myOrganisation_ID,
-                                                            Name) values ("
+                                                            Name,
+                                                            ShortName) values ("
                                                                 + sval_myOrganisation_ID + ","
-                                                                + sval_Office_Name +
+                                                                + sval_Office_Name + ","
+                                                                + sval_Office_ShortName+
                                                                 ")";
                         object objretx = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Office_ID, ref objretx, ref Err, "Office"))

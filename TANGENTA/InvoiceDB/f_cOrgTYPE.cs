@@ -80,7 +80,7 @@ namespace InvoiceDB
                 string spar = "@par";
                 SQL_Parameter par = new SQL_Parameter(spar, SQL_Parameter.eSQL_Parameter.Nvarchar, false, OrgTYPE_v.v);
                 lpar.Add(par);
-                string sql = @"select ID from cOrgTYPE where OrgTYPE = @par";
+                string sql = @"select ID from cOrgTYPE where OrganisationTYPE = @par";
                 DataTable dt = new DataTable();
                 string Err = null;
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -96,10 +96,10 @@ namespace InvoiceDB
                     }
                     else
                     {
-                        sql = @"insert into cOrgTYPE (OrgTYPE) values (@par)";
+                        sql = @"insert into cOrgTYPE (OrganisationTYPE) values (@par)";
                         long cOrgTYPE_ID = -1;
                         object oret = null;
-                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID, ref oret, ref Err, "Atom_cOrgTYPE"))
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref cOrgTYPE_ID, ref oret, ref Err, "cOrgTYPE"))
                         {
                             if (cOrgTYPE_ID_v == null)
                             {

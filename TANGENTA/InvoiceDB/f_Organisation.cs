@@ -98,7 +98,7 @@ namespace InvoiceDB
                         Organisation_ID_v = new long_v();
                     }
                     Organisation_ID_v.v = (long)dt.Rows[0]["ID"];
-                    return f_Atom_OrganisationData.Get(Organisation_ID_v.v,
+                    return f_OrganisationData.Get(Organisation_ID_v.v,
                                                        OrganisationTYPE_v,
                                                        Address_v,
                                                        PhoneNumber_v,
@@ -108,23 +108,21 @@ namespace InvoiceDB
                                                        Image_Hash_v,
                                                        Image_Data_v,
                                                        Image_Description_v,
-                                                       BankName_v,
-                                                       TRR_v,
                                                        ref OrganisationData_ID_v);
                 }
                 else
                 {
                     string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + ")";
                     object oret = null;
-                    long Atom_Organisation_ID = -1;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID, ref oret, ref Err, "Atom_Organisation"))
+                    long Organisation_ID = -1;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref oret, ref Err, "Organisation"))
                     {
                         if (Organisation_ID_v == null)
                         {
                             Organisation_ID_v = new long_v();
                         }
-                        Organisation_ID_v.v = Atom_Organisation_ID;
-                        return f_Atom_OrganisationData.Get(Organisation_ID_v.v,
+                        Organisation_ID_v.v = Organisation_ID;
+                        return f_OrganisationData.Get(Organisation_ID_v.v,
                                                                                OrganisationTYPE_v,
                                                                                Address_v,
                                                                                PhoneNumber_v,
@@ -134,20 +132,18 @@ namespace InvoiceDB
                                                                                Image_Hash_v,
                                                                                Image_Data_v,
                                                                                Image_Description_v,
-                                                                               BankName_v,
-                                                                               TRR_v,
                                                                                ref OrganisationData_ID_v);
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_Atom_Organisation:Get_Atom_Organisation:sql=" + sql_insert + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:f_Organisation:Get:sql=" + sql_insert + "\r\nErr=" + Err);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_Atom_Organisation:Get_Atom_Organisation:sql=" + sql_select + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:f_Organisation:Get:sql=" + sql_select + "\r\nErr=" + Err);
                 return false;
             }
         }

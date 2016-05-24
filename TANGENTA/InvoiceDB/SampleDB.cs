@@ -22,12 +22,16 @@ namespace InvoiceDB
         string_v MyOrg_BankName_v = null;
         string_v MyOrg_TRR_v = null;
 
+
+
         string_v MyOrg_Image_Hash_v = null;
         byte_array_v MyOrg_Image_Data_v = null;
         string_v MyOrg_Image_Description_v = null;
-        long_v MyOrg_Atom_Organisation_ID_v = null;
-        long_v MyOrg_Atom_OrganisationData_ID_v = null;
+        long_v MyOrg_Organisation_ID_v = null;
+        long_v MyOrg_OrganisationData_ID_v = null;
 
+        string_v MyOrg_OfficeName_v = null;
+        string_v MyOrg_OfficeShortName_v = null;
 
         bool_v   MyOrg_Person_Gender_v = null;
         string_v MyOrg_Person_FirstName_v = null;
@@ -42,6 +46,15 @@ namespace InvoiceDB
         string_v MyOrg_Person_HouseNumber_v = null;
         string_v MyOrg_Person_City_v = null;
         string_v MyOrg_Person_ZIP_v = null;
+
+
+        string_v MyOrg_Person_UserName_v = null;
+        string_v MyOrg_Person_Password_v = null;
+        string_v MyOrg_Person_Job_v = null;
+        bool_v MyOrg_Person_Active_v = null;
+        string_v MyOrg_Person_Description_v = null;
+        long_v MyOrg_Person_Person_ID_v = null;
+        long_v MyOrg_Person_Office_ID_v = null;
 
         string_v MyOrg_Person_Country_v = null;
         string_v MyOrg_Person_Country_ISO_3166_a2 = null;
@@ -95,6 +108,17 @@ namespace InvoiceDB
             MyOrg_Person_City_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_City_v.s);
             MyOrg_Person_ZIP_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_ZIP_v.s);
 
+            MyOrg_OfficeName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_OfficeName_v.s);
+            MyOrg_OfficeShortName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_OfficeShortName_v.s);
+
+
+            MyOrg_Person_UserName_v =  new DBTypes.string_v(lngRPMS.s_MyOrg_Person_UserName_v.s); 
+            MyOrg_Person_Password_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_Password_v.s);
+            MyOrg_Person_Job_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_Job_v.s);
+            MyOrg_Person_Active_v = new bool_v(true);
+            MyOrg_Person_Description_v = null;
+          
+
             //string_v MyOrg_Person_Country_v = null;
             //string_v MyOrg_Person_Country_ISO_3166_a2 = null;
             //string_v MyOrg_Person_Country_ISO_3166_a3 = null;
@@ -127,7 +151,7 @@ namespace InvoiceDB
                 MyOrg_Address_v.HouseNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Address_HouseNumber_v.s);
                 
 
-                if (f_Atom_Organisation.Get(MyOrg_Name_v,
+                if (f_Organisation.Get(MyOrg_Name_v,
                                      MyOrg_Tax_ID_v,
                                      MyOrg_Registration_ID_v,
                                      MyOrg_OrganisationTYPE_v,
@@ -141,11 +165,66 @@ namespace InvoiceDB
                                       MyOrg_Image_Hash_v,
                                       MyOrg_Image_Data_v,
                                       MyOrg_Image_Description_v,
-                                     ref  MyOrg_Atom_Organisation_ID_v,
-                                     ref  MyOrg_Atom_OrganisationData_ID_v))
+                                     ref  MyOrg_Organisation_ID_v,
+                                     ref  MyOrg_OrganisationData_ID_v))
                 {
-                   // (f_Atom_Person.Get()
-                    return true;
+                    long myOrganisation_ID = -1;
+                    if (f_myOrganisation.Get(MyOrg_OrganisationData_ID_v.v, ref myOrganisation_ID))
+                    {
+                        long Office_ID = -1;
+                        if (f_Office.Get(MyOrg_OfficeName_v.v, MyOrg_OfficeShortName_v.v, MyOrg_Organisation_ID_v.v, ref Office_ID))
+                        {
+                            long_v Person_ID_v = null;
+                            if (f_Person.Get(MyOrg_Person_Gender_v,
+                                             MyOrg_Person_FirstName_v,
+                                             MyOrg_Person_LastName_v,
+                                             MyOrg_Person_DateOfBirth_v,
+                                             MyOrg_Person_Tax_ID_v,
+                                             MyOrg_Person_Registration_ID_v,
+                                             ref Person_ID_v
+                                              ))
+                            {
+                                MyOrg_Person_Person_ID_v = new long_v(Person_ID_v.v);
+                                MyOrg_Person_Office_ID_v = new long_v(Office_ID);
+                                long_v myOrganisation_Person_v = new long_v();
+                                if (f_myOrganisation_Person.Get(MyOrg_Person_UserName_v,
+                                                                MyOrg_Person_Password_v,
+                                                                MyOrg_Person_Job_v,
+                                                                MyOrg_Person_Active_v,
+                                                                MyOrg_Person_Description_v,
+                                                                MyOrg_Person_Person_ID_v,
+                                                                MyOrg_Person_Office_ID_v,
+                                                                ref myOrganisation_Person_v))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                        //PostAddress_v pAddr_person = new PostAddress_v();
+                        //pAddr_person.Country_v = new string_v(MyOrg_Address_v.Country_v.v);
+                        //pAddr_person.Country_ISO_3166_a2_v = new string_v(MyOrg_Address_v.Country_ISO_3166_a2_v.v);
+                        //pAddr_person.Country_ISO_3166_a3_v = new string_v(MyOrg_Address_v.Country_ISO_3166_a3_v.v);
+                        //pAddr_person.Country_ISO_3166_num_v = new short_v(MyOrg_Address_v.Country_ISO_3166_num_v.v);
+                        //if (MyOrg_Address_v.State_v != null)
+                        //{
+                        //    pAddr_person.State_v = new string_v(MyOrg_Address_v.State_v.v);
+                        //}
+                        //else
+                        //{
+                        //    pAddr_person.State_v = null;
+                        //}
+                        //pAddr_person.City_v = new string_v(MyOrg_Person_City_v.v);
+                        //pAddr_person.ZIP_v = new string_v(MyOrg_Person_ZIP_v.v);
+                        //pAddr_person.StreetName_v = new string_v(MyOrg_Person_StreetName_v.v);
+                        //pAddr_person.HouseNumber_v = new string_v(MyOrg_Person_HouseNumber_v.v);
+                        //CodeTables.ID_v cAddress_Person_ID_v = null;
+                        //if (f_cAddress_Person.Get(pAddr_person,ref cAddress_Person_ID_v))
+                        //{
+                          
+                        //}
+                            
+                    }
+
                 }
             }
             return false;

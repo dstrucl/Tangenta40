@@ -34,6 +34,14 @@ namespace LanguageControl
         public static ltext s_MyOrg_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
         public static ltext s_MyOrg_Address_State_v = new ltext("MyStreet1", "Cesta1");
 
+        public static ltext s_MyOrg_OfficeName_v = new ltext("Office1", "Pisarna1");
+        public static ltext s_MyOrg_OfficeShortName_v = new ltext("o1", "p1");
+        
+
+        public static ltext s_MyOrg_Person_UserName_v = new ltext("Organisation1Person1UserName1", "UporabniškoIme1Osebe1Podjetja1");
+        public static ltext s_MyOrg_Person_Password_v = new ltext("Organisation1Person1Password1", "GesloOsebe1Podjetja1");
+        public static ltext s_MyOrg_Person_Job_v = new ltext("Organisation1Person1Job", "DelovnoMestoOsebe1Podjetja1");
+
 
 
         public static ltext s_MyOrg_Person_FirstName_v = new ltext("Organisation1Person1FirstName", "ImeOsebe1Podjetja1");
