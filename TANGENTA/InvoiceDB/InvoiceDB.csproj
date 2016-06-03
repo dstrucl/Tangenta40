@@ -105,8 +105,10 @@
     <Compile Include="f_cCity_Person.cs" />
     <Compile Include="f_cCountry_Org.cs" />
     <Compile Include="f_cCountry_Person.cs" />
+    <Compile Include="f_cFirstName.cs" />
     <Compile Include="f_cHouseNumber_Org.cs" />
     <Compile Include="f_cHouseNumber_Person.cs" />
+    <Compile Include="f_cLastName.cs" />
     <Compile Include="f_cOrgTYPE.cs" />
     <Compile Include="f_cState_Org.cs" />
     <Compile Include="f_cState_Person.cs" />

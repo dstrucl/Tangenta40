@@ -26,37 +26,37 @@ namespace InvoiceDB
 
             string UserName_cond = null;
             string UserName_value = null;
-            string spar_UserName = "@UserName";
+            string spar_UserName = "UserName";
             fs.AddPar(spar_UserName, ref lpar, UserName_v, ref UserName_cond, ref UserName_value);
 
             string Password_cond = null;
             string Password_value = null;
-            string spar_Password = "@Password";
+            string spar_Password = "Password";
             fs.AddPar(spar_Password, ref lpar, Password_v, ref Password_cond, ref Password_value);
 
             string Job_cond = null;
             string Job_value = null;
-            string spar_Job = "@Job";
+            string spar_Job = "Job";
             fs.AddPar(spar_Job, ref lpar, Job_v, ref Job_cond, ref Job_value);
 
             string Active_cond = null;
             string Active_value = null;
-            string spar_Active = "@Active";
+            string spar_Active = "Active";
             fs.AddPar(spar_Active, ref lpar, Active_v, ref Active_cond, ref Active_value);
 
             string Description_cond = null;
             string Description_value = null;
-            string spar_Description = "@Description";
+            string spar_Description = "Description";
             fs.AddPar(spar_Description, ref lpar, Description_v, ref Description_cond, ref Description_value);
 
             string Person_ID_cond = null;
             string Person_ID_value = null;
-            string spar_Person_ID = "@Person_ID";
+            string spar_Person_ID = "Person_ID";
             fs.AddPar(spar_Person_ID, ref lpar, Person_ID_v, ref Person_ID_cond, ref Person_ID_value);
 
             string Office_ID_cond = null;
             string Office_ID_value = null;
-            string spar_Office_ID = "@Office_ID";
+            string spar_Office_ID = "Office_ID";
             fs.AddPar(spar_Office_ID, ref lpar, Office_ID_v, ref Office_ID_cond, ref Office_ID_value);
 
             string sql = "select ID from myOrganisation_Person where " + UserName_cond + " and "

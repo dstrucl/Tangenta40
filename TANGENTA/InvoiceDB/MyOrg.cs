@@ -82,11 +82,11 @@ namespace InvoiceDB
                             myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
                             myOrganisation_$_orgd_$_cadrorg_$_ccitorg_$$City,
                             myOrganisation_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
-                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$State,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$State,
                             myOrganisation_$_orgd_$_cphnnorg_$$PhoneNumber,
                             myOrganisation_$_orgd_$_cfaxnorg_$$FaxNumber,
                             myOrganisation_$_orgd_$_cemailorg_$$Email,
@@ -110,11 +110,11 @@ namespace InvoiceDB
                             myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
                             myOrganisation_$_orgd_$_cadrorg_$_ccitorg_$$City,
                             myOrganisation_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
-                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
-                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$State,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3,
+                            myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num,
+                            myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$State,
                             myOrganisation_$_orgd_$_cphnnorg_$$PhoneNumber,
                             myOrganisation_$_orgd_$_cfaxnorg_$$FaxNumber,
                             myOrganisation_$_orgd_$_cemailorg_$$Email,
@@ -151,11 +151,11 @@ namespace InvoiceDB
                     myOrg.Address_v.HouseNumber_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber"]);
                     myOrg.Address_v.ZIP_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cziporg_$$ZIP"]);
                     myOrg.Address_v.City_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccitorg_$$City"]);
-                    myOrg.Address_v.Country_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country"]);
-                    myOrg.Address_v.Country_ISO_3166_a2_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2"]);
-                    myOrg.Address_v.Country_ISO_3166_a3_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3"]);
-                    myOrg.Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$Country_ISO_3166_num"]));
-                    myOrg.Address_v.State_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$State"]);
+                    myOrg.Address_v.Country_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country"]);
+                    myOrg.Address_v.Country_ISO_3166_a2_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2"]);
+                    myOrg.Address_v.Country_ISO_3166_a3_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3"]);
+                    myOrg.Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
+                    myOrg.Address_v.State_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cadrorg_$_cstorg_$$State"]);
                     if (myOrg.ID_v != null)
                     {
                         myOrg_Office_List.Get(myOrg.ID_v.v, ref myOrg.myOrg_Office_list);

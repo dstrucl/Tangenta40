@@ -342,7 +342,7 @@ namespace InvoiceDB
             string spar_Invoice_ID = "@par_Invoice_ID";
             SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID_v.v);
             lpar.Add(par_Invoice_ID);
-            sql = "select ID from fvi_slo_response where Invoice_ID = " + spar_Invoice_ID;
+            sql = "select ID from fvi_slo_response where DocInvoice_ID = " + spar_Invoice_ID;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
@@ -372,7 +372,7 @@ namespace InvoiceDB
             lpar.Add(par_Response_DateTime);
 
 
-            sql = "insert into fvi_slo_response (Invoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ")";
+            sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ")";
             long id = -1;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, "fvi_slo_response"))
             {
@@ -412,9 +412,9 @@ namespace InvoiceDB
 
 
 
-        public bool Read_FURS_Response_Data(long Invoice_ID, ref DataTable dt)
+        public bool Read_FURS_Response_Data(long DocInvoice_ID, ref DataTable dt)
         {
-            string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where Invoice_ID = " + Invoice_ID.ToString();
+            string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where DocInvoice_ID = " + DocInvoice_ID.ToString();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
