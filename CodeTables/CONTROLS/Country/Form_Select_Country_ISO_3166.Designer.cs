@@ -32,7 +32,7 @@
             this.dgvx_ISO_3166 = new DataGridView_2xls.DataGridView2xls();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.txt_SelectCountry= new System.Windows.Forms.TextBox();
+            this.txt_SelectCountry = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ISO_3166)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,6 +43,7 @@
             this.dgvx_ISO_3166.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_ISO_3166.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvx_ISO_3166.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_ISO_3166.DataGridViewWithRowNumber = false;
             this.dgvx_ISO_3166.Location = new System.Drawing.Point(3, 36);
@@ -50,7 +51,7 @@
             this.dgvx_ISO_3166.Name = "dgvx_ISO_3166";
             this.dgvx_ISO_3166.ReadOnly = true;
             this.dgvx_ISO_3166.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_ISO_3166.Size = new System.Drawing.Size(303, 453);
+            this.dgvx_ISO_3166.Size = new System.Drawing.Size(347, 453);
             this.dgvx_ISO_3166.TabIndex = 0;
             // 
             // btn_OK
@@ -67,7 +68,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Cancel.Location = new System.Drawing.Point(196, 495);
+            this.btn_Cancel.Location = new System.Drawing.Point(240, 495);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(72, 29);
             this.btn_Cancel.TabIndex = 2;
@@ -80,7 +81,7 @@
             this.txt_SelectCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_SelectCountry.Location = new System.Drawing.Point(5, 8);
             this.txt_SelectCountry.Name = "txt_SelectCountry";
-            this.txt_SelectCountry.Size = new System.Drawing.Size(221, 22);
+            this.txt_SelectCountry.Size = new System.Drawing.Size(345, 22);
             this.txt_SelectCountry.TabIndex = 3;
             this.txt_SelectCountry.TextChanged += new System.EventHandler(this.txt_SelectCountry_TextChanged);
             // 
@@ -88,7 +89,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 533);
+            this.ClientSize = new System.Drawing.Size(352, 533);
             this.Controls.Add(this.txt_SelectCountry);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);

@@ -32,6 +32,7 @@ namespace InvoiceDB
                                 string_v Logo_Hash_v,
                                 byte_array_v Image_Data_v,
                                 string_v Logo_Description_v,
+                                ref ID_v cAdressAtom_Org_iD_v,
                                 ref long_v OrganisationData_ID_v)
         {
             string Err = null;
@@ -41,7 +42,6 @@ namespace InvoiceDB
             long_v OrganisationTYPE_ID_v = null;
             if (f_cOrgTYPE.Get(OrganisationTYPE_v, ref OrganisationTYPE_ID_v))
             {
-                ID_v cAdressAtom_Org_iD_v = null;
                 if (f_cAddress_Org.Get(Address_v, ref cAdressAtom_Org_iD_v))
                 {
                     ID_v cHomePage_Org_ID_v = null;

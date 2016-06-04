@@ -22,7 +22,7 @@ namespace Country_ISO_3166
 
         public bool SetInputControls(SQLTable tbl)
         {
-            Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166);
+            Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166,null,null);
             if (frm_Select_Country_ISO_316.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 foreach (Column col in tbl.Column)

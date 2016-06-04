@@ -38,8 +38,8 @@ namespace Tangenta
                                     Office_Data_$_cadrorg_$_chounorg_$$HouseNumber,
                                     Office_Data_$_cadrorg_$_cziporg_$$ZIP,
                                     Office_Data_$_cadrorg_$_ccitorg_$$City,
-                                    Office_Data_$_cadrorg_$_cstorg_$$Country,
-                                    Office_Data_$_cadrorg_$_ccouorg_$$State,
+                                    Office_Data_$_cadrorg_$_ccouorg_$$Country,
+                                    Office_Data_$_cadrorg_$_cstorg_$$State,
                                     ID";
             if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office_Data, selection, ColumnToOrderBy, false, " where  Office_Data_$_office_$$ID = " + m_Office_ID.ToString()+" ", null, false))
             {

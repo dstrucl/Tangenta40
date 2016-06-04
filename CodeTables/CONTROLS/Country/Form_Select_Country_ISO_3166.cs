@@ -25,17 +25,26 @@ namespace Country_ISO_3166
         public string Country_ISO_3166_a2 = null;
         public string Country_ISO_3166_a3 = null;
         public short Country_ISO_3166_num = -1;
+        public string DefaultCountry = null;
 
-        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166)
+        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166, string xDefaultCountry, string xTitle)
         {
             InitializeComponent();
+            DefaultCountry = xDefaultCountry;
             this.dt_ISO_3166 = dt_ISO_3166;
             dgvx_ISO_3166.DataSource = this.dt_ISO_3166;
             dgvx_ISO_3166.Columns["Country"].HeaderText = lngRPM.s_Country.s;
             dgvx_ISO_3166.Columns["a2"].HeaderText = lngRPM.ss_Abbreviation.s + " a2";
             dgvx_ISO_3166.Columns["a3"].HeaderText = lngRPM.ss_Abbreviation.s + " a3";
             dgvx_ISO_3166.Columns["num"].HeaderText = lngRPM.s_Number.s;
-            this.Text = lngRPM.s_Form_Select_Country_ISO_3166_Title.s;
+            if (xTitle != null)
+            {
+                this.Text = xTitle;
+            }
+            else
+            {
+                this.Text = lngRPM.s_Form_Select_Country_ISO_3166_Title.s;
+            }
             lngRPM.s_OK.Text(btn_OK);
             lngRPM.s_Cancel.Text(btn_Cancel);
         }
@@ -48,7 +57,18 @@ namespace Country_ISO_3166
 
         private void Form_Select_Country_ISO_3166_Load(object sender, EventArgs e)
         {
+            if (DefaultCountry != null)
+            {
+                DataRow[] drs = dt_ISO_3166.Select("Country = '" + DefaultCountry + "'");
+                if (drs.Count() > 0)
+                {
+                    int iRowIndex = dt_ISO_3166.Rows.IndexOf(drs[0]);
+                    dgvx_ISO_3166.CurrentCell = dgvx_ISO_3166.Rows[iRowIndex].Cells[0];
+                    txt_SelectCountry.Text = (string) dgvx_ISO_3166.Rows[iRowIndex].Cells[0].Value;
+                }
+            }
             txt_SelectCountry.Focus();
+
             this.dgvx_ISO_3166.SelectionChanged += new System.EventHandler(this.dgvx_ISO_3166_SelectionChanged);
         }
 

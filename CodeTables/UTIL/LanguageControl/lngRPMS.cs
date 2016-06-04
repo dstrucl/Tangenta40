@@ -17,6 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPMS
     {
+        public static ltext s_SelectCountryWhereYouPayTaxes = new ltext("Country of tax residency", "Država kateri plačujete davke");
         public static ltext s_MyOrg_Organisation_Name_v = new ltext("Organisation1", "Podjetje1");
         public static ltext s_MyOrg_Tax_ID_v = new ltext("12345678", "12345678");
         public static ltext s_MyOrg_Registration_ID_v = new ltext("00000001", "00000001");

@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using CodeTables;
 using DBConnectionControl40;
 using DBTypes;
 using System;
@@ -32,6 +33,7 @@ namespace InvoiceDB
                                  string_v Image_Hash_v,
                                  byte_array_v Image_Data_v,
                                  string_v Image_Description_v,
+                                 ref ID_v cAdressAtom_Org_iD_v,
                                  ref long_v Organisation_ID_v,
                                  ref long_v OrganisationData_ID_v)
         {
@@ -108,6 +110,7 @@ namespace InvoiceDB
                                                        Image_Hash_v,
                                                        Image_Data_v,
                                                        Image_Description_v,
+                                                       ref cAdressAtom_Org_iD_v,
                                                        ref OrganisationData_ID_v);
                 }
                 else
@@ -132,6 +135,7 @@ namespace InvoiceDB
                                                                                Image_Hash_v,
                                                                                Image_Data_v,
                                                                                Image_Description_v,
+                                                                                ref cAdressAtom_Org_iD_v,
                                                                                ref OrganisationData_ID_v);
                     }
                     else

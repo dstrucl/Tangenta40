@@ -208,7 +208,7 @@ namespace Tangenta
                                                      "Customer_Org_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber",
                                                     "Customer_Org_$_orgd_$_cadrorg_$_ccitorg_$$City",
                                                     "Customer_Org_$_orgd_$_cadrorg_$_cziporg_$$ZIP",
-                                                    "Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$Country",
+                                                    "Customer_Org_$_orgd_$_cadrorg_$_ccouorg_$$Country",
                                                     "Customer_Org_$_orgd_$_cphnnorg_$$PhoneNumber",
                                                     "Customer_Org_$_orgd_$_cfaxnorg_$$FaxNumber",
                                                     "Customer_Org_$_orgd_$_cemailorg_$$Email",

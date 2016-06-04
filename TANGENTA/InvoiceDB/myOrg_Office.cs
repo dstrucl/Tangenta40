@@ -81,11 +81,11 @@ namespace InvoiceDB
                               Office_Data_$_cadrorg_$_chounorg.HouseNumber AS Office_Data_$_cadrorg_$_chounorg_$$HouseNumber,
                               Office_Data_$_cadrorg_$_ccitorg.City AS Office_Data_$_cadrorg_$_ccitorg_$$City,
                               Office_Data_$_cadrorg_$_cziporg.ZIP AS Office_Data_$_cadrorg_$_cziporg_$$ZIP,
-                              Office_Data_$_cadrorg_$_cstorg.Country AS Office_Data_$_cadrorg_$_cstorg_$$Country,
-                              Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_a2 AS Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2,
-                              Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_a3 AS Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3,
-                              Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_num AS Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_num,
-                              Office_Data_$_cadrorg_$_ccouorg.State AS Office_Data_$_cadrorg_$_ccouorg_$$State,
+                              Office_Data_$_cadrorg_$_cstorg.Country AS Office_Data_$_cadrorg_$_ccouorg_$$Country,
+                              Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_a2 AS Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2,
+                              Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_a3 AS Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3,
+                              Office_Data_$_cadrorg_$_cstorg.Country_ISO_3166_num AS Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num,
+                              Office_Data_$_cadrorg_$_ccouorg.State AS Office_Data_$_cadrorg_$_cstorg_$$State,
                               Office_Data.Description AS Office_Data_$$Description
                               FROM Office_Data
                               INNER JOIN Office Office_Data_$_office ON Office_Data.Office_ID = Office_Data_$_office.ID
@@ -107,10 +107,10 @@ namespace InvoiceDB
                                 Address_v.HouseNumber_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_chounorg_$$HouseNumber"]);
                                 Address_v.ZIP_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_cziporg_$$ZIP"]);
                                 Address_v.City_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_ccitorg_$$City"]);
-                                Address_v.Country_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_cstorg_$$Country"]);
-                                Address_v.Country_ISO_3166_a2_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_a2"]);
-                                Address_v.Country_ISO_3166_a3_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_a3"]);
-                                Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt.Rows[0]["Office_Data_$_cadrorg_$_cstorg_$$Country_ISO_3166_num"]));
+                                Address_v.Country_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country"]);
+                                Address_v.Country_ISO_3166_a2_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2"]);
+                                Address_v.Country_ISO_3166_a3_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3"]);
+                                Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
                                 myOrg_Office_FVI_SLO_RealEstate.Get(Office_Data_ID_v);
                             }
                             return true;

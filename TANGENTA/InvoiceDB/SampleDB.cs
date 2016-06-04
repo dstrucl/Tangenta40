@@ -1,4 +1,5 @@
-﻿using DBTypes;
+﻿using CodeTables;
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -134,8 +135,14 @@ namespace InvoiceDB
         }
         public bool Write()
         {
+            ID_v cAdressAtom_Org_iD_v = null;
             Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
-            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166);
+            string DefaultCountry = null;
+            if (DynSettings.LanguageID == DynSettings.Slovensko_ID)
+            {
+                DefaultCountry = "Slovenija";
+            }
+            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry,lngRPMS.s_SelectCountryWhereYouPayTaxes.s);
             if (frmsel_country.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 MyOrg_Address_v = new PostAddress_v();
@@ -165,8 +172,9 @@ namespace InvoiceDB
                                       MyOrg_Image_Hash_v,
                                       MyOrg_Image_Data_v,
                                       MyOrg_Image_Description_v,
-                                     ref  MyOrg_Organisation_ID_v,
-                                     ref  MyOrg_OrganisationData_ID_v))
+                                         ref cAdressAtom_Org_iD_v,
+                                         ref  MyOrg_Organisation_ID_v,
+                                         ref  MyOrg_OrganisationData_ID_v))
                 {
                     long myOrganisation_ID = -1;
                     if (f_myOrganisation.Get(MyOrg_OrganisationData_ID_v.v, ref myOrganisation_ID))
@@ -174,29 +182,33 @@ namespace InvoiceDB
                         long Office_ID = -1;
                         if (f_Office.Get(MyOrg_OfficeName_v.v, MyOrg_OfficeShortName_v.v, MyOrg_Organisation_ID_v.v, ref Office_ID))
                         {
-                            long_v Person_ID_v = null;
-                            if (f_Person.Get(MyOrg_Person_Gender_v,
-                                             MyOrg_Person_FirstName_v,
-                                             MyOrg_Person_LastName_v,
-                                             MyOrg_Person_DateOfBirth_v,
-                                             MyOrg_Person_Tax_ID_v,
-                                             MyOrg_Person_Registration_ID_v,
-                                             ref Person_ID_v
-                                              ))
+                            long Office_Data_ID = -1;
+                            if (f_Office_Data.Get(cAdressAtom_Org_iD_v.v, Office_ID, null, ref Office_Data_ID))
                             {
-                                MyOrg_Person_Person_ID_v = new long_v(Person_ID_v.v);
-                                MyOrg_Person_Office_ID_v = new long_v(Office_ID);
-                                long_v myOrganisation_Person_v = new long_v();
-                                if (f_myOrganisation_Person.Get(MyOrg_Person_UserName_v,
-                                                                MyOrg_Person_Password_v,
-                                                                MyOrg_Person_Job_v,
-                                                                MyOrg_Person_Active_v,
-                                                                MyOrg_Person_Description_v,
-                                                                MyOrg_Person_Person_ID_v,
-                                                                MyOrg_Person_Office_ID_v,
-                                                                ref myOrganisation_Person_v))
+                                long_v Person_ID_v = null;
+                                if (f_Person.Get(MyOrg_Person_Gender_v,
+                                                 MyOrg_Person_FirstName_v,
+                                                 MyOrg_Person_LastName_v,
+                                                 MyOrg_Person_DateOfBirth_v,
+                                                 MyOrg_Person_Tax_ID_v,
+                                                 MyOrg_Person_Registration_ID_v,
+                                                 ref Person_ID_v
+                                                  ))
                                 {
-                                    return true;
+                                    MyOrg_Person_Person_ID_v = new long_v(Person_ID_v.v);
+                                    MyOrg_Person_Office_ID_v = new long_v(Office_ID);
+                                    long_v myOrganisation_Person_v = new long_v();
+                                    if (f_myOrganisation_Person.Get(MyOrg_Person_UserName_v,
+                                                                    MyOrg_Person_Password_v,
+                                                                    MyOrg_Person_Job_v,
+                                                                    MyOrg_Person_Active_v,
+                                                                    MyOrg_Person_Description_v,
+                                                                    MyOrg_Person_Person_ID_v,
+                                                                    MyOrg_Person_Office_ID_v,
+                                                                    ref myOrganisation_Person_v))
+                                    {
+                                        return true;
+                                    }
                                 }
                             }
                         }
