@@ -97,7 +97,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\SQLTableControl\CodeTables.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
-      <Name>SQLTableControl</Name>
+      <Name>CodeTables</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>

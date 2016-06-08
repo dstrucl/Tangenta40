@@ -15,7 +15,7 @@ using TangentaTableClass;
 using CodeTables;
 using LanguageControl;
 using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 using ShopA;
 using ShopB;
 using ShopC;
@@ -63,7 +63,7 @@ namespace Tangenta
 
         public DBTablesAndColumnNames DBtcn = null;
 
-        public InvoiceDB.ShopABC m_ShopABC = null;
+        public TangentaDB.ShopABC m_ShopABC = null;
         public InvoiceData m_InvoiceData = null;
 
         public long myOrganisation_Person_id
@@ -1331,6 +1331,7 @@ namespace Tangenta
                         }
                         else
                         {
+                            if (fs.Is_Sample_DB())
                             if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                             {
                                 MessageBox.Show(lngRPM.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
@@ -2006,7 +2007,7 @@ namespace Tangenta
                                                 string xInvoiceNumber = null;
                                                 Program.usrc_FVI_SLO1.Write_SalesBookInvoice(xInvoiceData.DocInvoice_ID_v.v, xInvoiceData.FinancialYear, xInvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
                                                 long FVI_SLO_SalesBookInvoice_ID = -1;
-                                                if (InvoiceDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.DocInvoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                                                if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(xInvoiceData.DocInvoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
                                                 {
                                                     MessageBox.Show("Storno računa je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
                                                 }

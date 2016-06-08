@@ -18,7 +18,7 @@ using TangentaTableClass;
 using DBTypes;
 using CodeTables;
 using LanguageControl;
-using InvoiceDB;
+using TangentaDB;
 using FormDiscount;
 
 namespace ShopC
@@ -36,7 +36,7 @@ namespace ShopC
 
         //usrc_ItemList
 
-        public InvoiceDB.Item_Data m_Item_Data = null;
+        public TangentaDB.Item_Data m_Item_Data = null;
 
         bool disposed = false;
 
@@ -202,7 +202,7 @@ namespace ShopC
             }
             Set_btn_Discount_Text();
         }
-        internal void DoPaint(InvoiceDB.Item_Data xItem_Data, string[] s_name_Group,usrc_Atom_ItemsList x_usrc_Atom_ItemsList)
+        internal void DoPaint(TangentaDB.Item_Data xItem_Data, string[] s_name_Group,usrc_Atom_ItemsList x_usrc_Atom_ItemsList)
         {
             m_Item_Data = xItem_Data;
             m_Item_Data.m_s_name_Group = s_name_Group;

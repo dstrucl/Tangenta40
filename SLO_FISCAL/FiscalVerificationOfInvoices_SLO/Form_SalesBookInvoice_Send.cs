@@ -1,5 +1,5 @@
 ﻿using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 using LanguageControl;
 using System;
 using System.Collections.Generic;

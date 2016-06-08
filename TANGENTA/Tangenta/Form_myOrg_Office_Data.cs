@@ -1,7 +1,7 @@
 ﻿// Copyright (c) 2011 rubicon IT GmbH
 using TangentaTableClass;
 using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 using LanguageControl;
 using CodeTables;
 using System;

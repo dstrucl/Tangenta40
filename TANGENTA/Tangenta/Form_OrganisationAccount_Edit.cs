@@ -18,7 +18,7 @@ using LanguageControl;
 using CodeTables;
 using DBTypes;
 using CodeTables.TableDocking_Form;
-using InvoiceDB;
+using TangentaDB;
 
 namespace Tangenta
 {

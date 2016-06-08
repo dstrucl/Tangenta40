@@ -17,10 +17,10 @@ using System.Xml;
 using System.Drawing;
 using DBConnectionControl40;
 using System.IO;
-using InvoiceDB;
+using TangentaDB;
 using ShopA_dbfunc;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     //public class FURS_Response_data
     //{
@@ -105,7 +105,7 @@ namespace InvoiceDB
         public int iCountItemsSold = 0;
 
 
-        public InvoiceDB.ShopABC m_ShopABC = null;
+        public TangentaDB.ShopABC m_ShopABC = null;
 
 
         public StaticLib.TaxSum taxSum = null;
@@ -131,7 +131,7 @@ namespace InvoiceDB
         }
 
 
-        public InvoiceData(InvoiceDB.ShopABC xInvoiceDB, long xDocInvoice_ID, bool xb_FVI_SLO, string xCasshierName)
+        public InvoiceData(TangentaDB.ShopABC xInvoiceDB, long xDocInvoice_ID, bool xb_FVI_SLO, string xCasshierName)
         {
             m_ShopABC = xInvoiceDB;
             DocInvoice_ID = xDocInvoice_ID;

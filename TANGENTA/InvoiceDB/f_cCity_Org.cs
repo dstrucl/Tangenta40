@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DBTypes;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_cCity_Org
     {
@@ -110,20 +110,20 @@ namespace InvoiceDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:InvoiceDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) city_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cCity_Org:Get(string_v city_v, ref long_v cCity_Org_ID_v) city_v may not be null!");
                 return false;
             }
         }

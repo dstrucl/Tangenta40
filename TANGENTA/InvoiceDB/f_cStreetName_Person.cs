@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DBTypes;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_cStreetName_Person
     {
@@ -107,20 +107,20 @@ namespace InvoiceDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:InvoiceDB:f_cStreetName_Person:Get(string_v streetName_v, ref long_v atom_cStreetName_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Person:Get(string_v streetName_v, ref long_v atom_cStreetName_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceDB:f_cStreetName_Person:Get(string_v streetName_v, ref long_v atom_cStreetName_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Person:Get(string_v streetName_v, ref long_v atom_cStreetName_Person_ID_v) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:f_cStreetName_Person:Get(string_v streetName_v, ref long_v atom_cStreetName_Person_ID_v) streetName_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cStreetName_Person:Get(string_v streetName_v, ref long_v atom_cStreetName_Person_ID_v) streetName_v may not be null!");
                 return false;
             }
         }

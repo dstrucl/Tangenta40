@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DBTypes;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_Atom_cCountry_Org
     {
@@ -161,20 +161,20 @@ namespace InvoiceDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\nsql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\nsql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\nsql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\nsql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\n state_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)\r\n state_v may not be null!");
                 return false;
             }
         }

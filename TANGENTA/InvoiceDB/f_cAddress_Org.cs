@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using CodeTables;
 using TangentaTableClass;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_cAddress_Org
     {

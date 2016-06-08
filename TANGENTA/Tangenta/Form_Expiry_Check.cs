@@ -7,7 +7,7 @@
 #endregion
 
 using TangentaTableClass;
-using InvoiceDB;
+using TangentaDB;
 using LanguageControl;
 using CodeTables;
 using System;

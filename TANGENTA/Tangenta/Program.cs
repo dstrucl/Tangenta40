@@ -20,7 +20,7 @@ using System.Diagnostics;
 using DBConnectionControl40;
 using DBTypes;
 using FiscalVerificationOfInvoices_SLO;
-using InvoiceDB;
+using TangentaDB;
 using System.Reflection;
 
 namespace Tangenta

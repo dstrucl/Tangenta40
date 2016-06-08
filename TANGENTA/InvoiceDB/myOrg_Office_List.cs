@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class myOrg_Office_List
     {
@@ -45,7 +45,7 @@ namespace InvoiceDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:myOrg_Office_List:Get:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:TangentaDB:myOrg_Office_List:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

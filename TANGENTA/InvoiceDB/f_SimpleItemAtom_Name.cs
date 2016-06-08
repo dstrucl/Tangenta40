@@ -12,7 +12,7 @@ using System.Text;
 using System.Data;
 using LogFile;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_Atom_ShopBItem_Name
     {

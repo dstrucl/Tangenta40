@@ -17,7 +17,7 @@ using System.Windows.Forms;
 using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
-using InvoiceDB;
+using TangentaDB;
 
 
 namespace Tangenta

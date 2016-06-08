@@ -345,7 +345,7 @@ namespace Tangenta
                     m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
                 }
             }
-            InvoiceDB.f_Atom_WorkPeriod.End(InvoiceDB.GlobalData.Atom_WorkPeriod_ID);
+            TangentaDB.f_Atom_WorkPeriod.End(TangentaDB.GlobalData.Atom_WorkPeriod_ID);
             if (Program.b_FVI_SLO)
             {
                 if (Program.usrc_FVI_SLO1 != null)

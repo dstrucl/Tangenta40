@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_Atom_FVI_SLO_RealEstateBP
     {

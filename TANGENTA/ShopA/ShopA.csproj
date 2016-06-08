@@ -207,9 +207,9 @@
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
+    <ProjectReference Include="..\InvoiceDB\TangentaDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
-      <Name>InvoiceDB</Name>
+      <Name>TangentaDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopA_dbfunc\ShopA_dbfunc.csproj">
       <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>

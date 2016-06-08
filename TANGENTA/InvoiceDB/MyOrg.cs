@@ -17,7 +17,7 @@ using System.Drawing;
 using DBTypes;
 
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class myOrg
     {

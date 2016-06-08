@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 using DBTypes;
 using LanguageControl;
 using FiscalVerificationOfInvoices_SLO;
-using InvoiceDB;
+using TangentaDB;
 using UniversalInvoice;
 
 namespace Tangenta

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public class JOURNAL_DocInvoice_Type_definitions
     {

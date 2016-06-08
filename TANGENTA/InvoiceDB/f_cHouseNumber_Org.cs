@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DBTypes;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_cHouseNumber_Org
     {
@@ -106,20 +106,20 @@ namespace InvoiceDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:InvoiceDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) houseNumber_v may not be null!");
+                LogFile.Error.Show("ERROR:TangentaDB:f_cHouseNumber_Org:Get(string_v houseNumber_v, ref long_v atom_cHouseNumber_Org_ID_v) houseNumber_v may not be null!");
                 return false;
             }
         }

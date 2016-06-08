@@ -6,7 +6,7 @@
 */
 #endregion
 
-using InvoiceDB;
+using TangentaDB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

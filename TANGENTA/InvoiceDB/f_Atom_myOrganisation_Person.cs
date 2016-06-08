@@ -18,7 +18,7 @@ using DBTypes;
 using DBConnectionControl40;
 using System.Windows.Forms;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_Atom_myOrganisation_Person
     {

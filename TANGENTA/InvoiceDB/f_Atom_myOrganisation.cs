@@ -14,7 +14,7 @@ using LogFile;
 using DBTypes;
 using CodeTables;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_Atom_myOrganisation
     {

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using TangentaTableClass;
 using CodeTables;
 using LanguageControl;
-using InvoiceDB;
+using TangentaDB;
 using PriseLists;
 
 namespace ShopC
@@ -37,7 +37,7 @@ namespace ShopC
         
 
         DataTable dt_Item = new DataTable();
-        private InvoiceDB.ShopABC m_InvoiceDB = null;
+        private TangentaDB.ShopABC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
        // private usrc_Invoice m_usrc_Invoice = null;
         public usrc_ShopC()
@@ -54,7 +54,7 @@ namespace ShopC
         }
 
 
-        public void Init(InvoiceDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, string ShopsInUse)
+        public void Init(TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, string ShopsInUse)
         {
             //Program.iGDIcUser502 = Program.getGuiResourcesUserCount();
 

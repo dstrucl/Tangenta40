@@ -278,7 +278,7 @@ namespace Tangenta
 
         }
 
-        internal void Show_Customer(InvoiceDB.CurrentInvoice x_CurrentInvoice)
+        internal void Show_Customer(TangentaDB.CurrentInvoice x_CurrentInvoice)
         {
             txt_Buyer.Text = "";
 
@@ -305,7 +305,7 @@ namespace Tangenta
             }
         }
 
-        public void Show_Customer_Person(InvoiceDB.CurrentInvoice x_CurrentInvoice)
+        public void Show_Customer_Person(TangentaDB.CurrentInvoice x_CurrentInvoice)
         {
             if (x_CurrentInvoice.Atom_Customer_Person_ID_v != null)
             {
@@ -414,7 +414,7 @@ namespace Tangenta
             }
         }
 
-        public void Show_Customer_Org(InvoiceDB.CurrentInvoice x_CurrentInvoice)
+        public void Show_Customer_Org(TangentaDB.CurrentInvoice x_CurrentInvoice)
         {
             if (x_CurrentInvoice.Atom_Customer_Org_ID_v != null)
             {

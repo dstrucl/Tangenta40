@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public class xUnitList
     {

@@ -7,7 +7,7 @@
 #endregion
 using DBConnectionControl40;
 using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_doc
     {

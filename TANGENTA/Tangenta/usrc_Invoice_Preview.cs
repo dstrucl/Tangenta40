@@ -18,7 +18,7 @@ using LanguageControl;
 using System.Runtime.InteropServices;
 using DBConnectionControl40;
 using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 
 namespace Tangenta
 {

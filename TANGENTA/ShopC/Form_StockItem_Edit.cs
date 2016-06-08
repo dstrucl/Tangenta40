@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using CodeTables;
 using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 
 namespace ShopC
 {
@@ -27,11 +27,11 @@ namespace ShopC
         SQLTable tbl = null;
         bool bclose = false;
         bool bInitData = false;
-        InvoiceDB.Item_Data m_Item_Data = null;
+        TangentaDB.Item_Data m_Item_Data = null;
         long_v PurchasePrice_Item_ID = null;
         private bool m_bChanged = false;
 
-        public Form_StockItem_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string where_condition, string ColumnToOrderBy,InvoiceDB.Item_Data x_Item_Data)
+        public Form_StockItem_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string where_condition, string ColumnToOrderBy,TangentaDB.Item_Data x_Item_Data)
         {
             InitializeComponent();
             m_Item_Data = x_Item_Data;

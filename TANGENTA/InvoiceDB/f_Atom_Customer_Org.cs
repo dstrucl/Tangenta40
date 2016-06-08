@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_Atom_Customer_Org
     {
@@ -203,13 +203,13 @@ namespace InvoiceDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_Customer_Org:GetData:sql=" + sql + "Err=!(dt.Rows.Count>0)");
+                    LogFile.Error.Show("ERROR:TangentaDB:f_Atom_Customer_Org:GetData:sql=" + sql + "Err=!(dt.Rows.Count>0)");
                     return null;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:f_Atom_Customer_Org:GetData:sql=" + sql + "Err="+Err);
+                LogFile.Error.Show("ERROR:TangentaDB:f_Atom_Customer_Org:GetData:sql=" + sql + "Err="+Err);
                 return null;
             }
         }

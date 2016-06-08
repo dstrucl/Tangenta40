@@ -16,7 +16,7 @@ using System.Text;
 using System.Windows.Forms;
 using DBTypes;
 using LanguageControl;
-using InvoiceDB;
+using TangentaDB;
 
 namespace Tangenta
 {
@@ -52,7 +52,7 @@ namespace Tangenta
             nm_UpDown_Discount.Increment = 1;
             nm_UpDown_Discount.Maximum = +10000000000;
             int_v iDecimalPlaces_v = new int_v();
-            iDecimalPlaces_v.v = InvoiceDB.GlobalData.BaseCurrency.DecimalPlaces;
+            iDecimalPlaces_v.v = TangentaDB.GlobalData.BaseCurrency.DecimalPlaces;
             nm_UpDown_EndPrice.Maximum = 100000000000M;
             nm_UpDown_EndPrice.Minimum = 0M;
             decimal dincrement = fs.GetIncrement(iDecimalPlaces_v, null);

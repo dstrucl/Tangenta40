@@ -17,8 +17,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LanguageControl;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class fs
     {
@@ -144,7 +145,7 @@ namespace InvoiceDB
                 object Result = null;
                 if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
                 {
-                    Err = "ERROR::InvoiceDB:fs:Init_Currency_Table:Err=" + Err;
+                    Err = "ERROR::TangentaDB:fs:Init_Currency_Table:Err=" + Err;
                     DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
                     DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
                     return false;
@@ -183,7 +184,7 @@ namespace InvoiceDB
                 object Result = null;
                 if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
                 {
-                    Err = "ERROR::InvoiceDB:fs:Init_Unit_Table:Err=" + Err;
+                    Err = "ERROR::TangentaDB:fs:Init_Unit_Table:Err=" + Err;
                     return false;
                 }
             }
@@ -200,6 +201,41 @@ namespace InvoiceDB
             }
             else
             {
+                LogFile.Error.Show(Err);
+                return false;
+            }
+        }
+
+        public static bool Is_Sample_DB(ref string Err)
+        {
+            Err = null;
+            string sql = @"select myOrganisation_$_orgd_$_org_$$Name from  myOrganisation_VIEW limit 1";
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    string sOrgName = (string)dt.Rows[0]["myOrganisation_$_orgd_$_org_$$Name"];
+                    if (sOrgName.Equals(lngRPMS.s_MyOrg_Organisation_Name_v.s))
+                    {
+                        return true;
+                    } 
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+                else
+                {
+                    Err = "ERROR:TangentaDB:fs:Is_Sample_DB:sql=" + sql + "\r\nErr= No data in myOrgainisation_VIEW!";
+                    LogFile.Error.Show(Err);
+                    return false;
+                }
+            }
+            else
+            {
+                Err = "ERROR:TangentaDB:fs:Is_Sample_DB:sql=" + sql + "\r\nErr=" + Err;
                 LogFile.Error.Show(Err);
                 return false;
             }
@@ -235,7 +271,7 @@ namespace InvoiceDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:InvoiceDB:fs:Read_DBSettings_StockCheckAtStartup:sql=" + sql_DB_StockCheckAtStartup + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:TangentaDB:fs:Read_DBSettings_StockCheckAtStartup:sql=" + sql_DB_StockCheckAtStartup + "\r\nErr=" + Err);
                     }
                     return true;
                 //break;
@@ -246,7 +282,7 @@ namespace InvoiceDB
                 case enum_GetDBSettings.No_ReadOnly:
                     return false;
                 default:
-                    Err = "ERROR:InvoiceDB:fs:enum_GetDBSettings not handled!";
+                    Err = "ERROR:TangentaDB:fs:enum_GetDBSettings not handled!";
                     return false;
 
             }
@@ -314,7 +350,7 @@ namespace InvoiceDB
             }
             else
             {
-                LogFile.Error.Show("ERROR::InvoiceDB:fs:ExpiryCheck:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR::TangentaDB:fs:ExpiryCheck:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }
@@ -459,14 +495,14 @@ namespace InvoiceDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR::InvoiceDB:fs:Get_JOURNAL_TYPE:sql=" + sql + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR::TangentaDB:fs:Get_JOURNAL_TYPE:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR::InvoiceDB:fs:Get_JOURNAL_TYPE:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR::TangentaDB:fs:Get_JOURNAL_TYPE:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }
@@ -669,7 +705,7 @@ namespace InvoiceDB
             }
             else
             {
-                Err = "ERROR::InvoiceDB:fs:Columns count not equal to values count!\r\niColumnsCount = " + iColumnsCount.ToString() + ", iValuesCount = " + iValuesCount.ToString();
+                Err = "ERROR::TangentaDB:fs:Columns count not equal to values count!\r\niColumnsCount = " + iColumnsCount.ToString() + ", iValuesCount = " + iValuesCount.ToString();
                 return false;
             }
             sql = "select ID from " + TableName + " where " + sWhere;

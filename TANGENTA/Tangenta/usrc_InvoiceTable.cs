@@ -19,7 +19,7 @@ using CodeTables;
 using TangentaTableClass;
 using DBConnectionControl40;
 using LanguageControl;
-using InvoiceDB;
+using TangentaDB;
 
 namespace Tangenta
 {

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_Atom_Customer_Person
     {

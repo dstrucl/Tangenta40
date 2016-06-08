@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using DBTypes;
 using DBConnectionControl40;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public class CurrentInvoice
     {

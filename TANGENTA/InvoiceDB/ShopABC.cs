@@ -17,7 +17,7 @@ using DBTypes;
 using System.Data;
 using System.Windows.Forms;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public class ShopABC
     {
@@ -334,7 +334,7 @@ namespace InvoiceDB
             string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "DraftNumber from DocInvoice order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             if (!DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:SetNewDraft:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
             if (dt.Rows.Count > 0)
@@ -361,7 +361,7 @@ namespace InvoiceDB
                     }
                     catch (Exception ex)
                     {
-                        LogFile.Error.Show("ERROR:InvoiceDB:SetNewDraft: ID is not defined in DocInvoice! Exception =" + ex.Message);
+                        LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft: ID is not defined in DocInvoice! Exception =" + ex.Message);
                         return false;
                     }
                 }
@@ -405,7 +405,7 @@ namespace InvoiceDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:InvoiceDB:SetNewDraft:Err=" + Err);
+                LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft:Err=" + Err);
                 return false;
             }
         }

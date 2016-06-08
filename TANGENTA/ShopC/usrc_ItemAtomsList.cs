@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using DBTypes;
 using LanguageControl;
 using XMessage;
-using InvoiceDB;
+using TangentaDB;
 
 namespace ShopC
 {
@@ -27,7 +27,7 @@ namespace ShopC
         public int yPosLast = 5;
 
         private usrc_ItemList m_usrc_ItemList = null;
-        public InvoiceDB.ShopABC m_ShopBC;
+        public TangentaDB.ShopABC m_ShopBC;
         private DBTablesAndColumnNames DBtcn;
 
         public delegate void delegate_After_Atom_Item_Remove();
@@ -76,7 +76,7 @@ namespace ShopC
             InitializeComponent();
         }
 
-        internal void Init(usrc_ItemList x_usrc_ItemList, InvoiceDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
+        internal void Init(usrc_ItemList x_usrc_ItemList, TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn)
         {
             m_usrc_ItemList = x_usrc_ItemList;
             m_ShopBC=xm_InvoiceDB;
@@ -173,7 +173,7 @@ namespace ShopC
         }
 
 
-        internal usrc_Atom_Item AddFromStock(InvoiceDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        internal usrc_Atom_Item AddFromStock(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(ref appisd,true))
             {
@@ -192,7 +192,7 @@ namespace ShopC
             }
         }
 
-        internal usrc_Atom_Item AddFromFactory(InvoiceDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        internal usrc_Atom_Item AddFromFactory(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
 
             if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(ref appisd,false))

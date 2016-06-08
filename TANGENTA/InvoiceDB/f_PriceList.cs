@@ -15,7 +15,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using TangentaTableClass;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_PriceList
     {

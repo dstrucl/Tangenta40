@@ -17,7 +17,7 @@ using LanguageControl;
 using CodeTables;
 using DBTypes;
 using TangentaTableClass;
-using InvoiceDB;
+using TangentaDB;
 
 namespace ShopC
 {

@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public class Atom_DocInvoice_ShopC_Item_Price_Stock_Data
     {

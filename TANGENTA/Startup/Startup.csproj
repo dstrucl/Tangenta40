@@ -79,9 +79,9 @@
       <Project>{51e8c8bc-b176-40e5-b452-c80d9421ab79}</Project>
       <Name>ThreadProcessor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InvoiceDB\InvoiceDB.csproj">
+    <ProjectReference Include="..\InvoiceDB\TangentaDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
-      <Name>InvoiceDB</Name>
+      <Name>TangentaDB</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

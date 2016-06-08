@@ -18,7 +18,7 @@ using LanguageControl;
 using DBConnectionControl40;
 using TangentaTableClass;
 using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 
 namespace Tangenta
 {

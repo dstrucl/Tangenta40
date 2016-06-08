@@ -18,7 +18,7 @@ using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
 using DBConnectionControl40;
-using InvoiceDB;
+using TangentaDB;
 using FormDiscount;
 using PriseLists;
 
@@ -43,7 +43,7 @@ namespace ShopB
 
         public DataTable dt_SelectedShopBItem = new DataTable();
 
-        InvoiceDB.ShopABC m_InvoiceDB = null;
+        TangentaDB.ShopABC m_InvoiceDB = null;
         DBTablesAndColumnNames DBtcn = null;
 
         string column_SelectedShopBItem_btn_discount = "btn_discount";

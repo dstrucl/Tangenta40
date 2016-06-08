@@ -11,9 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using LogFile;
-using InvoiceDB;
+using TangentaDB;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
 
     public static class f_Atom_Price_ShopBItem

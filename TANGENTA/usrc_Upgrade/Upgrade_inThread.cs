@@ -15,7 +15,7 @@ using TangentaTableClass;
 using DBConnectionControl40;
 using LanguageControl;
 using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 using ThreadProcessor;
 using System.ComponentModel;
 using System.IO;

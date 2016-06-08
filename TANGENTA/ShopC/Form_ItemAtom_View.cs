@@ -19,9 +19,9 @@ namespace ShopC
 {
     public partial class Form_Atom_Item_View : Form
     {
-        private InvoiceDB.ShopABC m_InvoiceDB =null;
+        private TangentaDB.ShopABC m_InvoiceDB =null;
         private long m_Atom_Item_ID = 0;
-        public Form_Atom_Item_View(InvoiceDB.ShopABC xInvoiceDB,long xAtom_Item_ID)
+        public Form_Atom_Item_View(TangentaDB.ShopABC xInvoiceDB,long xAtom_Item_ID)
         {
             InitializeComponent();
             m_InvoiceDB = xInvoiceDB;

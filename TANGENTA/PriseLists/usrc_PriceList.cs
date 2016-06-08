@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
-using InvoiceDB;
+using TangentaDB;
 
 namespace PriseLists
 {
@@ -24,7 +24,7 @@ namespace PriseLists
         public long m_Currency_ID = 0;
         private usrc_PriceList_Edit.eShopType m_eShopType;
 
-        public InvoiceDB.xPriceList m_xPriceList = null;
+        public TangentaDB.xPriceList m_xPriceList = null;
 
         public usrc_PriceList()
         {

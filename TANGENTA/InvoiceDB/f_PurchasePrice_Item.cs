@@ -16,7 +16,7 @@ using LanguageControl;
 using TangentaTableClass;
 using DBTypes;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_PurchasePrice_Item
     {

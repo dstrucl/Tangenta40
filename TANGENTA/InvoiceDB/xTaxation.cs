@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using CodeTables;
 using TangentaTableClass;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public class xTaxation
     {

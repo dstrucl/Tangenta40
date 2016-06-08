@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DBTypes;
 
-namespace InvoiceDB
+namespace TangentaDB
 {
     public static class f_cState_Org
     {
@@ -109,14 +109,14 @@ namespace InvoiceDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:InvoiceDB:f_cState_Org:Get(string_v country_v, ref long_v atom_cState_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_cState_Org:Get(string_v country_v, ref long_v atom_cState_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceDB:f_cState_Org:Get(string_v country_v, ref long_v atom_cState_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:TangentaDB:f_cState_Org:Get(string_v country_v, ref long_v atom_cState_Org_ID_v) sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }

@@ -15,7 +15,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DBConnectionControl40;
-using InvoiceDB;
+using TangentaDB;
 
 namespace ShopC
 {
@@ -98,13 +98,13 @@ namespace ShopC
 
         void usrc_item_ItemChanged(object obj)
         {
-            if (obj is InvoiceDB.Item_Data)
+            if (obj is TangentaDB.Item_Data)
             {
-                Get_Price_Item_Stock_Data(((InvoiceDB.Item_Data)obj).PriceList_ID.v);
+                Get_Price_Item_Stock_Data(((TangentaDB.Item_Data)obj).PriceList_ID.v);
             }
         }
 
-        internal void Init(InvoiceDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan)
+        internal void Init(TangentaDB.ShopABC xm_ShopBC, DBTablesAndColumnNames xDBtcn, usrc_ShopC x_usrc_ItemMan)
         {
             m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;
@@ -183,7 +183,7 @@ namespace ShopC
 
         }
 
-        internal bool Show(InvoiceDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
+        internal bool Show(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             string[] sGroupArr = new string[3];
             sGroupArr[0] = appisd.s1_name;

@@ -8,7 +8,7 @@
 
 using TangentaTableClass;
 using DBTypes;
-using InvoiceDB;
+using TangentaDB;
 using LanguageControl;
 using CodeTables;
 using System;
