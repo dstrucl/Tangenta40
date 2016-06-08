@@ -14,11 +14,17 @@ using CodeTables;
 using System.Windows.Forms;
 using LanguageControl;
 using TangentaTableClass;
+using DBTypes;
 
 namespace TangentaDB
 {
     public static class f_PriceList
     {
+        public static bool Get(string sPriceListeName,bool valid,long Currency_ID,DateTime_v ValidFrom_v,DateTime_v ValidTo_v,DateTime_v CreationDate_v, string_v Description_v, ref long PriceList_ID)
+        {
+            return false;
+        }
+
         public static bool Insert_ShopB_Items_in_PriceList(DataTable dt_SimpleItem, Control parent_ctrl)
         {
             string Err = null;

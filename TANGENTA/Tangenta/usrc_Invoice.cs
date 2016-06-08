@@ -1315,6 +1315,9 @@ namespace Tangenta
                         }
                     }
 
+                    f_Currency.Get(myOrg.Address_v.Country_ISO_3166_a3);
+                    f_Taxation.Get(myOrg.Address_v.Country_ISO_3166_a3);
+
                     if (myOrg.myOrg_Office_list.Count > 0)
                     {
                         if (myOrg.myOrg_Office_list[0].Office_Data_ID_v == null)
@@ -1332,8 +1335,7 @@ namespace Tangenta
                         else
                         {
                             string Err = null;
-
-                            if (myOrg.Address_v.Country_ISO_3166_num == 705)
+                            if (myOrg.Address_v.Country_ISO_3166_a3.Equals("SLO"))
                             {
                                 Program.b_FVI_SLO = true;
                             }

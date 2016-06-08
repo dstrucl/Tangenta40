@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Data;
 using System.Drawing;
+using System.IO;
 
 namespace LanguageControl
 {
@@ -26,7 +27,7 @@ namespace LanguageControl
         public static ltext s_language = new ltext("English", "Slovensko");
         public static bool AllowToEditText = false;
 
-        public static void LoadLanguages()
+        public static void LoadLanguages(bool bReset2FactorySettings)
         {
             DataTable dt_Languages = new DataTable();
             string TableName = "lngRPM";
@@ -38,49 +39,55 @@ namespace LanguageControl
             string lngRPM_XML_file = sAppDataFolder + TableName;
             try
             {
-                dt_Languages.ReadXml(lngRPM_XML_file);
-                dt_Languages.CaseSensitive = true;
-                Type myType = typeof(lngRPM);
-                FieldInfo[] fields = myType.GetFields();
-                string sErr = "";
-                foreach (FieldInfo fi in fields)
+                if (bReset2FactorySettings)
                 {
-                    if (fi.FieldType.Name.Equals("ltext"))
+                    File.Delete(lngRPM_XML_file);
+                }
+                else
+                {
+                    dt_Languages.ReadXml(lngRPM_XML_file);
+                    dt_Languages.CaseSensitive = true;
+                    Type myType = typeof(lngRPM);
+                    FieldInfo[] fields = myType.GetFields();
+                    string sErr = "";
+                    foreach (FieldInfo fi in fields)
                     {
-                        ltext lt = (ltext)fi.GetValue(null);
-                        string sname = fi.Name;
-                        DataRow[] drs = dt_Languages.Select("variable_name = '" + sname + "'");
-                        if (drs.Count() == 1)
+                        if (fi.FieldType.Name.Equals("ltext"))
                         {
-                            lt.SetTextFromDataRow(drs[0]);
-                        }
-                        else
-                        {
-                            if (drs.Count() > 1)
+                            ltext lt = (ltext)fi.GetValue(null);
+                            string sname = fi.Name;
+                            DataRow[] drs = dt_Languages.Select("variable_name = '" + sname + "'");
+                            if (drs.Count() == 1)
                             {
-                                MessageBox.Show("ERROR:LoadLanguages:More than one definition for language varibale:" + sname);
+                                lt.SetTextFromDataRow(drs[0]);
                             }
                             else
                             {
-                                if (sErr.Length == 0)
+                                if (drs.Count() > 1)
                                 {
-                                    sErr += "ERROR:LoadLanguages:No definition for language variables:'" + sname + "'";
+                                    MessageBox.Show("ERROR:LoadLanguages:More than one definition for language varibale:" + sname);
                                 }
                                 else
                                 {
-                                    sErr += ",'" + sname + "'";
+                                    if (sErr.Length == 0)
+                                    {
+                                        sErr += "ERROR:LoadLanguages:No definition for language variables:'" + sname + "'";
+                                    }
+                                    else
+                                    {
+                                        sErr += ",'" + sname + "'";
+                                    }
                                 }
                             }
                         }
                     }
+                    //dt_Languages.WriteXml(lngRPM_XML_file, XmlWriteMode.WriteSchema);
+                    if (sErr.Length > 0)
+                    {
+                        MessageBox.Show(sErr);
+                        SaveLanguages(ref dt_Languages, lngRPM_XML_file, TableName);
+                    }
                 }
-                //dt_Languages.WriteXml(lngRPM_XML_file, XmlWriteMode.WriteSchema);
-                if (sErr.Length > 0)
-                {
-                    MessageBox.Show(sErr);
-                    SaveLanguages(ref dt_Languages, lngRPM_XML_file, TableName);
-                }
-
             }
             catch
             {

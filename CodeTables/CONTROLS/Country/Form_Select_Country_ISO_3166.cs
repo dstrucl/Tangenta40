@@ -92,6 +92,9 @@ namespace Country_ISO_3166
             {
                 DataGridViewRow dgvr = dgvc[0];
                 int iRow = dgvx_ISO_3166.Rows.IndexOf(dgvr);
+                DataRowView drv = (DataRowView)dgvx_ISO_3166.Rows[iRow].DataBoundItem;
+                DataRow dr = drv.Row;
+                iRow = this.dt_ISO_3166.Rows.IndexOf(dr);
                 this.txt_SelectCountry.TextChanged -= txt_SelectCountry_TextChanged;
                 this.txt_SelectCountry.Text = (string)this.dt_ISO_3166.Rows[iRow]["Country"];
                 this.txt_SelectCountry.TextChanged += txt_SelectCountry_TextChanged;
@@ -105,6 +108,9 @@ namespace Country_ISO_3166
             {
                 DataGridViewRow dgvr = dgvc[0];
                 int iRow = dgvx_ISO_3166.Rows.IndexOf(dgvr);
+                DataRowView drv = (DataRowView)dgvx_ISO_3166.Rows[iRow].DataBoundItem;
+                DataRow dr = drv.Row;
+                iRow = this.dt_ISO_3166.Rows.IndexOf(dr);
                 this.txt_SelectCountry.TextChanged -= txt_SelectCountry_TextChanged;
                 this.txt_SelectCountry.Text = (string)this.dt_ISO_3166.Rows[iRow]["Country"];
                 this.txt_SelectCountry.TextChanged += txt_SelectCountry_TextChanged;

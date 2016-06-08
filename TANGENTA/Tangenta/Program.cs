@@ -282,7 +282,7 @@ namespace Tangenta
 
                 LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
 
-                LanguageControl.DynSettings.LoadLanguages();
+                LanguageControl.DynSettings.LoadLanguages(bReset2FactorySettings);
                 if (Properties.Settings.Default.LanguageID < 0)
                 {
                     if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1,Properties.Resources.Exit))
