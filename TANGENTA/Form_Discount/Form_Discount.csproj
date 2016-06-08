@@ -86,10 +86,6 @@
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InvoiceDB\TangentaDB.csproj">
-      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
-      <Name>TangentaDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>

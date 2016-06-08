@@ -268,10 +268,6 @@
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InvoiceDB\TangentaDB.csproj">
-      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
-      <Name>TangentaDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PriseLists\PriseLists.csproj">
       <Project>{d3e4af57-60eb-486b-a145-5eadd0f01177}</Project>
       <Name>PriseLists</Name>
