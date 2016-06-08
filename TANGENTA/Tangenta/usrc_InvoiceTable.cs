@@ -551,7 +551,10 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                 //this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged); // Add Handler
                 SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
                 tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"].HeaderText = lngRPM.s_FURS_BarCode.s;
+                if (Program.b_FVI_SLO)
+                {
+                    dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"].HeaderText = lngRPM.s_FURS_BarCode.s;
+                }
                 iRowsCount = dt_XInvoice.Rows.Count;
                 if (!bNew)
                 {

@@ -859,6 +859,10 @@
       <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
       <Name>Startup</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>TangentaDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
       <Name>UniversalInvoice</Name>

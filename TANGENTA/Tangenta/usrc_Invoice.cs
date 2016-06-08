@@ -1331,17 +1331,40 @@ namespace Tangenta
                         }
                         else
                         {
-                            if (fs.Is_Sample_DB())
-                            if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
+                            string Err = null;
+
+                            if (myOrg.Address_v.Country_ISO_3166_num == 705)
                             {
-                                MessageBox.Show(lngRPM.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
-                                if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP())
+                                Program.b_FVI_SLO = true;
+                            }
+                            else
+                            {
+                                Program.b_FVI_SLO = false;
+                            }
+
+                            if (fs.Is_Sample_DB(ref Err))
+                            {
+                                if (Program.b_FVI_SLO)
                                 {
-                                    continue;
+                                    if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
+                                    {
+
+                                    }
                                 }
-                                else
+                            }
+                            if (Program.b_FVI_SLO)
+                            {
+                                if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {
-                                    return false;
+                                    MessageBox.Show(lngRPM.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                    if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP())
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
                                 }
                             }
                         }

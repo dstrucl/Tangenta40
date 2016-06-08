@@ -90,6 +90,10 @@
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>TangentaDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

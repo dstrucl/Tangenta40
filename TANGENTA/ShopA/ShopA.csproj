@@ -211,6 +211,10 @@
       <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
       <Name>ShopA_dbfunc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>TangentaDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

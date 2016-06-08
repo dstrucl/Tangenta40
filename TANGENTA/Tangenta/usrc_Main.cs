@@ -42,15 +42,6 @@ namespace Tangenta
         {
             Main_Form = main_Form;
             bool bUpgradeDone = false;
-            if (Program.b_FVI_SLO)
-            {
-                Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
-                Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
-            }
-            if (Program.bReset2FactorySettings)
-            {
-                Program.usrc_FVI_SLO1.Settings_Reset(this);
-            }
 
             if (m_UpgradeDB.Read_DBSettings(ref bUpgradeDone))
             {
@@ -59,6 +50,17 @@ namespace Tangenta
                     string Err = null;
                     if (this.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData(this))
                     {
+                        if (Program.b_FVI_SLO)
+                        {
+                            Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
+                            Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
+                            if (Program.bReset2FactorySettings)
+                            {
+                                Program.usrc_FVI_SLO1.Settings_Reset(this);
+                            }
+                        }
+
+
                         if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
                         {
                             if (Program.b_FVI_SLO)
