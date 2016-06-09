@@ -15,15 +15,165 @@ using System.Windows.Forms;
 using LanguageControl;
 using TangentaTableClass;
 using DBTypes;
+using DBConnectionControl40;
 
 namespace TangentaDB
 {
     public static class f_PriceList
     {
-        public static bool Get(string sPriceListeName,bool valid,long Currency_ID,DateTime_v ValidFrom_v,DateTime_v ValidTo_v,DateTime_v CreationDate_v, string_v Description_v, ref long PriceList_ID)
+        public static bool Get(string sPriceListName, bool valid, long Currency_ID, DateTime_v ValidFrom_v, DateTime_v ValidTo_v, DateTime_v CreationDate_v, string Description, ref long PriceList_ID)
         {
-            return false;
+            string Err = null;
+            object oret = null;
+            string sql = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_PriceListName = "@par_PriceListName";
+            SQL_Parameter par_PriceListName = new SQL_Parameter(spar_PriceListName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, sPriceListName);
+            lpar.Add(par_PriceListName);
+
+            string scond_ValidFrom = " ValidFrom is null ";
+            string sval_ValidFrom = " null ";
+            if (ValidFrom_v != null)
+            {
+                string spar_ValidFrom = "@par_ValidFrom";
+                SQL_Parameter par_ValidFrom = new SQL_Parameter(spar_ValidFrom, SQL_Parameter.eSQL_Parameter.Datetime, false, ValidFrom_v.v);
+                lpar.Add(par_ValidFrom);
+                scond_ValidFrom = " ValidFrom = " + spar_ValidFrom + " ";
+                sval_ValidFrom = " " + spar_ValidFrom + " ";
+            }
+
+
+            string scond_ValidTo = " ValidTo is null ";
+            string sval_ValidTo = " null ";
+            if (ValidTo_v != null)
+            {
+                string spar_ValidTo = "@par_ValidTo";
+                SQL_Parameter par_ValidTo = new SQL_Parameter(spar_ValidTo, SQL_Parameter.eSQL_Parameter.Datetime, false, ValidTo_v.v);
+                lpar.Add(par_ValidTo);
+                scond_ValidTo = " ValidTo = " + spar_ValidTo + " ";
+                sval_ValidTo = " " + spar_ValidTo + " ";
+            }
+
+            string scond_CreationDate = " CreationDate is null ";
+            string sval_CreationDate = " null ";
+            if (CreationDate_v != null)
+            {
+                string spar_CreationDate = "@par_CreationDate";
+                SQL_Parameter par_CreationDate = new SQL_Parameter(spar_CreationDate, SQL_Parameter.eSQL_Parameter.Datetime, false, CreationDate_v.v);
+                lpar.Add(par_CreationDate);
+                scond_CreationDate = " CreationDate = " + spar_CreationDate + " ";
+                sval_CreationDate = " " + spar_CreationDate + " ";
+            }
+
+            string scond_Description = " Description is null ";
+            string sval_Description = " null ";
+            if (Description != null)
+            {
+                string spar_Description = "@par_Description";
+                SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Description);
+                lpar.Add(par_Description);
+                scond_Description = " Description = " + spar_Description + " ";
+                sval_Description = " " + spar_Description + " ";
+            }
+
+            string scond_valid = " valid = 0 ";
+            string sval_valid = " 0 ";
+            if (valid)
+            {
+                scond_valid = " valid = 1 ";
+                sval_valid = " 1 ";
+            }
+
+
+            sql = "select ID from PriceList where Name = " + spar_PriceListName;
+
+
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    PriceList_ID = (long)dt.Rows[0]["ID"];
+
+
+                    sql = "select ID from PriceList where Name = " + spar_PriceListName +
+                                                        " and Currency_ID = " + Currency_ID.ToString() +
+                                                        " and " + scond_valid +
+                                                        " and " + scond_ValidFrom +
+                                                        " and " + scond_ValidTo +
+                                                        " and " + scond_CreationDate +
+                                                        " and " + scond_Description;
+
+                    dt.Clear();
+                    dt.Rows.Clear();
+                    dt.Columns.Clear();
+                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                    {
+                        if (dt.Rows.Count > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            sql = "update PriceList set Currency_ID = " + Currency_ID.ToString() +
+                                                                " , valid = " + sval_valid +
+                                                                " , ValidFrom = " + sval_ValidFrom +
+                                                                " , ValidTo = " + sval_ValidTo +
+                                                                " , CretionDate = " + sval_CreationDate +
+                                                                " , Description = " + sval_Description +
+                                                                " where ID = " + PriceList_ID.ToString();
+                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    sql = @"insert into PriceList (Name,
+                                                   valid,
+                                                   Currency_ID,
+                                                   ValidFrom,
+                                                   ValidTo,
+                                                   CreationDate,
+                                                   Description) values
+                                                   (" + spar_PriceListName +
+                                                    "," + sval_valid +
+                                                    "," + Currency_ID.ToString() +
+                                                    "," + sval_ValidFrom +
+                                                    "," + sval_ValidTo +
+                                                    "," + sval_CreationDate +
+                                                    "," + sval_Description +
+                                                        " where ID = " + PriceList_ID.ToString();
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar,ref PriceList_ID,  ref oret, ref Err, "PriceList"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
         }
+
 
         public static bool Insert_ShopB_Items_in_PriceList(DataTable dt_SimpleItem, Control parent_ctrl)
         {

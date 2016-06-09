@@ -54,6 +54,7 @@ namespace TangentaDB
             }
             return true;
         }
+
         public static bool Get(string Abbreviation,string Name,string Symbol,int CurrencyCode, int DecimalPlaces, ref long Currency_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();

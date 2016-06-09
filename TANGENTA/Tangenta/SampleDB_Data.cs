@@ -23,6 +23,65 @@ namespace Tangenta
 
     public static class SampleDB_Data
     {
+        public class Price_SimpleItem
+        {
+            decimal RetailSimpleItemPrice = 0;
+            decimal_v Discount_v = null;
+            string TaxationName = null;
+            decimal TaxationRate = 0;
+            string SimpleItem_Name = null;
+            string Abbreviation = null;
+            bool bToOffer = false;
+            Image SimpleItem_Image = null;
+            int_v Code_v = null;
+            string SimpleItem_ParentGroup1 = null;
+            string SimpleItem_ParentGroup2 = null;
+            string SimpleItem_ParentGroup3 = null;
+            string sPriceListName = null;
+            bool valid = false;
+            string Currency_Abbreviation = null;
+            string Currency_Name = null;
+            string Currency_Symbol = null;
+            int CurrencyCode = 0;
+            int Currency_DecimalPlaces = 0;
+            DateTime_v ValidFrom_v = null;
+            DateTime_v ValidTo_v = null;
+            DateTime_v CreationDate_v = null;
+            string Description = null;
+            long Currency_ID = -1;
+            long SimpleItem_ID = -1;
+            long Taxation_ID = -1;
+            long PriceList_ID = -1;
+            long Price_SimpleItem_ID = -1;
+
+            public Price_SimpleItem(decimal xRetailSimpleItemPrice,
+                                    decimal_v xDiscount_v,
+                                    string xTaxationName,
+                                    decimal xTaxationRate,
+                                    string xSimpleItem_Name,
+                                    string xAbbreviation,
+                                    bool xbToOffer,
+                                    Image xSimpleItem_Image,
+                                    int_v xCode_v,
+                                    string xSimpleItem_ParentGroup1,
+                                    string xSimpleItem_ParentGroup2,
+                                    string xSimpleItem_ParentGroup3,
+                                    string xsPriceListName,
+                                    bool xvalid,
+                                    string xCurrency_Abbreviation,
+                                    string xCurrency_Name,
+                                    string xCurrency_Symbol,
+                                    int xCurrencyCode,
+                                    int xCurrency_DecimalPlaces,
+                                    DateTime_v xValidFrom_v,
+                                    DateTime_v xValidTo_v,
+                                    DateTime_v xCreationDate_v,
+                                    string xDescription)
+            {
+
+            }
+
+        }
         public static TangentaTableClass.Taxation m_Taxation = new TangentaTableClass.Taxation();
 
         public static TangentaTableClass.cStreetName_Org m_cStreetName_Org = new TangentaTableClass.cStreetName_Org();
@@ -394,8 +453,6 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         }
 
-
-
         public static bool InitData(ref string Err)
         {
             // Taxation
@@ -413,11 +470,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
             Init_Stock();
             return Init_DB(ref Err);
-
         }
-
-
-
 
         public static bool Init_DB_Taxation(ref string Err)
         {
