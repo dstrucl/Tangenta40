@@ -19,12 +19,15 @@ namespace LanguageControl
 {
     public static class DynSettings
     {
+        public const int NotDefined_ID = -1;
         public const int English_ID = 0;
         public const int Slovensko_ID = 1;
 
         public static int MAX_NUMBER_OF_LANGUAGES = 20;
         public static int LanguageID = 0;
         public static ltext s_language = new ltext("English", "Slovensko");
+
+
         public static bool AllowToEditText = false;
 
         public static void LoadLanguages(bool bReset2FactorySettings)

@@ -71,7 +71,9 @@ namespace LanguageControl
 
         public static ltext SimpleItem_Name_Pedicure = new ltext("pedicure","pedikura");
         public static ltext SimpleItem_Abbreviation_Pedicure = new ltext("PED", "PED");
-
+        public static ltext SimpleItem_ParentGroup1 = new ltext("Foot care","Nega stopal" );
+        public static ltext PriceList_Name = new ltext("PRICE LIST CUSTOMERS","CENIK STRANKE");
+        public static ltext PriceList_Description = new ltext("Price list for usual customers.","Cenik za stalne stranke.");
     }
 }
      

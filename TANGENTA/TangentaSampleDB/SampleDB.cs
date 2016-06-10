@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TangentaDB;
 
-namespace TangentaDB
+namespace TangentaSampleDB
 {
     public class SampleDB
     {
@@ -207,7 +208,10 @@ namespace TangentaDB
                                                                     MyOrg_Person_Office_ID_v,
                                                                     ref myOrganisation_Person_v))
                                     {
-                                        return true;
+                                        if (Fill_Price_SimpleItem())
+                                        {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
@@ -240,6 +244,45 @@ namespace TangentaDB
             }
             return false;
         }
+
+        private bool Fill_Price_SimpleItem()
+        {
+            string Currency_Name = null;
+            string Currency_Abbreviation = null;
+            string Currency_Symbol = null;
+            int Currency_Code = 0;
+            int Currency_DecimalPlaces = 2;
+
+
+            //SampleDB_Price_SimpleItem[] SampleDB_Price_SimpleItem_List = new SampleDB_Price_SimpleItem[]
+            //{new SampleDB_Price_SimpleItem(lngRPMS.SimpleItem_Name_Pedicure.s,
+            //                               lngRPMS.SimpleItem_Abbreviation_Pedicure.s,
+            //                               true,
+            //                               Properties.Resources.Pedikira,
+            //                               1,
+            //                               lngRPMS.SimpleItem_ParentGroup1.s,
+            //                               null,
+            //                               null,
+            //                               lngRPMS.PriceList_Name.s,
+            //                               true,
+            //                               null,
+            //                               null,
+            //                               new DateTime_v(DateTime.Now),
+            //                               lngRPMS.PriceList_Description.s,
+            //                               Currency_Abbreviation,
+            //                               Currency_Name,
+            //                               Currency_Symbol,
+            //                               Currency_Code,
+            //                               Currency_DecimalPlaces,
+                                           
+
+
+
+            //                              )};
+            return false;
+                         
+        }
+
 
         public bool Insert_MyOrgData()
         {

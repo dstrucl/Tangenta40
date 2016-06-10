@@ -80,6 +80,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tax_Rates_by_Country.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form_Select_Country_ISO_3166.resx">
@@ -102,6 +103,10 @@
     <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>

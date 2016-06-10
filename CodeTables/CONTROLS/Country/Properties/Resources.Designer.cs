@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace State.Properties {
+namespace Country.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace State.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("State.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Country.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,45 @@ namespace State.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;ISO_4217 Pblshd=&quot;2016-02-24&quot;&gt;
+        ///&lt;CcyTbl&gt;
+        ///&lt;CcyNtry&gt;
+        ///&lt;CtryNm&gt;AFGHANISTAN&lt;/CtryNm&gt;
+        ///&lt;CcyNm&gt;Afghani&lt;/CcyNm&gt;
+        ///&lt;Ccy&gt;AFN&lt;/Ccy&gt;
+        ///&lt;CcyNbr&gt;971&lt;/CcyNbr&gt;
+        ///&lt;CcyMnrUnts&gt;2&lt;/CcyMnrUnts&gt;
+        ///&lt;/CcyNtry&gt;
+        ///&lt;CcyNtry&gt;
+        ///&lt;CtryNm&gt;ÅLAND ISLANDS&lt;/CtryNm&gt;
+        ///&lt;CcyNm&gt;Euro&lt;/CcyNm&gt;
+        ///&lt;Ccy&gt;EUR&lt;/Ccy&gt;
+        ///&lt;CcyNbr&gt;978&lt;/CcyNbr&gt;
+        ///&lt;CcyMnrUnts&gt;2&lt;/CcyMnrUnts&gt;
+        ///&lt;/CcyNtry&gt;
+        ///&lt;CcyNtry&gt;
+        ///&lt;CtryNm&gt;ALBANIA&lt;/CtryNm&gt;
+        ///&lt;CcyNm&gt;Lek&lt;/CcyNm&gt;
+        ///&lt;Ccy&gt;ALL&lt;/Ccy&gt;
+        ///&lt;CcyNbr&gt;008&lt;/CcyNbr&gt;
+        ///&lt;CcyMnrUnts&gt;2&lt;/CcyMnrUnts&gt;
+        ///&lt;/CcyNtry&gt;
+        ///&lt;CcyNtry&gt;
+        ///&lt;CtryNm&gt;ALGERIA&lt;/CtryNm&gt;
+        ///&lt;CcyNm&gt;Algeri [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ISO_4217_country_currency_table {
+            get {
+                return ResourceManager.GetString("ISO_4217_country_currency_table", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Country{
+        internal static System.Drawing.Icon State {
             get {
-                object obj = ResourceManager.GetObject("Country", resourceCulture);
+                object obj = ResourceManager.GetObject("State", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
