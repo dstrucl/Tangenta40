@@ -25,59 +25,82 @@ namespace Tangenta
     {
         public class Price_SimpleItem
         {
-            decimal RetailSimpleItemPrice = 0;
-            decimal_v Discount_v = null;
-            string TaxationName = null;
-            decimal TaxationRate = 0;
-            string SimpleItem_Name = null;
-            string Abbreviation = null;
-            bool bToOffer = false;
-            Image SimpleItem_Image = null;
-            int_v Code_v = null;
-            string SimpleItem_ParentGroup1 = null;
-            string SimpleItem_ParentGroup2 = null;
-            string SimpleItem_ParentGroup3 = null;
-            string sPriceListName = null;
-            bool valid = false;
-            string Currency_Abbreviation = null;
-            string Currency_Name = null;
-            string Currency_Symbol = null;
-            int CurrencyCode = 0;
-            int Currency_DecimalPlaces = 0;
-            DateTime_v ValidFrom_v = null;
-            DateTime_v ValidTo_v = null;
-            DateTime_v CreationDate_v = null;
-            string Description = null;
-            long Currency_ID = -1;
-            long SimpleItem_ID = -1;
-            long Taxation_ID = -1;
-            long PriceList_ID = -1;
-            long Price_SimpleItem_ID = -1;
+            public decimal RetailSimpleItemPrice = 0;
+            public decimal_v Discount_v = null;
+            public string TaxationName = null;
+            public decimal TaxationRate = 0;
+            public string SimpleItem_Name = null;
+            public string SimpleItem_Abbreviation = null;
+            public bool SimpleItem_bToOffer = false;
+            public Image SimpleItem_Image = null;
+            public int_v SimpleItem_Code_v = null;
+            public string SimpleItem_ParentGroup1 = null;
+            public string SimpleItem_ParentGroup2 = null;
+            public string SimpleItem_ParentGroup3 = null;
+            public string PriceList_Name = null;
+            public bool PriceList_valid = false;
+            public string Currency_Abbreviation = null;
+            public string Currency_Name = null;
+            public string Currency_Symbol = null;
+            public int CurrencyCode = 0;
+            public int Currency_DecimalPlaces = 0;
+            public DateTime_v PriceList_ValidFrom_v = null;
+            public DateTime_v PriceList_ValidTo_v = null;
+            public DateTime_v PriceList_CreationDate_v = null;
+            public string PriceList_Description = null;
+            public long Currency_ID = -1;
+            public long SimpleItem_ID = -1;
+            public long Taxation_ID = -1;
+            public long PriceList_ID = -1;
+            public long Price_SimpleItem_ID = -1;
 
             public Price_SimpleItem(decimal xRetailSimpleItemPrice,
                                     decimal_v xDiscount_v,
                                     string xTaxationName,
                                     decimal xTaxationRate,
                                     string xSimpleItem_Name,
-                                    string xAbbreviation,
-                                    bool xbToOffer,
+                                    string xSimpleItem_Abbreviation,
+                                    bool xSimpleItem_bToOffer,
                                     Image xSimpleItem_Image,
-                                    int_v xCode_v,
+                                    int_v xSimpleItem_Code_v,
                                     string xSimpleItem_ParentGroup1,
                                     string xSimpleItem_ParentGroup2,
                                     string xSimpleItem_ParentGroup3,
-                                    string xsPriceListName,
-                                    bool xvalid,
+                                    string xPriceList_Name,
+                                    bool xPriceList_valid,
                                     string xCurrency_Abbreviation,
                                     string xCurrency_Name,
                                     string xCurrency_Symbol,
                                     int xCurrencyCode,
                                     int xCurrency_DecimalPlaces,
-                                    DateTime_v xValidFrom_v,
-                                    DateTime_v xValidTo_v,
-                                    DateTime_v xCreationDate_v,
-                                    string xDescription)
+                                    DateTime_v xPriceList_ValidFrom_v,
+                                    DateTime_v xPriceList_ValidTo_v,
+                                    DateTime_v xPriceList_CreationDate_v,
+                                    string xPriceList_Description)
             {
+                RetailSimpleItemPrice = xRetailSimpleItemPrice;
+                Discount_v = xDiscount_v;
+                TaxationName = xTaxationName;
+                TaxationRate = xTaxationRate;
+                SimpleItem_Name = xSimpleItem_Name;
+                SimpleItem_Abbreviation = xSimpleItem_Abbreviation;
+                SimpleItem_bToOffer=  xSimpleItem_bToOffer;
+                SimpleItem_Image = xSimpleItem_Image;
+                SimpleItem_Code_v= xSimpleItem_Code_v;
+                SimpleItem_ParentGroup1 = xSimpleItem_ParentGroup1;
+                SimpleItem_ParentGroup2 = xSimpleItem_ParentGroup2;
+                SimpleItem_ParentGroup3 = xSimpleItem_ParentGroup3;
+                PriceList_Name = xPriceList_Name;
+                PriceList_valid = xPriceList_valid;
+                Currency_Abbreviation = xCurrency_Abbreviation;
+                Currency_Name = xCurrency_Name;
+                Currency_Symbol = xCurrency_Symbol;
+                CurrencyCode = xCurrencyCode;
+                Currency_DecimalPlaces = xCurrency_DecimalPlaces;
+                PriceList_ValidFrom_v = xPriceList_ValidFrom_v;
+                PriceList_ValidTo_v = xPriceList_ValidTo_v;
+                PriceList_CreationDate_v = xPriceList_CreationDate_v;
+                PriceList_Description = xPriceList_Description;
 
             }
 
