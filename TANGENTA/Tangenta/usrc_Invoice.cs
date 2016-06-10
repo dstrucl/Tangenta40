@@ -1344,7 +1344,7 @@ namespace Tangenta
                                 Program.b_FVI_SLO = false;
                             }
 
-                            if (fs.Is_Sample_DB(ref Err))
+                            if (TangentaSampleDB.TangentaSampleDB.Is_Sample_DB(ref Err))
                             {
                                 if (Program.b_FVI_SLO)
                                 {

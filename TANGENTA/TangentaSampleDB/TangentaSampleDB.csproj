@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>cf39a97b-c4cb-45f6-9d60-9df5638dd45a</ProjectGuid>
+    <ProjectGuid>{CF39A97B-C4CB-45F6-9D60-9DF5638DD45A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TangentaSampleDB</RootNamespace>
@@ -30,24 +30,97 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleDB.cs" />
+    <Compile Include="SampleDB_Price_SimpleItem.cs" />
+    <Compile Include="TangentaSampleDB.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Active Concentrate Repair Complex.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Beautipharm Self Bronzer.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 12 BASIC.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 20 MEDIUM.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 30 HIGH.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BLUTENFEUCHTIGKEIT SUPREME.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LOTION.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Manikira.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nega Obraza.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pedikira.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\REINIGUNGS MILCH.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Salt.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VITAMIN PACKUNG.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VITAMIN SUPREME.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Country\Country_ISO_3166.csproj">
+      <Project>{1562473f-cfcb-4dfd-81ba-153988dc2d25}</Project>
+      <Name>Country_ISO_3166</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
+      <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
+      <Name>DBSync</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
+      <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
+      <Name>DBTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\SQLTableControl\CodeTables.csproj">
+      <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
+      <Name>CodeTables</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
+      <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
+      <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
+      <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
+      <Name>TangentaDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -57,5 +130,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>

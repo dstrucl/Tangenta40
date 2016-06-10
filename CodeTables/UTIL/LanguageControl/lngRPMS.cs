@@ -69,6 +69,9 @@ namespace LanguageControl
         public static ltext MyOrg_Person_Image_Data_v = null;
         public static ltext MyOrg_Person_Atom_Person_ID_v = null;
 
+        public static ltext SimpleItem_Name_Pedicure = new ltext("pedicure","pedikura");
+        public static ltext SimpleItem_Abbreviation_Pedicure = new ltext("PED", "PED");
+
     }
 }
      

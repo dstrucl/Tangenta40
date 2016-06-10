@@ -61,62 +61,12 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Active_Concentrate_Repair_Complex {
-            get {
-                object obj = ResourceManager.GetObject("Active_Concentrate_Repair_Complex", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Atom_Item_ViewForm_icon {
             get {
                 object obj = ResourceManager.GetObject("Atom_Item_ViewForm_icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Beautipharm_Self_Bronzer {
-            get {
-                object obj = ResourceManager.GetObject("Beautipharm_Self_Bronzer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BEAUTIPHARM_SUN_MILK_SPF_12_BASIC {
-            get {
-                object obj = ResourceManager.GetObject("BEAUTIPHARM_SUN_MILK_SPF_12_BASIC", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BEAUTIPHARM_SUN_MILK_SPF_20_MEDIUM {
-            get {
-                object obj = ResourceManager.GetObject("BEAUTIPHARM_SUN_MILK_SPF_20_MEDIUM", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BEAUTIPHARM_SUN_MILK_SPF_30_HIGH {
-            get {
-                object obj = ResourceManager.GetObject("BEAUTIPHARM_SUN_MILK_SPF_30_HIGH", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -156,16 +106,6 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Icon CodeTables {
             get {
                 object obj = ResourceManager.GetObject("CodeTables", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon OrganisationLogo {
-            get {
-                object obj = ResourceManager.GetObject("OrganisationLogo", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -401,8 +341,7 @@ namespace Tangenta.Properties {
         ///&lt;p&gt;Številka računa:@@InvoiceNumber&lt;/p&gt;
         ///&lt;p&gt;Datum:@@Date Čas:@@Time&lt;/p&gt;
         ///&lt;p&gt;@@Line&lt;/p&gt;
-        ///&lt;p&gt;PRODANO:&lt;/p&gt;
-        ///&lt;di [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;PRODANO:&lt;/p&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_inv1_Roll58 {
             get {
@@ -430,8 +369,7 @@ namespace Tangenta.Properties {
         ///&lt;p&gt;Številka računa:@@InvoiceNumber&lt;/p&gt;
         ///&lt;p&gt;Datum:@@Date Čas:@@Time&lt;/p&gt;
         ///&lt;p&gt;@@Line&lt;/p&gt;
-        ///&lt;p&gt;PRODANO:&lt;/p&gt;
-        ///&lt;di [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;PRODANO:&lt;/p&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_inv1_Roll80 {
             get {
@@ -492,8 +430,7 @@ namespace Tangenta.Properties {
         ///&lt;p&gt;Številka računa:@@InvoiceNumber&lt;/p&gt;
         ///&lt;p&gt;Datum:@@Date Čas:@@Time&lt;/p&gt;
         ///&lt;p&gt;@@Line&lt;/p&gt;
-        ///&lt;p&gt;PRODANO:&lt;/p&gt;
-        ///&lt;di [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;PRODANO:&lt;/p&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_pinv1_Roll58 {
             get {
@@ -521,8 +458,7 @@ namespace Tangenta.Properties {
         ///&lt;p&gt;Številka računa:@@InvoiceNumber&lt;/p&gt;
         ///&lt;p&gt;Datum:@@Date Čas:@@Time&lt;/p&gt;
         ///&lt;p&gt;@@Line&lt;/p&gt;
-        ///&lt;p&gt;PRODANO:&lt;/p&gt;
-        ///&lt;di [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;PRODANO:&lt;/p&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_pinv1_Roll80 {
             get {
@@ -583,8 +519,7 @@ namespace Tangenta.Properties {
         ///&lt;p&gt;Številka računa:@@InvoiceNumber&lt;/p&gt;
         ///&lt;p&gt;Datum:@@Date Čas:@@Time&lt;/p&gt;
         ///&lt;p&gt;@@Line&lt;/p&gt;
-        ///&lt;p&gt;PRODANO:&lt;/p&gt;
-        ///&lt;di [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;PRODANO:&lt;/p&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_inv1_Roll58 {
             get {
@@ -612,8 +547,7 @@ namespace Tangenta.Properties {
         ///&lt;p&gt;Številka računa:@@InvoiceNumber&lt;/p&gt;
         ///&lt;p&gt;Datum:@@Date Čas:@@Time&lt;/p&gt;
         ///&lt;p&gt;@@Line&lt;/p&gt;
-        ///&lt;p&gt;PRODANO:&lt;/p&gt;
-        ///&lt;di [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;PRODANO:&lt;/p&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_inv1_Roll80 {
             get {
@@ -674,8 +608,7 @@ namespace Tangenta.Properties {
         ///&lt;p&gt;Številka računa:@@InvoiceNumber&lt;/p&gt;
         ///&lt;p&gt;Datum:@@Date Čas:@@Time&lt;/p&gt;
         ///&lt;p&gt;@@Line&lt;/p&gt;
-        ///&lt;p&gt;PRODANO:&lt;/p&gt;
-        ///&lt;di [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;PRODANO:&lt;/p&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_pinv1_Roll58 {
             get {
@@ -703,8 +636,7 @@ namespace Tangenta.Properties {
         ///&lt;p&gt;Številka računa:@@InvoiceNumber&lt;/p&gt;
         ///&lt;p&gt;Datum:@@Date Čas:@@Time&lt;/p&gt;
         ///&lt;p&gt;@@Line&lt;/p&gt;
-        ///&lt;p&gt;PRODANO:&lt;/p&gt;
-        ///&lt;di [rest of string was truncated]&quot;;.
+        ///&lt;p&gt;PRODANO:&lt;/p&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_pinv1_Roll80 {
             get {
@@ -783,32 +715,12 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Manikira {
-            get {
-                object obj = ResourceManager.GetObject("Manikira", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon MyOrganisation {
             get {
                 object obj = ResourceManager.GetObject("MyOrganisation", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Nega_Obraza {
-            get {
-                object obj = ResourceManager.GetObject("Nega_Obraza", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -833,12 +745,12 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap Pedikira {
+        internal static System.Drawing.Icon OrganisationLogo {
             get {
-                object obj = ResourceManager.GetObject("Pedikira", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("OrganisationLogo", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -1147,26 +1059,6 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Bitmap ViewInvoice {
             get {
                 object obj = ResourceManager.GetObject("ViewInvoice", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap VITAMIN_PACKUNG {
-            get {
-                object obj = ResourceManager.GetObject("VITAMIN_PACKUNG", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap VITAMIN_SUPREME {
-            get {
-                object obj = ResourceManager.GetObject("VITAMIN_SUPREME", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

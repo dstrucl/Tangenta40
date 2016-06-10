@@ -23,88 +23,8 @@ namespace Tangenta
 
     public static class SampleDB_Data
     {
-        public class Price_SimpleItem
-        {
-            public decimal RetailSimpleItemPrice = 0;
-            public decimal_v Discount_v = null;
-            public string TaxationName = null;
-            public decimal TaxationRate = 0;
-            public string SimpleItem_Name = null;
-            public string SimpleItem_Abbreviation = null;
-            public bool SimpleItem_bToOffer = false;
-            public Image SimpleItem_Image = null;
-            public int_v SimpleItem_Code_v = null;
-            public string SimpleItem_ParentGroup1 = null;
-            public string SimpleItem_ParentGroup2 = null;
-            public string SimpleItem_ParentGroup3 = null;
-            public string PriceList_Name = null;
-            public bool PriceList_valid = false;
-            public string Currency_Abbreviation = null;
-            public string Currency_Name = null;
-            public string Currency_Symbol = null;
-            public int CurrencyCode = 0;
-            public int Currency_DecimalPlaces = 0;
-            public DateTime_v PriceList_ValidFrom_v = null;
-            public DateTime_v PriceList_ValidTo_v = null;
-            public DateTime_v PriceList_CreationDate_v = null;
-            public string PriceList_Description = null;
-            public long Currency_ID = -1;
-            public long SimpleItem_ID = -1;
-            public long Taxation_ID = -1;
-            public long PriceList_ID = -1;
-            public long Price_SimpleItem_ID = -1;
 
-            public Price_SimpleItem(decimal xRetailSimpleItemPrice,
-                                    decimal_v xDiscount_v,
-                                    string xTaxationName,
-                                    decimal xTaxationRate,
-                                    string xSimpleItem_Name,
-                                    string xSimpleItem_Abbreviation,
-                                    bool xSimpleItem_bToOffer,
-                                    Image xSimpleItem_Image,
-                                    int_v xSimpleItem_Code_v,
-                                    string xSimpleItem_ParentGroup1,
-                                    string xSimpleItem_ParentGroup2,
-                                    string xSimpleItem_ParentGroup3,
-                                    string xPriceList_Name,
-                                    bool xPriceList_valid,
-                                    string xCurrency_Abbreviation,
-                                    string xCurrency_Name,
-                                    string xCurrency_Symbol,
-                                    int xCurrencyCode,
-                                    int xCurrency_DecimalPlaces,
-                                    DateTime_v xPriceList_ValidFrom_v,
-                                    DateTime_v xPriceList_ValidTo_v,
-                                    DateTime_v xPriceList_CreationDate_v,
-                                    string xPriceList_Description)
-            {
-                RetailSimpleItemPrice = xRetailSimpleItemPrice;
-                Discount_v = xDiscount_v;
-                TaxationName = xTaxationName;
-                TaxationRate = xTaxationRate;
-                SimpleItem_Name = xSimpleItem_Name;
-                SimpleItem_Abbreviation = xSimpleItem_Abbreviation;
-                SimpleItem_bToOffer=  xSimpleItem_bToOffer;
-                SimpleItem_Image = xSimpleItem_Image;
-                SimpleItem_Code_v= xSimpleItem_Code_v;
-                SimpleItem_ParentGroup1 = xSimpleItem_ParentGroup1;
-                SimpleItem_ParentGroup2 = xSimpleItem_ParentGroup2;
-                SimpleItem_ParentGroup3 = xSimpleItem_ParentGroup3;
-                PriceList_Name = xPriceList_Name;
-                PriceList_valid = xPriceList_valid;
-                Currency_Abbreviation = xCurrency_Abbreviation;
-                Currency_Name = xCurrency_Name;
-                Currency_Symbol = xCurrency_Symbol;
-                CurrencyCode = xCurrencyCode;
-                Currency_DecimalPlaces = xCurrency_DecimalPlaces;
-                PriceList_ValidFrom_v = xPriceList_ValidFrom_v;
-                PriceList_ValidTo_v = xPriceList_ValidTo_v;
-                PriceList_CreationDate_v = xPriceList_CreationDate_v;
-                PriceList_Description = xPriceList_Description;
 
-            }
-
-        }
         public static TangentaTableClass.Taxation m_Taxation = new TangentaTableClass.Taxation();
 
         public static TangentaTableClass.cStreetName_Org m_cStreetName_Org = new TangentaTableClass.cStreetName_Org();
@@ -182,43 +102,43 @@ namespace Tangenta
 
         private static void Init_Item()
         {
-            TangentaTableClass.Item_Image Item_Image_VITAMIN_PACKUNG  = new TangentaTableClass.Item_Image();
-            Item_Image_VITAMIN_PACKUNG.Image_Data.val = ImageToByte2(Properties.Resources.VITAMIN_PACKUNG);
-            Item_Image_VITAMIN_PACKUNG.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_VITAMIN_PACKUNG.Image_Data.val);
-            m_List_Item_Image.Add(Item_Image_VITAMIN_PACKUNG);
+            //TangentaTableClass.Item_Image Item_Image_VITAMIN_PACKUNG  = new TangentaTableClass.Item_Image();
+            //Item_Image_VITAMIN_PACKUNG.Image_Data.val = ImageToByte2(Properties.Resources.VITAMIN_PACKUNG);
+            //Item_Image_VITAMIN_PACKUNG.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_VITAMIN_PACKUNG.Image_Data.val);
+            //m_List_Item_Image.Add(Item_Image_VITAMIN_PACKUNG);
 
-            TangentaTableClass.Item_Image Item_Image_VITAMIN_SUPREME = new TangentaTableClass.Item_Image();
-            Item_Image_VITAMIN_SUPREME.Image_Data.val = ImageToByte2(Properties.Resources.VITAMIN_SUPREME);
-            Item_Image_VITAMIN_SUPREME.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_VITAMIN_SUPREME.Image_Data.val);
-            m_List_Item_Image.Add(Item_Image_VITAMIN_SUPREME);
+            //TangentaTableClass.Item_Image Item_Image_VITAMIN_SUPREME = new TangentaTableClass.Item_Image();
+            //Item_Image_VITAMIN_SUPREME.Image_Data.val = ImageToByte2(Properties.Resources.VITAMIN_SUPREME);
+            //Item_Image_VITAMIN_SUPREME.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_VITAMIN_SUPREME.Image_Data.val);
+            //m_List_Item_Image.Add(Item_Image_VITAMIN_SUPREME);
 
-            TangentaTableClass.Item_Image Item_Image_Active_Concentrate_Repair_Complex = new TangentaTableClass.Item_Image();
-            Item_Image_Active_Concentrate_Repair_Complex.Image_Data.val = ImageToByte2(Properties.Resources.Active_Concentrate_Repair_Complex);
-            Item_Image_Active_Concentrate_Repair_Complex.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Active_Concentrate_Repair_Complex.Image_Data.val);
-            m_List_Item_Image.Add(Item_Image_Active_Concentrate_Repair_Complex);
+            //TangentaTableClass.Item_Image Item_Image_Active_Concentrate_Repair_Complex = new TangentaTableClass.Item_Image();
+            //Item_Image_Active_Concentrate_Repair_Complex.Image_Data.val = ImageToByte2(Properties.Resources.Active_Concentrate_Repair_Complex);
+            //Item_Image_Active_Concentrate_Repair_Complex.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Active_Concentrate_Repair_Complex.Image_Data.val);
+            //m_List_Item_Image.Add(Item_Image_Active_Concentrate_Repair_Complex);
 
-            TangentaTableClass.Item_Image Item_Image_Beautipharm_Self_Bronzer = new TangentaTableClass.Item_Image();
-            Item_Image_Beautipharm_Self_Bronzer.Image_Data.val = ImageToByte2(Properties.Resources.Beautipharm_Self_Bronzer);
-            Item_Image_Beautipharm_Self_Bronzer.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Self_Bronzer.Image_Data.val);
-            m_List_Item_Image.Add(Item_Image_Beautipharm_Self_Bronzer);
-
-
-            TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_30_High = new TangentaTableClass.Item_Image();
-            Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_30_HIGH);
-            Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Data.val);
-            m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_30_High);
+            //TangentaTableClass.Item_Image Item_Image_Beautipharm_Self_Bronzer = new TangentaTableClass.Item_Image();
+            //Item_Image_Beautipharm_Self_Bronzer.Image_Data.val = ImageToByte2(Properties.Resources.Beautipharm_Self_Bronzer);
+            //Item_Image_Beautipharm_Self_Bronzer.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Self_Bronzer.Image_Data.val);
+            //m_List_Item_Image.Add(Item_Image_Beautipharm_Self_Bronzer);
 
 
-            TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium = new TangentaTableClass.Item_Image();
-            Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_20_MEDIUM);
-            Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Data.val);
-            m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium);
+            //TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_30_High = new TangentaTableClass.Item_Image();
+            //Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_30_HIGH);
+            //Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_30_High.Image_Data.val);
+            //m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_30_High);
+
+
+            //TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium = new TangentaTableClass.Item_Image();
+            //Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_20_MEDIUM);
+            //Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium.Image_Data.val);
+            //m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium);
 
             
-            TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic = new TangentaTableClass.Item_Image();
-            Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_12_BASIC);
-            Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Data.val);
-            m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic);
+            //TangentaTableClass.Item_Image Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic = new TangentaTableClass.Item_Image();
+            //Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Data.val = ImageToByte2(Properties.Resources.BEAUTIPHARM_SUN_MILK_SPF_12_BASIC);
+            //Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Hash.val = DBtypesFunc.GetHash_SHA1(Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic.Image_Data.val);
+            //m_List_Item_Image.Add(Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic);
 
             TangentaTableClass.Expiry Expiry1 = new TangentaTableClass.Expiry();
             Expiry1.ExpectedShelfLifeInDays.val = 60;
@@ -253,7 +173,7 @@ namespace Tangenta
 Apply VITAMIN PACKUNG, sparing the eyes, and leave on the skin for approx. 15-20 minutes. Then remove with moist, lukewarm compresses. The application of VITAMIN PACKUNG is recommended once or twice a week.
 Tip: Leave on for 20 minutes, and evening full massage.
             ";
-            Item.m_Item_Image = Item_Image_VITAMIN_PACKUNG;
+            //Item.m_Item_Image = Item_Image_VITAMIN_PACKUNG;
 
             Item.m_Expiry.ID.val = 1;
 
@@ -268,7 +188,7 @@ Tip: Leave on for 20 minutes, and evening full massage.
                                      Apply VITAMIN SUPREME in the evening to a clean, dry skin. Pour a sufficient amount of the cream in the palm of the hand and apply evenly. Let the cream absorb completely or massage in gently. VITAMIN SUPREME is well suited for massages. 
                                     ";
             Item.m_Expiry.ExpiryDescription.val = @"";
-            Item.m_Item_Image = Item_Image_VITAMIN_SUPREME;
+//            Item.m_Item_Image = Item_Image_VITAMIN_SUPREME;
             Item.m_Expiry.ID.val = 2;
 
             m_List_Item.Add(Item);
@@ -283,7 +203,7 @@ Contains soy extract, antioxidant, oligopeptides and vitamins. No artificial col
 application:
 Apply ACTIVE CONCENTRATE REPAIR COMPLEX to a clean, dry skin before using day- or night-cream. Pour a sufficient amount of the complex in the palm of the hand, apply and let it absorb completely or massage in gently. For local use, small amounts of concentrate are applied to demanding skin areas whenever necessary. 
                                     ";
-            Item.m_Item_Image = Item_Image_Active_Concentrate_Repair_Complex;
+            //Item.m_Item_Image = Item_Image_Active_Concentrate_Repair_Complex;
             Item.m_Expiry.ID.val = 3;
             m_List_Item.Add(Item);
 
@@ -299,7 +219,7 @@ Contains a combination of physiological dihydroxyacetone (DHA) and natural eryth
 application:
 Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount of in the palm of the hand, apply evenly and let it absorb completely or massage in gently. Repeat application to intensify tan. Avoid contact with clothing and wash hands thoroughly after use. 
                                     ";
-            Item.m_Item_Image = Item_Image_Beautipharm_Self_Bronzer;
+   //         Item.m_Item_Image = Item_Image_Beautipharm_Self_Bronzer;
             Item.m_Expiry.ID.val = 1;
 
             m_List_Item.Add(Item);
@@ -324,7 +244,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             Item.Name.val = "Beautipharm® Sun Milk SPF 30 High";
             Item.Code.val = 6;
             Item.Description.val = @"Moisturizing sun milk for face and body. Provides medium UVA and UVB sun protection.";
-            Item.m_Item_Image = Item_Image_Beautipharm_Sun_Milk_SPF_30_High;
+            //Item.m_Item_Image = Item_Image_Beautipharm_Sun_Milk_SPF_30_High;
             Item.m_Expiry = null;
             m_List_Item.Add(Item);
 
@@ -334,7 +254,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             Item.Name.val = "Beautipharm® Sun Milk SPF 20 Medium";
             Item.Code.val = 7;
             Item.Description.val = @"Moisturizing sun milk for face and body. Provides medium UVA and UVB sun protection.";
-            Item.m_Item_Image = Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium;
+            //Item.m_Item_Image = Item_Image_Beautipharm_Sun_Milk_SPF_20_Medium;
             Item.m_Expiry = null;
             m_List_Item.Add(Item);
 
@@ -344,7 +264,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             Item.Name.val = "Beautipharm® Sun Milk SPF 12 Basic";
             Item.Code.val = 8;
             Item.Description.val = @"Moisturizing sun milk for face and body. Provides basic UVA and UVB sun protection.";
-            Item.m_Item_Image = Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic;
+            //Item.m_Item_Image = Item_Image_Beautipharm_Sun_Milk_SPF_12_Basic;
             Item.m_Expiry.ID.val = 1;
             m_List_Item.Add(Item);
 
@@ -642,7 +562,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                 if (pl_SimpleItem.m_SimpleItem.Abbreviation.val.Equals("PED"))
                 {
                     lsql_par = new List<DBConnectionControl40.SQL_Parameter>();
-                    Image_Data = ImageToByte2(Properties.Resources.Pedikira);
+                    //Image_Data = ImageToByte2(Properties.Resources.Pedikira);
                     Image_Hash = DBtypesFunc.GetHash_SHA1(Image_Data);
                     DBConnectionControl40.SQL_Parameter sql_par = new DBConnectionControl40.SQL_Parameter("@image", SQL_Parameter.eSQL_Parameter.Varbinary, false, Image_Data);
                     sql_par.SQLiteDbType = System.Data.DbType.Binary;
@@ -654,19 +574,19 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                 else if (pl_SimpleItem.m_SimpleItem.Abbreviation.val.Equals("MAN"))
                 {
                     lsql_par = new List<DBConnectionControl40.SQL_Parameter>();
-                    Image_Data = ImageToByte2(Properties.Resources.Manikira);
+                    //Image_Data = ImageToByte2(Properties.Resources.Manikira);
                     Image_Hash = DBtypesFunc.GetHash_SHA1(Image_Data);
-                    DBConnectionControl40.SQL_Parameter sql_par = new DBConnectionControl40.SQL_Parameter("@image", SQL_Parameter.eSQL_Parameter.Varbinary, false, ImageToByte2(Properties.Resources.Manikira));
-                    sql_par.SQLiteDbType = System.Data.DbType.Binary;
+//                    DBConnectionControl40.SQL_Parameter sql_par = new DBConnectionControl40.SQL_Parameter("@image", SQL_Parameter.eSQL_Parameter.Varbinary, false, ImageToByte2(Properties.Resources.Manikira));
+                    //sql_par.SQLiteDbType = System.Data.DbType.Binary;
                     DBConnectionControl40.SQL_Parameter sql_par_hash = new DBConnectionControl40.SQL_Parameter("@hash", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Image_Hash);
                     sql_par_hash.SQLiteDbType = System.Data.DbType.AnsiString;
-                    lsql_par.Add(sql_par);
+                    //lsql_par.Add(sql_par);
                     lsql_par.Add(sql_par_hash);
                 }
                 else if (pl_SimpleItem.m_SimpleItem.Abbreviation.val.Equals("NOB"))
                 {
                     lsql_par = new List<DBConnectionControl40.SQL_Parameter>();
-                    Image_Data = ImageToByte2(Properties.Resources.Nega_Obraza);
+                    //Image_Data = ImageToByte2(Properties.Resources.Nega_Obraza);
                     Image_Hash = DBtypesFunc.GetHash_SHA1(Image_Data);
                     DBConnectionControl40.SQL_Parameter sql_par = new DBConnectionControl40.SQL_Parameter("@image", SQL_Parameter.eSQL_Parameter.Varbinary, false, Image_Data);
                     DBConnectionControl40.SQL_Parameter sql_par_hash = new DBConnectionControl40.SQL_Parameter("@hash", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Image_Hash);

@@ -375,6 +375,11 @@
     <Compile Include="Form_PaymentCash.Designer.cs">
       <DependentUpon>Form_PaymentCash.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Return_to_shop_shelf_data.cs" />
     <Compile Include="SumPayment.cs" />
     <Compile Include="TaxSum.cs" />
@@ -691,8 +696,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_StartupWindow.resx">
       <DependentUpon>Form_StartupWindow.cs</DependentUpon>
@@ -705,11 +710,6 @@
     <EmbeddedResource Include="usrc_Price_ItemOrService.resx">
       <DependentUpon>usrc_Price_ItemOrService.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -863,6 +863,10 @@
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>TangentaDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
+      <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
+      <Name>TangentaSampleDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
       <Name>UniversalInvoice</Name>
@@ -910,27 +914,6 @@
     <None Include="Resources\Item_Stock.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Manikira.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Nega Obraza.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Pedikira.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\VITAMIN PACKUNG.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\VITAMIN SUPREME.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Active Concentrate Repair Complex.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Beautipharm Self Bronzer.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\New.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -962,15 +945,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\RemoveFromBoxToFactory.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 30 HIGH.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 20 MEDIUM.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BEAUTIPHARM SUN MILK SPF 12 BASIC.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Currency_icon.ico" />

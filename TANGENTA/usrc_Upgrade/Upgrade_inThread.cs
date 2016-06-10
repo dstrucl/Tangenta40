@@ -3574,7 +3574,7 @@ namespace UpgradeDB
 
                     if (CheckInsertDefaultOrganisation())
                     {
-                        if (fs.Init_Sample_DB(ref Err))
+                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref Err))
                         {
                             return true;
                         }
@@ -3698,7 +3698,7 @@ namespace UpgradeDB
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke studia Marjetka?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        if (fs.Init_Sample_DB(ref Err))
+                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref Err))
                         {
                             return false;
                             //$$$
