@@ -21,9 +21,15 @@ namespace TangentaDB
         public string Name = null;
         public string Abbreviation = null;
         public string Symbol = null;
-        public int CurrencyCode = -1;
+        private int m_CurrencyCode = -1;
         public int DecimalPlaces = -1;
 
+        public int CurrencyCode
+        {
+            get { return m_CurrencyCode; }
+            set { m_CurrencyCode = value;}
+        }
+        
         public xCurrency()
         {
         }
@@ -33,7 +39,7 @@ namespace TangentaDB
             Country= xCountry;
             Name = xName;
             Abbreviation = xAbbreviation;
-            CurrencyCode = xCode;
+            m_CurrencyCode = xCode;
             Symbol = xSymbol;
             DecimalPlaces = xDecimalPlaces;
         }
@@ -50,7 +56,7 @@ namespace TangentaDB
                     Name = (string)dt.Rows[0]["Name"];
                     Abbreviation = (string)dt.Rows[0]["Abbreviation"];
                     Symbol = (string)dt.Rows[0]["Symbol"];
-                    CurrencyCode = (int)dt.Rows[0]["CurrencyCode"];
+                    m_CurrencyCode = (int)dt.Rows[0]["CurrencyCode"];
                     DecimalPlaces = (int)dt.Rows[0]["DecimalPlaces"];
                     return true;
                 }

@@ -95,7 +95,7 @@ namespace Country_ISO_3166
             new ISO_3166("Burundi","BI","BDI",108,"ISO 3166 - 2:BI","Burundi Franc","BIF","BIF",108,0,"Burundi"),
             new ISO_3166("Cambodia","KH","KHM",116,"ISO 3166 - 2:KH","Riel","KHR","KHR",116,2,"Kambodža"),
             new ISO_3166("Cameroon","CM","CMR",120,"ISO 3166 - 2:CM","CFA Franc BEAC","XAF","XAF",950,0,"Kamerun"),
-            new ISO_3166("Canada","CA","CAN",124,"ISO 3166 - 2:CA","Canadian Dollar","CAD","CAD",124,2,"Kanada"),
+            new ISO_3166("Canada","CA","CAN",124,"ISO 3166 - 2:CA","Canadian Dollar","CAD","$",124,2,"Kanada"),
             new ISO_3166("Cabo Verde","CV","CPV",132,"ISO 3166 - 2:CV","Cabo Verde Escudo","CVE","CVE",132,2,"Zelenortski Otoki"),
             new ISO_3166("Cayman Islands","KY","CYM",136,"ISO 3166 - 2:KY","Cayman Islands Dollar","KYD","KYD",136,2,"Kajmanski otoki"),
             new ISO_3166("Central African Republic","CF","CAF",140,"ISO 3166 - 2:CF","CFA Franc BEAC","XAF","XAF",950,0,"Centralna Afriška Republika"),
@@ -153,16 +153,16 @@ namespace Country_ISO_3166
             new ISO_3166("Heard Island and McDonald Islands","HM","HMD",334,"ISO 3166 - 2:HM","Australian Dollar","AUD","$",36,2,"Otok Heard in otočje McDonald"),
             new ISO_3166("Holy See","VA","VAT",336,"ISO 3166 - 2:VA","Euro","EUR","€",978,2,"Sveti sedež"),
             new ISO_3166("Honduras","HN","HND",340,"ISO 3166 - 2:HN","Lempira","HNL","HNL",340,2,"Honduras"),
-            new ISO_3166("Hong Kong","HK","HKG",344,"ISO 3166 - 2:HK","Hong Kong Dollar","HKD","HKD",344,2,"Hong Kong"),
+            new ISO_3166("Hong Kong","HK","HKG",344,"ISO 3166 - 2:HK","Hong Kong Dollar","HKD","$",344,2,"Hong Kong"),
             new ISO_3166("Hungary","HU","HUN",348,"ISO 3166 - 2:HU","Forint","HUF","Ft",348,2,"Madžarska"),
             new ISO_3166("Iceland","IS","ISL",352,"ISO 3166 - 2:IS","Iceland Krona","ISK","ISK",352,0,"Islandija"),
             new ISO_3166("India","IN","IND",356,"ISO 3166 - 2:IN","Indian Rupee","INR","₹",356,2,"Indija"),
-            new ISO_3166("Indonesia","ID","IDN",360,"ISO 3166 - 2:ID","Rupiah","IDR","IDR",360,2,"Indonezija"),
+            new ISO_3166("Indonesia","ID","IDN",360,"ISO 3166 - 2:ID","Rupiah","IDR","Rp",360,2,"Indonezija"),
             new ISO_3166("Iran(Islamic Republic of)","IR","IRN",364,"ISO 3166 - 2:IR","Iranian Rial","IRR","IRR",364,2,"Iran"),
             new ISO_3166("Iraq","IQ","IRQ",368,"ISO 3166 - 2:IQ","Iraqi Dinar","IQD","IQD",369,3,"Irak"),
             new ISO_3166("Ireland","IE","IRL",372,"ISO 3166 - 2:IE","Euro","EUR","€",978,2,"Irska "),
             new ISO_3166("Isle of Man","IM","IMN",833,"ISO 3166 - 2:IM","Pound Sterling","GBP","£",826,2,"Man"),
-            new ISO_3166("Israel","IL","ISR",376,"ISO 3166 - 2:IL","New Israeli Sheqel","ILS","ILS",376,2,"Izrael"),
+            new ISO_3166("Israel","IL","ISR",376,"ISO 3166 - 2:IL","New Israeli Sheqel","ILS","₪",376,2,"Izrael"),
             new ISO_3166("Italy","IT","ITA",380,"ISO 3166 - 2:IT","Euro","EUR","€",978,2,"Italija"),
             new ISO_3166("Jamaica","JM","JAM",388,"ISO 3166 - 2:JM","Jamaican Dollar","JMD","JMD",388,2,"Jamajka"),
             new ISO_3166("Japan","JP","JPN",392,"ISO 3166 - 2:JP","Yen","JPY","¥",392,0,"Japonska"),
@@ -172,7 +172,7 @@ namespace Country_ISO_3166
             new ISO_3166("Kenya","KE","KEN",404,"ISO 3166 - 2:KE","Kenyan Shilling","KES","KES",404,2,"Kenija"),
             new ISO_3166("Kiribati","KI","KIR",296,"ISO 3166 - 2:KI","Australian Dollar","AUD","$",36,2,"Kiribati"),
             new ISO_3166("Korea(Democratic People's Republic of)","KP","PRK",408,"ISO 3166-2:KP ","North Korean Won","KPW","KPW",408,2,"Severna Koreja"),
-            new ISO_3166("Korea(Republic of)","KR","KOR",410,"ISO 3166 - 2:KR","Won","KRW","KRW",410,0,"Južna Koreja"),
+            new ISO_3166("Korea(Republic of)","KR","KOR",410,"ISO 3166 - 2:KR","Won","KRW","₩",410,0,"Južna Koreja"),
             new ISO_3166("Kuwait","KW","KWT",414,"ISO 3166 - 2:KW","Kuwaiti Dinar","KWD","KWD",414,3,"Kuvajt"),
             new ISO_3166("Kyrgyzstan","KG","KGZ",417,"ISO 3166 - 2:KG","Som","KGS","KGS",417,2,"Kirgizistan"),
             new ISO_3166("Lao People's Democratic Republic","LA","LAO",418,"ISO 3166-2:LA ","Kip","LAK","LAK",418,2,"Laos"),
@@ -188,7 +188,7 @@ namespace Country_ISO_3166
             new ISO_3166("Macedonia(the former Yugoslav Republic of)","MK","MKD",807,"ISO 3166 - 2:MK","Denar","MKD","MKD",807,2,"Makedonija"),
             new ISO_3166("Madagascar","MG","MDG",450,"ISO 3166 - 2:MG","Malagasy Ariary","MGA","MGA",969,2,"Madagaskar"),
             new ISO_3166("Malawi","MW","MWI",454,"ISO 3166 - 2:MW","Malawi Kwacha","MWK","MWK",454,2,"Malavi"),
-            new ISO_3166("Malaysia","MY","MYS",458,"ISO 3166 - 2:MY","Malaysian Ringgit","MYR","MYR",458,2,"Malezija"),
+            new ISO_3166("Malaysia","MY","MYS",458,"ISO 3166 - 2:MY","Malaysian Ringgit","MYR","RM",458,2,"Malezija"),
             new ISO_3166("Maldives","MV","MDV",462,"ISO 3166 - 2:MV","Rufiyaa","MVR","MVR",462,2,"Maldivi"),
             new ISO_3166("Mali","ML","MLI",466,"ISO 3166 - 2:ML","CFA Franc BCEAO","XOF","XOF",952,0,"Mali"),
             new ISO_3166("Malta","MT","MLT",470,"ISO 3166 - 2:MT","Euro","EUR","€",978,2,"Malta"),
@@ -197,7 +197,7 @@ namespace Country_ISO_3166
             new ISO_3166("Mauritania","MR","MRT",478,"ISO 3166 - 2:MR","Ouguiya","MRO","MRO",478,2,"Mavretanija"),
             new ISO_3166("Mauritius","MU","MUS",480,"ISO 3166 - 2:MU","Mauritius Rupee","MUR","MUR",480,2,"Mauritius"),
             new ISO_3166("Mayotte","YT","MYT",175,"ISO 3166 - 2:YT","Euro","EUR","€",978,2,"Mayotte"),
-            new ISO_3166("Mexico","MX","MEX",484,"ISO 3166 - 2:MX","Mexican Peso","MXN","MXN",484,2,"Mehika"),
+            new ISO_3166("Mexico","MX","MEX",484,"ISO 3166 - 2:MX","Mexican Peso","MXN","$",484,2,"Mehika"),
             new ISO_3166("Micronesia(Federated Countrys of)","FM","FSM",583,"ISO 3166 - 2:FM","US Dollar","USD","$",840,2,"Mikronezija"),
             new ISO_3166("Moldova(Republic of)","MD","MDA",498,"ISO 3166 - 2:MD","Moldovan Leu","MDL","MDL",498,2,"Moldavija"),
             new ISO_3166("Monaco","MC","MCO",492,"ISO 3166 - 2:MC","Euro","EUR","€",978,2,"Monako"),
@@ -212,7 +212,7 @@ namespace Country_ISO_3166
             new ISO_3166("Nepal","NP","NPL",524,"ISO 3166 - 2:NP","Nepalese Rupee","NPR","NPR",524,2,"Nepal"),
             new ISO_3166("Netherlands","NL","NLD",528,"ISO 3166 - 2:NL","Euro","EUR","€",978,2, "Nizozemska"),
             new ISO_3166("New Caledonia","NC","NCL",540,"ISO 3166 - 2:NC","CFP Franc","XPF","XPF",953,0,"Nova Kaledonija"),
-            new ISO_3166("New Zealand","NZ","NZL",554,"ISO 3166 - 2:NZ","New Zealand Dollar","NZD","NZD",554,2,"Nova Zelandija"),
+            new ISO_3166("New Zealand","NZ","NZL",554,"ISO 3166 - 2:NZ","New Zealand Dollar","NZD","$",554,2,"Nova Zelandija"),
             new ISO_3166("Nicaragua","NI","NIC",558,"ISO 3166 - 2:NI","Cordoba Oro","NIO","NIO",558,2,"Nikaragva"),
             new ISO_3166("Niger","NE","NER",562,"ISO 3166 - 2:NE","CFA Franc BCEAO","XOF","XOF",952,0,"Niger"),
             new ISO_3166("Nigeria","NG","NGA",566,"ISO 3166 - 2:NG","Naira","NGN","NGN",566,2,"Nigerija"),
@@ -228,14 +228,14 @@ namespace Country_ISO_3166
             new ISO_3166("Papua New Guinea","PG","PNG",598,"ISO 3166 - 2:PG","Kina","PGK","PGK",598,2,"Papua Nova Gvineja"),
             new ISO_3166("Paraguay","PY","PRY",600,"ISO 3166 - 2:PY","Guarani","PYG","PYG",600,0,"Paragvaj"),
             new ISO_3166("Peru","PE","PER",604,"ISO 3166 - 2:PE","Sol","PEN","PEN",604,2,"Peru"),
-            new ISO_3166("Philippines","PH","PHL",608,"ISO 3166 - 2:PH","Philippine Peso","PHP","PHP",608,2,"Filipini"),
+            new ISO_3166("Philippines","PH","PHL",608,"ISO 3166 - 2:PH","Philippine Peso","PHP","₱",608,2,"Filipini"),
             new ISO_3166("Pitcairn","PN","PCN",612,"ISO 3166 - 2:PN","New Zealand Dollar","NZD","NZD",554,2,"Pitcairnovi otoki"),
             new ISO_3166("Poland","PL","POL",616,"ISO 3166 - 2:PL","Zloty","PLN","zł",985,2,"Poljska"),
             new ISO_3166("Portugal","PT","PRT",620,"ISO 3166 - 2:PT","Euro","EUR","€",978,2,"Portugalska"),
             new ISO_3166("Puerto Rico","PR","PRI",630,"ISO 3166 - 2:PR","US Dollar","USD","$",840,2,"Portoriko"),
             new ISO_3166("Qatar","QA","QAT",634,"ISO 3166 - 2:QA","Qatari Rial","QAR","QAR",634,2,"Katar"),
             new ISO_3166("Réunion","RE","REU",638,"ISO 3166 - 2:RE","Euro","EUR","€",978,2,"Reunion"),
-            new ISO_3166("Romania","RO","ROU",642,"ISO 3166 - 2:RO","Romanian Leu","RON","RON",946,2,"Romunija"),
+            new ISO_3166("Romania","RO","ROU",642,"ISO 3166 - 2:RO","Romanian Leu","RON","lei",946,2,"Romunija"),
             new ISO_3166("Russian Federation","RU","RUS",643,"ISO 3166 - 2:RU","Ruble","RUB","руб",643,2,"Rusija"),
             new ISO_3166("Rwanda","RW","RWA",646,"ISO 3166 - 2:RW","Rwanda Franc","RWF","RWF",646,0,"Ruanda"),
             new ISO_3166("Saint Barthélemy","BL","BLM",652,"ISO 3166 - 2:BL","Euro","EUR","€",978,2,"Saint Barthélemy"),
@@ -253,13 +253,13 @@ namespace Country_ISO_3166
             new ISO_3166("Serbia","RS","SRB",688,"ISO 3166 - 2:RS","Serbian Dinar","RSD","RSD",941,2,"Srbija"),
             new ISO_3166("Seychelles","SC","SYC",690,"ISO 3166 - 2:SC","Seychelles Rupee","SCR","SCR",690,1,"Sejšeli"),
             new ISO_3166("Sierra Leone","SL","SLE",694,"ISO 3166 - 2:SL","Leone","SLL","SLL",694,2,"Sierra Leone"),
-            new ISO_3166("Singapore","SG","SGP",702,"ISO 3166 - 2:SG","Singapore Dollar","SGD","SGD",702,2,"Singapur"),
+            new ISO_3166("Singapore","SG","SGP",702,"ISO 3166 - 2:SG","Singapore Dollar","SGD","$",702,2,"Singapur"),
             new ISO_3166("Sint Maarten(Dutch part)","SX","SXM",534,"ISO 3166 - 2:SX","Netherlands Antillean Guilder","ANG","ANG",532,2,"Sint Maarten"),
             new ISO_3166("Slovakia","SK","SVK",703,"ISO 3166 - 2:SK","Euro","EUR","€",978,2,"Slovaška "),
             new ISO_3166("Slovenia","SI","SVN",705,"ISO 3166 - 2:SI","Euro","EUR","€",978,2, "Slovenija "),
             new ISO_3166("Solomon Islands","SB","SLB",090,"ISO 3166 - 2:SB","Solomon Islands Dollar","SBD","SBD",090,2,"Salomonovi otoki"),
             new ISO_3166("Somalia","SO","SOM",706,"ISO 3166 - 2:SO","Somali Shilling","SOS","SOS",706,2,"Somalija"),
-            new ISO_3166("South Africa","ZA","ZAF",710,"ISO 3166 - 2:ZA","Rand","ZAR","ZAR",710,2,"Srednjeafriška republika"),
+            new ISO_3166("South Africa","ZA","ZAF",710,"ISO 3166 - 2:ZA","Rand","ZAR","S",710,2,"Srednjeafriška republika"),
             new ISO_3166("South Georgia and the South Sandwich Islands","GS","SGS",239,"ISO 3166 - 2:GS",null,null,null,0,0,"Južna Georgia in Južni Sandwichevi otoki" ),
             new ISO_3166("South Sudan","SS","SSD",728,"ISO 3166 - 2:SS","South Sudanese Pound","SSP","SSP",728,2,"Južni Sudan"),
             new ISO_3166("Spain","ES","ESP",724,"ISO 3166 - 2:ES","Euro","EUR","€",978,2, "Španija"),
@@ -274,14 +274,14 @@ namespace Country_ISO_3166
             new ISO_3166("Taiwan, Province of China[a]","TW","TWN",158,"ISO 3166 - 2:TW","New Taiwan Dollar","TWD","TWD",901,2,"Tajvan"),
             new ISO_3166("Tajikistan","TJ","TJK",762,"ISO 3166 - 2:TJ","Somoni","TJS","TJS",972,2,"Tadžikistan"),
             new ISO_3166("Tanzania, United Republic of","TZ","TZA",834,"ISO 3166 - 2:TZ","Tanzanian Shilling","TZS","TZS",834,2,"Tanzanija"),
-            new ISO_3166("Thailand","TH","THA",764,"ISO 3166 - 2:TH","Baht","THB","THB",764,2,"Tajska"),
+            new ISO_3166("Thailand","TH","THA",764,"ISO 3166 - 2:TH","Baht","THB","฿",764,2,"Tajska"),
             new ISO_3166("Timor-Leste","TL","TLS",626,"ISO 3166 - 2:TL","US Dollar","USD","$",840,2,"Vzhodni Timor"),
             new ISO_3166("Togo","TG","TGO",768,"ISO 3166 - 2:TG","CFA Franc BCEAO","XOF","XOF",952,0,"Togo"),
             new ISO_3166("Tokelau","TK","TKL",772,"ISO 3166 - 2:TK","New Zealand Dollar","NZD","NZD",554,2,"Tokelau"),
             new ISO_3166("Tonga","TO","TON",776,"ISO 3166 - 2:TO","Pa’anga","TOP","TOP",776,2,"Tonga"),
             new ISO_3166("Trinidad and Tobago","TT","TTO",780,"ISO 3166 - 2:TT","Trinidad and Tobago Dollar","TTD","TTD",780,2,"Trinidad in Tobago"),
             new ISO_3166("Tunisia","TN","TUN",788,"ISO 3166 - 2:TN","Tunisian Dinar","TND","TND", 788,2,"Tunizija"),
-            new ISO_3166("Turkey","TR","TUR",792,"ISO 3166 - 2:TR","Turkish Lira","TRY","TRY",949,2,"Turčija"),
+            new ISO_3166("Turkey","TR","TUR",792,"ISO 3166 - 2:TR","Turkish Lira","TRY","₤",949,2,"Turčija"),
             new ISO_3166("Turkmenistan","TM","TKM",795,"ISO 3166 - 2:TM","Turkmenistan New Manat","TMT","TMT",934,2,"Turkmenistan"),
             new ISO_3166("Turks and Caicos Islands","TC","TCA",796,"ISO 3166 - 2:TC","US Dollar","USD","$",840,2,"Otoki Turks in Caicos"),
             new ISO_3166("Tuvalu","TV","TUV",798,"ISO 3166 - 2:TV","Australian Dollar","AUD","$",36,2,"Tuvalu"),
@@ -315,7 +315,7 @@ namespace Country_ISO_3166
                     {
                         if (item[i].State_Number == item[j].State_Number)
                         {
-                            LogFile.Error.Show("ERROR:Tax_Rates_by_Country_List:Country Code " + item[i].State_Number.ToString() + " for \"" + item[i].State_Name + "\" is the same for country \"" + item[j].State_Name + "\"");
+                            LogFile.Error.Show("ERROR:ISO_3166_Table:Tax_Rates_by_Country_List:Country Code " + item[i].State_Number.ToString() + " for \"" + item[i].State_Name + "\" is the same for country \"" + item[j].State_Name + "\"");
                         }
                     }
                 }
@@ -325,6 +325,12 @@ namespace Country_ISO_3166
             dt_ISO_3166.Columns.Add("a2", typeof(string));
             dt_ISO_3166.Columns.Add("a3", typeof(string));
             dt_ISO_3166.Columns.Add("num", typeof(short));
+            dt_ISO_3166.Columns.Add("Currency Name", typeof(string));
+            dt_ISO_3166.Columns.Add("Currency Abbreviation", typeof(string));
+            dt_ISO_3166.Columns.Add("Currency Symbol", typeof(string));
+            dt_ISO_3166.Columns.Add("Currency Code", typeof(int));
+            dt_ISO_3166.Columns.Add("Currency Decimal Places", typeof(int));
+
             foreach (ISO_3166 iso_3166 in item)
             {
                 DataRow dr = dt_ISO_3166.NewRow();
@@ -332,6 +338,11 @@ namespace Country_ISO_3166
                 dr["a2"] = iso_3166.State_A2;
                 dr["a3"] = iso_3166.State_A3;
                 dr["num"] = iso_3166.State_Number;
+                dr["Currency Name"] = iso_3166.Currency_Name;
+                dr["Currency Abbreviation"] = iso_3166.Currency_Abbreviation;
+                dr["Currency Symbol"] = iso_3166.Currency_Symbol;
+                dr["Currency Code"] = iso_3166.Currency_Code;
+                dr["Currency Decimal Places"] = iso_3166.Currency_DecimalPlaces;
                 dt_ISO_3166.Rows.Add(dr);
             }
             DataTable dt = convertStringToDataTable(Country.Properties.Resources.ISO_4217_country_currency_table);
