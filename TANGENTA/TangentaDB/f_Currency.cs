@@ -1,4 +1,5 @@
-﻿using DBConnectionControl40;
+﻿using Country_ISO_3166;
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,40 +11,17 @@ namespace TangentaDB
 {
     public static class f_Currency
     {
-        public class CurrencyInCountry
+        public static bool Get(int Country_num, ref long Currency_ID)
         {
-            public string CountryCode_A3 = null;
-            public string Abbreviation = null;
-            public string Name = null;
-            public string Symbol = null;
-            public int CurrencyCode = -1;
-            public int DecimalPlaces = 0;
-            public long ID = -1;
-            public CurrencyInCountry(string xCountryCode_A3,string xAbbreviation, string xName,string xSymbol,int xCurrencyCode, int xDecimalPlaces)
-            {
-                CountryCode_A3 = xCountryCode_A3;
-                Abbreviation = xAbbreviation;
-                Name = xName;
-                Symbol = xSymbol;
-                CurrencyCode = xCurrencyCode;
-                DecimalPlaces = xDecimalPlaces;
-            }
-        }
-        public static f_Currency.CurrencyInCountry[] DefaultCurrencyInCountryList = new f_Currency.CurrencyInCountry[] { new CurrencyInCountry("SLO", "EUR","EURO","€",978,2),
-                                                                                                                         new CurrencyInCountry("DEU", "EUR","EURO","€",978,2)
-                                                                                                                };
+            Currency_ID = -1;
+            ISO_3166_Table iso_3166_Table = new ISO_3166_Table();
 
-        public static bool Get(string CountryCode_A3)
-        {
-            foreach (CurrencyInCountry cur in DefaultCurrencyInCountryList)
+            foreach (ISO_3166 iso in iso_3166_Table.item)
             {
-
-                if (cur.CountryCode_A3.Equals(CountryCode_A3))
+                if (iso.State_Number == Country_num)
                 {
-                    long Currency_ID = -1;
-                    if (Get(cur.Abbreviation,cur.Name, cur.Symbol,cur.CurrencyCode,cur.DecimalPlaces, ref Currency_ID))
+                    if (Get(iso.Currency_Abbreviation, iso.Currency_Name, iso.Currency_Symbol,iso.Currency_Code,iso.Currency_DecimalPlaces, ref Currency_ID))
                     {
-                        cur.ID = Currency_ID;
                         continue;
                     }
                     else

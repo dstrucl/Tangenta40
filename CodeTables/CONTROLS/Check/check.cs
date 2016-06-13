@@ -12,26 +12,31 @@ namespace Check
 {
     public class check: PictureBox
     {
-        private bool m_value = false;
-        public bool Value
+        public enum eState { TRUE, FALSE, UNDEFINED };
+        private eState m_eState = eState.UNDEFINED;
+        public eState State
         {
-            get { return m_value; }
-            set { m_value = value;
-                  if (m_value)
-                  {
-                    base.Image = Properties.Resources.check_true;
-                  }
-                  else
-                  {
-                    base.Image = Properties.Resources.check_false;
-                  }
-                this.Refresh();
+            get { return m_eState; }
+            set {
+                    m_eState = value;
+                    switch (m_eState)
+                    {
+                        case eState.UNDEFINED:
+                            base.Image = Properties.Resources.check_undefined;
+                            break;
+                        case eState.TRUE:
+                            base.Image = Properties.Resources.check_true;
+                            break;
+                        case eState.FALSE:
+                            base.Image = Properties.Resources.check_false;
+                            break;
+                    }
                 }
         }
         public check()
         {
-            m_value = false;
-            base.Image = Properties.Resources.check_false;
+            m_eState = eState.UNDEFINED;
+            base.Image = Properties.Resources.check_undefined;
         }
     }
 }

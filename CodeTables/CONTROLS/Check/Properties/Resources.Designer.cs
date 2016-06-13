@@ -73,9 +73,9 @@ namespace Check.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap check_false1 {
+        internal static System.Drawing.Bitmap check_true {
             get {
-                object obj = ResourceManager.GetObject("check_false1", resourceCulture);
+                object obj = ResourceManager.GetObject("check_true", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Check.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap check_true {
+        internal static System.Drawing.Bitmap check_undefined {
             get {
-                object obj = ResourceManager.GetObject("check_true", resourceCulture);
+                object obj = ResourceManager.GetObject("check_undefined", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

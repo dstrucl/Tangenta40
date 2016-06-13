@@ -17,6 +17,21 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        #region StartUp
+        public static ltext s_Startup_Check_DataBase = new ltext("Connecting with Database","Povezovanje s bazo podatkov");
+        public static ltext s_Startup_Read_DBSettings = new ltext("Read Database Settings", "Branje nastavitev iz podatkovne baze");
+        public static ltext s_Startup_Get_shops_in_use = new ltext("Get shops in use", "Branje nastavitev trgovin v uporabi");
+        public static ltext s_Startup_GetOrganisationData = new ltext("Reading organisation data ", "Branje podatkov o vaši organizaciji");
+        public static ltext s_Startup_GetBaseCurrency = new ltext("Getting default currency", "Pridobivanje privzete valute");
+        public static ltext s_Startup_GetTaxation = new ltext("Reading default taxation", "Branje davčnih stopenj");
+        public static ltext s_Startup_GetSimpleItemData = new ltext("Reading ShopB Items", "Branje artiklov/storitev trgovine B");
+        public static ltext s_Startup_GetItemData = new ltext("Reading ShopC Items", "Branje artiklov/storitev trgovine C");
+        public static ltext s_Startup_Login = new ltext("Login", "Prijava");
+        
+
+
+        #endregion
+
         public static ltext s_StartupProgram = new ltext("Program Startup", "Zagon Programa Tangenta");
         public static ltext s_DataBaseIsEmpty_InsertInitialData = new ltext("Database is empty. Insert common sample data of organisation which name is Organisation1 and you can change this data later to your real organisation data? (Yes/No)", "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke neke splošne organizacije z imenom Podjetje1,\r\nsami pa lahko potem kadarkoli te podatke spremenite v podatke vaše organizacije? (Da/Ne)");
         public static ltext s_UpgradeBackupFileExist_restore_old_Database = new ltext("Upgrade failed, Database backup file exists. Restore DataBase \"%s\" (Yes/No) ?", "Nadgradnja podatkovne baze je bila neuspešna.\r\n Povrnem podatkovno bazo v prejšne stanje iz datoteke:\"%s\" (Da/Ne) ?");

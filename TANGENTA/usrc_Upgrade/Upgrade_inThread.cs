@@ -19,6 +19,7 @@ using TangentaDB;
 using ThreadProcessor;
 using System.ComponentModel;
 using System.IO;
+using Startup;
 
 namespace UpgradeDB
 {
@@ -3533,16 +3534,16 @@ namespace UpgradeDB
             }
         }
 
-        public bool Read_DBSettings_Version(ref bool bUpgradeDone, ref string Err)
+        public bool Read_DBSettings_Version(ref fs.enum_GetDBSettings eGetDBSettings_Result,ref bool bUpgradeDone, ref string Err)
         {
             string xTextValue = null;
             bool xReadOnly = false;
-            bUpgradeDone = false;
             Restore_if_UpgradeBackupFileExists(ref m_Full_backup_filename);
-            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
+            eGetDBSettings_Result = fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
                                    ref xTextValue,
                                    ref xReadOnly,
-                                   ref Err))
+                                   ref Err);
+            switch (eGetDBSettings_Result)
             {
                 case fs.enum_GetDBSettings.DBSettings_OK:
                     if (xTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
@@ -3571,7 +3572,6 @@ namespace UpgradeDB
 
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
-
                     if (CheckInsertDefaultOrganisation())
                     {
                         if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref Err))
@@ -3607,7 +3607,6 @@ namespace UpgradeDB
                     return false;
 
             }
-
         }
 
         private bool Restore_if_UpgradeBackupFileExists(ref string full_backup_filename)
@@ -3655,10 +3654,11 @@ namespace UpgradeDB
 
         }
 
-        public  bool Read_DBSettings(ref bool bUpgradeDone)
+        public  bool Read_DBSettings(object oData, ref string Err,ref startup_step.eStep eNextStep)
         {
-            string Err = null;
-            if (Read_DBSettings_Version(ref bUpgradeDone, ref Err))
+            bool bUpgradeDone = false;
+            fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
+            if (Read_DBSettings_Version(ref eGetDBSettings_Result,ref bUpgradeDone, ref Err))
             {
                 if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
                 {
@@ -3666,11 +3666,22 @@ namespace UpgradeDB
                     {
                         if (fs.Read_DBSettings_StockCheckAtStartup(bUpgradeDone, ref Err))
                         {
-                            return true;
+                            if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
+                            {
+                                switch (eGetDBSettings_Result)
+                                {
+                                    case fs.enum_GetDBSettings.No_Data_Rows:
+                                        eNextStep = startup_step.eStep.Get_shops_in_use;
+                                        return true;
+                                }
+                                eNextStep = startup_step.eStep.GetOrganisationData;
+                                return true;
+                            }
                         }
                     }
                 }
             }
+            eNextStep = startup_step.eStep.End;
             return false;
         }
 

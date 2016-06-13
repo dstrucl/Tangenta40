@@ -8,6 +8,7 @@
 using DBTypes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -89,6 +90,44 @@ namespace TangentaDB
             return true;
         }
 
+        public static bool Get_BaseCurrency(ref string BaseCurrency_Text,ref string Err)
+        {
+            string sql_BaseCurrency = "select Currency_ID from BaseCurrency";
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql_BaseCurrency, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    long currency_id = (long)dt.Rows[0]["Currency_ID"];
+
+                    if (GlobalData.BaseCurrency == null)
+                    {
+                        GlobalData.BaseCurrency = new xCurrency();
+                    }
+                    if (GlobalData.BaseCurrency.SetCurrency(currency_id, ref Err))
+                    {
+                        BaseCurrency_Text = GlobalData.BaseCurrency.Abbreviation + " " + GlobalData.BaseCurrency.Symbol;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    BaseCurrency_Text = null;
+                    return true;
+                }
+            }
+            else
+            {
+                Err = "ERROR:usrc_Invoice:Init_Currency_Table:Err=" + Err;
+                return false;
+            }
+        }
+
+
         public static int Get_BaseCurrency_DecimalPlaces()
         {
             if (GlobalData.BaseCurrency != null)
@@ -102,5 +141,20 @@ namespace TangentaDB
             }
         }
 
+        public static bool InsertIntoBaseCurrency(long currency_ID, ref string Err)
+        {
+            string sql_SetBaseCurrency = "Insert into BaseCurrency (Currency_ID) Values (" + currency_ID.ToString() + ")";
+            object oRes = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetBaseCurrency, null, ref oRes, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                Err = "ERROR:usrc_Invoice:Init_Currency_Table:sql = "+ sql_SetBaseCurrency+"\r\nErr = " + Err;
+                LogFile.Error.Show(Err);
+                return false;
+            }
+        }
     }
 }

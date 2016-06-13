@@ -15,7 +15,7 @@ using DBConnectionControl40;
 using System.Data;
 using System.Drawing;
 using DBTypes;
-
+using Country_ISO_3166;
 
 namespace TangentaDB
 {
@@ -40,7 +40,8 @@ namespace TangentaDB
         public static string_v Logo_Description_v = null;
         public static List<myOrg_Office> myOrg_Office_list = new List<myOrg_Office>();
         public static List<myOrg_Person> myOrg_Person_list = new List<myOrg_Person>();
-
+        public static long Default_Currency_ID = -1;
+        public static tnr[] Default_TaxRates = null;
 
         public static bool Get(long myOrg_id)
         {

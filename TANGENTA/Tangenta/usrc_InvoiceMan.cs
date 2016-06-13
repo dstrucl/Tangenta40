@@ -106,28 +106,19 @@ namespace Tangenta
 
             splitContainer1.Panel2Collapsed = false;
             string Err = null;
-            if (m_usrc_Invoice.Get_BaseCurrency(ref Err))
-            {
-                int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,true,Properties.Settings.Default.FinancialYear);
-                //                if (iRowsCount == 0)
-                //                {
-                if (!m_usrc_Invoice.Init(m_pparent, this,-1, true))
-                    {
-                        Program.Cursor_Arrow();
-                        return false;
-                    }
-                //}
-                SetInitialMode();
-                SetMode(Mode);
-                Program.Cursor_Arrow();
-                return true;
-            }
-            else
-            {
-                Program.Cursor_Arrow();
-                LogFile.Error.Show("ERROR:usrc_InvoiceMan:Init:m_usrc_Invoice.Get_BaseCurrency:Err = " + Err);
-                return false;
-            }
+            int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,true,Properties.Settings.Default.FinancialYear);
+            //                if (iRowsCount == 0)
+            //                {
+            if (!m_usrc_Invoice.Init(m_pparent, this,-1, true))
+                {
+                    Program.Cursor_Arrow();
+                    return false;
+                }
+            //}
+            SetInitialMode();
+            SetMode(Mode);
+            Program.Cursor_Arrow();
+            return true;
 
         }
 

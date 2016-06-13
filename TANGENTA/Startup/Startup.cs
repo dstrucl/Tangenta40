@@ -13,36 +13,56 @@ namespace Startup
 
     public class startup
         {
-        private Control m_parent_ctrl = null;
-        internal startup_step[] Step_ResetNew = null;
-        private startup_step[] Step_ProgramInstalled;
+
+        public Form m_parent_form = null;
+        public usrc_Startup m_usrc_Startup = null;
+        internal startup_step[] Step = null;
 
 
-        public startup(Control xparent_ctrl, startup_step[] xStep_ResetNew, startup_step[] xStep_ProgramInstalled)
+        public startup(Form parent_form, startup_step[] xStep)
         {
-            m_parent_ctrl = xparent_ctrl;
-            Step_ResetNew = xStep_ResetNew;
-            Step_ProgramInstalled = xStep_ProgramInstalled;
+            m_parent_form = parent_form;
+            Step = xStep;
+            m_usrc_Startup = new usrc_Startup(this);
         }
 
-        public object Startup_ShowHelp(object o,ref string Err)
+
+        public bool Execute(startup_step[] step, ref string Err)
         {
-            return false;
+            startup_step.eStep eStep = startup_step.eStep.Check_DataBase;
+            while (eStep != startup_step.eStep.End)
+            {
+                object odata = null;
+                startup_step.eStep eNextStep = eStep;
+                bool bRet = step[(int)eStep].Execute(odata, ref Err, ref eNextStep);
+                if (bRet)
+                {
+                    if (eNextStep != startup_step.eStep.End)
+                    {
+                        int iStep = (int)eStep + 1;
+                        int iNextStep = (int)eNextStep;
+                        while (iStep < iNextStep)
+                        {
+                            step[iStep].SetOK();
+                            iStep++;
+                        }
+                    }
+                }
+                eStep = eNextStep;
+                Application.DoEvents();
+                if (!bRet)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
-        //public bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err, string xBackupFileName)
-        //{
-        //    int i = 0;
-        //    int iCount = UpgradeArray.Length;
-        //    for (i = 0; i < iCount; i++)
-        //    {
-        //        if (UpgradeArray[i].DBVersion.Equals(sOldDBVersion))
-        //        {
-        //            int j = i;
-        //            Form_Upgrade_inThread frm_upgr = new Form_Upgrade_inThread(this, UpgradeArray, j, xBackupFileName);
-        //            frm_upgr.ShowDialog();
-        //        }
-        //    }
-        //    return true;
-        //}
+
+        public void RemoveControl()
+        {
+            m_parent_form.Controls.Remove(m_usrc_Startup);
+            m_usrc_Startup.Dispose();
+            m_usrc_Startup = null;
+        }
     }
 }

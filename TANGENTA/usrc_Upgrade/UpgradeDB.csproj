@@ -133,6 +133,10 @@
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Startup\Startup.csproj">
+      <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
+      <Name>Startup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>TangentaDB</Name>

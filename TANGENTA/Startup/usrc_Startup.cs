@@ -14,19 +14,26 @@ namespace Startup
     {
 
         public startup m_startup = null;
-        Form Main_form = null;
+        
+        public const int Y_DIST = 10;
 
-        public usrc_Startup(Form xMain_form, startup_step[] Step_ResetNew, startup_step[] Step_ProgramInstalled)
+        public usrc_Startup(startup xstartup)
         {
             InitializeComponent();
+            m_startup = xstartup;
             lngRPM.s_StartupProgram.Text(lbl_StartUp);
-            Main_form = xMain_form;
             Visible = true;
             Dock = DockStyle.Fill;
-            Main_form.Controls.Add(this);
-            m_startup = new startup(this);
-            this.Step_ResetNew = Step_ResetNew;
-            this.step_ProgramInstalled = Step_ProgramInstalled;
+            m_startup.m_parent_form.Controls.Add(this);
+            int iStep = 0;
+            int iCountStep1 = m_startup.Step.Count();
+            for (iStep = 0; iStep < iCountStep1;iStep++)
+            {
+                usrc_startup_step xusrc_startup_step = new usrc_startup_step(m_startup.Step[iStep]);
+                xusrc_startup_step.Left = lbl_StartUp.Left;
+                xusrc_startup_step.Top = lbl_StartUp.Bottom+ Y_DIST + iStep * (xusrc_startup_step.Height + Y_DIST);
+                this.Controls.Add(xusrc_startup_step);
+            }
         }
     }
 }

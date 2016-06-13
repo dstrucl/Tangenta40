@@ -236,6 +236,21 @@ namespace Tangenta
 
                 string[] CommandLineArguments = System.Environment.GetCommandLineArgs();
 
+                if (Properties.Settings.Default.LanguageID < 0)
+                {
+                    if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1, Properties.Resources.Exit))
+                    {
+                        Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
+                        Properties.Settings.Default.Save();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                LogFile.Language.id = LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
+
                 Parse_CommandLineArguments(CommandLineArguments);
 
                 if (bShowCommandLineHelp)
@@ -283,19 +298,6 @@ namespace Tangenta
                 LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
 
                 LanguageControl.DynSettings.LoadLanguages(bReset2FactorySettings);
-                if (Properties.Settings.Default.LanguageID < 0)
-                {
-                    if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1,Properties.Resources.Exit))
-                    {
-                        Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
-                        Properties.Settings.Default.Save();
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                LogFile.Language.id = LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
                 LanguageControl.DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
 
 

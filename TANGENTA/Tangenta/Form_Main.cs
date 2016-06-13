@@ -25,8 +25,10 @@ namespace Tangenta
     {
         public const string XML_ROOT_NAME = "Tangenta_Xml";
         public string RecentItemsFolder = null;
-        public usrc_Startup m_usrc_Startup = null;
+        public startup m_startup = null;
         internal string m_XmlFileName = null;
+        public startup_step[] StartupStep = null;
+
 
         public Form_Main()
         {
@@ -53,14 +55,6 @@ namespace Tangenta
             }
 
             // Properties.Settings.Default.SplitterPositions =
-            m_usrc_Main.Visible = false;
-            m_usrc_Startup = new usrc_Startup(this);
-           
-        }
-
-        private void Main_Form_Load(object sender, EventArgs e)
-        {
-            //string Err = null;
             this.Text = lngRPM.s_Tangenta.s;
             if (Program.bDemo)
             {
@@ -83,8 +77,29 @@ namespace Tangenta
                 this.KeyUp += new KeyEventHandler(Main_Form_KeyUp);
             }
 
-            m_XmlFileName = XML_ROOT_NAME;
+            m_usrc_Main.Visible = false;
 
+            StartupStep = new startup_step[]
+            {
+                new startup_step(lngRPM.s_Startup_Check_DataBase.s,Startup_Check_DataBase,startup_step.eStep.Check_DataBase),
+                new startup_step(lngRPM.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings,startup_step.eStep.Read_DBSettings),
+                new startup_step(lngRPM.s_Startup_Read_DBSettings.s,this.m_usrc_Main.Get_shops_in_use,startup_step.eStep.Get_shops_in_use),
+                new startup_step(lngRPM.s_Startup_GetOrganisationData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData),
+                new startup_step(lngRPM.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency),
+                new startup_step(lngRPM.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation),
+                new startup_step(lngRPM.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetSimpleItemData,startup_step.eStep.GetSimpleItemData),
+                new startup_step(lngRPM.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetItemData,startup_step.eStep.GetItemData),
+                new startup_step(lngRPM.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod),
+                };
+
+
+            m_startup = new startup(this,
+                                    StartupStep
+                                    );
+        }
+
+        public bool Startup_Check_DataBase(object o, ref string Err,ref startup_step.eStep eNextStep)
+        {
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             bool bResult = DBSync.DBSync.Init(this, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection);
@@ -93,21 +108,33 @@ namespace Tangenta
 
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();
+            if (bResult)
+            {
+                eNextStep++;
+            }
+            else
+            {
+                eNextStep = startup_step.eStep.End;
+            }
+            return bResult;
+        }
+
+
+        private void Main_Form_Load(object sender, EventArgs e)
+        {
+
+            m_XmlFileName = XML_ROOT_NAME;
+            string Err = null;
 
             //GetAllSplitContainerControlsRecusive<Control>(ref Program.ListOfAllSplitConatinerControls, this);
             //SetSplitContainerPositions(true, ref Program.ListOfAllSplitConatinerControls, Properties.Settings.Default.SplitContainerDistanceUserSettings);
 
-
-            if (bResult)
+            if (m_startup.Execute(StartupStep, ref Err))
             {
-                if (m_usrc_Main.Init(this))
-                {
-                    this.Controls.Remove(m_usrc_Startup);
-                    m_usrc_Startup.Dispose();
-                    m_usrc_Startup = null;
-                    m_usrc_Main.Visible = true;
-                    return;
-                }
+                m_usrc_Main.Init(this);
+                m_startup.RemoveControl();
+                m_usrc_Main.Visible = true;
+                return;
             }
             this.Close();
             DialogResult = DialogResult.Abort;

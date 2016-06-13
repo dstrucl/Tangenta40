@@ -1,4 +1,5 @@
-﻿using DBConnectionControl40;
+﻿using Country_ISO_3166;
+using DBConnectionControl40;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,42 +11,32 @@ namespace TangentaDB
 {
     public static class f_Taxation
     {
-        public class TaxationInCountry
-        {
-            public string CountryCode_A3 = null;
-            public string Name = null;
-            public decimal Rate = 0;
-            public long ID = -1;
-            public TaxationInCountry(string xCountryCode_A3,string xName,decimal xRate)
-            {
-                CountryCode_A3 = xCountryCode_A3;
-                Name = xName;
-                Rate = xRate;
-            }
-        }
 
-        public static f_Taxation.TaxationInCountry[] DefaultTaxationInCountryList = new f_Taxation.TaxationInCountry[] { new TaxationInCountry("SLO", "DDV 22%", 22 ),
-                                                                                                                         new TaxationInCountry("SLO", "DDV 9,5%", 9.5M),
-                                                                                                                         new TaxationInCountry("SLO", "DDV 0%", 0M),
-                                                                                                                         new TaxationInCountry("DEU", "MWST 14%", 14M)
-                                                                                                                };
-
-        public static bool Get(string CountryCode_A3)
+        public static bool Get(int Country_num, ref tnr[] tax_rates)
         {
-            foreach (TaxationInCountry taxc in DefaultTaxationInCountryList)
+            tax_rates = null;
+            Tax_Rates_by_Country_List country_ISO_3166_list = new Tax_Rates_by_Country_List();
+            foreach (Tax_Rates_by_Country taxc in country_ISO_3166_list.item)
             {
 
-                if (taxc.CountryCode_A3.Equals(CountryCode_A3))
+                if (taxc.Country_Code_ISO_3166 == Country_num)
                 {
-                    long Taxation_ID = -1;
-                    if (Get(taxc.Name,taxc.Rate,ref Taxation_ID))
+                    if (taxc.rates != null)
                     {
-                        taxc.ID = Taxation_ID;
-                        continue;
-                    }
-                    else
-                    {
-                        return false;
+                        tax_rates = new tnr[taxc.rates.Length];
+                        int i = 0;
+                        for (i=0;i< tax_rates.Length;i++)
+                        {
+                            tax_rates[i] = new tnr(taxc.rates[i].Name, taxc.rates[i].Rate);
+                            if (Get(tax_rates[i].Name, tax_rates[i].Rate, ref tax_rates[i].Taxation_ID))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
                     }
                 }
             }

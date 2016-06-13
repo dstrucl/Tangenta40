@@ -28,7 +28,7 @@ namespace Tangenta
         Form Main_Form = null;
         public delegate void delegate_Exit_Click();
         public event delegate_Exit_Click Exit_Click;
-        private UpgradeDB_inThread m_UpgradeDB = null;
+        public UpgradeDB_inThread m_UpgradeDB = null;
 
 
         public usrc_Main()
@@ -38,119 +38,67 @@ namespace Tangenta
             m_UpgradeDB = new UpgradeDB_inThread(this);
         }
 
+        public bool Get_shops_in_use(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
+        {
+            if (Get_shops_in_use())
+            {
+                eNextStep = Startup.startup_step.eStep.GetOrganisationData;
+            }
+            else
+            {
+                eNextStep = Startup.startup_step.eStep.End;
+            }
+            return true;
+        }
+
+
+        public bool Get_shops_in_use()
+        {
+            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(this);
+            DialogResult dlgres = frm_shops_in_use.ShowDialog(this);
+            return (dlgres == DialogResult.OK);
+        }
+
+
         internal bool Init(Form main_Form)
         {
             Main_Form = main_Form;
-            bool bUpgradeDone = false;
-
-            if (m_UpgradeDB.Read_DBSettings(ref bUpgradeDone))
+            string Err = null;
+            if (Program.b_FVI_SLO)
             {
-                if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
+                Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
+                Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
+                if (Program.bReset2FactorySettings)
                 {
-                    string Err = null;
-                    if (this.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData(this))
+                    Program.usrc_FVI_SLO1.Settings_Reset(this);
+                }
+            }
+
+            if (Program.b_FVI_SLO)
+            {
+                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID, 1))
+                {
+                }
+            }
+
+            if (this.m_usrc_InvoiceMan.Init(main_Form))
+            {
+                if (Program.b_FVI_SLO)
+                {
+                    if (this.usrc_FVI_SLO1.Start(ref Err))
                     {
                         if (Program.b_FVI_SLO)
                         {
-                            Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
-                            Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
-                            if (Program.bReset2FactorySettings)
-                            {
-                                Program.usrc_FVI_SLO1.Settings_Reset(this);
-                            }
-                        }
-
-
-                        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
-                        {
-                            if (Program.b_FVI_SLO)
-                            {
-                                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID, 1))
-                                {
-                                }
-                            }
-                            if (this.m_usrc_InvoiceMan.Init(main_Form))
-                            {
-                                if (Program.b_FVI_SLO)
-                                {
-                                    if (this.usrc_FVI_SLO1.Start(ref Err))
-                                    {
-                                        if (Program.b_FVI_SLO)
-                                        {
-                                            Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
-                                        return false;
-                                    }
-                                }
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                            return false;
+                            Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC);
                         }
                     }
                     else
                     {
-                        //if (Program.bStartup && Err == null)
-                        //{
-
-                        //    XMessage.Box.Show(Program.MainForm, lngRPM.s_No_OrganisationData, "!", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information, System.Windows.Forms.MessageBoxDefaultButton.Button1);
-                        //    DialogResult dres = DialogResult.Ignore;
-                        //    Form_MyOrganisation_Person_Data_Edit edt_my_company_dlg = new Form_MyOrganisation_Person_Data_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))));
-                        //    dres = edt_my_company_dlg.ShowDialog();
-                        //    if (dres == DialogResult.OK)
-                        //    {
-                        //        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
-                        //        {
-                        //            if (Program.b_FVI_SLO)
-                        //            {
-                        //                if (f_Atom_FVI_SLO_RealEstateBP.Get_Atom_FVI_SLO_RealEstateBP_ID(Main_Form, ref Program.Atom_FVI_SLO_RealEstateBP_ID, 1))
-                        //                {
-                        //                }
-                        //            }
-                        //            if (this.m_usrc_InvoiceMan.Init(main_Form))
-                        //            {
-                        //                if (Program.b_FVI_SLO)
-                        //                {
-                        //                    if (!this.usrc_FVI_SLO1.Start(ref Err))
-                        //                    {
-                        //                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
-                        //                        return false;
-                        //                    }
-                        //                }
-                        //                return true;
-                        //            }
-                        //            else
-                        //            {
-                        //                return false;
-                        //            }
-                        //        }
-                        //        else
-                        //        {
-                        //            return false;
-                        //        }
-                        //    }
-                        //    else
-                        //    {
-                        //        return false;
-                        //    }
+                        LogFile.Error.Show("usrc_Main:Init:this.usrc_FVI_SLO1.Start(ref Err):Err=" + Err);
                         return false;
                     }
                 }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
             else
             {
@@ -158,8 +106,21 @@ namespace Tangenta
             }
         }
 
+    public bool GetWorkPeriod(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
+    {
+        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
+        {
+            return true;
+        }
+        else
+        {
+            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+            return false;
+        }
+    }
 
-        private void btn_Exit_Click(object sender, EventArgs e)
+
+    private void btn_Exit_Click(object sender, EventArgs e)
         {
             if (Exit_Click!=null)
             {
