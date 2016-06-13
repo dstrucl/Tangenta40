@@ -435,7 +435,7 @@ namespace LanguageControl
         public static ltext s_ChangeThisRowQuestion = new ltext("Change this row?", "Spremenim vrstico?");
 
         public static ltext s_ReferencedTableRow = new ltext("Referenced Table Row:", "Naslovljena vrstica:");
-        public static ltext s_Cashier = new ltext("Cashier", "Tangenta");
+        public static ltext s_Tangenta = new ltext("Tangenta", "Tangenta");
         public static ltext s_null_means_nod_data = new ltext("null means no data", "nič pomeni da podatka ni");
         public static ltext s_ValueMustBeUnique = new ltext("Value must be unique!", "Podatek mora biti unikaten!");
         public static ltext s_null = new ltext("null", "brez");

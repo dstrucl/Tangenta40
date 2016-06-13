@@ -61,7 +61,7 @@ namespace Tangenta
         private void Main_Form_Load(object sender, EventArgs e)
         {
             //string Err = null;
-            this.Text = lngRPM.s_Cashier.s;
+            this.Text = lngRPM.s_Tangenta.s;
             if (Program.bDemo)
             {
                 this.Text += " DEMO";

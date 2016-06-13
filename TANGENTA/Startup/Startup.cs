@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,17 +14,15 @@ namespace Startup
     public class startup
         {
         private Control m_parent_ctrl = null;
-        public startup_step[] Startup_devine = null;
-        public startup_step[] Startup_database_set = null;
+        internal startup_step[] Step_ResetNew = null;
+        private startup_step[] Step_ProgramInstalled;
 
-      
-        public startup(Control xparent_ctrl)
+
+        public startup(Control xparent_ctrl, startup_step[] xStep_ResetNew, startup_step[] xStep_ProgramInstalled)
         {
             m_parent_ctrl = xparent_ctrl;
-            Startup_devine = new startup_step[]
-            {
-                new startup_step("Show_Help",Startup_ShowHelp)
-            };
+            Step_ResetNew = xStep_ResetNew;
+            Step_ProgramInstalled = xStep_ProgramInstalled;
         }
 
         public object Startup_ShowHelp(object o,ref string Err)

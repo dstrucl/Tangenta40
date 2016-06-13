@@ -208,6 +208,7 @@ namespace TangentaSampleDB
                                                                     MyOrg_Person_Office_ID_v,
                                                                     ref myOrganisation_Person_v))
                                     {
+                                        return true;
                                         if (Fill_Price_SimpleItem())
                                         {
                                             return true;
