@@ -11,11 +11,12 @@ namespace TangentaSampleDB
 {
     public static class TangentaSampleDB
     {
+        public static SampleDB sbd = null;
         public static bool Init_Sample_DB(ref string Err)
         {
             if (fs.Init_Default_DB(ref Err))
             {
-                SampleDB sbd = new SampleDB();
+                sbd = new SampleDB();
                 bool bRes = sbd.Write();
                 return bRes;
             }

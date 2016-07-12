@@ -101,7 +101,7 @@
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlagajnaTableClass\TangentaTableClass.csproj">
+    <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
     </ProjectReference>

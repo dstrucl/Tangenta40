@@ -42,6 +42,7 @@ namespace Tangenta
         {
             if (Get_shops_in_use())
             {
+                this.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(Properties.Settings.Default.eShopsInUse);
                 eNextStep = Startup.startup_step.eStep.GetOrganisationData;
             }
             else

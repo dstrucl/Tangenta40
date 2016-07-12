@@ -90,7 +90,7 @@
     <Compile Include="StartupWindowThread.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TANGENTA\BlagajnaDataBaseDef\TangentaDataBaseDef.csproj">
+    <ProjectReference Include="..\..\TANGENTA\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>TangentaDataBaseDef</Name>
     </ProjectReference>

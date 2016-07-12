@@ -76,10 +76,6 @@
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlagajnaTableClass\TangentaTableClass.csproj">
-      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
-      <Name>TangentaTableClass</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
@@ -87,6 +83,10 @@
     <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>TangentaTableClass</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

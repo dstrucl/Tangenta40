@@ -83,14 +83,14 @@ namespace Tangenta
             {
                 new startup_step(lngRPM.s_Startup_Check_DataBase.s,Startup_Check_DataBase,startup_step.eStep.Check_DataBase),
                 new startup_step(lngRPM.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings,startup_step.eStep.Read_DBSettings),
-                new startup_step(lngRPM.s_Startup_Read_DBSettings.s,this.m_usrc_Main.Get_shops_in_use,startup_step.eStep.Get_shops_in_use),
                 new startup_step(lngRPM.s_Startup_GetOrganisationData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData),
                 new startup_step(lngRPM.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency),
                 new startup_step(lngRPM.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation),
+                new startup_step(lngRPM.s_Startup_Get_shops_in_use.s,this.m_usrc_Main.Get_shops_in_use,startup_step.eStep.Get_shops_in_use),
                 new startup_step(lngRPM.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetSimpleItemData,startup_step.eStep.GetSimpleItemData),
                 new startup_step(lngRPM.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetItemData,startup_step.eStep.GetItemData),
                 new startup_step(lngRPM.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod),
-                };
+             };
 
 
             m_startup = new startup(this,

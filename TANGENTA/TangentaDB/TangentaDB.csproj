@@ -216,17 +216,17 @@
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlagajnaDataBaseDef\TangentaDataBaseDef.csproj">
-      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
-      <Name>TangentaDataBaseDef</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BlagajnaTableClass\TangentaTableClass.csproj">
-      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
-      <Name>TangentaTableClass</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShopA_dbfunc\ShopA_dbfunc.csproj">
       <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>
       <Name>ShopA_dbfunc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
+      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
+      <Name>TangentaDataBaseDef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>TangentaTableClass</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>

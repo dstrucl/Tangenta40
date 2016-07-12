@@ -827,14 +827,6 @@
       <Project>{61ca81c7-7f82-4744-a8de-fbe9972e7ee8}</Project>
       <Name>FiscalVerificationOfInvoices_SLO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlagajnaDataBaseDef\TangentaDataBaseDef.csproj">
-      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
-      <Name>TangentaDataBaseDef</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BlagajnaTableClass\TangentaTableClass.csproj">
-      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
-      <Name>TangentaTableClass</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>
       <Name>Form_Discount</Name>
@@ -863,6 +855,10 @@
       <Project>{c4e59cf1-d085-4636-8bb4-2bfa63e54f4d}</Project>
       <Name>Startup</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
+      <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
+      <Name>TangentaDataBaseDef</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaDB\TangentaDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>TangentaDB</Name>
@@ -870,6 +866,10 @@
     <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
+      <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
+      <Name>TangentaTableClass</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>

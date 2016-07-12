@@ -209,44 +209,25 @@ namespace TangentaSampleDB
                                                                     ref myOrganisation_Person_v))
                                     {
                                         return true;
-                                        if (Fill_Price_SimpleItem())
-                                        {
-                                            return true;
-                                        }
                                     }
                                 }
                             }
                         }
-                        //PostAddress_v pAddr_person = new PostAddress_v();
-                        //pAddr_person.Country_v = new string_v(MyOrg_Address_v.Country_v.v);
-                        //pAddr_person.Country_ISO_3166_a2_v = new string_v(MyOrg_Address_v.Country_ISO_3166_a2_v.v);
-                        //pAddr_person.Country_ISO_3166_a3_v = new string_v(MyOrg_Address_v.Country_ISO_3166_a3_v.v);
-                        //pAddr_person.Country_ISO_3166_num_v = new short_v(MyOrg_Address_v.Country_ISO_3166_num_v.v);
-                        //if (MyOrg_Address_v.State_v != null)
-                        //{
-                        //    pAddr_person.State_v = new string_v(MyOrg_Address_v.State_v.v);
-                        //}
-                        //else
-                        //{
-                        //    pAddr_person.State_v = null;
-                        //}
-                        //pAddr_person.City_v = new string_v(MyOrg_Person_City_v.v);
-                        //pAddr_person.ZIP_v = new string_v(MyOrg_Person_ZIP_v.v);
-                        //pAddr_person.StreetName_v = new string_v(MyOrg_Person_StreetName_v.v);
-                        //pAddr_person.HouseNumber_v = new string_v(MyOrg_Person_HouseNumber_v.v);
-                        //CodeTables.ID_v cAddress_Person_ID_v = null;
-                        //if (f_cAddress_Person.Get(pAddr_person,ref cAddress_Person_ID_v))
-                        //{
-                          
-                        //}
                     }
-
                 }
             }
             return false;
         }
 
-        private bool Fill_Price_SimpleItem()
+
+
+        public bool Insert_MyOrgData()
+        {
+
+            return false;
+        }
+
+        public bool WriteShopBItems()
         {
             string Currency_Name = null;
             string Currency_Abbreviation = null;
@@ -254,40 +235,29 @@ namespace TangentaSampleDB
             int Currency_Code = 0;
             int Currency_DecimalPlaces = 2;
 
+            //f myOrg.Default_Currency_ID
 
-            //SampleDB_Price_SimpleItem[] SampleDB_Price_SimpleItem_List = new SampleDB_Price_SimpleItem[]
-            //{new SampleDB_Price_SimpleItem(lngRPMS.SimpleItem_Name_Pedicure.s,
-            //                               lngRPMS.SimpleItem_Abbreviation_Pedicure.s,
-            //                               true,
-            //                               Properties.Resources.Pedikira,
-            //                               1,
-            //                               lngRPMS.SimpleItem_ParentGroup1.s,
-            //                               null,
-            //                               null,
-            //                               lngRPMS.PriceList_Name.s,
-            //                               true,
-            //                               null,
-            //                               null,
-            //                               new DateTime_v(DateTime.Now),
-            //                               lngRPMS.PriceList_Description.s,
-            //                               Currency_Abbreviation,
-            //                               Currency_Name,
-            //                               Currency_Symbol,
-            //                               Currency_Code,
-            //                               Currency_DecimalPlaces,
-                                           
-
-
-
-            //                              )};
-            return false;
-                         
-        }
-
-
-        public bool Insert_MyOrgData()
-        {
-
+            SampleDB_Price_SimpleItem[] SampleDB_Price_SimpleItem_List = new SampleDB_Price_SimpleItem[]
+            {new SampleDB_Price_SimpleItem(lngRPMS.SimpleItem_Name_Pedicure.s,
+                                           lngRPMS.SimpleItem_Abbreviation_Pedicure.s,
+                                           true,
+                                           Properties.Resources.Pedikira,
+                                           null,
+                                           lngRPMS.SimpleItem_ParentGroup1.s,
+                                           null,
+                                           null,
+                                           lngRPMS.PriceList_Name.s,
+                                           true,
+                                           null,
+                                           null,
+                                           new DateTime_v(DateTime.Now),
+                                           lngRPMS.PriceList_Description.s,
+                                           Currency_Abbreviation,
+                                           Currency_Name,
+                                           Currency_Symbol,
+                                           Currency_Code,
+                                           Currency_DecimalPlaces,null,0,0,null
+                              )};
             return false;
         }
     }

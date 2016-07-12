@@ -3671,10 +3671,10 @@ namespace UpgradeDB
                                 switch (eGetDBSettings_Result)
                                 {
                                     case fs.enum_GetDBSettings.No_Data_Rows:
-                                        eNextStep = startup_step.eStep.Get_shops_in_use;
+                                        eNextStep++;
                                         return true;
                                 }
-                                eNextStep = startup_step.eStep.GetOrganisationData;
+                                eNextStep++;
                                 return true;
                             }
                         }

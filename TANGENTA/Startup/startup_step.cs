@@ -11,13 +11,13 @@ namespace Startup
     {
         public enum eStep : int { Check_DataBase,
                                   Read_DBSettings,
-                                  Get_shops_in_use,
                                   GetOrganisationData,
                                   GetBaseCurrency,
                                   GetTaxation,
-                                  GetWorkPeriod,
+                                  Get_shops_in_use,
                                   GetSimpleItemData,
                                   GetItemData,
+                                  GetWorkPeriod,
                                   End,
                                   NoStep
                                 };

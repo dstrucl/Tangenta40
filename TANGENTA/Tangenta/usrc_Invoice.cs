@@ -26,12 +26,10 @@ namespace Tangenta
 {
     public partial class usrc_Invoice : UserControl
     {
-        public enum eShopsMode { A, B, C, AB, BC, AC, ABC };
 
         public usrc_ShopA m_usrc_ShopA = null;
         public usrc_ShopB m_usrc_ShopB = null;
         public usrc_ShopC m_usrc_ShopC = null;
-        public eShopsMode m_eShopsMode = eShopsMode.BC;
 
         public int iCountSimpleItemData = 0;
         public int iCountItemData = 0;
@@ -106,39 +104,6 @@ namespace Tangenta
         public enum_Invoice eInvoiceType = enum_Invoice.Invoice;
 
         public List<Employee> Employees = new List<Employee>();
-
-        internal void Set_eShopsMode(eShopsMode xeShopsMode)
-        {
-            m_eShopsMode = xeShopsMode;
-            Save_eShopsMode(m_eShopsMode);
-            switch (xeShopsMode)
-            {
-                case usrc_Invoice.eShopsMode.A:
-                    Set_eShopsMode_A();
-                    break;
-                case usrc_Invoice.eShopsMode.B:
-                    Set_eShopsMode_B();
-                    break;
-                case usrc_Invoice.eShopsMode.C:
-                    Set_eShopsMode_C();
-                    break;
-                case usrc_Invoice.eShopsMode.AB:
-                    Set_eShopsMode_AB();
-                    break;
-                case usrc_Invoice.eShopsMode.BC:
-                    Set_eShopsMode_BC();
-                    break;
-                case usrc_Invoice.eShopsMode.AC:
-                    Set_eShopsMode_AC();
-                    break;
-                case usrc_Invoice.eShopsMode.ABC:
-                    Set_eShopsMode_ABC();
-                    break;
-                default:
-                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode!");
-                    return;
-            }
-        }
 
         private void New_ShopA()
         {
@@ -283,40 +248,6 @@ namespace Tangenta
             this.splitContainer3.Panel2.Controls.Add(m_usrc_ShopC);
         }
 
-        internal void Save_eShopsMode(eShopsMode xeShopsMode)
-        {
-            switch (xeShopsMode)
-            {
-                case usrc_Invoice.eShopsMode.A:
-                    Properties.Settings.Default.eShopsMode = "A";
-                    break;
-                case usrc_Invoice.eShopsMode.B:
-                    Properties.Settings.Default.eShopsMode = "B";
-                    break;
-                case usrc_Invoice.eShopsMode.C:
-                    Properties.Settings.Default.eShopsMode = "C";
-                    break;
-                case usrc_Invoice.eShopsMode.AB:
-                    Properties.Settings.Default.eShopsMode = "AB";
-                    break;
-                case usrc_Invoice.eShopsMode.BC:
-                    Properties.Settings.Default.eShopsMode = "BC";
-                    break;
-                case usrc_Invoice.eShopsMode.AC:
-                    Properties.Settings.Default.eShopsMode = "AC";
-                    break;
-                case usrc_Invoice.eShopsMode.ABC:
-                    Properties.Settings.Default.eShopsMode = "ABC";
-                    break;
-                default:
-                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode!");
-                    return;
-                    break;
-            }
-            Properties.Settings.Default.Save();
-
-        }
-
         internal void Set_eShopsMode(string eShopsMode)
         {
             if (Properties.Settings.Default.eShopsInUse.Length == 1)
@@ -357,34 +288,33 @@ namespace Tangenta
 
             if (eShopsMode.Equals("A"))
             {
-                Set_eShopsMode(usrc_Invoice.eShopsMode.A);
-                //this.btn_Show_Shops.Visible = false;
+                Set_eShopsMode_A();
             }
             else if (eShopsMode.Equals("B"))
             {
-                Set_eShopsMode(usrc_Invoice.eShopsMode.B);
+                Set_eShopsMode_B();
                 //this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("C"))
             {
-                Set_eShopsMode(usrc_Invoice.eShopsMode.C);
+                Set_eShopsMode_C();
                 //this.btn_Show_Shops.Visible = false;
             }
             else if (eShopsMode.Equals("AB"))
             {
-                Set_eShopsMode(usrc_Invoice.eShopsMode.AB);
+                Set_eShopsMode_AB();
             }
             else if (eShopsMode.Equals("BC"))
             {
-                Set_eShopsMode(usrc_Invoice.eShopsMode.BC);
+                Set_eShopsMode_BC();
             }
             else if (eShopsMode.Equals("AC"))
             {
-                Set_eShopsMode(usrc_Invoice.eShopsMode.AC);
+                Set_eShopsMode_AC();
             }
             else if (eShopsMode.Equals("ABC"))
             {
-                Set_eShopsMode(usrc_Invoice.eShopsMode.ABC);
+                Set_eShopsMode_ABC();
             }
         }
 
@@ -666,14 +596,6 @@ namespace Tangenta
         {
             m_usrc_InvoiceMan = xusrc_InvoiceMan;
             this.txt_Number.Text = "";
-            if (DBtcn == null)
-            {
-                DBtcn = new DBTablesAndColumnNames();
-            }
-            if (m_ShopABC == null)
-            {
-                m_ShopABC = new ShopABC(DBtcn);
-            }
 
             Set_eShopsMode(Properties.Settings.Default.eShopsMode);
             GetUnits();
@@ -979,6 +901,15 @@ namespace Tangenta
 
         public bool GetTaxation(object oData,ref string Err, ref Startup.startup_step.eStep eNextStep)
         {
+            if (DBtcn == null)
+            {
+                DBtcn = new DBTablesAndColumnNames();
+            }
+            if (m_ShopABC == null)
+            {
+                m_ShopABC = new ShopABC(DBtcn);
+            }
+
             if (m_ShopABC.m_xTaxationList == null)
             {
                 m_ShopABC.m_xTaxationList = new xTaxationList();
@@ -988,6 +919,7 @@ namespace Tangenta
             {
                 if (dt.Rows.Count > 0)
                 {
+                    eNextStep++;
                     return true;
                 }
                 else
@@ -999,6 +931,7 @@ namespace Tangenta
                         {
                             if (dt.Rows.Count > 0)
                             {
+                                eNextStep++;
                                 return true;
                             }
                         }
@@ -1091,10 +1024,12 @@ namespace Tangenta
             int iCountSimpleItemData = -1;
             if (GetSimpleItemData(ref iCountSimpleItemData))
             {
+                eNextStep++;
                 return true;
             }
             else
             {
+                eNextStep = Startup.startup_step.eStep.End;
                 return false;
             }
         }
@@ -1111,21 +1046,28 @@ namespace Tangenta
                 {
                     if (Program.Shops_in_use.Contains("B"))
                     {
-                        if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        if (TangentaSampleDB.TangentaSampleDB.sbd != null)
                         {
-                            this.m_usrc_ShopB.EditShopBItem();
-                            if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
+                            return TangentaSampleDB.TangentaSampleDB.sbd.WriteShopBItems();
                         }
                         else
                         {
-                            return true;
+                            if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                            {
+                                this.m_usrc_ShopB.EditShopBItem();
+                                if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return true;
+                            }
                         }
                     }
                     else
@@ -1171,10 +1113,12 @@ namespace Tangenta
         {
             if (GetItemData(ref iCountItemData))
             {
+                eNextStep++;
                 return true;
             }
             else
             {
+                eNextStep = Startup.startup_step.eStep.End;
                 return false;
             }
         }
