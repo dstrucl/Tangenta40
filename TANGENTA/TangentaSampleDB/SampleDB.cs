@@ -235,29 +235,30 @@ namespace TangentaSampleDB
             int Currency_Code = 0;
             int Currency_DecimalPlaces = 2;
 
-            //f myOrg.Default_Currency_ID
-
-            SampleDB_Price_SimpleItem[] SampleDB_Price_SimpleItem_List = new SampleDB_Price_SimpleItem[]
-            {new SampleDB_Price_SimpleItem(lngRPMS.SimpleItem_Name_Pedicure.s,
-                                           lngRPMS.SimpleItem_Abbreviation_Pedicure.s,
-                                           true,
-                                           Properties.Resources.Pedikira,
-                                           null,
-                                           lngRPMS.SimpleItem_ParentGroup1.s,
-                                           null,
-                                           null,
-                                           lngRPMS.PriceList_Name.s,
-                                           true,
-                                           null,
-                                           null,
-                                           new DateTime_v(DateTime.Now),
-                                           lngRPMS.PriceList_Description.s,
-                                           Currency_Abbreviation,
-                                           Currency_Name,
-                                           Currency_Symbol,
-                                           Currency_Code,
-                                           Currency_DecimalPlaces,null,0,0,null
-                              )};
+            if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
+            {
+                SampleDB_Price_SimpleItem[] SampleDB_Price_SimpleItem_List = new SampleDB_Price_SimpleItem[]
+                {new SampleDB_Price_SimpleItem(lngRPMS.SimpleItem_Name_Pedicure.s,
+                                               lngRPMS.SimpleItem_Abbreviation_Pedicure.s,
+                                               true,
+                                               Properties.Resources.Pedikira,
+                                               null,
+                                               lngRPMS.SimpleItem_ParentGroup1.s,
+                                               null,
+                                               null,
+                                               lngRPMS.PriceList_Name.s,
+                                               true,
+                                               null,
+                                               null,
+                                               new DateTime_v(DateTime.Now),
+                                               lngRPMS.PriceList_Description.s,
+                                               Currency_Abbreviation,
+                                               Currency_Name,
+                                               Currency_Symbol,
+                                               Currency_Code,
+                                               Currency_DecimalPlaces,null,0,0,null
+                                  )};
+            }
             return false;
         }
     }

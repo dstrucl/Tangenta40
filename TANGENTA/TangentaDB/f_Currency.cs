@@ -90,5 +90,60 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool Get(long Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces)
+        {
+            string sql = "select Abbreviation,Name,Symbol,CurrencyCode,DecimalPlaces from Currency where ID = " + Currency_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql,  ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    Abbreviation = null;
+                    object oAbbreviation = dt.Rows[0]["Abbreviation"];
+                    if (oAbbreviation is string)
+                    {
+                        Abbreviation = (string)oAbbreviation;
+                    }
+                    Name = null;
+                    object oName = dt.Rows[0]["Name"];
+                    if (oName is string)
+                    {
+                        Name = (string)oName;
+                    }
+                    Symbol = null;
+                    object oSymbol = dt.Rows[0]["Symbol"];
+                    if (oSymbol is string)
+                    {
+                        Symbol = (string)oSymbol;
+                    }
+                    CurrencyCode = -1;
+                    object oCurrencyCode = dt.Rows[0]["CurrencyCode"];
+                    if (oCurrencyCode is int)
+                    {
+                        CurrencyCode = (int)oCurrencyCode;
+                    }
+                    DecimalPlaces = -1;
+                    object oDecimalPlaces = dt.Rows[0]["DecimalPlaces"];
+                    if (oDecimalPlaces is int)
+                    {
+                        DecimalPlaces = (int)oDecimalPlaces;
+                    }
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_Currency.Get(long Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces),sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Currency.Get(long Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces):sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
     }
 }
