@@ -1048,7 +1048,7 @@ namespace Tangenta
                     {
                         if (TangentaSampleDB.TangentaSampleDB.sbd != null)
                         {
-                            return TangentaSampleDB.TangentaSampleDB.sbd.WriteShopBItems();
+                            return TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopB_Items();
                         }
                         else
                         {

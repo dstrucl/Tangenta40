@@ -227,7 +227,7 @@ namespace TangentaSampleDB
             return false;
         }
 
-        public bool WriteShopBItems()
+        public bool Write_ShopB_Items()
         {
             string Currency_Name = null;
             string Currency_Abbreviation = null;
@@ -237,8 +237,8 @@ namespace TangentaSampleDB
 
             if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
             {
-                SampleDB_Price_SimpleItem[] SampleDB_Price_SimpleItem_List = new SampleDB_Price_SimpleItem[]
-                {new SampleDB_Price_SimpleItem(lngRPMS.SimpleItem_Name_Pedicure.s,
+                SampleDB_Price_ShopB_Item[] SampleDB_Price_ShopB_Item_List = new SampleDB_Price_ShopB_Item[]
+                {new SampleDB_Price_ShopB_Item(lngRPMS.SimpleItem_Name_Pedicure.s,
                                                lngRPMS.SimpleItem_Abbreviation_Pedicure.s,
                                                true,
                                                Properties.Resources.Pedikira,
@@ -256,10 +256,73 @@ namespace TangentaSampleDB
                                                Currency_Name,
                                                Currency_Symbol,
                                                Currency_Code,
-                                               Currency_DecimalPlaces,null,0,0,null
+                                               Currency_DecimalPlaces,
+                                               "DDV 22%",
+                                               0.22M,
+                                               2,
+                                               null
                                   )};
+                foreach (SampleDB_Price_ShopB_Item sample_ShopB_Item in SampleDB_Price_ShopB_Item_List)
+                {
+                    if (f_SimpleItem.Get(sample_ShopB_Item.ShopB_Item_Name,
+                                            sample_ShopB_Item.ShopB_Item_Abbreviation,
+                                            sample_ShopB_Item.ShopB_Item_bToOffer,
+                                            sample_ShopB_Item.ShopB_Item_Image,
+                                            sample_ShopB_Item.ShopB_Item_Code_v,
+                                            sample_ShopB_Item.ShopB_Item_ParentGroup1,
+                                            sample_ShopB_Item.ShopB_Item_ParentGroup2,
+                                            sample_ShopB_Item.ShopB_Item_ParentGroup3,
+                                            ref sample_ShopB_Item.ShopB_Item_ID))
+                    {
+                        if (f_PriceList.Get(sample_ShopB_Item.PriceList_Name,
+                                            sample_ShopB_Item.PriceList_valid,
+                                            myOrg.Default_Currency_ID,
+                                            sample_ShopB_Item.PriceList_ValidFrom_v,
+                                            sample_ShopB_Item.PriceList_ValidTo_v,
+                                            sample_ShopB_Item.PriceList_CreationDate_v,
+                                            sample_ShopB_Item.PriceList_Description,
+                                            ref sample_ShopB_Item.PriceList_ID))
+                        {
+                            if (f_Taxation.Get(sample_ShopB_Item.TaxationName,
+                                               sample_ShopB_Item.TaxationRate,
+                                               ref sample_ShopB_Item.Taxation_ID))
+                            {
+                                if (f_Price_SimpleItem.Get(sample_ShopB_Item.RetailShopB_ItemPrice,
+                                                           sample_ShopB_Item.Discount_v,
+                                                           sample_ShopB_Item.Taxation_ID,
+                                                           sample_ShopB_Item.ShopB_Item_ID,
+                                                           sample_ShopB_Item.PriceList_ID,
+                                                           ref sample_ShopB_Item.Price_ShopB_Item_ID
+                                                           ))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

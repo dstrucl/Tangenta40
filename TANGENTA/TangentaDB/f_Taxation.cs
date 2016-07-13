@@ -27,7 +27,7 @@ namespace TangentaDB
                         int i = 0;
                         for (i=0;i< tax_rates.Length;i++)
                         {
-                            tax_rates[i] = new tnr(taxc.rates[i].Name, taxc.rates[i].Rate);
+                            tax_rates[i] = taxc.rates[i].Clone();
                             if (Get(tax_rates[i].Name, tax_rates[i].Rate, ref tax_rates[i].Taxation_ID))
                             {
                                 continue;
