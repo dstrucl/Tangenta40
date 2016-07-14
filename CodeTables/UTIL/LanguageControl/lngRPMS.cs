@@ -69,11 +69,17 @@ namespace LanguageControl
         public static ltext MyOrg_Person_Image_Data_v = null;
         public static ltext MyOrg_Person_Atom_Person_ID_v = null;
 
-        public static ltext SimpleItem_Name_Pedicure = new ltext("pedicure","pedikura");
-        public static ltext SimpleItem_Abbreviation_Pedicure = new ltext("PED", "PED");
-        public static ltext SimpleItem_ParentGroup1 = new ltext("Foot care","Nega stopal" );
-        public static ltext PriceList_Name = new ltext("PRICE LIST CUSTOMERS","CENIK STRANKE");
-        public static ltext PriceList_Description = new ltext("Price list for usual customers.","Cenik za stalne stranke.");
+        public static ltext PriceList_Name = new ltext("PRICE LIST CUSTOMERS", "CENIK STRANKE");
+        public static ltext PriceList_Description = new ltext("Price list for usual customers.", "Cenik za stalne stranke.");
+
+        public static ltext ShopB_Item_Name_Item1 = new ltext("ShopBItem1","ProtajalnaBArtikel1");
+        public static ltext ShopB_Item_Abbreviation_SB1 = new ltext("SB1", "SB1");
+        public static ltext ShopB_Item_ParentGroup1 = new ltext("ShopBGroup1","ProdajalnaBSkupina1" );
+
+        public static ltext ShopC_Item_UniquName_UniqueItemName1 = new ltext("UniqueItemName1", "UnikatnoImeArtikla1");
+        public static ltext ShopC_Item_Name_ItemName1 = new ltext("ItemName1", "ImeArtikla1");
+        public static ltext ShopC_Item_ParentGroup1 = new ltext("ShopCGroup1", "ProdajalnaCSkupina1");
+
     }
 }
      

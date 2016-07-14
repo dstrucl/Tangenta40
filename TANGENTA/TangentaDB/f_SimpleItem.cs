@@ -57,7 +57,7 @@ namespace TangentaDB
                         if (f_SimpleItem_Image.Get(SimpleItem_Image, ref SimpleItem_Image_ID))
                         {
                             scond_SimpleItem_Image_ID = " SimpleItem_Image_ID = " + SimpleItem_Image_ID.ToString() + " ";
-                            sval_SimpleItem_Image_ID = " " + SimpleItem_Image.ToString() + " ";
+                            sval_SimpleItem_Image_ID = " " + SimpleItem_Image_ID.ToString() + " ";
                         }
                         else
                         {
@@ -76,7 +76,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql = "insert into SimpleItem (Name,Abbreviation,ToOffer,Code,SimpleItem_ParentGroup1_ID,SimpleItem_Image_ID)values(" + spar_Name + "," + spar_Abbreviation + "," + sval_Code + "," + sval_SimpleItem_ParentGroup1_ID + "," + sval_SimpleItem_Image_ID + ")";
+                    sql = "insert into SimpleItem (Name,Abbreviation,ToOffer,Code,SimpleItem_ParentGroup1_ID,SimpleItem_Image_ID)values(" + spar_Name + "," + spar_Abbreviation + ",1," + sval_Code + "," + sval_SimpleItem_ParentGroup1_ID + "," + sval_SimpleItem_Image_ID + ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ID, ref oret, ref Err, "SimpleItem"))
                     {
                         return true;

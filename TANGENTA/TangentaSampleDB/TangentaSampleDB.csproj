@@ -49,6 +49,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SampleDB.cs" />
+    <Compile Include="SampleDB_Price_ShopC_Item.cs" />
     <Compile Include="SampleDB_Price_ShopB_Item.cs" />
     <Compile Include="TangentaSampleDB.cs" />
   </ItemGroup>

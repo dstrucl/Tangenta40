@@ -22,11 +22,13 @@ namespace Tangenta
     public partial class Form_ShopsInUse : Form
     {
         private usrc_Main m_usrc_Main;
+        private bool bResetShopsInUse = false;
 
 
-        public Form_ShopsInUse(usrc_Main xusrc_Main)
+        public Form_ShopsInUse(bool xbResetShopsInUse,usrc_Main xusrc_Main)
         {
             InitializeComponent();
+            bResetShopsInUse = xbResetShopsInUse;
             lngRPM.s_Shops_In_Use.Text(this);
             lngRPM.s_chk_A_in_use.Text(chk_A_in_use);
             lngRPM.s_chk_B_in_use.Text(chk_B_in_use);
@@ -83,15 +85,18 @@ namespace Tangenta
             DynSettings.LanguageTextSave();
             Properties.Settings.Default.eShopsInUse = shinuse;
             Properties.Settings.Default.Save();
-            if (m_usrc_Main!=null)
+            if (bResetShopsInUse)
             {
-                if (m_usrc_Main.m_usrc_InvoiceMan !=null)
+                if (m_usrc_Main != null)
                 {
-                    if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice!=null)
+                    if (m_usrc_Main.m_usrc_InvoiceMan != null)
                     {
-                        if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
+                        if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice != null)
                         {
-                            m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(shinuse);
+                            if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
+                            {
+                                m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(shinuse);
+                            }
                         }
                     }
                 }

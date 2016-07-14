@@ -40,10 +40,9 @@ namespace Tangenta
 
         public bool Get_shops_in_use(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
         {
-            if (Get_shops_in_use())
+            if (Get_shops_in_use(false))
             {
-                this.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(Properties.Settings.Default.eShopsInUse);
-                eNextStep = Startup.startup_step.eStep.GetOrganisationData;
+                eNextStep++;
             }
             else
             {
@@ -53,9 +52,9 @@ namespace Tangenta
         }
 
 
-        public bool Get_shops_in_use()
+        public bool Get_shops_in_use(bool bResetShopsInUse)
         {
-            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(this);
+            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(bResetShopsInUse,this);
             DialogResult dlgres = frm_shops_in_use.ShowDialog(this);
             return (dlgres == DialogResult.OK);
         }
@@ -81,6 +80,8 @@ namespace Tangenta
                 {
                 }
             }
+
+            
 
             if (this.m_usrc_InvoiceMan.Init(main_Form))
             {

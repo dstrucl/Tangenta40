@@ -237,13 +237,14 @@ namespace TangentaSampleDB
 
             if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
             {
+
                 SampleDB_Price_ShopB_Item[] SampleDB_Price_ShopB_Item_List = new SampleDB_Price_ShopB_Item[]
-                {new SampleDB_Price_ShopB_Item(lngRPMS.SimpleItem_Name_Pedicure.s,
-                                               lngRPMS.SimpleItem_Abbreviation_Pedicure.s,
+                {new SampleDB_Price_ShopB_Item(lngRPMS.ShopB_Item_Name_Item1.s,
+                                               lngRPMS.ShopB_Item_Abbreviation_SB1.s,
                                                true,
                                                Properties.Resources.Pedikira,
                                                null,
-                                               lngRPMS.SimpleItem_ParentGroup1.s,
+                                               lngRPMS.ShopB_Item_ParentGroup1.s,
                                                null,
                                                null,
                                                lngRPMS.PriceList_Name.s,
@@ -294,6 +295,152 @@ namespace TangentaSampleDB
                                                            sample_ShopB_Item.PriceList_ID,
                                                            ref sample_ShopB_Item.Price_ShopB_Item_ID
                                                            ))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool Write_ShopC_Items()
+        {
+            string Currency_Name = null;
+            string Currency_Abbreviation = null;
+            string Currency_Symbol = null;
+            int Currency_Code = 0;
+            int Currency_DecimalPlaces = 2;
+
+            if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
+            {
+
+                SampleDB_Price_ShopC_Item[] SampleDB_Price_ShopC_Item_List = new SampleDB_Price_ShopC_Item[]
+                {new SampleDB_Price_ShopC_Item(
+                                               lngRPMS.ShopC_Item_UniquName_UniqueItemName1.s,
+                                               lngRPMS.ShopB_Item_Abbreviation_SB1.s,
+                                               new int_v(1),
+                                               lngRPMS.ShopC_Item_ParentGroup1.s,
+                                               null,
+                                               null,
+                                               "komad",
+                                               "kom.",
+                                               0,
+                                               true,
+                                               null,
+                                               null,
+                                               lngRPM.s_Description.s,
+                                               180,
+                                               60,
+                                               10,
+                                               null,
+                                               -1,
+                                               -1,
+                                               null,
+                                               null,
+                                               true,
+                                               lngRPMS.PriceList_Name.s,
+                                               true,
+                                               Currency_Abbreviation,
+                                               Currency_Name,
+                                               Currency_Symbol,
+                                               Currency_Code,
+                                               Currency_DecimalPlaces,
+                                               null,
+                                               null,
+                                               new DateTime_v(DateTime.Now),
+                                               null,
+                                               "DDV 22%",
+                                               0.22M,
+                                               10M,
+                                               new decimal_v(0)
+                                  )};
+                foreach (SampleDB_Price_ShopC_Item sample_ShopC_Item in SampleDB_Price_ShopC_Item_List)
+                {
+                    f_Expiry.Expiry_v expiry_v = null;
+                    if (sample_ShopC_Item.ShopC_Item_Expiry_ExpectedShelfLifeInDays >= 0)
+                    {
+                        expiry_v = new f_Expiry.Expiry_v();
+                        expiry_v.ExpectedShelfLifeInDays = sample_ShopC_Item.ShopC_Item_Expiry_ExpectedShelfLifeInDays;
+                        expiry_v.DiscardBeforeExpiryDateInDays = sample_ShopC_Item.ShopC_Item_Expiry_DiscardBeforeExpiryDateInDays;
+                        expiry_v.SaleBeforeExpiryDateInDays = sample_ShopC_Item.ShopC_Item_Expiry_SaleBeforeExpiryDateInDays;
+                        expiry_v.ExpiryDescription = sample_ShopC_Item.ShopC_Item_Expiry_ExpiryDescription;
+
+                    }
+                    f_Warranty.Warranty_v warranty_v = null;
+                    if (sample_ShopC_Item.ShopC_Item_Warranty_WarrantyDuration >= 0)
+                    {
+                        warranty_v = new f_Warranty.Warranty_v();
+                        warranty_v.WarrantyDuration = sample_ShopC_Item.ShopC_Item_Warranty_WarrantyDuration;
+                        warranty_v.WarrantyDurationType = sample_ShopC_Item.ShopC_Item_Warranty_WarrantyDurationType;
+                        warranty_v.WarrantyConditions = sample_ShopC_Item.ShopC_Item_Warranty_WarrantyConditions;
+
+                    }
+
+                    if (f_Item.Get(sample_ShopC_Item.ShopC_Item_Name, 
+                                   sample_ShopC_Item.ShopC_Item_UniqueName, 
+                                   sample_ShopC_Item.ShopC_Item_ToOffer,
+                                   sample_ShopC_Item.ShopC_Item_Image,
+                                   sample_ShopC_Item.ShopC_Item_Code,
+                                   "komad",
+                                   "kom.",
+                                   0,
+                                   true,
+                                   "Artikli kot komadi.",
+                                   null,
+                                   null,
+                                   expiry_v,
+                                   warranty_v,
+                                   sample_ShopC_Item.ShopC_Item_ParentGroup1,
+                                   sample_ShopC_Item.ShopC_Item_ParentGroup2,
+                                   sample_ShopC_Item.ShopC_Item_ParentGroup3,
+                                   ref sample_ShopC_Item.ShopC_Item_Unit_ID,
+                                   ref sample_ShopC_Item.ShopC_Price_Item_Item_ID
+                                   ))
+                    {
+
+                        if (f_PriceList.Get(sample_ShopC_Item.ShopC_Price_Item_PriceList_Name,
+                                            sample_ShopC_Item.ShopC_Price_Item_PriceList_valid,
+                                            myOrg.Default_Currency_ID,
+                                            sample_ShopC_Item.ShopC_Price_Item_PriceList_ValidFrom_v,
+                                            sample_ShopC_Item.ShopC_Price_Item_PriceList_ValidTo_v,
+                                            sample_ShopC_Item.ShopC_Price_Item_PriceList_CreationDate_v,
+                                            sample_ShopC_Item.ShopC_Price_Item_PriceList_Description,
+                                            ref sample_ShopC_Item.ShopC_Price_Item_PriceList_ID))
+                        {
+                            if (f_Taxation.Get(sample_ShopC_Item.ShopC_Price_Item_TaxationName,
+                                               sample_ShopC_Item.ShopC_Price_Item_TaxationRate,
+                                               ref sample_ShopC_Item.ShopC_Price_Item_Taxation_ID))
+                            {
+
+                                if (f_Price_Item.Get(sample_ShopC_Item.ShopC_Price_Item_RetailPricePerUnit,
+                                                     sample_ShopC_Item.ShopC_Price_Item_Discount_v,
+                                                     sample_ShopC_Item.ShopC_Price_Item_Taxation_ID,
+                                                     sample_ShopC_Item.ShopC_Price_Item_Item_ID,
+                                                     sample_ShopC_Item.ShopC_Price_Item_PriceList_ID,
+                                                     ref sample_ShopC_Item.ShopC_Price_Item_ID
+                                                     ))
                                 {
                                     continue;
                                 }

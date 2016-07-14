@@ -31,7 +31,7 @@ namespace TangentaDB
                 else
                 {
                     string spar_Image_Data = "@par_Image_Data";
-                    SQL_Parameter par_Image_Data = new SQL_Parameter(spar_Image_Hash, SQL_Parameter.eSQL_Parameter.Varbinary, false, Image_Data);
+                    SQL_Parameter par_Image_Data = new SQL_Parameter(spar_Image_Data, SQL_Parameter.eSQL_Parameter.Varbinary, false, Image_Data);
                     lpar.Add(par_Image_Data);
 
                     sql = "insert into SimpleItem_Image (Image_Hash,Image_Data)values(" + spar_Image_Hash + "," + spar_Image_Data + ")";

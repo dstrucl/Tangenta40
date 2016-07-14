@@ -107,7 +107,7 @@ namespace TangentaDB
                     dt.Clear();
                     dt.Rows.Clear();
                     dt.Columns.Clear();
-                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+                    if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
                     {
                         if (dt.Rows.Count > 0)
                         {
@@ -119,7 +119,7 @@ namespace TangentaDB
                                                                 " , valid = " + sval_valid +
                                                                 " , ValidFrom = " + sval_ValidFrom +
                                                                 " , ValidTo = " + sval_ValidTo +
-                                                                " , CretionDate = " + sval_CreationDate +
+                                                                " , CreationDate = " + sval_CreationDate +
                                                                 " , Description = " + sval_Description +
                                                                 " where ID = " + PriceList_ID.ToString();
                             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
@@ -155,7 +155,7 @@ namespace TangentaDB
                                                     "," + sval_ValidTo +
                                                     "," + sval_CreationDate +
                                                     "," + sval_Description +
-                                                        " where ID = " + PriceList_ID.ToString();
+                                                        ")";
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar,ref PriceList_ID,  ref oret, ref Err, "PriceList"))
                     {
                         return true;

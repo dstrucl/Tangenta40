@@ -63,7 +63,7 @@ namespace TangentaDB
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string spar_Name = "@par_Name";
-                SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name_ParentGroup2);
+                SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name_ParentGroup1);
                 lpar.Add(par_Name);
                 string sql = "select ID from SimpleItem_ParentGroup1 where Name = " + spar_Name + " and SimpleItem_ParentGroup2_ID is null";
                 if (dt.Rows.Count > 0)

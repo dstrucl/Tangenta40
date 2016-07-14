@@ -766,8 +766,10 @@ namespace Tangenta
 
         public bool Init(Form pparent, usrc_InvoiceMan xusrc_InvoiceMan, long ID, bool bInitialise)
         {
+            
             if (bInitialise)
             {
+                Set_eShopsMode(Properties.Settings.Default.eShopsInUse);
                 lngRPM.s_Head.Text(chk_Head);
                 chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
                 chk_Head.CheckedChanged += chk_Head_CheckedChanged;
@@ -1019,9 +1021,26 @@ namespace Tangenta
             return bGet;
         }
 
-        public bool GetSimpleItemData(object oData,ref string Err,ref Startup.startup_step.eStep eNextStep)
+        public bool Get_ShopB_ItemData(object oData,ref string Err,ref Startup.startup_step.eStep eNextStep)
         {
+            if (Program.Shops_in_use.Contains("B"))
+            {
+                if (TangentaSampleDB.TangentaSampleDB.sbd != null)
+                {
+                    if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopB_Items())
+                    {
+                        eNextStep = Startup.startup_step.eStep.End;
+                        return false;
+                    }
+                }
+                if (this.m_usrc_ShopB == null)
+                {
+                    Set_eShopsMode(Program.Shops_in_use);
+                }
+            }
+
             int iCountSimpleItemData = -1;
+
             if (GetSimpleItemData(ref iCountSimpleItemData))
             {
                 eNextStep++;
@@ -1048,10 +1067,6 @@ namespace Tangenta
                     {
                         if (TangentaSampleDB.TangentaSampleDB.sbd != null)
                         {
-                            return TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopB_Items();
-                        }
-                        else
-                        {
                             if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                             {
                                 this.m_usrc_ShopB.EditShopBItem();
@@ -1068,6 +1083,10 @@ namespace Tangenta
                             {
                                 return true;
                             }
+                        }
+                        else
+                        {
+                            return true;
                         }
                     }
                     else
@@ -1109,8 +1128,25 @@ namespace Tangenta
             }
         }
 
-        public bool GetItemData(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
+        public bool Get_ShopC_ItemData(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
         {
+            if (Program.Shops_in_use.Contains("C"))
+            {
+                if (TangentaSampleDB.TangentaSampleDB.sbd != null)
+                {
+                    if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items())
+                    {
+                        eNextStep = Startup.startup_step.eStep.End;
+                        return false;
+                    }
+                }
+                if (this.m_usrc_ShopC == null)
+                {
+                    Set_eShopsMode(Program.Shops_in_use);
+                }
+            }
+
+
             if (GetItemData(ref iCountItemData))
             {
                 eNextStep++;
@@ -1180,7 +1216,7 @@ namespace Tangenta
                 {
                     if (myOrg.Name_v == null)
                     {
-                        x_usrc_Main.Get_shops_in_use();
+                        x_usrc_Main.Get_shops_in_use(false);
 
                         MessageBox.Show(lngRPM.s_No_OrganisationData.s);
                         if (EditMyOrganisation_Data(true))
@@ -1510,7 +1546,8 @@ namespace Tangenta
             {
                 GlobalData.BaseCurrency = new xCurrency();
             }
-            Form_Select_DefaultCurrency sel_basecurrency_dlg = new Form_Select_DefaultCurrency(ref GlobalData.BaseCurrency);
+            long DefaultCurrency_ID = myOrg.Default_Currency_ID;
+            Form_Select_DefaultCurrency sel_basecurrency_dlg = new Form_Select_DefaultCurrency(DefaultCurrency_ID,ref GlobalData.BaseCurrency);
             if (sel_basecurrency_dlg.ShowDialog() == DialogResult.OK)
             {
                 if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))

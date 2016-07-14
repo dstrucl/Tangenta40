@@ -129,7 +129,7 @@ namespace Tangenta
 
         private void btn_Shops_in_use_Click(object sender, EventArgs e)
         {
-            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(m_usrc_Main);
+            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(true,m_usrc_Main);
             frm_shops_in_use.ShowDialog();
         }
 

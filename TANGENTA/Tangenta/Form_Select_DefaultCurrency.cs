@@ -23,14 +23,16 @@ namespace Tangenta
 {
     public partial class Form_Select_DefaultCurrency : Form
     {
+        private long DefaultCurrency_ID = -1;
         public long Currency_ID = -1;
         public TangentaDB.xCurrency m_xCurrency = null;
 
 
         DataTable dtCurrency = new DataTable();
-        public Form_Select_DefaultCurrency(ref TangentaDB.xCurrency xxCurrency)
+        public Form_Select_DefaultCurrency(long xDefaultCurrency_ID, ref TangentaDB.xCurrency xxCurrency)
         {
             InitializeComponent();
+            DefaultCurrency_ID = xDefaultCurrency_ID;
             m_xCurrency = xxCurrency;
             this.Text = lngRPM.s_SelectDefaultCurrency.s;
             lbl_SelectedCurrency.Text = lngRPM.s_SelectedCurrency.s;
@@ -58,6 +60,18 @@ namespace Tangenta
                     dgvx_Currency.DataSource = dtCurrency;
                     SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person)));
                     tbl.Set_DataGridViewImageColumns_Headers(dgvx_Currency);
+
+                    if (DefaultCurrency_ID >= 0)
+                    {
+                        DataRow[] drs = dtCurrency.Select("ID = " + DefaultCurrency_ID.ToString());
+                        if (drs.Count() > 0)
+                        {
+                            int iRowIndex = dtCurrency.Rows.IndexOf(drs[0]);
+                            dgvx_Currency.CurrentCell = dgvx_Currency.Rows[iRowIndex].Cells[0];
+                        }
+                    }
+
+
                     return true;
                 }
                 else
