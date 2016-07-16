@@ -595,149 +595,149 @@ namespace Tangenta
         public bool Initialise(Form pparent, usrc_InvoiceMan xusrc_InvoiceMan)
         {
             m_usrc_InvoiceMan = xusrc_InvoiceMan;
-            this.txt_Number.Text = "";
+            //this.txt_Number.Text = "";
+            return true;
+            //Set_eShopsMode(Properties.Settings.Default.eShopsMode);
+            //GetUnits();
+            //if (GetSimpleItemData(ref iCountSimpleItemData))
+            //{
+            //if (GetItemData(ref iCountItemData))
+            //    {
+            //        if ((iCountSimpleItemData + iCountItemData > 0) || (Program.Shops_in_use.Equals("A")))
+            //        {
 
-            Set_eShopsMode(Properties.Settings.Default.eShopsMode);
-            GetUnits();
-            if (GetSimpleItemData(ref iCountSimpleItemData))
-            {
-                if (GetItemData(ref iCountItemData))
-                {
-                    if ((iCountSimpleItemData + iCountItemData > 0) || (Program.Shops_in_use.Equals("A")))
-                    {
+            //            DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
+            //            //if (Program.Shops_in_use.Contains("B"))
+            //            //{
+            //            if (GetPriceList_ShopB())
+            //                {
+            //                    if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
+            //                    {
+            //                        if (dt_ShopB_Item_NotIn_PriceList.Rows.Count > 0)
+            //                        {
+            //                            if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
+            //                            {
+            //                                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
+            //                                {
+            //                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true);
+            //                                }
+            //                            }
+            //                        }
+            //                        else
+            //                        {
+            //                            bool bEdit = false;
+            //                            f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
+            //                            if (bEdit)
+            //                            {
+            //                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true);
 
-                        DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
-                        //if (Program.Shops_in_use.Contains("B"))
-                        //{
-                        if (GetPriceList_ShopB())
-                            {
-                                if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
-                                {
-                                    if (dt_ShopB_Item_NotIn_PriceList.Rows.Count > 0)
-                                    {
-                                        if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
-                                        {
-                                            if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
-                                            {
-                                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true);
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        bool bEdit = false;
-                                        f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
-                                        if (bEdit)
-                                        {
-                                            this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true);
+            //                            }
+            //                        }
+            //                    }
 
-                                        }
-                                    }
-                                }
+            //                    int iCount_Price_SimpleItem_Data = 0;
+            //                    if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
+            //                    {
+            //                        this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    return false;
+            //                }
+            //            //}
 
-                                int iCount_Price_SimpleItem_Data = 0;
-                                if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
-                                {
-                                    this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        //}
+            //            if (Program.Shops_in_use.Contains("C"))
+            //            {
+            //                if (GetPriceList_ShopC())
+            //                {
+            //                    DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
+            //                    if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
+            //                    {
+            //                        if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
+            //                        {
+            //                            if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
+            //                            {
+            //                                if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
+            //                                {
+            //                                    this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
+            //                                }
+            //                            }
+            //                        }
+            //                        else
+            //                        {
+            //                            bool bEdit = false;
+            //                            f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
+            //                            if (bEdit)
+            //                            {
+            //                                this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
+            //                            }
+            //                        }
+            //                    }
 
-                        //if (Program.Shops_in_use.Contains("C"))
-                        //{
-                                if (GetPriceList_ShopC())
-                            {
-                                DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
-                                if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
-                                {
-                                    if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
-                                    {
-                                        if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
-                                        {
-                                            if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
-                                            {
-                                                this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        bool bEdit = false;
-                                        f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
-                                        if (bEdit)
-                                        {
-                                            this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
-                                        }
-                                    }
-                                }
+            //                    if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
+            //                    {
+            //                        if (Program.bStartup)
+            //                        {
+            //                            Program.bStartup = false;
 
-                                if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
-                                {
-                                    if (Program.bStartup)
-                                    {
-                                        Program.bStartup = false;
-
-                                        if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
-                                        {
-                                            bool ExpiryItemsFound = false;
-                                            string sNoExpiryDate = null;
-                                            string sNoSaleBeforeExpiryDate = null;
-                                            string sNoDiscardBeforeExpiryDate = null;
-                                            DataTable dt_ExpiryCheck = new DataTable();
-                                            if (fs.ExpiryCheck(ref dt_ExpiryCheck, ref ExpiryItemsFound, ref sNoExpiryDate, ref sNoSaleBeforeExpiryDate, ref sNoDiscardBeforeExpiryDate))
-                                            {
-                                                if (ExpiryItemsFound)
-                                                {
-                                                    Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
-                                                    frm_exp_chk.ShowDialog();
-                                                }
-                                                return true;
-                                            }
-                                            else
-                                            {
-                                                return false;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            return true;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        return true;
-                                    }
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        //}
-                        //return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            //                            if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
+            //                            {
+            //                                bool ExpiryItemsFound = false;
+            //                                string sNoExpiryDate = null;
+            //                                string sNoSaleBeforeExpiryDate = null;
+            //                                string sNoDiscardBeforeExpiryDate = null;
+            //                                DataTable dt_ExpiryCheck = new DataTable();
+            //                                if (fs.ExpiryCheck(ref dt_ExpiryCheck, ref ExpiryItemsFound, ref sNoExpiryDate, ref sNoSaleBeforeExpiryDate, ref sNoDiscardBeforeExpiryDate))
+            //                                {
+            //                                    if (ExpiryItemsFound)
+            //                                    {
+            //                                        Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
+            //                                        frm_exp_chk.ShowDialog();
+            //                                    }
+            //                                    return true;
+            //                                }
+            //                                else
+            //                                {
+            //                                    return false;
+            //                                }
+            //                            }
+            //                            else
+            //                            {
+            //                                return true;
+            //                            }
+            //                        }
+            //                        else
+            //                        {
+            //                            return true;
+            //                        }
+            //                    }
+            //                    else
+            //                    {
+            //                        return false;
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    return false;
+            //                }
+            //            }
+            //            return true;
+            //        }
+            //        else
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        return false;
+            //    }
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
 
 
@@ -766,7 +766,8 @@ namespace Tangenta
 
         public bool Init(Form pparent, usrc_InvoiceMan xusrc_InvoiceMan, long ID, bool bInitialise)
         {
-            
+            //return DoCurrent(ID);
+
             if (bInitialise)
             {
                 Set_eShopsMode(Properties.Settings.Default.eShopsInUse);

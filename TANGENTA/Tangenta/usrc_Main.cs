@@ -112,11 +112,13 @@ namespace Tangenta
     {
         if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
         {
+            eNextStep++;
             return true;
         }
         else
         {
             LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+            eNextStep = Startup.startup_step.eStep.End;
             return false;
         }
     }
