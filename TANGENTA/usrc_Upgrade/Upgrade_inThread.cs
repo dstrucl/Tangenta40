@@ -3534,10 +3534,11 @@ namespace UpgradeDB
             }
         }
 
-        public bool Read_DBSettings_Version(ref fs.enum_GetDBSettings eGetDBSettings_Result,ref bool bUpgradeDone, ref string Err)
+        public bool Read_DBSettings_Version(ref fs.enum_GetDBSettings eGetDBSettings_Result,ref bool bUpgradeDone,ref bool bInsertSampleData,  ref string Err)
         {
             string xTextValue = null;
             bool xReadOnly = false;
+            bInsertSampleData = false;
             Restore_if_UpgradeBackupFileExists(ref m_Full_backup_filename);
             eGetDBSettings_Result = fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
                                    ref xTextValue,
@@ -3572,8 +3573,10 @@ namespace UpgradeDB
 
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
-                    if (CheckInsertDefaultOrganisation())
+                    bInsertSampleData = CheckInsertSampleData();
+                    if (bInsertSampleData)
                     {
+                        
                         if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref Err))
                         {
                             return true;
@@ -3654,11 +3657,11 @@ namespace UpgradeDB
 
         }
 
-        public  bool Read_DBSettings(object oData, ref string Err,ref startup_step.eStep eNextStep)
+        public  bool Read_DBSettings(startup myStartup,object oData, ref string Err)
         {
             bool bUpgradeDone = false;
             fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
-            if (Read_DBSettings_Version(ref eGetDBSettings_Result,ref bUpgradeDone, ref Err))
+            if (Read_DBSettings_Version(ref eGetDBSettings_Result,ref bUpgradeDone,ref myStartup.bInsertSampleData, ref Err))
             {
                 if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
                 {
@@ -3671,17 +3674,17 @@ namespace UpgradeDB
                                 switch (eGetDBSettings_Result)
                                 {
                                     case fs.enum_GetDBSettings.No_Data_Rows:
-                                        eNextStep++;
+                                        myStartup.eNextStep++;
                                         return true;
                                 }
-                                eNextStep++;
+                                myStartup.eNextStep++;
                                 return true;
                             }
                         }
                     }
                 }
             }
-            eNextStep = startup_step.eStep.End;
+            myStartup.eNextStep = startup_step.eStep.End;
             return false;
         }
 
@@ -3761,7 +3764,7 @@ namespace UpgradeDB
             }
         }
 
-        private bool CheckInsertDefaultOrganisation()
+        private bool CheckInsertSampleData()
         {
             if (MessageBox.Show(m_parent_ctrl, lngRPM.s_DataBaseIsEmpty_InsertInitialData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {

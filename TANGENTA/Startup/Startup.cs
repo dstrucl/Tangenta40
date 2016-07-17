@@ -13,7 +13,10 @@ namespace Startup
 
     public class startup
         {
-
+        startup_step.eStep eStep = startup_step.eStep.NoStep;
+        public startup_step.eStep eNextStep = startup_step.eStep.NoStep;
+        public bool bNewDatabaseCreated = false;
+        public bool bInsertSampleData = false;
         public Form m_parent_form = null;
         public usrc_Startup m_usrc_Startup = null;
         internal startup_step[] Step = null;
@@ -29,12 +32,12 @@ namespace Startup
 
         public bool Execute(startup_step[] step, ref string Err)
         {
-            startup_step.eStep eStep = startup_step.eStep.Check_DataBase;
+            eStep = startup_step.eStep.Check_DataBase;
+            eNextStep = eStep;
             while (eStep != startup_step.eStep.End)
             {
                 object odata = null;
-                startup_step.eStep eNextStep = eStep;
-                bool bRet = step[(int)eStep].Execute(odata, ref Err, ref eNextStep);
+                bool bRet = step[(int)eStep].Execute(this,odata, ref Err);
                 if (bRet)
                 {
                     if (eNextStep != startup_step.eStep.End)

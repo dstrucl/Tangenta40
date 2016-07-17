@@ -213,7 +213,16 @@ namespace ShopB
                 string ShopBItem_Taxation_Name = (string)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Name];
                 decimal ShopBItem_Taxation_Rate = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colShopBItemTaxation_Rate];
                 decimal ShopBItem_RetailShopBItemPrice_WithoutPriceListDiscount = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colPriceShopBItemRetailShopBItemPrice];
-                decimal ShopBItem_RetailShopBItemPrice = ShopBItem_RetailShopBItemPrice_WithoutPriceListDiscount - ShopBItem_RetailShopBItemPrice_WithoutPriceListDiscount * (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow]["Discount"];
+                object oDiscount = dt_Price_ShopBItem.Rows[iShopBItemRow]["Discount"];
+                decimal Discount = 0;
+                decimal ExtraDiscount = 0;
+
+                if (oDiscount is decimal)
+                {
+                    Discount = (decimal)oDiscount;
+                }
+
+                decimal ShopBItem_RetailShopBItemPrice = ShopBItem_RetailShopBItemPrice_WithoutPriceListDiscount - ShopBItem_RetailShopBItemPrice_WithoutPriceListDiscount * Discount;
                 string ShopBItem_Image_Image_Hash = null;
                 byte[] ShopBItem_Image_Image_Data = null;
 
@@ -232,8 +241,18 @@ namespace ShopB
                     int iCount = (int)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_Count];
                     iCount++;
                     decimal RetailPrice_per_unit = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow][DBtcn.colPriceShopBItemRetailShopBItemPrice];
-                    decimal Discount = (decimal)dt_Price_ShopBItem.Rows[iShopBItemRow]["Discount"]; 
-                    decimal ExtraDiscount = (decimal)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_ExtraDiscount];
+                    Discount = 0;
+                    oDiscount = dt_Price_ShopBItem.Rows[iShopBItemRow]["Discount"]; 
+                    if (oDiscount is decimal)
+                    {
+                        Discount = (decimal)oDiscount;
+                    }
+                    object oExtraDiscount = dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_ExtraDiscount];
+
+                    if (oExtraDiscount is decimal)
+                    {
+                        ExtraDiscount = (decimal)oExtraDiscount;
+                    }
                     decimal TaxPrice = 0;
                     decimal RetailShopBItemPriceWithDiscount = 0;
                     decimal PriceWithoutTax = 0;
@@ -273,8 +292,8 @@ namespace ShopB
                 {
                     decimal RetailPriceWithDiscount = 0;
                     decimal RetailShopBItemPrice = 0;
-                    decimal Discount = 0; 
-                    decimal ExtraDiscount = 0;
+                    Discount = 0; 
+                    ExtraDiscount = 0;
                     decimal Taxation_Rate = 0;
                     string Taxation_Name = null;
                     decimal Tax = 0;

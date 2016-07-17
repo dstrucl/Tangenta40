@@ -98,11 +98,11 @@ namespace Tangenta
                                     );
         }
 
-        public bool Startup_Check_DataBase(object o, ref string Err,ref startup_step.eStep eNextStep)
+        public bool Startup_Check_DataBase(startup myStartup,object o, ref string Err)
         {
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
-            bool bResult = DBSync.DBSync.Init(this, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection);
+            bool bResult = DBSync.DBSync.Init(this, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection,ref myStartup.bNewDatabaseCreated);
 
             Properties.Settings.Default.IniFileFolder = IniFileFolder;
 
@@ -110,11 +110,11 @@ namespace Tangenta
             Properties.Settings.Default.Save();
             if (bResult)
             {
-                eNextStep++;
+                myStartup.eNextStep++;
             }
             else
             {
-                eNextStep = startup_step.eStep.End;
+                myStartup.eNextStep = startup_step.eStep.End;
             }
             return bResult;
         }
@@ -129,9 +129,10 @@ namespace Tangenta
             //GetAllSplitContainerControlsRecusive<Control>(ref Program.ListOfAllSplitConatinerControls, this);
             //SetSplitContainerPositions(true, ref Program.ListOfAllSplitConatinerControls, Properties.Settings.Default.SplitContainerDistanceUserSettings);
 
+            m_usrc_Main.Initialise(this);
             if (m_startup.Execute(StartupStep, ref Err))
             {
-                m_usrc_Main.Init(this);
+                m_usrc_Main.Init();
                 m_startup.RemoveControl();
                 m_usrc_Main.Visible = true;
                 return;

@@ -235,7 +235,7 @@ namespace TangentaDB
             Atom_DocInvoice_Price_Item_Stock.ExtraDiscount AS ExtraDiscount,
             Atom_DocInvoice_Price_Item_Stock.RetailPriceWithDiscount AS RetailPriceWithDiscount,
             Atom_DocInvoice_Price_Item_Stock.TaxPrice AS  TaxPrice,
-            Atom_DocInvoice_Price_Item_Stock.ID AS Atom_DocInvoice_Price_Item_Stock_ID,
+            Atom_DocInvoice_Price_Item_Stock.ID AS DocInvoice_ShopC_Item_ID,
             Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID,
             Atom_DocInvoice_Price_Item_Stock.Stock_ID,
             Atom_DocInvoice_Price_Item_Stock.ExpiryDate,

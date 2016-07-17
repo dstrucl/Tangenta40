@@ -21,6 +21,7 @@ using ShopB;
 using ShopC;
 using System.Drawing;
 using System.Linq;
+using Startup;
 
 namespace Tangenta
 {
@@ -592,142 +593,20 @@ namespace Tangenta
             }
         }
 
-        public bool Initialise(Form pparent, usrc_InvoiceMan xusrc_InvoiceMan)
+        public bool Initialise(usrc_InvoiceMan xusrc_InvoiceMan)
         {
             m_usrc_InvoiceMan = xusrc_InvoiceMan;
+
+            lngRPM.s_Head.Text(chk_Head);
+            chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
+            chk_Head.CheckedChanged += chk_Head_CheckedChanged;
+            splitContainer2.Panel1Collapsed = !chk_Head.Checked;
             //this.txt_Number.Text = "";
             return true;
-            //Set_eShopsMode(Properties.Settings.Default.eShopsMode);
-            //GetUnits();
             //if (GetSimpleItemData(ref iCountSimpleItemData))
             //{
-            //if (GetItemData(ref iCountItemData))
+            //    if (GetItemData(ref iCountItemData))
             //    {
-            //        if ((iCountSimpleItemData + iCountItemData > 0) || (Program.Shops_in_use.Equals("A")))
-            //        {
-
-            //            DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
-            //            //if (Program.Shops_in_use.Contains("B"))
-            //            //{
-            //            if (GetPriceList_ShopB())
-            //                {
-            //                    if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
-            //                    {
-            //                        if (dt_ShopB_Item_NotIn_PriceList.Rows.Count > 0)
-            //                        {
-            //                            if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
-            //                            {
-            //                                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
-            //                                {
-            //                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true);
-            //                                }
-            //                            }
-            //                        }
-            //                        else
-            //                        {
-            //                            bool bEdit = false;
-            //                            f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
-            //                            if (bEdit)
-            //                            {
-            //                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true);
-
-            //                            }
-            //                        }
-            //                    }
-
-            //                    int iCount_Price_SimpleItem_Data = 0;
-            //                    if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
-            //                    {
-            //                        this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    return false;
-            //                }
-            //            //}
-
-            //            if (Program.Shops_in_use.Contains("C"))
-            //            {
-            //                if (GetPriceList_ShopC())
-            //                {
-            //                    DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
-            //                    if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
-            //                    {
-            //                        if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
-            //                        {
-            //                            if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
-            //                            {
-            //                                if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
-            //                                {
-            //                                    this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
-            //                                }
-            //                            }
-            //                        }
-            //                        else
-            //                        {
-            //                            bool bEdit = false;
-            //                            f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
-            //                            if (bEdit)
-            //                            {
-            //                                this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
-            //                            }
-            //                        }
-            //                    }
-
-            //                    if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
-            //                    {
-            //                        if (Program.bStartup)
-            //                        {
-            //                            Program.bStartup = false;
-
-            //                            if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
-            //                            {
-            //                                bool ExpiryItemsFound = false;
-            //                                string sNoExpiryDate = null;
-            //                                string sNoSaleBeforeExpiryDate = null;
-            //                                string sNoDiscardBeforeExpiryDate = null;
-            //                                DataTable dt_ExpiryCheck = new DataTable();
-            //                                if (fs.ExpiryCheck(ref dt_ExpiryCheck, ref ExpiryItemsFound, ref sNoExpiryDate, ref sNoSaleBeforeExpiryDate, ref sNoDiscardBeforeExpiryDate))
-            //                                {
-            //                                    if (ExpiryItemsFound)
-            //                                    {
-            //                                        Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
-            //                                        frm_exp_chk.ShowDialog();
-            //                                    }
-            //                                    return true;
-            //                                }
-            //                                else
-            //                                {
-            //                                    return false;
-            //                                }
-            //                            }
-            //                            else
-            //                            {
-            //                                return true;
-            //                            }
-            //                        }
-            //                        else
-            //                        {
-            //                            return true;
-            //                        }
-            //                    }
-            //                    else
-            //                    {
-            //                        return false;
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    return false;
-            //                }
-            //            }
-            //            return true;
-            //        }
-            //        else
-            //        {
-            //            return false;
-            //        }
             //    }
             //    else
             //    {
@@ -740,9 +619,138 @@ namespace Tangenta
             //}
         }
 
+        public bool Init(long Document_ID)
+        {
+            Set_eShopsMode(Properties.Settings.Default.eShopsMode);
+            GetUnits();
+            if ((iCountSimpleItemData + iCountItemData > 0) || (Program.Shops_in_use.Contains("A")))
+            {
 
+                DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
+                //if (Program.Shops_in_use.Contains("B"))
+                //{
+                if (GetPriceList_ShopB())
+                {
+                    if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
+                    {
+                        if (dt_ShopB_Item_NotIn_PriceList.Rows.Count > 0)
+                        {
+                            if (PriseLists.usrc_PriceList.Ask_To_Update('B', dt_ShopB_Item_NotIn_PriceList, this))
+                            {
+                                if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
+                                {
+                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            bool bEdit = false;
+                            f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
+                            if (bEdit)
+                            {
+                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true);
 
-        private bool DoCurrent(long ID)
+                            }
+                        }
+                    }
+
+                    int iCount_Price_SimpleItem_Data = 0;
+                    if (Get_Price_SimpleItem_Data(ref iCount_Price_SimpleItem_Data, this.m_usrc_ShopB.usrc_PriceList1.ID))
+                    {
+                        this.m_usrc_ShopB.Set_dgv_SelectedShopB_Items();
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+                //}
+
+                if (Program.Shops_in_use.Contains("C"))
+                {
+                    if (GetPriceList_ShopC())
+                    {
+                        DataTable dt_ShopC_Item_NotIn_PriceList = new DataTable();
+                        if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList))
+                        {
+                            if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
+                            {
+                                if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
+                                {
+                                    if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
+                                    {
+                                        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                bool bEdit = false;
+                                f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
+                                if (bEdit)
+                                {
+                                    this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true);
+                                }
+                            }
+                        }
+
+                        if (this.m_usrc_ShopC.usrc_ItemList.Get_Price_Item_Stock_Data(this.m_usrc_ShopC.usrc_PriceList1.ID))
+                        {
+                            if (Program.bStartup)
+                            {
+                                Program.bStartup = false;
+
+                                if (DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue.Equals("1"))
+                                {
+                                    bool ExpiryItemsFound = false;
+                                    string sNoExpiryDate = null;
+                                    string sNoSaleBeforeExpiryDate = null;
+                                    string sNoDiscardBeforeExpiryDate = null;
+                                    DataTable dt_ExpiryCheck = new DataTable();
+                                    if (fs.ExpiryCheck(ref dt_ExpiryCheck, ref ExpiryItemsFound, ref sNoExpiryDate, ref sNoSaleBeforeExpiryDate, ref sNoDiscardBeforeExpiryDate))
+                                    {
+                                        if (ExpiryItemsFound)
+                                        {
+                                            Form_Expiry_Check frm_exp_chk = new Form_Expiry_Check(dt_ExpiryCheck, this, sNoExpiryDate, sNoSaleBeforeExpiryDate, sNoDiscardBeforeExpiryDate);
+                                            frm_exp_chk.ShowDialog();
+                                        }
+                                        return DoCurrent(Document_ID);
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return DoCurrent(Document_ID);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DoCurrent(long ID)
         {
             if (DoGetCurrent(ID))
             {
@@ -764,33 +772,8 @@ namespace Tangenta
             }
         }
 
-        public bool Init(Form pparent, usrc_InvoiceMan xusrc_InvoiceMan, long ID, bool bInitialise)
-        {
-            //return DoCurrent(ID);
 
-            if (bInitialise)
-            {
-                Set_eShopsMode(Properties.Settings.Default.eShopsInUse);
-                lngRPM.s_Head.Text(chk_Head);
-                chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
-                chk_Head.CheckedChanged += chk_Head_CheckedChanged;
 
-                splitContainer2.Panel1Collapsed = !chk_Head.Checked;
-
-                if (Initialise(pparent, xusrc_InvoiceMan))
-                {
-                    if (GetReceiptPrinter())
-                    {
-                        return DoCurrent(ID);
-                    }
-                }
-            }
-            else
-            {
-                return DoCurrent(ID);
-            }
-            return false;
-        }
 
 
         void chk_Head_CheckedChanged(object sender, EventArgs e)
@@ -902,7 +885,7 @@ namespace Tangenta
         }
         
 
-        public bool GetTaxation(object oData,ref string Err, ref Startup.startup_step.eStep eNextStep)
+        public bool GetTaxation(startup myStartup,object oData,ref string Err)
         {
             if (DBtcn == null)
             {
@@ -922,7 +905,7 @@ namespace Tangenta
             {
                 if (dt.Rows.Count > 0)
                 {
-                    eNextStep++;
+                    myStartup.eNextStep++;
                     return true;
                 }
                 else
@@ -934,12 +917,12 @@ namespace Tangenta
                         {
                             if (dt.Rows.Count > 0)
                             {
-                                eNextStep++;
+                                myStartup.eNextStep++;
                                 return true;
                             }
                         }
                     }
-                    eNextStep = Startup.startup_step.eStep.End;
+                    myStartup.eNextStep = Startup.startup_step.eStep.End;
                     return false;
                 }
             }
@@ -947,7 +930,7 @@ namespace Tangenta
             {
                 Err = "ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err;
                 LogFile.Error.Show(Err);
-                eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.End;
                 return false;
             }
         }
@@ -1022,15 +1005,15 @@ namespace Tangenta
             return bGet;
         }
 
-        public bool Get_ShopB_ItemData(object oData,ref string Err,ref Startup.startup_step.eStep eNextStep)
+        public bool Get_ShopB_ItemData(startup myStartup,object oData,ref string Err)
         {
             if (Program.Shops_in_use.Contains("B"))
             {
-                if (TangentaSampleDB.TangentaSampleDB.sbd != null)
+                if (myStartup.bInsertSampleData)
                 {
                     if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopB_Items())
                     {
-                        eNextStep = Startup.startup_step.eStep.End;
+                        myStartup.eNextStep = Startup.startup_step.eStep.End;
                         return false;
                     }
                 }
@@ -1044,12 +1027,12 @@ namespace Tangenta
 
             if (GetSimpleItemData(ref iCountSimpleItemData))
             {
-                eNextStep++;
+                myStartup.eNextStep++;
                 return true;
             }
             else
             {
-                eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.End;
                 return false;
             }
         }
@@ -1066,23 +1049,16 @@ namespace Tangenta
                 {
                     if (Program.Shops_in_use.Contains("B"))
                     {
-                        if (TangentaSampleDB.TangentaSampleDB.sbd != null)
+                        if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
-                            if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                            this.m_usrc_ShopB.EditShopBItem();
+                            if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
                             {
-                                this.m_usrc_ShopB.EditShopBItem();
-                                if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
-                                {
-                                    return true;
-                                }
-                                else
-                                {
-                                    return false;
-                                }
+                                return true;
                             }
                             else
                             {
-                                return true;
+                                return false;
                             }
                         }
                         else
@@ -1129,15 +1105,15 @@ namespace Tangenta
             }
         }
 
-        public bool Get_ShopC_ItemData(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
+        public bool Get_ShopC_ItemData(startup myStartup,object oData, ref string Err)
         {
             if (Program.Shops_in_use.Contains("C"))
             {
-                if (TangentaSampleDB.TangentaSampleDB.sbd != null)
+                if (myStartup.bInsertSampleData)
                 {
                     if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items())
                     {
-                        eNextStep = Startup.startup_step.eStep.End;
+                        myStartup.eNextStep = Startup.startup_step.eStep.End;
                         return false;
                     }
                 }
@@ -1150,12 +1126,12 @@ namespace Tangenta
 
             if (GetItemData(ref iCountItemData))
             {
-                eNextStep++;
+                myStartup.eNextStep++;
                 return true;
             }
             else
             {
-                eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.End;
                 return false;
             }
         }
@@ -1207,7 +1183,7 @@ namespace Tangenta
 
 
 
-        internal bool GetOrganisationData(object  oData,ref string Err, ref Startup.startup_step.eStep eNextStep)
+        internal bool GetOrganisationData(startup myStartup,object  oData,ref string Err)
         {
             usrc_Main x_usrc_Main = (usrc_Main)oData;
             string sAddress = null;
@@ -1226,7 +1202,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1239,7 +1215,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1253,7 +1229,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1267,7 +1243,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1281,7 +1257,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1294,7 +1270,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1308,7 +1284,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1327,7 +1303,7 @@ namespace Tangenta
                             }
                             else
                             {
-                                eNextStep = Startup.startup_step.eStep.End;
+                                myStartup.eNextStep = Startup.startup_step.eStep.End;
                                 return false;
                             }
                         }
@@ -1363,7 +1339,7 @@ namespace Tangenta
                                     }
                                     else
                                     {
-                                        eNextStep = Startup.startup_step.eStep.End;
+                                        myStartup.eNextStep = Startup.startup_step.eStep.End;
                                         return false;
                                     }
                                 }
@@ -1379,7 +1355,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1394,7 +1370,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.End;
                             return false;
                         }
                     }
@@ -1427,7 +1403,7 @@ namespace Tangenta
                         + "\r\nEmail:" + sEmail
                         + "\r\nDomača stran:" + sHomePage;
                      Fill_MyOrganisation_Person();
-                    eNextStep++;
+                    myStartup.eNextStep++;
                     return true;
                 }
             }
@@ -1517,7 +1493,7 @@ namespace Tangenta
             throw new NotImplementedException();
         }
 
-        public  bool Get_BaseCurrency(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
+        public  bool Get_BaseCurrency(startup myStartup,object oData, ref string Err)
         {
             string BaseCurrency_Text = null;
             if (GlobalData.Get_BaseCurrency(ref BaseCurrency_Text,ref Err))
@@ -1525,19 +1501,19 @@ namespace Tangenta
                 if (BaseCurrency_Text!= null)
                 {
                     this.txt_Currency.Text = BaseCurrency_Text;
-                    eNextStep++;
+                    myStartup.eNextStep++;
                     return true;
                 }
                 else
                 {
                     if (Select_BaseCurrency(ref Err))
                     {
-                        eNextStep++;
+                        myStartup.eNextStep++;
                         return true;
                     }
                 }
             }
-            eNextStep = Startup.startup_step.eStep.End;
+            myStartup.eNextStep = Startup.startup_step.eStep.End;
             return false;
         }
 

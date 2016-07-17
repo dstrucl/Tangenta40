@@ -85,10 +85,15 @@ namespace Tangenta
             Properties.Settings.Default.Save();
         }
 
-        internal bool Init(Form pparent)
+        internal bool Initialise(Form pparent)
+        {
+            m_pparent = pparent;
+            return m_usrc_Invoice.Initialise(this);
+        }
+
+        internal bool Init()
         {
             Program.Cursor_Wait();
-            m_pparent = pparent;
             InvoiceType_Invoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.Invoice);
             List_InvoiceType.Add(InvoiceType_Invoice);
             InvoiceType_Invoice_From_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice_From_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.DocInvoice);
@@ -109,7 +114,7 @@ namespace Tangenta
             int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,true,Properties.Settings.Default.FinancialYear);
             //                if (iRowsCount == 0)
             //                {
-            if (!m_usrc_Invoice.Init(m_pparent, this,-1, true))
+            if (!m_usrc_Invoice.Init(-1))
                 {
                     Program.Cursor_Arrow();
                     return false;
@@ -217,7 +222,7 @@ namespace Tangenta
         {
             if (DocInvoice_ID >= 0)
             {
-                if (m_usrc_Invoice.Init(m_pparent, this, DocInvoice_ID, bInitialise))
+                if (m_usrc_Invoice.DoCurrent(DocInvoice_ID))
                 {
                 }
             }
@@ -299,7 +304,7 @@ namespace Tangenta
 
         private void m_usrc_Invoice_PriceListChanged()
         {
-            this.Init(m_pparent);
+            this.Init();
         }
 
         private void btn_SelectPanels_Click(object sender, EventArgs e)

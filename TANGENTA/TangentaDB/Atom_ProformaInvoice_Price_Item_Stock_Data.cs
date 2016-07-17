@@ -17,7 +17,7 @@ namespace TangentaDB
 {
     public class Atom_DocInvoice_ShopC_Item_Price_Stock_Data
     {
-        public long_v Atom_DocInvoice_Price_Item_Stock_ID = null;
+        public long_v DocInvoice_ShopC_Item_ID = null;
         public long_v DocInvoice_ID = null;
         public long_v Atom_Price_Item_ID = null;
         public long_v Atom_Item_ID = null;
@@ -103,7 +103,7 @@ namespace TangentaDB
                 }
 
                 m_ShopShelf_Source.Clear();
-                Atom_DocInvoice_Price_Item_Stock_ID = tf.set_long(dria["Atom_DocInvoice_Price_Item_Stock_ID"]);
+                DocInvoice_ShopC_Item_ID = tf.set_long(dria["DocInvoice_ShopC_Item_ID"]);
                 DocInvoice_ID = tf.set_long(dria["DocInvoice_ID"]);
                 Atom_Price_Item_ID = tf.set_long(dria["Atom_Price_Item_ID"]);
                 dQuantity_all = tf.set_decimal(dria["dQuantity"]);
@@ -170,7 +170,7 @@ namespace TangentaDB
         public void Set(object xusrc_Item, Item_Data xItem_Data,long xDocInvoice_ID, decimal xFactoryQuantity, decimal xStockQuantity, bool b_from_factory)
         {
             m_ShopShelf_Source.Clear();
-            Atom_DocInvoice_Price_Item_Stock_ID = null;
+            DocInvoice_ShopC_Item_ID = null;
             DocInvoice_ID = new long_v();
             DocInvoice_ID.v = xDocInvoice_ID;
             Atom_Price_Item_ID = null; // tf.set_long(dria["Atom_Price_Item_ID"]);

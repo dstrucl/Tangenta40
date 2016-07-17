@@ -174,7 +174,12 @@ namespace TangentaDB
                     taxRate = (decimal)dt.Rows[0]["Rate"];
                     taxName = (string)dt.Rows[0]["Name"];
                     RetailSimpleItemPrice = (decimal)dt.Rows[0]["RetailSimpleItemPrice"];
-                    Discount = (decimal)dt.Rows[0]["Discount"];
+                    object oDiscount = dt.Rows[0]["Discount"];
+                    Discount = 0;
+                    if (oDiscount is decimal)
+                    {
+                        Discount = (decimal)oDiscount;
+                    }
                     Taxation_ID = (long)dt.Rows[0]["Taxation_ID"];
                     PriceList_ID = (long)dt.Rows[0]["PriceList_ID"];
                     SimpleItem_ID = (long)dt.Rows[0]["SimpleItem_ID"];

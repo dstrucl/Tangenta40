@@ -1353,7 +1353,7 @@ namespace CodeTables
             }
         }
         
-        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param)
+        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated)
         {
             while (true)
             {
@@ -1364,7 +1364,8 @@ namespace CodeTables
                         LocalDB_data local_DB_Data = (LocalDB_data)DB_Param;
                         if (local_DB_Data.bNewDatabase)
                         {
-                            if (CreateDatabaseTables(false))
+                            bNewDataBaseCreated = CreateDatabaseTables(false);
+                            if (bNewDataBaseCreated)
                             {
                                 return true;
                             }
@@ -1382,9 +1383,10 @@ namespace CodeTables
                         RemoteDB_data remote_DB_Data = (RemoteDB_data)DB_Param;
                         if (remote_DB_Data.bNewDatabase)
                         {
-                            if (CreateDatabaseTables(true))
+                            bNewDataBaseCreated = CreateDatabaseTables(true);
+                            if (bNewDataBaseCreated)
                             {
-                                return true;
+                                return bNewDataBaseCreated;
                             }
                             else
                             {
@@ -1427,7 +1429,8 @@ namespace CodeTables
                                     bool bCancel = false;
                                     if (DropAllTablesInDataBase(pParentForm, ref bCancel))
                                     {
-                                        return CreateDatabaseTables(true);
+                                        bNewDataBaseCreated = CreateDatabaseTables(true);
+                                        return bNewDataBaseCreated;
                                     }
                                     else
                                     {

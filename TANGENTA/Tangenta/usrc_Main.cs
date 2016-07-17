@@ -20,6 +20,7 @@ using LanguageControl;
 using TangentaTableClass;
 using TangentaDB;
 using UpgradeDB;
+using Startup;
 
 namespace Tangenta
 {
@@ -38,15 +39,15 @@ namespace Tangenta
             m_UpgradeDB = new UpgradeDB_inThread(this);
         }
 
-        public bool Get_shops_in_use(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
+        public bool Get_shops_in_use(startup myStartup,object oData, ref string Err)
         {
             if (Get_shops_in_use(false))
             {
-                eNextStep++;
+                myStartup.eNextStep++;
             }
             else
             {
-                eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.End;
             }
             return true;
         }
@@ -59,10 +60,15 @@ namespace Tangenta
             return (dlgres == DialogResult.OK);
         }
 
-
-        internal bool Init(Form main_Form)
+        internal bool Initialise(Form main_Form)
         {
             Main_Form = main_Form;
+            return  this.m_usrc_InvoiceMan.Initialise(Main_Form);
+        }
+
+
+        internal bool Init()
+        {
             string Err = null;
             if (Program.b_FVI_SLO)
             {
@@ -83,7 +89,7 @@ namespace Tangenta
 
             
 
-            if (this.m_usrc_InvoiceMan.Init(main_Form))
+            if (this.m_usrc_InvoiceMan.Init())
             {
                 if (Program.b_FVI_SLO)
                 {
@@ -108,17 +114,17 @@ namespace Tangenta
             }
         }
 
-    public bool GetWorkPeriod(object oData, ref string Err, ref Startup.startup_step.eStep eNextStep)
+    public bool GetWorkPeriod(startup myStartup,object oData, ref string Err)
     {
         if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
         {
-            eNextStep++;
+                myStartup.eNextStep++;
             return true;
         }
         else
         {
             LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-            eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.End;
             return false;
         }
     }

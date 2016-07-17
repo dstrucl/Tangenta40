@@ -44,7 +44,14 @@ namespace DBSync
         }
 
 
-        public static bool Init(Form parentform,bool bReset, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,bool bShowDialog,bool bChangeConnection)
+        public static bool Init(Form parentform,
+                                bool bReset, 
+                                string m_XmlFileName, 
+                                string IniFileFolder, 
+                                ref string DataBaseType,
+                                bool bShowDialog,
+                                bool bChangeConnection,
+                                ref bool bNewDatabaseCreated)
         {
             string Err = null;
             if (DB_for_Tangenta == null)
@@ -59,7 +66,7 @@ namespace DBSync
             {
                 my_StartupWindowThread.Message(lngRPM.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
 
-                if (m_SQLite_Support.Get(parentform, bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection))
+                if (m_SQLite_Support.Get(parentform, bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated))
                 {
                     my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
@@ -73,7 +80,7 @@ namespace DBSync
             else
             {
                 my_StartupWindowThread.Message(lngRPM.s_DataBaseFile.s);
-                if (Get(parentform,bReset, ref Err, ref IniFileFolder, "TangentaDB"))
+                if (Get(parentform,bReset, ref Err, ref IniFileFolder, "TangentaDB",ref bNewDatabaseCreated))
                 {
                     my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
@@ -231,7 +238,7 @@ namespace DBSync
             return true;
         }
 
-        public static bool Get(Form parent,bool bReset, ref string Err, ref string inifile_prefix, string default_DataBase_name)
+        public static bool Get(Form parent,bool bReset, ref string Err, ref string inifile_prefix, string default_DataBase_name, ref bool bNewDataBaseCreated)
         {
             if (DBSync.RemoteDB_data == null)
             {
@@ -239,7 +246,7 @@ namespace DBSync
             }
 
 
-            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data))
+            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated))
             {
                 if (!DBSync.RemoteDB_data.Save(inifile_prefix, ref Err))
                 {

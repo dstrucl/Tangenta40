@@ -22,7 +22,7 @@ namespace Startup
                                   NoStep
                                 };
 
-        public delegate bool delegate_startup_proc(object oData, ref string Err, ref eStep eNextStep);
+        public delegate bool delegate_startup_proc(startup myStartup,object oData, ref string Err);
 
         public string s_Title = null;
         public usrc_startup_step m_usrc_startup_step = null;
@@ -41,9 +41,9 @@ namespace Startup
             m_usrc_startup_step.check1.State = Check.check.eState.TRUE;
         }
 
-        public bool Execute(object oData, ref string Err, ref eStep eNextStep)
+        public bool Execute(startup myStartup,object oData, ref string Err)
         {
-            bool bRet = this.procedure(oData, ref Err, ref eNextStep);
+            bool bRet = this.procedure(myStartup,oData, ref Err);
             if (bRet)
             {
                 m_usrc_startup_step.check1.State = Check.check.eState.TRUE;

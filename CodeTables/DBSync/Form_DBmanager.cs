@@ -21,6 +21,7 @@ namespace DBSync
 {
     public partial class Form_DBmanager : Form
     {
+        public bool bNewDataBaseCreated = false;
         public string m_BackupFolder = null;
         public enum eResult { DATA_BASE_CHANGED, CANCEL, BACKUP_DONE };
         public eResult m_Result = eResult.CANCEL;
@@ -75,7 +76,8 @@ namespace DBSync
 
         private void btn_Change_Click(object sender, EventArgs e)
         {
-            DBSync.Init(m_parent_form, m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true);
+            bNewDataBaseCreated = false;
+            DBSync.Init(m_parent_form, m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true, ref bNewDataBaseCreated);
             Init();
         }
 

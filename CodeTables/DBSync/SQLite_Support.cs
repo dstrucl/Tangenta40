@@ -36,11 +36,12 @@ namespace DBSync
             return false;
         }
 
-        public bool Get(Form MainForm,bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection)
+        public bool Get(Form MainForm,bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection, ref bool bNewDataBaseCreated)
         {
 
             //string IniFileFolder = Settings.IniFileFolder;
             //string IniFileFolder = Properties.Settings.Default.IniFileFolder;
+            bNewDataBaseCreated = false;
             if (!FolderExists(IniFileFolder))
             {
                 IniFileFolder = Application.UserAppDataPath;
@@ -60,6 +61,7 @@ namespace DBSync
             {
                 if (DBSync.DB_for_Tangenta.m_DBTables.CreateNewDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite,true))
                 {
+                    bNewDataBaseCreated = true;
                     if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
                     {
                         LogFile.Error.Show(Err);
@@ -74,7 +76,7 @@ namespace DBSync
             }
             else
             { 
-                if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite))
+                if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated))
                 {
                     if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
                     {

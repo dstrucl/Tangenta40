@@ -44,7 +44,7 @@ namespace ShopC
             m_InvoiceDB = x_InvoiceDB;
             m_Atom_Item_ID = x_Atom_Item_ID;
             String Err = null;
-            string scond = " and Atom_DocInvoice_Price_Item_Stock.dQuantity > 0";
+            string scond = " and DocInvoice_ShopC_Item.dQuantity > 0";
             if (m_InvoiceDB.Read_DocInvoice_Atom_Item_Stock_Table(m_InvoiceDB.m_CurrentInvoice.DocInvoice_ID, m_Atom_Item_ID, ref dt_DocInvoice_Atom_Item_Stock_view, scond,ref Err))
             {
                 if (dt_DocInvoice_Atom_Item_Stock_view.Rows.Count > 0)

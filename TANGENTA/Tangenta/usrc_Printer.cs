@@ -289,7 +289,7 @@ namespace Tangenta
 
                 //}
 
-                ////Atom_DocInvoice_Price_Item_Stock.ID AS Atom_DocInvoice_Price_Item_Stock_ID,
+                ////Atom_DocInvoice_Price_Item_Stock.ID AS DocInvoice_ShopC_Item_ID,
                 ////Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID,
                 ////DocInvoice.Atom_myOrganisation_Person_ID,
                 ////Atom_DocInvoice_Price_Item_Stock.Stock_ID,
