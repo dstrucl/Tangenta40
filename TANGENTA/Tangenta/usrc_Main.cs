@@ -55,9 +55,16 @@ namespace Tangenta
 
         public bool Get_shops_in_use(bool bResetShopsInUse)
         {
-            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(bResetShopsInUse,this);
-            DialogResult dlgres = frm_shops_in_use.ShowDialog(this);
-            return (dlgres == DialogResult.OK);
+            if (Program.Shops_in_use.Length>0)
+            {
+                return true;
+            }
+            else
+            { 
+                Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(bResetShopsInUse,this);
+                DialogResult dlgres = frm_shops_in_use.ShowDialog(this);
+                return (dlgres == DialogResult.OK);
+            }
         }
 
         internal bool Initialise(Form main_Form)

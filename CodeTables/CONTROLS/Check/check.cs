@@ -12,7 +12,7 @@ namespace Check
 {
     public class check: PictureBox
     {
-        public enum eState { TRUE, FALSE, UNDEFINED };
+        public enum eState { TRUE, FALSE,WAIT, UNDEFINED };
         private eState m_eState = eState.UNDEFINED;
         public eState State
         {
@@ -24,9 +24,15 @@ namespace Check
                         case eState.UNDEFINED:
                             base.Image = Properties.Resources.check_undefined;
                             break;
-                        case eState.TRUE:
-                            base.Image = Properties.Resources.check_true;
+
+                        case eState.WAIT:
+                            base.Image = Properties.Resources.Wait;
                             break;
+
+                        case eState.TRUE:
+                                base.Image = Properties.Resources.check_true;
+                                break;
+
                         case eState.FALSE:
                             base.Image = Properties.Resources.check_false;
                             break;

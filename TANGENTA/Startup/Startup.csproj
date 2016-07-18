@@ -98,6 +98,12 @@
   <ItemGroup>
     <None Include="Resources\checkmark_No.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Windows_7_busy_cursor.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wait.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

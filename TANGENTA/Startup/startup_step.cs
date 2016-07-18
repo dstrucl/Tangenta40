@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using ThreadProcessor;
 
 namespace Startup
@@ -43,6 +44,9 @@ namespace Startup
 
         public bool Execute(startup myStartup,object oData, ref string Err)
         {
+
+            m_usrc_startup_step.check1.State = Check.check.eState.WAIT;
+            Application.DoEvents();
             bool bRet = this.procedure(myStartup,oData, ref Err);
             if (bRet)
             {

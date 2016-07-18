@@ -224,7 +224,7 @@ namespace Tangenta
         [STAThread]
         static void Main()
         {
-
+            bool bExitBeforeLogFileInitialised = false;
 
             try
             {
@@ -269,6 +269,7 @@ namespace Tangenta
                     }
                     else
                     {
+                        bExitBeforeLogFileInitialised = true;
                         return;
                     }
                 }
@@ -355,9 +356,12 @@ namespace Tangenta
             }
             finally
             {
-                if (LogFile.LogFile.WriteLog2DBOnProgramExit)
+                if (!bExitBeforeLogFileInitialised)
                 {
-                    //LogFile.LogFile.WriteLog2DB(Program.UserName, "LogFile to DB on program Exit!", ref LogFile_id);
+                    if (LogFile.LogFile.WriteLog2DBOnProgramExit)
+                    {
+                        //LogFile.LogFile.WriteLog2DB(Program.UserName, "LogFile to DB on program Exit!", ref LogFile_id);
+                    }
                 }
             }
 
