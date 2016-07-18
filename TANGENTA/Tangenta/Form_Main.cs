@@ -94,7 +94,8 @@ namespace Tangenta
 
 
             m_startup = new startup(this,
-                                    StartupStep
+                                    StartupStep,
+                                    Properties.Resources.Exit_Program
                                     );
         }
 
@@ -102,19 +103,25 @@ namespace Tangenta
         {
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
-            bool bResult = DBSync.DBSync.Init(this, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection,ref myStartup.bNewDatabaseCreated);
-
-            Properties.Settings.Default.IniFileFolder = IniFileFolder;
-
-            Properties.Settings.Default.DBType = sDBType;
-            Properties.Settings.Default.Save();
+            bool bCanceled = false;
+            bool bResult = DBSync.DBSync.Init(this, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection,Properties.Resources.Exit_Program,ref myStartup.bNewDatabaseCreated,ref bCanceled);
+            if (bCanceled)
+            {
+                myStartup.eNextStep = startup_step.eStep.Cancel;
+                return false;
+            }
             if (bResult)
             {
+                Properties.Settings.Default.IniFileFolder = IniFileFolder;
+
+                Properties.Settings.Default.DBType = sDBType;
+                Properties.Settings.Default.Save();
+
                 myStartup.eNextStep++;
             }
             else
             {
-                myStartup.eNextStep = startup_step.eStep.End;
+                myStartup.eNextStep = startup_step.eStep.Cancel;
             }
             return bResult;
         }
@@ -135,10 +142,12 @@ namespace Tangenta
                 m_usrc_Main.Init();
                 m_startup.RemoveControl();
                 m_usrc_Main.Visible = true;
-                return;
             }
-            this.Close();
-            DialogResult = DialogResult.Abort;
+            else
+            {
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
         }
 
         public void GetAllSplitContainerControlsRecusive<T>(ref List<Control> retlist, Control control) where T : Control
@@ -419,17 +428,22 @@ namespace Tangenta
 
         private void Form_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (AskToExit())
+            if (this.m_startup.eNextStep == startup_step.eStep.Cancel)
             {
-                Exit();
-                e.Cancel = false;
+                return;
             }
             else
             {
-                e.Cancel = true;
+                if (AskToExit())
+                {
+                    Exit();
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
         }
-
-
     }
 }

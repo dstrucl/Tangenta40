@@ -28,7 +28,9 @@ namespace DBConnectionControl40
 
         private conData_SQLITE m_conData_SQLITE;
 
-        public SQLiteConnectionDialog(Form pParentForm,conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder)
+        private Image m_button_ImageCancel = null;
+
+        public SQLiteConnectionDialog(Form pParentForm,conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder,Image xImageCancel)
         {
             m_conData_SQLITE = xconData_SQLite;
 
@@ -37,6 +39,7 @@ namespace DBConnectionControl40
             this.Owner = pParentForm;
             InitializeComponent();
 
+            m_button_ImageCancel = xImageCancel;
             cmbR_FilePath.RecentItemsFolder = recent_items_folder;
             cmbR_FileName.RecentItemsFolder = recent_items_folder;
 
@@ -66,9 +69,16 @@ namespace DBConnectionControl40
                 cmbR_FileName.Text = DatabaseFileName;
             }
 
-
             this.btn_OK.Text = lngConn.s_Ok.s;
-            this.btn_Cancel.Text = lngConn.s_Cancel.s;
+            if (m_button_ImageCancel != null)
+            {
+                this.btn_Cancel.Image = m_button_ImageCancel;
+                this.btn_Cancel.Text = "";
+            }
+            else
+            {
+                this.btn_Cancel.Text = lngConn.s_Cancel.s;
+            }
             this.lbl_FileName.Text = lngConn.s_FileName.s + ":";
             this.btn_SelectFile.Text = lngConn.s_FileName.s;
             this.btn_SelectFolder.Text = lngConn.s_Folder.s;

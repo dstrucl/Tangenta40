@@ -47,7 +47,7 @@ namespace Tangenta
             }
             else
             {
-                myStartup.eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
             }
             return true;
         }
@@ -131,7 +131,7 @@ namespace Tangenta
         else
         {
             LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
-                myStartup.eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
             return false;
         }
     }
@@ -178,7 +178,7 @@ namespace Tangenta
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
-            DBSync.DBSync.DBMan(Main_Form, Program.bReset2FactorySettings, ((Form_Main)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder);
+            DBSync.DBSync.DBMan(Main_Form, Program.bReset2FactorySettings, ((Form_Main)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder,Properties.Resources.Exit);
             Properties.Settings.Default.BackupFolder = BackupFolder;
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();

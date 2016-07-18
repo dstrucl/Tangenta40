@@ -27,7 +27,7 @@ namespace Country_ISO_3166
         public short Country_ISO_3166_num = -1;
         public string DefaultCountry = null;
 
-        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166, string xDefaultCountry, string xTitle)
+        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166, string xDefaultCountry, string xTitle, Image xImageCancel)
         {
             InitializeComponent();
             DefaultCountry = xDefaultCountry;
@@ -46,7 +46,15 @@ namespace Country_ISO_3166
                 this.Text = lngRPM.s_Form_Select_Country_ISO_3166_Title.s;
             }
             lngRPM.s_OK.Text(btn_OK);
-            lngRPM.s_Cancel.Text(btn_Cancel);
+            if (xImageCancel != null)
+            {
+                btn_Cancel.Text = "";
+                btn_Cancel.Image = xImageCancel;
+            }
+            else
+            {
+                lngRPM.s_Cancel.Text(btn_Cancel);
+            }
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)

@@ -238,13 +238,14 @@ namespace Tangenta
 
                 if (Properties.Settings.Default.LanguageID < 0)
                 {
-                    if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1, Properties.Resources.Exit))
+                    if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1, Properties.Resources.Exit_Program))
                     {
                         Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
                         Properties.Settings.Default.Save();
                     }
                     else
                     {
+                        bExitBeforeLogFileInitialised = true;
                         return;
                     }
                 }
@@ -261,7 +262,7 @@ namespace Tangenta
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
-                    CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, Properties.Resources.Exit);
+                    CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, Properties.Resources.Exit_Program);
                     if (hlp_frm.ShowDialog() == DialogResult.OK)
                     {
                         CommandLineArguments = hlp_frm.CommandLineArguments;

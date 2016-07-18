@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace DBSync
 {
@@ -36,7 +37,7 @@ namespace DBSync
             return false;
         }
 
-        public bool Get(Form MainForm,bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection, ref bool bNewDataBaseCreated)
+        public bool Get(Form MainForm,bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection, ref bool bNewDataBaseCreated,Image xImageCancel, ref bool bCanceled)
         {
 
             //string IniFileFolder = Settings.IniFileFolder;
@@ -59,7 +60,7 @@ namespace DBSync
 
             if (bChangeConnection)
             {
-                if (DBSync.DB_for_Tangenta.m_DBTables.CreateNewDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite,true))
+                if (DBSync.DB_for_Tangenta.m_DBTables.CreateNewDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite,true, xImageCancel, ref bCanceled))
                 {
                     bNewDataBaseCreated = true;
                     if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
@@ -70,13 +71,20 @@ namespace DBSync
                 }
                 else
                 {
-                    Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                    if (bCanceled)
+                    {
+                        Err = null;
+                    }
+                    else
+                    {
+                        Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                    }
                     return false;
                 }
             }
             else
             { 
-                if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated))
+                if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, xImageCancel, ref bCanceled))
                 {
                     if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
                     {
@@ -86,7 +94,14 @@ namespace DBSync
                 }
                 else
                 {
-                    Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                    if (bCanceled)
+                    {
+                        Err = null;
+                    }
+                    else
+                    {
+                        Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                    }
                     return false;
                 }
             }

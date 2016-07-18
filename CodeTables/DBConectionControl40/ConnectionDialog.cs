@@ -20,6 +20,7 @@ namespace DBConnectionControl40
     {
         private Form m_ParentForm = null;
         string m_Title = null;
+        Image m_button_ImageCancel = null;
 
         private int[] Y = new int[5];
 
@@ -41,12 +42,13 @@ namespace DBConnectionControl40
 
         internal bool m_bNewDataBase = false;
         
-        public ConnectionDialog(Form parentForm, ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle)
+        public ConnectionDialog(Form parentForm, ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle, Image xImageCancel)
         {
             m_Title = sTitle;
             my_ConnectionDialog_enum = ConnectionConnectionDialog_type;
             m_ParentForm = parentForm;
             InitializeComponent();
+            m_button_ImageCancel = xImageCancel;
             if (con.RecentItemsFolder.Length ==0)
             {
                 con.RecentItemsFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -100,7 +102,15 @@ namespace DBConnectionControl40
             lbl_Password.Text = lngConn.s_Password.s;
             btn_Browse_servers.Text = lngConn.s_Browse__.s;
             btn_Browse_Databases_onServer.Text = lngConn.s_Browse__.s;
-            button_end.Text = lngConn.s_Cancel.s;
+            if (m_button_ImageCancel != null)
+            {
+                button_end.Text = "";
+                button_end.Image = m_button_ImageCancel;
+            }
+            else
+            {
+                button_end.Text = lngConn.s_Cancel.s;
+            }
             btn_Action.Text = lngConn.s_ConnectWithDatabase.s;
             rdb_UseWindowsAuthentication.Text = lngConn.s_WindowsAuthentication.s;
             rdb_SQL_Server_Authentication.Text = lngConn.s_SQLServerAuthentication.s;

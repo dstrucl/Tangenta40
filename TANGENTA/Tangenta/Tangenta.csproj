@@ -1051,6 +1051,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\Exit_Program.bmp" />
     <None Include="Resources\ProgramSettings.ico" />
     <None Include="Resources\Settings.bmp" />
     <None Include="Resources\PrinterSettings.bmp" />

@@ -922,7 +922,7 @@ namespace Tangenta
                             }
                         }
                     }
-                    myStartup.eNextStep = Startup.startup_step.eStep.End;
+                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                     return false;
                 }
             }
@@ -930,7 +930,7 @@ namespace Tangenta
             {
                 Err = "ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err;
                 LogFile.Error.Show(Err);
-                myStartup.eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
@@ -1013,7 +1013,7 @@ namespace Tangenta
                 {
                     if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopB_Items())
                     {
-                        myStartup.eNextStep = Startup.startup_step.eStep.End;
+                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                         return false;
                     }
                 }
@@ -1032,7 +1032,7 @@ namespace Tangenta
             }
             else
             {
-                myStartup.eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
@@ -1113,7 +1113,7 @@ namespace Tangenta
                 {
                     if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items())
                     {
-                        myStartup.eNextStep = Startup.startup_step.eStep.End;
+                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                         return false;
                     }
                 }
@@ -1131,7 +1131,7 @@ namespace Tangenta
             }
             else
             {
-                myStartup.eNextStep = Startup.startup_step.eStep.End;
+                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
@@ -1193,7 +1193,7 @@ namespace Tangenta
                 {
                     if (myOrg.Name_v == null)
                     {
-                        x_usrc_Main.Get_shops_in_use(false);
+                        //x_usrc_Main.Get_shops_in_use(false);
 
                         MessageBox.Show(lngRPM.s_No_OrganisationData.s);
                         if (EditMyOrganisation_Data(true))
@@ -1202,7 +1202,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1215,7 +1215,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1229,7 +1229,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1243,7 +1243,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1257,7 +1257,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1270,7 +1270,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1284,7 +1284,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1303,7 +1303,7 @@ namespace Tangenta
                             }
                             else
                             {
-                                myStartup.eNextStep = Startup.startup_step.eStep.End;
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                 return false;
                             }
                         }
@@ -1339,7 +1339,7 @@ namespace Tangenta
                                     }
                                     else
                                     {
-                                        myStartup.eNextStep = Startup.startup_step.eStep.End;
+                                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                                         return false;
                                     }
                                 }
@@ -1355,7 +1355,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1370,7 +1370,7 @@ namespace Tangenta
                         }
                         else
                         {
-                            myStartup.eNextStep = Startup.startup_step.eStep.End;
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return false;
                         }
                     }
@@ -1513,7 +1513,7 @@ namespace Tangenta
                     }
                 }
             }
-            myStartup.eNextStep = Startup.startup_step.eStep.End;
+            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
             return false;
         }
 
@@ -1572,7 +1572,7 @@ namespace Tangenta
                     foreach (DataRow dr in dtEmployees.Rows)
                     {
                         Employee employee = new Employee((string)dr["myOrganisation_Person_$_per_$_cfn_$$FirstName"],
-                                                         (string)dr["myOrganisation_Person_$_per_$_cln_$$LastName"],
+                                                            dr["myOrganisation_Person_$_per_$_cln_$$LastName"],
                                                             dr["myOrganisation_Person_$$Job"],
                                                             dr["myOrganisation_Person_$$UserName"],
                                                             dr["myOrganisation_Person_$$Password"],

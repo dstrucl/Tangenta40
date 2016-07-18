@@ -22,9 +22,13 @@ namespace DBSync
     public partial class Form_GetDBType : Form
     {
         public DBConnection.eDBType m_DBType = DBConnection.eDBType.SQLITE;
-        public Form_GetDBType(string sdbtype)
+        public Form_GetDBType(string sdbtype, Image xImage_Cancel)
         {
             InitializeComponent();
+            if (xImage_Cancel!=null)
+            {
+                this.btn_Exit.Image = xImage_Cancel;
+            }
             lngRPM.s_SelectDatabase.Text(lbl_SelectDataBase);
             if (sdbtype != null)
             {

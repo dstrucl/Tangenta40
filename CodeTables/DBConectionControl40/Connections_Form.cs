@@ -19,16 +19,18 @@ namespace DBConnectionControl40
     public partial class Connections_Form : Form
     {
         private List<Connection_Control> m_Connections;
-        public Connections_Form(List<DBConnection> Connections)
+        private Image m_button_ImageCancel = null;
+        public Connections_Form(List<DBConnection> Connections,Image xImageCancel)
         {
             InitializeComponent();
+            m_button_ImageCancel = xImageCancel;
             int y = 10;
             m_Connections = new List<Connection_Control>();
             foreach (DBConnection con in Connections)
             {
                 if (con != null)
                 {
-                    Connection_Control ctrl = new Connection_Control(con);
+                    Connection_Control ctrl = new Connection_Control(con, m_button_ImageCancel);
                     m_Connections.Add(ctrl);
                     ctrl.Parent = this;
                     ctrl.Top = y;

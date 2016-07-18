@@ -440,7 +440,7 @@ namespace CodeTables
         {
             if (this.pSQL_Table.SetInputControls != null)
             {
-                if (this.pSQL_Table.SetInputControls(this.pSQL_Table))
+                if (this.pSQL_Table.SetInputControls(this.pSQL_Table,null))
                 {
                     if (DifferentToIndexInitialValue())
                     {

@@ -20,6 +20,7 @@ using ThreadProcessor;
 using System.ComponentModel;
 using System.IO;
 using Startup;
+using System.Drawing;
 
 namespace UpgradeDB
 {
@@ -3534,7 +3535,7 @@ namespace UpgradeDB
             }
         }
 
-        public bool Read_DBSettings_Version(ref fs.enum_GetDBSettings eGetDBSettings_Result,ref bool bUpgradeDone,ref bool bInsertSampleData,  ref string Err)
+        public bool Read_DBSettings_Version(ref fs.enum_GetDBSettings eGetDBSettings_Result,ref bool bUpgradeDone,ref bool bInsertSampleData, ref bool bCanceled, Image xImageCancel,ref string Err)
         {
             string xTextValue = null;
             bool xReadOnly = false;
@@ -3577,14 +3578,21 @@ namespace UpgradeDB
                     if (bInsertSampleData)
                     {
                         
-                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref Err))
+                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xImageCancel,ref Err))
                         {
                             return true;
                         }
                         else
                         {
-                            LogFile.Error.Show(Err);
-                            return false;
+                            if (bCanceled)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show(Err);
+                                return false;
+                            }
                         }
                     }
                     else
@@ -3660,13 +3668,24 @@ namespace UpgradeDB
         public  bool Read_DBSettings(startup myStartup,object oData, ref string Err)
         {
             bool bUpgradeDone = false;
+            bool bCanceled = false;
             fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
-            if (Read_DBSettings_Version(ref eGetDBSettings_Result,ref bUpgradeDone,ref myStartup.bInsertSampleData, ref Err))
+            if (Read_DBSettings_Version(ref eGetDBSettings_Result,ref bUpgradeDone,ref myStartup.bInsertSampleData,ref bCanceled, myStartup.m_ImageCancel, ref Err))
             {
+                if (bCanceled)
+                {
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    return false;
+                }
                 if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
                 {
-                    if (Read_DBSettings_LastInvoiceType(bUpgradeDone, ref Err))
+                    if (Read_DBSettings_LastInvoiceType(bUpgradeDone, ref bCanceled, myStartup.m_ImageCancel, ref Err))
                     {
+                        if (bCanceled)
+                        {
+                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                            return false;
+                        }
                         if (fs.Read_DBSettings_StockCheckAtStartup(bUpgradeDone, ref Err))
                         {
                             if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
@@ -3684,11 +3703,11 @@ namespace UpgradeDB
                     }
                 }
             }
-            myStartup.eNextStep = startup_step.eStep.End;
+            myStartup.eNextStep = startup_step.eStep.Cancel;
             return false;
         }
 
-        private  bool Read_DBSettings_LastInvoiceType(bool bUpgradeDone, ref string Err)
+        private  bool Read_DBSettings_LastInvoiceType(bool bUpgradeDone,ref bool bCanceled,Image xImageCancel, ref string Err)
         {
             string xTextValue = null;
             bool xReadOnly = false;
@@ -3712,7 +3731,7 @@ namespace UpgradeDB
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke studia Marjetka?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref Err))
+                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xImageCancel, ref Err))
                         {
                             return false;
                             //$$$

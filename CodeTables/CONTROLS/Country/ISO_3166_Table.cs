@@ -9,6 +9,7 @@ using CodeTables;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,9 +22,9 @@ namespace Country_ISO_3166
         public ISO_3166[] item = null;
         public DataTable dt_ISO_3166 = new DataTable();
 
-        public bool SetInputControls(SQLTable tbl)
+        public bool SetInputControls(SQLTable tbl,Image xImageCancel )
         {
-            Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166,null,null);
+            Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166,null,null, xImageCancel);
             if (frm_Select_Country_ISO_316.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 foreach (Column col in tbl.Column)

@@ -73,7 +73,7 @@ namespace Tangenta
         }
 
         public Employee(string xFirstName,
-                        string xLastName,
+                        object xLastName,
                         object xJob,
                         object xUserName,
                         object xPassword,
@@ -84,7 +84,7 @@ namespace Tangenta
                         )
         {
             m_FirstName = xFirstName;
-            m_LastName = xLastName;
+            m_LastName = set_string(xLastName);
             m_Job = set_string(xJob);
             m_UserName = set_string(xUserName);
             m_Password = set_string(xPassword);

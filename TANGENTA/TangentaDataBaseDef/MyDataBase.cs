@@ -12,6 +12,7 @@ using LanguageControl;
 using TangentaTableClass;
 using DBTypes;
 using Country_ISO_3166;
+using System.Drawing;
 
 namespace TangentaDataBaseDef
 {
@@ -60,10 +61,10 @@ namespace TangentaDataBaseDef
             return m_DBTables.m_con.CheckConnection(DB_Param);
         }
 
-        public bool CreateNewConnection(Form pParentForm, Object DB_Param, ref string BackupFolder )
+        public bool CreateNewConnection(Form pParentForm, Object DB_Param, ref string BackupFolder, Image xImageCancel, ref bool bCanceled)
         {
             m_DBTables.m_con.BackupFolder = BackupFolder;
-            if (m_DBTables.m_con.CreateNewDataBaseConnection(pParentForm, DB_Param))
+            if (m_DBTables.m_con.CreateNewDataBaseConnection(pParentForm, DB_Param,xImageCancel, ref bCanceled))
             {
                 BackupFolder = m_DBTables.m_con.BackupFolder;
                 return true;
@@ -95,10 +96,10 @@ namespace TangentaDataBaseDef
         }
 
 
-        public bool MakeConnection(Form pParentForm, Object DB_Param)
+        public bool MakeConnection(Form pParentForm, Object DB_Param,Image xImageCancel, ref bool bCanceled)
         {
 
-             return m_DBTables.m_con.MakeDataBaseConnection(pParentForm,DB_Param);
+             return m_DBTables.m_con.MakeDataBaseConnection(pParentForm,DB_Param, xImageCancel, ref bCanceled);
         }
 
         public void Init(DBConnection.eDBType eDBType)

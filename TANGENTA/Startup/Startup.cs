@@ -1,6 +1,7 @@
 ﻿using LanguageControl;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Startup
 
     public class startup
         {
+
         startup_step.eStep eStep = startup_step.eStep.NoStep;
         public startup_step.eStep eNextStep = startup_step.eStep.NoStep;
         public bool bNewDatabaseCreated = false;
@@ -20,13 +22,15 @@ namespace Startup
         public Form m_parent_form = null;
         public usrc_Startup m_usrc_Startup = null;
         internal startup_step[] Step = null;
+        public Image m_ImageCancel = null;
 
 
-        public startup(Form parent_form, startup_step[] xStep)
+        public startup(Form parent_form, startup_step[] xStep, Image xImageCancel)
         {
             m_parent_form = parent_form;
             Step = xStep;
             m_usrc_Startup = new usrc_Startup(this);
+            m_ImageCancel = xImageCancel;
         }
 
 
@@ -34,13 +38,13 @@ namespace Startup
         {
             eStep = startup_step.eStep.Check_DataBase;
             eNextStep = eStep;
-            while (eStep != startup_step.eStep.End)
+            while ((eStep != startup_step.eStep.Cancel)&&(eStep != startup_step.eStep.End))
             {
                 object odata = null;
                 bool bRet = step[(int)eStep].Execute(this,odata, ref Err);
                 if (bRet)
                 {
-                    if (eNextStep != startup_step.eStep.End)
+                    if ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
                     {
                         int iStep = (int)eStep + 1;
                         int iNextStep = (int)eNextStep;

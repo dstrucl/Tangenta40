@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,12 +13,12 @@ namespace TangentaSampleDB
     public static class TangentaSampleDB
     {
         public static SampleDB sbd = null;
-        public static bool Init_Sample_DB(ref string Err)
+        public static bool Init_Sample_DB(ref bool bCanceled,Image xImageCancel, ref string Err)
         {
             if (fs.Init_Default_DB(ref Err))
             {
                 sbd = new SampleDB();
-                bool bRes = sbd.Write();
+                bool bRes = sbd.Write(ref bCanceled, xImageCancel);
                 return bRes;
             }
             else

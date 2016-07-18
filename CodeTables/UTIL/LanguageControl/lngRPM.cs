@@ -510,8 +510,11 @@ namespace LanguageControl
         public static ltext s_Items = new ltext("Items",
                                                 "Artikli");
 
-        public static ltext s_SimpleItems = new ltext("SimpleItems",
-                                                   "Storitve");
+        public static ltext s_ShopA_Items = new ltext("Shop A Items",
+                                                   "Artikli/Storitve prodajalne A");
+
+        public static ltext s_ShopB_Items = new ltext("Shop B Items",
+                                                   "Artikli/Storitve prodajalne B");
 
         public static ltext s_btn_New = new ltext("New",
                                                     "Nov");

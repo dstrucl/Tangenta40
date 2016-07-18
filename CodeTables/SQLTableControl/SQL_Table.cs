@@ -25,7 +25,7 @@ namespace CodeTables
 
     public partial class SQLTable
     {
-        public delegate bool delegate_SetInputControls(SQLTable tbl);
+        public delegate bool delegate_SetInputControls(SQLTable tbl,Image xImageCancel);
 
         public delegate_SetInputControls SetInputControls = null;
 

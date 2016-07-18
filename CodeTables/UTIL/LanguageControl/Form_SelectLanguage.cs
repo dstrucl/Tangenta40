@@ -22,6 +22,11 @@ namespace LanguageControl
             Program_Icon = xProgram_Icon;
             Program_name = xProgram_name;
             Image_Cancel = xImage_Cancel;
+            if (Program_Icon!= null)
+            {
+                this.Icon = Program_Icon;
+            }
+            
             if (Program_name != null)
             {
                 lbl_ProgramName.Text = Program_name;

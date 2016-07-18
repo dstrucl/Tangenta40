@@ -3,6 +3,7 @@ using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -134,7 +135,7 @@ namespace TangentaSampleDB
             //long_v MyOrg_Person_Atom_Person_ID_v = null;
 
         }
-        public bool Write()
+        public bool Write(ref bool bCanceled, Image xImageCancel)
         {
             ID_v cAdressAtom_Org_iD_v = null;
             Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
@@ -143,7 +144,7 @@ namespace TangentaSampleDB
             {
                 DefaultCountry = "Slovenija";
             }
-            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry,lngRPMS.s_SelectCountryWhereYouPayTaxes.s);
+            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry,lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xImageCancel);
             if (frmsel_country.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 MyOrg_Address_v = new PostAddress_v();
@@ -215,6 +216,10 @@ namespace TangentaSampleDB
                         }
                     }
                 }
+            }
+            else
+            {
+                bCanceled = true;
             }
             return false;
         }

@@ -39,7 +39,7 @@ namespace ShopB
             m_bChanged = false;
             dbTables = xdbTables;
             tbl = xtbl;
-            this.Text = lngRPM.s_SimpleItems.s;
+            this.Text = lngRPM.s_ShopB_Items.s;
             List_of_Inserted_Items_ID = new List<long>();
             if (!usrc_EditTable.Init(dbTables, tbl,null,ColumnToOrderBy,false,null,null,false))
             {

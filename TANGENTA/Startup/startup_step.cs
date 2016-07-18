@@ -20,6 +20,7 @@ namespace Startup
                                   GetItemData,
                                   GetWorkPeriod,
                                   End,
+                                  Cancel,
                                   NoStep
                                 };
 
