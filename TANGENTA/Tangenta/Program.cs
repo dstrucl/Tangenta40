@@ -262,7 +262,7 @@ namespace Tangenta
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
-                    CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, Properties.Resources.Exit_Program);
+                    CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, Properties.Resources.Exit_Program, Properties.Resources.Tangenta_Question);
                     if (hlp_frm.ShowDialog() == DialogResult.OK)
                     {
                         CommandLineArguments = hlp_frm.CommandLineArguments;

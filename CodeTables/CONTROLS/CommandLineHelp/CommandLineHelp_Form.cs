@@ -25,11 +25,15 @@ namespace CommandLineHelp
 
         public string[] CommandLineArguments = null;
 
-        public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList, Image xImageCancel)
+        public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList, Image xImageCancel, Icon xFormIcon)
         {
             InitializeComponent();
             m_CommandLineHelpList = CommandLineHelpList;
             ImageCancel = xImageCancel;
+            if (xFormIcon!=null)
+            {
+                this.Icon = xFormIcon;
+            }
             if (ImageCancel != null)
             {
                 btn_Cancel.Text = "";

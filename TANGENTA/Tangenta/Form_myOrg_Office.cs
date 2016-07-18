@@ -102,5 +102,31 @@ namespace Tangenta
             this.Cursor = Cursors.Arrow;
         }
 
+        private void btn_OK_Click(object sender, EventArgs e)
+        {
+            if (usrc_EditTable1.Changed)
+            {
+                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    usrc_EditTable1.Save();
+                }
+            }
+            else
+            {
+                if (usrc_EditTable1.RowsCount > 0)
+                {
+                    Close();
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOfficeData, "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                }
+            }
+
+
+            this.Close();
+            DialogResult = DialogResult.OK;
+        }
     }
 }

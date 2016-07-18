@@ -115,7 +115,7 @@ namespace Tangenta
         {
             if (usrc_EditRow.Changed)
             {
-                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
+                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
                 {
                     Close();
                     DialogResult = DialogResult.OK;
@@ -135,7 +135,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOrganisationData, "", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOrganisationData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                 }
             }
         }

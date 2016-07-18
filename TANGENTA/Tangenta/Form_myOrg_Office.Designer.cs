@@ -31,6 +31,7 @@
             this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.btn_Office_Data_And_FVI_SLO_RealEstateBP = new System.Windows.Forms.Button();
+            this.btn_OK = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // usrc_EditTable1
@@ -57,7 +58,7 @@
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(3, 506);
+            this.btn_Cancel.Location = new System.Drawing.Point(128, 506);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(94, 36);
             this.btn_Cancel.TabIndex = 2;
@@ -74,12 +75,24 @@
             this.btn_Office_Data_And_FVI_SLO_RealEstateBP.UseVisualStyleBackColor = true;
             this.btn_Office_Data_And_FVI_SLO_RealEstateBP.Click += new System.EventHandler(this.btn_Office_Data_And_FVI_SLO_RealEstateBP_Click);
             // 
+            // btn_OK
+            // 
+            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_OK.Location = new System.Drawing.Point(7, 506);
+            this.btn_OK.Name = "btn_OK";
+            this.btn_OK.Size = new System.Drawing.Size(94, 36);
+            this.btn_OK.TabIndex = 4;
+            this.btn_OK.Text = "OK";
+            this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
+            // 
             // Form_myOrg_Office
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 547);
             this.ControlBox = false;
+            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.btn_Office_Data_And_FVI_SLO_RealEstateBP);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.usrc_EditTable1);
@@ -97,5 +110,6 @@
         private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable1;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Button btn_Office_Data_And_FVI_SLO_RealEstateBP;
+        private System.Windows.Forms.Button btn_OK;
     }
 }

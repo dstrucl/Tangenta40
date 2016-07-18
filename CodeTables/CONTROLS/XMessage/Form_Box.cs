@@ -32,7 +32,24 @@ namespace XMessage
             InitializeComponent();
         }
 
-        public Form_Box(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+        public Icon SetIcon(MessageBoxIcon icon)
+        {
+            switch (icon)
+            {
+                case MessageBoxIcon.Error:
+                    return System.Drawing.SystemIcons.Error;
+                case MessageBoxIcon.Exclamation:
+                    return System.Drawing.SystemIcons.Exclamation;
+
+                case MessageBoxIcon.Information:
+                    return System.Drawing.SystemIcons.Information;
+                case MessageBoxIcon.Question:
+                    return System.Drawing.SystemIcons.Question;
+            }
+            return null;
+
+        }
+        public Form_Box(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization
             InitializeComponent();
@@ -40,7 +57,19 @@ namespace XMessage
             this.text = text;
             this.caption = caption;
             this.m_buttons = buttons;
-            this.icon = icon;
+            if (oIcon is MessageBoxIcon)
+            {
+                Icon ico = SetIcon((MessageBoxIcon)oIcon);
+                if (ico != null)
+                {
+                    this.Icon = ico;
+                }
+            }
+            else if (oIcon is Icon)
+            {
+                this.Icon = (Icon) oIcon;
+            }
+
             this.defaultButton = defaultButton;
             this.Text = caption;
             textBox1.Text = text;
@@ -116,7 +145,7 @@ namespace XMessage
 
         }
 
-        public Form_Box(IWin32Window owner, ltext xltext, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+        public Form_Box(IWin32Window owner, ltext xltext, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization
             InitializeComponent();
@@ -124,7 +153,19 @@ namespace XMessage
             this.text = text;
             this.caption = caption;
             this.m_buttons = buttons;
-            this.icon = icon;
+            if (oIcon is MessageBoxIcon)
+            {
+                Icon ico = SetIcon((MessageBoxIcon)oIcon);
+                if (ico != null)
+                {
+                    this.Icon = ico;
+                }
+            }
+            else if (oIcon is Icon)
+            {
+                this.Icon = (Icon)oIcon;
+            }
+
             this.defaultButton = defaultButton;
             this.Text = caption;
             xltext.Text(textBox1);
@@ -200,13 +241,24 @@ namespace XMessage
             }
         }
 
-        public Form_Box(IWin32Window owner, ltext xltext, ltext lcaption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+        public Form_Box(IWin32Window owner, ltext xltext, ltext lcaption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization
             InitializeComponent();
             this.owner = owner;
             this.m_buttons = buttons;
-            this.icon = icon;
+            if (oIcon is MessageBoxIcon)
+            {
+                Icon ico = SetIcon((MessageBoxIcon)oIcon);
+                if (ico != null)
+                {
+                    this.Icon = ico;
+                }
+            }
+            else if (oIcon is Icon)
+            {
+                this.Icon = (Icon)oIcon;
+            }
             this.defaultButton = defaultButton;
 
             lcaption.Text(this);
@@ -286,13 +338,24 @@ namespace XMessage
             }
         }
 
-        public Form_Box(IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+        public Form_Box(IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization
             InitializeComponent();
             this.owner = owner;
             this.m_buttons = buttons;
-            this.icon = icon;
+            if (oIcon is MessageBoxIcon)
+            {
+                Icon ico = SetIcon((MessageBoxIcon)oIcon);
+                if (ico != null)
+                {
+                    this.Icon = ico;
+                }
+            }
+            else if (oIcon is Icon)
+            {
+                this.Icon = (Icon)oIcon;
+            }
             this.defaultButton = defaultButton;
 
             this.Text = caption;

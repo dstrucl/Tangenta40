@@ -20,11 +20,19 @@ namespace CommandLineHelp
     public partial class CommandLineHelp_Control : UserControl
     {
         Image m_Image_Button_Cancel = null;
+        Icon m_FormIcon = null;
         public Image Image_Button_Cancel
         {
             get { return m_Image_Button_Cancel; }
             set { m_Image_Button_Cancel = value; }
         }
+
+        public Icon FormIcon
+        {
+            get { return m_FormIcon; }
+            set { m_FormIcon = value; }
+        }
+
         private List<CommandLineHelp> m_CommandLineHelpList = null;
         public CommandLineHelp_Control()
         {
@@ -39,7 +47,7 @@ namespace CommandLineHelp
 
         private void btn_CommandLineHelp_Click(object sender, EventArgs e)
         {
-            CommandLineHelp_Form hlpfrm = new CommandLineHelp_Form(m_CommandLineHelpList, m_Image_Button_Cancel);
+            CommandLineHelp_Form hlpfrm = new CommandLineHelp_Form(m_CommandLineHelpList, m_Image_Button_Cancel, m_FormIcon);
             hlpfrm.ShowDialog();
         }
     }
