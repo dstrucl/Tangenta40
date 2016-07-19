@@ -1,6 +1,6 @@
 ﻿namespace ShopB
 {
-    partial class Form_ShopBItem_Edit
+    partial class Form_ShopB_Item_Edit
     {
         /// <summary>
         /// Required designer variable.
@@ -100,6 +100,7 @@
             this.btn_Cancel.TabIndex = 11;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // btn_OK
             // 
@@ -110,8 +111,9 @@
             this.btn_OK.TabIndex = 10;
             this.btn_OK.Text = "OK";
             this.btn_OK.UseVisualStyleBackColor = true;
+            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
-            // Form_ShopBItem_Edit
+            // Form_ShopB_Item_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -122,7 +124,7 @@
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.usrc_EditTable);
-            this.Name = "Form_ShopBItem_Edit";
+            this.Name = "Form_ShopB_Item_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShopBItem_EditForm";
             this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);

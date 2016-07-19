@@ -28,7 +28,7 @@ namespace TangentaDB
         public DataTable dtCurrent_Invoice = new DataTable();
         public DataTable dtCurrent_Atom_Price_ShopBItem = new DataTable();
 
-        public DataTable dtCurrent_Atom_DocInvoice_Price_Item_Stock = new DataTable();
+        public DataTable dtCurrent_DocInvoice_ShopC_Item = new DataTable();
 
         public ShopShelf m_ShopShelf = new ShopShelf();
         public Basket m_Basket = new Basket();
@@ -1397,12 +1397,12 @@ namespace TangentaDB
             if (sIn_ID_list != null)
             {
                 sIn_ID_list += ")";
-                string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from Atom_DocInvoice_Price_Item_Stock where (DocInvoice_ID = " + DocInvoice_ID.ToString() + ") and Atom_DocInvoice_Price_Item_Stock.Stock_ID is null and Atom_Price_Item_ID in " + sIn_ID_list;
+                string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where (DocInvoice_ID = " + DocInvoice_ID.ToString() + ") and DocInvoice_ShopC_Item.Stock_ID is null and Atom_Price_Item_ID in " + sIn_ID_list;
                 object objret = null;
                 string Err = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
                 {
-                    string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from Atom_DocInvoice_Price_Item_Stock)";
+                    string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item)";
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref objret, ref Err))
                     {
                         string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
@@ -1436,7 +1436,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:Remove_usrc_Atom_Item_Factory_Items:delete from Atom_DocInvoice_Price_Item_Stock:Err=" + Err);
+                    LogFile.Error.Show("ERROR:Remove_usrc_Atom_Item_Factory_Items:delete from DocInvoice_ShopC_Item:Err=" + Err);
                     return false;
                 }
             }

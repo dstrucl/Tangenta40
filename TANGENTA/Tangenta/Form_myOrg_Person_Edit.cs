@@ -38,6 +38,7 @@ namespace Tangenta
             m_Office_ID = xOffice_ID;
             tbl_myOrganisation_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person)));
             lngRPM.s_myOrganisation_Person_Data.Text(this);
+            this.Icon = Properties.Resources.Person;
             this.usrc_EditTable1.Title = lngRPM.s_Edit_Office_Data.s;
             string selection = @"  myOrganisation_Person_$_per_$_cfn_$$FirstName,
                                     myOrganisation_Person_$_per_$_cln_$$LastName,

@@ -198,7 +198,7 @@ namespace ShopC
         internal bool CountInBaskets(ref decimal count_in_baskets)
         {
             string sql = @"select dQuantity 
-                            from Atom_DocInvoice_Price_Item_Stock  appis
+                            from DocInvoice_ShopC_Item  appis
                             inner join DocInvoice pi on appis.DocInvoice_ID = pi.ID
                             where pi.Draft = 1 and appis.Stock_ID is not null";
             DataTable dt = new DataTable();
@@ -257,7 +257,7 @@ namespace ShopC
         public bool EditItem()
         {
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
-            Form_Item_Edit edt_Item_dlg = new Form_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+            Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
                                                             "Item_$$Code desc");
             edt_Item_dlg.ShowDialog();

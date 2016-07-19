@@ -149,8 +149,8 @@ namespace TangentaDB
 
                     if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
                     {
-                        m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Clear();
-                        if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(xDocInvoice_ID, ref m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST))
+                        m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
+                        if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(xDocInvoice_ID, ref m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
                         {
                             return true;
                         }
@@ -231,15 +231,15 @@ namespace TangentaDB
         {
             string sql_select_DocInvoice_Atom_Item_Stock = @"
             SELECT 
-            Atom_DocInvoice_Price_Item_Stock.dQuantity AS dQuantity,
-            Atom_DocInvoice_Price_Item_Stock.ExtraDiscount AS ExtraDiscount,
-            Atom_DocInvoice_Price_Item_Stock.RetailPriceWithDiscount AS RetailPriceWithDiscount,
-            Atom_DocInvoice_Price_Item_Stock.TaxPrice AS  TaxPrice,
-            Atom_DocInvoice_Price_Item_Stock.ID AS DocInvoice_ShopC_Item_ID,
-            Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID,
-            Atom_DocInvoice_Price_Item_Stock.Stock_ID,
-            Atom_DocInvoice_Price_Item_Stock.ExpiryDate,
-            Atom_DocInvoice_Price_Item_Stock.Atom_Price_Item_ID,
+            DocInvoice_ShopC_Item.dQuantity AS dQuantity,
+            DocInvoice_ShopC_Item.ExtraDiscount AS ExtraDiscount,
+            DocInvoice_ShopC_Item.RetailPriceWithDiscount AS RetailPriceWithDiscount,
+            DocInvoice_ShopC_Item.TaxPrice AS  TaxPrice,
+            DocInvoice_ShopC_Item.ID AS DocInvoice_ShopC_Item_ID,
+            DocInvoice_ShopC_Item.DocInvoice_ID,
+            DocInvoice_ShopC_Item.Stock_ID,
+            DocInvoice_ShopC_Item.ExpiryDate,
+            DocInvoice_ShopC_Item.Atom_Price_Item_ID,
             Atom_Item.ID as Atom_Item_ID,
             Atom_Price_Item.RetailPricePerUnit AS  RetailPricePerUnit,
             PurchasePrice.PurchasePricePerUnit,
@@ -279,17 +279,17 @@ namespace TangentaDB
             itm_g1.Name as s1_name,
             itm_g2.Name as s2_name, 
             itm_g3.Name as s3_name
-            FROM Atom_DocInvoice_Price_Item_Stock
-            INNER JOIN  Atom_Price_Item ON Atom_DocInvoice_Price_Item_Stock.Atom_Price_Item_ID = Atom_Price_Item.ID 
+            FROM DocInvoice_ShopC_Item
+            INNER JOIN  Atom_Price_Item ON DocInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID 
             INNER JOIN  Atom_Taxation ON Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID 
             INNER JOIN  Atom_PriceList ON Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID 
             INNER JOIN  Atom_Currency ON Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
-            INNER JOIN  DocInvoice ON Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID = DocInvoice.ID 
+            INNER JOIN  DocInvoice ON DocInvoice_ShopC_Item.DocInvoice_ID = DocInvoice.ID 
             INNER JOIN  Invoice ON DocInvoice.Invoice_ID = Invoice.ID
             INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
             INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
             INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
-            LEFT JOIN  Stock ON Atom_DocInvoice_Price_Item_Stock.Stock_ID = Stock.ID 
+            LEFT JOIN  Stock ON DocInvoice_ShopC_Item.Stock_ID = Stock.ID 
             LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
             LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
             LEFT JOIN  PurchasePrice_Item ON Stock.PurchasePrice_Item_ID = PurchasePrice_Item.ID 
@@ -303,8 +303,8 @@ namespace TangentaDB
             LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
             LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
             LEFT JOIN  Item_Image ON itms.Item_Image_ID = Item_Image.ID 
-            where  (Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID =  " + DocInvoice_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
-            m_CurrentInvoice.dtCurrent_Atom_DocInvoice_Price_Item_Stock.Clear();
+            where  (DocInvoice_ShopC_Item.DocInvoice_ID =  " + DocInvoice_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
+            m_CurrentInvoice.dtCurrent_DocInvoice_ShopC_Item.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dtDraft_DocInvoice_Atom_Item_Stock, sql_select_DocInvoice_Atom_Item_Stock, ref Err))
             {
                 return true;

@@ -1051,6 +1051,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\Person.ico" />
+    <None Include="Resources\Persons.ico" />
     <None Include="Resources\Tangenta_Question.ico" />
     <None Include="Resources\Blagajna_Icon1.ico" />
     <None Include="Resources\Exit_Program.bmp" />

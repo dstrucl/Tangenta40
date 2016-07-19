@@ -426,6 +426,7 @@ namespace LanguageControl
         public static ltext s_Item_Not_in_PriceList = new ltext("Item not in pricelist:", "V ceniku manjkajo sledeči artikli:");
         public static ltext s_PriceListIsNotUpdatedBecauseYouDidnotSelect = new ltext("Price List is not updated because you did not defined Tax rate!", "Cenik ni posodobljen z novimi artikli in/ali servisi, ker niste določili davčne stopnje!");
         public static ltext s_DataChangedSaveYourData = new ltext("You have changed data. Save your work?", "Vnesli ste podatke.\r\nShranim vnešene podatke?");
+        public static ltext s_DataChangedDoYouWantToCloseYesNo = new ltext("You have changed data. Do you want to cancel edit?", "Vnesli ste podatke.\r\nŽelite prekiniti vnos?");
         public static ltext s_ExpiryDateFormText = new ltext("Expiry Date", "Rok uporabe");
         public static ltext s_PleaseDefineExpiryDate = new ltext("Define Expiry Date!", "Določite rok uporabe!");
         public static ltext s_Manage_PriceLists = new ltext("Manage PRICE LISTS", "UREJANJE CENIKOV");

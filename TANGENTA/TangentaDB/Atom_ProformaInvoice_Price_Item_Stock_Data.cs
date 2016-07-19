@@ -82,22 +82,22 @@ namespace TangentaDB
         }
 
         public void Set(DataRow dria,
-                            ref List<object> Atom_DocInvoice_Price_Item_Stock_Data_list)
+                            ref List<object> DocInvoice_ShopC_Item_Data_list)
         {
             Stock_Data stock_data = null;
             int i = 0;
-            int iCount = Atom_DocInvoice_Price_Item_Stock_Data_list.Count;
+            int iCount = DocInvoice_ShopC_Item_Data_list.Count;
             Atom_Item_ID = tf.set_long(dria["Atom_Item_ID"]);
 
             if (Atom_Item_ID != null)
             {
                 for (i = 0; i < iCount; i++)
                 {
-                    if (((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)Atom_DocInvoice_Price_Item_Stock_Data_list[i]).Atom_Item_ID.v == Atom_Item_ID.v)
+                    if (((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)DocInvoice_ShopC_Item_Data_list[i]).Atom_Item_ID.v == Atom_Item_ID.v)
                     {
                         stock_data = new Stock_Data();
                         stock_data.Set(dria);
-                        ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)Atom_DocInvoice_Price_Item_Stock_Data_list[i]).m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
+                        ((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)DocInvoice_ShopC_Item_Data_list[i]).m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
                         return;
                     }
                 }
@@ -158,11 +158,11 @@ namespace TangentaDB
                 stock_data.Set(dria);
                 m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
 
-                Atom_DocInvoice_Price_Item_Stock_Data_list.Add(this);
+                DocInvoice_ShopC_Item_Data_list.Add(this);
             }
             else
             {
-                LogFile.Error.Show("ERROR:Atom_DocInvoice_Price_Item_Stock_Data:Set(DataRow dria,..):Atom_Item_ID == null");
+                LogFile.Error.Show("ERROR:DocInvoice_ShopC_Item_Data:Set(DataRow dria,..):Atom_Item_ID == null");
             }
         }
 

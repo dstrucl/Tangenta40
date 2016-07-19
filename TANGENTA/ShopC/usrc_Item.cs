@@ -431,7 +431,7 @@ namespace ShopC
 
         private void btn_Stock_Click(object sender, EventArgs e)
         {
-            //appisd.Set(this, ref m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.Atom_DocInvoice_Price_Item_Stock_Data_LIST, false);
+            //appisd.Set(this, ref m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST, false);
             Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
             m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.DocInvoice_ID,
                                                                         this,
@@ -550,7 +550,7 @@ namespace ShopC
         {
             long ID = m_Item_Data.Item_ID.v;
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
-            Form_Item_Edit edt_Item_dlg = new Form_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+            Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
                                                             "Item_$$Code desc", ID);
             edt_Item_dlg.ShowDialog();

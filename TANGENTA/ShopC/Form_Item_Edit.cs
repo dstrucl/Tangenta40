@@ -20,7 +20,7 @@ using TangentaDB;
 
 namespace ShopC
 {
-    public partial class Form_Item_Edit : Form
+    public partial class Form_ShopC_Item_Edit : Form
     {
         public enum eItem_EditMode { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
         private eItem_EditMode ItemEditMode = eItem_EditMode.SELECT_VALID;
@@ -40,21 +40,20 @@ namespace ShopC
 
         public bool bShopC_Item_NotIn_PriceList = false;
 
-        public Form_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
         {
             InitializeComponent();
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            this.Text = lngRPM.s_Items.s;
+            lngRPM.s_Items.Text(this, " "+lngRPM.s_Shop_C.s);
             rdb_OnlyInOffer.Checked = true;
-            this.rdb_OnlyInOffer.Text = lngRPM.s_OnlyInOffer.s;
-            this.rdb_All.Text = lngRPM.s_AllItems.s;
-            this.rdb_OnlyNotInOffer.Text = lngRPM.s_OnlyNotInOffer.s;
-
+            lngRPM.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
+            lngRPM.s_AllItems.Text(this.rdb_All);
+            lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
         }
 
-        public Form_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
+        public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -64,9 +63,9 @@ namespace ShopC
             ID_v.v = ID;
             this.Text = lngRPM.s_Items.s;
             rdb_OnlyInOffer.Checked = true;
-            this.rdb_OnlyInOffer.Text = lngRPM.s_OnlyInOffer.s;
-            this.rdb_All.Text = lngRPM.s_AllItems.s;
-            this.rdb_OnlyNotInOffer.Text = lngRPM.s_OnlyNotInOffer.s;
+            lngRPM.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
+            lngRPM.s_AllItems.Text(this.rdb_All);
+            lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
 
         }
 
@@ -139,13 +138,17 @@ namespace ShopC
         {
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(lngRPM.s_DataChangedDoYouWantToCloseYesNo.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    usrc_EditTable.Save();
+                    this.Close();
+                    DialogResult = DialogResult.No;
                 }
             }
-            this.Close();
-            DialogResult = DialogResult.No;
+            else
+            {
+                this.Close();
+                DialogResult = DialogResult.No;
+            }
         }
 
         private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
@@ -163,9 +166,12 @@ namespace ShopC
             bShopC_Item_NotIn_PriceList = f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Item_NotIn_PriceList);
             if (bShopC_Item_NotIn_PriceList)
             {
-                if (PriseLists.usrc_PriceList.Ask_To_Update('C',dt_ShopC_Item_NotIn_PriceList,  this))
+                if (dt_ShopC_Item_NotIn_PriceList.Rows.Count > 0)
                 {
-                    f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this);
+                    if (PriseLists.usrc_PriceList.Ask_To_Update('C', dt_ShopC_Item_NotIn_PriceList, this))
+                    {
+                        f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this);
+                    }
                 }
             }
         }

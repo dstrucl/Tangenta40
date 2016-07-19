@@ -1,6 +1,6 @@
 ﻿namespace ShopC
 {
-    partial class Form_Item_Edit
+    partial class Form_ShopC_Item_Edit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Item_Edit));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ShopC_Item_Edit));
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.btn_OK = new System.Windows.Forms.Button();
             this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();

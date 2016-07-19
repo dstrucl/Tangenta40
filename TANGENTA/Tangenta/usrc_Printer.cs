@@ -289,20 +289,20 @@ namespace Tangenta
 
                 //}
 
-                ////Atom_DocInvoice_Price_Item_Stock.ID AS DocInvoice_ShopC_Item_ID,
-                ////Atom_DocInvoice_Price_Item_Stock.DocInvoice_ID,
+                ////DocInvoice_ShopC_Item.ID AS DocInvoice_ShopC_Item_ID,
+                ////DocInvoice_ShopC_Item.DocInvoice_ID,
                 ////DocInvoice.Atom_myOrganisation_Person_ID,
-                ////Atom_DocInvoice_Price_Item_Stock.Stock_ID,
-                ////Atom_DocInvoice_Price_Item_Stock.Atom_Price_Item_ID,
+                ////DocInvoice_ShopC_Item.Stock_ID,
+                ////DocInvoice_ShopC_Item.Atom_Price_Item_ID,
                 ////Atom_Item.ID as Atom_Item_ID,
                 ////itm.ID as Item_ID,
                 ////Atom_Price_Item.RetailPricePerUnit,
                 ////Atom_Price_Item.Discount,
-                ////Atom_DocInvoice_Price_Item_Stock.RetailPriceWithDiscount,
-                ////Atom_DocInvoice_Price_Item_Stock.TaxPrice,
-                ////Atom_DocInvoice_Price_Item_Stock.ExtraDiscount,
-                ////Atom_DocInvoice_Price_Item_Stock.dQuantity,
-                ////Atom_DocInvoice_Price_Item_Stock.ExpiryDate,
+                ////DocInvoice_ShopC_Item.RetailPriceWithDiscount,
+                ////DocInvoice_ShopC_Item.TaxPrice,
+                ////DocInvoice_ShopC_Item.ExtraDiscount,
+                ////DocInvoice_ShopC_Item.dQuantity,
+                ////DocInvoice_ShopC_Item.ExpiryDate,
                 ////Atom_Item.UniqueName AS Atom_Item_UniqueName,
                 ////Atom_Item_Name.Name AS Atom_Item_Name_Name,
                 ////Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
@@ -334,7 +334,7 @@ namespace Tangenta
                 ////Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces
                 //Printer.wr_NewLine();
 
-                //foreach (Atom_DocInvoice_Price_Item_Stock_Data appisd in xInvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.Atom_DocInvoice_Price_Item_Stock_Data_LIST)
+                //foreach (DocInvoice_ShopC_Item_Data appisd in xInvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST)
                 //{
                 //    string Item_UniqueName = appisd.Atom_Item_UniqueName.v;
 
@@ -523,9 +523,9 @@ namespace Tangenta
                     return (int)o_Currency_DecimalPlaces;
                 }
             }
-            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST.Count > 0)
+            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0)
             {
-                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST[0];
+                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST[0];
                 if (o_Data is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
                 {
                     return (int)((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;

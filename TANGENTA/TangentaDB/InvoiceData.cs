@@ -478,7 +478,7 @@ namespace TangentaDB
             }
         }
 
-        public void Fill_Sold_ShopC_ItemsData(List<object> xAtom_DocInvoice_Price_Item_Stock_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
+        public void Fill_Sold_ShopC_ItemsData(List<object> xDocInvoice_ShopC_Item_Data_LIST, ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count,bool bInvoiceStorno)
         {
 
             int i;
@@ -488,7 +488,7 @@ namespace TangentaDB
 
             for (i = start_index; i < end_index; i++)
             {
-                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)xAtom_DocInvoice_Price_Item_Stock_Data_LIST[j];
+                Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)xDocInvoice_ShopC_Item_Data_LIST[j];
 
                 decimal Discount = appisd.Discount.v;
 
@@ -1027,24 +1027,24 @@ namespace TangentaDB
                         {
                             if (m_ShopABC.Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref dt_ShopB_Items))
                             {
-                                List<object> xAtom_DocInvoice_Price_Item_Stock_Data_LIST = new List<object>();
+                                List<object> xDocInvoice_ShopC_Item_Data_LIST = new List<object>();
                                 if (this.m_eType == eType.STORNO)
                                 {
-                                    if (!m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(xDocInvoice_ID, ref xAtom_DocInvoice_Price_Item_Stock_Data_LIST))
+                                    if (!m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(xDocInvoice_ID, ref xDocInvoice_ShopC_Item_Data_LIST))
                                     {
                                         return false;
                                     }
                                 }
                                 else
                                 {
-                                    xAtom_DocInvoice_Price_Item_Stock_Data_LIST = m_ShopABC.m_CurrentInvoice.m_Basket.m_Atom_DocInvoice_Price_Item_Stock_Data_LIST;
+                                    xDocInvoice_ShopC_Item_Data_LIST = m_ShopABC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST;
                                 }
 
 
                                 int iCountShopAItemsSold = dt_ShopA_Items.Rows.Count;
                                 int iCountShopBItemsSold = dt_ShopB_Items.Rows.Count;
 
-                                int iCountShopCItemsSold = xAtom_DocInvoice_Price_Item_Stock_Data_LIST.Count;
+                                int iCountShopCItemsSold = xDocInvoice_ShopC_Item_Data_LIST.Count;
 
                                 ItemsSold = new UniversalInvoice.ItemSold[iCountShopAItemsSold + iCountShopBItemsSold + iCountShopCItemsSold];
                                 taxSum = new StaticLib.TaxSum();
@@ -1052,7 +1052,7 @@ namespace TangentaDB
 
                                 Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
                                 Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
-                                Fill_Sold_ShopC_ItemsData(xAtom_DocInvoice_Price_Item_Stock_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
+                                Fill_Sold_ShopC_ItemsData(xDocInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
 
                                 InvoiceToken = new UniversalInvoice.InvoiceToken();
 

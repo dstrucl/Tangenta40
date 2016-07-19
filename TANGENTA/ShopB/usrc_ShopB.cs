@@ -753,7 +753,7 @@ namespace ShopB
         public bool EditShopBItem()
         {
             SQLTable tbl_ShopBItem=new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem)));
-            Form_ShopBItem_Edit edt_ShopBItem_dlg = new Form_ShopBItem_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+            Form_ShopB_Item_Edit edt_ShopBItem_dlg = new Form_ShopB_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                     tbl_ShopBItem,
                                                                     "SimpleItem_$$Code desc");
             edt_ShopBItem_dlg.ShowDialog();
