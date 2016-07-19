@@ -478,7 +478,7 @@ namespace CodeTables.TableDocking_Form
             InsertInDataBase();
             this.Cursor = Cursors.Arrow;
         }
-        private void InsertInDataBase()
+        private bool InsertInDataBase()
         {
            string mymsg = null;
             m_tbl.Check_Null_Values(ref mymsg);
@@ -491,7 +491,7 @@ namespace CodeTables.TableDocking_Form
                 }
                 if (bCancel)
                 {
-                    return;
+                    return false;
                 }
                 else
                 {
@@ -527,11 +527,13 @@ namespace CodeTables.TableDocking_Form
                     {
                         after_InsertInDataBase(m_tbl,ID, bRes);
                     }
+                    return bRes;
                 }
             }
             else
             {
                 MessageBox.Show(mymsg);
+                return false;
             }
         }
 
@@ -542,7 +544,7 @@ namespace CodeTables.TableDocking_Form
             this.Cursor = Cursors.Arrow;
         }
 
-        private void UpdateDataBase()
+        private bool UpdateDataBase()
         {
             string mymsg = null;
             m_tbl.Check_Null_Values(ref mymsg);
@@ -555,7 +557,7 @@ namespace CodeTables.TableDocking_Form
                 }
                 if (bCancel)
                 {
-                    return;
+                    return false;
                 }
                 else
                 {
@@ -574,11 +576,13 @@ namespace CodeTables.TableDocking_Form
                     {
                         after_UpdateDataBase(this.m_tbl,ID, bRes);
                     }
+                    return bRes;
                 }
             }
             else
             {
                 MessageBox.Show(mymsg);
+                return false;
             }
 
         }
@@ -637,15 +641,19 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        internal void Save()
+        public bool Save()
         {
             if (btn_Insert.Visible && btn_Insert.Enabled)
             {
-                InsertInDataBase();
+                return InsertInDataBase();
             }
             else if (btn_Update.Visible && btn_Update.Enabled)
             {
-                UpdateDataBase();
+                return UpdateDataBase();
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -657,7 +665,7 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        internal void FillInitialData()
+        public void FillInitialData()
         {
             foreach (Column col in m_tbl.Column)
             {

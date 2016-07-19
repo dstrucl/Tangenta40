@@ -430,9 +430,9 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        public void Save()
+        public bool Save()
         {
-            this.usrc_EditRow.Save();
+            return this.usrc_EditRow.Save();
         }
 
         private void dgvx_Table_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

@@ -108,7 +108,19 @@ namespace Tangenta
             {
                 if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    usrc_EditTable1.Save();
+                    if (usrc_EditTable1.Save())
+                    {
+                        this.Close();
+                        DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        if (XMessage.Box.Show(this, lngRPM.s_DataNotSavedEndYesNo, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)==DialogResult.Yes)
+                        {
+                            this.Close();
+                            DialogResult = DialogResult.OK;
+                        }
+                    }
                 }
             }
             else
@@ -125,8 +137,6 @@ namespace Tangenta
             }
 
 
-            this.Close();
-            DialogResult = DialogResult.OK;
         }
     }
 }

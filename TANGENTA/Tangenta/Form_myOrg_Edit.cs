@@ -26,14 +26,25 @@ namespace Tangenta
         DataTable dt_my_company = new DataTable();
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
+        Image m_button_ImageCancel = null;
         //bool bclose = false;
 
-        public Form_myOrg_Edit(CodeTables.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew)
+        public Form_myOrg_Edit(CodeTables.DBTableControl xdbTables,SQLTable xtbl,bool bAllowNew, Image xImageCancel)
         {
             InitializeComponent();
             dbTables = xdbTables;
             tbl = xtbl;
             usrc_EditRow.AllowUserToAddNew = bAllowNew;
+            m_button_ImageCancel = xImageCancel;
+            if (m_button_ImageCancel != null)
+            {
+                btn_Cancel.Text = "";
+                btn_Cancel.Image = m_button_ImageCancel;
+            }
+            else
+            {
+                lngRPM.s_Cancel.Text(btn_Cancel);
+            }
             lngRPM.s_Edit_Offices.Text(btn_Office);
         }
 
@@ -117,8 +128,19 @@ namespace Tangenta
             {
                 if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
                 {
-                    Close();
-                    DialogResult = DialogResult.OK;
+                    if (usrc_EditRow.Save())
+                    {
+                        Close();
+                        DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        if (XMessage.Box.Show(this, lngRPM.s_DataNotSavedEndYesNo, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        {
+                            this.Close();
+                            DialogResult = DialogResult.OK;
+                        }
+                    }
                 }
                 else
                 {

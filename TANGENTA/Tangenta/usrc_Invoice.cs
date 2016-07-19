@@ -574,11 +574,11 @@ namespace Tangenta
             }
         }
 
-        private bool EditMyOrganisation_Data(bool bAllowNew)
+        private bool EditMyOrganisation_Data(bool bAllowNew,Image xImageCancel)
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew);
+            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xImageCancel);
             dres = edt_my_company_dlg.ShowDialog(this);
 
             if (dres == DialogResult.OK)
@@ -1196,7 +1196,7 @@ namespace Tangenta
                         //x_usrc_Main.Get_shops_in_use(false);
 
                         MessageBox.Show(lngRPM.s_No_OrganisationData.s);
-                        if (EditMyOrganisation_Data(true))
+                        if (EditMyOrganisation_Data(true, myStartup.m_ImageCancel))
                         {
                             continue;
                         }
@@ -1209,7 +1209,7 @@ namespace Tangenta
                     if (myOrg.Tax_ID_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_Tax_ID.s);
-                        if (EditMyOrganisation_Data(false))
+                        if (EditMyOrganisation_Data(false,myStartup.m_ImageCancel))
                         {
                             continue;
                         }
@@ -1223,7 +1223,7 @@ namespace Tangenta
                     if (myOrg.Address_v.StreetName_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_StreetName.s);
-                        if (EditMyOrganisation_Data(false))
+                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
                         {
                             continue;
                         }
@@ -1237,7 +1237,7 @@ namespace Tangenta
                     if (myOrg.Address_v.HouseNumber_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_HouseNumber.s);
-                        if (EditMyOrganisation_Data(false))
+                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
                         {
                             continue;
                         }
@@ -1251,7 +1251,7 @@ namespace Tangenta
                     if (myOrg.Address_v.ZIP_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_ZIP.s);
-                        if (EditMyOrganisation_Data(false))
+                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
                         {
                             continue;
                         }
@@ -1264,7 +1264,7 @@ namespace Tangenta
                     if (myOrg.Address_v.City_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_City.s);
-                        if (EditMyOrganisation_Data(false))
+                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
                         {
                             continue;
                         }
@@ -1278,7 +1278,7 @@ namespace Tangenta
                     if (myOrg.Address_v.Country_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_Country.s);
-                        if (EditMyOrganisation_Data(false))
+                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
                         {
                             continue;
                         }
@@ -2052,7 +2052,7 @@ namespace Tangenta
 
         private void btn_MyOrganisation_Click(object sender, EventArgs e)
         {
-            EditMyOrganisation_Data(false);
+            EditMyOrganisation_Data(false,Properties.Resources.Exit);
         }
 
 

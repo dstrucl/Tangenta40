@@ -37,7 +37,7 @@ namespace Tangenta
             InitializeComponent();
             m_Office_ID = xOffice_ID;
             tbl_myOrganisation_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person)));
-            this.Text = lngRPM.s_Edit_Office_Data.s;
+            lngRPM.s_myOrganisation_Person_Data.Text(this);
             this.usrc_EditTable1.Title = lngRPM.s_Edit_Office_Data.s;
             string selection = @"  myOrganisation_Person_$_per_$_cfn_$$FirstName,
                                     myOrganisation_Person_$_per_$_cln_$$LastName,
@@ -75,14 +75,61 @@ namespace Tangenta
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            this.Close();
-            DialogResult = DialogResult.OK;
+            if (usrc_EditTable1.Changed)
+            {
+                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    if (usrc_EditTable1.Save())
+                    {
+                        Close();
+                        DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        if (XMessage.Box.Show(this, lngRPM.s_DataNotSavedEndYesNo, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        {
+                            this.Close();
+                            DialogResult = DialogResult.OK;
+                        }
+                    }
+
+                }
+                else
+                {
+                    Close();
+                    DialogResult = DialogResult.OK;
+                }
+            }
+            else
+            {
+                if (usrc_EditTable1.RowsCount > 0)
+                {
+                    Close();
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOfficePersonData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                }
+            }
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            this.Close();
-            DialogResult = DialogResult.Cancel;
+
+            if (usrc_EditTable1.RowsCount > 0)
+            {
+                Close();
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotEnterYourOrganisationPersonData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    Close();
+                    DialogResult = DialogResult.Cancel;
+                }
+            }
         }
 
         private void usrc_EditTable1_after_FillDataInputControl(SQLTable m_tbl, long ID)

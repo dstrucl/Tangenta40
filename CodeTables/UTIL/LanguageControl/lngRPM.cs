@@ -27,11 +27,13 @@ namespace LanguageControl
         public static ltext s_Startup_GetSimpleItemData = new ltext("Reading ShopB Items", "Branje artiklov/storitev trgovine B");
         public static ltext s_Startup_GetItemData = new ltext("Reading ShopC Items", "Branje artiklov/storitev trgovine C");
         public static ltext s_Startup_Login = new ltext("Login", "Prijava");
-        
+
 
 
         #endregion
 
+        public static ltext s_myOrganisation_Person_Data = new ltext("Organisation person data", "Podatki o osebi v organizaciji");
+        public static ltext s_DataNotSavedEndYesNo = new ltext("New or changed data are not written to database.\r\nQuit (Yes/No)?", "Novi ali spremenjeni podatki se niso zapisali v podtakovno bazo.\r\nKončam (Da/Ne)?");
         public static ltext s_StartupProgram = new ltext("Program Startup", "Zagon Programa Tangenta");
         public static ltext s_DataBaseIsEmpty_InsertInitialData = new ltext("Database is empty. Insert common sample data of organisation which name is Organisation1 and you can change this data later to your real organisation data? (Yes/No)", "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke neke splošne organizacije z imenom Podjetje1,\r\nsami pa lahko potem kadarkoli te podatke spremenite v podatke vaše organizacije? (Da/Ne)");
         public static ltext s_UpgradeBackupFileExist_restore_old_Database = new ltext("Upgrade failed, Database backup file exists. Restore DataBase \"%s\" (Yes/No) ?", "Nadgradnja podatkovne baze je bila neuspešna.\r\n Povrnem podatkovno bazo v prejšne stanje iz datoteke:\"%s\" (Da/Ne) ?");
@@ -150,8 +152,11 @@ namespace LanguageControl
         public static ltext s_Form_Select_Country_ISO_3166_Title = new ltext("Select State", "Izberite Državo");
         public static ltext s_YouMustEnterYourOrganisationData = new ltext("You must enter your organisation data. Without organisation data program can not run!", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati!");
         public static ltext s_YouMustEnterYourOfficeData = new ltext("You must enter your office data. Without office data program can not run!", "Morate vpisati podatke o vsaj eni poslovni enoti vaše organizacije in vsaj eni osebi. Brez tega program ne more delovati!");
+        public static ltext s_YouMustEnterYourOfficeAddressData = new ltext("You must enter your office address data. Without office address data program can not run!", "Morate vpisati podatke o naslovu poslovne enote vaše organizacije. Brez tega program ne more delovati!");
+        public static ltext s_YouMustEnterYourOfficePersonData = new ltext("You must enter your organisation perosn data. Without at least one oragnisation person data program can not run!", "Morate vpisati podatke o vsaj eni osebi vaše organizacije. Brez tega program ne more delovati!");
 
         public static ltext s_YouDidNotEnterYourOrganisationData = new ltext("You did not enter your organisation data. Without organisation data program can not run! Program will end? ", "Morate vpisati podatke o vaši organizaciji in vsaj eni osebi. Brez tega program ne more delovati! Program se konča ?");
+        public static ltext s_YouDidNotEnterYourOrganisationPersonData = new ltext("You did not enter your organisation person data. Without any organisation person data program can not run! Program will end? ", "Morate vpisati podatke o vsaj eni osebi v vaši organizaciji. Brez tega program ne more delovati! Program se konča ?");
 
         public static ltext s_YouDidNotWriteDataToDB_SaveData_YesOrNo = new ltext("Write to Data Base.\r\n(Press Yes or No)?", "Vpišem podatke v podatkovno bazo?\r\n(Pritisni gumb Da ali Ne) ?");
 
