@@ -18,10 +18,15 @@ namespace LanguageControl
     public static class lngRPM
     {
         #region StartUp
-        public static ltext s_Startup_Check_DataBase = new ltext("Connecting with Database","Povezovanje s bazo podatkov");
-        public static ltext s_Startup_Read_DBSettings = new ltext("Read Database Settings", "Branje nastavitev iz podatkovne baze");
-        public static ltext s_Startup_Get_shops_in_use = new ltext("Get shops in use", "Branje nastavitev trgovin v uporabi");
+
+        public static ltext s_Database_Version_is = new ltext("Database version is:", "Zbirka podatkov je verzije:");
+        public static ltext s_ThisProgramWorksOnlyWithDatabase_Version = new ltext("\r\nThis program works only with database version:", "\r\nTa program lahko dela le z zbirko podatkov katere verzija je:");
+
+        public static ltext s_Startup_Check_DataBase = new ltext("Connecting with Database","Povezovanje z bazo podatkov");
+        public static ltext s_Startup_Read_DBSettings = new ltext("Read Database Settings", "Branje nastavitev iz baze podatkov");
+        public static ltext s_Startup_CheckDBVersion = new ltext("Check database", "Preverjanje baze podatkov");
         public static ltext s_Startup_GetOrganisationData = new ltext("Reading organisation data ", "Branje podatkov o vaši organizaciji");
+        public static ltext s_Startup_Get_shops_in_use = new ltext("Get shops in use", "Branje nastavitev trgovin v uporabi");
         public static ltext s_Startup_GetBaseCurrency = new ltext("Getting default currency", "Pridobivanje privzete valute");
         public static ltext s_Startup_GetTaxation = new ltext("Reading default taxation", "Branje davčnih stopenj");
         public static ltext s_Startup_GetSimpleItemData = new ltext("Reading ShopB Items", "Branje artiklov/storitev trgovine B");
@@ -33,9 +38,16 @@ namespace LanguageControl
         #endregion
 
         public static ltext s_myOrganisation_Person_Data = new ltext("Organisation person data", "Podatki o osebi v organizaciji");
-        public static ltext s_DataNotSavedEndYesNo = new ltext("New or changed data are not written to database.\r\nQuit (Yes/No)?", "Novi ali spremenjeni podatki se niso zapisali v podtakovno bazo.\r\nKončam (Da/Ne)?");
+        public static ltext s_DataNotSavedEndYesNo = new ltext("New or changed data are not written to database.\r\nQuit (Yes/No)?", "Novi ali spremenjeni podatki se niso zapisali v bazo podatkov.\r\nKončam (Da/Ne)?");
         public static ltext s_StartupProgram = new ltext("Program Startup", "Zagon Programa Tangenta");
-        public static ltext s_DataBaseIsEmpty_InsertInitialData = new ltext("Database is empty. Insert common sample data of organisation which name is Organisation1 and you can change this data later to your real organisation data? (Yes/No)", "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke neke splošne organizacije z imenom Podjetje1,\r\nsami pa lahko potem kadarkoli te podatke spremenite v podatke vaše organizacije? (Da/Ne)");
+
+        public static ltext s_DataBaseIsEmpty_InsertInitialData = new ltext("Database is empty. If you want to preview this program first, then let this program to insert imaginary initial sample data of your organisation (Organisation1) and you will change this data later to your real organisation data, than select:",
+                                                                            "Baza podatkov je prazna!\r\nV kolikor si želite pred uporabo program najprej ogledati, potem je najbolje, da program samodejno vstavi začetne namišljene podatke neke splošne organizacije (Podjetje1), vi pa potem te podatke lahko kadarkoli spremenite v vaše prave podatke. Če je temu tako, potem izberite:");
+        public static ltext s_DataBaseIsEmpty_EnterData = new ltext("If you want to enter your data manually than select:",
+                                                                    "V kolikor želite, da sami vnesete podatke potem izberite:");
+        public static ltext s_Write_predefined_data_into_a_new_database = new ltext("Write initial default data into a new database", "Napišite začetne privzete podatke v novo bazo podatkov");
+        public static ltext s_Enter_your_data_manually = new ltext("Enter your data manually", "Ročni vnos podatkov v novo bazo podatkov");
+
         public static ltext s_UpgradeBackupFileExist_restore_old_Database = new ltext("Upgrade failed, Database backup file exists. Restore DataBase \"%s\" (Yes/No) ?", "Nadgradnja podatkovne baze je bila neuspešna.\r\n Povrnem podatkovno bazo v prejšne stanje iz datoteke:\"%s\" (Da/Ne) ?");
         public static ltext s_CanNotReadDataBaseFile = new ltext("ERRRO:Can not read database file.", "NAPAKA:Neuspešno branje podatkovne baze.");
         public static ltext s_DataBaseVersion = new ltext("DataBaseVersion", "Verzija podatkovne baze:");

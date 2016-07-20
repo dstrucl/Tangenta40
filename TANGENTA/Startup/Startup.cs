@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ThreadProcessor;
+using TangentaDB;
 
 namespace Startup
 {
@@ -16,21 +17,34 @@ namespace Startup
         {
 
         startup_step.eStep eStep = startup_step.eStep.NoStep;
+
         public startup_step.eStep eNextStep = startup_step.eStep.NoStep;
         public bool bNewDatabaseCreated = false;
         public bool bInsertSampleData = false;
+        public bool bUpgradeDone = false;
+
         public Form m_parent_form = null;
         public usrc_Startup m_usrc_Startup = null;
         internal startup_step[] Step = null;
         public Image m_ImageCancel = null;
+        private bool m_bCancel = false;
+        public Icon m_FormIconQuestion = null;
+        public fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
+        public string CurrentDataBaseVersionTextValue = null;
 
+        public bool bCanceled
+        {
+            get { return m_bCancel; }
+            set { m_bCancel = value; }
+        }
 
-        public startup(Form parent_form, startup_step[] xStep, Image xImageCancel)
+        public startup(Form parent_form, startup_step[] xStep, Image xImageCancel, Icon xFormIconQuestion)
         {
             m_parent_form = parent_form;
             Step = xStep;
             m_usrc_Startup = new usrc_Startup(this);
             m_ImageCancel = xImageCancel;
+            m_FormIconQuestion = xFormIconQuestion;
         }
 
 

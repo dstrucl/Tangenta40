@@ -21,7 +21,7 @@ using Startup;
 
 namespace Tangenta
 {
-    public partial class Form_Main : Form
+    public partial class Form_Document : Form
     {
         public const string XML_ROOT_NAME = "Tangenta_Xml";
         public string RecentItemsFolder = null;
@@ -30,9 +30,9 @@ namespace Tangenta
         public startup_step[] StartupStep = null;
 
 
-        public Form_Main()
+        public Form_Document()
         {
-            LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Main()before InitializeComponent()!");
+            LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Form_Document()before InitializeComponent()!");
             InitializeComponent();
             if (Properties.Settings.Default.FullScreen)
             {
@@ -46,7 +46,7 @@ namespace Tangenta
             if (Get_RecentItemsFolder(ref RecentItemsFolder))
             {
 
-                LogFile.LogFile.Write(1, "MESSAGE:Main_Form:Main_Form:Recent items folder = " + RecentItemsFolder);
+                LogFile.LogFile.Write(1, "MESSAGE:Main_Form:Form_Document:Recent items folder = " + RecentItemsFolder);
 
             }
             else
@@ -82,7 +82,8 @@ namespace Tangenta
             StartupStep = new startup_step[]
             {
                 new startup_step(lngRPM.s_Startup_Check_DataBase.s,Startup_Check_DataBase,startup_step.eStep.Check_DataBase),
-                new startup_step(lngRPM.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings,startup_step.eStep.Read_DBSettings),
+                new startup_step(lngRPM.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version),
+                new startup_step(lngRPM.s_Startup_CheckDBVersion.s,this.m_usrc_Main.CheckDBVersion,startup_step.eStep.CheckDBVersion),
                 new startup_step(lngRPM.s_Startup_GetOrganisationData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData),
                 new startup_step(lngRPM.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency),
                 new startup_step(lngRPM.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation),
@@ -95,9 +96,12 @@ namespace Tangenta
 
             m_startup = new startup(this,
                                     StartupStep,
-                                    Properties.Resources.Exit_Program
+                                    Properties.Resources.Exit_Program,
+                                    Properties.Resources.Tangenta_Question
                                     );
         }
+
+
 
         public bool Startup_Check_DataBase(startup myStartup,object o, ref string Err)
         {

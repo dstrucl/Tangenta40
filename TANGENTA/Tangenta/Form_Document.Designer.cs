@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_Main
+    partial class Form_Document
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
-            this.m_usrc_Main = new Tangenta.usrc_Main();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Document));
+            this.m_usrc_Main = new Tangenta.usrc_Document();
             this.SuspendLayout();
             // 
             // m_usrc_Main
@@ -39,7 +39,7 @@
             this.m_usrc_Main.Name = "m_usrc_Main";
             this.m_usrc_Main.Size = new System.Drawing.Size(1004, 616);
             this.m_usrc_Main.TabIndex = 0;
-            this.m_usrc_Main.Exit_Click += new Tangenta.usrc_Main.delegate_Exit_Click(this.m_usrc_Main_Exit_Click);
+            this.m_usrc_Main.Exit_Click += new Tangenta.usrc_Document.delegate_Exit_Click(this.m_usrc_Main_Exit_Click);
             this.m_usrc_Main.Load += new System.EventHandler(this.m_usrc_Main_Load);
             // 
             // Form_Main
@@ -62,7 +62,7 @@
 
         #endregion
 
-        private usrc_Main m_usrc_Main;
+        private usrc_Document m_usrc_Main;
 
     }
 }

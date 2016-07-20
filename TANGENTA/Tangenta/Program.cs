@@ -46,7 +46,7 @@ namespace Tangenta
         internal static usrc_FVI_SLO usrc_FVI_SLO1 = null;
         internal static usrc_Printer usrc_Printer1 = null;
 
-        internal static Form_Main MainForm = null;
+        internal static Form_Document MainForm = null;
 
         internal static bool bShowCommandLineHelp = false;
         internal static bool bDemo = false;
@@ -319,7 +319,7 @@ namespace Tangenta
                         LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "Mutex Tangenta createdNew.");
 
                         
-                        MainForm = new Form_Main();
+                        MainForm = new Form_Document();
                         Application.Run(MainForm);
                     }
                     else

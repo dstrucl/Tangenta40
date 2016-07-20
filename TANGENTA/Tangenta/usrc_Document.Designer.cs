@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class usrc_Main
+    partial class usrc_Document
     {
         /// <summary> 
         /// Required designer variable.

@@ -21,11 +21,11 @@ namespace Tangenta
 {
     public partial class Form_ShopsInUse : Form
     {
-        private usrc_Main m_usrc_Main;
+        private usrc_Document m_usrc_Main;
         private bool bResetShopsInUse = false;
 
 
-        public Form_ShopsInUse(bool xbResetShopsInUse,usrc_Main xusrc_Main)
+        public Form_ShopsInUse(bool xbResetShopsInUse,usrc_Document xusrc_Main)
         {
             InitializeComponent();
             bResetShopsInUse = xbResetShopsInUse;

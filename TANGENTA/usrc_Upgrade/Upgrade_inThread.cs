@@ -78,7 +78,8 @@ namespace UpgradeDB
                 new Upgrade("1.19",UpgradeDB_1_19_to_1_20)
             };
         }
-        public bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err, string xBackupFileName)
+
+        public bool UpgradeDB(string sOldDBVersion, string sNewDBVersion, ref string Err)
         {
             int i = 0;
             int iCount = UpgradeArray.Length;
@@ -87,7 +88,7 @@ namespace UpgradeDB
                 if (UpgradeArray[i].DBVersion.Equals(sOldDBVersion))
                 {
                     int j = i;
-                    Form_Upgrade_inThread frm_upgr = new Form_Upgrade_inThread(this, UpgradeArray, j, xBackupFileName);
+                    Form_Upgrade_inThread frm_upgr = new Form_Upgrade_inThread(this, UpgradeArray, j, this.m_Full_backup_filename);
                     frm_upgr.ShowDialog();
                 }
             }
@@ -3535,89 +3536,15 @@ namespace UpgradeDB
             }
         }
 
-        public bool Read_DBSettings_Version(ref fs.enum_GetDBSettings eGetDBSettings_Result,ref bool bUpgradeDone,ref bool bInsertSampleData, ref bool bCanceled, Image xImageCancel,ref string Err)
+        public fs.enum_GetDBSettings Read_DBSettings_Version(startup myStartup,ref fs.enum_GetDBSettings eGetDBSettings_Result,ref bool bUpgradeDone,ref bool bInsertSampleData, ref bool bCanceled,ref string Err)
         {
-            string xTextValue = null;
             bool xReadOnly = false;
             bInsertSampleData = false;
             Restore_if_UpgradeBackupFileExists(ref m_Full_backup_filename);
-            eGetDBSettings_Result = fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
-                                   ref xTextValue,
+            return fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.Version.Name,
+                                   ref myStartup.CurrentDataBaseVersionTextValue,
                                    ref xReadOnly,
                                    ref Err);
-            switch (eGetDBSettings_Result)
-            {
-                case fs.enum_GetDBSettings.DBSettings_OK:
-                    if (xTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                        {
-                            bUpgradeDone = UpgradeDB(xTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err, m_Full_backup_filename);
-                            return true;
-                        }
-                        else
-                        {
-                            Err = "Podatkovna baza je verzije:" + xTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
-                            return false;
-                        }
-                    }
-
-
-                case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                    LogFile.Error.Show(Err);
-                    return false;
-
-
-
-                case fs.enum_GetDBSettings.No_Data_Rows:
-                    bInsertSampleData = CheckInsertSampleData();
-                    if (bInsertSampleData)
-                    {
-                        
-                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xImageCancel,ref Err))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            if (bCanceled)
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show(Err);
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (fs.Init_Default_DB(ref Err))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            LogFile.Error.Show(Err);
-                            return false;
-                        }
-                    }
-
-                case fs.enum_GetDBSettings.No_TextValue:
-                    return false;
-
-                case fs.enum_GetDBSettings.No_ReadOnly:
-                    return false;
-                default:
-                    Err = "ERROR enum_GetDBSettings not handled!";
-                    return false;
-
-            }
         }
 
         private bool Restore_if_UpgradeBackupFileExists(ref string full_backup_filename)
@@ -3665,12 +3592,91 @@ namespace UpgradeDB
 
         }
 
-        public  bool Read_DBSettings(startup myStartup,object oData, ref string Err)
+        public  bool Read_DBSettings_Version(startup myStartup,object oData, ref string Err)
         {
             bool bUpgradeDone = false;
             bool bCanceled = false;
             fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
-            if (Read_DBSettings_Version(ref eGetDBSettings_Result,ref bUpgradeDone,ref myStartup.bInsertSampleData,ref bCanceled, myStartup.m_ImageCancel, ref Err))
+            myStartup.eGetDBSettings_Result = Read_DBSettings_Version(myStartup, ref eGetDBSettings_Result, ref bUpgradeDone, ref myStartup.bInsertSampleData, ref bCanceled, ref Err);
+
+                //switch (eGetDBSettings_Result)
+                //{
+                
+                //    case fs.enum_GetDBSettings.DBSettings_OK:
+                //        if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
+                //        {
+                //            return true;
+                //        }
+                //        else
+                //        {
+                //            if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je verzije:" + myStartup.CurrentDataBaseVersionTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                //            {
+                //                bUpgradeDone = UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err, m_Full_backup_filename);
+                //                return true;
+                //            }
+                //            else
+                //            {
+                //                Err = "Podatkovna baza je verzije:" + myStartup.CurrentDataBaseVersionTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
+                //                return false;
+                //            }
+                //        }
+
+
+                //    case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                //        LogFile.Error.Show(Err);
+                //        return false;
+
+
+
+                //    case fs.enum_GetDBSettings.No_Data_Rows:
+                //        bInsertSampleData = CheckInsertSampleData(myStartup);
+                //        if (bInsertSampleData)
+                //        {
+
+                //            if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.m_ImageCancel, ref Err))
+                //            {
+                //                return true;
+                //            }
+                //            else
+                //            {
+                //                if (bCanceled)
+                //                {
+                //                    return false;
+                //                }
+                //                else
+                //                {
+                //                    LogFile.Error.Show(Err);
+                //                    return false;
+                //                }
+                //            }
+                //        }
+                //        else
+                //        {
+                //            if (fs.Init_Default_DB(ref Err))
+                //            {
+                //                return true;
+                //            }
+                //            else
+                //            {
+                //                LogFile.Error.Show(Err);
+                //                return false;
+                //            }
+                //        }
+
+                //    case fs.enum_GetDBSettings.No_TextValue:
+                //        return false;
+
+                //    case fs.enum_GetDBSettings.No_ReadOnly:
+                //        return false;
+                //    default:
+                //        Err = "ERROR enum_GetDBSettings not handled!";
+                //        return false;
+
+                //}
+
+
+
+
             {
                 if (bCanceled)
                 {
@@ -3780,18 +3786,6 @@ namespace UpgradeDB
                 default:
                     Err = "ERROR enum_GetDBSettings not handled!";
                     return false;
-            }
-        }
-
-        private bool CheckInsertSampleData()
-        {
-            if (MessageBox.Show(m_parent_ctrl, lngRPM.s_DataBaseIsEmpty_InsertInitialData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
 

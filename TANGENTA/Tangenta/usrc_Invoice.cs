@@ -1185,7 +1185,7 @@ namespace Tangenta
 
         internal bool GetOrganisationData(startup myStartup,object  oData,ref string Err)
         {
-            usrc_Main x_usrc_Main = (usrc_Main)oData;
+            usrc_Document x_usrc_Main = (usrc_Document)oData;
             string sAddress = null;
             for (;;)
             {

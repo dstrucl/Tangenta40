@@ -26,7 +26,7 @@ namespace Tangenta
     {
         private int default_language_ID = -1;
         private int newLanguage = -1;
-        private usrc_Main m_usrc_Main;
+        private usrc_Document m_usrc_Main;
         private bool bChanged = false;
 
         public Form_Settings()
@@ -34,7 +34,7 @@ namespace Tangenta
 
         }
 
-        public Form_Settings(usrc_Main usrc_Main)
+        public Form_Settings(usrc_Document usrc_Main)
         {
             InitializeComponent();
             lngRPM.sProgramSettings.Text(this);

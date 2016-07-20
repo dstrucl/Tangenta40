@@ -11,7 +11,8 @@ namespace Startup
     public class startup_step
     {
         public enum eStep : int { Check_DataBase,
-                                  Read_DBSettings,
+                                  Read_DBSettings_Version,
+                                  CheckDBVersion,
                                   GetOrganisationData,
                                   GetBaseCurrency,
                                   GetTaxation,
