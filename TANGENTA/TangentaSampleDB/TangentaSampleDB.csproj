@@ -52,11 +52,29 @@
     <Compile Include="SampleDB_Price_ShopC_Item.cs" />
     <Compile Include="SampleDB_Price_ShopB_Item.cs" />
     <Compile Include="TangentaSampleDB.cs" />
+    <Compile Include="usrc_edit_string.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_edit_string.Designer.cs">
+      <DependentUpon>usrc_edit_string.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_SampleDataEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_SampleDataEdit.Designer.cs">
+      <DependentUpon>usrc_SampleDataEdit.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_edit_string.resx">
+      <DependentUpon>usrc_edit_string.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_SampleDataEdit.resx">
+      <DependentUpon>usrc_SampleDataEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

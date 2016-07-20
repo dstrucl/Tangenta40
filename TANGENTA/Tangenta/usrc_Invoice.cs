@@ -1181,8 +1181,6 @@ namespace Tangenta
         // DataBase is empty No Organisation Data First select Shops In use !
 
 
-
-
         internal bool GetOrganisationData(startup myStartup,object  oData,ref string Err)
         {
             usrc_Document x_usrc_Main = (usrc_Document)oData;

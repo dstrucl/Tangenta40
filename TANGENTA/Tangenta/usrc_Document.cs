@@ -129,6 +129,32 @@ namespace Tangenta
             return myStartup.bInsertSampleData;
         }
 
+        internal bool CheckDBVersion_2(startup myStartup, object oData, ref string Err)
+        {
+            if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
+            {
+                //if (Read_DBSettings_LastInvoiceType(bUpgradeDone, ref Err))
+                //{
+                //    if (fs.Read_DBSettings_StockCheckAtStartup(bUpgradeDone, ref Err))
+                //    {
+                //        if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
+                //        {
+                //            switch (myStartup.eGetDBSettings_Result)
+                //            {
+                //                case fs.enum_GetDBSettings.No_Data_Rows:
+                //                    myStartup.eNextStep++;
+                //                    return true;
+                //            }
+                //            myStartup.eNextStep++;
+                //            return true;
+                //        }
+                //    }
+                //}
+            }
+            myStartup.eNextStep = startup_step.eStep.Cancel;
+            return false;
+        }
+
 
         internal bool CheckDBVersion(startup myStartup, object oData, ref string Err)
         {
@@ -169,6 +195,7 @@ namespace Tangenta
                     myStartup.bInsertSampleData = CheckInsertSampleData(myStartup);
                     if (myStartup.bInsertSampleData)
                     {
+                        myStartup.SetSampleData();
                         bool bCanceled = false;
                         if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.m_ImageCancel, ref Err))
                         {
@@ -230,9 +257,44 @@ namespace Tangenta
                     return false;
 
             }
+
+            //{
+            //    if (bCanceled)
+            //    {
+            //        myStartup.eNextStep = startup_step.eStep.Cancel;
+            //        return false;
+            //    }
+            //    if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
+            //    {
+            //        if (Read_DBSettings_LastInvoiceType(bUpgradeDone, ref bCanceled, myStartup.m_ImageCancel, ref Err))
+            //        {
+            //            if (bCanceled)
+            //            {
+            //                myStartup.eNextStep = startup_step.eStep.Cancel;
+            //                return false;
+            //            }
+            //            if (fs.Read_DBSettings_StockCheckAtStartup(bUpgradeDone, ref Err))
+            //            {
+            //                if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
+            //                {
+            //                    switch (eGetDBSettings_Result)
+            //                    {
+            //                        case fs.enum_GetDBSettings.No_Data_Rows:
+            //                            myStartup.eNextStep++;
+            //                            return true;
+            //                    }
+            //                    myStartup.eNextStep++;
+            //                    return true;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            myStartup.eNextStep = startup_step.eStep.Cancel;
+            return false;
         }
 
-        public bool GetWorkPeriod(startup myStartup,object oData, ref string Err)
+    public bool GetWorkPeriod(startup myStartup,object oData, ref string Err)
     {
         if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
         {

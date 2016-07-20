@@ -3592,126 +3592,18 @@ namespace UpgradeDB
 
         }
 
-        public  bool Read_DBSettings_Version(startup myStartup,object oData, ref string Err)
+        public bool Read_DBSettings_Version(startup myStartup, object oData, ref string Err)
         {
             bool bUpgradeDone = false;
             bool bCanceled = false;
             fs.enum_GetDBSettings eGetDBSettings_Result = fs.enum_GetDBSettings.No_TextValue;
             myStartup.eGetDBSettings_Result = Read_DBSettings_Version(myStartup, ref eGetDBSettings_Result, ref bUpgradeDone, ref myStartup.bInsertSampleData, ref bCanceled, ref Err);
-
-                //switch (eGetDBSettings_Result)
-                //{
-                
-                //    case fs.enum_GetDBSettings.DBSettings_OK:
-                //        if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
-                //        {
-                //            return true;
-                //        }
-                //        else
-                //        {
-                //            if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je verzije:" + myStartup.CurrentDataBaseVersionTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                //            {
-                //                bUpgradeDone = UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err, m_Full_backup_filename);
-                //                return true;
-                //            }
-                //            else
-                //            {
-                //                Err = "Podatkovna baza je verzije:" + myStartup.CurrentDataBaseVersionTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
-                //                return false;
-                //            }
-                //        }
-
-
-                //    case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                //        LogFile.Error.Show(Err);
-                //        return false;
-
-
-
-                //    case fs.enum_GetDBSettings.No_Data_Rows:
-                //        bInsertSampleData = CheckInsertSampleData(myStartup);
-                //        if (bInsertSampleData)
-                //        {
-
-                //            if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.m_ImageCancel, ref Err))
-                //            {
-                //                return true;
-                //            }
-                //            else
-                //            {
-                //                if (bCanceled)
-                //                {
-                //                    return false;
-                //                }
-                //                else
-                //                {
-                //                    LogFile.Error.Show(Err);
-                //                    return false;
-                //                }
-                //            }
-                //        }
-                //        else
-                //        {
-                //            if (fs.Init_Default_DB(ref Err))
-                //            {
-                //                return true;
-                //            }
-                //            else
-                //            {
-                //                LogFile.Error.Show(Err);
-                //                return false;
-                //            }
-                //        }
-
-                //    case fs.enum_GetDBSettings.No_TextValue:
-                //        return false;
-
-                //    case fs.enum_GetDBSettings.No_ReadOnly:
-                //        return false;
-                //    default:
-                //        Err = "ERROR enum_GetDBSettings not handled!";
-                //        return false;
-
-                //}
-
-
-
-
-            {
-                if (bCanceled)
-                {
-                    myStartup.eNextStep = startup_step.eStep.Cancel;
-                    return false;
-                }
-                if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
-                {
-                    if (Read_DBSettings_LastInvoiceType(bUpgradeDone, ref bCanceled, myStartup.m_ImageCancel, ref Err))
-                    {
-                        if (bCanceled)
-                        {
-                            myStartup.eNextStep = startup_step.eStep.Cancel;
-                            return false;
-                        }
-                        if (fs.Read_DBSettings_StockCheckAtStartup(bUpgradeDone, ref Err))
-                        {
-                            if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
-                            {
-                                switch (eGetDBSettings_Result)
-                                {
-                                    case fs.enum_GetDBSettings.No_Data_Rows:
-                                        myStartup.eNextStep++;
-                                        return true;
-                                }
-                                myStartup.eNextStep++;
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            myStartup.eNextStep = startup_step.eStep.Cancel;
-            return false;
+            myStartup.eNextStep++;
+            return true;
         }
+
+
+
 
         private  bool Read_DBSettings_LastInvoiceType(bool bUpgradeDone,ref bool bCanceled,Image xImageCancel, ref string Err)
         {

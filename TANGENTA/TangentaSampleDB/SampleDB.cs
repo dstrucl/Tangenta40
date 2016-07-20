@@ -13,6 +13,8 @@ namespace TangentaSampleDB
 {
     public class SampleDB
     {
+        usrc_SampleDataEdit m_eds = null;
+
         string_v MyOrg_Name_v = null;
         string_v MyOrg_Tax_ID_v = null;
         string_v MyOrg_Registration_ID_v = null;
@@ -73,8 +75,11 @@ namespace TangentaSampleDB
 
         public SampleDB()
         {
+            m_eds = new usrc_SampleDataEdit();
+            m_eds.eds_MyOrg_Organisation_Name.Set(lngRPMS.s_Organisation_Name.s, lngRPMS.s_MyOrg_Organisation_Name_v.s);
 
-            MyOrg_Name_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Organisation_Name_v.s);
+            MyOrg_Name_v = new DBTypes.string_v(m_eds.eds_MyOrg_Organisation_Name.text);
+
             MyOrg_Tax_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Tax_ID_v.s);
             MyOrg_Registration_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Registration_ID_v.s);
             MyOrg_OrganisationTYPE_v = new DBTypes.string_v(lngRPMS.s_MyOrg_OrganisationTYPE_v.s);
