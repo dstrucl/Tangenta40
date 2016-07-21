@@ -18,6 +18,7 @@ namespace TangentaSampleDB
             if (fs.Init_Default_DB(ref Err))
             {
                 sbd = new SampleDB();
+                sbd.ShowDialog();
 
                 bool bRes = sbd.Write(ref bCanceled, xImageCancel);
                 return bRes;

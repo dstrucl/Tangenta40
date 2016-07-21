@@ -195,7 +195,6 @@ namespace Tangenta
                     myStartup.bInsertSampleData = CheckInsertSampleData(myStartup);
                     if (myStartup.bInsertSampleData)
                     {
-                        myStartup.SetSampleData();
                         bool bCanceled = false;
                         if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.m_ImageCancel, ref Err))
                         {

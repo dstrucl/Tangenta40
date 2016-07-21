@@ -13,13 +13,15 @@ namespace TangentaSampleDB
 {
     public class SampleDB
     {
-        usrc_SampleDataEdit m_eds = null;
+        public usrc_SampleDataEdit m_eds = null;
 
         string_v MyOrg_Name_v = null;
         string_v MyOrg_Tax_ID_v = null;
         string_v MyOrg_Registration_ID_v = null;
         string_v MyOrg_OrganisationTYPE_v = null;
         PostAddress_v MyOrg_Address_v = null;
+
+
         string_v MyOrg_PhoneNumber_v = null;
         string_v MyOrg_FaxNumber_v = null;
         string_v MyOrg_Email_v = null;
@@ -73,12 +75,15 @@ namespace TangentaSampleDB
         byte_array_v MyOrg_Person_Image_Data_v = null;
         long_v MyOrg_Person_Atom_Person_ID_v = null;
 
+
         public SampleDB()
         {
             m_eds = new usrc_SampleDataEdit();
-            m_eds.eds_MyOrg_Organisation_Name.Set(lngRPMS.s_Organisation_Name.s, lngRPMS.s_MyOrg_Organisation_Name_v.s);
+            new EditControl(m_eds, MyOrg_Name_v, "MyOrg_Name", lngRPMS.s_Organisation_Name, lngRPMS.s_MyOrg_Organisation_Name_v);
+            new EditControl(m_eds, MyOrg_Tax_ID_v, "MyOrg_Tax_ID", lngRPMS.s_MyOrg_Tax_ID, lngRPMS.s_MyOrg_Organisation_Name_v);
 
-            MyOrg_Name_v = new DBTypes.string_v(m_eds.eds_MyOrg_Organisation_Name.text);
+
+
 
             MyOrg_Tax_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Tax_ID_v.s);
             MyOrg_Registration_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Registration_ID_v.s);
@@ -140,6 +145,14 @@ namespace TangentaSampleDB
             //long_v MyOrg_Person_Atom_Person_ID_v = null;
 
         }
+
+        internal void ShowDialog()
+        {
+            Form_EditSampleData fedt = new Form_EditSampleData();
+            fedt.Controls.Add(m_eds);
+            fedt.ShowDialog();
+        }
+
         public bool Write(ref bool bCanceled, Image xImageCancel)
         {
             ID_v cAdressAtom_Org_iD_v = null;

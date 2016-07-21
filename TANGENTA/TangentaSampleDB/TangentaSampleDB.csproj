@@ -42,6 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_EditSampleData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_EditSampleData.Designer.cs">
+      <DependentUpon>Form_EditSampleData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -52,12 +58,7 @@
     <Compile Include="SampleDB_Price_ShopC_Item.cs" />
     <Compile Include="SampleDB_Price_ShopB_Item.cs" />
     <Compile Include="TangentaSampleDB.cs" />
-    <Compile Include="usrc_edit_string.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_edit_string.Designer.cs">
-      <DependentUpon>usrc_edit_string.cs</DependentUpon>
-    </Compile>
+    <Compile Include="EditControl.cs" />
     <Compile Include="usrc_SampleDataEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -66,12 +67,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_EditSampleData.resx">
+      <DependentUpon>Form_EditSampleData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_edit_string.resx">
-      <DependentUpon>usrc_edit_string.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_SampleDataEdit.resx">
       <DependentUpon>usrc_SampleDataEdit.cs</DependentUpon>

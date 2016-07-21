@@ -85,10 +85,5 @@ namespace Startup
             m_usrc_Startup.Dispose();
             m_usrc_Startup = null;
         }
-
-        public void SetSampleData()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
