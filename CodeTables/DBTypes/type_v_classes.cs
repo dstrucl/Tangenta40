@@ -57,6 +57,45 @@ namespace DBTypes
         }
     }
 
+    public class dbool_v : bool_v
+    {
+        private bool m_defined = false;
+
+        public bool defined
+        {
+            get {return m_defined;}
+            set {m_defined = value; }
+        }
+
+        public dbool_v()
+        {
+        }
+
+        public dbool_v(bool b)
+        {
+            v = b;
+        }
+
+        public static dbool_v Copy(dbool_v o_v)
+        {
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public dbool_v Clone()
+        {
+            dbool_v o_v = new dbool_v();
+            o_v.v = this.v;
+            return o_v;
+        }
+    }
+
 
     public class short_v
     {
@@ -340,6 +379,7 @@ namespace DBTypes
         }
     }
 
+
     public class string_v
     {
         public string v;
@@ -388,6 +428,27 @@ namespace DBTypes
             return o_v;
         }
     }
+
+    public class dstring_v : string_v
+    {
+        private bool m_defined = false;
+        public bool defined
+        {
+            get { return m_defined; }
+            set { m_defined = false; }
+        }
+
+        public dstring_v()
+        {
+        }
+
+        public dstring_v(string s)
+        {
+            v = s;
+            m_defined = true;
+        }
+    }
+
 
     public class byte_array_v
     {
@@ -458,4 +519,44 @@ namespace DBTypes
             return o_v;
         }
     }
+
+    public class dDateTime_v: DateTime_v
+    {
+        private bool m_defined = false;
+        public bool defined
+        {
+            get { return m_defined; }
+            set { m_defined = false; }
+        }
+
+        public dDateTime_v()
+        {
+        }
+
+        public dDateTime_v(DateTime dtime)
+        {
+            v = dtime;
+            m_defined = true;
+        }
+
+        public static dDateTime_v Copy(dDateTime_v o_v)
+        {
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public dDateTime_v Clone()
+        {
+            dDateTime_v o_v = new dDateTime_v();
+            o_v.v = this.v;
+            return o_v;
+        }
+    }
+
 }

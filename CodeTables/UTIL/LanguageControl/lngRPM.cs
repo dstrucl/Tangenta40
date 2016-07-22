@@ -2098,7 +2098,13 @@ namespace LanguageControl
        public static ltext s_Man = new ltext ("Man",
                                        "Moški");
 
-       public static ltext s_ErrorNoData = new ltext ("ERROR No Data! There are no InputControls!",
+        public static ltext s_Male = new ltext("Male",
+                                        "Moški");
+
+        public static ltext s_Female = new ltext("Female",
+                                        "Ženski");
+
+        public static ltext s_ErrorNoData = new ltext ("ERROR No Data! There are no InputControls!",
                                           "NAPAKA: Ni Podatkov! Input Kontrole niso ustvarjene!");
 
        public static ltext s_ErrorNoImage = new ltext ("ERROR No image in Func.ImageStore!",

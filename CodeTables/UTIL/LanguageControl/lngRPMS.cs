@@ -19,73 +19,188 @@ namespace LanguageControl
     {
         public static ltext s_SelectCountryWhereYouPayTaxes = new ltext("Country of tax residency", "Država katere ste davčni zavezanec");
 
-        public static ltext s_Organisation_Name =  new ltext("Organisation name", "Ime organizacije");
-        public static ltext s_MyOrg_Organisation_Name_v = new ltext("Organisation1", "Podjetje1");
+        public static ltext sl_MyOrg_Name =  new ltext("Organisation name", "Ime organizacije");
+        public static ltext s_MyOrg_Name_v = new ltext("Organisation1", "Podjetje1");
+        public static ltext sh_MyOrg_Name = new ltext("Enter your organisation name", "Vpišite ime vaše organizacije");
 
-
-        public static ltext s_MyOrg_Tax_ID = new ltext("Organisation VAT number", "Davčna številka");
+        public static ltext sl_MyOrg_Tax_ID = new ltext("Organisation VAT number", "Davčna številka");
         public static ltext s_MyOrg_Tax_ID_v = new ltext("12345678", "12345678");
+        public static ltext sh_MyOrg_Tax_ID = new ltext("Enter your organisation VAT number", "Vpišite davčno številko");
 
+        public static ltext sl_MyOrg_Registration_ID = new ltext("Your Organisation Registration Number", "Matična številka vaše organizacije");
         public static ltext s_MyOrg_Registration_ID_v = new ltext("00000001", "00000001");
+        public static ltext sh_MyOrg_Registration_ID = new ltext("Enter Your Organisation Registration Number", "Vpišite matično številko vaše organizacije");
+
+        public static ltext sl_MyOrg_OrganisationTYPE = new ltext("Type of organisation", "Tip organizacije");
         public static ltext s_MyOrg_OrganisationTYPE_v = new ltext("ltd", "d.o.o.");
+        public static ltext sh_MyOrg_OrganisationTYPE = new ltext("Enter type of your organisation (ltd., gov.,)", "Vpišite vrsto vaše organizacije (d.d.,d.o.o.,javni zavod,..)");
+
+        public static ltext sl_MyOrg_PhoneNumber = new ltext("Organisation phone number", "Številka telefona vaše organizacije");
         public static ltext s_MyOrg_PhoneNumber_v = new ltext("000000", "0000000");
+        public static ltext sh_MyOrg_PhoneNumber = new ltext("Enter your organisation phone number", "Vpišite številko telefona vaše organizacije");
+
+        public static ltext sl_MyOrg_FaxNumber = new ltext("Organisation fax number", "Številka fax-a vaše organizacije");
         public static ltext s_MyOrg_FaxNumber_v = new ltext("000000", "00000");
+        public static ltext sh_MyOrg_FaxNumber = new ltext("Enter your organisation fax number", "Vpišite številko fax-a vaše organizacije");
+
+        public static ltext sl_MyOrg_Email = new ltext("Organisation email", "Elektronski naslov vaše organizacije");
         public static ltext s_MyOrg_Email_v = new ltext("Organisation1@email.com", "Podjetje1@email.com");
+        public static ltext sh_MyOrg_Email = new ltext("Enter your organisation email", "Vpišite elektronski naslov (email) vaše organizacije");
+
+        public static ltext sl_MyOrg_HomePage = new ltext("Organisation homepage", "Domači naslov vaše organizacije");
         public static ltext s_MyOrg_HomePage_v = new ltext("www.Organisation1.com", "www.Podjetje1.si");
+        public static ltext sh_MyOrg_HomePage = new ltext("Enter your organisation homepage", "Vpišite domači naslov (homepage) vaše organizacije");
+
+        public static ltext sl_MyOrg_BankName = new ltext("The name of bank of your organisation bank account", "Ime banke vašega TRR računa vaše organizacije");
         public static ltext s_MyOrg_BankName_v = new ltext("Bank1", "Banka1");
+        public static ltext sh_MyOrg_BankName = new ltext("Enter the name of bank of your organisation bank account", "Vpišite ime banke vašega TRR računa vaše organizacije");
+
+        public static ltext sl_MyOrg_TRR = new ltext("Bank account", "Številka TRR računa vaše organizacije");
         public static ltext s_MyOrg_TRR_v = new ltext("0000-0000-000-000", "0000-0000-000-000");
+        public static ltext sh_MyOrg_TRR = new ltext("Enter bank account", "Vpišite številko TRR računa vaše organizacije");
 
-        public static ltext s_MyOrg_Address_City_v = new ltext("City1", "Mesto1");
-        public static ltext s_MyOrg_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
-        public static ltext s_MyOrg_Address_HouseNumber_v = new ltext("1", "1");
-        public static ltext s_MyOrg_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
-        public static ltext s_MyOrg_Address_State_v = new ltext("MyStreet1", "Cesta1");
-
-        public static ltext s_MyOrg_OfficeName_v = new ltext("Office1", "Pisarna1");
-        public static ltext s_MyOrg_OfficeShortName_v = new ltext("o1", "p1");
-        
-
-        public static ltext s_MyOrg_Person_UserName_v = new ltext("Organisation1Person1UserName1", "UporabniškoIme1Osebe1Podjetja1");
-        public static ltext s_MyOrg_Person_Password_v = new ltext("Organisation1Person1Password1", "GesloOsebe1Podjetja1");
-        public static ltext s_MyOrg_Person_Job_v = new ltext("Organisation1Person1Job", "DelovnoMestoOsebe1Podjetja1");
-
-
-
+        public static ltext sl_MyOrg_Person_FirstName = new ltext("Organisation administrator First Name", "Ime glavnega administratorja v podjetju");
         public static ltext s_MyOrg_Person_FirstName_v = new ltext("Organisation1Person1FirstName", "ImeOsebe1Podjetja1");
-        public static ltext s_MyOrg_Person_LastName_v = new ltext("Organisation1Person1LastName", "PriimekOsebe1Podjetja1");
+        public static ltext sh_MyOrg_Person_FirstName = new ltext("Enter organisation administrator First Name", "Vpišite ime glavnega administratorja, ki bo imel vse uporabniške pravice");
+
+        public static ltext sl_MyOrg_Person_LastName = new ltext("Organisation administrator Last Name", "Priimek glavnega administratorja v podjetju");
+        public static ltext s_MyOrg_Person_LastName_v = new ltext("Organisation1Person1LastName", "PrimekOsebe1Podjetja1");
+        public static ltext sh_MyOrg_Person_LastName = new ltext("Enter organisation administrator Lasst Name who gets all user rights", "Vpišite priimek glavnega administratorja, ki bo imel vse uporabniške pravice");
+
+        public static ltext sl_MyOrg_Person_Gender = new ltext("Administrator gender", "Spol glavnega administratorja v podjetju");
+        public static ltext s_MyOrg_Person_Gender_v = null;
+        public static ltext sh_MyOrg_Person_Gender = new ltext("Enter gender of administrator", "Označite spol administratorja, ki bo imel vse uporabniške pravice");
+
+        
+        public static ltext sl_MyOrg_Person_DateOfBirth = new ltext("Administrator date of birth", "Datum rojstva glavnega administratorja v podjetju");
+        public static ltext s_MyOrg_Person_DateOfBirth_v = null;
+        public static ltext sh_MyOrg_Person_DateOfBirth = new ltext("Enter date of birth of administrator", "Vpišite datum rojstva glavnega administratorja");
+
+        public static ltext sl_MyOrg_Address_City = new ltext("City1", "Mesto1");
+        public static ltext s_MyOrg_Address_City_v = new ltext("City1", "Mesto1");
+        public static ltext sh_MyOrg_Address_City = new ltext("City1", "Mesto1");
+
+        public static ltext sl_MyOrg_Address_ZIP = new ltext("Zip1", "ŠtevilkaPošte1");
+        public static ltext s_MyOrg_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
+        public static ltext sh_MyOrg_Address_ZIP = new ltext("Zip1", "ŠtevilkaPošte1");
+
+        public static ltext sl_MyOrg_Address_HouseNumber = new ltext("1", "1");
+        public static ltext s_MyOrg_Address_HouseNumber_v = new ltext("1", "1");
+        public static ltext sh_MyOrg_Address_HouseNumber = new ltext("1", "1");
+
+        public static ltext sl_MyOrg_Address_StreetName = new ltext("MyStreet1", "Cesta1");
+        public static ltext s_MyOrg_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
+        public static ltext sh_MyOrg_Address_StreetName = new ltext("MyStreet1", "Cesta1");
+
+        public static ltext sl_MyOrg_Address_State = new ltext("MyStreet1", "Cesta1");
+        public static ltext s_MyOrg_Address_State_v = new ltext("MyStreet1", "Cesta1");
+        public static ltext sh_MyOrg_Address_State = new ltext("MyStreet1", "Cesta1");
+
+        public static ltext sl_MyOrg_OfficeName = new ltext("Office1", "Pisarna1");
+        public static ltext s_MyOrg_OfficeName_v = new ltext("Office1", "Pisarna1");
+        public static ltext sh_MyOrg_OfficeName = new ltext("Office1", "Pisarna1");
+
+        public static ltext sl_MyOrg_OfficeShortName = new ltext("o1", "p1");
+        public static ltext s_MyOrg_OfficeShortName_v = new ltext("o1", "p1");
+        public static ltext sh_MyOrg_OfficeShortName = new ltext("o1", "p1");
+
+        public static ltext sl_MyOrg_Person_UserName = new ltext("Administrator user name", "Uporabniško ime glavnega administratorja");
+        public static ltext s_MyOrg_Person_UserName_v = new ltext("Organisation1Person1UserName1", "UporabniškoIme1Osebe1Podjetja1");
+        public static ltext sh_MyOrg_Person_UserName = new ltext("Enter administrator user name", "Vpišiti uporabniško ime glavnega administratorja");
+
+        public static ltext sl_MyOrg_Person_Password = new ltext("Administrator password", "Geslo glavnega administratorja");
+        public static ltext s_MyOrg_Person_Password_v = new ltext("Organisation1Person1Password1", "GesloOsebe1Podjetja1");
+        public static ltext sh_MyOrg_Person_Password = new ltext("Enter administrator password", "Vpišite geslo glavnega administratorja");
+
+        public static ltext sl_MyOrg_Person_Job = new ltext("Administrator Job Title", "Delovno mesto glavnega administratorja");
+        public static ltext s_MyOrg_Person_Job_v = new ltext("Organisation1Person1Job", "DelovnoMestoOsebe1Podjetja1");
+        public static ltext sh_MyOrg_Person_Job = new ltext("Organisation1Person1Job", "DelovnoMestoOsebe1Podjetja1");
+
+
+        public static ltext sl_MyOrg_Person_Tax_ID = new ltext("11111111", "11111111");
         public static ltext s_MyOrg_Person_Tax_ID_v = new ltext("11111111", "11111111");
+        public static ltext sh_MyOrg_Person_Tax_ID = new ltext("11111111", "11111111");
+
+        public static ltext sl_MyOrg_Person_Registration_ID = new ltext("222222222", "22222222");
         public static ltext s_MyOrg_Person_Registration_ID_v = new ltext("222222222", "22222222");
+        public static ltext sh_MyOrg_Person_Registration_ID = new ltext("222222222", "22222222");
+
+        public static ltext sl_MyOrg_Person_GsmNumber = new ltext("0038641 707369", "041 707369");
         public static ltext s_MyOrg_Person_GsmNumber_v = new ltext("0038641 707369", "041 707369");
+        public static ltext sh_MyOrg_Person_GsmNumber = new ltext("0038641 707369", "041 707369");
+
+        public static ltext sl_MyOrg_Person_PhoneNumber = new ltext("00386 15839410", "0038615839410");
         public static ltext s_MyOrg_Person_PhoneNumber_v = new ltext("00386 15839410", "0038615839410");
+        public static ltext sh_MyOrg_Person_PhoneNumber = new ltext("00386 15839410", "0038615839410");
+
+        public static ltext sl_MyOrg_Person_Email = new ltext("Person1@mail.com", "Person1@mail.com");
         public static ltext s_MyOrg_Person_Email_v = new ltext("Person1@mail.com", "Person1@mail.com");
+        public static ltext sh_MyOrg_Person_Email = new ltext("Person1@mail.com", "Person1@mail.com");
+
+        public static ltext sl_MyOrg_Person_StreetName = new ltext("Person1Street1", "Oseba1Cesta1");
         public static ltext s_MyOrg_Person_StreetName_v = new ltext("Person1Street1", "Oseba1Cesta1");
+        public static ltext sh_MyOrg_Person_StreetName = new ltext("Person1Street1", "Oseba1Cesta1");
+
+        public static ltext sl_MyOrg_Person_HouseNumber = new ltext("0", "0");
         public static ltext s_MyOrg_Person_HouseNumber_v = new ltext("0", "0");
+        public static ltext sh_MyOrg_Person_HouseNumber = new ltext("0", "0");
+
+        public static ltext sl_MyOrg_Person_City = new ltext("City1", "Mesto1");
         public static ltext s_MyOrg_Person_City_v = new ltext("City1", "Mesto1");
+        public static ltext sh_MyOrg_Person_City = new ltext("City1", "Mesto1");
+
+        public static ltext sl_MyOrg_Person_ZIP = new ltext("ZIP?", "ŠtevilkaPošte1");
         public static ltext s_MyOrg_Person_ZIP_v = new ltext("ZIP?", "ŠtevilkaPošte1");
+        public static ltext sh_MyOrg_Person_ZIP = new ltext("ZIP?", "ŠtevilkaPošte1");
 
+        public static ltext sl_MyOrg_Person_Country = null;
         public static ltext s_MyOrg_Person_Country_v = null;
-        public static ltext s_MyOrg_Person_Country_ISO_3166_a2 = null;
-        public static ltext s_MyOrg_Person_Country_ISO_3166_a3 = null;
-        public static ltext s_MyOrg_Person_Country_ISO_3166_num = null;
+        public static ltext sh_MyOrg_Person_Country = null;
 
-        public static ltext MyOrg_Person_State_v = null;
-        public static ltext MyOrg_Person_CardNumber_v = null;
-        public static ltext MyOrg_Person_CardType_v = null;
-        public static ltext MyOrg_Person_Image_Hash_v = null;
-        public static ltext MyOrg_Person_Image_Data_v = null;
-        public static ltext MyOrg_Person_Atom_Person_ID_v = null;
+        public static ltext sl_MyOrg_Person_Country_ISO_3166_a2 = null;
+        public static ltext s_MyOrg_Person_Country_ISO_3166_a2_v = null;
+        public static ltext sh_MyOrg_Person_Country_ISO_3166_a2 = null;
+
+        public static ltext sl_MyOrg_Person_Country_ISO_3166_a3 = null;
+        public static ltext s_MyOrg_Person_Country_ISO_3166_a3_v = null;
+        public static ltext sh_MyOrg_Person_Country_ISO_3166_a3 = null;
+
+        public static ltext sl_MyOrg_Person_Country_ISO_3166_num = null;
+        public static ltext s_MyOrg_Person_Country_ISO_3166_num_v = null;
+        public static ltext sh_MyOrg_Person_Country_ISO_3166_num = null;
+
+        public static ltext sl_MyOrg_Person_State = null;
+        public static ltext s_MyOrg_Person_State_v = null;
+        public static ltext sh_MOrg_Person_State = null;
+
+        public static ltext sl_MyOrg_Person_CardNumber = null;
+        public static ltext s_MyOrg_Person_CardNumber_v = null;
+        public static ltext sh_MhyOrg_Person_CardNumber = null;
+
+        public static ltext sl_MyOrg_Person_CardType = null;
+        public static ltext s_MyOrg_Person_CardType_v = null;
+        public static ltext sh_MyOrg_Person_CardType = null;
+
+        public static ltext sl_MyOrg_Person_Image_Hash = null;
+        public static ltext s_MyOrg_Person_Image_Hash_v = null;
+        public static ltext sh_MhyOrg_Person_Image_Hash = null;
+
+        public static ltext sl_MyOrg_Person_Image_Data = null;
+        public static ltext s_MyOrg_Person_Image_Data_v = null;
+        public static ltext sh_MyOrg_Person_Image_Data = null;
+
+        public static ltext sl_MyOrg_Person_Atom_Person_ID = null;
+        public static ltext s_MyOrg_Person_Atom_Person_ID_v = null;
+        public static ltext sh_MyOrg_Person_Atom_Person_ID = null;
 
         public static ltext PriceList_Name = new ltext("PRICE LIST CUSTOMERS", "CENIK STRANKE");
         public static ltext PriceList_Description = new ltext("Price list for usual customers.", "Cenik za stalne stranke.");
-
         public static ltext ShopB_Item_Name_Item1 = new ltext("ShopBItem1","ProtajalnaBArtikel1");
         public static ltext ShopB_Item_Abbreviation_SB1 = new ltext("SB1", "SB1");
         public static ltext ShopB_Item_ParentGroup1 = new ltext("ShopBGroup1","ProdajalnaBSkupina1" );
-
         public static ltext ShopC_Item_UniquName_UniqueItemName1 = new ltext("UniqueItemName1", "UnikatnoImeArtikla1");
         public static ltext ShopC_Item_Name_ItemName1 = new ltext("ItemName1", "ImeArtikla1");
         public static ltext ShopC_Item_ParentGroup1 = new ltext("ShopCGroup1", "ProdajalnaCSkupina1");
-
     }
 }
      

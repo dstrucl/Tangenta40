@@ -40,7 +40,7 @@ namespace TangentaSampleDB
                 if (dt.Rows.Count > 0)
                 {
                     string sOrgName = (string)dt.Rows[0]["myOrganisation_$_orgd_$_org_$$Name"];
-                    if (sOrgName.Equals(lngRPMS.s_MyOrg_Organisation_Name_v.s))
+                    if (sOrgName.Equals(lngRPMS.s_MyOrg_Name_v.s))
                     {
                         return true;
                     }

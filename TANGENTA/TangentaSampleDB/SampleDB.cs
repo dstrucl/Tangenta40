@@ -13,123 +13,72 @@ namespace TangentaSampleDB
 {
     public class SampleDB
     {
-        public usrc_SampleDataEdit m_eds = null;
 
-        string_v MyOrg_Name_v = null;
-        string_v MyOrg_Tax_ID_v = null;
-        string_v MyOrg_Registration_ID_v = null;
-        string_v MyOrg_OrganisationTYPE_v = null;
+        dstring_v MyOrg_Name_v = new dstring_v();
+        dstring_v MyOrg_Tax_ID_v = new dstring_v();
+        dstring_v MyOrg_Registration_ID_v = new dstring_v();
+        dstring_v MyOrg_OrganisationTYPE_v = new dstring_v();
         PostAddress_v MyOrg_Address_v = null;
 
 
-        string_v MyOrg_PhoneNumber_v = null;
-        string_v MyOrg_FaxNumber_v = null;
-        string_v MyOrg_Email_v = null;
-        string_v MyOrg_HomePage_v = null;
-        string_v MyOrg_BankName_v = null;
-        string_v MyOrg_TRR_v = null;
+        dstring_v MyOrg_PhoneNumber_v = new dstring_v();
+        dstring_v MyOrg_FaxNumber_v = new dstring_v();
+        dstring_v MyOrg_Email_v = new dstring_v();
+        dstring_v MyOrg_HomePage_v = new dstring_v();
+        dstring_v MyOrg_BankName_v = new dstring_v();
+        dstring_v MyOrg_TRR_v = new dstring_v();
 
 
 
-        string_v MyOrg_Image_Hash_v = null;
+        dstring_v MyOrg_Image_Hash_v = new dstring_v();
         byte_array_v MyOrg_Image_Data_v = null;
-        string_v MyOrg_Image_Description_v = null;
+        dstring_v MyOrg_Image_Description_v = new dstring_v();
         long_v MyOrg_Organisation_ID_v = null;
         long_v MyOrg_OrganisationData_ID_v = null;
 
-        string_v MyOrg_OfficeName_v = null;
-        string_v MyOrg_OfficeShortName_v = null;
+        dstring_v MyOrg_OfficeName_v = new dstring_v();
+        dstring_v MyOrg_OfficeShortName_v = new dstring_v();
 
-        bool_v   MyOrg_Person_Gender_v = null;
-        string_v MyOrg_Person_FirstName_v = null;
-        string_v MyOrg_Person_LastName_v = null;
-        DateTime_v MyOrg_Person_DateOfBirth_v = null;
-        string_v MyOrg_Person_Tax_ID_v = null;
-        string_v MyOrg_Person_Registration_ID_v = null;
-        string_v MyOrg_Person_GsmNumber_v = null;
-        string_v MyOrg_Person_PhoneNumber_v = null;
-        string_v MyOrg_Person_Email_v = null;
-        string_v MyOrg_Person_StreetName_v = null;
-        string_v MyOrg_Person_HouseNumber_v = null;
-        string_v MyOrg_Person_City_v = null;
-        string_v MyOrg_Person_ZIP_v = null;
+        dbool_v   MyOrg_Person_Gender_v = new dbool_v();
+        dstring_v MyOrg_Person_FirstName_v = new dstring_v();
+        dstring_v MyOrg_Person_LastName_v = new dstring_v();
+        dDateTime_v MyOrg_Person_DateOfBirth_v = new dDateTime_v();
+        dstring_v MyOrg_Person_Tax_ID_v = new dstring_v();
+        dstring_v MyOrg_Person_Registration_ID_v = new dstring_v();
+        dstring_v MyOrg_Person_GsmNumber_v = new dstring_v();
+        dstring_v MyOrg_Person_PhoneNumber_v = new dstring_v();
+        dstring_v MyOrg_Person_Email_v = new dstring_v();
+        dstring_v MyOrg_Person_StreetName_v = new dstring_v();
+        dstring_v MyOrg_Person_HouseNumber_v = new dstring_v();
+        dstring_v MyOrg_Person_City_v = new dstring_v();
+        dstring_v MyOrg_Person_ZIP_v = new dstring_v();
 
 
-        string_v MyOrg_Person_UserName_v = null;
-        string_v MyOrg_Person_Password_v = null;
-        string_v MyOrg_Person_Job_v = null;
-        bool_v MyOrg_Person_Active_v = null;
-        string_v MyOrg_Person_Description_v = null;
+        dstring_v MyOrg_Person_UserName_v = new dstring_v();
+        dstring_v MyOrg_Person_Password_v = new dstring_v();
+        dstring_v MyOrg_Person_Job_v = new dstring_v();
+        dbool_v MyOrg_Person_Active_v = new dbool_v();
+        dstring_v MyOrg_Person_Description_v = new dstring_v();
         long_v MyOrg_Person_Person_ID_v = null;
         long_v MyOrg_Person_Office_ID_v = null;
 
-        string_v MyOrg_Person_Country_v = null;
-        string_v MyOrg_Person_Country_ISO_3166_a2 = null;
-        string_v MyOrg_Person_Country_ISO_3166_a3 = null;
+        dstring_v MyOrg_Person_Country_v = new dstring_v();
+        dstring_v MyOrg_Person_Country_ISO_3166_a2 = new dstring_v();
+        dstring_v MyOrg_Person_Country_ISO_3166_a3 = new dstring_v();
         short_v  MyOrg_Person_Country_ISO_3166_num = null;
 
-        string_v MyOrg_Person_State_v = null;
-        string_v MyOrg_Person_CardNumber_v = null;
-        string_v MyOrg_Person_CardType_v = null;
-        string_v MyOrg_Person_Image_Hash_v = null;
+        dstring_v MyOrg_Person_State_v = new dstring_v();
+        dstring_v MyOrg_Person_CardNumber_v = new dstring_v();
+        dstring_v MyOrg_Person_CardType_v = new dstring_v();
+        dstring_v MyOrg_Person_Image_Hash_v = new dstring_v();
         byte_array_v MyOrg_Person_Image_Data_v = null;
         long_v MyOrg_Person_Atom_Person_ID_v = null;
 
 
         public SampleDB()
         {
-            m_eds = new usrc_SampleDataEdit();
-            new EditControl(m_eds, MyOrg_Name_v, "MyOrg_Name", lngRPMS.s_Organisation_Name, lngRPMS.s_MyOrg_Organisation_Name_v);
-            new EditControl(m_eds, MyOrg_Tax_ID_v, "MyOrg_Tax_ID", lngRPMS.s_MyOrg_Tax_ID, lngRPMS.s_MyOrg_Organisation_Name_v);
 
 
-
-
-            MyOrg_Tax_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Tax_ID_v.s);
-            MyOrg_Registration_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Registration_ID_v.s);
-            MyOrg_OrganisationTYPE_v = new DBTypes.string_v(lngRPMS.s_MyOrg_OrganisationTYPE_v.s);
-
-            MyOrg_PhoneNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_PhoneNumber_v.s);
-            MyOrg_FaxNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_FaxNumber_v.s);
-            MyOrg_Email_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Email_v.s);
-            MyOrg_HomePage_v = new DBTypes.string_v(lngRPMS.s_MyOrg_HomePage_v.s);
-            MyOrg_BankName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_BankName_v.s);
-            MyOrg_TRR_v = new DBTypes.string_v(lngRPMS.s_MyOrg_TRR_v.s);
-
-
-            if (LanguageControl.DynSettings.LanguageID == 0)
-            {
-                MyOrg_Person_Gender_v = new bool_v(true); //Male
-            }
-             else
-            {
-                MyOrg_Person_Gender_v = new bool_v(false); //Female
-            }
-
-            MyOrg_Person_FirstName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_FirstName_v.s);
-            MyOrg_Person_LastName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_LastName_v.s);
-            DateTime dt_DateOfBirth = new DateTime(2000, 1, 1);
-            MyOrg_Person_DateOfBirth_v = new DateTime_v(dt_DateOfBirth);
-            MyOrg_Person_Tax_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_Tax_ID_v.s); 
-            MyOrg_Person_Registration_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Registration_ID_v.s);
-            MyOrg_Person_GsmNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_GsmNumber_v.s);
-            MyOrg_Person_PhoneNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_PhoneNumber_v.s);
-            MyOrg_Person_Email_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_Email_v.s);
-
-            MyOrg_Person_StreetName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_StreetName_v.s); ;
-            MyOrg_Person_HouseNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_HouseNumber_v.s);
-            MyOrg_Person_City_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_City_v.s);
-            MyOrg_Person_ZIP_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_ZIP_v.s);
-
-            MyOrg_OfficeName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_OfficeName_v.s);
-            MyOrg_OfficeShortName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_OfficeShortName_v.s);
-
-
-            MyOrg_Person_UserName_v =  new DBTypes.string_v(lngRPMS.s_MyOrg_Person_UserName_v.s); 
-            MyOrg_Person_Password_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_Password_v.s);
-            MyOrg_Person_Job_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Person_Job_v.s);
-            MyOrg_Person_Active_v = new bool_v(true);
-            MyOrg_Person_Description_v = null;
           
 
             //string_v MyOrg_Person_Country_v = null;
@@ -143,13 +92,82 @@ namespace TangentaSampleDB
             //string_v MyOrg_Person_Image_Hash_v = null;
             //byte_array_v MyOrg_Person_Image_Data_v = null;
             //long_v MyOrg_Person_Atom_Person_ID_v = null;
+        }
+
+        public void Init(usrc_SampleDataEdit m_eds)
+        {
+            new EditControl(m_eds, MyOrg_Name_v, "MyOrg_Name", lngRPMS.sl_MyOrg_Name, lngRPMS.s_MyOrg_Name_v, lngRPMS.sh_MyOrg_Name);
+
+            new EditControl(m_eds, MyOrg_Tax_ID_v, "MyOrg_Tax_ID", lngRPMS.sl_MyOrg_Tax_ID, lngRPMS.s_MyOrg_Tax_ID_v, lngRPMS.sh_MyOrg_Tax_ID);
+
+            new EditControl(m_eds, MyOrg_Registration_ID_v, "MyOrg_Registration_ID", lngRPMS.sl_MyOrg_Registration_ID, lngRPMS.s_MyOrg_Registration_ID_v, lngRPMS.sh_MyOrg_Registration_ID);
+
+
+            new EditControl(m_eds, MyOrg_OrganisationTYPE_v, "MyOrg_OrganisationTYPE", lngRPMS.sl_MyOrg_OrganisationTYPE, lngRPMS.s_MyOrg_OrganisationTYPE_v, lngRPMS.sh_MyOrg_OrganisationTYPE);
+
+            new EditControl(m_eds, MyOrg_PhoneNumber_v, "MyOrg_PhoneNumber", lngRPMS.sl_MyOrg_PhoneNumber, lngRPMS.s_MyOrg_PhoneNumber_v, lngRPMS.sh_MyOrg_PhoneNumber);
+
+            new EditControl(m_eds, MyOrg_FaxNumber_v, "MyOrg_FaxNumber", lngRPMS.sl_MyOrg_FaxNumber, lngRPMS.s_MyOrg_FaxNumber_v, lngRPMS.sh_MyOrg_FaxNumber);
+
+            new EditControl(m_eds, MyOrg_Email_v, "MyOrg_Email", lngRPMS.sl_MyOrg_Email, lngRPMS.s_MyOrg_Email_v, lngRPMS.sh_MyOrg_Email);
+
+            new EditControl(m_eds, MyOrg_HomePage_v, "MyOrg_HomePage", lngRPMS.sl_MyOrg_HomePage, lngRPMS.s_MyOrg_HomePage_v, lngRPMS.sh_MyOrg_HomePage);
+
+            new EditControl(m_eds, MyOrg_BankName_v, "MyOrg_BankName", lngRPMS.sl_MyOrg_BankName, lngRPMS.s_MyOrg_BankName_v, lngRPMS.sh_MyOrg_BankName);
+
+            new EditControl(m_eds, MyOrg_TRR_v, "MyOrg_TRR", lngRPMS.sl_MyOrg_TRR, lngRPMS.s_MyOrg_TRR_v, lngRPMS.sh_MyOrg_TRR);
+
+
+            new EditControl(m_eds, MyOrg_Person_FirstName_v, "MyOrg_Person_FirstName", lngRPMS.sl_MyOrg_Person_FirstName, lngRPMS.s_MyOrg_Person_FirstName_v, lngRPMS.sh_MyOrg_Person_FirstName);
+
+            new EditControl(m_eds, MyOrg_Person_LastName_v, "MyOrg_Person_LastName", lngRPMS.sl_MyOrg_Person_LastName, lngRPMS.s_MyOrg_Person_LastName_v, lngRPMS.sh_MyOrg_Person_LastName);
+
+            new EditControl(m_eds, MyOrg_Person_Gender_v, "MyOrg_Person_Gender", lngRPMS.sl_MyOrg_Person_Gender, lngRPMS.s_MyOrg_Person_Gender_v, lngRPMS.sh_MyOrg_Person_Gender);
+
+            new EditControl(m_eds, MyOrg_Person_DateOfBirth_v, "MyOrg_Person_DateOfBirth", lngRPMS.sl_MyOrg_Person_DateOfBirth, lngRPMS.s_MyOrg_Person_DateOfBirth_v, lngRPMS.sh_MyOrg_Person_DateOfBirth);
+
+            new EditControl(m_eds, MyOrg_Person_UserName_v, "MyOrg_Person_UserName", lngRPMS.sl_MyOrg_Person_UserName, lngRPMS.s_MyOrg_Person_UserName_v, lngRPMS.sh_MyOrg_Person_UserName);
+
+            new EditControl(m_eds, MyOrg_Person_Password_v, "MyOrg_Person_Password", lngRPMS.sl_MyOrg_Person_Password, lngRPMS.s_MyOrg_Person_Password_v, lngRPMS.sh_MyOrg_Person_Password);
+
+            new EditControl(m_eds, MyOrg_Person_Job_v, "MyOrg_Person_Job", lngRPMS.sl_MyOrg_Person_Job, lngRPMS.s_MyOrg_Person_Job_v, lngRPMS.sh_MyOrg_Person_Job);
+
+            MyOrg_Person_Active_v = new dbool_v(true);
+            MyOrg_Person_Description_v = null;
+
+            //MyOrg_Tax_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Tax_ID_v.s);
+            //MyOrg_Registration_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Registration_ID_v.s);
+            //MyOrg_OrganisationTYPE_v = new DBTypes.string_v(lngRPMS.s_MyOrg_OrganisationTYPE_v.s);
+
+            //MyOrg_PhoneNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_PhoneNumber_v.s);
+            //MyOrg_FaxNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_FaxNumber_v.s);
+            //MyOrg_Email_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Email_v.s);
+            //MyOrg_HomePage_v = new DBTypes.string_v(lngRPMS.s_MyOrg_HomePage_v.s);
+            //MyOrg_BankName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_BankName_v.s);
+            //MyOrg_TRR_v = new DBTypes.string_v(lngRPMS.s_MyOrg_TRR_v.s);
+
+            DateTime dt_DateOfBirth = new DateTime(2000, 1, 1);
+            MyOrg_Person_DateOfBirth_v = new dDateTime_v(dt_DateOfBirth);
+            MyOrg_Person_Tax_ID_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_Tax_ID_v.s);
+            MyOrg_Person_Registration_ID_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Registration_ID_v.s);
+            MyOrg_Person_GsmNumber_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_GsmNumber_v.s);
+            MyOrg_Person_PhoneNumber_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_PhoneNumber_v.s);
+            MyOrg_Person_Email_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_Email_v.s);
+
+            MyOrg_Person_StreetName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_StreetName_v.s); ;
+            MyOrg_Person_HouseNumber_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_HouseNumber_v.s);
+            MyOrg_Person_City_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_City_v.s);
+            MyOrg_Person_ZIP_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_ZIP_v.s);
+
+            MyOrg_OfficeName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeName_v.s);
+            MyOrg_OfficeShortName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeShortName_v.s);
+
 
         }
 
         internal void ShowDialog()
         {
-            Form_EditSampleData fedt = new Form_EditSampleData();
-            fedt.Controls.Add(m_eds);
+            Form_EditSampleData fedt = new Form_EditSampleData(this);
             fedt.ShowDialog();
         }
 
