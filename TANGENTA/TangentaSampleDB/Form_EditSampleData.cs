@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LanguageControl;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,20 @@ namespace TangentaSampleDB
 {
     public partial class Form_EditSampleData : Form
     {
-        public Form_EditSampleData(SampleDB smd)
+        public Form_EditSampleData(SampleDB smd, Image xImageCancel)
         {
             InitializeComponent();
+
+            if (xImageCancel!=null)
+            { 
+                this.btn_Cancel.Image = xImageCancel;
+                this.btn_Cancel.Text = "";
+            }
+            else
+            {
+                lngRPM.s_Cancel.Text(btn_Cancel);
+            }
+
             smd.Init(this.m_usrc_SampleDataEdit);
         }
 

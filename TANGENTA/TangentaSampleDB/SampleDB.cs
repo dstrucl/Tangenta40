@@ -13,6 +13,7 @@ namespace TangentaSampleDB
 {
     public class SampleDB
     {
+        ID_v cAdressAtom_Org_iD_v = null;
 
         dstring_v MyOrg_Name_v = new dstring_v();
         dstring_v MyOrg_Tax_ID_v = new dstring_v();
@@ -133,31 +134,27 @@ namespace TangentaSampleDB
             new EditControl(m_eds, MyOrg_Person_Job_v, "MyOrg_Person_Job", lngRPMS.sl_MyOrg_Person_Job, lngRPMS.s_MyOrg_Person_Job_v, lngRPMS.sh_MyOrg_Person_Job);
 
             MyOrg_Person_Active_v = new dbool_v(true);
-            MyOrg_Person_Description_v = null;
 
-            //MyOrg_Tax_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Tax_ID_v.s);
-            //MyOrg_Registration_ID_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Registration_ID_v.s);
-            //MyOrg_OrganisationTYPE_v = new DBTypes.string_v(lngRPMS.s_MyOrg_OrganisationTYPE_v.s);
+            new EditControl(m_eds, MyOrg_Person_Description_v, " MyOrg_Person_Description", lngRPMS.sl_MyOrg_Person_Description, lngRPMS.s_MyOrg_Person_Description_v, lngRPMS.sh_MyOrg_Person_Description);
 
-            //MyOrg_PhoneNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_PhoneNumber_v.s);
-            //MyOrg_FaxNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_FaxNumber_v.s);
-            //MyOrg_Email_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Email_v.s);
-            //MyOrg_HomePage_v = new DBTypes.string_v(lngRPMS.s_MyOrg_HomePage_v.s);
-            //MyOrg_BankName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_BankName_v.s);
-            //MyOrg_TRR_v = new DBTypes.string_v(lngRPMS.s_MyOrg_TRR_v.s);
+            new EditControl(m_eds, MyOrg_Person_Tax_ID_v, "MyOrg_Person_Tax_ID", lngRPMS.sl_MyOrg_Person_Tax_ID, lngRPMS.s_MyOrg_Person_Tax_ID_v, lngRPMS.sh_MyOrg_Person_Tax_ID);
 
-            DateTime dt_DateOfBirth = new DateTime(2000, 1, 1);
-            MyOrg_Person_DateOfBirth_v = new dDateTime_v(dt_DateOfBirth);
-            MyOrg_Person_Tax_ID_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_Tax_ID_v.s);
-            MyOrg_Person_Registration_ID_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Registration_ID_v.s);
-            MyOrg_Person_GsmNumber_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_GsmNumber_v.s);
-            MyOrg_Person_PhoneNumber_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_PhoneNumber_v.s);
-            MyOrg_Person_Email_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_Email_v.s);
+            new EditControl(m_eds, MyOrg_Person_Registration_ID_v, "MyOrg_Person_Registration_ID", lngRPMS.sl_MyOrg_Person_Registration_ID, lngRPMS.s_MyOrg_Person_Registration_ID_v, lngRPMS.sh_MyOrg_Person_Registration_ID);
 
-            MyOrg_Person_StreetName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_StreetName_v.s); ;
-            MyOrg_Person_HouseNumber_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_HouseNumber_v.s);
-            MyOrg_Person_City_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_City_v.s);
-            MyOrg_Person_ZIP_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_Person_ZIP_v.s);
+            new EditControl(m_eds, MyOrg_Person_GsmNumber_v, "MyOrg_Person_GsmNumber", lngRPMS.sl_MyOrg_Person_GsmNumber, lngRPMS.s_MyOrg_Person_GsmNumber_v, lngRPMS.sh_MyOrg_Person_GsmNumber);
+
+            new EditControl(m_eds, MyOrg_Person_PhoneNumber_v, "MyOrg_Person_PhoneNumber", lngRPMS.sl_MyOrg_Person_PhoneNumber, lngRPMS.s_MyOrg_Person_PhoneNumber_v, lngRPMS.sh_MyOrg_Person_PhoneNumber);
+
+            new EditControl(m_eds, MyOrg_Person_Email_v, "MyOrg_Person_Email", lngRPMS.sl_MyOrg_Person_Email, lngRPMS.s_MyOrg_Person_Email_v, lngRPMS.sh_MyOrg_Person_Email);
+
+            new EditControl(m_eds, MyOrg_Person_StreetName_v, "MyOrg_Person_StreetName", lngRPMS.sl_MyOrg_Person_StreetName, lngRPMS.s_MyOrg_Person_StreetName_v, lngRPMS.sh_MyOrg_Person_StreetName);
+
+            new EditControl(m_eds, MyOrg_Person_HouseNumber_v, "MyOrg_Person_HouseNumber", lngRPMS.sl_MyOrg_Person_HouseNumber, lngRPMS.s_MyOrg_Person_HouseNumber_v, lngRPMS.sh_MyOrg_Person_HouseNumber);
+
+            new EditControl(m_eds, MyOrg_Person_City_v, "MyOrg_Person_City", lngRPMS.sl_MyOrg_Person_City, lngRPMS.s_MyOrg_Person_City_v, lngRPMS.sh_MyOrg_Person_City);
+
+            new EditControl(m_eds, MyOrg_Person_ZIP_v, "MyOrg_Person_ZIP", lngRPMS.sl_MyOrg_Person_ZIP, lngRPMS.s_MyOrg_Person_ZIP_v, lngRPMS.sh_MyOrg_Person_ZIP);
+
 
             MyOrg_OfficeName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeName_v.s);
             MyOrg_OfficeShortName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeShortName_v.s);
@@ -165,22 +162,15 @@ namespace TangentaSampleDB
 
         }
 
-        internal void ShowDialog()
+        internal bool ShowDialog(ref bool bCanceled, Image xImageCancel)
         {
-            Form_EditSampleData fedt = new Form_EditSampleData(this);
-            fedt.ShowDialog();
-        }
-
-        public bool Write(ref bool bCanceled, Image xImageCancel)
-        {
-            ID_v cAdressAtom_Org_iD_v = null;
             Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
             string DefaultCountry = null;
             if (DynSettings.LanguageID == DynSettings.Slovensko_ID)
             {
                 DefaultCountry = "Slovenija";
             }
-            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry,lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xImageCancel);
+            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xImageCancel);
             if (frmsel_country.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 MyOrg_Address_v = new PostAddress_v();
@@ -189,73 +179,74 @@ namespace TangentaSampleDB
                 MyOrg_Address_v.Country_ISO_3166_a3_v = new DBTypes.string_v(frmsel_country.Country_ISO_3166_a3);
                 MyOrg_Address_v.Country_ISO_3166_num_v = new DBTypes.short_v(frmsel_country.Country_ISO_3166_num);
 
-                MyOrg_Address_v.State_v = null;
-                MyOrg_Address_v.City_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Address_City_v.s);
-                MyOrg_Address_v.ZIP_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Address_ZIP_v.s);
-                MyOrg_Address_v.StreetName_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Address_StreetName_v.s);
-                MyOrg_Address_v.HouseNumber_v = new DBTypes.string_v(lngRPMS.s_MyOrg_Address_HouseNumber_v.s);
-                
-
-                if (f_Organisation.Get(MyOrg_Name_v,
-                                     MyOrg_Tax_ID_v,
-                                     MyOrg_Registration_ID_v,
-                                     MyOrg_OrganisationTYPE_v,
-                                     MyOrg_Address_v,
-                                     MyOrg_PhoneNumber_v,
-                                     MyOrg_FaxNumber_v,
-                                     MyOrg_Email_v,
-                                      MyOrg_HomePage_v,
-                                      MyOrg_BankName_v,
-                                      MyOrg_TRR_v,
-                                      MyOrg_Image_Hash_v,
-                                      MyOrg_Image_Data_v,
-                                      MyOrg_Image_Description_v,
-                                         ref cAdressAtom_Org_iD_v,
-                                         ref  MyOrg_Organisation_ID_v,
-                                         ref  MyOrg_OrganisationData_ID_v))
+                Form_EditSampleData fedt = new Form_EditSampleData(this, xImageCancel);
+                if (fedt.ShowDialog()==System.Windows.Forms.DialogResult.OK)
                 {
-                    long myOrganisation_ID = -1;
-                    if (f_myOrganisation.Get(MyOrg_OrganisationData_ID_v.v, ref myOrganisation_ID))
+                    return true;
+                }
+                
+             }
+            bCanceled = true;
+            return false;
+        }
+
+        public bool Write()
+        {
+            if (f_Organisation.Get(MyOrg_Name_v,
+                                    MyOrg_Tax_ID_v,
+                                    MyOrg_Registration_ID_v,
+                                    MyOrg_OrganisationTYPE_v,
+                                    MyOrg_Address_v,
+                                    MyOrg_PhoneNumber_v,
+                                    MyOrg_FaxNumber_v,
+                                    MyOrg_Email_v,
+                                    MyOrg_HomePage_v,
+                                    MyOrg_BankName_v,
+                                    MyOrg_TRR_v,
+                                    MyOrg_Image_Hash_v,
+                                    MyOrg_Image_Data_v,
+                                    MyOrg_Image_Description_v,
+                                        ref cAdressAtom_Org_iD_v,
+                                        ref  MyOrg_Organisation_ID_v,
+                                        ref  MyOrg_OrganisationData_ID_v))
+            {
+                long myOrganisation_ID = -1;
+                if (f_myOrganisation.Get(MyOrg_OrganisationData_ID_v.v, ref myOrganisation_ID))
+                {
+                    long Office_ID = -1;
+                    if (f_Office.Get(MyOrg_OfficeName_v.v, MyOrg_OfficeShortName_v.v, MyOrg_Organisation_ID_v.v, ref Office_ID))
                     {
-                        long Office_ID = -1;
-                        if (f_Office.Get(MyOrg_OfficeName_v.v, MyOrg_OfficeShortName_v.v, MyOrg_Organisation_ID_v.v, ref Office_ID))
+                        long Office_Data_ID = -1;
+                        if (f_Office_Data.Get(cAdressAtom_Org_iD_v.v, Office_ID, null, ref Office_Data_ID))
                         {
-                            long Office_Data_ID = -1;
-                            if (f_Office_Data.Get(cAdressAtom_Org_iD_v.v, Office_ID, null, ref Office_Data_ID))
+                            long_v Person_ID_v = null;
+                            if (f_Person.Get(MyOrg_Person_Gender_v,
+                                                MyOrg_Person_FirstName_v,
+                                                MyOrg_Person_LastName_v,
+                                                MyOrg_Person_DateOfBirth_v,
+                                                MyOrg_Person_Tax_ID_v,
+                                                MyOrg_Person_Registration_ID_v,
+                                                ref Person_ID_v
+                                                ))
                             {
-                                long_v Person_ID_v = null;
-                                if (f_Person.Get(MyOrg_Person_Gender_v,
-                                                 MyOrg_Person_FirstName_v,
-                                                 MyOrg_Person_LastName_v,
-                                                 MyOrg_Person_DateOfBirth_v,
-                                                 MyOrg_Person_Tax_ID_v,
-                                                 MyOrg_Person_Registration_ID_v,
-                                                 ref Person_ID_v
-                                                  ))
+                                MyOrg_Person_Person_ID_v = new long_v(Person_ID_v.v);
+                                MyOrg_Person_Office_ID_v = new long_v(Office_ID);
+                                long_v myOrganisation_Person_v = new long_v();
+                                if (f_myOrganisation_Person.Get(MyOrg_Person_UserName_v,
+                                                                MyOrg_Person_Password_v,
+                                                                MyOrg_Person_Job_v,
+                                                                MyOrg_Person_Active_v,
+                                                                MyOrg_Person_Description_v,
+                                                                MyOrg_Person_Person_ID_v,
+                                                                MyOrg_Person_Office_ID_v,
+                                                                ref myOrganisation_Person_v))
                                 {
-                                    MyOrg_Person_Person_ID_v = new long_v(Person_ID_v.v);
-                                    MyOrg_Person_Office_ID_v = new long_v(Office_ID);
-                                    long_v myOrganisation_Person_v = new long_v();
-                                    if (f_myOrganisation_Person.Get(MyOrg_Person_UserName_v,
-                                                                    MyOrg_Person_Password_v,
-                                                                    MyOrg_Person_Job_v,
-                                                                    MyOrg_Person_Active_v,
-                                                                    MyOrg_Person_Description_v,
-                                                                    MyOrg_Person_Person_ID_v,
-                                                                    MyOrg_Person_Office_ID_v,
-                                                                    ref myOrganisation_Person_v))
-                                    {
-                                        return true;
-                                    }
+                                    return true;
                                 }
                             }
                         }
                     }
                 }
-            }
-            else
-            {
-                bCanceled = true;
             }
             return false;
         }
