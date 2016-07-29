@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TangentaDB;
+using DynEditControls;
 
 namespace TangentaSampleDB
 {
@@ -19,7 +20,13 @@ namespace TangentaSampleDB
         dstring_v MyOrg_Tax_ID_v = new dstring_v();
         dstring_v MyOrg_Registration_ID_v = new dstring_v();
         dstring_v MyOrg_OrganisationTYPE_v = new dstring_v();
-        PostAddress_v MyOrg_Address_v = null;
+
+        PostAddress_v MyOrg_Address_v = new PostAddress_v();
+
+        dstring_v MyOrg_Office_Name_v = new dstring_v();
+        dstring_v MyOrg_Office_ShortName_v = new dstring_v();
+
+        PostAddress_v MyOrg_Office_Address_v = new PostAddress_v();
 
 
         dstring_v MyOrg_PhoneNumber_v = new dstring_v();
@@ -37,8 +44,6 @@ namespace TangentaSampleDB
         long_v MyOrg_Organisation_ID_v = null;
         long_v MyOrg_OrganisationData_ID_v = null;
 
-        dstring_v MyOrg_OfficeName_v = new dstring_v();
-        dstring_v MyOrg_OfficeShortName_v = new dstring_v();
 
         dbool_v   MyOrg_Person_Gender_v = new dbool_v();
         dstring_v MyOrg_Person_FirstName_v = new dstring_v();
@@ -49,10 +54,6 @@ namespace TangentaSampleDB
         dstring_v MyOrg_Person_GsmNumber_v = new dstring_v();
         dstring_v MyOrg_Person_PhoneNumber_v = new dstring_v();
         dstring_v MyOrg_Person_Email_v = new dstring_v();
-        dstring_v MyOrg_Person_StreetName_v = new dstring_v();
-        dstring_v MyOrg_Person_HouseNumber_v = new dstring_v();
-        dstring_v MyOrg_Person_City_v = new dstring_v();
-        dstring_v MyOrg_Person_ZIP_v = new dstring_v();
 
 
         dstring_v MyOrg_Person_UserName_v = new dstring_v();
@@ -63,101 +64,172 @@ namespace TangentaSampleDB
         long_v MyOrg_Person_Person_ID_v = null;
         long_v MyOrg_Person_Office_ID_v = null;
 
-        dstring_v MyOrg_Person_Country_v = new dstring_v();
-        dstring_v MyOrg_Person_Country_ISO_3166_a2 = new dstring_v();
-        dstring_v MyOrg_Person_Country_ISO_3166_a3 = new dstring_v();
-        short_v  MyOrg_Person_Country_ISO_3166_num = null;
+        PostAddress_v MyOrg_Office_Person_Address_v = new PostAddress_v();
 
-        dstring_v MyOrg_Person_State_v = new dstring_v();
+
         dstring_v MyOrg_Person_CardNumber_v = new dstring_v();
         dstring_v MyOrg_Person_CardType_v = new dstring_v();
         dstring_v MyOrg_Person_Image_Hash_v = new dstring_v();
         byte_array_v MyOrg_Person_Image_Data_v = null;
         long_v MyOrg_Person_Atom_Person_ID_v = null;
 
+        DynGroupBox MyOrg_DynGroupBox = null;
+
+        DynGroupBox MyOrg_Address_DynGroupBox = null;
+
+        DynGroupBox MyOrg_Office_DynGroupBox = null;
+
+        DynGroupBox MyOrg_Office_Address_DynGroupBox = null;
+
+        DynGroupBox MyOrg_Office_Person_DynGroupBox = null;
+
+        DynGroupBox MyOrg_Office_Person_Address_DynGroupBox = null;
+
 
         public SampleDB()
         {
+            MyOrg_Address_v.StreetName_v = new dstring_v();
+            MyOrg_Address_v.HouseNumber_v = new dstring_v();
+            MyOrg_Address_v.ZIP_v = new dstring_v();
+            MyOrg_Address_v.City_v = new dstring_v();
+            MyOrg_Address_v.State_v = new dstring_v();
 
+            MyOrg_Office_Address_v.StreetName_v = new dstring_v();
+            MyOrg_Office_Address_v.HouseNumber_v = new dstring_v();
+            MyOrg_Office_Address_v.ZIP_v = new dstring_v();
+            MyOrg_Office_Address_v.City_v = new dstring_v();
+            MyOrg_Office_Address_v.State_v = new dstring_v();
+            MyOrg_Office_Address_v.Country_v = new dstring_v();
+            MyOrg_Office_Address_v.Country_ISO_3166_a2_v = new dstring_v();
+            MyOrg_Office_Address_v.Country_ISO_3166_a3_v = new dstring_v();
+            MyOrg_Office_Address_v.Country_ISO_3166_num_v = new dshort_v();
 
-          
-
-            //string_v MyOrg_Person_Country_v = null;
-            //string_v MyOrg_Person_Country_ISO_3166_a2 = null;
-            //string_v MyOrg_Person_Country_ISO_3166_a3 = null;
-            //short_v MyOrg_Person_Country_ISO_3166_num = null;
-
-            //string_v MyOrg_Person_State_v = null;
-            //string_v MyOrg_Person_CardNumber_v = null;
-            //string_v MyOrg_Person_CardType_v = null;
-            //string_v MyOrg_Person_Image_Hash_v = null;
-            //byte_array_v MyOrg_Person_Image_Data_v = null;
-            //long_v MyOrg_Person_Atom_Person_ID_v = null;
+            MyOrg_Office_Person_Address_v.StreetName_v = new dstring_v();
+            MyOrg_Office_Person_Address_v.HouseNumber_v = new dstring_v();
+            MyOrg_Office_Person_Address_v.ZIP_v = new dstring_v();
+            MyOrg_Office_Person_Address_v.City_v = new dstring_v();
+            MyOrg_Office_Person_Address_v.State_v = new dstring_v();
+            MyOrg_Office_Person_Address_v.Country_v = new dstring_v();
+            MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v = new dstring_v();
+            MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v = new dstring_v();
+            MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v = new dshort_v();
         }
 
-        public void Init(usrc_SampleDataEdit m_eds)
+        public void Init(usrc_DataEdit m_eds)
         {
-            new EditControl(m_eds, MyOrg_Name_v, "MyOrg_Name", lngRPMS.sl_MyOrg_Name, lngRPMS.s_MyOrg_Name_v, lngRPMS.sh_MyOrg_Name);
-
-            new EditControl(m_eds, MyOrg_Tax_ID_v, "MyOrg_Tax_ID", lngRPMS.sl_MyOrg_Tax_ID, lngRPMS.s_MyOrg_Tax_ID_v, lngRPMS.sh_MyOrg_Tax_ID);
-
-            new EditControl(m_eds, MyOrg_Registration_ID_v, "MyOrg_Registration_ID", lngRPMS.sl_MyOrg_Registration_ID, lngRPMS.s_MyOrg_Registration_ID_v, lngRPMS.sh_MyOrg_Registration_ID);
 
 
-            new EditControl(m_eds, MyOrg_OrganisationTYPE_v, "MyOrg_OrganisationTYPE", lngRPMS.sl_MyOrg_OrganisationTYPE, lngRPMS.s_MyOrg_OrganisationTYPE_v, lngRPMS.sh_MyOrg_OrganisationTYPE);
-
-            new EditControl(m_eds, MyOrg_PhoneNumber_v, "MyOrg_PhoneNumber", lngRPMS.sl_MyOrg_PhoneNumber, lngRPMS.s_MyOrg_PhoneNumber_v, lngRPMS.sh_MyOrg_PhoneNumber);
-
-            new EditControl(m_eds, MyOrg_FaxNumber_v, "MyOrg_FaxNumber", lngRPMS.sl_MyOrg_FaxNumber, lngRPMS.s_MyOrg_FaxNumber_v, lngRPMS.sh_MyOrg_FaxNumber);
-
-            new EditControl(m_eds, MyOrg_Email_v, "MyOrg_Email", lngRPMS.sl_MyOrg_Email, lngRPMS.s_MyOrg_Email_v, lngRPMS.sh_MyOrg_Email);
-
-            new EditControl(m_eds, MyOrg_HomePage_v, "MyOrg_HomePage", lngRPMS.sl_MyOrg_HomePage, lngRPMS.s_MyOrg_HomePage_v, lngRPMS.sh_MyOrg_HomePage);
-
-            new EditControl(m_eds, MyOrg_BankName_v, "MyOrg_BankName", lngRPMS.sl_MyOrg_BankName, lngRPMS.s_MyOrg_BankName_v, lngRPMS.sh_MyOrg_BankName);
-
-            new EditControl(m_eds, MyOrg_TRR_v, "MyOrg_TRR", lngRPMS.sl_MyOrg_TRR, lngRPMS.s_MyOrg_TRR_v, lngRPMS.sh_MyOrg_TRR);
 
 
-            new EditControl(m_eds, MyOrg_Person_FirstName_v, "MyOrg_Person_FirstName", lngRPMS.sl_MyOrg_Person_FirstName, lngRPMS.s_MyOrg_Person_FirstName_v, lngRPMS.sh_MyOrg_Person_FirstName);
+            MyOrg_DynGroupBox = m_eds.AddGroupBox("grp_MyOrg", lngRPM.s_MyOrganisation);
 
-            new EditControl(m_eds, MyOrg_Person_LastName_v, "MyOrg_Person_LastName", lngRPMS.sl_MyOrg_Person_LastName, lngRPMS.s_MyOrg_Person_LastName_v, lngRPMS.sh_MyOrg_Person_LastName);
+            MyOrg_Address_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Address",lngRPM.s_Address);
 
-            new EditControl(m_eds, MyOrg_Person_Gender_v, "MyOrg_Person_Gender", lngRPMS.sl_MyOrg_Person_Gender, lngRPMS.s_MyOrg_Person_Gender_v, lngRPMS.sh_MyOrg_Person_Gender);
+            MyOrg_Office_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Office",lngRPM.s_Office);
 
-            new EditControl(m_eds, MyOrg_Person_DateOfBirth_v, "MyOrg_Person_DateOfBirth", lngRPMS.sl_MyOrg_Person_DateOfBirth, lngRPMS.s_MyOrg_Person_DateOfBirth_v, lngRPMS.sh_MyOrg_Person_DateOfBirth);
+            MyOrg_Office_Address_DynGroupBox = MyOrg_Office_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Address", lngRPM.s_Address);
 
-            new EditControl(m_eds, MyOrg_Person_UserName_v, "MyOrg_Person_UserName", lngRPMS.sl_MyOrg_Person_UserName, lngRPMS.s_MyOrg_Person_UserName_v, lngRPMS.sh_MyOrg_Person_UserName);
+            MyOrg_Office_Person_DynGroupBox = MyOrg_Office_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person",lngRPM.s_Person);
 
-            new EditControl(m_eds, MyOrg_Person_Password_v, "MyOrg_Person_Password", lngRPMS.sl_MyOrg_Person_Password, lngRPMS.s_MyOrg_Person_Password_v, lngRPMS.sh_MyOrg_Person_Password);
+            MyOrg_Office_Person_Address_DynGroupBox = MyOrg_Office_Person_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person_Addres", lngRPM.s_Address);
 
-            new EditControl(m_eds, MyOrg_Person_Job_v, "MyOrg_Person_Job", lngRPMS.sl_MyOrg_Person_Job, lngRPMS.s_MyOrg_Person_Job_v, lngRPMS.sh_MyOrg_Person_Job);
+            MyOrg_DynGroupBox.Visible = true;
+            MyOrg_Address_DynGroupBox.Visible = true;
+            MyOrg_Office_DynGroupBox.Visible = true;
+            MyOrg_Office_Address_DynGroupBox.Visible = true;
+            MyOrg_Office_Person_DynGroupBox.Visible = true;
+            MyOrg_Office_Person_Address_DynGroupBox.Visible = true;
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Name_v, "MyOrg_Name", lngRPMS.sl_MyOrg_Name, lngRPMS.s_MyOrg_Name_v, lngRPMS.sh_MyOrg_Name);
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Tax_ID_v, "MyOrg_Tax_ID", lngRPMS.sl_MyOrg_Tax_ID, lngRPMS.s_MyOrg_Tax_ID_v, lngRPMS.sh_MyOrg_Tax_ID);
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Registration_ID_v, "MyOrg_Registration_ID", lngRPMS.sl_MyOrg_Registration_ID, lngRPMS.s_MyOrg_Registration_ID_v, lngRPMS.sh_MyOrg_Registration_ID);
+
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_OrganisationTYPE_v, "MyOrg_OrganisationTYPE", lngRPMS.sl_MyOrg_OrganisationTYPE, lngRPMS.s_MyOrg_OrganisationTYPE_v, lngRPMS.sh_MyOrg_OrganisationTYPE);
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_PhoneNumber_v, "MyOrg_PhoneNumber", lngRPMS.sl_MyOrg_PhoneNumber, lngRPMS.s_MyOrg_PhoneNumber_v, lngRPMS.sh_MyOrg_PhoneNumber);
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_FaxNumber_v, "MyOrg_FaxNumber", lngRPMS.sl_MyOrg_FaxNumber, lngRPMS.s_MyOrg_FaxNumber_v, lngRPMS.sh_MyOrg_FaxNumber);
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Email_v, "MyOrg_Email", lngRPMS.sl_MyOrg_Email, lngRPMS.s_MyOrg_Email_v, lngRPMS.sh_MyOrg_Email);
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_HomePage_v, "MyOrg_HomePage", lngRPMS.sl_MyOrg_HomePage, lngRPMS.s_MyOrg_HomePage_v, lngRPMS.sh_MyOrg_HomePage);
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_BankName_v, "MyOrg_BankName", lngRPMS.sl_MyOrg_BankName, lngRPMS.s_MyOrg_BankName_v, lngRPMS.sh_MyOrg_BankName);
+
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_TRR_v, "MyOrg_TRR", lngRPMS.sl_MyOrg_TRR, lngRPMS.s_MyOrg_TRR_v, lngRPMS.sh_MyOrg_TRR);
+
+
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.StreetName_v, "MyOrg_Address_StreetName", lngRPMS.sl_MyOrg_Address_StreetName, lngRPMS.s_MyOrg_Address_StreetName_v, lngRPMS.sh_MyOrg_Address_StreetName);
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.HouseNumber_v, "MyOrg_Address_HouseNumber", lngRPMS.sl_MyOrg_Address_HouseNumber, lngRPMS.s_MyOrg_Address_HouseNumber_v, lngRPMS.sh_MyOrg_Address_HouseNumber);
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.ZIP_v, "MyOrg_Address_ZIP", lngRPMS.sl_MyOrg_Address_ZIP, lngRPMS.s_MyOrg_Address_ZIP_v, lngRPMS.sh_MyOrg_Address_ZIP);
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.City_v, "MyOrg_Address_ZIP", lngRPMS.sl_MyOrg_Address_City, lngRPMS.s_MyOrg_Address_City_v, lngRPMS.sh_MyOrg_Address_City);
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.State_v, "MyOrg_Address_State", lngRPMS.sl_MyOrg_Address_State, lngRPMS.s_MyOrg_Address_State_v, lngRPMS.sh_MyOrg_Address_State);
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Addres_Country, lngRPMS.s_MyOrg_Address_Country_v, lngRPMS.sh_MyOrg_Address_Country);
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a2_v, "MyOrg_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_a2);
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a3_v, "MyOrg_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_a3);
+            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_num_v, "MyOrg_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_num);
+
+
+            new DynEditControls.EditControl(MyOrg_Office_DynGroupBox, MyOrg_Office_Name_v, "MyOrg_OfficeName", lngRPMS.sl_MyOrg_OfficeName, lngRPMS.s_MyOrg_OfficeName_v, lngRPMS.sh_MyOrg_OfficeName);
+            new DynEditControls.EditControl(MyOrg_Office_DynGroupBox, MyOrg_Office_ShortName_v, "MyOrg_OfficeShortName", lngRPMS.sl_MyOrg_OfficeShortName, lngRPMS.s_MyOrg_OfficeShortName_v, lngRPMS.sh_MyOrg_OfficeShortName);
+
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.StreetName_v, "MyOrg_Office_Address_StreetName", lngRPMS.sl_MyOrg_Office_Address_StreetName, lngRPMS.s_MyOrg_Office_Address_StreetName_v, lngRPMS.sh_MyOrg_Office_Address_StreetName);
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.HouseNumber_v, "MyOrg_Office_Address_HouseNumber", lngRPMS.sl_MyOrg_Office_Address_HouseNumber, lngRPMS.s_MyOrg_Office_Address_HouseNumber_v, lngRPMS.sh_MyOrg_Office_Address_HouseNumber);
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.ZIP_v, "MyOrg_Office_Address_ZIP", lngRPMS.sl_MyOrg_Office_Address_ZIP, lngRPMS.s_MyOrg_Office_Address_ZIP_v, lngRPMS.sh_MyOrg_Office_Address_ZIP);
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.City_v, "MyOrg_Office_Address_ZIP", lngRPMS.sl_MyOrg_Office_Address_City, lngRPMS.s_MyOrg_Office_Address_City_v, lngRPMS.sh_MyOrg_Office_Address_City);
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.State_v, "MyOrg_Office_Address_State", lngRPMS.sl_MyOrg_Office_Address_State, lngRPMS.s_MyOrg_Office_Address_State_v, lngRPMS.sh_MyOrg_Office_Address_State);
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Addres_Country, lngRPMS.s_MyOrg_Office_Address_Country_v, lngRPMS.sh_MyOrg_Office_Address_Country);
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_a2);
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_a3);
+            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_num);
+
+
+
+
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_FirstName_v, "MyOrg_Person_FirstName", lngRPMS.sl_MyOrg_Person_FirstName, lngRPMS.s_MyOrg_Person_FirstName_v, lngRPMS.sh_MyOrg_Person_FirstName);
+
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_LastName_v, "MyOrg_Person_LastName", lngRPMS.sl_MyOrg_Person_LastName, lngRPMS.s_MyOrg_Person_LastName_v, lngRPMS.sh_MyOrg_Person_LastName);
+
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Gender_v, "MyOrg_Person_Gender", lngRPMS.sl_MyOrg_Person_Gender, lngRPMS.s_MyOrg_Person_Gender_v, lngRPMS.sh_MyOrg_Person_Gender);
+
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_DateOfBirth_v, "MyOrg_Person_DateOfBirth", lngRPMS.sl_MyOrg_Person_DateOfBirth, lngRPMS.s_MyOrg_Person_DateOfBirth_v, lngRPMS.sh_MyOrg_Person_DateOfBirth);
+
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_UserName_v, "MyOrg_Person_UserName", lngRPMS.sl_MyOrg_Person_UserName, lngRPMS.s_MyOrg_Person_UserName_v, lngRPMS.sh_MyOrg_Person_UserName);
+
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Password_v, "MyOrg_Person_Password", lngRPMS.sl_MyOrg_Person_Password, lngRPMS.s_MyOrg_Person_Password_v, lngRPMS.sh_MyOrg_Person_Password);
+
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Job_v, "MyOrg_Person_Job", lngRPMS.sl_MyOrg_Person_Job, lngRPMS.s_MyOrg_Person_Job_v, lngRPMS.sh_MyOrg_Person_Job);
 
             MyOrg_Person_Active_v = new dbool_v(true);
 
-            new EditControl(m_eds, MyOrg_Person_Description_v, " MyOrg_Person_Description", lngRPMS.sl_MyOrg_Person_Description, lngRPMS.s_MyOrg_Person_Description_v, lngRPMS.sh_MyOrg_Person_Description);
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Description_v, " MyOrg_Person_Description", lngRPMS.sl_MyOrg_Person_Description, lngRPMS.s_MyOrg_Person_Description_v, lngRPMS.sh_MyOrg_Person_Description);
 
-            new EditControl(m_eds, MyOrg_Person_Tax_ID_v, "MyOrg_Person_Tax_ID", lngRPMS.sl_MyOrg_Person_Tax_ID, lngRPMS.s_MyOrg_Person_Tax_ID_v, lngRPMS.sh_MyOrg_Person_Tax_ID);
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Tax_ID_v, "MyOrg_Person_Tax_ID", lngRPMS.sl_MyOrg_Person_Tax_ID, lngRPMS.s_MyOrg_Person_Tax_ID_v, lngRPMS.sh_MyOrg_Person_Tax_ID);
 
-            new EditControl(m_eds, MyOrg_Person_Registration_ID_v, "MyOrg_Person_Registration_ID", lngRPMS.sl_MyOrg_Person_Registration_ID, lngRPMS.s_MyOrg_Person_Registration_ID_v, lngRPMS.sh_MyOrg_Person_Registration_ID);
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Registration_ID_v, "MyOrg_Person_Registration_ID", lngRPMS.sl_MyOrg_Person_Registration_ID, lngRPMS.s_MyOrg_Person_Registration_ID_v, lngRPMS.sh_MyOrg_Person_Registration_ID);
 
-            new EditControl(m_eds, MyOrg_Person_GsmNumber_v, "MyOrg_Person_GsmNumber", lngRPMS.sl_MyOrg_Person_GsmNumber, lngRPMS.s_MyOrg_Person_GsmNumber_v, lngRPMS.sh_MyOrg_Person_GsmNumber);
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_GsmNumber_v, "MyOrg_Person_GsmNumber", lngRPMS.sl_MyOrg_Person_GsmNumber, lngRPMS.s_MyOrg_Person_GsmNumber_v, lngRPMS.sh_MyOrg_Person_GsmNumber);
 
-            new EditControl(m_eds, MyOrg_Person_PhoneNumber_v, "MyOrg_Person_PhoneNumber", lngRPMS.sl_MyOrg_Person_PhoneNumber, lngRPMS.s_MyOrg_Person_PhoneNumber_v, lngRPMS.sh_MyOrg_Person_PhoneNumber);
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_PhoneNumber_v, "MyOrg_Person_PhoneNumber", lngRPMS.sl_MyOrg_Person_PhoneNumber, lngRPMS.s_MyOrg_Person_PhoneNumber_v, lngRPMS.sh_MyOrg_Person_PhoneNumber);
 
-            new EditControl(m_eds, MyOrg_Person_Email_v, "MyOrg_Person_Email", lngRPMS.sl_MyOrg_Person_Email, lngRPMS.s_MyOrg_Person_Email_v, lngRPMS.sh_MyOrg_Person_Email);
+            new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Email_v, "MyOrg_Person_Email", lngRPMS.sl_MyOrg_Person_Email, lngRPMS.s_MyOrg_Person_Email_v, lngRPMS.sh_MyOrg_Person_Email);
 
-            new EditControl(m_eds, MyOrg_Person_StreetName_v, "MyOrg_Person_StreetName", lngRPMS.sl_MyOrg_Person_StreetName, lngRPMS.s_MyOrg_Person_StreetName_v, lngRPMS.sh_MyOrg_Person_StreetName);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.StreetName_v, "MyOrg_Office_Person_Address_StreetName", lngRPMS.sl_MyOrg_Office_Person_Address_StreetName, lngRPMS.s_MyOrg_Office_Person_Address_StreetName_v, lngRPMS.sh_MyOrg_Office_Person_Address_StreetName);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.HouseNumber_v, "MyOrg_Office_Person_Address_HouseNumber", lngRPMS.sl_MyOrg_Office_Person_Address_HouseNumber, lngRPMS.s_MyOrg_Office_Person_Address_HouseNumber_v, lngRPMS.sh_MyOrg_Office_Person_Address_HouseNumber);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.ZIP_v, "MyOrg_Office_Person_Address_ZIP", lngRPMS.sl_MyOrg_Office_Person_Address_ZIP, lngRPMS.s_MyOrg_Office_Person_Address_ZIP_v, lngRPMS.sh_MyOrg_Office_Person_Address_ZIP);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.City_v, "MyOrg_Office_Person_Address_ZIP", lngRPMS.sl_MyOrg_Office_Person_Address_City, lngRPMS.s_MyOrg_Office_Person_Address_City_v, lngRPMS.sh_MyOrg_Office_Person_Address_City);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.State_v, "MyOrg_Office_Person_Address_State", lngRPMS.sl_MyOrg_Office_Person_Address_State, lngRPMS.s_MyOrg_Office_Person_Address_State_v, lngRPMS.sh_MyOrg_Office_Person_Address_State);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Addres_Country, lngRPMS.s_MyOrg_Office_Person_Address_Country_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a2);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a3);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Person_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_num);
 
-            new EditControl(m_eds, MyOrg_Person_HouseNumber_v, "MyOrg_Person_HouseNumber", lngRPMS.sl_MyOrg_Person_HouseNumber, lngRPMS.s_MyOrg_Person_HouseNumber_v, lngRPMS.sh_MyOrg_Person_HouseNumber);
 
-            new EditControl(m_eds, MyOrg_Person_City_v, "MyOrg_Person_City", lngRPMS.sl_MyOrg_Person_City, lngRPMS.s_MyOrg_Person_City_v, lngRPMS.sh_MyOrg_Person_City);
-
-            new EditControl(m_eds, MyOrg_Person_ZIP_v, "MyOrg_Person_ZIP", lngRPMS.sl_MyOrg_Person_ZIP, lngRPMS.s_MyOrg_Person_ZIP_v, lngRPMS.sh_MyOrg_Person_ZIP);
-
-
-            MyOrg_OfficeName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeName_v.s);
-            MyOrg_OfficeShortName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeShortName_v.s);
+            //MyOrg_Office_Name_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeName_v.s);
+            //MyOrg_Office_ShortName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeShortName_v.s);
 
 
         }
@@ -173,11 +245,20 @@ namespace TangentaSampleDB
             Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xImageCancel);
             if (frmsel_country.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                MyOrg_Address_v = new PostAddress_v();
-                MyOrg_Address_v.Country_v = new DBTypes.string_v(frmsel_country.Country);
-                MyOrg_Address_v.Country_ISO_3166_a2_v = new DBTypes.string_v(frmsel_country.Country_ISO_3166_a2);
-                MyOrg_Address_v.Country_ISO_3166_a3_v = new DBTypes.string_v(frmsel_country.Country_ISO_3166_a3);
-                MyOrg_Address_v.Country_ISO_3166_num_v = new DBTypes.short_v(frmsel_country.Country_ISO_3166_num);
+                MyOrg_Address_v.Country_v = new DBTypes.dstring_v(frmsel_country.Country);
+                MyOrg_Address_v.Country_ISO_3166_a2_v = new DBTypes.dstring_v(frmsel_country.Country_ISO_3166_a2);
+                MyOrg_Address_v.Country_ISO_3166_a3_v = new DBTypes.dstring_v(frmsel_country.Country_ISO_3166_a3);
+                MyOrg_Address_v.Country_ISO_3166_num_v = new DBTypes.dshort_v(frmsel_country.Country_ISO_3166_num);
+
+                MyOrg_Office_Address_v.Country_v = MyOrg_Address_v.Country_v.Clone();
+                MyOrg_Office_Address_v.Country_ISO_3166_a2_v = MyOrg_Address_v.Country_ISO_3166_a2_v.Clone();
+                MyOrg_Office_Address_v.Country_ISO_3166_a3_v = MyOrg_Address_v.Country_ISO_3166_a3_v.Clone();
+                MyOrg_Office_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
+
+                MyOrg_Office_Person_Address_v.Country_v = MyOrg_Address_v.Country_v.Clone();
+                MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v = MyOrg_Address_v.Country_ISO_3166_a2_v.Clone();
+                MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v = MyOrg_Address_v.Country_ISO_3166_a3_v.Clone();
+                MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
 
                 Form_EditSampleData fedt = new Form_EditSampleData(this, xImageCancel);
                 if (fedt.ShowDialog()==System.Windows.Forms.DialogResult.OK)
@@ -214,7 +295,7 @@ namespace TangentaSampleDB
                 if (f_myOrganisation.Get(MyOrg_OrganisationData_ID_v.v, ref myOrganisation_ID))
                 {
                     long Office_ID = -1;
-                    if (f_Office.Get(MyOrg_OfficeName_v.v, MyOrg_OfficeShortName_v.v, MyOrg_Organisation_ID_v.v, ref Office_ID))
+                    if (f_Office.Get(MyOrg_Office_Name_v.v, MyOrg_Office_ShortName_v.v, MyOrg_Organisation_ID_v.v, ref Office_ID))
                     {
                         long Office_Data_ID = -1;
                         if (f_Office_Data.Get(cAdressAtom_Org_iD_v.v, Office_ID, null, ref Office_Data_ID))

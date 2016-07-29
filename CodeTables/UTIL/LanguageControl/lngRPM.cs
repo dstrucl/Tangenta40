@@ -550,6 +550,8 @@ namespace LanguageControl
         public static ltext s_MyOrganisation = new ltext("My organisation",
                                                     "Moja oragnizacija");
 
+        public static ltext s_Office = new ltext("Office",
+                                                    "Poslovna enota");
 
         public static ltext s_No_OrganisationData = new ltext("There is no data about your company. You must enter your company data first!",
                                                          "Ni podatkov o vašem podjetju. Najprej morate vnesti podatke o svojem podjetju");

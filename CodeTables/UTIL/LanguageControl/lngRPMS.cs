@@ -59,6 +59,93 @@ namespace LanguageControl
         public static ltext s_MyOrg_TRR_v = new ltext("0000-0000-000-000", "0000-0000-000-000");
         public static ltext sh_MyOrg_TRR = new ltext("Enter bank account", "Vpišite številko TRR računa vaše organizacije");
 
+
+        public static ltext sl_MyOrg_Address_StreetName = new ltext("Street", "Cesta");
+        public static ltext s_MyOrg_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
+        public static ltext sh_MyOrg_Address_StreetName = new ltext("Enter street name", "Vpišite ime ceste");
+
+        public static ltext sl_MyOrg_Address_HouseNumber = new ltext("House number", "Hišna številka");
+        public static ltext s_MyOrg_Address_HouseNumber_v = new ltext("1", "1");
+        public static ltext sh_MyOrg_Address_HouseNumber = new ltext("Enter house number", "Vpišite hišno številko");
+
+        public static ltext sl_MyOrg_Address_ZIP = new ltext("ZIP", "Številka pošte");
+        public static ltext s_MyOrg_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
+        public static ltext sh_MyOrg_Address_ZIP = new ltext("Enter ZIP", "Vpišite številko pošte");
+
+        public static ltext sl_MyOrg_Address_City = new ltext("City", "Mesto");
+        public static ltext s_MyOrg_Address_City_v = new ltext("City1", "Mesto1");
+        public static ltext sh_MyOrg_Address_City = new ltext("Enter city", "Vpišite mesto");
+
+        public static ltext sl_MyOrg_Address_State = new ltext("State", "Dežela");
+        public static ltext s_MyOrg_Address_State_v = new ltext("", "");
+        public static ltext sh_MyOrg_Address_State = new ltext("Enter State", "Vpišite deželo");
+
+
+        public static ltext sl_MyOrg_Addres_Country = new ltext("Country", "Država");
+        public static ltext s_MyOrg_Address_Country_v = new ltext("Country1", "Država1");
+        public static ltext sh_MyOrg_Address_Country = new ltext("Enter country", "Vpišite državo");
+
+        public static ltext sl_MyOrg_Address_Country_ISO_3166_a2 = new ltext("Country abbreviation (2 characters)", "Okrajšavo za državo (2 znaka)");
+        public static ltext s_MyOrg_Address_Country_ISO_3166_a2_v = new ltext("??", "??");
+        public static ltext sh_MyOrg_Address_Country_ISO_3166_a2 = new ltext("Enter country abbreviation (2 characters)", "Vpišite okrajšavo za državo (2 znaka)");
+
+        public static ltext sl_MyOrg_Address_Country_ISO_3166_a3 = new ltext("Country abbreviation (3 characters)", "Okrajšavo za državo (3 znaki)");
+        public static ltext s_MyOrg_Address_Country_ISO_3166_a3_v = new ltext("??", "??");
+        public static ltext sh_MyOrg_Address_Country_ISO_3166_a3 = new ltext("Enter country abbreviation (3 characters)", "Vpišite okrajšavo za državo (3 znaki)");
+
+        public static ltext sl_MyOrg_Address_Country_ISO_3166_num = new ltext("Country code number", "Kodna številka države");
+        public static ltext s_MyOrg_Address_Country_ISO_3166_num_v = new ltext("", "");
+        public static ltext sh_MyOrg_Address_Country_ISO_3166_num = new ltext("Enter country iso code number", "Vpišite kodno ISO 3166 številko države");
+
+
+        public static ltext sl_MyOrg_Office_Address_StreetName = new ltext("Street", "Cesta");
+        public static ltext s_MyOrg_Office_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
+        public static ltext sh_MyOrg_Office_Address_StreetName = new ltext("Enter street name", "Vpišite ime ceste");
+
+        public static ltext sl_MyOrg_Office_Address_HouseNumber = new ltext("House number", "Hišna številka");
+        public static ltext s_MyOrg_Office_Address_HouseNumber_v = new ltext("1", "1");
+        public static ltext sh_MyOrg_Office_Address_HouseNumber = new ltext("Enter house number", "Vpišite hišno številko");
+
+        public static ltext sl_MyOrg_Office_Address_ZIP = new ltext("ZIP", "Številka pošte");
+        public static ltext s_MyOrg_Office_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
+        public static ltext sh_MyOrg_Office_Address_ZIP = new ltext("Enter ZIP", "Vpišite številko pošte");
+
+        public static ltext sl_MyOrg_Office_Address_City = new ltext("City", "Mesto");
+        public static ltext s_MyOrg_Office_Address_City_v = new ltext("City1", "Mesto1");
+        public static ltext sh_MyOrg_Office_Address_City = new ltext("Enter city", "Vpišite mesto");
+
+        public static ltext sl_MyOrg_Office_Address_State = new ltext("State", "Dežela");
+        public static ltext s_MyOrg_Office_Address_State_v = new ltext("", "");
+        public static ltext sh_MyOrg_Office_Address_State = new ltext("Enter State", "Vpišite deželo");
+
+
+        public static ltext sl_MyOrg_Office_Address_Country = new ltext("Country", "Država");
+        public static ltext s_MyOrg_Office_Address_Country_v = new ltext("Country1", "Država1");
+        public static ltext sh_MyOrg_Office_Address_Country = new ltext("Enter country", "Vpišite državo");
+
+        public static ltext sl_MyOrg_Office_Address_Country_ISO_3166_a2 = new ltext("Country abbreviation (2 characters)", "Okrajšavo za državo (2 znaka)");
+        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_a2_v = new ltext("??", "??");
+        public static ltext sh_MyOrg_Office_Address_Country_ISO_3166_a2 = new ltext("Enter country abbreviation (2 characters)", "Vpišite okrajšavo za državo (2 znaka)");
+
+        public static ltext sl_MyOrg_Office_Address_Country_ISO_3166_a3 = new ltext("Country abbreviation (3 characters)", "Okrajšavo za državo (3 znaki)");
+        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_a3_v = new ltext("??", "??");
+        public static ltext sh_MyOrg_Office_Address_Country_ISO_3166_a3 = new ltext("Enter country abbreviation (3 characters)", "Vpišite okrajšavo za državo (3 znaki)");
+
+        public static ltext sl_MyOrg_Office_Address_Country_ISO_3166_num = new ltext("Country code number", "Kodna številka države");
+        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_num_v = new ltext("", "");
+        public static ltext sh_MyOrg_Office_Address_Country_ISO_3166_num = new ltext("Enter country iso code number", "Vpišite kodno ISO 3166 številko države");
+
+        public static ltext sl_MyOrg_OfficeName = new ltext("Office name", "Ime poslovne enote");
+        public static ltext s_MyOrg_OfficeName_v = new ltext("Office1", "Pisarna1");
+        public static ltext sh_MyOrg_OfficeName = new ltext("Enter office name", "Vpišite ime poslovne enote");
+
+        public static ltext sl_MyOrg_OfficeShortName = new ltext("Office short name", "Skrajšano ime poslovne enote");
+        public static ltext s_MyOrg_OfficeShortName_v = new ltext("Off1", "Pis1");
+        public static ltext sh_MyOrg_OfficeShortName = new ltext("Enter office short name", "Vpišite skrajšano ime poslovne enote");
+
+
+
+
         public static ltext sl_MyOrg_Person_FirstName = new ltext("Organisation administrator First Name", "Ime glavnega administratorja v podjetju");
         public static ltext s_MyOrg_Person_FirstName_v = new ltext("Organisation1Person1FirstName", "ImeOsebe1Podjetja1");
         public static ltext sh_MyOrg_Person_FirstName = new ltext("Enter organisation administrator First Name", "Vpišite ime glavnega administratorja, ki bo imel vse uporabniške pravice");
@@ -76,33 +163,8 @@ namespace LanguageControl
         public static ltext s_MyOrg_Person_DateOfBirth_v = null;
         public static ltext sh_MyOrg_Person_DateOfBirth = new ltext("Enter date of birth of administrator", "Vpišite datum rojstva glavnega administratorja");
 
-        public static ltext sl_MyOrg_Address_City = new ltext("City1", "Mesto1");
-        public static ltext s_MyOrg_Address_City_v = new ltext("City1", "Mesto1");
-        public static ltext sh_MyOrg_Address_City = new ltext("City1", "Mesto1");
 
-        public static ltext sl_MyOrg_Address_ZIP = new ltext("Zip1", "ŠtevilkaPošte1");
-        public static ltext s_MyOrg_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
-        public static ltext sh_MyOrg_Address_ZIP = new ltext("Zip1", "ŠtevilkaPošte1");
 
-        public static ltext sl_MyOrg_Address_HouseNumber = new ltext("1", "1");
-        public static ltext s_MyOrg_Address_HouseNumber_v = new ltext("1", "1");
-        public static ltext sh_MyOrg_Address_HouseNumber = new ltext("1", "1");
-
-        public static ltext sl_MyOrg_Address_StreetName = new ltext("MyStreet1", "Cesta1");
-        public static ltext s_MyOrg_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
-        public static ltext sh_MyOrg_Address_StreetName = new ltext("MyStreet1", "Cesta1");
-
-        public static ltext sl_MyOrg_Address_State = new ltext("MyStreet1", "Cesta1");
-        public static ltext s_MyOrg_Address_State_v = new ltext("MyStreet1", "Cesta1");
-        public static ltext sh_MyOrg_Address_State = new ltext("MyStreet1", "Cesta1");
-
-        public static ltext sl_MyOrg_OfficeName = new ltext("Office1", "Pisarna1");
-        public static ltext s_MyOrg_OfficeName_v = new ltext("Office1", "Pisarna1");
-        public static ltext sh_MyOrg_OfficeName = new ltext("Office1", "Pisarna1");
-
-        public static ltext sl_MyOrg_OfficeShortName = new ltext("o1", "p1");
-        public static ltext s_MyOrg_OfficeShortName_v = new ltext("o1", "p1");
-        public static ltext sh_MyOrg_OfficeShortName = new ltext("o1", "p1");
 
         public static ltext sl_MyOrg_Person_UserName = new ltext("Administrator user name", "Uporabniško ime glavnega administratorja");
         public static ltext s_MyOrg_Person_UserName_v = new ltext("Organisation1Person1UserName1", "UporabniškoIme1Osebe1Podjetja1");
@@ -141,44 +203,43 @@ namespace LanguageControl
         public static ltext s_MyOrg_Person_Email_v = new ltext("Person1@mail.com", "Person1@mail.com");
         public static ltext sh_MyOrg_Person_Email = new ltext("Enter Administrator's email", "Vpišite email administratorja");
 
-        public static ltext sl_MyOrg_Person_StreetName = new ltext("Administrator's street address", "Administratorjev naslov ulica");
-        public static ltext s_MyOrg_Person_StreetName_v = new ltext("Person1Street1", "Oseba1Cesta1");
-        public static ltext sh_MyOrg_Person_StreetName = new ltext("Enter Administrator's Street Address", "Vpišite naslov ceste administratorja");
+        public static ltext sl_MyOrg_Office_Person_Address_StreetName = new ltext("Street", "Cesta");
+        public static ltext s_MyOrg_Office_Person_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
+        public static ltext sh_MyOrg_Office_Person_Address_StreetName = new ltext("Enter street name", "Vpišite ime ceste");
 
-        public static ltext sl_MyOrg_Person_HouseNumber = new ltext("Administrator's address house number", "Administratorjev naslov hišna številka");
-        public static ltext s_MyOrg_Person_HouseNumber_v = new ltext("0", "0");
-        public static ltext sh_MyOrg_Person_HouseNumber = new ltext("Administrator's address house number", "Administratorjev naslov hišna številka");
+        public static ltext sl_MyOrg_Office_Person_Address_HouseNumber = new ltext("House number", "Hišna številka");
+        public static ltext s_MyOrg_Office_Person_Address_HouseNumber_v = new ltext("1", "1");
+        public static ltext sh_MyOrg_Office_Person_Address_HouseNumber = new ltext("Enter house number", "Vpišite hišno številko");
 
-        public static ltext sl_MyOrg_Person_City = new ltext("Administrator's address City", "Administratorjev naslov mesto");
-        public static ltext s_MyOrg_Person_City_v = new ltext("City1", "Mesto1");
-        public static ltext sh_MyOrg_Person_City = new ltext("Enter administrator's address City", "Vpišite administratorjev naslov mesto");
+        public static ltext sl_MyOrg_Office_Person_Address_ZIP = new ltext("ZIP", "Številka pošte");
+        public static ltext s_MyOrg_Office_Person_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
+        public static ltext sh_MyOrg_Office_Person_Address_ZIP = new ltext("Enter ZIP", "Vpišite številko pošte");
 
-        public static ltext sl_MyOrg_Person_ZIP = new ltext("Administrator's address ZIP", "Administratorjev naslov številka pošte");
-        public static ltext s_MyOrg_Person_ZIP_v = new ltext("ZIP?", "ŠtevilkaPošte1");
-        public static ltext sh_MyOrg_Person_ZIP = new ltext("Enter administrator's address ZIP", "Vpišite administratorjev naslov številka pošte");
+        public static ltext sl_MyOrg_Office_Person_Address_City = new ltext("City", "Mesto");
+        public static ltext s_MyOrg_Office_Person_Address_City_v = new ltext("City1", "Mesto1");
+        public static ltext sh_MyOrg_Office_Person_Address_City = new ltext("Enter city", "Vpišite mesto");
 
-        public static ltext sl_MyOrg_Person_Country = null;
-        public static ltext s_MyOrg_Person_Country_v = null;
-        public static ltext sh_MyOrg_Person_Country = null;
+        public static ltext sl_MyOrg_Office_Person_Address_State = new ltext("State", "Dežela");
+        public static ltext s_MyOrg_Office_Person_Address_State_v = new ltext("", "");
+        public static ltext sh_MyOrg_Office_Person_Address_State = new ltext("Enter State", "Vpišite deželo");
 
-        public static ltext sl_MyOrg_Person_Country_ISO_3166_a2 = null;
-        public static ltext s_MyOrg_Person_Country_ISO_3166_a2_v = null;
-        public static ltext sh_MyOrg_Person_Country_ISO_3166_a2 = null;
 
-        public static ltext sl_MyOrg_Person_Country_ISO_3166_a3 = null;
-        public static ltext s_MyOrg_Person_Country_ISO_3166_a3_v = null;
-        public static ltext sh_MyOrg_Person_Country_ISO_3166_a3 = null;
+        public static ltext sl_MyOrg_Office_Person_Address_Country = new ltext("Country", "Država");
+        public static ltext s_MyOrg_Office_Person_Address_Country_v = new ltext("Country1", "Država1");
+        public static ltext sh_MyOrg_Office_Person_Address_Country = new ltext("Enter country", "Vpišite državo");
 
-        public static ltext sl_MyOrg_Person_Country_ISO_3166_num = null;
-        public static ltext s_MyOrg_Person_Country_ISO_3166_num_v = null;
-        public static ltext sh_MyOrg_Person_Country_ISO_3166_num = null;
+        public static ltext sl_MyOrg_Office_Person_Address_Country_ISO_3166_a2 = new ltext("Country abbreviation (2 characters)", "Okrajšavo za državo (2 znaka)");
+        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_a2_v = new ltext("??", "??");
+        public static ltext sh_MyOrg_Office_Person_Address_Country_ISO_3166_a2 = new ltext("Enter country abbreviation (2 characters)", "Vpišite okrajšavo za državo (2 znaka)");
 
-        public static ltext sl_MyOrg_Person_State = null;
-        public static ltext s_MyOrg_Person_State_v = null;
-        public static ltext sh_MOrg_Person_State = null;
+        public static ltext sl_MyOrg_Office_Person_Address_Country_ISO_3166_a3 = new ltext("Country abbreviation (3 characters)", "Okrajšavo za državo (3 znaki)");
+        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_a3_v = new ltext("??", "??");
+        public static ltext sh_MyOrg_Office_Person_Address_Country_ISO_3166_a3 = new ltext("Enter country abbreviation (3 characters)", "Vpišite okrajšavo za državo (3 znaki)");
 
-        public static ltext sl_MyOrg_Person_CardNumber = null;
-        public static ltext s_MyOrg_Person_CardNumber_v = null;
+        public static ltext sl_MyOrg_Office_Person_Address_Country_ISO_3166_num = new ltext("Country code number", "Kodna številka države");
+        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_num_v = new ltext("", "");
+        public static ltext sh_MyOrg_Office_Person_Address_Country_ISO_3166_num = new ltext("Enter country iso code number", "Vpišite kodno ISO 3166 številko države");
+
         public static ltext sh_MhyOrg_Person_CardNumber = null;
 
         public static ltext sl_MyOrg_Person_CardType = null;

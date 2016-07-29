@@ -103,14 +103,14 @@ namespace TangentaDB
                             {
                                 Office_Data_ID_v = tf.set_long(dt.Rows[0]["ID"]);
                                 Description_v = tf.set_string(dt.Rows[0]["Office_Data_$$Description"]);
-                                Address_v.StreetName_v = tf.set_string(dt.Rows[0]["Office_Data_$_office_$$Name"]);
-                                Address_v.HouseNumber_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_chounorg_$$HouseNumber"]);
-                                Address_v.ZIP_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_cziporg_$$ZIP"]);
-                                Address_v.City_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_ccitorg_$$City"]);
-                                Address_v.Country_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country"]);
-                                Address_v.Country_ISO_3166_a2_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2"]);
-                                Address_v.Country_ISO_3166_a3_v = tf.set_string(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3"]);
-                                Address_v.Country_ISO_3166_num_v = tf.set_short(fs.MyConvertToShort(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
+                                Address_v.StreetName_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_office_$$Name"]);
+                                Address_v.HouseNumber_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_chounorg_$$HouseNumber"]);
+                                Address_v.ZIP_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_cziporg_$$ZIP"]);
+                                Address_v.City_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_ccitorg_$$City"]);
+                                Address_v.Country_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country"]);
+                                Address_v.Country_ISO_3166_a2_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a2"]);
+                                Address_v.Country_ISO_3166_a3_v = tf.set_dstring(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_a3"]);
+                                Address_v.Country_ISO_3166_num_v = tf.set_dshort(fs.MyConvertToShort(dt.Rows[0]["Office_Data_$_cadrorg_$_ccouorg_$$Country_ISO_3166_num"]));
                                 myOrg_Office_FVI_SLO_RealEstate.Get(Office_Data_ID_v);
                             }
                             return true;

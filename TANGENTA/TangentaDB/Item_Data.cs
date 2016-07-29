@@ -119,11 +119,11 @@ namespace TangentaDB
             Taxation_Rate = tf.set_decimal(xdr["Taxation_Rate"]);
             PurchasePricePerUnit = tf.set_decimal(xdr["PurchasePricePerUnit"]);
             PurchaseOrganisation_Name = tf.set_string(xdr["PurchaseOrganisation_Name"]);
-            PurchaseOrganisation_Address.StreetName_v = tf.set_string(xdr["StreetName"]);
-            PurchaseOrganisation_Address.HouseNumber_v = tf.set_string(xdr["HouseNumber"]);
-            PurchaseOrganisation_Address.City_v = tf.set_string(xdr["City"]);
-            PurchaseOrganisation_Address.ZIP_v = tf.set_string(xdr["ZIP"]);
-            PurchaseOrganisation_Address.Country_v = tf.set_string(xdr["Country"]);
+            PurchaseOrganisation_Address.StreetName_v = tf.set_dstring(xdr["StreetName"]);
+            PurchaseOrganisation_Address.HouseNumber_v = tf.set_dstring(xdr["HouseNumber"]);
+            PurchaseOrganisation_Address.City_v = tf.set_dstring(xdr["City"]);
+            PurchaseOrganisation_Address.ZIP_v = tf.set_dstring(xdr["ZIP"]);
+            PurchaseOrganisation_Address.Country_v = tf.set_dstring(xdr["Country"]);
             if (xdr["s1_name"] is string)
             {
                 s1_name = (string)xdr["s1_name"];

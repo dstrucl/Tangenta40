@@ -20,6 +20,10 @@ namespace TangentaSampleDB
                 sbd = new SampleDB();
                 if (sbd.ShowDialog(ref bCanceled, xImageCancel))
                 {
+                    if (bCanceled)
+                    {
+                        return true;
+                    }
                     bool bRes = sbd.Write();
                     return bRes;
                 }

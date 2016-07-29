@@ -19,15 +19,15 @@ namespace TangentaDB
 {
     public class PostAddress_v
     {
-        public string_v StreetName_v = null;
-        public string_v HouseNumber_v = null;
-        public string_v ZIP_v = null;
-        public string_v City_v = null;
-        public string_v Country_v = null;
-        public string_v Country_ISO_3166_a2_v = null;
-        public string_v Country_ISO_3166_a3_v = null;
-        public short_v Country_ISO_3166_num_v = null;
-        public string_v State_v = null;
+        public dstring_v StreetName_v = null;
+        public dstring_v HouseNumber_v = null;
+        public dstring_v ZIP_v = null;
+        public dstring_v City_v = null;
+        public dstring_v Country_v = null;
+        public dstring_v Country_ISO_3166_a2_v = null;
+        public dstring_v Country_ISO_3166_a3_v = null;
+        public dshort_v Country_ISO_3166_num_v = null;
+        public dstring_v State_v = null;
 
         public long ID = -1;
 
@@ -52,15 +52,15 @@ namespace TangentaDB
         public PostAddress_v Clone()
         {
             PostAddress_v pa = new PostAddress_v();
-            pa.StreetName_v = string_v.Copy(this.StreetName_v);
-            pa.HouseNumber_v = string_v.Copy(this.HouseNumber_v);
-            pa.ZIP_v = string_v.Copy(this.ZIP_v);
-            pa.City_v = string_v.Copy(this.City_v);
-            pa.Country_v = string_v.Copy(this.Country_v);
-            pa.State_v = string_v.Copy(this.State_v);
-            pa.Country_ISO_3166_a2_v = string_v.Copy(this.Country_ISO_3166_a2_v);
-            pa.Country_ISO_3166_a3_v = string_v.Copy(this.Country_ISO_3166_a3_v);
-            pa.Country_ISO_3166_num_v = short_v.Copy(this.Country_ISO_3166_num_v);
+            pa.StreetName_v = dstring_v.Copy(this.StreetName_v);
+            pa.HouseNumber_v = dstring_v.Copy(this.HouseNumber_v);
+            pa.ZIP_v = dstring_v.Copy(this.ZIP_v);
+            pa.City_v = dstring_v.Copy(this.City_v);
+            pa.Country_v = dstring_v.Copy(this.Country_v);
+            pa.State_v = dstring_v.Copy(this.State_v);
+            pa.Country_ISO_3166_a2_v = dstring_v.Copy(this.Country_ISO_3166_a2_v);
+            pa.Country_ISO_3166_a3_v = dstring_v.Copy(this.Country_ISO_3166_a3_v);
+            pa.Country_ISO_3166_num_v = dshort_v.Copy(this.Country_ISO_3166_num_v);
 
             return pa;
         }

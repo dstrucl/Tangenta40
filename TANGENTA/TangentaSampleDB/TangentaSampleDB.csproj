@@ -58,13 +58,6 @@
     <Compile Include="SampleDB_Price_ShopC_Item.cs" />
     <Compile Include="SampleDB_Price_ShopB_Item.cs" />
     <Compile Include="TangentaSampleDB.cs" />
-    <Compile Include="EditControl.cs" />
-    <Compile Include="usrc_SampleDataEdit.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_SampleDataEdit.Designer.cs">
-      <DependentUpon>usrc_SampleDataEdit.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form_EditSampleData.resx">
@@ -73,9 +66,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_SampleDataEdit.resx">
-      <DependentUpon>usrc_SampleDataEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +114,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\Country\Country_ISO_3166.csproj">
       <Project>{1562473f-cfcb-4dfd-81ba-153988dc2d25}</Project>
       <Name>Country_ISO_3166</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DynEditControls\DynEditControls.csproj">
+      <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
+      <Name>DynEditControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\SelectGender\SelectGender.csproj">
       <Project>{e985e027-861c-433c-8078-2e9b6bef42b2}</Project>

@@ -7,15 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DBTypes;
 using LanguageControl;
 
-namespace TangentaSampleDB
+namespace DynEditControls
 {
-    public partial class usrc_SampleDataEdit : UserControl
+    public partial class usrc_DataEdit : UserControl
     {
-        public List<EditControl> EditControlsList = null;
-
         private int m_LeftMargin = 10;
         public int LeftMargin
         {
@@ -23,10 +20,10 @@ namespace TangentaSampleDB
             set { m_LeftMargin = value; }
         }
 
-        internal void Init()
+        public void Init()
         {
             DoResize();
-            this.Resize += Usrc_SampleDataEdit_Resize;
+            this.Resize += Usrc_DataEdit_Resize;
         }
 
         private int m_MinEditBoxWidth = 36;
@@ -42,7 +39,7 @@ namespace TangentaSampleDB
             set { m_RightMargin = value; }
         }
 
-        private int m_TopMargin = 0;
+        private int m_TopMargin = 30;
         public int TopMargin
         {
             get { return m_TopMargin; }
@@ -84,25 +81,59 @@ namespace TangentaSampleDB
             set { m_HorisontallOffsetToLabel = value; }
         }
 
-
-        public usrc_SampleDataEdit()
+        public usrc_DataEdit()
         {
             InitializeComponent();
         }
 
+        public DynGroupBox AddGroupBox(string Name,ltext lt_Label)
+        {
+            DynGroupBox newGroupBox = new DynGroupBox();
+            newGroupBox.Name = "grp_" + Name;
+            lt_Label.Text(newGroupBox);
+            newGroupBox.ParentControl = this;
+            newGroupBox.MinEditBoxWidth = this.m_MinEditBoxWidth;
+            newGroupBox.RightMargin = this.RightMargin;
+            newGroupBox.TopMargin = this.TopMargin;
+            newGroupBox.VerticalDistance = this.VerticalDistance;
+            newGroupBox.HorisontalDistance = this.HorisontalDistance;
+            newGroupBox.lblVerticalOffset = this.lblVerticalOffset;
+            newGroupBox.VerticalOffsetToLabel = this.VerticalOffsetToLabel;
+            newGroupBox.HorisontallOffsetToLabel = this.HorisontallOffsetToLabel;
+            newGroupBox.Top = this.TopMargin;
+            newGroupBox.Left= this.RightMargin;
+            newGroupBox.Width = this.Width;
+            newGroupBox.Height = 40;
+            newGroupBox.Visible = true;
+            newGroupBox.BackColor = Color.FromArgb(210, 210, 210);
+            newGroupBox.Enabled = true;
+            this.Controls.Add(newGroupBox);
+            //child_DynGroupBoxList.Add(newGroupBox);
+            return newGroupBox;
+
+        }
+
+
         private void DoResize()
         {
             int i = 0;
-            if (EditControlsList != null)
+            int yPos = 10;
+            if (Controls.Count > 0)
             {
-                int iCount = EditControlsList.Count;
+                int iCount = Controls.Count;
                 for (i = 0; i < iCount; i++)
                 {
-                    EditControlsList[i].DoReposition();
+                        object octrl = Controls[i];
+                        if (octrl is DynGroupBox)
+                        {
+                            ((DynGroupBox)octrl).DoReposition(yPos);
+                            yPos += ((DynGroupBox)octrl).Height + VerticalDistance;
+                        }
                 }
             }
         }
-        private void Usrc_SampleDataEdit_Resize(object sender, EventArgs e)
+
+        private void Usrc_DataEdit_Resize(object sender, EventArgs e)
         {
             DoResize();
         }

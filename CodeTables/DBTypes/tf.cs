@@ -73,6 +73,26 @@ namespace DBTypes
             return x;
         }
 
+        public static dshort_v set_dshort(object p)
+        {
+            dshort_v x = null;
+            if (p == null) return null;
+            if (p is short)
+            {
+                x = new dshort_v((short)p);
+            }
+            else if (p.GetType() == typeof(ushort))
+            {
+                x = new dshort_v((ushort)p);
+            }
+            else if (!(p is System.DBNull))
+            {
+                tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
+            }
+
+            return x;
+        }
+
         public static int_v set_int(object p)
         {
             int_v x = null;
@@ -153,6 +173,22 @@ namespace DBTypes
             if (p is string)
             {
                 x = new string_v((string)p);
+            }
+            else if (!(p is System.DBNull))
+            {
+                tf.ShowTypeError(p.GetType().ToString(), x.GetType().ToString());
+            }
+            return x;
+
+        }
+
+        public static dstring_v set_dstring(object p)
+        {
+            dstring_v x = null;
+            if (p == null) return null;
+            if (p is string)
+            {
+                x = new dstring_v((string)p);
             }
             else if (!(p is System.DBNull))
             {

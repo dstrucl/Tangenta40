@@ -1,4 +1,6 @@
-﻿namespace TangentaSampleDB
+﻿using DynEditControls;
+
+namespace TangentaSampleDB
 {
     partial class Form_EditSampleData
     {
@@ -28,32 +30,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_usrc_SampleDataEdit = new usrc_SampleDataEdit();
             this.btn_OK = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
+            this.m_usrc_SampleDataEdit = new DynEditControls.usrc_DataEdit();
             this.SuspendLayout();
-            // 
-            // m_usrc_SampleDataEdit
-            // 
-            this.m_usrc_SampleDataEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_SampleDataEdit.AutoScroll = true;
-            this.m_usrc_SampleDataEdit.BackColor = System.Drawing.Color.Cornsilk;
-            this.m_usrc_SampleDataEdit.HorisontalDistance = 5;
-            this.m_usrc_SampleDataEdit.HorisontallOffsetToLabel = 4;
-            this.m_usrc_SampleDataEdit.lblVerticalOffset = 4;
-            this.m_usrc_SampleDataEdit.LeftMargin = 10;
-            this.m_usrc_SampleDataEdit.Location = new System.Drawing.Point(1, 1);
-            this.m_usrc_SampleDataEdit.MinEditBoxWidth = 36;
-            this.m_usrc_SampleDataEdit.Name = "m_usrc_SampleDataEdit";
-            this.m_usrc_SampleDataEdit.RightMargin = 10;
-            this.m_usrc_SampleDataEdit.Size = new System.Drawing.Size(574, 439);
-            this.m_usrc_SampleDataEdit.TabIndex = 0;
-            this.m_usrc_SampleDataEdit.TopMargin = 0;
-            this.m_usrc_SampleDataEdit.VerticalDistance = 5;
-            this.m_usrc_SampleDataEdit.VerticalOffsetToLabel = 4;
-            this.m_usrc_SampleDataEdit.Load += new System.EventHandler(this.m_usrc_SampleDataEdit_Load);
             // 
             // btn_OK
             // 
@@ -75,6 +55,28 @@
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;
             // 
+            // m_usrc_SampleDataEdit
+            // 
+            this.m_usrc_SampleDataEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_usrc_SampleDataEdit.AutoScroll = true;
+            this.m_usrc_SampleDataEdit.BackColor = System.Drawing.Color.Gainsboro;
+            this.m_usrc_SampleDataEdit.HorisontalDistance = 5;
+            this.m_usrc_SampleDataEdit.HorisontallOffsetToLabel = 4;
+            this.m_usrc_SampleDataEdit.lblVerticalOffset = 4;
+            this.m_usrc_SampleDataEdit.LeftMargin = 10;
+            this.m_usrc_SampleDataEdit.Location = new System.Drawing.Point(1, 1);
+            this.m_usrc_SampleDataEdit.MinEditBoxWidth = 36;
+            this.m_usrc_SampleDataEdit.Name = "m_usrc_SampleDataEdit";
+            this.m_usrc_SampleDataEdit.RightMargin = 10;
+            this.m_usrc_SampleDataEdit.Size = new System.Drawing.Size(574, 439);
+            this.m_usrc_SampleDataEdit.TabIndex = 0;
+            this.m_usrc_SampleDataEdit.TopMargin = 30;
+            this.m_usrc_SampleDataEdit.VerticalDistance = 5;
+            this.m_usrc_SampleDataEdit.VerticalOffsetToLabel = 4;
+            this.m_usrc_SampleDataEdit.Load += new System.EventHandler(this.m_usrc_SampleDataEdit_Load);
+            // 
             // Form_EditSampleData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -91,7 +93,7 @@
 
         #endregion
 
-        private usrc_SampleDataEdit m_usrc_SampleDataEdit;
+        private usrc_DataEdit m_usrc_SampleDataEdit;
         private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Button btn_Cancel;
     }

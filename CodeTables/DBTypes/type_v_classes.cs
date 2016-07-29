@@ -99,9 +99,9 @@ namespace DBTypes
 
     public class short_v
     {
-        private bool bUnsigned = false;
-        private short v_;
-        private ushort uv_;
+        protected bool bUnsigned = false;
+        protected short v_;
+        protected ushort uv_;
 
         public bool Unsigned
         {
@@ -180,6 +180,46 @@ namespace DBTypes
             return o_v;
         }
     }
+
+    public class dshort_v:short_v
+    {
+        public dshort_v()
+        {
+        }
+
+        public dshort_v(short smallint) : base(smallint)
+        {
+        }
+
+        public dshort_v(ushort usmallint):base(usmallint)
+        {
+        
+        }
+
+        public static dshort_v Copy(dshort_v o_v)
+        {
+
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public dshort_v Clone()
+        {
+            dshort_v o_v = new dshort_v();
+            
+            o_v.bUnsigned = this.bUnsigned;
+            o_v.v = this.v_;
+            o_v.uv = this.uv_;
+            return o_v;
+        }
+    }
+
 
     public class int_v
     {
@@ -447,6 +487,27 @@ namespace DBTypes
             v = s;
             m_defined = true;
         }
+
+        public static dstring_v Copy(dstring_v o_v)
+        {
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public dstring_v Clone()
+        {
+            dstring_v o_v = new dstring_v();
+            o_v.v = this.v;
+            o_v.defined = this.m_defined;
+            return o_v;
+        }
+
     }
 
 

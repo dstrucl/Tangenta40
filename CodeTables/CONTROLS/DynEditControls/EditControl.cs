@@ -1,15 +1,15 @@
-﻿using DBTypes;
-using LanguageControl;
-using SelectGender;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LanguageControl;
 using System.Windows.Forms;
+using SelectGender;
+using DBTypes;
+using System.Drawing;
 
-namespace TangentaSampleDB
+namespace DynEditControls
 {
     public class EditControl
     {
@@ -18,7 +18,8 @@ namespace TangentaSampleDB
 
         public Control edit_control = null;
 
-        private usrc_SampleDataEdit m_usrc_SampleDataEdit = null;
+        private DynGroupBox m_grp_box = null;
+
         private object m_refobj = null;
         private string m_Name = null;
         public int Height = -1;
@@ -51,7 +52,7 @@ namespace TangentaSampleDB
             set { m_RightMargin = value; }
         }
 
-        private int m_TopMargin = 5;
+        private int m_TopMargin = 50;
         public int TopMargin
         {
             get { return m_TopMargin; }
@@ -95,26 +96,33 @@ namespace TangentaSampleDB
 
 
 
-        public EditControl(usrc_SampleDataEdit usrc_parent,object refobj, string xName,ltext lt_label, ltext lt_val, ltext lt_help)
+        public EditControl(DynGroupBox xgrp_box, object refobj, string xName, ltext lt_label, ltext lt_val, ltext lt_help)
         {
-            m_usrc_SampleDataEdit = usrc_parent;
+            m_grp_box = xgrp_box;
             m_lt_help = lt_help;
-            this.MinEditBoxWidth = m_usrc_SampleDataEdit.MinEditBoxWidth;
-            this.LeftMargin = m_usrc_SampleDataEdit.LeftMargin;
-            this.RightMargin = m_usrc_SampleDataEdit.RightMargin;
-            this.TopMargin = m_usrc_SampleDataEdit.TopMargin;
-            this.VerticalDistance = m_usrc_SampleDataEdit.VerticalDistance;
-            this.HorisontalDistance = m_usrc_SampleDataEdit.HorisontalDistance;
-            this.lblVerticalOffset = m_usrc_SampleDataEdit.lblVerticalOffset;
-            this.TxtVerticalOffsetToLabel = m_usrc_SampleDataEdit.VerticalOffsetToLabel;
-            this.HorisontallOffsetToLabel = m_usrc_SampleDataEdit.HorisontallOffsetToLabel;
+            this.MinEditBoxWidth = m_grp_box.MinEditBoxWidth;
+            this.LeftMargin = m_grp_box.LeftMargin;
+            this.RightMargin = m_grp_box.RightMargin;
+            this.TopMargin = m_grp_box.TopMargin;
+            this.VerticalDistance = m_grp_box.VerticalDistance;
+            this.HorisontalDistance = m_grp_box.HorisontalDistance;
+            this.lblVerticalOffset = m_grp_box.lblVerticalOffset;
+            this.TxtVerticalOffsetToLabel = m_grp_box.VerticalOffsetToLabel;
+            this.HorisontallOffsetToLabel = m_grp_box.HorisontallOffsetToLabel;
             m_refobj = refobj;
             m_Name = xName;
             lbl = new Label();
             if (m_refobj is dstring_v)
             {
                 edit_control = new TextBox();
-                edit_control.Text = lt_val.s;
+                if (((dstring_v)m_refobj).defined)
+                {
+                    edit_control.Text = ((dstring_v)m_refobj).vs;
+                }
+                else
+                {
+                    edit_control.Text = lt_val.s;
+                }
             }
             else if (m_refobj is dbool_v)
             {
@@ -124,11 +132,19 @@ namespace TangentaSampleDB
                     ((usrc_SelectGender)edit_control).RadioButton1IsTrue = true;
                     ((usrc_SelectGender)edit_control).RadioButton1_Text = lngRPM.s_Male.s;
                     ((usrc_SelectGender)edit_control).RadioButton2_Text = lngRPM.s_Female.s;
+                    if (((dbool_v)m_refobj).defined)
+                    {
+                        ((usrc_SelectGender)edit_control).Checked = ((dbool_v)m_refobj).v;
+                    }
                 }
                 else
                 {
                     edit_control = new CheckBox();
                     ((CheckBox)edit_control).Text = "";
+                    if (((dbool_v)m_refobj).defined)
+                    {
+                        ((CheckBox)edit_control).Checked = ((dbool_v)m_refobj).v;
+                    }
                 }
             }
             else if (m_refobj is dDateTime_v)
@@ -137,16 +153,23 @@ namespace TangentaSampleDB
                 edit_control.Text = "";
                 ((DateTimePicker)edit_control).Value = DateTime.Now;
             }
+            else if (m_refobj is dshort_v)
+            {
+                edit_control = new NumericUpDown();
+                ((NumericUpDown)edit_control).Minimum = 0;
+                ((NumericUpDown)edit_control).Maximum = 100000;
+                ((NumericUpDown)edit_control).Value = Convert.ToDecimal(((dshort_v)m_refobj).v);
+            }
             else
             {
                 LogFile.Error.Show("ERROR:EditControl:unsuported type: m_refobj type =" + m_refobj.GetType().ToString());
                 return;
             }
 
-                lbl.Name = "lbl_" + m_Name;
-            lbl.Font = usrc_parent.Font;
-            edit_control.Name = "txt_" + m_Name;
-            edit_control.Font = usrc_parent.Font;
+            lbl.Name = "lbl_" + m_grp_box.Name +"_"+ m_Name;
+            lbl.Font = m_grp_box.Font;
+            edit_control.Name = "txt_" + m_grp_box.Name +"_"+ m_Name;
+            edit_control.Font = m_grp_box.Font;
             lbl.AutoSize = false;
             lbl.Text = lt_label.s + ":";
             SizeF size_lbl = lbl.CreateGraphics().MeasureString(lbl.Text, lbl.Font);
@@ -164,12 +187,12 @@ namespace TangentaSampleDB
             }
 
             this.Width = lbl.Width + m_HorisontallOffsetToLabel + edit_control.Width;
-            if (m_usrc_SampleDataEdit.EditControlsList == null)
+            if (m_grp_box.EditControlsList == null)
             {
-                m_usrc_SampleDataEdit.EditControlsList = new List<EditControl>();
+                m_grp_box.EditControlsList = new List<EditControl>();
             }
-            m_usrc_SampleDataEdit.EditControlsList.Add(this);
-            int EditControlsList_Count = m_usrc_SampleDataEdit.EditControlsList.Count;
+            m_grp_box.EditControlsList.Add(this);
+            int EditControlsList_Count = m_grp_box.EditControlsList.Count;
             if (EditControlsList_Count == 1)
             {
                 this.pPrev = null;
@@ -177,12 +200,12 @@ namespace TangentaSampleDB
             }
             else if (EditControlsList_Count > 1)
             {
-                this.pPrev = m_usrc_SampleDataEdit.EditControlsList[EditControlsList_Count-2];
-                m_usrc_SampleDataEdit.EditControlsList[EditControlsList_Count - 2].pNext = this;
+                this.pPrev = m_grp_box.EditControlsList[EditControlsList_Count - 2];
+                m_grp_box.EditControlsList[EditControlsList_Count - 2].pNext = this;
                 this.pNext = null;
             }
-            m_usrc_SampleDataEdit.Controls.Add(lbl);
-            m_usrc_SampleDataEdit.Controls.Add(edit_control);
+            m_grp_box.Controls.Add(lbl);
+            m_grp_box.Controls.Add(edit_control);
         }
 
         public void DoReposition()
@@ -192,7 +215,7 @@ namespace TangentaSampleDB
             xpos = m_LeftMargin;
             if (pPrev != null)
             {
-                if (pPrev.xpos + pPrev.Width + m_HorisontalDistance + this.Width + m_RightMargin < m_usrc_SampleDataEdit.Width)
+                if (pPrev.xpos + pPrev.Width + m_HorisontalDistance + this.Width + m_RightMargin < m_grp_box.Width)
                 {
                     xpos = pPrev.xpos + pPrev.Width + m_HorisontalDistance;
                     ypos = pPrev.ypos;
@@ -204,10 +227,14 @@ namespace TangentaSampleDB
                 }
             }
 
-            lbl.Top = ypos+ m_lblVerticalOffset;
+            lbl.Top = ypos + m_lblVerticalOffset;
+            this.Top = lbl.Top;
             lbl.Left = xpos;
+            this.Left = lbl.Left;
             edit_control.Top = ypos;
             edit_control.Left = lbl.Left + lbl.Width + m_HorisontalDistance;
+            this.Width = edit_control.Left + edit_control.Width - this.Left;
+            this.Height = edit_control.Bottom - edit_control.Top;
         }
     }
 }

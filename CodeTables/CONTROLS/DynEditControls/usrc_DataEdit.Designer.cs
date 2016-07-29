@@ -1,6 +1,6 @@
-﻿namespace TangentaSampleDB
+﻿namespace DynEditControls
 {
-    partial class usrc_SampleDataEdit
+    partial class usrc_DataEdit
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,10 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // usrc_SampleDataEdit
+            // usrc_DataEdit
             // 
-            this.Name = "usrc_SampleDataEdit";
-            this.Size = new System.Drawing.Size(812, 636);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.Name = "usrc_DataEdit";
+            this.Size = new System.Drawing.Size(607, 543);
             this.ResumeLayout(false);
 
         }
