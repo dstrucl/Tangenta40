@@ -81,20 +81,20 @@ namespace LanguageControl
         public static ltext sh_MyOrg_Address_State = new ltext("Enter State", "Vpišite deželo");
 
 
-        public static ltext sl_MyOrg_Addres_Country = new ltext("Country", "Država");
-        public static ltext s_MyOrg_Address_Country_v = new ltext("Country1", "Država1");
+        public static ltext sl_MyOrg_Address_Country = new ltext("Country", "Država");
+        public static ltext s_MyOrg_Address_Country_v = null;// new ltext("Country1", "Država1");
         public static ltext sh_MyOrg_Address_Country = new ltext("Enter country", "Vpišite državo");
 
         public static ltext sl_MyOrg_Address_Country_ISO_3166_a2 = new ltext("Country abbreviation (2 characters)", "Okrajšavo za državo (2 znaka)");
-        public static ltext s_MyOrg_Address_Country_ISO_3166_a2_v = new ltext("??", "??");
+        public static ltext s_MyOrg_Address_Country_ISO_3166_a2_v = null;// new ltext("??", "??");
         public static ltext sh_MyOrg_Address_Country_ISO_3166_a2 = new ltext("Enter country abbreviation (2 characters)", "Vpišite okrajšavo za državo (2 znaka)");
 
         public static ltext sl_MyOrg_Address_Country_ISO_3166_a3 = new ltext("Country abbreviation (3 characters)", "Okrajšavo za državo (3 znaki)");
-        public static ltext s_MyOrg_Address_Country_ISO_3166_a3_v = new ltext("??", "??");
+        public static ltext s_MyOrg_Address_Country_ISO_3166_a3_v = null;// new ltext("??", "??");
         public static ltext sh_MyOrg_Address_Country_ISO_3166_a3 = new ltext("Enter country abbreviation (3 characters)", "Vpišite okrajšavo za državo (3 znaki)");
 
         public static ltext sl_MyOrg_Address_Country_ISO_3166_num = new ltext("Country code number", "Kodna številka države");
-        public static ltext s_MyOrg_Address_Country_ISO_3166_num_v = new ltext("", "");
+        public static ltext s_MyOrg_Address_Country_ISO_3166_num_v = null;// new ltext("", "");
         public static ltext sh_MyOrg_Address_Country_ISO_3166_num = new ltext("Enter country iso code number", "Vpišite kodno ISO 3166 številko države");
 
 
@@ -120,19 +120,19 @@ namespace LanguageControl
 
 
         public static ltext sl_MyOrg_Office_Address_Country = new ltext("Country", "Država");
-        public static ltext s_MyOrg_Office_Address_Country_v = new ltext("Country1", "Država1");
+        public static ltext s_MyOrg_Office_Address_Country_v = null;// new ltext("Country1", "Država1");
         public static ltext sh_MyOrg_Office_Address_Country = new ltext("Enter country", "Vpišite državo");
 
         public static ltext sl_MyOrg_Office_Address_Country_ISO_3166_a2 = new ltext("Country abbreviation (2 characters)", "Okrajšavo za državo (2 znaka)");
-        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_a2_v = new ltext("??", "??");
+        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_a2_v = null;// new ltext("??", "??");
         public static ltext sh_MyOrg_Office_Address_Country_ISO_3166_a2 = new ltext("Enter country abbreviation (2 characters)", "Vpišite okrajšavo za državo (2 znaka)");
 
         public static ltext sl_MyOrg_Office_Address_Country_ISO_3166_a3 = new ltext("Country abbreviation (3 characters)", "Okrajšavo za državo (3 znaki)");
-        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_a3_v = new ltext("??", "??");
+        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_a3_v = null;// new ltext("??", "??");
         public static ltext sh_MyOrg_Office_Address_Country_ISO_3166_a3 = new ltext("Enter country abbreviation (3 characters)", "Vpišite okrajšavo za državo (3 znaki)");
 
         public static ltext sl_MyOrg_Office_Address_Country_ISO_3166_num = new ltext("Country code number", "Kodna številka države");
-        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_num_v = new ltext("", "");
+        public static ltext s_MyOrg_Office_Address_Country_ISO_3166_num_v = null;// new ltext("", "");
         public static ltext sh_MyOrg_Office_Address_Country_ISO_3166_num = new ltext("Enter country iso code number", "Vpišite kodno ISO 3166 številko države");
 
         public static ltext sl_MyOrg_OfficeName = new ltext("Office name", "Ime poslovne enote");
@@ -225,19 +225,19 @@ namespace LanguageControl
 
 
         public static ltext sl_MyOrg_Office_Person_Address_Country = new ltext("Country", "Država");
-        public static ltext s_MyOrg_Office_Person_Address_Country_v = new ltext("Country1", "Država1");
+        public static ltext s_MyOrg_Office_Person_Address_Country_v = null;// new ltext("Country1", "Država1");
         public static ltext sh_MyOrg_Office_Person_Address_Country = new ltext("Enter country", "Vpišite državo");
 
         public static ltext sl_MyOrg_Office_Person_Address_Country_ISO_3166_a2 = new ltext("Country abbreviation (2 characters)", "Okrajšavo za državo (2 znaka)");
-        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_a2_v = new ltext("??", "??");
+        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_a2_v = null;// new ltext("??", "??");
         public static ltext sh_MyOrg_Office_Person_Address_Country_ISO_3166_a2 = new ltext("Enter country abbreviation (2 characters)", "Vpišite okrajšavo za državo (2 znaka)");
 
         public static ltext sl_MyOrg_Office_Person_Address_Country_ISO_3166_a3 = new ltext("Country abbreviation (3 characters)", "Okrajšavo za državo (3 znaki)");
-        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_a3_v = new ltext("??", "??");
+        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_a3_v = null;// new ltext("??", "??");
         public static ltext sh_MyOrg_Office_Person_Address_Country_ISO_3166_a3 = new ltext("Enter country abbreviation (3 characters)", "Vpišite okrajšavo za državo (3 znaki)");
 
         public static ltext sl_MyOrg_Office_Person_Address_Country_ISO_3166_num = new ltext("Country code number", "Kodna številka države");
-        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_num_v = new ltext("", "");
+        public static ltext s_MyOrg_Office_Person_Address_Country_ISO_3166_num_v = null;// new ltext("", "");
         public static ltext sh_MyOrg_Office_Person_Address_Country_ISO_3166_num = new ltext("Enter country iso code number", "Vpišite kodno ISO 3166 številko države");
 
         public static ltext sh_MhyOrg_Person_CardNumber = null;

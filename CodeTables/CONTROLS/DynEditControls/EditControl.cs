@@ -108,7 +108,21 @@ namespace DynEditControls
             set { m_HorisontallOffsetToLabel = value; }
         }
 
+        private bool m_ReadOnly = false;
 
+        public bool ReadOnly {
+            get { return m_ReadOnly; }
+            set { m_ReadOnly = value;
+                    if (edit_control is TextBox)
+                    {
+                        ((TextBox)edit_control).ReadOnly = m_ReadOnly;
+                    }
+                    else if (edit_control is NumericUpDown)
+                    {
+                        ((NumericUpDown)edit_control).ReadOnly = m_ReadOnly;
+                    }
+                }
+            }
 
         public EditControl(DynGroupBox xgrp_box, object refobj, string xName, ltext lt_label, ltext lt_val, ltext lt_help)
         {

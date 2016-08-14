@@ -77,13 +77,19 @@ namespace TangentaSampleDB
 
         DynGroupBox MyOrg_Address_DynGroupBox = null;
 
+        DynGroupBox MyOrg_Address_Country_DynGroupBox = null;
+
         DynGroupBox MyOrg_Office_DynGroupBox = null;
 
         DynGroupBox MyOrg_Office_Address_DynGroupBox = null;
 
+        DynGroupBox MyOrg_Office_Address_Country_DynGroupBox = null;
+
         DynGroupBox MyOrg_Office_Person_DynGroupBox = null;
 
         DynGroupBox MyOrg_Office_Person_Address_DynGroupBox = null;
+
+        DynGroupBox MyOrg_Office_Person_Address_Country_DynGroupBox = null;
 
 
         public SampleDB()
@@ -125,13 +131,19 @@ namespace TangentaSampleDB
 
             MyOrg_Address_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Address",lngRPM.s_Address);
 
+            MyOrg_Address_Country_DynGroupBox = MyOrg_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Address_Country", lngRPM.s_Country);
+
             MyOrg_Office_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Office",lngRPM.s_Office);
 
             MyOrg_Office_Address_DynGroupBox = MyOrg_Office_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Address", lngRPM.s_Address);
 
+            MyOrg_Office_Address_Country_DynGroupBox = MyOrg_Office_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Address_Country", lngRPM.s_Country);
+
             MyOrg_Office_Person_DynGroupBox = MyOrg_Office_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person",lngRPM.s_Person);
 
-            MyOrg_Office_Person_Address_DynGroupBox = MyOrg_Office_Person_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person_Addres", lngRPM.s_Address);
+            MyOrg_Office_Person_Address_DynGroupBox = MyOrg_Office_Person_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person_Address", lngRPM.s_Address);
+
+            MyOrg_Office_Person_Address_Country_DynGroupBox = MyOrg_Office_Person_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person_Address_Country", lngRPM.s_Country);
 
             MyOrg_DynGroupBox.Visible = true;
             MyOrg_Address_DynGroupBox.Visible = true;
@@ -167,10 +179,10 @@ namespace TangentaSampleDB
             new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.ZIP_v, "MyOrg_Address_ZIP", lngRPMS.sl_MyOrg_Address_ZIP, lngRPMS.s_MyOrg_Address_ZIP_v, lngRPMS.sh_MyOrg_Address_ZIP);
             new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.City_v, "MyOrg_Address_ZIP", lngRPMS.sl_MyOrg_Address_City, lngRPMS.s_MyOrg_Address_City_v, lngRPMS.sh_MyOrg_Address_City);
             new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.State_v, "MyOrg_Address_State", lngRPMS.sl_MyOrg_Address_State, lngRPMS.s_MyOrg_Address_State_v, lngRPMS.sh_MyOrg_Address_State);
-            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Addres_Country, lngRPMS.s_MyOrg_Address_Country_v, lngRPMS.sh_MyOrg_Address_Country);
-            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a2_v, "MyOrg_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_a2);
-            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a3_v, "MyOrg_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_a3);
-            new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_num_v, "MyOrg_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_num);
+            new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Address_Country, lngRPMS.s_MyOrg_Address_Country_v, lngRPMS.sh_MyOrg_Address_Country);
+            new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a2_v, "MyOrg_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_a2);
+            new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a3_v, "MyOrg_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_a3);
+            new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_num_v, "MyOrg_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_num);
 
 
             new DynEditControls.EditControl(MyOrg_Office_DynGroupBox, MyOrg_Office_Name_v, "MyOrg_OfficeName", lngRPMS.sl_MyOrg_OfficeName, lngRPMS.s_MyOrg_OfficeName_v, lngRPMS.sh_MyOrg_OfficeName);
@@ -181,10 +193,10 @@ namespace TangentaSampleDB
             new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.ZIP_v, "MyOrg_Office_Address_ZIP", lngRPMS.sl_MyOrg_Office_Address_ZIP, lngRPMS.s_MyOrg_Office_Address_ZIP_v, lngRPMS.sh_MyOrg_Office_Address_ZIP);
             new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.City_v, "MyOrg_Office_Address_ZIP", lngRPMS.sl_MyOrg_Office_Address_City, lngRPMS.s_MyOrg_Office_Address_City_v, lngRPMS.sh_MyOrg_Office_Address_City);
             new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.State_v, "MyOrg_Office_Address_State", lngRPMS.sl_MyOrg_Office_Address_State, lngRPMS.s_MyOrg_Office_Address_State_v, lngRPMS.sh_MyOrg_Office_Address_State);
-            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Addres_Country, lngRPMS.s_MyOrg_Office_Address_Country_v, lngRPMS.sh_MyOrg_Office_Address_Country);
-            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_a2);
-            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_a3);
-            new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_num);
+            new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Address_Country, lngRPMS.s_MyOrg_Office_Address_Country_v, lngRPMS.sh_MyOrg_Office_Address_Country);
+            new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_a2);
+            new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_a3);
+            new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_num);
 
 
 
@@ -231,16 +243,18 @@ namespace TangentaSampleDB
             new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.ZIP_v, "MyOrg_Office_Person_Address_ZIP", lngRPMS.sl_MyOrg_Office_Person_Address_ZIP, lngRPMS.s_MyOrg_Office_Person_Address_ZIP_v, lngRPMS.sh_MyOrg_Office_Person_Address_ZIP);
             new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.City_v, "MyOrg_Office_Person_Address_ZIP", lngRPMS.sl_MyOrg_Office_Person_Address_City, lngRPMS.s_MyOrg_Office_Person_Address_City_v, lngRPMS.sh_MyOrg_Office_Person_Address_City);
             new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.State_v, "MyOrg_Office_Person_Address_State", lngRPMS.sl_MyOrg_Office_Person_Address_State, lngRPMS.s_MyOrg_Office_Person_Address_State_v, lngRPMS.sh_MyOrg_Office_Person_Address_State);
-            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Addres_Country, lngRPMS.s_MyOrg_Office_Person_Address_Country_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country);
-            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a2);
-            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a3);
-            new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Person_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_num);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_v, "MyOrg_Office_Person_Address_Country", lngRPMS.sl_MyOrg_Address_Country, lngRPMS.s_MyOrg_Office_Person_Address_Country_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a2);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a3);
+            new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Person_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_num);
 
 
             //MyOrg_Office_Name_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeName_v.s);
             //MyOrg_Office_ShortName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeShortName_v.s);
 
-
+            MyOrg_Address_Country_DynGroupBox.ReadOnly = true;
+            MyOrg_Office_Address_Country_DynGroupBox.ReadOnly = true;
+            MyOrg_Office_Person_Address_Country_DynGroupBox.ReadOnly = true;
         }
 
         internal bool ShowDialog(ref bool bCanceled, Image xImageCancel, Icon oIcon)
