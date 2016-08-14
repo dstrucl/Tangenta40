@@ -193,6 +193,15 @@ namespace TangentaSampleDB
 
             new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_LastName_v, "MyOrg_Person_LastName", lngRPMS.sl_MyOrg_Person_LastName, lngRPMS.s_MyOrg_Person_LastName_v, lngRPMS.sh_MyOrg_Person_LastName);
 
+            if (LanguageControl.DynSettings.LanguageID == DynSettings.Slovensko_ID)
+            {
+                MyOrg_Person_Gender_v.v = false;
+            }
+            else
+            {
+                MyOrg_Person_Gender_v.v = true;
+            }
+            MyOrg_Person_Gender_v.defined = true;
             new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Gender_v, "MyOrg_Person_Gender", lngRPMS.sl_MyOrg_Person_Gender, lngRPMS.s_MyOrg_Person_Gender_v, lngRPMS.sh_MyOrg_Person_Gender);
 
             new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_DateOfBirth_v, "MyOrg_Person_DateOfBirth", lngRPMS.sl_MyOrg_Person_DateOfBirth, lngRPMS.s_MyOrg_Person_DateOfBirth_v, lngRPMS.sh_MyOrg_Person_DateOfBirth);
@@ -234,7 +243,7 @@ namespace TangentaSampleDB
 
         }
 
-        internal bool ShowDialog(ref bool bCanceled, Image xImageCancel)
+        internal bool ShowDialog(ref bool bCanceled, Image xImageCancel, Icon oIcon)
         {
             Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
             string DefaultCountry = null;
@@ -260,7 +269,7 @@ namespace TangentaSampleDB
                 MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v = MyOrg_Address_v.Country_ISO_3166_a3_v.Clone();
                 MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
 
-                Form_EditSampleData fedt = new Form_EditSampleData(this, xImageCancel);
+                Form_EditSampleData fedt = new Form_EditSampleData(this, xImageCancel, oIcon);
                 if (fedt.ShowDialog()==System.Windows.Forms.DialogResult.OK)
                 {
                     return true;

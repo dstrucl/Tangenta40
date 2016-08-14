@@ -30,7 +30,7 @@ namespace DBConnectionControl40
 
         private Image m_button_ImageCancel = null;
 
-        public SQLiteConnectionDialog(Form pParentForm,conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder,Image xImageCancel)
+        public SQLiteConnectionDialog(Form pParentForm,conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder,Image xImageCancel, string myConnectionName)
         {
             m_conData_SQLITE = xconData_SQLite;
 
@@ -64,8 +64,17 @@ namespace DBConnectionControl40
             else
             {
                 //txtFilePath.Text = Application.CommonAppDataPath;
-                cmbR_FilePath.Text = "C:\\";
-                DatabaseFileName = "LocalDB.sqlite";
+                if (myConnectionName != null)
+                {
+                    cmbR_FilePath.Text = "C:\\" + myConnectionName + "\\";
+                    DatabaseFileName = myConnectionName + ".sqlite";
+                }
+                else
+                {
+                    cmbR_FilePath.Text = "C:\\";
+                    DatabaseFileName = "LocalDB.sqlite";
+
+                }
                 cmbR_FileName.Text = DatabaseFileName;
             }
 

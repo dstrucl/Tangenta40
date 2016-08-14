@@ -123,6 +123,10 @@
       <Project>{e985e027-861c-433c-8078-2e9b6bef42b2}</Project>
       <Name>SelectGender</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
+      <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
+      <Name>XMessage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
       <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
       <Name>DBSync</Name>

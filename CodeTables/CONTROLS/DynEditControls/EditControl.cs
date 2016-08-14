@@ -31,6 +31,20 @@ namespace DynEditControls
         public EditControl pNext = null;
         public EditControl pPrev = null;
 
+        private Color m_ColorChanged = Color.DarkRed;
+        public Color ColorChanged
+        {
+            get { return m_ColorChanged; }
+            set { m_ColorChanged = value; }
+        }
+
+        private Color m_ColorNotChanged = Color.DarkBlue;
+        public Color ColorNotChanged
+        {
+            get { return m_ColorNotChanged; }
+            set { m_ColorNotChanged = value; }
+        }
+
         private int m_MinEditBoxWidth = 30;
         public int MinEditBoxWidth
         {
@@ -109,20 +123,33 @@ namespace DynEditControls
             this.lblVerticalOffset = m_grp_box.lblVerticalOffset;
             this.TxtVerticalOffsetToLabel = m_grp_box.VerticalOffsetToLabel;
             this.HorisontallOffsetToLabel = m_grp_box.HorisontallOffsetToLabel;
+            this.ColorChanged = m_grp_box.ColorChanged;
+            this.ColorNotChanged = m_grp_box.ColorNotChanged;
+
             m_refobj = refobj;
             m_Name = xName;
             lbl = new Label();
             if (m_refobj is dstring_v)
             {
                 edit_control = new TextBox();
-                if (((dstring_v)m_refobj).defined)
+                bool bltValDefined = false;
+                if (lt_val!=null)
                 {
-                    edit_control.Text = ((dstring_v)m_refobj).vs;
+                    if (lt_val.s!=null)
+                    {
+                        bltValDefined = true;
+                    }
+                }
+                if (bltValDefined)
+                {
+                    edit_control.Text = lt_val.s;
+                    ((dstring_v)m_refobj).v = lt_val.s;
                 }
                 else
                 {
-                    edit_control.Text = lt_val.s;
+                    edit_control.Text = ((dstring_v)m_refobj).vs;
                 }
+                ((dstring_v)m_refobj).defined = true;
             }
             else if (m_refobj is dbool_v)
             {
@@ -152,6 +179,7 @@ namespace DynEditControls
                 edit_control = new DateTimePicker();
                 edit_control.Text = "";
                 ((DateTimePicker)edit_control).Value = DateTime.Now;
+                ((dDateTime_v)m_refobj).v = ((DateTimePicker)edit_control).Value;
             }
             else if (m_refobj is dshort_v)
             {
@@ -159,6 +187,7 @@ namespace DynEditControls
                 ((NumericUpDown)edit_control).Minimum = 0;
                 ((NumericUpDown)edit_control).Maximum = 100000;
                 ((NumericUpDown)edit_control).Value = Convert.ToDecimal(((dshort_v)m_refobj).v);
+                ((dshort_v)m_refobj).v = Convert.ToInt16(((NumericUpDown)edit_control).Value);
             }
             else
             {
@@ -166,9 +195,9 @@ namespace DynEditControls
                 return;
             }
 
-            lbl.Name = "lbl_" + m_grp_box.Name +"_"+ m_Name;
+            lbl.Name = "lbl_" + m_grp_box.Name + "_" + m_Name;
             lbl.Font = m_grp_box.Font;
-            edit_control.Name = "txt_" + m_grp_box.Name +"_"+ m_Name;
+            edit_control.Name = "txt_" + m_grp_box.Name + "_" + m_Name;
             edit_control.Font = m_grp_box.Font;
             lbl.AutoSize = false;
             lbl.Text = lt_label.s + ":";
@@ -235,6 +264,110 @@ namespace DynEditControls
             edit_control.Left = lbl.Left + lbl.Width + m_HorisontalDistance;
             this.Width = edit_control.Left + edit_control.Width - this.Left;
             this.Height = edit_control.Bottom - edit_control.Top;
+        }
+
+        public void Fill()
+        {
+            if (m_refobj is dstring_v)
+            {
+                ((dstring_v)m_refobj).v = ((TextBox)edit_control).Text;
+            }
+            else if (m_refobj is dbool_v)
+            {
+                if (edit_control is usrc_SelectGender)
+                {
+                    ((dbool_v)m_refobj).v = ((usrc_SelectGender)edit_control).Checked;
+                }
+                else if (edit_control is CheckBox)
+                {
+                    ((dbool_v)m_refobj).v = ((CheckBox)edit_control).Checked;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:EditControl:unsuported edit_control: edit_control type =" + edit_control.GetType().ToString());
+                    return;
+                }
+            }
+            else if (m_refobj is dDateTime_v)
+            {
+
+                edit_control = new DateTimePicker();
+                edit_control.Text = "";
+                ((dDateTime_v)m_refobj).v = ((DateTimePicker)edit_control).Value;
+            }
+            else if (m_refobj is dshort_v)
+            {
+                ((dshort_v)m_refobj).v = Convert.ToInt16(((NumericUpDown)edit_control).Value);
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:EditControl:unsuported type: m_refobj type =" + m_refobj.GetType().ToString());
+                return;
+            }
+        }
+
+        public bool DataChanged()
+        {
+            if (m_refobj is dstring_v)
+            {
+                if (((dstring_v)m_refobj).v != null)
+                {
+                    return ((dstring_v)m_refobj).v.Equals(((TextBox)edit_control).Text);
+                }
+                else
+                {
+                    string s = ((TextBox)edit_control).Text;
+                    s.Replace(" ", "");
+                    if (s.Length==0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+
+            }
+            else if (m_refobj is dbool_v)
+            {
+                if (edit_control is usrc_SelectGender)
+                {
+                    return (((dbool_v)m_refobj).v == ((usrc_SelectGender)edit_control).Checked);
+                }
+                else if (edit_control is CheckBox)
+                {
+                    return (((dbool_v)m_refobj).v == ((CheckBox)edit_control).Checked);
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:EditControl:unsuported edit_control: edit_control type =" + edit_control.GetType().ToString());
+                    return false;
+                }
+            }
+            else if (m_refobj is dDateTime_v)
+            {
+
+                return (((dDateTime_v)m_refobj).v == ((DateTimePicker)edit_control).Value);
+            }
+            else if (m_refobj is dshort_v)
+            {
+                return ((dshort_v)m_refobj).v == Convert.ToInt16(((NumericUpDown)edit_control).Value);
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:EditControl:unsuported type: m_refobj type =" + m_refobj.GetType().ToString());
+                return false;
+            }
+        }
+        public void MarkAsChanged()
+        {
+            this.lbl.ForeColor = this.ColorChanged;
+        }
+
+        public void MarkAsNotChanged()
+        {
+            this.lbl.ForeColor = this.ColorNotChanged;
         }
     }
 }

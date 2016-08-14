@@ -860,6 +860,17 @@ namespace DBConnectionControl40
 
         public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param,Image xImageCancel, ref bool bCanceled)
         {
+            string myConnectionName = null;
+            if (DB_Param is RemoteDB_data)
+            {
+                myConnectionName = ((RemoteDB_data)DB_Param).ConnectionName;
+            }
+            else if (DB_Param is LocalDB_data)
+            {
+                myConnectionName = ((LocalDB_data)DB_Param).ConnectionName;
+            }
+
+
             SetConnectionData(DB_Param);
             bool bxNewDatabase = false;
             while (true)
@@ -881,7 +892,7 @@ namespace DBConnectionControl40
                     MessageBox.Show("ERROR:DBConnection:CreateNewDataBaseConnection Object DB_Param not valid !");
                     return false;
                 }
-                dRes = do_ConnectionDialog(pParentForm, sConnectionToDBase, ref bxNewDatabase, xImageCancel, ref bCanceled);
+                dRes = do_ConnectionDialog(pParentForm, sConnectionToDBase, ref bxNewDatabase, xImageCancel, ref bCanceled, myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.OK_SAVE:
@@ -947,10 +958,19 @@ namespace DBConnectionControl40
         public bool SetNewConnection(Form pParentForm, object xDB_Param,Image xImageCancel, ref bool bCanceled)
         {
             bool bxNewDatabase = false;
+            string myConnectionName = null;
+            if (xDB_Param is RemoteDB_data)
+            {
+                myConnectionName = ((RemoteDB_data)xDB_Param).ConnectionName;
+            }
+            else if (xDB_Param is LocalDB_data)
+            {
+                myConnectionName = ((LocalDB_data)xDB_Param).ConnectionName;
+            }
             while (true)
             {
                 DBConnection.ConnectResult_ENUM dRes;
-                dRes = do_ConnectionDialog(pParentForm, this.ConnectionName, ref bxNewDatabase,xImageCancel, ref bCanceled);
+                dRes = do_ConnectionDialog(pParentForm, this.ConnectionName, ref bxNewDatabase,xImageCancel, ref bCanceled,myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.OK_SAVE:
@@ -1247,7 +1267,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public ConnectResult_ENUM do_ConnectionDialog(Form m_ParentForm, string sTitle, ref bool bNewDatabase, Image xImageCancel, ref bool bCanceled)
+        public ConnectResult_ENUM do_ConnectionDialog(Form m_ParentForm, string sTitle, ref bool bNewDatabase, Image xImageCancel, ref bool bCanceled, string myConnectionName)
         {
                 DialogResult dRes;
                 bNewDatabase = false;
@@ -1276,7 +1296,8 @@ namespace DBConnectionControl40
                         break;
 
                     case eDBType.SQLITE:
-                        SQLiteConnectionDialog = new SQLiteConnectionDialog(m_ParentForm,  m_conData_SQLITE,this.RecentItemsFolder, this.BackupFolder, xImageCancel);
+
+                        SQLiteConnectionDialog = new SQLiteConnectionDialog(m_ParentForm,  m_conData_SQLITE,this.RecentItemsFolder, this.BackupFolder, xImageCancel, myConnectionName);
                         break;
 
 

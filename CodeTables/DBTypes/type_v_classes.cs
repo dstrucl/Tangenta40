@@ -97,51 +97,112 @@ namespace DBTypes
     }
 
 
+    public class ushort_v
+    {
+        protected ushort v_;
+
+
+        public ushort v
+        {
+            get
+            {
+                return v_;
+            }
+        }
+
+        public ushort_v()
+        {
+        }
+
+        public ushort_v(short smallint)
+        {
+            v_ = (ushort)smallint;
+        }
+
+        public ushort_v(ushort smallint)
+        {
+            v_ = smallint;
+        }
+
+
+        public static ushort_v Copy(short_v o_v)
+        {
+            ushort_v x_ushort_v = null;
+            if (o_v != null)
+            {
+                x_ushort_v = new ushort_v(o_v.v);
+                return x_ushort_v;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public ushort_v Clone()
+        {
+            ushort_v o_v = new ushort_v();
+            o_v.v_ = this.v_;
+            return o_v;
+        }
+    }
+
+    public class dushort_v:ushort_v
+    {
+        public dushort_v()
+        {
+        }
+
+        public dushort_v(short smallint) : base(smallint)
+        {
+        }
+
+        public dushort_v(ushort usmallint):base(usmallint)
+        {
+        
+        }
+
+        public static dushort_v Copy(dushort_v o_v)
+        {
+
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public dushort_v Clone()
+        {
+            dushort_v o_v = new dushort_v();
+            
+            o_v.v_ = this.v_;
+            return o_v;
+        }
+    }
+
+
     public class short_v
     {
-        protected bool bUnsigned = false;
         protected short v_;
-        protected ushort uv_;
 
-        public bool Unsigned
-        {
-            get { return bUnsigned; }
-        }
 
 
         public short v
         {
             get
             {
-                if (bUnsigned)
-                {
-                    tf.ShowSignedTypeError("ERROR:DBTypes:func:v.get" + this.GetType().ToString() + " value is unsigned!");
-                }
                 return v_;
             }
             set
             {
-                bUnsigned = false;
                 v_ = value;
             }
         }
 
-        public ushort uv
-        {
-            get
-            {
-                if (!bUnsigned)
-                {
-                    tf.ShowSignedTypeError("ERROR:DBTypes:func:" + this.GetType().ToString() + " value is signed!");
-                }
-                return uv_;
-            }
-            set
-            {
-                bUnsigned = true;
-                uv_ = value;
-            }
-        }
 
         public short_v()
         {
@@ -149,14 +210,12 @@ namespace DBTypes
 
         public short_v(short smallint)
         {
-            bUnsigned = false;
             v_ = smallint;
         }
 
         public short_v(ushort usmallint)
         {
-            bUnsigned = true;
-            uv_ = usmallint;
+            v_ = (short)usmallint;
         }
 
         public static short_v Copy(short_v o_v)
@@ -174,14 +233,12 @@ namespace DBTypes
         public short_v Clone()
         {
             short_v o_v = new short_v();
-            o_v.bUnsigned = this.bUnsigned;
             o_v.v = this.v_;
-            o_v.uv = this.uv_;
             return o_v;
         }
     }
 
-    public class dshort_v:short_v
+    public class dshort_v : short_v
     {
         public dshort_v()
         {
@@ -191,9 +248,9 @@ namespace DBTypes
         {
         }
 
-        public dshort_v(ushort usmallint):base(usmallint)
+        public dshort_v(ushort usmallint) : base(usmallint)
         {
-        
+
         }
 
         public static dshort_v Copy(dshort_v o_v)
@@ -212,13 +269,12 @@ namespace DBTypes
         public dshort_v Clone()
         {
             dshort_v o_v = new dshort_v();
-            
-            o_v.bUnsigned = this.bUnsigned;
+
             o_v.v = this.v_;
-            o_v.uv = this.uv_;
             return o_v;
         }
     }
+
 
 
     public class int_v

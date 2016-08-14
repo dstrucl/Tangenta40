@@ -35,10 +35,21 @@ namespace TangentaDB
             string Image_Hash_cond = "Image_Hash is null";
             if (Logo_Hash != null)
             {
-                Image_Hash_Value = "@par_Image_Hash";
-                Image_Hash_cond = "Image_Hash = " + Image_Hash_Value;
-                SQL_Parameter par_Image_Hash = new SQL_Parameter(Image_Hash_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Logo_Hash);
-                lpar.Add(par_Image_Hash);
+                if (Logo_Hash.v != null)
+                {
+                    Image_Hash_Value = "@par_Image_Hash";
+                    Image_Hash_cond = "Image_Hash = " + Image_Hash_Value;
+                    SQL_Parameter par_Image_Hash = new SQL_Parameter(Image_Hash_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Logo_Hash);
+                    lpar.Add(par_Image_Hash);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
             string Image_Data_Value = "null";
             if (Logo != null)
@@ -47,6 +58,10 @@ namespace TangentaDB
 
                 SQL_Parameter par_Image_Data = new SQL_Parameter(Image_Data_Value, SQL_Parameter.eSQL_Parameter.Varbinary, false, Logo.v);
                 lpar.Add(par_Image_Data);
+            }
+            else
+            {
+                return false;
             }
             string Description_Value = "null";
             string Description_cond = "Description is null";

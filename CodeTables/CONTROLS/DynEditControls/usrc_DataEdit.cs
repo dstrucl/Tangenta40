@@ -26,6 +26,20 @@ namespace DynEditControls
             this.Resize += Usrc_DataEdit_Resize;
         }
 
+        private Color m_ColorChanged = Color.DarkRed;
+        public Color ColorChanged
+        {
+            get { return m_ColorChanged; }
+            set { m_ColorChanged = value; }
+        }
+
+        private Color m_ColorNotChanged = Color.DarkBlue;
+        public Color ColorNotChanged
+        {
+            get { return m_ColorNotChanged; }
+            set { m_ColorNotChanged = value; }
+        }
+
         private int m_MinEditBoxWidth = 36;
         public int MinEditBoxWidth
         {
@@ -40,6 +54,8 @@ namespace DynEditControls
         }
 
         private int m_TopMargin = 30;
+
+
         public int TopMargin
         {
             get { return m_TopMargin; }
@@ -92,6 +108,8 @@ namespace DynEditControls
             newGroupBox.Name = "grp_" + Name;
             lt_Label.Text(newGroupBox);
             newGroupBox.ParentControl = this;
+            newGroupBox.ColorChanged = this.ColorChanged;
+            newGroupBox.ColorNotChanged = this.ColorNotChanged;
             newGroupBox.MinEditBoxWidth = this.m_MinEditBoxWidth;
             newGroupBox.RightMargin = this.RightMargin;
             newGroupBox.TopMargin = this.TopMargin;
@@ -133,9 +151,46 @@ namespace DynEditControls
             }
         }
 
+
         private void Usrc_DataEdit_Resize(object sender, EventArgs e)
         {
             DoResize();
         }
+
+        public bool Check(DynGroupBox.delegate_EnumControlCallback_Check EnumControlCallback_check)
+        {
+
+            int i = 0;
+            bool bRes = true;
+            int iCount = Controls.Count;
+            for (i = 0; i < iCount; i++)
+            {
+                object octrl = Controls[i];
+                if (octrl is DynGroupBox)
+                {
+                    if (!((DynGroupBox)octrl).EnumEditControl_Check(EnumControlCallback_check))
+                    {
+                        bRes = false;
+                    }
+                }
+            }
+            return bRes;
+        }
+
+        public void Fill(DynGroupBox.delegate_EnumControlCallback_Fill EnumControlCallback_Fill)
+        {
+
+            int i = 0;
+            int iCount = Controls.Count;
+            for (i = 0; i < iCount; i++)
+            {
+                object octrl = Controls[i];
+                if (octrl is DynGroupBox)
+                {
+                    ((DynGroupBox)octrl).EnumEditControl_Fill(EnumControlCallback_Fill);
+                }
+            }
+        }
+
     }
 }
