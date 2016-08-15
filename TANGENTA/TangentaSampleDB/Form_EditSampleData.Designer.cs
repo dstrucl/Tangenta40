@@ -63,6 +63,8 @@ namespace TangentaSampleDB
             | System.Windows.Forms.AnchorStyles.Right)));
             this.m_usrc_SampleDataEdit.AutoScroll = true;
             this.m_usrc_SampleDataEdit.BackColor = System.Drawing.Color.Gainsboro;
+            this.m_usrc_SampleDataEdit.ColorChanged = System.Drawing.Color.DarkRed;
+            this.m_usrc_SampleDataEdit.ColorNotChanged = System.Drawing.Color.DarkBlue;
             this.m_usrc_SampleDataEdit.HorisontalDistance = 5;
             this.m_usrc_SampleDataEdit.HorisontallOffsetToLabel = 4;
             this.m_usrc_SampleDataEdit.lblVerticalOffset = 4;
@@ -88,6 +90,7 @@ namespace TangentaSampleDB
             this.Controls.Add(this.m_usrc_SampleDataEdit);
             this.Name = "Form_EditSampleData";
             this.Text = "Form_EditSampleData";
+            this.Load += new System.EventHandler(this.Form_EditSampleData_Load);
             this.ResumeLayout(false);
 
         }

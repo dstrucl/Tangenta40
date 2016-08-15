@@ -473,7 +473,7 @@ namespace XMessage
                     DialogResult = DialogResult.OK;
                     break;
                 case MessageBoxButtons.OKCancel:
-                    DialogResult = DialogResult.OK;
+                    DialogResult = DialogResult.Cancel;
                     break;
                 case MessageBoxButtons.RetryCancel:
                     DialogResult = DialogResult.Cancel;

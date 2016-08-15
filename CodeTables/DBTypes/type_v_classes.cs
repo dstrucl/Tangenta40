@@ -69,11 +69,13 @@ namespace DBTypes
 
         public dbool_v()
         {
+            m_defined = false;
         }
 
         public dbool_v(bool b)
         {
             v = b;
+            m_defined = true; 
         }
 
         public static dbool_v Copy(dbool_v o_v)
@@ -92,6 +94,7 @@ namespace DBTypes
         {
             dbool_v o_v = new dbool_v();
             o_v.v = this.v;
+            o_v.defined = this.m_defined;
             return o_v;
         }
     }
@@ -149,17 +152,26 @@ namespace DBTypes
 
     public class dushort_v:ushort_v
     {
+        private bool m_defined = false;
+        public bool defined
+        {
+            get { return m_defined; }
+            set { m_defined = value; }
+        }
+
         public dushort_v()
         {
+            m_defined = false;
         }
 
         public dushort_v(short smallint) : base(smallint)
         {
+            m_defined = true;
         }
 
         public dushort_v(ushort usmallint):base(usmallint)
         {
-        
+            m_defined = true;
         }
 
         public static dushort_v Copy(dushort_v o_v)
@@ -180,6 +192,7 @@ namespace DBTypes
             dushort_v o_v = new dushort_v();
             
             o_v.v_ = this.v_;
+            o_v.defined = this.m_defined;
             return o_v;
         }
     }
@@ -240,17 +253,26 @@ namespace DBTypes
 
     public class dshort_v : short_v
     {
+        private bool m_defined = false;
+        public bool defined
+        {
+            get { return m_defined; }
+            set { m_defined = value; }
+        }
+
         public dshort_v()
         {
+            m_defined = false;
         }
 
         public dshort_v(short smallint) : base(smallint)
         {
+            m_defined = true;
         }
 
         public dshort_v(ushort usmallint) : base(usmallint)
         {
-
+            m_defined = true;
         }
 
         public static dshort_v Copy(dshort_v o_v)
@@ -271,6 +293,7 @@ namespace DBTypes
             dshort_v o_v = new dshort_v();
 
             o_v.v = this.v_;
+            o_v.defined = this.defined;
             return o_v;
         }
     }
@@ -531,7 +554,7 @@ namespace DBTypes
         public bool defined
         {
             get { return m_defined; }
-            set { m_defined = false; }
+            set { m_defined = value; }
         }
 
         public dstring_v()
@@ -600,9 +623,53 @@ namespace DBTypes
             o_v.v = (byte[])this.v.Clone();
             return o_v;
         }
+    }
+
+    public class dbyte_array_v: byte_array_v
+    {
+        private bool m_defined = false;
+        public bool defined
+        {
+            get { return m_defined; }
+            set { m_defined = value; }
+        }
+
+        public dbyte_array_v()
+        {
+            m_defined = false;
+        }
+
+        public dbyte_array_v(byte[] barr)
+        {
+            v = barr;
+            m_defined = true;
+        }
+
+
+        public static dbyte_array_v Copy(dbyte_array_v o_v)
+        {
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public dbyte_array_v Clone()
+        {
+            dbyte_array_v o_v = new dbyte_array_v();
+
+            o_v.v = (byte[])this.v.Clone();
+            o_v.defined = this.m_defined;
+            return o_v;
+        }
 
 
     }
+
 
     public class DateTime_v
     {

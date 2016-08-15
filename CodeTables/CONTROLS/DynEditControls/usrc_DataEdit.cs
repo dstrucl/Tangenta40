@@ -13,6 +13,8 @@ namespace DynEditControls
 {
     public partial class usrc_DataEdit : UserControl
     {
+
+
         private int m_LeftMargin = 10;
         public int LeftMargin
         {
@@ -100,6 +102,9 @@ namespace DynEditControls
         public usrc_DataEdit()
         {
             InitializeComponent();
+
+            // Set up the ToolTip text for the Button and Checkbox.
+
         }
 
         public DynGroupBox AddGroupBox(string Name,ltext lt_Label)

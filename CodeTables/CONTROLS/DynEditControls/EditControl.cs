@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using SelectGender;
 using DBTypes;
 using System.Drawing;
+using System.IO;
 
 namespace DynEditControls
 {
@@ -17,6 +18,7 @@ namespace DynEditControls
         public Label lbl = null;
 
         public Control edit_control = null;
+        private string Image_Hash = null;
 
         private DynGroupBox m_grp_box = null;
 
@@ -155,9 +157,9 @@ namespace DynEditControls
             {
                 edit_control = new TextBox();
                 bool bltValDefined = false;
-                if (lt_val!=null)
+                if (lt_val != null)
                 {
-                    if (lt_val.s!=null)
+                    if (lt_val.s != null)
                     {
                         bltValDefined = true;
                     }
@@ -211,6 +213,19 @@ namespace DynEditControls
                 ((usrc_NumericUpDown)edit_control).Value = Convert.ToDecimal(((dshort_v)m_refobj).v);
                 ((dshort_v)m_refobj).v = Convert.ToInt16(((usrc_NumericUpDown)edit_control).Value);
             }
+            else if (m_refobj is dbyte_array_v)
+            {
+                edit_control = new usrc_GetImage();
+                if (m_refobj!=null)
+                {
+                    if (((dbyte_array_v)m_refobj).v != null)
+                    {
+                        ImageConverter ic = new ImageConverter();
+                        ((usrc_GetImage)edit_control).Image = (Image)ic.ConvertFrom(((dbyte_array_v)m_refobj).v);
+                        Image_Hash = ((usrc_GetImage)edit_control).Image_Hash;
+                    }
+                }
+            }
             else
             {
                 LogFile.Error.Show("ERROR:EditControl:unsuported type: m_refobj type =" + m_refobj.GetType().ToString());
@@ -257,6 +272,11 @@ namespace DynEditControls
             }
             m_grp_box.Controls.Add(lbl);
             m_grp_box.Controls.Add(edit_control);
+            if (m_grp_box.tooltip != null)
+            {
+                m_grp_box.tooltip.SetToolTip(edit_control, lt_help.s);
+                m_grp_box.tooltip.SetToolTip(lbl, lt_help.s);
+            }
         }
 
         public void DoReposition()
@@ -321,14 +341,25 @@ namespace DynEditControls
             {
                 ((dshort_v)m_refobj).v = Convert.ToInt16(((usrc_NumericUpDown)edit_control).Value);
             }
+            else if (m_refobj is dbyte_array_v)
+            {
+                ((dbyte_array_v)m_refobj).v = imageToByteArray(((usrc_GetImage)edit_control).Image, ((usrc_GetImage)edit_control).imgFormat);
+            }
             else
             {
                 LogFile.Error.Show("ERROR:EditControl:unsuported type: m_refobj type =" + m_refobj.GetType().ToString());
                 return;
             }
         }
+        public byte[] imageToByteArray(Image imageIn, System.Drawing.Imaging.ImageFormat imgformat)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, imgformat);
+            //SaveImageInFormat(imageIn, ms);
+            return ms.ToArray();
+        }
 
-        public bool DataChanged()
+        public bool DataNotChanged()
         {
             if (m_refobj is dstring_v)
             {
@@ -342,11 +373,11 @@ namespace DynEditControls
                     s.Replace(" ", "");
                     if (s.Length==0)
                     {
-                        return false;
+                        return true;
                     }
                     else
                     {
-                        return true;
+                        return false;
                     }
                 }
 
@@ -375,6 +406,31 @@ namespace DynEditControls
             else if (m_refobj is dshort_v)
             {
                 return ((dshort_v)m_refobj).v == Convert.ToInt16(((usrc_NumericUpDown)edit_control).Value);
+            }
+            else if (m_refobj is dbyte_array_v)
+            {
+                if (Image_Hash == null)
+                {
+                    if (((usrc_GetImage)edit_control).Image_Hash == null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (((usrc_GetImage)edit_control).Image_Hash != null)
+                    {
+                        return (((usrc_GetImage)edit_control).Image_Hash.Equals(Image_Hash));
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }
             else
             {

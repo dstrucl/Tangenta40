@@ -14,6 +14,7 @@ namespace TangentaSampleDB
 {
     public partial class Form_EditSampleData : Form
     {
+        ToolTip toolTip1 = null;
         private bool DataChanged = false;
         private bool AllDataChanged = false;
         private Icon oIcon = null;
@@ -36,6 +37,16 @@ namespace TangentaSampleDB
             {
                 this.Icon = oIcon;
             }
+            toolTip1 = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 1000;
+            toolTip1.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            toolTip1.ShowAlways = true;
+
+            // Set up the ToolTip text for the Button and Checkbox.
             smd.Init(this.m_usrc_SampleDataEdit);
         }
 
@@ -70,7 +81,7 @@ namespace TangentaSampleDB
 
         public bool EnumControlCallback_Check(DynEditControls.EditControl edt_control)
         {
-            if (edt_control.DataChanged())
+            if (edt_control.DataNotChanged())
             {
                 edt_control.MarkAsChanged();
                 DataChanged = true;
@@ -88,5 +99,8 @@ namespace TangentaSampleDB
             edt_control.Fill();
         }
 
-}
+        private void Form_EditSampleData_Load(object sender, EventArgs e)
+        {
+        }
+    }
 }

@@ -59,6 +59,10 @@ namespace LanguageControl
         public static ltext s_MyOrg_TRR_v = new ltext("0000-0000-000-000", "0000-0000-000-000");
         public static ltext sh_MyOrg_TRR = new ltext("Enter bank account", "Vpišite številko TRR računa vaše organizacije");
 
+        public static ltext sl_MyOrg_Logo = new ltext("Logo", "Logotip");
+        public static ltext s_MyOrg_Logo_v = null;
+        public static ltext sh_MyOrg_Logo = new ltext("Select Logo Image", "Izberite Logotip");
+
 
         public static ltext sl_MyOrg_Address_StreetName = new ltext("Street", "Cesta");
         public static ltext s_MyOrg_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");

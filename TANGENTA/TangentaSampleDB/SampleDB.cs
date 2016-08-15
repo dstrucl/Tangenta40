@@ -9,11 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using TangentaDB;
 using DynEditControls;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace TangentaSampleDB
 {
     public class SampleDB
     {
+        private SHA1CryptoServiceProvider my_SHA1CryptoServiceProvider = new SHA1CryptoServiceProvider();
+
         ID_v cAdressAtom_Org_iD_v = null;
 
         dstring_v MyOrg_Name_v = new dstring_v();
@@ -39,7 +43,7 @@ namespace TangentaSampleDB
 
 
         dstring_v MyOrg_Image_Hash_v = new dstring_v();
-        byte_array_v MyOrg_Image_Data_v = null;
+        dbyte_array_v MyOrg_Image_Data_v = new dbyte_array_v();
         dstring_v MyOrg_Image_Description_v = new dstring_v();
         long_v MyOrg_Organisation_ID_v = null;
         long_v MyOrg_OrganisationData_ID_v = null;
@@ -121,11 +125,19 @@ namespace TangentaSampleDB
             MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v = new dshort_v();
         }
 
+        public byte[] imageToByteArray(System.Drawing.Image imageIn, System.Drawing.Imaging.ImageFormat imgformat)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, imgformat);
+            //SaveImageInFormat(imageIn, ms);
+            return ms.ToArray();
+        }
+
         public void Init(usrc_DataEdit m_eds)
         {
 
-
-
+            Image img = Properties.Resources.Logo;
+            MyOrg_Image_Data_v.v = imageToByteArray(img, img.RawFormat);
 
             MyOrg_DynGroupBox = m_eds.AddGroupBox("grp_MyOrg", lngRPM.s_MyOrganisation);
 
@@ -152,6 +164,7 @@ namespace TangentaSampleDB
             MyOrg_Office_Person_DynGroupBox.Visible = true;
             MyOrg_Office_Person_Address_DynGroupBox.Visible = true;
 
+
             new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Name_v, "MyOrg_Name", lngRPMS.sl_MyOrg_Name, lngRPMS.s_MyOrg_Name_v, lngRPMS.sh_MyOrg_Name);
 
             new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Tax_ID_v, "MyOrg_Tax_ID", lngRPMS.sl_MyOrg_Tax_ID, lngRPMS.s_MyOrg_Tax_ID_v, lngRPMS.sh_MyOrg_Tax_ID);
@@ -173,6 +186,7 @@ namespace TangentaSampleDB
 
             new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_TRR_v, "MyOrg_TRR", lngRPMS.sl_MyOrg_TRR, lngRPMS.s_MyOrg_TRR_v, lngRPMS.sh_MyOrg_TRR);
 
+            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Image_Data_v, "MyOrg_Logo", lngRPMS.sl_MyOrg_Logo, lngRPMS.s_MyOrg_Logo_v, lngRPMS.sh_MyOrg_Logo);
 
             new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.StreetName_v, "MyOrg_Address_StreetName", lngRPMS.sl_MyOrg_Address_StreetName, lngRPMS.s_MyOrg_Address_StreetName_v, lngRPMS.sh_MyOrg_Address_StreetName);
             new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.HouseNumber_v, "MyOrg_Address_HouseNumber", lngRPMS.sl_MyOrg_Address_HouseNumber, lngRPMS.s_MyOrg_Address_HouseNumber_v, lngRPMS.sh_MyOrg_Address_HouseNumber);
@@ -294,8 +308,23 @@ namespace TangentaSampleDB
             return false;
         }
 
+        public string GetHash_SHA1(byte[] byteArray)
+        {
+            string hash = "";
+            hash = Convert.ToBase64String(my_SHA1CryptoServiceProvider.ComputeHash(byteArray));
+            return hash;
+        }
+
         public bool Write()
         {
+            if (MyOrg_Image_Data_v!=null)
+            {
+                if (MyOrg_Image_Data_v.v != null)
+                {
+                    MyOrg_Image_Hash_v.v = GetHash_SHA1(MyOrg_Image_Data_v.v);
+                }
+                
+            }
             if (f_Organisation.Get(MyOrg_Name_v,
                                     MyOrg_Tax_ID_v,
                                     MyOrg_Registration_ID_v,
