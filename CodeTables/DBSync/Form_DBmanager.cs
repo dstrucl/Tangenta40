@@ -33,6 +33,7 @@ namespace DBSync
         private bool m_bReset = false;
         private string m_sDataBaseVersion = null;
         private Image m_Image_Cancel = null;
+        private Form ChildForm = null;
 
         public Form_DBmanager(Form xparent_form,bool bxReset, string xm_XmlFileName, string xIniFileFolder, string xDataBaseType, string xBackupFolder, string sDataBaseVersion,Image xImage_Cancel)
         {
@@ -80,7 +81,7 @@ namespace DBSync
         {
             bNewDataBaseCreated = false;
             bool bCanceled = false;
-            DBSync.Init(m_parent_form, m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true, m_Image_Cancel, ref bNewDataBaseCreated, ref bCanceled);
+            DBSync.Init(m_parent_form,ref ChildForm, m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true, m_Image_Cancel, ref bNewDataBaseCreated, ref bCanceled);
             if (bCanceled)
             {
                 return;

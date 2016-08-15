@@ -22,6 +22,7 @@ namespace DBSync
     public partial class Form_GetDBType : Form
     {
         public DBConnection.eDBType m_DBType = DBConnection.eDBType.SQLITE;
+        public System.Windows.Forms.DialogResult dlgRes = DialogResult.None;
         public Form_GetDBType(string sdbtype, Image xImage_Cancel)
         {
             InitializeComponent();
@@ -59,12 +60,14 @@ namespace DBSync
             }
             this.Close();
             DialogResult = System.Windows.Forms.DialogResult.OK;
+            dlgRes = DialogResult;
         }
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
             this.Close();
             DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            dlgRes = DialogResult;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Tangenta
         public startup m_startup = null;
         internal string m_XmlFileName = null;
         public startup_step[] StartupStep = null;
-
+        public Form ChildForm = null;
 
         public Form_Document()
         {
@@ -108,7 +108,7 @@ namespace Tangenta
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             bool bCanceled = false;
-            bool bResult = DBSync.DBSync.Init(this, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection,Properties.Resources.Exit_Program,ref myStartup.bNewDatabaseCreated,ref bCanceled);
+            bool bResult = DBSync.DBSync.Init(this,ref ChildForm, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection,Properties.Resources.Exit_Program,ref myStartup.bNewDatabaseCreated,ref bCanceled);
             if (bCanceled)
             {
                 myStartup.eNextStep = startup_step.eStep.Cancel;
@@ -135,23 +135,10 @@ namespace Tangenta
         {
 
             m_XmlFileName = XML_ROOT_NAME;
-            string Err = null;
-
             //GetAllSplitContainerControlsRecusive<Control>(ref Program.ListOfAllSplitConatinerControls, this);
             //SetSplitContainerPositions(true, ref Program.ListOfAllSplitConatinerControls, Properties.Settings.Default.SplitContainerDistanceUserSettings);
 
             m_usrc_Main.Initialise(this);
-            if (m_startup.Execute(StartupStep, ref Err))
-            {
-                m_usrc_Main.Init();
-                m_startup.RemoveControl();
-                m_usrc_Main.Visible = true;
-            }
-            else
-            {
-                this.Close();
-                DialogResult = DialogResult.Abort;
-            }
         }
 
         public void GetAllSplitContainerControlsRecusive<T>(ref List<Control> retlist, Control control) where T : Control
@@ -448,6 +435,29 @@ namespace Tangenta
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void Form_Document_Shown(object sender, EventArgs e)
+        {
+            timer_Startup.Enabled = true;
+        }
+
+        private void timer_Startup_Tick(object sender, EventArgs e)
+        {
+            timer_Startup.Enabled = false;
+            string Err = null;
+            if (m_startup.Execute(StartupStep, ref Err))
+            {
+                m_usrc_Main.Init();
+                m_startup.RemoveControl();
+                m_usrc_Main.Visible = true;
+            }
+            else
+            {
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
+
         }
     }
 }

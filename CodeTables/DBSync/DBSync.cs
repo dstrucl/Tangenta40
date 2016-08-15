@@ -46,6 +46,7 @@ namespace DBSync
 
 
         public static bool Init(Form parentform,
+                                ref Form ChildForm,
                                 bool bReset, 
                                 string m_XmlFileName, 
                                 string IniFileFolder, 
@@ -62,7 +63,7 @@ namespace DBSync
                 DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentform, m_XmlFileName, IniFileFolder);
             }
             DBConnection.eDBType org_m_DBType = m_DBType; 
-            m_DBType = Get_DBType(ref DataBaseType, xImage_Cancel,  bShowDialog, ref bCanceled);
+            m_DBType = Get_DBType(parentform,ref ChildForm, ref DataBaseType, xImage_Cancel,  bShowDialog, ref bCanceled);
             if (bCanceled)
             {
                 return false;
@@ -124,7 +125,7 @@ namespace DBSync
 
 
 
-        private static DBConnection.eDBType Get_DBType(ref string DataBaseType, Image xImage_Cancel, bool bShowDialog, ref bool bCanceled)
+        private static DBConnection.eDBType Get_DBType(Form parentForm,ref Form GetDBType_dlg, ref string DataBaseType, Image xImage_Cancel, bool bShowDialog, ref bool bCanceled)
         {
             if (!bShowDialog)
             {
@@ -145,10 +146,26 @@ namespace DBSync
             {
                 DataBaseType = "SQLITE";
             }
-            Form_GetDBType GetDBType_dlg = new Form_GetDBType(DataBaseType, xImage_Cancel);
-            if (GetDBType_dlg.ShowDialog() == DialogResult.OK)
+
+            GetDBType_dlg = new Form_GetDBType(DataBaseType, xImage_Cancel);
+            if (parentForm != null)
             {
-                switch (GetDBType_dlg.m_DBType)
+                GetDBType_dlg.StartPosition = FormStartPosition.CenterScreen;
+                GetDBType_dlg.TopMost = true;
+                GetDBType_dlg.Visible = true;
+                GetDBType_dlg.Show();
+                while (((Form_GetDBType)GetDBType_dlg).dlgRes==DialogResult.None)
+                {
+                    Application.DoEvents();
+                }
+            }
+            else
+            {
+                GetDBType_dlg.ShowDialog();
+            }
+            if (((Form_GetDBType)GetDBType_dlg).dlgRes == DialogResult.OK)
+            {
+                switch (((Form_GetDBType)GetDBType_dlg).m_DBType)
                 {
                     case DBConnection.eDBType.SQLITE:
                         DataBaseType = "SQLITE";
@@ -160,7 +177,7 @@ namespace DBSync
                         DataBaseType = "MYSQL";
                         break;
                 }
-                return GetDBType_dlg.m_DBType;
+                return ((Form_GetDBType)GetDBType_dlg).m_DBType;
             }
             else
             {
