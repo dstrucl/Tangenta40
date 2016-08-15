@@ -306,12 +306,6 @@
     <Compile Include="usrc_myGroupBox.Designer.cs">
       <DependentUpon>usrc_myGroupBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_NumericUpDown.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_NumericUpDown.Designer.cs">
-      <DependentUpon>usrc_NumericUpDown.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_RadioButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -356,6 +350,10 @@
     <ProjectReference Include="..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3A0F6691-D8D0-4005-902A-215DA5F671B4}</Project>
       <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CONTROLS\DynEditControls\DynEditControls.csproj">
+      <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
+      <Name>DynEditControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322AF3BF-B609-477D-9D2B-39A9BBBBC721}</Project>
@@ -490,9 +488,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_myGroupBox.resx">
       <DependentUpon>usrc_myGroupBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_NumericUpDown.resx">
-      <DependentUpon>usrc_NumericUpDown.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_RowReferencedFromTable.resx">
       <DependentUpon>usrc_RowReferencedFromTable.cs</DependentUpon>

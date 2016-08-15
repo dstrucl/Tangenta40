@@ -17,6 +17,7 @@ using DBTypes;
 using System.IO;
 using StaticLib;
 using DBConnectionControl40;
+using DynEditControls;
 
 namespace CodeTables
 {

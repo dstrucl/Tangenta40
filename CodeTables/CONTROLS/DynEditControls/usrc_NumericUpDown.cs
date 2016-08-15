@@ -15,7 +15,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Globalization;
 
-namespace CodeTables
+namespace DynEditControls
 {
     public partial class usrc_NumericUpDown : UserControl
     {
@@ -83,8 +83,23 @@ namespace CodeTables
             get { return m_ReadOnly; }
 
             set { m_ReadOnly = value;
-                    this.txt_Value.ReadOnly = m_ReadOnly;
+                  this.txt_Value.ReadOnly = m_ReadOnly;
+                  this.btn_Minus.Enabled = !m_ReadOnly;
+                  this.btn_Plus.Enabled = !m_ReadOnly;
+
+                if (m_ReadOnly)
+                {
+                    txt_Value.Cursor = Cursors.No;
+                    btn_Minus.Cursor = Cursors.No;
+                    btn_Plus.Cursor = Cursors.No;
                 }
+                else
+                {
+                    txt_Value.Cursor = Cursors.Arrow;
+                    btn_Minus.Cursor = Cursors.Arrow;
+                    btn_Plus.Cursor = Cursors.Arrow;
+                }
+            }
         }
 
         private void SetValue(decimal val)
@@ -210,35 +225,41 @@ namespace CodeTables
 
         private void btn_Plus_Click(object sender, EventArgs e)
         {
-            decimal v = GetValue();
-            v += m_Increment;
-            if (v > m_MaxValue)
+            if (!m_ReadOnly)
             {
-                v = m_MaxValue;
-                SetValue(v);
-            }
-            else
-            {
-                SetValue(v);
+                decimal v = GetValue();
+                v += m_Increment;
+                if (v > m_MaxValue)
+                {
+                    v = m_MaxValue;
+                    SetValue(v);
+                }
+                else
+                {
+                    SetValue(v);
+                }
             }
         }
 
         private void btn_Minus_Click(object sender, EventArgs e)
         {
-            decimal v = GetValue();
-            v -= m_Increment;
-            if (v < m_MinValue)
+            if (!m_ReadOnly)
             {
-                v = m_MinValue;
-                SetValue(v);
-            }
-            else
-            {
-                SetValue(v);
+                decimal v = GetValue();
+                v -= m_Increment;
+                if (v < m_MinValue)
+                {
+                    v = m_MinValue;
+                    SetValue(v);
+                }
+                else
+                {
+                    SetValue(v);
+                }
             }
         }
 
-        internal void SetIncrement(int decimal_places)
+        public void SetIncrement(int decimal_places)
         {
             m_Increment = Convert.ToDecimal(Math.Pow(10, -decimal_places));
         }

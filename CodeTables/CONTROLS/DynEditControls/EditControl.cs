@@ -117,9 +117,17 @@ namespace DynEditControls
                     {
                         ((TextBox)edit_control).ReadOnly = m_ReadOnly;
                     }
-                    else if (edit_control is NumericUpDown)
+                    else if (edit_control is usrc_NumericUpDown)
                     {
-                        ((NumericUpDown)edit_control).ReadOnly = m_ReadOnly;
+                        ((usrc_NumericUpDown)edit_control).ReadOnly = m_ReadOnly;
+                    }
+                    if (m_ReadOnly)
+                    {
+                        edit_control.Cursor = Cursors.No;
+                    }
+                    else
+                    {
+                        edit_control.Cursor = Cursors.Arrow;
                     }
                 }
             }
@@ -197,11 +205,11 @@ namespace DynEditControls
             }
             else if (m_refobj is dshort_v)
             {
-                edit_control = new NumericUpDown();
-                ((NumericUpDown)edit_control).Minimum = 0;
-                ((NumericUpDown)edit_control).Maximum = 100000;
-                ((NumericUpDown)edit_control).Value = Convert.ToDecimal(((dshort_v)m_refobj).v);
-                ((dshort_v)m_refobj).v = Convert.ToInt16(((NumericUpDown)edit_control).Value);
+                edit_control = new usrc_NumericUpDown(false);
+                ((usrc_NumericUpDown)edit_control).Minimum = 0;
+                ((usrc_NumericUpDown)edit_control).Maximum = 100000;
+                ((usrc_NumericUpDown)edit_control).Value = Convert.ToDecimal(((dshort_v)m_refobj).v);
+                ((dshort_v)m_refobj).v = Convert.ToInt16(((usrc_NumericUpDown)edit_control).Value);
             }
             else
             {
@@ -311,7 +319,7 @@ namespace DynEditControls
             }
             else if (m_refobj is dshort_v)
             {
-                ((dshort_v)m_refobj).v = Convert.ToInt16(((NumericUpDown)edit_control).Value);
+                ((dshort_v)m_refobj).v = Convert.ToInt16(((usrc_NumericUpDown)edit_control).Value);
             }
             else
             {
@@ -366,7 +374,7 @@ namespace DynEditControls
             }
             else if (m_refobj is dshort_v)
             {
-                return ((dshort_v)m_refobj).v == Convert.ToInt16(((NumericUpDown)edit_control).Value);
+                return ((dshort_v)m_refobj).v == Convert.ToInt16(((usrc_NumericUpDown)edit_control).Value);
             }
             else
             {

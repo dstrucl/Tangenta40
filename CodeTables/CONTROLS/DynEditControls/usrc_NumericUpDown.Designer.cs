@@ -1,4 +1,4 @@
-﻿namespace CodeTables
+﻿namespace DynEditControls
 {
     partial class usrc_NumericUpDown
     {
@@ -35,6 +35,8 @@
             // 
             // txt_Value
             // 
+            this.txt_Value.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txt_Value.Location = new System.Drawing.Point(4, 7);
             this.txt_Value.Name = "txt_Value";
@@ -43,7 +45,8 @@
             // 
             // btn_Plus
             // 
-            this.btn_Plus.Image = global::CodeTables.Properties.Resources.Up;
+            this.btn_Plus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Plus.Image = global::DynEditControls.Properties.Resources.Up;
             this.btn_Plus.Location = new System.Drawing.Point(162, 0);
             this.btn_Plus.Name = "btn_Plus";
             this.btn_Plus.Size = new System.Drawing.Size(30, 19);
@@ -53,7 +56,8 @@
             // 
             // btn_Minus
             // 
-            this.btn_Minus.Image = global::CodeTables.Properties.Resources.Down;
+            this.btn_Minus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Minus.Image = global::DynEditControls.Properties.Resources.Down;
             this.btn_Minus.Location = new System.Drawing.Point(162, 17);
             this.btn_Minus.Name = "btn_Minus";
             this.btn_Minus.Size = new System.Drawing.Size(30, 19);
