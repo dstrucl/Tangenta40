@@ -16,6 +16,7 @@ namespace Startup
     public class startup
         {
 
+        startup_step.eResult eResult = startup_step.eResult.NEXT;
         startup_step.eStep eStep = startup_step.eStep.NoStep;
 
         public startup_step.eStep eNextStep = startup_step.eStep.NoStep;

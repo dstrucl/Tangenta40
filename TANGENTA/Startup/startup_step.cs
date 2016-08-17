@@ -10,6 +10,8 @@ namespace Startup
 {
     public class startup_step
     {
+        public enum eResult { NEXT, BACK, EXIT, ERROR};
+
         public enum eStep : int { Check_DataBase,
                                   Read_DBSettings_Version,
                                   CheckDBVersion,
