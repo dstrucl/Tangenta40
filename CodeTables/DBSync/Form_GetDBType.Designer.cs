@@ -32,8 +32,7 @@
             this.lbl_SelectDataBase = new System.Windows.Forms.Label();
             this.rdb_SQLite = new System.Windows.Forms.RadioButton();
             this.rdb_MSSQL = new System.Windows.Forms.RadioButton();
-            this.btn_OK = new System.Windows.Forms.Button();
-            this.btn_Exit = new System.Windows.Forms.Button();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.SuspendLayout();
             // 
             // lbl_SelectDataBase
@@ -67,33 +66,35 @@
             this.rdb_MSSQL.Text = "MSSQL";
             this.rdb_MSSQL.UseVisualStyleBackColor = true;
             // 
-            // btn_OK
+            // usrc_NavigationButtons1
             // 
-            this.btn_OK.Location = new System.Drawing.Point(69, 79);
-            this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(90, 32);
-            this.btn_OK.TabIndex = 3;
-            this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
-            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
-            // 
-            // btn_Exit
-            // 
-            this.btn_Exit.Image = global::DB.Properties.Resources.Exit;
-            this.btn_Exit.Location = new System.Drawing.Point(143, 142);
-            this.btn_Exit.Name = "btn_Exit";
-            this.btn_Exit.Size = new System.Drawing.Size(90, 32);
-            this.btn_Exit.TabIndex = 4;
-            this.btn_Exit.UseVisualStyleBackColor = true;
-            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.NavigationButtons.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = null;
+            this.usrc_NavigationButtons1.Image_OK = null;
+            this.usrc_NavigationButtons1.Image_PREV = null;
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(12, 129);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(335, 27);
+            this.usrc_NavigationButtons1.TabIndex = 3;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "Next";
+            this.usrc_NavigationButtons1.Text_OK = "Prev";
+            this.usrc_NavigationButtons1.Text_PREV = "Prev";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
             // Form_GetDBType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(249, 182);
-            this.Controls.Add(this.btn_Exit);
-            this.Controls.Add(this.btn_OK);
+            this.ClientSize = new System.Drawing.Size(355, 182);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.rdb_MSSQL);
             this.Controls.Add(this.rdb_SQLite);
             this.Controls.Add(this.lbl_SelectDataBase);
@@ -112,7 +113,6 @@
         private System.Windows.Forms.Label lbl_SelectDataBase;
         private System.Windows.Forms.RadioButton rdb_SQLite;
         private System.Windows.Forms.RadioButton rdb_MSSQL;
-        private System.Windows.Forms.Button btn_OK;
-        private System.Windows.Forms.Button btn_Exit;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

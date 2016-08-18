@@ -20,12 +20,14 @@ namespace DBConnectionControl40
     public partial class Connection_Control : UserControl
     {
         private DBConnection m_con;
-        private Image m_button_ImageCancel = null;
-        public Connection_Control(DBConnection con, Image xImageCancel)
+
+        NavigationButtons.NavigationButtons nav_buttons = null;
+
+        public Connection_Control(DBConnection con, NavigationButtons.NavigationButtons xnav_buttons)
         {
             InitializeComponent();
             m_con = con;
-            m_button_ImageCancel = xImageCancel;
+            nav_buttons = xnav_buttons;
             this.lbl_DataSourceAndDatabase.AutoSize = true;
             switch (m_con.DBType)
             {
@@ -51,7 +53,7 @@ namespace DBConnectionControl40
             string Err = null;
             //  bool bNewDB = false;
             bool bCanceled = false;
-            if (m_con.SetNewConnection((Form)this.Parent, m_con.DB_Param, m_button_ImageCancel,ref bCanceled))
+            if (m_con.SetNewConnection((Form)this.Parent, m_con.DB_Param, nav_buttons, ref bCanceled))
             {
                 if (m_con.DB_Param.GetType() == typeof(LocalDB_data))
                 {

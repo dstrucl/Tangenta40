@@ -1260,11 +1260,11 @@ namespace CodeTables
             return m_con.CheckConnection(DB_Param);
         }
 
-        public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param, bool bNoDataBaseCheck,Image xImageCancel, ref bool bCanceled)
+        public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.NavigationButtons xnav_buttons, ref bool bCanceled)
         {
             while (true)
             {
-                if (m_con.CreateNewDataBaseConnection(pParentForm, DB_Param, xImageCancel, ref bCanceled))
+                if (m_con.CreateNewDataBaseConnection(pParentForm, DB_Param, xnav_buttons, ref bCanceled))
                 {
                     if (m_con.DBType == DBConnection.eDBType.SQLITE)
                     {
@@ -1353,11 +1353,11 @@ namespace CodeTables
             }
         }
         
-        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated,Image xImageCancel, ref bool bCanceled)
+        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated,NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled)
         {
             while (true)
             {
-                if (m_con.MakeDataBaseConnection(pParentForm, DB_Param, xImageCancel, ref bCanceled))
+                if (m_con.MakeDataBaseConnection(pParentForm, DB_Param, nav_buttons, ref bCanceled))
                 {
                     if (m_con.DBType == DBConnection.eDBType.SQLITE)
                     {

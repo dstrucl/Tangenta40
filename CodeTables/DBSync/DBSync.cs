@@ -53,7 +53,7 @@ namespace DBSync
                                 ref string DataBaseType,
                                 bool bShowDialog,
                                 bool bChangeConnection,
-                                Image xImage_Cancel,
+                                NavigationButtons.NavigationButtons nav_buttons,
                                 ref bool bNewDatabaseCreated,
                                 ref bool bCanceled)
         {
@@ -63,7 +63,7 @@ namespace DBSync
                 DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(parentform, m_XmlFileName, IniFileFolder);
             }
             DBConnection.eDBType org_m_DBType = m_DBType; 
-            m_DBType = Get_DBType(parentform,ref ChildForm, ref DataBaseType, xImage_Cancel,  bShowDialog, ref bCanceled);
+            m_DBType = Get_DBType(parentform,ref ChildForm, ref DataBaseType, nav_buttons,  bShowDialog, ref bCanceled);
             if (bCanceled)
             {
                 return false;
@@ -74,7 +74,7 @@ namespace DBSync
             {
                 my_StartupWindowThread.Message(lngRPM.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
 
-                if (m_SQLite_Support.Get(parentform, bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated, xImage_Cancel, ref bCanceled))
+                if (m_SQLite_Support.Get(parentform, bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated, nav_buttons, ref bCanceled))
                 {
                     my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
@@ -91,7 +91,7 @@ namespace DBSync
             else
             {
                 my_StartupWindowThread.Message(lngRPM.s_DataBaseFile.s);
-                if (Get(parentform,bReset, ref Err, ref IniFileFolder, "TangentaDB",ref bNewDatabaseCreated, xImage_Cancel, ref bCanceled))
+                if (Get(parentform,bReset, ref Err, ref IniFileFolder, "TangentaDB",ref bNewDatabaseCreated, nav_buttons, ref bCanceled))
                 {
                     my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
@@ -112,10 +112,10 @@ namespace DBSync
         }
 
 
-        public static Form_DBmanager.eResult DBMan(Form parentform,bool bReset, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,ref string xBackupFolder,Image xImage_Cancel)
+        public static Form_DBmanager.eResult DBMan(Form parentform,bool bReset, string m_XmlFileName, string IniFileFolder, ref string DataBaseType,ref string xBackupFolder, NavigationButtons.NavigationButtons xnav_buttons)
         {
             m_BackupFolder = xBackupFolder;
-            Form_DBmanager dbman_dlg = new Form_DBmanager(parentform, bReset, m_XmlFileName, IniFileFolder, DataBaseType,m_BackupFolder, DB_for_Tangenta.Settings.Version.TextValue, xImage_Cancel);
+            Form_DBmanager dbman_dlg = new Form_DBmanager(parentform, bReset, m_XmlFileName, IniFileFolder, DataBaseType,m_BackupFolder, DB_for_Tangenta.Settings.Version.TextValue, xnav_buttons);
             dbman_dlg.ShowDialog();
             m_BackupFolder = dbman_dlg.m_BackupFolder;
             xBackupFolder = m_BackupFolder;
@@ -125,7 +125,7 @@ namespace DBSync
 
 
 
-        private static DBConnection.eDBType Get_DBType(Form parentForm,ref Form GetDBType_dlg, ref string DataBaseType, Image xImage_Cancel, bool bShowDialog, ref bool bCanceled)
+        private static DBConnection.eDBType Get_DBType(Form parentForm,ref Form GetDBType_dlg, ref string DataBaseType, NavigationButtons.NavigationButtons nav_buttons, bool bShowDialog, ref bool bCanceled)
         {
             if (!bShowDialog)
             {
@@ -147,14 +147,14 @@ namespace DBSync
                 DataBaseType = "SQLITE";
             }
 
-            GetDBType_dlg = new Form_GetDBType(DataBaseType, xImage_Cancel);
+            GetDBType_dlg = new Form_GetDBType(DataBaseType, nav_buttons);
             if (parentForm != null)
             {
                 GetDBType_dlg.StartPosition = FormStartPosition.CenterScreen;
                 GetDBType_dlg.TopMost = true;
                 GetDBType_dlg.Visible = true;
                 GetDBType_dlg.Show();
-                while (((Form_GetDBType)GetDBType_dlg).dlgRes==DialogResult.None)
+                while (((Form_GetDBType)GetDBType_dlg).eExitType== NavigationButtons.NavigationButtons.eEvent.NOTHING)
                 {
                     Application.DoEvents();
                 }
@@ -163,7 +163,7 @@ namespace DBSync
             {
                 GetDBType_dlg.ShowDialog();
             }
-            if (((Form_GetDBType)GetDBType_dlg).dlgRes == DialogResult.OK)
+            if ((((Form_GetDBType)GetDBType_dlg).eExitType == NavigationButtons.NavigationButtons.eEvent.NEXT)|| (((Form_GetDBType)GetDBType_dlg).eExitType == NavigationButtons.NavigationButtons.eEvent.OK))
             {
                 switch (((Form_GetDBType)GetDBType_dlg).m_DBType)
                 {
@@ -273,7 +273,7 @@ namespace DBSync
             return true;
         }
 
-        public static bool Get(Form parent,bool bReset, ref string Err, ref string inifile_prefix, string default_DataBase_name, ref bool bNewDataBaseCreated,Image xImageCancel, ref bool bCanceled)
+        public static bool Get(Form parent,bool bReset, ref string Err, ref string inifile_prefix, string default_DataBase_name, ref bool bNewDataBaseCreated,NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled)
         {
             if (DBSync.RemoteDB_data == null)
             {
@@ -281,7 +281,7 @@ namespace DBSync
             }
 
 
-            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, xImageCancel, ref bCanceled))
+            if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(parent, DBSync.RemoteDB_data, ref bNewDataBaseCreated, nav_buttons, ref bCanceled))
             {
                 if (!DBSync.RemoteDB_data.Save(inifile_prefix, ref Err))
                 {

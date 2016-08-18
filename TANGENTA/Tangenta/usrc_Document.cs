@@ -318,7 +318,12 @@ namespace Tangenta
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
-            DBSync.DBSync.DBMan(Main_Form, Program.bReset2FactorySettings, ((Form_Document)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder,Properties.Resources.Exit);
+            NavigationButtons.NavigationButtons nav_buttons = new NavigationButtons.NavigationButtons();
+            nav_buttons.btn3_Visible = true;
+            nav_buttons.btn3_Text = "";
+            nav_buttons.btn3_Image = Properties.Resources.Exit;
+
+            DBSync.DBSync.DBMan(Main_Form, Program.bReset2FactorySettings, ((Form_Document)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder, nav_buttons);
             Properties.Settings.Default.BackupFolder = BackupFolder;
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();

@@ -32,10 +32,10 @@ namespace DBSync
         public string m_DataBaseType = null;
         private bool m_bReset = false;
         private string m_sDataBaseVersion = null;
-        private Image m_Image_Cancel = null;
+        private NavigationButtons.NavigationButtons nav_buttons = null;
         private Form ChildForm = null;
 
-        public Form_DBmanager(Form xparent_form,bool bxReset, string xm_XmlFileName, string xIniFileFolder, string xDataBaseType, string xBackupFolder, string sDataBaseVersion,Image xImage_Cancel)
+        public Form_DBmanager(Form xparent_form,bool bxReset, string xm_XmlFileName, string xIniFileFolder, string xDataBaseType, string xBackupFolder, string sDataBaseVersion, NavigationButtons.NavigationButtons xnav_buttons)
         {
             InitializeComponent();
             m_parent_form = xparent_form;
@@ -45,7 +45,7 @@ namespace DBSync
             m_BackupFolder = xBackupFolder;
             m_bReset = bxReset;
             m_sDataBaseVersion = sDataBaseVersion;
-            m_Image_Cancel = xImage_Cancel;
+            nav_buttons = xnav_buttons;
             Init();
         }
 
@@ -81,7 +81,7 @@ namespace DBSync
         {
             bNewDataBaseCreated = false;
             bool bCanceled = false;
-            DBSync.Init(m_parent_form,ref ChildForm, m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true, m_Image_Cancel, ref bNewDataBaseCreated, ref bCanceled);
+            DBSync.Init(m_parent_form,ref ChildForm, m_bReset, m_XmlFileName, m_IniFileFolder, ref m_DataBaseType, true,true, nav_buttons, ref bNewDataBaseCreated, ref bCanceled);
             if (bCanceled)
             {
                 return;

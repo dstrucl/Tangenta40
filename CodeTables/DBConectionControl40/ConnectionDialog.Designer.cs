@@ -40,7 +40,6 @@
             this.btn_Browse_Databases_onServer = new System.Windows.Forms.Button();
             this.btn_Browse_servers = new System.Windows.Forms.Button();
             this.lbl_Instruction = new System.Windows.Forms.Label();
-            this.button_end = new System.Windows.Forms.Button();
             this.lbl_DataBase = new System.Windows.Forms.Label();
             this.lbl_Server = new System.Windows.Forms.Label();
             this.btn_Action = new System.Windows.Forms.Button();
@@ -53,6 +52,7 @@
             this.cmb_UserName = new ComboBox_Recent.ComboBox_RecentList();
             this.cmb_DataBaseName = new ComboBox_Recent.ComboBox_RecentList();
             this.cmb_ServerName = new ComboBox_Recent.ComboBox_RecentList();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.grpServerType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,18 +115,6 @@
             this.lbl_Instruction.TabIndex = 36;
             this.lbl_Instruction.Text = "label1";
             this.lbl_Instruction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button_end
-            // 
-            this.button_end.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_end.Location = new System.Drawing.Point(352, 280);
-            this.button_end.Margin = new System.Windows.Forms.Padding(2);
-            this.button_end.Name = "button_end";
-            this.button_end.Size = new System.Drawing.Size(64, 28);
-            this.button_end.TabIndex = 35;
-            this.button_end.Text = "Končaj";
-            this.button_end.UseVisualStyleBackColor = true;
-            this.button_end.Click += new System.EventHandler(this.button_end_Click);
             // 
             // lbl_DataBase
             // 
@@ -249,6 +237,7 @@
             this.cmb_UserName.Name = "cmb_UserName";
             this.cmb_UserName.ReadOnly = false;
             this.cmb_UserName.RecentItemsFileName = "ComboBoxRecentXmlFile_UserName.xml";
+            this.cmb_UserName.RecentItemsFolder = "";
             this.cmb_UserName.Size = new System.Drawing.Size(282, 21);
             this.cmb_UserName.TabIndex = 49;
             // 
@@ -270,6 +259,7 @@
             this.cmb_DataBaseName.Name = "cmb_DataBaseName";
             this.cmb_DataBaseName.ReadOnly = false;
             this.cmb_DataBaseName.RecentItemsFileName = "ComboBoxRecentXmlFile_DataBaseName.xml";
+            this.cmb_DataBaseName.RecentItemsFolder = "";
             this.cmb_DataBaseName.Size = new System.Drawing.Size(293, 21);
             this.cmb_DataBaseName.TabIndex = 48;
             // 
@@ -288,15 +278,42 @@
             this.cmb_ServerName.Name = "cmb_ServerName";
             this.cmb_ServerName.ReadOnly = false;
             this.cmb_ServerName.RecentItemsFileName = "ComboBoxRecentXmlFile_ServerName.xml";
+            this.cmb_ServerName.RecentItemsFolder = "";
             this.cmb_ServerName.Size = new System.Drawing.Size(292, 21);
             this.cmb_ServerName.TabIndex = 47;
             this.cmb_ServerName.TextChanged += new System.EventHandler(this.cmb_ServerName_TextChanged);
+            // 
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.NavigationButtons.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = null;
+            this.usrc_NavigationButtons1.Image_OK = null;
+            this.usrc_NavigationButtons1.Image_PREV = null;
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(5, 318);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(361, 27);
+            this.usrc_NavigationButtons1.TabIndex = 50;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "Next";
+            this.usrc_NavigationButtons1.Text_OK = "Prev";
+            this.usrc_NavigationButtons1.Text_PREV = "Prev";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
             // ConnectionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 319);
+            this.ClientSize = new System.Drawing.Size(506, 349);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.cmb_UserName);
             this.Controls.Add(this.cmb_DataBaseName);
             this.Controls.Add(this.cmb_ServerName);
@@ -306,7 +323,6 @@
             this.Controls.Add(this.btn_Browse_Databases_onServer);
             this.Controls.Add(this.btn_Browse_servers);
             this.Controls.Add(this.lbl_Instruction);
-            this.Controls.Add(this.button_end);
             this.Controls.Add(this.lbl_DataBase);
             this.Controls.Add(this.lbl_Server);
             this.Controls.Add(this.btn_Action);
@@ -334,7 +350,6 @@
         private System.Windows.Forms.Button btn_Browse_Databases_onServer;
         private System.Windows.Forms.Button btn_Browse_servers;
         private System.Windows.Forms.Label lbl_Instruction;
-        private System.Windows.Forms.Button button_end;
         private System.Windows.Forms.Label lbl_DataBase;
         private System.Windows.Forms.Label lbl_Server;
         private System.Windows.Forms.Button btn_Action;
@@ -347,5 +362,6 @@
         private ComboBox_Recent.ComboBox_RecentList cmb_UserName;
         private ComboBox_Recent.ComboBox_RecentList cmb_DataBaseName;
         private ComboBox_Recent.ComboBox_RecentList cmb_ServerName;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

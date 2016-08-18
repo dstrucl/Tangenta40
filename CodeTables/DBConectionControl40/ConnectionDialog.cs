@@ -18,9 +18,10 @@ namespace DBConnectionControl40
 {
     public partial class ConnectionDialog : Form
     {
+        public NavigationButtons.NavigationButtons.eEvent eExitEvent = NavigationButtons.NavigationButtons.eEvent.NOTHING;
         private Form m_ParentForm = null;
         string m_Title = null;
-        Image m_button_ImageCancel = null;
+        NavigationButtons.NavigationButtons nav_buttons = null;
 
         private int[] Y = new int[5];
 
@@ -42,13 +43,13 @@ namespace DBConnectionControl40
 
         internal bool m_bNewDataBase = false;
         
-        public ConnectionDialog(Form parentForm, ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle, Image xImageCancel)
+        public ConnectionDialog(Form parentForm, ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle, NavigationButtons.NavigationButtons xnav_buttons)
         {
             m_Title = sTitle;
             my_ConnectionDialog_enum = ConnectionConnectionDialog_type;
             m_ParentForm = parentForm;
             InitializeComponent();
-            m_button_ImageCancel = xImageCancel;
+            nav_buttons = xnav_buttons;
             if (con.RecentItemsFolder.Length ==0)
             {
                 con.RecentItemsFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -102,15 +103,7 @@ namespace DBConnectionControl40
             lbl_Password.Text = lngConn.s_Password.s;
             btn_Browse_servers.Text = lngConn.s_Browse__.s;
             btn_Browse_Databases_onServer.Text = lngConn.s_Browse__.s;
-            if (m_button_ImageCancel != null)
-            {
-                button_end.Text = "";
-                button_end.Image = m_button_ImageCancel;
-            }
-            else
-            {
-                button_end.Text = lngConn.s_Cancel.s;
-            }
+            usrc_NavigationButtons1.Init(nav_buttons);
             btn_Action.Text = lngConn.s_ConnectWithDatabase.s;
             rdb_UseWindowsAuthentication.Text = lngConn.s_WindowsAuthentication.s;
             rdb_SQL_Server_Authentication.Text = lngConn.s_SQLServerAuthentication.s;
@@ -277,11 +270,6 @@ namespace DBConnectionControl40
             }
         }
 
-       private void button_end_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Close();
-        }
 
        private void Prepare_m_conData_MSSQL()
        {
@@ -604,6 +592,19 @@ namespace DBConnectionControl40
             }
         }
 
-
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.NavigationButtons.eEvent evt)
+        {
+            eExitEvent = evt;
+            switch (nav_buttons.m_eButtons)
+            {
+                case NavigationButtons.NavigationButtons.eButtons.OkCancel:
+                    break;
+                case NavigationButtons.NavigationButtons.eButtons.PrevNextExit:
+                    eExitEvent = evt;
+                    break;
+            }
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Close();
+        }
     }
 }

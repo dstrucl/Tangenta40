@@ -61,10 +61,10 @@ namespace TangentaDataBaseDef
             return m_DBTables.m_con.CheckConnection(DB_Param);
         }
 
-        public bool CreateNewConnection(Form pParentForm, Object DB_Param, ref string BackupFolder, Image xImageCancel, ref bool bCanceled)
+        public bool CreateNewConnection(Form pParentForm, Object DB_Param, ref string BackupFolder, NavigationButtons.NavigationButtons xnav_buttons, ref bool bCanceled)
         {
             m_DBTables.m_con.BackupFolder = BackupFolder;
-            if (m_DBTables.m_con.CreateNewDataBaseConnection(pParentForm, DB_Param,xImageCancel, ref bCanceled))
+            if (m_DBTables.m_con.CreateNewDataBaseConnection(pParentForm, DB_Param, xnav_buttons, ref bCanceled))
             {
                 BackupFolder = m_DBTables.m_con.BackupFolder;
                 return true;
@@ -96,10 +96,10 @@ namespace TangentaDataBaseDef
         }
 
 
-        public bool MakeConnection(Form pParentForm, Object DB_Param,Image xImageCancel, ref bool bCanceled)
+        public bool MakeConnection(Form pParentForm, Object DB_Param, NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled)
         {
 
-             return m_DBTables.m_con.MakeDataBaseConnection(pParentForm,DB_Param, xImageCancel, ref bCanceled);
+             return m_DBTables.m_con.MakeDataBaseConnection(pParentForm,DB_Param, nav_buttons, ref bCanceled);
         }
 
         public void Init(DBConnection.eDBType eDBType)

@@ -108,7 +108,17 @@ namespace Tangenta
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             bool bCanceled = false;
-            bool bResult = DBSync.DBSync.Init(this,ref ChildForm, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection,Properties.Resources.Exit_Program,ref myStartup.bNewDatabaseCreated,ref bCanceled);
+            NavigationButtons.NavigationButtons nav_buttons = new NavigationButtons.NavigationButtons();
+
+            nav_buttons.btn2_Visible = true;
+            nav_buttons.btn3_Text = "";
+            nav_buttons.btn2_Image = Properties.Resources.Exit_Program;
+
+            nav_buttons.btn3_Visible = true;
+            nav_buttons.btn3_Text = "";
+            nav_buttons.btn3_Image = Properties.Resources.Exit_Program;
+
+            bool bResult = DBSync.DBSync.Init(this,ref ChildForm, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection, nav_buttons, ref myStartup.bNewDatabaseCreated,ref bCanceled);
             if (bCanceled)
             {
                 myStartup.eNextStep = startup_step.eStep.Cancel;

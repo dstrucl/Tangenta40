@@ -28,9 +28,11 @@ namespace DBConnectionControl40
 
         private conData_SQLITE m_conData_SQLITE;
 
-        private Image m_button_ImageCancel = null;
+        private NavigationButtons.NavigationButtons nav_buttons = null;
 
-        public SQLiteConnectionDialog(Form pParentForm,conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder,Image xImageCancel, string myConnectionName)
+        public NavigationButtons.NavigationButtons.eEvent eEventExit = NavigationButtons.NavigationButtons.eEvent.NOTHING;
+
+        public SQLiteConnectionDialog(Form pParentForm,conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder, NavigationButtons.NavigationButtons xnav_buttons, string myConnectionName)
         {
             m_conData_SQLITE = xconData_SQLite;
 
@@ -39,7 +41,8 @@ namespace DBConnectionControl40
             this.Owner = pParentForm;
             InitializeComponent();
 
-            m_button_ImageCancel = xImageCancel;
+            nav_buttons = xnav_buttons;
+            usrc_NavigationButtons1.Init(nav_buttons);
             cmbR_FilePath.RecentItemsFolder = recent_items_folder;
             cmbR_FileName.RecentItemsFolder = recent_items_folder;
 
@@ -78,16 +81,6 @@ namespace DBConnectionControl40
                 cmbR_FileName.Text = DatabaseFileName;
             }
 
-            this.btn_OK.Text = lngConn.s_Ok.s;
-            if (m_button_ImageCancel != null)
-            {
-                this.btn_Cancel.Image = m_button_ImageCancel;
-                this.btn_Cancel.Text = "";
-            }
-            else
-            {
-                this.btn_Cancel.Text = lngConn.s_Cancel.s;
-            }
             this.lbl_FileName.Text = lngConn.s_FileName.s + ":";
             this.btn_SelectFile.Text = lngConn.s_FileName.s;
             this.btn_SelectFolder.Text = lngConn.s_Folder.s;
@@ -135,10 +128,6 @@ namespace DBConnectionControl40
             }
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
         private void btn_SelectFolder_Click(object sender, EventArgs e)
         {
@@ -208,6 +197,45 @@ namespace DBConnectionControl40
             {
                 BackupFolder = frm_backup.BackupFolder;
             }
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.NavigationButtons.eEvent evt)
+        {
+            eEventExit = evt;
+            switch (nav_buttons.m_eButtons)
+            {
+                case NavigationButtons.NavigationButtons.eButtons.OkCancel:
+                    switch(evt)
+                    {
+                        case NavigationButtons.NavigationButtons.eEvent.OK:
+                            DialogResult = DialogResult.OK;
+                            Close();
+                            break;
+                        case NavigationButtons.NavigationButtons.eEvent.CANCEL:
+                            DialogResult = DialogResult.Cancel;
+                            Close();
+                            break;
+                    }
+                    break;
+                case NavigationButtons.NavigationButtons.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.NavigationButtons.eEvent.PREV:
+                            DialogResult = DialogResult.Abort;
+                            Close();
+                            break;
+                        case NavigationButtons.NavigationButtons.eEvent.NEXT:
+                            DialogResult = DialogResult.OK;
+                            Close();
+                            break;
+                        case NavigationButtons.NavigationButtons.eEvent.EXIT:
+                            DialogResult = DialogResult.Cancel;
+                            Close();
+                            break;
+                    }
+                    break;
+            }
+
         }
     }
 }

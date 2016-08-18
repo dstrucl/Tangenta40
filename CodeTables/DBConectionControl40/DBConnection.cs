@@ -858,7 +858,7 @@ namespace DBConnectionControl40
             return CheckDataBaseConnection(null, LanguageControl.lngConn.s_TestConnection.s);
         }
 
-        public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param,Image xImageCancel, ref bool bCanceled)
+        public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param, NavigationButtons.NavigationButtons xnav_buttons, ref bool bCanceled)
         {
             string myConnectionName = null;
             if (DB_Param is RemoteDB_data)
@@ -892,7 +892,7 @@ namespace DBConnectionControl40
                     MessageBox.Show("ERROR:DBConnection:CreateNewDataBaseConnection Object DB_Param not valid !");
                     return false;
                 }
-                dRes = do_ConnectionDialog(pParentForm, sConnectionToDBase, ref bxNewDatabase, xImageCancel, ref bCanceled, myConnectionName);
+                dRes = do_ConnectionDialog(pParentForm, sConnectionToDBase, ref bxNewDatabase, xnav_buttons, ref bCanceled, myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.OK_SAVE:
@@ -955,7 +955,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool SetNewConnection(Form pParentForm, object xDB_Param,Image xImageCancel, ref bool bCanceled)
+        public bool SetNewConnection(Form pParentForm, object xDB_Param, NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled)
         {
             bool bxNewDatabase = false;
             string myConnectionName = null;
@@ -970,7 +970,7 @@ namespace DBConnectionControl40
             while (true)
             {
                 DBConnection.ConnectResult_ENUM dRes;
-                dRes = do_ConnectionDialog(pParentForm, this.ConnectionName, ref bxNewDatabase,xImageCancel, ref bCanceled,myConnectionName);
+                dRes = do_ConnectionDialog(pParentForm, this.ConnectionName, ref bxNewDatabase, nav_buttons, ref bCanceled,myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.OK_SAVE:
@@ -1027,7 +1027,7 @@ namespace DBConnectionControl40
 
         }
 
-        public bool MakeDataBaseConnection(Form pParentForm, Object xDB_Param,Image xImageCancel, ref bool bCanceled)
+        public bool MakeDataBaseConnection(Form pParentForm, Object xDB_Param,NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled)
         {
             SetConnectionData(xDB_Param);
             if (DBType == eDBType.SQLITE)
@@ -1060,7 +1060,7 @@ namespace DBConnectionControl40
             }
             else
             {
-                if (SetNewConnection(pParentForm, xDB_Param, xImageCancel, ref bCanceled))
+                if (SetNewConnection(pParentForm, xDB_Param, nav_buttons, ref bCanceled))
                 {
                     DB_Param = xDB_Param;
                     return true;
@@ -1267,7 +1267,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public ConnectResult_ENUM do_ConnectionDialog(Form m_ParentForm, string sTitle, ref bool bNewDatabase, Image xImageCancel, ref bool bCanceled, string myConnectionName)
+        public ConnectResult_ENUM do_ConnectionDialog(Form m_ParentForm, string sTitle, ref bool bNewDatabase, NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled, string myConnectionName)
         {
                 DialogResult dRes;
                 bNewDatabase = false;
@@ -1276,28 +1276,28 @@ namespace DBConnectionControl40
                     case eDBType.MYSQL:
                         if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
                         {
-                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, xImageCancel);
+                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav_buttons);
                         }
                         else
                         {
-                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, xImageCancel);
+                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav_buttons);
                         }
                         break;
 
                     case eDBType.MSSQL:
                         if ((m_conData_MSSQL.m_DataSource.Length > 0) && (m_conData_MSSQL.m_DataBase.Length > 0))
                         {
-                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, xImageCancel);
+                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav_buttons);
                         }
                         else
                         {
-                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, xImageCancel);
+                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav_buttons);
                         }
                         break;
 
                     case eDBType.SQLITE:
 
-                        SQLiteConnectionDialog = new SQLiteConnectionDialog(m_ParentForm,  m_conData_SQLITE,this.RecentItemsFolder, this.BackupFolder, xImageCancel, myConnectionName);
+                        SQLiteConnectionDialog = new SQLiteConnectionDialog(m_ParentForm,  m_conData_SQLITE,this.RecentItemsFolder, this.BackupFolder, nav_buttons, myConnectionName);
                         break;
 
 

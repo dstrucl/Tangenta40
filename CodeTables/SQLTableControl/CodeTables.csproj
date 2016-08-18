@@ -355,6 +355,10 @@
       <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
       <Name>DynEditControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322AF3BF-B609-477D-9D2B-39A9BBBBC721}</Project>
       <Name>DBConnectionControl40</Name>

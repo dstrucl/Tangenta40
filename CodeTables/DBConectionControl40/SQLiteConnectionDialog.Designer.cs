@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SQLiteConnectionDialog));
-            this.btn_OK = new System.Windows.Forms.Button();
-            this.btn_Cancel = new System.Windows.Forms.Button();
             this.lbl_Folder = new System.Windows.Forms.Label();
             this.btn_SelectFolder = new System.Windows.Forms.Button();
             this.lbl_FileName = new System.Windows.Forms.Label();
@@ -41,29 +39,8 @@
             this.cmbR_FileName = new ComboBox_Recent.ComboBox_RecentList();
             this.btn_SQLiteInfo = new System.Windows.Forms.Button();
             this.btn_Backup = new System.Windows.Forms.Button();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.SuspendLayout();
-            // 
-            // btn_OK
-            // 
-            this.btn_OK.Location = new System.Drawing.Point(243, 131);
-            this.btn_OK.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(76, 35);
-            this.btn_OK.TabIndex = 1;
-            this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
-            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.Location = new System.Drawing.Point(350, 131);
-            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(76, 35);
-            this.btn_Cancel.TabIndex = 2;
-            this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // lbl_Folder
             // 
@@ -162,7 +139,7 @@
             // 
             // btn_Backup
             // 
-            this.btn_Backup.Location = new System.Drawing.Point(597, 111);
+            this.btn_Backup.Location = new System.Drawing.Point(597, 116);
             this.btn_Backup.Name = "btn_Backup";
             this.btn_Backup.Size = new System.Drawing.Size(86, 52);
             this.btn_Backup.TabIndex = 14;
@@ -170,19 +147,41 @@
             this.btn_Backup.UseVisualStyleBackColor = true;
             this.btn_Backup.Click += new System.EventHandler(this.btn_Backup_Click);
             // 
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.NavigationButtons.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = null;
+            this.usrc_NavigationButtons1.Image_OK = null;
+            this.usrc_NavigationButtons1.Image_PREV = null;
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(186, 141);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(361, 27);
+            this.usrc_NavigationButtons1.TabIndex = 15;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "Next";
+            this.usrc_NavigationButtons1.Text_OK = "Prev";
+            this.usrc_NavigationButtons1.Text_PREV = "Prev";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
+            // 
             // SQLiteConnectionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(695, 175);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.btn_Backup);
             this.Controls.Add(this.btn_SQLiteInfo);
             this.Controls.Add(this.cmbR_FileName);
             this.Controls.Add(this.cmbR_FilePath);
             this.Controls.Add(this.btn_SelectFile);
             this.Controls.Add(this.lbl_FileName);
-            this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.btn_SelectFolder);
             this.Controls.Add(this.lbl_Folder);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -197,9 +196,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_OK;
-        private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Label lbl_Folder;
         private System.Windows.Forms.Button btn_SelectFolder;
         private System.Windows.Forms.Label lbl_FileName;
@@ -209,5 +205,6 @@
         private ComboBox_Recent.ComboBox_RecentList cmbR_FileName;
         private System.Windows.Forms.Button btn_SQLiteInfo;
         private System.Windows.Forms.Button btn_Backup;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

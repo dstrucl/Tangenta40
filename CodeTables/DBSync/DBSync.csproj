@@ -94,6 +94,10 @@
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>TangentaDataBaseDef</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
