@@ -241,11 +241,14 @@ DoSelectLanguage:
                 {
                     NavigationButtons.Navigation LanguageNav = new NavigationButtons.Navigation();
                     LanguageNav.bDoModal = true;
+                    LanguageNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
                     LanguageNav.btn1_Visible = false;
                     LanguageNav.btn2_Image = Properties.Resources.Next;
                     LanguageNav.btn2_Text = "";
+                    LanguageNav.btn2_Visible = true;
                     LanguageNav.btn3_Image = Properties.Resources.Exit_Program;
                     LanguageNav.btn3_Text = "";
+                    LanguageNav.btn3_Visible = true;
                     LanguageNav.btn2_ToolTip_Text = "Press to select language and go to next step";
                     LanguageNav.btn3_ToolTip_Text = "Exit program Tangenta";
 
