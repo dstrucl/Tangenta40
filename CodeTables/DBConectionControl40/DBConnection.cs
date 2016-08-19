@@ -858,7 +858,7 @@ namespace DBConnectionControl40
             return CheckDataBaseConnection(null, LanguageControl.lngConn.s_TestConnection.s);
         }
 
-        public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param, NavigationButtons.NavigationButtons xnav_buttons, ref bool bCanceled)
+        public bool CreateNewDataBaseConnection(Object DB_Param, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
             string myConnectionName = null;
             if (DB_Param is RemoteDB_data)
@@ -892,7 +892,7 @@ namespace DBConnectionControl40
                     MessageBox.Show("ERROR:DBConnection:CreateNewDataBaseConnection Object DB_Param not valid !");
                     return false;
                 }
-                dRes = do_ConnectionDialog(pParentForm, sConnectionToDBase, ref bxNewDatabase, xnav_buttons, ref bCanceled, myConnectionName);
+                dRes = do_ConnectionDialog(sConnectionToDBase, ref bxNewDatabase, xnav, ref bCanceled, myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.OK_SAVE:
@@ -955,7 +955,7 @@ namespace DBConnectionControl40
             }
         }
 
-        public bool SetNewConnection(Form pParentForm, object xDB_Param, NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled)
+        public bool SetNewConnection(Form pParentForm, object xDB_Param, NavigationButtons.Navigation nav, ref bool bCanceled)
         {
             bool bxNewDatabase = false;
             string myConnectionName = null;
@@ -970,7 +970,7 @@ namespace DBConnectionControl40
             while (true)
             {
                 DBConnection.ConnectResult_ENUM dRes;
-                dRes = do_ConnectionDialog(pParentForm, this.ConnectionName, ref bxNewDatabase, nav_buttons, ref bCanceled,myConnectionName);
+                dRes = do_ConnectionDialog(this.ConnectionName, ref bxNewDatabase, nav, ref bCanceled,myConnectionName);
                 switch (dRes)
                 {
                     case DBConnection.ConnectResult_ENUM.OK_SAVE:
@@ -1027,7 +1027,7 @@ namespace DBConnectionControl40
 
         }
 
-        public bool MakeDataBaseConnection(Form pParentForm, Object xDB_Param,NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled)
+        public bool MakeDataBaseConnection(Form pParentForm, Object xDB_Param,NavigationButtons.Navigation nav, ref bool bCanceled)
         {
             SetConnectionData(xDB_Param);
             if (DBType == eDBType.SQLITE)
@@ -1060,7 +1060,7 @@ namespace DBConnectionControl40
             }
             else
             {
-                if (SetNewConnection(pParentForm, xDB_Param, nav_buttons, ref bCanceled))
+                if (SetNewConnection(pParentForm, xDB_Param, nav, ref bCanceled))
                 {
                     DB_Param = xDB_Param;
                     return true;
@@ -1267,37 +1267,37 @@ namespace DBConnectionControl40
             }
         }
 
-        public ConnectResult_ENUM do_ConnectionDialog(Form m_ParentForm, string sTitle, ref bool bNewDatabase, NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled, string myConnectionName)
+        public ConnectResult_ENUM do_ConnectionDialog(string sTitle, ref bool bNewDatabase, NavigationButtons.Navigation nav, ref bool bCanceled, string myConnectionName)
         {
-                DialogResult dRes;
+                NavigationButtons.Navigation.eEvent dExitRes = NavigationButtons.Navigation.eEvent.NOTHING;
                 bNewDatabase = false;
                 switch (m_DBType)
                 {
                     case eDBType.MYSQL:
                         if ((m_conData_MYSQL.m_DataSource.Length > 0) && (m_conData_MYSQL.m_DataBase.Length > 0))
                         {
-                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav_buttons);
+                            ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
                         }
                         else
                         {
-                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav_buttons);
+                            ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
                         }
                         break;
 
                     case eDBType.MSSQL:
                         if ((m_conData_MSSQL.m_DataSource.Length > 0) && (m_conData_MSSQL.m_DataBase.Length > 0))
                         {
-                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav_buttons);
+                            ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditLoginAndPassword, this, sTitle, nav);
                         }
                         else
                         {
-                            ConnectionDialog = new ConnectionDialog(m_ParentForm, ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav_buttons);
+                            ConnectionDialog = new ConnectionDialog(ConnectionDialog.ConnectionDialog_enum.EditAll, this, sTitle, nav);
                         }
                         break;
 
                     case eDBType.SQLITE:
 
-                        SQLiteConnectionDialog = new SQLiteConnectionDialog(m_ParentForm,  m_conData_SQLITE,this.RecentItemsFolder, this.BackupFolder, nav_buttons, myConnectionName);
+                        SQLiteConnectionDialog = new SQLiteConnectionDialog(m_conData_SQLITE,this.RecentItemsFolder, this.BackupFolder, nav, myConnectionName);
                         break;
 
 
@@ -1311,15 +1311,42 @@ namespace DBConnectionControl40
 
                 if (m_DBType == eDBType.SQLITE)
                 {
-                    dRes = SQLiteConnectionDialog.ShowDialog(m_ParentForm);
-                    this.BackupFolder = SQLiteConnectionDialog.BackupFolder;
+                    if (nav.bDoModal)
+                    {
+                        SQLiteConnectionDialog.ShowDialog(nav.parentForm);
+                        dExitRes = SQLiteConnectionDialog.eEventExit;
+                        this.BackupFolder = SQLiteConnectionDialog.BackupFolder;
+                    }
+                    else
+                    {
+                        SQLiteConnectionDialog.TopMost = true;
+                        SQLiteConnectionDialog.Show();
+                        while (SQLiteConnectionDialog.eEventExit== NavigationButtons.Navigation.eEvent.NOTHING)
+                        {
+                            Application.DoEvents();
+                        }
+                        dExitRes = SQLiteConnectionDialog.eEventExit;
+                    }
                 }
                 else 
                 {
-                    dRes = ConnectionDialog.ShowDialog(m_ParentForm);
+                    if (nav.bDoModal)
+                    {
+                        ConnectionDialog.ShowDialog(nav.parentForm);
+                    }
+                    else
+                    {
+                        ConnectionDialog.Show();
+                        while (ConnectionDialog.eEventExit == NavigationButtons.Navigation.eEvent.NOTHING)
+                        {
+                            Application.DoEvents();
+                        }
+                        dExitRes = ConnectionDialog.eEventExit;
+
+                    }
                 }
 
-                if (dRes == DialogResult.Cancel)
+                if ((dExitRes == NavigationButtons.Navigation.eEvent.EXIT)|| (dExitRes == NavigationButtons.Navigation.eEvent.CANCEL))
                 {
                     bCanceled = true;
                     if (m_DBType == eDBType.SQLITE)
@@ -1332,7 +1359,7 @@ namespace DBConnectionControl40
                     }
                     return ConnectResult_ENUM.CANCELED;
                 }
-                else if (dRes == DialogResult.OK)
+                else if ((dExitRes == NavigationButtons.Navigation.eEvent.NEXT)|| (dExitRes == NavigationButtons.Navigation.eEvent.OK))
                 {
                     
                     try
@@ -1389,17 +1416,18 @@ namespace DBConnectionControl40
                             bNewDatabase = ConnectionDialog.m_bNewDataBase;
                         }
 
-                        if (this.CheckDataBaseConnection(m_ParentForm, sTitle))
+                        if (this.CheckDataBaseConnection(nav.parentForm, sTitle))
                         {
-                            if (dRes == DialogResult.OK)
+                            if ((dExitRes == NavigationButtons.Navigation.eEvent.NEXT) || (dExitRes == NavigationButtons.Navigation.eEvent.OK))
                             {
                                 return ConnectResult_ENUM.OK;
                             }
-                            else if (dRes == DialogResult.Yes)
+                            else if ((dExitRes == NavigationButtons.Navigation.eEvent.NEXT) || (dExitRes == NavigationButtons.Navigation.eEvent.OK))
                             {
                                 ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.SaveConnectionData;
-                                dRes = ConnectionDialog.ShowDialog(m_ParentForm);
-                                if (dRes == DialogResult.Yes)
+                                ConnectionDialog.ShowDialog(nav.parentForm);
+                                dExitRes = ConnectionDialog.eExitEvent;
+                                if ((dExitRes == NavigationButtons.Navigation.eEvent.NEXT) || (dExitRes == NavigationButtons.Navigation.eEvent.OK))
                                 {
                                     return ConnectResult_ENUM.OK_SAVE;
                                 }

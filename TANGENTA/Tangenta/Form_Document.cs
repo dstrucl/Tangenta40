@@ -23,6 +23,7 @@ namespace Tangenta
 {
     public partial class Form_Document : Form
     {
+        public NavigationButtons.Navigation nav = null;
         public const string XML_ROOT_NAME = "Tangenta_Xml";
         public string RecentItemsFolder = null;
         public startup m_startup = null;
@@ -34,6 +35,25 @@ namespace Tangenta
         {
             LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Form_Document()before InitializeComponent()!");
             InitializeComponent();
+
+            nav = new NavigationButtons.Navigation();
+            nav.parentForm = this;
+            nav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
+            nav.btn1_Image = Properties.Resources.Prev;
+            nav.btn2_Image = Properties.Resources.Next;
+            nav.btn3_Image = Properties.Resources.Exit_Program;
+            nav.btn1_Text = "";
+            nav.btn1_ToolTip_Text = lngRPMS.s_GoToPreviousStartupStep.s;
+            nav.btn2_Text = "";
+            nav.btn2_ToolTip_Text = lngRPMS.s_GoToNextStartupStep.s;
+            nav.btn3_Text = "";
+            nav.btn3_ToolTip_Text = lngRPMS.s_GoToExitProgram.s;
+
+            nav.btn1_Visible = true;
+            nav.btn2_Visible = true;
+            nav.btn3_Visible = true;
+
+
             if (Properties.Settings.Default.FullScreen)
             {
                 this.FormBorderStyle = FormBorderStyle.None;
@@ -96,29 +116,20 @@ namespace Tangenta
 
             m_startup = new startup(this,
                                     StartupStep,
-                                    Properties.Resources.Exit_Program,
+                                    nav,
                                     Properties.Resources.Tangenta_Question
                                     );
         }
 
 
 
-        public bool Startup_Check_DataBase(startup myStartup,object o, ref string Err)
+        public bool Startup_Check_DataBase(startup myStartup,object o, NavigationButtons.Navigation xnav, ref string Err)
         {
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             bool bCanceled = false;
-            NavigationButtons.NavigationButtons nav_buttons = new NavigationButtons.NavigationButtons();
 
-            nav_buttons.btn2_Visible = true;
-            nav_buttons.btn3_Text = "";
-            nav_buttons.btn2_Image = Properties.Resources.Exit_Program;
-
-            nav_buttons.btn3_Visible = true;
-            nav_buttons.btn3_Text = "";
-            nav_buttons.btn3_Image = Properties.Resources.Exit_Program;
-
-            bool bResult = DBSync.DBSync.Init(this,ref ChildForm, Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection, nav_buttons, ref myStartup.bNewDatabaseCreated,ref bCanceled);
+            bool bResult = DBSync.DBSync.Init(Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated,ref bCanceled);
             if (bCanceled)
             {
                 myStartup.eNextStep = startup_step.eStep.Cancel;

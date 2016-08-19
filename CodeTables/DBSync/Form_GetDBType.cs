@@ -21,11 +21,11 @@ namespace DBSync
 {
     public partial class Form_GetDBType : Form
     {
-        NavigationButtons.NavigationButtons.eButtons m_eButtons = NavigationButtons.NavigationButtons.eButtons.OkCancel;
+        NavigationButtons.Navigation.eButtons m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
         public DBConnection.eDBType m_DBType = DBConnection.eDBType.SQLITE;
-        public NavigationButtons.NavigationButtons.eEvent eExitType = NavigationButtons.NavigationButtons.eEvent.NOTHING;
+        NavigationButtons.Navigation nav = null;
 
-        public Form_GetDBType(string sdbtype, NavigationButtons.NavigationButtons nav_buttons)
+        public Form_GetDBType(string sdbtype, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
 
@@ -33,8 +33,9 @@ namespace DBSync
             //{
             //    this.btn_Exit.Image = xImage_Cancel;
             //}
-            m_eButtons = nav_buttons.m_eButtons;
-            usrc_NavigationButtons1.Init(nav_buttons);
+            nav = xnav;
+            m_eButtons = nav.m_eButtons;
+            usrc_NavigationButtons1.Init(nav);
             lngRPM.s_SelectDatabase.Text(lbl_SelectDataBase);
             if (sdbtype != null)
             {
@@ -71,46 +72,42 @@ namespace DBSync
         {
         }
 
-        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.NavigationButtons.eEvent evt)
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
+            nav.eExitResult = evt;
             switch (m_eButtons)
             {
-                case NavigationButtons.NavigationButtons.eButtons.OkCancel:
+                case NavigationButtons.Navigation.eButtons.OkCancel:
                     switch (evt)
                     {
-                        case NavigationButtons.NavigationButtons.eEvent.OK:
+                        case NavigationButtons.Navigation.eEvent.OK:
                             DialogResult = System.Windows.Forms.DialogResult.OK;
-                            eExitType = NavigationButtons.NavigationButtons.eEvent.OK;
                             this.Close();
                             break;
 
 
-                        case NavigationButtons.NavigationButtons.eEvent.CANCEL:
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
                             DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                            eExitType = NavigationButtons.NavigationButtons.eEvent.CANCEL;
                             this.Close();
                             break;
 
                     }
                     break;
-                case NavigationButtons.NavigationButtons.eButtons.PrevNextExit:
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
                     switch (evt)
                     {
-                        case NavigationButtons.NavigationButtons.eEvent.PREV:
+                        case NavigationButtons.Navigation.eEvent.PREV:
                             DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                            eExitType = NavigationButtons.NavigationButtons.eEvent.PREV;
                             this.Close();
                             break;
 
-                        case NavigationButtons.NavigationButtons.eEvent.NEXT:
+                        case NavigationButtons.Navigation.eEvent.NEXT:
                             DialogResult = System.Windows.Forms.DialogResult.OK;
-                            eExitType = NavigationButtons.NavigationButtons.eEvent.NEXT;
                             this.Close();
                             break;
 
-                        case NavigationButtons.NavigationButtons.eEvent.EXIT:
+                        case NavigationButtons.Navigation.eEvent.EXIT:
                             DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                            eExitType = NavigationButtons.NavigationButtons.eEvent.EXIT;
                             this.Close();
                             break;
 

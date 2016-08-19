@@ -17,6 +17,9 @@ namespace LanguageControl
 {
     public static class lngRPMS
     {
+        public static ltext s_GoToPreviousStartupStep = new ltext("Go to previous startup step", "Pojdi na prejšni korak");
+        public static ltext s_GoToNextStartupStep = new ltext("Go to next startup step", "Nadaljuj na naslednji korak");
+        public static ltext s_GoToExitProgram = new ltext("Exit program", "Končaj program");
         public static ltext s_SelectCountryWhereYouPayTaxes = new ltext("Country of tax residency", "Država katere ste davčni zavezanec");
 
         public static ltext sl_MyOrg_Name =  new ltext("Organisation name", "Ime organizacije");

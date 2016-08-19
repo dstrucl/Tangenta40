@@ -150,7 +150,7 @@
             // usrc_NavigationButtons1
             // 
             this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_NavigationButtons1.Buttons = NavigationButtons.NavigationButtons.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.Image_Cancel = null;
             this.usrc_NavigationButtons1.Image_EXIT = null;
             this.usrc_NavigationButtons1.Image_NEXT = null;

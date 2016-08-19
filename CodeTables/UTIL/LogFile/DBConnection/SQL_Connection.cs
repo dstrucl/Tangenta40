@@ -13,6 +13,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Diagnostics;
+using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data.SQLite;
 using System.Data.Common;

@@ -39,7 +39,7 @@ namespace Tangenta
             m_UpgradeDB = new UpgradeDB_inThread(this);
         }
 
-        public bool Get_shops_in_use(startup myStartup,object oData, ref string Err)
+        public bool Get_shops_in_use(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
             if (Get_shops_in_use(false))
             {
@@ -156,7 +156,7 @@ namespace Tangenta
         }
 
 
-        internal bool CheckDBVersion(startup myStartup, object oData, ref string Err)
+        internal bool CheckDBVersion(startup myStartup, object oData,NavigationButtons.Navigation xnav, ref string Err)
         {
             switch (myStartup.eGetDBSettings_Result)
             {
@@ -261,7 +261,7 @@ namespace Tangenta
             return false;
         }
 
-    public bool GetWorkPeriod(startup myStartup,object oData, ref string Err)
+    public bool GetWorkPeriod(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
     {
         if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
         {
@@ -318,12 +318,12 @@ namespace Tangenta
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             string sDBType = Properties.Settings.Default.DBType;
             DBConnectionControl40.DBConnection.eDBType org_eDBType = DBSync.DBSync.m_DBType;
-            NavigationButtons.NavigationButtons nav_buttons = new NavigationButtons.NavigationButtons();
-            nav_buttons.btn3_Visible = true;
-            nav_buttons.btn3_Text = "";
-            nav_buttons.btn3_Image = Properties.Resources.Exit;
+            NavigationButtons.Navigation nav = new NavigationButtons.Navigation();
+            nav.btn3_Visible = true;
+            nav.btn3_Text = "";
+            nav.btn3_Image = Properties.Resources.Exit;
 
-            DBSync.DBSync.DBMan(Main_Form, Program.bReset2FactorySettings, ((Form_Document)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder, nav_buttons);
+            DBSync.DBSync.DBMan(Main_Form, Program.bReset2FactorySettings, ((Form_Document)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder, nav);
             Properties.Settings.Default.BackupFolder = BackupFolder;
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();

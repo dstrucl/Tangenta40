@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tangenta</RootNamespace>
     <AssemblyName>Tangenta</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Blagajna_Icon.ico</ApplicationIcon>
     <FileUpgradeFlags>
@@ -1064,6 +1064,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\Next.bmp" />
+    <None Include="Resources\Prev.bmp" />
     <None Include="Resources\Person.ico" />
     <None Include="Resources\Persons.ico" />
     <None Include="Resources\Tangenta_Question.ico" />
@@ -1076,7 +1078,7 @@
     <None Include="Resources\SelectRow.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
       <Install>true</Install>

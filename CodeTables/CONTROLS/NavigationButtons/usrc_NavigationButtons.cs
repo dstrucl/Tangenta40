@@ -12,28 +12,89 @@ namespace NavigationButtons
 {
     public partial class usrc_NavigationButtons : UserControl
     {
-        public delegate void delegate_button_pressed(NavigationButtons.eEvent evt);
+        ToolTip toolTip1 = null;
+
+        public delegate void delegate_button_pressed(Navigation.eEvent evt);
         public event delegate_button_pressed ButtonPressed;
 
-        public NavigationButtons.eButtons m_eButtons = NavigationButtons.eButtons.OkCancel;
+        
+        public Navigation.eButtons m_eButtons = Navigation.eButtons.OkCancel;
 
-        public NavigationButtons.eButtons Buttons
+        public Navigation.eButtons Buttons
         {
             get { return m_eButtons; }
             set { m_eButtons = value;
                   switch (m_eButtons)
                 {
-                    case NavigationButtons.eButtons.OkCancel:
+                    case Navigation.eButtons.OkCancel:
                         btn2.Visible = false;
                         btn1.Visible = true;
                         btn3.Visible = true;
                         break;
-                    case NavigationButtons.eButtons.PrevNextExit:
+                    case Navigation.eButtons.PrevNextExit:
                         btn2.Visible = false;
                         btn1.Visible = true;
                         btn3.Visible = true;
                         break;
 
+                }
+            }
+        }
+
+        private string m_ExitQuestion = "Exit Program?";
+        public string ExitQuestion
+        { 
+            get { return m_ExitQuestion; }
+            set { m_ExitQuestion = value; }
+         }
+
+        private string m_btn1_ToolTip_Text = "";
+        public string btn1_ToolTip_Text
+        {
+            get { return m_btn1_ToolTip_Text; }
+            set
+            {
+                m_btn1_ToolTip_Text = value;
+                if (m_btn1_ToolTip_Text!=null)
+                {
+                    if (toolTip1!=null)
+                    {
+                        toolTip1.SetToolTip(btn1, m_btn1_ToolTip_Text);
+                    }
+                }
+            }
+        }
+
+        private string m_btn2_ToolTip_Text = "";
+        public string btn2_ToolTip_Text
+        {
+            get { return m_btn2_ToolTip_Text; }
+            set
+            {
+                m_btn2_ToolTip_Text = value;
+                if (m_btn2_ToolTip_Text != null)
+                {
+                    if (toolTip1 != null)
+                    {
+                        toolTip1.SetToolTip(btn2, m_btn2_ToolTip_Text);
+                    }
+                }
+            }
+        }
+
+        private string m_btn3_ToolTip_Text = "";
+        public string btn3_ToolTip_Text
+        {
+            get { return m_btn3_ToolTip_Text; }
+            set
+            {
+                m_btn3_ToolTip_Text = value;
+                if (m_btn3_ToolTip_Text != null)
+                {
+                    if (toolTip1 != null)
+                    {
+                        toolTip1.SetToolTip(btn3, m_btn3_ToolTip_Text);
+                    }
                 }
             }
         }
@@ -113,30 +174,47 @@ namespace NavigationButtons
         public usrc_NavigationButtons()
         {
             InitializeComponent();
+            Image_PREV = Properties.Resources.Prev;
+            Image_NEXT = Properties.Resources.Next;
+            Text_PREV = "";
+            Text_NEXT = "";
+
+            toolTip1 = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip1.AutoPopDelay = 2000;
+            toolTip1.InitialDelay = 1000;
+            toolTip1.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            toolTip1.ShowAlways = true;
         }
 
-        public void Init(NavigationButtons nav_buttons)
+        public void Init(Navigation nav)
         {
-            this.m_eButtons = nav_buttons.m_eButtons;
-            btn1.Visible = nav_buttons.btn1_Visible;
-            btn2.Visible = nav_buttons.btn2_Visible;
-            btn3.Visible = nav_buttons.btn3_Visible;
+            this.m_eButtons = nav.m_eButtons;
+            btn1.Visible = nav.btn1_Visible;
+            btn2.Visible = nav.btn2_Visible;
+            btn3.Visible = nav.btn3_Visible;
 
-            btn1.Text = nav_buttons.btn1_Text;
-            btn2.Text = nav_buttons.btn2_Text;
-            btn3.Text = nav_buttons.btn3_Text;
+            btn1.Text = nav.btn1_Text;
+            btn1_ToolTip_Text = nav.btn1_ToolTip_Text;
+            btn2.Text = nav.btn2_Text;
+            btn2_ToolTip_Text = nav.btn2_ToolTip_Text;
+            btn3.Text = nav.btn3_Text;
+            btn3_ToolTip_Text = nav.btn3_ToolTip_Text;
 
-            btn1.Image = nav_buttons.btn1_Image;
-            btn2.Image = nav_buttons.btn2_Image;
-            btn3.Image = nav_buttons.btn3_Image;
+            btn1.Image = nav.btn1_Image;
+            btn2.Image = nav.btn2_Image;
+            btn3.Image = nav.btn3_Image;
+
 
             switch (this.m_eButtons)
             {
-                case NavigationButtons.eButtons.OkCancel:
+                case Navigation.eButtons.OkCancel:
                     btn2.Visible = false;
                     break;
 
-                case NavigationButtons.eButtons.PrevNextExit:
+                case Navigation.eButtons.PrevNextExit:
                     btn2.Visible = true;
                     break;
             }
@@ -148,11 +226,11 @@ namespace NavigationButtons
             {
                 switch (m_eButtons)
                 {
-                    case NavigationButtons.eButtons.PrevNextExit:
-                        ButtonPressed(NavigationButtons.eEvent.PREV);
+                    case Navigation.eButtons.PrevNextExit:
+                        ButtonPressed(Navigation.eEvent.PREV);
                         break;
-                    case NavigationButtons.eButtons.OkCancel:
-                        ButtonPressed(NavigationButtons.eEvent.OK);
+                    case Navigation.eButtons.OkCancel:
+                        ButtonPressed(Navigation.eEvent.OK);
                         break;
                 }
             }
@@ -164,8 +242,8 @@ namespace NavigationButtons
             {
                 switch (m_eButtons)
                 {
-                    case NavigationButtons.eButtons.PrevNextExit:
-                        ButtonPressed(NavigationButtons.eEvent.NEXT);
+                    case Navigation.eButtons.PrevNextExit:
+                        ButtonPressed(Navigation.eEvent.NEXT);
                         break;
                 }
             }
@@ -177,11 +255,14 @@ namespace NavigationButtons
             {
                 switch (m_eButtons)
                 {
-                    case NavigationButtons.eButtons.PrevNextExit:
-                        ButtonPressed(NavigationButtons.eEvent.EXIT);
+                    case Navigation.eButtons.PrevNextExit:
+                        if (MessageBox.Show(this, ExitQuestion, "?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            ButtonPressed(Navigation.eEvent.EXIT);
+                        }
                         break;
-                    case NavigationButtons.eButtons.OkCancel:
-                        ButtonPressed(NavigationButtons.eEvent.CANCEL);
+                    case Navigation.eButtons.OkCancel:
+                        ButtonPressed(Navigation.eEvent.CANCEL);
                         break;
                 }
             }

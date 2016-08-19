@@ -15,6 +15,7 @@ namespace Startup
 
     public class startup
         {
+        NavigationButtons.Navigation nav = null;
 
         startup_step.eResult eResult = startup_step.eResult.NEXT;
         startup_step.eStep eStep = startup_step.eStep.NoStep;
@@ -39,12 +40,12 @@ namespace Startup
             set { m_bCancel = value; }
         }
 
-        public startup(Form parent_form, startup_step[] xStep, Image xImageCancel, Icon xFormIconQuestion)
+        public startup(Form parent_form, startup_step[] xStep, NavigationButtons.Navigation xnav, Icon xFormIconQuestion)
         {
             m_parent_form = parent_form;
             Step = xStep;
             m_usrc_Startup = new usrc_Startup(this);
-            m_ImageCancel = xImageCancel;
+            nav = xnav;
             m_FormIconQuestion = xFormIconQuestion;
         }
 
@@ -56,19 +57,27 @@ namespace Startup
             while ((eStep != startup_step.eStep.Cancel)&&(eStep != startup_step.eStep.End))
             {
                 object odata = null;
-                bool bRet = step[(int)eStep].Execute(this,odata, ref Err);
+                bool bRet = step[(int)eStep].Execute(this,odata, nav, ref Err);
                 if (bRet)
                 {
-                    if ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
+                    switch (nav.eExitResult)
                     {
-                        int iStep = (int)eStep + 1;
-                        int iNextStep = (int)eNextStep;
-                        while (iStep < iNextStep)
-                        {
-                            step[iStep].SetOK();
-                            iStep++;
-                        }
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            if ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
+                            {
+                                int iStep = (int)eStep + 1;
+                                int iNextStep = (int)eNextStep;
+                                while (iStep < iNextStep)
+                                {
+                                    step[iStep].SetOK();
+                                    iStep++;
+                                }
+                            }
+                            break;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            break;
                     }
+
                 }
                 eStep = eNextStep;
                 Application.DoEvents();

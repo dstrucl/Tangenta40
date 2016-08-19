@@ -15,13 +15,15 @@ namespace LanguageControl
         Icon Program_Icon = null;
         string Program_name = null;
         List<Language> LanguageList = new List<Language> ();
-        Image Image_Cancel = null;
-        public Form_SelectLanguage(Icon xProgram_Icon, string xProgram_name, int Language_ID, Image xImage_Cancel)
+        NavigationButtons.Navigation nav = null;
+
+        public Form_SelectLanguage(Icon xProgram_Icon, string xProgram_name, int Language_ID, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             Program_Icon = xProgram_Icon;
             Program_name = xProgram_name;
-            Image_Cancel = xImage_Cancel;
+            nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
             if (Program_Icon!= null)
             {
                 this.Icon = Program_Icon;
@@ -34,12 +36,6 @@ namespace LanguageControl
             if (Program_Icon != null)
             {
                 this.pic_Program_Icon.Image = Program_Icon.ToBitmap();
-            }
-            if (Image_Cancel !=null)
-            {
-                btn_Cancel.Text = "";
-                btn_Cancel.Image = Image_Cancel;
-                btn_Cancel.ImageAlign = ContentAlignment.MiddleCenter;
             }
             int iCount = DynSettings.s_language.sTextArr.Length;
             int i = 0;
@@ -90,7 +86,7 @@ namespace LanguageControl
             }
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void DoOK()
         {
             int i = cmb_Language.SelectedIndex;
             if (i >= 0)
@@ -105,10 +101,46 @@ namespace LanguageControl
             DialogResult = DialogResult.OK;
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void DoCancel()
         {
             this.Close();
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void cmb_Language_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            DoOK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            DoCancel();
+                            break;
+                    }
+                    break;
+
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            DoOK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            DoCancel();
+                            break;
+                    }
+                    break;
+
+            }
         }
     }
 }

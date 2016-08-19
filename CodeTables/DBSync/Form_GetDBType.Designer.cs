@@ -58,7 +58,7 @@
             // rdb_MSSQL
             // 
             this.rdb_MSSQL.AutoSize = true;
-            this.rdb_MSSQL.Location = new System.Drawing.Point(171, 43);
+            this.rdb_MSSQL.Location = new System.Drawing.Point(159, 43);
             this.rdb_MSSQL.Name = "rdb_MSSQL";
             this.rdb_MSSQL.Size = new System.Drawing.Size(62, 17);
             this.rdb_MSSQL.TabIndex = 2;
@@ -69,15 +69,18 @@
             // usrc_NavigationButtons1
             // 
             this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_NavigationButtons1.Buttons = NavigationButtons.NavigationButtons.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.Image_Cancel = null;
             this.usrc_NavigationButtons1.Image_EXIT = null;
             this.usrc_NavigationButtons1.Image_NEXT = null;
             this.usrc_NavigationButtons1.Image_OK = null;
             this.usrc_NavigationButtons1.Image_PREV = null;
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(12, 129);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(17, 95);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(335, 27);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(204, 64);
             this.usrc_NavigationButtons1.TabIndex = 3;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -93,7 +96,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(355, 182);
+            this.ClientSize = new System.Drawing.Size(260, 182);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.rdb_MSSQL);
             this.Controls.Add(this.rdb_SQLite);

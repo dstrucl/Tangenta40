@@ -3536,7 +3536,7 @@ namespace UpgradeDB
             }
         }
 
-        public fs.enum_GetDBSettings Read_DBSettings_Version(startup myStartup,ref fs.enum_GetDBSettings eGetDBSettings_Result,ref bool bUpgradeDone,ref bool bInsertSampleData, ref bool bCanceled,ref string Err)
+        public fs.enum_GetDBSettings Read_DBSettings_Version(startup myStartup,ref fs.enum_GetDBSettings eGetDBSettings_Result, ref bool bUpgradeDone,ref bool bInsertSampleData, ref bool bCanceled,ref string Err)
         {
             bool xReadOnly = false;
             bInsertSampleData = false;
@@ -3592,7 +3592,7 @@ namespace UpgradeDB
 
         }
 
-        public bool Read_DBSettings_Version(startup myStartup, object oData, ref string Err)
+        public bool Read_DBSettings_Version(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
             bool bUpgradeDone = false;
             bool bCanceled = false;

@@ -22,7 +22,7 @@ namespace DBSync
 {
     public class SQLite_Support
     {
-        NavigationButtons.NavigationButtons nav_buttons = null;
+        NavigationButtons.Navigation nav = null;
 
         public SQLite_Support()
         {
@@ -37,12 +37,12 @@ namespace DBSync
             return false;
         }
 
-        public bool Get(Form MainForm,bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection, ref bool bNewDataBaseCreated, NavigationButtons.NavigationButtons xnav_buttons, ref bool bCanceled)
+        public bool Get(bool bReset, ref string Err, ref string IniFileFolder, string inifile_prefix, string DataBaseName, bool bChangeConnection, ref bool bNewDataBaseCreated, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
 
             //string IniFileFolder = Settings.IniFileFolder;
             //string IniFileFolder = Properties.Settings.Default.IniFileFolder;
-            nav_buttons = xnav_buttons;
+            nav = xnav;
 
             bNewDataBaseCreated = false;
             if (!FolderExists(IniFileFolder))
@@ -62,7 +62,7 @@ namespace DBSync
 
             if (bChangeConnection)
             {
-                if (DBSync.DB_for_Tangenta.m_DBTables.CreateNewDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite,true, nav_buttons, ref bCanceled))
+                if (DBSync.DB_for_Tangenta.m_DBTables.CreateNewDataBaseConnection(DBSync.LocalDB_data_SQLite,true, nav, ref bCanceled))
                 {
                     bNewDataBaseCreated = true;
                     if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
@@ -86,7 +86,7 @@ namespace DBSync
             }
             else
             { 
-                if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(MainForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav_buttons, ref bCanceled))
+                if (DBSync.DB_for_Tangenta.m_DBTables.MakeDataBaseConnection(nav.parentForm, DBSync.LocalDB_data_SQLite, ref bNewDataBaseCreated, nav, ref bCanceled))
                 {
                     if (!DBSync.LocalDB_data_SQLite.Save(inifile_prefix, ref Err))
                     {

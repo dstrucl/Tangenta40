@@ -28,21 +28,21 @@ namespace DBConnectionControl40
 
         private conData_SQLITE m_conData_SQLITE;
 
-        private NavigationButtons.NavigationButtons nav_buttons = null;
+        private NavigationButtons.Navigation nav = null;
 
-        public NavigationButtons.NavigationButtons.eEvent eEventExit = NavigationButtons.NavigationButtons.eEvent.NOTHING;
+        public NavigationButtons.Navigation.eEvent eEventExit = NavigationButtons.Navigation.eEvent.NOTHING;
 
-        public SQLiteConnectionDialog(Form pParentForm,conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder, NavigationButtons.NavigationButtons xnav_buttons, string myConnectionName)
+        public SQLiteConnectionDialog(conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder, NavigationButtons.Navigation xnav, string myConnectionName)
         {
             m_conData_SQLITE = xconData_SQLite;
 
             BackupFolder = xBackupFolder;
-            m_ParentForm = pParentForm;
-            this.Owner = pParentForm;
+            m_ParentForm = xnav.parentForm;
+            this.Owner = xnav.parentForm;
             InitializeComponent();
 
-            nav_buttons = xnav_buttons;
-            usrc_NavigationButtons1.Init(nav_buttons);
+            nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
             cmbR_FilePath.RecentItemsFolder = recent_items_folder;
             cmbR_FileName.RecentItemsFolder = recent_items_folder;
 
@@ -199,36 +199,36 @@ namespace DBConnectionControl40
             }
         }
 
-        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.NavigationButtons.eEvent evt)
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
             eEventExit = evt;
-            switch (nav_buttons.m_eButtons)
+            switch (nav.m_eButtons)
             {
-                case NavigationButtons.NavigationButtons.eButtons.OkCancel:
+                case NavigationButtons.Navigation.eButtons.OkCancel:
                     switch(evt)
                     {
-                        case NavigationButtons.NavigationButtons.eEvent.OK:
+                        case NavigationButtons.Navigation.eEvent.OK:
                             DialogResult = DialogResult.OK;
                             Close();
                             break;
-                        case NavigationButtons.NavigationButtons.eEvent.CANCEL:
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
                             DialogResult = DialogResult.Cancel;
                             Close();
                             break;
                     }
                     break;
-                case NavigationButtons.NavigationButtons.eButtons.PrevNextExit:
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
                     switch (evt)
                     {
-                        case NavigationButtons.NavigationButtons.eEvent.PREV:
+                        case NavigationButtons.Navigation.eEvent.PREV:
                             DialogResult = DialogResult.Abort;
                             Close();
                             break;
-                        case NavigationButtons.NavigationButtons.eEvent.NEXT:
+                        case NavigationButtons.Navigation.eEvent.NEXT:
                             DialogResult = DialogResult.OK;
                             Close();
                             break;
-                        case NavigationButtons.NavigationButtons.eEvent.EXIT:
+                        case NavigationButtons.Navigation.eEvent.EXIT:
                             DialogResult = DialogResult.Cancel;
                             Close();
                             break;

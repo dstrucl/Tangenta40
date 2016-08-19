@@ -13,15 +13,15 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
+using NavigationButtons;
 
 namespace DBConnectionControl40
 {
     public partial class ConnectionDialog : Form
     {
-        public NavigationButtons.NavigationButtons.eEvent eExitEvent = NavigationButtons.NavigationButtons.eEvent.NOTHING;
-        private Form m_ParentForm = null;
+        public NavigationButtons.Navigation.eEvent eExitEvent = NavigationButtons.Navigation.eEvent.NOTHING;
         string m_Title = null;
-        NavigationButtons.NavigationButtons nav_buttons = null;
+        NavigationButtons.Navigation nav = null;
 
         private int[] Y = new int[5];
 
@@ -42,14 +42,14 @@ namespace DBConnectionControl40
         DBConnection m_con = null;
 
         internal bool m_bNewDataBase = false;
-        
-        public ConnectionDialog(Form parentForm, ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle, NavigationButtons.NavigationButtons xnav_buttons)
+        internal Navigation.eEvent eEventExit;
+
+        public ConnectionDialog(ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle, NavigationButtons.Navigation xnav)
         {
             m_Title = sTitle;
             my_ConnectionDialog_enum = ConnectionConnectionDialog_type;
-            m_ParentForm = parentForm;
             InitializeComponent();
-            nav_buttons = xnav_buttons;
+            nav = xnav;
             if (con.RecentItemsFolder.Length ==0)
             {
                 con.RecentItemsFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -103,7 +103,7 @@ namespace DBConnectionControl40
             lbl_Password.Text = lngConn.s_Password.s;
             btn_Browse_servers.Text = lngConn.s_Browse__.s;
             btn_Browse_Databases_onServer.Text = lngConn.s_Browse__.s;
-            usrc_NavigationButtons1.Init(nav_buttons);
+            usrc_NavigationButtons1.Init(nav);
             btn_Action.Text = lngConn.s_ConnectWithDatabase.s;
             rdb_UseWindowsAuthentication.Text = lngConn.s_WindowsAuthentication.s;
             rdb_SQL_Server_Authentication.Text = lngConn.s_SQLServerAuthentication.s;
@@ -405,9 +405,9 @@ namespace DBConnectionControl40
                     m_con.Password = this.txt_Password.Text;
 
                     //m_con.conData.SetConnectionString();
-                    if (m_con.CheckServerConnection(m_ParentForm,m_Title))//check server only connection
+                    if (m_con.CheckServerConnection(nav.parentForm,m_Title))//check server only connection
                     {
-                        Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(m_ParentForm,m_con, m_Title);
+                        Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(nav.parentForm,m_con, m_Title);
                         DialogResult dRes;
                         dRes = Select_Data_Base_On_Server.ShowDialog();
                         if (dRes == DialogResult.OK)
@@ -453,9 +453,9 @@ namespace DBConnectionControl40
                         m_con.Password = this.txt_Password.Text;
                     }
                     //m_con.conData.SetConnectionString();
-                    if (m_con.CheckServerConnection(m_ParentForm, m_Title)) //check server only connection
+                    if (m_con.CheckServerConnection(nav.parentForm, m_Title)) //check server only connection
                     {
-                        Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(m_ParentForm,m_con, m_Title);
+                        Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(nav.parentForm,m_con, m_Title);
                         DialogResult dRes;
                         dRes = Select_Data_Base_On_Server.ShowDialog();
                         if (dRes == DialogResult.OK)
@@ -592,14 +592,14 @@ namespace DBConnectionControl40
             }
         }
 
-        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.NavigationButtons.eEvent evt)
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
             eExitEvent = evt;
-            switch (nav_buttons.m_eButtons)
+            switch (nav.m_eButtons)
             {
-                case NavigationButtons.NavigationButtons.eButtons.OkCancel:
+                case NavigationButtons.Navigation.eButtons.OkCancel:
                     break;
-                case NavigationButtons.NavigationButtons.eButtons.PrevNextExit:
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
                     eExitEvent = evt;
                     break;
             }

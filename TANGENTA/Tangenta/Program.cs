@@ -228,7 +228,7 @@ namespace Tangenta
 
             try
             {
-
+                bool bLanguageSelected = false;
                 string Err = null;
 
                 Application.EnableVisualStyles();
@@ -236,10 +236,23 @@ namespace Tangenta
 
                 string[] CommandLineArguments = System.Environment.GetCommandLineArgs();
 
+DoSelectLanguage:
                 if (Properties.Settings.Default.LanguageID < 0)
                 {
-                    if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1, Properties.Resources.Exit_Program))
+                    NavigationButtons.Navigation LanguageNav = new NavigationButtons.Navigation();
+                    LanguageNav.bDoModal = true;
+                    LanguageNav.btn1_Visible = false;
+                    LanguageNav.btn2_Image = Properties.Resources.Next;
+                    LanguageNav.btn2_Text = "";
+                    LanguageNav.btn3_Image = Properties.Resources.Exit_Program;
+                    LanguageNav.btn3_Text = "";
+                    LanguageNav.btn2_ToolTip_Text = "Press to select language and go to next step";
+                    LanguageNav.btn3_ToolTip_Text = "Exit program Tangenta";
+
+
+                    if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1, LanguageNav))
                     {
+                        bLanguageSelected = true;
                         Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
                         Properties.Settings.Default.Save();
                     }
@@ -321,6 +334,14 @@ namespace Tangenta
                         
                         MainForm = new Form_Document();
                         Application.Run(MainForm);
+                        if (MainForm.nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                        {
+                            if (bLanguageSelected)
+                            {
+                                Properties.Settings.Default.LanguageID = -1;
+                                goto DoSelectLanguage;
+                            }
+                        }
                     }
                     else
                     {

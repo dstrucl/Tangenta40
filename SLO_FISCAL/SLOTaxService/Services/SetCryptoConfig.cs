@@ -6,10 +6,11 @@
 
 using System.Deployment.Internal.CodeSigning;
 using System.Security.Cryptography;
+using Security.Cryptography;
 
 namespace MNet.SLOTaxService.Services
 {
-  internal class SetCryptoConfig
+  public class SetCryptoConfig
   {
     public static void SetAlgorithm()
     {

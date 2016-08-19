@@ -288,7 +288,7 @@
             this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_NavigationButtons1.Buttons = NavigationButtons.NavigationButtons.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.Image_Cancel = null;
             this.usrc_NavigationButtons1.Image_EXIT = null;
             this.usrc_NavigationButtons1.Image_NEXT = null;

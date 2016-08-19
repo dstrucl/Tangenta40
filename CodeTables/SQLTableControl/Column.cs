@@ -445,8 +445,8 @@ namespace CodeTables
             //MemberInfo[] myMemberInfo;
             Type objType = obj.GetType();
             Type baseType = objType.BaseType;
-            DBtypes DBtypes = new DBtypes();
-            Type myDBTypes = DBtypes.GetType();
+            DBtypes xDBtypes = new DBtypes();
+            Type myDBTypes = xDBtypes.GetType();
 
             if (baseType != null)
             {

@@ -1260,11 +1260,11 @@ namespace CodeTables
             return m_con.CheckConnection(DB_Param);
         }
 
-        public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.NavigationButtons xnav_buttons, ref bool bCanceled)
+        public bool CreateNewDataBaseConnection( Object DB_Param, bool bNoDataBaseCheck, NavigationButtons.Navigation xnav, ref bool bCanceled)
         {
             while (true)
             {
-                if (m_con.CreateNewDataBaseConnection(pParentForm, DB_Param, xnav_buttons, ref bCanceled))
+                if (m_con.CreateNewDataBaseConnection(DB_Param, xnav, ref bCanceled))
                 {
                     if (m_con.DBType == DBConnection.eDBType.SQLITE)
                     {
@@ -1277,7 +1277,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                if (MessageBox.Show(pParentForm, lngConn.s_Error_Creating_Tables_in_SQLITE.s, lngConn.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                                if (MessageBox.Show(xnav.parentForm, lngConn.s_Error_Creating_Tables_in_SQLITE.s, lngConn.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                                 {
                                     return false;
                                 }
@@ -1295,7 +1295,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                if (MessageBox.Show(pParentForm, lngConn.s_Error_Creating_Tables_in_SQLITE.s, lngConn.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                                if (MessageBox.Show(xnav.parentForm, lngConn.s_Error_Creating_Tables_in_SQLITE.s, lngConn.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                                 {
                                     return false;
                                 }
@@ -1319,7 +1319,7 @@ namespace CodeTables
                         case enumDataBaseCheckResult.NO_DATABASE_CONNECTION:
                         case enumDataBaseCheckResult.PRIMARY_KEY_MISSING:
                             LogFile.Error.Show(csError);
-                            DialogResult dres = MessageBox.Show(pParentForm,
+                            DialogResult dres = MessageBox.Show(xnav.parentForm,
                                                                    lngConn.s_DeleteAllTablesAndCreateNewOnes.s,
                                                                    "?",
                                                                    MessageBoxButtons.YesNoCancel,
@@ -1332,7 +1332,7 @@ namespace CodeTables
                                     break;
                                 case DialogResult.Yes:
                                     bool bCancel = false;
-                                    if (DropAllTablesInDataBase(pParentForm, ref bCancel))
+                                    if (DropAllTablesInDataBase(xnav.parentForm, ref bCancel))
                                     {
                                         return CreateDatabaseTables(true);
                                     }
@@ -1353,11 +1353,11 @@ namespace CodeTables
             }
         }
         
-        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated,NavigationButtons.NavigationButtons nav_buttons, ref bool bCanceled)
+        public bool MakeDataBaseConnection(Form pParentForm, Object DB_Param, ref bool bNewDataBaseCreated,NavigationButtons.Navigation nav, ref bool bCanceled)
         {
             while (true)
             {
-                if (m_con.MakeDataBaseConnection(pParentForm, DB_Param, nav_buttons, ref bCanceled))
+                if (m_con.MakeDataBaseConnection(pParentForm, DB_Param, nav, ref bCanceled))
                 {
                     if (m_con.DBType == DBConnection.eDBType.SQLITE)
                     {

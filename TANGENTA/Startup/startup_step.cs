@@ -27,7 +27,7 @@ namespace Startup
                                   NoStep
                                 };
 
-        public delegate bool delegate_startup_proc(startup myStartup,object oData, ref string Err);
+        public delegate bool delegate_startup_proc(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err);
 
         public string s_Title = null;
         public usrc_startup_step m_usrc_startup_step = null;
@@ -46,12 +46,12 @@ namespace Startup
             m_usrc_startup_step.check1.State = Check.check.eState.TRUE;
         }
 
-        public bool Execute(startup myStartup,object oData, ref string Err)
+        public bool Execute(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
 
             m_usrc_startup_step.check1.State = Check.check.eState.WAIT;
             Application.DoEvents();
-            bool bRet = this.procedure(myStartup,oData, ref Err);
+            bool bRet = this.procedure(myStartup,oData, xnav, ref Err);
             if (bRet)
             {
                 m_usrc_startup_step.check1.State = Check.check.eState.TRUE;

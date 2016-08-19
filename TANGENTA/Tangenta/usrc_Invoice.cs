@@ -885,7 +885,7 @@ namespace Tangenta
         }
         
 
-        public bool GetTaxation(startup myStartup,object oData,ref string Err)
+        public bool GetTaxation(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
             if (DBtcn == null)
             {
@@ -1005,7 +1005,7 @@ namespace Tangenta
             return bGet;
         }
 
-        public bool Get_ShopB_ItemData(startup myStartup,object oData,ref string Err)
+        public bool Get_ShopB_ItemData(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
             if (Program.Shops_in_use.Contains("B"))
             {
@@ -1105,7 +1105,7 @@ namespace Tangenta
             }
         }
 
-        public bool Get_ShopC_ItemData(startup myStartup,object oData, ref string Err)
+        public bool Get_ShopC_ItemData(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
         {
             if (Program.Shops_in_use.Contains("C"))
             {
@@ -1181,7 +1181,7 @@ namespace Tangenta
         // DataBase is empty No Organisation Data First select Shops In use !
 
 
-        internal bool GetOrganisationData(startup myStartup,object  oData,ref string Err)
+        internal bool GetOrganisationData(startup myStartup,object  oData,NavigationButtons.Navigation xnav,ref string Err)
         {
             usrc_Document x_usrc_Main = (usrc_Document)oData;
             string sAddress = null;
@@ -1491,7 +1491,7 @@ namespace Tangenta
             throw new NotImplementedException();
         }
 
-        public  bool Get_BaseCurrency(startup myStartup,object oData, ref string Err)
+        public  bool Get_BaseCurrency(startup myStartup,object oData,NavigationButtons.Navigation xnav, ref string Err)
         {
             string BaseCurrency_Text = null;
             if (GlobalData.Get_BaseCurrency(ref BaseCurrency_Text,ref Err))

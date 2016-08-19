@@ -22,8 +22,8 @@ namespace DBConnectionControl40
         public SQLiteInfo_Form()
         {
             InitializeComponent();
-            this.lbl_SQLiteInfo.Text = "SQLite version = " + System.Data.SQLite.SQLiteConnection.SQLiteVersion + "\r\n"
-                                      + "       SourceID = " + System.Data.SQLite.SQLiteConnection.SQLiteSourceId;
+            this.lbl_SQLiteInfo.Text = "SQLite version = " + System.Data.SQLite.SQLiteConnection.SQLiteVersion + "\r\n";
+                                      //+ "       SourceID = " + System.Data.SQLite.SQLiteConnection.SQLiteSourceId;
         }
 
         private void btn_OK_Click(object sender, EventArgs e)
