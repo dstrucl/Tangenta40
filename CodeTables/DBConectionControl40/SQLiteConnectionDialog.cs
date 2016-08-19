@@ -30,7 +30,6 @@ namespace DBConnectionControl40
 
         private NavigationButtons.Navigation nav = null;
 
-        public NavigationButtons.Navigation.eEvent eEventExit = NavigationButtons.Navigation.eEvent.NOTHING;
 
         public SQLiteConnectionDialog(conData_SQLITE xconData_SQLite,string recent_items_folder, string xBackupFolder, NavigationButtons.Navigation xnav, string myConnectionName)
         {
@@ -201,15 +200,14 @@ namespace DBConnectionControl40
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
-            eEventExit = evt;
+            nav.eExitResult = evt;
             switch (nav.m_eButtons)
             {
                 case NavigationButtons.Navigation.eButtons.OkCancel:
                     switch(evt)
                     {
                         case NavigationButtons.Navigation.eEvent.OK:
-                            DialogResult = DialogResult.OK;
-                            Close();
+                            Do_OK();
                             break;
                         case NavigationButtons.Navigation.eEvent.CANCEL:
                             DialogResult = DialogResult.Cancel;
@@ -225,8 +223,7 @@ namespace DBConnectionControl40
                             Close();
                             break;
                         case NavigationButtons.Navigation.eEvent.NEXT:
-                            DialogResult = DialogResult.OK;
-                            Close();
+                            Do_OK();
                             break;
                         case NavigationButtons.Navigation.eEvent.EXIT:
                             DialogResult = DialogResult.Cancel;

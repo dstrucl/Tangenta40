@@ -129,7 +129,7 @@
             // 
             // btn_SQLiteInfo
             // 
-            this.btn_SQLiteInfo.Location = new System.Drawing.Point(597, 6);
+            this.btn_SQLiteInfo.Location = new System.Drawing.Point(128, 128);
             this.btn_SQLiteInfo.Name = "btn_SQLiteInfo";
             this.btn_SQLiteInfo.Size = new System.Drawing.Size(86, 52);
             this.btn_SQLiteInfo.TabIndex = 13;
@@ -139,7 +139,7 @@
             // 
             // btn_Backup
             // 
-            this.btn_Backup.Location = new System.Drawing.Point(597, 116);
+            this.btn_Backup.Location = new System.Drawing.Point(12, 128);
             this.btn_Backup.Name = "btn_Backup";
             this.btn_Backup.Size = new System.Drawing.Size(86, 52);
             this.btn_Backup.TabIndex = 14;
@@ -150,15 +150,19 @@
             // usrc_NavigationButtons1
             // 
             this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;
             this.usrc_NavigationButtons1.Image_EXIT = null;
             this.usrc_NavigationButtons1.Image_NEXT = null;
             this.usrc_NavigationButtons1.Image_OK = null;
             this.usrc_NavigationButtons1.Image_PREV = null;
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(186, 141);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(231, 128);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(361, 27);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(333, 68);
             this.usrc_NavigationButtons1.TabIndex = 15;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -174,7 +178,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 175);
+            this.ClientSize = new System.Drawing.Size(574, 199);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.btn_Backup);
             this.Controls.Add(this.btn_SQLiteInfo);

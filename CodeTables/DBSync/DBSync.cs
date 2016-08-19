@@ -55,12 +55,14 @@ namespace DBSync
                                 ref bool bNewDatabaseCreated,
                                 ref bool bCanceled)
         {
+start_init:
             string Err = null;
             if (DB_for_Tangenta == null)
             {
                 DB_for_Tangenta = new TangentaDataBaseDef.MyDataBase_Tangenta(xnav.parentForm, m_XmlFileName, IniFileFolder);
             }
-            DBConnection.eDBType org_m_DBType = m_DBType; 
+            DBConnection.eDBType org_m_DBType = m_DBType;
+            xnav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
             m_DBType = Get_DBType(ref DataBaseType, xnav,  bShowDialog, ref bCanceled);
             if (bCanceled)
             {
@@ -71,8 +73,14 @@ namespace DBSync
             if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
                 my_StartupWindowThread.Message(lngRPM.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
-
-                if (m_SQLite_Support.Get( bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated, xnav, ref bCanceled))
+                bool bGet = m_SQLite_Support.Get(bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated, xnav, ref bCanceled);
+                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    bCanceled = false;
+                    DataBaseType = "";
+                    goto start_init;
+                }
+                if (bGet)
                 {
                     my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;

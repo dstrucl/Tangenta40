@@ -970,6 +970,7 @@ namespace DBConnectionControl40
             while (true)
             {
                 DBConnection.ConnectResult_ENUM dRes;
+                nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
                 dRes = do_ConnectionDialog(this.ConnectionName, ref bxNewDatabase, nav, ref bCanceled,myConnectionName);
                 switch (dRes)
                 {
@@ -1269,7 +1270,6 @@ namespace DBConnectionControl40
 
         public ConnectResult_ENUM do_ConnectionDialog(string sTitle, ref bool bNewDatabase, NavigationButtons.Navigation nav, ref bool bCanceled, string myConnectionName)
         {
-                NavigationButtons.Navigation.eEvent dExitRes = NavigationButtons.Navigation.eEvent.NOTHING;
                 bNewDatabase = false;
                 switch (m_DBType)
                 {
@@ -1314,18 +1314,16 @@ namespace DBConnectionControl40
                     if (nav.bDoModal)
                     {
                         SQLiteConnectionDialog.ShowDialog(nav.parentForm);
-                        dExitRes = SQLiteConnectionDialog.eEventExit;
                         this.BackupFolder = SQLiteConnectionDialog.BackupFolder;
                     }
                     else
                     {
                         SQLiteConnectionDialog.TopMost = true;
                         SQLiteConnectionDialog.Show();
-                        while (SQLiteConnectionDialog.eEventExit== NavigationButtons.Navigation.eEvent.NOTHING)
+                        while (nav.eExitResult== NavigationButtons.Navigation.eEvent.NOTHING)
                         {
                             Application.DoEvents();
                         }
-                        dExitRes = SQLiteConnectionDialog.eEventExit;
                     }
                 }
                 else 
@@ -1341,12 +1339,14 @@ namespace DBConnectionControl40
                         {
                             Application.DoEvents();
                         }
-                        dExitRes = ConnectionDialog.eEventExit;
-
                     }
                 }
+                if (nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    return ConnectResult_ENUM.CANCELED;
+                }
 
-                if ((dExitRes == NavigationButtons.Navigation.eEvent.EXIT)|| (dExitRes == NavigationButtons.Navigation.eEvent.CANCEL))
+                if ((nav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)|| (nav.eExitResult == NavigationButtons.Navigation.eEvent.CANCEL))
                 {
                     bCanceled = true;
                     if (m_DBType == eDBType.SQLITE)
@@ -1359,7 +1359,7 @@ namespace DBConnectionControl40
                     }
                     return ConnectResult_ENUM.CANCELED;
                 }
-                else if ((dExitRes == NavigationButtons.Navigation.eEvent.NEXT)|| (dExitRes == NavigationButtons.Navigation.eEvent.OK))
+                else if ((nav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)|| (nav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
                 {
                     
                     try
@@ -1418,16 +1418,16 @@ namespace DBConnectionControl40
 
                         if (this.CheckDataBaseConnection(nav.parentForm, sTitle))
                         {
-                            if ((dExitRes == NavigationButtons.Navigation.eEvent.NEXT) || (dExitRes == NavigationButtons.Navigation.eEvent.OK))
+                            if ((nav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (nav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
                             {
                                 return ConnectResult_ENUM.OK;
                             }
-                            else if ((dExitRes == NavigationButtons.Navigation.eEvent.NEXT) || (dExitRes == NavigationButtons.Navigation.eEvent.OK))
+                            else if ((nav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (nav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
                             {
                                 ConnectionDialog.my_ConnectionDialog_enum = ConnectionDialog.ConnectionDialog_enum.SaveConnectionData;
                                 ConnectionDialog.ShowDialog(nav.parentForm);
-                                dExitRes = ConnectionDialog.eExitEvent;
-                                if ((dExitRes == NavigationButtons.Navigation.eEvent.NEXT) || (dExitRes == NavigationButtons.Navigation.eEvent.OK))
+                                nav.eExitResult = ConnectionDialog.eExitEvent;
+                                if ((nav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (nav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
                                 {
                                     return ConnectResult_ENUM.OK_SAVE;
                                 }
