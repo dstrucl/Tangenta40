@@ -119,6 +119,10 @@
       <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
       <Name>DynEditControls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\SelectGender\SelectGender.csproj">
       <Project>{e985e027-861c-433c-8078-2e9b6bef42b2}</Project>
       <Name>SelectGender</Name>

@@ -20,6 +20,7 @@ namespace Country_ISO_3166
 {
     public partial class Form_Select_Country_ISO_3166 : Form
     {
+        private NavigationButtons.Navigation nav = null;
         private DataTable dt_ISO_3166;
         public string Country= null;
         public string Country_ISO_3166_a2 = null;
@@ -27,9 +28,10 @@ namespace Country_ISO_3166
         public short Country_ISO_3166_num = -1;
         public string DefaultCountry = null;
 
-        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166, string xDefaultCountry, string xTitle, Image xImageCancel)
+        public Form_Select_Country_ISO_3166(DataTable dt_ISO_3166, string xDefaultCountry, string xTitle, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             DefaultCountry = xDefaultCountry;
             this.dt_ISO_3166 = dt_ISO_3166;
             dgvx_ISO_3166.DataSource = this.dt_ISO_3166;
@@ -45,19 +47,10 @@ namespace Country_ISO_3166
             {
                 this.Text = lngRPM.s_Form_Select_Country_ISO_3166_Title.s;
             }
-            lngRPM.s_OK.Text(btn_OK);
-            if (xImageCancel != null)
-            {
-                btn_Cancel.Text = "";
-                btn_Cancel.Image = xImageCancel;
-            }
-            else
-            {
-                lngRPM.s_Cancel.Text(btn_Cancel);
-            }
+            usrc_NavigationButtons1.Init(nav);
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void do_Cancel()
         {
             this.Close();
             DialogResult = DialogResult.Cancel;
@@ -109,7 +102,7 @@ namespace Country_ISO_3166
             }
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void do_OK()
         {
             DataGridViewSelectedRowCollection dgvc = this.dgvx_ISO_3166.SelectedRows;
             if (dgvc.Count > 0)
@@ -128,6 +121,40 @@ namespace Country_ISO_3166
                 this.Country_ISO_3166_num = (short)this.dt_ISO_3166.Rows[iRow]["num"];
                 this.Close();
                 DialogResult = DialogResult.OK;
+            }
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            nav.eExitResult = evt;
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            do_Cancel();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+
             }
         }
     }

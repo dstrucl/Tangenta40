@@ -25,6 +25,7 @@ namespace CodeTables
             {
                 int Tables_Count = (int)param;
                 CreateTables_WindowsForm dlg_CreateTables_WindowsForm = new CreateTables_WindowsForm(Tables_Count);
+                dlg_CreateTables_WindowsForm.TopMost = true;
                 dlg_CreateTables_WindowsForm.Show();
                 for (; ; )
                 {

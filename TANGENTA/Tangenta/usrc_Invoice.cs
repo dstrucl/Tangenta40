@@ -1504,7 +1504,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (Select_BaseCurrency(ref Err))
+                    if (Select_BaseCurrency(xnav,ref Err))
                     {
                         myStartup.eNextStep++;
                         return true;
@@ -1515,14 +1515,14 @@ namespace Tangenta
             return false;
         }
 
-        private bool Select_BaseCurrency(ref string Err)
+        private bool Select_BaseCurrency(NavigationButtons.Navigation xnav,ref string Err)
         {
             if (GlobalData.BaseCurrency == null)
             {
                 GlobalData.BaseCurrency = new xCurrency();
             }
             long DefaultCurrency_ID = myOrg.Default_Currency_ID;
-            Form_Select_DefaultCurrency sel_basecurrency_dlg = new Form_Select_DefaultCurrency(DefaultCurrency_ID,ref GlobalData.BaseCurrency);
+            Form_Select_DefaultCurrency sel_basecurrency_dlg = new Form_Select_DefaultCurrency(DefaultCurrency_ID,ref GlobalData.BaseCurrency,xnav);
             if (sel_basecurrency_dlg.ShowDialog() == DialogResult.OK)
             {
                 if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
@@ -1678,7 +1678,16 @@ namespace Tangenta
         private void btn_SelectBaseCurrency_Click(object sender, EventArgs e)
         {
             string Err = null;
-            Select_BaseCurrency(ref Err);
+            NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
+            xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            xnav.btn1_Text = lngRPM.s_OK.s;
+            xnav.btn1_Image = null;
+            xnav.btn2_Text = lngRPM.s_Cancel.s; ;
+            xnav.btn2_Image = null;
+            xnav.btn1_Visible = true;
+            xnav.btn2_Visible = true;
+            xnav.btn3_Visible = false;
+            Select_BaseCurrency(xnav,ref Err);
         }
 
         private void lbl_PriceList_SimpleItem_Click(object sender, EventArgs e)

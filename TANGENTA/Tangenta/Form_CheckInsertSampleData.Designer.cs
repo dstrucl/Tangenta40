@@ -30,16 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_CheckInsertSampleData));
             this.lbl_Message1 = new System.Windows.Forms.Label();
-            this.btn_Cancel = new System.Windows.Forms.Button();
             this.rdb_WritePredefinedDefaultDataInDataBase = new System.Windows.Forms.RadioButton();
             this.rdb_Enter_data_into_a_new_database_table = new System.Windows.Forms.RadioButton();
-            this.btn_OK = new System.Windows.Forms.Button();
             this.lbl_Message2 = new System.Windows.Forms.Label();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.SuspendLayout();
             // 
             // lbl_Message1
             // 
-            this.lbl_Message1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lbl_Message1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Message1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Message1.ForeColor = System.Drawing.Color.Blue;
@@ -48,18 +47,6 @@
             this.lbl_Message1.Size = new System.Drawing.Size(616, 113);
             this.lbl_Message1.TabIndex = 0;
             this.lbl_Message1.Text = resources.GetString("lbl_Message1.Text");
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Cancel.Location = new System.Drawing.Point(181, 323);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(112, 36);
-            this.btn_Cancel.TabIndex = 1;
-            this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Visible = false;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // rdb_WritePredefinedDefaultDataInDataBase
             // 
@@ -86,20 +73,9 @@
             this.rdb_Enter_data_into_a_new_database_table.UseVisualStyleBackColor = true;
             this.rdb_Enter_data_into_a_new_database_table.CheckedChanged += new System.EventHandler(this.rdb_Enter_data_into_a_new_database_table_CheckedChanged);
             // 
-            // btn_OK
-            // 
-            this.btn_OK.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_OK.Location = new System.Drawing.Point(12, 323);
-            this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(112, 36);
-            this.btn_OK.TabIndex = 4;
-            this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
-            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
-            // 
             // lbl_Message2
             // 
-            this.lbl_Message2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lbl_Message2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_Message2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Message2.ForeColor = System.Drawing.Color.Blue;
@@ -108,17 +84,44 @@
             this.lbl_Message2.Size = new System.Drawing.Size(616, 56);
             this.lbl_Message2.TabIndex = 5;
             this.lbl_Message2.Text = "If you want to enter your data manually than select:";
-            this.lbl_Message2.Click += new System.EventHandler(this.lbl_Message2_Click);
+            // 
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
+            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
+            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(12, 297);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(620, 63);
+            this.usrc_NavigationButtons1.TabIndex = 6;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "";
+            this.usrc_NavigationButtons1.Text_OK = "";
+            this.usrc_NavigationButtons1.Text_PREV = "";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
             // Form_CheckInsertSampleData
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(640, 371);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.lbl_Message2);
-            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.rdb_Enter_data_into_a_new_database_table);
             this.Controls.Add(this.rdb_WritePredefinedDefaultDataInDataBase);
-            this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.lbl_Message1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form_CheckInsertSampleData";
@@ -132,10 +135,9 @@
         #endregion
 
         private System.Windows.Forms.Label lbl_Message1;
-        private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.RadioButton rdb_WritePredefinedDefaultDataInDataBase;
         private System.Windows.Forms.RadioButton rdb_Enter_data_into_a_new_database_table;
-        private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.Label lbl_Message2;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

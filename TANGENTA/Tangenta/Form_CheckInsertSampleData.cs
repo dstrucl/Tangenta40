@@ -15,11 +15,13 @@ namespace Tangenta
     public partial class Form_CheckInsertSampleData : Form
     {
         private startup myStartup;
+        private NavigationButtons.Navigation nav = null;
 
-
-        public Form_CheckInsertSampleData(startup xmyStartup)
+        public Form_CheckInsertSampleData(startup xmyStartup, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
             lngRPM.s_DataBaseIsEmpty_InsertInitialData.Text(this.lbl_Message1);
             lngRPM.s_DataBaseIsEmpty_EnterData.Text(this.lbl_Message2);
             lngRPM.s_Write_predefined_data_into_a_new_database.Text(this.rdb_WritePredefinedDefaultDataInDataBase);
@@ -28,24 +30,13 @@ namespace Tangenta
             this.rdb_WritePredefinedDefaultDataInDataBase.Checked = true;
             this.myStartup = xmyStartup;
             this.Text = "";
-            lngRPM.s_OK.Text(this.btn_OK);
             if (myStartup.m_FormIconQuestion != null)
             {
                 this.Icon = myStartup.m_FormIconQuestion;
             }
-            if (xmyStartup.m_ImageCancel != null)
-            {
-                btn_Cancel.Text = "";
-                btn_Cancel.Image = xmyStartup.m_ImageCancel;
-            }
-            else
-            {
-                lngRPM.s_Cancel.Text(this.btn_Cancel);
-            }
-            this.btn_OK.Focus();
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void Do_Cancel()
         {
             myStartup.bCanceled = true;
             myStartup.bInsertSampleData = false;
@@ -53,7 +44,7 @@ namespace Tangenta
             DialogResult = DialogResult.Cancel;
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void do_OK()
         {
             myStartup.bCanceled = false;
             myStartup.bInsertSampleData = true;
@@ -61,14 +52,26 @@ namespace Tangenta
             DialogResult = DialogResult.Cancel;
         }
 
-        private void lbl_Message2_Click(object sender, EventArgs e)
+        private void rdb_Enter_data_into_a_new_database_table_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void rdb_Enter_data_into_a_new_database_table_CheckedChanged(object sender, EventArgs e)
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
-
+            nav.eExitResult = evt;
+            switch (evt)
+            {
+                case NavigationButtons.Navigation.eEvent.NEXT:
+                    do_OK();
+                    break;
+                case NavigationButtons.Navigation.eEvent.PREV:
+                    Do_Cancel();
+                    break;
+                case NavigationButtons.Navigation.eEvent.EXIT:
+                    Do_Cancel();
+                    break;
+            }
         }
     }
 }

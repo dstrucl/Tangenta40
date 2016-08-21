@@ -3605,7 +3605,7 @@ namespace UpgradeDB
 
 
 
-        private  bool Read_DBSettings_LastInvoiceType(bool bUpgradeDone,ref bool bCanceled,Image xImageCancel,Icon xIcon, ref string Err)
+        private  bool Read_DBSettings_LastInvoiceType(bool bUpgradeDone,ref bool bCanceled,NavigationButtons.Navigation xnav,Icon xIcon, ref string Err)
         {
             string xTextValue = null;
             bool xReadOnly = false;
@@ -3629,7 +3629,7 @@ namespace UpgradeDB
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke studia Marjetka?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
-                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xImageCancel, xIcon, ref Err))
+                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xnav, xIcon, ref Err))
                         {
                             return false;
                             //$$$

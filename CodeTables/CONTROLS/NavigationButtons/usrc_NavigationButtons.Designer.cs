@@ -35,7 +35,6 @@
             // 
             // btn1
             // 
-            this.btn1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn1.Location = new System.Drawing.Point(3, 35);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(81, 27);

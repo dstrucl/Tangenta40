@@ -18,20 +18,13 @@ namespace TangentaSampleDB
         private bool DataChanged = false;
         private bool AllDataChanged = false;
         private Icon oIcon = null;
-        public Form_EditSampleData(SampleDB smd, Image xImageCancel,Icon xoIcon)
+        private NavigationButtons.Navigation nav = null;
+        public Form_EditSampleData(SampleDB smd, NavigationButtons.Navigation xnav,Icon xoIcon)
         {
             InitializeComponent();
             oIcon = xoIcon;
-
-            if (xImageCancel!=null)
-            { 
-                this.btn_Cancel.Image = xImageCancel;
-                this.btn_Cancel.Text = "";
-            }
-            else
-            {
-                lngRPM.s_Cancel.Text(btn_Cancel);
-            }
+            nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
 
             if (oIcon != null)
             {
@@ -55,7 +48,13 @@ namespace TangentaSampleDB
             m_usrc_SampleDataEdit.Init();
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void do_Cancel()
+        {
+            DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void do_OK()
         {
             DataChanged = false;
             AllDataChanged = true;
@@ -101,6 +100,43 @@ namespace TangentaSampleDB
 
         private void Form_EditSampleData_Load(object sender, EventArgs e)
         {
+        }
+
+        private void usrc_NavigationButtons1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            nav.eExitResult = evt;
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            break;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+            }
         }
     }
 }

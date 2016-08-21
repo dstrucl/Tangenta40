@@ -228,6 +228,7 @@ namespace Tangenta
 
             try
             {
+                bool bLanguageSelectDialogShown = false;
                 bool bLanguageSelected = false;
                 string Err = null;
 
@@ -252,6 +253,7 @@ DoSelectLanguage:
                     LanguageNav.btn2_ToolTip_Text = "Press to select language and go to next step";
                     LanguageNav.btn3_ToolTip_Text = "Exit program Tangenta";
 
+                    bLanguageSelectDialogShown = true;
 
                     if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1, LanguageNav))
                     {
@@ -278,11 +280,43 @@ DoSelectLanguage:
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
-                    CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, Properties.Resources.Exit_Program, Properties.Resources.Tangenta_Question);
-                    if (hlp_frm.ShowDialog() == DialogResult.OK)
+
+                    NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation();
+                    CommandLineHelpNav.bDoModal = true;
+                    CommandLineHelpNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
+                    if (bLanguageSelectDialogShown)
+                    {
+                        CommandLineHelpNav.btn1_Visible = true;
+                        CommandLineHelpNav.btn1_Image = Properties.Resources.Prev;
+                    }
+                    else
+                    {
+                        CommandLineHelpNav.btn1_Visible = false;
+                    }
+                    CommandLineHelpNav.btn2_Image = Properties.Resources.Next;
+                    CommandLineHelpNav.btn2_Text = "";
+                    CommandLineHelpNav.btn2_Visible = true;
+                    CommandLineHelpNav.btn3_Image = Properties.Resources.Exit_Program;
+                    CommandLineHelpNav.btn3_Text = "";
+                    CommandLineHelpNav.btn3_Visible = true;
+                    CommandLineHelpNav.btn2_ToolTip_Text = "Press to go to next step";
+                    CommandLineHelpNav.btn3_ToolTip_Text = "Exit program Tangenta";
+
+                    CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, CommandLineHelpNav, Properties.Resources.Tangenta_Question);
+                    CommandLineHelpNav.ChildDialog = hlp_frm;
+                    CommandLineHelpNav.ShowDialog();
+                    if ((CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.OK)||(CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
                     {
                         CommandLineArguments = hlp_frm.CommandLineArguments;
                         Parse_CommandLineArguments(CommandLineArguments);
+                    }
+                    else if (CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    {
+                        if (bLanguageSelectDialogShown)
+                        {
+                            Properties.Settings.Default.LanguageID = -1;
+                            goto DoSelectLanguage;
+                        }
                     }
                     else
                     {

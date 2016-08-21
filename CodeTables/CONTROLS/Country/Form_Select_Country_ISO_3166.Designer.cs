@@ -30,9 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Select_Country_ISO_3166));
             this.dgvx_ISO_3166 = new DataGridView_2xls.DataGridView2xls();
-            this.btn_OK = new System.Windows.Forms.Button();
-            this.btn_Cancel = new System.Windows.Forms.Button();
             this.txt_SelectCountry = new System.Windows.Forms.TextBox();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ISO_3166)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,30 +50,8 @@
             this.dgvx_ISO_3166.Name = "dgvx_ISO_3166";
             this.dgvx_ISO_3166.ReadOnly = true;
             this.dgvx_ISO_3166.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_ISO_3166.Size = new System.Drawing.Size(347, 453);
+            this.dgvx_ISO_3166.Size = new System.Drawing.Size(641, 427);
             this.dgvx_ISO_3166.TabIndex = 0;
-            // 
-            // btn_OK
-            // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OK.Location = new System.Drawing.Point(5, 495);
-            this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(51, 29);
-            this.btn_OK.TabIndex = 1;
-            this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
-            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Cancel.Location = new System.Drawing.Point(240, 495);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(72, 29);
-            this.btn_Cancel.TabIndex = 2;
-            this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // txt_SelectCountry
             // 
@@ -85,14 +62,42 @@
             this.txt_SelectCountry.TabIndex = 3;
             this.txt_SelectCountry.TextChanged += new System.EventHandler(this.txt_SelectCountry_TextChanged);
             // 
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
+            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
+            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 469);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(641, 63);
+            this.usrc_NavigationButtons1.TabIndex = 4;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "";
+            this.usrc_NavigationButtons1.Text_OK = "";
+            this.usrc_NavigationButtons1.Text_PREV = "";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
+            // 
             // Form_Select_Country_ISO_3166
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 533);
+            this.ClientSize = new System.Drawing.Size(646, 533);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.txt_SelectCountry);
-            this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.dgvx_ISO_3166);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Select_Country_ISO_3166";
@@ -108,8 +113,7 @@
         #endregion
 
         private DataGridView_2xls.DataGridView2xls dgvx_ISO_3166;
-        private System.Windows.Forms.Button btn_OK;
-        private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.TextBox txt_SelectCountry;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

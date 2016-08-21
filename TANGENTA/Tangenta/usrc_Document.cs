@@ -121,11 +121,12 @@ namespace Tangenta
             }
         }
 
-        private bool CheckInsertSampleData(startup myStartup)
+        private bool CheckInsertSampleData(startup myStartup, NavigationButtons.Navigation xnav)
         {
             //if (MessageBox.Show(m_parent_ctrl, lngRPM.s_DataBaseIsEmpty_InsertInitialData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            Form_CheckInsertSampleData frmdlg = new Form_CheckInsertSampleData(myStartup);
-            frmdlg.ShowDialog();
+            Form_CheckInsertSampleData frmdlg = new Form_CheckInsertSampleData(myStartup,xnav);
+            xnav.ChildDialog = frmdlg;
+            xnav.ShowDialog();
             return myStartup.bInsertSampleData;
         }
 
@@ -192,11 +193,15 @@ namespace Tangenta
 
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
-                    myStartup.bInsertSampleData = CheckInsertSampleData(myStartup);
+                    myStartup.bInsertSampleData = CheckInsertSampleData(myStartup,xnav);
+                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    {
+                        return true;
+                    }
                     if (myStartup.bInsertSampleData)
                     {
                         bool bCanceled = false;
-                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.m_ImageCancel, Properties.Resources.Tangenta_Icon, ref Err))
+                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xnav, Properties.Resources.Tangenta_Icon, ref Err))
                         {
                             myStartup.bCanceled = bCanceled;
                             if (bCanceled)

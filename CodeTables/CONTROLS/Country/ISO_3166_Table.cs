@@ -22,10 +22,11 @@ namespace Country_ISO_3166
         public ISO_3166[] item = null;
         public DataTable dt_ISO_3166 = new DataTable();
 
-        public bool SetInputControls(SQLTable tbl,Image xImageCancel )
+        public bool SetInputControls(SQLTable tbl,NavigationButtons.Navigation xnav )
         {
-            Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166,null,null, xImageCancel);
-            if (frm_Select_Country_ISO_316.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166,null,null, xnav);
+            xnav.ShowDialog();
+            if ((xnav.eExitResult== NavigationButtons.Navigation.eEvent.OK)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
             {
                 foreach (Column col in tbl.Column)
                 {

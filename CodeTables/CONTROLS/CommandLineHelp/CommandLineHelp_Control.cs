@@ -47,7 +47,20 @@ namespace CommandLineHelp
 
         private void btn_CommandLineHelp_Click(object sender, EventArgs e)
         {
-            CommandLineHelp_Form hlpfrm = new CommandLineHelp_Form(m_CommandLineHelpList, m_Image_Button_Cancel, m_FormIcon);
+
+            NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation();
+            CommandLineHelpNav.bDoModal = true;
+            CommandLineHelpNav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            CommandLineHelpNav.btn1_Visible = false;
+            CommandLineHelpNav.btn2_Image = null;
+            CommandLineHelpNav.btn2_Text = lngRPM.s_OK.s;
+            CommandLineHelpNav.btn2_Visible = true;
+            CommandLineHelpNav.btn3_Image = null;
+            CommandLineHelpNav.btn3_Text = lngRPM.s_Cancel.s;
+            CommandLineHelpNav.btn3_Visible = false;
+            CommandLineHelpNav.btn2_ToolTip_Text = "";
+            CommandLineHelpNav.btn3_ToolTip_Text = "";
+            CommandLineHelp_Form hlpfrm = new CommandLineHelp_Form(m_CommandLineHelpList, CommandLineHelpNav, m_FormIcon);
             hlpfrm.ShowDialog();
         }
     }

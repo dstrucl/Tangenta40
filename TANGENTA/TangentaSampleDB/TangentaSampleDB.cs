@@ -14,13 +14,13 @@ namespace TangentaSampleDB
     {
         public static SampleDB sbd = null;
         public static Icon oIcon = null;
-        public static bool Init_Sample_DB(ref bool bCanceled,Image xImageCancel, Icon xoIcon, ref string Err)
+        public static bool Init_Sample_DB(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon xoIcon, ref string Err)
         {
             oIcon = xoIcon;
             if (fs.Init_Default_DB(ref Err))
             {
                 sbd = new SampleDB();
-                if (sbd.ShowDialog(ref bCanceled, xImageCancel, oIcon))
+                if (sbd.ShowDialog(ref bCanceled, xnav, oIcon))
                 {
                     if (bCanceled)
                     {

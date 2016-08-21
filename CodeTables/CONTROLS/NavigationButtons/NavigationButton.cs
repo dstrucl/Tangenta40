@@ -38,6 +38,7 @@ namespace NavigationButtons
 
         public void ShowDialog()
         {
+            eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
             if (!bDoModal)
             {
                 ChildDialog.StartPosition = FormStartPosition.CenterScreen;

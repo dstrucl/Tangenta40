@@ -271,7 +271,7 @@ namespace TangentaSampleDB
             MyOrg_Office_Person_Address_Country_DynGroupBox.ReadOnly = true;
         }
 
-        internal bool ShowDialog(ref bool bCanceled, Image xImageCancel, Icon oIcon)
+        internal bool ShowDialog(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
             Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
             string DefaultCountry = null;
@@ -279,7 +279,7 @@ namespace TangentaSampleDB
             {
                 DefaultCountry = "Slovenija";
             }
-            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xImageCancel);
+            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xnav);
             if (frmsel_country.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 MyOrg_Address_v.Country_v = new DBTypes.dstring_v(frmsel_country.Country);
@@ -297,7 +297,7 @@ namespace TangentaSampleDB
                 MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v = MyOrg_Address_v.Country_ISO_3166_a3_v.Clone();
                 MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
 
-                Form_EditSampleData fedt = new Form_EditSampleData(this, xImageCancel, oIcon);
+                Form_EditSampleData fedt = new Form_EditSampleData(this, xnav, oIcon);
                 if (fedt.ShowDialog()==System.Windows.Forms.DialogResult.OK)
                 {
                     return true;

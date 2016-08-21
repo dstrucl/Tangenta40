@@ -21,32 +21,23 @@ namespace CommandLineHelp
     {
         List<CommandLineHelp> m_CommandLineHelpList = null;
         CommandLineHelp_ItemControl helpctrl_last;
-        Image ImageCancel = null;
+        NavigationButtons.Navigation nav = null;
 
         public string[] CommandLineArguments = null;
 
-        public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList, Image xImageCancel, Icon xFormIcon)
+        public CommandLineHelp_Form(List<CommandLineHelp> CommandLineHelpList, NavigationButtons.Navigation xnav, Icon xFormIcon)
         {
             InitializeComponent();
             m_CommandLineHelpList = CommandLineHelpList;
-            ImageCancel = xImageCancel;
+            nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
             if (xFormIcon!=null)
             {
                 this.Icon = xFormIcon;
             }
-            if (ImageCancel != null)
-            {
-                btn_Cancel.Text = "";
-                btn_Cancel.Image = ImageCancel;
-                btn_Cancel.ImageAlign = ContentAlignment.MiddleCenter;
-            }
-            else
-            {
-                this.btn_Cancel.Text = lngRPM.s_Cancel.s;
-            }
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void do_OK()
         {
             List<string> cmds = new List<string>();
             foreach (Control ctrl in this.panel_Help.Controls)
@@ -73,7 +64,7 @@ namespace CommandLineHelp
             this.Close();
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void do_Cancel()
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
@@ -92,6 +83,41 @@ namespace CommandLineHelp
                 y = helpctrl_last.Bottom + 10;
             }
             this.Text = lngRPM.s_CommandLineHelp.s;
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            nav.eExitResult = evt;
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            DialogResult = DialogResult.Abort;
+                            Close();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+            }
+
         }
     }
 }

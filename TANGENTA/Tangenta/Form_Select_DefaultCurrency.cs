@@ -26,12 +26,14 @@ namespace Tangenta
         private long DefaultCurrency_ID = -1;
         public long Currency_ID = -1;
         public TangentaDB.xCurrency m_xCurrency = null;
-
+        NavigationButtons.Navigation nav = null;
 
         DataTable dtCurrency = new DataTable();
-        public Form_Select_DefaultCurrency(long xDefaultCurrency_ID, ref TangentaDB.xCurrency xxCurrency)
+        public Form_Select_DefaultCurrency(long xDefaultCurrency_ID, ref TangentaDB.xCurrency xxCurrency, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
             DefaultCurrency_ID = xDefaultCurrency_ID;
             m_xCurrency = xxCurrency;
             this.Text = lngRPM.s_SelectDefaultCurrency.s;
@@ -88,7 +90,7 @@ namespace Tangenta
 
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void do_OK()
         {
             DataGridViewSelectedRowCollection dgr = dgvx_Currency.SelectedRows;
             if (dgr.Count > 0)
@@ -106,6 +108,14 @@ namespace Tangenta
             }
         }
 
+        private void do_Cancel()
+        {
+            this.DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -118,6 +128,39 @@ namespace Tangenta
             {
                 int index = dgvx_Currency.SelectedRows[0].Index;
                 txt_SelectedCurrency.Text = (string)dtCurrency.Rows[index]["Name"] + " (" + (string)dtCurrency.Rows[index]["Abbreviation"] + ")," + (string)dtCurrency.Rows[index]["Symbol"]; ;
+            }
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+
+            nav.eExitResult = evt;
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            break;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            do_Cancel();
+                            break;
+                    }
+                    break;
             }
         }
     }
