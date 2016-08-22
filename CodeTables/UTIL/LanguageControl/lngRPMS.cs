@@ -54,13 +54,35 @@ namespace LanguageControl
         public static ltext s_MyOrg_HomePage_v = new ltext("www.Organisation1.com", "www.Podjetje1.si");
         public static ltext sh_MyOrg_HomePage = new ltext("Enter your organisation homepage", "Vpišite domači naslov (homepage) vaše organizacije");
 
-        public static ltext sl_MyOrg_BankName = new ltext("The name of bank of your organisation bank account", "Ime banke vašega TRR računa vaše organizacije");
-        public static ltext s_MyOrg_BankName_v = new ltext("Bank1", "Banka1");
-        public static ltext sh_MyOrg_BankName = new ltext("Enter the name of bank of your organisation bank account", "Vpišite ime banke vašega TRR računa vaše organizacije");
+        public static ltext sl_MyOrg_Bank_Name = new ltext("The name of bank of your organisation bank account", "Ime banke vašega TRR računa vaše organizacije");
+        public static ltext s_MyOrg_Bank_Name_v = new ltext("Bank1", "Banka1");
+        public static ltext sh_MyOrg_Bank_Name = new ltext("Enter the name of bank of your organisation bank account", "Vpišite ime banke vašega TRR računa vaše organizacije");
+
+        public static ltext sl_MyOrg_Bank_Tax_ID = new ltext("Bank VAT number", "Davčna številka banke");
+        public static ltext s_MyOrg_Bank_Tax_ID_v = new ltext("23456789", "23456789");
+        public static ltext sh_MyOrg_Bank_Tax_ID = new ltext("Enter your bank VAT number", "Vpišite davčno številko vaše banke");
+
+        public static ltext sl_MyOrg_Bank_Registration_ID = new ltext("Your bank Registration Number", "Matična številka vaše banke");
+        public static ltext s_MyOrg_Bank_Registration_ID_v = new ltext("00000003", "00000003");
+        public static ltext sh_MyOrg_Bank_Registration_ID = new ltext("Enter Your Organisation Registration Number", "Vpišite matično številko vaše organizacije");
+
+        public static ltext sl_MyOrg_Bank_OrganisationTYPE = new ltext("Type of bank", "Tip banke");
+        public static ltext s_MyOrg_Bank_OrganisationTYPE_v = new ltext("ltd", "d.o.o.");
+        public static ltext sh_MyOrg_Bank_OrganisationTYPE = new ltext("Enter type of your bank (ltd., gov.,)", "Vpišite tip vaše banke (d.d.,d.o.o.,javni zavod,..)");
+
+
 
         public static ltext sl_MyOrg_TRR = new ltext("Bank account", "Številka TRR računa vaše organizacije");
         public static ltext s_MyOrg_TRR_v = new ltext("0000-0000-000-000", "0000-0000-000-000");
         public static ltext sh_MyOrg_TRR = new ltext("Enter bank account", "Vpišite številko TRR računa vaše organizacije");
+
+        public static ltext sl_MyOrg_TRR_Description = new ltext("Bank account desc.", "Opis TRR računa");
+        public static ltext s_MyOrg_TRR_Description_v = new ltext("Casshier bank Account", "Račun za prihodke od blagajne");
+        public static ltext sh_MyOrg_TRR_Description = new ltext("Enter bank Casshier account description", "Vpišite opis namena TRR računa vaše organizacije");
+
+        public static ltext sl_MyOrg_TRR_Active = new ltext("Bank account Active", "TRR račun je aktiven");
+        public static ltext s_MyOrg_TRR_Active_v = null;
+        public static ltext sh_MyOrg_TRR_Active = new ltext("Check if bank account is Active", "Označite s kljukico, da je bančni račun aktiven");
 
         public static ltext sl_MyOrg_Logo = new ltext("Logo", "Logotip");
         public static ltext s_MyOrg_Logo_v = null;

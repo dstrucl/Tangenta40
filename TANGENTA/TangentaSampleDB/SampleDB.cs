@@ -37,8 +37,15 @@ namespace TangentaSampleDB
         dstring_v MyOrg_FaxNumber_v = new dstring_v();
         dstring_v MyOrg_Email_v = new dstring_v();
         dstring_v MyOrg_HomePage_v = new dstring_v();
-        dstring_v MyOrg_BankName_v = new dstring_v();
-        dstring_v MyOrg_TRR_v = new dstring_v();
+
+
+        dstring_v MyOrg_Bank_Name_v = new dstring_v();
+        dstring_v MyOrg_Bank_Tax_ID_v = new dstring_v();
+        dstring_v MyOrg_Bank_Registration_ID_v = new dstring_v();
+
+        dstring_v MyOrg_BankAccount_Description_v = new DBTypes.dstring_v();
+        dstring_v MyOrg_BankAccount_TRR_v = new dstring_v();
+        dbool_v MyOrg_BankAccount_Active_v = new dbool_v();
 
 
 
@@ -78,6 +85,12 @@ namespace TangentaSampleDB
         long_v MyOrg_Person_Atom_Person_ID_v = null;
 
         DynGroupBox MyOrg_DynGroupBox = null;
+
+        DynGroupBox MyOrg_BankAccount_DynGroupBox = null;
+
+        DynGroupBox MyOrg_BankAccount_Bank_DynGroupBox = null;
+
+        DynGroupBox MyOrg_BankAccount_Bank_Organisation_DynGroupBox = null;
 
         DynGroupBox MyOrg_Address_DynGroupBox = null;
 
@@ -141,6 +154,10 @@ namespace TangentaSampleDB
 
             MyOrg_DynGroupBox = m_eds.AddGroupBox("grp_MyOrg", lngRPM.s_MyOrganisation);
 
+            MyOrg_BankAccount_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_BankAccount", lngRPM.s_BankAccount);
+
+            MyOrg_BankAccount_Bank_DynGroupBox = MyOrg_BankAccount_DynGroupBox.AddGroupBox("grp_MyOrg_BankAccount_Bank", lngRPM.s_Bank);
+
             MyOrg_Address_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Address",lngRPM.s_Address);
 
             MyOrg_Address_Country_DynGroupBox = MyOrg_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Address_Country", lngRPM.s_Country);
@@ -182,9 +199,19 @@ namespace TangentaSampleDB
 
             new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_HomePage_v, "MyOrg_HomePage", lngRPMS.sl_MyOrg_HomePage, lngRPMS.s_MyOrg_HomePage_v, lngRPMS.sh_MyOrg_HomePage);
 
-            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_BankName_v, "MyOrg_BankName", lngRPMS.sl_MyOrg_BankName, lngRPMS.s_MyOrg_BankName_v, lngRPMS.sh_MyOrg_BankName);
+            new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_TRR_v, "MyOrg_BankAccount_TRR", lngRPMS.sl_MyOrg_TRR, lngRPMS.s_MyOrg_TRR_v, lngRPMS.sh_MyOrg_TRR);
 
-            new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_TRR_v, "MyOrg_TRR", lngRPMS.sl_MyOrg_TRR, lngRPMS.s_MyOrg_TRR_v, lngRPMS.sh_MyOrg_TRR);
+            new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_Description_v, "MyOrg_BankAccount_Description", lngRPMS.sl_MyOrg_TRR_Description, lngRPMS.s_MyOrg_TRR_Description_v, lngRPMS.sh_MyOrg_TRR_Description);
+
+            new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_Active_v, "MyOrg_BankAccount_Active", lngRPMS.sl_MyOrg_TRR_Active, lngRPMS.s_MyOrg_TRR_Active_v, lngRPMS.sh_MyOrg_TRR_Active);
+
+            new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Name_v, "MyOrg_Bank_Name", lngRPMS.sl_MyOrg_Bank_Name, lngRPMS.s_MyOrg_Bank_Name_v, lngRPMS.sh_MyOrg_Bank_Name);
+
+            new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Tax_ID_v, "MyOrg_Bank_Tax_ID", lngRPMS.sl_MyOrg_Bank_Tax_ID, lngRPMS.s_MyOrg_Bank_Tax_ID_v, lngRPMS.sh_MyOrg_Bank_Tax_ID);
+
+            new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Registration_ID_v, "MyOrg_Bank_Registration_ID", lngRPMS.sl_MyOrg_Bank_Registration_ID, lngRPMS.s_MyOrg_Bank_Registration_ID_v, lngRPMS.sh_MyOrg_Bank_Registration_ID);
+
+
 
             new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Image_Data_v, "MyOrg_Logo", lngRPMS.sl_MyOrg_Logo, lngRPMS.s_MyOrg_Logo_v, lngRPMS.sh_MyOrg_Logo);
 
@@ -271,6 +298,7 @@ namespace TangentaSampleDB
             MyOrg_Office_Person_Address_Country_DynGroupBox.ReadOnly = true;
         }
 
+
         internal bool ShowDialog(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
             Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
@@ -298,7 +326,9 @@ namespace TangentaSampleDB
                 MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
 
                 Form_EditSampleData fedt = new Form_EditSampleData(this, xnav, oIcon);
-                if (fedt.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+                xnav.ChildDialog = fedt;
+                xnav.ShowDialog();
+                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
                 {
                     return true;
                 }
@@ -315,6 +345,61 @@ namespace TangentaSampleDB
             return hash;
         }
 
+        public bool DeleteAll()
+        {
+
+            if (f_OrganisationAccount.DeleteAll())
+            {
+                if (f_BankAccount.DeleteAll())
+                {
+                    if (f_Bank.DeleteAll())
+                    {
+                        if (f_OrganisationData.DeleteAll())
+                        {
+                            if (f_myOrganisation_Person.DeleteAll())
+                            {
+                                if (f_Person.DeleteAll())
+                                {
+                                    if (f_Office_Data.DeleteAll())
+                                    {
+                                        if (f_Office.DeleteAll())
+                                        {
+                                            if (f_Organisation.DeleteAll())
+                                            {
+                                                if (f_cAddress_Org.DeleteAll())
+                                                {
+                                                    if (f_cStreetName_Org.DeleteAll())
+                                                    {
+                                                        if (f_cHouseNumber_Org.DeleteAll())
+                                                        {
+                                                            if (f_cCity_Org.DeleteAll())
+                                                            {
+                                                                if (f_cZIP_Org.DeleteAll())
+                                                                {
+                                                                    if (f_cCountry_Org.DeleteAll())
+                                                                    {
+                                                                        if (f_cState_Org.DeleteAll())
+                                                                        {
+                                                                            return true;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         public bool Write()
         {
             if (MyOrg_Image_Data_v!=null)
@@ -323,58 +408,74 @@ namespace TangentaSampleDB
                 {
                     MyOrg_Image_Hash_v.v = GetHash_SHA1(MyOrg_Image_Data_v.v);
                 }
-                
             }
-            if (f_Organisation.Get(MyOrg_Name_v,
-                                    MyOrg_Tax_ID_v,
-                                    MyOrg_Registration_ID_v,
-                                    MyOrg_OrganisationTYPE_v,
-                                    MyOrg_Address_v,
-                                    MyOrg_PhoneNumber_v,
-                                    MyOrg_FaxNumber_v,
-                                    MyOrg_Email_v,
-                                    MyOrg_HomePage_v,
-                                    MyOrg_BankName_v,
-                                    MyOrg_TRR_v,
-                                    MyOrg_Image_Hash_v,
-                                    MyOrg_Image_Data_v,
-                                    MyOrg_Image_Description_v,
-                                        ref cAdressAtom_Org_iD_v,
-                                        ref  MyOrg_Organisation_ID_v,
-                                        ref  MyOrg_OrganisationData_ID_v))
+            long_v Bank_Organisation_ID_v = null;
+            if (f_Organisation.Get(MyOrg_Bank_Name_v,MyOrg_Bank_Tax_ID_v,MyOrg_Bank_Registration_ID_v,ref Bank_Organisation_ID_v))
             {
-                long myOrganisation_ID = -1;
-                if (f_myOrganisation.Get(MyOrg_OrganisationData_ID_v.v, ref myOrganisation_ID))
+                long_v Bank_ID_v = null;
+                if (f_Bank.Get(Bank_Organisation_ID_v, ref Bank_ID_v))
                 {
-                    long Office_ID = -1;
-                    if (f_Office.Get(MyOrg_Office_Name_v.v, MyOrg_Office_ShortName_v.v, MyOrg_Organisation_ID_v.v, ref Office_ID))
+
+                    long_v MyOrg_BankAccount_ID_v = null;
+                    if (f_BankAccount.Get(MyOrg_BankAccount_TRR_v,MyOrg_BankAccount_Active_v,MyOrg_BankAccount_Description_v, Bank_ID_v,ref MyOrg_BankAccount_ID_v))
                     {
-                        long Office_Data_ID = -1;
-                        if (f_Office_Data.Get(cAdressAtom_Org_iD_v.v, Office_ID, null, ref Office_Data_ID))
+                        if (f_Organisation.Get(MyOrg_Name_v,
+                                            MyOrg_Tax_ID_v,
+                                            MyOrg_Registration_ID_v,
+                                            MyOrg_OrganisationTYPE_v,
+                                            MyOrg_Address_v,
+                                            MyOrg_PhoneNumber_v,
+                                            MyOrg_FaxNumber_v,
+                                            MyOrg_Email_v,
+                                            MyOrg_HomePage_v,
+                                            MyOrg_BankAccount_ID_v,
+                                            MyOrg_BankAccount_Description_v,
+                                            MyOrg_Image_Hash_v,
+                                            MyOrg_Image_Data_v,
+                                            MyOrg_Image_Description_v,
+                                                ref cAdressAtom_Org_iD_v,
+                                                ref MyOrg_Organisation_ID_v,
+                                                ref MyOrg_OrganisationData_ID_v))
                         {
-                            long_v Person_ID_v = null;
-                            if (f_Person.Get(MyOrg_Person_Gender_v,
-                                                MyOrg_Person_FirstName_v,
-                                                MyOrg_Person_LastName_v,
-                                                MyOrg_Person_DateOfBirth_v,
-                                                MyOrg_Person_Tax_ID_v,
-                                                MyOrg_Person_Registration_ID_v,
-                                                ref Person_ID_v
-                                                ))
+                            long_v OrganisationAccount_ID_v = null;
+                            if (f_OrganisationAccount.Get(MyOrg_BankAccount_ID_v, MyOrg_Organisation_ID_v, MyOrg_BankAccount_Description_v, ref OrganisationAccount_ID_v))
                             {
-                                MyOrg_Person_Person_ID_v = new long_v(Person_ID_v.v);
-                                MyOrg_Person_Office_ID_v = new long_v(Office_ID);
-                                long_v myOrganisation_Person_v = new long_v();
-                                if (f_myOrganisation_Person.Get(MyOrg_Person_UserName_v,
-                                                                MyOrg_Person_Password_v,
-                                                                MyOrg_Person_Job_v,
-                                                                MyOrg_Person_Active_v,
-                                                                MyOrg_Person_Description_v,
-                                                                MyOrg_Person_Person_ID_v,
-                                                                MyOrg_Person_Office_ID_v,
-                                                                ref myOrganisation_Person_v))
+                                long myOrganisation_ID = -1;
+                                if (f_myOrganisation.Get(MyOrg_OrganisationData_ID_v.v, ref myOrganisation_ID))
                                 {
-                                    return true;
+                                    long Office_ID = -1;
+                                    if (f_Office.Get(MyOrg_Office_Name_v.v, MyOrg_Office_ShortName_v.v, myOrganisation_ID, ref Office_ID))
+                                    {
+                                        long Office_Data_ID = -1;
+                                        if (f_Office_Data.Get(cAdressAtom_Org_iD_v.v, Office_ID, null, ref Office_Data_ID))
+                                        {
+                                            long_v Person_ID_v = null;
+                                            if (f_Person.Get(MyOrg_Person_Gender_v,
+                                                                MyOrg_Person_FirstName_v,
+                                                                MyOrg_Person_LastName_v,
+                                                                MyOrg_Person_DateOfBirth_v,
+                                                                MyOrg_Person_Tax_ID_v,
+                                                                MyOrg_Person_Registration_ID_v,
+                                                                ref Person_ID_v
+                                                                ))
+                                            {
+                                                MyOrg_Person_Person_ID_v = new long_v(Person_ID_v.v);
+                                                MyOrg_Person_Office_ID_v = new long_v(Office_ID);
+                                                long_v myOrganisation_Person_v = new long_v();
+                                                if (f_myOrganisation_Person.Get(MyOrg_Person_UserName_v,
+                                                                                MyOrg_Person_Password_v,
+                                                                                MyOrg_Person_Job_v,
+                                                                                MyOrg_Person_Active_v,
+                                                                                MyOrg_Person_Description_v,
+                                                                                MyOrg_Person_Person_ID_v,
+                                                                                MyOrg_Person_Office_ID_v,
+                                                                                ref myOrganisation_Person_v))
+                                                {
+                                                    return true;
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

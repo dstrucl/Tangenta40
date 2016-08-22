@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ThreadProcessor;
 using TangentaDB;
+using TangentaSampleDB;
 
 namespace Startup
 {
@@ -15,6 +16,7 @@ namespace Startup
 
     public class startup
         {
+        public SampleDB sbd;
         NavigationButtons.Navigation nav = null;
 
         startup_step.eResult eResult = startup_step.eResult.NEXT;
@@ -42,6 +44,7 @@ namespace Startup
 
         public startup(Form parent_form, startup_step[] xStep, NavigationButtons.Navigation xnav, Icon xFormIconQuestion)
         {
+            sbd = new SampleDB();
             m_parent_form = parent_form;
             Step = xStep;
             m_usrc_Startup = new usrc_Startup(this);

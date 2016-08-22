@@ -157,5 +157,32 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool DeleteAll()
+        {
+            string Err = null;
+            string sql_delete = null;
+            switch (DBSync.DBSync.m_DBType)
+            {
+                case DBConnection.eDBType.SQLITE:
+                    sql_delete = @"delete from myOrganisation_Person;
+                                  delete from sqlite_sequence where name = 'myOrganisation_Person";
+                    break;
+                case DBConnection.eDBType.MSSQL:
+                    sql_delete = @"delete from myOrganisation_Person;
+                                   DBCC CHECKIDENT ('[myOrganisation_Person]', RESEED, 0);";
+                    break;
+            }
+            object oret = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_delete, null, ref oret, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_myOrganisation_Person:DeleteAll:sql=" + sql_delete + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

@@ -99,6 +99,8 @@
     <Compile Include="f_Atom_WorkingPlace.cs" />
     <Compile Include="f_Atom_WorkPeriod.cs" />
     <Compile Include="f_Atom_WorkPeriod_Type.cs" />
+    <Compile Include="f_Bank.cs" />
+    <Compile Include="f_BankAccount.cs" />
     <Compile Include="f_cAddress_Org.cs" />
     <Compile Include="f_cAddress_Person.cs" />
     <Compile Include="f_cCity_Org.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="f_Office.cs" />
     <Compile Include="f_Office_Data.cs" />
     <Compile Include="f_Organisation.cs" />
+    <Compile Include="f_OrganisationAccount.cs" />
     <Compile Include="f_OrganisationData.cs" />
     <Compile Include="f_Person.cs" />
     <Compile Include="f_PriceAtom_ServiceAtom.cs" />

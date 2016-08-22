@@ -201,8 +201,14 @@ namespace Tangenta
                     if (myStartup.bInsertSampleData)
                     {
                         bool bCanceled = false;
-                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xnav, Properties.Resources.Tangenta_Icon, ref Err))
+                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.sbd, xnav, Properties.Resources.Tangenta_Icon, ref Err))
                         {
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myStartup.sbd.DeleteAll();
+                                myStartup.eNextStep--; //go back 
+                                return true;
+                            }
                             myStartup.bCanceled = bCanceled;
                             if (bCanceled)
                             {

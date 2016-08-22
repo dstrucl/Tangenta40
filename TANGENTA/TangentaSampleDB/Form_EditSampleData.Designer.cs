@@ -97,6 +97,7 @@ namespace TangentaSampleDB
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.m_usrc_SampleDataEdit);
             this.Name = "Form_EditSampleData";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_EditSampleData";
             this.Load += new System.EventHandler(this.Form_EditSampleData_Load);
             this.ResumeLayout(false);

@@ -87,6 +87,10 @@
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>TangentaDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
+      <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
+      <Name>TangentaSampleDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

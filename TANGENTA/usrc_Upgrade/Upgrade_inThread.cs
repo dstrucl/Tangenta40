@@ -3605,81 +3605,81 @@ namespace UpgradeDB
 
 
 
-        private  bool Read_DBSettings_LastInvoiceType(bool bUpgradeDone,ref bool bCanceled,NavigationButtons.Navigation xnav,Icon xIcon, ref string Err)
-        {
-            string xTextValue = null;
-            bool xReadOnly = false;
-            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.LastInvoiceType.Name,
-                                   ref xTextValue,
-                                   ref xReadOnly,
-                                   ref Err))
-            {
-                case fs.enum_GetDBSettings.DBSettings_OK:
-                    if (!xReadOnly)
-                    {
-                        DBSync.DBSync.DB_for_Tangenta.Settings.LastInvoiceType.TextValue = xTextValue;
-                    }
-                    return true;
+    //    private bool Read_DBSettings_LastInvoiceType(bool bUpgradeDone, ref bool bCanceled, NavigationButtons.Navigation xnav, Icon xIcon, ref string Err)
+    //    {
+    //        string xTextValue = null;
+    //        bool xReadOnly = false;
+    //        switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.LastInvoiceType.Name,
+    //                               ref xTextValue,
+    //                               ref xReadOnly,
+    //                               ref Err))
+    //        {
+    //            case fs.enum_GetDBSettings.DBSettings_OK:
+    //                if (!xReadOnly)
+    //                {
+    //                    DBSync.DBSync.DB_for_Tangenta.Settings.LastInvoiceType.TextValue = xTextValue;
+    //                }
+    //                return true;
 
 
-                case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                    LogFile.Error.Show(Err);
-                    return false;
+    //            case fs.enum_GetDBSettings.Error_Load_DBSettings:
+    //                LogFile.Error.Show(Err);
+    //                return false;
 
-                case fs.enum_GetDBSettings.No_Data_Rows:
-                    if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke studia Marjetka?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                    {
-                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xnav, xIcon, ref Err))
-                        {
-                            return false;
-                            //$$$
-                            //if (Get_BaseCurrency(ref Err))
-                            //{
-                            //    return true;
-                            //}
-                            //else
-                            //{
-                            //    LogFile.Error.Show("ERROR:1:enum_GetDBSettings.No_Data_Rows:Get_BaseCurrency:Err = " + Err);
-                            //    return false;
-                            //}
-                        }
-                        else
-                        {
-                            LogFile.Error.Show(Err);
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if (bUpgradeDone)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            if (fs.Init_Default_DB(ref Err))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:usrc_DBSettings:Init_Default_DB:Err=" + Err);
-                                return false;
-                            }
-                        }
-                    }
-                //break;
+    //            case fs.enum_GetDBSettings.No_Data_Rows:
+    //                if (MessageBox.Show(m_parent_ctrl, "Podatkovna baza je prazna!\r\nVstavim vzorčne podatke studia Marjetka?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+    //                {
+    //                    if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, xnav, xIcon, ref Err))
+    //                    {
+    //                        return false;
+    //                        $$$
+    //                        if (Get_BaseCurrency(ref Err))
+    //                        {
+    //                            return true;
+    //                        }
+    //                        else
+    //                        {
+    //                            LogFile.Error.Show("ERROR:1:enum_GetDBSettings.No_Data_Rows:Get_BaseCurrency:Err = " + Err);
+    //                            return false;
+    //                        }
+    //                    }
+    //                    else
+    //                    {
+    //                        LogFile.Error.Show(Err);
+    //                        return false;
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    if (bUpgradeDone)
+    //                    {
+    //                        return true;
+    //                    }
+    //                    else
+    //                    {
+    //                        if (fs.Init_Default_DB(ref Err))
+    //                        {
+    //                            return true;
+    //                        }
+    //                        else
+    //                        {
+    //                            LogFile.Error.Show("ERROR:usrc_DBSettings:Init_Default_DB:Err=" + Err);
+    //                            return false;
+    //                        }
+    //                    }
+    //                }
+    //                break;
 
-                case fs.enum_GetDBSettings.No_TextValue:
-                    return false;
+    //            case fs.enum_GetDBSettings.No_TextValue:
+    //                return false;
 
-                case fs.enum_GetDBSettings.No_ReadOnly:
-                    return false;
-                default:
-                    Err = "ERROR enum_GetDBSettings not handled!";
-                    return false;
-            }
-        }
+    //            case fs.enum_GetDBSettings.No_ReadOnly:
+    //                return false;
+    //            default:
+    //                Err = "ERROR enum_GetDBSettings not handled!";
+    //                return false;
+    //        }
+    //    }
 
     }
 
@@ -4185,6 +4185,5 @@ namespace UpgradeDB
             }
 
         }
-
     }
 }
