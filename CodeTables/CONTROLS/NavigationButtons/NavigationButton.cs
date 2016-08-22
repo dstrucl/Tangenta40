@@ -10,10 +10,26 @@ namespace NavigationButtons
 {
     public class Navigation
     {
+        //public enum eStartupStepDialogs
+        //{
+        //    NONE,
+        //    Form_SelectLanguage,
+        //    CommandLineHelp_Form,
+        //    Form_GetDBType,
+        //    ConnectionDialog,
+        //    SQLiteConnectionDialog,
+        //    Form_CheckInsertSampleData,
+        //    Form_Select_Country_ISO_3166,
+        //    Form_EditSampleData,
+        //    Form_Select_DefaultCurrency
+        //}
+        public System.Windows.Forms.WebBrowser web_Help = null;
+
         public enum eButtons { PrevNextExit, OkCancel };
 
         public enum eEvent {NOTHING, PREV, NEXT, EXIT, OK, CANCEL };
 
+        public string LastStartupDialog_TYPE = "";
         public bool bDoModal = false;
         public Form parentForm = null;
         public Form ChildDialog = null;
@@ -39,6 +55,7 @@ namespace NavigationButtons
         public void ShowDialog()
         {
             eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
+            LastStartupDialog_TYPE = ChildDialog.GetType().ToString();
             if (!bDoModal)
             {
                 ChildDialog.StartPosition = FormStartPosition.CenterScreen;
@@ -49,11 +66,23 @@ namespace NavigationButtons
                 {
                     Application.DoEvents();
                 }
+                if (ChildDialog.IsAccessible)
+                {
+                    ChildDialog.Close();
+                }
             }
             else
             {
                 ChildDialog.ShowDialog();
             }
         }
-    }
-}
+
+        public void ShowHelp(string FormTypeAsString)
+        {
+            if (FormTypeAsString.Equals("DBSync.Form_GetDBType"))
+            {
+                show_help("")
+            }
+        }
+     }
+ }

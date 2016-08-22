@@ -17,7 +17,7 @@ namespace TangentaSampleDB
         public static bool Init_Sample_DB(ref bool bCanceled, SampleDB xsbd, NavigationButtons.Navigation xnav, Icon xoIcon, ref string Err)
         {
             oIcon = xoIcon;
-            if (fs.Init_Default_DB(ref Err))
+            if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_Select_DefaultCurrency"))
             {
                 sbd = xsbd;
                 if (sbd.ShowDialog(ref bCanceled, xnav, oIcon))
@@ -36,8 +36,28 @@ namespace TangentaSampleDB
             }
             else
             {
-                LogFile.Error.Show(Err);
-                return false;
+                if (fs.Init_Default_DB(ref Err))
+                {
+                    sbd = xsbd;
+                    if (sbd.ShowDialog(ref bCanceled, xnav, oIcon))
+                    {
+                        if (bCanceled)
+                        {
+                            return true;
+                        }
+                        bool bRes = sbd.Write();
+                        return bRes;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show(Err);
+                    return false;
+                }
             }
         }
 

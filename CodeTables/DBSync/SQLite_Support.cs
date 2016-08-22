@@ -44,7 +44,6 @@ namespace DBSync
             //string IniFileFolder = Properties.Settings.Default.IniFileFolder;
             nav = xnav;
 
-            bNewDataBaseCreated = false;
             if (!FolderExists(IniFileFolder))
             {
                 IniFileFolder = Application.UserAppDataPath;
@@ -54,6 +53,13 @@ namespace DBSync
                 }
             }
 
+            if (bNewDataBaseCreated)
+            {
+                if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_CheckInsertSampleData"))
+                {
+                    DBSync.LocalDB_data_SQLite = null;
+                }
+            }
 
             if (DBSync.LocalDB_data_SQLite == null)
             {

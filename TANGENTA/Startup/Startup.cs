@@ -49,6 +49,7 @@ namespace Startup
             Step = xStep;
             m_usrc_Startup = new usrc_Startup(this);
             nav = xnav;
+            nav.web_Help = m_usrc_Startup.web_HELP;
             m_FormIconQuestion = xFormIconQuestion;
         }
 
@@ -63,13 +64,15 @@ namespace Startup
                 bool bRet = step[(int)eStep].Execute(this,odata, nav, ref Err);
                 if (bRet)
                 {
+                    int iStep = -1;
+                    int iNextStep = -1;
                     switch (nav.eExitResult)
                     {
                         case NavigationButtons.Navigation.eEvent.NEXT:
                             if ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
                             {
-                                int iStep = (int)eStep + 1;
-                                int iNextStep = (int)eNextStep;
+                                iStep = (int)eStep + 1;
+                                iNextStep = (int)eNextStep;
                                 while (iStep < iNextStep)
                                 {
                                     step[iStep].SetOK();
@@ -78,6 +81,13 @@ namespace Startup
                             }
                             break;
                         case NavigationButtons.Navigation.eEvent.PREV:
+                            iStep = (int)eStep;
+                            iNextStep = (int)eNextStep;
+                            while (iStep > iNextStep)
+                            {
+                                step[iStep].SetNotDone();
+                                iStep--;
+                            }
                             break;
                     }
 

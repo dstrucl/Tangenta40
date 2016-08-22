@@ -301,39 +301,70 @@ namespace TangentaSampleDB
 
         internal bool ShowDialog(ref bool bCanceled, NavigationButtons.Navigation xnav, Icon oIcon)
         {
-            Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
-            string DefaultCountry = null;
-            if (DynSettings.LanguageID == DynSettings.Slovensko_ID)
+            start:
+            if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_Select_DefaultCurrency"))
             {
-                DefaultCountry = "Slovenija";
-            }
-            Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xnav);
-            if (frmsel_country.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                MyOrg_Address_v.Country_v = new DBTypes.dstring_v(frmsel_country.Country);
-                MyOrg_Address_v.Country_ISO_3166_a2_v = new DBTypes.dstring_v(frmsel_country.Country_ISO_3166_a2);
-                MyOrg_Address_v.Country_ISO_3166_a3_v = new DBTypes.dstring_v(frmsel_country.Country_ISO_3166_a3);
-                MyOrg_Address_v.Country_ISO_3166_num_v = new DBTypes.dshort_v(frmsel_country.Country_ISO_3166_num);
-
-                MyOrg_Office_Address_v.Country_v = MyOrg_Address_v.Country_v.Clone();
-                MyOrg_Office_Address_v.Country_ISO_3166_a2_v = MyOrg_Address_v.Country_ISO_3166_a2_v.Clone();
-                MyOrg_Office_Address_v.Country_ISO_3166_a3_v = MyOrg_Address_v.Country_ISO_3166_a3_v.Clone();
-                MyOrg_Office_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
-
-                MyOrg_Office_Person_Address_v.Country_v = MyOrg_Address_v.Country_v.Clone();
-                MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v = MyOrg_Address_v.Country_ISO_3166_a2_v.Clone();
-                MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v = MyOrg_Address_v.Country_ISO_3166_a3_v.Clone();
-                MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
-
                 Form_EditSampleData fedt = new Form_EditSampleData(this, xnav, oIcon);
                 xnav.ChildDialog = fedt;
                 xnav.ShowDialog();
-                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
+                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
                 {
                     return true;
                 }
-                
-             }
+                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    goto start;
+                }
+            }
+            else
+            {
+                Country_ISO_3166.ISO_3166_Table myISO_3166_Table = new Country_ISO_3166.ISO_3166_Table();
+                string DefaultCountry = null;
+                if (DynSettings.LanguageID == DynSettings.Slovensko_ID)
+                {
+                    DefaultCountry = "Slovenija";
+                }
+select_country:
+                Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xnav);
+                xnav.ChildDialog = frmsel_country;
+                xnav.ShowDialog();
+                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    bCanceled = true;
+                    return false;
+                }
+                else if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)||(xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
+                {
+                    MyOrg_Address_v.Country_v = new DBTypes.dstring_v(frmsel_country.Country);
+                    MyOrg_Address_v.Country_ISO_3166_a2_v = new DBTypes.dstring_v(frmsel_country.Country_ISO_3166_a2);
+                    MyOrg_Address_v.Country_ISO_3166_a3_v = new DBTypes.dstring_v(frmsel_country.Country_ISO_3166_a3);
+                    MyOrg_Address_v.Country_ISO_3166_num_v = new DBTypes.dshort_v(frmsel_country.Country_ISO_3166_num);
+
+                    MyOrg_Office_Address_v.Country_v = MyOrg_Address_v.Country_v.Clone();
+                    MyOrg_Office_Address_v.Country_ISO_3166_a2_v = MyOrg_Address_v.Country_ISO_3166_a2_v.Clone();
+                    MyOrg_Office_Address_v.Country_ISO_3166_a3_v = MyOrg_Address_v.Country_ISO_3166_a3_v.Clone();
+                    MyOrg_Office_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
+
+                    MyOrg_Office_Person_Address_v.Country_v = MyOrg_Address_v.Country_v.Clone();
+                    MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v = MyOrg_Address_v.Country_ISO_3166_a2_v.Clone();
+                    MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v = MyOrg_Address_v.Country_ISO_3166_a3_v.Clone();
+                    MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v = MyOrg_Address_v.Country_ISO_3166_num_v.Clone();
+
+                    Form_EditSampleData fedt = new Form_EditSampleData(this, xnav, oIcon);
+                    xnav.ChildDialog = fedt;
+                    xnav.ShowDialog();
+                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    {
+                        fedt.Dispose();
+                        goto select_country;
+                    }
+                    if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
+                    {
+                        return true;
+                    }
+
+                }
+            }
             bCanceled = true;
             return false;
         }
@@ -354,33 +385,36 @@ namespace TangentaSampleDB
                 {
                     if (f_Bank.DeleteAll())
                     {
-                        if (f_OrganisationData.DeleteAll())
+                        if (f_Office_Data.DeleteAll())
                         {
                             if (f_myOrganisation_Person.DeleteAll())
                             {
-                                if (f_Person.DeleteAll())
+                                if (f_Office.DeleteAll())
                                 {
-                                    if (f_Office_Data.DeleteAll())
+                                    if (f_myOrganisation.DeleteAll())
                                     {
-                                        if (f_Office.DeleteAll())
+                                        if (f_OrganisationData.DeleteAll())
                                         {
-                                            if (f_Organisation.DeleteAll())
+                                            if (f_Person.DeleteAll())
                                             {
-                                                if (f_cAddress_Org.DeleteAll())
+                                                if (f_Organisation.DeleteAll())
                                                 {
-                                                    if (f_cStreetName_Org.DeleteAll())
+                                                    if (f_cAddress_Org.DeleteAll())
                                                     {
-                                                        if (f_cHouseNumber_Org.DeleteAll())
+                                                        if (f_cStreetName_Org.DeleteAll())
                                                         {
-                                                            if (f_cCity_Org.DeleteAll())
+                                                            if (f_cHouseNumber_Org.DeleteAll())
                                                             {
-                                                                if (f_cZIP_Org.DeleteAll())
+                                                                if (f_cCity_Org.DeleteAll())
                                                                 {
-                                                                    if (f_cCountry_Org.DeleteAll())
+                                                                    if (f_cZIP_Org.DeleteAll())
                                                                     {
-                                                                        if (f_cState_Org.DeleteAll())
+                                                                        if (f_cCountry_Org.DeleteAll())
                                                                         {
-                                                                            return true;
+                                                                            if (f_cState_Org.DeleteAll())
+                                                                            {
+                                                                                return true;
+                                                                            }
                                                                         }
                                                                     }
                                                                 }

@@ -245,7 +245,7 @@ DoSelectLanguage:
                     LanguageNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
                     LanguageNav.btn1_Visible = false;
                     LanguageNav.btn2_Image = Properties.Resources.Next;
-                    LanguageNav.btn2_Text = "";
+                    LanguageNav.btn2_Text = "START";
                     LanguageNav.btn2_Visible = true;
                     LanguageNav.btn3_Image = Properties.Resources.Exit_Program;
                     LanguageNav.btn3_Text = "";
@@ -293,8 +293,9 @@ DoSelectLanguage:
                     {
                         CommandLineHelpNav.btn1_Visible = false;
                     }
+                    CommandLineHelpNav.btn1_Text = lngRPM.s_Previous.s;
                     CommandLineHelpNav.btn2_Image = Properties.Resources.Next;
-                    CommandLineHelpNav.btn2_Text = "";
+                    CommandLineHelpNav.btn2_Text = lngRPM.s_Next.s;
                     CommandLineHelpNav.btn2_Visible = true;
                     CommandLineHelpNav.btn3_Image = Properties.Resources.Exit_Program;
                     CommandLineHelpNav.btn3_Text = "";

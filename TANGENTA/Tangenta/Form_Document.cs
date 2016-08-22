@@ -42,13 +42,12 @@ namespace Tangenta
             nav.btn1_Image = Properties.Resources.Prev;
             nav.btn2_Image = Properties.Resources.Next;
             nav.btn3_Image = Properties.Resources.Exit_Program;
-            nav.btn1_Text = "";
+            nav.btn1_Text = lngRPM.s_Previous.s;
             nav.btn1_ToolTip_Text = lngRPMS.s_GoToPreviousStartupStep.s;
-            nav.btn2_Text = "";
+            nav.btn2_Text = lngRPM.s_Next.s; ;
             nav.btn2_ToolTip_Text = lngRPMS.s_GoToNextStartupStep.s;
             nav.btn3_Text = "";
             nav.btn3_ToolTip_Text = lngRPMS.s_GoToExitProgram.s;
-
             nav.btn1_Visible = true;
             nav.btn2_Visible = true;
             nav.btn3_Visible = true;
@@ -126,9 +125,9 @@ namespace Tangenta
         public bool Startup_Check_DataBase(startup myStartup,object o, NavigationButtons.Navigation xnav, ref string Err)
         {
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;
-            string sDBType = Properties.Settings.Default.DBType;
+            string sDBType = null;
+            sDBType = Properties.Settings.Default.DBType;
             bool bCanceled = false;
-
             bool bResult = DBSync.DBSync.Init(Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated,ref bCanceled);
             if (bCanceled)
             {

@@ -1506,7 +1506,15 @@ namespace Tangenta
                 {
                     if (Select_BaseCurrency(xnav,ref Err))
                     {
-                        myStartup.eNextStep++;
+                        if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                        {
+                            myStartup.sbd.DeleteAll();
+                            myStartup.eNextStep = startup_step.eStep.CheckDBVersion;
+                        }
+                        else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
+                        {
+                            myStartup.eNextStep++;
+                        }
                         return true;
                     }
                 }
@@ -1523,7 +1531,13 @@ namespace Tangenta
             }
             long DefaultCurrency_ID = myOrg.Default_Currency_ID;
             Form_Select_DefaultCurrency sel_basecurrency_dlg = new Form_Select_DefaultCurrency(DefaultCurrency_ID,ref GlobalData.BaseCurrency,xnav);
-            if (sel_basecurrency_dlg.ShowDialog() == DialogResult.OK)
+            xnav.ChildDialog = sel_basecurrency_dlg;
+            xnav.ShowDialog();
+            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+            {
+                return true;
+            }
+            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)||(xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
             {
                 if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
                 {

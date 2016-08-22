@@ -154,29 +154,7 @@ namespace TangentaDB
 
         public static bool DeleteAll()
         {
-            string Err = null;
-            string sql_delete = null;
-            switch (DBSync.DBSync.m_DBType)
-            {
-                case DBConnection.eDBType.SQLITE:
-                    sql_delete = @"delete from cCountry_Org;
-                                  delete from sqlite_sequence where name = 'cCountry_Org";
-                    break;
-                case DBConnection.eDBType.MSSQL:
-                    sql_delete = @"delete from cCountry_Org;
-                                   DBCC CHECKIDENT ('[cCountry_Org]', RESEED, 0);";
-                    break;
-            }
-            object oret = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_delete, null, ref oret, ref Err))
-            {
-                return true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:f_cCountry_Org:DeleteAll:sql=" + sql_delete + "\r\nErr=" + Err);
-                return false;
-            }
+            return fs.DeleteAll("cCountry_Org");
         }
     }
 }

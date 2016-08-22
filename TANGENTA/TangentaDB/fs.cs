@@ -42,6 +42,32 @@ namespace TangentaDB
             return s;
         }
 
+        public static bool DeleteAll(string TableName)
+        {
+            string Err = null;
+            string sql_delete = null;
+            switch (DBSync.DBSync.m_DBType)
+            {
+                case DBConnection.eDBType.SQLITE:
+                    sql_delete = @"delete from "+ TableName + @";
+                                  delete from sqlite_sequence where name = '"+TableName+"'";
+                    break;
+                case DBConnection.eDBType.MSSQL:
+                    sql_delete = @"delete from "+ TableName + @";
+                                   DBCC CHECKIDENT ('["+ TableName + "]', RESEED, 0);";
+                    break;
+            }
+            if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql_delete, null, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:fs:DeleteAll("+ TableName + "):sql=" + sql_delete + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
 
 
         public static enum_GetDBSettings GetDBSettings(string Name, ref string TextValue, ref bool bReadOnly, ref string Err)

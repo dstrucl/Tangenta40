@@ -144,6 +144,7 @@ namespace Tangenta
                             do_OK();
                             break;
                         case NavigationButtons.Navigation.eEvent.PREV:
+                            do_Cancel();
                             break;
                         case NavigationButtons.Navigation.eEvent.EXIT:
                             do_Cancel();

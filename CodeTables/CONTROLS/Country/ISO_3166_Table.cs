@@ -25,6 +25,7 @@ namespace Country_ISO_3166
         public bool SetInputControls(SQLTable tbl,NavigationButtons.Navigation xnav )
         {
             Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166,null,null, xnav);
+            xnav.ChildDialog = frm_Select_Country_ISO_316;
             xnav.ShowDialog();
             if ((xnav.eExitResult== NavigationButtons.Navigation.eEvent.OK)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
             {

@@ -28,12 +28,12 @@ namespace DBSync
         public Form_GetDBType(string sdbtype, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
-
             //if (xImage_Cancel!=null)
             //{
             //    this.btn_Exit.Image = xImage_Cancel;
             //}
             nav = xnav;
+            nav.ShowHelp(this.GetType().ToString());
             m_eButtons = nav.m_eButtons;
             usrc_NavigationButtons1.Init(nav);
             lngRPM.s_SelectDatabase.Text(lbl_SelectDataBase);

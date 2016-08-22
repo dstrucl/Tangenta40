@@ -40,6 +40,7 @@ namespace LanguageControl
 
         #endregion
 
+        public static ltext s_Previous = new ltext("Previous", "Nazaj");
         public static ltext s_myOrganisation_Person_Data = new ltext("Organisation person data", "Podatki o osebi v organizaciji");
         public static ltext s_DataNotSavedEndYesNo = new ltext("New or changed data are not written to database.\r\nQuit (Yes/No)?", "Novi ali spremenjeni podatki se niso zapisali v bazo podatkov.\r\nKončam (Da/Ne)?");
         public static ltext s_StartupProgram = new ltext("Program Startup", "Zagon Programa Tangenta");

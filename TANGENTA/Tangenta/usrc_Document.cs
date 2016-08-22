@@ -193,10 +193,15 @@ namespace Tangenta
 
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
-                    myStartup.bInsertSampleData = CheckInsertSampleData(myStartup,xnav);
-                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    do_CheckInsertSampleData:
+                    if (!xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_Select_DefaultCurrency"))
                     {
-                        return true;
+                        myStartup.bInsertSampleData = CheckInsertSampleData(myStartup, xnav);
+                        if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                        {
+                            myStartup.eNextStep = startup_step.eStep.Check_DataBase; //go back
+                            return true;
+                        }
                     }
                     if (myStartup.bInsertSampleData)
                     {
@@ -205,6 +210,10 @@ namespace Tangenta
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                             {
+                                if (xnav.LastStartupDialog_TYPE.Equals("Country_ISO_3166.Form_Select_Country_ISO_3166"))
+                                {
+                                    goto do_CheckInsertSampleData;
+                                }
                                 myStartup.sbd.DeleteAll();
                                 myStartup.eNextStep--; //go back 
                                 return true;

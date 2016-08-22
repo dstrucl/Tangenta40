@@ -187,6 +187,8 @@ namespace NavigationButtons
             toolTip1.ReshowDelay = 500;
             // Force the ToolTip text to be displayed whether or not the form is active.
             toolTip1.ShowAlways = true;
+            btn1.ImageAlign = ContentAlignment.MiddleLeft;
+            btn2.ImageAlign = ContentAlignment.MiddleRight;
         }
 
         public void Init(Navigation nav)

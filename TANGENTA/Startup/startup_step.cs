@@ -62,5 +62,10 @@ namespace Startup
             }
             return bRet;
         }
+
+        internal void SetNotDone()
+        {
+            m_usrc_startup_step.check1.State = Check.check.eState.UNDEFINED;
+        }
     }
 }

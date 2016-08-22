@@ -60,5 +60,10 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool DeleteAll()
+        {
+           return  fs.DeleteAll("myOrganisation");
+        }
     }
 }

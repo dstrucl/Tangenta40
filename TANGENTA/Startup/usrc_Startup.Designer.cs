@@ -85,7 +85,7 @@
         #endregion
 
         private System.Windows.Forms.Label lbl_StartUp;
-        private System.Windows.Forms.WebBrowser web_HELP;
         private System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.WebBrowser web_HELP;
     }
 }
