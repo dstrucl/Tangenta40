@@ -39,8 +39,12 @@ namespace DBConnectionControl40
             m_ParentForm = xnav.parentForm;
             this.Owner = xnav.parentForm;
             InitializeComponent();
-
             nav = xnav;
+            nav.ShowHelp(this.GetType().ToString());
+            if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
+            {
+                btn_Backup.Visible = false;
+            }
             usrc_NavigationButtons1.Init(nav);
             cmbR_FilePath.RecentItemsFolder = recent_items_folder;
             cmbR_FileName.RecentItemsFolder = recent_items_folder;
@@ -176,7 +180,11 @@ namespace DBConnectionControl40
         private void btn_SQLiteInfo_Click(object sender, EventArgs e)
         {
             SQLiteInfo_Form SQLite_info_frm = new SQLiteInfo_Form();
-            SQLite_info_frm.ShowDialog();
+            if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
+            {
+                SQLite_info_frm.TopMost = true;
+            }
+            SQLite_info_frm.ShowDialog(this);
         }
 
         private void cmbR_FilePath_SelectedIndexChanged(object sender, EventArgs e)

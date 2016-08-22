@@ -81,8 +81,19 @@ namespace NavigationButtons
         {
             if (FormTypeAsString.Equals("DBSync.Form_GetDBType"))
             {
-                show_help("")
+                show_help("https://dstrucl.github.io/Tangenta-Help/Form_GetDBType.html","" );
+            }
+            else if (FormTypeAsString.Equals("DBConnectionControl40.SQLiteConnectionDialog"))
+            {
+                show_help("https://dstrucl.github.io/Tangenta-Help/slo_SQLiteConnectionDialog.html", "");
             }
         }
-     }
+
+        private void show_help(string sURL, string s_Local_Html)
+        {
+            Uri uri = new Uri(sURL);
+            web_Help.Url = uri;
+            web_Help.Refresh();
+        }
+    }
  }
