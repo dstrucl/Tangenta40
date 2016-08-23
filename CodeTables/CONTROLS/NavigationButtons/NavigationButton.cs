@@ -53,6 +53,8 @@ namespace NavigationButtons
         public string btn3_ToolTip_Text = null;
         public bool btn3_Visible = true;
 
+        public string ExitProgramQuestionInLanguage = null;
+
         public void ShowDialog()
         {
             eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;

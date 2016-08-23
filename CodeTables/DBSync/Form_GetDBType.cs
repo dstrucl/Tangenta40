@@ -54,7 +54,7 @@ namespace DBSync
             }
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void do_OK()
         {
             if (rdb_SQLite.Checked)
             {
@@ -81,8 +81,7 @@ namespace DBSync
                     switch (evt)
                     {
                         case NavigationButtons.Navigation.eEvent.OK:
-                            DialogResult = System.Windows.Forms.DialogResult.OK;
-                            this.Close();
+                            do_OK();
                             break;
 
 
@@ -102,8 +101,7 @@ namespace DBSync
                             break;
 
                         case NavigationButtons.Navigation.eEvent.NEXT:
-                            DialogResult = System.Windows.Forms.DialogResult.OK;
-                            this.Close();
+                            do_OK();
                             break;
 
                         case NavigationButtons.Navigation.eEvent.EXIT:

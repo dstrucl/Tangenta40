@@ -50,6 +50,8 @@ namespace DBConnectionControl40
             my_ConnectionDialog_enum = ConnectionConnectionDialog_type;
             InitializeComponent();
             nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
+
             if (con.RecentItemsFolder.Length ==0)
             {
                 con.RecentItemsFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -415,9 +417,6 @@ namespace DBConnectionControl40
                             m_bNewDataBase = Select_Data_Base_On_Server.m_bNewDataBase;
                             this.cmb_DataBaseName.Text = m_con.DataBase;
                             SetRecentComboBoxes();
-                            this.DialogResult = DialogResult.OK;
-                            Close();
-                            
                             return;
                         }
                         else
@@ -463,8 +462,6 @@ namespace DBConnectionControl40
                             m_bNewDataBase = Select_Data_Base_On_Server.m_bNewDataBase;
                             this.cmb_DataBaseName.Text = m_con.DataBase;
                             SetRecentComboBoxes();
-                            this.DialogResult = DialogResult.OK;
-                            Close();
                             return;
                         }
                         else

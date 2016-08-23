@@ -333,6 +333,11 @@ select_country:
                     bCanceled = true;
                     return false;
                 }
+                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                {
+                    bCanceled = true;
+                    return true;
+                }
                 else if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)||(xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK))
                 {
                     MyOrg_Address_v.Country_v = new DBTypes.dstring_v(frmsel_country.Country);

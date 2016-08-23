@@ -68,6 +68,9 @@ namespace Startup
                     int iNextStep = -1;
                     switch (nav.eExitResult)
                     {
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            return false;
+
                         case NavigationButtons.Navigation.eEvent.NEXT:
                             if ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
                             {

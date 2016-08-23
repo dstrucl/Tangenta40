@@ -1328,18 +1328,8 @@ namespace DBConnectionControl40
                 }
                 else 
                 {
-                    if (nav.bDoModal)
-                    {
-                        ConnectionDialog.ShowDialog(nav.parentForm);
-                    }
-                    else
-                    {
-                        ConnectionDialog.Show();
-                        while (ConnectionDialog.eEventExit == NavigationButtons.Navigation.eEvent.NOTHING)
-                        {
-                            Application.DoEvents();
-                        }
-                    }
+                    nav.ChildDialog = ConnectionDialog;
+                    nav.ShowDialog();
                 }
                 if (nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                 {

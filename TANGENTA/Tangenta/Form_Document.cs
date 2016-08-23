@@ -51,6 +51,7 @@ namespace Tangenta
             nav.btn1_Visible = true;
             nav.btn2_Visible = true;
             nav.btn3_Visible = true;
+            nav.ExitProgramQuestionInLanguage = lngRPM.s_RealyWantToExitProgram.s;
 
 
             if (Properties.Settings.Default.FullScreen)

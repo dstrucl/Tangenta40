@@ -218,6 +218,7 @@ namespace Tangenta
                 }
             }       
         }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -302,6 +303,7 @@ DoSelectLanguage:
                     CommandLineHelpNav.btn3_Visible = true;
                     CommandLineHelpNav.btn2_ToolTip_Text = "Press to go to next step";
                     CommandLineHelpNav.btn3_ToolTip_Text = "Exit program Tangenta";
+                    CommandLineHelpNav.ExitProgramQuestionInLanguage = lngRPM.s_RealyWantToExitProgram.s;
 
                     CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, CommandLineHelpNav, Properties.Resources.Tangenta_Question);
                     CommandLineHelpNav.ChildDialog = hlp_frm;

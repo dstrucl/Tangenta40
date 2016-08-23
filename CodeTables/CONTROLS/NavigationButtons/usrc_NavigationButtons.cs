@@ -193,6 +193,10 @@ namespace NavigationButtons
 
         public void Init(Navigation nav)
         {
+            if (nav.ExitProgramQuestionInLanguage !=null)
+            {
+                ExitQuestion = nav.ExitProgramQuestionInLanguage;
+            }
             this.m_eButtons = nav.m_eButtons;
             btn1.Visible = nav.btn1_Visible;
             btn2.Visible = nav.btn2_Visible;

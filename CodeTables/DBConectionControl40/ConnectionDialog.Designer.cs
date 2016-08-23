@@ -28,12 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ComboBox_Recent.myIteM myIteM1 = new ComboBox_Recent.myIteM();
-            ComboBox_Recent.myIteM myIteM2 = new ComboBox_Recent.myIteM();
-            ComboBox_Recent.myIteM myIteM3 = new ComboBox_Recent.myIteM();
-            ComboBox_Recent.myIteM myIteM4 = new ComboBox_Recent.myIteM();
-            ComboBox_Recent.myIteM myIteM5 = new ComboBox_Recent.myIteM();
-            ComboBox_Recent.myIteM myIteM6 = new ComboBox_Recent.myIteM();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionDialog));
             this.rdb_SQL_Server_Authentication = new System.Windows.Forms.RadioButton();
             this.rdb_UseWindowsAuthentication = new System.Windows.Forms.RadioButton();
@@ -229,8 +223,6 @@
             this.cmb_UserName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmb_UserName.FormattingEnabled = true;
             this.cmb_UserName.InsertOnKeyPress = true;
-            this.cmb_UserName.Items.AddRange(new object[] {
-            myIteM1});
             this.cmb_UserName.Key = "UserName";
             this.cmb_UserName.Location = new System.Drawing.Point(134, 228);
             this.cmb_UserName.MaxRecentCount = 10;
@@ -248,11 +240,6 @@
             this.cmb_DataBaseName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmb_DataBaseName.FormattingEnabled = true;
             this.cmb_DataBaseName.InsertOnKeyPress = true;
-            this.cmb_DataBaseName.Items.AddRange(new object[] {
-            myIteM2,
-            myIteM3,
-            myIteM4,
-            myIteM5});
             this.cmb_DataBaseName.Key = "DataBaseName";
             this.cmb_DataBaseName.Location = new System.Drawing.Point(123, 135);
             this.cmb_DataBaseName.MaxRecentCount = 10;
@@ -270,8 +257,6 @@
             this.cmb_ServerName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmb_ServerName.FormattingEnabled = true;
             this.cmb_ServerName.InsertOnKeyPress = true;
-            this.cmb_ServerName.Items.AddRange(new object[] {
-            myIteM6});
             this.cmb_ServerName.Key = "ServerName";
             this.cmb_ServerName.Location = new System.Drawing.Point(124, 108);
             this.cmb_ServerName.MaxRecentCount = 10;
@@ -288,15 +273,19 @@
             this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;
             this.usrc_NavigationButtons1.Image_EXIT = null;
             this.usrc_NavigationButtons1.Image_NEXT = null;
             this.usrc_NavigationButtons1.Image_OK = null;
             this.usrc_NavigationButtons1.Image_PREV = null;
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(5, 318);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(5, 324);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(361, 27);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(489, 62);
             this.usrc_NavigationButtons1.TabIndex = 50;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -312,7 +301,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 349);
+            this.ClientSize = new System.Drawing.Size(506, 398);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.cmb_UserName);
             this.Controls.Add(this.cmb_DataBaseName);
