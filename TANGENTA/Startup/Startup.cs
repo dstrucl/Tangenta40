@@ -49,7 +49,7 @@ namespace Startup
             Step = xStep;
             m_usrc_Startup = new usrc_Startup(this);
             nav = xnav;
-            nav.web_Help = m_usrc_Startup.web_HELP;
+            nav.web_Help = m_usrc_Startup.usrc_web_Help1;
             m_FormIconQuestion = xFormIconQuestion;
         }
 

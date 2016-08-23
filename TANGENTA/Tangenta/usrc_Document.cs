@@ -166,15 +166,15 @@ namespace Tangenta
                     if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
                     {
                         myStartup.eNextStep++;
-                        return true;
-                    }
+                        return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+                   }
                     else
                     {
                         if (MessageBox.Show(this.Main_Form, lngRPM.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lngRPM.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
                             myStartup.eNextStep++;
-                            return true;
+                            return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
                         }
                         else
                         {
@@ -226,6 +226,7 @@ namespace Tangenta
                             else
                             {
                                 myStartup.eNextStep++;
+                                return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
                             }
                             return true;
                         }
@@ -249,7 +250,7 @@ namespace Tangenta
                     {
                         if (fs.Init_Default_DB(ref Err))
                         {
-                            return true;
+                            return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
                         }
                         else
                         {

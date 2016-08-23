@@ -71,6 +71,12 @@
   <ItemGroup>
     <None Include="Resources\Next.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\usrc_Help\usrc_Help.csproj">
+      <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
+      <Name>usrc_Help</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

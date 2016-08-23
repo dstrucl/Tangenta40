@@ -84,6 +84,12 @@
       <DependentUpon>usrc_Help.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="usrc_web_Help.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_web_Help.Designer.cs">
+      <DependentUpon>usrc_web_Help.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Help.resx">
       <DependentUpon>usrc_Help.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_web_Help.resx">
+      <DependentUpon>usrc_web_Help.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

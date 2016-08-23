@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.lbl_StartUp = new System.Windows.Forms.Label();
-            this.web_HELP = new System.Windows.Forms.WebBrowser();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.usrc_web_Help1 = new usrc_Help.usrc_web_Help();
             this.SuspendLayout();
             // 
             // lbl_StartUp
@@ -44,39 +42,28 @@
             this.lbl_StartUp.TabIndex = 0;
             this.lbl_StartUp.Text = "label1";
             // 
-            // web_HELP
+            // usrc_web_Help1
             // 
-            this.web_HELP.AllowWebBrowserDrop = false;
-            this.web_HELP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.web_HELP.Location = new System.Drawing.Point(0, 0);
-            this.web_HELP.MinimumSize = new System.Drawing.Size(20, 20);
-            this.web_HELP.Name = "web_HELP";
-            this.web_HELP.ScriptErrorsSuppressed = true;
-            this.web_HELP.Size = new System.Drawing.Size(506, 593);
-            this.web_HELP.TabIndex = 1;
-            this.web_HELP.Url = new System.Uri("http://www.24ur.com", System.UriKind.Absolute);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.usrc_web_Help1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.web_HELP);
-            this.panel1.Location = new System.Drawing.Point(347, 22);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(510, 597);
-            this.panel1.TabIndex = 2;
+            this.usrc_web_Help1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.usrc_web_Help1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.usrc_web_Help1.LocalUrl = "Local URL:";
+            this.usrc_web_Help1.Location = new System.Drawing.Point(359, 3);
+            this.usrc_web_Help1.Name = "usrc_web_Help1";
+            this.usrc_web_Help1.RemoteUrl = "Remote URL:";
+            this.usrc_web_Help1.Size = new System.Drawing.Size(507, 629);
+            this.usrc_web_Help1.TabIndex = 1;
             // 
             // usrc_Startup
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.Controls.Add(this.panel1);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.usrc_web_Help1);
             this.Controls.Add(this.lbl_StartUp);
             this.Name = "usrc_Startup";
             this.Size = new System.Drawing.Size(869, 635);
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -85,7 +72,6 @@
         #endregion
 
         private System.Windows.Forms.Label lbl_StartUp;
-        private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.WebBrowser web_HELP;
+        public usrc_Help.usrc_web_Help usrc_web_Help1;
     }
 }

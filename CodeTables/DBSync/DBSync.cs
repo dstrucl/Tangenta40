@@ -63,7 +63,34 @@ start_init:
             }
             DBConnection.eDBType org_m_DBType = m_DBType;
             xnav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
-            m_DBType = Get_DBType(ref DataBaseType, xnav,  bShowDialog, ref bCanceled);
+            if (!bShowDialog)
+            {
+                if (DataBaseType != null)
+                {
+                    if (DataBaseType.Equals("SQLITE"))
+                    {
+                        m_DBType = DBConnection.eDBType.SQLITE;
+                    }
+                    else if (DataBaseType.Equals("MSSQL"))
+                    {
+                        m_DBType = DBConnection.eDBType.MSSQL;
+                    }
+                    else
+                    {
+                        m_DBType = Get_DBType(ref DataBaseType, xnav, bShowDialog, ref bCanceled);
+                    }
+                }
+                else
+                {
+                    m_DBType = Get_DBType(ref DataBaseType, xnav, bShowDialog, ref bCanceled);
+                }
+            }
+            else
+            {
+                m_DBType = Get_DBType(ref DataBaseType, xnav, bShowDialog, ref bCanceled);
+            }
+
+
             if (bCanceled)
             {
                 return false;
@@ -133,21 +160,6 @@ start_init:
 
         private static DBConnection.eDBType Get_DBType(ref string DataBaseType, NavigationButtons.Navigation xnav, bool bShowDialog, ref bool bCanceled)
         {
-            if (!bShowDialog)
-            {
-                if (DataBaseType != null)
-                {
-                    if (DataBaseType.Equals("SQLITE"))
-                    {
-                        return DBConnection.eDBType.SQLITE;
-                    }
-                    else if (DataBaseType.Equals("MSSQL"))
-                    {
-                        return DBConnection.eDBType.MSSQL;
-                    }
-                }
-            }
-
             if (DataBaseType == null)
             {
                 DataBaseType = "SQLITE";

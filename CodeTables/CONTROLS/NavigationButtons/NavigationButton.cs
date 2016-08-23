@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using usrc_Help;
 
 namespace NavigationButtons
 {
@@ -23,7 +24,7 @@ namespace NavigationButtons
         //    Form_EditSampleData,
         //    Form_Select_DefaultCurrency
         //}
-        public System.Windows.Forms.WebBrowser web_Help = null;
+        public usrc_web_Help web_Help = null;
 
         public enum eButtons { PrevNextExit, OkCancel };
 
@@ -91,9 +92,7 @@ namespace NavigationButtons
 
         private void show_help(string sURL, string s_Local_Html)
         {
-            Uri uri = new Uri(sURL);
-            web_Help.Url = uri;
-            web_Help.Refresh();
+            web_Help.Show(sURL, s_Local_Html);
         }
     }
  }

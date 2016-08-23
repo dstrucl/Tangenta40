@@ -120,8 +120,6 @@ namespace Tangenta
                                     );
         }
 
-
-
         public bool Startup_Check_DataBase(startup myStartup,object o, NavigationButtons.Navigation xnav, ref string Err)
         {
             string IniFileFolder = Properties.Settings.Default.IniFileFolder;

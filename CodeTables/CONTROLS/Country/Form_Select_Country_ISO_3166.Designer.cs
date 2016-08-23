@@ -52,6 +52,7 @@
             this.dgvx_ISO_3166.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvx_ISO_3166.Size = new System.Drawing.Size(641, 427);
             this.dgvx_ISO_3166.TabIndex = 0;
+            this.dgvx_ISO_3166.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_ISO_3166_CellContentClick);
             // 
             // txt_SelectCountry
             // 
