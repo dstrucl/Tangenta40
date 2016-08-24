@@ -3550,46 +3550,52 @@ namespace UpgradeDB
         private bool Restore_if_UpgradeBackupFileExists(ref string full_backup_filename)
         {
 
-            string full_backup_folder = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseFilePath;
-            string DB_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseName;
-            full_backup_filename = null;
-            if (full_backup_folder != null)
+            if (DBSync.DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
-                if (full_backup_folder.Length > 0)
+                string full_backup_folder = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseFilePath;
+                string DB_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.DataBaseName;
+                full_backup_filename = null;
+                if (full_backup_folder != null)
                 {
-                    if (full_backup_folder[full_backup_folder.Length - 1] != '\\')
+                    if (full_backup_folder.Length > 0)
                     {
-                        full_backup_folder += '\\';
-                    }
-                    full_backup_filename = full_backup_folder+"UpgradeBackup_" + DB_Name;
-                    if (File.Exists(full_backup_filename))
-                    {
-                        string stext = lngRPM.s_UpgradeBackupFileExist_restore_old_Database.s.Replace("%s", full_backup_filename);
-                        if (MessageBox.Show(stext,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button1)== DialogResult.Yes)
+                        if (full_backup_folder[full_backup_folder.Length - 1] != '\\')
                         {
-                            try
+                            full_backup_folder += '\\';
+                        }
+                        full_backup_filename = full_backup_folder + "UpgradeBackup_" + DB_Name;
+                        if (File.Exists(full_backup_filename))
+                        {
+                            string stext = lngRPM.s_UpgradeBackupFileExist_restore_old_Database.s.Replace("%s", full_backup_filename);
+                            if (MessageBox.Show(stext, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                             {
-                                string sOrgDBFile = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SQLiteDataBaseFile;
-                                File.Copy(full_backup_filename, sOrgDBFile, true);
-                                File.Delete(full_backup_filename);
-                                return true;
-                            }
-                            catch (Exception ex)
-                            {
-                                LogFile.Error.Show("ERROR:UpgradeDB_inThread:Restore_if_BackupFileExist:Backup file=\"" + full_backup_filename + "\"\r\nException="+ex.Message);
-                                return false;
+                                try
+                                {
+                                    string sOrgDBFile = DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SQLiteDataBaseFile;
+                                    File.Copy(full_backup_filename, sOrgDBFile, true);
+                                    File.Delete(full_backup_filename);
+                                    return true;
+                                }
+                                catch (Exception ex)
+                                {
+                                    LogFile.Error.Show("ERROR:UpgradeDB_inThread:Restore_if_BackupFileExist:Backup file=\"" + full_backup_filename + "\"\r\nException=" + ex.Message);
+                                    return false;
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        return true;
+                        else
+                        {
+                            return true;
+                        }
                     }
                 }
+                LogFile.Error.Show("ERROR:usrc_Upgrade:Form_Upgrade_Load:Backup file=\"" + full_backup_filename + "\" not created!");
+                return false;
             }
-            LogFile.Error.Show("ERROR:usrc_Upgrade:Form_Upgrade_Load:Backup file=\"" + full_backup_filename + "\" not created!");
-            return false;
-
+            else
+            {
+                return true;
+            }
         }
 
         public bool Read_DBSettings_Version(startup myStartup, object oData, NavigationButtons.Navigation xnav, ref string Err)

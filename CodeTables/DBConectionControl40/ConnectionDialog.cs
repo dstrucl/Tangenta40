@@ -555,6 +555,11 @@ namespace DBConnectionControl40
                 }
                 SetRecentComboBoxes();
             }
+            if (m_con.CheckDataBaseConnection(this,lngConn.s_Connection_to_Database.s))
+            {
+                bDataBaseConnectionChecked = true;
+                usrc_NavigationButtons1.Button_NEXT_Enabled = true;
+            }
 
         }
 

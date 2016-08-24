@@ -59,6 +59,7 @@ namespace Tangenta
         internal static bool b_FVI_SLO = false;
         internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
         internal static bool bReset2FactorySettings = false;
+        public static bool bFirstTimeInstallation = false;
 
         private static bool m_bProgramDiagnostic = false;
 
@@ -241,6 +242,7 @@ namespace Tangenta
 DoSelectLanguage:
                 if (Properties.Settings.Default.LanguageID < 0)
                 {
+                    bFirstTimeInstallation = true;
                     NavigationButtons.Navigation LanguageNav = new NavigationButtons.Navigation();
                     LanguageNav.bDoModal = true;
                     LanguageNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;

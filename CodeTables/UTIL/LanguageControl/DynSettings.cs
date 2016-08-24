@@ -30,6 +30,22 @@ namespace LanguageControl
 
         public static bool AllowToEditText = false;
 
+        public static string LanguagePrefix
+        { get
+            {
+
+                switch (LanguageID)
+                {
+                    case English_ID:
+                        return "eng";
+                    case Slovensko_ID:
+                        return "slo";
+                    default:
+                        return "unknown_lang";
+                }
+            }
+        }
+
         public static void LoadLanguages(bool bReset2FactorySettings)
         {
             DataTable dt_Languages = new DataTable();

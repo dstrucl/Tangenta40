@@ -458,14 +458,8 @@ namespace Tangenta
 
         private void Form_Document_Shown(object sender, EventArgs e)
         {
-            timer_Startup.Enabled = true;
-        }
-
-        private void timer_Startup_Tick(object sender, EventArgs e)
-        {
-            timer_Startup.Enabled = false;
             string Err = null;
-            if (m_startup.Execute(StartupStep, ref Err))
+            if (m_startup.Execute(Program.bFirstTimeInstallation, ref Err))
             {
                 m_usrc_Main.Init();
                 m_startup.RemoveControl();
@@ -476,7 +470,7 @@ namespace Tangenta
                 this.Close();
                 DialogResult = DialogResult.Abort;
             }
-
         }
+
     }
 }

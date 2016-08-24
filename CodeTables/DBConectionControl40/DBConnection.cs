@@ -759,7 +759,11 @@ namespace DBConnectionControl40
                     if (File.Exists(m_conData_SQLITE.DataBaseFile))
                     {
                         TestConnectionForm tConForm = new TestConnectionForm(pParentForm, this, true, true, sTitle);
-                        if (tConForm.ShowDialog() == DialogResult.OK)
+                        if (pParentForm != null)
+                        {
+                            tConForm.TopMost = pParentForm.TopMost;
+                        }
+                        if (tConForm.ShowDialog(pParentForm) == DialogResult.OK)
                         {
                             tConForm.Dispose();
                             return true;
@@ -778,7 +782,11 @@ namespace DBConnectionControl40
                 else
                 {
                     TestConnectionForm tConForm = new TestConnectionForm(pParentForm, this, true, true, sTitle);
-                    if (tConForm.ShowDialog() == DialogResult.OK)
+                    if (pParentForm != null)
+                    {
+                        tConForm.TopMost = pParentForm.TopMost;
+                    }
+                    if (tConForm.ShowDialog(pParentForm) == DialogResult.OK)
                     {
                         tConForm.Dispose();
                         return true;

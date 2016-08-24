@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using ThreadProcessor;
 using TangentaDB;
 using TangentaSampleDB;
+using NavigationButtons;
 
 namespace Startup
 {
@@ -17,7 +18,7 @@ namespace Startup
     public class startup
         {
         public SampleDB sbd;
-        NavigationButtons.Navigation nav = null;
+        public NavigationButtons.Navigation nav = null;
 
         startup_step.eResult eResult = startup_step.eResult.NEXT;
         startup_step.eStep eStep = startup_step.eStep.NoStep;
@@ -47,21 +48,66 @@ namespace Startup
             sbd = new SampleDB();
             m_parent_form = parent_form;
             Step = xStep;
-            m_usrc_Startup = new usrc_Startup(this);
             nav = xnav;
+            m_usrc_Startup = new usrc_Startup(this);
             nav.web_Help = m_usrc_Startup.usrc_web_Help1;
             m_FormIconQuestion = xFormIconQuestion;
         }
 
+        public bool Execute(bool bFirstTimeInstallation, ref string Err)
+        {
+            if (bFirstTimeInstallation)
+            {
 
-        public bool Execute(startup_step[] step, ref string Err)
+            Do_TangentaAbout_again:
+                Do_TangentaAbout(nav);
+                if (nav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
+                {
+
+                    Do_TangentaLicence(nav);
+                    if (nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    {
+                        goto Do_TangentaAbout_again;
+                    }
+                    else if (nav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return ExecuteSteps(ref Err);
+        }
+
+        private void Do_TangentaLicence(Navigation nav)
+        {
+            nav.ShowHelp("HELP.Tangenta-Licence");
+            nav.m_eButtons = Navigation.eButtons.PrevNextExit;
+            nav.eExitResult = Navigation.eEvent.NOTHING;
+            while (nav.eExitResult == Navigation.eEvent.NOTHING)
+            {
+                Application.DoEvents();
+            }
+        }
+
+        private void Do_TangentaAbout(Navigation nav)
+        {
+            nav.ShowHelp("HELP.Tangenta_about");
+            nav.m_eButtons = Navigation.eButtons.PrevNextExit;
+            nav.eExitResult = Navigation.eEvent.NOTHING;
+            while (nav.eExitResult == Navigation.eEvent.NOTHING)
+            {
+                Application.DoEvents();
+            }
+        }
+
+        public bool ExecuteSteps(ref string Err)
         {
             eStep = startup_step.eStep.Check_DataBase;
             eNextStep = eStep;
-            while ((eStep != startup_step.eStep.Cancel)&&(eStep != startup_step.eStep.End))
+            while ((eStep != startup_step.eStep.Cancel) && (eStep != startup_step.eStep.End))
             {
                 object odata = null;
-                bool bRet = step[(int)eStep].Execute(this,odata, nav, ref Err);
+                bool bRet = Step[(int)eStep].Execute(this, odata, nav, ref Err);
                 if (bRet)
                 {
                     int iStep = -1;
@@ -78,7 +124,7 @@ namespace Startup
                                 iNextStep = (int)eNextStep;
                                 while (iStep < iNextStep)
                                 {
-                                    step[iStep].SetOK();
+                                    Step[iStep].SetOK();
                                     iStep++;
                                 }
                             }
@@ -88,7 +134,7 @@ namespace Startup
                             iNextStep = (int)eNextStep;
                             while (iStep > iNextStep)
                             {
-                                step[iStep].SetNotDone();
+                                Step[iStep].SetNotDone();
                                 iStep--;
                             }
                             break;
@@ -111,5 +157,16 @@ namespace Startup
             m_usrc_Startup.Dispose();
             m_usrc_Startup = null;
         }
+
+        public bool TangentaAbout()
+        {
+            return true; 
+        }
+
+        public bool TangentaLicence()
+        {
+            return true;
+        }
+
     }
 }

@@ -28,15 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Document));
-            this.timer_Startup = new System.Windows.Forms.Timer(this.components);
             this.m_usrc_Main = new Tangenta.usrc_Document();
             this.SuspendLayout();
-            // 
-            // timer_Startup
-            // 
-            this.timer_Startup.Tick += new System.EventHandler(this.timer_Startup_Tick);
             // 
             // m_usrc_Main
             // 
@@ -70,7 +64,6 @@
         #endregion
 
         private usrc_Document m_usrc_Main;
-        private System.Windows.Forms.Timer timer_Startup;
     }
 }
 

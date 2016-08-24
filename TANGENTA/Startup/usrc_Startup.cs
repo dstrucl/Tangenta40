@@ -21,6 +21,7 @@ namespace Startup
         {
             InitializeComponent();
             m_startup = xstartup;
+            usrc_NavigationButtons1.Init(m_startup.nav);
             lngRPM.s_StartupProgram.Text(lbl_StartUp);
             Visible = true;
             Dock = DockStyle.Fill;
@@ -34,6 +35,16 @@ namespace Startup
                 xusrc_startup_step.Top = lbl_StartUp.Bottom+ Y_DIST + iStep * (xusrc_startup_step.Height + Y_DIST);
                 this.Controls.Add(xusrc_startup_step);
             }
+        }
+
+        private void timer_Startup_Tick(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            m_startup.nav.eExitResult = evt;
         }
     }
 }

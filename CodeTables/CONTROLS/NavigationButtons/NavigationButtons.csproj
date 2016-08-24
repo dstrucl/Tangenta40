@@ -72,6 +72,10 @@
     <None Include="Resources\Next.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
+      <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
+      <Name>LanguageControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\usrc_Help\usrc_Help.csproj">
       <Project>{8a897934-e12f-4a85-a1c5-0360f4bd69e5}</Project>
       <Name>usrc_Help</Name>

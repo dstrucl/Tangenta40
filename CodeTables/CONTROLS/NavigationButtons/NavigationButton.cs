@@ -82,13 +82,14 @@ namespace NavigationButtons
 
         public void ShowHelp(string FormTypeAsString)
         {
-            if (FormTypeAsString.Equals("DBSync.Form_GetDBType"))
+            if (FormTypeAsString != null)
             {
-                show_help("https://dstrucl.github.io/Tangenta-Help/Form_GetDBType.html","" );
-            }
-            else if (FormTypeAsString.Equals("DBConnectionControl40.SQLiteConnectionDialog"))
-            {
-                show_help("https://dstrucl.github.io/Tangenta-Help/slo_SQLiteConnectionDialog.html", "");
+                int idot = FormTypeAsString.IndexOf(".");
+                if (idot >= 0)
+                {
+                    string stoken = FormTypeAsString.Substring(idot + 1);
+                    show_help("https://dstrucl.github.io/Tangenta-Help/" + LanguageControl.DynSettings.LanguagePrefix + "_" + stoken + ".html", "");
+                }
             }
         }
 
