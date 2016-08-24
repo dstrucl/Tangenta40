@@ -18,10 +18,10 @@ namespace TangentaDB
 {
     public static class f_Logo
     {
-        public static bool Get(string_v Logo_Hash, byte_array_v Logo, string_v Logo_Description, ref long_v Logo_ID_v)
+        public static bool Get(string_v Logo_Hash_v, byte_array_v Logo_v, string_v Logo_Description_v, ref long_v Logo_ID_v)
         {
             string Err = null;
-            if (Logo_Hash == null)
+            if (Logo_Hash_v == null)
             {
                 Logo_ID_v = null;
                 return true;
@@ -33,13 +33,13 @@ namespace TangentaDB
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string Image_Hash_Value = "null";
             string Image_Hash_cond = "Image_Hash is null";
-            if (Logo_Hash != null)
+            if (Logo_Hash_v != null)
             {
-                if (Logo_Hash.v != null)
+                if (Logo_Hash_v.v != null)
                 {
                     Image_Hash_Value = "@par_Image_Hash";
                     Image_Hash_cond = "Image_Hash = " + Image_Hash_Value;
-                    SQL_Parameter par_Image_Hash = new SQL_Parameter(Image_Hash_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Logo_Hash);
+                    SQL_Parameter par_Image_Hash = new SQL_Parameter(Image_Hash_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Logo_Hash_v.v);
                     lpar.Add(par_Image_Hash);
                 }
                 else
@@ -52,12 +52,14 @@ namespace TangentaDB
                 return false;
             }
             string Image_Data_Value = "null";
-            if (Logo != null)
+            if (Logo_v != null)
             {
-                Image_Data_Value = "@par_Image_Data";
-
-                SQL_Parameter par_Image_Data = new SQL_Parameter(Image_Data_Value, SQL_Parameter.eSQL_Parameter.Varbinary, false, Logo.v);
-                lpar.Add(par_Image_Data);
+                if (Logo_v.v != null)
+                {
+                    Image_Data_Value = "@par_Image_Data";
+                    SQL_Parameter par_Image_Data = new SQL_Parameter(Image_Data_Value, SQL_Parameter.eSQL_Parameter.Varbinary, false, Logo_v.v);
+                    lpar.Add(par_Image_Data);
+                }
             }
             else
             {
@@ -65,12 +67,15 @@ namespace TangentaDB
             }
             string Description_Value = "null";
             string Description_cond = "Description is null";
-            if (Logo_Description != null)
+            if (Logo_Description_v != null)
             {
-                Description_Value = "@par_Description";
-                Description_cond = "Description = " + Description_Value;
-                SQL_Parameter par_Description = new SQL_Parameter(Description_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Logo_Description);
-                lpar.Add(par_Description);
+                if (Logo_Description_v.v != null)
+                {
+                    Description_Value = "@par_Description";
+                    Description_cond = "Description = " + Description_Value;
+                    SQL_Parameter par_Description = new SQL_Parameter(Description_Value, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Logo_Description_v.v);
+                    lpar.Add(par_Description);
+                }
             }
             string sql = " select ID, Image_Hash,Image_Data,Description from Logo where " + Image_Hash_cond + " and " + Description_cond;
             DataTable dt = new DataTable();

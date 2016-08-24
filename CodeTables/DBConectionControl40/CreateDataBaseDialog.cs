@@ -690,9 +690,9 @@ namespace DBConnectionControl40
 			saveFileDialog.InitialDirectory = "D:\\" ;
 			saveFileDialog.Filter = "Data files (*.ldf)|*.ldf" ;
 			saveFileDialog.FilterIndex = 2 ;		
-			saveFileDialog.RestoreDirectory = true ;			
-			//saveFileDialog.FileName += textBox_DataBaseLo
-			if(saveFileDialog.ShowDialog() == DialogResult.OK)
+			saveFileDialog.RestoreDirectory = true ;
+            //saveFileDialog.FileName += textBox_DataBaseLo
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
 			{
 				textBox_DataBaseLogFilePath.Text = saveFileDialog.FileName;						
 			}				
@@ -707,7 +707,7 @@ namespace DBConnectionControl40
 			saveFileDialog.FilterIndex = 2 ;		
 			saveFileDialog.RestoreDirectory = true ;			
 //			saveFileDialog.FileName += textBox_DataFileName.Text;
-			if(saveFileDialog.ShowDialog() == DialogResult.OK)
+			if(saveFileDialog.ShowDialog(this) == DialogResult.OK)
 			{
 				textBox_DataBaseFilePath.Text = saveFileDialog.FileName;				
 			}		
@@ -755,7 +755,7 @@ namespace DBConnectionControl40
                 // Data Base Created OK
                 m_con.DataBase = DBParam.DatabaseName;
                 string msg = "Database \"" + DBParam.DatabaseName + "\" created OK on server:" + this.m_con.DataSource;
-                MessageBox.Show(msg, "OK", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(this,msg, "OK", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return true;
             }
             else
@@ -763,7 +763,7 @@ namespace DBConnectionControl40
                 m_con.DataBase = savedDataBaseName;
                 //m_con.conData.SetConnectionString();
                 string msg = "ERROR! Database \"" + DBParam.DatabaseName + "\" not created on server:" + this.m_con.DataSource + "\n ERROR=" + csError;
-                MessageBox.Show(msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this,msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 		}
@@ -821,7 +821,7 @@ namespace DBConnectionControl40
                     eSelectDataBaseFileTYPE eRes;
                     if (thisComputerName.Equals(xComputerName))
                     {
-                        DialogResult dWarningResult = MessageBox.Show(lngConn.s_OnServerDatabaseConstructionFileInstructions.s,lngConn.s_Warning.s,MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
+                        DialogResult dWarningResult = MessageBox.Show(this,lngConn.s_OnServerDatabaseConstructionFileInstructions.s,lngConn.s_Warning.s,MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
                         switch (dWarningResult)
                         {
                             case DialogResult.Yes:
@@ -834,7 +834,7 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        DialogResult dWarningResult = MessageBox.Show(lngConn.s_OnLocalComputerDatabaseConstructionFileInstructions.s,lngConn.s_Warning.s,MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
+                        DialogResult dWarningResult = MessageBox.Show(this,lngConn.s_OnLocalComputerDatabaseConstructionFileInstructions.s,lngConn.s_Warning.s,MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
                         switch (dWarningResult)
                         {
                             case DialogResult.Yes:
@@ -873,6 +873,7 @@ namespace DBConnectionControl40
                     if (eRes == eSelectDataBaseFileTYPE.E_SELECT_WITH_TEXT_BOX_ONLY)
                     {
                         TextBoxDialog_Form txtBoxDlg = new TextBoxDialog_Form(lngConn.s_EnterDataBaseFileOnServer.s,lngConn.s_EnterDataBaseFileOnServerIfYouKnowDrivesAndFoldersOnServer.s,textBox_DataBaseName.Text,lngConn.s_DataBaseFileNameCanNotBeEmpty.s,true);
+                            txtBoxDlg.TopMost = this.TopMost;
                         if (txtBoxDlg.ShowDialog()== DialogResult.OK)
                         {
                             m_SelectedPath = Path.GetPathRoot(txtBoxDlg.m_Result);

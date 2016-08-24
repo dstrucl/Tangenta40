@@ -48,7 +48,7 @@ namespace DBConnectionControl40
             {
                 if (m_bResultMayNotBeEmpty)
                 {
-                    MessageBox.Show(m_sMessageResultMayNotBeEmpty, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(this,m_sMessageResultMayNotBeEmpty, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else 
                 {

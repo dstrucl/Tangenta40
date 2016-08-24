@@ -281,10 +281,10 @@ namespace TangentaDataBaseDef
         public SQLTable t_Atom_Unit = null;
 
         /* 99 */
-        public SQLTable t_AccessRights = null;
+        public SQLTable t_AccessR = null;
 
         /* 100 */
-        public SQLTable t_myOrganisation_Person_AccessRights = null;
+        public SQLTable t_myOrganisation_Person_AccessR = null;
 
         /* 101 */
         public SQLTable t_OrganisationData = null;
@@ -542,10 +542,10 @@ namespace TangentaDataBaseDef
         public SQLTable t_DocProformaInvoice_ShopA_Item = null;
 
         /* 186 */
-        public SQLTable t_JOURNAL_myOrganisation_Person_AccessRights_TYPE = null;
+        public SQLTable t_JOURNAL_myOrganisation_Person_AccessR_TYPE = null;
 
         /* 187 */
-        public SQLTable t_JOURNAL_myOrganisation_Person_AccessRights = null;
+        public SQLTable t_JOURNAL_myOrganisation_Person_AccessR = null;
 
         /* 188 */
         public SQLTable t_JOURNAL_myOrganisation_Person_TYPE = null;
@@ -1400,18 +1400,18 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Atom_Unit);
 
         /* 99 */
-            t_AccessRights = new SQLTable((Object)new AccessRights(),"accr", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_AccessRights); ;
-            t_AccessRights.AddColumn((Object)mt.m_AccessRights.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_AccessRights.AddColumn((Object)mt.m_AccessRights.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Name of access Rights", "Ime dostopne pravice") );
-            t_AccessRights.AddColumn((Object)mt.m_AccessRights.Description, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Description of access Rights", "Opis dostopne pravice") );
-            m_DBTables.items.Add(t_AccessRights);
+            t_AccessR = new SQLTable((Object)new AccessR(),"accr", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_AccessRights); ;
+            t_AccessR.AddColumn((Object)mt.m_AccessR.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_AccessR.AddColumn((Object)mt.m_AccessR.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Name of access Rights", "Ime dostopne pravice") );
+            t_AccessR.AddColumn((Object)mt.m_AccessR.Description, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Description of access Rights", "Opis dostopne pravice") );
+            m_DBTables.items.Add(t_AccessR);
 
         /* 100 */
-            t_myOrganisation_Person_AccessRights = new SQLTable((Object)new myOrganisation_Person_AccessRights(),"mcperaccr", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_myOrganisation_Person_AccessRights); ;
-            t_myOrganisation_Person_AccessRights.AddColumn((Object)mt.m_myOrganisation_Person_AccessRights.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_myOrganisation_Person_AccessRights.AddColumn((Object)mt.m_myOrganisation_Person_AccessRights.m_AccessRights, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Access Rights ID", "Dostopne pravice ID") );
-            t_myOrganisation_Person_AccessRights.AddColumn((Object)mt.m_myOrganisation_Person_AccessRights.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Organisation person ID", "Oseba v podjetju ID") );
-            m_DBTables.items.Add(t_myOrganisation_Person_AccessRights);
+            t_myOrganisation_Person_AccessR = new SQLTable((Object)new myOrganisation_Person_AccessR(),"mcperaccr", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_myOrganisation_Person_AccessRights); ;
+            t_myOrganisation_Person_AccessR.AddColumn((Object)mt.m_myOrganisation_Person_AccessR.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_myOrganisation_Person_AccessR.AddColumn((Object)mt.m_myOrganisation_Person_AccessR.m_AccessR, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Access Rights ID", "Dostopne pravice ID") );
+            t_myOrganisation_Person_AccessR.AddColumn((Object)mt.m_myOrganisation_Person_AccessR.m_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Organisation person ID", "Oseba v podjetju ID") );
+            m_DBTables.items.Add(t_myOrganisation_Person_AccessR);
 
          /* 101 */
             t_OrganisationData = new SQLTable((Object)new OrganisationData(),"orgd", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_OrganisationData); ;
@@ -2158,20 +2158,20 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_DocProformaInvoice_ShopA_Item);
 
             /* 186 */
-            t_JOURNAL_myOrganisation_Person_AccessRights_TYPE = new SQLTable((Object)new JOURNAL_myOrganisation_Person_AccessRights_TYPE(), "jmopart", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL_myOrganisation_Person_AccessRights_TYPE); 
-            t_JOURNAL_myOrganisation_Person_AccessRights_TYPE.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessRights_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_JOURNAL_myOrganisation_Person_AccessRights_TYPE.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessRights_TYPE.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
-            t_JOURNAL_myOrganisation_Person_AccessRights_TYPE.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessRights_TYPE.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
-            m_DBTables.items.Add(t_JOURNAL_myOrganisation_Person_AccessRights_TYPE);
+            t_JOURNAL_myOrganisation_Person_AccessR_TYPE = new SQLTable((Object)new JOURNAL_myOrganisation_Person_AccessR_TYPE(), "jmopart", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL_myOrganisation_Person_AccessRights_TYPE); 
+            t_JOURNAL_myOrganisation_Person_AccessR_TYPE.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessR_TYPE.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_myOrganisation_Person_AccessR_TYPE.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessR_TYPE.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_JOURNAL_myOrganisation_Person_AccessR_TYPE.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessR_TYPE.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_JOURNAL_myOrganisation_Person_AccessR_TYPE);
 
             /* 187 */
-            t_JOURNAL_myOrganisation_Person_AccessRights = new SQLTable((Object)new JOURNAL_myOrganisation_Person_AccessRights(), "jmopar", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL_myOrganisation_Person_AccessRights); 
-            t_JOURNAL_myOrganisation_Person_AccessRights.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessRights.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_JOURNAL_myOrganisation_Person_AccessRights.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessRights.m_JOURNAL_myOrganisation_Person_AccessRights_TYPE, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Journal Access Rights type ID", "Vrsta dogodka ID"));
-            t_JOURNAL_myOrganisation_Person_AccessRights.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessRights.m_myOrganisation_Person_AccessRights, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Access Rights ID", "Dogodek o dodelitvi pravis osebi ID"));
-            t_JOURNAL_myOrganisation_Person_AccessRights.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessRights.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event Time", "Čas dogodka"));
-            t_JOURNAL_myOrganisation_Person_AccessRights.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessRights.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
-            m_DBTables.items.Add(t_JOURNAL_myOrganisation_Person_AccessRights);
+            t_JOURNAL_myOrganisation_Person_AccessR = new SQLTable((Object)new JOURNAL_myOrganisation_Person_AccessR(), "jmopar", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL_myOrganisation_Person_AccessRights); 
+            t_JOURNAL_myOrganisation_Person_AccessR.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessR.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_JOURNAL_myOrganisation_Person_AccessR.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessR.m_JOURNAL_myOrganisation_Person_AccessR_TYPE, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Journal Access Rights type ID", "Vrsta dogodka ID"));
+            t_JOURNAL_myOrganisation_Person_AccessR.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessR.m_myOrganisation_Person_AccessR, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Access Rights ID", "Dogodek o dodelitvi pravis osebi ID"));
+            t_JOURNAL_myOrganisation_Person_AccessR.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessR.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event Time", "Čas dogodka"));
+            t_JOURNAL_myOrganisation_Person_AccessR.AddColumn((Object)mt.m_JOURNAL_myOrganisation_Person_AccessR.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
+            m_DBTables.items.Add(t_JOURNAL_myOrganisation_Person_AccessR);
 
             /* 188 */
             t_JOURNAL_myOrganisation_Person_TYPE = new SQLTable((Object)new JOURNAL_myOrganisation_Person_TYPE(), "jmopt", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_JOURNAL_myOrganisation_Person_TYPE);

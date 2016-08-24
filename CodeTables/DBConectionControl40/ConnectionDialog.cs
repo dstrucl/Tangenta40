@@ -43,6 +43,7 @@ namespace DBConnectionControl40
 
         internal bool m_bNewDataBase = false;
         internal Navigation.eEvent eEventExit;
+        private bool bDataBaseConnectionChecked = false;
 
         public ConnectionDialog(ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle, NavigationButtons.Navigation xnav)
         {
@@ -51,6 +52,7 @@ namespace DBConnectionControl40
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
+            usrc_NavigationButtons1.Button_NEXT_Enabled = false;
 
             if (con.RecentItemsFolder.Length ==0)
             {
@@ -188,7 +190,7 @@ namespace DBConnectionControl40
                     break;
 
                 default:
-                    System.Windows.Forms.MessageBox.Show("Not valid server type (Properties.DataBaseSettings.Default.uiDataBaseType can be 0  for MySQL server or 1 for MicrosoftSQL)","ERROR");
+                    System.Windows.Forms.MessageBox.Show(this,"Not valid server type (Properties.DataBaseSettings.Default.uiDataBaseType can be 0  for MySQL server or 1 for MicrosoftSQL)","ERROR");
                     this.Close();
                     return;
             }
@@ -352,9 +354,10 @@ namespace DBConnectionControl40
         {
             SetServerType();
 
-             Select_DataSource_Form SelectServerInLocalNetwork_Form = new Select_DataSource_Form(m_con);
+            Select_DataSource_Form SelectServerInLocalNetwork_Form = new Select_DataSource_Form(m_con);
+            SelectServerInLocalNetwork_Form.TopMost = this.TopMost;
             DialogResult dRes;
-            dRes = SelectServerInLocalNetwork_Form.ShowDialog();
+            dRes = SelectServerInLocalNetwork_Form.ShowDialog(this);
             if (dRes == DialogResult.OK)
             {
                 if (m_con.DataSource != null)
@@ -410,13 +413,16 @@ namespace DBConnectionControl40
                     if (m_con.CheckServerConnection(nav.parentForm,m_Title))//check server only connection
                     {
                         Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(nav.parentForm,m_con, m_Title);
+                        Select_Data_Base_On_Server.TopMost = this.TopMost;
                         DialogResult dRes;
-                        dRes = Select_Data_Base_On_Server.ShowDialog();
+                        dRes = Select_Data_Base_On_Server.ShowDialog(this);
                         if (dRes == DialogResult.OK)
                         {
                             m_bNewDataBase = Select_Data_Base_On_Server.m_bNewDataBase;
                             this.cmb_DataBaseName.Text = m_con.DataBase;
                             SetRecentComboBoxes();
+                            bDataBaseConnectionChecked = true;
+                            usrc_NavigationButtons1.Button_NEXT_Enabled = true;
                             return;
                         }
                         else
@@ -440,7 +446,7 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        MessageBox.Show(lngConn.s_CanNotMakeServerOnlyConnection.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(this,lngConn.s_CanNotMakeServerOnlyConnection.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     break;
                 case DBConnection.eDBType.MSSQL:
@@ -455,13 +461,16 @@ namespace DBConnectionControl40
                     if (m_con.CheckServerConnection(nav.parentForm, m_Title)) //check server only connection
                     {
                         Select_DataBase_Form Select_Data_Base_On_Server = new Select_DataBase_Form(nav.parentForm,m_con, m_Title);
+                        Select_Data_Base_On_Server.TopMost = this.TopMost;
                         DialogResult dRes;
-                        dRes = Select_Data_Base_On_Server.ShowDialog();
+                        dRes = Select_Data_Base_On_Server.ShowDialog(this);
                         if (dRes == DialogResult.OK)
                         {
                             m_bNewDataBase = Select_Data_Base_On_Server.m_bNewDataBase;
                             this.cmb_DataBaseName.Text = m_con.DataBase;
                             SetRecentComboBoxes();
+                            bDataBaseConnectionChecked = true;
+                            usrc_NavigationButtons1.Button_NEXT_Enabled = true;
                             return;
                         }
                         else
@@ -492,7 +501,7 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        MessageBox.Show(lngConn.s_CanNotMakeServerOnlyConnection.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(this,lngConn.s_CanNotMakeServerOnlyConnection.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     break;
             }
@@ -545,9 +554,6 @@ namespace DBConnectionControl40
                         break;
                 }
                 SetRecentComboBoxes();
-                this.Close();
-                DialogResult = DialogResult.OK;
-
             }
 
         }
@@ -589,19 +595,56 @@ namespace DBConnectionControl40
             }
         }
 
+        private void do_OK()
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.Close();
+        }
+
+        private void do_Cancel()
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Close();
+        }
+
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
-            eExitEvent = evt;
+            nav.eExitResult = evt;
             switch (nav.m_eButtons)
             {
                 case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case Navigation.eEvent.CANCEL:
+                            do_Cancel();
+                            return;
+                        case Navigation.eEvent.OK:
+                            do_OK();
+                            return;
+                    }
                     break;
                 case NavigationButtons.Navigation.eButtons.PrevNextExit:
-                    eExitEvent = evt;
+                    switch (evt)
+                    {
+                        case Navigation.eEvent.NEXT:
+                            if (bDataBaseConnectionChecked)
+                            {
+                                do_OK();
+                            }
+                            else
+                            {
+                                MessageBox.Show(this, lngRPM.s_NoConnectionToDatabase_You_must_set_Database_connection_to_go_next_step.s);
+                            }
+                            return;
+                        case Navigation.eEvent.EXIT:
+                            do_Cancel();
+                            return;
+                        case Navigation.eEvent.PREV:
+                            do_Cancel();
+                            return;
+                    }
                     break;
             }
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Close();
         }
     }
 }

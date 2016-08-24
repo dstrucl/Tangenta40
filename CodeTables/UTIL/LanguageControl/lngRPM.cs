@@ -40,6 +40,8 @@ namespace LanguageControl
 
         #endregion
 
+        public static ltext s_NoConnectionToDatabase_You_must_set_Database_connection_to_go_next_step = new ltext("There was no succesfull database connection check!\r\nPlease make succesful database connection check.\r\nYou can not go to next step, until succesfull database connection check.\\To check database connection press button Check database connection",
+                                                                                                                  "Ni bilo uspešnega preverjanja povezave na podatkovno bazo!\r\nDa bi lahko pritisnili gumb za naprej mora biti povezava na podatkovno bazo uspešno preverjena. Preverjanje povezave na podatkovno bazo naredite tako da pritisnete na gumb:\"Preveri povezavo na podatkovno bazo\"");
         public static ltext s_Previous = new ltext("Previous", "Nazaj");
         public static ltext s_myOrganisation_Person_Data = new ltext("Organisation person data", "Podatki o osebi v organizaciji");
         public static ltext s_DataNotSavedEndYesNo = new ltext("New or changed data are not written to database.\r\nQuit (Yes/No)?", "Novi ali spremenjeni podatki se niso zapisali v bazo podatkov.\r\nKončam (Da/Ne)?");

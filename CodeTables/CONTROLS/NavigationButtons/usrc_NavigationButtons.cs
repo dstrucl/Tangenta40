@@ -171,6 +171,12 @@ namespace NavigationButtons
             set { btn3.Visible = value; }
         }
 
+        public bool Button_NEXT_Enabled
+        {
+            get {return btn2.Enabled; }
+            set { btn2.Enabled = value; }
+        }
+
         public usrc_NavigationButtons()
         {
             InitializeComponent();

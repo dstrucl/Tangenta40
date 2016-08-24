@@ -1,6 +1,6 @@
 ﻿namespace DBConnectionControl40
 {
-    partial class View_AccessRights_Form
+    partial class View_AccessR_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(View_AccessRights_Form));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(View_AccessR_Form));
             this.dataGridView_Permissions = new System.Windows.Forms.DataGridView();
             this.lbl_Success = new System.Windows.Forms.Label();
             this.btn_OK = new System.Windows.Forms.Button();
@@ -75,7 +75,7 @@
             this.btn_OK.UseVisualStyleBackColor = true;
             this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
-            // View_AccessRights_Form
+            // View_AccessR_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -85,9 +85,9 @@
             this.Controls.Add(this.dataGridView_Permissions);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "View_AccessRights_Form";
-            this.Text = "View_AccessRights_Form";
-            this.Load += new System.EventHandler(this.View_AccessRights_Form_Load);
+            this.Name = "View_AccessR_Form";
+            this.Text = "View_AccessR_Form";
+            this.Load += new System.EventHandler(this.View_AccessR_Form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Permissions)).EndInit();
             this.ResumeLayout(false);
 

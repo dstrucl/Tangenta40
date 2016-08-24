@@ -298,8 +298,8 @@ namespace LogFile
             if (m_SQL_Connection.Connect(ref csError))
             {
                 m_SQL_Connection.Disconnect();
-                View_AccessRights_Form View_AccessRights_Dialog = new View_AccessRights_Form(m_SQL_Connection);
-                View_AccessRights_Dialog.ShowDialog();
+                View_AccessR_Form View_AccessR_Dialog = new View_AccessR_Form(m_SQL_Connection);
+                View_AccessR_Dialog.ShowDialog();
                 m_SQL_Connection.DataBase = current_DataBaseName;
                 //m_SQL_Connection.conData.SetConnectionString();
             }

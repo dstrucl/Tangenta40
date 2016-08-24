@@ -131,6 +131,10 @@
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
+      <Project>{322AF3BF-B609-477D-9D2B-39A9BBBBC721}</Project>
+      <Name>DBConnectionControl40</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBSync\DBSync.csproj">
       <Project>{3b62990e-c7e0-4748-b1ea-b977fd596021}</Project>
       <Name>DBSync</Name>

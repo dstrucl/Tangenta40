@@ -16,18 +16,18 @@ using LanguageControl;
 
 namespace DBConnectionControl40
 {
-    public partial class View_AccessRights_Form : Form
+    public partial class View_AccessR_Form : Form
     {
         DataSet ds = new DataSet();
         DBConnection m_con;
 
-        public View_AccessRights_Form(DBConnection con)
+        public View_AccessR_Form(DBConnection con)
         {
             m_con = con;
             InitializeComponent();
         }
 
-        private void View_AccessRights_Form_Load(object sender, EventArgs e)
+        private void View_AccessR_Form_Load(object sender, EventArgs e)
         {
             this.Text = lngConn.s_DataBaseResult_Form_Title.s;
 

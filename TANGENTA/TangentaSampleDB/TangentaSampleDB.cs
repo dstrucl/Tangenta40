@@ -64,7 +64,15 @@ namespace TangentaSampleDB
         public static bool Is_Sample_DB(ref string Err)
         {
             Err = null;
-            string sql = @"select myOrganisation_$_orgd_$_org_$$Name from  myOrganisation_VIEW limit 1";
+            string sql = null;
+            if (DBSync.DBSync.m_DBType == DBConnectionControl40.DBConnection.eDBType.MSSQL)
+            {
+                sql = @"select top 1 myOrganisation_$_orgd_$_org_$$Name from  myOrganisation_VIEW";
+            }
+            else
+            {
+                sql = @"select myOrganisation_$_orgd_$_org_$$Name from  myOrganisation_VIEW limit 1";
+            }
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {

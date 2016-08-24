@@ -189,10 +189,12 @@
             this.grpServerType.TabIndex = 43;
             this.grpServerType.TabStop = false;
             this.grpServerType.Text = "Select Server";
+            this.grpServerType.Visible = false;
             // 
             // radioButton_MySqlServer
             // 
             this.radioButton_MySqlServer.AutoSize = true;
+            this.radioButton_MySqlServer.Enabled = false;
             this.radioButton_MySqlServer.Location = new System.Drawing.Point(170, 18);
             this.radioButton_MySqlServer.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_MySqlServer.Name = "radioButton_MySqlServer";
@@ -276,6 +278,7 @@
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;

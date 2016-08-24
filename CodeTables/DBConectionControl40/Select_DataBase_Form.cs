@@ -163,7 +163,7 @@ namespace DBConnectionControl40
                             listBox_DataBaseNames.Enabled = true;
                             if (!bAllreadyExist)
                             {
-                                MessageBox.Show(lngConn.s_DataBase_e.s + " " + this.txt_DataBaseName.Text + lngConn.s_Can_Not_Be_Found_On_server.s + " " + m_SQL_Connection.DataSource, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show(this,lngConn.s_DataBase_e.s + " " + this.txt_DataBaseName.Text + lngConn.s_Can_Not_Be_Found_On_server.s + " " + m_SQL_Connection.DataSource, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                     }
@@ -205,7 +205,7 @@ namespace DBConnectionControl40
                             listBox_DataBaseNames.Enabled = true;
                             if (!bAllreadyExist)
                             {
-                                MessageBox.Show(lngConn.s_DataBase_e.s + " " + this.txt_DataBaseName.Text + lngConn.s_Can_Not_Be_Found_On_server.s + " " + m_SQL_Connection.DataSource, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show(this,lngConn.s_DataBase_e.s + " " + this.txt_DataBaseName.Text + lngConn.s_Can_Not_Be_Found_On_server.s + " " + m_SQL_Connection.DataSource, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                     }
@@ -278,6 +278,7 @@ namespace DBConnectionControl40
             UpdateConData();
 
             TestConnectionForm tConForm = new TestConnectionForm(m_ParentForm,m_SQL_Connection,  false, true, m_Title);
+            tConForm.TopMost = this.TopMost;
             if (tConForm.ShowDialog() == DialogResult.OK)
             {
 //                MessageBox.Show(this, lngConn.s_ConnectionOK.s, "OK");
@@ -298,8 +299,9 @@ namespace DBConnectionControl40
             if (m_SQL_Connection.Connect(ref csError))
             {
                 m_SQL_Connection.Disconnect();
-                View_AccessRights_Form View_AccessRights_Dialog = new View_AccessRights_Form(m_SQL_Connection);
-                View_AccessRights_Dialog.ShowDialog();
+                View_AccessR_Form View_AccessR_Dialog = new View_AccessR_Form(m_SQL_Connection);
+                View_AccessR_Dialog.TopMost = this.TopMost;
+                View_AccessR_Dialog.ShowDialog();
                 m_SQL_Connection.DataBase = current_DataBaseName;
                 //m_SQL_Connection.conData.SetConnectionString();
             }
@@ -356,7 +358,7 @@ namespace DBConnectionControl40
                         listBox_DataBaseNames.Enabled = true;
                         if (bAllreadyExist)
                         {
-                            MessageBox.Show(lngConn.s_DataBase.s + this.txt_DataBaseName.Text + lngConn.s_Already_exist.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show(this,lngConn.s_DataBase.s + this.txt_DataBaseName.Text + lngConn.s_Already_exist.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
@@ -365,7 +367,9 @@ namespace DBConnectionControl40
                                 //Test Connection and rights to create new database
 
                                 CreateMySQLDataBase_Form CreateMySQLDataBaseDialog = new CreateMySQLDataBase_Form(ref m_SQL_Connection);
+                                CreateMySQLDataBaseDialog.TopMost = this.TopMost;
                                 DialogResult dRes;
+
                                 dRes = CreateMySQLDataBaseDialog.ShowDialog();
                                 if (dRes == DialogResult.OK)
                                 {
@@ -378,7 +382,7 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        System.Windows.Forms.MessageBox.Show(lngConn.s_Not_EnoughPermissions_To_List_Databases.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        System.Windows.Forms.MessageBox.Show(this,lngConn.s_Not_EnoughPermissions_To_List_Databases.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     break;
 
@@ -388,13 +392,14 @@ namespace DBConnectionControl40
                         listBox_DataBaseNames.Enabled = true;
                         if (bAllreadyExist)
                         {
-                            MessageBox.Show(lngConn.s_DataBase.s + this.txt_DataBaseName.Text + lngConn.s_Already_exist.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show(this,lngConn.s_DataBase.s + this.txt_DataBaseName.Text + lngConn.s_Already_exist.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
                             if (m_SQL_Connection.WindowsAuthentication)
                             {
                                 CreateDataBase_Form CreateDataBaseDialog = new CreateDataBase_Form(ref m_SQL_Connection);
+                                CreateDataBaseDialog.TopMost = this.TopMost;
                                 DialogResult dRes;
                                 dRes = CreateDataBaseDialog.ShowDialog();
                                 if (dRes == DialogResult.OK)
@@ -411,6 +416,7 @@ namespace DBConnectionControl40
                                     //Test Connection and rights to create new database
 
                                     CreateDataBase_Form CreateDataBaseDialog = new CreateDataBase_Form(ref m_SQL_Connection);
+                                    CreateDataBaseDialog.TopMost = this.TopMost;
                                     DialogResult dRes;
                                     dRes = CreateDataBaseDialog.ShowDialog();
                                     if (dRes == DialogResult.OK)
@@ -423,11 +429,11 @@ namespace DBConnectionControl40
                                 {
                                     if (txt_UserName.Text.Length == 0)
                                     {
-                                        System.Windows.Forms.MessageBox.Show(lngConn.s_User_name_is_missing_Enter_User_Name.s, lngConn.s_Warning.s, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                                        System.Windows.Forms.MessageBox.Show(this,lngConn.s_User_name_is_missing_Enter_User_Name.s, lngConn.s_Warning.s, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
                                     }
                                     else if (txt_Password.Text.Length == 0)
                                     {
-                                        System.Windows.Forms.MessageBox.Show(lngConn.s_Password_is_missing_Enter_Password.s, lngConn.s_Warning.s, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                                        System.Windows.Forms.MessageBox.Show(this,lngConn.s_Password_is_missing_Enter_Password.s, lngConn.s_Warning.s, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
                                     }
                                 }
                             }
@@ -435,7 +441,7 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        System.Windows.Forms.MessageBox.Show(lngConn.s_Not_EnoughPermissions_To_List_Databases.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        System.Windows.Forms.MessageBox.Show(this,lngConn.s_Not_EnoughPermissions_To_List_Databases.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     break;
             }

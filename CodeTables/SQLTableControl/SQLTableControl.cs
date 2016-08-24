@@ -183,11 +183,51 @@ namespace CodeTables
 
             // Also create views! in one step
             SQL_DataBase_VIEW_List.Clear();
+            string ErrMSSQLNameToLong = null;
             for (iTable = 0; iTable < iTableCount; iTable++)
             {
+                string table_view = null;
                 StringBuilder SQLCreateView_InDataBase = items[iTable].SQLCreateView_InDataBase(items);
                 if (SQLCreateView_InDataBase.Length > 0)
                 {
+                    switch (m_con.DBType)
+                    {
+                        case DBConnection.eDBType.MYSQL:
+                            break;
+
+                        case DBConnection.eDBType.MSSQL:
+                            foreach (SQLTable.Table_View.ColumnNames cnames in items[iTable].m_Table_View.View_ColumnNames_List)
+                            {
+                                if (cnames.Name.Length>=128)
+                                {
+                                    if (ErrMSSQLNameToLong == null)
+                                    {
+                                        ErrMSSQLNameToLong = "ERROR:SQLTableControl.cs:SQLcmd_CreateAllTables:View column name to long (>128) fo MSSQL database:\r\n  " + table_view;
+                                    }
+                                    else
+                                    {
+                                        if (table_view == null)
+                                        {
+                                            table_view = items[iTable].ViewName;
+                                            ErrMSSQLNameToLong += "\r\n  " + table_view;
+                                        }
+                                    }
+                                    ErrMSSQLNameToLong += "\r\n      " + cnames.Name;
+                                }
+                            }
+                            if (ErrMSSQLNameToLong!= null)
+                            {
+                                LogFile.Error.Show(ErrMSSQLNameToLong);
+                            }
+                            break;
+
+                        case DBConnection.eDBType.SQLITE:
+                            break;
+
+                        default:
+                            break;
+                    }
+
                     items[iTable].sql_CreateView = SQLCreateView_InDataBase.ToString();
                     DataBaseView xDataBaseView = new DataBaseView(items[iTable].ViewName, SQLCreateView_InDataBase.ToString());
                     SQL_DataBase_VIEW_List.Add(xDataBaseView);
@@ -836,6 +876,10 @@ namespace CodeTables
             {
                 foreach (DataBaseView dbv in SQL_DataBase_VIEW_List)
                 {
+                    if (dbv.ViewName.Equals("JOURNAL_myOrganisation_Person_AccessR_VIEW"))
+                    {
+                        File.WriteAllText("C:\\TangentaDB\\JOURNAL_myOrganisation_Person_AccessR_VIEW.txt", dbv.SQLCommand, Encoding.UTF8);
+                    }
                     if (this.m_con.ExecuteNonQuerySQL_NoMultiTrans(dbv.SQLCommand, null, ref csErrorMsg))
                     {
                     }

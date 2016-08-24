@@ -230,7 +230,7 @@ namespace CodeTables
                 if (obj.GetType() == typeof(ID))
                 {
                     ID ID = (ID)obj;
-                    return Globals.LeftMargin + "[" + columnName + "] " + DBtypesFunc.GetBasicType(obj) + " IDENTITY(1,1)" + strNull;
+                    return Globals.LeftMargin + "[" + columnName + "] " + DBtypesFunc.GetBasicTypeMSSQL(obj) + " IDENTITY(1,1)" + strNull;
                 }
                 else if (dbTables.IsMyTable(out refTable,obj.GetType()))
                 {
@@ -262,7 +262,7 @@ namespace CodeTables
                     string sIdentityType;
                     if (obj_reftable_id != null)
                     {
-                        sIdentityType = " " + DBtypesFunc.GetBasicType(obj_reftable_id)+ " ";
+                        sIdentityType = " " + DBtypesFunc.GetBasicTypeMSSQL(obj_reftable_id)+ " ";
                     }
                     else
                     {
@@ -275,7 +275,7 @@ namespace CodeTables
                 }
                 else
                 {
-                     sBasicType = DBTypes.DBtypesFunc.GetBasicType(obj);
+                     sBasicType = DBTypes.DBtypesFunc.GetBasicTypeMSSQL(obj);
                 }
                 return Globals.LeftMargin + "[" + columnName + "] " + sBasicType + strNull;
             }

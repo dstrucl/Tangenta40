@@ -1029,8 +1029,7 @@ namespace DBTypes
         public static DataStore DataStore = new DataStore();
         public static DocumentStore DocumentStore = new DocumentStore();
 
-        private static string m_SaveSqlParDirectory = null;
-
+        
         private static SHA1CryptoServiceProvider my_SHA1CryptoServiceProvider = new SHA1CryptoServiceProvider();
 
         public static string GetHash_SHA1(byte[] byteArray)
@@ -1040,141 +1039,8 @@ namespace DBTypes
             return hash;
         }
 
-        public static bool MSSQL_DataBaseType(ref string sMSSQL_type, Type objType, Type baseType, Type myDBTypes, ref string csError)
-        {
-            FieldInfo[] DBTypesInfo = myDBTypes.GetFields();
-            int i;
-            int iCount = DBTypesInfo.Count();
-            for (i = 0; i < iCount; i++)
-            {
 
-                if (DBTypesInfo[i].FieldType == baseType)
-                {
-                    if (baseType == typeof(DB_Int32))
-                    {
-                        sMSSQL_type = "[int]";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_Int64))
-                    {
-                        sMSSQL_type = "[bigint]";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_smallInt))
-                    {
-                        sMSSQL_type = "[int]";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_bit))
-                    {
-                        sMSSQL_type = "[bit]";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_DateTime))
-                    {
-                        sMSSQL_type = "[datetime]";
-                        return true;
-                    }
-                    else if (baseType == typeof(DBTypes.DB_varbinary_max))
-                    {
-                        sMSSQL_type = "[varbinary](MAX)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_264))
-                    {
-                        sMSSQL_type = "[nvarchar](264)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_64))
-                    {
-                        sMSSQL_type = "[nvarchar](64)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_50))
-                    {
-                        sMSSQL_type = "[nvarchar](50)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_45))
-                    {
-                        sMSSQL_type = "[nvarchar](45)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_32))
-                    {
-                        sMSSQL_type = "[nvarchar](32)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_25))
-                    {
-                        sMSSQL_type = "[nvarchar](25)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_10))
-                    {
-                        sMSSQL_type = "[nvarchar](10)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_5))
-                    {
-                        sMSSQL_type = "[nvarchar](5)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_2000))
-                    {
-                        sMSSQL_type = "[nvarchar](2000)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_varchar_max))
-                    {
-                        sMSSQL_type = "[nvarchar](MAX)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_Money))
-                    {
-                        sMSSQL_type = "[money]";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_decimal2))
-                    {
-                        sMSSQL_type = "[decimal]";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_Percent))
-                    {
-                        sMSSQL_type = "[decimal]";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_Image))
-                    {
-                        sMSSQL_type = "[varbinary](MAX)";
-                        return true;
-                    }
-                    else if (baseType == typeof(DB_Document))
-                    {
-                        sMSSQL_type = "[varbinary](MAX)";
-                        return true;
-                    }
-                    else
-                    {
-                        sMSSQL_type = "!! ERROR NOT IMPLEMENTED BASIC TYPE IN FUNCTION bool DBTypes.MSSQL_DataBaseType(ref string sMSSQL_type, Type objType, Type baseType,Type myDBTypes, ref string csError)!!";
-                        csError = sMSSQL_type + " type = " + baseType.ToString();
-                        return false;
-                    }
-                }
-            }
-            string tableName = objType.ToString();
-            int ij = tableName.IndexOf('.');
-            if (ij >= 0)
-            {
-                tableName = tableName.Substring(ij + 1);
-            }
-            csError = "Program Error !!! NO DB Basic Types Found !!!\n Posible cause of this error is  that table of type:" + objType.ToString() + " is not added to m_DBTables.items.\n There is no source line in \"MyDataBase.TableDefinitions.cs\"\n with :m_DBTables.items.Add(tbl_" + tableName + ")" +
-                      "\r\n or basic type " + baseType.ToString() + " is not type (field) in DBTypes class!";
-            return false;
-        }
-
-        public static string GetBasicType(object obj)
+        public static string GetBasicTypeMSSQL(object obj)
         {
             //MemberInfo[] myMemberInfo;
             Type objType = obj.GetType();
@@ -1205,11 +1071,11 @@ namespace DBTypes
                         }
                         else if (baseType == typeof(DB_decimal2))
                         {
-                            return "[decimal]";
+                            return "[decimal](18,5)";
                         }
                         else if (baseType == typeof(DB_Percent))
                         {
-                            return "[decimal]";
+                            return "[decimal](18,5)";
                         }
                         else if (baseType == typeof(DB_smallInt))
                         {
@@ -1580,15 +1446,15 @@ namespace DBTypes
                         }
                         else if (baseType == typeof(DB_Money))
                         {
-                            return "DECIMAL(13,2)";
+                            return "DECIMAL(18,5)";
                         }
                         else if (baseType == typeof(DB_decimal2))
                         {
-                            return "DECIMAL(13,5)";
+                            return "DECIMAL(18,5)";
                         }
                         else if (baseType == typeof(DB_Percent))
                         {
-                            return "DECIMAL(13,5)";
+                            return "DECIMAL(18,5)";
                         }
                         else if (baseType == typeof(DB_smallInt))
                         {
@@ -1712,15 +1578,15 @@ namespace DBTypes
                         }
                         else if (baseType == typeof(DB_Money))
                         {
-                            return "DECIMAL(10,5)";
+                            return "DECIMAL(18,5)";
                         }
                         else if (baseType == typeof(DB_decimal2))
                         {
-                            return "DECIMAL(10,5)";
+                            return "DECIMAL(18,5)";
                         }
                         else if (baseType == typeof(DB_Percent))
                         {
-                            return "DECIMAL(10,5)";
+                            return "DECIMAL(18,5)";
                         }
                         else if (baseType == typeof(DB_smallInt))
                         {

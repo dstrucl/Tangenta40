@@ -452,10 +452,10 @@ namespace UpgradeDB
                                    Atom_WorkPeriod_ID  INTEGER  NOT NULL REFERENCES Atom_WorkPeriod(ID)
                                   );
 
-                                CREATE TABLE myOrganisation_Person_AccessRights
+                                CREATE TABLE myOrganisation_Person_AccessR
                                   (
                                   'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                   AccessRights_ID  INTEGER  NOT NULL REFERENCES AccessRights(ID),
+                                   AccessR_ID  INTEGER  NOT NULL REFERENCES AccessR(ID),
                                    myOrganisation_Person_ID  INTEGER  NOT NULL REFERENCES myCompany_Person(ID) 
                                   );
 
@@ -481,18 +481,18 @@ namespace UpgradeDB
                                    Atom_WorkPeriod_TYPE_ID  INTEGER  NULL REFERENCES Atom_WorkPeriod_TYPE(ID)
                                 );
 
-                                CREATE TABLE JOURNAL_myOrganisation_Person_AccessRights_TYPE
+                                CREATE TABLE JOURNAL_myOrganisation_Person_AccessR_TYPE
                                   (
                                   'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
                                   'Name' varchar(264) NOT NULL,
                                   'Description' varchar(2000) NULL
                                   );
 
-                                CREATE TABLE JOURNAL_myOrganisation_Person_AccessRights
+                                CREATE TABLE JOURNAL_myOrganisation_Person_AccessR
                                   (
                                   'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                  myOrganisation_Person_AccessRights_TYPE_ID INTEGER  NOT NULL REFERENCES myOrganisation_Person_AccessRights_TYPE(ID),
-                                  myOrganisation_Person_AccessRights_ID INTEGER  NOT NULL REFERENCES myOrganisation_Person_AccessRights(ID),
+                                  myOrganisation_Person_AccessR_TYPE_ID INTEGER  NOT NULL REFERENCES myOrganisation_Person_AccessR_TYPE(ID),
+                                  myOrganisation_Person_AccessR_ID INTEGER  NOT NULL REFERENCES myOrganisation_Person_AccessR(ID),
                                   'EventTime' DATETIME NOT NULL,
                                    Atom_WorkPeriod_ID  INTEGER  NOT NULL REFERENCES Atom_WorkPeriod(ID)
                                   );
@@ -542,15 +542,15 @@ namespace UpgradeDB
                                   Office_ID
                                 from myCompany_Person;
 
-                                insert into myOrganisation_Person_AccessRights
+                                insert into myOrganisation_Person_AccessR
                                   (
-                                   AccessRights_ID,
+                                   AccessR_ID,
                                    myOrganisation_Person_ID
                                   )
                                   select
-                                   AccessRights_ID,
+                                   AccessR_ID,
                                    myCompany_Person_ID
-                                 from myCompany_Person_AccessRights;
+                                 from myCompany_Person_AccessR;
 
 
                                 insert into Atom_myOrganisation_Person
@@ -631,7 +631,7 @@ namespace UpgradeDB
                                 ALTER TABLE Atom_WorkPeriod_new RENAME TO Atom_WorkPeriod;
                                 Drop Table JOURNAL_myCompany;
                                 Drop Table JOURNAL_myCompany_TYPE;
-                                Drop Table myCompany_Person_AccessRights;
+                                Drop Table myCompany_Person_AccessR;
                                 Drop Table myCompany_Person;
                                 Drop Table Atom_myCompany_Person;
                                 Drop Table Atom_myCompany;
