@@ -23,11 +23,14 @@ namespace Tangenta
     {
         private usrc_Document m_usrc_Main;
         private bool bResetShopsInUse = false;
+        NavigationButtons.Navigation nav = null;
 
 
-        public Form_ShopsInUse(bool xbResetShopsInUse,usrc_Document xusrc_Main)
+        public Form_ShopsInUse(NavigationButtons.Navigation xnav, bool xbResetShopsInUse,usrc_Document xusrc_Main)
         {
             InitializeComponent();
+            nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
             bResetShopsInUse = xbResetShopsInUse;
             lngRPM.s_Shops_In_Use.Text(this);
             lngRPM.s_chk_A_in_use.Text(chk_A_in_use);
@@ -59,7 +62,7 @@ namespace Tangenta
             this.m_usrc_Main = xusrc_Main;
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private bool do_OK()
         {
             string shinuse = "";
             if (chk_A_in_use.Checked)
@@ -77,7 +80,7 @@ namespace Tangenta
             if (shinuse.Length==0)
             {
                 MessageBox.Show(this, lngRPM.s_Warning.s, lngRPM.s_YouMustSelectAtLeastOneShop.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                return;
+                return false;
             }
             lngRPM.s_Shop_A.sText(DynSettings.LanguageID,txt_ShopA_Name.Text);
             lngRPM.s_Shop_B.sText(DynSettings.LanguageID,txt_ShopB_Name.Text);
@@ -103,12 +106,54 @@ namespace Tangenta
             }
             this.Close();
             DialogResult = DialogResult.OK;
+            return true;
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void do_Cancel()
         {
             this.Close();
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            if (do_OK())
+                            {
+                                nav.eExitResult = evt;
+                            }
+                            return;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            if (do_OK())
+                            {
+                                nav.eExitResult = evt;
+                            }
+                            return;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                    }
+                    break;
+            }
         }
     }
 }

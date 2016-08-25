@@ -457,7 +457,7 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ABC")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string eShopsMode {
             get {
                 return ((string)(this["eShopsMode"]));
@@ -469,7 +469,7 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ABC")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string eShopsInUse {
             get {
                 return ((string)(this["eShopsInUse"]));

@@ -108,7 +108,10 @@ namespace Tangenta
 
         private void New_ShopA()
         {
-            m_usrc_ShopA = new usrc_ShopA();
+            if (m_usrc_ShopA==null)
+            {
+                m_usrc_ShopA = new usrc_ShopA();
+            }
             m_usrc_ShopA.Init(this.m_ShopABC, DBtcn);
             m_usrc_ShopA.Dock = DockStyle.Fill;
             m_usrc_ShopA.aa_ItemAdded += M_usrc_ShopA_aa_ItemAdded;
@@ -142,19 +145,24 @@ namespace Tangenta
 
         private void New_ShopB()
         {
-            m_usrc_ShopB = new usrc_ShopB();
-            m_usrc_ShopB.Init(this.m_ShopABC, DBtcn,Program.Shops_in_use);
+            if (m_usrc_ShopB == null)
+            {
+                m_usrc_ShopB = new usrc_ShopB();
+            }
+            m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use);
             m_usrc_ShopB.Dock = DockStyle.Fill;
             m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
             m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
             m_usrc_ShopB.aa_ItemRemoved += usrc_ShopB_ItemRemoved;
             m_usrc_ShopB.aa_ItemUpdated += usrc_ShopB_ItemUpdated;
-
         }
 
         private void New_ShopC()
         {
-            m_usrc_ShopC = new usrc_ShopC();
+            if (m_usrc_ShopC == null)
+            {
+                m_usrc_ShopC = new usrc_ShopC();
+            }
             m_usrc_ShopC.Init(this.m_ShopABC, DBtcn,Program.Shops_in_use);
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;

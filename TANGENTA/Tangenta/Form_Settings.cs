@@ -129,8 +129,11 @@ namespace Tangenta
 
         private void btn_Shops_in_use_Click(object sender, EventArgs e)
         {
-            Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(true,m_usrc_Main);
-            frm_shops_in_use.ShowDialog();
+            NavigationButtons.Navigation nav_Form_ShopsInUse = new NavigationButtons.Navigation();
+            nav_Form_ShopsInUse.bDoModal = true;
+            nav_Form_ShopsInUse.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            nav_Form_ShopsInUse.ChildDialog = new Form_ShopsInUse(nav_Form_ShopsInUse,true, m_usrc_Main);
+            nav_Form_ShopsInUse.ShowDialog();
         }
 
         private void btn_LogFile_Click(object sender, EventArgs e)

@@ -41,7 +41,7 @@ namespace Tangenta
 
         public bool Get_shops_in_use(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
-            if (Get_shops_in_use(false))
+            if (Get_shops_in_use(xnav,true))
             {
                 myStartup.eNextStep++;
             }
@@ -53,17 +53,42 @@ namespace Tangenta
         }
 
 
-        public bool Get_shops_in_use(bool bResetShopsInUse)
+        public bool Get_shops_in_use(NavigationButtons.Navigation xnav,bool bResetShopsInUse)
         {
             if (Program.Shops_in_use.Length>0)
             {
                 return true;
             }
             else
-            { 
-                Form_ShopsInUse frm_shops_in_use = new Form_ShopsInUse(bResetShopsInUse,this);
-                DialogResult dlgres = frm_shops_in_use.ShowDialog(this);
-                return (dlgres == DialogResult.OK);
+            {
+                xnav.ChildDialog = new Form_ShopsInUse(xnav, bResetShopsInUse, this);
+                xnav.ShowDialog();
+                if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
+                {
+                    switch (xnav.eExitResult)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            //this.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(Program.Shops_in_use);
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+                else if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.OkCancel)
+                {
+                    switch (xnav.eExitResult)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Document:Get_shops_in_use:Error " + xnav.m_eButtons.ToString() + "not implemented!");
+                    return false;
+                }
             }
         }
 

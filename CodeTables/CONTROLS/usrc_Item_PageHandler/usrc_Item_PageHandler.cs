@@ -254,12 +254,15 @@ namespace usrc_Item_PageHandler
                 {
                     NumericPageButton[i].Visible = false;
                 }
-                int m_ousrc_count = m_ousrc_Item_array.Count();
-                int o_usrc_Index = 0;
-                while (o_usrc_Index < m_ousrc_count)
+                if (m_ousrc_Item_array != null)
                 {
-                    ShowObject(-1, null, m_ousrc_Item_array[o_usrc_Index], false);
-                    o_usrc_Index++;
+                    int m_ousrc_count = m_ousrc_Item_array.Count();
+                    int o_usrc_Index = 0;
+                    while (o_usrc_Index < m_ousrc_count)
+                    {
+                        ShowObject(-1, null, m_ousrc_Item_array[o_usrc_Index], false);
+                        o_usrc_Index++;
+                    }
                 }
             }
         }

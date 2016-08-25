@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LanguageControl;
 
 namespace NavigationButtons
 {
@@ -224,6 +225,12 @@ namespace NavigationButtons
             {
                 case Navigation.eButtons.OkCancel:
                     btn2.Visible = false;
+                    btn1.Visible = true;
+                    btn3.Visible = true;
+                    btn1.Image = null;
+                    btn3.Image = null;
+                    lngRPM.s_OK.Text(btn1);
+                    lngRPM.s_Cancel.Text(btn3);
                     break;
 
                 case Navigation.eButtons.PrevNextExit:

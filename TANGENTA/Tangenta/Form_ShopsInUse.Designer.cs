@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ShopsInUse));
             this.chk_A_in_use = new System.Windows.Forms.CheckBox();
             this.chk_B_in_use = new System.Windows.Forms.CheckBox();
             this.chk_C_in_use = new System.Windows.Forms.CheckBox();
@@ -38,8 +39,7 @@
             this.lbl_ShopB_Name = new System.Windows.Forms.Label();
             this.txt_ShopC_Name = new System.Windows.Forms.TextBox();
             this.lbl_ShopC_Name = new System.Windows.Forms.Label();
-            this.btn_OK = new System.Windows.Forms.Button();
-            this.btn_Cancel = new System.Windows.Forms.Button();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.SuspendLayout();
             // 
             // chk_A_in_use
@@ -77,7 +77,7 @@
             this.wb1.Location = new System.Drawing.Point(0, 101);
             this.wb1.MinimumSize = new System.Drawing.Size(20, 20);
             this.wb1.Name = "wb1";
-            this.wb1.Size = new System.Drawing.Size(664, 264);
+            this.wb1.Size = new System.Drawing.Size(664, 235);
             this.wb1.TabIndex = 3;
             // 
             // lbl_ShopA_Name
@@ -128,35 +128,40 @@
             this.lbl_ShopC_Name.Text = "Ime Prodajalne";
             this.lbl_ShopC_Name.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // btn_OK
+            // usrc_NavigationButtons1
             // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OK.Location = new System.Drawing.Point(12, 371);
-            this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(69, 32);
-            this.btn_OK.TabIndex = 10;
-            this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
-            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(563, 371);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(90, 32);
-            this.btn_Cancel.TabIndex = 11;
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
+            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
+            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(-1, 342);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(663, 61);
+            this.usrc_NavigationButtons1.TabIndex = 10;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "";
+            this.usrc_NavigationButtons1.Text_OK = "";
+            this.usrc_NavigationButtons1.Text_PREV = "";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
             // Form_ShopsInUse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 405);
-            this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_OK);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.txt_ShopC_Name);
             this.Controls.Add(this.lbl_ShopC_Name);
             this.Controls.Add(this.txt_ShopB_Name);
@@ -188,7 +193,6 @@
         private System.Windows.Forms.Label lbl_ShopB_Name;
         private System.Windows.Forms.TextBox txt_ShopC_Name;
         private System.Windows.Forms.Label lbl_ShopC_Name;
-        private System.Windows.Forms.Button btn_OK;
-        private System.Windows.Forms.Button btn_Cancel;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }
