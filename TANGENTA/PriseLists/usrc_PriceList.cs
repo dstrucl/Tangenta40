@@ -74,14 +74,16 @@ namespace PriseLists
                     this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
                     this.cmb_PriceListType.ValueMember = "xPriceList_ID";
                 }
+
                 else
                 {
                     bool bAsk = ((ShopsInUse.Contains("B") && (xeShopType == usrc_PriceList_Edit.eShopType.ShopB) ) || ((ShopsInUse.Contains("C") && (xeShopType == usrc_PriceList_Edit.eShopType.ShopC))));
                     if (bAsk)
                     {
-                        if (MessageBox.Show(this, lngRPM.s_NoPriceList_AskToCreatePriceList.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        if (XMessage.Box.ShowTopMost(this, lngRPM.s_NoPriceList_AskToCreatePriceList, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
                             Form_PriceList_Edit PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType);
+                            PriceListType_Edit_dlg.TopMost = true;
                             if (PriceListType_Edit_dlg.ShowDialog() == DialogResult.OK)
                             {
                                 if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))

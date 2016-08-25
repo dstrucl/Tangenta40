@@ -28,6 +28,16 @@ namespace XMessage
             return dlg.ShowDialog();
         }
 
+
+        public static DialogResult ShowTopMost(IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        {
+            Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);
+            dlg.TopMost = true;
+            return dlg.ShowDialog();
+        }
+
+
+
         // Summary:
         //     Displays a message box with specified text.
         //

@@ -121,6 +121,10 @@
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
+      <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
+      <Name>XMessage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
       <Name>DBConnectionControl40</Name>
