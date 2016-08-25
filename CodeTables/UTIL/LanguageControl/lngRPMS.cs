@@ -17,6 +17,9 @@ namespace LanguageControl
 {
     public static class lngRPMS
     {
+        public static ltext s_License_agreement = new ltext("License agreement", "Licenčna pogodba");
+        public static ltext s_I_accept_the_terms_in_the_license_agreement = new ltext("I accept the terms in the license agreement", "V celoti sprejemam pogoje in določila licenčne pogodbe");
+        public static ltext s_I_do_not_accept_the_terms_in_the_license_agreement = new ltext("I do not accept the terms in the license agreement", "Ne sprejemam pogojev licenčne pogodbe");
         public static ltext s_GoToPreviousStartupStep = new ltext("Go to previous startup step", "Pojdi na prejšni korak");
         public static ltext s_GoToNextStartupStep = new ltext("Go to next startup step", "Nadaljuj na naslednji korak");
         public static ltext s_GoToExitProgram = new ltext("Exit program", "Končaj program");

@@ -28,7 +28,11 @@ namespace NavigationButtons
 
         public enum eButtons { PrevNextExit, OkCancel };
 
-        public enum eEvent {NOTHING, PREV, NEXT, EXIT, OK, CANCEL };
+        public enum eEvent { NOTHING, PREV, NEXT, EXIT, OK, CANCEL };
+
+        public string HelpURL = "https://dstrucl.github.io/Tangenta-Help/";
+
+        public LicenseAgreementAcceptedTime LicenseAgreementAccaptedTime = null;
 
         public string LastStartupDialog_TYPE = "";
         public bool bDoModal = false;
@@ -82,20 +86,44 @@ namespace NavigationButtons
 
         public void ShowHelp(string FormTypeAsString)
         {
+            string sUrl = ShowHelpResolver(FormTypeAsString);
+            if (sUrl != null)
+            {
+                show_help(sUrl, "");
+            }
+        }
+
+        public string ShowHelpResolver(string FormTypeAsString)
+        {
             if (FormTypeAsString != null)
             {
                 int idot = FormTypeAsString.IndexOf(".");
                 if (idot >= 0)
                 {
                     string stoken = FormTypeAsString.Substring(idot + 1);
-                    show_help("https://dstrucl.github.io/Tangenta-Help/" + LanguageControl.DynSettings.LanguagePrefix + "_" + stoken + ".html", "");
+                    return HelpURL + LanguageControl.DynSettings.LanguagePrefix + "_" + stoken + ".html";
                 }
             }
+            return null;
         }
 
         private void show_help(string sURL, string s_Local_Html)
         {
             web_Help.Show(sURL, s_Local_Html);
         }
+
+        public class LicenseAgreementAcceptedTime
+        {
+            private DateTime m_time = DateTime.MinValue;
+            public DateTime time
+            {
+                get { return m_time; }
+            }
+
+            public LicenseAgreementAcceptedTime(DateTime t)
+            {
+                m_time = t;
+            }
+        }
     }
- }
+}

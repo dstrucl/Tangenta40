@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_Startup));
             this.lbl_StartUp = new System.Windows.Forms.Label();
             this.usrc_web_Help1 = new usrc_Help.usrc_web_Help();
-            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.timer_Startup = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -57,38 +55,8 @@
             this.usrc_web_Help1.Location = new System.Drawing.Point(359, 3);
             this.usrc_web_Help1.Name = "usrc_web_Help1";
             this.usrc_web_Help1.RemoteUrl = "Remote URL:";
-            this.usrc_web_Help1.Size = new System.Drawing.Size(507, 565);
+            this.usrc_web_Help1.Size = new System.Drawing.Size(507, 610);
             this.usrc_web_Help1.TabIndex = 1;
-            // 
-            // usrc_NavigationButtons1
-            // 
-            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
-            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
-            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
-            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
-            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
-            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
-            this.usrc_NavigationButtons1.Image_Cancel = null;
-            this.usrc_NavigationButtons1.Image_EXIT = null;
-            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
-            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
-            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 570);
-            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(859, 64);
-            this.usrc_NavigationButtons1.TabIndex = 2;
-            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
-            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
-            this.usrc_NavigationButtons1.Text_NEXT = "";
-            this.usrc_NavigationButtons1.Text_OK = "";
-            this.usrc_NavigationButtons1.Text_PREV = "";
-            this.usrc_NavigationButtons1.Visible_EXIT = true;
-            this.usrc_NavigationButtons1.Visible_NEXT = true;
-            this.usrc_NavigationButtons1.Visible_PREV = true;
-            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
             // timer_Startup
             // 
@@ -98,7 +66,6 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.usrc_web_Help1);
             this.Controls.Add(this.lbl_StartUp);
             this.Name = "usrc_Startup";
@@ -112,7 +79,6 @@
 
         private System.Windows.Forms.Label lbl_StartUp;
         public usrc_Help.usrc_web_Help usrc_web_Help1;
-        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
         public System.Windows.Forms.Timer timer_Startup;
     }
 }

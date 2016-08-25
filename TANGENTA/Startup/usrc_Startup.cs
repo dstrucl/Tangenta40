@@ -21,7 +21,6 @@ namespace Startup
         {
             InitializeComponent();
             m_startup = xstartup;
-            usrc_NavigationButtons1.Init(m_startup.nav);
             lngRPM.s_StartupProgram.Text(lbl_StartUp);
             Visible = true;
             Dock = DockStyle.Fill;

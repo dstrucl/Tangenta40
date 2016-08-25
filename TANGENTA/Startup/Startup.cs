@@ -80,24 +80,16 @@ namespace Startup
 
         private void Do_TangentaLicence(Navigation nav)
         {
-            nav.ShowHelp("HELP.Tangenta-Licence");
-            nav.m_eButtons = Navigation.eButtons.PrevNextExit;
-            nav.eExitResult = Navigation.eEvent.NOTHING;
-            while (nav.eExitResult == Navigation.eEvent.NOTHING)
-            {
-                Application.DoEvents();
-            }
+            nav.ShowHelp("Tangenta.Tangenta-LicenseAgreement");
+            nav.ChildDialog = new Form_LicenseAgreement(nav);
+            nav.ShowDialog();
         }
 
         private void Do_TangentaAbout(Navigation nav)
         {
-            nav.ShowHelp("HELP.Tangenta_about");
-            nav.m_eButtons = Navigation.eButtons.PrevNextExit;
-            nav.eExitResult = Navigation.eEvent.NOTHING;
-            while (nav.eExitResult == Navigation.eEvent.NOTHING)
-            {
-                Application.DoEvents();
-            }
+            nav.ShowHelp("Tangenta.Tangenta_about");
+            nav.ChildDialog = new Form_Navigate(nav);
+            nav.ShowDialog();
         }
 
         public bool ExecuteSteps(ref string Err)
@@ -157,16 +149,5 @@ namespace Startup
             m_usrc_Startup.Dispose();
             m_usrc_Startup = null;
         }
-
-        public bool TangentaAbout()
-        {
-            return true; 
-        }
-
-        public bool TangentaLicence()
-        {
-            return true;
-        }
-
     }
 }
