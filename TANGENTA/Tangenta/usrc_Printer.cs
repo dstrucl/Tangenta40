@@ -466,7 +466,14 @@ namespace Tangenta
             //lbl_PrinterName.Text = lngRPM.s_Printer.s;
             Printer.PrinterName = Printer.printer_settings.PrinterName;
             //lbl_PaperName.Text = lngRPM.s_PaperName.s + ":";
-            PaperName = Printer.page_settings.PaperSize.PaperName;
+            if (Printer.page_settings != null)
+            {
+                PaperName = Printer.page_settings.PaperSize.PaperName;
+            }
+            else
+            {
+                PaperName = "??";
+            }
             //chk_PrintAll.Text = lngRPM.s_chk_PrintAll.s;
             //this.chk_PrintAll.CheckedChanged -= new System.EventHandler(this.chk_PrintAll_CheckedChanged);
             //chk_PrintAll.Checked = Properties.Settings.Default.PrintAtOnce;
@@ -476,22 +483,27 @@ namespace Tangenta
 
             if (Printer != null)
             {
-                int iWidth_inHoundreths_of_Inch = Printer.page_settings.PaperSize.Width;
 
-                int dpix = Printer.page_settings.PrinterResolution.X;
+                if (Printer.page_settings != null)
+                {
+                    int iWidth_inHoundreths_of_Inch = Printer.page_settings.PaperSize.Width;
 
-                cx_paper_in_inch = ((float)iWidth_inHoundreths_of_Inch) / ((float)100);
-                cx_paper_on_screen_in_pixels = (int)(cx_paper_in_inch * getScalingFactorX());
-                //this.pnl_paper.Width = cx_paper_on_screen_in_pixels;
+                    int dpix = Printer.page_settings.PrinterResolution.X;
 
-                int iHeight_inHoundreths_of_Inch = Printer.page_settings.PaperSize.Height;
+                    cx_paper_in_inch = ((float)iWidth_inHoundreths_of_Inch) / ((float)100);
+                    cx_paper_on_screen_in_pixels = (int)(cx_paper_in_inch * getScalingFactorX());
+                    //this.pnl_paper.Width = cx_paper_on_screen_in_pixels;
 
-                int dpiy = Printer.page_settings.PrinterResolution.Y;
+                    int iHeight_inHoundreths_of_Inch = Printer.page_settings.PaperSize.Height;
 
-                cy_paper_in_inch = ((float)iHeight_inHoundreths_of_Inch) / ((float)100);
-                cy_paper_on_screen_in_pixels = (int)(cy_paper_in_inch * getScalingFactorY());
-                //this.pnl_paper.Height = cy_paper_on_screen_in_pixels;
+                    int dpiy = Printer.page_settings.PrinterResolution.Y;
+
+                    cy_paper_in_inch = ((float)iHeight_inHoundreths_of_Inch) / ((float)100);
+                    cy_paper_on_screen_in_pixels = (int)(cy_paper_in_inch * getScalingFactorY());
+                    //this.pnl_paper.Height = cy_paper_on_screen_in_pixels;
+                }
                 return true;
+
 
             }
             else

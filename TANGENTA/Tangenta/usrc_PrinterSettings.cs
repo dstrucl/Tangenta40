@@ -35,8 +35,17 @@ namespace Tangenta
             lbl_PrinterName.Text = lngRPM.s_Printer.s;
             this.lbl_PrinterName_Value.Text = Printer.printer_settings.PrinterName;
             lbl_PaperName.Text = lngRPM.s_PaperName.s + ":";
-            this.lbl_PaperName_Value.Text = Printer.page_settings.PaperSize.PaperName;
-            PaperName = Printer.page_settings.PaperSize.PaperName;
+            if (Printer.page_settings != null)
+            {
+                this.lbl_PaperName_Value.Text = Printer.page_settings.PaperSize.PaperName;
+                PaperName = Printer.page_settings.PaperSize.PaperName;
+            }
+            else
+            {
+                this.lbl_PaperName_Value.Text = "??";
+                PaperName = "??";
+            }
+
             chk_PrintAll.Text = lngRPM.s_chk_PrintAll.s;
             this.chk_PrintAll.CheckedChanged -= new System.EventHandler(this.chk_PrintAll_CheckedChanged);
             chk_PrintAll.Checked = Properties.Settings.Default.PrintAtOnce;
@@ -51,9 +60,19 @@ namespace Tangenta
             if (this.Printer.Select(null))
             {
                 Printer.PrinterName = Printer.printer_settings.PrinterName;
-                PaperName = Printer.page_settings.PaperSize.PaperName;
+                if (Printer.page_settings != null)
+                {
+                    PaperName = Printer.page_settings.PaperSize.PaperName;
+                    this.lbl_PaperName_Value.Text = Printer.page_settings.PaperSize.PaperName;
+                }
+                else
+                {
+                    PaperName = "??";
+                    this.lbl_PaperName_Value.Text = "??";
+                }
+
+
                 this.lbl_PrinterName_Value.Text = Printer.printer_settings.PrinterName;
-                this.lbl_PaperName_Value.Text = Printer.page_settings.PaperSize.PaperName;
             }
         }
 

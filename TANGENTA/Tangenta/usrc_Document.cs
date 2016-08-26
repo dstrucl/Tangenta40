@@ -39,8 +39,9 @@ namespace Tangenta
             m_UpgradeDB = new UpgradeDB_inThread(this);
         }
 
-        public bool Get_shops_in_use(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
+        public bool Get_ProgramSettings(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
+            Program.b_FVI_SLO = true;
             if (Get_shops_in_use(xnav,true))
             {
                 myStartup.eNextStep++;

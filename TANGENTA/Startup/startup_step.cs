@@ -18,7 +18,7 @@ namespace Startup
                                   GetOrganisationData,
                                   GetBaseCurrency,
                                   GetTaxation,
-                                  Get_shops_in_use,
+                                  Get_ProgramSettings,
                                   GetSimpleItemData,
                                   GetItemData,
                                   GetWorkPeriod,
