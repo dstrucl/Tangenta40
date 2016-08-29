@@ -74,6 +74,24 @@ namespace TangentaDB
             }
         }
 
+        public static bool Get(long Office_ID, ref DataTable dtOfficeData_of_Office_ID)
+        {
+            string sql = @"select 
+                            ID
+                            from Office_Data od
+                            where od.Office_ID = " + Office_ID.ToString();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dtOfficeData_of_Office_ID, sql, null, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Atom_Office_Data:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
         public static bool DeleteAll()
         {
             return fs.DeleteAll("Office_Data");

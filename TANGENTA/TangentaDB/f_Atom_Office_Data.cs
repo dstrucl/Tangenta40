@@ -103,14 +103,14 @@ namespace TangentaDB
                             dt.Columns.Clear();
                             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                             {
-                                if (dt.Rows.Count>0)
+                                if (dt.Rows.Count > 0)
                                 {
                                     Atom_Office_Data_ID = (long)dt.Rows[0]["ID"];
                                     return true;
                                 }
                                 else
                                 {
-                                    sql = @"insert into Atom_Office_Data (Atom_Office_ID,Atom_cAddress_Org_ID,Description) values (" + Atom_Office_ID.ToString() + "," + Atom_cAddress_Org_ID.ToString() + "," +  sval_Description + ")";
+                                    sql = @"insert into Atom_Office_Data (Atom_Office_ID,Atom_cAddress_Org_ID,Description) values (" + Atom_Office_ID.ToString() + "," + Atom_cAddress_Org_ID.ToString() + "," + sval_Description + ")";
                                     object objretx = null;
                                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Atom_Office_Data_ID, ref objretx, ref Err, "Atom_Office_Data"))
                                     {
