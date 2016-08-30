@@ -16,6 +16,9 @@ using System.Windows.Forms;
 using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
+using NavigationButtons;
+using DBTypes;
+using TangentaDB;
 
 namespace PriseLists
 {
@@ -38,6 +41,7 @@ namespace PriseLists
 
         private ePriceListMode PriceListMode = ePriceListMode.SELECT_VALID;
 
+        private Navigation nav = null;
 
         private bool bEditUndefined = false;
         public usrc_PriceList_Edit()
@@ -50,18 +54,46 @@ namespace PriseLists
             this.usrc_EditTable_PriceList.Title = lngRPM.s_Manage_PriceLists.s;
         }
 
-        public bool Init(SQLTable xtbl_PriceList, bool xbEditUndefined,  eShopType xeShopType)
+        public bool Init(SQLTable xtbl_PriceList, bool xbEditUndefined,  eShopType xeShopType,Navigation xnav)
         {
+            nav = xnav;
+            this.usrc_NavigationButtons1.Init(nav);
             m_eShopType = xeShopType;
             tbl_PriceList = xtbl_PriceList;
             bEditUndefined = xbEditUndefined;
-            if (m_eShopType == eShopType.ShopB)
+            if (nav!=null)
             {
-                usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_B.s;
+                if (nav.m_eButtons == Navigation.eButtons.OkCancel)
+                {
+                    if (m_eShopType == eShopType.ShopB)
+                    {
+                        usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_B.s;
+                    }
+                    else
+                    {
+                        usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_C.s;
+                    }
+                }
+                else
+                {
+                    rdb_OnlyValid.Visible = false;
+                    rdb_All.Visible = false;
+                    rdb_OnlyUnvalid.Visible = false;
+                    usrc_EditTable_Shop_Prices.Dispose();
+                    usrc_EditTable_Shop_Prices = null;
+                    splitContainer1.Panel2Collapsed = true;
+                }
             }
             else
             {
-                usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_C.s;
+                if (m_eShopType == eShopType.ShopB)
+                {
+                    usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_B.s;
+                }
+                else
+                {
+                    usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_C.s;
+                }
             }
 
             return Init();
@@ -70,14 +102,14 @@ namespace PriseLists
         private bool Init()
         {
             string selection = @" ID,
-                                  PriceList_$$Name,
-                                  PriceList_$$CreationDate,
-                                  PriceList_$$Description,
-                                  PriceList_$$Valid,
-                                  PriceList_$$ValidFrom,
-                                  PriceList_$$ValidTo
+                                        PriceList_$$Name,
+                                        PriceList_$$CreationDate,
+                                        PriceList_$$Description,
+                                        PriceList_$$Valid,
+                                        PriceList_$$ValidFrom,
+                                        PriceList_$$ValidTo
 
-        ";
+            ";
             string sWhereCondition = "";
             switch (PriceListMode)
             {
@@ -95,7 +127,19 @@ namespace PriseLists
             {
                 if (usrc_EditTable_PriceList.dt_Data.Rows.Count == 0)
                 {
-                    usrc_EditTable_Shop_Prices.Clear();
+                    if (nav.m_eButtons == Navigation.eButtons.PrevNextExit)
+                    {
+                        this.usrc_EditTable_PriceList.FillInitialData();
+                        usrc_EditTable_PriceList.CallBackSetInputControlProperties(null);
+                        return true;
+                    }
+                    else
+                    {
+                        if (usrc_EditTable_Shop_Prices != null)
+                        {
+                            usrc_EditTable_Shop_Prices.Clear();
+                        }
+                    }
                 }
                 this.rdb_OnlyValid.CheckedChanged += new System.EventHandler(this.rdb_OnlyValid_CheckedChanged);
                 this.rdb_All.CheckedChanged += new System.EventHandler(this.rdb_All_CheckedChanged);
@@ -133,55 +177,42 @@ namespace PriseLists
                 Init();
             }
         }
-        private void btn_Cancel_Click(object sender, EventArgs e)
-        {
-            if (Button_Cancel_Click != null)
-            {
-                Button_Cancel_Click();
-            }
-        }
-
-        private void btn_OK_Click(object sender, EventArgs e)
-        {
-            if (Button_OK_Click != null)
-            {
-                Button_OK_Click();
-            }
-        }
 
         private void usrc_EditTable_PriceList_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
         {
             // Now create price lists
             if (bRes)
             {
-                 SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
-                tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                SelectID_Table_Assistant_Form  SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation,DBSync.DBSync.DB_for_Tangenta.m_DBTables,null);
-                SelectID_Table_dlg.ShowDialog();
-                long id_Taxation = SelectID_Table_dlg.ID;
-                if (id_Taxation >= 0)
+                if (nav.m_eButtons == Navigation.eButtons.OkCancel)
                 {
-                    string sql = null;
-                    object ores = null;
-                    string Err = null;
-                    if (m_eShopType == eShopType.ShopB)
+                    SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
+                    tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                    SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Tangenta.m_DBTables, null);
+                    SelectID_Table_dlg.ShowDialog();
+                    long id_Taxation = SelectID_Table_dlg.ID;
+                    if (id_Taxation >= 0)
                     {
-
-                        sql = @" insert into Price_SimpleItem (SimpleItem_ID,PriceList_ID,Taxation_ID,RetailSimpleItemPrice,Discount) 
-                                    select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from SimpleItem where ToOffer = 1";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                        string sql = null;
+                        object ores = null;
+                        string Err = null;
+                        if (m_eShopType == eShopType.ShopB)
                         {
-                            if (tbl_Price_SimpleItem == null)
+
+                            sql = @" insert into Price_SimpleItem (SimpleItem_ID,PriceList_ID,Taxation_ID,RetailSimpleItemPrice,Discount) 
+                                    select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from SimpleItem where ToOffer = 1";
+                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                             {
-                                tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
-                                tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                            }
-                            else
-                            {
-                                tbl_Price_SimpleItem.DeleteInputControls();
-                            }
-                            string where_condition = " where Price_SimpleItem_$_pl_$$ID = " + ID.ToString() + " ";
-                            string selection = @" ID,
+                                if (tbl_Price_SimpleItem == null)
+                                {
+                                    tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
+                                    tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                                }
+                                else
+                                {
+                                    tbl_Price_SimpleItem.DeleteInputControls();
+                                }
+                                string where_condition = " where Price_SimpleItem_$_pl_$$ID = " + ID.ToString() + " ";
+                                string selection = @" ID,
                                                   Price_SimpleItem_$$RetailSimpleItemPrice,
                                                   Price_SimpleItem_$$Discount,
                                                   Price_SimpleItem_$_si_$$Name,
@@ -193,32 +224,35 @@ namespace PriseLists
                                                   Price_SimpleItem_$_si_$$Code,
                                                   Price_SimpleItem_$_pl_$$Name
                                                   ";
-                            if (this.usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, "Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
+                                if (usrc_EditTable_Shop_Prices != null)
+                                {
+                                    if (this.usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, "Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
+                                    {
+                                    }
+                                }
+                            }
+                            else
                             {
+                                LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
+                                return;
                             }
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        sql = @" insert into Price_Item (Item_ID,PriceList_ID,Taxation_ID,RetailPricePerUnit,Discount) 
+                            sql = @" insert into Price_Item (Item_ID,PriceList_ID,Taxation_ID,RetailPricePerUnit,Discount) 
                                             select id," + ID.ToString() + "," + id_Taxation.ToString() + ",-1,0 from Item where ToOffer = 1";
-                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
-                        {
-                            if (tbl_Price_Item == null)
+                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                             {
-                                tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
-                                tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                            }
-                            else
-                            {
-                                tbl_Price_Item.DeleteInputControls();
-                            }
-                            string selection = @" ID,
+                                if (tbl_Price_Item == null)
+                                {
+                                    tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
+                                    tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                                }
+                                else
+                                {
+                                    tbl_Price_Item.DeleteInputControls();
+                                }
+                                string selection = @" ID,
                                                   Price_Item_$$RetailPricePerUnit,
                                                   Price_Item_$$Discount,
                                                   Price_Item_$_i_$$UniqueName,
@@ -232,21 +266,24 @@ namespace PriseLists
                                                   Price_Item_$_i_$$Code,
                                                   Price_Item_$_pl_$$Name
                                                   ";
-                            string where_condition = " where Price_Item_$_pl_$$ID = " + ID.ToString() + " ";
-                            if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, " Price_Item_$_i_$$Code desc ", false, where_condition, null, false))
-                            {
-                                if (!SetPriceListName(ID, ref Err))
+                                string where_condition = " where Price_Item_$_pl_$$ID = " + ID.ToString() + " ";
+                                if (usrc_EditTable_Shop_Prices != null)
                                 {
-                                    LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err);
+                                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, " Price_Item_$_i_$$Code desc ", false, where_condition, null, false))
+                                    {
+                                        if (!SetPriceListName(ID, ref Err))
+                                        {
+                                            LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err);
+                                        }
+                                        return;
+                                    }
                                 }
-                                return;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
                             }
                         }
-                        else
-                        {
-                            LogFile.Error.Show("ERROR:usrc_PriceList_Edit:usrc_EditTable_PriceList_after_InsertInDataBase:Err=" + Err + "\r\nSql=" + sql);
-                        }
-
                     }
                 }
             }
@@ -312,90 +349,95 @@ namespace PriseLists
                 string selection = null;
                 if (m_eShopType == eShopType.ShopB)
                 {
-                    if (tbl_Price_SimpleItem == null)
+                    if (usrc_EditTable_Shop_Prices != null)
                     {
-                        tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
-                        tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                    }
-                    else
-                    {
-                        tbl_Price_SimpleItem.DeleteInputControls();
-                    }
+                        if (tbl_Price_SimpleItem == null)
+                        {
+                            tbl_Price_SimpleItem = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_SimpleItem)));
+                            tbl_Price_SimpleItem.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                        }
+                        else
+                        {
+                            tbl_Price_SimpleItem.DeleteInputControls();
+                        }
 
-                    where_condition = " where Price_SimpleItem_$_pl_$$ID = " + ID.ToString() + " ";
+                        where_condition = " where Price_SimpleItem_$_pl_$$ID = " + ID.ToString() + " ";
 
-                    selection = @"             Price_SimpleItem_$_si_$$Name,
-                                                  Price_SimpleItem_$$RetailSimpleItemPrice,
-                                                  Price_SimpleItem_$_si_$_sipg1_$$Name,
-                                                  Price_SimpleItem_$_si_$_sipg1_$_sipg2_$$Name,
-                                                  Price_SimpleItem_$_si_$_sipg1_$_sipg2_$_sipg3_$$Name,
-                                                  Price_SimpleItem_$_si_$_siimg_$$Image_Data,
-                                                  Price_SimpleItem_$$Discount,
-                                                  Price_SimpleItem_$_tax_$$Name,
-                                                  Price_SimpleItem_$_tax_$$Rate,
-                                                  Price_SimpleItem_$_pl_$_Cur_$$Symbol,
-                                                  Price_SimpleItem_$_pl_$_Cur_$$Abbreviation,
-                                                  Price_SimpleItem_$_pl_$$Name,
-                                                  Price_SimpleItem_$_si_$$Code,
-                                                  ID
-                                                  ";
-                    sOrder_by_UndefinedFirst = "";
-                    if (bEditUndefined)
-                    {
-                        sOrder_by_UndefinedFirst = " Price_SimpleItem_$$RetailSimpleItemPrice asc, ";
-                    }
-                    else
-                    {
-                        sOrder_by_UndefinedFirst = " Price_SimpleItem_$_si_$_sipg1_$$Name,Price_SimpleItem_$_si_$_sipg1_$_sipg2_$$Name,Price_SimpleItem_$_si_$_sipg1_$_sipg2_$_sipg3_$$Name, Price_SimpleItem_$$RetailSimpleItemPrice asc, ";
-                    }
+                        selection = @"             Price_SimpleItem_$_si_$$Name,
+                                                      Price_SimpleItem_$$RetailSimpleItemPrice,
+                                                      Price_SimpleItem_$_si_$_sipg1_$$Name,
+                                                      Price_SimpleItem_$_si_$_sipg1_$_sipg2_$$Name,
+                                                      Price_SimpleItem_$_si_$_sipg1_$_sipg2_$_sipg3_$$Name,
+                                                      Price_SimpleItem_$_si_$_siimg_$$Image_Data,
+                                                      Price_SimpleItem_$$Discount,
+                                                      Price_SimpleItem_$_tax_$$Name,
+                                                      Price_SimpleItem_$_tax_$$Rate,
+                                                      Price_SimpleItem_$_pl_$_Cur_$$Symbol,
+                                                      Price_SimpleItem_$_pl_$_Cur_$$Abbreviation,
+                                                      Price_SimpleItem_$_pl_$$Name,
+                                                      Price_SimpleItem_$_si_$$Code,
+                                                      ID
+                                                      ";
+                        sOrder_by_UndefinedFirst = "";
+                        if (bEditUndefined)
+                        {
+                            sOrder_by_UndefinedFirst = " Price_SimpleItem_$$RetailSimpleItemPrice asc, ";
+                        }
+                        else
+                        {
+                            sOrder_by_UndefinedFirst = " Price_SimpleItem_$_si_$_sipg1_$$Name,Price_SimpleItem_$_si_$_sipg1_$_sipg2_$$Name,Price_SimpleItem_$_si_$_sipg1_$_sipg2_$_sipg3_$$Name, Price_SimpleItem_$$RetailSimpleItemPrice asc, ";
+                        }
 
+                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, sOrder_by_UndefinedFirst + " Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
+                        {
 
-                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, sOrder_by_UndefinedFirst + " Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
-                    {
-
+                        }
                     }
                 }
                 else
                 {
-                    if (tbl_Price_Item == null)
+                    if (usrc_EditTable_Shop_Prices != null)
                     {
-                        tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
-                        tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
-                    }
-                    else
-                    {
-                        tbl_Price_Item.DeleteInputControls();
-                    }
-                    where_condition = " where Price_Item_$_pl_$$ID = " + ID.ToString() + " ";
-                    selection = @"                Price_Item_$_i_$$UniqueName,
-                                                  Price_Item_$$RetailPricePerUnit,
-                                                  Price_Item_$_i_$_ipg1_$$Name,
-                                                  Price_Item_$_i_$_ipg1_$_ipg2_$$Name,
-                                                  Price_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name,
-                                                  Price_Item_$_i_$$Name,
-                                                  Price_Item_$_i_$_iimg_$$Image_Data,
-                                                  Price_Item_$$Discount,
-                                                  Price_Item_$_tax_$$Rate,
-                                                  Price_Item_$_i_$_exp_$$ExpectedShelfLifeInDays,
-                                                  Price_Item_$_i_$_exp_$$SaleBeforeExpiryDateInDays,
-                                                  Price_Item_$_pl_$_Cur_$$Symbol,
-                                                  Price_Item_$_pl_$_Cur_$$Abbreviation,
-                                                  Price_Item_$_i_$$Code,
-                                                  Price_Item_$_pl_$$Name,
-                                                  ID
-                                                  ";
-                    sOrder_by_UndefinedFirst = "";
-                    if (bEditUndefined)
-                    {
-                        sOrder_by_UndefinedFirst = " Price_Item_$$RetailPricePerUnit asc, ";
-                    }
-                    else
-                    {
-                        sOrder_by_UndefinedFirst = " Price_Item_$_i_$_ipg1_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name, Price_Item_$$RetailPricePerUnit asc, ";
-                    }
-                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, sOrder_by_UndefinedFirst + " Price_Item_$_i_$$Code desc", false, where_condition, null, false))
-                    {
+                        if (tbl_Price_Item == null)
+                        {
+                            tbl_Price_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Price_Item)));
+                            tbl_Price_Item.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
+                        }
+                        else
+                        {
+                            tbl_Price_Item.DeleteInputControls();
+                        }
+                        where_condition = " where Price_Item_$_pl_$$ID = " + ID.ToString() + " ";
+                        selection = @"                Price_Item_$_i_$$UniqueName,
+                                                      Price_Item_$$RetailPricePerUnit,
+                                                      Price_Item_$_i_$_ipg1_$$Name,
+                                                      Price_Item_$_i_$_ipg1_$_ipg2_$$Name,
+                                                      Price_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name,
+                                                      Price_Item_$_i_$$Name,
+                                                      Price_Item_$_i_$_iimg_$$Image_Data,
+                                                      Price_Item_$$Discount,
+                                                      Price_Item_$_tax_$$Rate,
+                                                      Price_Item_$_i_$_exp_$$ExpectedShelfLifeInDays,
+                                                      Price_Item_$_i_$_exp_$$SaleBeforeExpiryDateInDays,
+                                                      Price_Item_$_pl_$_Cur_$$Symbol,
+                                                      Price_Item_$_pl_$_Cur_$$Abbreviation,
+                                                      Price_Item_$_i_$$Code,
+                                                      Price_Item_$_pl_$$Name,
+                                                      ID
+                                                      ";
+                        sOrder_by_UndefinedFirst = "";
+                        if (bEditUndefined)
+                        {
+                            sOrder_by_UndefinedFirst = " Price_Item_$$RetailPricePerUnit asc, ";
+                        }
+                        else
+                        {
+                            sOrder_by_UndefinedFirst = " Price_Item_$_i_$_ipg1_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name, Price_Item_$$RetailPricePerUnit asc, ";
+                        }
+                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, sOrder_by_UndefinedFirst + " Price_Item_$_i_$$Code desc", false, where_condition, null, false))
+                        {
 
+                        }
                     }
                 }
             }
@@ -511,6 +553,95 @@ namespace PriseLists
             }
             bCancelDialog = false;
             return false;
+        }
+
+
+        private void usrc_NavigationButtons1_ButtonPressed(Navigation.eEvent evt)
+        {
+            switch (nav.m_eButtons)
+            {
+                case Navigation.eButtons.OkCancel:
+
+                    switch (evt)
+                    {
+                        case Navigation.eEvent.OK:
+                            nav.eExitResult = evt;
+                            if (Button_OK_Click != null)
+                            {
+                                Button_OK_Click();
+                            }
+                            break;
+                        case Navigation.eEvent.CANCEL:
+                            nav.eExitResult = evt;
+                            if (Button_Cancel_Click != null)
+                            {
+                                Button_Cancel_Click();
+                            }
+                            break;
+                    }
+                    break;
+                case Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case Navigation.eEvent.EXIT:
+                            nav.eExitResult = evt;
+                            if (Button_Cancel_Click != null)
+                            {
+                                Button_Cancel_Click();
+                            }
+                            break;
+                        case Navigation.eEvent.PREV:
+                            nav.eExitResult = evt;
+                            if (Button_Cancel_Click != null)
+                            {
+                                Button_Cancel_Click();
+                            }
+                            break;
+                        case Navigation.eEvent.NEXT:
+                            nav.eExitResult = evt;
+                            if (usrc_EditTable_PriceList.Changed)
+                            {
+                                usrc_EditTable_PriceList.Save();
+                            }
+                            if (Button_OK_Click != null)
+                            {
+                                Button_OK_Click();
+                            }
+                            break;
+                    }
+                    break;
+            }
+        }
+
+        private void usrc_EditTable_PriceList_FillTable(SQLTable m_tbl)
+        {
+            string Err = null;
+            if (nav.m_eButtons == Navigation.eButtons.PrevNextExit)
+            {
+                if (m_tbl.TableName.Equals("Currency"))
+                {
+                    m_tbl.FillDataInputControl(DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con, GlobalData.BaseCurrency.ID, true, ref Err);
+                }
+            }
+        }
+
+
+        private void usrc_EditTable_PriceList_SetInputControlProperties(Column col, object obj)
+        {
+            if (nav.m_eButtons == Navigation.eButtons.PrevNextExit)
+            {
+                if (col.ownerTable.TableName.Equals("PriceList"))
+                {
+                    if (col.Name.Equals("Name"))
+                    {
+                        col.InputControl.SetValue(lngRPMS.PriceList_Name.s);
+                    }
+                    if (col.Name.Equals("Valid"))
+                    {
+                        col.InputControl.SetValue(true);
+                    }
+                }
+            }
         }
     }
 }

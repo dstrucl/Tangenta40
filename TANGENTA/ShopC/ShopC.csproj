@@ -216,6 +216,10 @@
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\usrc_Group_Handler\usrc_Item_Group_Handler.csproj">
       <Project>{ae38e7c4-ac11-4e43-9de3-364533fcc83b}</Project>
       <Name>usrc_Item_Group_Handler</Name>

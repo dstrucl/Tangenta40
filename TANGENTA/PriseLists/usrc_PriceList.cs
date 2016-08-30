@@ -15,13 +15,14 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using TangentaDB;
+using DBTypes;
 
 namespace PriseLists
 {
     public partial class usrc_PriceList : UserControl
     {
         int xPriceList_Count = 0;
-        public long m_Currency_ID = 0;
+        public long m_Currency_ID = -1;
         private usrc_PriceList_Edit.eShopType m_eShopType;
 
         public TangentaDB.xPriceList m_xPriceList = null;
@@ -57,7 +58,7 @@ namespace PriseLists
         }
 
 
-        public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse, ref string Err)
+        public bool Init(long Currency_ID,usrc_PriceList_Edit.eShopType xeShopType,string ShopsInUse, NavigationButtons.Navigation xnav, ref string Err)
         {
             m_eShopType = xeShopType;
             m_Currency_ID = Currency_ID;
@@ -80,11 +81,39 @@ namespace PriseLists
                     bool bAsk = ((ShopsInUse.Contains("B") && (xeShopType == usrc_PriceList_Edit.eShopType.ShopB) ) || ((ShopsInUse.Contains("C") && (xeShopType == usrc_PriceList_Edit.eShopType.ShopC))));
                     if (bAsk)
                     {
-                        if (XMessage.Box.ShowTopMost(this, lngRPM.s_NoPriceList_AskToCreatePriceList, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        bool bDialogResult = true;
+                        if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
                         {
-                            Form_PriceList_Edit PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType);
-                            PriceListType_Edit_dlg.TopMost = true;
-                            if (PriceListType_Edit_dlg.ShowDialog() == DialogResult.OK)
+                            bDialogResult = true;
+                        }
+                        else
+                        {
+                            bDialogResult = XMessage.Box.ShowTopMost(this, lngRPM.s_NoPriceList_AskToCreatePriceList, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes;
+                        }
+                        if (bDialogResult)
+                        {
+                            Form_PriceList_Edit PriceListType_Edit_dlg = null;
+                            NavigationButtons.Navigation nav_Form_PriceList_Edit = null;
+                            if (xnav == null)
+                            {
+                                nav_Form_PriceList_Edit = new NavigationButtons.Navigation();
+                                nav_Form_PriceList_Edit.bDoModal = true;
+                                nav_Form_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                                PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
+                                nav_Form_PriceList_Edit.ChildDialog = PriceListType_Edit_dlg;
+                            }
+                            else
+                            {
+                                nav_Form_PriceList_Edit = xnav;
+                                if (nav_Form_PriceList_Edit.m_eButtons == NavigationButtons.Navigation.eButtons.OkCancel)
+                                {
+                                    nav_Form_PriceList_Edit.bDoModal = true;
+                                }
+                                PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
+                                xnav.ChildDialog = PriceListType_Edit_dlg;
+                            }
+                            nav_Form_PriceList_Edit.ShowDialog();
+                            if ((nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.OK)|| (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
                             {
                                 if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
                                 {
@@ -126,8 +155,9 @@ namespace PriseLists
                 pctrl = this.Parent;
                 pctrl.Cursor = Cursors.WaitCursor; 
             }
-
-            PriceList_Edit(false);
+            NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation();
+            nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            PriceList_Edit(false, nav_PriceList_Edit);
             this.Cursor = Cursors.Arrow;
             if (pctrl != null)
             {
@@ -135,11 +165,11 @@ namespace PriseLists
             }
         }
 
-        public void PriceList_Edit(bool bEditUndefined)
+        public void PriceList_Edit(bool bEditUndefined,NavigationButtons.Navigation xnav)
         {
             string Err = null;
             int xPriceListType_Count = 0;
-            Form_PriceList_Edit PriceList_Edit_dlg = new Form_PriceList_Edit(bEditUndefined, m_eShopType);
+            Form_PriceList_Edit PriceList_Edit_dlg = new Form_PriceList_Edit(bEditUndefined, m_eShopType, xnav);
             if (PriceList_Edit_dlg.ShowDialog() == DialogResult.OK)
             {
                 if (m_xPriceList.Get_PriceLists_of_Currency(m_Currency_ID, ref xPriceListType_Count, ref Err))

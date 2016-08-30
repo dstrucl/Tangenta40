@@ -100,7 +100,7 @@ namespace Tangenta
         }
 
 
-        internal bool Init()
+        internal bool Init(NavigationButtons.Navigation xnav)
         {
             string Err = null;
             if (Program.b_FVI_SLO)
@@ -122,7 +122,7 @@ namespace Tangenta
 
             
 
-            if (this.m_usrc_InvoiceMan.Init())
+            if (this.m_usrc_InvoiceMan.Init(xnav))
             {
                 if (Program.b_FVI_SLO)
                 {

@@ -20,13 +20,13 @@ namespace TangentaSampleDB
             if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_Select_DefaultCurrency"))
             {
                 sbd = xsbd;
-                if (sbd.ShowDialog(ref bCanceled, xnav, oIcon))
+                if (sbd.MyOrgSampleShowDialog(ref bCanceled, xnav, oIcon))
                 {
                     if (bCanceled)
                     {
                         return true;
                     }
-                    bool bRes = sbd.Write();
+                    bool bRes = sbd.WriteMyOrg();
                     return bRes;
                 }
                 else
@@ -39,13 +39,13 @@ namespace TangentaSampleDB
                 if (fs.Init_Default_DB(ref Err))
                 {
                     sbd = xsbd;
-                    if (sbd.ShowDialog(ref bCanceled, xnav, oIcon))
+                    if (sbd.MyOrgSampleShowDialog(ref bCanceled, xnav, oIcon))
                     {
                         if (bCanceled)
                         {
                             return true;
                         }
-                        bool bRes = sbd.Write();
+                        bool bRes = sbd.WriteMyOrg();
                         return bRes;
                     }
                     else

@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
+using DBTypes;
 
 namespace PriseLists
 {
@@ -24,10 +25,11 @@ namespace PriseLists
         usrc_PriceList_Edit.eShopType m_eShopType;
         SQLTable m_tbl_PriceList = null;
         private bool bEditUndefined = false;
-
-        public Form_PriceList_Edit(bool xbEditUndefined,usrc_PriceList_Edit.eShopType xeShopType)
+        NavigationButtons.Navigation nav = null;
+        public Form_PriceList_Edit(bool xbEditUndefined,usrc_PriceList_Edit.eShopType xeShopType,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             m_eShopType = xeShopType;
             bEditUndefined = xbEditUndefined;
             m_tbl_PriceList = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PriceList)));
@@ -39,7 +41,7 @@ namespace PriseLists
         {
             
             m_tbl_PriceList.DeleteInputControls();
-            if (this.usrc_PriceList_Edit.Init(m_tbl_PriceList,bEditUndefined, m_eShopType))
+            if (this.usrc_PriceList_Edit.Init(m_tbl_PriceList,bEditUndefined, m_eShopType,nav))
             {
                 return true;
             }

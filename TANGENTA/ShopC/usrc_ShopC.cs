@@ -18,6 +18,7 @@ using CodeTables;
 using LanguageControl;
 using TangentaDB;
 using PriseLists;
+using DBTypes;
 
 namespace ShopC
 {
@@ -54,14 +55,14 @@ namespace ShopC
         }
 
 
-        public void Init(TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, string ShopsInUse)
+        public void Init(TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, string ShopsInUse, NavigationButtons.Navigation xnav)
         {
             //Program.iGDIcUser502 = Program.getGuiResourcesUserCount();
 
             //m_usrc_Invoice = x_usrc_Invoice;
             m_InvoiceDB = xm_InvoiceDB;
-            DBtcn = xDBtcn;
 
+            DBtcn = xDBtcn;
             if (DBtcn == null)
             {
                 LogFile.Error.Show("ERROR:usrc_ShopC:Init:DBtcn == null!");
@@ -77,7 +78,7 @@ namespace ShopC
             this.usrc_Atom_ItemsList.After_Atom_Item_Remove += new usrc_Atom_ItemsList.delegate_After_Atom_Item_Remove(usrc_Atom_ItemsList_After_Atom_Item_Remove);
             string Err = null;
             
-             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC,ShopsInUse, ref Err);
+             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopC,ShopsInUse,xnav,  ref Err);
         }
 
         void usrc_Atom_ItemsList_After_Atom_Item_Remove()
@@ -267,11 +268,13 @@ namespace ShopC
                 DataTable dt_ShopC_Items_NotIn_PriceList = new DataTable();
                 if (f_PriceList.Check_All_ShopC_Items_In_PriceList(ref dt_ShopC_Items_NotIn_PriceList))
                 {
+                    NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation();
+                    nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                     if (dt_ShopC_Items_NotIn_PriceList.Rows.Count > 0)
                     {
                         if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Items_NotIn_PriceList, this))
                         {
-                            this.usrc_PriceList1.PriceList_Edit(true);
+                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit);
                             if (PriceListChanged != null)
                             {
                                 PriceListChanged();
@@ -284,7 +287,7 @@ namespace ShopC
                         f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
                         if (bEdit)
                         {
-                            this.usrc_PriceList1.PriceList_Edit(true);
+                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit);
                         }
                     }
                 }

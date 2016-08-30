@@ -98,7 +98,10 @@ namespace Tangenta
                         {
                             if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
                             {
-                                m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(shinuse);
+                                this.Close();
+                                DialogResult = DialogResult.OK;
+                                m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(shinuse,nav);
+                                return true;
                             }
                         }
                     }

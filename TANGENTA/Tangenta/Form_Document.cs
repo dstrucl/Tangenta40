@@ -461,7 +461,7 @@ namespace Tangenta
             string Err = null;
             if (m_startup.Execute(Program.bFirstTimeInstallation, ref Err))
             {
-                m_usrc_Main.Init();
+                m_usrc_Main.Init(nav);
                 m_startup.RemoveControl();
                 m_usrc_Main.Visible = true;
             }

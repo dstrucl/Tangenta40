@@ -2,7 +2,7 @@
 
 namespace TangentaSampleDB
 {
-    partial class Form_EditSampleData
+    partial class Form_EditMyOrgSampleData
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace TangentaSampleDB
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_EditSampleData));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_EditMyOrgSampleData));
             this.m_usrc_SampleDataEdit = new DynEditControls.usrc_DataEdit();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.SuspendLayout();

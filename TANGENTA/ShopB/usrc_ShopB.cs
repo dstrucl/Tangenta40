@@ -72,7 +72,7 @@ namespace ShopB
         public event delegate_ExtraDiscount aa_ExtraDiscount = null;
 
 
-        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use)
+        public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use, NavigationButtons.Navigation xnav)
         {
             lngRPM.s_Shop_B.Text(lbl_ShopB_Name);
 
@@ -115,7 +115,7 @@ namespace ShopB
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_Count, DBtcn.column_SelectedShopBItem_Count_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ExtraDiscount, DBtcn.column_SelectedShopBItem_ExtraDiscount_TYPE);
             string Err = null;
-             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use, ref Err);
+             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use,xnav, ref Err);
         }
 
         public void SetMode(eMode mode)
@@ -767,7 +767,9 @@ namespace ShopB
                     {
                         if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Items_NotIn_PriceList, this))
                         {
-                            this.usrc_PriceList1.PriceList_Edit( true);
+                            NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation();
+                            nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit);
                         }
                     }
                 }

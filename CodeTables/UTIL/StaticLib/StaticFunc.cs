@@ -12,6 +12,7 @@ using System.Drawing.Drawing2D;
 using LanguageControl;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.Security.Cryptography;
 
 namespace StaticLib
 {
@@ -87,6 +88,24 @@ namespace StaticLib
 
         public const string ImageStoreName = "Func.ImageStore";
         public static ImageStore ImageStore = new ImageStore();
+
+        private static SHA1CryptoServiceProvider my_SHA1CryptoServiceProvider = new SHA1CryptoServiceProvider();
+
+        public static string GetHash_SHA1(byte[] byteArray)
+        {
+            string hash = "";
+            hash = Convert.ToBase64String(my_SHA1CryptoServiceProvider.ComputeHash(byteArray));
+            return hash;
+        }
+
+        public static byte[] imageToByteArray(System.Drawing.Image imageIn, System.Drawing.Imaging.ImageFormat imgformat)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, imgformat);
+            //SaveImageInFormat(imageIn, ms);
+            return ms.ToArray();
+        }
+
 
         public static void Set_WM_USER_REDRAW_FORM()
         {

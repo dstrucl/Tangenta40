@@ -91,7 +91,7 @@ namespace Tangenta
             return m_usrc_Invoice.Initialise(this);
         }
 
-        internal bool Init()
+        internal bool Init(NavigationButtons.Navigation xnav)
         {
             Program.Cursor_Wait();
             InvoiceType_Invoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.Invoice);
@@ -114,7 +114,7 @@ namespace Tangenta
             int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,true,Properties.Settings.Default.FinancialYear);
             //                if (iRowsCount == 0)
             //                {
-            if (!m_usrc_Invoice.Init(-1))
+            if (!m_usrc_Invoice.Init(xnav, - 1))
                 {
                     Program.Cursor_Arrow();
                     return false;
@@ -304,7 +304,9 @@ namespace Tangenta
 
         private void m_usrc_Invoice_PriceListChanged()
         {
-            this.Init();
+            NavigationButtons.Navigation nav_Invoice_PriceListChanged = new NavigationButtons.Navigation();
+            nav_Invoice_PriceListChanged.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.Init(nav_Invoice_PriceListChanged);
         }
 
         private void btn_SelectPanels_Click(object sender, EventArgs e)

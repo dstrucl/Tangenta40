@@ -12,14 +12,14 @@ using System.Windows.Forms;
 
 namespace TangentaSampleDB
 {
-    public partial class Form_EditSampleData : Form
+    public partial class Form_EditMyOrgSampleData : Form
     {
         ToolTip toolTip1 = null;
         private bool DataChanged = false;
         private bool AllDataChanged = false;
         private Icon oIcon = null;
         private NavigationButtons.Navigation nav = null;
-        public Form_EditSampleData(SampleDB smd, NavigationButtons.Navigation xnav,Icon xoIcon)
+        public Form_EditMyOrgSampleData(SampleDB smd, NavigationButtons.Navigation xnav,Icon xoIcon)
         {
             InitializeComponent();
             oIcon = xoIcon;
