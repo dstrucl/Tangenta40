@@ -543,7 +543,7 @@ select_country:
             return false;
         }
 
-        public bool Write_ShopB_Items()
+        public bool Write_ShopB_Items(NavigationButtons.Navigation xnav)
         {
             string Currency_Name = null;
             string Currency_Abbreviation = null;

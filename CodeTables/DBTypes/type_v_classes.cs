@@ -498,6 +498,45 @@ namespace DBTypes
         }
     }
 
+    public class ddecimal_v:decimal_v
+    {
+        private bool m_defined = false;
+        public bool defined
+        {
+            get { return m_defined; }
+            set { m_defined = value; }
+        }
+
+        public ddecimal_v()
+        {
+        }
+
+        public ddecimal_v(decimal d)
+        {
+            v = d;
+            m_defined = true;
+        }
+
+        public static ddecimal_v Copy(ddecimal_v o_v)
+        {
+            if (o_v != null)
+            {
+                return o_v.Clone();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public ddecimal_v Clone()
+        {
+            ddecimal_v o_v = new ddecimal_v();
+            o_v.v = this.v;
+            o_v.defined = this.m_defined;
+            return o_v;
+        }
+    }
 
     public class string_v
     {
