@@ -140,9 +140,12 @@ namespace usrc_Item_Group_Handler
         {
             foreach (Group grp in Group_list)
             {
-                if (grp.rbtn.Checked)
+                if (grp.rbtn != null)
                 {
-                    return grp;
+                    if (grp.rbtn.Checked)
+                    {
+                        return grp;
+                    }
                 }
             }
             return null;
@@ -170,13 +173,14 @@ namespace usrc_Item_Group_Handler
 
         internal void PurgeNotNull(Panel pnl, System.Data.DataRow[] drs_not_null, Group.delegate_NewGroupSelected NewGroupSelected)
         {
+            int ypos = 0;
             foreach (DataRow dr in drs_not_null)
             {
                 string name = (string)dr["s1_name"];
                 Group grp = this.Find(name);
                 if (grp==null)
                 {
-                    grp = new Group(name,pnl, null, NewGroupSelected);
+                    grp = new Group(name,pnl,null, NewGroupSelected, ref ypos, 64,14);
                     grp.rbtn.CheckedChanged += grp.rbtn_CheckedChanged;
                     Add(grp);
 

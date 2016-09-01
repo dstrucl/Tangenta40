@@ -22,6 +22,8 @@ namespace usrc_Item_Group_Handler
         public delegate void delegate_NewGroupSelected();
 
         private delegate_NewGroupSelected m_delegate_NewGroupSelected_trigger = null;
+        int button_height = 30;
+        int font_height = 10;
 
         public GroupList m_GroupList = null;
         public Panel m_pnl = null;
@@ -40,35 +42,57 @@ namespace usrc_Item_Group_Handler
         public Color default_back_color = Color.Gray;
 
 
-        public Group(string xName,Panel pnl, Group pParent, delegate_NewGroupSelected delegate_NewGroupSelected_trigger)
+        public Group(string xName,Panel pnl, Group pParent, delegate_NewGroupSelected delegate_NewGroupSelected_trigger,ref int yPos,int xbutton_height,int xfont_height)
         {
+            button_height = xbutton_height;
+            font_height = xfont_height;
             m_delegate_NewGroupSelected_trigger = delegate_NewGroupSelected_trigger;
             m_pnl = pnl;
-            rbtn = new RadioButton();
-            rbtn.Tag = this;
-            rbtn.Appearance = Appearance.Button;
-            rbtn.Left = 0;
-            FontFamily ff = rbtn.Font.FontFamily;
-            Font f = new Font(ff, 14);
-            rbtn.Font = f;
-            rbtn.ForeColor = Color.Black;
-            default_back_color = pnl.BackColor;
-            rbtn.Width = pnl.Width;
-            rbtn.Height = 64;
+            if (pParent == null)
+            {
+                rbtn = new RadioButton();
+                rbtn.Tag = this;
+                rbtn.Appearance = Appearance.Button;
+                rbtn.Left = 0;
+                FontFamily ff = rbtn.Font.FontFamily;
+                Font f = new Font(ff, font_height);
+                rbtn.Font = f;
+                rbtn.ForeColor = Color.Black;
+                default_back_color = pnl.BackColor;
+                rbtn.Width = pnl.Width;
+                rbtn.Height = button_height;
+                rbtn.Top = yPos;
+            }
+
+            yPos += button_height + 2;
             m_Name = xName;
             if (xName == null)
             {
                m_Name_In_Language += " " + lngRPM.s_Other.s;
-               lngRPM.s_Other.Text(rbtn);
+                if (pParent == null)
+                {
+                    lngRPM.s_Other.Text(rbtn);
+                }
             }
             else
             {
                 m_Name_In_Language = m_Name;
-                rbtn.Text = m_Name_In_Language;
+                if (pParent == null)
+                {
+                    rbtn.Text = m_Name_In_Language;
+                }
             }
-            pnl.Controls.Add(rbtn);
+            if (pParent==null)
+            {
+                m_pnl.Controls.Add(rbtn);
+            }
+            
             if (pParent!=null)
             {
+                if (pParent.m_GroupList== null)
+                {
+                    pParent.m_GroupList = new GroupList();
+                }
                 pParent.m_GroupList.Add(this);
             }
         }
@@ -78,13 +102,66 @@ namespace usrc_Item_Group_Handler
             RadioButton rb = (RadioButton)sender;
             if (rb.Checked)
             {
-                m_delegate_NewGroupSelected_trigger();
+                Group grp = (Group)rb.Tag;
+                if (grp != null)
+                {
+                    int ypos = 0;
+                    int i = 0;
+                    if (grp.m_GroupList.Group_list.Count() > 0)
+                    {
+                        foreach (Control ctrl in grp.m_GroupList.Group_list[0].m_pnl.Controls)
+                        {
+                            ctrl.Visible = false;
+                        }
+                        for (i = 0; i < grp.m_GroupList.Group_list.Count(); i++)
+                        {
+                            grp.m_GroupList.Group_list[i].ShowButton(i, ref ypos);
+                        }
+                    }
+                }
+                grp.m_delegate_NewGroupSelected_trigger();
                 rb.BackColor = Color.LightBlue;
             }
             else
             {
                 rb.BackColor = default_back_color;
             }
+        }
+
+        private void ShowButton(int i, ref int ypos)
+        {
+            if (i>=this.m_pnl.Controls.Count )
+            {
+                if (rbtn != null)
+                {
+                    rbtn.Dispose();
+                    rbtn = null;
+                }
+                if (rbtn == null)
+                {
+                    rbtn = new RadioButton();
+                    this.m_pnl.Controls.Add(rbtn);
+                }
+            }
+            else
+            {
+                rbtn = (RadioButton)this.m_pnl.Controls[i];
+            }
+            rbtn.Visible = true;
+            rbtn.Text = m_Name_In_Language;
+            rbtn.Tag = this;
+            rbtn.Appearance = Appearance.Button;
+            rbtn.Left = 0;
+            FontFamily ff = rbtn.Font.FontFamily;
+            Font f = new Font(ff, font_height);
+            rbtn.Font = f;
+            rbtn.ForeColor = Color.Black;
+            default_back_color = m_pnl.BackColor;
+            rbtn.Width = m_pnl.Width;
+            rbtn.Height = button_height;
+            rbtn.Top = ypos;
+            ypos += button_height + 2;
+
         }
 
         internal bool SetCurrent()

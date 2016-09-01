@@ -501,7 +501,7 @@ namespace TangentaDB
                 {
                     SQL_Parameter par3 = new SQL_Parameter(spar_s3_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[2]);
                     SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
-                    SQL_Parameter par1 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
+                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
                     lpar.Add(par3);
                     lpar.Add(par2);
                     lpar.Add(par1);

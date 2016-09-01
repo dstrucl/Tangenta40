@@ -580,13 +580,16 @@ select_country:
                         {
                             for (i3 = 0; i3 < iNumberOfGroupsInLevel3; i3++)
                             {
-                                sl3 = ".L3g" + i3.ToString();
+                                string sln3 = "L3g" + i3.ToString();
+                                sl3 = "." + sln3;
                                 for (i2 = 0; i2 < iNumberOfGroupsInLevel2; i2++)
                                 {
-                                    sl2 = ".L2g" + i2.ToString();
+                                    string sln2 = "L2g" + i2.ToString();
+                                    sl2 = "." + sln3 + sln2;
                                     for (i1 = 0; i1 < iNumberOfGroupsInLevel1; i1++)
                                     {
-                                        sl1 = ".L1g" + i1.ToString();
+                                        string sln1 = "L1g" + i1.ToString();
+                                        sl1 = "."+ sln3 + sln2 +sln1;
                                         for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                         {
                                             ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl3 + sl2 + sl1;
@@ -621,10 +624,12 @@ select_country:
                             }
                             for (i3 = 0; i3 < iNumberOfGroupsInLevel3; i3++)
                             {
-                                sl3 = ".L3g" + i3.ToString();
+                                string sln3 = "L3g" + i3.ToString();
+                                sl3 = "."+sln3;
                                 for (i2 = 0; i2 < iNumberOfGroupsInLevel2; i2++)
                                 {
-                                    sl2 = ".L2g" + i2.ToString()+ "(...)";
+                                    string sln2 = "L2g" + i2.ToString()+ "(...)";
+                                    sl2 = "." + sln3+sln2;
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
                                         ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl3 + sl2;

@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_GroupHandler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_GroupHandler.Designer.cs">
+      <DependentUpon>Form_GroupHandler.cs</DependentUpon>
+    </Compile>
     <Compile Include="Group.cs" />
     <Compile Include="GroupList.cs" />
     <Compile Include="usrc_Item_Group_Handler.cs">
@@ -73,6 +79,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_GroupHandler.resx">
+      <DependentUpon>Form_GroupHandler.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Item_Group_Handler.resx">
       <DependentUpon>usrc_Item_Group_Handler.cs</DependentUpon>
     </EmbeddedResource>
