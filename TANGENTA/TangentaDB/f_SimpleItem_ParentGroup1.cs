@@ -36,7 +36,7 @@ namespace TangentaDB
                         {
                             sql = "insert into SimpleItem_ParentGroup1 (Name,SimpleItem_ParentGroup2_ID) values (" + spar_Name + "," + SimpleItem_ParentGroup2_ID.ToString() + ")";
                             object oret = null;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ParentGroup2_ID, ref oret, ref Err, "SimpleItem_ParentGroup1"))
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref SimpleItem_ParentGroup1_ID, ref oret, ref Err, "SimpleItem_ParentGroup1"))
                             {
                                 return true;
                             }

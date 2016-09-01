@@ -37,8 +37,35 @@ namespace TangentaSampleDB
             rdb_InsertItemsManualy.Checked = true;
 
         }
+        public int iNumberOffAll()
+        {
+            int iAll = 1;
+            if (iNumberOfGroupsInLevel3 > 0)
+            {
+                iAll = (iNumberOfGroupsInLevel3 * iNumberOfGroupsInLevel2 * iNumberOfGroupsInLevel1) * iNumberOfItemsPerGroup
+                       + (iNumberOfGroupsInLevel3 * iNumberOfGroupsInLevel2) * iNumberOfItemsPerGroup
+                       + iNumberOfGroupsInLevel3 * iNumberOfItemsPerGroup
+                       + iNumberOfItemsPerGroup;
+            }
+            else if (iNumberOfGroupsInLevel2 > 0)
+            {
+                iAll = (iNumberOfGroupsInLevel2 * iNumberOfGroupsInLevel1) * iNumberOfItemsPerGroup
+                       + iNumberOfGroupsInLevel2 * iNumberOfItemsPerGroup
+                       + iNumberOfItemsPerGroup;
+            }
+            else if (iNumberOfGroupsInLevel1 > 0)
+            {
+                iAll = (iNumberOfGroupsInLevel1) * iNumberOfItemsPerGroup
+                       + iNumberOfItemsPerGroup;
+            }
+            else
+            {
+                iAll = iNumberOfItemsPerGroup;
+            }
+            return iAll;
+        }
 
-        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+    private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
             nav.eExitResult = evt;
             switch (evt)

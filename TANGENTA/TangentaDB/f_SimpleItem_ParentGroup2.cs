@@ -29,7 +29,7 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            SimpleItem_ParentGroup3_ID = (long)dt.Rows[0]["ID"];
+                            SimpleItem_ParentGroup2_ID = (long)dt.Rows[0]["ID"];
                             return true;
                         }
                         else
