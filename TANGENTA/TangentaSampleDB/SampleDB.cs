@@ -12,6 +12,7 @@ using DynEditControls;
 using System.IO;
 using System.Security.Cryptography;
 using StaticLib;
+using System.Windows.Forms;
 
 namespace TangentaSampleDB
 {
@@ -584,16 +585,16 @@ select_country:
                                 sl3 = "." + sln3;
                                 for (i2 = 0; i2 < iNumberOfGroupsInLevel2; i2++)
                                 {
-                                    string sln2 = "L2g" + i2.ToString();
-                                    sl2 = "." + sln3 + sln2;
+                                    string sln2 = sln3+"L2g" + i2.ToString();
+                                    sl2 = "." + sln2;
                                     for (i1 = 0; i1 < iNumberOfGroupsInLevel1; i1++)
                                     {
-                                        string sln1 = "L1g" + i1.ToString();
-                                        sl1 = "."+ sln3 + sln2 +sln1;
+                                        string sln1 = sln3 + sln2+ "L1g" + i1.ToString();
+                                        sl1 = "."+ sln1;
                                         for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                         {
-                                            ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl3 + sl2 + sl1;
-                                            ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl3 + sl2 + sl1;
+                                            ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sln1;
+                                            ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sln1;
                                             SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                                     ShopB_Item_Abbreviation,
                                                                     true,
@@ -620,28 +621,18 @@ select_country:
                                             j++;
                                         }
                                     }
-                                }
-                            }
-                            for (i3 = 0; i3 < iNumberOfGroupsInLevel3; i3++)
-                            {
-                                string sln3 = "L3g" + i3.ToString();
-                                sl3 = "."+sln3;
-                                for (i2 = 0; i2 < iNumberOfGroupsInLevel2; i2++)
-                                {
-                                    string sln2 = "L2g" + i2.ToString()+ "(...)";
-                                    sl2 = "." + sln3+sln2;
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl3 + sl2;
-                                        ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl3 + sl2;
+                                        ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sln2;
+                                        ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sln2;
                                         SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                                 ShopB_Item_Abbreviation,
                                                                 true,
                                                                 null,
                                                                 null,
-                                                                null,
                                                                 sl2,
                                                                 sl3,
+                                                                null,
                                                                 lngRPMS.PriceList_Name.s,
                                                                 true,
                                                                 null,
@@ -659,46 +650,43 @@ select_country:
                                                                 null);
                                         j++;
                                     }
+
                                 }
-                            }
-                            for (i3 = 0; i3 < iNumberOfGroupsInLevel3; i3++)
-                            {
-                                sl3 = ".L3g" + i3.ToString()+"(...)";
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl3;
-                                    ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl3;
+
+                                    ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sln3;
+                                    ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sln3;
                                     SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
-                                                            ShopB_Item_Abbreviation,
-                                                            true,
-                                                            null,
-                                                            null,
-                                                            null,
-                                                            null,
-                                                            sl3,
-                                                            lngRPMS.PriceList_Name.s,
-                                                            true,
-                                                            null,
-                                                            null,
-                                                            new DateTime_v(DateTime.Now),
-                                                            lngRPMS.PriceList_Description.s,
-                                                            Currency_Abbreviation,
-                                                            Currency_Name,
-                                                            Currency_Symbol,
-                                                            Currency_Code,
-                                                            Currency_DecimalPlaces,
-                                                            "DDV 22%",
-                                                            0.22M,
-                                                            2,
-                                                            null);
+                                                        ShopB_Item_Abbreviation,
+                                                        true,
+                                                        null,
+                                                        null,
+                                                        sl3,
+                                                        null,
+                                                        null,
+                                                        lngRPMS.PriceList_Name.s,
+                                                        true,
+                                                        null,
+                                                        null,
+                                                        new DateTime_v(DateTime.Now),
+                                                        lngRPMS.PriceList_Description.s,
+                                                        Currency_Abbreviation,
+                                                        Currency_Name,
+                                                        Currency_Symbol,
+                                                        Currency_Code,
+                                                        Currency_DecimalPlaces,
+                                                        "DDV 22%",
+                                                        0.22M,
+                                                        2,
+                                                        null);
                                     j++;
                                 }
                             }
-                            sl3 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl3;
-                                ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl3;
+                                ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + "noL1noL2noL3";
+                                ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + "noL1noL2noL3";
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -706,7 +694,7 @@ select_country:
                                                         null,
                                                         null,
                                                         null,
-                                                        sl3,
+                                                        null,
                                                         lngRPMS.PriceList_Name.s,
                                                         true,
                                                         null,
@@ -932,8 +920,15 @@ select_country:
                         {
                             LogFile.Error.Show("ERROR:SampleDB:Write_ShopB_Items:Calculated number of items " + iNumberOfAll.ToString() + " is not equal to iterating number j in loop:" + j.ToString());
                         }
-                        foreach (SampleDB_Price_ShopB_Item sample_ShopB_Item in SampleDB_Price_ShopB_Item_List)
+                        int k = 0;
+                        int SampleDB_Price_ShopB_Item_List_Count = SampleDB_Price_ShopB_Item_List.Count();
+                        for (k=0;k<SampleDB_Price_ShopB_Item_List_Count;k++)
                         {
+                            SampleDB_Price_ShopB_Item sample_ShopB_Item = SampleDB_Price_ShopB_Item_List[k];
+                            if (sample_ShopB_Item.ShopB_Item_Abbreviation.Equals("Art2L3g2L2g2"))
+                            {
+                                MessageBox.Show("STOP");
+                            }
                             if (f_SimpleItem.Get(sample_ShopB_Item.ShopB_Item_Name,
                                                     sample_ShopB_Item.ShopB_Item_Abbreviation,
                                                     sample_ShopB_Item.ShopB_Item_bToOffer,
@@ -965,7 +960,6 @@ select_country:
                                                                    ref sample_ShopB_Item.Price_ShopB_Item_ID
                                                                    ))
                                         {
-                                            continue;
                                         }
                                         else
                                         {

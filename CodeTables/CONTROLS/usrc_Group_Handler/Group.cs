@@ -107,15 +107,18 @@ namespace usrc_Item_Group_Handler
                 {
                     int ypos = 0;
                     int i = 0;
-                    if (grp.m_GroupList.Group_list.Count() > 0)
+                    if (grp.m_GroupList != null)
                     {
-                        foreach (Control ctrl in grp.m_GroupList.Group_list[0].m_pnl.Controls)
+                        if (grp.m_GroupList.Items.Count() > 0)
                         {
-                            ctrl.Visible = false;
-                        }
-                        for (i = 0; i < grp.m_GroupList.Group_list.Count(); i++)
-                        {
-                            grp.m_GroupList.Group_list[i].ShowButton(i, ref ypos);
+                            foreach (Control ctrl in grp.m_GroupList.Items[0].m_pnl.Controls)
+                            {
+                                ctrl.Visible = false;
+                            }
+                            for (i = 0; i < grp.m_GroupList.Items.Count(); i++)
+                            {
+                                grp.m_GroupList.Items[i].ShowButton(i, ref ypos);
+                            }
                         }
                     }
                 }
@@ -148,6 +151,8 @@ namespace usrc_Item_Group_Handler
                 rbtn = (RadioButton)this.m_pnl.Controls[i];
             }
             rbtn.Visible = true;
+            rbtn.CheckedChanged -= rbtn_CheckedChanged;
+            rbtn.CheckedChanged += rbtn_CheckedChanged;
             rbtn.Text = m_Name_In_Language;
             rbtn.Tag = this;
             rbtn.Appearance = Appearance.Button;

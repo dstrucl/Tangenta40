@@ -18,16 +18,16 @@ namespace usrc_Item_Group_Handler
 {
     public class GroupList
     {
-        public List<Group> Group_list = new List<Group>();
+        public List<Group> Items = new List<Group>();
 
         public void Add(Group grp)
         {
-            Group_list.Add(grp);
+            Items.Add(grp);
         }
 
         public Group Find(string sx_name)
         {
-            foreach (Group xgrp in Group_list)
+            foreach (Group xgrp in Items)
             {
                 if (xgrp.EqualsTo(sx_name))
                 {
@@ -40,24 +40,24 @@ namespace usrc_Item_Group_Handler
 
         internal void Clear()
         {
-            Group_list.Clear();
+            Items.Clear();
         }
 
         internal void Remove(Group grp)
         {
-            Group_list.Remove(grp);
+            Items.Remove(grp);
         }
 
         public Group First()
         {
-            return Group_list[0];
+            return Items[0];
         }
 
         internal Group SetFirst()
         {
-            if (Group_list.Count > 0)
+            if (Items.Count > 0)
             {
-                Group grp = Group_list.First();
+                Group grp = Items.First();
                 Group sub_grp = grp;
                 while (sub_grp.m_GroupList != null)
                 {
@@ -76,15 +76,15 @@ namespace usrc_Item_Group_Handler
         {
             if (s3_name != null)
             {
-                foreach (Group grp1 in Group_list)
+                foreach (Group grp1 in Items)
                 {
                     if (s3_name.Equals(grp1.Name))
                     {
-                        foreach (Group grp2 in grp1.m_GroupList.Group_list)
+                        foreach (Group grp2 in grp1.m_GroupList.Items)
                         {
                             if (s2_name.Equals(grp2.Name))
                             {
-                                foreach (Group grp3 in grp2.m_GroupList.Group_list)
+                                foreach (Group grp3 in grp2.m_GroupList.Items)
                                 {
                                     if (s1_name.Equals(grp3.Name))
                                     {
@@ -109,7 +109,7 @@ namespace usrc_Item_Group_Handler
             {
                 
             }
-            Group grp = Group_list.First();
+            Group grp = Items.First();
             Group sub_grp = grp;
             while (sub_grp.m_GroupList != null)
             {
@@ -138,7 +138,7 @@ namespace usrc_Item_Group_Handler
 
         internal Group Current()
         {
-            foreach (Group grp in Group_list)
+            foreach (Group grp in Items)
             {
                 if (grp.rbtn != null)
                 {
@@ -154,7 +154,7 @@ namespace usrc_Item_Group_Handler
         internal void PurgeNull(Panel pnl)
         {
             List<Group> groups_to_remove = new List<Group>();
-            foreach (Group xgrp in Group_list)
+            foreach (Group xgrp in Items)
             {
                 if (xgrp.Name == null)
                 {
@@ -163,7 +163,7 @@ namespace usrc_Item_Group_Handler
             }
             foreach (Group xgrp in groups_to_remove)
             {
-                Group_list.Remove(xgrp);
+                Items.Remove(xgrp);
                 pnl.Controls.Remove(xgrp.rbtn);
                 xgrp.rbtn.Dispose();
                 xgrp.rbtn = null;
@@ -188,7 +188,7 @@ namespace usrc_Item_Group_Handler
             }
 
             List<Group> groups_to_remove = new List<Group>();
-            foreach (Group xgrp in Group_list)
+            foreach (Group xgrp in Items)
             {
                 if (!find_in_drs_not_null(xgrp.Name,drs_not_null))
                 {
@@ -198,7 +198,7 @@ namespace usrc_Item_Group_Handler
 
             foreach (Group xgrp in groups_to_remove)
             {
-                Group_list.Remove(xgrp);
+                Items.Remove(xgrp);
                 pnl.Controls.Remove(xgrp.rbtn);
                 xgrp.rbtn.Dispose();
                 xgrp.rbtn = null;
@@ -208,7 +208,7 @@ namespace usrc_Item_Group_Handler
 
         private void Arrange(Panel pnl)
         {
-            Group_list.Sort(delegate(Group x, Group y)
+            Items.Sort(delegate(Group x, Group y)
             {
                 if (x.Name == null && y.Name == null) return 0;
                 else if (x.Name == null) return -1;
@@ -218,7 +218,7 @@ namespace usrc_Item_Group_Handler
             int yy = 0;
             pnl.AutoScrollOffset = new System.Drawing.Point(0, 0);
             pnl.AutoScrollPosition = new System.Drawing.Point(0, 0);
-            foreach(Group g in Group_list)
+            foreach(Group g in Items)
             {
                 g.rbtn.Top = yy;
                 yy += g.rbtn.Height;
