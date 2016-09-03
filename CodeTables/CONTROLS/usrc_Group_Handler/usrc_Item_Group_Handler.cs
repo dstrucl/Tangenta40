@@ -236,18 +236,18 @@ namespace usrc_Item_Group_Handler
             {
                 foreach (DataRow dr_pnl3 in drs_spnl3)
                 {
-                    string sGroupName_pnl3 = null;
+                    string sGroupName_pnl1 = null;
                     if (dr_pnl3["s3_name"] is string)
                     {
-                        sGroupName_pnl3 = (string)dr_pnl3["s3_name"];
-                        if (this.m_GroupList.Find(sGroupName_pnl3)!=null)
+                        sGroupName_pnl1 = (string)dr_pnl3["s3_name"];
+                        if (this.m_GroupList.Find(sGroupName_pnl1) != null)
                         {
                             continue;
                         }
-                        Group grp_pnl1 = new Group(sGroupName_pnl3, this.form_group_handler.s3_pnl, null, DoPaintGroup,ref ypos_pnl1,32, 10);
+                        Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl, null, DoPaintGroup, ref ypos_pnl1, 32, 10);
                         this.m_GroupList.Add(grp_pnl1);
                         DataRow[] drs_s2 = null;
-                        drs_s2 = m_dt_Group.Select("s3_name ='" + sGroupName_pnl3 + "'");
+                        drs_s2 = m_dt_Group.Select("s3_name ='" + sGroupName_pnl1 + "'");
                         if (drs_s2.Count() > 0)
                         {
                             ypos_pnl2 = 0;
@@ -268,9 +268,9 @@ namespace usrc_Item_Group_Handler
                                             continue;
                                         }
                                     }
-                                    Group grp2 = new Group(s2GroupName, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup,ref ypos_pnl2, 32,10);
+                                    Group grp2 = new Group(s2GroupName, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl2, 32, 10);
                                     DataRow[] drs_s1 = null;
-                                    drs_s1 = m_dt_Group.Select("s2_name ='" + s2GroupName + "' and s3_name = '"+sGroupName_pnl3 + "'");
+                                    drs_s1 = m_dt_Group.Select("s2_name ='" + s2GroupName + "' and s3_name = '" + sGroupName_pnl1 + "'");
                                     if (drs_s1.Count() > 0)
                                     {
                                         ypos_pnl3 = 0;
@@ -290,8 +290,15 @@ namespace usrc_Item_Group_Handler
                                                         continue;
                                                     }
                                                 }
-                                                Group grp1 = new Group(s1GroupName, this.form_group_handler.s1_pnl, grp2, DoPaintGroup,ref ypos_pnl3, 32,10);
+                                                Group grp1 = new Group(s1GroupName, this.form_group_handler.s1_pnl, grp2, DoPaintGroup, ref ypos_pnl3, 32, 10);
                                             }
+                                        }
+                                        DataRow[] drs_s1_root = null;
+                                        drs_s1_root = m_dt_Group.Select("s1_name ='" + s2GroupName + "' and s2_name = '" + sGroupName_pnl1 + "' and s3_name is null");
+                                        if (drs_s1_root.Count() > 0)
+                                        {
+                                            string s1GroupName_root = lngRPM.s_Other.s;
+                                            Group grp2_root = new Group(s1GroupName_root, this.form_group_handler.s1_pnl, grp2, DoPaintGroup, ref ypos_pnl2, 32, 10);
                                         }
                                     }
                                     else
@@ -299,11 +306,13 @@ namespace usrc_Item_Group_Handler
                                         LogFile.Error.Show("ERROR:usrc_Item_Group_Handler:Create_NumberOfGroupLevel_EQ_3: NumberOfGroupLevel is not 3,2 or 1 !");
                                     }
                                 }
-                                else
-                                {
-                                    s2GroupName = "...";
-                                    Group grp2 = new Group(s2GroupName, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl2, 32, 10);
-                                }
+                            }
+                            DataRow[] drs_s2_root = null;
+                            drs_s2_root = m_dt_Group.Select("s2_name ='" + sGroupName_pnl1 + "' and s3_name is null");
+                            if (drs_s2_root.Count() > 0)
+                            {
+                                string s2GroupName_root = lngRPM.s_Other.s;
+                                Group grp2_root = new Group(s2GroupName_root, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl2, 32, 10);
                             }
                         }
                         else
@@ -311,74 +320,25 @@ namespace usrc_Item_Group_Handler
                             LogFile.Error.Show("ERROR:usrc_Item_Group_Handler:Create_NumberOfGroupLevel_EQ_3: NumberOfGroupLevel is not 3 or 2 !");
                         }
                     }
-                    else
+                }
+            }
+            else
+            {
+                DataRow[] drs_spnl2 = null;
+                drs_spnl2 = m_dt_Group.Select("s2_name is not null");
+                this.S
+                if (drs_spnl2.Count() > 0)
+                {
+                    foreach (DataRow dr_pnl2 in drs_spnl2)
                     {
+
 
                     }
                 }
-            }
-            drs_spnl3 = m_dt_Group.Select("s3_name is null and  s2_name is not null");
-            if (drs_spnl3.Count() > 0)
-            {
-                foreach (DataRow dr_pnl3 in drs_spnl3)
-                {
-                    string sGroupName_pnl3 = null;
-                    if (dr_pnl3["s2_name"] is string)
-                    {
-                        sGroupName_pnl3 = "...";
-                        if (this.m_GroupList.Find(sGroupName_pnl3) != null)
-                        {
-                            continue;
-                        }
-                        Group grp_pnl1 = new Group(sGroupName_pnl3, this.form_group_handler.s3_pnl, null, DoPaintGroup, ref ypos_pnl3, 32, 10);
-                        this.m_GroupList.Add(grp_pnl1);
-                        DataRow[] drs_s1 = null;
-                        drs_s1 = m_dt_Group.Select("s2_name ='" + sGroupName_pnl3 + "'");
-                        if (drs_s1.Count() > 0)
-                        {
-                            ypos_pnl2 = 0;
-                            foreach (DataRow dr1 in drs_s1)
-                            {
-                                string sGroupName_pnl2 = (string)dr1["s1_name"];
-                                if (grp_pnl1.m_GroupList == null)
-                                {
-                                    grp_pnl1.m_GroupList = new GroupList();
-                                }
-                                else
-                                {
-                                    if (grp_pnl1.m_GroupList.Find(sGroupName_pnl3) != null)
-                                    {
-                                        continue;
-                                    }
-                                }
-                                Group grp_pnl2 = new Group(sGroupName_pnl2, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl2, 32, 10);
-                            }
-                        }
-                    }
-                }
-            }
-            drs_spnl3 = m_dt_Group.Select("s3_name is null and  s2_name is null and s1_name is not null");
-            if (drs_spnl3.Count() > 0)
-            {
-                foreach (DataRow dr_pnl1 in drs_spnl3)
-                {
-                    string sGroupName_pnl3 = null;
-                    if (dr_pnl1["s1_name"] is string)
-                    {
-                        sGroupName_pnl3 = (string)dr_pnl1["s1_name"];
-                        if (this.m_GroupList.Find(sGroupName_pnl3) != null)
-                        {
-                            continue;
-                        }
-                        Group grp_pnl1 = new Group(sGroupName_pnl3, this.form_group_handler.s3_pnl, null, DoPaintGroup, ref ypos_pnl3, 32, 10);
-                        this.m_GroupList.Add(grp_pnl1);
-                    }
-                }
-            }
             drs_spnl3 = m_dt_Group.Select("s3_name is null and  s2_name is null and s1_name is null");
             if (drs_spnl3.Count() > 0)
             {
-                string sGroupName_pnl3 = "...";
+                string sGroupName_pnl3 = lngRPM.s_Other.s; 
                 Group grp_pnl1 = new Group(sGroupName_pnl3, this.form_group_handler.s3_pnl, null, DoPaintGroup, ref ypos_pnl3, 32, 10);
                 this.m_GroupList.Add(grp_pnl1);
             }
