@@ -15,5 +15,21 @@ namespace usrc_Item_Group_Handler
         {
             InitializeComponent();
         }
+
+        public void SetLevel2()
+        {
+            this.splitContainer2.Panel2Collapsed = true;
+        }
+
+        public void SetLevel3()
+        {
+            this.splitContainer2.Panel2Collapsed = false;
+        }
+
+        private void Form_GroupHandler_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Visible = false;
+        }
     }
 }

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.s3_pnl = new System.Windows.Forms.Panel();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.s2_pnl = new System.Windows.Forms.Panel();
             this.s1_pnl = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -45,7 +45,9 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -59,6 +61,14 @@
             this.splitContainer1.Size = new System.Drawing.Size(445, 493);
             this.splitContainer1.SplitterDistance = 148;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // s3_pnl
+            // 
+            this.s3_pnl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.s3_pnl.Location = new System.Drawing.Point(0, 0);
+            this.s3_pnl.Name = "s3_pnl";
+            this.s3_pnl.Size = new System.Drawing.Size(148, 493);
+            this.s3_pnl.TabIndex = 0;
             // 
             // splitContainer2
             // 
@@ -76,14 +86,6 @@
             this.splitContainer2.Size = new System.Drawing.Size(293, 493);
             this.splitContainer2.SplitterDistance = 156;
             this.splitContainer2.TabIndex = 0;
-            // 
-            // s3_pnl
-            // 
-            this.s3_pnl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.s3_pnl.Location = new System.Drawing.Point(0, 0);
-            this.s3_pnl.Name = "s3_pnl";
-            this.s3_pnl.Size = new System.Drawing.Size(148, 493);
-            this.s3_pnl.TabIndex = 0;
             // 
             // s2_pnl
             // 
@@ -110,6 +112,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Form_GroupHandler";
             this.Text = "Form_GroupHandler";
+            this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_GroupHandler_FormClosing);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

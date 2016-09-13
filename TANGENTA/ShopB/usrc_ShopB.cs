@@ -704,6 +704,27 @@ namespace ShopB
             if (DBSync.DBSync.ReadDataTable(ref dt_Group, sql_Group, ref Err))
             {
                 usrc_Item_Group_Handler.Set_Groups(dt_Group);
+                if (dt_Group.Rows.Count > 0)
+                {
+                    string s1_name = null;
+                    string s2_name = null;
+                    string s3_name = null;
+                    if (dt_Group.Rows[0]["s1_name"] is string)
+                    {
+                        s1_name = (string)dt_Group.Rows[0]["s1_name"];
+                    }
+                    if (dt_Group.Rows[0]["s2_name"] is string)
+                    {
+                        s2_name = (string)dt_Group.Rows[0]["s2_name"];
+                    }
+                    if (dt_Group.Rows[0]["s3_name"] is string)
+                    {
+                        s3_name = (string)dt_Group.Rows[0]["s3_name"];
+                    }
+
+                    string[] sGroup = new string[] { s1_name, s2_name, s3_name };
+                    usrc_Item_Group_Handler.Set(sGroup);
+                }
                 return true;
                 
             }
@@ -871,11 +892,11 @@ namespace ShopB
             if (Level == 0)
             {
                 dgv_ShopB_Items.Width = splitContainer2.Panel2.Width - 4;
-                usrc_Item_Group_Handler.Visible = false;
+                usrc_Item_Group_Handler.SetVisible(false);
             }
             else
             {
-                usrc_Item_Group_Handler.Visible = true;
+                usrc_Item_Group_Handler.SetVisible(true);
                 dgv_ShopB_Items.Width = usrc_Item_Group_Handler.Left - dgv_ShopB_Items.Left-2;
             }
 

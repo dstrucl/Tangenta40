@@ -52,6 +52,7 @@ namespace usrc_Item_Group_Handler
             {
                 rbtn = new RadioButton();
                 rbtn.Tag = this;
+                rbtn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                 rbtn.Appearance = Appearance.Button;
                 rbtn.Left = 0;
                 FontFamily ff = rbtn.Font.FontFamily;
@@ -71,7 +72,7 @@ namespace usrc_Item_Group_Handler
                m_Name_In_Language += " " + lngRPM.s_Other.s;
                 if (pParent == null)
                 {
-                    lngRPM.s_Other.Text(rbtn);
+                    rbtn.Text = lngRPM.s_Other.s;
                 }
             }
             else
@@ -102,28 +103,31 @@ namespace usrc_Item_Group_Handler
             RadioButton rb = (RadioButton)sender;
             if (rb.Checked)
             {
-                Group grp = (Group)rb.Tag;
-                if (grp != null)
+                if (rb.Tag is Group)
                 {
-                    int ypos = 0;
-                    int i = 0;
-                    if (grp.m_GroupList != null)
+                    Group grp = (Group)rb.Tag;
+                    if (grp != null)
                     {
-                        if (grp.m_GroupList.Items.Count() > 0)
+                        int ypos = 0;
+                        int i = 0;
+                        if (grp.m_GroupList != null)
                         {
-                            foreach (Control ctrl in grp.m_GroupList.Items[0].m_pnl.Controls)
+                            if (grp.m_GroupList.Items.Count() > 0)
                             {
-                                ctrl.Visible = false;
-                            }
-                            for (i = 0; i < grp.m_GroupList.Items.Count(); i++)
-                            {
-                                grp.m_GroupList.Items[i].ShowButton(i, ref ypos);
+                                foreach (Control ctrl in grp.m_GroupList.Items[0].m_pnl.Controls)
+                                {
+                                    ctrl.Visible = false;
+                                }
+                                for (i = 0; i < grp.m_GroupList.Items.Count(); i++)
+                                {
+                                    grp.m_GroupList.Items[i].ShowButton(i, ref ypos);
+                                }
                             }
                         }
                     }
+                    grp.m_delegate_NewGroupSelected_trigger();
+                    rb.BackColor = Color.LightBlue;
                 }
-                grp.m_delegate_NewGroupSelected_trigger();
-                rb.BackColor = Color.LightBlue;
             }
             else
             {
@@ -150,7 +154,16 @@ namespace usrc_Item_Group_Handler
             {
                 rbtn = (RadioButton)this.m_pnl.Controls[i];
             }
+            if (this.m_pnl.Name.Equals("s1_pnl"))
+            {
+                System.Windows.Forms.SplitContainer scontnr = (System.Windows.Forms.SplitContainer)m_pnl.Parent.Parent;
+                if (scontnr.Panel2Collapsed)
+                {
+                    scontnr.Panel2Collapsed = false;
+                }
+            }
             rbtn.Visible = true;
+            rbtn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             rbtn.CheckedChanged -= rbtn_CheckedChanged;
             rbtn.CheckedChanged += rbtn_CheckedChanged;
             rbtn.Text = m_Name_In_Language;

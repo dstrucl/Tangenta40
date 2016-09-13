@@ -207,11 +207,11 @@ namespace ShopC
             if (Level == 0)
             {
                 pnl_Items.Width = ipnl_Items_Width_default + m_usrc_Item_Group_Handler.Width + 2;
-                m_usrc_Item_Group_Handler.Visible = false;
+                m_usrc_Item_Group_Handler.SetVisible(false);
             }
             else
             {
-                m_usrc_Item_Group_Handler.Visible = true;
+                m_usrc_Item_Group_Handler.SetVisible(true);
                 pnl_Items.Width = ipnl_Items_Width_default;
             }
 
