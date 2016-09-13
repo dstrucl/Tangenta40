@@ -77,6 +77,7 @@ namespace usrc_Item_Group_Handler
             }
             else
             {
+            
                 m_Name_In_Language = m_Name;
                 if (pParent == null)
                 {
