@@ -1,0 +1,3 @@
+Testni certifikat Tangente = 10286853-1.p12
+Geslo za testni certifikat TANGENTE:269BODLY9RBL
+
