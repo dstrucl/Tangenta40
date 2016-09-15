@@ -189,7 +189,7 @@ namespace ShopC
             sGroupArr[0] = appisd.s1_name;
             sGroupArr[1] = appisd.s2_name;
             sGroupArr[2] = appisd.s3_name;
-            if (m_usrc_Item_Group_Handler.Set(sGroupArr))
+            if (m_usrc_Item_Group_Handler.Select(sGroupArr))
             {
                 int index = m_ShopBC.m_CurrentInvoice.m_ShopShelf.GetIndex(appisd);
                 if (index>=0)

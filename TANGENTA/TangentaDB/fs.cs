@@ -499,13 +499,20 @@ namespace TangentaDB
             {
                 if (s_name[2] != null)
                 {
-                    SQL_Parameter par3 = new SQL_Parameter(spar_s3_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[2]);
                     SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
-                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
-                    lpar.Add(par3);
                     lpar.Add(par2);
-                    lpar.Add(par1);
-                    s_group_condition = " and s3.Name = " + spar_s3_name + " and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                    SQL_Parameter par3 = new SQL_Parameter(spar_s3_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[2]);
+                    lpar.Add(par3);
+                    if (s_name[0] != null)
+                    {
+                        SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
+                        lpar.Add(par1);
+                        s_group_condition = " and s3.Name = " + spar_s3_name + " and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                    }
+                    else
+                    {
+                        s_group_condition = " and s2.Name = " + spar_s3_name + " and s1.Name = " + spar_s2_name + " and s3.Name is null ";
+                    }
                 }
                 else if (s_name[1] != null)
                 {
@@ -530,11 +537,18 @@ namespace TangentaDB
             {
                 if (s_name[1] != null)
                 {
-                    SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
-                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
-                    lpar.Add(par2);
+                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
                     lpar.Add(par1);
-                    s_group_condition = " and s3.Name is null and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                    if (s_name[0] != null)
+                    {
+                        SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
+                        lpar.Add(par2);
+                        s_group_condition = " and s3.Name is null and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                    }
+                    else
+                    {
+                        s_group_condition = " and s3.Name is null and s2.Name is null  and s1.Name = " + spar_s1_name + " ";
+                    }
                 }
                 else if (s_name[0] != null)
                 {

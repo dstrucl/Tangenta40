@@ -723,7 +723,7 @@ namespace ShopB
                     }
 
                     string[] sGroup = new string[] { s1_name, s2_name, s3_name };
-                    usrc_Item_Group_Handler.Set(sGroup);
+                    usrc_Item_Group_Handler.Select(sGroup);
                 }
                 return true;
                 

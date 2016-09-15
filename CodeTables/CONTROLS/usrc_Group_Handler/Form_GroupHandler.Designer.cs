@@ -48,6 +48,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -58,20 +59,23 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(445, 493);
-            this.splitContainer1.SplitterDistance = 148;
+            this.splitContainer1.Size = new System.Drawing.Size(610, 493);
+            this.splitContainer1.SplitterDistance = 202;
             this.splitContainer1.TabIndex = 0;
             // 
             // s3_pnl
             // 
+            this.s3_pnl.AutoScroll = true;
+            this.s3_pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.s3_pnl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.s3_pnl.Location = new System.Drawing.Point(0, 0);
             this.s3_pnl.Name = "s3_pnl";
-            this.s3_pnl.Size = new System.Drawing.Size(148, 493);
+            this.s3_pnl.Size = new System.Drawing.Size(202, 493);
             this.s3_pnl.TabIndex = 0;
             // 
             // splitContainer2
             // 
+            this.splitContainer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
@@ -83,31 +87,35 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.s1_pnl);
-            this.splitContainer2.Size = new System.Drawing.Size(293, 493);
-            this.splitContainer2.SplitterDistance = 156;
+            this.splitContainer2.Size = new System.Drawing.Size(404, 493);
+            this.splitContainer2.SplitterDistance = 194;
             this.splitContainer2.TabIndex = 0;
             // 
             // s2_pnl
             // 
+            this.s2_pnl.AutoScroll = true;
+            this.s2_pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.s2_pnl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.s2_pnl.Location = new System.Drawing.Point(0, 0);
             this.s2_pnl.Name = "s2_pnl";
-            this.s2_pnl.Size = new System.Drawing.Size(156, 493);
+            this.s2_pnl.Size = new System.Drawing.Size(194, 493);
             this.s2_pnl.TabIndex = 0;
             // 
             // s1_pnl
             // 
+            this.s1_pnl.AutoScroll = true;
+            this.s1_pnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.s1_pnl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.s1_pnl.Location = new System.Drawing.Point(0, 0);
             this.s1_pnl.Name = "s1_pnl";
-            this.s1_pnl.Size = new System.Drawing.Size(133, 493);
+            this.s1_pnl.Size = new System.Drawing.Size(206, 493);
             this.s1_pnl.TabIndex = 0;
             // 
             // Form_GroupHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 493);
+            this.ClientSize = new System.Drawing.Size(610, 493);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Form_GroupHandler";

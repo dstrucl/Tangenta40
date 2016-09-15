@@ -143,10 +143,17 @@ namespace TangentaDB
         private int Find_dt_SimpleItem_Index(DataTable dt_SimpleItems, long Atom_SimpleItem_SimpleItem_ID)
         {
             DataRow[] dr = null;
-            dr = dt_SimpleItems.Select("ID=" + Atom_SimpleItem_SimpleItem_ID.ToString());
-            if (dr.Count() > 0)
+            if (dt_SimpleItems.Rows.Count > 0)
             {
-                return dt_SimpleItems.Rows.IndexOf(dr[0]);
+                dr = dt_SimpleItems.Select("ID=" + Atom_SimpleItem_SimpleItem_ID.ToString());
+                if (dr.Count() > 0)
+                {
+                    return dt_SimpleItems.Rows.IndexOf(dr[0]);
+                }
+                else
+                {
+                    return -1;
+                }
             }
             else
             {

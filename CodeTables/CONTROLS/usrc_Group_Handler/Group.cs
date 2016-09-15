@@ -24,9 +24,11 @@ namespace usrc_Item_Group_Handler
         private delegate_NewGroupSelected m_delegate_NewGroupSelected_trigger = null;
         int button_height = 30;
         int font_height = 10;
-
-        public GroupList m_GroupList = null;
-        public Panel m_pnl = null;
+        private bool m_bSingleSelected = false;
+        public Group m_CurrentSubGroup_In_m_GroupList = null;
+        internal Group m_pParent = null;
+        internal GroupList m_GroupList = null;
+        internal Panel m_pnl = null;
         private string m_Name = null;
         private string m_Name_In_Language = null;
         public string Name
@@ -38,64 +40,77 @@ namespace usrc_Item_Group_Handler
             get { return m_Name_In_Language; }
         }
 
-        public RadioButton rbtn = null;
+        public bool SingleSelected
+        {
+            get { return m_bSingleSelected; }
+            set
+            {
+                bool b = value;
+                if (b)
+                {
+                    if (m_pParent != null)
+                    {
+                        if (m_pParent.m_GroupList != null)
+                        {
+                            foreach (Group g in m_pParent.m_GroupList.Items)
+                            {
+                                g.m_bSingleSelected = false;
+                            }
+                        }
+                    }
+                }
+                m_bSingleSelected = b;
+            }
+        }
+
+        public bool IsRoot { get { return m_pnl == null; } }
+
+        public int GroupLevel { get
+                                { int iLevel = 0;
+                                  Group g = this;
+                                  while (g.m_pParent!=null)
+                                  { iLevel++;
+                                    g = g.m_pParent;
+                                  }
+                                 return iLevel;
+                                }
+                              }
+
+        internal RadioButton rbtn = null;
+
         public Color default_back_color = Color.Gray;
 
 
-        public Group(string xName,Panel pnl, Group pParent, delegate_NewGroupSelected delegate_NewGroupSelected_trigger,ref int yPos,int xbutton_height,int xfont_height)
+        public Group(string xName,Panel pnl,Group pParent, delegate_NewGroupSelected delegate_NewGroupSelected_trigger,ref int yPos,int xbutton_height,int xfont_height)
         {
             button_height = xbutton_height;
             font_height = xfont_height;
             m_delegate_NewGroupSelected_trigger = delegate_NewGroupSelected_trigger;
             m_pnl = pnl;
-            if (pParent == null)
+            if (m_pnl!=null)
             {
-                rbtn = new RadioButton();
-                rbtn.Tag = this;
-                rbtn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                rbtn.Appearance = Appearance.Button;
-                rbtn.Left = 0;
-                FontFamily ff = rbtn.Font.FontFamily;
-                Font f = new Font(ff, font_height);
-                rbtn.Font = f;
-                rbtn.ForeColor = Color.Black;
-                default_back_color = pnl.BackColor;
-                rbtn.Width = pnl.Width;
-                rbtn.Height = button_height;
-                rbtn.Top = yPos;
+                default_back_color = m_pnl.BackColor;
             }
-
+            m_pParent = pParent;
             yPos += button_height + 2;
             m_Name = xName;
             if (xName == null)
             {
                m_Name_In_Language += " " + lngRPM.s_Other.s;
-                if (pParent == null)
-                {
-                    rbtn.Text = lngRPM.s_Other.s;
-                }
             }
             else
             {
             
                 m_Name_In_Language = m_Name;
-                if (pParent == null)
-                {
-                    rbtn.Text = m_Name_In_Language;
-                }
-            }
-            if (pParent==null)
-            {
-                m_pnl.Controls.Add(rbtn);
             }
             
-            if (pParent!=null)
+            if (m_pParent != null)
             {
-                if (pParent.m_GroupList== null)
+                if (m_pParent.m_GroupList== null)
                 {
-                    pParent.m_GroupList = new GroupList();
+                    m_pParent.m_GroupList = new GroupList(this);
                 }
-                pParent.m_GroupList.Add(this);
+                m_pParent.m_GroupList.Add(this);
             }
         }
 
@@ -109,34 +124,14 @@ namespace usrc_Item_Group_Handler
                     Group grp = (Group)rb.Tag;
                     if (grp != null)
                     {
-                        int ypos = 0;
-                        int i = 0;
-                        if (grp.m_GroupList != null)
-                        {
-                            if (grp.m_GroupList.Items.Count() > 0)
-                            {
-                                foreach (Control ctrl in grp.m_GroupList.Items[0].m_pnl.Controls)
-                                {
-                                    ctrl.Visible = false;
-                                }
-                                for (i = 0; i < grp.m_GroupList.Items.Count(); i++)
-                                {
-                                    grp.m_GroupList.Items[i].ShowButton(i, ref ypos);
-                                }
-                            }
-                        }
+                        grp.SingleSelected = true;
+                        grp.m_delegate_NewGroupSelected_trigger();
                     }
-                    grp.m_delegate_NewGroupSelected_trigger();
-                    rb.BackColor = Color.LightBlue;
                 }
-            }
-            else
-            {
-                rb.BackColor = default_back_color;
             }
         }
 
-        private void ShowButton(int i, ref int ypos)
+        internal void ShowButton(int i, ref int ypos)
         {
             if (i>=this.m_pnl.Controls.Count )
             {
@@ -149,55 +144,132 @@ namespace usrc_Item_Group_Handler
                 {
                     rbtn = new RadioButton();
                     this.m_pnl.Controls.Add(rbtn);
+                    rbtn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    rbtn.Appearance = Appearance.Button;
+                    rbtn.Left = 0;
+                    FontFamily ff = rbtn.Font.FontFamily;
+                    Font f = new Font(ff, font_height);
+                    rbtn.Font = f;
+                    rbtn.ForeColor = Color.Black;
                 }
             }
             else
             {
                 rbtn = (RadioButton)this.m_pnl.Controls[i];
             }
-            if (this.m_pnl.Name.Equals("s1_pnl"))
+
+            rbtn.Tag = this;
+            rbtn.Text = m_Name_In_Language;
+            rbtn.CheckedChanged -= rbtn_CheckedChanged;
+            if (m_bSingleSelected)
             {
-                System.Windows.Forms.SplitContainer scontnr = (System.Windows.Forms.SplitContainer)m_pnl.Parent.Parent;
-                if (scontnr.Panel2Collapsed)
+                rbtn.Checked = true;
+                rbtn.BackColor = Color.LightBlue;
+                if (m_GroupList!=null)
                 {
-                    scontnr.Panel2Collapsed = false;
+                    if (m_GroupList.Items.Count>0)
+                    {
+                    }
                 }
             }
-            rbtn.Visible = true;
-            rbtn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            rbtn.CheckedChanged -= rbtn_CheckedChanged;
+            else
+            {
+                rbtn.Checked = false;
+                rbtn.BackColor = default_back_color;
+            }
             rbtn.CheckedChanged += rbtn_CheckedChanged;
-            rbtn.Text = m_Name_In_Language;
-            rbtn.Tag = this;
-            rbtn.Appearance = Appearance.Button;
-            rbtn.Left = 0;
-            FontFamily ff = rbtn.Font.FontFamily;
-            Font f = new Font(ff, font_height);
-            rbtn.Font = f;
-            rbtn.ForeColor = Color.Black;
-            default_back_color = m_pnl.BackColor;
             rbtn.Width = m_pnl.Width;
             rbtn.Height = button_height;
             rbtn.Top = ypos;
             ypos += button_height + 2;
-
         }
 
-        internal bool SetCurrent()
+        private object GetGroupHandlerControl()
         {
-            if (rbtn != null)
+            if (m_pnl != null)
             {
-                RemoveHandlers();
-                rbtn.Checked = true;
-                rbtn.BackColor = Color.LightBlue;
-                ActivateHandlers();
-                return true;
+                if (m_pnl.Parent != null)
+                {
+                    if (m_pnl.Parent is System.Windows.Forms.SplitterPanel)
+                    {
+                        if (m_pnl.Parent.Parent != null)
+                        {
+                            if (m_pnl.Parent.Parent is System.Windows.Forms.SplitContainer)
+                            {
+                                if (m_pnl.Parent.Parent.Parent != null)
+                                {
+                                    if (m_pnl.Parent.Parent.Parent is System.Windows.Forms.SplitterPanel)
+                                    {
+                                        if (m_pnl.Parent.Parent.Parent.Parent != null)
+                                        {
+                                            if (m_pnl.Parent.Parent.Parent.Parent is System.Windows.Forms.SplitContainer)
+                                            {
+                                                return m_pnl.Parent.Parent.Parent.Parent.Parent;
+                                            }
+                                        }
+                                    }
+                                    else if (m_pnl.Parent.Parent.Parent is Form_GroupHandler)
+                                    {
+                                        return m_pnl.Parent.Parent.Parent;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return m_pnl.Parent;
+                    }
+                }
+            }
+            return null;
+        }
+
+
+        internal void SetVisible()
+        {
+            if (m_pParent!=null)
+            {
+                m_pParent.SetVisible();
+                if (m_pParent.m_GroupList != null)
+                {
+                    int mypos = 0;
+                    int i = 0;
+                    int iCount = m_pParent.m_GroupList.Items.Count;
+                    for (i = 0; i < iCount; i++)
+                    {
+                        m_pParent.m_GroupList.Items[i].ShowButton(i, ref mypos);
+                    }
+                }
+            }
+        }
+
+        private int GetGroupLevel()
+        {
+            int level = 0;
+            Group xParent = m_pParent;
+            while (xParent != null)
+            {
+                xParent = xParent.m_pParent;
+                level++;
+            }
+            return level;
+        }
+
+        internal Group SetFirst()
+        {
+            if (m_GroupList != null)
+            {
+                return m_GroupList.SelectFirst();
             }
             else
             {
-                return false;
+                return null;
             }
         }
+
+
+
 
         private void ActivateHandlers()
         {
@@ -239,6 +311,202 @@ namespace usrc_Item_Group_Handler
             {
                 return false;
             }
+        }
+
+        internal void Clear()
+        {
+            if (this.m_GroupList != null)
+            {
+                this.m_GroupList.Clear();
+            }
+        }
+
+        internal Group Find(string sGroupName)
+        {
+            if (this.m_GroupList != null)
+            {
+                return this.m_GroupList.Find(sGroupName);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        internal void Add(Group grp)
+        {
+            if (this.m_GroupList== null)
+            {
+                this.m_GroupList = new GroupList(this);
+            }
+            this.m_GroupList.Add(grp);
+        }
+
+        internal void PurgeNotNull(Panel pnl_Group, DataRow[] drs_not_null, delegate_NewGroupSelected doPaintGroup)
+        {
+            if (this.m_GroupList != null)
+            {
+                this.m_GroupList.PurgeNotNull(pnl_Group, drs_not_null, doPaintGroup);
+            }
+        }
+
+        internal void PurgeNull(Panel pnl_Group)
+        {
+            if (this.m_GroupList != null)
+            {
+                this.m_GroupList.PurgeNull(pnl_Group);
+            }
+        }
+
+
+        public Group Select(int NumberOfGroupLevel,string[] sGroupArr)
+        {
+            if (IsRoot)
+            {
+                if (m_GroupList != null)
+                {
+                    foreach (Group grp in m_GroupList.Items)
+                    {
+                        Group g =  grp.Select(NumberOfGroupLevel - 1, sGroupArr);
+                        if (g!=null)
+                        {
+                            this.m_CurrentSubGroup_In_m_GroupList = g;
+                            return g;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (NumberOfGroupLevel >= 0)
+                {
+                    if (sGroupArr[NumberOfGroupLevel] != null)
+                    {
+                        if (this.Name != null)
+                        {
+                            if (this.Name.Equals(sGroupArr[NumberOfGroupLevel]))
+                            {
+                                this.SingleSelected = true;
+                                if (m_GroupList != null)
+                                {
+                                    foreach (Group grp in m_GroupList.Items)
+                                    {
+                                        Group g = grp.Select(NumberOfGroupLevel - 1, sGroupArr);
+                                        if (g!=null)
+                                        {
+                                            this.m_CurrentSubGroup_In_m_GroupList = g;
+                                            return g;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    return this;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (m_GroupList != null)
+                            {
+                                foreach (Group grp in m_GroupList.Items)
+                                {
+                                    Group g = grp.Select(NumberOfGroupLevel - 1, sGroupArr);
+                                    if (g != null)
+                                    {
+                                        this.m_CurrentSubGroup_In_m_GroupList = g;
+                                        return g;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (this.Name == null)
+                        {
+                            if (NumberOfGroupLevel == 0)
+                            {
+                                this.SingleSelected = true;
+                                return this;
+                            }
+                            else
+                            {
+                                return Select(NumberOfGroupLevel - 1, sGroupArr);
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public Group GetCurrent()
+        {
+            if (m_GroupList!=null)
+            {
+                int i = 0;
+                int iCount = m_GroupList.Items.Count;
+                if (iCount > 0)
+                {
+                    Group g = null;
+                    for (i = 0; i < iCount; i++)
+                    {
+                        g = m_GroupList.Items[i];
+                        if (g.SingleSelected)
+                        {
+                            if (g.m_GroupList != null)
+                            {
+                                return g.GetCurrent();
+                            }
+                            else
+                            {
+                                return g;
+                            }
+                        }
+                    }
+                    g = m_GroupList.Items[0];
+                    g.SingleSelected = true;
+                    if (g.m_GroupList != null)
+                    {
+                        return g.GetCurrent();
+                    }
+                    else
+                    {
+                        return g;
+                    }
+                }
+            }
+            return null;
+        }
+
+        internal void Path(ref List<string> m_sGroupList)
+        {
+            m_sGroupList.Add(this.m_Name);
+            if (m_pParent!=null)
+            {
+                if (m_pParent.IsRoot)
+                {
+                    return;
+                }
+                else
+                {
+                    m_pParent.Path(ref m_sGroupList);
+                }
+            }
+        }
+
+        public string Path(ref string s)
+        {
+            s = "\\"+this.m_Name_In_Language + s;
+            if (m_pParent != null)
+            {
+                if (!m_pParent.IsRoot)
+                {
+                    m_pParent.Path(ref s);
+                }
+            }
+            return s;
         }
     }
 }

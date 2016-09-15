@@ -19,19 +19,23 @@ namespace usrc_Item_Group_Handler
     public class GroupList
     {
         public List<Group> Items = new List<Group>();
-
+        public Group m_GroupParent = null;
         public void Add(Group grp)
         {
             Items.Add(grp);
         }
 
+        public GroupList(Group xGroupParent)
+        {
+            m_GroupParent = xGroupParent;
+        }
         public Group Find(string sx_name)
         {
             foreach (Group xgrp in Items)
             {
                 if (xgrp.EqualsTo(sx_name))
                 {
-                    return xgrp;
+                     return xgrp;
                 }
 
             }
@@ -53,18 +57,18 @@ namespace usrc_Item_Group_Handler
             return Items[0];
         }
 
-        internal Group SetFirst()
+        internal Group SelectFirst()
         {
             if (Items.Count > 0)
             {
-                Group grp = Items.First();
-                Group sub_grp = grp;
-                while (sub_grp.m_GroupList != null)
+                Group grpFirst = Items.First();
+                grpFirst.SingleSelected = true;
+                Group sub_grp = grpFirst;
+                if (sub_grp.m_GroupList != null)
                 {
-                    sub_grp = sub_grp.m_GroupList.SetFirst();
+                    sub_grp = sub_grp.m_GroupList.SelectFirst();
                 }
-                grp.SetCurrent();
-                return grp;
+                return sub_grp;
             }
             else
             {
@@ -109,13 +113,17 @@ namespace usrc_Item_Group_Handler
             {
                 
             }
+            foreach(Group g in Items)
+            {
+                g.SingleSelected = false;
+            }
             Group grp = Items.First();
             Group sub_grp = grp;
             while (sub_grp.m_GroupList != null)
             {
-                sub_grp = sub_grp.m_GroupList.SetFirst();
+                sub_grp = sub_grp.m_GroupList.SelectFirst();
             }
-            grp.SetCurrent();
+            grp.SingleSelected = true; 
             return grp;
         }
 
@@ -246,6 +254,17 @@ namespace usrc_Item_Group_Handler
                 return true;
             }
             
+        }
+
+        internal void SetButtonsVisible()
+        {
+            int mypos = 0;
+            int i = 0;
+            int iCount = Items.Count();
+            for (i=0;i< iCount;i++)
+            {
+                Items[i].ShowButton(i, ref mypos);
+            }
         }
     }
 }
