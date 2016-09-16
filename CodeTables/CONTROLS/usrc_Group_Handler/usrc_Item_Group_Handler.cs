@@ -31,6 +31,19 @@ namespace usrc_Item_Group_Handler
         private int m_Button_Height = 32;
         private int m_Font_Height = 10;
 
+        private string m_ShopName = "";
+
+        public string ShopName
+        {
+            get { return m_ShopName; }
+            set { m_ShopName = value;
+                  if (this.form_group_handler!=null)
+                  {
+                    form_group_handler.ShopName = m_ShopName;
+                  }
+                }
+        }
+
         public int Button_Height
         {
             get { return m_Button_Height; }
@@ -47,8 +60,8 @@ namespace usrc_Item_Group_Handler
         int ypos = 0;
 
 
-        public Group m_GroupRoot = null;
-        public Group m_CurrentGroup = null;
+        internal Group m_GroupRoot = null;
+        internal Group m_CurrentGroup = null;
 
         private int m_NumberOfGroupLevels = -1;
         private int m_LastNumberOfGroupLevels = -1;
@@ -112,15 +125,6 @@ namespace usrc_Item_Group_Handler
                             btn_GroupLevel.Dispose();
                             btn_GroupLevel = null;
                         }
-
-                        if (m_GroupRoot == null)
-                        {
-                            m_GroupRoot = new Group(null, null, null, DoPaintGroup, ref ypos, m_Button_Height, m_Font_Height);
-                        }
-                        m_GroupRoot.Clear();
-
-
-                        Set_Groups_NumberOfGroupLevel_EQ_1();
                     }
                     else if (m_NumberOfGroupLevels > 1)
                     {
@@ -129,6 +133,7 @@ namespace usrc_Item_Group_Handler
                             if (form_group_handler == null)
                             {
                                 form_group_handler = new Form_GroupHandler();
+                                form_group_handler.ShopName = this.ShopName;
                             }
                             pnl_Group.Controls.Clear();
                             if (btn_GroupLevel == null)
@@ -143,15 +148,16 @@ namespace usrc_Item_Group_Handler
                             }
                         }
 
-                        if (m_GroupRoot == null)
-                        {
-                            m_GroupRoot = new Group(null, null, null, DoPaintGroup, ref ypos, m_Button_Height, m_Font_Height);
-                        }
-                        m_GroupRoot.Clear();
-
-
-                        Set_Groups_NumberOfGroupLevel_GT_1();
                     }
+                    if (m_GroupRoot == null)
+                    {
+                        m_GroupRoot = new Group(null, null, null, DoPaintGroup, ref ypos, m_Button_Height, m_Font_Height);
+                    }
+                    m_GroupRoot.Clear();
+
+
+                    CreateGroupTree();
+
                 }
             }
             if (GroupsRedefined != null)
@@ -162,13 +168,6 @@ namespace usrc_Item_Group_Handler
             if (m_GroupRoot.m_CurrentSubGroup_In_m_GroupList == null)
             {
                 m_GroupRoot.m_CurrentSubGroup_In_m_GroupList = m_GroupRoot.SetFirst();
-            }
-            else
-            {
-                //if (!m_CurrentGroup.SetCurrent())
-                //{
-                //    m_CurrentGroup = m_GroupRoot.SetFirst();
-                //}
             }
             m_LastNumberOfGroupLevels = m_NumberOfGroupLevels;
             return (m_NumberOfGroupLevels > 0);
@@ -244,7 +243,7 @@ namespace usrc_Item_Group_Handler
         private bool Set_Groups_Object_Equals(object p1, object p2)
         {
             Type p1_type = p1.GetType();
-            Type p2_type = p1.GetType();
+            Type p2_type = p2.GetType();
             if (p1_type.Equals(p2_type))
             {
                 if (p1 is string)
@@ -302,7 +301,7 @@ namespace usrc_Item_Group_Handler
             m_GroupRoot.PurgeNotNull(this.pnl_Group, drs_not_null,DoPaintGroup);
         }
 
-        private void Set_Groups_NumberOfGroupLevel_GT_1()
+        private void CreateGroupTree()
         {
             int ypos_pnl1 = 0;
             int ypos_pnl2 = 0;
@@ -451,14 +450,28 @@ namespace usrc_Item_Group_Handler
                         {
                             continue;
                         }
-                        Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                        if (m_NumberOfGroupLevels > 1)
+                        {
+                            Group grp_pnl1 = new Group(sGroupName_pnl1, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                        }
+                        else
+                        {
+                            Group grp_pnl1 = new Group(sGroupName_pnl1, this.pnl_Group, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                        }
                     }
                 }
             }
             drs_spnl3 = m_dt_Group.Select("s1_name is null and s2_name is null and s3_name is null");
             if (drs_spnl3.Count() > 0)
             {
-                Group grp_pnl1 = new Group(null, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                if (m_NumberOfGroupLevels > 1)
+                {
+                    Group grp_pnl1 = new Group(null, this.form_group_handler.s3_pnl, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                }
+                else
+                {
+                    Group grp_pnl1 = new Group(null, this.pnl_Group, m_GroupRoot, DoPaintGroup, ref ypos_pnl1, 32, 10);
+                }
             }
         }
 
@@ -467,6 +480,7 @@ namespace usrc_Item_Group_Handler
         private void Btn_GroupLevel_Click(object sender, EventArgs e)
         {
             form_group_handler.Show();
+            form_group_handler.Focus();
         }
 
 
@@ -506,20 +520,23 @@ namespace usrc_Item_Group_Handler
                 }
 
                 m_CurrentGroup.SetVisible();
-                switch (m_CurrentGroup.GroupLevel)
+                if (m_NumberOfGroupLevels > 1)
                 {
-                    case 1:
-                        form_group_handler.ShowRootLevel1();
-                        break;
-                    case 2:
-                        form_group_handler.ShowRootLevel2();
-                        break;
-                    case 3:
-                        form_group_handler.ShowRootLevel3();
-                        break;
+                    switch (m_CurrentGroup.GroupLevel)
+                    {
+                        case 1:
+                            form_group_handler.ShowRootLevel1();
+                            break;
+                        case 2:
+                            form_group_handler.ShowRootLevel2();
+                            break;
+                        case 3:
+                            form_group_handler.ShowRootLevel3();
+                            break;
+                    }
+                    form_group_handler.LimitHeight();
+                    form_group_handler.GroupPath = GroupPath;
                 }
-                form_group_handler.LimitHeight();
-                form_group_handler.Text = GroupPath;
                 if (PaintGroup != null)
                 {
                     PaintGroup(sgrups);

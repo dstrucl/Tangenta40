@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using DBConnectionControl40;
 using TangentaDB;
+using LanguageControl;
 
 namespace ShopC
 {
@@ -109,6 +110,7 @@ namespace ShopC
             m_ShopBC = xm_ShopBC;
             m_usrc_ItemMan = x_usrc_ItemMan;
             DBtcn = xDBtcn;
+            this.m_usrc_Item_Group_Handler.ShopName = lngRPM.s_Shop_C.s;
             Init();
         }
 
@@ -134,13 +136,33 @@ namespace ShopC
             m_PriceList_ID = PriceList_ID;
             if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.GetGroupsTable(PriceList_ID))
             {
-                m_usrc_Item_Group_Handler.Set_Groups(m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group);
-                return true;
+                if (m_usrc_Item_Group_Handler.Set_Groups(m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group))
+                {
+                    if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows.Count > 0)
+                    {
+                        string s1_name = null;
+                        string s2_name = null;
+                        string s3_name = null;
+                        if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s1_name"] is string)
+                        {
+                            s1_name = (string)m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s1_name"];
+                        }
+                        if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s2_name"] is string)
+                        {
+                            s2_name = (string)m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s2_name"];
+                        }
+                        if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s3_name"] is string)
+                        {
+                            s3_name = (string)m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows[0]["s3_name"];
+                        }
+
+                        string[] sGroup = new string[] { s1_name, s2_name, s3_name };
+                        m_usrc_Item_Group_Handler.Select(sGroup);
+                        return true;
+                    }
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
 

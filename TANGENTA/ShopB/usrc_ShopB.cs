@@ -115,7 +115,8 @@ namespace ShopB
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_Count, DBtcn.column_SelectedShopBItem_Count_TYPE);
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ExtraDiscount, DBtcn.column_SelectedShopBItem_ExtraDiscount_TYPE);
             string Err = null;
-             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use,xnav, ref Err);
+            this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use,xnav, ref Err);
+            this.usrc_Item_Group_Handler.ShopName = lngRPM.s_Shop_B.s;
         }
 
         public void SetMode(eMode mode)

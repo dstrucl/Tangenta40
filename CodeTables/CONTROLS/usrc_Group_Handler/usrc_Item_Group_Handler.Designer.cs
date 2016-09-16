@@ -34,7 +34,6 @@
             // pnl_Group
             // 
             this.pnl_Group.AutoScroll = true;
-            this.pnl_Group.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnl_Group.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_Group.Location = new System.Drawing.Point(0, 0);
             this.pnl_Group.Name = "pnl_Group";

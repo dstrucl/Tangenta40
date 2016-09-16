@@ -181,6 +181,7 @@ namespace usrc_Item_Group_Handler
             rbtn.Width = m_pnl.Width;
             rbtn.Height = button_height;
             rbtn.Top = ypos;
+            rbtn.Visible = true;
             ypos += button_height + 2;
         }
 
@@ -236,9 +237,24 @@ namespace usrc_Item_Group_Handler
                     int mypos = 0;
                     int i = 0;
                     int iCount = m_pParent.m_GroupList.Items.Count;
+                    Panel xpnl = null;
                     for (i = 0; i < iCount; i++)
                     {
                         m_pParent.m_GroupList.Items[i].ShowButton(i, ref mypos);
+                        if (xpnl==null)
+                        {
+                            xpnl = m_pParent.m_GroupList.Items[i].m_pnl;
+                        }
+                    }
+                    // hide to many buttons !
+                    if (xpnl != null)
+                    {
+                        int iCountOfRadioButtons = xpnl.Controls.Count;
+                        while (iCountOfRadioButtons > iCount)
+                        {
+                            iCountOfRadioButtons--;
+                            xpnl.Controls[iCountOfRadioButtons].Visible = false;
+                        }
                     }
                 }
             }
@@ -392,7 +408,7 @@ namespace usrc_Item_Group_Handler
                                     foreach (Group grp in m_GroupList.Items)
                                     {
                                         Group g = grp.Select(NumberOfGroupLevel - 1, sGroupArr);
-                                        if (g!=null)
+                                        if (g != null)
                                         {
                                             this.m_CurrentSubGroup_In_m_GroupList = g;
                                             return g;
@@ -431,6 +447,13 @@ namespace usrc_Item_Group_Handler
                                 return this;
                             }
                             else
+                            {
+                                return Select(NumberOfGroupLevel - 1, sGroupArr);
+                            }
+                        }
+                        else
+                        {
+                            if (NumberOfGroupLevel > 0)
                             {
                                 return Select(NumberOfGroupLevel - 1, sGroupArr);
                             }

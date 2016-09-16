@@ -22,6 +22,34 @@ namespace usrc_Item_Group_Handler
         private int SplitContainer2_SplitterDistance = -1;
         private int This_Width = -1;
 
+        private string m_ShopName = "";
+        private string m_GroupPath = "";
+
+        public string ShopName
+        {
+            get { return m_ShopName; }
+            set
+            {
+                m_ShopName = value;
+                if (m_ShopName != null)
+                {
+                    this.Text = m_ShopName + " " + GroupPath;
+                }
+            }
+        }
+        public string GroupPath
+        {
+            get { return m_GroupPath; }
+            set
+            {
+                m_GroupPath = value;
+                if (m_GroupPath != null)
+                {
+                    this.Text = m_ShopName + " " + m_GroupPath;
+                }
+            }
+        }
+
         public Form_GroupHandler()
         {
             InitializeComponent();
