@@ -233,7 +233,7 @@ namespace ShopC
             }
             else
             {
-                m_usrc_Item_Group_Handler.SetVisible(true);
+               m_usrc_Item_Group_Handler.SetVisible(true);
                 pnl_Items.Width = ipnl_Items_Width_default;
             }
 

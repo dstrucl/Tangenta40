@@ -61,6 +61,7 @@ namespace usrc_Item_Group_Handler
             SplitContainer1_SplitterDistance = this.splitContainer1.SplitterDistance;
             SplitContainer2_SplitterDistance = this.splitContainer2.SplitterDistance;
             This_Width = this.Width;
+            this.Visible = false;
     }
 
 

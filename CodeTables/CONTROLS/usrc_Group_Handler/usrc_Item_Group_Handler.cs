@@ -489,18 +489,10 @@ namespace usrc_Item_Group_Handler
             if (v)
             {
                 this.Visible = true;
-                if (form_group_handler != null)
-                {
-                    form_group_handler.Show();
-                }
             }
             else
             {
                 this.Visible = false;
-                if (form_group_handler != null)
-                {
-                    form_group_handler.Visible = false;
-                }
             }
         }
 
