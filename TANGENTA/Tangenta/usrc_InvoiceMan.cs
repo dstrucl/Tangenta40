@@ -96,9 +96,9 @@ namespace Tangenta
             Program.Cursor_Wait();
             InvoiceType_Invoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.Invoice);
             List_InvoiceType.Add(InvoiceType_Invoice);
-            InvoiceType_Invoice_From_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice_From_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.DocInvoice);
+            InvoiceType_Invoice_From_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice_From_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
             List_InvoiceType.Add(InvoiceType_Invoice_From_DocInvoice);
-            InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.DocInvoice);
+            InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
             List_InvoiceType.Add(InvoiceType_DocInvoice);
             this.cmb_InvoiceType.DataSource = null;
             this.cmb_InvoiceType.DataSource = List_InvoiceType;
@@ -314,5 +314,11 @@ namespace Tangenta
             Form_SelectPanels frm_select_panels = new Form_SelectPanels(this);
             frm_select_panels.ShowDialog(this);
         }
+
+        internal void Activate_dgvx_XInvoice_SelectionChanged()
+        {
+            this.m_usrc_InvoiceTable.Activate_dgvx_XInvoice_SelectionChanged();
+        }
+
     }
 }

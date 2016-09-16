@@ -285,7 +285,6 @@ namespace TangentaDB
             INNER JOIN  Atom_PriceList ON Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID 
             INNER JOIN  Atom_Currency ON Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
             INNER JOIN  DocInvoice ON DocInvoice_ShopC_Item.DocInvoice_ID = DocInvoice.ID 
-            INNER JOIN  Invoice ON DocInvoice.Invoice_ID = Invoice.ID
             INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
             INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
             INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
@@ -809,6 +808,25 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:Update_SelectedSimpleItem:FindRowIndex_In_dtDraft_Atom_SimpleItem FAILED!");
                 return false;
             }
+        }
+
+        public void Set_dgv_selected_ShopB_Items_Columns(DataGridView dgv_SelectedShopB_Items)
+        {
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemName].HeaderText = lngRPM.s_Shop_B.s;
+            //this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemName].MinimumWidth = 120;
+            //this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemName].Width = 120;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceWithoutTax].HeaderText = lngRPM.s_PriceWithoutTax.s;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceTax].HeaderText = lngRPM.s_Tax.s;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPrice].HeaderText = lngRPM.s_EndPrice.s; 
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_Count].HeaderText = lngRPM.s_Quantity.s;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = false;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ShopBItem_ID].Visible = false;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_Selected_Atom_Price_ShopBItem_ID].Visible = false;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index].Visible = false;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = false;
+
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_TaxName].Visible = false;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_TaxRate].Visible = false;
         }
 
         private int FindRowIndex_In_dtDraft_Atom_SimpleItem(long DocInvoice_ShopB_Item_ID)

@@ -464,6 +464,7 @@ namespace Tangenta
                 m_usrc_Main.Init(nav);
                 m_startup.RemoveControl();
                 m_usrc_Main.Visible = true;
+                m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
             }
             else
             {

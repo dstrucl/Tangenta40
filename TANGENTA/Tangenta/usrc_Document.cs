@@ -41,16 +41,20 @@ namespace Tangenta
 
         public bool Get_ProgramSettings(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
-            Program.b_FVI_SLO = true;
-            if (Get_shops_in_use(xnav,true))
+            if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
             {
-                myStartup.eNextStep++;
+                Program.b_FVI_SLO = true;
+                if (Get_shops_in_use(xnav, true))
+                {
+                    myStartup.eNextStep++;
+                }
+                else
+                {
+                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                }
+                return true;
             }
-            else
-            {
-                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-            }
-            return true;
+            return false;
         }
 
 
@@ -384,6 +388,11 @@ namespace Tangenta
             Properties.Settings.Default.BackupFolder = BackupFolder;
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();
+        }
+
+        internal void Activate_dgvx_XInvoice_SelectionChanged()
+        {
+            this.m_usrc_InvoiceMan.Activate_dgvx_XInvoice_SelectionChanged();
         }
     }
 }

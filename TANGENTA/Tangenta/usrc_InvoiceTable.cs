@@ -65,6 +65,11 @@ namespace Tangenta
             lngRPM.s_from.Text(this.lbl_From_To);
         }
 
+        internal void Activate_dgvx_XInvoice_SelectionChanged()
+        {
+            this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
+        }
+
         internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice, bool bNew,bool bInitialise_usrc_Invoice,int iFinancialYear)
         {
             ColorDraft = Properties.Settings.Default.ColorDraft;
@@ -81,9 +86,8 @@ namespace Tangenta
                     this.dgvx_XInvoice.SelectionChanged -= new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
                     iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
                     ShowOrEditSelectedRow(bInitialise_usrc_Invoice);
-                    this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
                     break;
-                case usrc_Invoice.enum_Invoice.DocInvoice:
+                case usrc_Invoice.enum_Invoice.ProformaInvoice:
                     iRowsCount = Init_DocInvoice();
                     break;
             }

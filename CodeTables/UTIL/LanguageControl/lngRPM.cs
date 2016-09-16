@@ -495,10 +495,15 @@ namespace LanguageControl
 
         public static ltext s_RetailPrice = new ltext("Price:", "Cena:");
 
+        public static ltext s_Tax = new ltext("Tax",
+                                                   "Davek");
+
         public static ltext s_TaxPrice = new ltext("Tax:",
                                                    "Davek:");
-        
-        public static ltext s_WithoutTaxPrice = new ltext("Withou tax:",
+
+        public static ltext s_PriceWithoutTax = new ltext("Price without tax",
+                                                          "Cena brez davka");
+        public static ltext s_WithoutTaxPrice = new ltext("Without tax:",
                                                           "Cena brez davka:");
 
 

@@ -81,7 +81,6 @@ namespace TangentaDB
             decimal DocInvoice_ShopB_Item_RetailSimpleItemPriceWithDiscount;
             decimal DocInvoice_ShopB_Item_PriceWithoutTax;
             decimal DocInvoice_ShopB_Item_ExtraDiscount;
-
             dt_SelectedSimpleItem.Clear();
             foreach (DataRow drsa in dtCurrent_Atom_Price_ShopBItem.Rows)
             {
@@ -138,6 +137,8 @@ namespace TangentaDB
                     }
                 }
             }
+            m_InvoiceDB.Set_dgv_selected_ShopB_Items_Columns(dgv_SelectedSimpleItems);
+
         }
 
         private int Find_dt_SimpleItem_Index(DataTable dt_SimpleItems, long Atom_SimpleItem_SimpleItem_ID)

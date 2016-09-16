@@ -309,7 +309,7 @@ namespace TangentaDB
                                   s.ID as Stock_ID,
                                   appis.dQuantity,
                                   s.dQuantity as Stock_dQuantity
-                                  from Atom_DocInvoice_price_item_stock  appis
+                                  from DocInvoice_ShopC_Item  appis
                                   inner join Stock s on appis.Stock_ID = s.ID
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID

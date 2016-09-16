@@ -91,6 +91,7 @@ namespace TangentaDB
         public string colStockVIEW_Stock_Quantity = "Stock_Quantity";
         public string colStockVIEW_Stock_ExpiryDate = "Stock_ExpiryDate";
 
+        //SelectedSimpleItem
         public string column_SelectedShopBItem_dt_ShopBItem_Index = "SelectedSimpleItem_dt_SimpleItem_Index";
         public Type column_SelectedShopBItem_dt_ShopBItem_Index_TYPE = typeof(int);
 
@@ -101,6 +102,9 @@ namespace TangentaDB
         public Type column_SelectedShopBItemName_TYPE = typeof(string);
         public string column_SelectedShopBItemPrice = "SelectedSimpleItemPrice";
         public Type column_SelectedShopBItemPrice_TYPE = typeof(decimal);
+
+        public string column_SelectedShopBItemRetailPricePerUnit = "SelectedSimpleItemRetailPricePerUnit";
+        public Type column_SelectedShopBItemRetailPricePerUnit_TYPE = typeof(decimal);
 
         public string column_SelectedShopBItemPriceTax = "SelectedSimpleItemPriceTax";
         public Type column_SelectedShopBItemPriceTax_TYPE = typeof(decimal);

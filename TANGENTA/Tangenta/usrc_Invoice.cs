@@ -96,8 +96,8 @@ namespace Tangenta
         public enum enum_Invoice
         {
             Invoice,
-            DocInvoice,
-            Invoice_From_DocInvoice
+            ProformaInvoice,
+            Invoice_From_ProformaInvoice
         };
 
 
@@ -356,11 +356,11 @@ namespace Tangenta
                     case enum_Invoice.Invoice:
                         m_InvoiceTypeName = "Invoice";
                         break;
-                    case enum_Invoice.Invoice_From_DocInvoice:
-                        m_InvoiceTypeName = "Invoice_From_DocInvoice";
+                    case enum_Invoice.Invoice_From_ProformaInvoice:
+                        m_InvoiceTypeName = "Invoice_From_ProformaInvoice";
                         break;
-                    case enum_Invoice.DocInvoice:
-                        m_InvoiceTypeName = "DocInvoice";
+                    case enum_Invoice.ProformaInvoice:
+                        m_InvoiceTypeName = "ProformaInvoice";
                         break;
                 }
             }
@@ -412,6 +412,7 @@ namespace Tangenta
                 }
             }
         }
+
 
         public long PriceList_ShopC_ID
         {
@@ -1427,9 +1428,9 @@ namespace Tangenta
                     return GetCurrentInvoice(ID);
 
 
-                case enum_Invoice.DocInvoice:
+                case enum_Invoice.ProformaInvoice:
                     return GetDocInvoiceDraft();
-                case enum_Invoice.Invoice_From_DocInvoice:
+                case enum_Invoice.Invoice_From_ProformaInvoice:
                     return SelectDocInvoice();
             }
             return false;
@@ -1440,7 +1441,7 @@ namespace Tangenta
         private bool GetCurrentInvoice(long DocInvoice_ID)
         {
         string Err = null;
-        //
+            //
         if (m_ShopABC.Get(true, DocInvoice_ID, ref Err)) // try to get draft
         {
                 this.txt_Number.Text = Program.GetInvoiceNumber(m_ShopABC.m_CurrentInvoice.bDraft, m_ShopABC.m_CurrentInvoice.FinancialYear, m_ShopABC.m_CurrentInvoice.NumberInFinancialYear, m_ShopABC.m_CurrentInvoice.DraftNumber);
@@ -1656,10 +1657,10 @@ namespace Tangenta
                     }
                     return;
 
-                case enum_Invoice.DocInvoice:
+                case enum_Invoice.ProformaInvoice:
                     return;
 
-                case enum_Invoice.Invoice_From_DocInvoice:
+                case enum_Invoice.Invoice_From_ProformaInvoice:
                     return;
             }
             return;
