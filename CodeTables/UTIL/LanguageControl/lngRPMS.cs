@@ -17,6 +17,8 @@ namespace LanguageControl
 {
     public static class lngRPMS
     {
+        public static ltext s_WriteItemsToDatabase = new ltext("Number of items to write:", "Število artiklov za vpis:");
+        public static ltext s_ItemsWrittenToDB = new ltext("Number of items inserted to database:", "Število artiklov vpisanih v podatkovno bazo:");
         public static ltext s_Piece = new ltext("Piece", "Komad");
         public static ltext s_PieceAbr = new ltext("Pcs", "Kom.");
 

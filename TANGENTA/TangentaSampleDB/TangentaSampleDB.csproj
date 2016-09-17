@@ -164,6 +164,10 @@
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\ProgressForm\ProgressForm.csproj">
+      <Project>{041cb223-4f4d-40bc-aafd-3001cc2178a3}</Project>
+      <Name>ProgressForm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>

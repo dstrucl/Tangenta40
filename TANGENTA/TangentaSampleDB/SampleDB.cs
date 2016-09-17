@@ -922,13 +922,12 @@ select_country:
                         }
                         int k = 0;
                         int SampleDB_Price_ShopB_Item_List_Count = SampleDB_Price_ShopB_Item_List.Count();
+                        ProgressForm.Progress_Thread progress = new ProgressForm.Progress_Thread();
+                        progress.sLabel1 = lngRPMS.s_WriteItemsToDatabase.s + SampleDB_Price_ShopB_Item_List_Count.ToString();
+                        progress.Start();
                         for (k=0;k<SampleDB_Price_ShopB_Item_List_Count;k++)
                         {
                             SampleDB_Price_ShopB_Item sample_ShopB_Item = SampleDB_Price_ShopB_Item_List[k];
-                            if (sample_ShopB_Item.ShopB_Item_Abbreviation.Equals("Art2L3g2L2g2"))
-                            {
-                                MessageBox.Show("STOP");
-                            }
                             if (f_SimpleItem.Get(sample_ShopB_Item.ShopB_Item_Name,
                                                     sample_ShopB_Item.ShopB_Item_Abbreviation,
                                                     sample_ShopB_Item.ShopB_Item_bToOffer,
@@ -960,27 +959,41 @@ select_country:
                                                                    ref sample_ShopB_Item.Price_ShopB_Item_ID
                                                                    ))
                                         {
+                                            if (k % 5 == 0)
+                                            {
+                                                GC.Collect();
+                                                progress.Message(lngRPMS.s_ItemsWrittenToDB.s, (int)(k * 100) / SampleDB_Price_ShopB_Item_List_Count);
+                                            }
+                                            if (progress.bCancel|| progress.bEnd)
+                                            {
+                                                return true;
+                                            }
                                         }
                                         else
                                         {
+                                            progress.End();
                                             return false;
                                         }
                                     }
                                     else
                                     {
+                                        progress.End();
                                         return false;
                                     }
                                 }
                                 else
                                 {
+                                    progress.End();
                                     return false;
                                 }
                             }
                             else
                             {
+                                progress.End();
                                 return false;
                             }
                         }
+                        progress.End();
                     }
                 }
                 return true;
@@ -1531,27 +1544,33 @@ select_country:
                         }
                         int k = 0;
                         int SampleDB_Price_ShopC_Item_List_Count = SampleDB_Price_ShopC_Item_List.Count();
+                        ProgressForm.Progress_Thread progress = new ProgressForm.Progress_Thread();
+                        progress.sLabel1 = lngRPMS.s_WriteItemsToDatabase.s + SampleDB_Price_ShopC_Item_List_Count.ToString();
+                        progress.Start();
+                        f_Expiry.Expiry_v expiry_v = new f_Expiry.Expiry_v();
+                        f_Warranty.Warranty_v warranty_v = new f_Warranty.Warranty_v();
+                        f_Expiry.Expiry_v xexpiry_v = null;
+                        f_Warranty.Warranty_v xwarranty_v = null;
                         for (k = 0; k < SampleDB_Price_ShopC_Item_List_Count; k++)
                         {
+                            xexpiry_v = null;
+                            xwarranty_v = null;
                             SampleDB_Price_ShopC_Item sample_ShopC_Item = SampleDB_Price_ShopC_Item_List[k];
-                            f_Expiry.Expiry_v expiry_v = null;
                             if (sample_ShopC_Item.ShopC_Item_Expiry_ExpectedShelfLifeInDays >= 0)
                             {
-                                expiry_v = new f_Expiry.Expiry_v();
                                 expiry_v.ExpectedShelfLifeInDays = sample_ShopC_Item.ShopC_Item_Expiry_ExpectedShelfLifeInDays;
                                 expiry_v.DiscardBeforeExpiryDateInDays = sample_ShopC_Item.ShopC_Item_Expiry_DiscardBeforeExpiryDateInDays;
                                 expiry_v.SaleBeforeExpiryDateInDays = sample_ShopC_Item.ShopC_Item_Expiry_SaleBeforeExpiryDateInDays;
                                 expiry_v.ExpiryDescription = sample_ShopC_Item.ShopC_Item_Expiry_ExpiryDescription;
+                                xexpiry_v = expiry_v;
 
                             }
-                            f_Warranty.Warranty_v warranty_v = null;
                             if (sample_ShopC_Item.ShopC_Item_Warranty_WarrantyDuration >= 0)
                             {
-                                warranty_v = new f_Warranty.Warranty_v();
                                 warranty_v.WarrantyDuration = sample_ShopC_Item.ShopC_Item_Warranty_WarrantyDuration;
                                 warranty_v.WarrantyDurationType = sample_ShopC_Item.ShopC_Item_Warranty_WarrantyDurationType;
                                 warranty_v.WarrantyConditions = sample_ShopC_Item.ShopC_Item_Warranty_WarrantyConditions;
-
+                                xwarranty_v = warranty_v;
                             }
 
                             if (f_Item.Get(sample_ShopC_Item.ShopC_Item_Name,
@@ -1566,8 +1585,8 @@ select_country:
                                            "Artikli kot komadi.",
                                            null,
                                            null,
-                                           expiry_v,
-                                           warranty_v,
+                                           xexpiry_v,
+                                           xwarranty_v,
                                            sample_ShopC_Item.ShopC_Item_ParentGroup1,
                                            sample_ShopC_Item.ShopC_Item_ParentGroup2,
                                            sample_ShopC_Item.ShopC_Item_ParentGroup3,
@@ -1598,28 +1617,41 @@ select_country:
                                                              ref sample_ShopC_Item.ShopC_Price_Item_ID
                                                              ))
                                         {
-                                            continue;
+                                            if (k % 5 == 0)
+                                            {
+                                                GC.Collect();
+                                                progress.Message(lngRPMS.s_ItemsWrittenToDB.s, (int)(k * 100) / SampleDB_Price_ShopC_Item_List_Count);
+                                            }
+                                            if (progress.bCancel || progress.bEnd)
+                                            {
+                                                return true;
+                                            }
                                         }
                                         else
                                         {
+                                            progress.End();
                                             return false;
                                         }
                                     }
                                     else
                                     {
+                                        progress.End();
                                         return false;
                                     }
                                 }
                                 else
                                 {
+                                    progress.End();
                                     return false;
                                 }
                             }
                             else
                             {
+                                progress.End();
                                 return false;
                             }
                         }
+                        progress.End();
                     }
                 }
                 return true;
