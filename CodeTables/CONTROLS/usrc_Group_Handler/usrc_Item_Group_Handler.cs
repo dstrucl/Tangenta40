@@ -139,23 +139,24 @@ namespace usrc_Item_Group_Handler
                     }
                     else if (m_NumberOfGroupLevels > 1)
                     {
+                        if (btn_GroupLevel == null)
+                        {
+                            pnl_Group.Controls.Clear();
+                            btn_GroupLevel = new Button();
+                            btn_GroupLevel.Text = "";
+                            btn_GroupLevel.Image = Properties.Resources.GroupTree;
+                            btn_GroupLevel.Dock = DockStyle.Fill;
+                            btn_GroupLevel.ImageAlign = ContentAlignment.MiddleCenter;
+                            btn_GroupLevel.Click += Btn_GroupLevel_Click;
+                            pnl_Group.Controls.Add(btn_GroupLevel);
+                        }
+
                         if (m_LastNumberOfGroupLevels != m_NumberOfGroupLevels)
                         {
                             if (form_group_handler == null)
                             {
                                 form_group_handler = new Form_GroupHandler();
                                 form_group_handler.ShopName = this.ShopName;
-                            }
-                            pnl_Group.Controls.Clear();
-                            if (btn_GroupLevel == null)
-                            {
-                                btn_GroupLevel = new Button();
-                                btn_GroupLevel.Text = "";
-                                btn_GroupLevel.Image = Properties.Resources.GroupTree;
-                                btn_GroupLevel.Dock = DockStyle.Fill;
-                                btn_GroupLevel.ImageAlign = ContentAlignment.MiddleCenter;
-                                btn_GroupLevel.Click += Btn_GroupLevel_Click;
-                                pnl_Group.Controls.Add(btn_GroupLevel);
                             }
                         }
 
@@ -164,6 +165,22 @@ namespace usrc_Item_Group_Handler
                     CreateGroupTree();
 
                 }
+                else
+                {
+                    if (form_group_handler != null)
+                    {
+                        form_group_handler.Dispose();
+                        form_group_handler = null;
+                    }
+                    if (btn_GroupLevel != null)
+                    {
+                        btn_GroupLevel.Click -= Btn_GroupLevel_Click;
+                        pnl_Group.Controls.Remove(btn_GroupLevel);
+                        btn_GroupLevel.Dispose();
+                        btn_GroupLevel = null;
+                    }
+                }
+
                 if (GroupsRedefined != null)
                 {
                     GroupsRedefined(m_NumberOfGroupLevels);
