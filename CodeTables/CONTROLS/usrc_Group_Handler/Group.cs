@@ -391,6 +391,17 @@ namespace usrc_Item_Group_Handler
                         }
                     }
                 }
+                else
+                {
+                    foreach (string s in sGroupArr)
+                    {
+                        if (s!=null)
+                        {
+                            return null;
+                        }
+                    }
+                    return this;
+                }
             }
             else
             {

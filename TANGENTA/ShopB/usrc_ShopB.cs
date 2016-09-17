@@ -779,30 +779,39 @@ namespace ShopB
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_Group, sql_Group, ref Err))
             {
-                usrc_Item_Group_Handler.Set_Groups(dt_Group);
-                if (dt_Group.Rows.Count > 0)
+                if (usrc_Item_Group_Handler.Set_Groups(dt_Group))
                 {
-                    string s1_name = null;
-                    string s2_name = null;
-                    string s3_name = null;
-                    if (dt_Group.Rows[0]["s1_name"] is string)
+                    splitContainer1.Panel2Collapsed = false;
+                    if (dt_Group.Rows.Count > 0)
                     {
-                        s1_name = (string)dt_Group.Rows[0]["s1_name"];
-                    }
-                    if (dt_Group.Rows[0]["s2_name"] is string)
-                    {
-                        s2_name = (string)dt_Group.Rows[0]["s2_name"];
-                    }
-                    if (dt_Group.Rows[0]["s3_name"] is string)
-                    {
-                        s3_name = (string)dt_Group.Rows[0]["s3_name"];
-                    }
+                        string s1_name = null;
+                        string s2_name = null;
+                        string s3_name = null;
+                        if (dt_Group.Rows[0]["s1_name"] is string)
+                        {
+                            s1_name = (string)dt_Group.Rows[0]["s1_name"];
+                        }
+                        if (dt_Group.Rows[0]["s2_name"] is string)
+                        {
+                            s2_name = (string)dt_Group.Rows[0]["s2_name"];
+                        }
+                        if (dt_Group.Rows[0]["s3_name"] is string)
+                        {
+                            s3_name = (string)dt_Group.Rows[0]["s3_name"];
+                        }
 
-                    string[] sGroup = new string[] { s1_name, s2_name, s3_name };
-                    usrc_Item_Group_Handler.Select(sGroup);
+                        string[] sGroup = new string[] { s1_name, s2_name, s3_name };
+                        usrc_Item_Group_Handler.Select(sGroup);
+                    }
+                    return true;
                 }
-                return true;
-                
+                else
+                {
+                    splitContainer1.Panel2Collapsed = true;
+                    string[] sGroup = new string[] { null, null, null };
+                    usrc_Item_Group_Handler.Select(sGroup);
+                    return true;
+                }
             }
             else
             {

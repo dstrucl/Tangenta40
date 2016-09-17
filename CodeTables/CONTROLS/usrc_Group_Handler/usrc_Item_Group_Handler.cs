@@ -109,6 +109,12 @@ namespace usrc_Item_Group_Handler
                     }
                 }
 
+                if (m_GroupRoot == null)
+                {
+                    m_GroupRoot = new Group(null, null, null, DoPaintGroup, ref ypos, m_Button_Height, m_Font_Height);
+                }
+                m_GroupRoot.Clear();
+
                 if (m_NumberOfGroupLevels > 0)
                 {
                     if (m_NumberOfGroupLevels == 1)
@@ -149,25 +155,19 @@ namespace usrc_Item_Group_Handler
                         }
 
                     }
-                    if (m_GroupRoot == null)
-                    {
-                        m_GroupRoot = new Group(null, null, null, DoPaintGroup, ref ypos, m_Button_Height, m_Font_Height);
-                    }
-                    m_GroupRoot.Clear();
-
 
                     CreateGroupTree();
 
                 }
-            }
-            if (GroupsRedefined != null)
-            {
-                GroupsRedefined(m_NumberOfGroupLevels);
-            }
+                if (GroupsRedefined != null)
+                {
+                    GroupsRedefined(m_NumberOfGroupLevels);
+                }
 
-            if (m_GroupRoot.m_CurrentSubGroup_In_m_GroupList == null)
-            {
-                m_GroupRoot.m_CurrentSubGroup_In_m_GroupList = m_GroupRoot.SetFirst();
+                if (m_GroupRoot.m_CurrentSubGroup_In_m_GroupList == null)
+                {
+                    m_GroupRoot.m_CurrentSubGroup_In_m_GroupList = m_GroupRoot.SetFirst();
+                }
             }
             m_LastNumberOfGroupLevels = m_NumberOfGroupLevels;
             return (m_NumberOfGroupLevels > 0);
@@ -532,6 +532,14 @@ namespace usrc_Item_Group_Handler
                 if (PaintGroup != null)
                 {
                     PaintGroup(sgrups);
+                }
+            }
+            else
+            {
+                //No Groups
+                if (PaintGroup != null)
+                {
+                    PaintGroup(null);
                 }
             }
         }

@@ -495,88 +495,95 @@ namespace TangentaDB
                 lpar = new List<SQL_Parameter>();
             }
 
-            if (s_name.Count() == 3)
+            if (s_name == null)
             {
-                if (s_name[2] != null)
+                s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name is null";
+            }
+            else
+            {
+                if (s_name.Count() == 3)
                 {
-                    SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
-                    lpar.Add(par2);
-                    SQL_Parameter par3 = new SQL_Parameter(spar_s3_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[2]);
-                    lpar.Add(par3);
+                    if (s_name[2] != null)
+                    {
+                        SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
+                        lpar.Add(par2);
+                        SQL_Parameter par3 = new SQL_Parameter(spar_s3_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[2]);
+                        lpar.Add(par3);
+                        if (s_name[0] != null)
+                        {
+                            SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
+                            lpar.Add(par1);
+                            s_group_condition = " and s3.Name = " + spar_s3_name + " and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                        }
+                        else
+                        {
+                            s_group_condition = " and s2.Name = " + spar_s3_name + " and s1.Name = " + spar_s2_name + " and s3.Name is null ";
+                        }
+                    }
+                    else if (s_name[1] != null)
+                    {
+                        SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
+                        SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
+                        lpar.Add(par2);
+                        lpar.Add(par1);
+                        s_group_condition = " and s3.Name is null and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                    }
+                    else if (s_name[0] != null)
+                    {
+                        SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
+                        lpar.Add(par1);
+                        s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name = " + spar_s1_name + " ";
+                    }
+                    else
+                    {
+                        s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name is null";
+                    }
+                }
+                else if (s_name.Count() == 2)
+                {
+                    if (s_name[1] != null)
+                    {
+                        SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
+                        lpar.Add(par1);
+                        if (s_name[0] != null)
+                        {
+                            SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
+                            lpar.Add(par2);
+                            s_group_condition = " and s3.Name is null and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                        }
+                        else
+                        {
+                            s_group_condition = " and s3.Name is null and s2.Name is null  and s1.Name = " + spar_s1_name + " ";
+                        }
+                    }
+                    else if (s_name[0] != null)
+                    {
+                        SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
+                        lpar.Add(par1);
+                        s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name = " + spar_s1_name + " ";
+                    }
+                    else
+                    {
+                        s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name is null";
+                    }
+                }
+                else if (s_name.Count() == 1)
+                {
                     if (s_name[0] != null)
                     {
                         SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
                         lpar.Add(par1);
-                        s_group_condition = " and s3.Name = " + spar_s3_name + " and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
+                        s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name = " + spar_s1_name + " ";
                     }
                     else
                     {
-                        s_group_condition = " and s2.Name = " + spar_s3_name + " and s1.Name = " + spar_s2_name + " and s3.Name is null ";
+                        s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name is null";
                     }
-                }
-                else if (s_name[1] != null)
-                {
-                    SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
-                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
-                    lpar.Add(par2);
-                    lpar.Add(par1);
-                    s_group_condition = " and s3.Name is null and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
-                }
-                else if (s_name[0] != null)
-                {
-                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
-                    lpar.Add(par1);
-                    s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name = " + spar_s1_name + " ";
                 }
                 else
                 {
-                    s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name is null";
+                    s_group_condition = "";
                 }
-            }
-            else if (s_name.Count() == 2)
-            {
-                if (s_name[1] != null)
-                {
-                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[1]);
-                    lpar.Add(par1);
-                    if (s_name[0] != null)
-                    {
-                        SQL_Parameter par2 = new SQL_Parameter(spar_s2_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
-                        lpar.Add(par2);
-                        s_group_condition = " and s3.Name is null and s2.Name = " + spar_s2_name + " and s1.Name = " + spar_s1_name + " ";
-                    }
-                    else
-                    {
-                        s_group_condition = " and s3.Name is null and s2.Name is null  and s1.Name = " + spar_s1_name + " ";
-                    }
-                }
-                else if (s_name[0] != null)
-                {
-                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
-                    lpar.Add(par1);
-                    s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name = " + spar_s1_name + " ";
-                }
-                else
-                {
-                    s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name is null";
-                }
-            }
-            else if (s_name.Count() == 1)
-            {
-                if (s_name[0] != null)
-                {
-                    SQL_Parameter par1 = new SQL_Parameter(spar_s1_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, s_name[0]);
-                    lpar.Add(par1);
-                    s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name = " + spar_s1_name + " ";
-                }
-                else
-                {
-                    s_group_condition = " and s3.Name is null and s2.Name is null and s1.Name is null";
-                }
-            }
-            else
-            {
-                s_group_condition = "";
             }
             return s_group_condition;
         }
