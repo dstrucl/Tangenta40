@@ -19,7 +19,7 @@ namespace usrc_Item_Group_Handler
 {
     public class Group
     {
-        public delegate void delegate_NewGroupSelected();
+        public delegate void delegate_NewGroupSelected(Group grp);
 
         private delegate_NewGroupSelected m_delegate_NewGroupSelected_trigger = null;
         int button_height = 30;
@@ -55,8 +55,16 @@ namespace usrc_Item_Group_Handler
                             foreach (Group g in m_pParent.m_GroupList.Items)
                             {
                                 g.m_bSingleSelected = false;
+                                if (g.rbtn != null)
+                                {
+                                    g.rbtn.BackColor = default_back_color;
+                                }
                             }
                         }
+                    }
+                    if (this.rbtn != null)
+                    {
+                        this.rbtn.BackColor = Color.LightBlue;
                     }
                 }
                 m_bSingleSelected = b;
@@ -125,7 +133,7 @@ namespace usrc_Item_Group_Handler
                     if (grp != null)
                     {
                         grp.SingleSelected = true;
-                        grp.m_delegate_NewGroupSelected_trigger();
+                        grp.m_delegate_NewGroupSelected_trigger(grp);
                     }
                 }
             }
@@ -240,15 +248,29 @@ namespace usrc_Item_Group_Handler
                     Panel xpnl = null;
                     for (i = 0; i < iCount; i++)
                     {
-                        m_pParent.m_GroupList.Items[i].ShowButton(i, ref mypos);
-                        if (xpnl==null)
+                        if (xpnl == null)
                         {
                             xpnl = m_pParent.m_GroupList.Items[i].m_pnl;
+                        }
+                    }
+                    if (xpnl != null)
+                    {
+                        xpnl.AutoScrollPosition = new Point(0, 0);
+                    }
+
+                    int TopPosition = -1;
+                    for (i = 0; i < iCount; i++)
+                    {
+                        m_pParent.m_GroupList.Items[i].ShowButton(i, ref mypos);
+                        if (m_pParent.m_GroupList.Items[i].SingleSelected)
+                        {
+                            TopPosition = m_pParent.m_GroupList.Items[i].rbtn.Top;
                         }
                     }
                     // hide to many buttons !
                     if (xpnl != null)
                     {
+                        //xpnl.AutoScrollPosition = new Point(0, 0);
                         int iCountOfRadioButtons = xpnl.Controls.Count;
                         while (iCountOfRadioButtons > iCount)
                         {
@@ -256,6 +278,7 @@ namespace usrc_Item_Group_Handler
                             xpnl.Controls[iCountOfRadioButtons].Visible = false;
                         }
                     }
+
                 }
             }
         }

@@ -34,6 +34,9 @@ namespace TangentaSampleDB
             lngRPMS.s_lbl_Number_Of_Groups_in_Level2.Text(this.lbl_Number_Of_Groups_in_Level2);
             lngRPMS.s_lbl_Number_Of_Groups_in_Level3.Text(this.lbl_Number_Of_Groups_in_Level3);
             lngRPMS.s_lbl_Number_Of_Items_per_group.Text(this.lbl_NumberOfItemsPerGroup);
+            this.txt_Item_Name_Prefix.Text = shopName+lngRPMS.s_txt_Item_Name_Prefix.s;
+            this.txt_ItemAbbreviationPrefix.Text = shopName+lngRPMS.s_txt_Item_Name_AbrPrefix.s;
+
             rdb_InsertItemsManualy.Checked = true;
 
         }
@@ -85,5 +88,62 @@ namespace TangentaSampleDB
                     break;
             }
         }
+
+        private void nm_UpDn_NumberOfGroupsInLevel1_ValueChanged(object sender, EventArgs e)
+        {
+            if (nm_UpDn_NumberOfGroupsInLevel1.Value>0)
+            {
+                EnableLevel(2);
+            }
+            else
+            {
+                DisableLevel(2);
+                DisableLevel(3);
+            }
+        }
+
+        private void nm_UpDn_NumberOfGroupsInLevel2_ValueChanged(object sender, EventArgs e)
+        {
+            if (nm_UpDn_NumberOfGroupsInLevel2.Value > 0)
+            {
+                EnableLevel(3);
+            }
+            else
+            {
+                DisableLevel(3);
+            }
+        }
+
+        private void DisableLevel(int v)
+        {
+            switch (v)
+            {
+                case 2:
+                    nm_UpDn_NumberOfGroupsInLevel2.Enabled = false;
+                    lbl_Number_Of_Groups_in_Level2.Enabled = false;
+                    break;
+                case 3:
+                    nm_UpDn_NumberOfGroupsInLevel3.Enabled = false;
+                    lbl_Number_Of_Groups_in_Level3.Enabled = false;
+                    break;
+            }
+
+        }
+
+        private void EnableLevel(int v)
+        {
+            switch (v)
+            {
+                case 2:
+                    nm_UpDn_NumberOfGroupsInLevel2.Enabled = true;
+                    lbl_Number_Of_Groups_in_Level2.Enabled = true;
+                    break;
+                case 3:
+                    nm_UpDn_NumberOfGroupsInLevel3.Enabled = true;
+                    lbl_Number_Of_Groups_in_Level3.Enabled = true;
+                    break;
+            }
+        }
+
     }
 }

@@ -17,6 +17,12 @@ namespace LanguageControl
 {
     public static class lngRPMS
     {
+        public static ltext s_Piece = new ltext("Piece", "Komad");
+        public static ltext s_PieceAbr = new ltext("Pcs", "Kom.");
+
+        public static ltext s_txt_Item_Name_Prefix = new ltext("Art", "Art");
+        public static ltext s_txt_Item_Name_AbrPrefix = new ltext("Ar", "Ar");
+
         public static ltext s_lbl_Number_Of_Items_per_group = new ltext("Number of items in group", "Število artiklov ali storitev v skupini");
         public static ltext s_lbl_Number_Of_Groups_in_Level1 = new ltext("Number of groups in Level 1", "Število skupin artiklov ali storitev nivoja 1");
         public static ltext s_lbl_Number_Of_Groups_in_Level2 = new ltext("Number of groups in Level 2", "Število skupin artiklov ali storitev nivoja 2");

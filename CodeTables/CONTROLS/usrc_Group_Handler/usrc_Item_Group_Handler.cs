@@ -22,6 +22,7 @@ namespace usrc_Item_Group_Handler
     {
         public List<string> m_sGroupList = new List<string>();
         public Button btn_GroupLevel = null;
+        private bool bGroupChanged = false;
 
         public delegate void delegate_GroupsRedefined(int Level);
         public event delegate_GroupsRedefined GroupsRedefined = null;
@@ -65,6 +66,8 @@ namespace usrc_Item_Group_Handler
 
         private int m_NumberOfGroupLevels = -1;
         private int m_LastNumberOfGroupLevels = -1;
+        private int m_Last_CurrentGroup_GroupLevel = -1;
+        private int m_Last_CurrentSelectedGroup_GroupLevel = -1;
 
         public int NumberOfGroupLevels
         {
@@ -79,8 +82,10 @@ namespace usrc_Item_Group_Handler
 
         public bool Set_Groups(DataTable xdt_Group)
         {
+            bGroupChanged = false;
             if (!Set_Groups_Table_Equals(xdt_Group))
             {
+                bGroupChanged = true;
                 m_dt_Group = xdt_Group.Copy();
                 DataRow[] drs = null;
                 drs = m_dt_Group.Select("s3_name is not null");
@@ -178,7 +183,7 @@ namespace usrc_Item_Group_Handler
             m_CurrentGroup = m_GroupRoot.Select(m_NumberOfGroupLevels, sGroupArr);
             if (m_CurrentGroup != null)
             {
-                DoPaintGroup();
+                DoPaintGroup(m_CurrentGroup);
             }
             else
             {
@@ -430,7 +435,7 @@ namespace usrc_Item_Group_Handler
                                             continue;
                                         }
                                     }
-                                    Group grp1 = new Group(s1GroupName, this.form_group_handler.s1_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl3, 32, 10);
+                                    Group grp1 = new Group(s1GroupName, this.form_group_handler.s2_pnl, grp_pnl1, DoPaintGroup, ref ypos_pnl3, 32, 10);
                                 }
                             }
                         }
@@ -496,7 +501,7 @@ namespace usrc_Item_Group_Handler
             }
         }
 
-        private void DoPaintGroup()
+        private void DoPaintGroup(Group SelectedGroup)
         {
             m_CurrentGroup = m_GroupRoot.GetCurrent();
             if (m_CurrentGroup != null)
@@ -510,24 +515,41 @@ namespace usrc_Item_Group_Handler
                 {
                     sgrups[i] = m_sGroupList[i];
                 }
-
-                m_CurrentGroup.SetVisible();
                 if (m_NumberOfGroupLevels > 1)
                 {
-                    switch (m_CurrentGroup.GroupLevel)
+                    int iCurrentGroup_GroupLevel = m_CurrentGroup.GroupLevel;
+                    int iCurrentSelectedGroup_GroupLevel = SelectedGroup.GroupLevel;
+                    if ((m_Last_CurrentGroup_GroupLevel != iCurrentGroup_GroupLevel) ||
+                        (m_Last_CurrentSelectedGroup_GroupLevel != iCurrentSelectedGroup_GroupLevel) ||
+                        (iCurrentSelectedGroup_GroupLevel< m_NumberOfGroupLevels) || bGroupChanged)
                     {
-                        case 1:
-                            form_group_handler.ShowRootLevel1();
-                            break;
-                        case 2:
-                            form_group_handler.ShowRootLevel2();
-                            break;
-                        case 3:
-                            form_group_handler.ShowRootLevel3();
-                            break;
+                        bGroupChanged = false;
+                        m_Last_CurrentGroup_GroupLevel = iCurrentGroup_GroupLevel;
+                        m_Last_CurrentSelectedGroup_GroupLevel = iCurrentSelectedGroup_GroupLevel;
+                        m_CurrentGroup.SetVisible();
+                        switch (iCurrentGroup_GroupLevel)
+                        {
+                            case 1:
+                                form_group_handler.ShowRootLevel1();
+                                break;
+                            case 2:
+                                form_group_handler.ShowRootLevel2();
+                                break;
+                            case 3:
+                                form_group_handler.ShowRootLevel3();
+                                break;
+                        }
+                        form_group_handler.LimitHeight();
                     }
-                    form_group_handler.LimitHeight();
                     form_group_handler.GroupPath = GroupPath;
+                }
+                else
+                {
+                    if (bGroupChanged)
+                    {
+                        bGroupChanged = false;
+                        m_CurrentGroup.SetVisible();
+                    }
                 }
                 if (PaintGroup != null)
                 {

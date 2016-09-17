@@ -116,7 +116,7 @@ namespace ShopB
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ExtraDiscount, DBtcn.column_SelectedShopBItem_ExtraDiscount_TYPE);
             string Err = null;
             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use,xnav, ref Err);
-            this.usrc_Item_Group_Handler.ShopName = lngRPM.s_Shop_B.s;
+            this.m_usrc_Item_Group_Handler.ShopName = lngRPM.s_Shop_B.s;
         }
 
         public void SetMode(eMode mode)
@@ -779,9 +779,17 @@ namespace ShopB
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_Group, sql_Group, ref Err))
             {
-                if (usrc_Item_Group_Handler.Set_Groups(dt_Group))
+                if (m_usrc_Item_Group_Handler.Set_Groups(dt_Group))
                 {
                     splitContainer1.Panel2Collapsed = false;
+                    if (m_usrc_Item_Group_Handler.NumberOfGroupLevels>1)
+                    {
+                        splitContainer1.SplitterDistance = splitContainer1.Width-32;
+                    }
+                    else
+                    {
+                        splitContainer1.SplitterDistance = splitContainer1.Width - 82;
+                    }
                     if (dt_Group.Rows.Count > 0)
                     {
                         string s1_name = null;
@@ -801,7 +809,7 @@ namespace ShopB
                         }
 
                         string[] sGroup = new string[] { s1_name, s2_name, s3_name };
-                        usrc_Item_Group_Handler.Select(sGroup);
+                        m_usrc_Item_Group_Handler.Select(sGroup);
                     }
                     return true;
                 }
@@ -809,7 +817,7 @@ namespace ShopB
                 {
                     splitContainer1.Panel2Collapsed = true;
                     string[] sGroup = new string[] { null, null, null };
-                    usrc_Item_Group_Handler.Select(sGroup);
+                    m_usrc_Item_Group_Handler.Select(sGroup);
                     return true;
                 }
             }
@@ -929,7 +937,7 @@ namespace ShopB
             dgv_ShopB_Items.Rows.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_Price_ShopBItem, sql_ShopBItem,lpar, ref Err))
             {
-                lbl_GroupPath.Text = usrc_Item_Group_Handler.GroupPath;
+                lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
                 dgv_ShopB_Items.DataSource = dt_Price_ShopBItem;
                 int col_count = dgv_ShopB_Items.Columns.Count;
                 dgv_ShopB_Items.Columns[DBtcn.colShopBItem_ID].Visible = false;
@@ -974,12 +982,12 @@ namespace ShopB
             if (Level == 0)
             {
                 dgv_ShopB_Items.Width = splitContainer2.Panel2.Width - 4;
-                usrc_Item_Group_Handler.SetVisible(false);
+                m_usrc_Item_Group_Handler.SetVisible(false);
             }
             else
             {
-                usrc_Item_Group_Handler.SetVisible(true);
-                dgv_ShopB_Items.Width = usrc_Item_Group_Handler.Left - dgv_ShopB_Items.Left-2;
+                m_usrc_Item_Group_Handler.SetVisible(true);
+                dgv_ShopB_Items.Width = m_usrc_Item_Group_Handler.Left - dgv_ShopB_Items.Left-2;
             }
 
         }

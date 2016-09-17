@@ -1106,7 +1106,7 @@ namespace Tangenta
             {
                 if (myStartup.bInsertSampleData)
                 {
-                    if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items())
+                    if (!TangentaSampleDB.TangentaSampleDB.sbd.Write_ShopC_Items(xnav))
                     {
                         myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                         return false;

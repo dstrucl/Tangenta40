@@ -138,6 +138,15 @@ namespace ShopC
             {
                 if (m_usrc_Item_Group_Handler.Set_Groups(m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group))
                 {
+                    splitContainer1.Panel2Collapsed = false;
+                    if (m_usrc_Item_Group_Handler.NumberOfGroupLevels > 1)
+                    {
+                        splitContainer1.SplitterDistance = splitContainer1.Width - 32;
+                    }
+                    else
+                    {
+                        splitContainer1.SplitterDistance = splitContainer1.Width - 82;
+                    }
                     if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.dt_Price_Item_Group.Rows.Count > 0)
                     {
                         string s1_name = null;
