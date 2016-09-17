@@ -610,22 +610,7 @@ namespace Tangenta
             chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             splitContainer2.Panel1Collapsed = !chk_Head.Checked;
-            //this.txt_Number.Text = "";
             return true;
-            //if (GetSimpleItemData(ref iCountSimpleItemData))
-            //{
-            //    if (GetItemData(ref iCountItemData))
-            //    {
-            //    }
-            //    else
-            //    {
-            //        return false;
-            //    }
-            //}
-            //else
-            //{
-            //    return false;
-            //}
         }
 
         public bool Init(NavigationButtons.Navigation xnav,long Document_ID)
@@ -636,8 +621,6 @@ namespace Tangenta
             {
 
                 DataTable dt_ShopB_Item_NotIn_PriceList = new DataTable();
-                //if (Program.Shops_in_use.Contains("B"))
-                //{
                 if (GetPriceList_ShopB())
                 {
                     if (f_PriceList.Check_All_ShopB_Items_In_PriceList(ref dt_ShopB_Item_NotIn_PriceList))
@@ -674,7 +657,6 @@ namespace Tangenta
                 {
                     return false;
                 }
-                //}
 
                 if (Program.Shops_in_use.Contains("C"))
                 {

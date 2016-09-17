@@ -574,5 +574,29 @@ namespace Tangenta.Properties {
                 this["ElectronicDevice_ID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public long Current_DocInvoice_ID {
+            get {
+                return ((long)(this["Current_DocInvoice_ID"]));
+            }
+            set {
+                this["Current_DocInvoice_ID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public long Current_DocProformaInvoice_ID {
+            get {
+                return ((long)(this["Current_DocProformaInvoice_ID"]));
+            }
+            set {
+                this["Current_DocProformaInvoice_ID"] = value;
+            }
+        }
     }
 }

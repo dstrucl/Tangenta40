@@ -37,6 +37,8 @@ namespace Tangenta
         public bool m_bInvoice = false;
         public string cond = null;
 
+
+
         public string ExtraCondition = null;
         public List<SQL_Parameter> lpar_ExtraCondition = null;
         public DateTime dtStartTime;
@@ -46,13 +48,33 @@ namespace Tangenta
         public string sFromTo_Suffix = "";
         public DataTable dt_XInvoice = new DataTable();
 
+        private int iCurrentSelectedRow = -1;
+
         private usrc_Invoice.enum_Invoice enum_Invoice;
         private int iColIndex_DocInvoice_Draft = -1;
         private int iColIndex_DocInvoice_Invoice_Storno = -1;
         private int iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = -1;
         private int iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = -1;
 
-        public usrc_InvoiceTable()
+        public long Current_Doc_ID
+        {
+            get { if (iCurrentSelectedRow >= 0)
+                  {
+                    if (dt_XInvoice.Rows.Count > 0)
+                    {
+                        if (iCurrentSelectedRow < dt_XInvoice.Rows.Count)
+                        {
+                            long id = (long)dt_XInvoice.Rows[iCurrentSelectedRow]["JOURNAL_DocInvoice_$_dinv_$$ID"];
+                            return id;
+                        }
+                    }
+                    }
+                  return -1;
+                }
+        }
+
+
+    public usrc_InvoiceTable()
         {
             InitializeComponent();
             ExtensionMethods.DoubleBuffered(this.dgvx_XInvoice, true);
@@ -67,7 +89,20 @@ namespace Tangenta
 
         internal void Activate_dgvx_XInvoice_SelectionChanged()
         {
+            dgvx_XInvoice.ClearSelection();
             this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
+            dgvx_XInvoice.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvx_XInvoice.MultiSelect = false;
+            if (dt_XInvoice.Rows.Count>0)
+            {
+                if (iCurrentSelectedRow>=0)
+                {
+                    if (iCurrentSelectedRow< dt_XInvoice.Rows.Count)
+                    {
+                        dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
+                    }
+                }
+            }
         }
 
         internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice, bool bNew,bool bInitialise_usrc_Invoice,int iFinancialYear)
@@ -85,7 +120,7 @@ namespace Tangenta
                 case usrc_Invoice.enum_Invoice.Invoice:
                     this.dgvx_XInvoice.SelectionChanged -= new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
                     iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
-                    ShowOrEditSelectedRow(bInitialise_usrc_Invoice);
+                    //ShowOrEditSelectedRow(bInitialise_usrc_Invoice);
                     break;
                 case usrc_Invoice.enum_Invoice.ProformaInvoice:
                     iRowsCount = Init_DocInvoice();
@@ -404,7 +439,6 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$SerialNumber,
                     JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
                     JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID,
-                    JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID,
                     JOURNAL_DocInvoice_$_dinv_$_fvisbi.ID AS JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$ID
                     FROM JOURNAL_DocInvoice
                     INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
@@ -480,7 +514,6 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
                     JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
                     JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID,
-                    JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID
                     FROM JOURNAL_DocInvoice
                     INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
                     INNER JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
@@ -522,7 +555,6 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocInvoice_$_awperiod_$_awperiodt.ID
                     " + cond + " and ((JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime + ")or(JOURNAL_DocInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime + ")) order by JOURNAL_DocInvoice_$_dinv.FinancialYear desc,JOURNAL_DocInvoice_$_dinv_$$Draft desc, JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear desc, JOURNAL_DocInvoice_$_dinv_$$DraftNumber desc";
             }
-            int iCurrentSelectedRow = -1;
             if (!bNew)
             {
                 DataGridViewSelectedRowCollection dgvxc = dgvx_XInvoice.SelectedRows;
@@ -567,8 +599,19 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                         if (iCurrentSelectedRow >= 0)
                         {
                             dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
-
-
+                        }
+                        else if (Properties.Settings.Default.Current_DocInvoice_ID>=0)
+                        {
+                           DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Properties.Settings.Default.Current_DocInvoice_ID.ToString());
+                           if (dr_Current.Count() > 0)
+                           {
+                                iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);
+                                dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
+                            }
+                        }
+                        else
+                        {
+                            iCurrentSelectedRow = 0;
                         }
                     }
                 }
@@ -674,6 +717,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     if (dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value is long)
                     {
                         long Identity = (long)dgvCellCollection[0].OwningRow.Cells["JOURNAL_DocInvoice_$_dinv_$$ID"].Value;
+                        this.iCurrentSelectedRow = dgvCellCollection[0].RowIndex;
                         SelectedInvoiceChanged(Identity, bInitialise);
                         return;
                     }

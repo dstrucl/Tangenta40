@@ -111,15 +111,16 @@ namespace Tangenta
 
             splitContainer1.Panel2Collapsed = false;
             string Err = null;
-            int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,true,Properties.Settings.Default.FinancialYear);
-            //                if (iRowsCount == 0)
-            //                {
-            if (!m_usrc_Invoice.Init(xnav, - 1))
-                {
-                    Program.Cursor_Arrow();
-                    return false;
-                }
-            //}
+
+
+            int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear);
+
+            if (!m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID))
+            {
+                Program.Cursor_Arrow();
+                return false;
+            }
+
             SetInitialMode();
             SetMode(Mode);
             Program.Cursor_Arrow();
