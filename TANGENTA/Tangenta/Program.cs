@@ -37,6 +37,8 @@ namespace Tangenta
         #endregion
 
         #region Variables
+        internal static NavigationButtons.Navigation nav = null;
+
         internal static bool bStartup = true;
 
         internal static string IniFileName = "Tangenta.ini";
@@ -376,7 +378,7 @@ DoSelectLanguage:
                         
                         MainForm = new Form_Document();
                         Application.Run(MainForm);
-                        if (MainForm.nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                        if (Program.nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                         {
                             if (bLanguageSelected)
                             {

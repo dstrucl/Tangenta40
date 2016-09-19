@@ -71,8 +71,19 @@ namespace Startup
                     }
                     else if (nav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
                     {
+                        eNextStep = startup_step.eStep.Cancel;
                         return false;
                     }
+                }
+                else if (nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    eNextStep = startup_step.eStep.Cancel;
+                    return false;
+                }
+                else if (nav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                {
+                    eNextStep = startup_step.eStep.Cancel;
+                    return false;
                 }
             }
             return ExecuteSteps(ref Err);

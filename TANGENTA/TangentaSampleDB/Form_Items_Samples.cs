@@ -16,7 +16,7 @@ namespace TangentaSampleDB
         public int iNumberOfGroupsInLevel1 = 0;
         public int iNumberOfGroupsInLevel2 = 0;
         public int iNumberOfGroupsInLevel3 = 0;
-        public int iNumberOfItemsPerGroup = 0;
+        public int iNumberOfItemsPerGroup = 3;
 
         NavigationButtons.Navigation nav = null;
         public Form_Items_Samples(NavigationButtons.Navigation xnav,string shopName)
@@ -36,9 +36,16 @@ namespace TangentaSampleDB
             lngRPMS.s_lbl_Number_Of_Items_per_group.Text(this.lbl_NumberOfItemsPerGroup);
             this.txt_Item_Name_Prefix.Text = shopName+lngRPMS.s_txt_Item_Name_Prefix.s;
             this.txt_ItemAbbreviationPrefix.Text = shopName+lngRPMS.s_txt_Item_Name_AbrPrefix.s;
-
+            this.nm_UpDn_NumberOfGroupsInLevel1.Value = iNumberOfGroupsInLevel1;
+            this.nm_UpDn_NumberOfGroupsInLevel2.Value = iNumberOfGroupsInLevel2;
+            this.nm_UpDn_NumberOfGroupsInLevel3.Value = iNumberOfGroupsInLevel3;
+            this.nmUpDn_NumberOfItemsPerGroup.Value = iNumberOfItemsPerGroup;
             rdb_InsertItemsManualy.Checked = true;
-
+            this.nm_UpDn_NumberOfGroupsInLevel1.ValueChanged += new System.EventHandler(this.nm_UpDn_NumberOfGroupsInLevel1_ValueChanged);
+            this.nm_UpDn_NumberOfGroupsInLevel2.ValueChanged += new System.EventHandler(this.nm_UpDn_NumberOfGroupsInLevel2_ValueChanged);
+            this.nm_UpDn_NumberOfGroupsInLevel3.ValueChanged += new System.EventHandler(this.nm_UpDn_NumberOfGroupsInLevel3_ValueChanged);
+            this.nmUpDn_NumberOfItemsPerGroup.ValueChanged += new System.EventHandler(this.nmUpDn_NumberOfItemsPerGroup_ValueChanged);
+            ShowAllItemsToInsert();
         }
         public int iNumberOffAll()
         {
@@ -100,6 +107,8 @@ namespace TangentaSampleDB
                 DisableLevel(2);
                 DisableLevel(3);
             }
+            iNumberOfGroupsInLevel1 = Convert.ToInt32(nm_UpDn_NumberOfGroupsInLevel1.Value);
+            ShowAllItemsToInsert();
         }
 
         private void nm_UpDn_NumberOfGroupsInLevel2_ValueChanged(object sender, EventArgs e)
@@ -112,6 +121,8 @@ namespace TangentaSampleDB
             {
                 DisableLevel(3);
             }
+            iNumberOfGroupsInLevel2 = Convert.ToInt32(nm_UpDn_NumberOfGroupsInLevel2.Value);
+            ShowAllItemsToInsert();
         }
 
         private void DisableLevel(int v)
@@ -145,5 +156,21 @@ namespace TangentaSampleDB
             }
         }
 
+        private void ShowAllItemsToInsert()
+        {
+            int iNumberOfAllToBeInserted = iNumberOffAll();
+            this.lbl_NumberOfTitemsToBeInserted.Text = lngRPMS.s_NumberOfItemsToInsert.s + " = " + iNumberOfAllToBeInserted;
+        }
+        private void nm_UpDn_NumberOfGroupsInLevel3_ValueChanged(object sender, EventArgs e)
+        {
+            iNumberOfGroupsInLevel3 = Convert.ToInt32(nm_UpDn_NumberOfGroupsInLevel3.Value);
+            ShowAllItemsToInsert();
+        }
+
+        private void nmUpDn_NumberOfItemsPerGroup_ValueChanged(object sender, EventArgs e)
+        {
+            iNumberOfItemsPerGroup = Convert.ToInt32(nmUpDn_NumberOfItemsPerGroup.Value);
+            ShowAllItemsToInsert();
+        }
     }
 }

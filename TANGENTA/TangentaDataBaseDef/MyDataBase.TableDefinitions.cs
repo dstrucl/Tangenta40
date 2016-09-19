@@ -37,14 +37,11 @@ namespace TangentaDataBaseDef
     public class Settings
     {
         public Settings_Item Version=null;
-        public Settings_Item LastInvoiceType = null;
         public Settings_Item StockCheckAtStartup = null;
 
         public Settings(string Ver)
         {
             Version = new Settings_Item("Version",Ver,true);
-            LastInvoiceType = new Settings_Item("LastInvoiceType", "Invoice", true);
-            Version = new Settings_Item("Version", Ver, true);
             StockCheckAtStartup = new Settings_Item("StockCheckAtStartup", "1", true);
         }
 

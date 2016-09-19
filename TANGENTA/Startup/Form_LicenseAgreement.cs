@@ -26,7 +26,7 @@ namespace Startup
             rdb_AcceptLicenseAgreement.Checked = false;
             rdb_NotAcceptLicenseAgreement.Checked = true;
             usrc_NavigationButtons1.Visible_NEXT = false;
-            usrc_NavigationButtons1.Visible_PREV = false;
+            usrc_NavigationButtons1.Visible_PREV = true;
             usrc_NavigationButtons1.Visible_EXIT = true;
             this.rdb_AcceptLicenseAgreement.CheckedChanged += new System.EventHandler(this.rdb_AcceptLicenseAgreement_CheckedChanged);
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);

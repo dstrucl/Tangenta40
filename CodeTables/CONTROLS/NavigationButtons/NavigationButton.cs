@@ -11,19 +11,6 @@ namespace NavigationButtons
 {
     public class Navigation
     {
-        //public enum eStartupStepDialogs
-        //{
-        //    NONE,
-        //    Form_SelectLanguage,
-        //    CommandLineHelp_Form,
-        //    Form_GetDBType,
-        //    ConnectionDialog,
-        //    SQLiteConnectionDialog,
-        //    Form_CheckInsertSampleData,
-        //    Form_Select_Country_ISO_3166,
-        //    Form_EditSampleData,
-        //    Form_Select_DefaultCurrency
-        //}
         public usrc_web_Help web_Help = null;
 
         public enum eButtons { PrevNextExit, OkCancel };

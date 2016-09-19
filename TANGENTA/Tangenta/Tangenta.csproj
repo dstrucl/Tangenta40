@@ -1094,7 +1094,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(SolutionDir)bin\NetRevisionTool.exe" /info /patch "$(ProjectDir)Properties"</PreBuildEvent>
+    <PreBuildEvent>del C:\TangentaDB\TangentaDB.sqlite
+"$(SolutionDir)bin\NetRevisionTool.exe" /info /patch "$(ProjectDir)Properties"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir)bin\NetRevisionTool.exe" /restore "$(ProjectDir)Properties"

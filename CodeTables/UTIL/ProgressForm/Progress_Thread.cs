@@ -13,7 +13,9 @@ namespace ProgressForm
         public string sLabel1 = "";
         public string sLabel2 = "";
         public string sLabel3 = "";
-        private string m_Message = null;
+        private string m_Message1 = null;
+        private string m_Message2 = null;
+        private string m_Message3 = null;
         private int m_ProgressBarPercent = 0;
         public bool bEnd = false;
         internal Mutex myMutex = new Mutex();
@@ -38,13 +40,23 @@ namespace ProgressForm
                         myMutex.ReleaseMutex();
                         return;
                     }
-                    if (m_Message != null)
+                    if (m_Message1 != null)
+                    {
+                        dlg_Progress_Form.Label1.Text = m_Message1;
+                        m_Message2 = null;
+                    }
+                    if (m_Message2 != null)
+                    {
+                        dlg_Progress_Form.Label2.Text = m_Message2;
+                        m_Message2 = null;
+                    }
+                    if (m_Message3 != null)
                     {
                         int iValue = m_ProgressBarPercent;
-                        dlg_Progress_Form.Label3.Text = m_Message +" "+ iValue.ToString() + "%";
-                        dlg_Progress_Form.progressBar.Value = iValue;
-                        m_Message = null;
+                        dlg_Progress_Form.Label3.Text = m_Message3;
+                        m_Message3 = null;
                     }
+                    dlg_Progress_Form.progressBar.Value = m_ProgressBarPercent;
                     myMutex.ReleaseMutex();
                 }
                 Application.DoEvents();
@@ -65,12 +77,13 @@ namespace ProgressForm
             }
         }
 
-        public eMessage Message(string sxMessage, int iPercent)
+        public eMessage Message(string sxLabel1, string sxLabel2,string sxLabel3, int iPercent)
         {
             if (myMutex.WaitOne(2000))
             {
-                string sMessage = sxMessage;
-                m_Message = sMessage;
+                m_Message1 = sxLabel1;
+                m_Message2 = sxLabel2;
+                m_Message3 = sxLabel3;
                 m_ProgressBarPercent = iPercent;
                 if (bCancel)
                 {

@@ -23,7 +23,6 @@ namespace Tangenta
 {
     public partial class Form_Document : Form
     {
-        public NavigationButtons.Navigation nav = null;
         public const string XML_ROOT_NAME = "Tangenta_Xml";
         public string RecentItemsFolder = null;
         public startup m_startup = null;
@@ -36,22 +35,22 @@ namespace Tangenta
             LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Form_Document()before InitializeComponent()!");
             InitializeComponent();
 
-            nav = new NavigationButtons.Navigation();
-            nav.parentForm = this;
-            nav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
-            nav.btn1_Image = Properties.Resources.Prev;
-            nav.btn2_Image = Properties.Resources.Next;
-            nav.btn3_Image = Properties.Resources.Exit_Program;
-            nav.btn1_Text = lngRPM.s_Previous.s;
-            nav.btn1_ToolTip_Text = lngRPMS.s_GoToPreviousStartupStep.s;
-            nav.btn2_Text = lngRPM.s_Next.s; ;
-            nav.btn2_ToolTip_Text = lngRPMS.s_GoToNextStartupStep.s;
-            nav.btn3_Text = "";
-            nav.btn3_ToolTip_Text = lngRPMS.s_GoToExitProgram.s;
-            nav.btn1_Visible = true;
-            nav.btn2_Visible = true;
-            nav.btn3_Visible = true;
-            nav.ExitProgramQuestionInLanguage = lngRPM.s_RealyWantToExitProgram.s;
+            Program.nav = new NavigationButtons.Navigation();
+            Program.nav.parentForm = this;
+            Program.nav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
+            Program.nav.btn1_Image = Properties.Resources.Prev;
+            Program.nav.btn2_Image = Properties.Resources.Next;
+            Program.nav.btn3_Image = Properties.Resources.Exit_Program;
+            Program.nav.btn1_Text = lngRPM.s_Previous.s;
+            Program.nav.btn1_ToolTip_Text = lngRPMS.s_GoToPreviousStartupStep.s;
+            Program.nav.btn2_Text = lngRPM.s_Next.s; ;
+            Program.nav.btn2_ToolTip_Text = lngRPMS.s_GoToNextStartupStep.s;
+            Program.nav.btn3_Text = "";
+            Program.nav.btn3_ToolTip_Text = lngRPMS.s_GoToExitProgram.s;
+            Program.nav.btn1_Visible = true;
+            Program.nav.btn2_Visible = true;
+            Program.nav.btn3_Visible = true;
+            Program.nav.ExitProgramQuestionInLanguage = lngRPM.s_RealyWantToExitProgram.s;
 
 
             if (Properties.Settings.Default.FullScreen)
@@ -116,7 +115,7 @@ namespace Tangenta
 
             m_startup = new startup(this,
                                     StartupStep,
-                                    nav,
+                                    Program.nav,
                                     Properties.Resources.Tangenta_Question
                                     );
         }
@@ -413,15 +412,21 @@ namespace Tangenta
 
         private bool AskToExit()
         {
-            if (MessageBox.Show(this, lngRPM.s_RealyWantToExitProgram.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if ((Program.nav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) && (Program.bFirstTimeInstallation))
             {
                 return true;
             }
             else
             {
-                return false;
+                if (MessageBox.Show(this, lngRPM.s_RealyWantToExitProgram.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-
         }
 
         public long myOrganisation_Person_ID 
@@ -463,7 +468,7 @@ namespace Tangenta
             string Err = null;
             if (m_startup.Execute(Program.bFirstTimeInstallation, ref Err))
             {
-                m_usrc_Main.Init(nav);
+                m_usrc_Main.Init(Program.nav);
                 m_startup.RemoveControl();
                 m_usrc_Main.Visible = true;
                 m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();

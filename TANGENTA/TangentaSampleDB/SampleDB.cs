@@ -962,7 +962,8 @@ select_country:
                                             if (k % 5 == 0)
                                             {
                                                 GC.Collect();
-                                                progress.Message(lngRPMS.s_ItemsWrittenToDB.s, (int)(k * 100) / SampleDB_Price_ShopB_Item_List_Count);
+                                                int iPercent = ((int)(k * 100) / SampleDB_Price_ShopB_Item_List_Count);
+                                                progress.Message(null, lngRPMS.s_ItemsWrittenToDB.s+" "+ k.ToString(),lngRPMS.s_JobInPercentDone.s + " " + iPercent.ToString()+"%", iPercent);
                                             }
                                             if (progress.bCancel|| progress.bEnd)
                                             {
@@ -992,6 +993,8 @@ select_country:
                                 progress.End();
                                 return false;
                             }
+                            SampleDB_Price_ShopB_Item_List[k] = null;
+                            sample_ShopB_Item = null;
                         }
                         progress.End();
                     }
@@ -1620,7 +1623,8 @@ select_country:
                                             if (k % 5 == 0)
                                             {
                                                 GC.Collect();
-                                                progress.Message(lngRPMS.s_ItemsWrittenToDB.s, (int)(k * 100) / SampleDB_Price_ShopC_Item_List_Count);
+                                                int iPercent = ((int)(k * 100) / SampleDB_Price_ShopC_Item_List_Count);
+                                                progress.Message(null, lngRPMS.s_ItemsWrittenToDB.s + " " + k.ToString(), lngRPMS.s_JobInPercentDone.s + " " + iPercent.ToString() +"%", iPercent);
                                             }
                                             if (progress.bCancel || progress.bEnd)
                                             {
@@ -1650,6 +1654,8 @@ select_country:
                                 progress.End();
                                 return false;
                             }
+                            SampleDB_Price_ShopC_Item_List[k] = null;
+                            sample_ShopC_Item = null;
                         }
                         progress.End();
                     }
