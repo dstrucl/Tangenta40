@@ -19,6 +19,7 @@ namespace LanguageControl
     {
         #region StartUp
 
+        public static ltext s_DoYouWantToUpgradeDBToLatestVersion = new ltext("Upgrade to newest Database version?", "Nadgradim podtakovno bazo na zadnjo verzijo?");
         public static ltext s_Bank = new ltext("Bank", "Banka");
         public static ltext s_BankAccount = new ltext("Bank Account", "Bančni račun");
         public static ltext s_YouHaveChangedSomeDataButNotAllSampleData_YouShouldChangeAllSampleDataToYourRealData = new ltext ("You have only changed some of sample data!\r\nIf you want to run this application with your real data, press OK and then change all sample data to your real organisation data.If you want to run this application with your modified sample data press Cancel", "Spremenili ste samo nekatere vzorčne podatke.\r\nČe želite, da bo program uporabljal prave podatke pritisnite gumb \"V redu\" in spremenite vse vzorčne podatke v prave podatke.\r\nČe želite, da bo program uporabljal spremenjene vzorčne podatke in tekel kot demo aplikacija pritisnite gumb \"Prekini\"");

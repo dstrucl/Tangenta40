@@ -239,27 +239,43 @@ namespace TangentaDB
 
             xCurrencyList xCurrencyList = new xCurrencyList();
 
-            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = true;
+            
 
-            if (DeleteTableAndSetAutoincrementToZero(s_Currency_table_name))
+            long Currency_table_Rows_Count = fs.GetTableRowsCount(s_Currency_table_name);
+            if (Currency_table_Rows_Count >= 0)
             {
-                string sql_Currency = "insert into " + s_Currency_table_name + " ( " + s_col_Name + "," + s_col_Abbreviation + "," + s_col_Symbol + "," + s_col_CurrencyCode + "," + s_col_DecimalPlaces + " ) values (";
-                foreach (xCurrency currency in xCurrencyList.m_CurrencyList)
+                long CurrencyList_Count = Convert.ToInt64(xCurrencyList.m_CurrencyList.Count);
+                if (Currency_table_Rows_Count == CurrencyList_Count)
                 {
-                    string sValues = "'" + currency.Name + "','" + currency.Abbreviation + "','" + currency.Symbol + "'," + currency.CurrencyCode.ToString() + "," + currency.DecimalPlaces.ToString();
-                    string sql = sql_Currency + sValues + ")";
-                    object Result = null;
-                    if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
-                    {
-                        Err = "ERROR::TangentaDB:fs:Init_Currency_Table:Err=" + Err;
-                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
-                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
-                        return false;
-                    }
+                    //Currency_table_Rows_Count allready written
+                    return true;
                 }
-                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
-                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
-                return true;
+                else if (Currency_table_Rows_Count == 0)
+                {
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = true;
+                    string sql_Currency = "insert into " + s_Currency_table_name + " ( " + s_col_Name + "," + s_col_Abbreviation + "," + s_col_Symbol + "," + s_col_CurrencyCode + "," + s_col_DecimalPlaces + " ) values (";
+                    foreach (xCurrency currency in xCurrencyList.m_CurrencyList)
+                    {
+                        string sValues = "'" + currency.Name + "','" + currency.Abbreviation + "','" + currency.Symbol + "'," + currency.CurrencyCode.ToString() + "," + currency.DecimalPlaces.ToString();
+                        string sql = sql_Currency + sValues + ")";
+                        object Result = null;
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
+                        {
+                            Err = "ERROR::TangentaDB:fs:Init_Currency_Table:Err=" + Err;
+                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                            return false;
+                        }
+                    }
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("WARNING:TangentaDB.cs:fs.Init_Currency_Table:Currency_table_Rows_Count != xCurrencyList.m_CurrencyList.Count!\r\nCurrency_table_Rows_Count = " + Currency_table_Rows_Count.ToString() + " xCurrencyList.m_CurrencyList.Count = " + xCurrencyList.m_CurrencyList.Count.ToString());
+                    return true;
+                }
             }
             else
             {
@@ -267,41 +283,86 @@ namespace TangentaDB
             }
         }
 
+        public static long GetTableRowsCount(string s_table_name)
+        {
+            string Err = null;
+            long rows_count = -1;
+            string sql = "select count(*) from " + s_table_name;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                object ores = dt.Rows[0][0];
+                if (ores is int)
+                {
+                    rows_count = Convert.ToInt64(dt.Rows[0][0]);
+                }
+                else if (ores is long)
+                {
+                    rows_count = (long)dt.Rows[0][0];
+                }
+                return rows_count;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB.cs:fs.GetTableRowsCount:sql=" + sql + "\r\nErr=" + Err);
+                return -1;
+            }
+        }
+
         private static bool Init_Unit_Table(ref string Err)
         {
             string s_Unit_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).TableName;
-            if (DeleteTableAndSetAutoincrementToZero(s_Unit_table_name))
+            string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Name.GetType()).Name;
+            string s_col_Symbol = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Symbol.GetType()).Name;
+            string s_col_DecimalPlaces = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.DecimalPlaces.GetType()).Name;
+            string s_col_StorageOption = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.StorageOption.GetType()).Name;
+            string s_col_Description = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Description.GetType()).Name;
+
+            xUnitList xUnitList = new xUnitList();
+            long Unit_table_Rows_Count = fs.GetTableRowsCount(s_Unit_table_name);
+            if (Unit_table_Rows_Count >= 0)
             {
-                string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Name.GetType()).Name;
-                string s_col_Symbol = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Symbol.GetType()).Name;
-                string s_col_DecimalPlaces = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.DecimalPlaces.GetType()).Name;
-                string s_col_StorageOption = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.StorageOption.GetType()).Name;
-                string s_col_Description = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Unit)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Unit.Description.GetType()).Name;
-
-                xUnitList xUnitList = new xUnitList();
-
-                string sql_Unit = "insert into " + s_Unit_table_name + " ( " + s_col_Name + "," + s_col_Symbol + "," + s_col_DecimalPlaces + "," + s_col_StorageOption + "," + s_col_Description + " ) values (";
-                foreach (xUnit unit in xUnitList.m_DefaltUnitList)
+                long l_unit_table_rows_count = Convert.ToInt64(xUnitList.m_DefaltUnitList.Count);
+                if (Unit_table_Rows_Count == l_unit_table_rows_count)
                 {
-                    string sStorageOptionValue = null;
-                    if (unit.StorageOption)
-                    {
-                        sStorageOptionValue = "1";
-                    }
-                    else
-                    {
-                        sStorageOptionValue = "0";
-                    }
-                    string sValues = "'" + unit.Name + "','" + unit.Symbol + "'," + unit.DecimalPlaces.ToString() + "," + sStorageOptionValue + ",'" + unit.Description + "'";
-                    string sql = sql_Unit + sValues + ")";
-                    object Result = null;
-                    if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
-                    {
-                        Err = "ERROR::TangentaDB:fs:Init_Unit_Table:Err=" + Err;
-                        return false;
-                    }
+                    //Unit table allready written
+                    return true;
                 }
-                return true;
+                else if (Unit_table_Rows_Count == 0)
+                {
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = true;
+                    string sql_Unit = "insert into " + s_Unit_table_name + " ( " + s_col_Name + "," + s_col_Symbol + "," + s_col_DecimalPlaces + "," + s_col_StorageOption + "," + s_col_Description + " ) values (";
+                    foreach (xUnit unit in xUnitList.m_DefaltUnitList)
+                    {
+                        string sStorageOptionValue = null;
+                        if (unit.StorageOption)
+                        {
+                            sStorageOptionValue = "1";
+                        }
+                        else
+                        {
+                            sStorageOptionValue = "0";
+                        }
+                        string sValues = "'" + unit.Name + "','" + unit.Symbol + "'," + unit.DecimalPlaces.ToString() + "," + sStorageOptionValue + ",'" + unit.Description + "'";
+                        string sql = sql_Unit + sValues + ")";
+                        object Result = null;
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
+                        {
+                            Err = "ERROR::TangentaDB:fs:Init_Unit_Table:Err=" + Err;
+                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                            return false;
+                        }
+                    }
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("WARNING:TangentaDB.cs:fs.Init_Unit_Table:Unit_table_Rows_Count !=  xUnitList.m_DefaltUnitList.Count!\r\nUnit_table_Rows_Count = " + Unit_table_Rows_Count.ToString() + " xCurrencyList.m_CurrencyList.Count = " + xUnitList.m_DefaltUnitList.Count.ToString());
+                    return true;
+                }
             }
             else
             {

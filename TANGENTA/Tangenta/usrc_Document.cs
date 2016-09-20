@@ -153,152 +153,143 @@ namespace Tangenta
 
         private bool CheckInsertSampleData(startup myStartup, NavigationButtons.Navigation xnav)
         {
-            //if (MessageBox.Show(m_parent_ctrl, lngRPM.s_DataBaseIsEmpty_InsertInitialData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             Form_CheckInsertSampleData frmdlg = new Form_CheckInsertSampleData(myStartup,xnav);
             xnav.ChildDialog = frmdlg;
             xnav.ShowDialog();
             return myStartup.bInsertSampleData;
         }
 
-        internal bool CheckDBVersion_2(startup myStartup, object oData, ref string Err)
+
+        internal bool CheckDataBaseVersion(startup myStartup, ref string Err)
         {
-            if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
+            if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
             {
-                //if (Read_DBSettings_LastInvoiceType(bUpgradeDone, ref Err))
-                //{
-                //    if (fs.Read_DBSettings_StockCheckAtStartup(bUpgradeDone, ref Err))
-                //    {
-                //        if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
-                //        {
-                //            switch (myStartup.eGetDBSettings_Result)
-                //            {
-                //                case fs.enum_GetDBSettings.No_Data_Rows:
-                //                    myStartup.eNextStep++;
-                //                    return true;
-                //            }
-                //            myStartup.eNextStep++;
-                //            return true;
-                //        }
-                //    }
-                //}
+                myStartup.eNextStep++;
+                return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
             }
-            myStartup.eNextStep = startup_step.eStep.Cancel;
-            return false;
+            else
+            {
+                if (MessageBox.Show(this.Main_Form, lngRPM.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lngRPM.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n"+lngRPM.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
+                    myStartup.eNextStep++;
+                    return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+                }
+                else
+                {
+                    Err = lngRPM.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n"+ lngRPM.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    return false;
+                }
+            }
         }
 
+        internal bool InsertSampleData(startup myStartup, NavigationButtons.Navigation xnav, ref string Err)
+        {
+        do_CheckInsertSampleData:
+            if (!xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_Select_DefaultCurrency"))
+            {
+                myStartup.bInsertSampleData = CheckInsertSampleData(myStartup, xnav);
+                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    myStartup.eNextStep = startup_step.eStep.Check_DataBase; //go back
+                    return true;
+                }
+                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                {
+                    myStartup.bCanceled = true;
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    return false;
+                }
+            }
+            if (myStartup.bInsertSampleData)
+            {
+                bool bCanceled = false;
+                if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.sbd, xnav, Properties.Resources.Tangenta_Icon, ref Err))
+                {
+                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    {
+                        if (xnav.LastStartupDialog_TYPE.Equals("Country_ISO_3166.Form_Select_Country_ISO_3166"))
+                        {
+                            goto do_CheckInsertSampleData;
+                        }
+                        myStartup.sbd.DeleteAll();
+                        myStartup.eNextStep--; //go back 
+                        return true;
+                    }
+                    if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    {
+                        bCanceled = true;
+                        myStartup.bCanceled = bCanceled;
+                    }
+                    if (bCanceled)
+                    {
+                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                    }
+                    else
+                    {
+                        myStartup.eNextStep++;
+                        return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+                    }
+                    return true;
+                }
+                else
+                {
+                    myStartup.bCanceled = bCanceled;
+                    if (bCanceled)
+                    {
+                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        return false;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show(Err);
+                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                if (fs.Init_Default_DB(ref Err))
+                {
+                    return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+                }
+                else
+                {
+                    LogFile.Error.Show(Err);
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    return false;
+                }
+            }
+        }
 
         internal bool CheckDBVersion(startup myStartup, object oData,NavigationButtons.Navigation xnav, ref string Err)
         {
+            bool bResult = false;
             switch (myStartup.eGetDBSettings_Result)
             {
 
                 case fs.enum_GetDBSettings.DBSettings_OK:
-                    if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
+                    bResult = CheckDataBaseVersion(myStartup, ref Err);
+                    if (bResult)
                     {
-                        myStartup.eNextStep++;
-                        return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
-                   }
-                    else
-                    {
-                        if (MessageBox.Show(this.Main_Form, lngRPM.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lngRPM.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\nNadgradim podatkovno bazo na novo verzijo?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (Program.bFirstTimeInstallation)
                         {
-                            myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
-                            myStartup.eNextStep++;
-                            return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
-                        }
-                        else
-                        {
-                            Err = "Podatkovna baza je verzije:" + myStartup.CurrentDataBaseVersionTextValue + "\r\nTa program dela lahko dela le z verzijo podatkovne baze:" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
-                            myStartup.eNextStep = startup_step.eStep.Cancel;
-                            return false;
+                            bResult = InsertSampleData(myStartup, xnav, ref Err);
                         }
                     }
+                    return bResult;
 
+                case fs.enum_GetDBSettings.No_Data_Rows:
+                    //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
+                    bResult = InsertSampleData(myStartup, xnav, ref Err);
+                    return bResult;
 
                 case fs.enum_GetDBSettings.Error_Load_DBSettings:
                     LogFile.Error.Show(Err);
                     myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
-
-
-
-                case fs.enum_GetDBSettings.No_Data_Rows:
-                do_CheckInsertSampleData:
-                    if (!xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_Select_DefaultCurrency"))
-                    {
-                        myStartup.bInsertSampleData = CheckInsertSampleData(myStartup, xnav);
-                        if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                        {
-                            myStartup.eNextStep = startup_step.eStep.Check_DataBase; //go back
-                            return true;
-                        }
-                        else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
-                        {
-                            myStartup.bCanceled = true;
-                            myStartup.eNextStep = startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
-                    if (myStartup.bInsertSampleData)
-                    {
-                        bool bCanceled = false;
-                        if (TangentaSampleDB.TangentaSampleDB.Init_Sample_DB(ref bCanceled, myStartup.sbd, xnav, Properties.Resources.Tangenta_Icon, ref Err))
-                        {
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                if (xnav.LastStartupDialog_TYPE.Equals("Country_ISO_3166.Form_Select_Country_ISO_3166"))
-                                {
-                                    goto do_CheckInsertSampleData;
-                                }
-                                myStartup.sbd.DeleteAll();
-                                myStartup.eNextStep--; //go back 
-                                return true;
-                            }
-                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                bCanceled = true;
-                                myStartup.bCanceled = bCanceled;
-                            }
-                            if (bCanceled)
-                            {
-                                myStartup.eNextStep = startup_step.eStep.Cancel;
-                            }
-                            else
-                            {
-                                myStartup.eNextStep++;
-                                return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
-                            }
-                            return true;
-                        }
-                        else
-                        {
-                            myStartup.bCanceled = bCanceled;
-                            if (bCanceled)
-                            {
-                                myStartup.eNextStep = startup_step.eStep.Cancel;
-                                return false;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show(Err);
-                                myStartup.eNextStep = startup_step.eStep.Cancel;
-                                return false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (fs.Init_Default_DB(ref Err))
-                        {
-                            return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
-                        }
-                        else
-                        {
-                            LogFile.Error.Show(Err);
-                            myStartup.eNextStep = startup_step.eStep.Cancel;
-                            return false;
-                        }
-                    }
 
                 case fs.enum_GetDBSettings.No_TextValue:
                     myStartup.eNextStep = startup_step.eStep.Cancel;
