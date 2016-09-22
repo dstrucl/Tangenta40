@@ -153,7 +153,7 @@ namespace TangentaDB
                 if (dt.Rows.Count > 0)
                 {
                     ID = (long)dt.Rows[0]["ID"];
-                    sql = "update " + s_DBSettings_table_name + " set TextValue = '" + textValue + "',ReadOnly = " + v;
+                    sql = "update " + s_DBSettings_table_name + " set TextValue = '" + textValue + "',ReadOnly = " + v + " where ID = " + ID.ToString(); ;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
                     {
                         return true;

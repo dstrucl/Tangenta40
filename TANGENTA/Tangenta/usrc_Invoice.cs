@@ -892,40 +892,52 @@ namespace Tangenta
                 m_ShopABC.m_xTaxationList = new xTaxationList();
             }
             DataTable dt = new DataTable();
-            if (m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
+            if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_ShopsInUse"))
             {
-                if (dt.Rows.Count > 0)
+                myStartup.eNextStep--;
+                return true;
+            }
+            else
+            {
+                if (m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
                 {
-                    myStartup.eNextStep++;
-                    return true;
+                    if (dt.Rows.Count > 0)
+                    {
+                        myStartup.eNextStep++;
+                        return true;
+                    }
+                    else
+                    {
+                        return DoEditTaxation(myStartup, ref dt, ref Err);
+                    }
                 }
                 else
                 {
-                    dt.Clear();
-                    if (Edit_Taxation())
-                    {
-                        if (m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
-                        {
-                            if (dt.Rows.Count > 0)
-                            {
-                                myStartup.eNextStep++;
-                                return true;
-                            }
-                        }
-                    }
+                    Err = "ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err;
+                    LogFile.Error.Show(Err);
                     myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                     return false;
                 }
             }
-            else
-            {
-                Err = "ERROR:usrc_Invoice:GetTaxation:m_xTaxationList.Get:Err=" + Err;
-                LogFile.Error.Show(Err);
-                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-                return false;
-            }
         }
 
+        private bool DoEditTaxation(startup myStartup, ref DataTable dt, ref string Err)
+        {
+            dt.Clear();
+            if (Edit_Taxation())
+            {
+                if (m_ShopABC.m_xTaxationList.Get(ref dt, ref Err))
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        myStartup.eNextStep++;
+                        return true;
+                    }
+                }
+            }
+            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+            return false;
+        }
 
         private bool GetUnits()
         {
@@ -1486,36 +1498,58 @@ namespace Tangenta
             throw new NotImplementedException();
         }
 
+        private bool DoSelectBaseCurrency(startup myStartup,NavigationButtons.Navigation xnav, ref string Err)
+        {
+            if (Select_BaseCurrency(xnav, ref Err))
+            {
+                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    myStartup.sbd.DeleteAll();
+                    myStartup.eNextStep = startup_step.eStep.CheckDBVersion;
+                }
+                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
+                {
+                    myStartup.eNextStep++;
+                }
+                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                {
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                }
+                return true;
+            }
+            else
+            {
+                myStartup.eNextStep = startup_step.eStep.Cancel;
+                return false;
+            }
+
+        }
+
         public  bool Get_BaseCurrency(startup myStartup,object oData,NavigationButtons.Navigation xnav, ref string Err)
         {
             string BaseCurrency_Text = null;
-            if (GlobalData.Get_BaseCurrency(ref BaseCurrency_Text,ref Err))
+            if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_ShopsInUse"))
             {
-                if (BaseCurrency_Text!= null)
+                return DoSelectBaseCurrency(myStartup, xnav, ref Err);
+            }
+            else
+            {
+                if (GlobalData.Get_BaseCurrency(ref BaseCurrency_Text, ref Err))
                 {
-                    this.txt_Currency.Text = BaseCurrency_Text;
-                    myStartup.eNextStep++;
-                    return true;
-                }
-                else
-                {
-                    if (Select_BaseCurrency(xnav,ref Err))
+                    if (BaseCurrency_Text != null)
                     {
-                        if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                        {
-                            myStartup.sbd.DeleteAll();
-                            myStartup.eNextStep = startup_step.eStep.CheckDBVersion;
-                        }
-                        else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
-                        {
-                            myStartup.eNextStep++;
-                        }
+                        this.txt_Currency.Text = BaseCurrency_Text;
+                        myStartup.eNextStep++;
                         return true;
                     }
+                    else
+                    {
+                        return DoSelectBaseCurrency(myStartup, xnav, ref Err);
+                    }
                 }
+                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                return false;
             }
-            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-            return false;
         }
 
         private bool Select_BaseCurrency(NavigationButtons.Navigation xnav,ref string Err)

@@ -130,6 +130,10 @@ namespace PriseLists
                                     return false;
                                 }
                             }
+                            else if (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                return true;
+                            }
                             else
                             {
                                 return false;

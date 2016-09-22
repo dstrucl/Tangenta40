@@ -100,15 +100,25 @@ namespace Tangenta
 
             StartupStep = new startup_step[]
             {
+                // CHECK DATABASE
                 new startup_step(lngRPM.s_Startup_Check_DataBase.s,Startup_Check_DataBase,startup_step.eStep.Check_DataBase),
+                // READ DB SETTINGS
                 new startup_step(lngRPM.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version),
+                // CHECK DB AND INSERT SAMPLE DATA IF DATABASE EMPTY
                 new startup_step(lngRPM.s_Startup_CheckDBVersion.s,this.m_usrc_Main.CheckDBVersion,startup_step.eStep.CheckDBVersion),
+                // GET ORGANISATION DATA
                 new startup_step(lngRPM.s_Startup_GetOrganisationData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData),
+                // GET BASE CURRENCY
                 new startup_step(lngRPM.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency),
+                // GET TAXATION
                 new startup_step(lngRPM.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation),
+                // GET PROGRAM SETTINGS
                 new startup_step(lngRPM.s_Startup_Get_shops_in_use.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings),
+                // GET SHOPB Item Data
                 new startup_step(lngRPM.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopB_ItemData,startup_step.eStep.GetSimpleItemData),
+                // GET SHOPC Item Data
                 new startup_step(lngRPM.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopC_ItemData,startup_step.eStep.GetItemData),
+                // LOGIN
                 new startup_step(lngRPM.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod),
              };
 

@@ -46,7 +46,20 @@ namespace Tangenta
                 Program.b_FVI_SLO = true;
                 if (Get_shops_in_use(xnav, true))
                 {
-                    myStartup.eNextStep++;
+                    switch (xnav.eExitResult)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            myStartup.eNextStep++;
+                            return true;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            myStartup.eNextStep--;
+                            return true;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            return true;
+                    }
+
+
                 }
                 else
                 {
@@ -73,7 +86,8 @@ namespace Tangenta
                     switch (xnav.eExitResult)
                     {
                         case NavigationButtons.Navigation.eEvent.NEXT:
-                            //this.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(Program.Shops_in_use);
+                            return true;
+                        case NavigationButtons.Navigation.eEvent.PREV:
                             return true;
                         default:
                             return false;
@@ -202,6 +216,7 @@ namespace Tangenta
                     return false;
                 }
             }
+
             if (myStartup.bInsertSampleData)
             {
                 bool bCanceled = false;
@@ -228,7 +243,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        myStartup.eNextStep++;
+                        myStartup.eNextStep = startup_step.eStep.GetOrganisationData;
                         return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
                     }
                     return true;
