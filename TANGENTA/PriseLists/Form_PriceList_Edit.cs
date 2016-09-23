@@ -29,7 +29,16 @@ namespace PriseLists
         public Form_PriceList_Edit(bool xbEditUndefined,usrc_PriceList_Edit.eShopType xeShopType,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
-            nav = xnav;
+            if (xnav != null)
+            {
+                nav = xnav;
+            }
+            else
+            {
+                nav = new NavigationButtons.Navigation();
+                nav.bDoModal = true;
+                nav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            }
             m_eShopType = xeShopType;
             bEditUndefined = xbEditUndefined;
             m_tbl_PriceList = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PriceList)));

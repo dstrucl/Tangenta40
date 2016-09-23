@@ -55,6 +55,7 @@ namespace Tangenta
         private int iColIndex_DocInvoice_Invoice_Storno = -1;
         private int iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = -1;
         private int iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = -1;
+        private bool bIgnoreChangeSelectionEvent = false;
 
         public long Current_Doc_ID
         {
@@ -90,7 +91,7 @@ namespace Tangenta
         internal void Activate_dgvx_XInvoice_SelectionChanged()
         {
             dgvx_XInvoice.ClearSelection();
-            this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
+            this.dgvx_XInvoice.SelectionChanged += this.dgvx_XInvoice_SelectionChanged;
             dgvx_XInvoice.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvx_XInvoice.MultiSelect = false;
             if (dt_XInvoice.Rows.Count>0)
@@ -118,9 +119,11 @@ namespace Tangenta
             switch (enum_Invoice)
             {
                 case usrc_Invoice.enum_Invoice.Invoice:
-                    this.dgvx_XInvoice.SelectionChanged -= new System.EventHandler(this.dgvx_XInvoice_SelectionChanged);
                     iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
-                    //ShowOrEditSelectedRow(bInitialise_usrc_Invoice);
+                    if (bNew)
+                    {
+                        ShowOrEditSelectedRow(false);
+                    }
                     break;
                 case usrc_Invoice.enum_Invoice.ProformaInvoice:
                     iRowsCount = Init_DocInvoice();
@@ -564,7 +567,7 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                     iCurrentSelectedRow = dgvx_XInvoice.Rows.IndexOf(dgvr);
                 }
             }
-            //this.dgvx_XInvoice.SelectionChanged -= new System.EventHandler(this.dgvx_XInvoice_SelectionChanged); // remove handler
+            bIgnoreChangeSelectionEvent = true;
             dt_XInvoice.Clear();
             dt_XInvoice.Columns.Clear();
             string Err = null;
@@ -584,7 +587,6 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
 
 
                 SetLabels();
-                //this.dgvx_XInvoice.SelectionChanged += new System.EventHandler(this.dgvx_XInvoice_SelectionChanged); // Add Handler
                 SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
                 tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                 if (Program.b_FVI_SLO)
@@ -615,9 +617,11 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
                         }
                     }
                 }
+                bIgnoreChangeSelectionEvent = false;
             }
             else
             {
+                bIgnoreChangeSelectionEvent = false;
                 LogFile.Error.Show("ERROR:usrc_InvoiceTable:Init_Invoice Err=" + Err);
             }
             return iRowsCount;
@@ -728,7 +732,10 @@ LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocInvoice_$_awperiod_$_awperiodt ON JOUR
 
         private void dgvx_XInvoice_SelectionChanged(object sender, EventArgs e)
         {
-            ShowOrEditSelectedRow(false);
+            if (!bIgnoreChangeSelectionEvent)
+            {
+                ShowOrEditSelectedRow(false);
+            }
         }
 
         private void btn_TimeSpan_Click(object sender, EventArgs e)
