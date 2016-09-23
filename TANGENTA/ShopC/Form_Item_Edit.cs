@@ -31,6 +31,8 @@ namespace ShopC
         SQLTable tbl = null;
         long_v ID_v = null;
         string ColumnOrderBy = "";
+        NavigationButtons.Navigation nav = null;
+
         private bool m_bChanged = false;
         public bool Changed
         {
@@ -40,11 +42,13 @@ namespace ShopC
 
         public bool bShopC_Item_NotIn_PriceList = false;
 
-        public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
+            usrc_NavigationButtons1.Init(nav);
             ColumnOrderBy = xColumnOrderBy;
             lngRPM.s_Items.Text(this, " "+lngRPM.s_Shop_C.s);
             rdb_OnlyInOffer.Checked = true;
@@ -121,7 +125,7 @@ namespace ShopC
         }
 
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void do_OK()
         {
             if (usrc_EditTable.Changed)
             {
@@ -134,7 +138,7 @@ namespace ShopC
             DialogResult = DialogResult.Yes;
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void do_Cancel()
         {
             if (usrc_EditTable.Changed)
             {
@@ -224,5 +228,43 @@ namespace ShopC
             }
         }
 
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            nav.eExitResult = evt;
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            nav.eExitResult = evt;
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            nav.eExitResult = evt;
+                            do_Cancel();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            nav.eExitResult = evt;
+                            do_Cancel();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            nav.eExitResult = evt;
+                            do_OK();
+                            break;
+                    }
+                    break;
+            }
+
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace ShopB
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         bool bclose = false;
+        NavigationButtons.Navigation nav = null;
 
         private bool m_bChanged = false;
         public bool Changed
@@ -33,11 +34,12 @@ namespace ShopB
             get { return m_bChanged; }
         }
 
-        public Form_ShopB_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string ColumnToOrderBy)
+        public Form_ShopB_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string ColumnToOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
             m_bChanged = false;
             dbTables = xdbTables;
+            nav = xnav;
             tbl = xtbl;
             lngRPM.s_Items.Text(this, " "+lngRPM.s_Shop_B.s);
             List_of_Inserted_Items_ID = new List<long>();
@@ -45,8 +47,7 @@ namespace ShopB
             lngRPM.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
             lngRPM.s_AllItems.Text(this.rdb_All);
             lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
-            lngRPM.s_OK.Text(btn_OK);
-            lngRPM.s_Cancel.Text(btn_Cancel);
+            usrc_NavigationButtons1.Init(xnav);
             string selection = " SimpleItem_$$Name,SimpleItem_$$Abbreviation,SimpleItem_$_siimg_$$Image_Data,SimpleItem_$_sipg1_$$Name,SimpleItem_$_sipg1_$_sipg2_$$Name,SimpleItem_$_sipg1_$_sipg2_$_sipg3_$$Name,SimpleItem_$$ToOffer,ID ";
             if (!usrc_EditTable.Init(dbTables, tbl, selection, ColumnToOrderBy,false,null,null,false))
             {
@@ -78,7 +79,7 @@ namespace ShopB
             m_bChanged = true;
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void do_OK()
         {
             if (usrc_EditTable.Changed)
             {
@@ -92,7 +93,7 @@ namespace ShopB
 
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void do_Cancel()
         {
             if (usrc_EditTable.Changed)
             {
@@ -107,6 +108,45 @@ namespace ShopB
                 this.Close();
                 DialogResult = DialogResult.No;
             }
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            nav.eExitResult = evt;
+                            do_OK();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            nav.eExitResult = evt;
+                            do_Cancel();
+                            break;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            nav.eExitResult = evt;
+                            do_Cancel();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            nav.eExitResult = evt;
+                            do_Cancel();
+                            break;
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            nav.eExitResult = evt;
+                            do_OK();
+                            break;
+                    }
+                    break;
+            }
+
         }
     }
 }

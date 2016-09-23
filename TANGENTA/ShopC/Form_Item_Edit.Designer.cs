@@ -29,35 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_ShopC_Item_Edit));
-            this.btn_Cancel = new System.Windows.Forms.Button();
-            this.btn_OK = new System.Windows.Forms.Button();
             this.usrc_EditTable = new CodeTables.TableDocking_Form.usrc_EditTable();
             this.rdb_OnlyNotInOffer = new System.Windows.Forms.RadioButton();
             this.rdb_All = new System.Windows.Forms.RadioButton();
             this.rdb_OnlyInOffer = new System.Windows.Forms.RadioButton();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.SuspendLayout();
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Cancel.Location = new System.Drawing.Point(128, 578);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(55, 24);
-            this.btn_Cancel.TabIndex = 4;
-            this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
-            // 
-            // btn_OK
-            // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OK.Location = new System.Drawing.Point(4, 578);
-            this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(55, 24);
-            this.btn_OK.TabIndex = 3;
-            this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
-            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
             // 
             // usrc_EditTable
             // 
@@ -70,7 +47,7 @@
             this.usrc_EditTable.Location = new System.Drawing.Point(4, 3);
             this.usrc_EditTable.Name = "usrc_EditTable";
             this.usrc_EditTable.SelectionButtonVisible = false;
-            this.usrc_EditTable.Size = new System.Drawing.Size(897, 569);
+            this.usrc_EditTable.Size = new System.Drawing.Size(897, 610);
             this.usrc_EditTable.TabIndex = 0;
             this.usrc_EditTable.Title = "";
             this.usrc_EditTable.Title_Color = System.Drawing.SystemColors.ControlText;
@@ -83,7 +60,7 @@
             // 
             this.rdb_OnlyNotInOffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_OnlyNotInOffer.AutoSize = true;
-            this.rdb_OnlyNotInOffer.Location = new System.Drawing.Point(411, 582);
+            this.rdb_OnlyNotInOffer.Location = new System.Drawing.Point(205, 619);
             this.rdb_OnlyNotInOffer.Name = "rdb_OnlyNotInOffer";
             this.rdb_OnlyNotInOffer.Size = new System.Drawing.Size(72, 17);
             this.rdb_OnlyNotInOffer.TabIndex = 9;
@@ -96,7 +73,7 @@
             // 
             this.rdb_All.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_All.AutoSize = true;
-            this.rdb_All.Location = new System.Drawing.Point(625, 582);
+            this.rdb_All.Location = new System.Drawing.Point(419, 619);
             this.rdb_All.Name = "rdb_All";
             this.rdb_All.Size = new System.Drawing.Size(36, 17);
             this.rdb_All.TabIndex = 8;
@@ -108,7 +85,7 @@
             // 
             this.rdb_OnlyInOffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.rdb_OnlyInOffer.AutoSize = true;
-            this.rdb_OnlyInOffer.Location = new System.Drawing.Point(216, 582);
+            this.rdb_OnlyInOffer.Location = new System.Drawing.Point(10, 619);
             this.rdb_OnlyInOffer.Name = "rdb_OnlyInOffer";
             this.rdb_OnlyInOffer.Size = new System.Drawing.Size(72, 17);
             this.rdb_OnlyInOffer.TabIndex = 7;
@@ -116,19 +93,48 @@
             this.rdb_OnlyInOffer.Text = "Only Valid";
             this.rdb_OnlyInOffer.UseVisualStyleBackColor = true;
             // 
-            // Form_Item_Edit
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
+            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
+            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(4, 616);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(897, 63);
+            this.usrc_NavigationButtons1.TabIndex = 10;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "";
+            this.usrc_NavigationButtons1.Text_OK = "";
+            this.usrc_NavigationButtons1.Text_PREV = "";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
+            // 
+            // Form_ShopC_Item_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(905, 607);
+            this.ClientSize = new System.Drawing.Size(905, 678);
             this.Controls.Add(this.rdb_OnlyNotInOffer);
             this.Controls.Add(this.rdb_All);
             this.Controls.Add(this.rdb_OnlyInOffer);
-            this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.usrc_EditTable);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_Item_Edit";
+            this.Name = "Form_ShopC_Item_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Item_EditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Item_EditForm_FormClosing);
@@ -142,11 +148,9 @@
         #endregion
 
         private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable;
-        private System.Windows.Forms.Button btn_Cancel;
-        private System.Windows.Forms.Button btn_OK;
         private System.Windows.Forms.RadioButton rdb_OnlyNotInOffer;
         private System.Windows.Forms.RadioButton rdb_All;
         private System.Windows.Forms.RadioButton rdb_OnlyInOffer;
-
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

@@ -21,6 +21,7 @@ using TangentaTableClass;
 using TangentaDB;
 using UpgradeDB;
 using Startup;
+using NavigationButtons;
 
 namespace Tangenta
 {
@@ -51,6 +52,7 @@ namespace Tangenta
                         case NavigationButtons.Navigation.eEvent.NEXT:
                             myStartup.eNextStep++;
                             return true;
+
                         case NavigationButtons.Navigation.eEvent.PREV:
                             myStartup.eNextStep--;
                             return true;
@@ -58,8 +60,6 @@ namespace Tangenta
                             myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                             return true;
                     }
-
-
                 }
                 else
                 {
@@ -73,11 +73,7 @@ namespace Tangenta
 
         public bool Get_shops_in_use(NavigationButtons.Navigation xnav,bool bResetShopsInUse)
         {
-            if (Program.Shops_in_use.Length>0)
-            {
-                return true;
-            }
-            else
+            if (Program.bFirstTimeInstallation||(Program.Shops_in_use.Length == 0))
             {
                 xnav.ChildDialog = new Form_ShopsInUse(xnav, bResetShopsInUse, this);
                 xnav.ShowDialog();
@@ -98,6 +94,15 @@ namespace Tangenta
                     switch (xnav.eExitResult)
                     {
                         case NavigationButtons.Navigation.eEvent.OK:
+
+                            if (m_usrc_InvoiceMan.m_usrc_Invoice != null)
+                            {
+                                if (m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
+                                {
+                                    m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
+                                    return true;
+                                }
+                            }
                             return true;
                         default:
                             return false;
@@ -109,6 +114,19 @@ namespace Tangenta
                     return false;
                 }
             }
+            else
+            {
+                if (Program.Shops_in_use.Length > 0)
+                {
+                    xnav.eExitResult = Navigation.eEvent.NEXT;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Document:Get_shops_in_use:Error Program.Shops_in_use.Length <= 0!");
+                    return false;
+                }
+            }
         }
 
         internal bool Initialise(Form main_Form)
@@ -117,6 +135,37 @@ namespace Tangenta
             return  this.m_usrc_InvoiceMan.Initialise(Main_Form);
         }
 
+        internal bool SetShopsPricelists(startup myStartup, object oData, Navigation xnav, ref string Err)
+        {
+            if (m_usrc_InvoiceMan != null)
+            {
+                if (m_usrc_InvoiceMan.m_usrc_Invoice != null)
+                {
+                    if (m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
+                    {
+                        m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(Properties.Settings.Default.eShopsInUse, xnav);
+                        if (xnav.eExitResult== Navigation.eEvent.NEXT)
+                        {
+                            myStartup.eNextStep++;
+                            return true;
+                        }
+                        else if (xnav.eExitResult == Navigation.eEvent.PREV)
+                        {
+                            myStartup.eNextStep--;
+                            return true;
+                        }
+                        else if (xnav.eExitResult == Navigation.eEvent.EXIT)
+                        {
+                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            myStartup.eNextStep++;
+            return true;
+        }
 
         internal bool Init(NavigationButtons.Navigation xnav)
         {

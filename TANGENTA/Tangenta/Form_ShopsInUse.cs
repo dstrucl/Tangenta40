@@ -88,25 +88,6 @@ namespace Tangenta
             DynSettings.LanguageTextSave();
             Properties.Settings.Default.eShopsInUse = shinuse;
             Properties.Settings.Default.Save();
-            if (bResetShopsInUse)
-            {
-                if (m_usrc_Main != null)
-                {
-                    if (m_usrc_Main.m_usrc_InvoiceMan != null)
-                    {
-                        if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice != null)
-                        {
-                            if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.DBtcn != null)
-                            {
-                                this.Close();
-                                DialogResult = DialogResult.OK;
-                                m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Set_eShopsMode(shinuse,nav);
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
             this.Close();
             DialogResult = DialogResult.OK;
             return true;

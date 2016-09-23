@@ -240,7 +240,10 @@ namespace ShopC
             {
                 if (count_in_baskets == 0)
                 {
-                    if (EditItem())
+                    NavigationButtons.Navigation nav_EditItem = new NavigationButtons.Navigation();
+                    nav_EditItem.bDoModal = true;
+                    nav_EditItem.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                    if (EditItem(nav_EditItem))
                     {
                         usrc_ItemList.Get_Price_Item_Stock_Data(PriceList_ID);
                     }
@@ -255,12 +258,12 @@ namespace ShopC
             
         }
 
-        public bool EditItem()
+        public bool EditItem(NavigationButtons.Navigation xnav)
         {
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
             Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
-                                                            "Item_$$Code desc");
+                                                            "Item_$$Code desc",xnav);
             edt_Item_dlg.ShowDialog();
 
             if (edt_Item_dlg.List_of_Inserted_Items_ID.Count>0)

@@ -112,8 +112,10 @@ namespace Tangenta
                 new startup_step(lngRPM.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency),
                 // GET TAXATION
                 new startup_step(lngRPM.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation),
-                // GET PROGRAM SETTINGS
+                // GET SHOPS IN USE
                 new startup_step(lngRPM.s_Startup_Get_shops_in_use.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings),
+                // GET PROGRAM SETTINGS
+                new startup_step(lngRPM.s_SetShopsPricelists.s,this.m_usrc_Main.SetShopsPricelists,startup_step.eStep.SetShopsPricelists),
                 // GET SHOPB Item Data
                 new startup_step(lngRPM.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopB_ItemData,startup_step.eStep.GetSimpleItemData),
                 // GET SHOPC Item Data
@@ -478,7 +480,8 @@ namespace Tangenta
             string Err = null;
             if (m_startup.Execute(Program.bFirstTimeInstallation, ref Err))
             {
-                m_usrc_Main.Init(Program.nav);
+                Program.bFirstTimeInstallation = false;
+                m_usrc_Main.Init(null);
                 m_startup.RemoveControl();
                 m_usrc_Main.Visible = true;
                 m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();

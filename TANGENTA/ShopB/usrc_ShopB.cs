@@ -861,17 +861,20 @@ namespace ShopB
 
         private void btn_edit_ShopB_Items_Click(object sender, EventArgs e)
         {
-            EditShopBItem();
+            NavigationButtons.Navigation nav_EditShopBItem = new NavigationButtons.Navigation();
+            nav_EditShopBItem.bDoModal = true;
+            nav_EditShopBItem.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            EditShopBItem(nav_EditShopBItem);
         }
 
-        public bool EditShopBItem()
+        public bool EditShopBItem(NavigationButtons.Navigation xnav)
         {
             SQLTable tbl_ShopBItem=new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(SimpleItem)));
             Form_ShopB_Item_Edit edt_ShopBItem_dlg = new Form_ShopB_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                     tbl_ShopBItem,
-                                                                    "SimpleItem_$$Code desc");
-            edt_ShopBItem_dlg.ShowDialog();
-
+                                                                    "SimpleItem_$$Code desc",xnav);
+            xnav.ChildDialog = edt_ShopBItem_dlg;
+            xnav.ShowDialog();
             if (edt_ShopBItem_dlg.List_of_Inserted_Items_ID.Count > 0)
             {
                 DataTable dt_ShopB_Items_NotIn_PriceList = new DataTable();

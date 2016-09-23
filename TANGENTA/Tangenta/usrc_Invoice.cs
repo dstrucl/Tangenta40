@@ -150,6 +150,13 @@ namespace Tangenta
                 m_usrc_ShopB = new usrc_ShopB();
             }
             m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use, xnav);
+            if (xnav != null)
+            {
+                if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT))
+                {
+                    return;
+                }
+            }
             m_usrc_ShopB.Dock = DockStyle.Fill;
             m_usrc_ShopB.aa_ExtraDiscount += usrc_ShopB_ExtraDiscount;
             m_usrc_ShopB.aa_ItemAdded += usrc_ShopB_ItemAdded;
@@ -164,6 +171,10 @@ namespace Tangenta
                 m_usrc_ShopC = new usrc_ShopC();
             }
             m_usrc_ShopC.Init(this.m_ShopABC, DBtcn,Program.Shops_in_use,xnav);
+            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT))
+            {
+                return;
+            }
             m_usrc_ShopC.Dock = DockStyle.Fill;
             m_usrc_ShopC.ItemAdded += usrc_ShopC_ItemAdded;
             m_usrc_ShopC.After_Atom_Item_Remove += usrc_ShopC_After_Atom_Item_Remove;
@@ -282,17 +293,50 @@ namespace Tangenta
             {
                 New_ShopA();
             }
+        do_NewShopB:
+            if (xnav != null)
+            {
+                if (xnav.LastStartupDialog_TYPE == "TangentaSampleDB.Form_Items_Samples")
+                {
+                    if (m_usrc_ShopB != null)
+                    {
+                        m_usrc_ShopB.Dispose();
+                        m_usrc_ShopB = null;
+                    }
+                }
+            }
             if (m_usrc_ShopB == null)
             {
                 New_ShopB(xnav);
+                if (xnav != null)
+                {
+                    if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT))
+                    {
+                        return;
+                    }
+                }
             }
-            if (m_usrc_ShopA == null)
-            {
-                New_ShopA();
-            }
+            
             if (m_usrc_ShopC == null)
             {
                 New_ShopC(xnav);
+                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    if (m_usrc_ShopB!= null)
+                    {
+                        m_usrc_ShopB.Dispose();
+                        m_usrc_ShopB = null;
+                        goto do_NewShopB;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                {
+                  return;
+                }
             }
 
             if (eShopsMode.Equals("A"))
@@ -1023,6 +1067,16 @@ namespace Tangenta
                         myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                         return false;
                     }
+                    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                    {
+                        myStartup.eNextStep--;
+                        return true;
+                    }
+                    else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                    {
+                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        return true;
+                    }
                 }
                 if (this.m_usrc_ShopB == null)
                 {
@@ -1032,7 +1086,7 @@ namespace Tangenta
 
             int iCountSimpleItemData = -1;
 
-            if (GetSimpleItemData(ref iCountSimpleItemData))
+            if (GetSimpleItemData(ref iCountSimpleItemData, xnav))
             {
                 myStartup.eNextStep++;
                 return true;
@@ -1044,7 +1098,7 @@ namespace Tangenta
             }
         }
 
-        private bool GetSimpleItemData(ref int iCountSimpleItemData)
+        private bool GetSimpleItemData(ref int iCountSimpleItemData, NavigationButtons.Navigation xnav)
         {
             if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
             {
@@ -1056,9 +1110,9 @@ namespace Tangenta
                 {
                     if (Program.Shops_in_use.Contains("B"))
                     {
-                        if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
-                        {
-                            this.m_usrc_ShopB.EditShopBItem();
+                        //if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        //{
+                            this.m_usrc_ShopB.EditShopBItem(xnav);
                             if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
                             {
                                 return true;
@@ -1067,11 +1121,11 @@ namespace Tangenta
                             {
                                 return false;
                             }
-                        }
-                        else
-                        {
-                            return true;
-                        }
+                        //}
+                        //else
+                        //{
+                        //    return true;
+                        //}
                     }
                     else
                     {
@@ -1131,10 +1185,29 @@ namespace Tangenta
             }
 
 
-            if (GetItemData(ref iCountItemData))
+            if (GetItemData(ref iCountItemData,xnav))
             {
-                myStartup.eNextStep++;
-                return true;
+                if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
+                {
+                    myStartup.eNextStep++;
+                    return true;
+                }
+                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                {
+                    myStartup.eNextStep--;
+                    return true;
+                }
+                else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                {
+                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("Error:usrc_Invoice.cs:Get_ShopC_ItemData(..) xnav.eExitResult not implemented!");
+                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    return false;
+                }
             }
             else
             {
@@ -1144,7 +1217,7 @@ namespace Tangenta
         }
 
 
-        private bool GetItemData(ref int iCountItemData)
+        private bool GetItemData(ref int iCountItemData,NavigationButtons.Navigation xnav)
         {
             if (this.m_usrc_ShopC.GetItemData(ref iCountItemData))
             {
@@ -1156,21 +1229,14 @@ namespace Tangenta
                 {
                     if (Program.Shops_in_use.Contains("C"))
                     {
-                        if (MessageBox.Show(this, lngRPM.s_NoItemData_EnterItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        this.m_usrc_ShopC.EditItem(xnav);
+                        if (this.m_usrc_ShopC.GetItemData(ref iCountItemData))
                         {
-                            this.m_usrc_ShopC.EditItem();
-                            if (this.m_usrc_ShopC.GetItemData(ref iCountItemData))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
+                            return true;
                         }
                         else
                         {
-                            return true;
+                            return false;
                         }
                     }
                     else

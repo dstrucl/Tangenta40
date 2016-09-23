@@ -67,6 +67,14 @@ namespace PriseLists
                 m_xPriceList = new xPriceList();
             }
 
+            if (xnav != null)
+            {
+                if (xnav.LastStartupDialog_TYPE.Equals("TangentaSampleDB.Form_Items_Samples"))
+                {
+                    return DoEditPriceList(Currency_ID, xnav, ref Err);
+                }
+            }
+
             if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
             {
                 if (xPriceList_Count > 0)
@@ -92,52 +100,7 @@ namespace PriseLists
                         }
                         if (bDialogResult)
                         {
-                            Form_PriceList_Edit PriceListType_Edit_dlg = null;
-                            NavigationButtons.Navigation nav_Form_PriceList_Edit = null;
-                            if (xnav == null)
-                            {
-                                nav_Form_PriceList_Edit = new NavigationButtons.Navigation();
-                                nav_Form_PriceList_Edit.bDoModal = true;
-                                nav_Form_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-                                PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
-                                nav_Form_PriceList_Edit.ChildDialog = PriceListType_Edit_dlg;
-                            }
-                            else
-                            {
-                                nav_Form_PriceList_Edit = xnav;
-                                if (nav_Form_PriceList_Edit.m_eButtons == NavigationButtons.Navigation.eButtons.OkCancel)
-                                {
-                                    nav_Form_PriceList_Edit.bDoModal = true;
-                                }
-                                PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
-                                xnav.ChildDialog = PriceListType_Edit_dlg;
-                            }
-                            nav_Form_PriceList_Edit.ShowDialog();
-                            if ((nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.OK)|| (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
-                            {
-                                if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
-                                {
-                                    if (xPriceList_Count > 0)
-                                    {
-                                        this.cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
-                                        this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
-                                        this.cmb_PriceListType.ValueMember = "xPriceList_ID";
-                                    }
-                                }
-                                else
-                                {
-                                    LogFile.Error.Show(Err);
-                                    return false;
-                                }
-                            }
-                            else if (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
+                            return DoEditPriceList(Currency_ID, xnav, ref Err);
                         }
                     }
                 }
@@ -149,6 +112,58 @@ namespace PriseLists
                 return false;
             }
         }
+
+        private bool DoEditPriceList(long Currency_ID,NavigationButtons.Navigation xnav, ref string Err)
+        {
+            Form_PriceList_Edit PriceListType_Edit_dlg = null;
+            NavigationButtons.Navigation nav_Form_PriceList_Edit = null;
+            if (xnav == null)
+            {
+                nav_Form_PriceList_Edit = new NavigationButtons.Navigation();
+                nav_Form_PriceList_Edit.bDoModal = true;
+                nav_Form_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
+                nav_Form_PriceList_Edit.ChildDialog = PriceListType_Edit_dlg;
+            }
+            else
+            {
+                nav_Form_PriceList_Edit = xnav;
+                if (nav_Form_PriceList_Edit.m_eButtons == NavigationButtons.Navigation.eButtons.OkCancel)
+                {
+                    nav_Form_PriceList_Edit.bDoModal = true;
+                }
+                PriceListType_Edit_dlg = new Form_PriceList_Edit(false, m_eShopType, nav_Form_PriceList_Edit);
+                xnav.ChildDialog = PriceListType_Edit_dlg;
+            }
+            nav_Form_PriceList_Edit.ShowDialog();
+            if ((nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
+            {
+                if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
+                {
+                    if (xPriceList_Count > 0)
+                    {
+                        this.cmb_PriceListType.DataSource = m_xPriceList.List_xPriceList;
+                        this.cmb_PriceListType.DisplayMember = "xPriceList_Name";
+                        this.cmb_PriceListType.ValueMember = "xPriceList_ID";
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show(Err);
+                    return false;
+                }
+            }
+            else if (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+
 
         private void btn_PriceListType_Click(object sender, EventArgs e)
         {
