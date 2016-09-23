@@ -170,6 +170,13 @@ namespace ShopC
                         return true;
                     }
                 }
+                else
+                {
+                    splitContainer1.Panel2Collapsed = true;
+                    string[] sGroup = new string[] { null, null, null };
+                    m_usrc_Item_Group_Handler.Select(sGroup);
+                    return true;
+                }
             }
             return false;
         }

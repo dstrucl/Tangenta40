@@ -659,6 +659,10 @@ namespace Tangenta
 
         public bool Init(NavigationButtons.Navigation xnav,long Document_ID)
         {
+            if (Properties.Settings.Default.eShopsMode.Length==0)
+            {
+                Properties.Settings.Default.eShopsMode = Properties.Settings.Default.eShopsInUse;
+            }
             Set_eShopsMode(Properties.Settings.Default.eShopsMode,xnav);
             GetUnits();
             if ((iCountSimpleItemData + iCountItemData > 0) || (Program.Shops_in_use.Contains("A")))

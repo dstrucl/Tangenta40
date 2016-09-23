@@ -92,11 +92,11 @@ namespace TangentaDB
                             }
                             myOrganisation_Person_v.v = (long)dt.Rows[0]["ID"];
                             sql = "update myOrganisation_Person set Password = " + Password_value + @",
-                                                                set Job = " + Job_value + @",
-                                                                set Active = " + Active_value + @",
-                                                                set Description = " + Description_value + @",
-                                                                set Person_ID = " + Person_ID_value + @",
-                                                                set Office_ID = " + Office_ID_value + @"
+                                                                Job = " + Job_value + @",
+                                                                Active = " + Active_value + @",
+                                                                Description = " + Description_value + @",
+                                                                Person_ID = " + Person_ID_value + @",
+                                                                Office_ID = " + Office_ID_value + @"
                                                                 where  ID = " + myOrganisation_Person_v.v.ToString();
                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
                             {

@@ -192,7 +192,7 @@ namespace usrc_Item_Group_Handler
                 }
             }
             m_LastNumberOfGroupLevels = m_NumberOfGroupLevels;
-            return (m_NumberOfGroupLevels > 0);
+            return m_NumberOfGroupLevels > 0;
         }
 
         public bool Select(string[] sGroupArr)
