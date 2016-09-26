@@ -1133,6 +1133,14 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
+    public class Atom_ElectronicDevice
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Description Description = new Description();
+    }
+
+
     public class WorkingPlace
     {
         public ID ID = new ID();
@@ -1203,6 +1211,7 @@ namespace TangentaTableClass
         public Atom_myOrganisation_Person m_Atom_myOrganisation_Person = new Atom_myOrganisation_Person();
         public Atom_WorkingPlace m_Atom_WorkingPlace  = new Atom_WorkingPlace();
         public Atom_Computer m_Atom_Computer = new Atom_Computer();
+        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
         public LoginTime LoginTime = new LoginTime();
         public LogoutTime LogoutTime = new LogoutTime();
         public Atom_WorkPeriod_TYPE m_Atom_WorkPeriod_TYPE = new Atom_WorkPeriod_TYPE();
@@ -2923,6 +2932,8 @@ namespace TangentaTableClass
         /* 198 */
         public JOURNAL m_JOURNAL = new JOURNAL();
 
+        /* 199 */
+        public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
 
     }
 }

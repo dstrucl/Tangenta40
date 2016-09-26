@@ -379,7 +379,7 @@ namespace Tangenta
 
     public bool GetWorkPeriod(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
     {
-        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", DateTime.Now, null, ref Err))
+        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht",Properties.Settings.Default.ElectronicDevice_ID,null, DateTime.Now, null, ref Err))
         {
                 myStartup.eNextStep++;
             return true;

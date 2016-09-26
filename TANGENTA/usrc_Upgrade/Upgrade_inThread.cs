@@ -75,7 +75,8 @@ namespace UpgradeDB
                 new Upgrade("1.16",UpgradeDB_1_16_to_1_17),
                 new Upgrade("1.17",UpgradeDB_1_17_to_1_18),
                 new Upgrade("1.18",UpgradeDB_1_18_to_1_19),
-                new Upgrade("1.19",UpgradeDB_1_19_to_1_20)
+                new Upgrade("1.19",UpgradeDB_1_19_to_1_20),
+                new Upgrade("1.20",UpgradeDB_1_20_to_1_21)
             };
         }
 
@@ -93,6 +94,74 @@ namespace UpgradeDB
                 }
             }
             return true;
+        }
+
+        private object UpgradeDB_1_20_to_1_21(object obj, ref string Err)
+        {
+            string[] new_tables = new string[] { "Atom_ElectronicDevice" };
+            if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+            {
+                long Atom_ElectronicDevice_ID = -1;
+                if (f_Atom_ElectronicDevice.Get("ED1", null, ref Atom_ElectronicDevice_ID))
+                {
+                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                    string spar_Atom_ElectronicDevice_ID = "@par_Atom_ElectronicDevice_ID";
+                    SQL_Parameter par_Atom_ElectronicDevice_ID = new SQL_Parameter(spar_Atom_ElectronicDevice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_ElectronicDevice_ID);
+                    lpar.Add(par_Atom_ElectronicDevice_ID);
+                    string sql = @"
+                    PRAGMA foreign_keys = OFF;
+                    DROP TABLE IF EXISTS Atom_WorkPeriod_temp;
+
+                    CREATE TABLE Atom_WorkPeriod_temp ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                        Atom_myOrganisation_Person_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
+                                                        Atom_WorkingPlace_ID INTEGER NOT NULL REFERENCES Atom_WorkingPlace(ID),
+                                                        Atom_Computer_ID INTEGER NOT NULL REFERENCES Atom_Computer(ID),
+                                                        Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES Atom_ElectronicDevice(ID),
+                                                        'LoginTime' DATETIME NULL,
+                                                        'LogoutTime' DATETIME NULL,
+                                                        Atom_WorkPeriod_TYPE_ID INTEGER NULL REFERENCES Atom_WorkPeriod_TYPE(ID));
+
+                    insert into Atom_WorkPeriod_temp
+                    (
+                      ID,
+                      Atom_myOrganisation_Person_ID,
+                      Atom_WorkingPlace_ID,
+                      Atom_Computer_ID,
+                      Atom_ElectronicDevice_ID,
+                      Atom_WorkPeriod_TYPE_ID,
+                      LoginTime,
+                      LogoutTime
+                    )
+                    select
+                        ID,
+                        Atom_myOrganisation_Person_ID,
+                        Atom_WorkingPlace_ID,
+                        Atom_Computer_ID,
+                        "+ spar_Atom_ElectronicDevice_ID + @",
+                        Atom_WorkPeriod_TYPE_ID,
+                        LoginTime,
+                        LogoutTime
+                        from Atom_WorkPeriod;
+                    DROP TABLE Atom_WorkPeriod;
+                    ALTER TABLE Atom_WorkPeriod_temp RENAME TO Atom_WorkPeriod;
+                    PRAGMA foreign_keys = ON;
+                    ";
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                    return Set_DatBase_Version("1.21");
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
@@ -3787,7 +3856,7 @@ namespace UpgradeDB
                     DateTime dtStart = new DateTime(2015, 4, 29);
                     DateTime_v dtEnd_v = new DateTime_v();
                     dtEnd_v.v = DateTime.Now;
-                    if (!GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04,null,dtStart,dtEnd_v, ref Err))
+                    if (!GlobalData.GetWorkPeriodOld(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04,null,dtStart,dtEnd_v, ref Err))
                     {
                         return false;
                     }
@@ -3799,7 +3868,7 @@ namespace UpgradeDB
                     DateTime dtStart = new DateTime(2015, 4, 29);
                     DateTime_v dtEnd_v = new DateTime_v();
                     dtEnd_v.v = DateTime.Now;
-                    GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04, null, dtStart, dtEnd_v, ref Err);
+                    GlobalData.GetWorkPeriodOld(f_Atom_WorkPeriod.sWorkPeriod_DB_ver_1_04, null, dtStart, dtEnd_v, ref Err);
                 }
             }
 

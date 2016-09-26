@@ -15,6 +15,7 @@ namespace LanguageControl
     public static class lngTName
     {
 
+        public static ltext lngt_t_Atom_ElectronicDevice = new ltext("Electronic Device", "Elektronska namprava");
         public static ltext lngt_t_Atom_Bank = new ltext("Archive Bank", "Arhiv bank");
         public static ltext lngt_t_Atom_BankAccount = new ltext("Archive Bank Account", "Arhiv bančnih računov");
         public static ltext lngt_t_Atom_OrganisationAccount = new ltext("Archive Organisation Account", "Arhiv bančnih računov organizacije");

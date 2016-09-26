@@ -138,7 +138,7 @@
       <Value Profile="(Default)">-1</Value>
     </Setting>
     <Setting Name="ElectronicDevice_ID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">ED1</Value>
     </Setting>
     <Setting Name="Current_DocInvoice_ID" Type="System.Int64" Scope="User">
       <Value Profile="(Default)">-1</Value>

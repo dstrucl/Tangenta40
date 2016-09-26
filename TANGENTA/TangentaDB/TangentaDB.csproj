@@ -75,6 +75,7 @@
     <Compile Include="f_Atom_cCity_Person.cs" />
     <Compile Include="f_Atom_cCountry_Person.cs" />
     <Compile Include="f_Atom_cHouseNumber_Person.cs" />
+    <Compile Include="f_Atom_ElectronicDevice.cs" />
     <Compile Include="f_Atom_cState_Org.cs" />
     <Compile Include="f_Atom_cHouseNumber_Org.cs" />
     <Compile Include="f_Atom_Computer.cs" />

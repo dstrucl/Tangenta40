@@ -48,7 +48,7 @@ namespace TangentaDataBaseDef
     }
     partial class MyDataBase_Tangenta
     {
-        public const string VERSION = "1.20";
+        public const string VERSION = "1.21";
         public Settings Settings = null;
 
         /* 1 */
@@ -577,6 +577,8 @@ namespace TangentaDataBaseDef
         /* 198 */
         public SQLTable t_JOURNAL = null;
 
+        /* 199 */
+        public SQLTable t_Atom_ElectronicDevice = null;
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -1860,6 +1862,7 @@ namespace TangentaDataBaseDef
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_myOrganisation_Person, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Organisation Person archive ID", "Zaposleni arhiv ID") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_WorkingPlace, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Working place archive ID", "Ime delovnega mesta arhiv ID") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_Computer, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Computer_ID", "Computer_ID") );
+            t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_ElectronicDevice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Electronic device ID", "Elektronska naprava ID"));
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.LoginTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Work start time", "Začetek dela") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.LogoutTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Work end time", "Konec dela") );
             t_Atom_WorkPeriod.AddColumn((Object)mt.m_Atom_WorkPeriod.m_Atom_WorkPeriod_TYPE, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Work end time", "Konec dela") );
@@ -2258,7 +2261,14 @@ namespace TangentaDataBaseDef
             t_JOURNAL.AddColumn((Object)mt.m_JOURNAL.EventTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Event Time", "Čas dogodka"));
             t_JOURNAL.AddColumn((Object)mt.m_JOURNAL.m_Atom_WorkPeriod, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Work shift ID", "Šiht ID"));
             m_DBTables.items.Add(t_JOURNAL);
+
+            /* 199 */
+            t_Atom_ElectronicDevice = new SQLTable((Object)new Atom_ElectronicDevice(), "aed", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_ElectronicDevice);
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_Atom_ElectronicDevice);
         }
-}
+    }
  }
 

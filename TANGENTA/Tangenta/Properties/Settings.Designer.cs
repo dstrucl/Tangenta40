@@ -565,7 +565,7 @@ namespace Tangenta.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ED1")]
         public string ElectronicDevice_ID {
             get {
                 return ((string)(this["ElectronicDevice_ID"]));
