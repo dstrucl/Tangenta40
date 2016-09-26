@@ -32,9 +32,10 @@
             this.m_usrc_Help = new usrc_Help.usrc_Help();
             this.btn_Settings = new System.Windows.Forms.Button();
             this.btn_Backup = new System.Windows.Forms.Button();
-            this.usrc_Printer1 = new Tangenta.usrc_Printer();
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.m_usrc_InvoiceMan = new Tangenta.usrc_InvoiceMan();
+            this.btn_CodeTables = new System.Windows.Forms.Button();
+            this.usrc_Printer1 = new Tangenta.usrc_Printer();
             this.SuspendLayout();
             // 
             // btn_Exit
@@ -78,18 +79,10 @@
             this.btn_Backup.UseVisualStyleBackColor = true;
             this.btn_Backup.Click += new System.EventHandler(this.btn_Backup_Click);
             // 
-            // usrc_Printer1
-            // 
-            this.usrc_Printer1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Printer1.Location = new System.Drawing.Point(671, 1);
-            this.usrc_Printer1.Name = "usrc_Printer1";
-            this.usrc_Printer1.PaperName = null;
-            this.usrc_Printer1.Size = new System.Drawing.Size(39, 31);
-            this.usrc_Printer1.TabIndex = 7;
-            // 
             // usrc_FVI_SLO1
             // 
             this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_FVI_SLO1.FursD_ElectronicDeviceID = "";
             this.usrc_FVI_SLO1.Location = new System.Drawing.Point(627, 1);
             this.usrc_FVI_SLO1.MessageBox_Length = 100;
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
@@ -104,9 +97,29 @@
             this.m_usrc_InvoiceMan.Size = new System.Drawing.Size(918, 605);
             this.m_usrc_InvoiceMan.TabIndex = 2;
             // 
-            // usrc_Main
+            // btn_CodeTables
+            // 
+            this.btn_CodeTables.Image = global::Tangenta.Properties.Resources.CodeTablesImage;
+            this.btn_CodeTables.Location = new System.Drawing.Point(582, 0);
+            this.btn_CodeTables.Name = "btn_CodeTables";
+            this.btn_CodeTables.Size = new System.Drawing.Size(39, 31);
+            this.btn_CodeTables.TabIndex = 10;
+            this.btn_CodeTables.UseVisualStyleBackColor = true;
+            this.btn_CodeTables.Click += new System.EventHandler(this.btn_CodeTables_Click);
+            // 
+            // usrc_Printer1
+            // 
+            this.usrc_Printer1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Printer1.Location = new System.Drawing.Point(671, 1);
+            this.usrc_Printer1.Name = "usrc_Printer1";
+            this.usrc_Printer1.PaperName = null;
+            this.usrc_Printer1.Size = new System.Drawing.Size(39, 31);
+            this.usrc_Printer1.TabIndex = 7;
+            // 
+            // usrc_Document
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.btn_CodeTables);
             this.Controls.Add(this.btn_Backup);
             this.Controls.Add(this.btn_Settings);
             this.Controls.Add(this.usrc_Printer1);
@@ -114,7 +127,7 @@
             this.Controls.Add(this.m_usrc_Help);
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.m_usrc_InvoiceMan);
-            this.Name = "usrc_Main";
+            this.Name = "usrc_Document";
             this.Size = new System.Drawing.Size(918, 605);
             this.ResumeLayout(false);
 
@@ -126,8 +139,9 @@
         private System.Windows.Forms.Button btn_Exit;
         private usrc_Help.usrc_Help m_usrc_Help;
         private FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO usrc_FVI_SLO1;
-        private usrc_Printer usrc_Printer1;
         private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.Button btn_Backup;
+        private System.Windows.Forms.Button btn_CodeTables;
+        private usrc_Printer usrc_Printer1;
     }
 }

@@ -45,7 +45,7 @@ namespace Tangenta
             if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
             {
                 Program.b_FVI_SLO = true;
-                if (Get_shops_in_use(xnav, true))
+                if (Get_ProgramSettings(xnav, true))
                 {
                     switch (xnav.eExitResult)
                     {
@@ -71,11 +71,11 @@ namespace Tangenta
         }
 
 
-        public bool Get_shops_in_use(NavigationButtons.Navigation xnav,bool bResetShopsInUse)
+        public bool Get_ProgramSettings(NavigationButtons.Navigation xnav,bool bResetShopsInUse)
         {
             if (Program.bFirstTimeInstallation||(Program.Shops_in_use.Length == 0))
             {
-                xnav.ChildDialog = new Form_ShopsInUse(xnav, bResetShopsInUse, this);
+                xnav.ChildDialog = new Form_ProgramSettings(this,xnav);
                 xnav.ShowDialog();
                 if (xnav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
                 {
@@ -416,14 +416,13 @@ namespace Tangenta
             }
         }
 
-        private void usrc_Printer1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            Form_Settings edt_Form = new Form_Settings(this);
+            NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation();
+            nav_Form_ProgramSettings.bDoModal = true;
+            nav_Form_ProgramSettings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            Form_ProgramSettings edt_Form = new Form_ProgramSettings(this, nav_Form_ProgramSettings);
             edt_Form.ShowDialog();
             edt_Form.Dispose();
         }
@@ -449,5 +448,12 @@ namespace Tangenta
         {
             this.m_usrc_InvoiceMan.Activate_dgvx_XInvoice_SelectionChanged();
         }
+
+        private void btn_CodeTables_Click(object sender, EventArgs e)
+        {
+            Form_CodeTables fct_dlg = new Form_CodeTables();
+            fct_dlg.ShowDialog();
+        }
+
     }
 }

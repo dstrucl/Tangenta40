@@ -16,15 +16,27 @@ namespace XMessage
 {
     public static class Box
     {
+        private static void checkTopMost(IWin32Window owner, Form dlg)
+        {
+            if (owner is Form)
+            {
+                if (((Form)owner).TopMost)
+                {
+                    dlg.TopMost = true;
+                }
+            }
+        }
         public static DialogResult Show(IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);
+            checkTopMost(owner, dlg);
             return dlg.ShowDialog();
         }
 
         public static DialogResult Show(IWin32Window owner, ltext xltext,string stext, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, stext, caption, buttons, icon, defaultButton);
+            checkTopMost(owner, dlg);
             return dlg.ShowDialog();
         }
 

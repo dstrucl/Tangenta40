@@ -30,7 +30,7 @@ namespace LanguageControl
         public static ltext s_Startup_Read_DBSettings = new ltext("Read Database Settings", "Branje nastavitev iz baze podatkov");
         public static ltext s_Startup_CheckDBVersion = new ltext("Check database", "Preverjanje baze podatkov");
         public static ltext s_Startup_GetOrganisationData = new ltext("Reading organisation data ", "Branje podatkov o vaši organizaciji");
-        public static ltext s_Startup_Get_shops_in_use = new ltext("Get shops in use", "Branje nastavitev trgovin v uporabi");
+        public static ltext s_Startup_Get_ProgramSettings = new ltext("Get program settings", "Programske nastavitve");
         public static ltext s_SetShopsPricelists = new ltext("Set shop's priselists", "Branje cenikov");
         public static ltext s_Startup_GetBaseCurrency = new ltext("Getting default currency", "Pridobivanje privzete valute");
         public static ltext s_Startup_GetTaxation = new ltext("Reading default taxation", "Branje davčnih stopenj");

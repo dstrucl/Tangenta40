@@ -22,27 +22,23 @@ using TangentaDB;
 
 namespace Tangenta
 {
-    public partial class Form_Settings : Form
+    public partial class Form_ProgramSettings : Form
     {
         private int default_language_ID = -1;
         private int newLanguage = -1;
         private usrc_Document m_usrc_Main;
         private bool bChanged = false;
+        NavigationButtons.Navigation nav = null;
 
-        public Form_Settings()
-        {
-
-        }
-
-        public Form_Settings(usrc_Document usrc_Main)
+        public Form_ProgramSettings(usrc_Document usrc_Main,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
+            this.usrc_NavigationButtons1.Init(nav);
             lngRPM.sProgramSettings.Text(this);
-            lngRPM.s_CodeTables.Text(btn_CodeTables);
             lngRPM.s_LogFile.Text(btn_LogFile);
             lngRPM.s_Language.Text(lbl_Language);
             lngRPM.s_FullScreen.Text(chk_FullScreen);
-            lngRPM.s_Shops_In_Use.Text(btn_Shops_in_use);
             lngRPM.s_chk_AllowToEditText.Text(chk_AllowToEditText);
             lngRPM.s_ElectronicDevice_ID.Text(lbL_ElectronicDevice_ID);
             default_language_ID = DynSettings.LanguageID;
@@ -89,15 +85,6 @@ namespace Tangenta
             Properties.Settings.Default.AllowToEditLanguageText = DynSettings.AllowToEditText;
         }
 
-
-
-
-
-
-
-
-
-
         private void cmb_Language_SelectedIndexChanged(object sender, EventArgs e)
         {
             bChanged = true;
@@ -109,54 +96,90 @@ namespace Tangenta
             this.Close();
         }
 
-        private void Form_Settings_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (newLanguage != default_language_ID)
-            {
-                bChanged = true;
-                Properties.Settings.Default.LanguageID = newLanguage;
-                XMessage.Box.Show(this, lngRPM.s_YouHaveChangedLanguageYouMustRestartProgramToUseNewLanguage, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
-            }
-            if (bChanged)
-            {
-                if (MessageBox.Show(this,lngRPM.s_Save_Settings_Question.s,"?",MessageBoxButtons.YesNo, MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
-                {
-                    Properties.Settings.Default.ElectronicDevice_ID = this.txt_ElectronicDevice_ID.Text;
-                    Properties.Settings.Default.Save();
-                }
-            }
-        }
-
-        private void btn_Shops_in_use_Click(object sender, EventArgs e)
-        {
-            NavigationButtons.Navigation nav_Form_ShopsInUse = new NavigationButtons.Navigation();
-            nav_Form_ShopsInUse.bDoModal = true;
-            nav_Form_ShopsInUse.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            nav_Form_ShopsInUse.ChildDialog = new Form_ShopsInUse(nav_Form_ShopsInUse,true, m_usrc_Main);
-            nav_Form_ShopsInUse.ShowDialog();
-        }
 
         private void btn_LogFile_Click(object sender, EventArgs e)
         {
             LogFile.LogFile.LogManager();
         }
 
-        //private void BtnSetDefaulViewSettings_Click(object sender, EventArgs e)
-        //{
-    
-        //   Form_Main mform = (Form_Main)m_usrc_Main.Parent;
-        //    mform.SetSplitContainerPositions(false,ref Program.ListOfAllSplitConatinerControls,Program.SplitConatinerControlsDefaulValues);
-        //}
 
         private void usrc_Printer1_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void btn_CodeTables_Click(object sender, EventArgs e)
+      
+
+        private bool do_OK()
         {
-            Form_CodeTables fct_dlg = new Form_CodeTables();
-            fct_dlg.ShowDialog();
+            if (usrc_ShopsInuse1.do_OK())
+            {
+                if (newLanguage != default_language_ID)
+                {
+                    bChanged = true;
+                    Properties.Settings.Default.LanguageID = newLanguage;
+                    XMessage.Box.Show(this, lngRPM.s_YouHaveChangedLanguageYouMustRestartProgramToUseNewLanguage, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                }
+                if (bChanged)
+                {
+                    Properties.Settings.Default.ElectronicDevice_ID = this.txt_ElectronicDevice_ID.Text;
+                    Properties.Settings.Default.Save();
+                }
+                this.Close();
+                DialogResult = DialogResult.OK;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void do_Cancel()
+        {
+            this.Close();
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            if (do_OK())
+                            {
+                                nav.eExitResult = evt;
+                            }
+                            return;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            if (do_OK())
+                            {
+                                nav.eExitResult = evt;
+                            }
+                            return;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                    }
+                    break;
+            }
         }
     }
 }

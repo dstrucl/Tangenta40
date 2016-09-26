@@ -113,7 +113,7 @@ namespace Tangenta
                 // GET TAXATION
                 new startup_step(lngRPM.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation),
                 // GET SHOPS IN USE
-                new startup_step(lngRPM.s_Startup_Get_shops_in_use.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings),
+                new startup_step(lngRPM.s_Startup_Get_ProgramSettings.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings),
                 // GET PROGRAM SETTINGS
                 new startup_step(lngRPM.s_SetShopsPricelists.s,this.m_usrc_Main.SetShopsPricelists,startup_step.eStep.SetShopsPricelists),
                 // GET SHOPB Item Data
