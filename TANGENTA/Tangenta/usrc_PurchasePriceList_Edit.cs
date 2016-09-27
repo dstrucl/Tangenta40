@@ -28,6 +28,7 @@ namespace Tangenta
 
         public delegate void delegate_OK();
         public event delegate_OK Button_OK_Click;
+        public NavigationButtons.Navigation nav = null;
 
         public usrc_PurchasePrice_Edit()
         {
@@ -36,8 +37,9 @@ namespace Tangenta
             this.usrc_EditTable_PurchasePriceList.Title = "";
         }
 
-        public bool Init(CodeTables.DBTableControl dbTables,SQLTable tbl,ref string Err)
+        public bool Init(CodeTables.DBTableControl dbTables,SQLTable tbl,ref string Err, NavigationButtons.Navigation xnav)
         {
+            nav = xnav;
             tbl.CreateTableTree(dbTables.items);
             string selection = @"ID,
                                  PurchasePrice_$$CreationDate,
@@ -49,7 +51,7 @@ namespace Tangenta
                                  PurchasePrice_$$ValidFrom,
                                  PurchasePrice_$$ValidTo
             ";
-            return usrc_EditTable_PurchasePriceList.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl,selection, "ID asc",false,null,null,false);
+            return usrc_EditTable_PurchasePriceList.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl,selection, "ID asc",false,null,null,false,nav);
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -99,7 +101,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_i_$$Code
             ";
 
-                        if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false))
+                        if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false,nav))
                         {
                             Edit_PurchasePrice_Item(id_Taxation);
                         }
@@ -137,7 +139,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
-                    if (this.usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false))
+                    if (this.usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false,nav))
                     {
                         return;
                     }
@@ -171,7 +173,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
-                                if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false))
+                                if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false,nav))
                                 {
                                     return;
                                 }
@@ -218,7 +220,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_i_$$Code
 ";
 
-            if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false))
+            if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, where_condition, null, false,nav))
             {
 
             }

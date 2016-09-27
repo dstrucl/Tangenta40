@@ -317,7 +317,16 @@ namespace Tangenta
             {
                 if (fs.Init_Default_DB(ref Err))
                 {
-                    return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+                    if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
+                    {
+                        myStartup.eNextStep++;
+                        return true;
+                    }
+                    else
+                    {
+                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        return false;
+                    }
                 }
                 else
                 {

@@ -171,6 +171,10 @@
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\TextBoxRecent\TextBoxRecent.csproj">
       <Project>{c086ec32-85f5-43ca-a457-040ca7beaa9e}</Project>
       <Name>TextBoxRecent</Name>

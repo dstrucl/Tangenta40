@@ -57,7 +57,7 @@ namespace ShopC
 
         private int cx_lbl_Item_large_width = 0;
         private int cx_lbl_Item_small_width = 0;
-
+        public NavigationButtons.Navigation nav = null;
 
         public usrc_Item()
         {
@@ -514,10 +514,10 @@ namespace ShopC
 
         private void btn_EditItem_Click(object sender, EventArgs e)
         {
-            EditItemStock();
+            EditItemStock(nav);
         }
 
-        private void EditItemStock()
+        private void EditItemStock(NavigationButtons.Navigation xnav)
         {
             decimal dCountInBaskets = -1;
             if (m_usrc_ItemList.m_usrc_ItemMan.CountInBaskets(ref dCountInBaskets))
@@ -529,7 +529,7 @@ namespace ShopC
                     Form_StockItem_Edit edt_ItemStock_dlg = new Form_StockItem_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                       tbl_Stock,
                                                                       " where Stock_$_ppi_$_i_$$ID = " + m_Item_Data.Item_ID.v.ToString()+" ",
-                                                                      "Stock_$_ppi_$_i_$$Code desc",m_Item_Data);
+                                                                      "Stock_$_ppi_$_i_$$Code desc",m_Item_Data, xnav);
                     edt_ItemStock_dlg.ShowDialog();
                     if (edt_ItemStock_dlg.Changed)
                     {

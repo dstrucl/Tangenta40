@@ -122,7 +122,7 @@ namespace PriseLists
                 case ePriceListMode.SELECT_ALL:
                     break;
             }
-            bool bRes = usrc_EditTable_PriceList.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PriceList, selection, "ID asc", bEditUndefined, sWhereCondition, null, false);
+            bool bRes = usrc_EditTable_PriceList.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PriceList, selection, "ID asc", bEditUndefined, sWhereCondition, null, false,nav);
             if (bRes)
             {
                 if (usrc_EditTable_PriceList.dt_Data.Rows.Count == 0)
@@ -226,7 +226,7 @@ namespace PriseLists
                                                   ";
                                 if (usrc_EditTable_Shop_Prices != null)
                                 {
-                                    if (this.usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, "Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
+                                    if (this.usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, "Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false,nav))
                                     {
                                     }
                                 }
@@ -269,7 +269,7 @@ namespace PriseLists
                                 string where_condition = " where Price_Item_$_pl_$$ID = " + ID.ToString() + " ";
                                 if (usrc_EditTable_Shop_Prices != null)
                                 {
-                                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, " Price_Item_$_i_$$Code desc ", false, where_condition, null, false))
+                                    if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, " Price_Item_$_i_$$Code desc ", false, where_condition, null, false,nav))
                                     {
                                         if (!SetPriceListName(ID, ref Err))
                                         {
@@ -388,7 +388,7 @@ namespace PriseLists
                             sOrder_by_UndefinedFirst = " Price_SimpleItem_$_si_$_sipg1_$$Name,Price_SimpleItem_$_si_$_sipg1_$_sipg2_$$Name,Price_SimpleItem_$_si_$_sipg1_$_sipg2_$_sipg3_$$Name, Price_SimpleItem_$$RetailSimpleItemPrice asc, ";
                         }
 
-                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, sOrder_by_UndefinedFirst + " Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false))
+                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_SimpleItem, selection, sOrder_by_UndefinedFirst + " Price_SimpleItem_$_si_$$Code desc", false, where_condition, null, false,nav))
                         {
 
                         }
@@ -434,7 +434,7 @@ namespace PriseLists
                         {
                             sOrder_by_UndefinedFirst = " Price_Item_$_i_$_ipg1_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$$Name, Price_Item_$_i_$_ipg1_$_ipg2_$_ipg3_$$Name, Price_Item_$$RetailPricePerUnit asc, ";
                         }
-                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, sOrder_by_UndefinedFirst + " Price_Item_$_i_$$Code desc", false, where_condition, null, false))
+                        if (usrc_EditTable_Shop_Prices.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Price_Item, selection, sOrder_by_UndefinedFirst + " Price_Item_$_i_$$Code desc", false, where_condition, null, false,nav))
                         {
 
                         }

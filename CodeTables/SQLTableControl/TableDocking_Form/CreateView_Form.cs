@@ -19,6 +19,7 @@ using System.Runtime.InteropServices;
 using DBConnectionControl40;
 using CodeTables.TableDocking_Form;
 using LogFile;
+using NavigationButtons;
 
 namespace CodeTables
 {
@@ -40,9 +41,11 @@ namespace CodeTables
         public CurViewXml m_CurViewXml = null;
 
         public TableDockingFormXml m_pTableDockingFormXml;
+        private NavigationButtons.Navigation nav = null;
 
-        public CreateView_Form(DBTableControl dbTables, SQLTable tbl, TableDockingForm dtF)
+        public CreateView_Form(DBTableControl dbTables, SQLTable tbl, TableDockingForm dtF, NavigationButtons.Navigation xnav)
         {
+            nav = xnav;
             this.Visible = false; 
             bFormCreated = false;
             m_TableDockingForm = dtF;
@@ -312,7 +315,7 @@ namespace CodeTables
                 {
                     iIndexFree = 3; //Overwrite
                 }
-                m_TableDockingForm.Create_TableView_Form(iIndexFree, m_CurViewXml.m_ViewXml);
+                m_TableDockingForm.Create_TableView_Form(iIndexFree, m_CurViewXml.m_ViewXml,nav);
             }
             else
             {

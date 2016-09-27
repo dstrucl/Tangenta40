@@ -22,10 +22,12 @@ namespace Tangenta
         string ColumnToOrderBy = "Office_$_mo_$_orgd_$_org_$$Name asc";
         long myOrganisation_ID = -1;
         SQLTable tbl_Office = null;
+        NavigationButtons.Navigation nav = null;
 
-        public Form_myOrg_Office()
+        public Form_myOrg_Office(NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             lngRPM.s_Edit_Office_Data.Text(btn_Office_Data_And_FVI_SLO_RealEstateBP);
             if (myOrg.ID_v != null)
             {
@@ -36,7 +38,7 @@ namespace Tangenta
                 long_v myOrganisation_ID_v = new long_v(myOrganisation_ID);
                 string selection = "Office_$$Name,Office_$$ShortName,Office_$_mo_$_orgd_$_org_$$Name,Office_$_mo_$_orgd_$_orgt_$$OrganisationTYPE,Office_$_mo_$_orgd_$_org_$$Tax_ID,ID";
                 string where_condition = " where Office_$_mo_$$ID = " + myOrganisation_ID.ToString() + " ";
-                if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office, selection, ColumnToOrderBy, false, null, null, false))
+                if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office, selection, ColumnToOrderBy, false, null, null, false,nav))
                 {
                     usrc_EditTable1.FillInitialData();
                 }
@@ -87,7 +89,7 @@ namespace Tangenta
             if (bRes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                Form_myOrg_Office_Data frm_offdata = new Form_myOrg_Office_Data(ID);
+                Form_myOrg_Office_Data frm_offdata = new Form_myOrg_Office_Data(ID,nav);
                 frm_offdata.ShowDialog(this);
                 this.Cursor = Cursors.Arrow;
                 myOrg.Get(1);
@@ -97,7 +99,7 @@ namespace Tangenta
         private void btn_Office_Data_And_FVI_SLO_RealEstateBP_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office_Data frm_offdata = new Form_myOrg_Office_Data(this.usrc_EditTable1.Identity);
+            Form_myOrg_Office_Data frm_offdata = new Form_myOrg_Office_Data(this.usrc_EditTable1.Identity,nav);
             frm_offdata.ShowDialog(this);
             this.Cursor = Cursors.Arrow;
         }

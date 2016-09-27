@@ -103,7 +103,7 @@ namespace ShopC
                     sWhereCondition = " where  Item_$$ToOffer = 0 ";
                     break;
             }
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
 
         }
         private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)

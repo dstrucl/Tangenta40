@@ -47,7 +47,7 @@ namespace Tangenta
         private void do_OK()
         {
             myStartup.bCanceled = false;
-            myStartup.bInsertSampleData = true;
+            myStartup.bInsertSampleData = rdb_WritePredefinedDefaultDataInDataBase.Checked;
             this.Close();
             DialogResult = DialogResult.Cancel;
         }

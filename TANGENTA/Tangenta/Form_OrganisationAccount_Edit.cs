@@ -30,10 +30,12 @@ namespace Tangenta
         SQLTable tbl = null;
         long_v ID_v = null;
         string ColumnOrderBy = "";
+        NavigationButtons.Navigation nav = null;
 
-        public Form_OrganisationAccount_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_OrganisationAccount_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -41,9 +43,10 @@ namespace Tangenta
 
         }
 
-        public Form_OrganisationAccount_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
+        public Form_OrganisationAccount_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -66,7 +69,7 @@ namespace Tangenta
             ";
 
             string sWhereCondition = "";
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v,false);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v,false,nav);
 
         }
         private void Customer_Person_EditForm_Load(object sender, EventArgs e)

@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using StaticLib;
 using System.Runtime.InteropServices;
+using NavigationButtons;
 
 namespace CodeTables.TableDocking_Form
 {
@@ -67,6 +68,7 @@ namespace CodeTables.TableDocking_Form
         public Globals.delegate_SetControls SetControls = null;
 
         public bool m_SelectionButtonVisible = true;
+        private Navigation nav = null;
 
         public bool Changed
         {
@@ -234,8 +236,9 @@ namespace CodeTables.TableDocking_Form
             get { return m_eMode; }
         }
 
-        public void Init(DBTableControl dbTables, SQLTable tbl, Globals.delegate_SetControls xSetControls, bool bReadOnly)
+        public void Init(DBTableControl dbTables, SQLTable tbl, Globals.delegate_SetControls xSetControls, bool bReadOnly,NavigationButtons.Navigation xnav)
         {
+            nav = xnav;
             rand = new Random();
 
             SetControls = xSetControls;
@@ -249,11 +252,11 @@ namespace CodeTables.TableDocking_Form
             m_DBTables = dbTables;
             m_tbl = tbl;
             m_tbl.SelectionButtonVisible = m_SelectionButtonVisible;
-            CreateInputControls(bReadOnly);
+            CreateInputControls(bReadOnly, xnav);
             bNewDataEntry = true;
         }
 
-        private void CreateInputControls(bool bReadOnly)
+        private void CreateInputControls(bool bReadOnly,NavigationButtons.Navigation xnav)
         {
             m_tbl.DeleteInputControls();
 
@@ -261,7 +264,7 @@ namespace CodeTables.TableDocking_Form
             size.cx = 0;
             size.cy = 0;
 
-            m_tbl.CreateInputControls(null, null, "", ref m_tbl.inpCtrlList, this.pnl_Editor, this, m_DBTables, bReadOnly);
+            m_tbl.CreateInputControls(null, null, "", ref m_tbl.inpCtrlList, this.pnl_Editor, this, m_DBTables, bReadOnly, xnav);
             m_tbl.myGroupBox.Left = 3;
             m_tbl.myGroupBox.Top = 3;
 
@@ -605,7 +608,7 @@ namespace CodeTables.TableDocking_Form
             }
             this.bNewDataEntry = true;
             this.m_tbl.ClearInputControls();
-            CreateInputControls(false);
+            CreateInputControls(false,nav);
             SetMode(eMode.NEW);
             if (after_New != null)
             {

@@ -31,7 +31,7 @@ namespace ShopA
             dbTables = xdbTables;
             tbl = xtbl;
             this.Text = lngRPM.s_ShopB_Items.s;
-            if (!usrc_EditTable.Init(dbTables, tbl,null,ColumnToOrderBy,false,null,null,false))
+            if (!usrc_EditTable.Init(dbTables, tbl,null,ColumnToOrderBy,false,null,null,false,null))
             {
                 bclose = true;
             }

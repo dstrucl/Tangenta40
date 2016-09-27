@@ -206,22 +206,27 @@ namespace NavigationButtons
                 {
                     ExitQuestion = nav.ExitProgramQuestionInLanguage;
                 }
+                this.m_eButtons = nav.m_eButtons;
+                btn1.Visible = nav.btn1_Visible;
+                btn2.Visible = nav.btn2_Visible;
+                btn3.Visible = nav.btn3_Visible;
+                btn1.Text = nav.btn1_Text;
+                btn1_ToolTip_Text = nav.btn1_ToolTip_Text;
+                btn2.Text = nav.btn2_Text;
+                btn2_ToolTip_Text = nav.btn2_ToolTip_Text;
+                btn3.Text = nav.btn3_Text;
+                btn3_ToolTip_Text = nav.btn3_ToolTip_Text;
+
+                btn1.Image = nav.btn1_Image;
+                btn2.Image = nav.btn2_Image;
+                btn3.Image = nav.btn3_Image;
             }
-            this.m_eButtons = nav.m_eButtons;
-            btn1.Visible = nav.btn1_Visible;
-            btn2.Visible = nav.btn2_Visible;
-            btn3.Visible = nav.btn3_Visible;
+            else
+            {
+                this.m_eButtons = Navigation.eButtons.OkCancel;
+            }
 
-            btn1.Text = nav.btn1_Text;
-            btn1_ToolTip_Text = nav.btn1_ToolTip_Text;
-            btn2.Text = nav.btn2_Text;
-            btn2_ToolTip_Text = nav.btn2_ToolTip_Text;
-            btn3.Text = nav.btn3_Text;
-            btn3_ToolTip_Text = nav.btn3_ToolTip_Text;
 
-            btn1.Image = nav.btn1_Image;
-            btn2.Image = nav.btn2_Image;
-            btn3.Image = nav.btn3_Image;
 
 
             switch (this.m_eButtons)

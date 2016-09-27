@@ -64,6 +64,9 @@ namespace CodeTables
 
         private bool readOnly = false;
 
+        private NavigationButtons.Navigation nav = null;
+
+
         public bool ReadOnly
         {
             get { return readOnly; }
@@ -197,8 +200,16 @@ namespace CodeTables
         }
 
 
-        public void Init(SQLTable pTbl,Column x_refernce_column, string sPrKeys, Object pPrevWindow, Control xControl, DBTableControl xDBTables,bool xbReadOnly)
+        public void Init(SQLTable pTbl,
+                         Column x_refernce_column, 
+                         string sPrKeys, 
+                         Object pPrevWindow, 
+                         Control xControl, 
+                         DBTableControl xDBTables,
+                         bool xbReadOnly,
+                         NavigationButtons.Navigation xnav)
         {
+             nav = xnav;
              int x = 3;
              readOnly = xbReadOnly;
              m_DBTables = xDBTables;
@@ -440,7 +451,7 @@ namespace CodeTables
         {
             if (this.pSQL_Table.SetInputControls != null)
             {
-                if (this.pSQL_Table.SetInputControls(this.pSQL_Table,null))
+                if (this.pSQL_Table.SetInputControls(this.pSQL_Table,nav))
                 {
                     if (DifferentToIndexInitialValue())
                     {

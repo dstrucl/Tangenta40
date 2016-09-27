@@ -30,6 +30,8 @@ namespace Tangenta
 
         Form_PrinterSettings m_frm_prn_settings = null;
 
+        public NavigationButtons.Navigation nav = null;
+
         private string m_PrinterName = null;
         private string m_PaperName = null;
         public string PrinterName
@@ -97,7 +99,7 @@ namespace Tangenta
             }
             else
             {
-                Form_Print_A4 print_A4_dlg = new Form_Print_A4(xInvoiceData, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Form_Print_A4 print_A4_dlg = new Form_Print_A4(xInvoiceData, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time,nav);
                 print_A4_dlg.ShowDialog();
             }
         }

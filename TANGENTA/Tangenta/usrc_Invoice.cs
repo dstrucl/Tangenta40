@@ -36,6 +36,8 @@ namespace Tangenta
         public int iCountItemData = 0;
 
         usrc_InvoiceMan m_usrc_InvoiceMan = null;
+        NavigationButtons.Navigation nav = null;
+
         public enum emode
         {
             view_eInvoiceType,
@@ -123,7 +125,7 @@ namespace Tangenta
         private bool M_usrc_ShopA_EditUnits()
         {
             SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Unit)));
-            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc");
+            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc",nav);
             if (unit_dlg.ShowDialog() == DialogResult.OK)
             {
                 GetUnits();
@@ -553,7 +555,7 @@ namespace Tangenta
             this.Cursor = Cursors.WaitCursor;
             if (Index < myOrg.myOrg_Office_list.Count)
             {
-                Form_myOrg_Person_Edit edt_my_company_person_dlg = new Form_myOrg_Person_Edit(myOrg.myOrg_Office_list[Index].ID_v.v);
+                Form_myOrg_Person_Edit edt_my_company_person_dlg = new Form_myOrg_Person_Edit(myOrg.myOrg_Office_list[Index].ID_v.v,null);
                 dres = edt_my_company_person_dlg.ShowDialog();
 
                 if (dres == DialogResult.OK)
@@ -573,11 +575,11 @@ namespace Tangenta
             }
         }
 
-        private bool Edit_myOrg_Office()
+        private bool Edit_myOrg_Office(NavigationButtons.Navigation xnav)
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office frm_office = new Form_myOrg_Office();
+            Form_myOrg_Office frm_office = new Form_myOrg_Office(xnav);
             dres = frm_office.ShowDialog(this);
             if (dres == DialogResult.OK)
             {
@@ -591,11 +593,11 @@ namespace Tangenta
             }
         }
 
-        private bool Edit_myOrg_Office_Data()
+        private bool Edit_myOrg_Office_Data(NavigationButtons.Navigation xnav)
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office_Data frm_office_data = new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v);
+            Form_myOrg_Office_Data frm_office_data = new Form_myOrg_Office_Data(myOrg.myOrg_Office_list[0].ID_v.v, xnav);
             dres = frm_office_data.ShowDialog(this);
             if (dres == DialogResult.OK)
             {
@@ -609,11 +611,11 @@ namespace Tangenta
             }
         }
 
-        private bool Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP()
+        private bool Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(NavigationButtons.Navigation xnav)
         {
             DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_office_data_FVI_SLO_RealEstateBP = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v);
+            Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_office_data_FVI_SLO_RealEstateBP = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
             dres = frm_office_data_FVI_SLO_RealEstateBP.ShowDialog(this);
             if (dres == DialogResult.OK)
             {
@@ -627,21 +629,19 @@ namespace Tangenta
             }
         }
 
-        private bool EditMyOrganisation_Data(bool bAllowNew,Image xImageCancel)
+        private bool EditMyOrganisation_Data(bool bAllowNew,NavigationButtons.Navigation xnav)
         {
-            DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew, xImageCancel);
-            dres = edt_my_company_dlg.ShowDialog(this);
-
-            if (dres == DialogResult.OK)
+            Form_myOrg_Edit edt_my_company_dlg = new Form_myOrg_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation))), bAllowNew,xnav);
+            this.Cursor = Cursors.Arrow;
+            xnav.ChildDialog = edt_my_company_dlg;
+            xnav.ShowDialog();
+            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK)||(xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
             {
-                this.Cursor = Cursors.Arrow;
                 return true;
             }
             else
             {
-                this.Cursor = Cursors.Arrow;
                 return false;
             }
         }
@@ -898,7 +898,7 @@ namespace Tangenta
         private bool Edit_Taxation()
         {
             SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
-            Form_Taxation_Edit tax_dlg = new Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc");
+            Form_Taxation_Edit tax_dlg = new Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc",nav);
             if (tax_dlg.ShowDialog() == DialogResult.OK)
             {
                 return true;
@@ -912,7 +912,7 @@ namespace Tangenta
         private bool Edit_Units()
         {
             SQLTable tbl_Unit = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Unit)));
-            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc");
+            Form_Unit_Edit unit_dlg = new Form_Unit_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Unit, "ID asc",nav);
             if (unit_dlg.ShowDialog() == DialogResult.OK)
             {
                 return true;
@@ -1271,7 +1271,7 @@ namespace Tangenta
                         //x_usrc_Main.Get_shops_in_use(false);
 
                         MessageBox.Show(lngRPM.s_No_OrganisationData.s);
-                        if (EditMyOrganisation_Data(true, myStartup.m_ImageCancel))
+                        if (EditMyOrganisation_Data(true, xnav))
                         {
                             continue;
                         }
@@ -1284,7 +1284,7 @@ namespace Tangenta
                     if (myOrg.Tax_ID_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_Tax_ID.s);
-                        if (EditMyOrganisation_Data(false,myStartup.m_ImageCancel))
+                        if (EditMyOrganisation_Data(false,xnav))
                         {
                             continue;
                         }
@@ -1298,7 +1298,7 @@ namespace Tangenta
                     if (myOrg.Address_v.StreetName_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_StreetName.s);
-                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
+                        if (EditMyOrganisation_Data(false, xnav))
                         {
                             continue;
                         }
@@ -1312,7 +1312,7 @@ namespace Tangenta
                     if (myOrg.Address_v.HouseNumber_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_HouseNumber.s);
-                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
+                        if (EditMyOrganisation_Data(false, xnav))
                         {
                             continue;
                         }
@@ -1326,7 +1326,7 @@ namespace Tangenta
                     if (myOrg.Address_v.ZIP_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_ZIP.s);
-                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
+                        if (EditMyOrganisation_Data(false, xnav))
                         {
                             continue;
                         }
@@ -1339,7 +1339,7 @@ namespace Tangenta
                     if (myOrg.Address_v.City_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_City.s);
-                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
+                        if (EditMyOrganisation_Data(false, xnav))
                         {
                             continue;
                         }
@@ -1353,7 +1353,7 @@ namespace Tangenta
                     if (myOrg.Address_v.Country_v == null)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_Country.s);
-                        if (EditMyOrganisation_Data(false, myStartup.m_ImageCancel))
+                        if (EditMyOrganisation_Data(false, xnav))
                         {
                             continue;
                         }
@@ -1372,7 +1372,7 @@ namespace Tangenta
                         if (myOrg.myOrg_Office_list[0].Office_Data_ID_v == null)
                         {
                             MessageBox.Show(lngRPM.s_No_Office_Data.s);
-                            if (Edit_myOrg_Office_Data())
+                            if (Edit_myOrg_Office_Data(nav))
                             {
                                 continue;
                             }
@@ -1408,7 +1408,7 @@ namespace Tangenta
                                 if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {
                                     MessageBox.Show(lngRPM.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
-                                    if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP())
+                                    if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(nav))
                                     {
                                         continue;
                                     }
@@ -1424,7 +1424,7 @@ namespace Tangenta
                     else
                     {
                         MessageBox.Show(lngRPM.s_No_Office.s);
-                        if (Edit_myOrg_Office())
+                        if (Edit_myOrg_Office(nav))
                         {
                             continue;
                         }
@@ -2172,7 +2172,10 @@ namespace Tangenta
 
         private void btn_MyOrganisation_Click(object sender, EventArgs e)
         {
-            EditMyOrganisation_Data(false,Properties.Resources.Exit);
+            NavigationButtons.Navigation nav_EditMyOrganisation_Data = new NavigationButtons.Navigation();
+            nav_EditMyOrganisation_Data.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            nav_EditMyOrganisation_Data.bDoModal = true;
+            EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);
         }
 
 

@@ -34,10 +34,12 @@ namespace Tangenta
         SQLTable tbl = null;
         long_v ID_v = null;
         string ColumnOrderBy = "";
+        NavigationButtons.Navigation nav = null;
 
-        public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -45,9 +47,10 @@ namespace Tangenta
 
         }
 
-        public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,long ID)
+        public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,long ID,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -78,7 +81,7 @@ namespace Tangenta
 
             Customer_Person_EditMode = eCustomer_Org_EditMode.SELECT_ALL;
             string sWhereCondition = "";
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
 
         }
         private void Form_Customer_Person_Edit_Load(object sender, EventArgs e)
@@ -138,7 +141,7 @@ namespace Tangenta
             SQLTable tbl_OrganisationData = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationData)));
             OrganisationData_EditForm edt_Item_dlg = new OrganisationData_EditForm(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationData,
-                                                            " OrganisationData_$_org_$$Name desc");
+                                                            " OrganisationData_$_org_$$Name desc",nav);
             edt_Item_dlg.ShowDialog();
             Init();
             return true;
@@ -149,7 +152,7 @@ namespace Tangenta
             SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
             Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationAccount,
-                                                            " OrganisationAccount_$_org_$$Name desc");
+                                                            " OrganisationAccount_$_org_$$Name desc",nav);
             edt_Item_dlg.ShowDialog();
             Init();
             return true;

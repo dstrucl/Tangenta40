@@ -30,11 +30,12 @@ namespace Tangenta
         private long m_Office_ID;
         private SQLTable tbl_myOrganisation_Person;
         private string ColumnToOrderBy = "myOrganisation_Person_$_per_$_cln_$$LastName asc";
-        //bool bclose = false;
+        NavigationButtons.Navigation nav = null;
 
-        public Form_myOrg_Person_Edit(long xOffice_ID)
+        public Form_myOrg_Person_Edit(long xOffice_ID,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             m_Office_ID = xOffice_ID;
             tbl_myOrganisation_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person)));
             lngRPM.s_myOrganisation_Person_Data.Text(this);
@@ -55,7 +56,7 @@ namespace Tangenta
             {
                 Office_ID_v = new long_v(m_Office_ID);
             }
-            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_myOrganisation_Person, selection, ColumnToOrderBy, false, " where  myOrganisation_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false))
+            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_myOrganisation_Person, selection, ColumnToOrderBy, false, " where  myOrganisation_Person_$_office_$$ID = " + m_Office_ID.ToString() + " ", null, false,nav))
             {
                 usrc_EditTable1.FillInitialData();
             }

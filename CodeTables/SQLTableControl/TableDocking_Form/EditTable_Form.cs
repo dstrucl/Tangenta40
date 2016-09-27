@@ -28,13 +28,13 @@ namespace CodeTables
         public TableDockingForm m_TableDockingForm;
 
 
-        public EditTable_Form(DBTableControl dbTables, SQLTable tbl, TableDockingForm dtF,Globals.delegate_SetControls xSetControls, bool bReadOnly)
+        public EditTable_Form(DBTableControl dbTables, SQLTable tbl, TableDockingForm dtF,Globals.delegate_SetControls xSetControls, bool bReadOnly,NavigationButtons.Navigation xnav)
         {
             m_TableDockingForm = dtF;
             this.Icon = Properties.Resources.SmallEditIcon;
             InitializeComponent();
             this.Text = lngRPM.s_EditTable.s + tbl.lngTableName.s + " (" + tbl.TableName + ")";
-            usrc_EditRow.Init(dbTables, tbl, xSetControls, bReadOnly);
+            usrc_EditRow.Init(dbTables, tbl, xSetControls, bReadOnly,xnav);
         }
 
         private void EditTable_Form_Load(object sender, EventArgs e)

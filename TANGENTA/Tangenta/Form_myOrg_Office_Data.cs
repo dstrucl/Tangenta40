@@ -22,10 +22,12 @@ namespace Tangenta
         string ColumnToOrderBy = "Office_Data_$_office_$$Name asc";
         long m_Office_ID = -1;
         SQLTable tbl_Office_Data = null;
-     
-        public Form_myOrg_Office_Data(long xOffice_ID)
+        NavigationButtons.Navigation nav = null;
+
+        public Form_myOrg_Office_Data(long xOffice_ID,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             lngRPM.s_Edit_Office_Data_FVI_SLO_RealEstateBP.Text(this.btn_FVI_SLO_RealEstateBP);
             m_Office_ID = xOffice_ID;
             tbl_Office_Data = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Office_Data)));
@@ -41,7 +43,7 @@ namespace Tangenta
                                     Office_Data_$_cadrorg_$_ccouorg_$$Country,
                                     Office_Data_$_cadrorg_$_cstorg_$$State,
                                     ID";
-            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office_Data, selection, ColumnToOrderBy, false, " where  Office_Data_$_office_$$ID = " + m_Office_ID.ToString()+" ", null, false))
+            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Office_Data, selection, ColumnToOrderBy, false, " where  Office_Data_$_office_$$ID = " + m_Office_ID.ToString()+" ", null, false,nav))
             {
                 if (usrc_EditTable1.RowsCount > 0)
                 {
@@ -98,7 +100,7 @@ namespace Tangenta
                 if (Program.b_FVI_SLO)
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_offd_fvislo_resbp = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(ID);
+                    Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_offd_fvislo_resbp = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(ID,nav);
                     frm_offd_fvislo_resbp.ShowDialog();
                     this.Cursor = Cursors.Arrow;
                 }
@@ -109,7 +111,7 @@ namespace Tangenta
         private void btn_FVI_SLO_RealEstateBP_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_offd_fvislo_resbp = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(this.usrc_EditTable1.Identity);
+            Form_myOrg_Office_Data_FVI_SLO_RealEstateBP frm_offd_fvislo_resbp = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(this.usrc_EditTable1.Identity,nav);
             frm_offd_fvislo_resbp.ShowDialog();
             this.Cursor = Cursors.Arrow;
         }

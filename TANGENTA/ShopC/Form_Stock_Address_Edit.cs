@@ -24,11 +24,12 @@ namespace ShopC
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         string ColumnOrderBy = null;
+        NavigationButtons.Navigation nav = null;
 
-        public Form_StockAddress_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy)
+        public Form_StockAddress_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
-
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -37,7 +38,7 @@ namespace ShopC
 
         private void Form_StockAddress_Edit_Load(object sender, EventArgs e)
         {
-            if (!usrc_EditTable.Init(dbTables, tbl,null, ColumnOrderBy,false,null,null,false))
+            if (!usrc_EditTable.Init(dbTables, tbl,null, ColumnOrderBy,false,null,null,false,nav))
             {
                 Close();
                 DialogResult = DialogResult.Abort;

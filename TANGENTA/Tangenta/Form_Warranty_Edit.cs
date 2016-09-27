@@ -25,11 +25,12 @@ namespace Tangenta
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         string ColumnOrderBy = null;
+        NavigationButtons.Navigation nav = null;
 
-        public Form_Warranty_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy)
+        public Form_Warranty_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
-
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -38,7 +39,7 @@ namespace Tangenta
 
         private void Form_Warranty_Edit_Load(object sender, EventArgs e)
         {
-            if (!usrc_EditTable.Init(dbTables, tbl,null, ColumnOrderBy,false,null,null,false))
+            if (!usrc_EditTable.Init(dbTables, tbl,null, ColumnOrderBy,false,null,null,false,nav))
             {
                 Close();
                 DialogResult = DialogResult.Abort;

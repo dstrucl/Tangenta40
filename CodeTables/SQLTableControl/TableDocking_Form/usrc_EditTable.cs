@@ -15,6 +15,7 @@ using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
 using DBTypes;
+using NavigationButtons;
 
 namespace CodeTables.TableDocking_Form
 {
@@ -78,6 +79,7 @@ namespace CodeTables.TableDocking_Form
         bool bInitData = false;
 
         private bool m_WorkingSemaphore = false;
+        private Navigation nav;
 
         public bool Changed
         {
@@ -161,8 +163,16 @@ namespace CodeTables.TableDocking_Form
         }
 
 
-        public bool Init(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xSelectedColumns, string xOrderByColumnName, bool xbEditUndefined, string xWhereConditon,long_v ID_v,bool bReadOnly)
+        public bool Init(CodeTables.DBTableControl xdbTables,
+                        SQLTable xtbl,
+                        string xSelectedColumns,
+                        string xOrderByColumnName,
+                        bool xbEditUndefined,
+                        string xWhereConditon,
+                        long_v ID_v,bool bReadOnly,
+                        NavigationButtons.Navigation xnav)
         {
+            nav = xnav;
             bEditUndefined = xbEditUndefined;
             SelectedColumns = xSelectedColumns;
             WhereConditon = xWhereConditon;
@@ -188,7 +198,7 @@ namespace CodeTables.TableDocking_Form
             }
             if (InitDataTable(id))
             {
-                usrc_EditRow.Init(dbTables, tbl, null, bReadOnly);
+                usrc_EditRow.Init(dbTables, tbl, null, bReadOnly,nav);
                 if (dt_Data.Rows.Count > 0)
                 {
                     Identity = (long)dt_Data.Rows[0]["ID"];

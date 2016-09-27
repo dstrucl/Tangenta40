@@ -66,14 +66,15 @@ namespace CodeTables
                                         Object pParentWindow, 
                                         Control pControl,
                                         DBTableControl xDBTables,
-                                        bool bReadOnly)
+                                        bool bReadOnly,
+                                        NavigationButtons.Navigation xnav)
         {
             int iCol = 0;
             int iCount = Column.Count();
             this.pParentTable = pPrevTable;
             this.myGroupBox = new usrc_myGroupBox();
             this.myGroupBox.SelectionButtonVisible = m_SelectionButtonVisible;
-            this.myGroupBox.Init(this, fcol, sParentKeys, pParentWindow, pControl, xDBTables, bReadOnly);
+            this.myGroupBox.Init(this, fcol, sParentKeys, pParentWindow, pControl, xDBTables, bReadOnly,xnav);
 
             if (pParentWindow.GetType() == typeof(myPanel))
             {
@@ -105,7 +106,7 @@ namespace CodeTables
                         }
 
                         sKey = sParentKeys + "*" + col.fKey.refInListOfTables.TableName + ">";
-                        col.fKey.fTable.CreateInputControls(this, col, sKey, ref inpCtrlList, this.myGroupBox, pControl, xDBTables, xbReadOnly);
+                        col.fKey.fTable.CreateInputControls(this, col, sKey, ref inpCtrlList, this.myGroupBox, pControl, xDBTables, xbReadOnly,xnav);
                     }
                     else
                     {

@@ -48,10 +48,12 @@ namespace Tangenta
         SQLTable tbl = null;
         long_v ID_v = null;
         string ColumnOrderBy = "";
+        NavigationButtons.Navigation nav = null;
 
-        public Form_Customer_Person_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_Customer_Person_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -94,7 +96,7 @@ namespace Tangenta
 
             Customer_Person_EditMode = eCustomer_Person_EditMode.SELECT_ALL;
             string sWhereCondition = "";
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
 
         }
         private void Customer_Person_EditForm_Load(object sender, EventArgs e)
@@ -177,7 +179,7 @@ namespace Tangenta
             SQLTable tbl_PersonData = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PersonData)));
             Form_PersonData_Edit edt_Item_dlg = new Form_PersonData_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_PersonData,
-                                                            "PersonData_$_per_$_cln_$$LastName desc");
+                                                            "PersonData_$_per_$_cln_$$LastName desc",nav);
             edt_Item_dlg.ShowDialog();
             Init();
             return true;
@@ -188,7 +190,7 @@ namespace Tangenta
             SQLTable tbl_PersonAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PersonAccount)));
             PersonAccount_EditForm edt_Item_dlg = new PersonAccount_EditForm(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_PersonAccount,
-                                                            "PersonAccount_$_per_$_cfn_$$FirstName desc");
+                                                            "PersonAccount_$_per_$_cfn_$$FirstName desc",nav);
             edt_Item_dlg.ShowDialog();
             Init();
             return true;

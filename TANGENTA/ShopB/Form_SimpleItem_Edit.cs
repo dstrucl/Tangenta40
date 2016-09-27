@@ -49,7 +49,7 @@ namespace ShopB
             lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
             usrc_NavigationButtons1.Init(xnav);
             string selection = " SimpleItem_$$Name,SimpleItem_$$Abbreviation,SimpleItem_$_siimg_$$Image_Data,SimpleItem_$_sipg1_$$Name,SimpleItem_$_sipg1_$_sipg2_$$Name,SimpleItem_$_sipg1_$_sipg2_$_sipg3_$$Name,SimpleItem_$$ToOffer,ID ";
-            if (!usrc_EditTable.Init(dbTables, tbl, selection, ColumnToOrderBy,false,null,null,false))
+            if (!usrc_EditTable.Init(dbTables, tbl, selection, ColumnToOrderBy,false,null,null,false,nav))
             {
                 bclose = true;
             }

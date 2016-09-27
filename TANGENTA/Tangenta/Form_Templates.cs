@@ -34,12 +34,13 @@ namespace Tangenta
         public long_v ID_v = null;
         string ColumnOrderBy = "";
         private bool m_bChanged = false;
-
         public bool bPriceListChanged = false;
+        private NavigationButtons.Navigation nav = null;
 
-        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
+        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -51,9 +52,10 @@ namespace Tangenta
 
         }
 
-        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
+        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -88,7 +90,7 @@ namespace Tangenta
                     sWhereCondition = " where  doc_$$Active = 0 ";
                     break;
             }
-            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false);
+            return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
 
         }
         private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)

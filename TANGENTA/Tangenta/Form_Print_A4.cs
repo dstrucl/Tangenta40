@@ -38,11 +38,12 @@ namespace Tangenta
         private DateTime_v issue_time;
         private usrc_PrinterSettings usrc_Printer;
         private InvoiceData m_InvoiceData;
+        private NavigationButtons.Navigation nav = null;
 
-
-        public Form_Print_A4(InvoiceData xInvoiceData, GlobalData.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public Form_Print_A4(InvoiceData xInvoiceData, GlobalData.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time, NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
 
             this.m_InvoiceData = xInvoiceData;
             this.paymentType = paymentType;
@@ -96,7 +97,7 @@ namespace Tangenta
             SQLTable tbl_doc = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(doc)));
             Form_Templates edt_doc_dlg = new Form_Templates(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_doc,
-                                                            "doc_$$Name");
+                                                            "doc_$$Name",nav);
             if (edt_doc_dlg.ShowDialog() == DialogResult.OK)
             {
                 long id = edt_doc_dlg.ID_v.v;

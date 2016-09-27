@@ -47,6 +47,7 @@ namespace CodeTables
 
         public TableView_Form[] m_TableView_Form = new TableView_Form[guid.MaxTableViews] { null, null, null, null };
         DockableFormInfo[] info_TableView_Form = new DockableFormInfo[guid.MaxTableViews] { null, null, null, null };
+        private NavigationButtons.Navigation nav = null;
 
         #region XML parameters
 
@@ -63,8 +64,9 @@ namespace CodeTables
 
         #endregion
 
-        public TableDockingForm(Form pParentForm, DBTableControl dbTables, SQLTable tbl)
+        public TableDockingForm(Form pParentForm, DBTableControl dbTables, SQLTable tbl,NavigationButtons.Navigation xnav)
         {
+            nav = xnav;
             m_pParentForm = pParentForm;
             InitializeComponent();
             m_DBTables = dbTables;
@@ -88,7 +90,7 @@ namespace CodeTables
 
         #region Create_Forms
 
-        private void Create_CreateView_Form()
+        private void Create_CreateView_Form(NavigationButtons.Navigation xnav)
         {
             if (m_CreateView_Form == null)
             {
@@ -96,7 +98,7 @@ namespace CodeTables
                 {
                     m_pTableDockingFormXml.m_CreateViewFormXml = new CreateViewFormXml();
                 }
-                m_CreateView_Form = (CreateView_Form)CreateDockForm(new Guid(guid.gDocking_CreateView_Form.ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_CreateViewFormXml.wrect, null);
+                m_CreateView_Form = (CreateView_Form)CreateDockForm(new Guid(guid.gDocking_CreateView_Form.ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_CreateViewFormXml.wrect, null,xnav);
                 info_CreateView_Form = _docker.Add(m_CreateView_Form, zAllowedDock.All, new Guid(guid.gDocking_CreateView_Form.ToByteArray()));
                 _docker.DockForm(info_CreateView_Form, DockStyle.Top, zDockMode.None);
             }
@@ -108,7 +110,7 @@ namespace CodeTables
 
         }
 
-        public void Create_TableView_Form(int index)
+        public void Create_TableView_Form(int index, NavigationButtons.Navigation xnav)
         {
             if (m_TableView_Form[index] == null)
             {
@@ -116,7 +118,7 @@ namespace CodeTables
                 {
                     m_pTableDockingFormXml.m_TableViewFormXml[index] = new TableViewFormXml();
                 }
-                m_TableView_Form[index] = (TableView_Form)CreateDockForm(new Guid(guid.gDocking_TableView_Form[index].ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_TableViewFormXml[index].wrect, m_pTableDockingFormXml.m_TableViewFormXml[index].m_DefaultViewXml);
+                m_TableView_Form[index] = (TableView_Form)CreateDockForm(new Guid(guid.gDocking_TableView_Form[index].ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_TableViewFormXml[index].wrect, m_pTableDockingFormXml.m_TableViewFormXml[index].m_DefaultViewXml,xnav);
                 info_TableView_Form[index] = _docker.Add(m_TableView_Form[index], zAllowedDock.Sides, new Guid(guid.gDocking_TableView_Form[index].ToByteArray()));
                 _docker.DockForm(info_TableView_Form[index], DockStyle.Top, zDockMode.Inner);
             }
@@ -127,7 +129,7 @@ namespace CodeTables
             }
         }
 
-        public void Create_TableView_Form(int index, ViewXml ExistingViewXml)
+        public void Create_TableView_Form(int index, ViewXml ExistingViewXml,NavigationButtons.Navigation xnav)
         {
             if (m_TableView_Form[index] == null)
             {
@@ -135,7 +137,7 @@ namespace CodeTables
                 {
                     m_pTableDockingFormXml.m_TableViewFormXml[index] = new TableViewFormXml();
                 }
-                m_TableView_Form[index] = (TableView_Form)CreateDockForm(new Guid(guid.gDocking_TableView_Form[index].ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_TableViewFormXml[index].wrect, ExistingViewXml);
+                m_TableView_Form[index] = (TableView_Form)CreateDockForm(new Guid(guid.gDocking_TableView_Form[index].ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_TableViewFormXml[index].wrect, ExistingViewXml,xnav);
                 info_TableView_Form[index] = _docker.Add(m_TableView_Form[index], zAllowedDock.All, new Guid(guid.gDocking_TableView_Form[index].ToByteArray()));
                 _docker.DockForm(info_TableView_Form[index], DockStyle.Right, zDockMode.Inner);
             }
@@ -146,7 +148,7 @@ namespace CodeTables
             }
         }
 
-        private void Create_DataTable_Form()
+        private void Create_DataTable_Form(NavigationButtons.Navigation xnav)
         {
             if (m_DataTable_Form == null)
             {
@@ -154,7 +156,7 @@ namespace CodeTables
                 {
                     m_pTableDockingFormXml.m_DataTableFormXml = new DataTableFormXml();
                 }
-                m_DataTable_Form = (DataTable_Form)CreateDockForm(new Guid(guid.gDocking_TableGrid_Form.ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_DataTableFormXml.wrect, null);
+                m_DataTable_Form = (DataTable_Form)CreateDockForm(new Guid(guid.gDocking_TableGrid_Form.ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_DataTableFormXml.wrect, null,xnav);
                 info_DataTable_Form = _docker.Add(m_DataTable_Form, zAllowedDock.All, new Guid(guid.gDocking_TableGrid_Form.ToByteArray()));
                 _docker.DockForm(info_DataTable_Form, DockStyle.Right, zDockMode.Inner);
             }
@@ -165,7 +167,7 @@ namespace CodeTables
 
         }
 
-        private void Create_EditTable_Form()
+        private void Create_EditTable_Form(NavigationButtons.Navigation xnav)
         {
             if (m_EditTable_Form == null)
             {
@@ -175,7 +177,7 @@ namespace CodeTables
                     // m_pTableDockingFormXml.m_EditTableFormXml.wrect = Get_wRect(typeof(EditTable_Form), 0);
                 }
 
-                m_EditTable_Form = (EditTable_Form)CreateDockForm(new Guid(guid.gDocking_EditTable_Form.ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_EditTableFormXml.wrect, null);
+                m_EditTable_Form = (EditTable_Form)CreateDockForm(new Guid(guid.gDocking_EditTable_Form.ToByteArray()), m_DBTables, m_tbl, this, m_pTableDockingFormXml.m_EditTableFormXml.wrect, null,xnav);
                 info_EditTable_Form = _docker.Add(m_EditTable_Form, zAllowedDock.All, new Guid(guid.gDocking_EditTable_Form.ToByteArray()));
                 _docker.DockForm(info_EditTable_Form, DockStyle.Left, zDockMode.Inner);
             }
@@ -240,7 +242,7 @@ namespace CodeTables
         /// <param name="identifier">form identifier</param>
         /// <returns>test form</returns>
         /// 
-        private static Form CreateDockForm(Guid identifier, DBTableControl dbTables, SQLTable x_tbl, TableDockingForm pParentForm, wRect wrect, ViewXml xViewXml)
+        private static Form CreateDockForm(Guid identifier, DBTableControl dbTables, SQLTable x_tbl, TableDockingForm pParentForm, wRect wrect, ViewXml xViewXml,NavigationButtons.Navigation xnav)
         {
             if (identifier == new Guid(guid.gDocking_TableGrid_Form.ToByteArray()))
             {
@@ -250,13 +252,13 @@ namespace CodeTables
             }
             else if (identifier == new Guid(guid.gDocking_EditTable_Form.ToByteArray()))
             {
-                EditTable_Form result = new EditTable_Form(dbTables, x_tbl, pParentForm,SetControls,false);
+                EditTable_Form result = new EditTable_Form(dbTables, x_tbl, pParentForm,SetControls,false,xnav);
                 result.Bounds = new Rectangle(wrect.Left, wrect.Top, wrect.Width, wrect.Height);
                 return result;
             }
             else if (identifier == new Guid(guid.gDocking_CreateView_Form.ToByteArray()))
             {
-                CreateView_Form result = new CreateView_Form(dbTables, x_tbl, pParentForm);
+                CreateView_Form result = new CreateView_Form(dbTables, x_tbl, pParentForm, xnav);
                 result.Bounds = new Rectangle(wrect.Left, wrect.Top, wrect.Width, wrect.Height);
                 return result;
             }
@@ -306,22 +308,22 @@ namespace CodeTables
 
                 if (m_pTableDockingFormXml.m_CreateViewFormXml != null)
                 {
-                    Create_CreateView_Form();
+                    Create_CreateView_Form(nav);
                 }
                 if (m_pTableDockingFormXml.m_EditTableFormXml != null)
                 {
-                    Create_EditTable_Form();
+                    Create_EditTable_Form(nav);
                 }
                 if (m_pTableDockingFormXml.m_DataTableFormXml != null)
                 {
-                    Create_DataTable_Form();
+                    Create_DataTable_Form(nav);
                 }
                 int i;
                 for (i = 0; i < guid.MaxTableViews; i++)
                 {
                     if (m_pTableDockingFormXml.m_TableViewFormXml[i] != null)
                     {
-                        this.Create_TableView_Form(i);
+                        this.Create_TableView_Form(i,nav);
                     }
                 }
 
@@ -516,14 +518,14 @@ namespace CodeTables
 
         private void tsmi_Data_Editor_Click(object sender, EventArgs e)
         {
-            Create_EditTable_Form();
+            Create_EditTable_Form(null);
         }
 
 
 
         private void tsmi_Primary_Table_Click(object sender, EventArgs e)
         {
-            Create_DataTable_Form();
+            Create_DataTable_Form(null);
         }
 
         private void tsmi_Edit_XML_configuration_Click(object sender, EventArgs e)
@@ -542,27 +544,27 @@ namespace CodeTables
 
         private void tsmi_View_Manager_Click(object sender, EventArgs e)
         {
-            Create_CreateView_Form();
+            Create_CreateView_Form(nav);
         }
 
         private void tsmi_Table_View_1_Click(object sender, EventArgs e)
         {
-            Create_TableView_Form(0);
+            Create_TableView_Form(0, nav);
         }
 
         private void tsmi_Table_View_2_Click(object sender, EventArgs e)
         {
-            Create_TableView_Form(1);
+            Create_TableView_Form(1, nav);
         }
 
         private void tsmi_Table_View_3_Click(object sender, EventArgs e)
         {
-            Create_TableView_Form(2);
+            Create_TableView_Form(2, nav);
         }
 
         private void tsmi_Table_View_4_Click(object sender, EventArgs e)
         {
-            Create_TableView_Form(3);
+            Create_TableView_Form(3, nav);
         }
 
 

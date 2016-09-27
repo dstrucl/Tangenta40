@@ -40,6 +40,7 @@ namespace ShopC
         DataTable dt_Item = new DataTable();
         private TangentaDB.ShopABC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
+        public NavigationButtons.Navigation nav = null;
        // private usrc_Invoice m_usrc_Invoice = null;
         public usrc_ShopC()
         {
@@ -181,7 +182,7 @@ namespace ShopC
             {
                 if (count_in_baskets == 0)
                 {
-                    if (EditStock())
+                    if (EditStock(nav))
                     {
                         usrc_ItemList.Get_Price_Item_Stock_Data(PriceList_ID);
                     }
@@ -222,13 +223,13 @@ namespace ShopC
             }
         }
 
-        private bool EditStock()
+        private bool EditStock(NavigationButtons.Navigation xnav)
         {
             SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
             Form_Stock_Edit edt_Stock_dlg = new Form_Stock_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                               tbl_Stock,
-                                                              "Stock_$_ppi_$_i_$$Code asc");
+                                                              "Stock_$_ppi_$_i_$$Code asc",xnav);
             edt_Stock_dlg.ShowDialog();
             return edt_Stock_dlg.Changed;
         }

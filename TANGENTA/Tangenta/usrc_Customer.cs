@@ -34,7 +34,7 @@ namespace Tangenta
 
         public long_v Customer_Org_ID_v = null;
         public long_v Customer_Person_ID_v = null;
-
+        public NavigationButtons.Navigation nav = null;
 
         List<CustomerItem> CustomerItemType_List = null;
         public usrc_Customer()
@@ -76,7 +76,7 @@ namespace Tangenta
             SQLTable tbl_Customer_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(PersonData)));
             Form_Customer_Person_Edit Customer_Person_dlg = new Form_Customer_Person_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Customer_Person,
-                                                            "PersonData_$_per_$_cln_$$LastName desc");
+                                                            "PersonData_$_per_$_cln_$$LastName desc",nav);
 
             if (Customer_Person_dlg.ShowDialog()==DialogResult.Yes)
             {
@@ -100,7 +100,7 @@ namespace Tangenta
             SQLTable tbl_Customer_Org = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Customer_Org)));
             Form_Customer_Org_Edit edt_Item_dlg = new Form_Customer_Org_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Customer_Org,
-                                                            "Customer_Org_$_orgd_$_org_$$Name desc");
+                                                            "Customer_Org_$_orgd_$_org_$$Name desc",nav);
             edt_Item_dlg.ShowDialog();
 
             return true;

@@ -22,10 +22,13 @@ namespace Tangenta
         string ColumnToOrderBy = "FVI_SLO_RealEstateBP_$$Community asc";
         long m_Office_Data_ID = -1;
         SQLTable tbl_FVI_SLO_RealEstateBP = null;
-     
-        public Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(long xOffice_Data_ID)
+        NavigationButtons.Navigation nav = null;
+
+
+        public Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(long xOffice_Data_ID,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
+            nav = xnav;
             m_Office_Data_ID = xOffice_Data_ID;
             tbl_FVI_SLO_RealEstateBP = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(FVI_SLO_RealEstateBP)));
             this.Text = lngRPM.s_Edit_Office_Data_FVI_SLO_RealEstateBP.s;
@@ -41,7 +44,7 @@ namespace Tangenta
                                     FVI_SLO_RealEstateBP_$$SoftwareSupplier_TaxNumber,
                                     FVI_SLO_RealEstateBP_$$PremiseType,
                                     ID";
-            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_FVI_SLO_RealEstateBP, selection, ColumnToOrderBy, false, " where FVI_SLO_RealEstateBP_$_officed_$$ID = " + m_Office_Data_ID.ToString() + " ", null, false))
+            if (usrc_EditTable1.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_FVI_SLO_RealEstateBP, selection, ColumnToOrderBy, false, " where FVI_SLO_RealEstateBP_$_officed_$$ID = " + m_Office_Data_ID.ToString() + " ", null, false,nav))
             {
                 if (usrc_EditTable1.RowsCount > 0)
                 {
