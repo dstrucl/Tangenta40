@@ -36,6 +36,7 @@ namespace Tangenta
         {
             InitializeComponent();
             nav = xnav;
+            usrc_NavigationButtons1.Init(nav);
             m_Office_ID = xOffice_ID;
             tbl_myOrganisation_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person)));
             lngRPM.s_myOrganisation_Person_Data.Text(this);
@@ -75,7 +76,7 @@ namespace Tangenta
             }
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private bool do_OK()
         {
             if (usrc_EditTable1.Changed)
             {
@@ -85,6 +86,7 @@ namespace Tangenta
                     {
                         Close();
                         DialogResult = DialogResult.OK;
+                        return true;
                     }
                     else
                     {
@@ -92,6 +94,11 @@ namespace Tangenta
                         {
                             this.Close();
                             DialogResult = DialogResult.OK;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
 
@@ -100,6 +107,7 @@ namespace Tangenta
                 {
                     Close();
                     DialogResult = DialogResult.OK;
+                    return true;
                 }
             }
             else
@@ -108,30 +116,33 @@ namespace Tangenta
                 {
                     Close();
                     DialogResult = DialogResult.OK;
+                    return true;
                 }
                 else
                 {
                     XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOfficePersonData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    return false;
                 }
             }
         }
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void do_Cancel()
         {
-
-            if (usrc_EditTable1.RowsCount > 0)
-            {
-                Close();
-                DialogResult = DialogResult.OK;
-            }
-            else
-            {
-                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotEnterYourOrganisationPersonData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-                    Close();
-                    DialogResult = DialogResult.Cancel;
-                }
-            }
+            Close();
+            DialogResult = DialogResult.OK;
+            //if (usrc_EditTable1.RowsCount > 0)
+            //{
+            //    Close();
+            //    DialogResult = DialogResult.OK;
+            //}
+            //else
+            //{
+            //    if (XMessage.Box.Show(this, lngRPM.s_YouDidNotEnterYourOrganisationPersonData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            //    {
+            //        Close();
+            //        DialogResult = DialogResult.Cancel;
+            //    }
+            //}
         }
 
         private void usrc_EditTable1_after_FillDataInputControl(SQLTable m_tbl, long ID)
@@ -153,5 +164,47 @@ namespace Tangenta
             usrc_EditTable1.FillInitialData();
         }
         #endregion
+
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
+        {
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            if (do_OK())
+                            {
+                                nav.eExitResult = evt;
+                            }
+                            break;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            break;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            if (do_OK())
+                            {
+                                nav.eExitResult = evt;
+                            }
+                            break;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            break;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            do_Cancel();
+                            nav.eExitResult = evt;
+                            break;
+                    }
+                    break;
+
+            }
+        }
     }
 }

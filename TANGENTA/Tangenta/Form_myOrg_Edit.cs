@@ -253,9 +253,13 @@ namespace Tangenta
                                 }
                                 break;
                             case NavigationButtons.Navigation.eEvent.PREV:
+                                Close();
+                                DialogResult = DialogResult.OK;
                                 nav.eExitResult = evt;
                                 break;
                             case NavigationButtons.Navigation.eEvent.EXIT:
+                                Close();
+                                DialogResult = DialogResult.OK;
                                 nav.eExitResult = evt;
                                 break;
                         }

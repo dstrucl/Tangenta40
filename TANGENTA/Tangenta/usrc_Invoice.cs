@@ -549,25 +549,29 @@ namespace Tangenta
 
         }
 
-        private bool EditMyOrganisation_Person_Data(int Index)
+        private bool EditMyOrganisation_Person_Data(int Index,NavigationButtons.Navigation xnav)
         {
-            DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
             if (Index < myOrg.myOrg_Office_list.Count)
             {
-                Form_myOrg_Person_Edit edt_my_company_person_dlg = new Form_myOrg_Person_Edit(myOrg.myOrg_Office_list[Index].ID_v.v,null);
-                dres = edt_my_company_person_dlg.ShowDialog();
-
-                if (dres == DialogResult.OK)
+                NavigationButtons.Navigation nav_edt_my_company_person_dlg = null;
+                Form child_dlg = null;
+                if (xnav!=null)
                 {
-                    this.Cursor = Cursors.Arrow;
-                    return true;
+                    nav_edt_my_company_person_dlg = xnav;
+                    child_dlg = xnav.ChildDialog;
                 }
                 else
                 {
-                    this.Cursor = Cursors.Arrow;
-                    return false;
+                    nav_edt_my_company_person_dlg = new NavigationButtons.Navigation();
+                    nav_edt_my_company_person_dlg.bDoModal = true;
+                    nav_edt_my_company_person_dlg.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                 }
+
+                nav_edt_my_company_person_dlg.ChildDialog = new Form_myOrg_Person_Edit(myOrg.myOrg_Office_list[Index].ID_v.v, nav_edt_my_company_person_dlg);
+                this.Cursor = Cursors.Arrow;
+                nav_edt_my_company_person_dlg.ShowDialog();
+                return true;
             }
             else
             {
@@ -577,20 +581,11 @@ namespace Tangenta
 
         private bool Edit_myOrg_Office(NavigationButtons.Navigation xnav)
         {
-            DialogResult dres = DialogResult.Ignore;
             this.Cursor = Cursors.WaitCursor;
-            Form_myOrg_Office frm_office = new Form_myOrg_Office(xnav);
-            dres = frm_office.ShowDialog(this);
-            if (dres == DialogResult.OK)
-            {
-                this.Cursor = Cursors.Arrow;
-                return true;
-            }
-            else
-            {
-                this.Cursor = Cursors.Arrow;
-                return false;
-            }
+            xnav.ChildDialog = new Form_myOrg_Office(xnav);
+            this.Cursor = Cursors.Arrow;
+            xnav.ShowDialog();
+            return true;
         }
 
         private bool Edit_myOrg_Office_Data(NavigationButtons.Navigation xnav)
@@ -636,7 +631,7 @@ namespace Tangenta
             this.Cursor = Cursors.Arrow;
             xnav.ChildDialog = edt_my_company_dlg;
             xnav.ShowDialog();
-            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK)||(xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
+            if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.OK)|| (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
             {
                 return true;
             }
@@ -1266,6 +1261,7 @@ namespace Tangenta
             {
                 if (myOrg.Get(1))
                 {
+do_EditMyOrganisation_Data:
                     if (myOrg.Name_v == null)
                     {
                         //x_usrc_Main.Get_shops_in_use(false);
@@ -1273,7 +1269,20 @@ namespace Tangenta
                         MessageBox.Show(lngRPM.s_No_OrganisationData.s);
                         if (EditMyOrganisation_Data(true, xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myStartup.eNextStep--;
+                                return true;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1286,7 +1295,20 @@ namespace Tangenta
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_Tax_ID.s);
                         if (EditMyOrganisation_Data(false,xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myStartup.eNextStep--;
+                                return true;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1300,7 +1322,20 @@ namespace Tangenta
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_StreetName.s);
                         if (EditMyOrganisation_Data(false, xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myStartup.eNextStep--;
+                                return true;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1314,7 +1349,20 @@ namespace Tangenta
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_HouseNumber.s);
                         if (EditMyOrganisation_Data(false, xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myStartup.eNextStep--;
+                                return true;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1328,7 +1376,20 @@ namespace Tangenta
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_ZIP.s);
                         if (EditMyOrganisation_Data(false, xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myStartup.eNextStep--;
+                                return true;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1341,7 +1402,20 @@ namespace Tangenta
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_City.s);
                         if (EditMyOrganisation_Data(false, xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myStartup.eNextStep--;
+                                return true;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1355,7 +1429,20 @@ namespace Tangenta
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_Country.s);
                         if (EditMyOrganisation_Data(false, xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myStartup.eNextStep--;
+                                return true;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1367,12 +1454,13 @@ namespace Tangenta
                     f_Currency.Get(myOrg.Address_v.Country_ISO_3166_num, ref myOrg.Default_Currency_ID);
                     f_Taxation.Get(myOrg.Address_v.Country_ISO_3166_num,ref myOrg.Default_TaxRates);
 
+  do_Edit_myOrg_Office:
                     if (myOrg.myOrg_Office_list.Count > 0)
                     {
                         if (myOrg.myOrg_Office_list[0].Office_Data_ID_v == null)
                         {
                             MessageBox.Show(lngRPM.s_No_Office_Data.s);
-                            if (Edit_myOrg_Office_Data(nav))
+                            if (Edit_myOrg_Office_Data(xnav))
                             {
                                 continue;
                             }
@@ -1408,7 +1496,7 @@ namespace Tangenta
                                 if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {
                                     MessageBox.Show(lngRPM.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
-                                    if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(nav))
+                                    if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav))
                                     {
                                         continue;
                                     }
@@ -1424,9 +1512,23 @@ namespace Tangenta
                     else
                     {
                         MessageBox.Show(lngRPM.s_No_Office.s);
-                        if (Edit_myOrg_Office(nav))
+
+                        if (Edit_myOrg_Office(xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myOrg.Name_v = null;
+                                goto do_EditMyOrganisation_Data;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            { 
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1439,9 +1541,22 @@ namespace Tangenta
                     if (myOrg.myOrg_Person_list.Count== 0)
                     {
                         MessageBox.Show(lngRPM.s_No_MyOrganisation_Person.s);
-                        if (EditMyOrganisation_Person_Data(0))
+                        if (EditMyOrganisation_Person_Data(0,xnav))
                         {
-                            continue;
+                            if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+                            {
+                                myOrg.myOrg_Office_list.Clear();
+                                goto do_Edit_myOrg_Office;
+                            }
+                            else if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT)
+                            {
+                                myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                         else
                         {
@@ -1776,7 +1891,7 @@ namespace Tangenta
 
         private void btn_edit_MyOrganisation_Click_1(object sender, EventArgs e)
         {
-            EditMyOrganisation_Person_Data(0);
+            EditMyOrganisation_Person_Data(0,nav);
             myOrg.Get(1);
             if (Last_myOrganisation_Person_id >= 0)
             {

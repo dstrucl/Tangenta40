@@ -71,6 +71,32 @@ namespace NavigationButtons
             }
         }
 
+        public void ShowDialog(Form parent)
+        {
+            eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
+            LastStartupDialog_TYPE = ChildDialog.GetType().ToString();
+            if (!bDoModal)
+            {
+                ChildDialog.StartPosition = FormStartPosition.CenterScreen;
+                ChildDialog.TopMost = true;
+                ChildDialog.Visible = true;
+                ChildDialog.Show();
+                while (eExitResult == NavigationButtons.Navigation.eEvent.NOTHING)
+                {
+                    Application.DoEvents();
+                }
+                if (ChildDialog.IsAccessible)
+                {
+                    ChildDialog.Close();
+                }
+            }
+            else
+            {
+                ChildDialog.ShowDialog(parent);
+            }
+        }
+
+
         public void ShowHelp(string FormTypeAsString)
         {
             string sUrl = ShowHelpResolver(FormTypeAsString);

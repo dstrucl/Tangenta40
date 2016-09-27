@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Country_ISO_3166
 {
@@ -21,10 +22,11 @@ namespace Country_ISO_3166
     {
         public ISO_3166[] item = null;
         public DataTable dt_ISO_3166 = new DataTable();
+        NavigationButtons.Navigation xnav_Form_Select_Country_ISO_3166 = null;
 
         public bool SetInputControls(SQLTable tbl,NavigationButtons.Navigation xnav )
         {
-            NavigationButtons.Navigation xnav_Form_Select_Country_ISO_3166 = xnav;
+            //NavigationButtons.Navigation xnav_Form_Select_Country_ISO_3166 = xnav;
             if (xnav_Form_Select_Country_ISO_3166 == null)
             {
                 xnav_Form_Select_Country_ISO_3166 = new NavigationButtons.Navigation();
@@ -32,28 +34,32 @@ namespace Country_ISO_3166
                 xnav_Form_Select_Country_ISO_3166.bDoModal = true;
             }
 
-            Form_Select_Country_ISO_3166 frm_Select_Country_ISO_316 = new Form_Select_Country_ISO_3166(dt_ISO_3166,null,null, xnav_Form_Select_Country_ISO_3166);
-            xnav_Form_Select_Country_ISO_3166.ChildDialog = frm_Select_Country_ISO_316;
-            xnav_Form_Select_Country_ISO_3166.ShowDialog();
+            xnav_Form_Select_Country_ISO_3166.ChildDialog = new Form_Select_Country_ISO_3166(dt_ISO_3166,null,null, xnav_Form_Select_Country_ISO_3166);
+            Form parent = null;
+            if (xnav!=null)
+            {
+                parent = xnav.ChildDialog;
+            }
+            xnav_Form_Select_Country_ISO_3166.ShowDialog(parent);
             if ((xnav_Form_Select_Country_ISO_3166.eExitResult== NavigationButtons.Navigation.eEvent.OK)|| (xnav_Form_Select_Country_ISO_3166.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
             {
                 foreach (Column col in tbl.Column)
                 {
                     if (col.Name.Equals("Country"))
                     {
-                        col.InputControl.SetValue(frm_Select_Country_ISO_316.Country);
+                        col.InputControl.SetValue(((Form_Select_Country_ISO_3166)xnav_Form_Select_Country_ISO_3166.ChildDialog).Country);
                     }
                     else if (col.Name.Equals("Country_ISO_3166_a2"))
                     {
-                        col.InputControl.SetValue(frm_Select_Country_ISO_316.Country_ISO_3166_a2);
+                        col.InputControl.SetValue(((Form_Select_Country_ISO_3166)xnav_Form_Select_Country_ISO_3166.ChildDialog).Country_ISO_3166_a2);
                     }
                     else if (col.Name.Equals("Country_ISO_3166_a3"))
                     {
-                        col.InputControl.SetValue(frm_Select_Country_ISO_316.Country_ISO_3166_a3);
+                        col.InputControl.SetValue(((Form_Select_Country_ISO_3166)xnav_Form_Select_Country_ISO_3166.ChildDialog).Country_ISO_3166_a3);
                     }
                     else if (col.Name.Equals("Country_ISO_3166_num"))
                     {
-                        col.InputControl.SetValue(frm_Select_Country_ISO_316.Country_ISO_3166_num);
+                        col.InputControl.SetValue(((Form_Select_Country_ISO_3166)xnav_Form_Select_Country_ISO_3166.ChildDialog).Country_ISO_3166_num);
                     }
                 }
                 return true;
