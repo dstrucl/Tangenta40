@@ -89,6 +89,10 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TextBoxRecent, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\TextBoxRecent.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASet.cs" />
@@ -306,6 +310,12 @@
     <Compile Include="usrc_myGroupBox.Designer.cs">
       <DependentUpon>usrc_myGroupBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Password.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Password.Designer.cs">
+      <DependentUpon>usrc_Password.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_RadioButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -492,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_myGroupBox.resx">
       <DependentUpon>usrc_myGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Password.resx">
+      <DependentUpon>usrc_Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_RowReferencedFromTable.resx">
       <DependentUpon>usrc_RowReferencedFromTable.cs</DependentUpon>

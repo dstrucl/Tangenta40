@@ -1265,8 +1265,10 @@ do_EditMyOrganisation_Data:
                     if (myOrg.Name_v == null)
                     {
                         //x_usrc_Main.Get_shops_in_use(false);
-
-                        MessageBox.Show(lngRPM.s_No_OrganisationData.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_OrganisationData.s);
+                        }
                         if (EditMyOrganisation_Data(true, xnav))
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -1292,7 +1294,10 @@ do_EditMyOrganisation_Data:
                     }
                     if (myOrg.Tax_ID_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyOrganisation_Tax_ID.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_MyOrganisation_Tax_ID.s);
+                        }
                         if (EditMyOrganisation_Data(false,xnav))
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -1319,7 +1324,10 @@ do_EditMyOrganisation_Data:
 
                     if (myOrg.Address_v.StreetName_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyOrganisation_StreetName.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_MyOrganisation_StreetName.s);
+                        }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -1346,7 +1354,10 @@ do_EditMyOrganisation_Data:
 
                     if (myOrg.Address_v.HouseNumber_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyOrganisation_HouseNumber.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_MyOrganisation_HouseNumber.s);
+                        }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -1373,7 +1384,10 @@ do_EditMyOrganisation_Data:
 
                     if (myOrg.Address_v.ZIP_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyOrganisation_ZIP.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_MyOrganisation_ZIP.s);
+                        }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -1399,7 +1413,10 @@ do_EditMyOrganisation_Data:
                     }
                     if (myOrg.Address_v.City_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyOrganisation_City.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_MyOrganisation_City.s);
+                        }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -1426,7 +1443,10 @@ do_EditMyOrganisation_Data:
 
                     if (myOrg.Address_v.Country_v == null)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyOrganisation_Country.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_MyOrganisation_Country.s);
+                        }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -1459,7 +1479,10 @@ do_EditMyOrganisation_Data:
                     {
                         if (myOrg.myOrg_Office_list[0].Office_Data_ID_v == null)
                         {
-                            MessageBox.Show(lngRPM.s_No_Office_Data.s);
+                            if (!Program.bFirstTimeInstallation)
+                            {
+                                MessageBox.Show(lngRPM.s_No_Office_Data.s);
+                            }
                             if (Edit_myOrg_Office_Data(xnav))
                             {
                                 continue;
@@ -1495,7 +1518,10 @@ do_EditMyOrganisation_Data:
                             {
                                 if (myOrg.myOrg_Office_list[0].myOrg_Office_FVI_SLO_RealEstate.BuildingNumber_v == null)
                                 {
-                                    MessageBox.Show(lngRPM.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                    if (!Program.bFirstTimeInstallation)
+                                    {
+                                        MessageBox.Show(lngRPM.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                    }
                                     if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav))
                                     {
                                         continue;
@@ -1511,7 +1537,10 @@ do_EditMyOrganisation_Data:
                     }
                     else
                     {
-                        MessageBox.Show(lngRPM.s_No_Office.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_Office.s);
+                        }
 
                         if (Edit_myOrg_Office(xnav))
                         {
@@ -1540,7 +1569,10 @@ do_EditMyOrganisation_Data:
 
                     if (myOrg.myOrg_Person_list.Count== 0)
                     {
-                        MessageBox.Show(lngRPM.s_No_MyOrganisation_Person.s);
+                        if (!Program.bFirstTimeInstallation)
+                        {
+                            MessageBox.Show(lngRPM.s_No_MyOrganisation_Person.s);
+                        }
                         if (EditMyOrganisation_Person_Data(0,xnav))
                         {
                             if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)

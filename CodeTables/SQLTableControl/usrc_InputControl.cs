@@ -158,6 +158,7 @@ namespace CodeTables
         private bool bIsNumber;
 
         private TextBox txtBox;
+        private usrc_Password txtPassword;
         private RichTextBox RichtxtBox;
 
         private InputControl_DataBox DataBox;
@@ -498,7 +499,15 @@ namespace CodeTables
                         if (ObjectInitialValue.GetType() == typeof(string))
                         {
                             string s = (string)ObjectInitialValue;
-                            string sedited = txtBox.Text;
+                            string sedited = null;
+                            if (m_col.Style == Column.eStyle.Password)
+                            {
+                                sedited = txtPassword.Text;
+                            }
+                            else
+                            {
+                                sedited = txtBox.Text;
+                            }
                             if (!sedited.Equals(s))
                             {
                                 return true;
@@ -823,21 +832,36 @@ namespace CodeTables
                 case Globals.eDBType.DB_varchar_5:
                     if (b)
                     {
-
-                        txtBox.TextChanged += new EventHandler(txtBox_TextChanged);
-                        txtBox.GotFocus += new EventHandler(InputControl_GotFocus);
-                        if (btnFolderSelect != null)
+                        if (m_col.Style == Column.eStyle.Password)
                         {
-                            btnFolderSelect.Click += new EventHandler(OnButtonClick_FolderSelect);
+                            txtPassword.TextChanged += new EventHandler(TxtPassword_TextChanged);
+                            txtPassword.GotFocus += new EventHandler(InputControl_GotFocus);
+                        }
+                        else
+                        {
+                            txtBox.TextChanged += new EventHandler(txtBox_TextChanged);
+                            txtBox.GotFocus += new EventHandler(InputControl_GotFocus);
+                            if (btnFolderSelect != null)
+                            {
+                                btnFolderSelect.Click += new EventHandler(OnButtonClick_FolderSelect);
+                            }
                         }
                     }
                     else
                     {
-                        txtBox.TextChanged -= txtBox_TextChanged;
-                        txtBox.GotFocus -= InputControl_GotFocus;
-                        if (btnFolderSelect != null)
+                        if (m_col.Style == Column.eStyle.Password)
                         {
-                            btnFolderSelect.Click -= OnButtonClick_FolderSelect;
+                            txtPassword.TextChanged -= TxtPassword_TextChanged;
+                            txtPassword.GotFocus -= InputControl_GotFocus;
+                        }
+                        else
+                        {
+                            txtBox.TextChanged -= txtBox_TextChanged;
+                            txtBox.GotFocus -= InputControl_GotFocus;
+                            if (btnFolderSelect != null)
+                            {
+                                btnFolderSelect.Click -= OnButtonClick_FolderSelect;
+                            }
                         }
                     }
                     break;
@@ -846,13 +870,30 @@ namespace CodeTables
                 case Globals.eDBType.DB_varchar_max:
                     if (b)
                     {
-                        RichtxtBox.TextChanged += new EventHandler(txtBox_TextChanged);
-                        RichtxtBox.GotFocus += new EventHandler(InputControl_GotFocus);
+                        if (m_col.Style == Column.eStyle.Password)
+                        {
+                            txtPassword.TextChanged += new EventHandler(TxtPassword_TextChanged);
+                            txtPassword.GotFocus += new EventHandler(InputControl_GotFocus);
+                        }
+                        else
+                        {
+                            RichtxtBox.TextChanged += new EventHandler(txtBox_TextChanged);
+                            RichtxtBox.GotFocus += new EventHandler(InputControl_GotFocus);
+                        }
                     }
                     else
                     {
-                        RichtxtBox.TextChanged -= txtBox_TextChanged;
-                        RichtxtBox.GotFocus -= InputControl_GotFocus;
+                        if (m_col.Style == Column.eStyle.Password)
+                        {
+                            txtPassword.TextChanged -= TxtPassword_TextChanged;
+                            txtPassword.GotFocus -= InputControl_GotFocus;
+                        }
+                        else
+                        {
+
+                            RichtxtBox.TextChanged -= txtBox_TextChanged;
+                            RichtxtBox.GotFocus -= InputControl_GotFocus;
+                        }
                     }
 
                     break;
@@ -862,6 +903,11 @@ namespace CodeTables
                     break;
 
             }
+        }
+
+        private void TxtPassword_TextChanged(object sender, EventArgs e)
+        {
+            InputControl_ValueChanged(sender);
         }
 
         public void CreateInputControls(SQLTable pParentTbl, Type myType)
@@ -1164,54 +1210,76 @@ namespace CodeTables
                 case Globals.eDBType.DB_varchar_25:
                 case Globals.eDBType.DB_varchar_10:
                 case Globals.eDBType.DB_varchar_5:
-                    txtBox = new TextBox();
-                    txtBox.Width = txtBox_Width;
-                    if (bReadOnly||(m_col.Style == Column.eStyle.TextBox_ReadOnly))
+                    if (m_col.Style == Column.eStyle.Password)
                     {
-                        txtBox.ReadOnly = true;
-                        txtBox.BackColor = Color.LightGray;
-                        txtBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-                        txtBox.Cursor = Cursors.No;
-                    }
-                    else
-                    {
-                        txtBox.Cursor = Cursors.IBeam;
-                    }
-                    txtBox.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
-                    txtBox.Top = usrc_lbl.Top;
-                    this.Controls.Add(txtBox);
-                    txtBox.Visible = true;
-                    txtBox.Tag = this;
-                    m_active_ctrl_List.Add(txtBox);
-                    int iMaxLength = Func.GetMaxStringLength(myType);
-                    if (iMaxLength > 0)
-                    {
-                        txtBox.MaxLength = iMaxLength;
-                    }
-                    if (m_col.Style == Column.eStyle.FileSelection)
-                    {
-                        if (!bReadOnly)
-                        { 
-                        btnFolderSelect = new Button();
-                        btnFolderSelect.Left = txtBox.Left + txtBox.Width + dist;
-                        btnFolderSelect.Top = usrc_lbl.Top;
-                        this.Controls.Add(btnFolderSelect);
-                        btnFolderSelect.Width = BtnFileSelectWidth;
-                        btnFolderSelect.Height = btnFolderSelect_Height;
-                        btnFolderSelect.Image = Properties.Resources.SmallFolderIcon.ToBitmap();
-                        btnFolderSelect.Text = "";
-                        btnFolderSelect.Visible = true;
-                        btnFolderSelect.Tag = txtBox;
-                        this.Width = usrc_lbl.Width + dist + txtBox.Width + dist + btnFolderSelect.Width;
-                        this.Height = txtBox.Height;
+                        txtPassword = new usrc_Password();
+                        txtPassword.Width = txtBox_Width;
+                        txtPassword.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
+                        txtPassword.Top = usrc_lbl.Top;
+                        this.Controls.Add(txtPassword);
+                        txtPassword.Visible = true;
+                        txtPassword.Tag = this;
+                        m_active_ctrl_List.Add(txtPassword);
+                        int iMaxLength = Func.GetMaxStringLength(myType);
+                        if (iMaxLength > 0)
+                        {
+                            txtPassword.MaxLength = iMaxLength;
                         }
-
+                        this.Width = usrc_lbl.Width + dist + txtPassword.Width;
+                        this.Height = txtPassword.Height;
+                        m_col.Style = Column.eStyle.Password;
                     }
                     else
-                    {
-                        this.Width = usrc_lbl.Width + dist + txtBox.Width;
-                        this.Height = txtBox.Height;
-                        m_col.Style = Column.eStyle.TextBox;
+                    { 
+                        txtBox = new TextBox();
+                        txtBox.Width = txtBox_Width;
+                        if (bReadOnly || (m_col.Style == Column.eStyle.TextBox_ReadOnly))
+                        {
+                            txtBox.ReadOnly = true;
+                            txtBox.BackColor = Color.LightGray;
+                            txtBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+                            txtBox.Cursor = Cursors.No;
+                        }
+                        else
+                        {
+                            txtBox.Cursor = Cursors.IBeam;
+                        }
+                        txtBox.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
+                        txtBox.Top = usrc_lbl.Top;
+                        this.Controls.Add(txtBox);
+                        txtBox.Visible = true;
+                        txtBox.Tag = this;
+                        m_active_ctrl_List.Add(txtBox);
+                        int iMaxLength = Func.GetMaxStringLength(myType);
+                        if (iMaxLength > 0)
+                        {
+                            txtBox.MaxLength = iMaxLength;
+                        }
+                        if (m_col.Style == Column.eStyle.FileSelection)
+                        {
+                            if (!bReadOnly)
+                            {
+                                btnFolderSelect = new Button();
+                                btnFolderSelect.Left = txtBox.Left + txtBox.Width + dist;
+                                btnFolderSelect.Top = usrc_lbl.Top;
+                                this.Controls.Add(btnFolderSelect);
+                                btnFolderSelect.Width = BtnFileSelectWidth;
+                                btnFolderSelect.Height = btnFolderSelect_Height;
+                                btnFolderSelect.Image = Properties.Resources.SmallFolderIcon.ToBitmap();
+                                btnFolderSelect.Text = "";
+                                btnFolderSelect.Visible = true;
+                                btnFolderSelect.Tag = txtBox;
+                                this.Width = usrc_lbl.Width + dist + txtBox.Width + dist + btnFolderSelect.Width;
+                                this.Height = txtBox.Height;
+                            }
+
+                        }
+                        else
+                        {
+                            this.Width = usrc_lbl.Width + dist + txtBox.Width;
+                            this.Height = txtBox.Height;
+                            m_col.Style = Column.eStyle.TextBox;
+                        }
                     }
                     break;
 
@@ -1358,7 +1426,14 @@ namespace CodeTables
                 case Globals.eDBType.DB_varchar_25:
                 case Globals.eDBType.DB_varchar_10:
                 case Globals.eDBType.DB_varchar_5:
-                    txtBox.Text = "";
+                    if (m_col.Style == Column.eStyle.Password)
+                    {
+                        txtPassword.Text = "";
+                    }
+                    else
+                    {
+                        txtBox.Text = "";
+                    }
                     break;
 
                 case Globals.eDBType.DB_varchar_2000:
@@ -1561,26 +1636,57 @@ namespace CodeTables
                 case Globals.eDBType.DB_varchar_25:
                 case Globals.eDBType.DB_varchar_10:
                 case Globals.eDBType.DB_varchar_5:
-                    this.Width = usrc_lbl.Width + dist + txtBox.Width;
-                    this.Height = usrc_lbl.Height;
+                    if (m_col.Style == Column.eStyle.Password)
+                    {
+                        this.Width = usrc_lbl.Width + dist + txtPassword.Width;
+                        this.Height = txtPassword.Height;
+                    }
+                    else
+                    {
+                        this.Width = usrc_lbl.Width + dist + txtBox.Width;
+                        this.Height = usrc_lbl.Height;
+                    }
                     break;
 
                 case Globals.eDBType.DB_varchar_264:
                 case Globals.eDBType.DB_varchar_250:
-                    this.Width = this.usrc_lbl.Left + usrc_lbl.Width + dist + txtBox.Width;
-                    this.Height = usrc_lbl.Height; 
+                    if (m_col.Style == Column.eStyle.Password)
+                    {
+                        this.Width = this.usrc_lbl.Left + usrc_lbl.Width + dist + txtPassword.Width;
+                        this.Height = txtPassword.Height;
+                    }
+                    else
+                    {
+                        this.Width = this.usrc_lbl.Left + usrc_lbl.Width + dist + txtBox.Width;
+                        this.Height = usrc_lbl.Height;
+                    }
                     break;
 
                 case Globals.eDBType.DB_varchar_2000:
                 case Globals.eDBType.DB_varchar_max:
-                    this.Width = this.usrc_lbl.Left + usrc_lbl.Width + dist + RichtxtBox.Width+3;
-                    if (this.usrc_lbl.Null_Selected)
+                    if (m_col.Style == Column.eStyle.Password)
                     {
-                        this.Height = usrc_lbl.Height;
+                        this.Width = this.usrc_lbl.Left + usrc_lbl.Width + dist + txtPassword.Width + 3;
+                        if (this.usrc_lbl.Null_Selected)
+                        {
+                            this.Height = usrc_lbl.Height;
+                        }
+                        else
+                        {
+                            this.Height = txtPassword.Height + 6;
+                        }
                     }
                     else
                     {
-                        this.Height = RichtxtBox.Height+6;
+                        this.Width = this.usrc_lbl.Left + usrc_lbl.Width + dist + RichtxtBox.Width + 3;
+                        if (this.usrc_lbl.Null_Selected)
+                        {
+                            this.Height = usrc_lbl.Height;
+                        }
+                        else
+                        {
+                            this.Height = RichtxtBox.Height + 6;
+                        }
                     }
                     break;
 
@@ -1715,55 +1821,55 @@ namespace CodeTables
             else if (basetype == typeof(DB_varchar_264))
             {
                 DB_varchar_264 xDB_varchar_264 = (DB_varchar_264)Obj;
-                txtBox.Text = xDB_varchar_264.val;
+                SetTextValue(xDB_varchar_264.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_250))
             {
                 DB_varchar_250 xDB_varchar_250 = (DB_varchar_250)Obj;
-                txtBox.Text = xDB_varchar_250.val;
+                SetTextValue(xDB_varchar_250.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_64))
             {
                 DB_varchar_64 xDB_varchar_64 = (DB_varchar_64)Obj;
-                txtBox.Text = xDB_varchar_64.val;
+                SetTextValue(xDB_varchar_64.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_50))
             {
                 DB_varchar_50 xDB_varchar_50 = (DB_varchar_50)Obj;
-                txtBox.Text = xDB_varchar_50.val;
+                SetTextValue(xDB_varchar_50.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_45))
             {
                 DB_varchar_45 xDB_varchar_45 = (DB_varchar_45)Obj;
-                txtBox.Text = xDB_varchar_45.val;
+                SetTextValue(xDB_varchar_45.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_32))
             {
                 DB_varchar_32 xDB_varchar_32 = (DB_varchar_32)Obj;
-                txtBox.Text = xDB_varchar_32.val;
+                SetTextValue(xDB_varchar_32.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_25))
             {
                 DB_varchar_25 xDB_varchar_25 = (DB_varchar_25)Obj;
-                txtBox.Text = xDB_varchar_25.val;
+                SetTextValue(xDB_varchar_25.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_10))
             {
                 DB_varchar_10 xDB_varchar_10 = (DB_varchar_10)Obj;
-                txtBox.Text = xDB_varchar_10.val;
+                SetTextValue(xDB_varchar_10.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_5))
             {
                 DB_varchar_5 xDB_varchar_5 = (DB_varchar_5)Obj;
-                txtBox.Text = xDB_varchar_5.val;
+                SetTextValue(xDB_varchar_5.val);
                 return true;
             }
             else if (basetype == typeof(DB_varchar_2000))
@@ -1800,6 +1906,19 @@ namespace CodeTables
                 return false;
             }
         }
+
+        private void SetTextValue(string val)
+        {
+            if (m_col.Style == Column.eStyle.Password)
+            {
+                txtPassword.Text = val;
+            }
+            else
+            {
+                txtBox.Text = val;
+            }
+        }
+
         public bool Init_SetValue(Object Value)
         {
             bool bRes = false;
@@ -2023,7 +2142,9 @@ namespace CodeTables
                         RichtxtBox.Text = (string)Value;
                         RichtxtBox.BackColor = ColorDefined;
                         break;
-
+                    case Column.eStyle.Password:
+                        txtPassword.Text = (string)Value;
+                        break;
                     default:
                         LogFile.Error.Show("ERROR wrong Column.eStyle :" + m_col.Style.ToString() + " for Value type string");
                         break;
@@ -2035,78 +2156,67 @@ namespace CodeTables
             else if (Value.GetType() == typeof(DB_varchar_264))
             {
                 DB_varchar_264 xDB_varchar_264 = (DB_varchar_264)Value;
-                txtBox.Text = xDB_varchar_264.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_264.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_250))
             {
                 DB_varchar_250 xDB_varchar_250 = (DB_varchar_250)Value;
-                txtBox.Text = xDB_varchar_250.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_250.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_64))
             {
                 DB_varchar_64 xDB_varchar_64 = (DB_varchar_64)Value;
-                txtBox.Text = xDB_varchar_64.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_64.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_50))
             {
                 DB_varchar_50 xDB_varchar_50 = (DB_varchar_50)Value;
-                txtBox.Text = xDB_varchar_50.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_50.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_45))
             {
                 DB_varchar_45 xDB_varchar_45 = (DB_varchar_45)Value;
-                txtBox.Text = xDB_varchar_45.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_45.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_32))
             {
                 DB_varchar_32 xDB_varchar_32 = (DB_varchar_32)Value;
-                txtBox.Text = xDB_varchar_32.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_32.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_25))
             {
                 DB_varchar_25 xDB_varchar_25 = (DB_varchar_25)Value;
-                txtBox.Text = xDB_varchar_25.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_25.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_10))
             {
                 DB_varchar_10 xDB_varchar_10 = (DB_varchar_10)Value;
-                txtBox.Text = xDB_varchar_10.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_10.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_5))
             {
                 DB_varchar_5 xDB_varchar_5 = (DB_varchar_5)Value;
-                txtBox.Text = xDB_varchar_5.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_5.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_2000))
             {
                 DB_varchar_2000 xDB_varchar_2000 = (DB_varchar_2000)Value;
-                txtBox.Text = xDB_varchar_2000.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_2000.val);
                 return true;
             }
             else if (Value.GetType() == typeof(DB_varchar_max))
             {
                 DB_varchar_max xDB_varchar_max = (DB_varchar_max)Value;
-                txtBox.Text = xDB_varchar_max.val;
-                txtBox.BackColor = ColorDefined;
+                SetTextValueDefined(xDB_varchar_max.val);
                 return true;
             }
             else if (Value.GetType() == typeof(System.DBNull))
@@ -2163,6 +2273,20 @@ namespace CodeTables
                 LogFile.Error.Show("ERROR: Object of type:" + Value.GetType().ToString() + "Is not one of DBTypes !");
                 Defined = false;
                 return false;
+            }
+        }
+
+        private void SetTextValueDefined(string val)
+        {
+            if (m_col.Style == Column.eStyle.Password)
+            {
+                txtPassword.Text = val;
+                txtPassword.BackColor = ColorDefined;
+            }
+            else
+            {
+                txtBox.Text = val;
+                txtBox.BackColor = ColorDefined;
             }
         }
 
@@ -2305,7 +2429,7 @@ namespace CodeTables
             else if (basetype == typeof(DB_varchar_264))
             {
                 DB_varchar_264 xDB_varchar_x = (DB_varchar_264)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText();
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
 
@@ -2313,70 +2437,84 @@ namespace CodeTables
             else if (basetype == typeof(DB_varchar_250))
             {
                 DB_varchar_250 xDB_varchar_x = (DB_varchar_250)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText(); 
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_64))
             {
                 DB_varchar_64 xDB_varchar_x = (DB_varchar_64)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText(); 
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_50))
             {
                 DB_varchar_50 xDB_varchar_x = (DB_varchar_50)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText();
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_45))
             {
                 DB_varchar_45 xDB_varchar_x = (DB_varchar_45)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText();
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_32))
             {
                 DB_varchar_32 xDB_varchar_x = (DB_varchar_32)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText();
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_25))
             {
                 DB_varchar_25 xDB_varchar_x = (DB_varchar_25)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText();
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_10))
             {
                 DB_varchar_10 xDB_varchar_x = (DB_varchar_10)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText();
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_5))
             {
                 DB_varchar_5 xDB_varchar_x = (DB_varchar_5)Obj;
-                xDB_varchar_x.val = txtBox.Text;
+                xDB_varchar_x.val = GetText();
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_2000))
             {
                 DB_varchar_2000 xDB_varchar_x = (DB_varchar_2000)Obj;
-                xDB_varchar_x.val = RichtxtBox.Text;
+                if (m_col.Style == Column.eStyle.Password)
+                {
+                    xDB_varchar_x.val = txtPassword.Text;
+                }
+                else
+                {
+                    xDB_varchar_x.val = RichtxtBox.Text;
+                }
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
             else if (basetype == typeof(DB_varchar_max))
             {
                 DB_varchar_max xDB_varchar_x = (DB_varchar_max)Obj;
-                xDB_varchar_x.val = RichtxtBox.Text;
+                if (m_col.Style == Column.eStyle.Password)
+                {
+                    xDB_varchar_x.val = txtPassword.Text;
+                }
+                else
+                {
+                    xDB_varchar_x.val = RichtxtBox.Text;
+                }
                 objret = xDB_varchar_x.val;
                 eSQL_Parameter_TYPE = SQL_Parameter.eSQL_Parameter.Varchar;
             }
@@ -2388,7 +2526,17 @@ namespace CodeTables
             return true;
         }
 
-
+        private string GetText()
+        {
+            if (m_col.Style == Column.eStyle.Password)
+            {
+                return txtPassword.Text;
+            }
+            else
+            {
+                return txtBox.Text;
+            }
+        }
 
         private void GetStringData(ref List<string> Lines)
         {
@@ -2776,7 +2924,14 @@ namespace CodeTables
 
         internal bool IsNotDefined()
         {
-           return !Defined;
+            if (m_col.Style == Column.eStyle.Password)
+            {
+                return !txtPassword.Defined;
+            }
+            else
+            {
+                return !Defined;
+            }
         }
 
         internal void MarkAsUndefined()
@@ -2797,7 +2952,20 @@ namespace CodeTables
                     if (ctrl is RichTextBox)
                     {
                         this.Height = 32;
-//                        this.BackColor = Color.Blue;
+                        //                        this.BackColor = Color.Blue;
+                        SQLTable ptbl = m_ParentTbl;
+                        while (ptbl.pParentTable != null)
+                        {
+                            ptbl = ptbl.pParentTable;
+                        }
+                        MySize size = new MySize();
+                        ptbl.RepositionInputControls(ptbl.myGroupBox, ref size, 0);
+                        ptbl.myGroupBox.Refresh();
+                    }
+                    else if (ctrl is usrc_Password)
+                    {
+                        this.Height = 64;
+                        //                        this.BackColor = Color.Blue;
                         SQLTable ptbl = m_ParentTbl;
                         while (ptbl.pParentTable != null)
                         {
@@ -2808,7 +2976,6 @@ namespace CodeTables
                         ptbl.myGroupBox.Refresh();
                     }
                 }
-
             }
             else
             {
@@ -2818,7 +2985,7 @@ namespace CodeTables
                     if (ctrl is RichTextBox)
                     {
                         this.Height = ctrl.Height;
-//                        this.BackColor = Color.Blue;
+                        //                        this.BackColor = Color.Blue;
                         SQLTable ptbl = m_ParentTbl;
                         while (ptbl.pParentTable != null)
                         {
@@ -2826,6 +2993,19 @@ namespace CodeTables
                         }
                         MySize size = new MySize();
                         ptbl.RepositionInputControls(ptbl.myGroupBox, ref size, 0);
+                    }
+                    else if (ctrl is usrc_Password)
+                    {
+                        this.Height = 64;
+                        //                        this.BackColor = Color.Blue;
+                        SQLTable ptbl = m_ParentTbl;
+                        while (ptbl.pParentTable != null)
+                        {
+                            ptbl = ptbl.pParentTable;
+                        }
+                        MySize size = new MySize();
+                        ptbl.RepositionInputControls(ptbl.myGroupBox, ref size, 0);
+                        ptbl.myGroupBox.Refresh();
                     }
                 }
             }

@@ -55,7 +55,8 @@ namespace CodeTables
                            DocumentSource,
                            CheckBox_default_true,
                            ReadOnly_CheckBox_default_true,
-                           ReadOnlyTable
+                           ReadOnlyTable,
+                           Password
         };
 
         public bool IsIdentity = false;

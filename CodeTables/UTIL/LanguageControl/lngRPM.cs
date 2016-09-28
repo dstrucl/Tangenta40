@@ -1464,6 +1464,8 @@ namespace LanguageControl
         public static ltext s_YourUsernameIsDisabled = new ltext("User-name you've already written  is not activated!",
                                                                  "Uporabniško ime ni omogočeno!");
 
+        public static ltext s_Minimum_Password_Length_is = new ltext("The length of password text must be >= ",
+                                                                   "Dolžina gesla mora biti >= ");
         public static ltext s_Password_does_not_match = new ltext("Password does not match!",
                                                                    "Gesli se ne ujemata");
 
