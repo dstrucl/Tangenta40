@@ -356,6 +356,8 @@ namespace Tangenta
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
+
+
                     bResult = InsertSampleData(myStartup, xnav, ref Err);
                     return bResult;
 

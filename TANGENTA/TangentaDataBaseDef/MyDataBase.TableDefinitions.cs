@@ -38,11 +38,15 @@ namespace TangentaDataBaseDef
     {
         public Settings_Item Version=null;
         public Settings_Item StockCheckAtStartup = null;
+        public Settings_Item AdminPassword = null;
+        public Settings_Item SingleUserOperation = null;
 
         public Settings(string Ver)
         {
             Version = new Settings_Item("Version",Ver,true);
             StockCheckAtStartup = new Settings_Item("StockCheckAtStartup", "1", true);
+            AdminPassword = new Settings_Item("AdminPassword", "12345", true);
+            SingleUserOperation = new Settings_Item("SingleUserOperation", "1", true);
         }
 
     }

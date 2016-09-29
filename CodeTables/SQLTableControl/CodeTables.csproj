@@ -310,12 +310,6 @@
     <Compile Include="usrc_myGroupBox.Designer.cs">
       <DependentUpon>usrc_myGroupBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Password.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Password.Designer.cs">
-      <DependentUpon>usrc_Password.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_RadioButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -372,6 +366,10 @@
     <ProjectReference Include="..\CONTROLS\DigitalRune.Windows.TextEditor\DigitalRune.Windows.TextEditor.csproj">
       <Project>{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}</Project>
       <Name>DigitalRune.Windows.TextEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CONTROLS\Password\Password.csproj">
+      <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
+      <Name>Password</Name>
     </ProjectReference>
     <ProjectReference Include="..\DBConectionControl40\DBConnectionControl40.csproj">
       <Project>{322af3bf-b609-477d-9d2b-39a9bbbbc721}</Project>
@@ -502,9 +500,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_myGroupBox.resx">
       <DependentUpon>usrc_myGroupBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Password.resx">
-      <DependentUpon>usrc_Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_RowReferencedFromTable.resx">
       <DependentUpon>usrc_RowReferencedFromTable.cs</DependentUpon>

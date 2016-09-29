@@ -1,4 +1,4 @@
-﻿namespace CodeTables
+﻿namespace Password
 {
     partial class usrc_Password
     {

@@ -111,6 +111,7 @@ namespace TangentaDB
             }
             else
             {
+                LogFile.Error.Show("ERROR:TangentaDB:fs.cs:GetDBSettings:sql=" + sql_DBSettings + "\r\nErr=+Err");
                 return enum_GetDBSettings.Error_Load_DBSettings;
             }
 

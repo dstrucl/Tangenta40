@@ -27,6 +27,7 @@ namespace Startup
         public bool bNewDatabaseCreated = false;
         public bool bInsertSampleData = false;
         public bool bUpgradeDone = false;
+        public string AdminPassword = null;
 
         public Form m_parent_form = null;
         public usrc_Startup m_usrc_Startup = null;

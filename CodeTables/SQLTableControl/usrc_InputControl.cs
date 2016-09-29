@@ -158,7 +158,7 @@ namespace CodeTables
         private bool bIsNumber;
 
         private TextBox txtBox;
-        private usrc_Password txtPassword;
+        private Password.usrc_Password txtPassword;
         private RichTextBox RichtxtBox;
 
         private InputControl_DataBox DataBox;
@@ -1212,7 +1212,8 @@ namespace CodeTables
                 case Globals.eDBType.DB_varchar_5:
                     if (m_col.Style == Column.eStyle.Password)
                     {
-                        txtPassword = new usrc_Password();
+                        txtPassword = new Password.usrc_Password();
+                        txtPassword.Locked = true;
                         txtPassword.Width = txtBox_Width;
                         txtPassword.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                         txtPassword.Top = usrc_lbl.Top;
@@ -2962,7 +2963,7 @@ namespace CodeTables
                         ptbl.RepositionInputControls(ptbl.myGroupBox, ref size, 0);
                         ptbl.myGroupBox.Refresh();
                     }
-                    else if (ctrl is usrc_Password)
+                    else if (ctrl is Password.usrc_Password)
                     {
                         this.Height = 64;
                         //                        this.BackColor = Color.Blue;
@@ -2994,7 +2995,7 @@ namespace CodeTables
                         MySize size = new MySize();
                         ptbl.RepositionInputControls(ptbl.myGroupBox, ref size, 0);
                     }
-                    else if (ctrl is usrc_Password)
+                    else if (ctrl is Password.usrc_Password)
                     {
                         this.Height = 64;
                         //                        this.BackColor = Color.Blue;
