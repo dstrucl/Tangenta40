@@ -372,6 +372,54 @@ namespace TangentaDB
         }
 
 
+        public static bool Read_DBSettings_AdminPassword(bool bUpgradeDone, ref string Err)
+        {
+            string xTextValue = null;
+            bool xReadOnly = false;
+            switch (GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name,
+                                   ref xTextValue,
+                                   ref xReadOnly,
+                                   ref Err))
+            {
+                case enum_GetDBSettings.DBSettings_OK:
+                    if (!xReadOnly)
+                    {
+                        DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.TextValue = xTextValue;
+                    }
+                    return true;
+
+
+                case enum_GetDBSettings.Error_Load_DBSettings:
+                    LogFile.Error.Show(Err);
+                    return false;
+
+                case enum_GetDBSettings.No_Data_Rows:
+                    string sql_DB_StockCheckAtStartup = "insert into DBSettings ( name,textvalue,readonly ) values ('AdminPassword','',0)";
+                    object Result = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQL(sql_DB_StockCheckAtStartup, null, ref Result, ref Err))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:fs:Read_DBSettings_StockCheckAtStartup:sql=" + sql_DB_StockCheckAtStartup + "\r\nErr=" + Err);
+                    }
+                    return true;
+                //break;
+
+                case enum_GetDBSettings.No_TextValue:
+                    return false;
+
+                case enum_GetDBSettings.No_ReadOnly:
+                    return false;
+                default:
+                    Err = "ERROR:TangentaDB:fs:enum_GetDBSettings not handled!";
+                    return false;
+
+            }
+
+        }
+
         public static bool Read_DBSettings_StockCheckAtStartup(bool bUpgradeDone, ref string Err)
         {
             string xTextValue = null;

@@ -28,8 +28,6 @@ namespace Tangenta
     public partial class usrc_Document : UserControl
     {
         private string LockedPassword = null;
-        private bool bMultiuserOperationWithLogin = true;
-        private bool bStockCheckAtStartup = true;
 
         Form Main_Form = null;
         public delegate void delegate_Exit_Click();
@@ -231,6 +229,29 @@ namespace Tangenta
         {
             if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
             {
+                string StockCheckAtStartup = null;
+                bool bReadOnly = false;
+                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name,ref StockCheckAtStartup,ref bReadOnly,ref Err))
+                {
+                    case fs.enum_GetDBSettings.DBSettings_OK:
+                        if (GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        
+                    case fs.enum_GetDBSettings.No_ReadOnly:
+                    case fs.enum_GetDBSettings.No_TextValue:
+                    case fs.enum_GetDBSettings.No_Data_Rows:
+
+                        break;
+                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                        return false;
+                }
+                
                 myStartup.eNextStep++;
                 return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
             }
@@ -249,6 +270,24 @@ namespace Tangenta
                     return false;
                 }
             }
+        }
+
+        private bool GetMissingDBSettings(string name)
+        {
+            MessageBox.Show(this, lngRPM.s_No_DB_Settings_for.s + " " + name);
+            NavigationButtons.Navigation nav_FormDBSettings = new Navigation();
+            nav_FormDBSettings.bDoModal = true;
+            nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
+            nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
+            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorPassword, Program.bMultiuserOperationWithLogin, Program.bStockCheckAtStartup);
+            nav_FormDBSettings.ShowDialog();
+            if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
+            {
+                Program.AdministratorPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin
+            }
+
+
+
         }
 
         internal bool InsertSampleData(startup myStartup, NavigationButtons.Navigation xnav, ref string Err)

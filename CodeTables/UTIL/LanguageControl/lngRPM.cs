@@ -18,7 +18,7 @@ namespace LanguageControl
     public static class lngRPM
     {
         #region StartUp
-
+        public static ltext s_No_DB_Settings_for = new ltext("Data value in table DBSettings is missing or is not valid for", "Vrstica v tabeli DBSettings manjka ali ni veljavna za");
         public static ltext s_RetypePassword = new ltext("Retype password:", "Ponovite geslo:");
         public static ltext s_DoYouWantToUpgradeDBToLatestVersion = new ltext("Upgrade to newest Database version?", "Nadgradim podtakovno bazo na zadnjo verzijo?");
         public static ltext s_Bank = new ltext("Bank", "Banka");
@@ -2289,8 +2289,6 @@ namespace LanguageControl
         public static ltext s_lbl_Street_Number = new ltext("House number", "Hišna št.");
         public static ltext s_lbl_Post = new ltext("Post number", "Poštna št.");
         public static ltext s_lbl_City = new ltext("City", "Kraj");
-
-
-      }
+    }
 }
      
