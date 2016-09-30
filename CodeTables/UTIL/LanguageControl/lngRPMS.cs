@@ -223,8 +223,8 @@ namespace LanguageControl
         public static ltext s_MyOrg_Person_UserName_v = new ltext("Organisation1Person1UserName1", "UporabniškoIme1Osebe1Podjetja1");
         public static ltext sh_MyOrg_Person_UserName = new ltext("Enter administrator user name", "Vpišiti uporabniško ime glavnega administratorja");
 
-        public static ltext sl_MyOrg_Person_Password = new ltext("Administrator password", "Geslo glavnega administratorja");
-        public static ltext s_MyOrg_Person_Password_v = new ltext("Organisation1Person1Password1", "GesloOsebe1Podjetja1");
+        public static ltext sl_MyOrg_Person_Password = new ltext("Administrator password", "Skrbniško geslo");
+        public static ltext s_MyOrg_Person_Password_v = new ltext("12345", "12345");
         public static ltext sh_MyOrg_Person_Password = new ltext("Enter administrator password", "Vpišite geslo glavnega administratorja");
 
         public static ltext sl_MyOrg_Person_Job = new ltext("Administrator Job Title", "Delovno mesto glavnega administratorja");

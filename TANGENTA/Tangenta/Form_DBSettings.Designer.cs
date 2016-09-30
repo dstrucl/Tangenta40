@@ -62,7 +62,7 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 143);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 170);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
             this.usrc_NavigationButtons1.Size = new System.Drawing.Size(280, 63);
             this.usrc_NavigationButtons1.TabIndex = 2;
@@ -84,6 +84,7 @@
             this.usrc_Password1.MinPasswordLength = 5;
             this.usrc_Password1.Name = "usrc_Password1";
             this.usrc_Password1.PasswordLocked = true;
+            this.usrc_Password1.ReadOnly = false;
             this.usrc_Password1.Size = new System.Drawing.Size(245, 67);
             this.usrc_Password1.TabIndex = 0;
             // 
@@ -118,8 +119,9 @@
             // 
             // Form_DBSettings
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(288, 206);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(288, 233);
             this.Controls.Add(this.lbl_DataBaseVersion);
             this.Controls.Add(this.chk_MultiUserOperation);
             this.Controls.Add(this.chk_StockCheckAtStartup);

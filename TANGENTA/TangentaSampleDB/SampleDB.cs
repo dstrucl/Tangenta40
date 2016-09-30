@@ -256,6 +256,7 @@ namespace TangentaSampleDB
 
                 new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_UserName_v, "MyOrg_Person_UserName", lngRPMS.sl_MyOrg_Person_UserName, lngRPMS.s_MyOrg_Person_UserName_v, lngRPMS.sh_MyOrg_Person_UserName);
 
+
                 new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Password_v, "MyOrg_Person_Password", lngRPMS.sl_MyOrg_Person_Password, lngRPMS.s_MyOrg_Person_Password_v, lngRPMS.sh_MyOrg_Person_Password);
 
                 new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Job_v, "MyOrg_Person_Job", lngRPMS.sl_MyOrg_Person_Job, lngRPMS.s_MyOrg_Person_Job_v, lngRPMS.sh_MyOrg_Person_Job);

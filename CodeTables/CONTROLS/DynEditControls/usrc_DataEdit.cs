@@ -13,7 +13,7 @@ namespace DynEditControls
 {
     public partial class usrc_DataEdit : UserControl
     {
-
+        Point AutoScrollStartPoint;
 
         private int m_LeftMargin = 10;
         public int LeftMargin
@@ -102,7 +102,7 @@ namespace DynEditControls
         public usrc_DataEdit()
         {
             InitializeComponent();
-
+            AutoScrollStartPoint = new Point(0, 0);
             // Set up the ToolTip text for the Button and Checkbox.
 
         }
@@ -139,6 +139,7 @@ namespace DynEditControls
 
         private void DoResize()
         {
+            this.AutoScrollPosition = AutoScrollStartPoint;
             int i = 0;
             int yPos = 10;
             if (Controls.Count > 0)

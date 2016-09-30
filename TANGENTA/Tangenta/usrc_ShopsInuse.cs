@@ -59,7 +59,7 @@ namespace Tangenta
             }
             if (shinuse.Length == 0)
             {
-                MessageBox.Show(this, lngRPM.s_Warning.s, lngRPM.s_YouMustSelectAtLeastOneShop.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                MessageBox.Show(this, lngRPM.s_YouMustSelectAtLeastOneShop.s, lngRPM.s_Warning.s,  MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 return false;
             }
             lngRPM.s_Shop_A.sText(DynSettings.LanguageID, txt_ShopA_Name.Text);

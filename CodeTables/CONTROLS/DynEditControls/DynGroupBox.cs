@@ -141,10 +141,10 @@ namespace DynEditControls
                 for (i = 0; i < iCount; i++)
                 {
                     EditControlsList[i].DoReposition(ref MaxHeightInRow);
-                    if (y < EditControlsList[i].Top)
-                    {
+                    //if (y < EditControlsList[i].Top)
+                    //{
                         y = EditControlsList[i].Top;
-                    }
+                    //}
                 }
             }
             this_group_ypos += y + MaxHeightInRow;

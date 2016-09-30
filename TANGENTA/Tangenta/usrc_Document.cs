@@ -27,6 +27,10 @@ namespace Tangenta
 {
     public partial class usrc_Document : UserControl
     {
+        private string LockedPassword = null;
+        private bool bMultiuserOperationWithLogin = true;
+        private bool bStockCheckAtStartup = true;
+
         Form Main_Form = null;
         public delegate void delegate_Exit_Click();
         public event delegate_Exit_Click Exit_Click;
@@ -350,22 +354,37 @@ namespace Tangenta
                         if (Program.bFirstTimeInstallation)
                         {
                             bResult = InsertSampleData(myStartup, xnav, ref Err);
+                            if (xnav.eExitResult == Navigation.eEvent.PREV)
+                            {
+                                goto do_Form_DBSettings;
+                            }
                         }
                     }
                     return bResult;
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
-                    xnav.ChildDialog = new Form_DBSettings(xnav);
-                    xnav.ChildDialog.ShowDialog();
+ do_Form_DBSettings:
+
+                    xnav.ChildDialog = new Form_DBSettings(xnav, LockedPassword, bMultiuserOperationWithLogin, bStockCheckAtStartup);
+                    xnav.ShowDialog();
+                    bMultiuserOperationWithLogin = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
+                    bStockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
                     switch (xnav.eExitResult)
                     {
                         case Navigation.eEvent.NEXT:
                             bResult = InsertSampleData(myStartup, xnav, ref Err);
+                            if (xnav.eExitResult == Navigation.eEvent.PREV)
+                            {
+                                if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_CheckInsertSampleData"))
+                                {
+                                    goto do_Form_DBSettings;
+                                }
+                            }
                             return bResult;
 
                         case Navigation.eEvent.PREV:
-                            myStartup.eNextStep--;
+                            myStartup.eNextStep = startup_step.eStep.Check_DataBase;
                             return true;
 
                         case Navigation.eEvent.EXIT:

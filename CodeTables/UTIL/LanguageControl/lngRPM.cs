@@ -1403,8 +1403,8 @@ namespace LanguageControl
         public static ltext s_ComputerName = new ltext("Computer:", "Računalnik:");
 
         public static ltext s_StockCheckAtStartup = new ltext("Stock check at startup", "Preverjanje zalog ob zagonu programa");
-        public static ltext s_MultiuserOperation = new ltext("Multi user operation",
-                                                             "Večuporabniško delovanje");
+        public static ltext s_MultiuserOperationWithLogin = new ltext("Multi user operation with login",
+                                                             "Večuporabniško delovanje in prijava z geslom");
 
         public static ltext s_Administrator_password = new ltext("Administrator password",
                                                 "Skrbniško geslo");

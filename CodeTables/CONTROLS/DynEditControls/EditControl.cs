@@ -47,7 +47,7 @@ namespace DynEditControls
             set { m_ColorNotChanged = value; }
         }
 
-        private int m_MinEditBoxWidth = 30;
+        private int m_MinEditBoxWidth = 200;
         public int MinEditBoxWidth
         {
             get { return m_MinEditBoxWidth; }
@@ -172,7 +172,7 @@ namespace DynEditControls
                     }
                     if (bltValDefined)
                     {
-                        edit_control.Text = lt_val.s;
+                        ((Password.usrc_Password)edit_control).Text = ((Password.usrc_Password)edit_control).LockPassword(lt_val.s);
                         ((dstring_v)m_refobj).v = lt_val.s;
                     }
                     else
@@ -274,10 +274,17 @@ namespace DynEditControls
             if ((m_refobj is dstring_v))
             {
                 edit_control.Width = MinEditBoxWidth;
-                int txt_calculated_width = (int)Math.Ceiling(size_txt.Width) + 4;
-                if (edit_control.Width < txt_calculated_width)
+                if (edit_control is TextBox)
                 {
-                    edit_control.Width = txt_calculated_width;
+                    int txt_calculated_width = (int)Math.Ceiling(size_txt.Width) + 4;
+                    if (edit_control.Width < txt_calculated_width)
+                    {
+                        edit_control.Width = txt_calculated_width;
+                    }
+                }
+                else if (edit_control is Password.usrc_Password)
+                {
+                    edit_control.Width = 128;
                 }
             }
 
@@ -315,7 +322,7 @@ namespace DynEditControls
             xpos = m_LeftMargin;
             if (pPrev != null)
             {
-                if (pPrev.xpos + pPrev.Width + m_HorisontalDistance + this.edit_control.Width + m_RightMargin < m_grp_box.Width)
+                if (pPrev.xpos + pPrev.Width + m_HorisontalDistance + this.edit_control.Width + m_RightMargin + 200 < m_grp_box.Width)
                 {
                     xpos = pPrev.xpos + pPrev.Width + m_HorisontalDistance;
                     if (MaxHeightInRow<this.edit_control.Height)
@@ -330,6 +337,10 @@ namespace DynEditControls
                     MaxHeightInRow = this.edit_control.Height;
                     xpos = m_LeftMargin;
                 }
+            }
+            else
+            {
+                MaxHeightInRow = this.edit_control.Height;
             }
 
             lbl.Top = ypos + m_lblVerticalOffset;
@@ -412,7 +423,7 @@ namespace DynEditControls
                     }
                     else if (edit_control is Password.usrc_Password)
                     {
-                        return ((dstring_v)m_refobj).v.Equals(((Password.usrc_Password)edit_control).Text);
+                        return ((Password.usrc_Password)edit_control).LockPassword((((dstring_v)m_refobj).v)).Equals(((Password.usrc_Password)edit_control).Text);
                     }
                     else
                     {

@@ -30,33 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usrc_Password));
-            this.txt_Password = new TextBoxRecent.TextBoxR();
-            this.txt_Password_Retyped = new TextBoxRecent.TextBoxR();
             this.lbl_Retype_Password = new System.Windows.Forms.Label();
             this.btn_PasswordView = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.txt_Password_Retyped = new TextBoxRecent.TextBoxR();
+            this.txt_Password = new TextBoxRecent.TextBoxR();
             this.SuspendLayout();
-            // 
-            // txt_Password
-            // 
-            this.txt_Password.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Password.Location = new System.Drawing.Point(3, 2);
-            this.txt_Password.Name = "txt_Password";
-            this.txt_Password.Size = new System.Drawing.Size(219, 20);
-            this.txt_Password.TabIndex = 0;
-            this.txt_Password.UseSystemPasswordChar = true;
-            this.txt_Password.TextChanged += new System.EventHandler(this.txt_Password_TextChanged);
-            // 
-            // txt_Password_Retyped
-            // 
-            this.txt_Password_Retyped.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Password_Retyped.Location = new System.Drawing.Point(3, 44);
-            this.txt_Password_Retyped.Name = "txt_Password_Retyped";
-            this.txt_Password_Retyped.Size = new System.Drawing.Size(219, 20);
-            this.txt_Password_Retyped.TabIndex = 1;
-            this.txt_Password_Retyped.UseSystemPasswordChar = true;
             // 
             // lbl_Retype_Password
             // 
@@ -69,6 +48,7 @@
             // 
             // btn_PasswordView
             // 
+            this.btn_PasswordView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_PasswordView.Image = ((System.Drawing.Image)(resources.GetObject("btn_PasswordView.Image")));
             this.btn_PasswordView.Location = new System.Drawing.Point(187, 23);
             this.btn_PasswordView.Name = "btn_PasswordView";
@@ -81,10 +61,30 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // txt_Password_Retyped
+            // 
+            this.txt_Password_Retyped.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Password_Retyped.Location = new System.Drawing.Point(3, 44);
+            this.txt_Password_Retyped.Name = "txt_Password_Retyped";
+            this.txt_Password_Retyped.Size = new System.Drawing.Size(219, 20);
+            this.txt_Password_Retyped.TabIndex = 1;
+            this.txt_Password_Retyped.UseSystemPasswordChar = true;
+            // 
+            // txt_Password
+            // 
+            this.txt_Password.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Password.Location = new System.Drawing.Point(3, 2);
+            this.txt_Password.Name = "txt_Password";
+            this.txt_Password.Size = new System.Drawing.Size(219, 20);
+            this.txt_Password.TabIndex = 0;
+            this.txt_Password.UseSystemPasswordChar = true;
+            this.txt_Password.TextChanged += new System.EventHandler(this.txt_Password_TextChanged);
+            // 
             // usrc_Password
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.Controls.Add(this.btn_PasswordView);
             this.Controls.Add(this.lbl_Retype_Password);

@@ -55,7 +55,7 @@ namespace DBSync
 
             if (bNewDataBaseCreated)
             {
-                if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_CheckInsertSampleData"))
+                if (xnav.LastStartupDialog_TYPE.Equals("Tangenta.Form_DBSettings"))
                 {
                     DBSync.LocalDB_data_SQLite = null;
                 }
