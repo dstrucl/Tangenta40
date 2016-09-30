@@ -119,6 +119,10 @@ namespace DynEditControls
                     {
                         ((TextBox)edit_control).ReadOnly = m_ReadOnly;
                     }
+                    if (edit_control is Password.usrc_Password)
+                    {
+                        ((Password.usrc_Password)edit_control).ReadOnly = m_ReadOnly;
+                    }
                     else if (edit_control is usrc_NumericUpDown)
                     {
                         ((usrc_NumericUpDown)edit_control).ReadOnly = m_ReadOnly;
@@ -155,25 +159,50 @@ namespace DynEditControls
             lbl = new Label();
             if (m_refobj is dstring_v)
             {
-                edit_control = new TextBox();
-                bool bltValDefined = false;
-                if (lt_val != null)
+                if (xName.Equals("MyOrg_Person_Password"))
                 {
-                    if (lt_val.s != null)
+                    edit_control = new Password.usrc_Password();
+                    bool bltValDefined = false;
+                    if (lt_val != null)
                     {
-                        bltValDefined = true;
+                        if (lt_val.s != null)
+                        {
+                            bltValDefined = true;
+                        }
                     }
-                }
-                if (bltValDefined)
-                {
-                    edit_control.Text = lt_val.s;
-                    ((dstring_v)m_refobj).v = lt_val.s;
+                    if (bltValDefined)
+                    {
+                        edit_control.Text = lt_val.s;
+                        ((dstring_v)m_refobj).v = lt_val.s;
+                    }
+                    else
+                    {
+                        edit_control.Text = ((dstring_v)m_refobj).vs;
+                    }
+                    ((dstring_v)m_refobj).defined = true;
                 }
                 else
                 {
-                    edit_control.Text = ((dstring_v)m_refobj).vs;
+                    edit_control = new TextBox();
+                    bool bltValDefined = false;
+                    if (lt_val != null)
+                    {
+                        if (lt_val.s != null)
+                        {
+                            bltValDefined = true;
+                        }
+                    }
+                    if (bltValDefined)
+                    {
+                        edit_control.Text = lt_val.s;
+                        ((dstring_v)m_refobj).v = lt_val.s;
+                    }
+                    else
+                    {
+                        edit_control.Text = ((dstring_v)m_refobj).vs;
+                    }
+                    ((dstring_v)m_refobj).defined = true;
                 }
-                ((dstring_v)m_refobj).defined = true;
             }
             else if (m_refobj is dbool_v)
             {
@@ -279,21 +308,26 @@ namespace DynEditControls
             }
         }
 
-        public void DoReposition()
+        public void DoReposition(ref int MaxHeightInRow)
         {
 
             ypos = m_TopMargin;
             xpos = m_LeftMargin;
             if (pPrev != null)
             {
-                if (pPrev.xpos + pPrev.Width + m_HorisontalDistance + this.Width + m_RightMargin < m_grp_box.Width)
+                if (pPrev.xpos + pPrev.Width + m_HorisontalDistance + this.edit_control.Width + m_RightMargin < m_grp_box.Width)
                 {
                     xpos = pPrev.xpos + pPrev.Width + m_HorisontalDistance;
+                    if (MaxHeightInRow<this.edit_control.Height)
+                    {
+                        MaxHeightInRow = this.edit_control.Height;
+                    }
                     ypos = pPrev.ypos;
                 }
                 else
                 {
-                    ypos = pPrev.ypos + edit_control.Height + m_VerticalDistance;
+                    ypos = pPrev.ypos + MaxHeightInRow + m_VerticalDistance;
+                    MaxHeightInRow = this.edit_control.Height;
                     xpos = m_LeftMargin;
                 }
             }
@@ -312,7 +346,14 @@ namespace DynEditControls
         {
             if (m_refobj is dstring_v)
             {
-                ((dstring_v)m_refobj).v = ((TextBox)edit_control).Text;
+                if (edit_control is TextBox)
+                {
+                    ((dstring_v)m_refobj).v = ((TextBox)edit_control).Text;
+                }
+                else if (edit_control is Password.usrc_Password)
+                {
+                    ((dstring_v)m_refobj).v = ((Password.usrc_Password)edit_control).Text;
+                }
             }
             else if (m_refobj is dbool_v)
             {
@@ -365,13 +406,33 @@ namespace DynEditControls
             {
                 if (((dstring_v)m_refobj).v != null)
                 {
-                    return ((dstring_v)m_refobj).v.Equals(((TextBox)edit_control).Text);
+                    if (edit_control is TextBox)
+                    {
+                        return ((dstring_v)m_refobj).v.Equals(((TextBox)edit_control).Text);
+                    }
+                    else if (edit_control is Password.usrc_Password)
+                    {
+                        return ((dstring_v)m_refobj).v.Equals(((Password.usrc_Password)edit_control).Text);
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:DynEditControls:EditControl.cs:DataNotChanged type of edit_control " + edit_control.GetType().ToString() + " not suported.");
+                        return false;
+                    }
                 }
                 else
                 {
-                    string s = ((TextBox)edit_control).Text;
-                    s.Replace(" ", "");
-                    if (s.Length==0)
+                    string s = null;
+                    if (edit_control is TextBox)
+                    {
+                        s = ((TextBox)edit_control).Text;
+                        s.Replace(" ", "");
+                    }
+                    else if (edit_control is Password.usrc_Password)
+                    {
+                        s = ((Password.usrc_Password)edit_control).Text;
+                    }
+                    if (s.Length == 0)
                     {
                         return true;
                     }

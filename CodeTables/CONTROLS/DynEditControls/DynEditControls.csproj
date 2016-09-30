@@ -95,6 +95,10 @@
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Password\Password.csproj">
+      <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
+      <Name>Password</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SelectGender\SelectGender.csproj">
       <Project>{e985e027-861c-433c-8078-2e9b6bef42b2}</Project>
       <Name>SelectGender</Name>

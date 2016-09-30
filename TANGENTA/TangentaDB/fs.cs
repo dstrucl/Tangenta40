@@ -139,7 +139,7 @@ namespace TangentaDB
             return false;
         }
 
-        private static bool WriteDBSettings(string name, string textValue, string v, ref long ID)
+        public static bool WriteDBSettings(string name, string textValue, string v, ref long ID)
         {
             string Err = null;
             string s_DBSettings_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.DBSettings)).TableName;

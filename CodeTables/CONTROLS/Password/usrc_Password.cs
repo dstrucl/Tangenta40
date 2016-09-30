@@ -17,7 +17,7 @@ namespace Password
 
         public bool m_Locked = true;
 
-        public bool Locked
+        public bool PasswordLocked
         {
             get { return m_Locked; }
             set { m_Locked = value; }
@@ -45,7 +45,7 @@ namespace Password
                   {
                     if (this.txt_Password.Text.Equals(this.txt_Password_Retyped.Text))
                     {
-                        if (Locked)
+                        if (PasswordLocked)
                         {
                             return LockPassword(txt_Password.Text);
                         }
@@ -56,20 +56,18 @@ namespace Password
                     }
                     else
                     {
-                        MessageBox.Show(this,lngRPM.s_Password_does_not_match.s);
                         return null;
                     }
                   }
                   else
                   {
-                    MessageBox.Show(this, lngRPM.s_Minimum_Password_Length_is.s + MinPasswordLength.ToString());
                     return null;
                   }
                 }
             set
             {
                 string s = value;
-                if (Locked)
+                if (PasswordLocked)
                 {
                     string s_unlocked = UnlockPassword(s);
                     txt_Password.Text = s_unlocked;
@@ -80,6 +78,38 @@ namespace Password
                     txt_Password.Text = s;
                     txt_Password_Retyped.Text = s;
                 }
+            }
+        }
+
+        public bool ReadOnly
+        {
+            get { return txt_Password.ReadOnly; }
+            set
+            {
+                bool b = value;
+                txt_Password.ReadOnly = b;
+                txt_Password_Retyped.ReadOnly = b;
+            }
+        }
+
+        public bool Match()
+        {
+            if (txt_Password.Text.Length >= MinPasswordLength)
+            {
+                if (txt_Password.Text.Equals(txt_Password_Retyped.Text))
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show(this, lngRPM.s_Password_does_not_match.s + MinPasswordLength.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show(this, lngRPM.s_Minimum_Password_Length_is.s + MinPasswordLength.ToString());
+                return false;
             }
         }
 
@@ -125,31 +155,32 @@ namespace Password
             return sLocked;
         }
 
-        public bool Defined { get
-                              {
-                                if (txt_Password.Text.Length >= MinPasswordLength)
-                                {
-                                    if (txt_Password.Text.Equals(txt_Password_Retyped.Text))
-                                    {
-                                         return true;
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show(this, lngRPM.s_Password_does_not_match.s + MinPasswordLength.ToString());
-                                        return false;
-                                    }
-                                }
-                                else
-                                {
-                                    MessageBox.Show(this, lngRPM.s_Minimum_Password_Length_is.s + MinPasswordLength.ToString());
-                                    return false;
-                                }
-                              }
-                            }
+        public bool Defined()
+        {
+            if (txt_Password.Text.Length >= MinPasswordLength)
+            {
+                if (txt_Password.Text.Equals(txt_Password_Retyped.Text))
+                {
+                        return true;
+                }
+                else
+                {
+                    MessageBox.Show(this, lngRPM.s_Password_does_not_match.s + MinPasswordLength.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                MessageBox.Show(this, lngRPM.s_Minimum_Password_Length_is.s + MinPasswordLength.ToString());
+                return false;
+            }
+        }
 
         public usrc_Password()
         {
             InitializeComponent();
+            lbl_Retype_Password.Text = lngRPM.s_RetypePassword.s;
+            txt_Password.Text = ""; 
             txt_Password.GotFocus += Txt_Password_GotFocus;
         }
 

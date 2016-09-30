@@ -39,14 +39,14 @@ namespace TangentaDataBaseDef
         public Settings_Item Version=null;
         public Settings_Item StockCheckAtStartup = null;
         public Settings_Item AdminPassword = null;
-        public Settings_Item SingleUserOperation = null;
+        public Settings_Item MultiUserOperation = null;
 
         public Settings(string Ver)
         {
             Version = new Settings_Item("Version",Ver,true);
-            StockCheckAtStartup = new Settings_Item("StockCheckAtStartup", "1", true);
-            AdminPassword = new Settings_Item("AdminPassword", "12345", true);
-            SingleUserOperation = new Settings_Item("SingleUserOperation", "1", true);
+            StockCheckAtStartup = new Settings_Item("StockCheckAtStartup", "1", false);
+            AdminPassword = new Settings_Item("AdminPassword", "12345", false);
+            MultiUserOperation = new Settings_Item("MultiUserOperation", "0", false);
         }
 
     }

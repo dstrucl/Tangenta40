@@ -356,6 +356,22 @@ namespace Tangenta
 
                 case fs.enum_GetDBSettings.No_Data_Rows:
                     //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
+                    xnav.ChildDialog = new Form_DBSettings(xnav);
+                    xnav.ChildDialog.ShowDialog();
+                    switch (xnav.eExitResult)
+                    {
+                        case Navigation.eEvent.NEXT:
+                            bResult = InsertSampleData(myStartup, xnav, ref Err);
+                            return bResult;
+
+                        case Navigation.eEvent.PREV:
+                            myStartup.eNextStep--;
+                            return true;
+
+                        case Navigation.eEvent.EXIT:
+                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                            return false;
+                    }
 
 
                     bResult = InsertSampleData(myStartup, xnav, ref Err);

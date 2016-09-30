@@ -132,7 +132,7 @@ namespace DynEditControls
             this.Width = ParentControl.Width - 2 * LeftMargin;
             int this_group_ypos = TopMargin;
             int i = 0;
-            int LastHeight = 0;
+            int MaxHeightInRow = 0;
             int iCount = 0;
             int y = 0;
             if (EditControlsList != null)
@@ -140,22 +140,14 @@ namespace DynEditControls
                 iCount = EditControlsList.Count;
                 for (i = 0; i < iCount; i++)
                 {
-                    EditControlsList[i].DoReposition();
+                    EditControlsList[i].DoReposition(ref MaxHeightInRow);
                     if (y < EditControlsList[i].Top)
                     {
                         y = EditControlsList[i].Top;
-                        LastHeight = EditControlsList[i].Height;
-                    }
-                    else
-                    {
-                        if (LastHeight < EditControlsList[i].Height)
-                        {
-                            LastHeight = EditControlsList[i].Height;
-                        }
                     }
                 }
             }
-            this_group_ypos += y + LastHeight;
+            this_group_ypos += y + MaxHeightInRow;
 
             iCount = Controls.Count;
             for (i = 0; i < iCount; i++)

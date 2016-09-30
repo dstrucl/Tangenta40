@@ -291,6 +291,16 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Form_DBSettings {
+            get {
+                object obj = ResourceManager.GetObject("Form_DBSettings", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
         ///&lt;fu:InvoiceRequest xmlns:fu=&quot;http://www.fu.gov.si/&quot; Id=&quot;test&quot;&gt;
         ///	&lt;fu:Invoice&gt;

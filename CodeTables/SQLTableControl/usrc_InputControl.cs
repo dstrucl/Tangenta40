@@ -1213,7 +1213,7 @@ namespace CodeTables
                     if (m_col.Style == Column.eStyle.Password)
                     {
                         txtPassword = new Password.usrc_Password();
-                        txtPassword.Locked = true;
+                        txtPassword.PasswordLocked = true;
                         txtPassword.Width = txtBox_Width;
                         txtPassword.Left = usrc_lbl.Left + usrc_lbl.Width + dist;
                         txtPassword.Top = usrc_lbl.Top;
@@ -2927,7 +2927,7 @@ namespace CodeTables
         {
             if (m_col.Style == Column.eStyle.Password)
             {
-                return !txtPassword.Defined;
+                return !txtPassword.Defined();
             }
             else
             {

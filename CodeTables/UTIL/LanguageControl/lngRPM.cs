@@ -19,6 +19,7 @@ namespace LanguageControl
     {
         #region StartUp
 
+        public static ltext s_RetypePassword = new ltext("Retype password:", "Ponovite geslo:");
         public static ltext s_DoYouWantToUpgradeDBToLatestVersion = new ltext("Upgrade to newest Database version?", "Nadgradim podtakovno bazo na zadnjo verzijo?");
         public static ltext s_Bank = new ltext("Bank", "Banka");
         public static ltext s_BankAccount = new ltext("Bank Account", "Bančni račun");
@@ -1401,6 +1402,12 @@ namespace LanguageControl
 
         public static ltext s_ComputerName = new ltext("Computer:", "Računalnik:");
 
+        public static ltext s_StockCheckAtStartup = new ltext("Stock check at startup", "Preverjanje zalog ob zagonu programa");
+        public static ltext s_MultiuserOperation = new ltext("Multi user operation",
+                                                             "Večuporabniško delovanje");
+
+        public static ltext s_Administrator_password = new ltext("Administrator password",
+                                                "Skrbniško geslo");
         public static ltext s_Administrator = new ltext("Administrator",
                                                 "Administrator");
 
