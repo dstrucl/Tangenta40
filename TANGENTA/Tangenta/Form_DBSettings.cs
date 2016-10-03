@@ -15,11 +15,11 @@ namespace Tangenta
     public partial class Form_DBSettings : Form
     {
         NavigationButtons.Navigation nav = null;
-
+        public string AdministratorLockedPassword { get { return this.usrc_Password1.Text; } }
         public bool MultiuserOperationWithLogin { get { return chk_MultiUserOperation.Checked; } }
         public bool StockCheckAtStartup { get {return chk_StockCheckAtStartup.Checked; } }
 
-        public Form_DBSettings(NavigationButtons.Navigation xnav,string LockedPassword,bool bMultiuserOperation,bool bStockCheckAtStartup)
+        public Form_DBSettings(NavigationButtons.Navigation xnav,string AdministratorLockedPassword, bool bMultiuserOperation,bool bStockCheckAtStartup)
         {
             InitializeComponent();
             nav = xnav;
@@ -28,13 +28,13 @@ namespace Tangenta
             lngRPM.s_Administrator_password.Text(lbl_Administrator_Password);
             lngRPM.s_MultiuserOperationWithLogin.Text(chk_MultiUserOperation);
             lngRPM.s_StockCheckAtStartup.Text(chk_StockCheckAtStartup);
-            if (LockedPassword == null)
+            if (AdministratorLockedPassword == null)
             {
                 this.usrc_Password1.Text = this.usrc_Password1.LockPassword("12345");
             }
             else
             {
-                this.usrc_Password1.Text = LockedPassword;
+                this.usrc_Password1.Text = AdministratorLockedPassword;
             }
             chk_MultiUserOperation.Checked = bMultiuserOperation;
             chk_StockCheckAtStartup.Checked = bStockCheckAtStartup;

@@ -37,9 +37,9 @@ namespace Tangenta
         #endregion
 
         #region Variables
-        internal static string AdministratorPassword = "dhlpt"; //"dhlpt" is Locked password for "12345"
-        internal static bool bMultiuserOperationWithLogin = true;
-        internal static bool bStockCheckAtStartup = true;
+        internal static string AdministratorLockedPassword = "dhlpt"; //"dhlpt" is Locked password for "12345"
+        internal static bool MultiuserOperationWithLogin = true;
+        internal static bool StockCheckAtStartup = true;
 
 
         internal static NavigationButtons.Navigation nav = null;

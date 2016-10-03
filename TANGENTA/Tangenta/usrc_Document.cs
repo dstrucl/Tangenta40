@@ -279,15 +279,27 @@ namespace Tangenta
             nav_FormDBSettings.bDoModal = true;
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
             nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
-            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorPassword, Program.bMultiuserOperationWithLogin, Program.bStockCheckAtStartup);
+            repeat_Form_DBSettings:
+            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword, Program.MultiuserOperationWithLogin, Program.StockCheckAtStartup);
             nav_FormDBSettings.ShowDialog();
             if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
             {
-                Program.AdministratorPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin
+                Program.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
+                Program.MultiuserOperationWithLogin = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
+                Program.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
+                return true;
             }
-
-
-
+            else
+            {
+                if (MessageBox.Show(this, lngRPM.s_WithoutDatabaseSettingsProgramCanNotRun_ExitOKOrCancel.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    goto repeat_Form_DBSettings;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         internal bool InsertSampleData(startup myStartup, NavigationButtons.Navigation xnav, ref string Err)
@@ -405,10 +417,11 @@ namespace Tangenta
                     //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
  do_Form_DBSettings:
 
-                    xnav.ChildDialog = new Form_DBSettings(xnav, LockedPassword, bMultiuserOperationWithLogin, bStockCheckAtStartup);
+                    xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword, Program.MultiuserOperationWithLogin, Program.StockCheckAtStartup);
                     xnav.ShowDialog();
-                    bMultiuserOperationWithLogin = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
-                    bStockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
+                    Program.AdministratorLockedPassword = ((Form_DBSettings)xnav.ChildDialog).AdministratorLockedPassword;
+                    Program.MultiuserOperationWithLogin = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
+                    Program.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
                     switch (xnav.eExitResult)
                     {
                         case Navigation.eEvent.NEXT:

@@ -18,6 +18,8 @@ namespace LanguageControl
     public static class lngRPM
     {
         #region StartUp
+        public static ltext s_WithoutDatabaseSettingsProgramCanNotRun_ExitOKOrCancel = new ltext("Without settings written to Database program can not run.\r\nTo enter database settings press OK, to exit program pres Cancel",
+                                                                                                "Brez nastavitev določenih v podatkovni bazi program ne more delovati.\r\nZa ponovni vpis teh nastvaitev pritisnite gumb OK, če želite program končati pritidnite gumb Prekini");
         public static ltext s_No_DB_Settings_for = new ltext("Data value in table DBSettings is missing or is not valid for", "Vrstica v tabeli DBSettings manjka ali ni veljavna za");
         public static ltext s_RetypePassword = new ltext("Retype password:", "Ponovite geslo:");
         public static ltext s_DoYouWantToUpgradeDBToLatestVersion = new ltext("Upgrade to newest Database version?", "Nadgradim podtakovno bazo na zadnjo verzijo?");
