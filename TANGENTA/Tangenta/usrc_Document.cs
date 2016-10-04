@@ -224,44 +224,84 @@ namespace Tangenta
             return myStartup.bInsertSampleData;
         }
 
+        internal bool GetDBSettings_And_JOURNAL_DocInvoice_Type(startup myStartup, ref string Err)
+        {
+            bool bReadOnly = false;
+            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref Program.AdministratorLockedPassword, ref bReadOnly, ref Err))
+            {
+                case fs.enum_GetDBSettings.DBSettings_OK:
+                    string MultiuserOperationWithLogin = null;
+                    switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref MultiuserOperationWithLogin, ref bReadOnly, ref Err))
+                    {
+                        case fs.enum_GetDBSettings.DBSettings_OK:
+                            Program.MultiuserOperationWithLogin = MultiuserOperationWithLogin.Equals("1");
+                            string StockCheckAtStartup = null;
+                            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref StockCheckAtStartup, ref bReadOnly, ref Err))
+                            {
+                                case fs.enum_GetDBSettings.DBSettings_OK:
+                                    Program.StockCheckAtStartup = StockCheckAtStartup.Equals("1");
+                                    break;
+
+                                case fs.enum_GetDBSettings.No_ReadOnly:
+                                case fs.enum_GetDBSettings.No_TextValue:
+                                case fs.enum_GetDBSettings.No_Data_Rows:
+                                    if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
+                                    {
+                                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                                        return false;
+                                    }
+                                    break;
+                                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                                    return false;
+                            }
+                            break;
+
+
+                        case fs.enum_GetDBSettings.No_ReadOnly:
+                        case fs.enum_GetDBSettings.No_TextValue:
+                        case fs.enum_GetDBSettings.No_Data_Rows:
+                            if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
+                            {
+                                myStartup.eNextStep = startup_step.eStep.Cancel;
+                                return false;
+                            }
+                            break;
+                        case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                            return false;
+                    }
+                    break;
+                case fs.enum_GetDBSettings.No_ReadOnly:
+                case fs.enum_GetDBSettings.No_TextValue:
+                case fs.enum_GetDBSettings.No_Data_Rows:
+                    if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
+                    {
+                        myStartup.eNextStep = startup_step.eStep.Cancel;
+                        return false;
+                    }
+                    break;
+                case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                    myStartup.eNextStep = startup_step.eStep.Cancel;
+                    return false;
+            }
+            myStartup.eNextStep++;
+            return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+
+        }
 
         internal bool CheckDataBaseVersion(startup myStartup, ref string Err)
         {
             if (myStartup.CurrentDataBaseVersionTextValue.Equals(DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue))
             {
-                string StockCheckAtStartup = null;
-                bool bReadOnly = false;
-                switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name,ref StockCheckAtStartup,ref bReadOnly,ref Err))
-                {
-                    case fs.enum_GetDBSettings.DBSettings_OK:
-                        if (GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                        
-                    case fs.enum_GetDBSettings.No_ReadOnly:
-                    case fs.enum_GetDBSettings.No_TextValue:
-                    case fs.enum_GetDBSettings.No_Data_Rows:
-
-                        break;
-                    case fs.enum_GetDBSettings.Error_Load_DBSettings:
-                        return false;
-                }
-                
-                myStartup.eNextStep++;
-                return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+                return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
             }
             else
             {
                 if (MessageBox.Show(this.Main_Form, lngRPM.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lngRPM.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n"+lngRPM.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
-                    myStartup.eNextStep++;
-                    return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+                    return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
                 }
                 else
                 {
