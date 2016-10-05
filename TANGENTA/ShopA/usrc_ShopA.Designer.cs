@@ -68,7 +68,6 @@
             this.usrc_Editor1.TabIndex = 0;
             this.usrc_Editor1.AddRow += new ShopA.usrc_Editor.delegate_AddRow(this.usrc_Editor1_AddRow);
             this.usrc_Editor1.EditUnits += new ShopA.usrc_Editor.delegate_EditUnis(this.usrc_Editor1_EditUnits);
-            this.usrc_Editor1.Load += new System.EventHandler(this.usrc_Editor1_Load);
             // 
             // dgvx_ShopA
             // 

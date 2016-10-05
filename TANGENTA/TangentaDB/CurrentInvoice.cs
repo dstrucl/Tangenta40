@@ -18,6 +18,21 @@ namespace TangentaDB
 {
     public class CurrentInvoice
     {
+        public class TaxInvoice
+        {
+            public long_v StornoDocInvoice_ID_v = null;
+            public string_v Invoice_Reference_Type_v = null;
+            public bool_v bStorno_v = null;
+        }
+
+        public class ProformaInvoice
+        {
+            public long_v TermsOfPayment_ID_v = null;
+            public string_v TermsOfPayment_Description_v = null;
+            public int_v DocDuration_v = null;
+            public int_v DocDuration_Type_v = null;
+        }
+
         public InvoiceData.eType m_eType = InvoiceData.eType.UNKNOWN;
 
         public ShopABC m_InvoiceDB = null;
@@ -40,14 +55,17 @@ namespace TangentaDB
         public int DraftNumber;
 
         public long DocInvoice_ID;
-        public long_v StornoDocInvoice_ID_v = null;
-        public string_v Invoice_Reference_Type_v= null;
+
+        // DocInvoice
+        public CurrentInvoice.TaxInvoice TInvoice = new CurrentInvoice.TaxInvoice();
+        public CurrentInvoice.ProformaInvoice PInvoice = new CurrentInvoice.ProformaInvoice();
+
+        // DocProformaInvoice
 
         public long_v Atom_Customer_Person_ID_v = null;
         public long_v Atom_Customer_Org_ID_v = null;
         public bool bDraft = false;
         public bool Exist = false;
-        public bool_v bStorno_v = null;
 
         public CurrentInvoice(ShopABC xInvoiceDB, DBTablesAndColumnNames xDBtcn)
         {

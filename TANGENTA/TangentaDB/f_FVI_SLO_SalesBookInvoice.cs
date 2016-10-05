@@ -88,7 +88,7 @@ namespace TangentaDB
                     {
                         long proforma_invoice_id = (long)dr["ID"];
                         InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB, proforma_invoice_id, true, xCasshierName);
-                        if (xInvoiceData.Read_DocInvoice())
+                        if (xInvoiceData.Read_DocInvoice("DocInvoice"))
                         {
                             list.Add(xInvoiceData);
                         }

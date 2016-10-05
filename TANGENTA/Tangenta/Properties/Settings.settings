@@ -146,5 +146,8 @@
     <Setting Name="Current_DocProformaInvoice_ID" Type="System.Int64" Scope="User">
       <Value Profile="(Default)">-1</Value>
     </Setting>
+    <Setting Name="LastDocInvoiceType" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

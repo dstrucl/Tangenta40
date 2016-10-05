@@ -598,5 +598,17 @@ namespace Tangenta.Properties {
                 this["Current_DocProformaInvoice_ID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastDocInvoiceType {
+            get {
+                return ((string)(this["LastDocInvoiceType"]));
+            }
+            set {
+                this["LastDocInvoiceType"] = value;
+            }
+        }
     }
 }

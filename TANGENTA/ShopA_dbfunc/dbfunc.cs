@@ -20,10 +20,13 @@ namespace ShopA_dbfunc
     public static class dbfunc
     {
 
-        public static bool Read_ShopA_Price_Item_Table(long DocInvoice_ID,ref DataTable dt)
+        public static bool Read_ShopA_Price_Item_Table(string DocInvoice,long DocInvoice_ID,ref DataTable dt)
         {
             string Err = null;
-            string sql = @"SELECT 
+            string sql = null;
+            if (DocInvoice.Equals("DocInvoice"))
+            {
+                sql = @"SELECT 
                             DocInvoice_ShopA_Item.ID,
                             DocInvoice_ShopA_Item_$_pinv.ID AS DocInvoice_ShopA_Item_$_dinv_$$ID,
                             DocInvoice_ShopA_Item_$_pinv.Draft AS DocInvoice_ShopA_Item_$_dinv_$$Draft,
@@ -48,6 +51,42 @@ namespace ShopA_dbfunc
                             INNER JOIN Taxation DocInvoice_ShopA_Item_$_aisha_$_tax ON DocInvoice_ShopA_Item_$_aisha.Taxation_ID = DocInvoice_ShopA_Item_$_aisha_$_tax.ID
                             LEFT JOIN Unit DocInvoice_ShopA_Item_$_aisha_$_u ON DocInvoice_ShopA_Item_$_aisha.Unit_ID = DocInvoice_ShopA_Item_$_aisha_$_u.ID
                             where DocInvoice_ShopA_Item_$_pinv.ID = " + DocInvoice_ID.ToString();
+            }
+            else if (DocInvoice.Equals("DocProformaInvoice"))
+            {
+                sql = @"SELECT 
+                            DocProformaInvoice_ShopA_Item.ID,
+                            DocProformaInvoice_ShopA_Item_$_pinv.ID AS DocProformaInvoice_ShopA_Item_$_dpinv_$$ID,
+                            DocProformaInvoice_ShopA_Item_$_pinv.Draft AS DocProformaInvoice_ShopA_Item_$_dpinv_$$Draft,
+                            DocProformaInvoice_ShopA_Item_$_aisha.ID AS DocProformaInvoice_ShopA_Item_$_aisha_$$ID,
+                            DocProformaInvoice_ShopA_Item_$_aisha.Name AS DocProformaInvoice_ShopA_Item_$_aisha_$$Name,
+                            DocProformaInvoice_ShopA_Item_$_aisha.Description AS DocProformaInvoice_ShopA_Item_$_aisha_$$Description,
+                            DocProformaInvoice_ShopA_Item_$_aisha_$_tax.ID AS DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$ID,
+                            DocProformaInvoice_ShopA_Item_$_aisha_$_tax.Name AS DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$Name,
+                            DocProformaInvoice_ShopA_Item_$_aisha_$_tax.Rate AS DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$Rate,
+                            DocProformaInvoice_ShopA_Item_$_aisha_$_u.ID AS DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$ID,
+                            DocProformaInvoice_ShopA_Item_$_aisha_$_u.Name AS DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$Name,
+                            DocProformaInvoice_ShopA_Item_$_aisha_$_u.Symbol AS DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$Symbol,
+                            DocProformaInvoice_ShopA_Item_$_aisha_$_u.DecimalPlaces AS DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$DecimalPlaces,
+                            DocProformaInvoice_ShopA_Item.Discount AS DocProformaInvoice_ShopA_Item_$$Discount,
+                            DocProformaInvoice_ShopA_Item.dQuantity AS DocProformaInvoice_ShopA_Item_$$dQuantity,
+                            DocProformaInvoice_ShopA_Item.PricePerUnit AS DocProformaInvoice_ShopA_Item_$$PricePerUnit,
+                            DocProformaInvoice_ShopA_Item.EndPriceWithDiscountAndTax AS DocProformaInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax,
+                            DocProformaInvoice_ShopA_Item.TAX AS DocProformaInvoice_ShopA_Item_$$TAX
+                            FROM DocProformaInvoice_ShopA_Item 
+                            INNER JOIN DocProformaInvoice DocProformaInvoice_ShopA_Item_$_pinv ON DocProformaInvoice_ShopA_Item.DocProformaInvoice_ID = DocProformaInvoice_ShopA_Item_$_pinv.ID
+                            INNER JOIN Atom_ItemShopA DocProformaInvoice_ShopA_Item_$_aisha ON DocProformaInvoice_ShopA_Item.Atom_ItemShopA_ID = DocProformaInvoice_ShopA_Item_$_aisha.ID
+                            INNER JOIN Taxation DocProformaInvoice_ShopA_Item_$_aisha_$_tax ON DocProformaInvoice_ShopA_Item_$_aisha.Taxation_ID = DocProformaInvoice_ShopA_Item_$_aisha_$_tax.ID
+                            LEFT JOIN Unit DocProformaInvoice_ShopA_Item_$_aisha_$_u ON DocProformaInvoice_ShopA_Item_$_aisha.Unit_ID = DocProformaInvoice_ShopA_Item_$_aisha_$_u.ID
+                            where DocProformaInvoice_ShopA_Item_$_pinv.ID = " + DocInvoice_ID.ToString();
+            }
+            else
+            {
+                Err = "ERROR:dbfunc.cs:Read_Atom_SimpleItem_Table:DocInvoice="+DocInvoice + " not implemented.";
+                LogFile.Error.Show(Err);
+                return false;
+            }
+
             dt.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
@@ -55,13 +94,13 @@ namespace ShopA_dbfunc
             }
             else
             {
-                LogFile.Error.Show("ERROR:Read_Atom_SimpleItem_Table:select ... from Atom_SimpleItem:\r\n Err=" + Err);
+                LogFile.Error.Show("ERROR:dbfunc.cs:Read_Atom_SimpleItem_Table:sql="+sql+"\r\n Err=" + Err);
                 return false;
             }
         }
 
 
-        public static bool insert(DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref long DocInvoice_ShopA_Item_ID)
+        public static bool insert(string DocInvoice,DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref long DocInvoice_ShopA_Item_ID)
         {
             long Atom_ItemShopA_ID = -1;
             
@@ -70,23 +109,50 @@ namespace ShopA_dbfunc
                 string Err = null;
                 string scond = null;
                 string sval = null;
+                string sql = null;
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.set(Atom_ItemShopA_ID);
-                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.setsqlp(ref lpar, "DocInvoice_ID", ref scond, ref sval);
-                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
-                m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
-                m_DocInvoice_ShopA_Item.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
-                m_DocInvoice_ShopA_Item.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
-                m_DocInvoice_ShopA_Item.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
-                m_DocInvoice_ShopA_Item.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
-                string sql = "insert into DocInvoice_ShopA_Item (DocInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
-                              + m_DocInvoice_ShopA_Item.m_DocInvoice.ID.value + ","
-                              + m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.value + ","
-                              + m_DocInvoice_ShopA_Item.Discount.value + ","
-                              + m_DocInvoice_ShopA_Item.dQuantity.value + ","
-                              + m_DocInvoice_ShopA_Item.PricePerUnit.value + ","
-                              + m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.value + ","
-                              + m_DocInvoice_ShopA_Item.TAX.value + ")";
+                if (DocInvoice.Equals("DocInvoice"))
+                {
+                    m_DocInvoice_ShopA_Item.m_DocInvoice.ID.setsqlp(ref lpar, "DocInvoice_ID", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
+                    sql = "insert into DocInvoice_ShopA_Item (DocInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
+                                  + m_DocInvoice_ShopA_Item.m_DocInvoice.ID.value + ","
+                                  + m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.value + ","
+                                  + m_DocInvoice_ShopA_Item.Discount.value + ","
+                                  + m_DocInvoice_ShopA_Item.dQuantity.value + ","
+                                  + m_DocInvoice_ShopA_Item.PricePerUnit.value + ","
+                                  + m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.value + ","
+                                  + m_DocInvoice_ShopA_Item.TAX.value + ")";
+                }
+                else if (DocInvoice.Equals("DocProformaInvoice"))
+                {
+                    m_DocInvoice_ShopA_Item.m_DocInvoice.ID.setsqlp(ref lpar, "DocProformaInvoice_ID", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
+                    m_DocInvoice_ShopA_Item.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
+                    sql = "insert into DocProformaInvoice_ShopA_Item (DocProformaInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
+                                  + m_DocInvoice_ShopA_Item.m_DocInvoice.ID.value + ","
+                                  + m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.value + ","
+                                  + m_DocInvoice_ShopA_Item.Discount.value + ","
+                                  + m_DocInvoice_ShopA_Item.dQuantity.value + ","
+                                  + m_DocInvoice_ShopA_Item.PricePerUnit.value + ","
+                                  + m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.value + ","
+                                  + m_DocInvoice_ShopA_Item.TAX.value + ")";
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) DocInvoice=" +DocInvoice+ " not implemented.");
+                    return false;
+                }
                 object oret = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopA_Item_ID, ref oret, ref Err, "DocInvoice_ShopA_Item"))
                 {
@@ -151,11 +217,27 @@ namespace ShopA_dbfunc
             }
         }
 
-        public static bool delete(long atom_ItemShopA_Price_ID)
+        public static bool delete(string DocInvoice,long atom_ItemShopA_Price_ID)
         {
             string Err = null;
-            string sql = @"delete from DocInvoice_ShopA_Item
+            string sql = null;
+            if (DocInvoice.Equals("DocInvoice"))
+            {
+                sql =    @"delete from DocInvoice_ShopA_Item
                                                    where ID = " + atom_ItemShopA_Price_ID.ToString();
+            }
+            else if (DocInvoice.Equals("DocProformaInvoice"))
+            {
+                sql = @"delete from DocProformaInvoice_ShopA_Item
+                                                   where ID = " + atom_ItemShopA_Price_ID.ToString();
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:DocInvoice=" + DocInvoice+" not implememted.");
+                return false;
+            }
+
+
             object ores = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
             {

@@ -36,6 +36,30 @@ namespace ShopA
         public decimal Discount = 0;
         public decimal EndPriceWithDiscountAndTax = 0;
 
+        private string m_DocInvoice = "DocInvoice";
+
+        public string DocInvoice
+        {
+            get { return m_DocInvoice; }
+            set
+            {
+                m_DocInvoice = value;
+            }
+        }
+
+        public bool IsDocInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocInvoice"); }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
+
+
         public usrc_Editor()
         {
             InitializeComponent();
@@ -86,7 +110,7 @@ namespace ShopA
                     m_DocInvoice_ShopA_Item.dQuantity.set(null);
                 }
                 long DocInvoice_ShopA_Item_ID = -1;
-                if (ShopA_dbfunc.dbfunc.insert(m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID))
+                if (ShopA_dbfunc.dbfunc.insert(DocInvoice,m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID))
                 {
                     // Add Row
                     m_DocInvoice_ShopA_Item.ID.set(DocInvoice_ShopA_Item_ID);

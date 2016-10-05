@@ -38,6 +38,35 @@ namespace Tangenta
         usrc_InvoiceMan m_usrc_InvoiceMan = null;
         NavigationButtons.Navigation nav = null;
 
+        private string m_DocInvoice = "DocInvoice";
+
+        public string DocInvoice
+        {
+            get { return m_DocInvoice; }
+            set
+            {
+                string s = value;
+                if (s.Equals("DocInvoice") || s.Equals("DocProformaInvoice"))
+                {
+                    m_DocInvoice = s;
+                }
+                this.m_ShopABC.DocInvoice = m_DocInvoice;
+                this.m_usrc_ShopA.DocInvoice = m_DocInvoice; 
+            }
+        }
+
+        public bool IsDocInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocInvoice"); }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
+
         public enum emode
         {
             view_eInvoiceType,
@@ -97,15 +126,30 @@ namespace Tangenta
 
         public enum enum_Invoice
         {
-            Invoice,
-            ProformaInvoice,
-            Invoice_From_ProformaInvoice
+            TaxInvoice,
+            ProformaInvoice
         };
 
 
 
-        public enum_Invoice eInvoiceType = enum_Invoice.Invoice;
-
+        public enum_Invoice eInvoiceType
+        {
+            get
+            {
+                if (IsDocInvoice)
+                {
+                    return enum_Invoice.TaxInvoice;
+                }
+                else if (IsDocProformaInvoice)
+                {
+                    return enum_Invoice.ProformaInvoice;
+                }
+                else
+                {
+                    return enum_Invoice.ProformaInvoice;
+                }
+            }
+        }
         public List<Employee> Employees = new List<Employee>();
 
         private void New_ShopA()
@@ -375,7 +419,7 @@ namespace Tangenta
 
         public class InvoiceType
         {
-            private enum_Invoice m_eInvoiceType = enum_Invoice.Invoice;
+            private enum_Invoice m_eInvoiceType = enum_Invoice.TaxInvoice;
             private string m_InvoiceType_Text = null;
             private string m_InvoiceTypeName = null;
 
@@ -399,14 +443,11 @@ namespace Tangenta
                 m_eInvoiceType = etyp;
                 switch (etyp)
                 {
-                    case enum_Invoice.Invoice:
-                        m_InvoiceTypeName = "Invoice";
-                        break;
-                    case enum_Invoice.Invoice_From_ProformaInvoice:
-                        m_InvoiceTypeName = "Invoice_From_ProformaInvoice";
+                    case enum_Invoice.TaxInvoice:
+                        m_InvoiceTypeName = "DocInvoice";
                         break;
                     case enum_Invoice.ProformaInvoice:
-                        m_InvoiceTypeName = "ProformaInvoice";
+                        m_InvoiceTypeName = "DocProformaInvoice";
                         break;
                 }
             }
@@ -1635,14 +1676,9 @@ do_EditMyOrganisation_Data:
         {
             switch (eInvoiceType)
             {
-                case enum_Invoice.Invoice:
-                    return GetCurrentInvoice(ID);
-
-
+                case enum_Invoice.TaxInvoice:
                 case enum_Invoice.ProformaInvoice:
-                    return GetDocInvoiceDraft();
-                case enum_Invoice.Invoice_From_ProformaInvoice:
-                    return SelectDocInvoice();
+                    return GetCurrentInvoice(ID);
             }
             return false;
 
@@ -1668,15 +1704,18 @@ do_EditMyOrganisation_Data:
                     this.m_usrc_ShopB.SetCurrentInvoice_SelectedShopB_Items();
                     this.m_usrc_ShopC.SetCurrentInvoice_SelectedItems();
                     chk_Storno_CanBe_ManualyChanged = false;
-                    if (m_ShopABC.m_CurrentInvoice.bStorno_v != null)
-                    { 
-                        this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.bStorno_v.v;
-                    }
-                    else
+                    if (IsDocInvoice)
                     {
-                        this.chk_Storno.Checked = false;
+                        if (m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v != null)
+                        {
+                            this.chk_Storno.Checked = m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v.v;
+                        }
+                        else
+                        {
+                            this.chk_Storno.Checked = false;
+                        }
+                        chk_Storno_CanBe_ManualyChanged = true;
                     }
-                    chk_Storno_CanBe_ManualyChanged = true;
                 }
                 this.m_usrc_ShopC.Reset();
                 return true;
@@ -1879,7 +1918,8 @@ do_EditMyOrganisation_Data:
         {
             switch (eInvoiceType)
             {
-                case enum_Invoice.Invoice:
+                case enum_Invoice.ProformaInvoice:
+                case enum_Invoice.TaxInvoice:
                     if (m_ShopABC == null)
                     {
                         m_ShopABC = new ShopABC(DBtcn);
@@ -1890,11 +1930,7 @@ do_EditMyOrganisation_Data:
                     }
                     return;
 
-                case enum_Invoice.ProformaInvoice:
-                    return;
 
-                case enum_Invoice.Invoice_From_ProformaInvoice:
-                    return;
             }
             return;
 
@@ -1904,7 +1940,7 @@ do_EditMyOrganisation_Data:
         {
             long DocInvoice_ID = -1;
             string Err = null;
-            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, this, ref DocInvoice_ID, Last_myOrganisation_Person_id, ref Err))
+            if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, ref Err))
             {
                 if (m_ShopABC.m_CurrentInvoice.DocInvoice_ID >= 0)
                 {
@@ -2021,15 +2057,23 @@ do_EditMyOrganisation_Data:
             GrossSum = dsum_GrossSum;
             NetSum = dsum_NetSum;
             string sGrossSum = "";
-            if (m_ShopABC.m_CurrentInvoice.StornoDocInvoice_ID_v == null)
+            if (IsDocInvoice)
             {
-                sGrossSum  = dsum_GrossSum.ToString();
-                this.lbl_Sum.ForeColor = Color.Black;
+                if (m_ShopABC.m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v == null)
+                {
+                    sGrossSum = dsum_GrossSum.ToString();
+                    this.lbl_Sum.ForeColor = Color.Black;
+                }
+                else
+                {
+                    sGrossSum = "-" + dsum_GrossSum.ToString();
+                    this.lbl_Sum.ForeColor = Color.Red;
+                }
             }
-            else
+            else if (IsDocProformaInvoice)
             {
-                sGrossSum = "-"+dsum_GrossSum.ToString();
-                this.lbl_Sum.ForeColor = Color.Red;
+                sGrossSum = dsum_GrossSum.ToString();
+                this.lbl_Sum.ForeColor = Color.Black;
             }
             this.lbl_Sum.Text = sGrossSum + " " + GlobalData.BaseCurrency.Symbol;// +" tax:" + TaxSum.ToString() + " " + NetSum.ToString();
         }
@@ -2079,7 +2123,7 @@ do_EditMyOrganisation_Data:
             DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
             lpar.Add(par_NetSum);
 
-            string sql_SetPrice = "update docinvoice set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.DocInvoice_ID.ToString();
+            string sql_SetPrice = "update "+this.DocInvoice+" set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.DocInvoice_ID.ToString();
             object ores = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
@@ -2116,7 +2160,7 @@ do_EditMyOrganisation_Data:
                             if (UpdateInvoicePriceInDraft())
                             {
                                 m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.DocInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.ElectronicDevice_ID);
-                                if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
+                                if (m_InvoiceData.Read_DocInvoice(DocInvoice)) // read Proforma Invoice again from DataBase
                                 {
                                     if (m_InvoiceData.FURS_QR_v != null)
                                     {
@@ -2139,7 +2183,7 @@ do_EditMyOrganisation_Data:
                         else
                         {
                             m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.DocInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
-                            if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
+                            if (m_InvoiceData.Read_DocInvoice(DocInvoice)) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (m_InvoiceData.FURS_QR_v != null)
                                 {
@@ -2194,9 +2238,12 @@ do_EditMyOrganisation_Data:
             if (chk_Storno_CanBe_ManualyChanged)
             {
                 bool bstorno = false;
-                if (m_ShopABC.m_CurrentInvoice.bStorno_v!= null)
+                if (IsDocInvoice)
                 {
-                    bstorno = m_ShopABC.m_CurrentInvoice.bStorno_v.v;
+                    if (m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v != null)
+                    {
+                        bstorno = m_ShopABC.m_CurrentInvoice.TInvoice.bStorno_v.v;
+                    }
                 }
                 
                 if (chk_Storno.Checked!=bstorno)
@@ -2228,7 +2275,7 @@ do_EditMyOrganisation_Data:
                                     if (Program.b_FVI_SLO)
                                     {
                                         InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
-                                        if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
+                                        if (xInvoiceData.Read_DocInvoice(DocInvoice)) // read Proforma Invoice again from DataBase
                                         {
 
                                             string furs_XML = xInvoiceData.Create_furs_InvoiceXML(true,Properties.Resources.FVI_SLO_Invoice, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, Properties.Settings.Default.ElectronicDevice_ID, Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID, stornoReferenceInvoiceNumber, stornoReferenceInvoiceIssueDateTime);

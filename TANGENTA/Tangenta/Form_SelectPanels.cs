@@ -25,8 +25,8 @@ namespace Tangenta
         {
             InitializeComponent();
             rdb_Items.Checked = false;
-            rdb_ItemsAndDocInvoices.Checked = false;
-            rdb_DocInvoices.Checked = false;
+            rdb_ItemsAndDoc.Checked = false;
+            rdb_Doc.Checked = false;
             m_usrc_InvoiceMan = x_usrc_InvoiceMan;
             if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.Shops)
             {
@@ -34,19 +34,19 @@ namespace Tangenta
             }
             else if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.Shops_and_InvoiceTable)
             {
-                rdb_ItemsAndDocInvoices.Checked = true;
+                rdb_ItemsAndDoc.Checked = true;
             }
             else if (m_usrc_InvoiceMan.Mode == usrc_InvoiceMan.eMode.InvoiceTable)
             {
-                rdb_DocInvoices.Checked = true;
+                rdb_Doc.Checked = true;
             }
             else
             {
                 LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_InvoiceMan.Mode illegal Mode!");
             }
 
-            this.rdb_DocInvoices.CheckedChanged += new System.EventHandler(this.rdb_DocInvoices_CheckedChanged);
-            this.rdb_ItemsAndDocInvoices.CheckedChanged += new System.EventHandler(this.rdb_ItemsAndDocInvoices_CheckedChanged);
+            this.rdb_Doc.CheckedChanged += new System.EventHandler(this.rdb_Doc_CheckedChanged);
+            this.rdb_ItemsAndDoc.CheckedChanged += new System.EventHandler(this.rdb_ItemsAndDoc_CheckedChanged);
             this.rdb_Items.CheckedChanged += new System.EventHandler(this.rdb_Items_CheckedChanged);
 
         }
@@ -61,9 +61,9 @@ namespace Tangenta
             DialogResult = DialogResult.OK;
         }
 
-        private void rdb_ItemsAndDocInvoices_CheckedChanged(object sender, EventArgs e)
+        private void rdb_ItemsAndDoc_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdb_ItemsAndDocInvoices.Checked)
+            if (rdb_ItemsAndDoc.Checked)
             {
                 m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.Shops_and_InvoiceTable);
                 if (m_usrc_InvoiceMan.Customer_Changed)
@@ -76,9 +76,9 @@ namespace Tangenta
             DialogResult = DialogResult.OK;
         }
 
-        private void rdb_DocInvoices_CheckedChanged(object sender, EventArgs e)
+        private void rdb_Doc_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdb_DocInvoices.Checked)
+            if (rdb_Doc.Checked)
             {
                 m_usrc_InvoiceMan.SetMode(usrc_InvoiceMan.eMode.InvoiceTable);
                 if (m_usrc_InvoiceMan.Customer_Changed)

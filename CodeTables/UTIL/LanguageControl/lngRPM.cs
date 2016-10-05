@@ -269,7 +269,8 @@ namespace LanguageControl
         public static ltext s_InvoiceTime_description = new ltext("Invoice Time", "Čas izdaje računa");
         public static ltext s_InvoicePaidTime_description = new ltext("Invoice Paid Time", "Čas plačila računa");
         public static ltext s_InvoiceStornoTime_description = new ltext("Invoice Storno Time", "Čas stornacije računa");
-        public static ltext s_DocInvoiceTime_description = new ltext("Proforma Invoice Time", "Čas izdaje predračuna");
+        public static ltext s_DocInvoiceTime_description = new ltext("Invoice Time", "Čas izdaje računa");
+        public static ltext s_DocProformaInvoiceTime_description = new ltext("Proforma Invoice Time", "Čas izdaje predračuna");
         public static ltext s_Konto_Price_with_tax_for_cash = new ltext("Price with tax (CASH) Konto=", "Znesek z DDV (gotovina) Konto=");
         public static ltext s_Konto_Price_with_tax_for_payment_cards = new ltext("Price with tax (CARDS) Konto=", "Znesek z DDV (kartice) Konto=");
         public static ltext s_Konto_Net_price = new ltext("Net price Konto=", "Neto cena Konto=");
@@ -345,6 +346,7 @@ namespace LanguageControl
 
         public static ltext s_RealNetSumIs = new ltext("Correct net sum = ", "\r\nPravilna cena brez davka = ");
         public static ltext s_ForDocInvoiceNumber = new ltext(" for invoice number =", " za račun št.= ");
+        public static ltext s_ForDocProformaInvoiceNumber = new ltext(" for proforma invoice number =", " za predračun št.= ");
         public static ltext s_WrongNetSum = new ltext("Wrong total sum without tax =", "Nepravilna cena brez davka =");
 
         public static ltext s_If_you_want_to_change_the_tax_only_to_the_selected_article___ = new ltext("If you want to change the tax only to the selected article (service), click (No).\r\nIf you want to change the tax to all trade items click the button (Yes).",
@@ -533,10 +535,13 @@ namespace LanguageControl
         public static ltext s_Invoice = new ltext("Invoice",
                                                   "Račun");
 
-        public static ltext s_DocInvoice= new ltext("Proforma-Invoice",
+        public static ltext s_DocProformaInvoice = new ltext("Proforma-Invoice",
                                                          "Predračun");
 
-        public static ltext s_Invoice_From_DocInvoice = new ltext("Invoice from Proforma-Invoice",
+        public static ltext s_DocInvoice= new ltext("Invoice",
+                                                         "Račun");
+
+        public static ltext s_DocInvoice_From_DocProformaInvoice = new ltext("Invoice from Proforma-Invoice",
                                                                        "Račun iz Predračuna");
 
         public static ltext s_Stock = new ltext("Stock",

@@ -32,6 +32,28 @@ namespace TangentaDB
 
         public CurrentInvoice m_CurrentInvoice = null;
 
+        private string m_DocInvoice = "DocInvoice";
+
+        public string DocInvoice
+        {
+            get { return m_DocInvoice; }
+            set
+            {
+                m_DocInvoice = value;
+            }
+        }
+
+        public bool IsDocInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocInvoice"); }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
 
         public bool Get(bool bDraft, long ID, ref string Err)
         {
@@ -41,22 +63,22 @@ namespace TangentaDB
             //SQLTable tbl_Atom_myOrganisation = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_myOrganisation));
 
             string cond = null;
-            if (ID >= 0)
+            string sql_GetDraft = null;
+            if (IsDocInvoice)
             {
-                cond = " where  JOURNAL_DocInvoice_$_dinv_$$ID = " + ID.ToString();
-            }
-            else if (bDraft)
-            {
-                cond = " where JOURNAL_DocInvoice_$_dinv_$$Draft = 1 ";
-            }
-            else
-            {
-                cond = "";
-            }
-
-
-
-            string sql_GetDraft = @"Select
+                if (ID >= 0)
+                {
+                    cond = " where  JOURNAL_DocInvoice_$_dinv_$$ID = " + ID.ToString();
+                }
+                else if (bDraft)
+                {
+                    cond = " where JOURNAL_DocInvoice_$_dinv_$$Draft = 1 ";
+                }
+                else
+                {
+                    cond = "";
+                }
+                sql_GetDraft = @"Select
                         JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                         JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                         JOURNAL_DocInvoice_$_awperiod_$_amcper_$$Job,
@@ -89,70 +111,209 @@ namespace TangentaDB
                         JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type
                         from JOURNAL_DocInvoice_VIEW " + cond;
 
+            }
+            else if (IsDocProformaInvoice)
+            {
+                if (ID >= 0)
+                {
+                    cond = " where  JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + ID.ToString();
+                }
+                else if (bDraft)
+                {
+                    cond = " where JOURNAL_DocProformaInvoice_$_dpinv_$$Draft = 1 ";
+                }
+                else
+                {
+                    cond = "";
+                }
+                sql_GetDraft = @"Select
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$Job,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$UserName,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$Description,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$ID,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$Draft,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$Discount,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$EndSum,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyExist,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyDurationType,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyDuration,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyConditions,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$PaymentDeadline,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$DocDuration,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$$DocDurationType
+                        from JOURNAL_DocProformaInvoice_VIEW " + cond;
+            }
+            else
+            {
+                Err="ERROR:ShpaABC.cs:ShopABC:Get:Error " + this.DocInvoice + " not implemented!";
+                LogFile.Error.Show(Err);
+                return false;
+            }
+
+
+
+
+
 
             m_CurrentInvoice.dtCurrent_Invoice.Clear();
             if (DBSync.DBSync.ReadDataTable(ref m_CurrentInvoice.dtCurrent_Invoice, sql_GetDraft, ref Err))
             {
                 if (m_CurrentInvoice.dtCurrent_Invoice.Rows.Count > 0)
                 {
-                    m_CurrentInvoice.Exist = true;
-                    m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Draft"];
-                    m_CurrentInvoice.DocInvoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"];
-                    m_CurrentInvoice.StornoDocInvoice_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
-                    m_CurrentInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
-                    m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$FinancialYear"];
-                    m_CurrentInvoice.bStorno_v = tf.set_bool(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Storno"]);
-
-                    object o_Atom_Customer_Person_ID = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID"];
-                    if (o_Atom_Customer_Person_ID is long)
+                    if (IsDocInvoice)
                     {
-                        if (m_CurrentInvoice.Atom_Customer_Person_ID_v == null)
+                        m_CurrentInvoice.Exist = true;
+                        m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Draft"];
+                        m_CurrentInvoice.DocInvoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"];
+
+                        m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
+                        m_CurrentInvoice.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
+                        m_CurrentInvoice.TInvoice.bStorno_v = tf.set_bool(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Storno"]);
+
+                        m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$FinancialYear"];
+
+                        object o_Atom_Customer_Person_ID = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID"];
+                        if (o_Atom_Customer_Person_ID is long)
                         {
-                            m_CurrentInvoice.Atom_Customer_Person_ID_v = new long_v();
+                            if (m_CurrentInvoice.Atom_Customer_Person_ID_v == null)
+                            {
+                                m_CurrentInvoice.Atom_Customer_Person_ID_v = new long_v();
+                            }
+                            m_CurrentInvoice.Atom_Customer_Person_ID_v.v = (long)o_Atom_Customer_Person_ID;
                         }
-                        m_CurrentInvoice.Atom_Customer_Person_ID_v.v = (long)o_Atom_Customer_Person_ID;
-                    }
-                    else
-                    {
-                        m_CurrentInvoice.Atom_Customer_Person_ID_v = null;
-                    }
-                    object o_Atom_Customer_Org_ID = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID"];
-                    if (o_Atom_Customer_Org_ID is long)
-                    {
-                        if (m_CurrentInvoice.Atom_Customer_Org_ID_v == null)
+                        else
                         {
-                            m_CurrentInvoice.Atom_Customer_Org_ID_v = new long_v();
+                            m_CurrentInvoice.Atom_Customer_Person_ID_v = null;
                         }
-                        m_CurrentInvoice.Atom_Customer_Org_ID_v.v = (long)o_Atom_Customer_Org_ID;
-                    }
-                    else
-                    {
-                        m_CurrentInvoice.Atom_Customer_Org_ID_v = null;
-                    }
-                    object oNumberInFinancialYear = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear"];
-                    if (oNumberInFinancialYear is int)
-                    {
-                        m_CurrentInvoice.NumberInFinancialYear = (int)oNumberInFinancialYear;
-                    }
-                    else
-                    {
-                        m_CurrentInvoice.NumberInFinancialYear = -1;
-                    }
-
-                    m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$DraftNumber"];
-
-                    long xDocInvoice_ID = m_CurrentInvoice.DocInvoice_ID;
-                    if (m_CurrentInvoice.StornoDocInvoice_ID_v!=null)
-                    {
-                        xDocInvoice_ID = m_CurrentInvoice.StornoDocInvoice_ID_v.v;
-                    }
-
-                    if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
-                    {
-                        m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
-                        if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(xDocInvoice_ID, ref m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
+                        object o_Atom_Customer_Org_ID = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID"];
+                        if (o_Atom_Customer_Org_ID is long)
                         {
-                            return true;
+                            if (m_CurrentInvoice.Atom_Customer_Org_ID_v == null)
+                            {
+                                m_CurrentInvoice.Atom_Customer_Org_ID_v = new long_v();
+                            }
+                            m_CurrentInvoice.Atom_Customer_Org_ID_v.v = (long)o_Atom_Customer_Org_ID;
+                        }
+                        else
+                        {
+                            m_CurrentInvoice.Atom_Customer_Org_ID_v = null;
+                        }
+                        object oNumberInFinancialYear = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear"];
+                        if (oNumberInFinancialYear is int)
+                        {
+                            m_CurrentInvoice.NumberInFinancialYear = (int)oNumberInFinancialYear;
+                        }
+                        else
+                        {
+                            m_CurrentInvoice.NumberInFinancialYear = -1;
+                        }
+
+                        m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$DraftNumber"];
+
+                        long xDocInvoice_ID = m_CurrentInvoice.DocInvoice_ID;
+                        if (m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v != null)
+                        {
+                            xDocInvoice_ID = m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v.v;
+                        }
+
+                        if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
+                        {
+                            m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
+                            if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice,xDocInvoice_ID, ref m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else if (IsDocProformaInvoice)
+                    {
+                        m_CurrentInvoice.Exist = true;
+                        m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$Draft"];
+                        m_CurrentInvoice.DocInvoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"];
+
+                        m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDuration"]);
+                        m_CurrentInvoice.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDurationType"]);
+                        m_CurrentInvoice.PInvoice.TermsOfPayment_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$ID"]);
+                        m_CurrentInvoice.PInvoice.TermsOfPayment_Description_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$Description"]);
+
+                        m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear"];
+
+                        object o_Atom_Customer_Person_ID = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$$ID"];
+                        if (o_Atom_Customer_Person_ID is long)
+                        {
+                            if (m_CurrentInvoice.Atom_Customer_Person_ID_v == null)
+                            {
+                                m_CurrentInvoice.Atom_Customer_Person_ID_v = new long_v();
+                            }
+                            m_CurrentInvoice.Atom_Customer_Person_ID_v.v = (long)o_Atom_Customer_Person_ID;
+                        }
+                        else
+                        {
+                            m_CurrentInvoice.Atom_Customer_Person_ID_v = null;
+                        }
+                        object o_Atom_Customer_Org_ID = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$$ID"];
+                        if (o_Atom_Customer_Org_ID is long)
+                        {
+                            if (m_CurrentInvoice.Atom_Customer_Org_ID_v == null)
+                            {
+                                m_CurrentInvoice.Atom_Customer_Org_ID_v = new long_v();
+                            }
+                            m_CurrentInvoice.Atom_Customer_Org_ID_v.v = (long)o_Atom_Customer_Org_ID;
+                        }
+                        else
+                        {
+                            m_CurrentInvoice.Atom_Customer_Org_ID_v = null;
+                        }
+                        object oNumberInFinancialYear = m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear"];
+                        if (oNumberInFinancialYear is int)
+                        {
+                            m_CurrentInvoice.NumberInFinancialYear = (int)oNumberInFinancialYear;
+                        }
+                        else
+                        {
+                            m_CurrentInvoice.NumberInFinancialYear = -1;
+                        }
+
+                        m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber"];
+
+                        long xDocInvoice_ID = m_CurrentInvoice.DocInvoice_ID;
+                        if (m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v != null)
+                        {
+                            xDocInvoice_ID = m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v.v;
+                        }
+
+                        if (Read_ShopB_Price_Item_Table(xDocInvoice_ID, ref m_CurrentInvoice.dtCurrent_Atom_Price_ShopBItem))
+                        {
+                            m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
+                            if (m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice,xDocInvoice_ID, ref m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
                         else
                         {
@@ -161,6 +322,8 @@ namespace TangentaDB
                     }
                     else
                     {
+                        Err = "ERROR:ShopABC.cs:ShopABC:Get:Error DocInvoice of type " + DocInvoice + " not implemented";
+                        LogFile.Error.Show(Err);
                         return false;
                     }
                 }
@@ -182,7 +345,10 @@ namespace TangentaDB
         public bool Read_ShopB_Price_Item_Table(long DocInvoice_ID, ref DataTable dt_DocInvoice_ShopB_Item)
         {
             string Err = null;
-            string sql_select_DocInvoice_ShopB_Item = @"SELECT 
+            string sql_select_DocInvoice_ShopB_Item = null;
+            if (IsDocInvoice)
+            {
+                sql_select_DocInvoice_ShopB_Item = @"SELECT 
                                                 DocInvoice_ShopB_Item.ID, 
                                                 DocInvoice_ShopB_Item.DocInvoice_ID, 
                                                 DocInvoice_ShopB_Item.Atom_PriceList_ID,
@@ -214,6 +380,47 @@ namespace TangentaDB
                                                 Inner Join DocInvoice on DocInvoice.ID = DocInvoice_ShopB_Item.DocInvoice_ID 
                                                 Inner Join Atom_SimpleItem_Name on Atom_SimpleItem_Name.ID = Atom_SimpleItem.Atom_SimpleItem_Name_ID
                                                 where DocInvoice_ShopB_Item.DocInvoice_ID = " + DocInvoice_ID.ToString();
+            }
+            else if (IsDocProformaInvoice)
+            {
+                sql_select_DocInvoice_ShopB_Item = @"SELECT 
+                                                DocProformaInvoice_ShopB_Item.ID, 
+                                                DocProformaInvoice_ShopB_Item.DocProformaInvoice_ID, 
+                                                DocProformaInvoice_ShopB_Item.Atom_PriceList_ID,
+                                                DocProformaInvoice_ShopB_Item.RetailSimpleItemPrice,
+                                                DocProformaInvoice_ShopB_Item.Discount,
+                                                DocProformaInvoice_ShopB_Item.ExtraDiscount,
+                                                DocProformaInvoice_ShopB_Item.TaxPrice, 
+                                                DocProformaInvoice_ShopB_Item.RetailSimpleItemPriceWithDiscount,
+                                                Atom_PriceList.Name As Atom_PriceList_Name,
+                                                DocProformaInvoice_ShopB_Item.Atom_Taxation_ID,
+                                                Atom_Taxation.Name As Atom_Taxation_Name,
+                                                Atom_Taxation.Rate As Atom_Taxation_Rate,
+                                                Atom_SimpleItem.SimpleItem_ID, 
+                                                Atom_SimpleItem.Atom_SimpleItem_Name_ID, 
+                                                Atom_SimpleItem.Atom_SimpleItem_Image_ID, 
+                                                DocProformaInvoice_ShopB_Item.iQuantity, 
+                                                Atom_SimpleItem_Name.Name,
+                                                Atom_SimpleItem_Name.Abbreviation, 
+                                                Atom_PriceList.Name AS Atom_PriceList_Name,
+                                                Atom_Currency.Name AS Atom_Currency_Name,
+                                                Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
+                                                Atom_Currency.Symbol AS Atom_Currency_Symbol,
+                                                Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces 
+                                                from DocProformaInvoice_ShopB_Item
+                                                inner join Atom_PriceList on DocProformaInvoice_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
+                                                inner join Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID
+                                                inner join Atom_Taxation on DocProformaInvoice_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
+                                                inner join Atom_SimpleItem on DocProformaInvoice_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
+                                                Inner Join DocProformaInvoice on DocProformaInvoice.ID = DocProformaInvoice_ShopB_Item.DocProformaInvoice_ID 
+                                                Inner Join Atom_SimpleItem_Name on Atom_SimpleItem_Name.ID = Atom_SimpleItem.Atom_SimpleItem_Name_ID
+                                                where DocProformaInvoice_ShopB_Item.DocProformaInvoice_ID = " + DocInvoice_ID.ToString();
+            }
+            else
+            {
+                Err = "ERROR:Read_Atom_SimpleItem_Table:DocInvoice =" + DocInvoice + " not implemented";
+                LogFile.Error.Show(Err);
+            }
             dt_DocInvoice_ShopB_Item.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice_ShopB_Item, sql_select_DocInvoice_ShopB_Item, ref Err))
             {
@@ -221,7 +428,7 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:Read_Atom_SimpleItem_Table:select ... from Atom_SimpleItem:\r\n Err=" + Err);
+                LogFile.Error.Show("ERROR:Read_Atom_SimpleItem_Table:select ... from Atom_SimpleItem:sql="+ sql_select_DocInvoice_ShopB_Item+"\r\n Err=" + Err);
                 return false;
             }
         }
@@ -229,80 +436,167 @@ namespace TangentaDB
 
         public bool Read_DocInvoice_Atom_Item_Stock_Table(long DocInvoice_ID, long Atom_Item_ID, ref DataTable dtDraft_DocInvoice_Atom_Item_Stock, string scond, ref string Err)
         {
-            string sql_select_DocInvoice_Atom_Item_Stock = @"
-            SELECT 
-            DocInvoice_ShopC_Item.dQuantity AS dQuantity,
-            DocInvoice_ShopC_Item.ExtraDiscount AS ExtraDiscount,
-            DocInvoice_ShopC_Item.RetailPriceWithDiscount AS RetailPriceWithDiscount,
-            DocInvoice_ShopC_Item.TaxPrice AS  TaxPrice,
-            DocInvoice_ShopC_Item.ID AS DocInvoice_ShopC_Item_ID,
-            DocInvoice_ShopC_Item.DocInvoice_ID,
-            DocInvoice_ShopC_Item.Stock_ID,
-            DocInvoice_ShopC_Item.ExpiryDate,
-            DocInvoice_ShopC_Item.Atom_Price_Item_ID,
-            Atom_Item.ID as Atom_Item_ID,
-            Atom_Price_Item.RetailPricePerUnit AS  RetailPricePerUnit,
-            PurchasePrice.PurchasePricePerUnit,
-            Atom_Price_Item.Discount AS  Discount,
-            Atom_Item.UniqueName AS Atom_Item_UniqueName,
-            Atom_Item_Name.Name AS Atom_Item_Name_Name,
-            Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
-            Atom_Taxation.Name AS Atom_Taxation_Name,
-            Atom_Taxation.Rate AS Atom_Taxation_Rate,
-            Atom_Item_Description.Description AS Atom_Item_Description_Description,
-            Atom_Item.Atom_Warranty_ID,
-            Atom_Unit.Name AS Atom_Unit_Name,
-            Atom_Unit.Symbol AS Atom_Unit_Symbol,
-            Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
-            Atom_Unit.Description AS Atom_Unit_Description,
-            Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
-            Atom_Warranty.WarrantyDurationType AS Atom_Warranty_WarrantyDurationType,
-            Atom_Warranty.WarrantyDuration AS Atom_Warranty_WarrantyDuration,
-            Atom_Warranty.WarrantyConditions AS Atom_Warranty_WarrantyConditions,
-            Atom_Item.Atom_Expiry_ID,
-            Atom_Expiry.ExpectedShelfLifeInDays AS Atom_Expiry_ExpectedShelfLifeInDays,
-            Atom_Expiry.SaleBeforeExpiryDateInDays AS Atom_Expiry_SaleBeforeExpiryDateInDays,
-            Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
-            Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
-            PurchasePrice_Item.Item_ID,
-            Stock.ImportTime AS Stock_ImportTime,
-            Stock.dQuantity AS Stock_dQuantity,
-            Stock.ExpiryDate AS Stock_ExpiryDate,
-            Atom_PriceList.Name AS Atom_PriceList_Name,
-            Atom_Currency.Name AS Atom_Currency_Name,
-            Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
-            Atom_Currency.Symbol AS Atom_Currency_Symbol,
-            Atom_Currency.CurrencyCode AS Atom_Currency_CurrencyCode,
-            Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces,
-            aiil.Image_Hash as Atom_Item_Image_Hash,
-            aiil.Image_Data as Atom_Item_Image_Data,
-            itm_g1.Name as s1_name,
-            itm_g2.Name as s2_name, 
-            itm_g3.Name as s3_name
-            FROM DocInvoice_ShopC_Item
-            INNER JOIN  Atom_Price_Item ON DocInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID 
-            INNER JOIN  Atom_Taxation ON Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID 
-            INNER JOIN  Atom_PriceList ON Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID 
-            INNER JOIN  Atom_Currency ON Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
-            INNER JOIN  DocInvoice ON DocInvoice_ShopC_Item.DocInvoice_ID = DocInvoice.ID 
-            INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
-            INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
-            INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
-            LEFT JOIN  Stock ON DocInvoice_ShopC_Item.Stock_ID = Stock.ID 
-            LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
-            LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
-            LEFT JOIN  PurchasePrice_Item ON Stock.PurchasePrice_Item_ID = PurchasePrice_Item.ID 
-            LEFT JOIN  PurchasePrice ON PurchasePrice.ID = PurchasePrice_Item.PurchasePrice_ID 
-            LEFT JOIN  Item itms ON PurchasePrice_Item.Item_ID = itms.ID 
-            LEFT JOIN  Item_ParentGroup1 itm_g1 ON itms.Item_ParentGroup1_ID = itm_g1.ID 
-            LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
-            LEFT JOIN  Item_ParentGroup3 itm_g3 ON itm_g2.Item_ParentGroup3_ID = itm_g3.ID 
-            LEFT JOIN  Atom_Item_barcode ON Atom_Item.Atom_Item_barcode_ID = Atom_Item_barcode.ID 
-            LEFT JOIN  Atom_Item_Description ON Atom_Item.Atom_Item_Description_ID = Atom_Item_Description.ID 
-            LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
-            LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
-            LEFT JOIN  Item_Image ON itms.Item_Image_ID = Item_Image.ID 
-            where  (DocInvoice_ShopC_Item.DocInvoice_ID =  " + DocInvoice_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
+            string sql_select_DocInvoice_Atom_Item_Stock = null;
+            if (IsDocInvoice)
+            {
+                sql_select_DocInvoice_Atom_Item_Stock = @"
+                SELECT 
+                DocInvoice_ShopC_Item.dQuantity AS dQuantity,
+                DocInvoice_ShopC_Item.ExtraDiscount AS ExtraDiscount,
+                DocInvoice_ShopC_Item.RetailPriceWithDiscount AS RetailPriceWithDiscount,
+                DocInvoice_ShopC_Item.TaxPrice AS  TaxPrice,
+                DocInvoice_ShopC_Item.ID AS DocInvoice_ShopC_Item_ID,
+                DocInvoice_ShopC_Item.DocInvoice_ID,
+                DocInvoice_ShopC_Item.Stock_ID,
+                DocInvoice_ShopC_Item.ExpiryDate,
+                DocInvoice_ShopC_Item.Atom_Price_Item_ID,
+                Atom_Item.ID as Atom_Item_ID,
+                Atom_Price_Item.RetailPricePerUnit AS  RetailPricePerUnit,
+                PurchasePrice.PurchasePricePerUnit,
+                Atom_Price_Item.Discount AS  Discount,
+                Atom_Item.UniqueName AS Atom_Item_UniqueName,
+                Atom_Item_Name.Name AS Atom_Item_Name_Name,
+                Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
+                Atom_Taxation.Name AS Atom_Taxation_Name,
+                Atom_Taxation.Rate AS Atom_Taxation_Rate,
+                Atom_Item_Description.Description AS Atom_Item_Description_Description,
+                Atom_Item.Atom_Warranty_ID,
+                Atom_Unit.Name AS Atom_Unit_Name,
+                Atom_Unit.Symbol AS Atom_Unit_Symbol,
+                Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
+                Atom_Unit.Description AS Atom_Unit_Description,
+                Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
+                Atom_Warranty.WarrantyDurationType AS Atom_Warranty_WarrantyDurationType,
+                Atom_Warranty.WarrantyDuration AS Atom_Warranty_WarrantyDuration,
+                Atom_Warranty.WarrantyConditions AS Atom_Warranty_WarrantyConditions,
+                Atom_Item.Atom_Expiry_ID,
+                Atom_Expiry.ExpectedShelfLifeInDays AS Atom_Expiry_ExpectedShelfLifeInDays,
+                Atom_Expiry.SaleBeforeExpiryDateInDays AS Atom_Expiry_SaleBeforeExpiryDateInDays,
+                Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
+                Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
+                PurchasePrice_Item.Item_ID,
+                Stock.ImportTime AS Stock_ImportTime,
+                Stock.dQuantity AS Stock_dQuantity,
+                Stock.ExpiryDate AS Stock_ExpiryDate,
+                Atom_PriceList.Name AS Atom_PriceList_Name,
+                Atom_Currency.Name AS Atom_Currency_Name,
+                Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
+                Atom_Currency.Symbol AS Atom_Currency_Symbol,
+                Atom_Currency.CurrencyCode AS Atom_Currency_CurrencyCode,
+                Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces,
+                aiil.Image_Hash as Atom_Item_Image_Hash,
+                aiil.Image_Data as Atom_Item_Image_Data,
+                itm_g1.Name as s1_name,
+                itm_g2.Name as s2_name, 
+                itm_g3.Name as s3_name
+                FROM DocInvoice_ShopC_Item
+                INNER JOIN  Atom_Price_Item ON DocInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID 
+                INNER JOIN  Atom_Taxation ON Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID 
+                INNER JOIN  Atom_PriceList ON Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID 
+                INNER JOIN  Atom_Currency ON Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
+                INNER JOIN  DocInvoice ON DocInvoice_ShopC_Item.DocInvoice_ID = DocInvoice.ID 
+                INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
+                INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
+                INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
+                LEFT JOIN  Stock ON DocInvoice_ShopC_Item.Stock_ID = Stock.ID 
+                LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
+                LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
+                LEFT JOIN  PurchasePrice_Item ON Stock.PurchasePrice_Item_ID = PurchasePrice_Item.ID 
+                LEFT JOIN  PurchasePrice ON PurchasePrice.ID = PurchasePrice_Item.PurchasePrice_ID 
+                LEFT JOIN  Item itms ON PurchasePrice_Item.Item_ID = itms.ID 
+                LEFT JOIN  Item_ParentGroup1 itm_g1 ON itms.Item_ParentGroup1_ID = itm_g1.ID 
+                LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
+                LEFT JOIN  Item_ParentGroup3 itm_g3 ON itm_g2.Item_ParentGroup3_ID = itm_g3.ID 
+                LEFT JOIN  Atom_Item_barcode ON Atom_Item.Atom_Item_barcode_ID = Atom_Item_barcode.ID 
+                LEFT JOIN  Atom_Item_Description ON Atom_Item.Atom_Item_Description_ID = Atom_Item_Description.ID 
+                LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
+                LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
+                LEFT JOIN  Item_Image ON itms.Item_Image_ID = Item_Image.ID 
+                where  (DocInvoice_ShopC_Item.DocInvoice_ID =  " + DocInvoice_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
+            }
+            else if (IsDocProformaInvoice)
+            {
+                sql_select_DocInvoice_Atom_Item_Stock = @"
+                SELECT 
+                DocProformaInvoice_ShopC_Item.dQuantity AS dQuantity,
+                DocProformaInvoice_ShopC_Item.ExtraDiscount AS ExtraDiscount,
+                DocProformaInvoice_ShopC_Item.RetailPriceWithDiscount AS RetailPriceWithDiscount,
+                DocProformaInvoice_ShopC_Item.TaxPrice AS  TaxPrice,
+                DocProformaInvoice_ShopC_Item.ID AS DocProformaInvoice_ShopC_Item_ID,
+                DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID,
+                DocProformaInvoice_ShopC_Item.Stock_ID,
+                DocProformaInvoice_ShopC_Item.ExpiryDate,
+                DocProformaInvoice_ShopC_Item.Atom_Price_Item_ID,
+                Atom_Item.ID as Atom_Item_ID,
+                Atom_Price_Item.RetailPricePerUnit AS  RetailPricePerUnit,
+                PurchasePrice.PurchasePricePerUnit,
+                Atom_Price_Item.Discount AS  Discount,
+                Atom_Item.UniqueName AS Atom_Item_UniqueName,
+                Atom_Item_Name.Name AS Atom_Item_Name_Name,
+                Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
+                Atom_Taxation.Name AS Atom_Taxation_Name,
+                Atom_Taxation.Rate AS Atom_Taxation_Rate,
+                Atom_Item_Description.Description AS Atom_Item_Description_Description,
+                Atom_Item.Atom_Warranty_ID,
+                Atom_Unit.Name AS Atom_Unit_Name,
+                Atom_Unit.Symbol AS Atom_Unit_Symbol,
+                Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
+                Atom_Unit.Description AS Atom_Unit_Description,
+                Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
+                Atom_Warranty.WarrantyDurationType AS Atom_Warranty_WarrantyDurationType,
+                Atom_Warranty.WarrantyDuration AS Atom_Warranty_WarrantyDuration,
+                Atom_Warranty.WarrantyConditions AS Atom_Warranty_WarrantyConditions,
+                Atom_Item.Atom_Expiry_ID,
+                Atom_Expiry.ExpectedShelfLifeInDays AS Atom_Expiry_ExpectedShelfLifeInDays,
+                Atom_Expiry.SaleBeforeExpiryDateInDays AS Atom_Expiry_SaleBeforeExpiryDateInDays,
+                Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
+                Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
+                PurchasePrice_Item.Item_ID,
+                Stock.ImportTime AS Stock_ImportTime,
+                Stock.dQuantity AS Stock_dQuantity,
+                Stock.ExpiryDate AS Stock_ExpiryDate,
+                Atom_PriceList.Name AS Atom_PriceList_Name,
+                Atom_Currency.Name AS Atom_Currency_Name,
+                Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
+                Atom_Currency.Symbol AS Atom_Currency_Symbol,
+                Atom_Currency.CurrencyCode AS Atom_Currency_CurrencyCode,
+                Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces,
+                aiil.Image_Hash as Atom_Item_Image_Hash,
+                aiil.Image_Data as Atom_Item_Image_Data,
+                itm_g1.Name as s1_name,
+                itm_g2.Name as s2_name, 
+                itm_g3.Name as s3_name
+                FROM DocProformaInvoice_ShopC_Item
+                INNER JOIN  Atom_Price_Item ON DocProformaInvoice_ShopC_Item.Atom_Price_Item_ID = Atom_Price_Item.ID 
+                INNER JOIN  Atom_Taxation ON Atom_Price_Item.Atom_Taxation_ID = Atom_Taxation.ID 
+                INNER JOIN  Atom_PriceList ON Atom_Price_Item.Atom_PriceList_ID = Atom_PriceList.ID 
+                INNER JOIN  Atom_Currency ON Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
+                INNER JOIN  DocProformaInvoice ON DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID = DocProformaInvoice.ID 
+                INNER JOIN  Atom_Item ON Atom_Price_Item.Atom_Item_ID = Atom_Item.ID 
+                INNER JOIN  Atom_Item_Name ON Atom_Item.Atom_Item_Name_ID = Atom_Item_Name.ID 
+                INNER JOIN  Atom_Unit ON Atom_Item.Atom_Unit_ID = Atom_Unit.ID 
+                LEFT JOIN  Stock ON DocProformaInvoice_ShopC_Item.Stock_ID = Stock.ID 
+                LEFT JOIN  Atom_Item_Image aii ON aii.Atom_Item_ID = Atom_Item.ID
+                LEFT JOIN  Atom_Item_ImageLib aiil ON aiil.ID = aii.Atom_Item_ImageLib_ID
+                LEFT JOIN  PurchasePrice_Item ON Stock.PurchasePrice_Item_ID = PurchasePrice_Item.ID 
+                LEFT JOIN  PurchasePrice ON PurchasePrice.ID = PurchasePrice_Item.PurchasePrice_ID 
+                LEFT JOIN  Item itms ON PurchasePrice_Item.Item_ID = itms.ID 
+                LEFT JOIN  Item_ParentGroup1 itm_g1 ON itms.Item_ParentGroup1_ID = itm_g1.ID 
+                LEFT JOIN  Item_ParentGroup2 itm_g2 ON itm_g1.Item_ParentGroup2_ID = itm_g2.ID 
+                LEFT JOIN  Item_ParentGroup3 itm_g3 ON itm_g2.Item_ParentGroup3_ID = itm_g3.ID 
+                LEFT JOIN  Atom_Item_barcode ON Atom_Item.Atom_Item_barcode_ID = Atom_Item_barcode.ID 
+                LEFT JOIN  Atom_Item_Description ON Atom_Item.Atom_Item_Description_ID = Atom_Item_Description.ID 
+                LEFT JOIN  Atom_Warranty ON Atom_Item.Atom_Warranty_ID = Atom_Warranty.ID 
+                LEFT JOIN  Atom_Expiry ON Atom_Item.Atom_Expiry_ID = Atom_Expiry.ID 
+                LEFT JOIN  Item_Image ON itms.Item_Image_ID = Item_Image.ID 
+                where  (DocProformaInvoice_ShopC_Item.DocProformaInvoice_ID =  " + DocInvoice_ID.ToString() + ") and ( Atom_Item.ID = " + Atom_Item_ID.ToString() + ")" + scond;
+            }
+            else
+            {
+                Err = "DocInvoice = " + DocInvoice + " not implemented.";
+                LogFile.Error.Show("ERROR:Read_DocInvoice_Atom_Item_Stock_Table:Err=" + Err);
+                return false;
+            }
             m_CurrentInvoice.dtCurrent_DocInvoice_ShopC_Item.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dtDraft_DocInvoice_Atom_Item_Stock, sql_select_DocInvoice_Atom_Item_Stock, ref Err))
             {
@@ -310,7 +604,7 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show("ERROR:Read_DocInvoice_Atom_Item_Stock_Table:select ... from DocInvoice_Atom_Item_Stock:\r\n Err=" + Err);
+                LogFile.Error.Show("ERROR:Read_DocInvoice_Atom_Item_Stock_Table:sql=" + sql_select_DocInvoice_Atom_Item_Stock + "\r\n Err=" + Err);
                 return false;
             }
         }
@@ -325,12 +619,13 @@ namespace TangentaDB
 
         public bool SetNewDraft_DocInvoice(int iFinancialYear, Control pParent, ref long DocInvoice_ID,
                                   long myOrganisation_Person_ID,
+                                  string DocInvoice,
                                   ref string Err)
         {
             DataTable dt = new DataTable();
             int xDraftNumber = -1;
             int iLimit = 1;
-            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "DraftNumber from DocInvoice order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            string sql = @"select " + DBSync.DBSync.sTop(iLimit) + "DraftNumber from "+DocInvoice+" order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             if (!DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft:sql=" + sql + "\r\nErr=" + Err);
@@ -348,7 +643,7 @@ namespace TangentaDB
 
             dt.Clear();
             dt.Columns.Clear();
-            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,DraftNumber from DocInvoice where FinancialYear = " + iFinancialYear.ToString() + " order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
+            sql = @"select " + DBSync.DBSync.sTop(iLimit) + "ID,DraftNumber from "+DocInvoice+" where FinancialYear = " + iFinancialYear.ToString() + " order by DraftNumber desc " + DBSync.DBSync.sLimit(iLimit);
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count == 1)
@@ -360,7 +655,7 @@ namespace TangentaDB
                     }
                     catch (Exception ex)
                     {
-                        LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft: ID is not defined in DocInvoice! Exception =" + ex.Message);
+                        LogFile.Error.Show("ERROR:TangentaDB:SetNewDraft: ID is not defined in "+DocInvoice+"! Exception =" + ex.Message);
                         return false;
                     }
                 }
@@ -372,27 +667,63 @@ namespace TangentaDB
                 if (f_Atom_myOrganisation_Person.Get(myOrganisation_Person_ID, ref Atom_myOrganisation_Person_ID, ref office_name))
                 {
                     //**TODO
-                    string sql_SetDraftDocInvoice = "insert into " + DBtcn.stbl_DocInvoice_TableName
-                    + "("
-                        + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
-                        + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
-                        + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
-                        + DBtcn.GetName(td.m_DocInvoice.Storno.GetType())
-                    + @") values ( "
-                        + m_CurrentInvoice.FinancialYear.ToString() + ","
-                        + m_CurrentInvoice.DraftNumber.ToString() + ","
-                        + "1,"
-                        + "1"
-                        + ")";
+                    string sql_SetDraftDocInvoice = null;
+                    if (IsDocInvoice)
+                    {
+                        sql_SetDraftDocInvoice = "insert into " + DocInvoice
+                        + "("
+                            + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
+                            + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
+                            + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) + ","
+                            + DBtcn.GetName(td.m_DocInvoice.Storno.GetType())
+                        + @") values ( "
+                            + m_CurrentInvoice.FinancialYear.ToString() + ","
+                            + m_CurrentInvoice.DraftNumber.ToString() + ","
+                            + "1,"
+                            + "1"
+                            + ")";
+                    }
+                    else if (IsDocProformaInvoice)
+                    {
+                        sql_SetDraftDocInvoice = "insert into " + DocInvoice
+                        + "("
+                            + DBtcn.GetName(td.m_DocInvoice.FinancialYear.GetType()) + ","
+                            + DBtcn.GetName(td.m_DocInvoice.DraftNumber.GetType()) + ","
+                            + DBtcn.GetName(td.m_DocInvoice.Draft.GetType()) 
+                        + @") values ( "
+                            + m_CurrentInvoice.FinancialYear.ToString() + ","
+                            + m_CurrentInvoice.DraftNumber.ToString() + ","
+                            + "1"
+                            + ")";
+                    }
+                    else
+                    {
+                        Err="ERROR:SetDraft:DocInvoice" + DocInvoice + " not implemented.";
+                        LogFile.Error.Show(Err);
+                        return false;
+                    }
                     object objret = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref this.m_CurrentInvoice.DocInvoice_ID, ref objret, ref Err, DBtcn.stbl_DocInvoice_TableName))
                     {
                         long Journal_DocInvoice_ID = -1;
-                        return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                        if (IsDocInvoice)
+                        {
+                            return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                        }
+                        else if (IsDocProformaInvoice)
+                        {
+                            return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                        }
+                        else
+                        {
+                            Err = "ERROR:SetDraft:DocInvoice" + DocInvoice + " not implemented.";
+                            LogFile.Error.Show(Err);
+                            return false;
+                        }
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:SetDraft:insert into " + DBtcn.stbl_DocInvoice_TableName + ":\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:SetDraft:insert into " + DocInvoice + ":\r\nErr=" + Err);
                         return false;
                     }
                 }
@@ -449,136 +780,6 @@ namespace TangentaDB
 
 
 
-
-        bool Get_DocInvoice_ShopB_Item_ID(long DocInvoice_ID,
-                                       long Price_SimpleItem_ID,
-                                       long Atom_SimpleItem_Name_ID,
-                                       long Atom_SimpleItem_Image_ID,
-                                       decimal Atom_SimpleItem_TaxPrice,
-                                       decimal Atom_SimpleItem_Discount,
-                                       decimal Atom_SimpleItem_RetailSimpleItemPriceWithDiscount,
-                                       string Atom_SimpleItem_Abbreviation,
-                                       string Atom_SimpleItem_Image_ID_string,
-                                       ref long DocInvoice_ShopB_Item_ID
-                                       )
-        {
-            if (Get_Atom_SimpleItem_ID(DocInvoice_ID,
-                                    Price_SimpleItem_ID,
-                                    Atom_SimpleItem_Name_ID,
-                                    Atom_SimpleItem_Image_ID,
-                                    Atom_SimpleItem_TaxPrice,
-                                    Atom_SimpleItem_Discount,
-                                    Atom_SimpleItem_RetailSimpleItemPriceWithDiscount,
-                                    Atom_SimpleItem_Abbreviation,
-                                    Atom_SimpleItem_Image_ID_string,
-                                    ref DocInvoice_ShopB_Item_ID))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool Get_Atom_SimpleItem_ID(long DocInvoice_ID,
-                                       long Price_SimpleItem_ID,
-                                       long Atom_SimpleItem_Name_ID,
-                                       long Atom_SimpleItem_Image_ID,
-                                       decimal Atom_SimpleItem_TaxPrice,
-                                       decimal Atom_SimpleItem_Discount,
-                                       decimal Atom_SimpleItem_RetailSimpleItemPriceWithDiscount,
-                                       string Atom_SimpleItem_Abbreviation,
-                                       string Atom_SimpleItem_Image_ID_string,
-                                       ref long Atom_SimpleItem_ID
-                                       )
-        {
-            string Err = null;
-
-            List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
-            lpar.Clear();
-            //string param_Atom_SimpleItem_RetailSimpleItemPrice = "@Atom_SimpleItem_RetailSimpleItemPrice";
-            //DBConnectionControl40.SQL_Parameter par_Atom_SimpleItem_RetailSimpleItemPrice = new DBConnectionControl40.SQL_Parameter(param_Atom_SimpleItem_RetailSimpleItemPrice, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, Atom_SimpleItem_RetailSimpleItemPrice);
-            //lpar.Add(par_Atom_SimpleItem_RetailSimpleItemPrice);
-            string sparam_Atom_SimpleItem_TaxPrice = "@Atom_SimpleItem_TaxPrice";
-            DBConnectionControl40.SQL_Parameter par_Atom_SimpleItem_TaxPrice = new DBConnectionControl40.SQL_Parameter(sparam_Atom_SimpleItem_TaxPrice, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, Atom_SimpleItem_TaxPrice);
-            lpar.Add(par_Atom_SimpleItem_TaxPrice);
-            string sparam_Atom_SimpleItem_Discount = "@Atom_SimpleItem_Discount";
-            DBConnectionControl40.SQL_Parameter par_Atom_SimpleItem_Discount = new DBConnectionControl40.SQL_Parameter(sparam_Atom_SimpleItem_Discount, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, Atom_SimpleItem_Discount);
-            lpar.Add(par_Atom_SimpleItem_Discount);
-            string sparam_Atom_SimpleItem_RetailSimpleItemPriceWithDiscount = "@Atom_SimpleItem_RetailSimpleItemPriceWithDiscount";
-            DBConnectionControl40.SQL_Parameter par_Atom_SimpleItem_RetailSimpleItemPriceWithDiscount = new DBConnectionControl40.SQL_Parameter(sparam_Atom_SimpleItem_RetailSimpleItemPriceWithDiscount, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, Atom_SimpleItem_RetailSimpleItemPriceWithDiscount);
-            lpar.Add(par_Atom_SimpleItem_RetailSimpleItemPriceWithDiscount);
-
-            string sparam_Atom_SimpleItem_Abbreviation = "@Atom_SimpleItem_Abbreviation";
-            DBConnectionControl40.SQL_Parameter par_Atom_SimpleItem_Abbreviation = new DBConnectionControl40.SQL_Parameter(sparam_Atom_SimpleItem_Abbreviation, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Nvarchar, false, Atom_SimpleItem_Abbreviation);
-            lpar.Add(par_Atom_SimpleItem_Abbreviation);
-
-            string sql_Select_Atom_SimpleItem = @"
-                                select ID from Atom_SimpleItem
-                                   where DocInvoice_ID = " + DocInvoice_ID.ToString() + @" and
-                                    SimpleItem_ID = " + Price_SimpleItem_ID.ToString() + @" and
-                                    Atom_SimpleItem_Name_ID = " + Atom_SimpleItem_Name_ID.ToString() + @" and
-                                    Atom_SimpleItem_Image_ID = " + Atom_SimpleItem_Image_ID_string + @" and
-                                    Abbreviation = " + sparam_Atom_SimpleItem_Abbreviation + @" and
-                                    Discount = " + sparam_Atom_SimpleItem_Discount + @" and
-                                    TaxPrice = " + sparam_Atom_SimpleItem_TaxPrice + @" and
-                                    RetailSimpleItemPriceWithDiscount = " + sparam_Atom_SimpleItem_RetailSimpleItemPriceWithDiscount + @"
-                                ";
-            DataTable dt = new DataTable();
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql_Select_Atom_SimpleItem, lpar, ref Err))
-            {
-                if (dt.Rows.Count > 0)
-                {
-                    Atom_SimpleItem_ID = (long)dt.Rows[0]["ID"];
-                    return true;
-                }
-                else
-                {
-                    string sql_Insert_Atom_SimpleItem = @"
-                                insert into Atom_SimpleItem
-                                (
-                                    DocInvoice_ID,
-                                    SimpleItem_ID,
-                                    Atom_SimpleItem_Name_ID,
-                                    Atom_SimpleItem_Image_ID,
-                                    iQuantity,
-                                    Abbreviation,
-                                    Discount,
-                                    TaxPrice,
-                                    RetailSimpleItemPriceWithDiscount
-                                )
-                                values
-                                (
-                                    " + DocInvoice_ID.ToString() + @",
-                                    " + Price_SimpleItem_ID.ToString() + @",
-                                    " + Atom_SimpleItem_Name_ID.ToString() + @",
-                                    " + Atom_SimpleItem_Image_ID_string + @",
-                                    1,
-                                    " + sparam_Atom_SimpleItem_Abbreviation + @",
-                                    " + sparam_Atom_SimpleItem_Discount + @",
-                                    " + sparam_Atom_SimpleItem_TaxPrice + @",
-                                    " + sparam_Atom_SimpleItem_RetailSimpleItemPriceWithDiscount + @"
-                                )
-                                ";
-                    object objretx = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_Insert_Atom_SimpleItem, lpar, ref Atom_SimpleItem_ID, ref objretx, ref Err, DBtcn.stbl_Atom_ShopBItem_TableName))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        LogFile.Error.Show("ERROR:Get_Atom_SimpleItem_ID:insert into Insert_Atom_SimpleItem_Taxation failed!\r\nErr=" + Err);
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Get_Atom_SimpleItem_ID:insert select ID from Atom_SimpleItem failed!\r\nErr=" + Err);
-                return false;
-            }
-        }
 
         private bool Find_Atom_SimpleItem_Image_ID(string Atom_SimpleItem_Image_Image_Hash, ref long Atom_SimpleItem_Image_ID, ref string Err)
         {
@@ -784,7 +985,10 @@ namespace TangentaDB
                 {
                     to_update_Atom_Taxation_ID = Atom_Taxation_ID;
                 }
-                string sql_update_Atom_SimpleItem = @"Update  DocInvoice_ShopB_Item
+                string sql_update_Atom_SimpleItem = null;
+                if (IsDocInvoice)
+                {
+                    sql_update_Atom_SimpleItem = @"Update  DocInvoice_ShopB_Item
                                                   set iQuantity = " + iCount.ToString() + @",
                                                       RetailSimpleItemPrice = " + param_RetailSimpleItemPrice + @",
                                                       Discount = " + param_Discount + @",
@@ -793,6 +997,25 @@ namespace TangentaDB
                                                       Atom_Taxation_ID = " + to_update_Atom_Taxation_ID.ToString() + @",
                                                       RetailSimpleItemPriceWithDiscount = " + param_RetailSimpleItemPriceWithDiscount + @"
                                                    where ID = " + DocInvoice_ShopB_Item_ID.ToString();
+                }
+                else if (IsDocProformaInvoice)
+                {
+                    sql_update_Atom_SimpleItem = @"Update  DocProformaInvoice_ShopB_Item
+                                                  set iQuantity = " + iCount.ToString() + @",
+                                                      RetailSimpleItemPrice = " + param_RetailSimpleItemPrice + @",
+                                                      Discount = " + param_Discount + @",
+                                                      ExtraDiscount = " + param_ExtraDiscount + @",
+                                                      TaxPrice = " + param_TaxPrice + @",
+                                                      Atom_Taxation_ID = " + to_update_Atom_Taxation_ID.ToString() + @",
+                                                      RetailSimpleItemPriceWithDiscount = " + param_RetailSimpleItemPriceWithDiscount + @"
+                                                   where ID = " + DocInvoice_ShopB_Item_ID.ToString();
+                }
+                else
+                {
+                    Err="ERROR:Update_SelectedSimpleItem:FindRowIndex_In_dtDraft_Atom_SimpleItem:DocInvoice=" + DocInvoice + " not implemented";
+                    LogFile.Error.Show(Err);
+                    return false;
+                }
                 object ores = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql_update_Atom_SimpleItem, lpar, ref ores, ref Err))
                 {
@@ -845,8 +1068,23 @@ namespace TangentaDB
 
         public bool Delete_SelectedSimpleItem(long DocInvoice_ShopB_Item_ID, ref string Err)
         {
-            string sql_delete_Atom_SimpleItem = @"delete from DocInvoice_ShopB_Item
+
+            string sql_delete_Atom_SimpleItem = null;
+            if (IsDocInvoice)
+            {
+                sql_delete_Atom_SimpleItem = @"delete from DocInvoice_ShopB_Item
                                                    where ID = " + DocInvoice_ShopB_Item_ID.ToString();
+            }
+            else if (IsDocProformaInvoice)
+            {
+                sql_delete_Atom_SimpleItem = @"delete from DocProformaInvoice_ShopB_Item
+                                                   where ID = " + DocInvoice_ShopB_Item_ID.ToString();
+            }
+            else
+            {
+                Err = "ERROR:ShopABC.cs:ShopABC:Delete_SelectedSimpleItem:DocInvoice=" + DocInvoice + " not implemented.";
+                return false;
+            }
             object ores = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_delete_Atom_SimpleItem, null, ref ores, ref Err))
             {

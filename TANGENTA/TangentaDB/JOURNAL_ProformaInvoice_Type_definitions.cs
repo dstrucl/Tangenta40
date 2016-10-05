@@ -25,11 +25,19 @@ namespace TangentaDB
 
         public journaltype DocInvoiceTime = null;
 
+        public journaltype ProformaInvoiceDraftTime = null;
+        public journaltype ProformaInvoiceTime = null;
+        public journaltype ProformaInvoicePaidTime = null;
+
+        public journaltype DocProformaInvoiceTime = null;
+
+
         List<journaltype> journaltype_list = new List<journaltype>();
 
 
         public JOURNAL_DocInvoice_Type_definitions()
         {
+            //Tax Invoice
             InvoiceDraftTime = new journaltype("InvoiceDraftTime", lngRPM.s_InvoiceDraftTime_description.s); ;
             journaltype_list.Add(InvoiceDraftTime);
             InvoiceTime = new journaltype("InvoiceTime", lngRPM.s_InvoiceTime_description.s);
@@ -40,7 +48,17 @@ namespace TangentaDB
             journaltype_list.Add(InvoiceStornoTime);
 
             DocInvoiceTime = new journaltype("DocInvoiceTime", lngRPM.s_DocInvoiceTime_description.s);
-            journaltype_list.Add(DocInvoiceTime);
+
+            //Proforma Invoice
+            ProformaInvoiceDraftTime = new journaltype("ProformaInvoiceDraftTime", lngRPM.s_InvoiceDraftTime_description.s); ;
+            journaltype_list.Add(ProformaInvoiceDraftTime);
+            ProformaInvoiceTime = new journaltype("ProformaInvoiceTime", lngRPM.s_InvoiceTime_description.s);
+            journaltype_list.Add(ProformaInvoiceTime);
+            InvoicePaidTime = new journaltype("ProformaInvoicePaidTime", lngRPM.s_InvoicePaidTime_description.s); ;
+            journaltype_list.Add(InvoicePaidTime);
+
+            DocProformaInvoiceTime = new journaltype("DocProformaInvoiceTime", lngRPM.s_DocInvoiceTime_description.s);
+            journaltype_list.Add(DocProformaInvoiceTime);
 
         }
 

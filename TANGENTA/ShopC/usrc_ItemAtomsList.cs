@@ -36,7 +36,32 @@ namespace ShopC
 
         public long Item_ID = -1;
 
+        private string m_DocInvoice = "DocInvoice";
+
+        public string DocInvoice
+        {
+            get { return m_DocInvoice; }
+            set
+            {
+                m_DocInvoice = value;
+            }
+        }
+
+        public bool IsDocInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocInvoice"); }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
+
         public int m_NumberOfItemsPerPage = 10;
+
+
         public int NumberOfItemsPerPage
         {
             get { return m_NumberOfItemsPerPage; }
@@ -91,7 +116,7 @@ namespace ShopC
         {
             if (bFactory)
             {
-                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.RemoveFactory(x_usrc_Atom_Item.m_appisd))
+                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.RemoveFactory(DocInvoice,x_usrc_Atom_Item.m_appisd))
                 {
                     if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
                     {
@@ -218,7 +243,7 @@ namespace ShopC
             if (XMessage.Box.Show(this, lngRPM.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
-                m_ShopBC.m_CurrentInvoice.m_Basket.Empty(m_ShopBC.m_CurrentInvoice.m_ShopShelf);
+                m_ShopBC.m_CurrentInvoice.m_Basket.Empty(DocInvoice,m_ShopBC.m_CurrentInvoice.m_ShopShelf);
                 m_usrc_Item_PageHandler.DoPaint();
                 m_usrc_ItemList.Reset();
                 this.Cursor = Cursors.Arrow;

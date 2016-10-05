@@ -27,10 +27,38 @@ namespace Tangenta
         public eMode Mode = eMode.Shops_and_InvoiceTable;
         Form m_pparent = null;
         public List<Tangenta.usrc_Invoice.InvoiceType> List_InvoiceType = new List<Tangenta.usrc_Invoice.InvoiceType>();
-        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_Invoice = null;
-        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_Invoice_From_DocInvoice = null;
         public Tangenta.usrc_Invoice.InvoiceType InvoiceType_DocInvoice = null;
+        public Tangenta.usrc_Invoice.InvoiceType InvoiceType_DocProformaInvoice = null;
         public DataTable dt_FinancialYears = new DataTable();
+        private string m_DocInvoice = "DocInvoice";
+
+        public string DocInvoice
+        {
+            get { return m_DocInvoice; }
+            set
+            {
+                string s = value;
+                if (s.Equals("DocInvoice") || s.Equals("DocProformaInvoice"))
+                {
+                    m_DocInvoice = value;
+                }
+                m_usrc_Invoice.DocInvoice = m_DocInvoice;
+                m_usrc_InvoiceTable.DocInvoice = m_DocInvoice;
+            }
+        }
+
+        public bool IsDocInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocInvoice"); }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
+
 
         public usrc_InvoiceMan()
         {
@@ -94,12 +122,26 @@ namespace Tangenta
         internal bool Init(NavigationButtons.Navigation xnav)
         {
             Program.Cursor_Wait();
-            InvoiceType_Invoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.Invoice);
-            List_InvoiceType.Add(InvoiceType_Invoice);
-            InvoiceType_Invoice_From_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice_From_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
-            List_InvoiceType.Add(InvoiceType_Invoice_From_DocInvoice);
-            InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_DocInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
+            string sLastDocInvoiceType = Properties.Settings.Default.LastDocInvoiceType;
+            if (sLastDocInvoiceType.Equals("DocInvoice"))
+            {
+                this.DocInvoice = sLastDocInvoiceType;
+            }
+            else if (sLastDocInvoiceType.Equals("DocProformaInvoice"))
+            {
+                this.DocInvoice = sLastDocInvoiceType;
+            }
+            else
+            {
+                this.DocInvoice = "DocProformaInvoice";
+                Properties.Settings.Default.LastDocInvoiceType = this.DocInvoice;
+                Properties.Settings.Default.Save();
+            }
+
+            InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.TaxInvoice);
             List_InvoiceType.Add(InvoiceType_DocInvoice);
+            InvoiceType_DocProformaInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_DocProformaInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
+            List_InvoiceType.Add(InvoiceType_DocProformaInvoice);
             this.cmb_InvoiceType.DataSource = null;
             this.cmb_InvoiceType.DataSource = List_InvoiceType;
             this.cmb_InvoiceType.DisplayMember = "InvoiceType_Text";

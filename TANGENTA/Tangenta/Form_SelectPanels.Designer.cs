@@ -28,35 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rdb_DocInvoices = new System.Windows.Forms.RadioButton();
-            this.rdb_ItemsAndDocInvoices = new System.Windows.Forms.RadioButton();
+            this.rdb_Doc = new System.Windows.Forms.RadioButton();
+            this.rdb_ItemsAndDoc = new System.Windows.Forms.RadioButton();
             this.rdb_Items = new System.Windows.Forms.RadioButton();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // rdb_DocInvoices
+            // rdb_Doc
             // 
-            this.rdb_DocInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_DocInvoices.Image = global::Tangenta.Properties.Resources.ViewInvoice;
-            this.rdb_DocInvoices.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rdb_DocInvoices.Location = new System.Drawing.Point(269, 17);
-            this.rdb_DocInvoices.Name = "rdb_DocInvoices";
-            this.rdb_DocInvoices.Size = new System.Drawing.Size(76, 34);
-            this.rdb_DocInvoices.TabIndex = 34;
-            this.rdb_DocInvoices.TabStop = true;
-            this.rdb_DocInvoices.UseVisualStyleBackColor = true;
+            this.rdb_Doc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.rdb_Doc.Image = global::Tangenta.Properties.Resources.ViewInvoice;
+            this.rdb_Doc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rdb_Doc.Location = new System.Drawing.Point(269, 17);
+            this.rdb_Doc.Name = "rdb_Doc";
+            this.rdb_Doc.Size = new System.Drawing.Size(76, 34);
+            this.rdb_Doc.TabIndex = 34;
+            this.rdb_Doc.TabStop = true;
+            this.rdb_Doc.UseVisualStyleBackColor = true;
             // 
-            // rdb_ItemsAndDocInvoices
+            // rdb_ItemsAndDoc
             // 
-            this.rdb_ItemsAndDocInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_ItemsAndDocInvoices.Image = global::Tangenta.Properties.Resources.EditAndViewInvoice;
-            this.rdb_ItemsAndDocInvoices.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.rdb_ItemsAndDocInvoices.Location = new System.Drawing.Point(156, 17);
-            this.rdb_ItemsAndDocInvoices.Name = "rdb_ItemsAndDocInvoices";
-            this.rdb_ItemsAndDocInvoices.Size = new System.Drawing.Size(71, 34);
-            this.rdb_ItemsAndDocInvoices.TabIndex = 33;
-            this.rdb_ItemsAndDocInvoices.TabStop = true;
-            this.rdb_ItemsAndDocInvoices.UseVisualStyleBackColor = true;
+            this.rdb_ItemsAndDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.rdb_ItemsAndDoc.Image = global::Tangenta.Properties.Resources.EditAndViewInvoice;
+            this.rdb_ItemsAndDoc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rdb_ItemsAndDoc.Location = new System.Drawing.Point(156, 17);
+            this.rdb_ItemsAndDoc.Name = "rdb_ItemsAndDoc";
+            this.rdb_ItemsAndDoc.Size = new System.Drawing.Size(71, 34);
+            this.rdb_ItemsAndDoc.TabIndex = 33;
+            this.rdb_ItemsAndDoc.TabStop = true;
+            this.rdb_ItemsAndDoc.UseVisualStyleBackColor = true;
             // 
             // rdb_Items
             // 
@@ -86,8 +86,8 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(374, 101);
             this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.rdb_DocInvoices);
-            this.Controls.Add(this.rdb_ItemsAndDocInvoices);
+            this.Controls.Add(this.rdb_Doc);
+            this.Controls.Add(this.rdb_ItemsAndDoc);
             this.Controls.Add(this.rdb_Items);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form_SelectPanels";
@@ -99,8 +99,8 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton rdb_DocInvoices;
-        private System.Windows.Forms.RadioButton rdb_ItemsAndDocInvoices;
+        private System.Windows.Forms.RadioButton rdb_Doc;
+        private System.Windows.Forms.RadioButton rdb_ItemsAndDoc;
         private System.Windows.Forms.RadioButton rdb_Items;
         private System.Windows.Forms.Button btn_Cancel;
     }
