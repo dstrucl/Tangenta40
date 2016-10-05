@@ -150,8 +150,7 @@ namespace TangentaDB
                         JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyDuration,
                         JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyConditions,
                         JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$ID,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$PaymentDeadline,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$Description,
                         JOURNAL_DocProformaInvoice_$_dpinv_$$DocDuration,
                         JOURNAL_DocProformaInvoice_$_dpinv_$$DocDurationType
                         from JOURNAL_DocProformaInvoice_VIEW " + cond;
@@ -712,7 +711,8 @@ namespace TangentaDB
                         }
                         else if (IsDocProformaInvoice)
                         {
-                            return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            DateTime_v dt_v = new DateTime_v(DateTime.Now);
+                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, lngRPM.s_new_proforma_invoice_draft.s, null, dt_v, ref Journal_DocInvoice_ID);
                         }
                         else
                         {

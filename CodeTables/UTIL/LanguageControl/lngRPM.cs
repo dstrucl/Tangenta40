@@ -17,6 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_new_proforma_invoice_draft = new ltext("New Proforma Invoice draft","Nov osnutek predračuna");
         #region StartUp
         public static ltext s_WithoutDatabaseSettingsProgramCanNotRun_ExitOKOrCancel = new ltext("Without settings written to Database program can not run.\r\nTo enter database settings press OK, to exit program pres Cancel",
                                                                                                 "Brez nastavitev določenih v podatkovni bazi program ne more delovati.\r\nZa ponovni vpis teh nastvaitev pritisnite gumb OK, če želite program končati pritidnite gumb Prekini");
