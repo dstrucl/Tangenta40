@@ -4036,10 +4036,10 @@ namespace UpgradeDB
                         else if (tname.ToLower().Equals("invoice"))
                         {
                             long Journal_Invoice_ID = -1;
-                            f_Journal_DocProformaInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, "Paid", "Plačano", PaidTime_v, ref Journal_Invoice_ID);
+                            f_Journal_DocInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, "Paid", "Plačano", PaidTime_v, ref Journal_Invoice_ID);
                             if (bStorno)
                             { 
-                                f_Journal_DocProformaInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, "Storno*", "Napaka pri vnosu", StornoTime_v, ref Journal_Invoice_ID);
+                                f_Journal_DocInvoice.Write(new_id, GlobalData.Atom_WorkPeriod_ID, "Storno*", "Napaka pri vnosu", StornoTime_v, ref Journal_Invoice_ID);
                             }
                         }
                     }

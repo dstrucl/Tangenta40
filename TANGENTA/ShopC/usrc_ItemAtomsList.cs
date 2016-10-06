@@ -138,7 +138,7 @@ namespace ShopC
             }
             else
             {
-                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.Remove_and_put_back_to_ShopShelf(x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentInvoice.m_ShopShelf))
+                if (this.m_ShopBC.m_CurrentInvoice.m_Basket.Remove_and_put_back_to_ShopShelf(DocInvoice,x_usrc_Atom_Item.m_appisd, this.m_ShopBC.m_CurrentInvoice.m_ShopShelf))
                 {
                     if (m_usrc_ItemList.Show(x_usrc_Atom_Item.m_appisd))
                     {
@@ -200,7 +200,7 @@ namespace ShopC
 
         internal usrc_Atom_Item AddFromStock(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
-            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(ref appisd,true))
+            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(DocInvoice,ref appisd,true))
             {
                 int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);
                 usrc_Atom_Item usrc_itema = (usrc_Atom_Item)m_usrc_Item_PageHandler.Show(index);
@@ -220,7 +220,7 @@ namespace ShopC
         internal usrc_Atom_Item AddFromFactory(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
 
-            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(ref appisd,false))
+            if (m_ShopBC.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(DocInvoice,ref appisd,false))
             {
 
                 int index = m_ShopBC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.IndexOf(appisd);

@@ -23,6 +23,34 @@ namespace ShopC
     public partial class usrc_ItemList : UserControl
     {
 
+        private string m_DocInvoice = "DocInvoice";
+
+        public string DocInvoice
+        {
+            get { return m_DocInvoice; }
+            set
+            {
+                string s = value;
+                if (s.Equals("DocInvoice") || s.Equals("DocProformaInvoice"))
+                {
+                    m_DocInvoice = s;
+                }
+            }
+        }
+
+        public bool IsDocInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocInvoice"); }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
+
+
         public int m_NumberOfItemsPerPage = 10;
         public int NumberOfItemsPerPage
         {

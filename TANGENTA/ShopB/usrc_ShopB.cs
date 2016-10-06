@@ -51,6 +51,29 @@ namespace ShopB
         string column_total_discount = "total_discount";
         string btn_Select_Name = "btn_Select";
 
+        private string m_DocInvoice = "DocInvoice";
+
+        public string DocInvoice
+        {
+            get { return m_DocInvoice; }
+            set
+            {
+                m_DocInvoice = value;
+            }
+        }
+
+        public bool IsDocInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocInvoice"); }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
+
         public usrc_ShopB()
         {
             InitializeComponent();
@@ -303,7 +326,8 @@ namespace ShopB
                     decimal PriceWithoutTax = 0;
 
 
-                    if (f_Atom_Price_ShopBItem.Get(Price_ShopBItem_ID,
+                    if (f_Atom_Price_ShopBItem.Get(DocInvoice,
+                                                    Price_ShopBItem_ID,
                                                     m_InvoiceDB.m_CurrentInvoice.DocInvoice_ID,
                                                     ref Atom_Price_ShopBItem_ID,
                                                     ref iCount,

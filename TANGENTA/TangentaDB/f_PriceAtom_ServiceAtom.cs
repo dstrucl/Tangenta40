@@ -18,7 +18,8 @@ namespace TangentaDB
 
     public static class f_Atom_Price_ShopBItem
     {
-        public static bool Get(long Price_SimpleItem_ID,
+        public static bool Get(string DocInvoice,
+                                 long Price_SimpleItem_ID,
                                  long DocInvoice_ID,
                                  ref long DocInvoice_ShopB_Item_ID,
                                  ref int Quantity,
@@ -89,7 +90,15 @@ namespace TangentaDB
                                     string sparam_TaxPrice = "@par_TaxPrice";
                                     DBConnectionControl40.SQL_Parameter par_TaxPrice = new DBConnectionControl40.SQL_Parameter(sparam_TaxPrice, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, TaxPrice);
                                     lpar.Add(par_TaxPrice);
-                                    string sql = @"insert into DocInvoice_ShopB_Item 
+                                    string sql = null;
+                                    if (DocInvoice == null)
+                                    {
+                                        LogFile.Error.Show("ERROR:TangentaDB:f_PriceAtom_ServiceAtom.cs:f_Atom_Price_ShopBItem:DocInvoice is null.");
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        sql = @"insert into "+DocInvoice+@"_ShopB_Item 
                                                             (RetailSimpleItemPrice,
                                                              Discount,
                                                              iQuantity,
@@ -99,7 +108,7 @@ namespace TangentaDB
                                                              Atom_SimpleItem_ID,
                                                              Atom_PriceList_ID,
                                                              Atom_Taxation_ID,
-                                                             DocInvoice_ID
+                                                             "+ DocInvoice + @"_ID
                                                             )
                                                             values
                                                             (" + sparam_RetailSimpleItemPrice + @",
@@ -113,9 +122,10 @@ namespace TangentaDB
                                                              " + Atom_Taxation_ID.ToString() + @",
                                                              " + DocInvoice_ID.ToString() + @"
                                                             )";
+                                    }
                                     object objretx = null;
                                     string Err = null;
-                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopB_Item_ID, ref objretx, ref Err, "DocInvoice_ShopB_Item"))
+                                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopB_Item_ID, ref objretx, ref Err, DocInvoice+"_ShopB_Item"))
                                     {
                                         return true;
                                     }

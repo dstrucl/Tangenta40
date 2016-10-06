@@ -51,7 +51,18 @@ namespace Tangenta
                     m_DocInvoice = s;
                 }
                 this.m_ShopABC.DocInvoice = m_DocInvoice;
-                this.m_usrc_ShopA.DocInvoice = m_DocInvoice; 
+                if (this.m_usrc_ShopA != null)
+                {
+                    this.m_usrc_ShopA.DocInvoice = m_DocInvoice;
+                }
+                if (this.m_usrc_ShopB!= null)
+                {
+                    this.m_usrc_ShopB.DocInvoice = m_DocInvoice;
+                }
+                if (this.m_usrc_ShopC != null)
+                {
+                    this.m_usrc_ShopC.DocInvoice = m_DocInvoice;
+                }
             }
         }
 
@@ -194,6 +205,7 @@ namespace Tangenta
             if (m_usrc_ShopB == null)
             {
                 m_usrc_ShopB = new usrc_ShopB();
+                m_usrc_ShopB.DocInvoice = this.DocInvoice;
             }
             m_usrc_ShopB.Init(this.m_ShopABC, DBtcn, Program.Shops_in_use, xnav);
             if (xnav != null)
@@ -215,6 +227,7 @@ namespace Tangenta
             if (m_usrc_ShopC == null)
             {
                 m_usrc_ShopC = new usrc_ShopC();
+                m_usrc_ShopC.DocInvoice = this.DocInvoice;
             }
             m_usrc_ShopC.Init(this.m_ShopABC, DBtcn,Program.Shops_in_use,xnav);
             if ((xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV) || (xnav.eExitResult == NavigationButtons.Navigation.eEvent.EXIT))

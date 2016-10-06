@@ -32,6 +32,8 @@ namespace TangentaDB
         public static long Atom_WorkPeriod_ID = -1;
 
         public static JOURNAL_DocInvoice_Type_definitions JOURNAL_DocInvoice_Type_definitions = new JOURNAL_DocInvoice_Type_definitions();
+        public static JOURNAL_DocProformaInvoice_Type_definitions JOURNAL_DocProformaInvoice_Type_definitions = new JOURNAL_DocProformaInvoice_Type_definitions();
+
         public static xCurrency BaseCurrency = null;
 
         public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -227,6 +229,18 @@ namespace TangentaDB
                 LogFile.Error.Show(Err);
                 return false;
             }
+        }
+
+        public static bool JOURNAL_type_definitions_Read()
+        {
+            if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
+            {
+                if (GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.Read())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

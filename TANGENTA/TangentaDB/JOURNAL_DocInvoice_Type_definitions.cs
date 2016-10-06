@@ -23,14 +23,6 @@ namespace TangentaDB
         public journaltype InvoicePaidTime = null;
         public journaltype InvoiceStornoTime = null;
 
-        public journaltype DocInvoiceTime = null;
-
-        public journaltype ProformaInvoiceDraftTime = null;
-        public journaltype ProformaInvoiceTime = null;
-        public journaltype ProformaInvoicePaidTime = null;
-
-        public journaltype DocProformaInvoiceTime = null;
-
 
         List<journaltype> journaltype_list = new List<journaltype>();
 
@@ -46,19 +38,6 @@ namespace TangentaDB
             journaltype_list.Add(InvoicePaidTime);
             InvoiceStornoTime = new journaltype("InvoiceStornoTime", lngRPM.s_InvoiceStornoTime_description.s); ;
             journaltype_list.Add(InvoiceStornoTime);
-
-            DocInvoiceTime = new journaltype("DocInvoiceTime", lngRPM.s_DocInvoiceTime_description.s);
-
-            //Proforma Invoice
-            ProformaInvoiceDraftTime = new journaltype("ProformaInvoiceDraftTime", lngRPM.s_InvoiceDraftTime_description.s); ;
-            journaltype_list.Add(ProformaInvoiceDraftTime);
-            ProformaInvoiceTime = new journaltype("ProformaInvoiceTime", lngRPM.s_InvoiceTime_description.s);
-            journaltype_list.Add(ProformaInvoiceTime);
-            InvoicePaidTime = new journaltype("ProformaInvoicePaidTime", lngRPM.s_InvoicePaidTime_description.s); ;
-            journaltype_list.Add(InvoicePaidTime);
-
-            DocProformaInvoiceTime = new journaltype("DocProformaInvoiceTime", lngRPM.s_DocInvoiceTime_description.s);
-            journaltype_list.Add(DocProformaInvoiceTime);
 
         }
 

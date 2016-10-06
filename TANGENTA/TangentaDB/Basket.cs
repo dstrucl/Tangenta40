@@ -29,7 +29,7 @@ namespace TangentaDB
                 Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)m_DocInvoice_ShopC_Item_Data_LIST[0];
                 if (appisd.dQuantity_FromStock > 0)
                 {
-                    Remove_and_put_back_to_ShopShelf(appisd, xShopShelf);
+                    Remove_and_put_back_to_ShopShelf(DocInvoice,appisd, xShopShelf);
                 }
                 if (appisd.dQuantity_FromFactory > 0)
                 {
@@ -237,7 +237,13 @@ namespace TangentaDB
         public bool RemoveFactory(string DocInvoice,Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
             string sql = null;
-            if (DocInvoice.Equals("DocInvoice"))
+
+            if (DocInvoice!=null)
+            {
+                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:DocInvoice=" + DocInvoice + " not implemented.");
+                return false;
+            }
+            else if (DocInvoice.Equals("DocInvoice"))
             {
                 sql = @"select appis.ID from DocInvoice_ShopC_Item  appis
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
@@ -300,7 +306,7 @@ namespace TangentaDB
                     object objret = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
                     {
-                        string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID (not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item)) and (not in  (select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item))";
+                        string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  ((select Atom_Price_Item_ID from DocInvoice_ShopC_Item) UNION (select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item))";
                         if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref objret, ref Err))
                         {
                             string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
@@ -424,18 +430,23 @@ namespace TangentaDB
         }
 
 
-        public bool Remove_and_put_back_to_ShopShelf(Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ShopShelf shopShelf)
+        public bool Remove_and_put_back_to_ShopShelf(string DocInvoice,Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, ShopShelf shopShelf)
         {
+            if (DocInvoice==null)
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:Basket.cs:Basket:Remove_and_put_back_to_ShopShelf: DocInvoice==null.");
+                return false;
+            }
             string sql = @"select appis.ID,
                                   s.ID as Stock_ID,
                                   appis.dQuantity,
                                   s.dQuantity as Stock_dQuantity
-                                  from DocInvoice_ShopC_Item  appis
+                                  from "+DocInvoice+@"_ShopC_Item  appis
                                   inner join Stock s on appis.Stock_ID = s.ID
                                   inner join Atom_price_item api on api.ID = appis.Atom_price_item_ID
                                   inner join Atom_Item ai on ai.ID = api.Atom_Item_ID
                                   inner join Item i on i.UniqueName = ai.UniqueName
-                                  where  (DocInvoice_ID = " + appisd.DocInvoice_ID.v.ToString() + ") and (i.ID=" + appisd.Item_ID.v.ToString() + ")";
+                                  where  ("+DocInvoice+@"_ID = " + appisd.DocInvoice_ID.v.ToString() + ") and (i.ID=" + appisd.Item_ID.v.ToString() + ")";
             DataTable dt1 = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt1, sql, ref Err))
@@ -475,11 +486,11 @@ namespace TangentaDB
                     if (UpdateStock(Return_to_basket_data_List, lpar))
                     {
 
-                        string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where Stock_ID is not null and (DocInvoice_ID = " + appisd.DocInvoice_ID.v.ToString()
-                                                                            + ") and DocInvoice_ShopC_Item.ID in " + s_in_ID_list;
+                        string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from "+DocInvoice+@"_ShopC_Item where Stock_ID is not null and ("+DocInvoice+@"_ID = " + appisd.DocInvoice_ID.v.ToString()
+                                                                            + ") and "+DocInvoice+@"_ShopC_Item.ID in " + s_in_ID_list;
                         if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
                         {
-                            string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item)";
+                            string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item UNION select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item)";
                             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref objret, ref Err))
                             {
                                 string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";
@@ -512,7 +523,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:Basket:delete from DocInvoice_ShopC_Item:Err=" + Err);
+                            LogFile.Error.Show("ERROR:Basket:delete from "+DocInvoice+"_ShopC_Item:Err=" + Err);
                             return false;
                         }
                     }

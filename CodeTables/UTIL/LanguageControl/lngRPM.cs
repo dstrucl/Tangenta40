@@ -266,6 +266,11 @@ namespace LanguageControl
         public static ltext s_Ignore = new ltext("Ignore", "Ignoriraj");
 
         public static ltext s_Are_Sure_To_Remove_All_From_Basket = new ltext("Are you sure to remove all items from basket ?", "Ste prepričani, da želite prestaviti vse artikle nazaj iz košare?");
+
+        public static ltext s_ProformaInvoiceDraftTime_description = new ltext("Proforma Invoice Draft Time", "Čas izdelave osnutka pred-računa");
+        public static ltext s_ProformaInvoiceTime_description = new ltext("Proforma Invoice Time", "Čas izdaje pred-računa");
+
+
         public static ltext s_InvoiceDraftTime_description = new ltext("Invoice Draft Time", "Čas izdelave osnutka računa");
         public static ltext s_InvoiceTime_description = new ltext("Invoice Time", "Čas izdaje računa");
         public static ltext s_InvoicePaidTime_description = new ltext("Invoice Paid Time", "Čas plačila računa");

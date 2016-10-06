@@ -286,7 +286,7 @@ namespace Tangenta
                     return false;
             }
             myStartup.eNextStep++;
-            return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+            return GlobalData.JOURNAL_type_definitions_Read();
 
         }
 
@@ -388,7 +388,7 @@ namespace Tangenta
                     else
                     {
                         myStartup.eNextStep = startup_step.eStep.GetOrganisationData;
-                        return GlobalData.JOURNAL_DocInvoice_Type_definitions.Read();
+                        return GlobalData.JOURNAL_type_definitions_Read();
                     }
                     return true;
                 }
@@ -412,7 +412,7 @@ namespace Tangenta
             {
                 if (fs.Init_Default_DB(ref Err))
                 {
-                    if (GlobalData.JOURNAL_DocInvoice_Type_definitions.Read())
+                    if (GlobalData.JOURNAL_type_definitions_Read())
                     {
                         myStartup.eNextStep++;
                         return true;

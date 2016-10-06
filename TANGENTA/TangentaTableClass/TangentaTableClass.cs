@@ -1822,6 +1822,7 @@ namespace TangentaTableClass
         public DocDuration DocDuration = new DocDuration();
         public DocDurationType DocDurationType = new DocDurationType();
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
+        public MethodOfPayment m_MethodOfPayment = new MethodOfPayment();
     }
 
     public class Doc_ImageLib

@@ -182,13 +182,13 @@ namespace TangentaDB
 
 
 
-        public bool Insert_DocInvoice_Atom_Price_Items_Stock(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock
+        public bool Insert_DocInvoice_Atom_Price_Items_Stock(string DocInvoice,ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock
                                                                     )
         {
-            return Get_DocInvoice_ShopC_Item(ref appisd, b_from_stock);
+            return Get_DocInvoice_ShopC_Item(DocInvoice,ref appisd, b_from_stock);
         }
 
-        private bool Get_DocInvoice_ShopC_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock)
+        private bool Get_DocInvoice_ShopC_Item(string DocInvoice,ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd, bool b_from_stock)
         {
             long Atom_Price_Item_ID = -1;
             if (Get_Atom_Price_Item(ref appisd))
@@ -285,13 +285,19 @@ namespace TangentaDB
                         sValue_ExpiryDate = "null";
                     }
 
-                    string sql_select_DocInvoice_ShopC_Item_ID = @"select ID as DocInvoice_ShopC_Item_ID, 
+                    if (DocInvoice==null)
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:CurrentInvoice.cs:Get_DocInvoice_ShopC_Item:DocInvoice==null.");
+                        return false;
+                    }
+
+                    string sql_select_DocInvoice_ShopC_Item_ID = @"select ID as "+DocInvoice+@"_ShopC_Item_ID, 
                                                                     dQuantity,
                                                                     ExtraDiscount,
                                                                     RetailPriceWithDiscount,
                                                                     TaxPrice
-                                                                    from DocInvoice_ShopC_Item
-                                                                    where DocInvoice_ID = " + DocInvoice_ID.ToString() + @" and
+                                                                    from "+DocInvoice+@"_ShopC_Item
+                                                                    where "+DocInvoice+@"_ID = " + DocInvoice_ID.ToString() + @" and
                                                                             Atom_Price_Item_ID = " + Atom_Price_Item_ID.ToString() + @" and "
                                                                                     + scond_ExpiryDate + @" and "
                                                                                     + scond_Stock_ID;
@@ -301,7 +307,7 @@ namespace TangentaDB
                     {
                         if (dt.Rows.Count > 0)
                         {
-                            appisd.DocInvoice_ShopC_Item_ID = tf.set_long(dt.Rows[0]["DocInvoice_ShopC_Item_ID"]);
+                            appisd.DocInvoice_ShopC_Item_ID = tf.set_long(dt.Rows[0][DocInvoice+"_ShopC_Item_ID"]);
                             // appisd.dQuantity_all.v = appisd.m_Warehouse.dQuantity_all;
                             appisd.RetailPriceWithDiscount = tf.set_decimal(dt.Rows[0]["RetailPriceWithDiscount"]);
                             appisd.ExtraDiscount = tf.set_decimal(dt.Rows[0]["ExtraDiscount"]);
@@ -314,13 +320,13 @@ namespace TangentaDB
 
 
 
-                            string sql_insert_DocInvoice_ShopC_Item_ID = @"insert into DocInvoice_ShopC_Item 
+                            string sql_insert_DocInvoice_ShopC_Item_ID = @"insert into "+DocInvoice+@"_ShopC_Item 
                                                                             (
                                                                             dQuantity,
                                                                             ExtraDiscount,
                                                                             RetailPriceWithDiscount,
                                                                             TaxPrice,
-                                                                            DocInvoice_ID,
+                                                                            "+DocInvoice+@"_ID,
                                                                             Atom_Price_Item_ID,
                                                                             ExpiryDate,
                                                                             Stock_ID
@@ -338,7 +344,7 @@ namespace TangentaDB
                                                                                     + ")";
                             object objret = null;
                             long DocInvoice_ShopC_Item_ID = -1;
-                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_DocInvoice_ShopC_Item_ID, lpar, ref DocInvoice_ShopC_Item_ID, ref objret, ref Err, DBtcn.stbl_DocInvoice_Atom_Item_Stock_TableName))
+                            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert_DocInvoice_ShopC_Item_ID, lpar, ref DocInvoice_ShopC_Item_ID, ref objret, ref Err, DocInvoice))
                             {
                                 appisd.DocInvoice_ShopC_Item_ID = tf.set_long(DocInvoice_ShopC_Item_ID);
 

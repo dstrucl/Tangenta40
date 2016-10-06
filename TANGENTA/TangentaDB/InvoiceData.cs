@@ -693,7 +693,7 @@ namespace TangentaDB
                                  pi.Invoice_Reference_Type,
                                  pi.Invoice_Reference_ID
                                  from JOURNAL_DocProformaInvoice jpi
-                                 inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
+                                 inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
                                  inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                  inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
@@ -858,7 +858,7 @@ namespace TangentaDB
                                  pi.Invoice_Reference_Type,
                                  pi.Invoice_Reference_ID
                                  from JOURNAL_DocProformaInvoice jpi
-                                 inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
+                                 inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
                                  inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
                                  inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
                                  inner join Atom_myOrganisation_Person amcp on Atom_WorkPeriod.Atom_myOrganisation_Person_ID = amcp.ID

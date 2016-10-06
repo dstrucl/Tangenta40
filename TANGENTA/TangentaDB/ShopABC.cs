@@ -702,7 +702,7 @@ namespace TangentaDB
                         return false;
                     }
                     object objret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref this.m_CurrentInvoice.DocInvoice_ID, ref objret, ref Err, DBtcn.stbl_DocInvoice_TableName))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref this.m_CurrentInvoice.DocInvoice_ID, ref objret, ref Err, DocInvoice))
                     {
                         long Journal_DocInvoice_ID = -1;
                         if (IsDocInvoice)
@@ -712,7 +712,7 @@ namespace TangentaDB
                         else if (IsDocProformaInvoice)
                         {
                             DateTime_v dt_v = new DateTime_v(DateTime.Now);
-                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, lngRPM.s_new_proforma_invoice_draft.s, null, dt_v, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
                         }
                         else
                         {

@@ -41,7 +41,45 @@ namespace ShopC
         private TangentaDB.ShopABC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
         public NavigationButtons.Navigation nav = null;
-       // private usrc_Invoice m_usrc_Invoice = null;
+        // private usrc_Invoice m_usrc_Invoice = null;
+        private string m_DocInvoice = "DocInvoice";
+
+        public string DocInvoice
+        {
+            get { return m_DocInvoice; }
+            set
+            {
+                string s = value;
+                if (s.Equals("DocInvoice") || s.Equals("DocProformaInvoice"))
+                {
+                    m_DocInvoice = s;
+                }
+                
+                if (this.usrc_Atom_ItemsList != null)
+                {
+                    this.usrc_Atom_ItemsList.DocInvoice = m_DocInvoice;
+                }
+                if (this.usrc_ItemList != null)
+                {
+                    this.usrc_ItemList.DocInvoice = m_DocInvoice;
+                }
+
+            }
+        }
+        public bool IsDocInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocInvoice"); }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            { return DocInvoice.Equals("DocProformaInvoice"); }
+        }
+
+
+
         public usrc_ShopC()
         {
             InitializeComponent();

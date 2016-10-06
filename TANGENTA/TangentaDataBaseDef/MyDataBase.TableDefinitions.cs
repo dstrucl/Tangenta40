@@ -2102,6 +2102,7 @@ namespace TangentaDataBaseDef
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.WarrantyDurationType, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration Type", "Tip trajanja garancije"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.WarrantyDuration, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration", "Garancijski čas"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_TermsOfPayment, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("TermsOfPayment ID", "Plačilni pogoji ID"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_MethodOfPayment, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("MethodOfPayment ID", "Način plačila ID"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.DocDuration, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Duration", "Veljavnost ponudbe"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.DocDurationType, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Duration Type", "Tip veljavnosti ponudbe"));
             m_DBTables.items.Add(t_DocProformaInvoice);
