@@ -36,6 +36,10 @@ namespace Tangenta
             InitializeComponent();
 
             Program.nav = new NavigationButtons.Navigation();
+            if (Program.Auto_NEXT)
+            {
+                Program.nav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(Program.Auto_NEXT_in_miliseconds);
+            }
             Program.nav.parentForm = this;
             Program.nav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
             Program.nav.btn1_Image = Properties.Resources.Prev;

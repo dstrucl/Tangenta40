@@ -31,9 +31,10 @@ namespace Tangenta
         #region Constants
         const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
         const string const_command_RESETNEW = "RESETNEW";
+        const string const_command_AUTONEXT = "AUTONEXT";
+        const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
         const string const_command_SYMULATOR = "SYMULATOR";
         const string const_command_RS232MONITOR = "RS232MONITOR";
-        const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
         #endregion
 
         #region Variables
@@ -43,6 +44,12 @@ namespace Tangenta
 
 
         internal static NavigationButtons.Navigation nav = null;
+        internal static bool m_bAutoNext = false;
+        internal static int Auto_NEXT_in_miliseconds = 10;
+        internal static bool Auto_NEXT
+        {
+            get { return m_bAutoNext && bFirstTimeInstallation; }
+        }
 
         internal static bool bStartup = true;
 
@@ -222,6 +229,16 @@ namespace Tangenta
                                 bReset2FactorySettings = false;
                             }
                         }
+                        if (s.Contains(const_command_AUTONEXT))
+                        {
+                            int iAutoNext = s.IndexOf(const_command_AUTONEXT);
+                            if (iAutoNext>=0)
+                            {
+                                iAutoNext += const_command_AUTONEXT.Length;
+                                Auto_NEXT_in_miliseconds = fs.GetFirstIntParamFromString(s.Substring(iAutoNext));
+                            }
+                            m_bAutoNext = true;
+                        }
                     }
                 }
             }       
@@ -290,8 +307,13 @@ DoSelectLanguage:
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
+                    command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lngRPM.s_commandline_AUTONEXT.s));
 
                     NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation();
+                    if (Auto_NEXT)
+                    {
+                        CommandLineHelpNav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(10);
+                    }
                     CommandLineHelpNav.bDoModal = true;
                     CommandLineHelpNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
                     if (bLanguageSelectDialogShown)

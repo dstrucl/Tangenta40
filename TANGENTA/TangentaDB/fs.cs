@@ -229,7 +229,29 @@ namespace TangentaDB
             }
         }
 
-    public static bool Init_Currency_Table(ref string Err)
+        public static int GetFirstIntParamFromString(string s)
+        {
+            int num = -1;
+            int i = 0;
+            int iLen = s.Length;
+            for (i=0;i< iLen;i++)
+            {
+                if (Char.IsDigit(s,i))
+                {
+                    string snum = "";
+                    while (i<iLen && Char.IsDigit(s[i]))
+                    {
+                        snum += s[i];
+                        i++;
+                    }
+                    num = Convert.ToInt32(snum);
+                    return num;
+                }
+            }
+            return num;
+        }
+
+        public static bool Init_Currency_Table(ref string Err)
         {
             string s_Currency_table_name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Currency)).TableName;
             string s_col_Name = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(TangentaTableClass.Currency)).FindColumn(DBSync.DBSync.DB_for_Tangenta.mt.m_Currency.Name.GetType()).Name;

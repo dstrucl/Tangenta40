@@ -1330,6 +1330,8 @@ namespace LanguageControl
         public static ltext s_commandline_SYMULATOR = new ltext("Enables SYMULATION for Press working places \r\n and Shows button Next in Press Forms", "Omogoči simulacijo preše tako, da v oknih za prešo prikaže \r\n gumb Next s katerim simuliramo vpis EAN kode v \"textbox\".");
         public static ltext s_commandline_CHANGE_CONNECTION = new ltext("Shows connection dialogs.\r\nThis command in command line enables you to change database connection at program startup.", "Prikaže dialoge za ustvarjanje povezav na strežnike.\r\nTo vam omogoči, da ob zagonu programa nastavite nove povezave na strežnike.");
         public static ltext s_commandline_RESETNEW = new ltext("Starts program without saved settings!", "Zažene program kot novo instalacijo brez vseh nastavitev!");
+        public static ltext s_commandline_AUTONEXT = new ltext("Starts program with automatic predefined setup! It works only with RESETNEW command", "Avtomastki zagon tako da program sam pritiska na gumb naprej, deluje samo če s zažene program kot novo instalacijo brez vseh nastavitev oziroma z /RESETNEW parametrom.");
+        
         public static ltext s_const_command_DIAGNOSTIC = new ltext("Enables Diagnostics of program speed.\r\n You can press F10 on main form to view speed results", "Omogoči diagnosticiranje hitrosti izvajanja programa. \r\n S pritsikom na F10 se prikaže okno z rezultati meritev.");
         public static ltext s_CreatePressDBTables = new ltext("Create PressDB Tables?", "Ustvarim tabele v PressDB?");
         public static ltext s_ConnectionToLocalDatabaseFailed = new ltext("Connection to SQLite database file was not successful.", "Povezava na SQLite podatkovno datoteko ni uspela!");

@@ -11,6 +11,8 @@ namespace NavigationButtons
 {
     public class Navigation
     {
+        public Auto_NEXT m_Auto_NEXT = null;
+
         public usrc_web_Help web_Help = null;
 
         public enum eButtons { PrevNextExit, OkCancel };
@@ -45,6 +47,8 @@ namespace NavigationButtons
         public bool btn3_Visible = true;
 
         public string ExitProgramQuestionInLanguage = null;
+
+        public bool Auto_NEXT { get { return (m_Auto_NEXT != null) && (m_eButtons == eButtons.PrevNextExit); } }
 
         public void ShowDialog()
         {

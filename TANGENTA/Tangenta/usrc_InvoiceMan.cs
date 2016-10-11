@@ -146,7 +146,16 @@ namespace Tangenta
             this.cmb_InvoiceType.DataSource = List_InvoiceType;
             this.cmb_InvoiceType.DisplayMember = "InvoiceType_Text";
             this.cmb_InvoiceType.ValueMember = "eInvoiceType";
-            this.cmb_InvoiceType.SelectedItem = this.m_usrc_Invoice.eInvoiceType;
+            switch (this.m_usrc_Invoice.eInvoiceType)
+            {
+                case usrc_Invoice.enum_Invoice.TaxInvoice:
+                    this.cmb_InvoiceType.SelectedIndex = 0;
+                    break;
+                case usrc_Invoice.enum_Invoice.ProformaInvoice:
+                    this.cmb_InvoiceType.SelectedIndex = 1;
+                    break;
+            }
+
             SetFinancialYears();
 
 

@@ -55,6 +55,16 @@ namespace Tangenta
             this.txt_ElectronicDevice_ID.Text = Properties.Settings.Default.ElectronicDevice_ID;
             this.txt_ElectronicDevice_ID.TextChanged += Txt_ElectronicDevice_ID_TextChanged;
             m_usrc_Main = usrc_Main;
+            if (nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
+            {
+                if (nav.m_Auto_NEXT != null)
+                {
+                    this.usrc_ShopsInuse1.chk_A_in_use.Checked = true;
+                    this.usrc_ShopsInuse1.chk_B_in_use.Checked = true;
+                    this.usrc_ShopsInuse1.chk_C_in_use.Checked = true;
+                }
+            }
+
         }
 
         private void Txt_ElectronicDevice_ID_TextChanged(object sender, EventArgs e)

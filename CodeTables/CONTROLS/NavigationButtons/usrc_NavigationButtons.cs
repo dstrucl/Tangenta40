@@ -14,11 +14,11 @@ namespace NavigationButtons
     public partial class usrc_NavigationButtons : UserControl
     {
         ToolTip toolTip1 = null;
-
         public delegate void delegate_button_pressed(Navigation.eEvent evt);
         public event delegate_button_pressed ButtonPressed;
 
-        
+        public System.Windows.Forms.Timer Timer_Next = null;
+
         public Navigation.eButtons m_eButtons = Navigation.eButtons.OkCancel;
 
         public Navigation.eButtons Buttons
@@ -207,6 +207,20 @@ namespace NavigationButtons
                     ExitQuestion = nav.ExitProgramQuestionInLanguage;
                 }
                 this.m_eButtons = nav.m_eButtons;
+                if (nav.m_Auto_NEXT != null)
+                {
+                    if (this.m_eButtons == Navigation.eButtons.PrevNextExit)
+                    {
+                        this.Timer_Next = new System.Windows.Forms.Timer(this.components);
+                        this.Timer_Next.Interval = nav.m_Auto_NEXT.NextButtonPressedInMiliSeconds;
+                        this.Timer_Next.Enabled = true;
+                        this.Timer_Next.Tick += Timer_Next_Tick;
+                    }
+                    else
+                    {
+                        MessageBox.Show("AUTO_NEXT works only with (this.m_eButtons == Navigation.eButtons.PrevNextExit");
+                    }
+                }
                 btn1.Visible = nav.btn1_Visible;
                 btn2.Visible = nav.btn2_Visible;
                 btn3.Visible = nav.btn3_Visible;
@@ -245,6 +259,11 @@ namespace NavigationButtons
                     btn2.Visible = true;
                     break;
             }
+        }
+
+        private void Timer_Next_Tick(object sender, EventArgs e)
+        {
+            ButtonPressed(Navigation.eEvent.NEXT);
         }
 
         private void btn1_Click(object sender, EventArgs e)

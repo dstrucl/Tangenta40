@@ -155,9 +155,9 @@
         private System.Windows.Forms.Label lbl_ShopB_Name;
         private System.Windows.Forms.TextBox txt_ShopA_Name;
         private System.Windows.Forms.Label lbl_ShopA_Name;
-        private System.Windows.Forms.CheckBox chk_C_in_use;
-        private System.Windows.Forms.CheckBox chk_B_in_use;
-        private System.Windows.Forms.CheckBox chk_A_in_use;
         private System.Windows.Forms.GroupBox grp_ShopsInUse;
+        public System.Windows.Forms.CheckBox chk_C_in_use;
+        public System.Windows.Forms.CheckBox chk_B_in_use;
+        public System.Windows.Forms.CheckBox chk_A_in_use;
     }
 }
