@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_myOrg_Office_Data_FVI_SLO_RealEstateBP
+    partial class Form_FVI_check
     {
         /// <summary>
         /// Required designer variable.
@@ -28,30 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_myOrg_Office_Data_FVI_SLO_RealEstateBP));
-            this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_FVI_check));
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
+            this.chk_FVI = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // usrc_EditTable1
-            // 
-            this.usrc_EditTable1.AllowUserToAddNew = true;
-            this.usrc_EditTable1.AllowUserToChange = true;
-            this.usrc_EditTable1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_EditTable1.GetRandomData = false;
-            this.usrc_EditTable1.Location = new System.Drawing.Point(1, 0);
-            this.usrc_EditTable1.Name = "usrc_EditTable1";
-            this.usrc_EditTable1.SelectionButtonVisible = true;
-            this.usrc_EditTable1.Size = new System.Drawing.Size(777, 542);
-            this.usrc_EditTable1.TabIndex = 0;
-            this.usrc_EditTable1.Title = "Urejanje Poslovnih enot";
-            this.usrc_EditTable1.Title_Color = System.Drawing.SystemColors.ControlText;
-            this.usrc_EditTable1.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usrc_EditTable1.FillTable += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_FillTable(this.usrc_EditTable1_FillTable);
-            this.usrc_EditTable1.after_New += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_New(this.usrc_EditTable1_after_New);
-            this.usrc_EditTable1.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable1_after_InsertInDataBase);
             // 
             // usrc_NavigationButtons1
             // 
@@ -69,10 +50,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(-2, 548);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(2, 196);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(781, 61);
-            this.usrc_NavigationButtons1.TabIndex = 1;
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(549, 63);
+            this.usrc_NavigationButtons1.TabIndex = 0;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
             this.usrc_NavigationButtons1.Text_NEXT = "";
@@ -83,26 +64,52 @@
             this.usrc_NavigationButtons1.Visible_PREV = true;
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
-            // Form_myOrg_Office_Data_FVI_SLO_RealEstateBP
+            // chk_FVI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(780, 608);
+            this.chk_FVI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chk_FVI.AutoSize = true;
+            this.chk_FVI.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chk_FVI.Location = new System.Drawing.Point(41, 155);
+            this.chk_FVI.Name = "chk_FVI";
+            this.chk_FVI.Size = new System.Drawing.Size(166, 35);
+            this.chk_FVI.TabIndex = 1;
+            this.chk_FVI.Text = "checkBox1";
+            this.chk_FVI.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(-1, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(552, 125);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            // 
+            // Form_FVI_check
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.ClientSize = new System.Drawing.Size(554, 261);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.chk_FVI);
             this.Controls.Add(this.usrc_NavigationButtons1);
-            this.Controls.Add(this.usrc_EditTable1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "Form_myOrg_Office_Data_FVI_SLO_RealEstateBP";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "Form_FVI_check";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form_myOrg_Offices_Edit";
-            this.Load += new System.EventHandler(this.Form_myOrg_Offices_Edit_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
+        private System.Windows.Forms.CheckBox chk_FVI;
+        private System.Windows.Forms.Label label1;
     }
 }

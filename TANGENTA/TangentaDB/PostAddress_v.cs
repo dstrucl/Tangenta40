@@ -19,6 +19,7 @@ namespace TangentaDB
 {
     public class PostAddress_v
     {
+        public const int SLO_Country_ISO_3166_num = 705;
         public dstring_v StreetName_v = null;
         public dstring_v HouseNumber_v = null;
         public dstring_v ZIP_v = null;

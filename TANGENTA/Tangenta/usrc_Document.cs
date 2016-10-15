@@ -46,14 +46,30 @@ namespace Tangenta
         {
             if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
             {
-                Program.b_FVI_SLO = true;
+do_Get_ProgramSettings:
                 if (Get_ProgramSettings(xnav, true))
                 {
                     switch (xnav.eExitResult)
                     {
                         case NavigationButtons.Navigation.eEvent.NEXT:
-                            myStartup.eNextStep++;
-                            return true;
+                            if (Get_FVI(xnav))
+                            {
+                                switch (xnav.eExitResult)
+                                {
+                                    case NavigationButtons.Navigation.eEvent.NEXT:
+                                        myStartup.eNextStep++;
+                                        return true;
+                                    case NavigationButtons.Navigation.eEvent.PREV:
+                                        goto do_Get_ProgramSettings;
+
+                                    case NavigationButtons.Navigation.eEvent.EXIT:
+                                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                                        return true;
+
+
+                                }
+                            }
+                            break;
 
                         case NavigationButtons.Navigation.eEvent.PREV:
                             myStartup.eNextStep--;
@@ -72,6 +88,36 @@ namespace Tangenta
             return false;
         }
 
+        private bool Get_FVI(Navigation xnav)
+        {
+            Program.b_FVI_SLO = false;
+            if (myOrg.Address_v!=null)
+            {
+                if (myOrg.Address_v.Country_ISO_3166_num == TangentaDB.PostAddress_v.SLO_Country_ISO_3166_num)
+                {
+                    Program.b_FVI_SLO = true;
+                    if (Program.bFirstTimeInstallation)
+                    {
+                        Do_Form_FVI_check:
+                        xnav.ChildDialog = new Form_FVI_check(xnav);
+                        xnav.ShowDialog();
+                        if (Program.b_FVI_SLO)
+                        {
+                            if (xnav.eExitResult == Navigation.eEvent.NEXT)
+                            {
+                                xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
+                                xnav.ShowDialog();
+                                if (xnav.eExitResult == Navigation.eEvent.PREV)
+                                {
+                                    goto Do_Form_FVI_check;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
 
         public bool Get_ProgramSettings(NavigationButtons.Navigation xnav,bool bResetShopsInUse)
         {

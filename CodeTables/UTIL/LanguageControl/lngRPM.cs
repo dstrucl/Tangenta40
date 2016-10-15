@@ -46,6 +46,9 @@ namespace LanguageControl
 
         #endregion
 
+        public static ltext s_FVI_instruction = new ltext("Fiscal verification of invoices is obligatory in Slovenia.\r\nIf you are from any reason not obligated to do fiscal verification of invoices please uncheck the checkbox below.", "Davčno potrjevanje računov pri davčni upravi je v Sloveniji obvezno.\r\nV kolikor niste zavezanec za davčno potrjevanje računov odstranite kljukico spodaj.");
+        public static ltext s_FVI_Check = new ltext("Fiscal Verification of invoices", "Davčno potrjevanje računov");
+
         public static ltext s_NoConnectionToDatabase_You_must_set_Database_connection_to_go_next_step = new ltext("There was no succesfull database connection check!\r\nPlease make succesful database connection check.\r\nYou can not go to next step, until succesfull database connection check.\\To check database connection press button Check database connection",
                                                                                                                   "Ni bilo uspešnega preverjanja povezave na podatkovno bazo!\r\nDa bi lahko pritisnili gumb za naprej mora biti povezava na podatkovno bazo uspešno preverjena. Preverjanje povezave na podatkovno bazo naredite tako da pritisnete na gumb:\"Preveri povezavo na podatkovno bazo\"");
         public static ltext s_Previous = new ltext("Previous", "Nazaj");
