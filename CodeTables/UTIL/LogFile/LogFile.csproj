@@ -397,6 +397,10 @@
       <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
       <Name>DigitalRune.Windows.TextEditor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IniFile\IniFile.csproj">
       <Project>{8de992ca-da95-4aef-ab52-01332a034536}</Project>
       <Name>IniFile</Name>

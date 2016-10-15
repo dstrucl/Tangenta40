@@ -279,7 +279,7 @@ namespace LogFile
             log2db_frm.ShowDialog();
         }
 
-        public static void LogManager()
+        public static Form LogManager(Form parentform)
         {
             if (ManageLogsDlg != null)
             {
@@ -291,9 +291,17 @@ namespace LogFile
             if (ManageLogsDlg == null)
             {
                 ManageLogsDlg = new ManageLogs_Form(Image_Cancel);
+                if (parentform!=null)
+                {
+                    if (parentform.TopMost)
+                    {
+                        ManageLogsDlg.TopMost = true;
+                    }
+                }
                 ManageLogsDlg.Show();
             }
             ManageLogsDlg.Activate();
+            return ManageLogsDlg;
         }
 
         public static void Trigger(bool p)

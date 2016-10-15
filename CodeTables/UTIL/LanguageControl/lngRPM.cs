@@ -238,6 +238,7 @@ namespace LanguageControl
         public static ltext s_btn_Currency = new ltext("Currency", "Valute");
         public static ltext s_btn_Taxation = new ltext("Taxation", "Davčne stopnje");
         public static ltext s_CodeTables = new ltext("Code tables", "Šifranti");
+        public static ltext s_CloseLogManagerDialog = new ltext("Close Log Manager Dialog!", "Končaj oziroma zapri dialog dnevniških nastavitev!");
         public static ltext s_YouHaveChangedLanguageYouMustRestartProgramToUseNewLanguage = new ltext("You have selected another language.\r\nYou must restart program to use another language.", "Izbrali ste drug jezik. Da bo program delal v novem jeziku, ponovno zaženite program.");
         public static ltext s_lbl_SimpleItems = new ltext("Store A", "Trgovina A");
         public static ltext s_lbl_SelectedSimpleItems = new ltext("Selected in Store A", "Izbrano iz A");

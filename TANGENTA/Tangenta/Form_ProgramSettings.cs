@@ -29,6 +29,7 @@ namespace Tangenta
         private usrc_Document m_usrc_Main;
         private bool bChanged = false;
         NavigationButtons.Navigation nav = null;
+        private Form LogManager_dlg = null;
 
         public Form_ProgramSettings(usrc_Document usrc_Main,NavigationButtons.Navigation xnav)
         {
@@ -109,7 +110,7 @@ namespace Tangenta
 
         private void btn_LogFile_Click(object sender, EventArgs e)
         {
-            LogFile.LogFile.LogManager();
+           LogManager_dlg = LogFile.LogFile.LogManager(this);
         }
 
 
@@ -135,9 +136,19 @@ namespace Tangenta
                     Properties.Settings.Default.ElectronicDevice_ID = this.txt_ElectronicDevice_ID.Text;
                     Properties.Settings.Default.Save();
                 }
-                this.Close();
-                DialogResult = DialogResult.OK;
-                return true;
+                if (LogManager_dlg != null)
+                {
+                    XMessage.Box.Show(this, lngRPM.s_CloseLogManagerDialog, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                    LogManager_dlg.Show();
+                    LogManager_dlg.Focus();
+                    return false;
+                }
+                else
+                {
+                    this.Close();
+                    DialogResult = DialogResult.OK;
+                    return true;
+                }
             }
             else
             {
@@ -147,6 +158,10 @@ namespace Tangenta
 
         private void do_Cancel()
         {
+            if (LogManager_dlg != null)
+            {
+                LogManager_dlg.Close();
+            }
             this.Close();
             DialogResult = DialogResult.Cancel;
         }
