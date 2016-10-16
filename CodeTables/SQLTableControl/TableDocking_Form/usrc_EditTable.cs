@@ -48,6 +48,7 @@ namespace CodeTables.TableDocking_Form
         public event usrc_EditRow.delegate_after_FillDataInputControl after_FillDataInputControl = null; 
 
         public event delegate_FillTable FillTable = null;
+
         public delegate void delegate_SetInputControlProperties(Column col, object obj);
         public event delegate_SetInputControlProperties SetInputControlProperties = null;
 

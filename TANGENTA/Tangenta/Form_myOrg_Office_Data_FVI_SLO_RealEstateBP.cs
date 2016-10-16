@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NavigationButtons;
 
 namespace Tangenta
 {
@@ -54,6 +55,7 @@ namespace Tangenta
                 else
                 {
                     usrc_EditTable1.FillInitialData();
+                    usrc_EditTable1.CallBackSetInputControlProperties(null);
                     usrc_EditTable1.AllowUserToAddNew = true;
                 }
             }
@@ -152,6 +154,44 @@ namespace Tangenta
                     break;
             }
 
+        }
+
+        private void usrc_EditTable1_SetInputControlProperties(Column col, object obj)
+        {
+            if (nav.m_eButtons == Navigation.eButtons.PrevNextExit)
+            {
+                if (col.ownerTable.TableName.Equals("FVI_SLO_RealEstateBP"))
+                {
+                    if (col.Name.Equals("BuildingNumber"))
+                    {
+                        col.InputControl.SetValue(1);
+                    }
+                    else if (col.Name.Equals("BuildingSectionNumber"))
+                    {
+                        col.InputControl.SetValue(1);
+                    }
+                    else if (col.Name.Equals("Community"))
+                    {
+                        col.InputControl.SetValue(lngRPMS.s_Community_Dravlje.s);
+                    }
+                    else if (col.Name.Equals("CadastralNumber"))
+                    {
+                        col.InputControl.SetValue(1738);
+                    }
+                    else if (col.Name.Equals("ValidityDate"))
+                    {
+                        col.InputControl.SetValue(new DateTime(2200,1,1));
+                    }
+                    else if (col.Name.Equals("ClosingTag"))
+                    {
+                        col.InputControl.SetValue("Z");
+                    }
+                    else if (col.Name.Equals("PremiseType"))
+                    {
+                        col.InputControl.SetValue("C");
+                    }
+                }
+            }
         }
     }
 }

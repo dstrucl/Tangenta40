@@ -670,11 +670,12 @@ namespace CodeTables.TableDocking_Form
 
         public void FillInitialData()
         {
+
             foreach (Column col in m_tbl.Column)
             {
-                if (col.fKey!=null)
+                if (col.fKey != null)
                 {
-                    if (col.fKey.fTable!=null)
+                    if (col.fKey.fTable != null)
                     {
                         col.fKey.fTable.FillTable(myFill);
                     }
