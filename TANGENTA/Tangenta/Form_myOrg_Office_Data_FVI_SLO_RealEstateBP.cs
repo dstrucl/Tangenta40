@@ -54,8 +54,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    usrc_EditTable1.FillInitialData();
-                    usrc_EditTable1.CallBackSetInputControlProperties(null);
+                    usrc_EditTable1.FillInitialDataAndSetInputControls(null);
                     usrc_EditTable1.AllowUserToAddNew = true;
                 }
             }
@@ -172,7 +171,7 @@ namespace Tangenta
                     }
                     else if (col.Name.Equals("Community"))
                     {
-                        col.InputControl.SetValue(lngRPMS.s_Community_Dravlje.s);
+                        col.InputControl.SetValue(lngRPMS.s_Community1.s);
                     }
                     else if (col.Name.Equals("CadastralNumber"))
                     {
@@ -185,6 +184,10 @@ namespace Tangenta
                     else if (col.Name.Equals("ClosingTag"))
                     {
                         col.InputControl.SetValue("Z");
+                    }
+                    else if (col.Name.Equals("SoftwareSupplier_TaxNumber"))
+                    {
+                        col.InputControl.SetValue("89304489");
                     }
                     else if (col.Name.Equals("PremiseType"))
                     {

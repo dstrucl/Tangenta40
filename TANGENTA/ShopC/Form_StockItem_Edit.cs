@@ -96,8 +96,7 @@ namespace ShopC
             PurchasePrice_Item_ID = null;
             if (f_PurchasePrice_Item.GetOneFrom_Item_ID(m_Item_Data.Item_ID.v, ref PurchasePrice_Item_ID))
             {
-                m_usrc_EditTable.FillInitialData();
-                m_usrc_EditTable.CallBackSetInputControlProperties(m_Item_Data.Unit_DecimalPlaces.v);
+                m_usrc_EditTable.FillInitialDataAndSetInputControls(m_Item_Data.Unit_DecimalPlaces.v);
             }
 
         }

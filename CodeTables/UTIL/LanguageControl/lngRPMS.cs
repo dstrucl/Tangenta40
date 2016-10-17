@@ -17,7 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPMS
     {
-        public static ltext s_Community_Dravlje = new ltext("Dravlje", "Dravlje");
+        public static ltext s_Community1 = new ltext("Community1", "Krajevna skupnost 1");
         public static ltext s_NumberOfItemsToInsert = new ltext("Number of items to insert ", "Število artiklov za vpis ");
         public static ltext s_JobInPercentDone = new ltext("Job done:", "Količina opravljenaga dela v odstotkih:");
         public static ltext s_WriteItemsToDatabase = new ltext("Number of items to write:", "Število artiklov za vpis:");

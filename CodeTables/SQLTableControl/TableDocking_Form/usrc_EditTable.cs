@@ -487,6 +487,13 @@ namespace CodeTables.TableDocking_Form
         }
 
 
+        public void FillInitialDataAndSetInputControls(object obj)
+        {
+            usrc_EditRow.FillInitialData();
+            usrc_EditRow.CallBackSetInputControlProperties(obj);
+        }
+
+
         private void usrc_EditRow_FillTable(SQLTable m_tbl)
         {
             if (this.FillTable!=null)

@@ -129,8 +129,7 @@ namespace PriseLists
                 {
                     if (nav.m_eButtons == Navigation.eButtons.PrevNextExit)
                     {
-                        this.usrc_EditTable_PriceList.FillInitialData();
-                        usrc_EditTable_PriceList.CallBackSetInputControlProperties(null);
+                        this.usrc_EditTable_PriceList.FillInitialDataAndSetInputControls(null);
                         return true;
                     }
                     else
