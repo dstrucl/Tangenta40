@@ -248,6 +248,10 @@
     <Content Include="Resources\TAX_Office_Transmission_ERROR.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
+      <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
+      <Name>NavigationButtons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3C726999-1AD1-4321-8D63-D1136A3F071C}</Project>
       <Name>DBTypes</Name>

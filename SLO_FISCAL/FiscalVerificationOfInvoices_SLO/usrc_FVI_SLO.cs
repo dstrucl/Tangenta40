@@ -421,7 +421,10 @@ namespace FiscalVerificationOfInvoices_SLO
                     else
                     {
                         MessageBox.Show(ErrReason);
-                        Form_Settings fvi_settings = new Form_Settings(this);
+                        NavigationButtons.Navigation nav_Form_Settings = new NavigationButtons.Navigation();
+                        nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                        nav_Form_Settings.bDoModal = true;
+                        Form_Settings fvi_settings = new Form_Settings(this, nav_Form_Settings);
                         dlgResult = fvi_settings.ShowDialog();
                     }
                 }

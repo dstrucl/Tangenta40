@@ -238,9 +238,9 @@ namespace TangentaDB
         {
             string sql = null;
 
-            if (DocInvoice!=null)
+            if (DocInvoice==null)
             {
-                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:DocInvoice=" + DocInvoice + " not implemented.");
+                LogFile.Error.Show("ERROR:Basket.cs:Basket:RemoveFactory:DocInvoice= null not implemented.");
                 return false;
             }
             else if (DocInvoice.Equals("DocInvoice"))
@@ -306,7 +306,7 @@ namespace TangentaDB
                     object objret = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
                     {
-                        string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  ((select Atom_Price_Item_ID from DocInvoice_ShopC_Item) UNION (select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item))";
+                        string sql_Delete_Atom_Price_Item = "delete from Atom_Price_Item where ID not in  (select Atom_Price_Item_ID from DocInvoice_ShopC_Item UNION select Atom_Price_Item_ID from DocProformaInvoice_ShopC_Item)";
                         if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_Atom_Price_Item, null, ref objret, ref Err))
                         {
                             string sql_Delete_Atom_Item_Image = "delete from Atom_Item_Image where Atom_Item_Image.Atom_Item_ID not in (select Atom_Item_ID from Atom_Price_Item)";

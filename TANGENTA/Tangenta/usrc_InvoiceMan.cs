@@ -122,6 +122,8 @@ namespace Tangenta
         internal bool Init(NavigationButtons.Navigation xnav)
         {
             Program.Cursor_Wait();
+            Properties.Settings.Default.LastDocInvoiceType = "DocInvoice";
+            Properties.Settings.Default.Save();
             string sLastDocInvoiceType = Properties.Settings.Default.LastDocInvoiceType;
             if (sLastDocInvoiceType.Equals("DocInvoice"))
             {

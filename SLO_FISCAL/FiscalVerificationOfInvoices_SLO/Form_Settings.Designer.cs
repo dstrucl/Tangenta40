@@ -32,8 +32,6 @@
             this.chk_DebugAndTest = new System.Windows.Forms.CheckBox();
             this.lbl_timeOutInSec = new System.Windows.Forms.Label();
             this.nm_UpDown_timeOutInSec = new System.Windows.Forms.NumericUpDown();
-            this.btn_OK = new System.Windows.Forms.Button();
-            this.btn_Cancel = new System.Windows.Forms.Button();
             this.nm_TimeToShoqSuccessfulFURS_Transaction = new System.Windows.Forms.NumericUpDown();
             this.lbl_TimeToShowFURSSuccessfulResult = new System.Windows.Forms.Label();
             this.nm_QRSizeWidth = new System.Windows.Forms.NumericUpDown();
@@ -52,6 +50,7 @@
             this.txt_SalesBookInvoice_SerialNumber_Format = new System.Windows.Forms.TextBox();
             this.lbl_SalesBookInvoice_Last_SetNumber = new System.Windows.Forms.Label();
             this.lbl_SalesBookInvoice_Current_SerialNumber = new System.Windows.Forms.Label();
+            this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).BeginInit();
@@ -106,28 +105,6 @@
             0,
             0,
             0});
-            // 
-            // btn_OK
-            // 
-            this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OK.Location = new System.Drawing.Point(8, 824);
-            this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(87, 25);
-            this.btn_OK.TabIndex = 12;
-            this.btn_OK.Text = "OK";
-            this.btn_OK.UseVisualStyleBackColor = true;
-            this.btn_OK.Click += new System.EventHandler(this.btn_OK_Click);
-            // 
-            // btn_Cancel
-            // 
-            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Cancel.Location = new System.Drawing.Point(129, 824);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(87, 25);
-            this.btn_Cancel.TabIndex = 13;
-            this.btn_Cancel.Text = "PREKINI";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // nm_TimeToShoqSuccessfulFURS_Transaction
             // 
@@ -226,8 +203,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.usrc_FURS_environment_settings_TEST);
-            this.splitContainer1.Size = new System.Drawing.Size(901, 739);
-            this.splitContainer1.SplitterDistance = 363;
+            this.splitContainer1.Size = new System.Drawing.Size(910, 651);
+            this.splitContainer1.SplitterDistance = 343;
             this.splitContainer1.TabIndex = 22;
             // 
             // usrc_FURS_environment_settings
@@ -238,7 +215,7 @@
             this.usrc_FURS_environment_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings.Name = "usrc_FURS_environment_settings";
-            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(897, 359);
+            this.usrc_FURS_environment_settings.Size = new System.Drawing.Size(906, 339);
             this.usrc_FURS_environment_settings.TabIndex = 18;
             // 
             // usrc_FURS_environment_settings_TEST
@@ -249,7 +226,7 @@
             this.usrc_FURS_environment_settings_TEST.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_FURS_environment_settings_TEST.Location = new System.Drawing.Point(0, 0);
             this.usrc_FURS_environment_settings_TEST.Name = "usrc_FURS_environment_settings_TEST";
-            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(897, 368);
+            this.usrc_FURS_environment_settings_TEST.Size = new System.Drawing.Size(906, 300);
             this.usrc_FURS_environment_settings_TEST.TabIndex = 19;
             // 
             // txt_SalesBookInvoice_Current_SerialNumber
@@ -364,14 +341,42 @@
             this.lbl_SalesBookInvoice_Current_SerialNumber.Size = new System.Drawing.Size(121, 13);
             this.lbl_SalesBookInvoice_Current_SerialNumber.TabIndex = 28;
             this.lbl_SalesBookInvoice_Current_SerialNumber.Text = "Tekoča serijska številka";
-            this.lbl_SalesBookInvoice_Current_SerialNumber.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // usrc_NavigationButtons1
+            // 
+            this.usrc_NavigationButtons1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
+            this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
+            this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
+            this.usrc_NavigationButtons1.Image_Cancel = null;
+            this.usrc_NavigationButtons1.Image_EXIT = null;
+            this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
+            this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
+            this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(8, 736);
+            this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(905, 73);
+            this.usrc_NavigationButtons1.TabIndex = 28;
+            this.usrc_NavigationButtons1.Text_Cancel = "Exit";
+            this.usrc_NavigationButtons1.Text_EXIT = "Exit";
+            this.usrc_NavigationButtons1.Text_NEXT = "";
+            this.usrc_NavigationButtons1.Text_OK = "";
+            this.usrc_NavigationButtons1.Text_PREV = "";
+            this.usrc_NavigationButtons1.Visible_EXIT = true;
+            this.usrc_NavigationButtons1.Visible_NEXT = true;
+            this.usrc_NavigationButtons1.Visible_PREV = true;
+            this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(916, 858);
+            this.ClientSize = new System.Drawing.Size(925, 813);
+            this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.grp_SalesBookInvoice);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.rdb_FURS_TEST_Environment);
@@ -380,8 +385,6 @@
             this.Controls.Add(this.lbl_QRSizeWidth);
             this.Controls.Add(this.nm_TimeToShoqSuccessfulFURS_Transaction);
             this.Controls.Add(this.lbl_TimeToShowFURSSuccessfulResult);
-            this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.nm_UpDown_timeOutInSec);
             this.Controls.Add(this.lbl_timeOutInSec);
             this.Controls.Add(this.chk_DebugAndTest);
@@ -389,7 +392,6 @@
             this.Name = "Form_Settings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nastavitve za komunikacijo z DAVČNO UPRAVO";
-            this.Load += new System.EventHandler(this.Form_Settings_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nm_UpDown_timeOutInSec)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_TimeToShoqSuccessfulFURS_Transaction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nm_QRSizeWidth)).EndInit();
@@ -411,8 +413,6 @@
         private System.Windows.Forms.CheckBox chk_DebugAndTest;
         private System.Windows.Forms.Label lbl_timeOutInSec;
         private System.Windows.Forms.NumericUpDown nm_UpDown_timeOutInSec;
-        private System.Windows.Forms.Button btn_OK;
-        private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.NumericUpDown nm_TimeToShoqSuccessfulFURS_Transaction;
         private System.Windows.Forms.Label lbl_TimeToShowFURSSuccessfulResult;
         private System.Windows.Forms.NumericUpDown nm_QRSizeWidth;
@@ -431,5 +431,6 @@
         private System.Windows.Forms.NumericUpDown nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook;
         private System.Windows.Forms.Label lbl_SalesBookInvoice_NumberOfAllSetsWithinOneBook;
         private System.Windows.Forms.NumericUpDown nm_UpDn_SalesBookInvoice_Last_SetNumber;
+        private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
     }
 }

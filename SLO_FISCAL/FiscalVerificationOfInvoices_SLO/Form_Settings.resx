@@ -118,6 +118,66 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="usrc_NavigationButtons1.Image_NEXT" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        Qk22AwAAAAAAADYAAAAoAAAAEgAAABAAAAABABgAAAAAAAAAAADDDgAAww4AAAAAAAAAAAAA4eHh4eHh
+        4eHh4eHh4eHh4eHh4eHh4eHh4eHhTLEi4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAADh4eHh4eHh4eHh
+        4eHh4eHh4eHh4eHh4eHh4eFMsSJMsSLh4eHh4eHh4eHh4eHh4eHh4eHh4eEAAOHh4eHh4eHh4eHh4eHh
+        4eHh4eHh4eHh4eHh4UyxIkyxIkyxIuHh4eHh4eHh4eHh4eHh4eHh4QAA4eHh4eHh4eHh4eHh4eHh4eHh
+        4eHh4eHh4eHhTLEi////TLEiTLEi4eHh4eHh4eHh4eHh4eHhAADh4eHh4eHh4eHh4eHh4eHh4eHh4eHh
+        4eHh4eFMsSL///////9MsSJMsSLh4eHh4eHh4eHh4eEAAOHh4UyxIkyxIkyxIkyxIkyxIkyxIkyxIkyx
+        IkyxIv///////////0yxIkyxIuHh4eHh4eHh4QAA4eHhTLEi////////////////////////////////
+        ////////////////TLEiTLEi4eHh4eHhAADh4eFMsSL/////////////////////////////////////
+        //////////////9MsSJMsSLh4eEAAOHh4UyxIv//////////////////////////////////////////
+        /////////0yxIkyxIuHh4QAA4eHhTLEi////////////////////////////////////////////////
+        TLEiTLEi4eHh4eHhAADh4eFMsSJMsSJMsSJMsSJMsSJMsSJMsSJMsSJMsSL///////////9MsSJMsSLh
+        4eHh4eHh4eEAAOHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4UyxIv///////0yxIkyxIuHh4eHh4eHh
+        4eHh4QAA4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhTLEi////TLEiTLEi4eHh4eHh4eHh4eHh4eHh
+        AADh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eFMsSJMsSJMsSLh4eHh4eHh4eHh4eHh4eHh4eEAAOHh
+        4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4UyxIkyxIuHh4eHh4eHh4eHh4eHh4eHh4eHh4QAA4eHh4eHh
+        4eHh4eHh4eHh4eHh4eHh4eHh4eHhTLEi4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAAA=
+</value>
+  </data>
+  <data name="usrc_NavigationButtons1.Image_OK" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        Qk22AwAAAAAAADYAAAAoAAAAEgAAABAAAAABABgAAAAAAAAAAADDDgAAww4AAAAAAAAAAAAA4eHh4eHh
+        4eHh4eHh4eHh4eHh4eHh4eHhV3q54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAADh4eHh4eHh4eHh
+        4eHh4eHh4eHh4eFXerlXernh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eEAAOHh4eHh4eHh4eHh4eHh
+        4eHh4Vd6uVd6uVd6ueHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4QAA4eHh4eHh4eHh4eHh4eHhV3q5
+        V3q5////V3q54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAADh4eHh4eHh4eHh4eFXerlXern/////
+        //9Xernh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eEAAOHh4eHh4eHh4Vd6uVd6uf///////////1d6
+        uVd6uVd6uVd6uVd6uVd6uVd6uVd6uVd6ueHh4QAA4eHh4eHhV3q5V3q5////////////////////////
+        ////////////////////////V3q54eHhAADh4eFXerlXern/////////////////////////////////
+        //////////////////9Xernh4eEAAOHh4Vd6uVd6uf//////////////////////////////////////
+        /////////////1d6ueHh4QAA4eHh4eHhV3q5V3q5////////////////////////////////////////
+        ////////V3q54eHhAADh4eHh4eHh4eFXerlXern///////////9XerlXerlXerlXerlXerlXerlXerlX
+        erlXernh4eEAAOHh4eHh4eHh4eHh4Vd6uVd6uf///////1d6ueHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh
+        4eHh4QAA4eHh4eHh4eHh4eHh4eHhV3q5V3q5////V3q54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh
+        AADh4eHh4eHh4eHh4eHh4eHh4eFXerlXerlXernh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eEAAOHh
+        4eHh4eHh4eHh4eHh4eHh4eHh4Vd6uVd6ueHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4QAA4eHh4eHh
+        4eHh4eHh4eHh4eHh4eHh4eHhV3q54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAAA=
+</value>
+  </data>
+  <data name="usrc_NavigationButtons1.Image_PREV" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        Qk22AwAAAAAAADYAAAAoAAAAEgAAABAAAAABABgAAAAAAAAAAADDDgAAww4AAAAAAAAAAAAA4eHh4eHh
+        4eHh4eHh4eHh4eHh4eHh4eHhV3q54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAADh4eHh4eHh4eHh
+        4eHh4eHh4eHh4eFXerlXernh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eEAAOHh4eHh4eHh4eHh4eHh
+        4eHh4Vd6uVd6uVd6ueHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4QAA4eHh4eHh4eHh4eHh4eHhV3q5
+        V3q5////V3q54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAADh4eHh4eHh4eHh4eFXerlXern/////
+        //9Xernh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eEAAOHh4eHh4eHh4Vd6uVd6uf///////////1d6
+        uVd6uVd6uVd6uVd6uVd6uVd6uVd6uVd6ueHh4QAA4eHh4eHhV3q5V3q5////////////////////////
+        ////////////////////////V3q54eHhAADh4eFXerlXern/////////////////////////////////
+        //////////////////9Xernh4eEAAOHh4Vd6uVd6uf//////////////////////////////////////
+        /////////////1d6ueHh4QAA4eHh4eHhV3q5V3q5////////////////////////////////////////
+        ////////V3q54eHhAADh4eHh4eHh4eFXerlXern///////////9XerlXerlXerlXerlXerlXerlXerlX
+        erlXernh4eEAAOHh4eHh4eHh4eHh4Vd6uVd6uf///////1d6ueHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh
+        4eHh4QAA4eHh4eHh4eHh4eHh4eHhV3q5V3q5////V3q54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh
+        AADh4eHh4eHh4eHh4eHh4eHh4eFXerlXerlXernh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eEAAOHh
+        4eHh4eHh4eHh4eHh4eHh4eHh4Vd6uVd6ueHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4QAA4eHh4eHh
+        4eHh4eHh4eHh4eHh4eHh4eHhV3q54eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAAA=
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAIAICAAAAAACACoCAAAJgAAABAQAAAAAAgAaAUAAM4IAAAoAAAAIAAAAEAAAAABAAgAAAAAAAAE

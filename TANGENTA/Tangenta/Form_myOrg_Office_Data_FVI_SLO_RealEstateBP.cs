@@ -67,6 +67,10 @@ namespace Tangenta
 
         private bool do_OK()
         {
+            if (usrc_EditTable1.Changed)
+            {
+                usrc_EditTable1.Save();
+            }
             this.Close();
             DialogResult = DialogResult.OK;
             return true;

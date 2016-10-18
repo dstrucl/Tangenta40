@@ -98,18 +98,29 @@ do_Get_ProgramSettings:
                     Program.b_FVI_SLO = true;
                     if (Program.bFirstTimeInstallation)
                     {
-                        Do_Form_FVI_check:
+Do_Form_FVI_check:
                         xnav.ChildDialog = new Form_FVI_check(xnav);
                         xnav.ShowDialog();
                         if (Program.b_FVI_SLO)
                         {
                             if (xnav.eExitResult == Navigation.eEvent.NEXT)
                             {
+Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
+
                                 xnav.ChildDialog = new Form_myOrg_Office_Data_FVI_SLO_RealEstateBP(myOrg.myOrg_Office_list[0].Office_Data_ID_v.v, xnav);
                                 xnav.ShowDialog();
                                 if (xnav.eExitResult == Navigation.eEvent.PREV)
                                 {
                                     goto Do_Form_FVI_check;
+                                }
+                                else if (xnav.eExitResult == Navigation.eEvent.NEXT)
+                                {
+                                    xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1,xnav);
+                                    xnav.ShowDialog();
+                                    if (xnav.eExitResult == Navigation.eEvent.PREV)
+                                    {
+                                        goto Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP;
+                                    }
                                 }
                             }
                         }

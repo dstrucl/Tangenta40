@@ -28,14 +28,14 @@ namespace FiscalVerificationOfInvoices_SLO
         //public string fursWebServiceURL = null;
         //public string fursXmlNamespace = null;
         public int timeOutInSec = -1;
+        NavigationButtons.Navigation nav = null;
 
-
-        public Form_Settings(usrc_FVI_SLO x_usrc_FVI_SLO)
+        public Form_Settings(usrc_FVI_SLO x_usrc_FVI_SLO,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
-
+            nav = xnav;
             m_usrc_FVI_SLO = x_usrc_FVI_SLO;
-
+            usrc_NavigationButtons1.Init(nav);
             Properties.Settings.Default.timeOutInSec = SetValue(nm_UpDown_timeOutInSec,Properties.Settings.Default.timeOutInSec);
             Properties.Settings.Default.timeToShowSuccessfulFURSResult = SetValue(this.nm_TimeToShoqSuccessfulFURS_Transaction, Properties.Settings.Default.timeToShowSuccessfulFURSResult);
             Properties.Settings.Default.QRImageWidth = SetValue(this.nm_QRSizeWidth, Properties.Settings.Default.QRImageWidth);
@@ -135,13 +135,13 @@ namespace FiscalVerificationOfInvoices_SLO
 
        
 
-        private void btn_Cancel_Click(object sender, EventArgs e)
+        private void Do_Cancel()
         {
             this.Close();
             DialogResult = DialogResult.Cancel;
         }
 
-        public void btn_OK_Click(object sender, EventArgs e)
+        public void Do_OK()
         {
             this.usrc_FURS_environment_settings.Save();
             this.usrc_FURS_environment_settings_TEST.Save();
@@ -159,14 +159,41 @@ namespace FiscalVerificationOfInvoices_SLO
             this.Close();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
-
-        }
-
-        private void Form_Settings_Load(object sender, EventArgs e)
-        {
-
+            switch (nav.m_eButtons)
+            {
+                case NavigationButtons.Navigation.eButtons.PrevNextExit:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.NEXT:
+                            Do_OK();
+                                nav.eExitResult = evt;
+                            return;
+                        case NavigationButtons.Navigation.eEvent.PREV:
+                            Do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                        case NavigationButtons.Navigation.eEvent.EXIT:
+                            Do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                    }
+                    break;
+                case NavigationButtons.Navigation.eButtons.OkCancel:
+                    switch (evt)
+                    {
+                        case NavigationButtons.Navigation.eEvent.OK:
+                            Do_OK();
+                            nav.eExitResult = evt;
+                            return;
+                        case NavigationButtons.Navigation.eEvent.CANCEL:
+                            Do_Cancel();
+                            nav.eExitResult = evt;
+                            return;
+                    }
+                    break;
+            }
         }
     }
 }

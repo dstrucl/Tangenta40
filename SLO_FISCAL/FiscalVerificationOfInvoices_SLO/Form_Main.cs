@@ -51,7 +51,10 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            Form_Settings fvi_settings = new Form_Settings(m_usrc_FVI_SLO);
+            NavigationButtons.Navigation nav_Form_Settings = new NavigationButtons.Navigation();
+            nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+            nav_Form_Settings.bDoModal = true;
+            Form_Settings fvi_settings = new Form_Settings(m_usrc_FVI_SLO, nav_Form_Settings);
             fvi_settings.ShowDialog(this);
             Init();
         }
