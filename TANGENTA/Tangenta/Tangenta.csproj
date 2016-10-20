@@ -165,6 +165,12 @@
     <Compile Include="Form_myOrg_Person_Edit.Designer.cs">
       <DependentUpon>Form_myOrg_Person_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_NewDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_NewDocument.Designer.cs">
+      <DependentUpon>Form_NewDocument.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Notice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -559,6 +565,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_myOrg_Person_Edit.resx">
       <DependentUpon>Form_myOrg_Person_Edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_NewDocument.resx">
+      <DependentUpon>Form_NewDocument.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Notice.resx">
       <DependentUpon>Form_Notice.cs</DependentUpon>

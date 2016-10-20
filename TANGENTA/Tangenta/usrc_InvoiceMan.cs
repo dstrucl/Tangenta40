@@ -122,6 +122,7 @@ namespace Tangenta
         internal bool Init(NavigationButtons.Navigation xnav)
         {
             Program.Cursor_Wait();
+            this.cmb_InvoiceType.SelectedIndexChanged -= new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
             string sLastDocInvoiceType = null;
             if (Program.RunAs == null)
             {
@@ -171,9 +172,18 @@ namespace Tangenta
 
 
             splitContainer1.Panel2Collapsed = false;
-            string Err = null;
+
+            bool bRes = SetDocument(xnav);
+
+            this.cmb_InvoiceType.SelectedIndexChanged += new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
+
+            Program.Cursor_Arrow();
+            return bRes;
+        }
 
 
+        private bool SetDocument(NavigationButtons.Navigation xnav)
+        {
             int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear);
 
             if (!m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID))
@@ -184,11 +194,8 @@ namespace Tangenta
 
             SetInitialMode();
             SetMode(Mode);
-            Program.Cursor_Arrow();
             return true;
-
         }
-
         private bool SetFinancialYears()
         {
             cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
@@ -290,7 +297,7 @@ namespace Tangenta
             }
         }
 
-        private void btn_New_Click(object sender, EventArgs e)
+        private void New_Empty_Doc()
         {
             Program.Cursor_Wait();
             if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
@@ -299,14 +306,14 @@ namespace Tangenta
                 Tangenta.usrc_Invoice.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
                 if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
                 {
-                    System.Data.DataRowView drv = (System.Data.DataRowView) cmb_FinancialYear.SelectedItem;
-                    int FinancialYear = (int)drv.Row.ItemArray[0]; 
+                    System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
+                    int FinancialYear = (int)drv.Row.ItemArray[0];
 
                     m_usrc_Invoice.SetNewDraft(eInvType, FinancialYear);
                     DateTime dtStart = DateTime.Now;
                     DateTime dtEnd = DateTime.Now;
                     m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
-                    m_usrc_InvoiceTable.Init(eInvType,true,false,Properties.Settings.Default.FinancialYear);
+                    m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear);
                 }
                 else
                 {
@@ -317,6 +324,34 @@ namespace Tangenta
             Program.Cursor_Arrow();
         }
 
+        private void btn_New_Click(object sender, EventArgs e)
+        {
+            Form_NewDocument frm_new = new Form_NewDocument(this);
+            frm_new.ShowDialog(this);
+            switch (frm_new.eNewDocumentResult)
+            {
+                case Form_NewDocument.e_NewDocument.New_Empty:
+                    New_Empty_Doc();
+                    break;
+
+                case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
+                    New_Copy_Of_SameDocType();
+                    break;
+                case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
+                    New_Copy_To_Another_DocType();
+                    break;
+            }
+        }
+
+        private void New_Copy_To_Another_DocType()
+        {
+            MessageBox.Show("NOT implemented New_Copy_To_Another_DocType()");
+        }
+
+        private void New_Copy_Of_SameDocType()
+        {
+            MessageBox.Show("NOT implemented New_Copy_Of_SameDocType()");
+        }
 
         private void m_usrc_Invoice_Customer_Person_Changed(long Customer_Person_ID)
         {
@@ -382,5 +417,20 @@ namespace Tangenta
             this.m_usrc_InvoiceTable.Activate_dgvx_XInvoice_SelectionChanged();
         }
 
+        private void cmb_InvoiceType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Program.Cursor_Wait();
+            switch (cmb_InvoiceType.SelectedIndex)
+            {
+                case 0: // usrc_Invoice.enum_Invoice.TaxInvoice:
+                    DocInvoice = "DocInvoice";
+                    break;
+                case 1: // usrc_Invoice.enum_Invoice.ProformaInvoice:
+                    DocInvoice = "DocProformaInvoice";
+                    break;
+            }
+            bool bRes = SetDocument(null);
+            Program.Cursor_Arrow();
+        }
     }
 }

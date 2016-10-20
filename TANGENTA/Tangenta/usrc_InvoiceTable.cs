@@ -159,6 +159,7 @@ namespace Tangenta
         {
             m_bInvoice = bInvoice;
             int iRowsCount = -1;
+            iCurrentSelectedRow = -1;
             string s_JOURNAL_DocInvoice_Type_ID_InvoiceDraftTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString();
             string s_JOURNAL_DocInvoice_Type_ID_InvoiceStornoTime = GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString();
             string s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime = GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString();
@@ -440,15 +441,6 @@ namespace Tangenta
                 LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt.ID
                 " + cond + " and (JOURNAL_DocProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime + ") order by JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear desc,JOURNAL_DocProformaInvoice_$_dpinv_$$Draft desc, JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear desc, JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber desc";
             }
-            if (!bNew)
-            {
-                DataGridViewSelectedRowCollection dgvxc = dgvx_XInvoice.SelectedRows;
-                if (dgvxc.Count>0)
-                {
-                    DataGridViewRow dgvr = dgvxc[0];
-                    iCurrentSelectedRow = dgvx_XInvoice.Rows.IndexOf(dgvr);
-                }
-            }
             bIgnoreChangeSelectionEvent = true;
             dt_XInvoice.Clear();
             dt_XInvoice.Columns.Clear();
@@ -459,6 +451,17 @@ namespace Tangenta
             if (bRes)
             {
                 dgvx_XInvoice.DataSource = dt_XInvoice;
+
+                if (!bNew)
+                {
+                    DataGridViewSelectedRowCollection dgvxc = dgvx_XInvoice.SelectedRows;
+                    if (dgvxc.Count > 0)
+                    {
+                        DataGridViewRow dgvr = dgvxc[0];
+                        iCurrentSelectedRow = dgvx_XInvoice.Rows.IndexOf(dgvr);
+                    }
+                }
+
                 if (IsDocInvoice)
                 {
                     iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
@@ -521,7 +524,7 @@ namespace Tangenta
                             }
                             else if (Properties.Settings.Default.Current_DocInvoice_ID >= 0)
                             {
-                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Properties.Settings.Default.Current_DocInvoice_ID.ToString());
+                                DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Properties.Settings.Default.Current_DocProformaInvoice_ID.ToString());
                                 if (dr_Current.Count() > 0)
                                 {
                                     iCurrentSelectedRow = dt_XInvoice.Rows.IndexOf(dr_Current[0]);

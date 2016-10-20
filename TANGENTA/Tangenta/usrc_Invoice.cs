@@ -50,7 +50,11 @@ namespace Tangenta
                 {
                     m_DocInvoice = s;
                 }
-                this.m_ShopABC.DocInvoice = m_DocInvoice;
+
+                if (this.m_ShopABC != null)
+                {
+                    this.m_ShopABC.DocInvoice = m_DocInvoice;
+                }
                 if (this.m_usrc_ShopA != null)
                 {
                     this.m_usrc_ShopA.DocInvoice = m_DocInvoice;
@@ -817,7 +821,7 @@ namespace Tangenta
                             }
                             else
                             {
-                                return true;
+                                return DoCurrent(Document_ID); 
                             }
                         }
                         else
@@ -2026,10 +2030,10 @@ do_EditMyOrganisation_Data:
 
             foreach (DataRow dr in this.m_usrc_ShopA.dt_Item_Price.Rows)
             {
-                decimal price = (decimal)dr["DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"];
-                decimal tax = (decimal)dr["DocInvoice_ShopA_Item_$$TAX"];
-                decimal tax_rate = (decimal)dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Rate"];
-                string tax_name = (string)dr["DocInvoice_ShopA_Item_$_aisha_$_tax_$$Name"];
+                decimal price = (decimal)dr[DocInvoice+"_ShopA_Item_$$EndPriceWithDiscountAndTax"];
+                decimal tax = (decimal)dr[DocInvoice + "_ShopA_Item_$$TAX"];
+                decimal tax_rate = (decimal)dr[DocInvoice + "_ShopA_Item_$_aisha_$_tax_$$Rate"];
+                string tax_name = (string)dr[DocInvoice + "_ShopA_Item_$_aisha_$_tax_$$Name"];
                 dsum_GrossSum += price;
                 TaxSum.Add(tax, 0, tax_name, tax_rate);
                 dsum_NetSum += price - tax;
@@ -2375,6 +2379,7 @@ do_EditMyOrganisation_Data:
         {
             Form_ShowShops frm_sel_shops = new Form_ShowShops(this);
             frm_sel_shops.ShowDialog(this);
+            Set_eShopsMode(Properties.Settings.Default.eShopsMode, null);
         }
 
         private void btn_MyOrganisation_Click(object sender, EventArgs e)

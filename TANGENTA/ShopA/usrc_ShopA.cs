@@ -52,6 +52,10 @@ namespace ShopA
             set
             {
                 m_DocInvoice = value;
+                if (usrc_Editor1!=null)
+                {
+                    usrc_Editor1.DocInvoice = m_DocInvoice;
+                }
             }
         }
 

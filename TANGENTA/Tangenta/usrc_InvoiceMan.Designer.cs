@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.m_usrc_Invoice = new Tangenta.usrc_Invoice();
+            this.m_usrc_InvoiceTable = new Tangenta.usrc_InvoiceTable();
             this.cmb_InvoiceType = new System.Windows.Forms.ComboBox();
             this.cmb_FinancialYear = new System.Windows.Forms.ComboBox();
             this.lbl_FinancialYear = new System.Windows.Forms.Label();
             this.btn_New = new System.Windows.Forms.Button();
             this.btn_SelectPanels = new System.Windows.Forms.Button();
-            this.m_usrc_Invoice = new Tangenta.usrc_Invoice();
-            this.m_usrc_InvoiceTable = new Tangenta.usrc_InvoiceTable();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,6 +61,35 @@
             this.splitContainer1.Size = new System.Drawing.Size(961, 685);
             this.splitContainer1.SplitterDistance = 629;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // m_usrc_Invoice
+            // 
+            this.m_usrc_Invoice.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_usrc_Invoice.DocInvoice = "DocInvoice";
+            this.m_usrc_Invoice.Location = new System.Drawing.Point(6, 5);
+            this.m_usrc_Invoice.Margin = new System.Windows.Forms.Padding(2);
+            this.m_usrc_Invoice.myOrganisation_Person_ID = ((long)(0));
+            this.m_usrc_Invoice.Name = "m_usrc_Invoice";
+            this.m_usrc_Invoice.Size = new System.Drawing.Size(617, 675);
+            this.m_usrc_Invoice.TabIndex = 0;
+            this.m_usrc_Invoice.Storno += new Tangenta.usrc_Invoice.delegate_Storno(this.m_usrc_Invoice_Storno);
+            this.m_usrc_Invoice.aa_DocInvoiceSaved += new Tangenta.usrc_Invoice.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
+            this.m_usrc_Invoice.aa_Customer_Person_Changed += new Tangenta.usrc_Invoice.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
+            this.m_usrc_Invoice.aa_Customer_Org_Changed += new Tangenta.usrc_Invoice.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
+            this.m_usrc_Invoice.aa_PriceListChanged += new Tangenta.usrc_Invoice.delegate_PriceListChanged(this.m_usrc_Invoice_PriceListChanged);
+            this.m_usrc_Invoice.Load += new System.EventHandler(this.m_usrc_Invoice_Load);
+            // 
+            // m_usrc_InvoiceTable
+            // 
+            this.m_usrc_InvoiceTable.DocInvoice = "DocInvoice";
+            this.m_usrc_InvoiceTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_InvoiceTable.Location = new System.Drawing.Point(0, 0);
+            this.m_usrc_InvoiceTable.Name = "m_usrc_InvoiceTable";
+            this.m_usrc_InvoiceTable.Size = new System.Drawing.Size(324, 681);
+            this.m_usrc_InvoiceTable.TabIndex = 0;
+            this.m_usrc_InvoiceTable.SelectedInvoiceChanged += new Tangenta.usrc_InvoiceTable.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // cmb_InvoiceType
             // 
@@ -113,33 +142,6 @@
             this.btn_SelectPanels.TabIndex = 29;
             this.btn_SelectPanels.UseVisualStyleBackColor = true;
             this.btn_SelectPanels.Click += new System.EventHandler(this.btn_SelectPanels_Click);
-            // 
-            // m_usrc_Invoice
-            // 
-            this.m_usrc_Invoice.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_usrc_Invoice.Location = new System.Drawing.Point(6, 5);
-            this.m_usrc_Invoice.Margin = new System.Windows.Forms.Padding(2);
-            this.m_usrc_Invoice.myOrganisation_Person_ID = ((long)(0));
-            this.m_usrc_Invoice.Name = "m_usrc_Invoice";
-            this.m_usrc_Invoice.Size = new System.Drawing.Size(617, 675);
-            this.m_usrc_Invoice.TabIndex = 0;
-            this.m_usrc_Invoice.Storno += new Tangenta.usrc_Invoice.delegate_Storno(this.m_usrc_Invoice_Storno);
-            this.m_usrc_Invoice.aa_DocInvoiceSaved += new Tangenta.usrc_Invoice.delegate_DocInvoiceSaved(this.m_usrc_Invoice_DocInvoiceSaved);
-            this.m_usrc_Invoice.aa_Customer_Person_Changed += new Tangenta.usrc_Invoice.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
-            this.m_usrc_Invoice.aa_Customer_Org_Changed += new Tangenta.usrc_Invoice.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
-            this.m_usrc_Invoice.aa_PriceListChanged += new Tangenta.usrc_Invoice.delegate_PriceListChanged(this.m_usrc_Invoice_PriceListChanged);
-            this.m_usrc_Invoice.Load += new System.EventHandler(this.m_usrc_Invoice_Load);
-            // 
-            // m_usrc_InvoiceTable
-            // 
-            this.m_usrc_InvoiceTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_InvoiceTable.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_InvoiceTable.Name = "m_usrc_InvoiceTable";
-            this.m_usrc_InvoiceTable.Size = new System.Drawing.Size(324, 681);
-            this.m_usrc_InvoiceTable.TabIndex = 0;
-            this.m_usrc_InvoiceTable.SelectedInvoiceChanged += new Tangenta.usrc_InvoiceTable.delegate_SelectedInvoiceChanged(this.m_usrc_InvoiceTable_SelectedInvoiceChanged);
             // 
             // usrc_InvoiceMan
             // 

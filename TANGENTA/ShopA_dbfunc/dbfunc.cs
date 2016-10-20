@@ -88,6 +88,7 @@ namespace ShopA_dbfunc
             }
 
             dt.Clear();
+            dt.Columns.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 return true;
