@@ -77,7 +77,7 @@ namespace TangentaDB
         }
 
 
-        public void Set_SelectedShopB_Items(DataGridView dgv_SelectedSimpleItems,
+        public void Set_SelectedShopB_Items(string DocInvoice,DataGridView dgv_SelectedSimpleItems,
                                            DataTable dt_SelectedSimpleItem,
                                            DataGridView dgv_SimpleItem,
                                            DataTable dt_SimpleItems)
@@ -103,7 +103,7 @@ namespace TangentaDB
             foreach (DataRow drsa in dtCurrent_Atom_Price_ShopBItem.Rows)
             {
                 Atom_SimpleItem_ID = (long)drsa["ID"];
-                DocInvoice_ShopB_Item_DocInvoice_ID = (long)drsa["DocInvoice_ID"];
+                DocInvoice_ShopB_Item_DocInvoice_ID = (long)drsa[DocInvoice+"_ID"];
                 DocInvoice_ShopB_Item_SimpleItem_ID = (long)drsa["SimpleItem_ID"];
                 DocInvoice_ShopB_Item_Atom_SimpleItem_Name_ID = (long)drsa["Atom_SimpleItem_Name_ID"];
                 if (drsa["Atom_SimpleItem_Image_ID"] is long)

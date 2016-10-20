@@ -147,25 +147,11 @@ namespace Tangenta
 
             int iRowsCount = -1;
             enum_Invoice = xenum_Invoice;
-            switch (enum_Invoice)
+            iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
+            if (bNew)
             {
-                case usrc_Invoice.enum_Invoice.TaxInvoice:
-                    iRowsCount = Init_Invoice(true, bNew, iFinancialYear);
-                    if (bNew)
-                    {
-                        ShowOrEditSelectedRow(false);
-                    }
-                    break;
-                case usrc_Invoice.enum_Invoice.ProformaInvoice:
-                    iRowsCount = Init_DocInvoice();
-                    break;
+                ShowOrEditSelectedRow(false);
             }
-            return iRowsCount;
-        }
-
-        private int Init_DocInvoice()
-        {
-            int iRowsCount = -1;
             return iRowsCount;
         }
 
@@ -522,7 +508,7 @@ namespace Tangenta
                     iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
 
                     SetLabels();
-                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
+                    SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocProformaInvoice)));
                     tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                     iRowsCount = dt_XInvoice.Rows.Count;
                     if (!bNew)

@@ -81,7 +81,7 @@ namespace TangentaDB
             }
         }
 
-        public void Set(DataRow dria,
+        public void Set(string DocInvoice, DataRow dria,
                             ref List<object> DocInvoice_ShopC_Item_Data_list)
         {
             Stock_Data stock_data = null;
@@ -103,8 +103,8 @@ namespace TangentaDB
                 }
 
                 m_ShopShelf_Source.Clear();
-                DocInvoice_ShopC_Item_ID = tf.set_long(dria["DocInvoice_ShopC_Item_ID"]);
-                DocInvoice_ID = tf.set_long(dria["DocInvoice_ID"]);
+                DocInvoice_ShopC_Item_ID = tf.set_long(dria[DocInvoice+"_ShopC_Item_ID"]);
+                DocInvoice_ID = tf.set_long(dria[DocInvoice+"_ID"]);
                 Atom_Price_Item_ID = tf.set_long(dria["Atom_Price_Item_ID"]);
                 dQuantity_all = tf.set_decimal(dria["dQuantity"]);
                 RetailPricePerUnit = tf.set_decimal(dria["RetailPricePerUnit"]);

@@ -198,7 +198,7 @@ namespace ShopB
 
         public void SetCurrentInvoice_SelectedShopB_Items()
         {
-            m_InvoiceDB.m_CurrentInvoice.Set_SelectedShopB_Items(dgv_SelectedShopB_Items, dt_SelectedShopBItem, dgv_ShopB_Items, dt_Price_ShopBItem);
+            m_InvoiceDB.m_CurrentInvoice.Set_SelectedShopB_Items(DocInvoice,dgv_SelectedShopB_Items, dt_SelectedShopBItem, dgv_ShopB_Items, dt_Price_ShopBItem);
         }
 
 

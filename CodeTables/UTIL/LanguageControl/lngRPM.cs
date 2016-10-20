@@ -46,6 +46,7 @@ namespace LanguageControl
 
         #endregion
 
+        public static ltext s_AUTONEXT_missing_parameter = new ltext("/AUTONEXT missing or parsing error for Auto_NEXT_in_miliseconds!/r/n(Example:\"/AUTONEXT==10\")\r\nAuto_NEXT_in_miliseconds = 10ms : is default value", "/AUTONEXT manjka parameter - število milisikund za skok na naslednji korak!\r\n\"/AUTONEXT=10\")\r\nAuto_NEXT_in_miliseconds = 10ms : je privzeta vrednost s katero bo program nadaljeval.");
         public static ltext s_FVI_instruction = new ltext("Fiscal verification of invoices is obligatory in Slovenia.\r\nIf you are from any reason not obligated to do fiscal verification of invoices please uncheck the checkbox below.", "Davčno potrjevanje računov pri davčni upravi je v Sloveniji obvezno.\r\nV kolikor niste zavezanec za davčno potrjevanje računov odstranite kljukico spodaj.");
         public static ltext s_FVI_Check = new ltext("Fiscal Verification of invoices", "Davčno potrjevanje računov");
 
@@ -1332,9 +1333,12 @@ namespace LanguageControl
         public static ltext s_CommandLineHelp = new ltext("Command Line Help", "Pomoč za komandno vrstico");
         public static ltext s_commandline_RS232MONITOR = new ltext("Activates RS232 Monitor for Leuze sensor.\r\n With RS232 Monitor Form you can see data streem from Leuze Sensor", "Aktivira RS232 Monitor.\r\n Z njim lahko spreljate prihod podatkov od Leuze senzorja,\r\nki prečita postavljena orodja (črke) za prešanje tablice.");
         public static ltext s_commandline_SYMULATOR = new ltext("Enables SYMULATION for Press working places \r\n and Shows button Next in Press Forms", "Omogoči simulacijo preše tako, da v oknih za prešo prikaže \r\n gumb Next s katerim simuliramo vpis EAN kode v \"textbox\".");
+        public static ltext s_commandline_DOCINVOICE = new ltext("Starts program to edit or view Invoices","Zažene program tako, da začnete najprej urejati ali pregledovati račune");
+        public static ltext s_commandline_DOCPROFORMAINVOICE = new ltext("Starts program to edit or view proforma invoices", "Zažene program tako, da začnete najprej urejati predračune");
+
         public static ltext s_commandline_CHANGE_CONNECTION = new ltext("Shows connection dialogs.\r\nThis command in command line enables you to change database connection at program startup.", "Prikaže dialoge za ustvarjanje povezav na strežnike.\r\nTo vam omogoči, da ob zagonu programa nastavite nove povezave na strežnike.");
         public static ltext s_commandline_RESETNEW = new ltext("Starts program without saved settings!", "Zažene program kot novo instalacijo brez vseh nastavitev!");
-        public static ltext s_commandline_AUTONEXT = new ltext("Starts program with automatic predefined setup! It works only with RESETNEW command", "Avtomastki zagon tako da program sam pritiska na gumb naprej, deluje samo če s zažene program kot novo instalacijo brez vseh nastavitev oziroma z /RESETNEW parametrom.");
+        public static ltext s_commandline_AUTONEXT = new ltext("Starts program with automatic predefined setup! It works only with RESETNEW command.\r\nExample = /AUTNEXT=1000", "Avtomastki zagon tako da program sam pritiska na gumb naprej, deluje samo če s zažene program kot novo instalacijo brez vseh nastavitev oziroma z /RESETNEW parametrom.\r\nPrimer:/AUTONEXT=1000");
         
         public static ltext s_const_command_DIAGNOSTIC = new ltext("Enables Diagnostics of program speed.\r\n You can press F10 on main form to view speed results", "Omogoči diagnosticiranje hitrosti izvajanja programa. \r\n S pritsikom na F10 se prikaže okno z rezultati meritev.");
         public static ltext s_CreatePressDBTables = new ltext("Create PressDB Tables?", "Ustvarim tabele v PressDB?");

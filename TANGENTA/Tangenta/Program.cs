@@ -29,6 +29,8 @@ namespace Tangenta
     {
 
         #region Constants
+        const string const_command_DOCINVOICE = "DOCINVOICE";
+        const string const_command_DOCPROFORMAINVOICE = "DOCPROFORMAINVOICE";
         const string const_command_CHANGE_CONNECTION = "CHANGE-CONNECTION";
         const string const_command_RESETNEW = "RESETNEW";
         const string const_command_AUTONEXT = "AUTONEXT";
@@ -41,7 +43,29 @@ namespace Tangenta
         internal static string AdministratorLockedPassword = "dhlpt"; //"dhlpt" is Locked password for "12345"
         internal static bool MultiuserOperationWithLogin = true;
         internal static bool StockCheckAtStartup = true;
+        private static string m_RunAs = null;
 
+        internal static string RunAs
+        {
+            get
+            {
+                if (m_RunAs.Equals("DOCINVOICE"))
+                {
+                    return "DocInvoice";
+                }
+                else if (m_RunAs.Equals("DOCPROFORMAINVOICE"))
+                {
+                    return "DocProformaInvoice";
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set { string s = value;
+                m_RunAs = s.ToUpper();
+                }   
+        }
 
         internal static NavigationButtons.Navigation nav = null;
         internal static bool m_bAutoNext = false;
@@ -200,6 +224,14 @@ namespace Tangenta
                     }
                     else
                     {
+                        if (s.ToUpper().Contains(const_command_DOCINVOICE))
+                        {
+                            RunAs = "DocInvoice";
+                        }
+                        if (s.ToUpper().Contains(const_command_DOCPROFORMAINVOICE))
+                        {
+                            RunAs = "DocProformaInvoice";
+                        }
                         if (s.Contains(const_command_CHANGE_CONNECTION))
                         {
                             bChangeConnection = true;
@@ -236,6 +268,11 @@ namespace Tangenta
                             {
                                 iAutoNext += const_command_AUTONEXT.Length;
                                 Auto_NEXT_in_miliseconds = fs.GetFirstIntParamFromString(s.Substring(iAutoNext));
+                                if (Auto_NEXT_in_miliseconds<=0)
+                                {
+                                    MessageBox.Show(lngRPM.s_AUTONEXT_missing_parameter.s);
+                                    Auto_NEXT_in_miliseconds = 10;
+                                }
                             }
                             m_bAutoNext = true;
                         }
@@ -302,6 +339,8 @@ DoSelectLanguage:
                 if (bShowCommandLineHelp)
                 {
 
+                    command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCINVOICE, lngRPM.s_commandline_DOCINVOICE.s));
+                    command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCPROFORMAINVOICE, lngRPM.s_commandline_DOCPROFORMAINVOICE.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lngRPM.s_commandline_RESETNEW.s));
                     command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));

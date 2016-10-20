@@ -211,7 +211,7 @@ namespace TangentaDB
             if (DBSync.DBSync.ReadDataTable(ref dtDraft_DocInvoice_Atom_Item_Stock, sql_select_DocInvoice_Atom_Item_Stock, ref Err))
             {
                 xDocInvoice_ShopC_Item_Data_LIST.Clear();
-                Parse_Atom_DocInvoice_Item_Stock(this.dtDraft_DocInvoice_Atom_Item_Stock, ref xDocInvoice_ShopC_Item_Data_LIST);
+                Parse_Atom_DocInvoice_Item_Stock(DocInvoice,this.dtDraft_DocInvoice_Atom_Item_Stock, ref xDocInvoice_ShopC_Item_Data_LIST);
                 return true;
             }
             else
@@ -221,14 +221,14 @@ namespace TangentaDB
             }
         }
 
-        public void Parse_Atom_DocInvoice_Item_Stock(DataTable xdtDraft_DocInvoice_Atom_Item_Stock, ref List<object> xDocInvoice_ShopC_Item_Data_LIST)
+        public void Parse_Atom_DocInvoice_Item_Stock(string DocInvoice,DataTable xdtDraft_DocInvoice_Atom_Item_Stock, ref List<object> xDocInvoice_ShopC_Item_Data_LIST)
         {
             int i = 0;
             int iCount = xdtDraft_DocInvoice_Atom_Item_Stock.Rows.Count;
             for (i = 0; i < iCount; i++)
             {
                 Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = new Atom_DocInvoice_ShopC_Item_Price_Stock_Data();
-                appisd.Set(xdtDraft_DocInvoice_Atom_Item_Stock.Rows[i], ref xDocInvoice_ShopC_Item_Data_LIST);
+                appisd.Set(DocInvoice, xdtDraft_DocInvoice_Atom_Item_Stock.Rows[i],ref xDocInvoice_ShopC_Item_Data_LIST);
             }
         }
 
