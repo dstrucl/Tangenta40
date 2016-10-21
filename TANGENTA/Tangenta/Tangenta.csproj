@@ -189,6 +189,12 @@
     <Compile Include="Form_PrintExistingInvoice.Designer.cs">
       <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Reset_Properties_Settings_Default.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Reset_Properties_Settings_Default.Designer.cs">
+      <DependentUpon>Form_Reset_Properties_Settings_Default.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ShowShops.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -577,6 +583,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_PrintExistingInvoice.resx">
       <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Reset_Properties_Settings_Default.resx">
+      <DependentUpon>Form_Reset_Properties_Settings_Default.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ShowShops.resx">
       <DependentUpon>Form_ShowShops.cs</DependentUpon>

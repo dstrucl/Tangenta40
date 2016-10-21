@@ -52,6 +52,8 @@ namespace TangentaDB
 
         public int FinancialYear;
         public int NumberInFinancialYear;
+
+
         public int DraftNumber;
 
         public long DocInvoice_ID;
@@ -1810,6 +1812,28 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:CurrentInvoice:GetParam:type_v not implemented : " + type_v.GetType().ToString());
                 return null;
             }
+        }
+
+        public int ItemsCount(string DocInvoice)
+        {
+            int iCount = 0;
+            string Err = null;
+            string sql = "select '"+DocInvoice+"_ShopA_Item' as "+DocInvoice+"_ShopA_Item, count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopA_Item where " + DocInvoice + "_ID = " + DocInvoice_ID.ToString()
+                        + " UNION ALL select '" + DocInvoice + "_ShopB_Item' as " + DocInvoice + "_ShopB_Item,count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopB_Item where " + DocInvoice + "_ID = " + DocInvoice_ID.ToString()
+                        + " UNION ALL select '" + DocInvoice + "_ShopC_Item' as " + DocInvoice + "_ShopC_Item,count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopC_Item where " + DocInvoice + "_ID = " + DocInvoice_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    iCount = Convert.ToInt32(dt.Rows[0][DocInvoice + "_Items_Count"]) + Convert.ToInt32(dt.Rows[1][DocInvoice + "_Items_Count"]) + Convert.ToInt32(dt.Rows[2][DocInvoice + "_Items_Count"]);
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:CurrentInvoice:ItemsCount:sql=" + sql + "\r\nErr=" + Err);
+            }
+            return iCount;
         }
     }
 }

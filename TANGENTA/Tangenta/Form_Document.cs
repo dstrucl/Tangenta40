@@ -142,7 +142,7 @@ namespace Tangenta
             string sDBType = null;
             sDBType = Properties.Settings.Default.DBType;
             bool bCanceled = false;
-            bool bResult = DBSync.DBSync.Init(Program.bReset2FactorySettings, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated,ref bCanceled);
+            bool bResult = DBSync.DBSync.Init(Program.Reset2FactorySettings.DBConnectionControlXX_EXE, m_XmlFileName, IniFileFolder, ref sDBType, false, Program.bChangeConnection, xnav, ref myStartup.bNewDatabaseCreated,ref bCanceled);
             if (bCanceled)
             {
                 myStartup.eNextStep = startup_step.eStep.Cancel;

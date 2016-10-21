@@ -233,7 +233,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             {
                 Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
                 Program.usrc_FVI_SLO1.FursD_ElectronicDeviceID = Properties.Settings.Default.ElectronicDevice_ID;
-                if (Program.bReset2FactorySettings)
+                if (Program.Reset2FactorySettings.FiscalVerification_DLL)
                 {
                     Program.usrc_FVI_SLO1.Settings_Reset(this);
                 }
@@ -633,7 +633,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             nav.btn3_Text = "";
             nav.btn3_Image = Properties.Resources.Exit;
 
-            DBSync.DBSync.DBMan(Main_Form, Program.bReset2FactorySettings, ((Form_Document)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder, nav);
+            DBSync.DBSync.DBMan(Main_Form, Program.Reset2FactorySettings.DBConnectionControlXX_EXE, ((Form_Document)Main_Form).m_XmlFileName, IniFileFolder, ref sDBType, ref BackupFolder, nav);
             Properties.Settings.Default.BackupFolder = BackupFolder;
             Properties.Settings.Default.DBType = sDBType;
             Properties.Settings.Default.Save();

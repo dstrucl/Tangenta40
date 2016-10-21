@@ -18,12 +18,12 @@ namespace LanguageControl
     public static class lngRPM
     {
         public static ltext s_New_Empty_Invoice = new ltext("New Emtpy Invoice draft", "Nov prazen osnutek računa");
-        public static ltext s_New_Copy_ThisInvoice_ToNewOne = new ltext("Copy this Invoice to new one", "Kopiraj račun v nov račun");
-        public static ltext s_New_Copy_ThisInvoice_ToNewProformaInvoice = new ltext("Copy this Invoice to new Proforma Invoice", "Kopiraj račun v nov predračun");
+        public static ltext s_New_Copy_ThisInvoice_ToNewOne = new ltext("Copy Invoice %s to new one", "Kopiraj račun %s v nov osnutek računa");
+        public static ltext s_New_Copy_ThisInvoice_ToNewProformaInvoice = new ltext("Copy Invoice %s to new Proforma Invoice", "Kopiraj račun %s v nov osnutek predračuna");
 
         public static ltext s_New_Empty_ProformaInvoice = new ltext("New Emtpy Proforma-Invoice draft", "Nov prazen osnutek predračuna");
-        public static ltext s_New_Copy_ThisProformaInvoice_ToNewOne = new ltext("Copy this Proforma-Invoice to new one", "Kopiraj predračun v nov predračun");
-        public static ltext s_New_Copy_ThisProformaInvoice_ToInvoice = new ltext("Copy this Proforma-Invoice to new Invoice", "Kopiraj predračun v nov račun");
+        public static ltext s_New_Copy_ThisProformaInvoice_ToNewOne = new ltext("Copy Proforma-Invoice %s to new one", "Kopiraj predračun %s v nov osnutek predračuna");
+        public static ltext s_New_Copy_ThisProformaInvoice_ToInvoice = new ltext("Copy Proforma-Invoice %s to new Invoice draft", "Kopiraj predračun %s v nov osnutek računa");
 
         public static ltext s_new_proforma_invoice_draft = new ltext("New Proforma Invoice draft","Nov osnutek predračuna");
         #region StartUp

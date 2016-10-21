@@ -96,7 +96,15 @@ namespace Tangenta
         internal static bool bRS232Monitor = false;
         internal static bool b_FVI_SLO = false;
         internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
-        internal static bool bReset2FactorySettings = false;
+        internal static class Reset2FactorySettings
+        {
+            internal static bool Tangenta_EXE = false;
+            internal static bool DBConnectionControlXX_EXE = false;
+            internal static bool LangugaControl_DLL = false;
+            internal static bool FiscalVerification_DLL = false;
+            internal static bool LogFile_DLL = false;
+        }
+
         public static bool bFirstTimeInstallation = false;
 
         private static bool m_bProgramDiagnostic = false;
@@ -250,15 +258,23 @@ namespace Tangenta
                         }
                         if (s.Contains(const_command_RESETNEW))
                         {
-                            if (MessageBox.Show(lngRPM.s_AreYouSure_ToResetSettingsToInitialvalues.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                            Form_Reset_Properties_Settings_Default frm_set = new Form_Reset_Properties_Settings_Default();
+
+                            if (frm_set.ShowDialog() == DialogResult.Yes)
                             {
                                 Properties.Settings.Default.Reset();
                                 CodeTables.ASet.Settings_Reset();
-                                bReset2FactorySettings = true;
+                                Reset2FactorySettings.Tangenta_EXE = frm_set.bTangenta_EXE;
+                                Reset2FactorySettings.DBConnectionControlXX_EXE = frm_set.bDBConnectionControlXX_EXE;
+                                Reset2FactorySettings.LangugaControl_DLL = frm_set.bLangugaControl_DLL;
+                                Reset2FactorySettings.FiscalVerification_DLL = frm_set.bFiscalVerification_DLL;
                             }
                             else
                             {
-                                bReset2FactorySettings = false;
+                                Reset2FactorySettings.Tangenta_EXE = false;
+                                Reset2FactorySettings.DBConnectionControlXX_EXE = false;
+                                Reset2FactorySettings.LangugaControl_DLL = false;
+                                Reset2FactorySettings.FiscalVerification_DLL = false;
                             }
                         }
                         if (s.Contains(const_command_AUTONEXT))
@@ -413,7 +429,7 @@ DoSelectLanguage:
                 LogFile.LogFile.Image_Cancel = Properties.Resources.Exit;
 
                 LogFile.Settings.m_eType = LogFile.Settings.eType.IniFile_Settings;
-                if (!LogFile.Settings.Load(bReset2FactorySettings,IniFile, ref Err))
+                if (!LogFile.Settings.Load(Reset2FactorySettings.LogFile_DLL,IniFile, ref Err))
                 {
                     MessageBox.Show("ERROR Loading LogFile Settings ! Err=" + Err);
                 }
@@ -422,7 +438,7 @@ DoSelectLanguage:
 
                 LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
 
-                LanguageControl.DynSettings.LoadLanguages(bReset2FactorySettings);
+                LanguageControl.DynSettings.LoadLanguages(Reset2FactorySettings.LangugaControl_DLL);
                 LanguageControl.DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
 
 
