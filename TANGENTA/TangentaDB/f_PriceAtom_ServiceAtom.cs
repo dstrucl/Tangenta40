@@ -33,7 +33,7 @@ namespace TangentaDB
                                  ref decimal PriceWithoutTax
                                  )
         {
-            if (Find_DocInvoice_ShopB_Item_ID(DocInvoice_ID, Price_SimpleItem_ID, ref DocInvoice_ShopB_Item_ID, ref Quantity, ref RetailSimpleItemPrice, ref Discount, ref ExtraDiscount, ref taxRate, ref taxName, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice))
+            if (Find_DocInvoice_ShopB_Item_ID(DocInvoice,DocInvoice_ID, Price_SimpleItem_ID, ref DocInvoice_ShopB_Item_ID, ref Quantity, ref RetailSimpleItemPrice, ref Discount, ref ExtraDiscount, ref taxRate, ref taxName, ref RetailSimpleItemPriceWithDiscount, ref TaxPrice))
             {
                 if (DocInvoice_ShopB_Item_ID >= 0)
                 {
@@ -216,7 +216,7 @@ namespace TangentaDB
 
         }
 
-        private static bool Find_DocInvoice_ShopB_Item_ID(
+        private static bool Find_DocInvoice_ShopB_Item_ID(string DocInvoice,
                                                           long DocInvoice_ID,
                                                           long Price_SimpleItem_ID, 
                                                           ref long DocInvoice_ShopB_Item_ID,
@@ -234,33 +234,33 @@ namespace TangentaDB
             int decimal_places = GlobalData.Get_BaseCurrency_DecimalPlaces();
 
             string sql_find_Atom_SimpleItem_ID = @"select
-                                DocInvoice_ShopB_Item.ID as DocInvoice_ShopB_Item_ID,
-                                DocInvoice_ShopB_Item.RetailSimpleItemPrice,
-                                DocInvoice_ShopB_Item.Discount,
-                                DocInvoice_ShopB_Item.iQuantity,
-                                DocInvoice_ShopB_Item.RetailSimpleItemPriceWithDiscount,
-                                DocInvoice_ShopB_Item.ExtraDiscount,
-                                DocInvoice_ShopB_Item.TaxPrice,
+                                " + DocInvoice + @"_ShopB_Item.ID as "+DocInvoice+@"_ShopB_Item_ID,
+                                " + DocInvoice + @"_ShopB_Item.RetailSimpleItemPrice,
+                                " + DocInvoice + @"_ShopB_Item.Discount,
+                                " + DocInvoice + @"_ShopB_Item.iQuantity,
+                                " + DocInvoice + @"_ShopB_Item.RetailSimpleItemPriceWithDiscount,
+                                " + DocInvoice + @"_ShopB_Item.ExtraDiscount,
+                                " + DocInvoice + @"_ShopB_Item.TaxPrice,
                                 Atom_Taxation.Rate,
                                 Atom_Taxation.Name
-                                from DocInvoice_ShopB_Item
-                                inner join Atom_PriceList on DocInvoice_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
-                                inner join Atom_SimpleItem on DocInvoice_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
+                                from "+DocInvoice+@"_ShopB_Item
+                                inner join Atom_PriceList on "+DocInvoice+@"_ShopB_Item.Atom_PriceList_ID = Atom_PriceList.ID
+                                inner join Atom_SimpleItem on "+DocInvoice+@"_ShopB_Item.Atom_SimpleItem_ID = Atom_SimpleItem.ID
 				                inner join Atom_SimpleItem_Name on Atom_SimpleItem.Atom_SimpleItem_Name_ID = Atom_SimpleItem_Name.ID
                                 inner join PriceList on Atom_PriceList.Name = PriceList.Name
                                 inner join Price_SimpleItem on Price_SimpleItem.PriceList_ID = PriceList.ID
                                 inner join SimpleItem on   Price_SimpleItem.SimpleItem_ID = SimpleItem.ID and
                                                         Atom_SimpleItem_Name.Abbreviation = SimpleItem.Abbreviation and
 												        Atom_SimpleItem_Name.Name = SimpleItem.Name 
-                                inner join Atom_Taxation on DocInvoice_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
+                                inner join Atom_Taxation on "+DocInvoice+@"_ShopB_Item.Atom_Taxation_ID = Atom_Taxation.ID
                                 inner join Taxation on Taxation.Name = Atom_Taxation.Name and Taxation.Rate = Atom_Taxation.Rate
-                                where SimpleItem.ToOffer = 1 and DocInvoice_ID = " + DocInvoice_ID.ToString() + " and Price_SimpleItem.ID =  " + Price_SimpleItem_ID.ToString();
+                                where SimpleItem.ToOffer = 1 and "+DocInvoice+@"_ID = " + DocInvoice_ID.ToString() + " and Price_SimpleItem.ID =  " + Price_SimpleItem_ID.ToString();
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_find_Atom_SimpleItem_ID, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    DocInvoice_ShopB_Item_ID = (long)dt.Rows[0]["DocInvoice_ShopB_Item_ID"];
+                    DocInvoice_ShopB_Item_ID = (long)dt.Rows[0][DocInvoice+"_ShopB_Item_ID"];
                     Quantity = (int)dt.Rows[0]["iQuantity"];
                     RetailSimpleItemPrice = (decimal)dt.Rows[0]["RetailSimpleItemPrice"];
                     Discount = (decimal)dt.Rows[0]["Discount"];
@@ -278,12 +278,9 @@ namespace TangentaDB
             }
             else
             {
-                LogFile.Error.Show(@"ERROR:Find_DocInvoice_ShopB_Item_ID:select
-                                DocInvoice_ShopB_Item.ID as DocInvoice_ShopB_Item_ID
-                                from DocInvoice_ShopB_Item:\r\nErr=" + Err);
+                LogFile.Error.Show(@"ERROR:Find_DocInvoice_ShopB_Item_ID:sql="+ sql_find_Atom_SimpleItem_ID+"\r\nErr=" + Err);
                 return false;
             }
-
         }
     }
 }

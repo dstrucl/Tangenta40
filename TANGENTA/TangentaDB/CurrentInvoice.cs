@@ -67,7 +67,25 @@ namespace TangentaDB
         public long_v Atom_Customer_Person_ID_v = null;
         public long_v Atom_Customer_Org_ID_v = null;
         public bool bDraft = false;
-        public bool Exist = false;
+        public bool m_Exist = false;
+        public bool Exist
+        {
+            get { return m_Exist; }
+
+            set {
+                    m_Exist = value;
+                    if (!m_Exist)
+                    {
+                        dtCurrent_Atom_Price_ShopBItem.Clear();
+                        dtCurrent_DocInvoice_ShopC_Item.Clear();
+                        if (m_Basket != null)
+                        {
+                            m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Clear();
+                        }
+                    }
+                }
+        
+       }
 
         public CurrentInvoice(ShopABC xInvoiceDB, DBTablesAndColumnNames xDBtcn)
         {

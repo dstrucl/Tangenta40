@@ -328,8 +328,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    m_CurrentInvoice.Exist = false;
                     m_CurrentInvoice.bDraft = false;
+                    m_CurrentInvoice.Exist = false;
                 }
                 return true;
             }
