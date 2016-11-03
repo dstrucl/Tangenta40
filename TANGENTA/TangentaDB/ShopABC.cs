@@ -21,8 +21,6 @@ namespace TangentaDB
 {
     public class ShopABC
     {
-
-
         TangentaTableClass.SQL_Database_Tables_Definition td = null;
         DBTablesAndColumnNames DBtcn = null;
 

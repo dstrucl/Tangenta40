@@ -61,7 +61,7 @@ namespace TangentaDB
 
         //public FURS_Response_data FURS_Response_Data = null;
 
-        public DataTable dt_DocProformaInvoice = new DataTable();
+        public DataTable dt_DocInvoice = new DataTable();
         public DataTable dt_ShopB_Items = new DataTable();
         public DataTable dt_ShopA_Items = new DataTable();
 
@@ -148,7 +148,7 @@ namespace TangentaDB
 
 
 
-        public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
+        public void Fill_Sold_ShopA_ItemsData(string DocInvoice,ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
         {
             int i;
             int end_index = start_index + count;
@@ -158,7 +158,7 @@ namespace TangentaDB
                 DataRow dr = dt_ShopA_Items.Rows[j];
 
                 decimal Discount = 0;
-                object oDiscount = dr["DocProformaInvoice_ShopA_Item_$$Discount"];
+                object oDiscount = dr[DocInvoice + "_ShopA_Item_$$Discount"];
                 if (oDiscount is decimal)
                 {
                     Discount = (decimal)oDiscount;
@@ -168,37 +168,37 @@ namespace TangentaDB
                 decimal TotalDiscount = Discount;
 
                 decimal RetailSimpleItemPriceWithDiscount = 0;
-                object o_RetailSimpleItemPriceWithDiscount = dr["DocProformaInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"];
+                object o_RetailSimpleItemPriceWithDiscount = dr[DocInvoice+"_ShopA_Item_$$EndPriceWithDiscountAndTax"];
                 if (o_RetailSimpleItemPriceWithDiscount.GetType() == typeof(decimal))
                 {
                     RetailSimpleItemPriceWithDiscount = (decimal)o_RetailSimpleItemPriceWithDiscount;
                 }
 
                 string sUnitName = "";
-                object oUnitName = dr["DocProformaInvoice_ShopA_Item_$_aisha_$_u_$$Name"];
+                object oUnitName = dr[DocInvoice+"_ShopA_Item_$_aisha_$_u_$$Name"];
                 if (oUnitName is string)
                 {
                     sUnitName = (string)oUnitName;
                 }
 
                 decimal dQuantity = -1;
-                object oQuantity = dr["DocProformaInvoice_ShopA_Item_$$dQuantity"];
+                object oQuantity = dr[DocInvoice+"_ShopA_Item_$$dQuantity"];
                 if (oQuantity is decimal)
                 {
                     dQuantity = (decimal)oQuantity;
                 }
 
                 decimal TaxPrice = -1;
-                object oTaxPrice = dr["DocProformaInvoice_ShopA_Item_$$TAX"];
+                object oTaxPrice = dr[DocInvoice+"_ShopA_Item_$$TAX"];
                 if (oTaxPrice is decimal)
                 {
                     TaxPrice = (decimal)oTaxPrice;
                 }
                 decimal price_without_tax = RetailSimpleItemPriceWithDiscount - TaxPrice;
 
-                decimal taxation_rate = DBTypes.tf._set_decimal(dr["DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$Rate"]);
-                decimal tax_price = DBTypes.tf._set_decimal(dr["DocProformaInvoice_ShopA_Item_$$TAX"]);
-                string tax_name = DBTypes.tf._set_string(dr["DocProformaInvoice_ShopA_Item_$_aisha_$_tax_$$Name"]);
+                decimal taxation_rate = DBTypes.tf._set_decimal(dr[DocInvoice+"_ShopA_Item_$_aisha_$_tax_$$Rate"]);
+                decimal tax_price = DBTypes.tf._set_decimal(dr[DocInvoice+"_ShopA_Item_$$TAX"]);
+                string tax_name = DBTypes.tf._set_string(dr[DocInvoice+"_ShopA_Item_$_aisha_$_tax_$$Name"]);
                 if (bInvoiceStorno)
                 {
                     taxSum.Add(-tax_price, -price_without_tax, tax_name, taxation_rate);
@@ -209,13 +209,13 @@ namespace TangentaDB
                 }
 
                 decimal dRetailPricePerUnitWithDiscount = 0;
-                if (dr["DocProformaInvoice_ShopA_Item_$$PricePerUnit"] is decimal)
+                if (dr[DocInvoice+"_ShopA_Item_$$PricePerUnit"] is decimal)
                 {
-                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr["DocProformaInvoice_ShopA_Item_$$PricePerUnit"] * (1 - Discount), GlobalData.BaseCurrency.DecimalPlaces);
+                    dRetailPricePerUnitWithDiscount = decimal.Round((decimal)dr[DocInvoice+"_ShopA_Item_$$PricePerUnit"] * (1 - Discount), GlobalData.BaseCurrency.DecimalPlaces);
                 }
 
                 decimal dprice_without_tax = DBTypes.tf._set_decimal(price_without_tax);
-                decimal dEndPriceWithDiscountAndTax = DBTypes.tf._set_decimal(dr["DocProformaInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"]);
+                decimal dEndPriceWithDiscountAndTax = DBTypes.tf._set_decimal(dr[DocInvoice+"_ShopA_Item_$$EndPriceWithDiscountAndTax"]);
                 if (bInvoiceStorno)
                 {
                     tax_price = tax_price * -1;
@@ -224,13 +224,13 @@ namespace TangentaDB
                 }
 
                 ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
-                                                             DBTypes.tf._set_string(dr["DocProformaInvoice_ShopA_Item_$_aisha_$$Name"]),
-                                                             DBTypes.tf._set_decimal(dr["DocProformaInvoice_ShopA_Item_$$PricePerUnit"]),
+                                                             DBTypes.tf._set_string(dr[DocInvoice+"_ShopA_Item_$_aisha_$$Name"]),
+                                                             DBTypes.tf._set_decimal(dr[DocInvoice+"_ShopA_Item_$$PricePerUnit"]),
                                                              sUnitName, 
                                                              dRetailPricePerUnitWithDiscount,
                                                              tax_name,
                                                              dQuantity,
-                                                             DBTypes.tf._set_decimal(dr["DocProformaInvoice_ShopA_Item_$$Discount"]),
+                                                             DBTypes.tf._set_decimal(dr[DocInvoice+"_ShopA_Item_$$Discount"]),
                                                              DBTypes.tf._set_decimal(0),
                                                              DBTypes.tf._set_string(GlobalData.BaseCurrency.Symbol),
                                                              taxation_rate,
@@ -342,7 +342,7 @@ namespace TangentaDB
             string spar_Invoice_ID = "@par_Invoice_ID";
             SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID_v.v);
             lpar.Add(par_Invoice_ID);
-            sql = "select ID from fvi_slo_response where DocProformaInvoice_ID = " + spar_Invoice_ID;
+            sql = "select ID from fvi_slo_response where DocInvoice_ID = " + spar_Invoice_ID;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
@@ -372,7 +372,7 @@ namespace TangentaDB
             lpar.Add(par_Response_DateTime);
 
 
-            sql = "insert into fvi_slo_response (DocProformaInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ")";
+            sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ")";
             long id = -1;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, "fvi_slo_response"))
             {
@@ -414,7 +414,7 @@ namespace TangentaDB
 
         public bool Read_FURS_Response_Data(long DocProformaInvoice_ID, ref DataTable dt)
         {
-            string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where DocProformaInvoice_ID = " + DocProformaInvoice_ID.ToString();
+            string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where DocInvoice_ID = " + DocProformaInvoice_ID.ToString();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
@@ -897,19 +897,19 @@ namespace TangentaDB
                 }
             }
             string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt_DocProformaInvoice, sql, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
             {
-                if (dt_DocProformaInvoice.Rows.Count == 1)
+                if (dt_DocInvoice.Rows.Count == 1)
                 {
                     try
                     {
-                        Draft = DBTypes.tf._set_bool(dt_DocProformaInvoice.Rows[0]["Draft"]);
-                        Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocProformaInvoice.Rows[0]["Storno"]);
-                        Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocProformaInvoice.Rows[0]["Invoice_Reference_Type"]);
-                        DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocProformaInvoice.Rows[0]["Invoice_Reference_ID"]);
-                        DocInvoice_ID_v = DBTypes.tf.set_long(dt_DocProformaInvoice.Rows[0]["DocProformaInvoice_ID"]);
-                        DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocProformaInvoice.Rows[0]["EventTime"]);
-                        string_v EventName_v = DBTypes.tf.set_string(dt_DocProformaInvoice.Rows[0]["JOURNAL_DocProformaInvoice_Type_Name"]);
+                        Draft = DBTypes.tf._set_bool(dt_DocInvoice.Rows[0]["Draft"]);
+                        Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
+                        Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
+                        DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
+                        DocInvoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0][DocInvoice+"_ID"]);
+                        DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["EventTime"]);
+                        string_v EventName_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_"+DocInvoice+"_Type_Name"]);
 
                         if (Draft)
                         {
@@ -1066,9 +1066,9 @@ namespace TangentaDB
                         }
 
 
-                        GrossSum = DBTypes.tf._set_decimal(dt_DocProformaInvoice.Rows[0]["GrossSum"]);
-                        taxsum = DBTypes.tf._set_decimal(dt_DocProformaInvoice.Rows[0]["TaxSum"]);
-                        NetSum = DBTypes.tf._set_decimal(dt_DocProformaInvoice.Rows[0]["NetSum"]);
+                        GrossSum = DBTypes.tf._set_decimal(dt_DocInvoice.Rows[0]["GrossSum"]);
+                        taxsum = DBTypes.tf._set_decimal(dt_DocInvoice.Rows[0]["TaxSum"]);
+                        NetSum = DBTypes.tf._set_decimal(dt_DocInvoice.Rows[0]["NetSum"]);
 
                         if (bInvoiceStorno)
                         {
@@ -1092,27 +1092,27 @@ namespace TangentaDB
                         }
 
                         //byte[] barr_logoData = (byte[])dt_DocProformaInvoice.Rows[0]["Logo_Data"];
-                        MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Name"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Tax_ID"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Registration_ID"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Atom_Office_Name"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["BankName"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["TRR"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Email"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["HomePage"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["PhoneNumber"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["FaxNumber"]),
-                                                                   DBTypes.tf._set_byte_array(dt_DocProformaInvoice.Rows[0]["Logo_Data"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["StreetName"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["HouseNumber"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["ZIP"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["City"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Country"]),
-                                                                   DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["State"]));
+                        MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Name"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Tax_ID"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Registration_ID"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Atom_Office_Name"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["BankName"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["TRR"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Email"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["HomePage"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["PhoneNumber"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["FaxNumber"]),
+                                                                   DBTypes.tf._set_byte_array(dt_DocInvoice.Rows[0]["Logo_Data"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["StreetName"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["HouseNumber"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["ZIP"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["City"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Country"]),
+                                                                   DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["State"]));
 
 
-                        FinancialYear = DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["FinancialYear"]);
-                        NumberInFinancialYear = DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["NumberInFinancialYear"]);
+                        FinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["FinancialYear"]);
+                        NumberInFinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["NumberInFinancialYear"]);
 
                             if (DocInvoice.Equals("DocInvoice"))
                             {
@@ -1121,24 +1121,24 @@ namespace TangentaDB
                                     if (!Draft)
                                     {
 
-                                        FURS_ZOI_v = DBTypes.tf.set_string(dt_DocProformaInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
-                                        FURS_EOR_v = DBTypes.tf.set_string(dt_DocProformaInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
-                                        FURS_QR_v = DBTypes.tf.set_string(dt_DocProformaInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"]);
-                                        FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocProformaInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
-                                        FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocProformaInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
-                                        FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocProformaInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
+                                        FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
+                                        FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
+                                        FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"]);
+                                        FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
+                                        FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
+                                        FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
                                     }
                                 }
                             }
 
-                        object oAtom_MyOrganisation_Person_ID = dt_DocProformaInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
+                        object oAtom_MyOrganisation_Person_ID = dt_DocInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
                         if (oAtom_MyOrganisation_Person_ID is long)
                         {
                             long Atom_MyOrganisation_Person_ID = (long)oAtom_MyOrganisation_Person_ID;
                             Invoice_Author = f_Atom_Person.GetData(lngToken.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
                         }
 
-                        object oAtom_Customer_Org_ID = dt_DocProformaInvoice.Rows[0]["Atom_Customer_Org_ID"];
+                        object oAtom_Customer_Org_ID = dt_DocInvoice.Rows[0]["Atom_Customer_Org_ID"];
                         if (oAtom_Customer_Org_ID is long)
                         {
                             long Atom_Customer_Org_ID = (long)oAtom_Customer_Org_ID;
@@ -1150,9 +1150,9 @@ namespace TangentaDB
                         }
 
 
-                        if (dt_DocProformaInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
+                        if (dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
                         {
-                            long Atom_Customer_Person_ID = (long)dt_DocProformaInvoice.Rows[0]["Atom_Customer_Person_ID"];
+                            long Atom_Customer_Person_ID = (long)dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"];
                             CustomerPerson = f_Atom_Customer_Person.GetData(lngToken.st_Customer, Atom_Customer_Person_ID);
                         }
                         else
@@ -1193,7 +1193,7 @@ namespace TangentaDB
                                 taxSum = new StaticLib.TaxSum();
 
 
-                                Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
+                                Fill_Sold_ShopA_ItemsData(DocInvoice,lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
                                 Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
                                 Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
 
