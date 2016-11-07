@@ -584,6 +584,18 @@ namespace TangentaDataBaseDef
         /* 199 */
         public SQLTable t_Atom_ElectronicDevice = null;
 
+        /* 200 */
+        public SQLTable t_Trucking = null;
+
+        /* 201 */
+        public SQLTable t_Purchase_Order = null;
+
+        /* 202 */
+        public SQLTable t_Stock_Take = null;
+
+        /* 203 */
+        public SQLTable t_Contact = null;
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -788,14 +800,14 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Taxation);
 
             /* 29 */
-            t_Stock = new SQLTable((Object)new Stock(),"stock", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Stock);
-            t_Stock.AddColumn((Object)mt.m_Stock.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Stock.AddColumn((Object)mt.m_Stock.ImportTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker_Now, new ltext( "Import time", "Čas vnosa") );
-            t_Stock.AddColumn((Object)mt.m_Stock.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Quantity in Stok", "Količina na zalogi") );
-            t_Stock.AddColumn((Object)mt.m_Stock.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Expiry Date", "Rok uporabe") );
-            t_Stock.AddColumn((Object)mt.m_Stock.m_PurchasePrice_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Purchase Price Item ID", "Nabavna Cena Artikel ID") );
-            t_Stock.AddColumn((Object)mt.m_Stock.m_Stock_AddressLevel1, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "ID Stock Address Level 1", "ID Naslova nivo 1") );
-            t_Stock.AddColumn((Object)mt.m_Stock.Description, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Description", "Opis") );
+            t_Stock = new SQLTable((Object)new Stock(), "stock", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Stock);
+            t_Stock.AddColumn((Object)mt.m_Stock.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Stock.AddColumn((Object)mt.m_Stock.ImportTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimePicker_Now, new ltext("Import time", "Čas vnosa"));
+            t_Stock.AddColumn((Object)mt.m_Stock.dQuantity, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Quantity in Stok", "Količina na zalogi"));
+            t_Stock.AddColumn((Object)mt.m_Stock.ExpiryDate, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Expiry Date", "Rok uporabe"));
+            t_Stock.AddColumn((Object)mt.m_Stock.m_PurchasePrice_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Purchase Price Item ID", "Nabavna Cena Artikel ID"));
+            t_Stock.AddColumn((Object)mt.m_Stock.m_Stock_AddressLevel1, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("ID Stock Address Level 1", "ID Naslova nivo 1"));
+            t_Stock.AddColumn((Object)mt.m_Stock.Description, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Description", "Opis"));
             m_DBTables.items.Add(t_Stock);
 
             /* 30 */
@@ -1332,14 +1344,16 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_Atom_PriceList);
 
 
-        /* 92 */
-            t_PurchasePrice_Item = new SQLTable((Object)new PurchasePrice_Item(),"ppi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_PurchasePrice_Item);
-            t_PurchasePrice_Item.AddColumn((Object)mt.m_PurchasePrice_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_PurchasePrice_Item.AddColumn((Object)mt.m_PurchasePrice_Item.m_PurchasePrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Purchase price ID", "Nabavna cena ID") );
-            t_PurchasePrice_Item.AddColumn((Object)mt.m_PurchasePrice_Item.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Item ID", "Artikel ID") );
+         /* 92 */
+            t_PurchasePrice_Item = new SQLTable((Object)new PurchasePrice_Item(), "ppi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_PurchasePrice_Item);
+            t_PurchasePrice_Item.AddColumn((Object)mt.m_PurchasePrice_Item.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_PurchasePrice_Item.AddColumn((Object)mt.m_PurchasePrice_Item.m_Item, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Item ID", "Artikel ID"));
+            t_PurchasePrice_Item.AddColumn((Object)mt.m_PurchasePrice_Item.m_PurchasePrice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Purchase price ID", "Nabavna cena ID"));
+            t_PurchasePrice_Item.AddColumn((Object)mt.m_PurchasePrice_Item.m_Stock_Take, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimeNow, new ltext("Stock Take ID", "Prevzemnica ID"));
             m_DBTables.items.Add(t_PurchasePrice_Item);
 
-        /* 93 */
+
+         /* 93 */
             t_Atom_Currency = new SQLTable((Object)new Atom_Currency(),"acur", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_Currency);
             t_Atom_Currency.AddColumn((Object)mt.m_Atom_Currency.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Atom_Currency.AddColumn((Object)mt.m_Atom_Currency.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Currency Name", "Ime valute") );
@@ -1430,17 +1444,14 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_OrganisationData);
 
           /* 102 */
-            t_PurchasePrice = new SQLTable((Object)new PurchasePrice(),"pp", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_PurchasePrice); ;
-            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.PurchasePricePerUnit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Purchase price per unit", "Nabavna cena na enoto") );
-            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.PurchasePriceDate, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.DateTimeNow, new ltext( "Purchase price date", "Datum nabavne cene") );
-            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.m_Reference, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Reference ID", "Sklic ID") );
-            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.m_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Currency ID", "Valuta ID") );
-            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Taxation ID", "Davek ID") );
-            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.m_Supplier, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Supplier ID", "Dobavitelj ID") );
+            t_PurchasePrice = new SQLTable((Object)new PurchasePrice(), "pp", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_PurchasePrice); ;
+            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.PurchasePricePerUnit, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Purchase price per unit", "Nabavna cena na enoto"));
+            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.m_Currency, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Currency ID", "Valuta ID"));
+            t_PurchasePrice.AddColumn((Object)mt.m_PurchasePrice.m_Taxation, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Taxation ID", "Davek ID"));
             m_DBTables.items.Add(t_PurchasePrice);
 
-         /* 103 */
+          /* 103 */
             t_Reference_Image = new SQLTable((Object)new Reference_Image(),"refimg", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Reference_Image); ;
             t_Reference_Image.AddColumn((Object)mt.m_Reference_Image.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_Reference_Image.AddColumn((Object)mt.m_Reference_Image.Image_Hash, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new ltext( "Reference Image Hash", "Ident slike v sklicu") );
@@ -1465,7 +1476,7 @@ namespace TangentaDataBaseDef
         /* 105 */
             t_Supplier = new SQLTable((Object)new Supplier(),"sup", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Suplier);
             t_Supplier.AddColumn((Object)mt.m_Supplier.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Supplier.AddColumn((Object)mt.m_Supplier.m_Organisation, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Organisation ID", "Organizacija ID") );
+            t_Supplier.AddColumn((Object)mt.m_Supplier.m_Contact, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Contact ID", "Kontakt ID") );
             m_DBTables.items.Add(t_Supplier);
 
         /* 106 */
@@ -1595,7 +1606,7 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_JOURNAL_Customer_Org_Type);
 
         /* 123 */
-            t_JOURNAL_PurchasePrice_Type = new SQLTable((Object)new JOURNAL_PurchasePrice_Type(),"jppt", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_PurchasePrice_Type);
+            t_JOURNAL_PurchasePrice_Type = new SQLTable((Object)new JOURNAL_Stock_Take_Type(),"jppt", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_PurchasePrice_Type);
             t_JOURNAL_PurchasePrice_Type.AddColumn((Object)mt.m_JOURNAL_PurchasePrice_Type.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_JOURNAL_PurchasePrice_Type.AddColumn((Object)mt.m_JOURNAL_PurchasePrice_Type.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Type Name", "Ime") );
             t_JOURNAL_PurchasePrice_Type.AddColumn((Object)mt.m_JOURNAL_PurchasePrice_Type.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Description", "Opis") );
@@ -1713,7 +1724,7 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_JOURNAL_Customer_Org);
 
         /* 137 */
-            t_JOURNAL_PurchasePrice = new SQLTable((Object)new JOURNAL_PurchasePrice(),"jpp", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_PurchasePrice);
+            t_JOURNAL_PurchasePrice = new SQLTable((Object)new JOURNAL_Stock_Take(),"jpp", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_PurchasePrice);
             t_JOURNAL_PurchasePrice.AddColumn((Object)mt.m_JOURNAL_PurchasePrice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_JOURNAL_PurchasePrice.AddColumn((Object)mt.m_JOURNAL_PurchasePrice.m_JOURNAL_PurchasePrice_Type, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Journal event purchase price ID", "Dogodek nabavna cena ID") );
             t_JOURNAL_PurchasePrice.AddColumn((Object)mt.m_JOURNAL_PurchasePrice.m_PurchasePrice, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext( "Purchase price ID", "Nabavna cena ID") );
@@ -2273,6 +2284,46 @@ namespace TangentaDataBaseDef
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("Name", "Ime"));
             t_Atom_ElectronicDevice.AddColumn((Object)mt.m_Atom_ElectronicDevice.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             m_DBTables.items.Add(t_Atom_ElectronicDevice);
+
+            /* 200 */
+            t_Trucking = new SQLTable((Object)new Trucking(), "trc", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Trucking);
+            t_Trucking.AddColumn((Object)mt.m_Trucking.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Trucking.AddColumn((Object)mt.m_Trucking.m_Contact, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Contact ID", "Kontakt ID"));
+            t_Trucking.AddColumn((Object)mt.m_Trucking.TruckingCost, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Trucking costs", "Transportni stroški"));
+            t_Trucking.AddColumn((Object)mt.m_Trucking.TruckingNumber, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Trucking number", "Transportna številka"));
+            t_Trucking.AddColumn((Object)mt.m_Trucking.Customs, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Customs", "Carina"));
+            t_Trucking.AddColumn((Object)mt.m_Trucking.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_Trucking);
+
+            /* 201 */
+            t_Purchase_Order = new SQLTable((Object)new Purchase_Order(), "po", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Purchase_Order);
+            t_Purchase_Order.AddColumn((Object)mt.m_Purchase_Order.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Purchase_Order.AddColumn((Object)mt.m_Purchase_Order.Purchase_Order_Number, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Purchase Order Number", "Številka Naročilnice Dobavitelju"));
+            t_Purchase_Order.AddColumn((Object)mt.m_Purchase_Order.Purchase_Order_Date, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Purchase Order Date", "Datum Naročilnice Dobavitelju"));
+            t_Purchase_Order.AddColumn((Object)mt.m_Purchase_Order.m_Supplier, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Supplier ID", "Dobavitelj ID"));
+            t_Purchase_Order.AddColumn((Object)mt.m_Purchase_Order.DeliveryTime, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Delivery Time", "Rok Dobave"));
+            t_Purchase_Order.AddColumn((Object)mt.m_Purchase_Order.m_Reference, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Reference ID", "Referenca ID"));
+            t_Purchase_Order.AddColumn((Object)mt.m_Purchase_Order.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_Purchase_Order);
+
+            /* 202 */
+            t_Stock_Take = new SQLTable((Object)new Stock_Take(), "st", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Stock_Take);
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.m_Supplier, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Supplier ID", "Dobavitelj ID"));
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.Stock_Take_Date, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take Date", "Datum Prevzemnice"));
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.StockTakePriceTotal, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take price total", "Skupna cena prevzemnice"));
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.m_Reference, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Reference ID", "Sklic ID"));
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.m_Trucking, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Trucking ID", "Transport ID"));
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_Stock_Take);
+
+            /* 203 */
+            t_Contact = new SQLTable((Object)new Contact(), "c", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Contact);
+            t_Contact.AddColumn((Object)mt.m_Contact.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Contact.AddColumn((Object)mt.m_Contact.m_OrganisationData, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Organisation Data ID", "Organizacija Podatki ID"));
+            t_Contact.AddColumn((Object)mt.m_Contact.m_Person, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Person ID", "Oseba ID"));
+            m_DBTables.items.Add(t_Contact);
+
         }
     }
  }

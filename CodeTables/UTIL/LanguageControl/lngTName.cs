@@ -15,6 +15,11 @@ namespace LanguageControl
     public static class lngTName
     {
 
+        public static ltext lngt_t_Contact = new ltext("Contact", "Kontakt");
+        public static ltext lngt_t_Stock_Take = new ltext("Stock Take", "Prevzemnica");
+        public static ltext lngt_t_PurchasePrice = new ltext("Purchase Price", "Prevzemne cene");
+        public static ltext lngt_t_Purchase_Order = new ltext("Purchase Order", "Naročilo Dobavitelju");
+        public static ltext lngt_t_Trucking = new ltext("Trucking", "Transport");
         public static ltext lngt_t_Atom_ElectronicDevice = new ltext("Electronic Device", "Elektronska namprava");
         public static ltext lngt_t_Atom_Bank = new ltext("Archive Bank", "Arhiv bank");
         public static ltext lngt_t_Atom_BankAccount = new ltext("Archive Bank Account", "Arhiv bančnih računov");
@@ -124,7 +129,7 @@ namespace LanguageControl
 
         public static ltext lngt_PersonImage = new ltext("Person Image", "Slika osebe");
         public static ltext lngt_Reference_Image = new ltext("Reference document image", "Sklic slika dokumenta");
-        public static ltext lngt_PurchasePrice = new ltext("Purchase price", "Nabavna cena");
+        public static ltext lngt_Stock_Take = new ltext("Purchase price", "Nabavna cena");
         public static ltext lngt_Atom_OrganisationData = new ltext("Organisation Data archive", "Podatki o organizaciji arhiv");
         public static ltext lngt_OrganisationData = new ltext("Organisation Data", "Podatki o organizaciji");
         public static ltext lngt_myOrganisation_Person_AccessRights = new ltext("My Organisation Person Access Rights", "Dostopne pravice osebe v podjetju");

@@ -48,6 +48,8 @@ namespace NavigationButtons
 
         public string ExitProgramQuestionInLanguage = null;
 
+
+
         public bool Auto_NEXT { get { return (m_Auto_NEXT != null) && (m_eButtons == eButtons.PrevNextExit); } }
 
         public void ShowDialog()
@@ -118,7 +120,7 @@ namespace NavigationButtons
                 if (idot >= 0)
                 {
                     string stoken = FormTypeAsString.Substring(idot + 1);
-                    return HelpURL + LanguageControl.DynSettings.LanguagePrefix + "_" + stoken + ".html";
+                    return HelpURL + lngRPM_strings.LanguagePrefix + "_" + stoken + ".html";
                 }
             }
             return null;

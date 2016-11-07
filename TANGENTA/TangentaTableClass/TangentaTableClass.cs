@@ -220,6 +220,14 @@ namespace TangentaTableClass
     {
     }
 
+    public class Customs : DB_Money
+    {
+    }
+
+    public class StockTakePriceTotal : DB_Money
+    {
+    }
+
     public class ImportTime:DB_DateTime
     {
     }
@@ -1486,9 +1494,18 @@ namespace TangentaTableClass
     {
     }
 
-    public class PurchasePriceDate : DB_DateTime
+    public class Stock_Take_Date : DB_DateTime
     {
     }
+
+    public class Purchase_Order_Date : DB_DateTime
+    {
+    }
+
+    public class Purchase_Order_Number : DB_varchar_32
+    {
+    }
+
 
     public class PriceList
     {
@@ -1530,35 +1547,112 @@ namespace TangentaTableClass
     public class Supplier
     {
         public ID ID = new ID();
-        public Organisation m_Organisation = new Organisation();
+        public Contact m_Contact = new Contact();
+    }
+
+    public class TruckingNumber:DB_varchar_64
+    {
+
+    }
+
+    public class TruckingCost:DB_Money
+    {
+
+    }
+
+    public class Trucking
+    {
+        public ID ID = new ID();
+        public Contact m_Contact = new Contact();
+        public TruckingCost TruckingCost = new TruckingCost();
+        public TruckingNumber TruckingNumber = new TruckingNumber();
+        public Customs Customs = new Customs();
+        public Description Description = new Description();
+    }
+
+
+    public class Stock_Take
+    {
+        public ID ID = new ID();
+        public Stock_Take_Date Stock_Take_Date = new Stock_Take_Date();
+        public Supplier m_Supplier = new Supplier();
+        public StockTakePriceTotal StockTakePriceTotal = new StockTakePriceTotal();
+        public Trucking m_Trucking = new Trucking();
+        public Reference m_Reference = new Reference();
+        public Description Description = new Description();
     }
 
     public class PurchasePrice
+
     {
+
         public ID ID = new ID();
+
         public PurchasePricePerUnit PurchasePricePerUnit = new PurchasePricePerUnit();
-        public PurchasePriceDate PurchasePriceDate = new PurchasePriceDate();
-        public Supplier m_Supplier = new Supplier();
+
         public Currency m_Currency = new Currency();
+
         public Taxation m_Taxation = new Taxation();
-        public Reference m_Reference = new Reference();
+
     }
 
+
+
     public class PurchasePrice_Item
+
     {
+
         public ID ID = new ID();
+
         public PurchasePrice m_PurchasePrice = new PurchasePrice();
+
         public Item m_Item = new Item();
+
+        public Stock_Take m_Stock_Take = new Stock_Take();
+
     }
+
+
 
     public class Stock
     {
+
         public ID ID = new ID();
+
         public PurchasePrice_Item m_PurchasePrice_Item = new PurchasePrice_Item();
+
         public dQuantity dQuantity = new dQuantity();
+
         public ImportTime ImportTime = new ImportTime();
+
         public ExpiryDate ExpiryDate = new ExpiryDate();
+
         public Stock_AddressLevel1 m_Stock_AddressLevel1 = new Stock_AddressLevel1();
+
+        public Description Description = new Description();
+
+    }
+
+
+
+
+    public class Purchase_Order
+    {
+        public ID ID = new ID();
+        public Purchase_Order_Number Purchase_Order_Number = new Purchase_Order_Number();
+        public Purchase_Order_Date Purchase_Order_Date = new Purchase_Order_Date();
+        public DeliveryTime DeliveryTime = new DeliveryTime();
+        public Supplier m_Supplier = new Supplier();
+        public Reference m_Reference = new Reference();
+        public Description Description = new Description();
+    }
+
+    public class Purchase_Order_Item
+    {
+        public ID ID = new ID();
+        public Purchase_Order m_Purchase_Order = new Purchase_Order();
+        public Item m_Item = new Item();
+        public dQuantity dQuantity = new dQuantity();
         public Description Description = new Description();
     }
 
@@ -1943,7 +2037,7 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
-    public class JOURNAL_PurchasePrice_Type
+    public class JOURNAL_Stock_Take_Type
     {
         public ID ID = new ID();
         public Name Name = new Name();
@@ -2064,11 +2158,11 @@ namespace TangentaTableClass
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
-    public class JOURNAL_PurchasePrice
+    public class JOURNAL_Stock_Take
     {
         public ID ID = new ID();
-        public JOURNAL_PurchasePrice_Type m_JOURNAL_PurchasePrice_Type = new JOURNAL_PurchasePrice_Type();
-        public PurchasePrice m_PurchasePrice = new PurchasePrice();
+        public JOURNAL_Stock_Take_Type m_JOURNAL_PurchasePrice_Type = new JOURNAL_Stock_Take_Type();
+        public Stock_Take m_PurchasePrice = new Stock_Take();
         public EventTime EventTime = new EventTime();
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
@@ -2706,7 +2800,7 @@ namespace TangentaTableClass
         public JOURNAL_Customer_Org_Type m_JOURNAL_Customer_Org_Type = new JOURNAL_Customer_Org_Type();
 
         /* 123 */
-        public JOURNAL_PurchasePrice_Type m_JOURNAL_PurchasePrice_Type = new JOURNAL_PurchasePrice_Type();
+        public JOURNAL_Stock_Take_Type m_JOURNAL_PurchasePrice_Type = new JOURNAL_Stock_Take_Type();
 
         /* 124 */
         public JOURNAL_Taxation_Type m_JOURNAL_Taxation_Type = new JOURNAL_Taxation_Type();
@@ -2748,7 +2842,7 @@ namespace TangentaTableClass
         public JOURNAL_Customer_Org m_JOURNAL_Customer_Org = new JOURNAL_Customer_Org();
 
         /* 137 */
-        public JOURNAL_PurchasePrice m_JOURNAL_PurchasePrice = new JOURNAL_PurchasePrice();
+        public JOURNAL_Stock_Take m_JOURNAL_PurchasePrice = new JOURNAL_Stock_Take();
 
         /* 138 */
         public JOURNAL_Taxation m_JOURNAL_Taxation = new JOURNAL_Taxation();
@@ -2935,6 +3029,18 @@ namespace TangentaTableClass
 
         /* 199 */
         public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
+
+        /* 200 */
+        public Trucking m_Trucking = new Trucking();
+
+        /* 201 */
+        public Purchase_Order m_Purchase_Order = new Purchase_Order();
+
+        /* 202 */
+        public Stock_Take m_Stock_Take = new Stock_Take();
+
+        /* 203 */
+        public Contact m_Contact = new Contact();
 
     }
 }

@@ -139,7 +139,8 @@ namespace Tangenta
                                  PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
-                    if (this.usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false,nav))
+
+                    if (this.usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false, nav))
                     {
                         return;
                     }
@@ -173,7 +174,7 @@ namespace Tangenta
                                  PurchasePrice_Item_$_pp_$_myOrganisation_Person_$$LastName
                                  PurchasePrice_Item_$_i_$$Code
 ";
-                                if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false,nav))
+                                if (usrc_EditTable_PurchaseItem.Init(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_PurchasePrice_Item, selection, "PurchasePrice_Item_$_i_$$Code desc", false, null, null, false, nav))
                                 {
                                     return;
                                 }
@@ -186,9 +187,7 @@ namespace Tangenta
                     }
                 }
             }
-
         }
-
         private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
         {
 

@@ -54,11 +54,11 @@ namespace Tangenta
 
         public static List<TangentaTableClass.Item_Image> m_List_Item_Image = new List<TangentaTableClass.Item_Image>();
 
-        public static List<TangentaTableClass.OrganisationData> m_List_OrganisationData_Supplier = new List<TangentaTableClass.OrganisationData>();
+        public static List<TangentaTableClass.Contact> m_List_OrganisationData_Supplier = new List<TangentaTableClass.Contact>();
 
         public static List<TangentaTableClass.Supplier> m_List_Supplier = new List<TangentaTableClass.Supplier>();
 
-        public static List<TangentaTableClass.PurchasePrice_Item> m_List_PurchasePrice_Item = new List<TangentaTableClass.PurchasePrice_Item>();
+        public static List<TangentaTableClass.Stock_Take> m_List_Stock_Take = new List<TangentaTableClass.Stock_Take>();
 
         public static List<TangentaTableClass.Stock> m_List_Stock = new List<TangentaTableClass.Stock>();
 
@@ -274,6 +274,9 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
         {
 
             TangentaTableClass.Organisation org = new TangentaTableClass.Organisation();
+            TangentaTableClass.Person per = new TangentaTableClass.Person();
+            TangentaTableClass.Contact con = new TangentaTableClass.Contact();
+
             TangentaTableClass.OrganisationData orgdata = new TangentaTableClass.OrganisationData();
             TangentaTableClass.Supplier supplier = new TangentaTableClass.Supplier();
 
@@ -285,9 +288,10 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
             orgdata.m_cAddress_Org.m_cZIP_Org.ZIP.val = "90522";
             orgdata.m_cAddress_Org.m_cCountry_Org.Country.val = "Deutschland";
 
-            supplier.m_Organisation = org;
+            supplier.m_Contact = con;
+            supplier.m_Contact.m_OrganisationData = orgdata;
 
-            m_List_OrganisationData_Supplier.Add(orgdata);
+            m_List_OrganisationData_Supplier.Add(con);
 
             
 
@@ -841,17 +845,17 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
         public static bool Init_DB_Supplier(ref string Err)
         {
-            foreach (TangentaTableClass.OrganisationData Supplier_OrganisationData in m_List_OrganisationData_Supplier)
+            foreach (TangentaTableClass.Contact Supplier_Contact in m_List_OrganisationData_Supplier)
             {
                 long Organisation_id = -1;
                 long OrganisationAccount_id = -1;
                 long OrganisationData_id = -1;
-                if (fs.Get_OrganisationData_ID(Supplier_OrganisationData.m_Organisation.Name.val,
-                                               Supplier_OrganisationData.m_cAddress_Org.m_cStreetName_Org.StreetName.val,
-                                               Supplier_OrganisationData.m_cAddress_Org.m_cHouseNumber_Org.HouseNumber.val,
-                                               Supplier_OrganisationData.m_cAddress_Org.m_cZIP_Org.ZIP.val,
-                                               Supplier_OrganisationData.m_cAddress_Org.m_cCity_Org.City.val,
-                                               Supplier_OrganisationData.m_cAddress_Org.m_cCountry_Org.Country.val,
+                if (fs.Get_OrganisationData_ID(Supplier_Contact.m_OrganisationData.m_Organisation.Name.val,
+                                               Supplier_Contact.m_OrganisationData.m_cAddress_Org.m_cStreetName_Org.StreetName.val,
+                                               Supplier_Contact.m_OrganisationData.m_cAddress_Org.m_cHouseNumber_Org.HouseNumber.val,
+                                               Supplier_Contact.m_OrganisationData.m_cAddress_Org.m_cZIP_Org.ZIP.val,
+                                               Supplier_Contact.m_OrganisationData.m_cAddress_Org.m_cCity_Org.City.val,
+                                               Supplier_Contact.m_OrganisationData.m_cAddress_Org.m_cCountry_Org.Country.val,
                                                null,
                                                null,
                                                null,
@@ -860,10 +864,10 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                                                null,
                                                null,
                                                "Gmbh",
-                                               Supplier_OrganisationData.m_cHomePage_Org.HomePage.val,
-                                               Supplier_OrganisationData.m_cEmail_Org.Email.val,
-                                               Supplier_OrganisationData.m_cPhoneNumber_Org.PhoneNumber.val,
-                                               Supplier_OrganisationData.m_cFaxNumber_Org.FaxNumber.val,
+                                               Supplier_Contact.m_OrganisationData.m_cHomePage_Org.HomePage.val,
+                                               Supplier_Contact.m_OrganisationData.m_cEmail_Org.Email.val,
+                                               Supplier_Contact.m_OrganisationData.m_cPhoneNumber_Org.PhoneNumber.val,
+                                               Supplier_Contact.m_OrganisationData.m_cFaxNumber_Org.FaxNumber.val,
                                                ref Organisation_id,
                                                ref OrganisationAccount_id,
                                                ref OrganisationData_id,
@@ -905,10 +909,11 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
 
             foreach (TangentaTableClass.Stock Stock in m_List_Stock)
             {
+
                 List<DBConnectionControl40.SQL_Parameter> lsql_par = null;
 
                 lsql_par = new List<DBConnectionControl40.SQL_Parameter>();
-                DBConnectionControl40.SQL_Parameter sql_par = new DBConnectionControl40.SQL_Parameter("@Par_" + s_col_ImportTime,DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Datetime, false, Stock.ImportTime.val);
+                DBConnectionControl40.SQL_Parameter sql_par = new DBConnectionControl40.SQL_Parameter("@Par_" + s_col_ImportTime, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Datetime, false, Stock.ImportTime.val);
                 sql_par.SQLiteDbType = System.Data.DbType.DateTime;
                 lsql_par.Add(sql_par);
 
@@ -916,9 +921,8 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                 sql_par.SQLiteDbType = System.Data.DbType.DateTime;
                 lsql_par.Add(sql_par);
 
-
                 long Stock_id = -1;
-                if (fs.GetID(s_Stock_table_name,new string[]{s_col_PurchasePrice_Item_ID,
+                if (fs.GetID(s_Stock_table_name, new string[]{s_col_PurchasePrice_Item_ID,
                                                              s_col_ImportTime,
                                                              s_col_ExpiryDate,
                                                              s_col_Quantity
@@ -927,7 +931,7 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                                                             "@Par_" + s_col_ImportTime,
                                                             "@Par_" + s_col_ExpiryDate,
                                                             Stock.dQuantity.val.ToString()
-                                               },lsql_par,ref Stock_id,ref Err))
+                                               }, lsql_par, ref Stock_id, ref Err))
                 {
                 }
                 else
@@ -936,7 +940,6 @@ Apply BEAUTIPHARM® SELF BRONZER to a clean, dry skin. Pour a sufficient amount 
                 }
             }
             return true;
-
         }
 
         private static bool Init_DB(ref string Err)

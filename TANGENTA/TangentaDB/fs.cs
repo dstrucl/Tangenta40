@@ -541,8 +541,8 @@ namespace TangentaDB
                                     Stock_$_ppi_$_i_$_exp_$$SaleBeforeExpiryDateInDays,
                                     Stock_$_ppi_$_i_$_exp_$$DiscardBeforeExpiryDateInDays,
                                     Stock_$$ImportTime,
-                                    Stock_$_ppi_$_pp_$_sup_$_org_$$Name,
-                                    Stock_$_ppi_$_pp_$_ref_$$ReferenceNote
+                                    Stock_$_ppi_$_st_$_sup_$_c_$_orgd_$_org_$$Name,
+                                    Stock_$_ppi_$_st_$_ref_$$ReferenceNote
                                     from stock_view where Stock_$$dQuantity > 0 and (Stock_$$ExpiryDate is not null) order by Stock_$$ExpiryDate asc " + DBSync.DBSync.sLimit(iLimit);
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_ExpiryCheck, sql, ref Err))
