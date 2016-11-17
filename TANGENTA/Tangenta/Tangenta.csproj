@@ -1155,6 +1155,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir)bin\NetRevisionTool.exe" /restore "$(ProjectDir)Properties"
+DIR  /s /b *.dll;*.exe &gt;$(SolutionDir)\Release\TangentaFileList2.txt
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
