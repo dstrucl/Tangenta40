@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SolutionExport
+namespace SolutionExplorer
 {
     public class ProjectReferencesList
     {
@@ -43,7 +43,7 @@ namespace SolutionExport
             {
                 var AssemblyName = prj.Project.GetPropertyValue("AssemblyName");
 
-                var outputPath = Form1.GetOutputPath(prj.Project, xConfigurationName, xPlatform);
+                var outputPath = Form_SolutionExplorer.GetOutputPath(prj.Project, xConfigurationName, xPlatform);
 
                 var fullpath = System.IO.Path.Combine(prj.Project.DirectoryPath, outputPath);
 

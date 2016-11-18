@@ -120,7 +120,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPassword", "CodeTables\
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallTangenta", "InstallTangenta\InstallTangenta.vdproj", "{FA0B2C5D-BA90-4A30-A8BA-3430314ECC85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionExport", "CodeTables\UTIL\SolutionExport\SolutionExport.csproj", "{CA251C2E-B5B3-4E0B-A1EC-396FE10EE92F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionExplorer", "CodeTables\UTIL\SolutionExport\SolutionExplorer.csproj", "{CA251C2E-B5B3-4E0B-A1EC-396FE10EE92F}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

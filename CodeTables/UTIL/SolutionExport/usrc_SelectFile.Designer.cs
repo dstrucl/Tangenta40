@@ -1,4 +1,4 @@
-﻿namespace SolutionExport
+﻿namespace SolutionExplorer
 {
     partial class usrc_SelectFile
     {

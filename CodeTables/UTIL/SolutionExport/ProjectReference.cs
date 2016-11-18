@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Build.Evaluation;
 
-namespace SolutionExport
+namespace SolutionExplorer
 {
     public class ProjectReference
     {

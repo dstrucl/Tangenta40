@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SolutionExport
+namespace SolutionExplorer
 {
     public partial class usrc_SelectFile : UserControl
     {
@@ -121,6 +121,10 @@ namespace SolutionExport
                 Path = ofd.FileName.Substring(0,ofd.FileName.IndexOf(ofd.SafeFileName));
                 Extension = ofd.SafeFileName.Substring(ofd.SafeFileName.IndexOf("."));
                 txt_SelectedFile.Text = PathWithFileName;
+                if (ExistingFileChanged!=null)
+                {
+                    ExistingFileChanged(txt_SelectedFile.Text);
+                }
             }
         }
     }
