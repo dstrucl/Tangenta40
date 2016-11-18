@@ -77,14 +77,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Check, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\Check.dll</HintPath>
-    </Reference>
-    <Reference Include="Password, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CodeTables\CONTROLS\Password\bin\Debug\Password.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -805,6 +797,10 @@
     <None Include="Tangenta.licenseheader" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Check\Check.csproj">
+      <Project>{5bfcffe6-c6cd-48e6-8bd5-05e6b17dd82c}</Project>
+      <Name>Check</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
       <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
       <Name>ComboBox_Recent</Name>
@@ -824,6 +820,10 @@
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Password\Password.csproj">
+      <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
+      <Name>Password</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\TextBoxRecent\TextBoxRecent.csproj">
       <Project>{c086ec32-85f5-43ca-a457-040ca7beaa9e}</Project>
