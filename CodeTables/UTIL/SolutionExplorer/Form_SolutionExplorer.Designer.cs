@@ -59,14 +59,14 @@
             this.cmb_Configuration = new System.Windows.Forms.ComboBox();
             this.cmb_Platform = new System.Windows.Forms.ComboBox();
             this.lbl_Platform = new System.Windows.Forms.Label();
-            this.dgvx_SelectedExecutablesInSolution = new System.Windows.Forms.DataGridView();
+            this.dgvx_SelectedExecutablesInSolution = new DataGridView_2xls.DataGridView2xls();
             this.lbl_ExecutablesInSolution = new System.Windows.Forms.Label();
-            this.dgvx_Libraries = new System.Windows.Forms.DataGridView();
+            this.dgvx_Libraries = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lbl_ProjectLibraries = new System.Windows.Forms.Label();
             this.lbl_External_References = new System.Windows.Forms.Label();
-            this.dgvx_ExternalDLLReferences = new System.Windows.Forms.DataGridView();
+            this.dgvx_ExternalDLLReferences = new DataGridView_2xls.DataGridView2xls();
             this.usrc_SelectFile1 = new SolutionExplorer.usrc_SelectFile();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_SelectedExecutablesInSolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Libraries)).BeginInit();
@@ -161,6 +161,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_SelectedExecutablesInSolution.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvx_SelectedExecutablesInSolution.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_SelectedExecutablesInSolution.DataGridViewWithRowNumber = true;
             this.dgvx_SelectedExecutablesInSolution.Location = new System.Drawing.Point(3, 34);
             this.dgvx_SelectedExecutablesInSolution.Name = "dgvx_SelectedExecutablesInSolution";
             this.dgvx_SelectedExecutablesInSolution.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -187,6 +188,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_Libraries.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvx_Libraries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_Libraries.DataGridViewWithRowNumber = true;
             this.dgvx_Libraries.Location = new System.Drawing.Point(7, 38);
             this.dgvx_Libraries.Name = "dgvx_Libraries";
             this.dgvx_Libraries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -263,6 +265,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvx_ExternalDLLReferences.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvx_ExternalDLLReferences.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_ExternalDLLReferences.DataGridViewWithRowNumber = true;
             this.dgvx_ExternalDLLReferences.Location = new System.Drawing.Point(3, 38);
             this.dgvx_ExternalDLLReferences.Name = "dgvx_ExternalDLLReferences";
             this.dgvx_ExternalDLLReferences.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -325,14 +328,14 @@
         private System.Windows.Forms.ComboBox cmb_Configuration;
         private System.Windows.Forms.ComboBox cmb_Platform;
         private System.Windows.Forms.Label lbl_Platform;
-        private System.Windows.Forms.DataGridView dgvx_SelectedExecutablesInSolution;
+        private DataGridView_2xls.DataGridView2xls dgvx_SelectedExecutablesInSolution;
         private System.Windows.Forms.Label lbl_ExecutablesInSolution;
-        private System.Windows.Forms.DataGridView dgvx_Libraries;
+        private DataGridView_2xls.DataGridView2xls dgvx_Libraries;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Label lbl_ProjectLibraries;
         private System.Windows.Forms.Label lbl_External_References;
-        private System.Windows.Forms.DataGridView dgvx_ExternalDLLReferences;
+        private DataGridView_2xls.DataGridView2xls dgvx_ExternalDLLReferences;
         private usrc_SelectFile usrc_SelectFile1;
     }
 }

@@ -48,12 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PlatformList.cs" />
+    <Compile Include="Platform.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="ConfigurationList.cs" />
     <Compile Include="Form_SolutionExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_SolutionExplorer.Designer.cs">
       <DependentUpon>Form_SolutionExplorer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SolutionExplorerIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+      <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
+      <Name>DataGridView_2xls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -43,7 +43,7 @@ namespace SolutionExplorer
             {
                 var AssemblyName = prj.Project.GetPropertyValue("AssemblyName");
 
-                var outputPath = Form_SolutionExplorer.GetOutputPath(prj.Project, xConfigurationName, xPlatform);
+                var outputPath = Parser.GetOutputPath(prj.Project);
 
                 var fullpath = System.IO.Path.Combine(prj.Project.DirectoryPath, outputPath);
 
@@ -81,5 +81,4 @@ namespace SolutionExplorer
             return false;
         }
     }
-
 }
