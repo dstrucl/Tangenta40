@@ -149,7 +149,7 @@ namespace SolutionExplorer
             }
         }
 
-        public static void GetSelectedProjectDependencies(ref string TextOutput)
+        public static bool GetSelectedProjectDependencies(ref string TextOutput,ref string Err)
         {
             TextOutput = "";
 
@@ -278,13 +278,13 @@ namespace SolutionExplorer
 
 
                                         int iIndex = extdll_ref_list.Find(abs_path);
-
                                         if (iIndex < 0)
-
                                         {
-
                                             extdll_ref_list.Add(rel_path, abs_path, AssemblyName);
-
+                                        }
+                                        else
+                                        {
+                                            extdll_ref_list.Items[iIndex].Add(AssemblyName);
                                         }
 
                                     }
@@ -303,7 +303,12 @@ namespace SolutionExplorer
 
                 var outputPath = GetOutputPath(proj);
 
-
+                if (outputPath==null)
+                {
+                    Err = "Output path not found for Configuration=\"" + ConfigurationName + "\" Platform = " + Platform +"\r\n"
+                          + "Hint: May be you don't have such configuration defined in project:"+ proj.FullPath + ".\r\n Try to change Configuration and Platform." ;
+                    return false;
+                }
 
                 var fullpath = Path.Combine(proj.DirectoryPath, outputPath);
 
@@ -392,7 +397,7 @@ namespace SolutionExplorer
 
                     dr[dcln_ExternalDll_absolute_path] = extdll_ref_list.Items[i].m_AbsolutePath;
 
-                    dr[dcln_ExternalDll_ref_assembly] = extdll_ref_list.Items[i].m_ReferencingAssembly;
+                    dr[dcln_ExternalDll_ref_assembly] = extdll_ref_list.Items[i].ReferencingAssembly;
 
                     dr[dcln_ExternalDll_relative_path] = extdll_ref_list.Items[i].m_RelativePath;
 
@@ -400,6 +405,7 @@ namespace SolutionExplorer
 
                 }
             }
+            return true;
         }
 
         public static string GetOutputPath(Project proj)
@@ -418,19 +424,85 @@ namespace SolutionExplorer
                 if (sName.Equals("OutputPath"))
                 {
                     sOutputPath = pp.EvaluatedValue;
-                    break;
+                    return sOutputPath;
                 }
             }
-            return sOutputPath;
+
+
+            string last_configuration = "";
+            string last_platform = "";
+            foreach (Microsoft.Build.Construction.ProjectPropertyGroupElement pge in  proj.Xml.PropertyGroups)
+            {
+                foreach (Microsoft.Build.Construction.ProjectElement pe in pge.Children)
+                {
+                    Microsoft.Build.Construction.ProjectPropertyElement ppe = (Microsoft.Build.Construction.ProjectPropertyElement)pe;
+                    if (ppe.Name.ToLower().Equals("configuration"))
+                    {
+                        last_configuration = ppe.Value;
+                    }
+                    else if (ppe.Name.ToLower().Equals("platform"))
+                    {
+                        last_platform = ppe.Value;
+                    }
+                    else if (ppe.Name.ToLower().Equals("outputpath"))
+                    {
+                        if (last_configuration.Equals(ConfigurationName) && last_platform.Equals(Platform))
+                        {
+                            return ppe.Value;
+                        }
+                            //if (ppe.NextSibling != null)
+                            //{
+                            //    Microsoft.Build.Construction.ProjectPropertyElement ppe_platform = (Microsoft.Build.Construction.ProjectPropertyElement)ppe.NextSibling;
+                            //    if (ppe_platform.Name.ToLower().Equals("platform"))
+                            //    {
+                            //        if (ppe_platform.Value.Equals(Platform))
+                            //        {
+                            //            if (ppe_platform.NextSibling != null)
+                            //            {
+                            //                int iMaxSiblings = 200;
+                            //                string s = CheckNextSibling(ppe_platform.NextSibling, iMaxSiblings);
+                            //                if (s != null)
+                            //                {
+                            //                    sOutputPath = s;
+                            //                    return sOutputPath;
+                            //                }
+                            //            }
+                            //        }
+                            //    }
+                            //}
+                    }
+                }
+            }
+            return null;
+            
         }
 
-
-
-
-
-
-
-
+        private static string CheckNextSibling(ProjectElement nextSibling, int iMaxSiblings)
+        {
+            if (iMaxSiblings > 0)
+            {
+                Microsoft.Build.Construction.ProjectPropertyElement ppe_sibling = (Microsoft.Build.Construction.ProjectPropertyElement)nextSibling;
+                if (ppe_sibling.Name.ToLower().Equals("outputpath"))
+                {
+                    return ppe_sibling.Value;
+                }
+                else
+                {
+                    if (ppe_sibling.NextSibling!=null)
+                    {
+                        return CheckNextSibling(ppe_sibling.NextSibling, iMaxSiblings - 1);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         public static bool ParseSolutionFile(ref string TextOutput)
         {

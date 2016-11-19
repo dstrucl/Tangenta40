@@ -14,7 +14,7 @@ namespace SolutionExplorer
 {
     public partial class Form_SolutionExplorer : Form
     {
-
+        internal Form_NSIS_Setup Form_NSIS = null;
 
         public Form_SolutionExplorer()
         {
@@ -34,10 +34,17 @@ namespace SolutionExplorer
             dgvx_ExternalDLLReferences.DataSource = null;
             dgvx_Libraries.DataSource = null;
             string sout = null;
-            Parser.GetSelectedProjectDependencies(ref sout);
-            txt_Projects.Text = sout;
-            dgvx_Libraries.DataSource = Parser.dtLibraries;
-            dgvx_ExternalDLLReferences.DataSource = Parser.dtExternalDll;
+            string Err = null;
+            if (Parser.GetSelectedProjectDependencies(ref sout, ref Err))
+            {
+                txt_Projects.Text = sout;
+                dgvx_Libraries.DataSource = Parser.dtLibraries;
+                dgvx_ExternalDLLReferences.DataSource = Parser.dtExternalDll;
+            }
+            else
+            {
+                MessageBox.Show(this, "ERROR:" + Err);
+            }
         }
 
 
@@ -168,6 +175,19 @@ namespace SolutionExplorer
                 this.cmb_Configuration.SelectedIndexChanged += new System.EventHandler(this.cmb_Configuration_SelectedIndexChanged);
 
                 this.cmb_Platform.SelectedIndexChanged += new System.EventHandler(this.cmb_Platform_SelectedIndexChanged);
+            }
+        }
+
+        private void btn_NSIS_Click(object sender, EventArgs e)
+        {
+            if (Form_NSIS == null)
+            {
+                Form_NSIS = new Form_NSIS_Setup(this);
+                Form_NSIS.Show();
+            }
+            else
+            {
+                Form_NSIS.Show();
             }
         }
     }

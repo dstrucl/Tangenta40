@@ -63,6 +63,16 @@ namespace SolutionExplorer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon NSIS_Icon {
+            get {
+                object obj = ResourceManager.GetObject("NSIS_Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon SolutionExplorerIcon {
             get {
                 object obj = ResourceManager.GetObject("SolutionExplorerIcon", resourceCulture);

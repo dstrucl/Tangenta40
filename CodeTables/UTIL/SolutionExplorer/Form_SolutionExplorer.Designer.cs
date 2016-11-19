@@ -68,6 +68,7 @@
             this.lbl_External_References = new System.Windows.Forms.Label();
             this.dgvx_ExternalDLLReferences = new DataGridView_2xls.DataGridView2xls();
             this.usrc_SelectFile1 = new SolutionExplorer.usrc_SelectFile();
+            this.btn_NSIS = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_SelectedExecutablesInSolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Libraries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -83,9 +84,9 @@
             // 
             // btn_Parse
             // 
-            this.btn_Parse.Location = new System.Drawing.Point(704, 48);
+            this.btn_Parse.Location = new System.Drawing.Point(632, 48);
             this.btn_Parse.Name = "btn_Parse";
-            this.btn_Parse.Size = new System.Drawing.Size(129, 44);
+            this.btn_Parse.Size = new System.Drawing.Size(92, 44);
             this.btn_Parse.TabIndex = 1;
             this.btn_Parse.Text = "Parse";
             this.btn_Parse.UseVisualStyleBackColor = true;
@@ -284,11 +285,22 @@
             this.usrc_SelectFile1.TabIndex = 13;
             this.usrc_SelectFile1.ExistingFileChanged += new SolutionExplorer.usrc_SelectFile.delegate_ExistingFileChanged(this.usrc_SelectFile1_ExistingFileChanged);
             // 
+            // btn_NSIS
+            // 
+            this.btn_NSIS.Location = new System.Drawing.Point(761, 48);
+            this.btn_NSIS.Name = "btn_NSIS";
+            this.btn_NSIS.Size = new System.Drawing.Size(128, 44);
+            this.btn_NSIS.TabIndex = 14;
+            this.btn_NSIS.Text = "NSIS create installer";
+            this.btn_NSIS.UseVisualStyleBackColor = true;
+            this.btn_NSIS.Click += new System.EventHandler(this.btn_NSIS_Click);
+            // 
             // Form_SolutionExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(940, 834);
+            this.Controls.Add(this.btn_NSIS);
             this.Controls.Add(this.usrc_SelectFile1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.cmb_Platform);
@@ -337,5 +349,6 @@
         private System.Windows.Forms.Label lbl_External_References;
         private DataGridView_2xls.DataGridView2xls dgvx_ExternalDLLReferences;
         private usrc_SelectFile usrc_SelectFile1;
+        private System.Windows.Forms.Button btn_NSIS;
     }
 }

@@ -58,5 +58,53 @@ namespace SolutionExplorer.Properties {
                 this["Platform"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NSIS_Script_FileName_of_Template {
+            get {
+                return ((string)(this["NSIS_Script_FileName_of_Template"]));
+            }
+            set {
+                this["NSIS_Script_FileName_of_Template"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NSIS_Script_Path {
+            get {
+                return ((string)(this["NSIS_Script_Path"]));
+            }
+            set {
+                this["NSIS_Script_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NSIS_Script_FileName {
+            get {
+                return ((string)(this["NSIS_Script_FileName"]));
+            }
+            set {
+                this["NSIS_Script_FileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NSIS_Script_Path_of_Template {
+            get {
+                return ((string)(this["NSIS_Script_Path_of_Template"]));
+            }
+            set {
+                this["NSIS_Script_Path_of_Template"] = value;
+            }
+        }
     }
 }
