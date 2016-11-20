@@ -85,7 +85,6 @@
             this.lbl_NSIS_Script_Template.Size = new System.Drawing.Size(162, 20);
             this.lbl_NSIS_Script_Template.TabIndex = 5;
             this.lbl_NSIS_Script_Template.Text = "NSIS Script Template";
-            this.lbl_NSIS_Script_Template.Click += new System.EventHandler(this.lbl_NSIS_Script_Template_Click);
             // 
             // btn_Build_NSIS_Script
             // 
@@ -96,6 +95,7 @@
             this.btn_Build_NSIS_Script.TabIndex = 8;
             this.btn_Build_NSIS_Script.Text = "Build NSIS Srcipt file from Template";
             this.btn_Build_NSIS_Script.UseVisualStyleBackColor = true;
+            this.btn_Build_NSIS_Script.Click += new System.EventHandler(this.btn_Build_NSIS_Script_Click);
             // 
             // usrc_SelectFile_NSIS_Script_Template
             // 

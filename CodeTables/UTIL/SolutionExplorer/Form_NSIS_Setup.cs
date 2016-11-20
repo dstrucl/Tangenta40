@@ -13,6 +13,8 @@ namespace SolutionExplorer
     public partial class Form_NSIS_Setup : Form
     {
         Form_SolutionExplorer m_Form_SolutionExplorer = null;
+        NSISScriptTemplateParser NSIS_parser = new NSISScriptTemplateParser();
+
         public Form_NSIS_Setup(Form_SolutionExplorer xForm_SolutionExplorer)
         {
             InitializeComponent();
@@ -31,10 +33,6 @@ namespace SolutionExplorer
             }
         }
 
-        private void lbl_NSIS_Script_Template_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Form_NSIS_Setup_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -55,6 +53,33 @@ namespace SolutionExplorer
             Properties.Settings.Default.NSIS_Script_FileName_of_Template = usrc_SelectFile_NSIS_Script_Template.FileName;
             Properties.Settings.Default.Save();
             txt_NSIS_Script_File.LoadFile(xFileName, true, true);
+        }
+
+        private void btn_Build_NSIS_Script_Click(object sender, EventArgs e)
+        {
+            string Err = null;
+            txt_NSIS_Script_File_Template.SaveFile(usrc_SelectFile_NSIS_Script_Template.PathWithFileName);
+            NSIS_parser.DocumentText = txt_NSIS_Script_File_Template.Text;
+            string sFilesToInstallBlock = NSIS_parser.FilesToInstallBlock(ref Err);
+            string sFilesToUninstallBlock = NSIS_parser.FilesToUninstallBlock(ref Err);
+            if (sFilesToInstallBlock != null)
+            {
+                string sNewScript = NSIS_parser.ReplaceDocumentText(NSIS_parser.Token_FilesToInstall, NSIS_parser.DocumentText, sFilesToInstallBlock, ref Err);
+                sNewScript = NSIS_parser.ReplaceDocumentText(NSIS_parser.Token_FilesToUninstall, sNewScript, sFilesToUninstallBlock, ref Err);
+                if (sNewScript==null)
+                {
+                    txt_NSIS_Script_File.Text = null;
+                    MessageBox.Show("ERROR:Script Not created:\r\n" + Err);
+                }
+                else
+                {
+                    txt_NSIS_Script_File.Text = sNewScript;
+                }
+            }
+            else
+            {
+                MessageBox.Show("ERROR:" + Err);
+            }
         }
     }
 }

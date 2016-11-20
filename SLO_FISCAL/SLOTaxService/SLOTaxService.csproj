@@ -75,8 +75,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\common_reference\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Security.Cryptography">
-      <HintPath>..\..\DLL\Security.Cryptography.dll</HintPath>
+    <Reference Include="Security.Cryptography, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Security.Cryptography.1.7.2\lib\net35\Security.Cryptography.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -99,7 +100,9 @@
     </Compile>
     <Compile Include="Services\SetCryptoConfig.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="..\SharedService\SharedService.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\common_reference\StyleCop\Build\StyleCop.MSBuild.Targets" />

@@ -54,6 +54,7 @@
     <Compile Include="Form_NSIS_Setup.Designer.cs">
       <DependentUpon>Form_NSIS_Setup.cs</DependentUpon>
     </Compile>
+    <Compile Include="NSISScriptTemplateParser.cs" />
     <Compile Include="PlatformList.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Configuration.cs" />
