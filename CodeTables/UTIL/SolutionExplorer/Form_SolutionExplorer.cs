@@ -15,6 +15,7 @@ namespace SolutionExplorer
     public partial class Form_SolutionExplorer : Form
     {
         internal Form_NSIS_Setup Form_NSIS = null;
+        internal Form_INNO_Setup Form_INNO = null;
 
         public Form_SolutionExplorer()
         {
@@ -189,6 +190,20 @@ namespace SolutionExplorer
             {
                 Form_NSIS.Show();
             }
+        }
+
+        private void btn_INNO_Installer_Click(object sender, EventArgs e)
+        {
+            if(Form_INNO == null)
+            {
+                Form_INNO = new Form_INNO_Setup(this);
+                Form_INNO.Show();
+            }
+            else
+            {
+                Form_INNO.Show();
+            }
+
         }
     }
 }

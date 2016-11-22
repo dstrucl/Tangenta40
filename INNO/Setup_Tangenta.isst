@@ -1,0 +1,35 @@
+; -- Tangenta.iss --
+; Same as Example1.iss, but creates some registry entries too.
+
+; SEE THE DOCUMENTATION FOR DETAILS ON CREATING .ISS SCRIPT FILES!
+
+[Setup]
+AppName=Setup_Tangenta
+AppVersion=1.5
+DefaultDirName={pf}\Tangenta
+DefaultGroupName=Tangenta
+UninstallDisplayIcon={app}\Tangenta.exe
+OutputDir=userdocs:Inno Setup Examples Output
+
+[Files]
+;<FilesToInstall>
+
+;</FilesToInstall>
+
+[Icons]
+Name: "{group}\My Program"; Filename: "{app}\Tangenta.exe"
+
+; NOTE: Most apps do not need registry entries to be pre-created. If you
+; don't know what the registry is or if you need to use it, then chances are
+; you don't need a [Registry] section.
+
+[Registry]
+; Start "Software\My Company\My Program" keys under HKEY_CURRENT_USER
+; and HKEY_LOCAL_MACHINE. The flags tell it to always delete the
+; "My Program" keys upon uninstall, and delete the "My Company" keys
+; if there is nothing left in them.
+Root: HKCU; Subkey: "Software\Tangenta org"; Flags: uninsdeletekeyifempty
+Root: HKCU; Subkey: "Software\Tangenta org\Tangenta"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\Tangenta org"; Flags: uninsdeletekeyifempty
+Root: HKLM; Subkey: "Software\Tangenta org\Tangenta"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\Tangenta org\Tangenta\Settings"; ValueType: string; ValueName: "Path"; ValueData: "{app}"

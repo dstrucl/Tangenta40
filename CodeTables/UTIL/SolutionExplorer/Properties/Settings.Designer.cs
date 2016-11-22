@@ -106,5 +106,53 @@ namespace SolutionExplorer.Properties {
                 this["NSIS_Script_Path_of_Template"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string INNO_Script_FileName_of_Template {
+            get {
+                return ((string)(this["INNO_Script_FileName_of_Template"]));
+            }
+            set {
+                this["INNO_Script_FileName_of_Template"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string INNO_Script_Path {
+            get {
+                return ((string)(this["INNO_Script_Path"]));
+            }
+            set {
+                this["INNO_Script_Path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string INNO_Script_FileName {
+            get {
+                return ((string)(this["INNO_Script_FileName"]));
+            }
+            set {
+                this["INNO_Script_FileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string INNO_Script_Path_of_Template {
+            get {
+                return ((string)(this["INNO_Script_Path_of_Template"]));
+            }
+            set {
+                this["INNO_Script_Path_of_Template"] = value;
+            }
+        }
     }
 }

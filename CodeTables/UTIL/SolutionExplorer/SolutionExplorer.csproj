@@ -48,12 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form_INNO_Setup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_INNO_Setup.Designer.cs">
+      <DependentUpon>Form_INNO_Setup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_NSIS_Setup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_NSIS_Setup.Designer.cs">
       <DependentUpon>Form_NSIS_Setup.cs</DependentUpon>
     </Compile>
+    <Compile Include="INNOScriptTemplateParser.cs" />
     <Compile Include="NSISScriptTemplateParser.cs" />
     <Compile Include="PlatformList.cs" />
     <Compile Include="Platform.cs" />
@@ -94,6 +101,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_INNO_Setup.resx">
+      <DependentUpon>Form_INNO_Setup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_NSIS_Setup.resx">
       <DependentUpon>Form_NSIS_Setup.cs</DependentUpon>
     </EmbeddedResource>
