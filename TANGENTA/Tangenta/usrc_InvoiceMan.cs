@@ -30,7 +30,7 @@ namespace Tangenta
         public Tangenta.usrc_Invoice.InvoiceType InvoiceType_DocInvoice = null;
         public Tangenta.usrc_Invoice.InvoiceType InvoiceType_DocProformaInvoice = null;
         public DataTable dt_FinancialYears = new DataTable();
-        private string m_DocInvoice = "DocInvoice";
+        private string m_DocInvoice = Program.const_DocInvoice;
 
         public string DocInvoice
         {
@@ -38,7 +38,7 @@ namespace Tangenta
             set
             {
                 string s = value;
-                if (s.Equals("DocInvoice") || s.Equals("DocProformaInvoice"))
+                if (s.Equals(Program.const_DocInvoice) || s.Equals(Program.const_DocProformaInvoice))
                 {
                     m_DocInvoice = value;
                 }
@@ -50,13 +50,13 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals("DocInvoice"); }
+            { return DocInvoice.Equals(Program.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals("DocProformaInvoice"); }
+            { return DocInvoice.Equals(Program.const_DocProformaInvoice); }
         }
 
 
@@ -121,36 +121,71 @@ namespace Tangenta
 
         internal bool Init(NavigationButtons.Navigation xnav)
         {
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():start!");
             Program.Cursor_Wait();
+
+            if (this.cmb_InvoiceType == null)
+            {
+                LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():this.cmb_InvoiceType == null");
+            }
+            else
+            {
+                LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():this.cmb_InvoiceType != null");
+            }
+
             this.cmb_InvoiceType.SelectedIndexChanged -= new System.EventHandler(this.cmb_InvoiceType_SelectedIndexChanged);
+
+
             string sLastDocInvoiceType = null;
+
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before if (Program.RunAs == null)");
+
             if (Program.RunAs == null)
             {
                 sLastDocInvoiceType = Properties.Settings.Default.LastDocInvoiceType;
+                if (sLastDocInvoiceType.Equals(Program.const_DocInvoice)|| sLastDocInvoiceType.Equals(Program.const_DocProformaInvoice))
+                {
+                    Program.RunAs = sLastDocInvoiceType;
+                }
+                else
+                {
+                    Program.RunAs = Program.const_DocInvoice;
+                }
+
             }
             else 
             {
                 sLastDocInvoiceType = Program.RunAs;
             }
 
-            if (sLastDocInvoiceType.Equals("DocInvoice"))
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before if (sLastDocInvoiceType.Equals(..))");
+
+            if (sLastDocInvoiceType.Equals(Program.const_DocInvoice))
             {
                 this.DocInvoice = sLastDocInvoiceType;
             }
-            else if (sLastDocInvoiceType.Equals("DocProformaInvoice"))
+            else if (sLastDocInvoiceType.Equals(Program.const_DocProformaInvoice))
             {
                 this.DocInvoice = sLastDocInvoiceType;
             }
             else
             {
-                this.DocInvoice = "DocProformaInvoice";
+                this.DocInvoice = Program.const_DocProformaInvoice;
                 Properties.Settings.Default.LastDocInvoiceType = this.DocInvoice;
                 Properties.Settings.Default.Save();
             }
 
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType!");
+
             InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.TaxInvoice);
+
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before List_InvoiceType.Add(InvoiceType_DocInvoice)");
             List_InvoiceType.Add(InvoiceType_DocInvoice);
+
             InvoiceType_DocProformaInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_DocProformaInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
+
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before List_InvoiceType.Add(InvoiceType_DocProformaInvoice);");
+
             List_InvoiceType.Add(InvoiceType_DocProformaInvoice);
             this.cmb_InvoiceType.DataSource = null;
             this.cmb_InvoiceType.DataSource = List_InvoiceType;
@@ -167,11 +202,15 @@ namespace Tangenta
             }
 
 
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before SetFinancialYears()");
+
             SetFinancialYears();
 
 
 
             splitContainer1.Panel2Collapsed = false;
+
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before SetDocument(xnav)");
 
             bool bRes = SetDocument(xnav);
 
@@ -184,13 +223,18 @@ namespace Tangenta
 
         private bool SetDocument(NavigationButtons.Navigation xnav)
         {
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
+
             int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear);
 
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
             if (!m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID))
             {
                 Program.Cursor_Arrow();
                 return false;
             }
+
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before SetInitialMode()");
 
             SetInitialMode();
             SetMode(Mode);
@@ -423,10 +467,10 @@ namespace Tangenta
             switch (cmb_InvoiceType.SelectedIndex)
             {
                 case 0: // usrc_Invoice.enum_Invoice.TaxInvoice:
-                    DocInvoice = "DocInvoice";
+                    DocInvoice = Program.const_DocInvoice;
                     break;
                 case 1: // usrc_Invoice.enum_Invoice.ProformaInvoice:
-                    DocInvoice = "DocProformaInvoice";
+                    DocInvoice = Program.const_DocProformaInvoice;
                     break;
             }
             bool bRes = SetDocument(null);

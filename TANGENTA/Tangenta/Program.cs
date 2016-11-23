@@ -37,6 +37,10 @@ namespace Tangenta
         const string const_command_DIAGNOSTIC = "DIAGNOSTIC";
         const string const_command_SYMULATOR = "SYMULATOR";
         const string const_command_RS232MONITOR = "RS232MONITOR";
+
+        public const string const_DocInvoice = "DocInvoice";
+        public const string const_DocProformaInvoice = "DocProformaInvoice";
+
         #endregion
 
         #region Variables
@@ -49,13 +53,21 @@ namespace Tangenta
         {
             get
             {
-                if (m_RunAs.Equals("DOCINVOICE"))
+                if (m_RunAs != null)
                 {
-                    return "DocInvoice";
-                }
-                else if (m_RunAs.Equals("DOCPROFORMAINVOICE"))
-                {
-                    return "DocProformaInvoice";
+                    if (m_RunAs.ToUpper().Equals(const_command_DOCINVOICE))
+                    {
+                        return const_DocInvoice;
+                    }
+                    else if (m_RunAs.ToUpper().Equals(const_command_DOCPROFORMAINVOICE))
+                    {
+                        return const_DocProformaInvoice;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:RunAs=" + m_RunAs + " not implemented!");
+                        return null;
+                    }
                 }
                 else
                 {
@@ -234,11 +246,11 @@ namespace Tangenta
                     {
                         if (s.ToUpper().Contains(const_command_DOCINVOICE))
                         {
-                            RunAs = "DocInvoice";
+                            RunAs = Program.const_DocInvoice;
                         }
                         if (s.ToUpper().Contains(const_command_DOCPROFORMAINVOICE))
                         {
-                            RunAs = "DocProformaInvoice";
+                            RunAs = Program.const_DocProformaInvoice;
                         }
                         if (s.Contains(const_command_CHANGE_CONNECTION))
                         {

@@ -38,7 +38,7 @@ namespace Tangenta
         usrc_InvoiceMan m_usrc_InvoiceMan = null;
         NavigationButtons.Navigation nav = null;
 
-        private string m_DocInvoice = "DocInvoice";
+        private string m_DocInvoice = Program.const_DocInvoice;
 
         public string DocInvoice
         {
@@ -46,7 +46,7 @@ namespace Tangenta
             set
             {
                 string s = value;
-                if (s.Equals("DocInvoice") || s.Equals("DocProformaInvoice"))
+                if (s.Equals(Program.const_DocInvoice) || s.Equals(Program.const_DocProformaInvoice))
                 {
                     m_DocInvoice = s;
                 }
@@ -73,13 +73,13 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals("DocInvoice"); }
+            { return DocInvoice.Equals(Program.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals("DocProformaInvoice"); }
+            { return DocInvoice.Equals(Program.const_DocProformaInvoice); }
         }
 
         public enum emode
@@ -461,10 +461,10 @@ namespace Tangenta
                 switch (etyp)
                 {
                     case enum_Invoice.TaxInvoice:
-                        m_InvoiceTypeName = "DocInvoice";
+                        m_InvoiceTypeName = Program.const_DocInvoice;
                         break;
                     case enum_Invoice.ProformaInvoice:
-                        m_InvoiceTypeName = "DocProformaInvoice";
+                        m_InvoiceTypeName = Program.const_DocProformaInvoice;
                         break;
                 }
             }

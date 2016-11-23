@@ -33,6 +33,7 @@ namespace LogFile
             m_MainWindow = MainWnd;
             m_icon = ico;
             InitializeComponent();
+            btn_LogFile.Text = LogFile.LogFolder + "\\" + LogFile.LogFileName;
             switch (MB_buttons)
             {
                 case MessageBoxButtons.OK:
@@ -122,10 +123,11 @@ namespace LogFile
             btn3.Visible = false;
 
             this.TopMost = true;
-            Screen scr = Screen.FromControl(this);
-            Point pt = new Point((scr.Bounds.Size.Width / 2) - (this.Size.Width / 2), (scr.Bounds.Size.Height / 2) - (this.Size.Height / 2));
-            this.Left = pt.X;
-            this.Top = pt.Y;
+            btn_LogFile.Text = LogFile.LogFolder + "\\" + LogFile.LogFileName;
+            //Screen scr = Screen.FromControl(this);
+            //Point pt = new Point((scr.Bounds.Size.Width / 2) - (this.Size.Width / 2), (scr.Bounds.Size.Height / 2) - (this.Size.Height / 2));
+            //this.Left = pt.X;
+            //this.Top = pt.Y;
 
         }
 
@@ -158,5 +160,9 @@ namespace LogFile
             Close();
         }
 
+        private void btn_LogFile_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

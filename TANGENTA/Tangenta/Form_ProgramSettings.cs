@@ -110,7 +110,7 @@ namespace Tangenta
 
         private void btn_LogFile_Click(object sender, EventArgs e)
         {
-           LogManager_dlg = LogFile.LogFile.LogManager(this);
+           LogManager_dlg = LogFile.LogFile.LogManager(this,false);
         }
 
 

@@ -32,7 +32,7 @@ namespace Tangenta
 
         public Form_Document()
         {
-            LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_RUN_RELEASE, "Form_Document()before InitializeComponent()!");
+            LogFile.LogFile.WriteRELEASE("Form_Document()before InitializeComponent()!");
             InitializeComponent();
 
             Program.nav = new NavigationButtons.Navigation();
@@ -69,7 +69,7 @@ namespace Tangenta
             if (Get_RecentItemsFolder(ref RecentItemsFolder))
             {
 
-                LogFile.LogFile.Write(1, "MESSAGE:Main_Form:Form_Document:Recent items folder = " + RecentItemsFolder);
+                LogFile.LogFile.WriteRELEASE("MESSAGE:Main_Form:Form_Document:Recent items folder = " + RecentItemsFolder);
 
             }
             else
@@ -90,6 +90,8 @@ namespace Tangenta
             if (Program.ProgramDiagnostic)
             {
                 this.Text += " DIAGNOSTIC";
+                LogFile.LogFile.LogLevel = LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE;
+                LogFile.LogFile.LogManager(this,true);
             }
 
 
@@ -482,8 +484,13 @@ namespace Tangenta
         private void Form_Document_Shown(object sender, EventArgs e)
         {
             string Err = null;
+
+            LogFile.LogFile.WriteDEBUG("Form_Document:Form_Document_Shown():before m_startup.Execute!");
+
             if (m_startup.Execute(Program.bFirstTimeInstallation, ref Err))
             {
+                LogFile.LogFile.WriteDEBUG("Form_Document:Form_Document_Shown():after m_startup.Execute!");
+
                 Program.bFirstTimeInstallation = false;
                 m_usrc_Main.Init(null);
                 m_startup.RemoveControl();

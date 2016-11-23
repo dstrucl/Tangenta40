@@ -32,21 +32,22 @@
             this.btn1 = new System.Windows.Forms.Button();
             this.btn2 = new System.Windows.Forms.Button();
             this.btn3 = new System.Windows.Forms.Button();
+            this.btn_LogFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtErrorMessage
             // 
-            this.txtErrorMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtErrorMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtErrorMessage.BackColor = System.Drawing.SystemColors.Info;
             this.txtErrorMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtErrorMessage.ForeColor = System.Drawing.Color.Maroon;
-            this.txtErrorMessage.Location = new System.Drawing.Point(25, 33);
+            this.txtErrorMessage.Location = new System.Drawing.Point(25, 44);
             this.txtErrorMessage.Multiline = true;
             this.txtErrorMessage.Name = "txtErrorMessage";
             this.txtErrorMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtErrorMessage.Size = new System.Drawing.Size(597, 410);
+            this.txtErrorMessage.Size = new System.Drawing.Size(597, 399);
             this.txtErrorMessage.TabIndex = 1;
             // 
             // btn1
@@ -82,11 +83,22 @@
             this.btn3.UseVisualStyleBackColor = true;
             this.btn3.Click += new System.EventHandler(this.btn_Click);
             // 
+            // btn_LogFile
+            // 
+            this.btn_LogFile.Location = new System.Drawing.Point(4, 8);
+            this.btn_LogFile.Name = "btn_LogFile";
+            this.btn_LogFile.Size = new System.Drawing.Size(634, 27);
+            this.btn_LogFile.TabIndex = 5;
+            this.btn_LogFile.Text = "Log File";
+            this.btn_LogFile.UseVisualStyleBackColor = true;
+            this.btn_LogFile.Click += new System.EventHandler(this.btn_LogFile_Click);
+            // 
             // ErrorDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(651, 509);
+            this.Controls.Add(this.btn_LogFile);
             this.Controls.Add(this.btn3);
             this.Controls.Add(this.btn2);
             this.Controls.Add(this.btn1);
@@ -94,6 +106,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ErrorDialog";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Text Editor";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.ErrorDialog_Load);
@@ -112,5 +125,6 @@
         private System.Windows.Forms.Button btn1;
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btn3;
+        private System.Windows.Forms.Button btn_LogFile;
     }
 }

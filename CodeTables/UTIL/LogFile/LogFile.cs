@@ -273,13 +273,26 @@ namespace LogFile
             Write(Level, "L", s);
         }
 
+        public static void WriteRELEASE(string s)
+        {
+            Write(LogFile.LOG_LEVEL_RUN_RELEASE, "L", s);
+        }
+
+        public static void WriteDEBUG(string s)
+        {
+            if (LogLevel >= LogFile.LOG_LEVEL_DEBUG_RELEASE)
+            {
+                Write(LogFile.LOG_LEVEL_DEBUG_RELEASE, "L", s);
+            }
+        }
+
         public static void Log2DB()
         {
             Log2DB_Form log2db_frm = new Log2DB_Form();
             log2db_frm.ShowDialog();
         }
 
-        public static Form LogManager(Form parentform)
+        public static Form LogManager(Form parentform,bool bDoModal)
         {
             if (ManageLogsDlg != null)
             {
@@ -298,9 +311,19 @@ namespace LogFile
                         ManageLogsDlg.TopMost = true;
                     }
                 }
-                ManageLogsDlg.Show();
+                if (bDoModal)
+                {
+                    ManageLogsDlg.ShowDialog();
+                }
+                else
+                {
+                    ManageLogsDlg.Show();
+                }
             }
-            ManageLogsDlg.Activate();
+            if (!bDoModal)
+            {
+                ManageLogsDlg.Activate();
+            }
             return ManageLogsDlg;
         }
 

@@ -229,6 +229,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
         internal bool Init(NavigationButtons.Navigation xnav)
         {
             string Err = null;
+
             if (Program.b_FVI_SLO)
             {
                 Program.usrc_FVI_SLO1 = this.usrc_FVI_SLO1;
@@ -246,7 +247,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                 }
             }
 
-            
+            LogFile.LogFile.WriteDEBUG("usrc_Document.cs:Init():before this.m_usrc_InvoiceMan.Init(xnav)!");
 
             if (this.m_usrc_InvoiceMan.Init(xnav))
             {

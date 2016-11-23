@@ -57,7 +57,7 @@ namespace Tangenta
         private int iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = -1;
         private bool bIgnoreChangeSelectionEvent = false;
 
-        private string m_DocInvoice = "DocInvoice";
+        private string m_DocInvoice = Program.const_DocInvoice;
 
         public string DocInvoice
         {
@@ -71,13 +71,13 @@ namespace Tangenta
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals("DocInvoice"); }
+            { return DocInvoice.Equals(Program.const_DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals("DocProformaInvoice"); }
+            { return DocInvoice.Equals(Program.const_DocProformaInvoice); }
         }
 
         public long Current_Doc_ID
