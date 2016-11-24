@@ -16,6 +16,7 @@ namespace SolutionExplorer
     {
         internal Form_NSIS_Setup Form_NSIS = null;
         internal Form_INNO_Setup Form_INNO = null;
+        string[] SelectedProjects = null;
 
         public Form_SolutionExplorer()
         {
@@ -30,7 +31,8 @@ namespace SolutionExplorer
             usrc_SelectFile1.Path = SolutionPath;
         }
 
-        private void btn_Parse_Click(object sender, EventArgs e)
+
+        public void ParseSelectedProjects()
         {
             dgvx_ExternalDLLReferences.DataSource = null;
             dgvx_Libraries.DataSource = null;
@@ -49,8 +51,7 @@ namespace SolutionExplorer
         }
 
 
-
-        private void AddPlatform(string platform)
+    private void AddPlatform(string platform)
         {
             if (cmb_Platform_Items_Find(platform) < 0)
             {
@@ -144,14 +145,6 @@ namespace SolutionExplorer
         }
 
 
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            usrc_SelectFile1.FireEvent_ExistingFileChanged();
-        }
-
-
-
         private void cmb_Platform_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -204,6 +197,40 @@ namespace SolutionExplorer
                 Form_INNO.Show();
             }
 
+        }
+
+        private void Form_SolutionExplorer_Load(object sender, EventArgs e)
+        {
+            usrc_SelectFile1.FireEvent_ExistingFileChanged();
+            SelectedProjects = Properties.Settings.Default.SelectedProjects.Split(';');
+            if (SelectedProjects != null)
+            {
+                Parser.SelectProjects(SelectedProjects);
+                ParseSelectedProjects();
+            }
+        }
+
+        private void dgvx_SelectedExecutablesInSolution_CellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvx_SelectedExecutablesInSolution_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvx_SelectedExecutablesInSolution.Columns[Parser.dcln_select].Index)
+            {
+                Properties.Settings.Default.SelectedProjects = Parser.ProjectsSeclected();
+                Properties.Settings.Default.Save();
+                ParseSelectedProjects();
+            }
+        }
+
+        private void dgvx_SelectedExecutablesInSolution_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == dgvx_SelectedExecutablesInSolution.Columns[Parser.dcln_select].Index)
+            {
+                dgvx_SelectedExecutablesInSolution.EndEdit();
+            }
         }
     }
 }

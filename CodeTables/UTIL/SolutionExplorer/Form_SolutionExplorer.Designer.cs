@@ -52,7 +52,6 @@
 
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_SolutionExplorer));
-            this.btn_Parse = new System.Windows.Forms.Button();
             this.txt_Projects = new System.Windows.Forms.TextBox();
             this.lbl_Solution_File = new System.Windows.Forms.Label();
             this.lbl_ConfigurationName = new System.Windows.Forms.Label();
@@ -67,9 +66,9 @@
             this.lbl_ProjectLibraries = new System.Windows.Forms.Label();
             this.lbl_External_References = new System.Windows.Forms.Label();
             this.dgvx_ExternalDLLReferences = new DataGridView_2xls.DataGridView2xls();
-            this.usrc_SelectFile1 = new SolutionExplorer.usrc_SelectFile();
             this.btn_NSIS = new System.Windows.Forms.Button();
             this.btn_INNO_Installer = new System.Windows.Forms.Button();
+            this.usrc_SelectFile1 = new SolutionExplorer.usrc_SelectFile();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_SelectedExecutablesInSolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Libraries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -82,16 +81,6 @@
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ExternalDLLReferences)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btn_Parse
-            // 
-            this.btn_Parse.Location = new System.Drawing.Point(632, 48);
-            this.btn_Parse.Name = "btn_Parse";
-            this.btn_Parse.Size = new System.Drawing.Size(92, 44);
-            this.btn_Parse.TabIndex = 1;
-            this.btn_Parse.Text = "Parse";
-            this.btn_Parse.UseVisualStyleBackColor = true;
-            this.btn_Parse.Click += new System.EventHandler(this.btn_Parse_Click);
             // 
             // txt_Projects
             // 
@@ -169,6 +158,9 @@
             this.dgvx_SelectedExecutablesInSolution.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvx_SelectedExecutablesInSolution.Size = new System.Drawing.Size(901, 255);
             this.dgvx_SelectedExecutablesInSolution.TabIndex = 9;
+            this.dgvx_SelectedExecutablesInSolution.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_SelectedExecutablesInSolution_CellEndEdit);
+            this.dgvx_SelectedExecutablesInSolution.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_SelectedExecutablesInSolution_CellMouseUp);
+            this.dgvx_SelectedExecutablesInSolution.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_SelectedExecutablesInSolution_CellValidated);
             // 
             // lbl_ExecutablesInSolution
             // 
@@ -274,18 +266,6 @@
             this.dgvx_ExternalDLLReferences.Size = new System.Drawing.Size(456, 261);
             this.dgvx_ExternalDLLReferences.TabIndex = 12;
             // 
-            // usrc_SelectFile1
-            // 
-            this.usrc_SelectFile1.DefaultExtension = "sln";
-            this.usrc_SelectFile1.Extension = "";
-            this.usrc_SelectFile1.FileName = "";
-            this.usrc_SelectFile1.Location = new System.Drawing.Point(118, 12);
-            this.usrc_SelectFile1.Name = "usrc_SelectFile1";
-            this.usrc_SelectFile1.Path = "";
-            this.usrc_SelectFile1.Size = new System.Drawing.Size(525, 32);
-            this.usrc_SelectFile1.TabIndex = 13;
-            this.usrc_SelectFile1.ExistingFileChanged += new SolutionExplorer.usrc_SelectFile.delegate_ExistingFileChanged(this.usrc_SelectFile1_ExistingFileChanged);
-            // 
             // btn_NSIS
             // 
             this.btn_NSIS.Location = new System.Drawing.Point(761, 59);
@@ -306,6 +286,18 @@
             this.btn_INNO_Installer.UseVisualStyleBackColor = true;
             this.btn_INNO_Installer.Click += new System.EventHandler(this.btn_INNO_Installer_Click);
             // 
+            // usrc_SelectFile1
+            // 
+            this.usrc_SelectFile1.DefaultExtension = "sln";
+            this.usrc_SelectFile1.Extension = "";
+            this.usrc_SelectFile1.FileName = "";
+            this.usrc_SelectFile1.Location = new System.Drawing.Point(118, 12);
+            this.usrc_SelectFile1.Name = "usrc_SelectFile1";
+            this.usrc_SelectFile1.Path = "";
+            this.usrc_SelectFile1.Size = new System.Drawing.Size(525, 32);
+            this.usrc_SelectFile1.TabIndex = 13;
+            this.usrc_SelectFile1.ExistingFileChanged += new SolutionExplorer.usrc_SelectFile.delegate_ExistingFileChanged(this.usrc_SelectFile1_ExistingFileChanged);
+            // 
             // Form_SolutionExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,11 +313,10 @@
             this.Controls.Add(this.lbl_ConfigurationName);
             this.Controls.Add(this.lbl_Solution_File);
             this.Controls.Add(this.txt_Projects);
-            this.Controls.Add(this.btn_Parse);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_SolutionExplorer";
             this.Text = "Solution Explorer";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.Form_SolutionExplorer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_SelectedExecutablesInSolution)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Libraries)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -345,7 +336,6 @@
 
         }
         #endregion
-        private System.Windows.Forms.Button btn_Parse;
         private System.Windows.Forms.TextBox txt_Projects;
         private System.Windows.Forms.Label lbl_Solution_File;
         private System.Windows.Forms.Label lbl_ConfigurationName;

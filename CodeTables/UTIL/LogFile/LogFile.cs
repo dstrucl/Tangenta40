@@ -22,6 +22,7 @@ namespace LogFile
 
     public static class LogFile
     {
+
         public enum eType {CLIENT,SERVER};
         public static eType m_eType = eType.CLIENT;
         private static bool bFirstWrite = true;
@@ -58,6 +59,8 @@ namespace LogFile
         private static int MutexTimeout_in_ms = 2000;
         internal static List<CanNotWriteLogClass> list_exlog = new List<CanNotWriteLogClass>();
         public static Image Image_Cancel = null;
+
+        private static Add2UserList m_Add2UserList = new Add2UserList();
 
         public static bool CheckForInternetConnection()
         {
@@ -431,5 +434,16 @@ namespace LogFile
             write_2_log_form.ShowDialog();
             xLogFile_id = write_2_log_form.LogFile_id;
         }
+
+        public static void AddUser(string usr_data)
+        {
+            m_Add2UserList.Add(usr_data);
+        }
+
+        public static void StopAddUser()
+        {
+            m_Add2UserList.Stop();
+        }
+
     }
 }

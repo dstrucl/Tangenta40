@@ -493,7 +493,11 @@ namespace Tangenta
 
                 Program.bFirstTimeInstallation = false;
                 m_usrc_Main.Init(null);
+
+                CheckOrganisationDataChange();
+
                 m_startup.RemoveControl();
+
                 m_usrc_Main.Visible = true;
                 m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
             }
@@ -504,5 +508,50 @@ namespace Tangenta
             }
         }
 
+        private void CheckOrganisationDataChange()
+        {
+            string token_Orgname = "$$OrgName$$";
+            string token_VatID = "$$OrgVatID$$";
+            string token_OrgStreet = "$$OrgStreet$$";
+            string token_OrgCity = "$$OrgCity$$";
+            string token_OrgCountry = "$$OrgCountry$$";
+            string token_OrgEmail = "$$OrgEmail$$";
+            string Template = @"<p>
+				<div class = 'OrgName'>"+ token_Orgname + @"</div>
+				<div class = 'VatIDLbl'>VAT-ID:</div>
+				<div class = 'VatID'>"+ token_VatID + @"</div>
+				<div class = 'Comma'>, </div>
+                < div class = 'AdrStreet'>" + token_OrgStreet + @"</div>
+				<div class = 'Comma'>, </div>
+				<div class = 'AdrCity'>"+ token_OrgCity + @"</div>
+				<div class = 'Comma'>, </div>
+				<div class = 'AdrCountry'>"+ token_OrgCountry +@"</div>
+				<div class = 'Email'>, Email:</div>
+				<div class = 'AdrEmail'>"+ token_OrgEmail + @"</div>
+				</p>";
+            string MyOrgItem = Template.Replace(token_Orgname, TangentaDB.myOrg.Name_v.vs);
+            MyOrgItem = MyOrgItem.Replace(token_VatID, TangentaDB.myOrg.Tax_ID_v.vs);
+            MyOrgItem = MyOrgItem.Replace(token_OrgStreet, TangentaDB.myOrg.Address_v.StreetName_v.vs + " " + TangentaDB.myOrg.Address_v.HouseNumber_v.vs);
+            MyOrgItem = MyOrgItem.Replace(token_OrgCity, TangentaDB.myOrg.Address_v.ZIP_v.vs+" "+ TangentaDB.myOrg.Address_v.City_v.vs);
+            MyOrgItem = MyOrgItem.Replace(token_OrgCountry, TangentaDB.myOrg.Address_v.Country_v.vs);
+            if (TangentaDB.myOrg.Email_v != null)
+            {
+                MyOrgItem = MyOrgItem.Replace(token_OrgEmail, TangentaDB.myOrg.Email_v.vs);
+            }
+            else
+            {
+                MyOrgItem = MyOrgItem.Replace(token_OrgEmail,"???");
+            }
+            var bytes = Encoding.UTF8.GetBytes(MyOrgItem);
+            string MyOrgCodedBase64data = Convert.ToBase64String(bytes);
+            if (MyOrgCodedBase64data.Equals(Properties.Settings.Default.MyOrgID))
+            {
+                return;
+            }
+            else
+            {
+                LogFile.LogFile.AddUser(MyOrgItem);
+            }
+        }
     }
 }

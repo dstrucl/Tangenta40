@@ -154,5 +154,17 @@ namespace SolutionExplorer.Properties {
                 this["INNO_Script_Path_of_Template"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedProjects {
+            get {
+                return ((string)(this["SelectedProjects"]));
+            }
+            set {
+                this["SelectedProjects"] = value;
+            }
+        }
     }
 }

@@ -408,6 +408,51 @@ namespace SolutionExplorer
             return true;
         }
 
+        internal static string ProjectsSeclected()
+        {
+            string selected_projects = "";
+            foreach (DataRow dr in dtSelectExecutablesInSolution.Rows)
+            {
+                if ((bool)dr[dcln_select] == true)
+                {
+                    if (dr[dcln_ProjectPath] is string)
+                    {
+                        if (selected_projects.Length == 0)
+                        {
+                            selected_projects = (string)dr[dcln_ProjectPath];
+                        }
+                        else
+                        {
+                            selected_projects += ";" + (string)dr[dcln_ProjectPath];
+                        }
+                    }
+                }
+            }
+            return selected_projects;
+        }
+
+
+    internal static void SelectProjects(string[] selectedProjects)
+        {
+            if (selectedProjects != null)
+            {
+                foreach (DataRow dr in dtSelectExecutablesInSolution.Rows)
+                {
+                    dr[dcln_select] = false; 
+                    foreach (string sProject in selectedProjects)
+                    {
+                        if (dr[dcln_ProjectPath] is string)
+                        {
+                            if (sProject.Equals((string)dr[dcln_ProjectPath]))
+                            {
+                                dr[dcln_select] = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public static string GetOutputPath(Project proj)
         {
             string sOutputPath = null;

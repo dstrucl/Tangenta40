@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add2UserList.cs" />
     <Compile Include="CanNotWriteLogClass.cs" />
     <Compile Include="DBConnection\conData_MSSQL.cs" />
     <Compile Include="DBConnection\conData_MYSQL.cs" />
@@ -412,6 +413,10 @@
     <ProjectReference Include="..\SearchLocalNetworkControl\SearchLocalNetwork.csproj">
       <Project>{1614095b-fc53-4cd6-bfae-1d2d2ed81332}</Project>
       <Name>SearchLocalNetwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ThreadProcessor\ThreadProcessor.csproj">
+      <Project>{51e8c8bc-b176-40e5-b452-c80d9421ab79}</Project>
+      <Name>ThreadProcessor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
