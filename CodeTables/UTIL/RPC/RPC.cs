@@ -5,51 +5,55 @@ using System.Net;
 using System.Text;
 using ThreadProcessor;
 
-namespace LogFile
+namespace RPC
 {
-    internal class Add2UserList
+    public class RPC
     {
-        ThreadP threadp = new ThreadP();
+        private ThreadP threadp = new ThreadP();
         private int msg_ID = 0;
         private bool SendCompleted = false;
-        private string eResult = null;
 
-        private void SendUser(string rawdata)
+        //example for xrpcd.Function: "http://www.tangenta.si/AddUser.php"
+
+        private void  SendUser(RPCd xrpcd)
         {
-            WebClient wc = new WebClient();
+            RPCClient wc = new RPCClient(xrpcd);
 
-            var URI = new Uri("http://www.tangenta.si/AddUser.php");
-            //var URI = new Uri("http://localhost/Tangenta/Users/AddUser.php");
-
+            var URI = new Uri(xrpcd.Function);
 
             //If any encoding is needed.
-            wc.Headers["Content-Type"] = "UserData";
+            //wc.Headers["Content-Type"] = "UserData";
             //Or any other encoding type.
             wc.Encoding = System.Text.Encoding.UTF8;
-            //If any key needed
 
+            //If any key needed
             //wc.Headers["KEY"] = "name=Data_To_Be_sent1";
+
+            var bytes = Encoding.UTF8.GetBytes(xrpcd.data);
+
+            string CodedBase64data = Convert.ToBase64String(bytes);
 
             wc.UploadStringCompleted +=
                 new UploadStringCompletedEventHandler(mywc_UploadStringCompleted);
-            var bytes = Encoding.UTF8.GetBytes(rawdata);
-            string CodedBase64data = Convert.ToBase64String(bytes);
 
             wc.UploadStringAsync(URI, "POST", CodedBase64data);
         }
 
 
-        internal void Add(string user_data)
+        public bool Start(ref string Err)
         {
-            string Err = null;
-            if (threadp.Start(100,null, null, 100, ref Err))
-            {
-                ThreadP_Message msg = new ThreadP_Message(msg_ID, ThreadP_Message.eMessage.TASK, SendUser_WaitResponse, user_data);
-                threadp.message_box.Post(msg);
-            }
+            return threadp.Start(100, null, null, 100, ref Err);
         }
 
-        internal void Stop()
+
+
+        public void Execute(RPCd rpcd)
+        {
+            ThreadP_Message msg = new ThreadP_Message(msg_ID, ThreadP_Message.eMessage.TASK, SendUser_WaitResponse, rpcd);
+            threadp.message_box.Post(msg);
+        }
+
+        public void End()
         {
             threadp.End();
         }
@@ -57,19 +61,20 @@ namespace LogFile
 
         private object SendUser_WaitResponse(object o, ref string Err)
         {
-            if (o is string)
+            if (o is RPCd)
             {
                 SendCompleted = false;
-                SendUser((string)o);
+                SendUser((RPCd)o);
                 long dtStart = DateTime.Now.Ticks;
                 while (!SendCompleted)
                 {
                     if (DateTime.Now.Ticks - dtStart > 10000000)
                     {
-                        return null;
+                        ((RPCd)o).SetResult("ERROR:Timeout SendUser_WaitResponse");
+                        return (RPCd)o;
                     }
                 }
-                return this.eResult;
+                return (RPCd)o;
             }
             else
             {
@@ -80,18 +85,21 @@ namespace LogFile
 
         private void mywc_UploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
         {
-
-            SendCompleted = true;
+             string eResult = null;
+             SendCompleted = true;
             try
             {
-                this.eResult = (e.Result);
+                eResult = (e.Result);
                 //e.result fetches you the response against your POST request.         
             }
             catch (Exception exc)
             {
-                this.eResult = exc.ToString();
+                eResult = exc.ToString();
             }
+            ((RPCClient)sender).rpcd.SetResult(eResult);
+            ((RPCClient)sender).Dispose();
         }
 
     }
 }
+

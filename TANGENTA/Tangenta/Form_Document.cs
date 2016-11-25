@@ -18,6 +18,7 @@ using DBConnectionControl40;
 using LanguageControl;
 using System.IO;
 using Startup;
+using System.Diagnostics;
 
 namespace Tangenta
 {
@@ -500,6 +501,8 @@ namespace Tangenta
 
                 m_usrc_Main.Visible = true;
                 m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
+                string s = null;
+                int ilen = s.Length;
             }
             else
             {
@@ -516,18 +519,24 @@ namespace Tangenta
             string token_OrgCity = "$$OrgCity$$";
             string token_OrgCountry = "$$OrgCountry$$";
             string token_OrgEmail = "$$OrgEmail$$";
+            string token_SWVersion = "$$SWVersion$$";
+            string token_SourceVersion = "$$SourceVersion$$";
             string Template = @"<p>
 				<div class = 'OrgName'>"+ token_Orgname + @"</div>
 				<div class = 'VatIDLbl'>VAT-ID:</div>
 				<div class = 'VatID'>"+ token_VatID + @"</div>
 				<div class = 'Comma'>, </div>
-                < div class = 'AdrStreet'>" + token_OrgStreet + @"</div>
+                <div class = 'AdrStreet'>" + token_OrgStreet + @"</div>
 				<div class = 'Comma'>, </div>
 				<div class = 'AdrCity'>"+ token_OrgCity + @"</div>
 				<div class = 'Comma'>, </div>
 				<div class = 'AdrCountry'>"+ token_OrgCountry +@"</div>
 				<div class = 'Email'>, Email:</div>
 				<div class = 'AdrEmail'>"+ token_OrgEmail + @"</div>
+				<div class = 'SWVersionLbl'>,SW ver.=</div>
+				<div class = 'SWVersion'>" + token_SWVersion + @"</div>
+				<div class = 'SWVersionLbl'>,Source ver.=</div>
+				<div class = 'SWVersion'>" + token_SourceVersion + @"</div>
 				</p>";
             string MyOrgItem = Template.Replace(token_Orgname, TangentaDB.myOrg.Name_v.vs);
             MyOrgItem = MyOrgItem.Replace(token_VatID, TangentaDB.myOrg.Tax_ID_v.vs);
@@ -542,15 +551,33 @@ namespace Tangenta
             {
                 MyOrgItem = MyOrgItem.Replace(token_OrgEmail,"???");
             }
-            var bytes = Encoding.UTF8.GetBytes(MyOrgItem);
-            string MyOrgCodedBase64data = Convert.ToBase64String(bytes);
-            if (MyOrgCodedBase64data.Equals(Properties.Settings.Default.MyOrgID))
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+
+            string swVersion = fvi.FileVersion;
+            string swSourceVersion = fvi.ProductVersion;
+            MyOrgItem = MyOrgItem.Replace(token_SWVersion, swVersion);
+            MyOrgItem = MyOrgItem.Replace(token_SourceVersion, swSourceVersion);
+
+            byte[] bytes = Encoding.UTF8.GetBytes(MyOrgItem);
+            string MyOrgID_Hash = StaticLib.Func.GetHash_SHA1(bytes);
+            if (false)//(MyOrgID_Hash.Equals(Properties.Settings.Default.MyOrgID))
             {
                 return;
             }
             else
             {
-                LogFile.LogFile.AddUser(MyOrgItem);
+                RPC.RPCd rpcd = new RPC.RPCd("http://www.tangenta.si/AddUser.php", MyOrgItem);
+                Program.rpc.Execute(rpcd);
+                string sResult = rpcd.GetResult(10000);
+                if (sResult != null)
+                {
+                    if (sResult.Equals("Success"))
+                    {
+                        Properties.Settings.Default.MyOrgID = MyOrgID_Hash;
+                        Properties.Settings.Default.Save();
+                    }
+                }
             }
         }
     }

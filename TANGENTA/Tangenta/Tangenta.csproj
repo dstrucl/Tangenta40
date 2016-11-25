@@ -76,6 +76,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -880,6 +883,10 @@
     <ProjectReference Include="..\..\CodeTables\UTIL\ProgramDiagnostic\ProgramDiagnostic.csproj">
       <Project>{88f14aad-b6bc-415a-9195-c3314addea6f}</Project>
       <Name>ProgramDiagnostic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\RPC\RPC.csproj">
+      <Project>{57c5d942-3c95-4cc7-9f9c-731595f71e5f}</Project>
+      <Name>RPC</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>

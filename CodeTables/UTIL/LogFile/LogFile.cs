@@ -16,12 +16,15 @@ using LanguageControl;
 using System.Net;
 using System.Drawing;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace LogFile
 {
 
     public static class LogFile
     {
+        public static RPC.RPC rpc = null;
+        public static string RPC_Err_msg_prefix = "";
 
         public enum eType {CLIENT,SERVER};
         public static eType m_eType = eType.CLIENT;
@@ -60,7 +63,6 @@ namespace LogFile
         internal static List<CanNotWriteLogClass> list_exlog = new List<CanNotWriteLogClass>();
         public static Image Image_Cancel = null;
 
-        private static Add2UserList m_Add2UserList = new Add2UserList();
 
         public static bool CheckForInternetConnection()
         {
@@ -219,11 +221,161 @@ namespace LogFile
                         MessageBox.Show(sLine, "LOG WRITE", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+                if (rpc!=null)
+                {
+                    if (type.Equals("E"))
+                    {
+                        RPC_LogFile(sLine);
+                    }
+                    else if (LogLevel >= LogFile.LOG_LEVEL_DEBUG_RELEASE)
+                    {
+                        RPC_LogFile(sLine);
+                    }
+                }
             }
             return bRes;
         }
 
-        internal static void Write(int Level, string type, string s)
+        private static void RPC_LogFile(string sLine)
+        {
+            string ComputerInfo = GetComputerInfo();
+            string sRPC_ErrMsg = "\r\n" +
+                                 "  <div class ='Prefix'>" + RPC_Err_msg_prefix + "</div>\r\n" +
+                                 "  <div class ='ComputerInfo'>" + GetComputerInfo() + "</div>\r\n" +
+                                 "  <div class ='OsInfo'>" + getOSInfo() + "</div>\r\n" +
+                                 "  <div class ='DotNetInfo'>" + GetDotNetVersion.GetVersionFromRegistry() + "</div>\r\n" +
+                                 "  <div class ='Log'>" + sLine + "</div>\r\n" +
+                                 "\r\n";
+            RPC.RPCd rpcd = new RPC.RPCd("http://www.tangenta.si/RPCLog.php", sRPC_ErrMsg);
+            rpc.Execute(rpcd);
+            string sResult = rpcd.GetResult(10000);
+            if (sResult != null)
+            {
+                if (sResult.Equals("Success"))
+                {
+                }
+            }
+        }
+
+        public static string getOSInfo()
+        {
+            //Get Operating system information.
+            OperatingSystem os = Environment.OSVersion;
+            //Get version information about the os.
+            Version vs = os.Version;
+
+            //Variable to hold our return value
+            string operatingSystem = "";
+
+            if (os.Platform == PlatformID.Win32Windows)
+            {
+                //This is a pre-NT version of Windows
+                switch (vs.Minor)
+                {
+                    case 0:
+                        operatingSystem = "95";
+                        break;
+                    case 10:
+                        if (vs.Revision.ToString() == "2222A")
+                            operatingSystem = "98SE";
+                        else
+                            operatingSystem = "98";
+                        break;
+                    case 90:
+                        operatingSystem = "Me";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (os.Platform == PlatformID.Win32NT)
+            {
+                switch (vs.Major)
+                {
+                    case 3:
+                        operatingSystem = "NT 3.51";
+                        break;
+                    case 4:
+                        operatingSystem = "NT 4.0";
+                        break;
+                    case 5:
+                        if (vs.Minor == 0)
+                            operatingSystem = "2000";
+                        else
+                            operatingSystem = "XP";
+                        break;
+                    case 6:
+                        if (vs.Minor == 0)
+                            operatingSystem = "Vista";
+                        else
+                            operatingSystem = "7";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            //Make sure we actually got something in our OS check
+            //We don't want to just return " Service Pack 2" or " 32-bit"
+            //That information is useless without the OS version.
+            if (operatingSystem != "")
+            {
+                //Got something.  Let's prepend "Windows" and get more info.
+                operatingSystem = "Windows " + operatingSystem;
+                //See if there's a service pack installed.
+                if (os.ServicePack != "")
+                {
+                    //Append it to the OS name.  i.e. "Windows XP Service Pack 3"
+                    operatingSystem += " " + os.ServicePack;
+                }
+                //Append the OS architecture.  i.e. "Windows XP Service Pack 3 32-bit"
+                //operatingSystem += " " + getOSArchitecture().ToString() + "-bit";
+            }
+            //Return the information we've gathered.
+            return operatingSystem;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct MEMORYSTATUSEX
+        {
+            internal uint dwLength;
+            internal uint dwMemoryLoad;
+            internal ulong ullTotalPhys;
+            internal ulong ullAvailPhys;
+            internal ulong ullTotalPageFile;
+            internal ulong ullAvailPageFile;
+            internal ulong ullTotalVirtual;
+            internal ulong ullAvailVirtual;
+            internal ulong ullAvailExtendedVirtual;
+        }
+
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("Kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern bool GlobalMemoryStatusEx(ref MEMORYSTATUSEX lpBuffer);
+
+        private static double GlobalMemoryStatusEX()
+        {
+            MEMORYSTATUSEX statEX = new MEMORYSTATUSEX();
+            statEX.dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX));
+            double d = 0;
+            if (GlobalMemoryStatusEx(ref statEX))
+            {
+                d = (double)statEX.ullTotalPhys;
+            }
+            return d;
+        }
+
+
+        public static string GetComputerInfo()
+        {
+            string scinfo = "Username=" + Environment.UserName + "; MachineName=" + Environment.MachineName;
+            string OStype = "; OS Type=";
+            if (Environment.Is64BitOperatingSystem) { OStype = "64-Bit;"; } else { OStype = "32-Bit;"; }
+            OStype += Environment.ProcessorCount.ToString() + "; Processor";
+            scinfo += ";" + OStype + ";RAM=" + GlobalMemoryStatusEX().ToString();
+            return scinfo;
+        }
+
+    internal static void Write(int Level, string type, string s)
         {
             if (xWrite(Level,type,s))
             {
@@ -433,16 +585,6 @@ namespace LogFile
             WriteLog2DB_Form write_2_log_form = new WriteLog2DB_Form(m_LogDB_con, UserName, Description);
             write_2_log_form.ShowDialog();
             xLogFile_id = write_2_log_form.LogFile_id;
-        }
-
-        public static void AddUser(string usr_data)
-        {
-            m_Add2UserList.Add(usr_data);
-        }
-
-        public static void StopAddUser()
-        {
-            m_Add2UserList.Stop();
         }
 
     }

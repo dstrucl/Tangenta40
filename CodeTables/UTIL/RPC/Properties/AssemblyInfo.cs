@@ -1,25 +1,17 @@
-﻿#region LICENSE 
-/*
- This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
- If a copy of the Tangenta Public License (TPL) was not distributed with this 
- file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
-*/
-#endregion
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Tangenta")]
-[assembly: AssemblyDescription("Program for creating Invoices Proforma invoices and fiscal verification")]
+[assembly: AssemblyTitle("RPC")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Tangenta d.o.o.")]
-[assembly: AssemblyProduct("Tangenta")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("Tangenta")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("RPC")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -28,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d6ba673e-a4b4-4297-aeb9-e8a73c8f079f")]
+[assembly: Guid("57c5d942-3c95-4cc7-9f9c-731595f71e5f")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -40,6 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyInformationalVersion("1.1.{dmin:2015}.{chash:8}{!}-{branch}")]
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
