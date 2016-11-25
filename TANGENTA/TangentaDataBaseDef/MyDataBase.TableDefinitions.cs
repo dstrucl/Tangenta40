@@ -2309,9 +2309,10 @@ namespace TangentaDataBaseDef
             /* 202 */
             t_Stock_Take = new SQLTable((Object)new Stock_Take(), "st", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Stock_Take);
             t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.m_Supplier, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Supplier ID", "Dobavitelj ID"));
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Oznaka"));
             t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.Stock_Take_Date, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take Date", "Datum Prevzemnice"));
             t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.StockTakePriceTotal, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take price total", "Skupna cena prevzemnice"));
+            t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.m_Supplier, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Supplier ID", "Dobavitelj ID"));
             t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.m_Reference, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Reference ID", "Sklic ID"));
             t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.m_Trucking, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Trucking ID", "Transport ID"));
             t_Stock_Take.AddColumn((Object)mt.m_Stock_Take.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));

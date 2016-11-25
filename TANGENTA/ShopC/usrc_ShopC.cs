@@ -263,13 +263,9 @@ namespace ShopC
 
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
-            SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
-            SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
-            Form_Stock_Edit edt_Stock_dlg = new Form_Stock_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
-                                                              tbl_Stock,
-                                                              "Stock_$_ppi_$_i_$$Code asc",xnav);
-            edt_Stock_dlg.ShowDialog();
-            return edt_Stock_dlg.Changed;
+            Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(xnav);
+            frmSelectStockEditType.ShowDialog();
+            return frmSelectStockEditType.b_edt_Stock_dlg_Changed;
         }
 
         private void btn_Items_Click(object sender, EventArgs e)

@@ -81,11 +81,23 @@
     <Compile Include="Form_Item_Edit.Designer.cs">
       <DependentUpon>Form_Item_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_SelectStockEditType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SelectStockEditType.Designer.cs">
+      <DependentUpon>Form_SelectStockEditType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_StockItem_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_StockItem_Edit.Designer.cs">
       <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_StockTake_Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_StockTake_Edit.Designer.cs">
+      <DependentUpon>Form_StockTake_Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Stock_Address_Edit.cs">
       <SubType>Form</SubType>
@@ -166,9 +178,15 @@
       <DependentUpon>Form_Item_Edit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_SelectStockEditType.resx">
+      <DependentUpon>Form_SelectStockEditType.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_StockItem_Edit.resx">
       <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_StockTake_Edit.resx">
+      <DependentUpon>Form_StockTake_Edit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Stock_Address_Edit.resx">
       <DependentUpon>Form_Stock_Address_Edit.cs</DependentUpon>

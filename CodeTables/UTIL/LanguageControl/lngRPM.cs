@@ -17,6 +17,12 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_Select_StockEdit_Type = new ltext("Select stock edit type", "Izberite način urejanja zalog");
+
+        public static ltext s_btn_EditItemsInStock = new ltext("Edit stock by items in stok", "Urejanje zalog po artiklih");
+        public static ltext s_EditStockTakeItems = new ltext("Edit stock take items", "Urejanje zalog po prevzemnicah");
+        public static ltext s_EditStockTake = new ltext("Edit stock-take", "Urejanje prevzemnic");
+
         public static ltext s_New_Empty_Invoice = new ltext("New Emtpy Invoice draft", "Nov prazen osnutek računa");
         public static ltext s_New_Copy_ThisInvoice_ToNewOne = new ltext("Copy Invoice %s to new one", "Kopiraj račun %s v nov osnutek računa");
         public static ltext s_New_Copy_ThisInvoice_ToNewProformaInvoice = new ltext("Copy Invoice %s to new Proforma Invoice", "Kopiraj račun %s v nov osnutek predračuna");

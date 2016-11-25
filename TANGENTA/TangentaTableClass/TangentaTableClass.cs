@@ -1574,6 +1574,7 @@ namespace TangentaTableClass
     public class Stock_Take
     {
         public ID ID = new ID();
+        public Name Name = new Name();
         public Stock_Take_Date Stock_Take_Date = new Stock_Take_Date();
         public Supplier m_Supplier = new Supplier();
         public StockTakePriceTotal StockTakePriceTotal = new StockTakePriceTotal();

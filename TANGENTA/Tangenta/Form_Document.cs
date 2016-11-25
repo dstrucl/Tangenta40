@@ -501,8 +501,6 @@ namespace Tangenta
 
                 m_usrc_Main.Visible = true;
                 m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
-                string s = null;
-                int ilen = s.Length;
             }
             else
             {
@@ -561,7 +559,7 @@ namespace Tangenta
 
             byte[] bytes = Encoding.UTF8.GetBytes(MyOrgItem);
             string MyOrgID_Hash = StaticLib.Func.GetHash_SHA1(bytes);
-            if (false)//(MyOrgID_Hash.Equals(Properties.Settings.Default.MyOrgID))
+            if (MyOrgID_Hash.Equals(Properties.Settings.Default.MyOrgID))
             {
                 return;
             }
