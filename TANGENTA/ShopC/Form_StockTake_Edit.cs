@@ -25,6 +25,17 @@ namespace ShopC
             this.nav = xnav;
             dbTables = xdbTables;
             this.Text = lngRPM.s_EditStockTakeItems.s;
+            lngRPM.s_SelectedItem.Text(btn_SelectItem);
+            lngRPM.s_Add.Text(btn_Add);
+            lngRPM.s_Remove.Text(btn_Remove);
+            lngRPM.s_Update.Text(btn_Remove);
+            lngRPM.s_Quantity.Text(lbl_Quantity);
+            lngRPM.s_PurchasePricePerUnit.Text(lbl_PurchasePrice);
+            lngRPM.s_Taxation.Text(lbl_Taxation);
+            lngRPM.s_Currency.Text(lbl_Currency);
+            lngRPM.s_ExpiryDate.Text(lbl_ExpiryDate);
+            lngRPM.s_Stock_Description.Text(lbl_Stock_Description);
+            usrc_EditTable1.Text(lngRPM.s_EditStockTake);
         }
 
         private void Form_StockTake_Edit_Load(object sender, EventArgs e)
@@ -49,11 +60,20 @@ namespace ShopC
                 Close();
                 DialogResult = DialogResult.Abort;
             }
-            usrc_EditTable1.Text(lngRPM.s_EditStockTake);
             this.Cursor = Cursors.Arrow;
         }
 
         private void lbl_PurchasePrice_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usrc_EditTable1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usrc_EditTable1_Load_1(object sender, EventArgs e)
         {
 
         }

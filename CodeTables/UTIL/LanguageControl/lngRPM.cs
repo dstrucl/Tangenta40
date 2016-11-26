@@ -17,6 +17,8 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_Stock_Description = new ltext("Stock description", "Opis zaloge");
+        public static ltext s_SelectedItem = new ltext("Select Item", "Izberite Artikel");
         public static ltext s_Select_StockEdit_Type = new ltext("Select stock edit type", "Izberite način urejanja zalog");
 
         public static ltext s_btn_EditItemsInStock = new ltext("Edit stock by items in stok", "Urejanje zalog po artiklih");
@@ -1602,6 +1604,7 @@ namespace LanguageControl
         public static ltext s_Index = new ltext("Index", "index");
         public static ltext s_InsertIntervalsforGroup = new ltext("Insert Intervals for numeric system:", "Vstavi intervale za številski sistem:");
         public static ltext s_Apply = new ltext("Apply", "Vstavi");
+        public static ltext s_Update = new ltext("Update", "Popravi");
         public static ltext s_Add = new ltext("Add", "Dodaj");
         public static ltext s_Remove = new ltext("Remove", "Odstrani");
         public static ltext s_Remove_All = new ltext("Remove all", "Odstrani vse");
