@@ -52,5 +52,41 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool Get(long Item_ID, long PurchasePrice_ID, long StockTake_ID, ref long PurchasePrice_Item_ID)
+        {
+            string Err = null;
+            string sql = null;
+            PurchasePrice_Item_ID = -1;
+            sql = "select ID from PurchasePrice_Item where Item_ID = " + Item_ID.ToString() + " and PurchasePrice_ID = " + PurchasePrice_ID.ToString() + " and StockTake_ID = " + StockTake_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    PurchasePrice_Item_ID = (long)dt.Rows[0]["ID"];
+                    return true;
+                }
+                else
+                {
+                    sql = @"insert into PurchasePrice_Item (Item_ID,PurchasePrice_ID,StockTake_ID) values (" + Item_ID.ToString() + "," + PurchasePrice_ID.ToString() + "," + StockTake_ID.ToString() + ")";
+                    object oret = null;
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref PurchasePrice_Item_ID, ref oret, ref Err, "PurchasePrice_Item"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:sql = " + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_PurchasePrice_Item:sql = " + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

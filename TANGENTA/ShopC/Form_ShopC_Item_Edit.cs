@@ -24,6 +24,8 @@ namespace ShopC
     {
         public enum eItem_EditMode { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
         private eItem_EditMode ItemEditMode = eItem_EditMode.SELECT_VALID;
+        Control ParentControl = null;
+        usrc_StockEditForSelectedStockTake m_usrc_StockEditForSelectedStockTake = null;
 
         public List<long> List_of_Inserted_Items_ID = null; 
         DataTable dt_Item = new DataTable();
@@ -57,7 +59,7 @@ namespace ShopC
             lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
         }
 
-        public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
+        public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID, Control xParentControl)
         {
             InitializeComponent();
             dbTables = xdbTables;
@@ -65,6 +67,14 @@ namespace ShopC
             ColumnOrderBy = xColumnOrderBy;
             ID_v = new long_v();
             ID_v.v = ID;
+            ParentControl = xParentControl;
+            if (ParentControl != null)
+            {
+                if (ParentControl is usrc_StockEditForSelectedStockTake)
+                {
+                    m_usrc_StockEditForSelectedStockTake = (usrc_StockEditForSelectedStockTake)ParentControl;
+                }
+            }
             this.Text = lngRPM.s_Items.s;
             rdb_OnlyInOffer.Checked = true;
             lngRPM.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
@@ -265,6 +275,14 @@ namespace ShopC
                     break;
             }
 
+        }
+
+        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        {
+            if (m_usrc_StockEditForSelectedStockTake!=null)
+            {
+                m_usrc_StockEditForSelectedStockTake.Selected_Item_Index_Changed(m_tbl, ID, index);
+            }
         }
     }
 }

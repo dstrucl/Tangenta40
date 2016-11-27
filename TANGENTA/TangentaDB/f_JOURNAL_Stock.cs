@@ -17,10 +17,12 @@ namespace TangentaDB
 {
     public static class f_JOURNAL_Stock
     {
+        public const string JOURNAL_Stock_Type_TABLE = "JOURNAL_Stock_Type";
         public const string New_Stock_Data = "New Stock Data";
         public const string Stock_Data_Changed = "Stock Data Changed";
         public const string From_Stock_To_Basket = "From stock to basket";
         public const string From_Basket_To_Stock = "From basket to stock";
+
         private static long m_JOURNAL_Stock_Type_ID_new_stock_data = -1;
         private static long m_JOURNAL_Stock_Type_ID_stock_data_changed = -1;
         private static long m_JOURNAL_Stock_Type_ID_from_stock_to_basket = -1;
@@ -41,13 +43,13 @@ namespace TangentaDB
 
         public static bool Get_JOURNAL_Stock_Type_ID()
         {
-            if (fs.Get_JOURNAL_TYPE("JOURNAL_Stock_Type", New_Stock_Data, ref m_JOURNAL_Stock_Type_ID_new_stock_data))
+            if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, New_Stock_Data, ref m_JOURNAL_Stock_Type_ID_new_stock_data))
             {
-                if (fs.Get_JOURNAL_TYPE("JOURNAL_Stock_Type", Stock_Data_Changed, ref m_JOURNAL_Stock_Type_ID_stock_data_changed))
+                if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, Stock_Data_Changed, ref m_JOURNAL_Stock_Type_ID_stock_data_changed))
                 {
-                    if (fs.Get_JOURNAL_TYPE("JOURNAL_Stock_Type", From_Stock_To_Basket, ref m_JOURNAL_Stock_Type_ID_from_stock_to_basket))
+                    if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, From_Stock_To_Basket, ref m_JOURNAL_Stock_Type_ID_from_stock_to_basket))
                     {
-                        if (fs.Get_JOURNAL_TYPE("JOURNAL_Stock_Type", From_Basket_To_Stock, ref m_JOURNAL_Stock_Type_ID_from_basket_to_stock))
+                        if (fs.Get_JOURNAL_TYPE(JOURNAL_Stock_Type_TABLE, From_Basket_To_Stock, ref m_JOURNAL_Stock_Type_ID_from_basket_to_stock))
                         {
                             return true;
                         }

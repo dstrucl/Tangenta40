@@ -552,7 +552,7 @@ namespace ShopC
             SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
             Form_ShopC_Item_Edit edt_Item_dlg = new Form_ShopC_Item_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Item,
-                                                            "Item_$$Code desc", ID);
+                                                            "Item_$$Code desc", ID,this);
             edt_Item_dlg.ShowDialog();
             if (edt_Item_dlg.Changed)
             {

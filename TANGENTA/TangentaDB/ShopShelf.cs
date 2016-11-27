@@ -91,8 +91,8 @@ namespace TangentaDB
               Left Join Expiry on ptm.Expiry_ID = Expiry.ID
               Left Join Warranty on ptm.Warranty_ID = Warranty.ID
               left Join Stock on   putm.ID = Stock.PurchasePrice_Item_ID
-              left Join Stock_Take on putm.Stock_Take_ID = Stock_Take.ID 
-              left Join Supplier on Stock_Take.Supplier_ID =Supplier.ID 
+              left Join StockTake on putm.StockTake_ID = StockTake.ID 
+              left Join Supplier on StockTake.Supplier_ID =Supplier.ID 
               left Join Contact c on Supplier.Contact_ID =c.ID 
               left Join OrganisationData cod on c.OrganisationData_ID =cod.ID 
               left Join Organisation on cod.Organisation_ID =Organisation.ID 
@@ -283,8 +283,8 @@ namespace TangentaDB
               Left Join Expiry on ptm.Expiry_ID = Expiry.ID
               Left Join Warranty on ptm.Warranty_ID = Warranty.ID
               left Join Stock on   putm.ID = Stock.PurchasePrice_Item_ID
-              left Join Stock_Take on putm.Stock_Take_ID = Stock_Take.ID 
-              left Join Supplier on Stock_Take.Supplier_ID =Supplier.ID 
+              left Join StockTake on putm.StockTake_ID = StockTake.ID 
+              left Join Supplier on StockTake.Supplier_ID =Supplier.ID 
               left Join Contact on Supplier.Contact_ID =Contact.ID 
               left Join OrganisationData on Contact.OrganisationData_ID =OrganisationData.ID 
               left Join Organisation on OrganisationData.Organisation_ID =Organisation.ID 

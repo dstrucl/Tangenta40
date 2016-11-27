@@ -17,6 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_InvalidPurchasePrice = new ltext("Purchase price is not valid\r\nError:Can not convert to decimal velue!", "Nabavna cena ni veljavna.\r\nNapaka:Neupešna pretvorba v decimalno število!");
         public static ltext s_Stock_Description = new ltext("Stock description", "Opis zaloge");
         public static ltext s_SelectedItem = new ltext("Select Item", "Izberite Artikel");
         public static ltext s_Select_StockEdit_Type = new ltext("Select stock edit type", "Izberite način urejanja zalog");
@@ -549,6 +550,9 @@ namespace LanguageControl
 
         public static ltext s_PurchasePricePerUnit = new ltext("Purchase price per unit",
                                                                 "Nabavna cena na enoto");
+
+        public static ltext s_ImportTime = new ltext("Item Stock Import time",
+                                                    "Čas vnosa artikla v zalogo");
 
         public static ltext s_ExpiryDate = new ltext("Expirx date",
                                                    "Rok uporabe");

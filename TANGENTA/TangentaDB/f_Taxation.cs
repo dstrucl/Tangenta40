@@ -11,6 +11,7 @@ namespace TangentaDB
 {
     public static class f_Taxation
     {
+        private static DataTable dtTaxation = null;
 
         public static bool Get(int Country_num, ref tnr[] tax_rates)
         {
@@ -86,6 +87,37 @@ namespace TangentaDB
             {
                 LogFile.Error.Show("ERROR:f_Taxation:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
+            }
+        }
+
+        public static DataTable GetTable(bool breload)
+        {
+            if (breload)
+            {
+                if (dtTaxation != null)
+                {
+                    dtTaxation.Dispose();
+                    dtTaxation = null;
+                }
+            }
+            if (dtTaxation!=null)
+            {
+                return dtTaxation;
+            }
+            else
+            {
+                string Err = null;
+                dtTaxation = new DataTable();
+                string sql = @"select ID,Name,Rate from Taxation";
+                if (DBSync.DBSync.ReadDataTable(ref dtTaxation,sql,ref Err))
+                {
+                    return dtTaxation;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:f_taxation.cs:GetTable:sql=" + sql + "\r\nErr=" + Err);
+                    return null;
+                }
             }
         }
     }

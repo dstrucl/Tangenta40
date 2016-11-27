@@ -10,6 +10,8 @@ using NavigationButtons;
 using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
+using TangentaDB;
+using DBTypes;
 
 namespace ShopC
 {
@@ -17,6 +19,7 @@ namespace ShopC
     {
         CodeTables.DBTableControl dbTables = null;
         internal bool Changed;
+
         private Navigation nav;
 
         public Form_StockTake_Edit(Navigation xnav, CodeTables.DBTableControl xdbTables)
@@ -25,42 +28,54 @@ namespace ShopC
             this.nav = xnav;
             dbTables = xdbTables;
             this.Text = lngRPM.s_EditStockTakeItems.s;
-            lngRPM.s_SelectedItem.Text(btn_SelectItem);
-            lngRPM.s_Add.Text(btn_Add);
-            lngRPM.s_Remove.Text(btn_Remove);
-            lngRPM.s_Update.Text(btn_Remove);
-            lngRPM.s_Quantity.Text(lbl_Quantity);
-            lngRPM.s_PurchasePricePerUnit.Text(lbl_PurchasePrice);
-            lngRPM.s_Taxation.Text(lbl_Taxation);
-            lngRPM.s_Currency.Text(lbl_Currency);
-            lngRPM.s_ExpiryDate.Text(lbl_ExpiryDate);
-            lngRPM.s_Stock_Description.Text(lbl_Stock_Description);
             usrc_EditTable1.Text(lngRPM.s_EditStockTake);
         }
 
         private void Form_StockTake_Edit_Load(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            SQLTable tbl_Stock_Take = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock_Take)));
+            SQLTable tbl_StockTake = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(StockTake)));
             //SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
-            string ColumnToOrderBy = "Stock_Take_$$Stock_Take_Date desc";
-            string selection = @"Stock_Take_$$Stock_Take_Date,
-                                 Stock_Take_$$Description,
-                                 Stock_Take_$$StockTakePriceTotal,
-                                 Stock_Take_$_sup_$_c_$_orgd_$_org_$$Name,
-                                 Stock_Take_$_sup_$_c_$_orgd_$_org_$$Tax_ID,
-                                 Stock_Take_$_trc_$_c_$_orgd_$_org_$$Name,
-                                 Stock_Take_$_ref_$$ReferenceNote,
-                                 Stock_Take_$_trc_$$TruckingCost,
-                                 Stock_Take_$_trc_$$Customs,
+            string ColumnToOrderBy = "StockTake_$$StockTake_Date desc";
+            string selection = @"StockTake_$$StockTake_Date,
+                                 StockTake_$$Description,
+                                 StockTake_$$StockTakePriceTotal,
+                                 StockTake_$_sup_$_c_$_orgd_$_org_$$Name,
+                                 StockTake_$_sup_$_c_$_orgd_$_org_$$Tax_ID,
+                                 StockTake_$_trc_$_c_$_orgd_$_org_$$Name,
+                                 StockTake_$_ref_$$ReferenceNote,
+                                 StockTake_$_trc_$$TruckingCost,
+                                 StockTake_$_trc_$$Customs,
                                  ID";
             this.Cursor = Cursors.WaitCursor;
-            if (!usrc_EditTable1.Init(dbTables, tbl_Stock_Take, selection, ColumnToOrderBy, false, null, null, false, nav))
+            if (usrc_EditTable1.Init(dbTables, tbl_StockTake, selection, ColumnToOrderBy, false, null, null, false, nav))
+            {
+                usrc_EditTable1.after_InsertInDataBase += Usrc_EditTable1_after_InsertInDataBase;
+                usrc_StockEditForSelectedStockTake1.StockTake_ID = usrc_EditTable1.Identity;
+                Show_StockTakeItems();
+            }
+            else
             {
                 Close();
                 DialogResult = DialogResult.Abort;
             }
             this.Cursor = Cursors.Arrow;
+        }
+
+        private void Usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        {
+            if (bRes)
+            {
+                long_v JOURNAL_StockTake_ID_v = null;
+                if (TangentaDB.f_JOURNAL_StockTake.Get(ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened, DateTime.Now, ref JOURNAL_StockTake_ID_v))
+                {
+
+                }
+            }
+        }
+
+        private void Show_StockTakeItems()
+        {
         }
 
         private void lbl_PurchasePrice_Click(object sender, EventArgs e)
@@ -76,6 +91,16 @@ namespace ShopC
         private void usrc_EditTable1_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_SelectItem_Click(object sender, EventArgs e)
+        {
+            //Form_ShopC_Item_Edit
+        }
+
+        private void Form_StockTake_Edit_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            usrc_StockEditForSelectedStockTake1.DoClose();
         }
     }
 }

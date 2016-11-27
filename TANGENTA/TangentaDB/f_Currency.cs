@@ -11,6 +11,8 @@ namespace TangentaDB
 {
     public static class f_Currency
     {
+        private static DataTable dtCurrency = null;
+
         public static bool Get(int Country_num, ref long Currency_ID)
         {
             Currency_ID = -1;
@@ -145,5 +147,35 @@ namespace TangentaDB
             }
         }
 
+        public static DataTable GetTable(bool breload)
+        {
+            if (breload)
+            {
+                if (dtCurrency != null)
+                {
+                    dtCurrency.Dispose();
+                    dtCurrency = null;
+                }
+            }
+            if (dtCurrency != null)
+            {
+                return dtCurrency;
+            }
+            else
+            {
+                string Err = null;
+                dtCurrency = new DataTable();
+                string sql = @"select ID,Abbreviation,Name,Symbol,CurrencyCode,DecimalPlaces from Currency";
+                if (DBSync.DBSync.ReadDataTable(ref dtCurrency, sql, ref Err))
+                {
+                    return dtCurrency;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:f_Currency.cs:GetTable:sql=" + sql + "\r\nErr=" + Err);
+                    return null;
+                }
+            }
+        }
     }
 }

@@ -68,7 +68,17 @@ namespace TangentaDB
             }
         }
 
-
+        public static bool Get_JOURNAL_TYPE_ID()
+        {
+            if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
+            {
+                if (f_JOURNAL_StockTake.Get_JOURNAL_StockTake_Type_ID())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public static enum_GetDBSettings GetDBSettings(string Name, ref string TextValue, ref bool bReadOnly, ref string Err)
         {

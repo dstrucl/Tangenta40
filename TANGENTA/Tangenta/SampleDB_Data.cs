@@ -24,7 +24,6 @@ namespace Tangenta
     public static class SampleDB_Data
     {
 
-
         public static TangentaTableClass.Taxation m_Taxation = new TangentaTableClass.Taxation();
 
         public static TangentaTableClass.cStreetName_Org m_cStreetName_Org = new TangentaTableClass.cStreetName_Org();
@@ -58,7 +57,7 @@ namespace Tangenta
 
         public static List<TangentaTableClass.Supplier> m_List_Supplier = new List<TangentaTableClass.Supplier>();
 
-        public static List<TangentaTableClass.Stock_Take> m_List_Stock_Take = new List<TangentaTableClass.Stock_Take>();
+        public static List<TangentaTableClass.StockTake> m_List_StockTake = new List<TangentaTableClass.StockTake>();
 
         public static List<TangentaTableClass.Stock> m_List_Stock = new List<TangentaTableClass.Stock>();
 

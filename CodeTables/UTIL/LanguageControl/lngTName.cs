@@ -16,7 +16,7 @@ namespace LanguageControl
     {
 
         public static ltext lngt_t_Contact = new ltext("Contact", "Kontakt");
-        public static ltext lngt_t_Stock_Take = new ltext("Stock Take", "Prevzemnica");
+        public static ltext lngt_t_StockTake = new ltext("Stock Take", "Prevzemnica");
         public static ltext lngt_t_PurchasePrice = new ltext("Purchase Price", "Prevzemne cene");
         public static ltext lngt_t_Purchase_Order = new ltext("Purchase Order", "Naročilo Dobavitelju");
         public static ltext lngt_t_Trucking = new ltext("Trucking", "Transport");
@@ -86,7 +86,7 @@ namespace LanguageControl
 
         public static ltext lngt_JOURNAL_Stock = new ltext("Journal stock", "Dnevnik skladišče");
         public static ltext lngt_JOURNAL_Taxation = new ltext("Journal taxation", "Dnevnik davki");
-        public static ltext lngt_JOURNAL_PurchasePrice = new ltext("Journal purchase price", "Dnevnik nabavne cene");
+        public static ltext lngt_JOURNAL_StockTake = new ltext("Journal stoke take", "Dnevnik prevzemnice");
         public static ltext lngt_JOURNAL_Customer_Org = new ltext("Journal customer organisation", "Dnevnik stranka pravna oseba");
 
         public static ltext lngt_JOURNAL_Customer_Person_Data_Image = new ltext("Journal customer person data image", "Dnevnik Kartoteka slike");
@@ -104,7 +104,7 @@ namespace LanguageControl
         public static ltext lngt_JOURNAL_Invoice_Type = new ltext("Journal event  Invoice", "Dogodek Račun tip");
         public static ltext lngt_JOURNAL_Stock_Type = new ltext("Journal event  Stock", "Dogodek skladišče");
         public static ltext lngt_JOURNAL_Taxation_Type = new ltext("Journal event  Taxation", "Dogodek davki");
-        public static ltext lngt_JOURNAL_PurchasePrice_Type = new ltext("Journal event  purchase price", "Dogodek nabavne cene");
+        public static ltext lngt_JOURNAL_StockTake_Type = new ltext("Journal event  stock take", "Dogodek prevzemnice");
         public static ltext lngt_JOURNAL_Customer_Org_Type = new ltext("Journal event  customer organisation", "Dogodek stranke pravne osebe");
         public static ltext lngt_JOURNAL_Customer_Person_Type = new ltext("Journal event  customer person", "Dogodek stranke fizične osebe");
         public static ltext lngt_JOURNAL_myOrganisation_Person_Type = new ltext("Journal event  employee", "Dogodek zaposleni");
@@ -129,7 +129,7 @@ namespace LanguageControl
 
         public static ltext lngt_PersonImage = new ltext("Person Image", "Slika osebe");
         public static ltext lngt_Reference_Image = new ltext("Reference document image", "Sklic slika dokumenta");
-        public static ltext lngt_Stock_Take = new ltext("Purchase price", "Nabavna cena");
+        public static ltext lngt_StockTake = new ltext("Purchase price", "Nabavna cena");
         public static ltext lngt_Atom_OrganisationData = new ltext("Organisation Data archive", "Podatki o organizaciji arhiv");
         public static ltext lngt_OrganisationData = new ltext("Organisation Data", "Podatki o organizaciji");
         public static ltext lngt_myOrganisation_Person_AccessRights = new ltext("My Organisation Person Access Rights", "Dostopne pravice osebe v podjetju");

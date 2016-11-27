@@ -44,7 +44,7 @@ namespace Tangenta
 
         public bool Get_ProgramSettings(startup myStartup,object oData, NavigationButtons.Navigation xnav,ref string Err)
         {
-            if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
+            if (fs.Get_JOURNAL_TYPE_ID())
             {
 do_Get_ProgramSettings:
                 if (Get_ProgramSettings(xnav, true))

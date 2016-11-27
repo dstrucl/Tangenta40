@@ -1494,7 +1494,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class Stock_Take_Date : DB_DateTime
+    public class StockTake_Date : DB_DateTime
     {
     }
 
@@ -1571,11 +1571,11 @@ namespace TangentaTableClass
     }
 
 
-    public class Stock_Take
+    public class StockTake
     {
         public ID ID = new ID();
         public Name Name = new Name();
-        public Stock_Take_Date Stock_Take_Date = new Stock_Take_Date();
+        public StockTake_Date StockTake_Date = new StockTake_Date();
         public Supplier m_Supplier = new Supplier();
         public StockTakePriceTotal StockTakePriceTotal = new StockTakePriceTotal();
         public Trucking m_Trucking = new Trucking();
@@ -1609,7 +1609,7 @@ namespace TangentaTableClass
 
         public Item m_Item = new Item();
 
-        public Stock_Take m_Stock_Take = new Stock_Take();
+        public StockTake m_StockTake = new StockTake();
 
     }
 
@@ -2038,7 +2038,7 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
-    public class JOURNAL_Stock_Take_Type
+    public class JOURNAL_StockTake_Type
     {
         public ID ID = new ID();
         public Name Name = new Name();
@@ -2159,11 +2159,11 @@ namespace TangentaTableClass
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
-    public class JOURNAL_Stock_Take
+    public class JOURNAL_StockTake
     {
         public ID ID = new ID();
-        public JOURNAL_Stock_Take_Type m_JOURNAL_PurchasePrice_Type = new JOURNAL_Stock_Take_Type();
-        public Stock_Take m_PurchasePrice = new Stock_Take();
+        public JOURNAL_StockTake_Type m_JOURNAL_StockTake_Type = new JOURNAL_StockTake_Type();
+        public StockTake m_StockTake = new StockTake();
         public EventTime EventTime = new EventTime();
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
@@ -2801,7 +2801,7 @@ namespace TangentaTableClass
         public JOURNAL_Customer_Org_Type m_JOURNAL_Customer_Org_Type = new JOURNAL_Customer_Org_Type();
 
         /* 123 */
-        public JOURNAL_Stock_Take_Type m_JOURNAL_PurchasePrice_Type = new JOURNAL_Stock_Take_Type();
+        public JOURNAL_StockTake_Type m_JOURNAL_StockTake_Type = new JOURNAL_StockTake_Type();
 
         /* 124 */
         public JOURNAL_Taxation_Type m_JOURNAL_Taxation_Type = new JOURNAL_Taxation_Type();
@@ -2843,7 +2843,7 @@ namespace TangentaTableClass
         public JOURNAL_Customer_Org m_JOURNAL_Customer_Org = new JOURNAL_Customer_Org();
 
         /* 137 */
-        public JOURNAL_Stock_Take m_JOURNAL_PurchasePrice = new JOURNAL_Stock_Take();
+        public JOURNAL_StockTake m_JOURNAL_StockTake = new JOURNAL_StockTake();
 
         /* 138 */
         public JOURNAL_Taxation m_JOURNAL_Taxation = new JOURNAL_Taxation();
@@ -3038,7 +3038,7 @@ namespace TangentaTableClass
         public Purchase_Order m_Purchase_Order = new Purchase_Order();
 
         /* 202 */
-        public Stock_Take m_Stock_Take = new Stock_Take();
+        public StockTake m_StockTake = new StockTake();
 
         /* 203 */
         public Contact m_Contact = new Contact();
