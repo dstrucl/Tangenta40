@@ -82,9 +82,16 @@ namespace TangentaDB
                                   s.ExpiryDate,
                                   st.Name, 
                                   org.Name as OrganisationName,
-                                  org.Tax_ID 
+                                  org.Tax_ID,
+                                  ppi.PurchasePrice_ID,
+                                  pp.PurchasePricePerUnit,
+                                  pp.Currency_ID, 
+                                  pp.Taxation_ID
                                   from Stock s
-                           inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and StockTake_ID = "+ StockTake_ID.ToString()+ @"
+                           inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and StockTake_ID = " + StockTake_ID.ToString()+ @"
+                           inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
+                           inner join Currency cur on pp.Currency_ID = cur.ID
+                           inner join Taxation t on pp.Taxation_ID = t.ID
                            inner join Item i on ppi.Item_ID = i.ID
                            inner join StockTake st on ppi.StockTake_ID = st.ID 
                            left join  Supplier sp on st.Supplier_ID = sp.ID

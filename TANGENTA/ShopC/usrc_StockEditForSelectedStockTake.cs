@@ -33,6 +33,8 @@ namespace ShopC
                   btn_Add.Enabled = m_Draft;
                   btn_Update.Enabled = m_Draft;
                   btn_Remove.Enabled = m_Draft;
+                  tPick_ImportTime.Enabled = m_Draft;
+                  TPiick_ExpiryDate.Enabled = m_Draft;
                 }
         }
 
@@ -252,13 +254,44 @@ namespace ShopC
         {
             lngRPM.s_lbl_StockTakeName.Text(lbl_StockTakeName, StockTake_Name);
             this.StockTake_ID = xStockTake__ID;
+            dgvx_StockTakeItemsAndPrices.DataSource = null;
+            this.dgvx_StockTakeItemsAndPrices.SelectionChanged -= new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
             dt_Stock_Of_Current_StockTake.Rows.Clear();
             if (StockTake_ID >= 0)
             {
                 if (TangentaDB.f_Stock.Get_OfStockTake(ref dt_Stock_Of_Current_StockTake, StockTake_ID))
                 {
                     dgvx_StockTakeItemsAndPrices.DataSource = dt_Stock_Of_Current_StockTake;
+                    this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
                 }
+                ShowSelected_Item();
+            }
+
+        }
+
+        private void ShowSelected_Item()
+        {
+            DataGridViewSelectedRowCollection dgvselectedRows = dgvx_StockTakeItemsAndPrices.SelectedRows;
+            if (dgvselectedRows.Count>0)
+            {
+                int index = dgvselectedRows[0].Index;
+                lngRPM.s_Item.Text(grp_Item, ":" + ((string)dt_Stock_Of_Current_StockTake.Rows[index]["UniqueName"]));
+                nmUpDn_Quantity.Value = ((decimal)dt_Stock_Of_Current_StockTake.Rows[index]["dQuantity"]);
+                tPick_ImportTime.Value = ((DateTime)dt_Stock_Of_Current_StockTake.Rows[index]["ImportTime"]);
+                object oExpiryDate = dt_Stock_Of_Current_StockTake.Rows[index]["ExpiryDate"];
+                if (oExpiryDate is DateTime)
+                {
+                    chk_ExpiryCheck.Checked = true;
+                    this.TPiick_ExpiryDate.Value = ((DateTime)oExpiryDate);
+                }
+                else
+                {
+                    chk_ExpiryCheck.Checked = false;
+                    this.TPiick_ExpiryDate.Enabled = false;
+                }
+                cmb_Taxation.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[index]["Taxation_ID"])-1;
+                cmb_Currency.SelectedIndex = Convert.ToInt32(dt_Stock_Of_Current_StockTake.Rows[index]["Currency_ID"])-1;
+                cmb_PurchasePrice.Text = Convert.ToString(dt_Stock_Of_Current_StockTake.Rows[index]["PurchasePricePerUnit"]);
             }
         }
 
@@ -279,6 +312,16 @@ namespace ShopC
                     f_StockTake.Lock(StockTake_ID);
                 }
             }
+        }
+
+        private void dgvx_StockTakeItemsAndPrices_SelectionChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grp_Item_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

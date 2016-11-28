@@ -114,6 +114,7 @@
             this.grp_Item.TabIndex = 17;
             this.grp_Item.TabStop = false;
             this.grp_Item.Text = "Item:";
+            this.grp_Item.Enter += new System.EventHandler(this.grp_Item_Enter);
             // 
             // txt_StockDescription
             // 
