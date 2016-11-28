@@ -1676,6 +1676,99 @@ namespace CodeTables
             return null;
         }
 
+        public object Value(string sColumnName)
+        {
+            if (sColumnName != null)
+            {
+                if (sColumnName.Contains("_$$"))
+                {
+                    //relative address
+
+                    string[] sTokens = sColumnName.Split(new string[] { "_$_", "_$$" }, StringSplitOptions.None);
+                    int iLength = sTokens.Length;
+                    if (iLength >= 2)
+                    {
+                        int i = -1;
+                        for (i = 0; i < iLength; i++)
+                        {
+                            if (i == 0)
+                            {
+                                if (this.TableName.Equals(sTokens[i]))
+                                {
+                                    return this.ParseSubTables(sTokens, i + 1, iLength);
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:CodeTables:SQLTable:Value:Parse error:\"" + sColumnName + "\" is not in table " + this.TableName);
+                                    return null;
+                                }
+
+                            }
+                            else if (i == iLength - 1)
+                            {
+                                foreach (Column col in Column)
+                                {
+                                    if (col.Name.Equals(sTokens[i]))
+                                    {
+                                        return col.obj;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:CodeTables:SQLTable:Value:Can not parse:\"" + sColumnName + "\"");
+                        return null;
+                    }
+                    return null;
+                }
+                foreach (Column col in this.Column)
+                {
+                    if (col.Name.Equals(sColumnName))
+                    {
+                        return col.obj;
+                    }
+                }
+                return null;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:CodeTables:SQLTable:Value:ERROR:sColumnName=null");
+                return null;
+            }
+        }
+
+        private object ParseSubTables(string[] sTokens, int i, int iLength)
+        {
+            if (i < iLength - 1)
+            {
+                foreach (Column col in Column)
+                {
+                    if (col.fKey != null)
+                    {
+                        if (col.fKey.fTable != null)
+                        {
+                            if (col.fKey.fTable.TableName_Abbreviation.Equals(sTokens[i]))
+                            {
+                                return col.fKey.fTable.ParseSubTables(sTokens, i + 1, iLength);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (i == iLength - 1)
+            {
+                foreach (Column col in Column)
+                {
+                    if (col.Name.Equals(sTokens[i]))
+                    {
+                        return col.obj;
+                    }
+                }
+            }
+            return null;
+        }
 
     }
 

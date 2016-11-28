@@ -61,17 +61,7 @@ namespace CodeTables
             }
         }
 
-        public object Value(string sColumnName)
-        {
-            foreach(Column col in this.Column)
-            {
-                if (col.Name.Equals(sColumnName))
-                {
-                    return col.obj;
-                }
-            }
-            return null;
-        }
+        
 
         internal DefineView_InputControl GetDefineView_InputControl(string FullName)
         {

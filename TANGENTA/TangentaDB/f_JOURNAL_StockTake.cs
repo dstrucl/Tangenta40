@@ -18,7 +18,7 @@ namespace TangentaDB
 
         private static long m_JOURNAL_StockTake_Type_ID_New_StockTake_opened = -1;
         private static long m_JOURNAL_StockTake_Type_ID_Opened_StockTake_closed = -1;
-        private static long m_JOURNAL_StockTake_Type_ID_Closed_StockTake_changed = -1;
+        private static long m_JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened = -1;
 
 
 
@@ -28,8 +28,8 @@ namespace TangentaDB
         public static long JOURNAL_StockTake_Type_ID_Opened_StockTake_closed
         { get { return m_JOURNAL_StockTake_Type_ID_Opened_StockTake_closed; } }
 
-        public static long JOURNAL_StockTake_Type_ID_Closed_StockTake_changed
-        { get { return m_JOURNAL_StockTake_Type_ID_Closed_StockTake_changed; } }
+        public static long JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened
+        { get { return m_JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened; } }
 
 
 
@@ -40,7 +40,7 @@ namespace TangentaDB
             {
                 if (fs.Get_JOURNAL_TYPE(JOURNAL_StockTake_Type_TABLE, Opened_StockTake_closed, ref m_JOURNAL_StockTake_Type_ID_Opened_StockTake_closed))
                 {
-                    if (fs.Get_JOURNAL_TYPE(JOURNAL_StockTake_Type_TABLE, Closed_StockTake_changed, ref m_JOURNAL_StockTake_Type_ID_Closed_StockTake_changed))
+                    if (fs.Get_JOURNAL_TYPE(JOURNAL_StockTake_Type_TABLE, Closed_StockTake_changed, ref m_JOURNAL_StockTake_Type_ID_Closed_StockTake_reopened))
                     {
                             return true;
                     }
@@ -89,5 +89,7 @@ namespace TangentaDB
                 return false;
             }
         }
+
+
     }
 }

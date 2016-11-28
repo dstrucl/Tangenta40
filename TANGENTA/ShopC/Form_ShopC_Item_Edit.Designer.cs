@@ -139,6 +139,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Item_EditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Item_EditForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_ShopC_Item_Edit_FormClosed);
             this.Load += new System.EventHandler(this.MyOrganisationData_EditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -39,7 +39,11 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql = "insert into PurchasePrice (PurchasePricePerUnit,Currency_ID,Taxation_ID)values(" + spar_PricePerUnit + "," + spar_ID_Currency + "," + spar_ID_Taxation +  ")";
+                    DateTime dtPurchasePriceDate = DateTime.Now;
+                    string spar_PurchasePriceDate = "@par_PurchasePriceDate";
+                    SQL_Parameter par_PurchasePriceDate = new SQL_Parameter(spar_PurchasePriceDate, SQL_Parameter.eSQL_Parameter.Datetime, false, dtPurchasePriceDate);
+                    lpar.Add(par_PurchasePriceDate);
+                    sql = "insert into PurchasePrice (PurchasePricePerUnit,Currency_ID,Taxation_ID,PurchasePriceDate)values(" + spar_PricePerUnit + "," + spar_ID_Currency + "," + spar_ID_Taxation + ","+ spar_PurchasePriceDate + ")";
                     object oret = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PurchasePrice_ID, ref oret, ref Err, "PurchasePrice"))
                     {

@@ -76,7 +76,7 @@ namespace CodeTables.TableDocking_Form
         string OrderByColumnName = null;
         public DataTable dt_Data = new DataTable();
         CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
+        public SQLTable tbl = null;
         bool bInitData = false;
 
         private bool m_WorkingSemaphore = false;

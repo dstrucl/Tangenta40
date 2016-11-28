@@ -73,11 +73,39 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_OfStockTake(ref DataTable dt_Stock_Of_Current_StockTake, long stockTake__ID)
+        public static bool Get_OfStockTake(ref DataTable dt_Stock_Of_Current_StockTake, long StockTake_ID)
         {
-            string sql = @"select ";
-            return false;
+            string Err = null;
+            string sql = @"select i.UniqueName,
+                                  s.dQuantity,
+                                  s.ImportTime,
+                                  s.ExpiryDate,
+                                  st.Name, 
+                                  org.Name as OrganisationName,
+                                  org.Tax_ID 
+                                  from Stock s
+                           inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and StockTake_ID = "+ StockTake_ID.ToString()+ @"
+                           inner join Item i on ppi.Item_ID = i.ID
+                           inner join StockTake st on ppi.StockTake_ID = st.ID 
+                           left join  Supplier sp on st.Supplier_ID = sp.ID
+                           left join  Contact c on sp.Contact_ID = c.ID
+                           left join  OrganisationData orgd on c.OrganisationData_ID = orgd.ID
+                           left join  Organisation org on orgd.Organisation_ID = org.ID
+                          ";
 
+            if (dt_Stock_Of_Current_StockTake == null)
+            {
+                dt_Stock_Of_Current_StockTake = new DataTable();
+            }
+            if (DBSync.DBSync.ReadDataTable(ref dt_Stock_Of_Current_StockTake,sql,ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
         }
     }
 }

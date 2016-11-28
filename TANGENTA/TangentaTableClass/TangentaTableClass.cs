@@ -185,6 +185,11 @@ namespace TangentaTableClass
 
     }
 
+    public class PurchasePriceDate : DB_DateTime
+    {
+
+    }
+
     public class ClosingTag : DB_varchar_5
     {
 
@@ -1571,6 +1576,11 @@ namespace TangentaTableClass
     }
 
 
+    public class Locked:DB_bit
+    {
+
+    }
+
     public class StockTake
     {
         public ID ID = new ID();
@@ -1581,6 +1591,7 @@ namespace TangentaTableClass
         public Trucking m_Trucking = new Trucking();
         public Reference m_Reference = new Reference();
         public Description Description = new Description();
+        public Draft Draft = new Draft();
     }
 
     public class PurchasePrice
@@ -1594,6 +1605,8 @@ namespace TangentaTableClass
         public Currency m_Currency = new Currency();
 
         public Taxation m_Taxation = new Taxation();
+
+        public PurchasePriceDate PurchasePriceDate = new PurchasePriceDate();
 
     }
 

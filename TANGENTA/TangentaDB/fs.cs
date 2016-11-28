@@ -80,6 +80,11 @@ namespace TangentaDB
             return false;
         }
 
+        public static bool IDisValid(long identity)
+        {
+            return identity>=0;
+        }
+
         public static enum_GetDBSettings GetDBSettings(string Name, ref string TextValue, ref bool bReadOnly, ref string Err)
         {
             SQLTable tbl_DBSettings = DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DBSettings));

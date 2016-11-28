@@ -80,6 +80,13 @@ namespace ShopC
             lngRPM.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
             lngRPM.s_AllItems.Text(this.rdb_All);
             lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
+            if (nav==null)
+            {
+                nav = new NavigationButtons.Navigation();
+                nav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
+                usrc_NavigationButtons1.Init(nav);
+            }
 
         }
 
@@ -142,6 +149,17 @@ namespace ShopC
                 if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     usrc_EditTable.Save();
+                }
+            }
+            if (m_usrc_StockEditForSelectedStockTake != null)
+            {
+                object oItem_UniqueName = usrc_EditTable.tbl.Value("Item_$$UniqueName");
+                if (oItem_UniqueName is TangentaTableClass.UniqueName)
+                {
+                    if (((TangentaTableClass.UniqueName)oItem_UniqueName).defined)
+                    {
+                        m_usrc_StockEditForSelectedStockTake.SetItem(usrc_EditTable.Identity, ((TangentaTableClass.UniqueName)oItem_UniqueName).val);
+                    }
                 }
             }
             this.Close();
@@ -282,6 +300,14 @@ namespace ShopC
             if (m_usrc_StockEditForSelectedStockTake!=null)
             {
                 m_usrc_StockEditForSelectedStockTake.Selected_Item_Index_Changed(m_tbl, ID, index);
+            }
+        }
+
+        private void Form_ShopC_Item_Edit_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (m_usrc_StockEditForSelectedStockTake!=null)
+            {
+                m_usrc_StockEditForSelectedStockTake.edt_Item_dlg = null;
             }
         }
     }

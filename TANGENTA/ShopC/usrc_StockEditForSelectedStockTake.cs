@@ -9,16 +9,59 @@ using System.Windows.Forms;
 using LanguageControl;
 using CodeTables;
 using DBTypes;
+using TangentaDB;
 
 namespace ShopC
 {
     public partial class usrc_StockEditForSelectedStockTake : UserControl
     {
+        public delegate void delegate_BtnExitPressed();
+        public event delegate_BtnExitPressed BtnExitPressed = null;
+
         long CurrentItem_ID = -1;
-        private Form_ShopC_Item_Edit edt_Item_dlg = null;
+        internal Form_ShopC_Item_Edit edt_Item_dlg = null;
         DataTable dt_PurchasePrices = null;
         public long StockTake_ID = -1;
+        private string m_StockTakeName = "";
+        private SQLTable m_StockTakeTable = null;
+        private bool m_Draft = false;
+        internal bool Draft
+        {
+            get { return m_Draft; }
+            set { m_Draft = value;
+                  grp_Item.Enabled = m_Draft;
+                  btn_Add.Enabled = m_Draft;
+                  btn_Update.Enabled = m_Draft;
+                  btn_Remove.Enabled = m_Draft;
+                }
+        }
+
+        public SQLTable StockTakeTable
+        {
+            get { return m_StockTakeTable; }
+            set
+            {
+                m_StockTakeTable =value;
+                if (m_StockTakeTable!=null)
+                {
+                    object oDraft = m_StockTakeTable.Value("Draft");
+                    if (oDraft is TangentaTableClass.Draft)
+                    {
+                        Draft = ((TangentaTableClass.Draft)oDraft).val;
+                    }
+                }
+            }
+        }
+
+        public string StockTakeName
+        {
+            get { return m_StockTakeName; }
+            set { m_StockTakeName = value;
+                lngRPM.s_lbl_StockTakeName.Text(lbl_StockTakeName, m_StockTakeName);
+            }
+        }
         DataTable dt_Stock_Of_Current_StockTake = new DataTable();
+
 
 
         public usrc_StockEditForSelectedStockTake()
@@ -35,8 +78,14 @@ namespace ShopC
             lngRPM.s_ExpiryDate.Text(chk_ExpiryCheck);
             lngRPM.s_ImportTime.Text(lbl_ImportTime);
             lngRPM.s_Stock_Description.Text(lbl_Stock_Description);
+            lngRPM.s_btn_LockStockTake.Text(btn_LockStockTake);
         }
 
+        public void SetItem(long ID,string xUniqueName)
+        {
+            CurrentItem_ID = ID;
+            lngRPM.s_Item.Text(this.grp_Item, ":" + xUniqueName);
+        }
         private void btn_SelectItem_Click(object sender, EventArgs e)
         {
             if (edt_Item_dlg == null)
@@ -71,7 +120,7 @@ namespace ShopC
                         if (((TangentaTableClass.UniqueName)ovalue).defined)
                         {
                             string Item_UniqueName = ((TangentaTableClass.UniqueName)ovalue).val;
-                            this.lbl_Item.Text = Item_UniqueName;
+                            lngRPM.s_Item.Text(grp_Item, ":" + Item_UniqueName);
                         }
                     }
                 }
@@ -123,15 +172,18 @@ namespace ShopC
 
         private void usrc_StockEditForSelectedStockTake_Load(object sender, EventArgs e)
         {
-            cmb_Taxation.DataSource = TangentaDB.f_Taxation.GetTable(false);
-            cmb_Taxation.DisplayMember = "Name";
-            cmb_Taxation.ValueMember = "ID";
-            cmb_Currency.DataSource = TangentaDB.f_Currency.GetTable(false);
-            cmb_Currency.DisplayMember = "Symbol";
-            cmb_Currency.ValueMember = "ID";
-            if (TangentaDB.myOrg.Default_Currency_ID >= 0)
+            if (!DesignMode)
             {
-                cmb_Currency.SelectedIndex = (int)(TangentaDB.myOrg.Default_Currency_ID - 1);
+                cmb_Taxation.DataSource = TangentaDB.f_Taxation.GetTable(false);
+                cmb_Taxation.DisplayMember = "Name";
+                cmb_Taxation.ValueMember = "ID";
+                cmb_Currency.DataSource = TangentaDB.f_Currency.GetTable(false);
+                cmb_Currency.DisplayMember = "Symbol";
+                cmb_Currency.ValueMember = "ID";
+                if (TangentaDB.myOrg.Default_Currency_ID >= 0)
+                {
+                    cmb_Currency.SelectedIndex = (int)(TangentaDB.myOrg.Default_Currency_ID - 1);
+                }
             }
         }
 
@@ -188,7 +240,7 @@ namespace ShopC
                         long Stock_ID = -1;
                         if (TangentaDB.f_Stock.Add(tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID,this.txt_StockDescription.Text,ref Stock_ID))
                         {
-                            ShowStock_ForCurrent_StockTakeID(Stock_ID);
+                            ShowStock_For_StockTakeID(Stock_ID,StockTakeName);
                             return;
                         }
                     }
@@ -196,12 +248,36 @@ namespace ShopC
             }
         }
 
-        private void ShowStock_ForCurrent_StockTakeID(long StockTake__ID)
+        public void ShowStock_For_StockTakeID(long xStockTake__ID, string StockTake_Name)
         {
+            lngRPM.s_lbl_StockTakeName.Text(lbl_StockTakeName, StockTake_Name);
+            this.StockTake_ID = xStockTake__ID;
             dt_Stock_Of_Current_StockTake.Rows.Clear();
-            if (TangentaDB.f_Stock.Get_OfStockTake(ref dt_Stock_Of_Current_StockTake,StockTake__ID))
+            if (StockTake_ID >= 0)
             {
-                dgvx_StockTakeItemsAndPrices.DataSource = dt_Stock_Of_Current_StockTake;
+                if (TangentaDB.f_Stock.Get_OfStockTake(ref dt_Stock_Of_Current_StockTake, StockTake_ID))
+                {
+                    dgvx_StockTakeItemsAndPrices.DataSource = dt_Stock_Of_Current_StockTake;
+                }
+            }
+        }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            if (BtnExitPressed!=null)
+            {
+                BtnExitPressed();
+            }
+        }
+
+        private void btn_LockStockTake_Click(object sender, EventArgs e)
+        {
+            if (fs.IDisValid(StockTake_ID))
+            {
+                if (XMessage.Box.Show(this, lngRPM.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    f_StockTake.Lock(StockTake_ID);
+                }
             }
         }
     }
