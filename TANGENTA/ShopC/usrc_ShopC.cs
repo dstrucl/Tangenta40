@@ -264,8 +264,23 @@ namespace ShopC
         private bool EditStock(NavigationButtons.Navigation xnav)
         {
             Form_SelectStockEditType frmSelectStockEditType = new Form_SelectStockEditType(xnav);
-            frmSelectStockEditType.ShowDialog();
-            return frmSelectStockEditType.b_edt_Stock_dlg_Changed;
+            if (frmSelectStockEditType.ShowDialog(this) == DialogResult.OK)
+            {
+                if (frmSelectStockEditType.eaction == Form_SelectStockEditType.eAction.do_EditStockTakeItems)
+                {
+                    frmSelectStockEditType.b_edt_Stock_dlg_Changed = frmSelectStockEditType.Do_Form_StockTake_Edit();
+                }
+                else if (frmSelectStockEditType.eaction == Form_SelectStockEditType.eAction.do_EditItemsInStock)
+                {
+                    frmSelectStockEditType.b_edt_Stock_dlg_Changed = frmSelectStockEditType.Do_Form_Stock_Edit();
+                }
+
+                return frmSelectStockEditType.b_edt_Stock_dlg_Changed;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void btn_Items_Click(object sender, EventArgs e)

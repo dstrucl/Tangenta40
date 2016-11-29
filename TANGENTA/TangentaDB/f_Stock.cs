@@ -73,21 +73,28 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get_OfStockTake(ref DataTable dt_Stock_Of_Current_StockTake, long StockTake_ID)
+        public static bool GeStockTakeItems(ref DataTable dt_Stock_Of_Current_StockTake, long StockTake_ID)
         {
             string Err = null;
             string sql = @"select i.UniqueName,
                                   s.dQuantity,
                                   s.ImportTime,
                                   s.ExpiryDate,
-                                  st.Name, 
-                                  org.Name as OrganisationName,
-                                  org.Tax_ID,
-                                  ppi.PurchasePrice_ID,
                                   pp.PurchasePricePerUnit,
+                                  cur.Symbol,
+                                  org.Name as Supplier,
+                                  t.Name as TaxationName,
+                                  s.Description,
+                                  ctrorg.Name as TruckingOrganisation,
+                                  org.Tax_ID as Supplier_Tax_ID,
+                                  st.StockTakePriceTotal,
+                                  tr.TruckingCost,
+                                  tr.Customs,                                  
+                                  st.Name, 
+                                  ppi.PurchasePrice_ID,
                                   pp.Currency_ID, 
                                   pp.Taxation_ID
-                                  from Stock s
+                           from Stock s
                            inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and StockTake_ID = " + StockTake_ID.ToString()+ @"
                            inner join PurchasePrice pp on ppi.PurchasePrice_ID = pp.ID
                            inner join Currency cur on pp.Currency_ID = cur.ID
@@ -98,6 +105,10 @@ namespace TangentaDB
                            left join  Contact c on sp.Contact_ID = c.ID
                            left join  OrganisationData orgd on c.OrganisationData_ID = orgd.ID
                            left join  Organisation org on orgd.Organisation_ID = org.ID
+                           left join  Trucking tr on st.Trucking_ID = tr.ID
+                           left join  Contact ctr on tr.Contact_ID = ctr.ID
+                           left join  OrganisationData ctrorgd on ctr.OrganisationData_ID = ctrorgd.ID
+                           left join  Organisation ctrorg on ctrorgd.Organisation_ID = ctrorg.ID
                           ";
 
             if (dt_Stock_Of_Current_StockTake == null)

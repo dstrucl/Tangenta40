@@ -220,7 +220,14 @@ namespace TangentaDB
                 SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
                 tbl_Taxation.CreateTableTree(DBSync.DBSync.DB_for_Tangenta.m_DBTables.items);
                 SelectID_Table_Assistant_Form SelectID_Table_dlg = new SelectID_Table_Assistant_Form(tbl_Taxation, DBSync.DBSync.DB_for_Tangenta.m_DBTables, null);
-                SelectID_Table_dlg.ShowDialog();
+                if (parent_ctrl is Form)
+                {
+                    if (((Form)parent_ctrl).TopMost)
+                    {
+                        SelectID_Table_dlg.TopMost = true;
+                    }
+                }
+                SelectID_Table_dlg.ShowDialog(parent_ctrl);
                 long id_Taxation = SelectID_Table_dlg.ID;
                 if (id_Taxation >= 0)
                 {

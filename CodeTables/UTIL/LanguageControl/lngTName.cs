@@ -15,6 +15,7 @@ namespace LanguageControl
     public static class lngTName
     {
 
+        public static ltext lngt_t_StockTake_AdditionalCost = new ltext("Stock take additional cost", "Prevzmenica dodatni stroški");
         public static ltext lngt_t_Contact = new ltext("Contact", "Kontakt");
         public static ltext lngt_t_StockTake = new ltext("Stock Take", "Prevzemnica");
         public static ltext lngt_t_PurchasePrice = new ltext("Purchase Price", "Prevzemne cene");

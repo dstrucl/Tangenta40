@@ -2463,6 +2463,20 @@ namespace TangentaTableClass
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
+    public class Cost:DB_Money
+    {
+
+    }
+
+    public class StockTake_AdditionalCost
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public Cost Cost = new Cost();
+        public Description Description = new Description();
+        public StockTake m_StockTake = new StockTake();
+    }
+
     public class SQL_Database_Tables_Definition
     {
 
@@ -3055,6 +3069,9 @@ namespace TangentaTableClass
 
         /* 203 */
         public Contact m_Contact = new Contact();
+
+        /* 204 */
+        public StockTake_AdditionalCost m_StockTake_AdditionalCost = new StockTake_AdditionalCost();
 
     }
 }

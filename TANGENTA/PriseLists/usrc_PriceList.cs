@@ -210,7 +210,14 @@ namespace PriseLists
         public static bool Ask_To_Update(char chShopType,DataTable dt_Item_NotIn_PriceList, Control pparent_ctrl)
         {
             Form_PriceList_NotComplete PriceList_NotComplete_Form_dlg = new Form_PriceList_NotComplete(chShopType, dt_Item_NotIn_PriceList, pparent_ctrl);
-            if (PriceList_NotComplete_Form_dlg.ShowDialog() == DialogResult.OK)
+            if (pparent_ctrl != null)
+            {
+                if (pparent_ctrl is Form)
+                {
+                    PriceList_NotComplete_Form_dlg.TopMost = ((Form)pparent_ctrl).TopMost;
+                }
+            }
+            if (PriceList_NotComplete_Form_dlg.ShowDialog(pparent_ctrl) == DialogResult.OK)
             {
                 return true;
             }

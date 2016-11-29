@@ -15,6 +15,8 @@ namespace ShopC
 {
     public partial class Form_SelectStockEditType : Form
     {
+        public enum eAction { none, do_EditItemsInStock, do_EditStockTakeItems };
+        public eAction eaction = Form_SelectStockEditType.eAction.none;
         private Navigation nav = null;
         public bool b_edt_Stock_dlg_Changed = false;
 
@@ -27,7 +29,7 @@ namespace ShopC
             this.Text = lngRPM.s_Select_StockEdit_Type.s;
         }
 
-        private bool Do_Form_Stock_Edit()
+        internal bool Do_Form_Stock_Edit()
         {
             SQLTable tbl_Stock = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Stock)));
             //SQLTable tbl_Item = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Item)));
@@ -39,7 +41,7 @@ namespace ShopC
 
         }
 
-        private bool Do_Form_StockTake_Edit()
+        internal bool Do_Form_StockTake_Edit()
         {
             Form_StockTake_Edit edt_StockTake_dlg = new Form_StockTake_Edit(nav, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
             edt_StockTake_dlg.ShowDialog();
@@ -51,14 +53,20 @@ namespace ShopC
         {
             this.Close();
             DialogResult = DialogResult.OK;
-            b_edt_Stock_dlg_Changed = Do_Form_Stock_Edit();
+            eaction = eAction.do_EditItemsInStock;
+            
         }
 
         private void btn_EditStockTakeItems_Click(object sender, EventArgs e)
         {
             this.Close();
             DialogResult = DialogResult.OK;
-            b_edt_Stock_dlg_Changed = Do_Form_StockTake_Edit();
+            eaction = eAction.do_EditStockTakeItems;
+            
+        }
+
+        private void Form_SelectStockEditType_FormClosed(object sender, FormClosedEventArgs e)
+        {
         }
     }
 }

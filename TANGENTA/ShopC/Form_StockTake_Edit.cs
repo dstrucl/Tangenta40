@@ -64,17 +64,7 @@ namespace ShopC
                     splitContainer1.Panel2Collapsed = true;
                 }
 
-                object oVal = usrc_EditTable1.tbl.Value("StockTake_$$Name");
-                if (oVal is TangentaTableClass.Name)
-                {
-                    if (((TangentaTableClass.Name)oVal).defined)
-                    {
-                        StockTakeName = ((TangentaTableClass.Name)oVal).val;
-                        usrc_StockEditForSelectedStockTake1.StockTakeName = StockTakeName;
-                        usrc_StockEditForSelectedStockTake1.StockTakeTable = usrc_EditTable1.tbl;
-                    }
-                }
-                //Show_StockTakeItems(usrc_EditTable1.Identity);
+                SetValues(usrc_EditTable1.tbl, usrc_EditTable1.Identity);
             }
             else
             {
@@ -84,37 +74,56 @@ namespace ShopC
             this.Cursor = Cursors.Arrow;
         }
 
+        private void SetValues(SQLTable xtbl,long id)
+        {
+            object oValue = xtbl.Value("StockTake_$$Name");
+            if (oValue is TangentaTableClass.Name)
+            {
+                if (((TangentaTableClass.Name)oValue).defined)
+                {
+                    StockTakeName = ((TangentaTableClass.Name)oValue).val;
+                }
+            }
+
+            decimal StockTakePriceTotal = 0;
+            object oTotalPriceValue =xtbl.Value("StockTake_$$StockTakePriceTotal");
+            if (oTotalPriceValue is TangentaTableClass.StockTakePriceTotal)
+            {
+                if (((TangentaTableClass.StockTakePriceTotal)oTotalPriceValue).defined)
+                {
+                    StockTakePriceTotal = ((TangentaTableClass.StockTakePriceTotal)oTotalPriceValue).val;
+                }
+            }
+            usrc_StockEditForSelectedStockTake1.SetValues(StockTakeName, id, xtbl, StockTakePriceTotal);
+        }
+
         private void Usrc_EditTable1_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
         {
             if (bRes)
             {
                 long_v JOURNAL_StockTake_ID_v = null;
                 splitContainer1.Panel2Collapsed = false;
-                object oValue = m_tbl.Value("StockTake_$$Name");
-                if (oValue is TangentaTableClass.Name)
-                {
-                    if (((TangentaTableClass.Name)oValue).defined)
-                    {
-                        StockTakeName = ((TangentaTableClass.Name)oValue).val;
-                        usrc_StockEditForSelectedStockTake1.StockTakeName = StockTakeName;
-                        usrc_StockEditForSelectedStockTake1.StockTakeTable = m_tbl;
-                    }
-                }
-
-
                 if (TangentaDB.f_JOURNAL_StockTake.Get(ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened, DateTime.Now, ref JOURNAL_StockTake_ID_v))
                 {
-
+                    object oStockTakeName = m_tbl.Value("Name");
+                    if (oStockTakeName is TangentaTableClass.Name)
+                    {
+                        if ((bool)((TangentaTableClass.Name)oStockTakeName).defined)
+                        {
+                            StockTakeName = ((TangentaTableClass.Name)oStockTakeName).val;
+                        }
+                    }
+                    Show_StockTakeItems(ID, StockTakeName,m_tbl);
                 }
             }
         }
 
-        private void Show_StockTakeItems(long ID,string StockTakeName)
+        private void Show_StockTakeItems(long ID,string StockTakeName, SQLTable xtbl)
         {
             if (ID >= 0)
             {
                 splitContainer1.Panel2Collapsed = false;
-                usrc_StockEditForSelectedStockTake1.ShowStock_For_StockTakeID(ID, StockTakeName);
+                usrc_StockEditForSelectedStockTake1.ShowStock_For_StockTakeID(ID, StockTakeName, xtbl);
             }
             else
             {
@@ -149,16 +158,8 @@ namespace ShopC
 
         private void usrc_EditTable1_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
         {
-            object oValue = m_tbl.Value("StockTake_$$Name");
-            if (oValue is TangentaTableClass.Name)
-            {
-                if (((TangentaTableClass.Name)oValue).defined)
-                {
-                    StockTakeName = ((TangentaTableClass.Name)oValue).val;
-                    usrc_StockEditForSelectedStockTake1.StockTakeTable = m_tbl;
-                }
-            }
-            Show_StockTakeItems(ID, StockTakeName);
+            this.SetValues(m_tbl, ID);
+            Show_StockTakeItems(ID, StockTakeName,m_tbl);
         }
 
         private void usrc_StockEditForSelectedStockTake1_BtnExitPressed()

@@ -17,6 +17,10 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_TruckingOrganisation = new ltext("Trucking organisation", "Transportna družba");
+        public static ltext s_Supplier = new ltext("Supplier", "Dobavitelj");
+        public static ltext s_lbl_StockTakeTotalPrice = new ltext("Total Cost", "Celotna cena");
+        public static ltext s_btn_AdditionalCost = new ltext("Additional Cost", "Dodatni Stroški");
         public static ltext s_lbl_StockTakeName = new ltext("Stock-Take:", "Prevzemnica:");
         public static ltext s_AreYouSureToLock_StockTake = new ltext("Are you sure to lock Stock-Take", "Ste prepričani, da zaklenete prevzemnico?");
         public static ltext s_btn_LockStockTake = new ltext("Lock Stock-Take", "Zakleni prevzemnico");
