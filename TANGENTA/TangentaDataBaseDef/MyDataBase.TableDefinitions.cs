@@ -599,6 +599,13 @@ namespace TangentaDataBaseDef
         /* 204 */
         public SQLTable t_StockTake_AdditionalCost = null;
 
+        /* 205 */
+        public SQLTable t_StockTakeCostName = null;
+
+        /* 206 */
+        public SQLTable t_StockTakeCostDescription = null;
+
+
         public void Define_SQL_Database_Tables() // constructor;
         {
             Settings = new Settings(VERSION);
@@ -2333,11 +2340,23 @@ namespace TangentaDataBaseDef
             /* 204 */
             t_StockTake_AdditionalCost = new SQLTable((Object)new StockTake_AdditionalCost(), "stac", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_StockTake_AdditionalCost);
             t_StockTake_AdditionalCost.AddColumn((Object)mt.m_StockTake_AdditionalCost.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
-            t_StockTake_AdditionalCost.AddColumn((Object)mt.m_StockTake_AdditionalCost.Name, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
+            t_StockTake_AdditionalCost.AddColumn((Object)mt.m_StockTake_AdditionalCost.m_StockTakeCostName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take Cost Name ID", "Prevzemnica ime stroška ID"));
             t_StockTake_AdditionalCost.AddColumn((Object)mt.m_StockTake_AdditionalCost.Cost, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.NumericUpDown, new ltext("Cost", "Strošek"));
-            t_StockTake_AdditionalCost.AddColumn((Object)mt.m_StockTake_AdditionalCost.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
-            t_StockTake_AdditionalCost.AddColumn((Object)mt.m_StockTake_AdditionalCost.m_StockTake, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("StockTake ID", "Prevzemnica ID"));
+            t_StockTake_AdditionalCost.AddColumn((Object)mt.m_StockTake_AdditionalCost.m_StockTakeCostDescription, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Stock Take Cost Description", "Prevzemnica opis stroška ID"));
+            t_StockTake_AdditionalCost.AddColumn((Object)mt.m_StockTake_AdditionalCost.m_StockTake, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("StockTake ID", "Prevzemnica ID"));
             m_DBTables.items.Add(t_StockTake_AdditionalCost);
+
+            /* 205 */
+            t_StockTakeCostName = new SQLTable((Object)new StockTakeCostName(), "stcn", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_StockTakeCostName);
+            t_StockTakeCostName.AddColumn((Object)mt.m_StockTakeCostName.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_StockTakeCostName.AddColumn((Object)mt.m_StockTakeCostName.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Name", "Ime"));
+            m_DBTables.items.Add(t_StockTakeCostName);
+
+            /* 206 */
+            t_StockTakeCostDescription = new SQLTable((Object)new StockTakeCostDescription(), "stcd", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_StockTakeCostDescription);
+            t_StockTakeCostDescription.AddColumn((Object)mt.m_StockTakeCostDescription.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_StockTakeCostDescription.AddColumn((Object)mt.m_StockTakeCostDescription.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
+            m_DBTables.items.Add(t_StockTakeCostDescription);
 
         }
     }

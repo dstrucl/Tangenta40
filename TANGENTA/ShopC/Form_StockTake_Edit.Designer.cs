@@ -81,7 +81,9 @@
             this.usrc_StockEditForSelectedStockTake1.Location = new System.Drawing.Point(0, 0);
             this.usrc_StockEditForSelectedStockTake1.Name = "usrc_StockEditForSelectedStockTake1";
             this.usrc_StockEditForSelectedStockTake1.Size = new System.Drawing.Size(615, 729);
+            this.usrc_StockEditForSelectedStockTake1.StockTake_ID = ((long)(-1));
             this.usrc_StockEditForSelectedStockTake1.StockTakeName = "";
+            this.usrc_StockEditForSelectedStockTake1.StockTakeTable = null;
             this.usrc_StockEditForSelectedStockTake1.TabIndex = 0;
             this.usrc_StockEditForSelectedStockTake1.BtnExitPressed += new ShopC.usrc_StockEditForSelectedStockTake.delegate_BtnExitPressed(this.usrc_StockEditForSelectedStockTake1_BtnExitPressed);
             // 

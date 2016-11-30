@@ -1,0 +1,186 @@
+﻿namespace ShopC
+{
+    partial class Form_StockTake_AdditionalCost_Edit
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_StockTake_AdditionalCost_Edit));
+            this.cmb_StocTakeCostName = new System.Windows.Forms.ComboBox();
+            this.nmUpDn_Cost = new System.Windows.Forms.NumericUpDown();
+            this.txt_Description = new System.Windows.Forms.TextBox();
+            this.lbl_StocTakeCostName = new System.Windows.Forms.Label();
+            this.lbl_Cost = new System.Windows.Forms.Label();
+            this.lbl_StockTakeCostDescription = new System.Windows.Forms.Label();
+            this.btn_Add = new System.Windows.Forms.Button();
+            this.btn_Update = new System.Windows.Forms.Button();
+            this.btn_Remove = new System.Windows.Forms.Button();
+            this.dgvx_StockTakeAdditionalCost = new DataGridView_2xls.DataGridView2xls();
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_Cost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_StockTakeAdditionalCost)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // cmb_StocTakeCostName
+            // 
+            this.cmb_StocTakeCostName.FormattingEnabled = true;
+            this.cmb_StocTakeCostName.Location = new System.Drawing.Point(12, 25);
+            this.cmb_StocTakeCostName.Name = "cmb_StocTakeCostName";
+            this.cmb_StocTakeCostName.Size = new System.Drawing.Size(167, 21);
+            this.cmb_StocTakeCostName.TabIndex = 1;
+            // 
+            // nmUpDn_Cost
+            // 
+            this.nmUpDn_Cost.Location = new System.Drawing.Point(199, 25);
+            this.nmUpDn_Cost.Name = "nmUpDn_Cost";
+            this.nmUpDn_Cost.Size = new System.Drawing.Size(102, 20);
+            this.nmUpDn_Cost.TabIndex = 2;
+            // 
+            // txt_Description
+            // 
+            this.txt_Description.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Description.Location = new System.Drawing.Point(316, 27);
+            this.txt_Description.Multiline = true;
+            this.txt_Description.Name = "txt_Description";
+            this.txt_Description.Size = new System.Drawing.Size(209, 43);
+            this.txt_Description.TabIndex = 3;
+            // 
+            // lbl_StocTakeCostName
+            // 
+            this.lbl_StocTakeCostName.AutoSize = true;
+            this.lbl_StocTakeCostName.Location = new System.Drawing.Point(16, 9);
+            this.lbl_StocTakeCostName.Name = "lbl_StocTakeCostName";
+            this.lbl_StocTakeCostName.Size = new System.Drawing.Size(115, 13);
+            this.lbl_StocTakeCostName.TabIndex = 4;
+            this.lbl_StocTakeCostName.Text = "StockTake Cost Name";
+            // 
+            // lbl_Cost
+            // 
+            this.lbl_Cost.AutoSize = true;
+            this.lbl_Cost.Location = new System.Drawing.Point(196, 9);
+            this.lbl_Cost.Name = "lbl_Cost";
+            this.lbl_Cost.Size = new System.Drawing.Size(34, 13);
+            this.lbl_Cost.TabIndex = 5;
+            this.lbl_Cost.Text = "Price:";
+            // 
+            // lbl_StockTakeCostDescription
+            // 
+            this.lbl_StockTakeCostDescription.AutoSize = true;
+            this.lbl_StockTakeCostDescription.Location = new System.Drawing.Point(317, 9);
+            this.lbl_StockTakeCostDescription.Name = "lbl_StockTakeCostDescription";
+            this.lbl_StockTakeCostDescription.Size = new System.Drawing.Size(140, 13);
+            this.lbl_StockTakeCostDescription.TabIndex = 6;
+            this.lbl_StockTakeCostDescription.Text = "StockTake Cost Description";
+            // 
+            // btn_Add
+            // 
+            this.btn_Add.Location = new System.Drawing.Point(12, 52);
+            this.btn_Add.Name = "btn_Add";
+            this.btn_Add.Size = new System.Drawing.Size(62, 22);
+            this.btn_Add.TabIndex = 7;
+            this.btn_Add.Text = "Add";
+            this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
+            // 
+            // btn_Update
+            // 
+            this.btn_Update.Location = new System.Drawing.Point(80, 52);
+            this.btn_Update.Name = "btn_Update";
+            this.btn_Update.Size = new System.Drawing.Size(99, 22);
+            this.btn_Update.TabIndex = 8;
+            this.btn_Update.Text = "Update";
+            this.btn_Update.UseVisualStyleBackColor = true;
+            this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
+            // 
+            // btn_Remove
+            // 
+            this.btn_Remove.Location = new System.Drawing.Point(190, 52);
+            this.btn_Remove.Name = "btn_Remove";
+            this.btn_Remove.Size = new System.Drawing.Size(111, 22);
+            this.btn_Remove.TabIndex = 9;
+            this.btn_Remove.Text = "Remove";
+            this.btn_Remove.UseVisualStyleBackColor = true;
+            this.btn_Remove.Click += new System.EventHandler(this.btn_Remove_Click);
+            // 
+            // dgvx_StockTakeAdditionalCost
+            // 
+            this.dgvx_StockTakeAdditionalCost.AllowUserToAddRows = false;
+            this.dgvx_StockTakeAdditionalCost.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_StockTakeAdditionalCost.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvx_StockTakeAdditionalCost.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvx_StockTakeAdditionalCost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_StockTakeAdditionalCost.DataGridViewWithRowNumber = false;
+            this.dgvx_StockTakeAdditionalCost.Location = new System.Drawing.Point(1, 80);
+            this.dgvx_StockTakeAdditionalCost.MultiSelect = false;
+            this.dgvx_StockTakeAdditionalCost.Name = "dgvx_StockTakeAdditionalCost";
+            this.dgvx_StockTakeAdditionalCost.ReadOnly = true;
+            this.dgvx_StockTakeAdditionalCost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_StockTakeAdditionalCost.Size = new System.Drawing.Size(524, 404);
+            this.dgvx_StockTakeAdditionalCost.TabIndex = 0;
+            // 
+            // Form_StockTake_AdditionalCost_Edit
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(526, 484);
+            this.Controls.Add(this.btn_Remove);
+            this.Controls.Add(this.btn_Update);
+            this.Controls.Add(this.btn_Add);
+            this.Controls.Add(this.lbl_StockTakeCostDescription);
+            this.Controls.Add(this.lbl_Cost);
+            this.Controls.Add(this.lbl_StocTakeCostName);
+            this.Controls.Add(this.txt_Description);
+            this.Controls.Add(this.nmUpDn_Cost);
+            this.Controls.Add(this.cmb_StocTakeCostName);
+            this.Controls.Add(this.dgvx_StockTakeAdditionalCost);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Form_StockTake_AdditionalCost_Edit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Form_StockTake_AdditionalCost";
+            this.Load += new System.EventHandler(this.Form_StockTake_AdditionalCost_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_Cost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_StockTakeAdditionalCost)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private DataGridView_2xls.DataGridView2xls dgvx_StockTakeAdditionalCost;
+        private System.Windows.Forms.ComboBox cmb_StocTakeCostName;
+        private System.Windows.Forms.NumericUpDown nmUpDn_Cost;
+        private System.Windows.Forms.TextBox txt_Description;
+        private System.Windows.Forms.Label lbl_StocTakeCostName;
+        private System.Windows.Forms.Label lbl_Cost;
+        private System.Windows.Forms.Label lbl_StockTakeCostDescription;
+        private System.Windows.Forms.Button btn_Add;
+        private System.Windows.Forms.Button btn_Update;
+        private System.Windows.Forms.Button btn_Remove;
+    }
+}

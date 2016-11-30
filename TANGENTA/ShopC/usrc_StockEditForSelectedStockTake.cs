@@ -418,5 +418,11 @@ namespace ShopC
         {
             this.TPiick_ExpiryDate.Enabled = chk_ExpiryCheck.Checked;
         }
+
+        private void btn_AdditionalCost_Click(object sender, EventArgs e)
+        {
+            Form_StockTake_AdditionalCost_Edit frm_add_cost = new Form_StockTake_AdditionalCost_Edit(this.StockTake_ID, this.StockTakeName);
+            frm_add_cost.ShowDialog(this);
+        }
     }
 }

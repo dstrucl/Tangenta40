@@ -161,6 +161,9 @@
     <Compile Include="f_SimpleItem_ParentGroup3.cs" />
     <Compile Include="f_Stock.cs" />
     <Compile Include="f_StockTake.cs" />
+    <Compile Include="f_StockTakeCostDescription.cs" />
+    <Compile Include="f_StockTake_AdditionalCost.cs" />
+    <Compile Include="f_StockTakeCostName.cs" />
     <Compile Include="f_Taxation.cs" />
     <Compile Include="f_TaxationAtom.cs" />
     <Compile Include="f_Unit.cs" />

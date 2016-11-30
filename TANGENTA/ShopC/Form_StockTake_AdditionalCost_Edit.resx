@@ -117,56 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkmark_No" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\checkmark_No.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Item_NoStock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Item_NoStock.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="checkmark_Yes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\checkmark_Yes.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RemoveAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RemoveAll.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Discount" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Discount.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DiscountHot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DiscountHot.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Item_NoStock_Return" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Item_NoStock_Return.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ItemStock_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ItemStock_Edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RemoveFromBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RemoveFromBox.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Item_Stock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Item_Stock.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Item_Stock_Return" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Item_Stock_Return.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RemoveFromBoxToFactory" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RemoveFromBoxToFactory.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DiscountDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DiscountDisabled.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Shopping_Basket" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Shopping_Basket.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Exit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Cost" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cost.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAAAGABoAwAAFgAAACgAAAAQAAAAIAAAAAEAGAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQAAAAAAAAEBAT/////
+        //////////////////////////////////////////8EBAQAAAAAAAAEBAT/////////////////////
+        //////////////////////////8EBAQAAAAAAAAEBAT///////////////////////////8zZpkzZpn/
+        //////////8EBAQAAAAAAAAEBAT///////////8MDAwMDAz///////8zZpkzZpkzZpn///////8EBAQA
+        AAAAAAAEBAT///////8MDAz///////8MDAz///////8zZpkzZpn///////8EBAQAAAAAAAAEBAT/////
+        //8MDAz///////////////////////8zZpkzZpn///8EBAQAAAAAAAAEBAT///8MDAwMDAwMDAwMDAz/
+        //////////////////8zZpkzZpkEBAQAAAAAAAAEBAT///////8MDAz/////////////////////////
+        //8zZpkzZpkEBAQAAAAAAAAEBAT///8MDAwMDAwMDAwMDAz///////////////////////8zZpkzZpkA
+        AAAAAAAEBAT///////8MDAz///////////////////////////////////8zZpkzZpkAAAAEBAT/////
+        //8MDAz///////8MDAz///////////////////////8EBAQzZpkAAAAEBAT///////////8MDAwMDAz/
+        //////////////////////////8EBAQAAAAAAAAEBAT/////////////////////////////////////
+        //////////8EBAQAAAAAAAAEBAT///////////////////////////////////////////////8EBAQA
+        AAAAAAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQAAACAAQAAgAEAAIAB
+        AACAAQAAgAEAAIABAACAAQAAgAEAAIABAACAAQAAgAAAAIAAAACAAQAAgAEAAIABAACAAQAA
+</value>
   </data>
 </root>

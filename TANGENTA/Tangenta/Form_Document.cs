@@ -19,6 +19,7 @@ using LanguageControl;
 using System.IO;
 using Startup;
 using System.Diagnostics;
+using TangentaDB;
 
 namespace Tangenta
 {
@@ -402,6 +403,10 @@ namespace Tangenta
 
         private void Exit()
         {
+            if (Program.nav!=null)
+            {
+                Program.nav.eExitResult = NavigationButtons.Navigation.eEvent.EXIT;
+            }
             Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_InvoiceMan.m_usrc_InvoiceTable.Current_Doc_ID;
             Properties.Settings.Default.Save();
             if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA != null)
@@ -412,7 +417,10 @@ namespace Tangenta
                     m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
                 }
             }
-            TangentaDB.f_Atom_WorkPeriod.End(TangentaDB.GlobalData.Atom_WorkPeriod_ID);
+            if (fs.IDisValid(TangentaDB.GlobalData.Atom_WorkPeriod_ID))
+            {
+                TangentaDB.f_Atom_WorkPeriod.End(TangentaDB.GlobalData.Atom_WorkPeriod_ID);
+            }
             if (Program.b_FVI_SLO)
             {
                 if (Program.usrc_FVI_SLO1 != null)
@@ -437,7 +445,7 @@ namespace Tangenta
             }
             else
             {
-                if (MessageBox.Show(this, lngRPM.s_RealyWantToExitProgram.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (XMessage.Box.Show(Program.bStartup,this, lngRPM.s_RealyWantToExitProgram, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     return true;
                 }

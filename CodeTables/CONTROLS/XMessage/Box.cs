@@ -26,6 +26,35 @@ namespace XMessage
                 }
             }
         }
+
+        public static DialogResult Show(IWin32Window owner,bool bStartup,ltext xltext)
+        {
+            Form_Box dlg = new Form_Box(owner,xltext);
+            if (bStartup)
+            {
+                dlg.TopMost = true;
+            }
+            else
+            {
+                checkTopMost(owner, dlg);
+            }
+            return dlg.ShowDialog();
+        }
+
+        public static DialogResult Show(bool bStartup,IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
+        {
+            Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);
+            if (bStartup)
+            {
+                dlg.TopMost = true;
+            }
+            else
+            {
+                checkTopMost(owner, dlg);
+            }
+            return dlg.ShowDialog();
+        }
+
         public static DialogResult Show(IWin32Window owner, ltext xltext, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, caption, buttons, oIcon, defaultButton);

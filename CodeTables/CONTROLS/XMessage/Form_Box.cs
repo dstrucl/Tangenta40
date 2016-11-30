@@ -145,6 +145,24 @@ namespace XMessage
 
         }
 
+        public Form_Box(IWin32Window owner, ltext xltext)
+        {
+            // TODO: Complete member initialization
+            InitializeComponent();
+            this.owner = owner;
+            this.caption = "";
+            this.Text = "";
+            xltext.Text(textBox1);
+            textBox1.TextAlign = HorizontalAlignment.Center;
+            button1.Visible = false;
+            button2.Visible = true;
+            button3.Visible = false;
+            button2.Tag = DialogResult.OK;
+            lngRPM.s_OK.Text(button2);
+            button2.Focus();
+        }
+
+
         public Form_Box(IWin32Window owner, ltext xltext, string text, string caption, MessageBoxButtons buttons, object oIcon, MessageBoxDefaultButton defaultButton)
         {
             // TODO: Complete member initialization

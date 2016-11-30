@@ -17,6 +17,15 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_btn_Remove = new ltext("Remove row", "Zbriši vrstico");
+        public static ltext s_lbl_Description = new ltext("Description", "Opis");
+        public static ltext s_lbl_Cost = new ltext("Price", "Cena");
+        public static ltext s_lbl_StocTakeCostName = new ltext("Cost Name", "Ime stroška");
+        public static ltext s_AddtionalCost_for_StockTake = new ltext("Additional cost for stock take", "Dodatni stroški za prevzemnico");
+        public static ltext s_CostDescription = new ltext("Cost description", "Opis stroška");
+        public static ltext s_CostPrice = new ltext("Cost price", "Cena stroška");
+        public static ltext s_CostName = new ltext("Cost name", "Ime stroška");
+        public static ltext s_StockTake_Cost_Name_must_be_defined = new ltext("Cost Name must be defined!\r\nEnter the name of the cost!", "Ime stroška ni določen!\r\nVpišite ime stroška.");
         public static ltext s_TruckingOrganisation = new ltext("Trucking organisation", "Transportna družba");
         public static ltext s_Supplier = new ltext("Supplier", "Dobavitelj");
         public static ltext s_lbl_StockTakeTotalPrice = new ltext("Total Cost", "Celotna cena");

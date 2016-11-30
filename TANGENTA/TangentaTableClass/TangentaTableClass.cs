@@ -2468,12 +2468,24 @@ namespace TangentaTableClass
 
     }
 
-    public class StockTake_AdditionalCost
+    public class StockTakeCostName
     {
         public ID ID = new ID();
         public Name Name = new Name();
-        public Cost Cost = new Cost();
+    }
+
+    public class StockTakeCostDescription
+    {
+        public ID ID = new ID();
         public Description Description = new Description();
+    }
+
+    public class StockTake_AdditionalCost
+    {
+        public ID ID = new ID();
+        public StockTakeCostName m_StockTakeCostName = new StockTakeCostName();
+        public Cost Cost = new Cost();
+        public StockTakeCostDescription m_StockTakeCostDescription = new StockTakeCostDescription();
         public StockTake m_StockTake = new StockTake();
     }
 
@@ -3073,5 +3085,10 @@ namespace TangentaTableClass
         /* 204 */
         public StockTake_AdditionalCost m_StockTake_AdditionalCost = new StockTake_AdditionalCost();
 
+        /* 205 */
+        public StockTakeCostName m_StockTakeCostName = new StockTakeCostName();
+
+        /* 206 */
+        public StockTakeCostDescription m_StockTakeCostDescription = new StockTakeCostDescription();
     }
 }

@@ -19,7 +19,14 @@ namespace ShopC
     {
         CodeTables.DBTableControl dbTables = null;
         internal bool Changed;
-        public string StockTakeName = null;
+        private string m_StockTakeName = "";
+        public string StockTakeName
+        {
+            get { return m_StockTakeName; }
+            set { m_StockTakeName = value;
+                usrc_StockEditForSelectedStockTake1.StockTakeName = m_StockTakeName;
+                }
+        }
         private int StockTake_Draft_column_index = -1;
 
         private Navigation nav;
