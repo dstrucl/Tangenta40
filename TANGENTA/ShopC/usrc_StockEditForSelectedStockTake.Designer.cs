@@ -49,12 +49,12 @@
             this.btn_Remove = new System.Windows.Forms.Button();
             this.btn_Add = new System.Windows.Forms.Button();
             this.lbl_StockTakeItems = new System.Windows.Forms.Label();
-            this.dgvx_StockTakeItemsAndPrices = new DataGridView_2xls.DataGridView2xls();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.btn_LockStockTake = new System.Windows.Forms.Button();
             this.lbl_StockTakeName = new System.Windows.Forms.Label();
             this.btn_AdditionalCost = new System.Windows.Forms.Button();
             this.lbl_TotalPrice = new System.Windows.Forms.Label();
+            this.dgvx_StockTakeItemsAndPrices = new DataGridView_2xls.DataGridView2xls();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -116,7 +116,6 @@
             this.grp_Item.TabIndex = 17;
             this.grp_Item.TabStop = false;
             this.grp_Item.Text = "Item:";
-            this.grp_Item.Enter += new System.EventHandler(this.grp_Item_Enter);
             // 
             // txt_StockDescription
             // 
@@ -275,6 +274,7 @@
             this.btn_Update.TabIndex = 19;
             this.btn_Update.Text = "Update";
             this.btn_Update.UseVisualStyleBackColor = true;
+            this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_Remove
             // 
@@ -284,6 +284,7 @@
             this.btn_Remove.TabIndex = 18;
             this.btn_Remove.Text = "Remove";
             this.btn_Remove.UseVisualStyleBackColor = true;
+            this.btn_Remove.Click += new System.EventHandler(this.btn_Remove_Click);
             // 
             // btn_Add
             // 
@@ -303,23 +304,6 @@
             this.lbl_StockTakeItems.Size = new System.Drawing.Size(101, 13);
             this.lbl_StockTakeItems.TabIndex = 1;
             this.lbl_StockTakeItems.Text = "lbl_StockTakeItems";
-            // 
-            // dgvx_StockTakeItemsAndPrices
-            // 
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToAddRows = false;
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToDeleteRows = false;
-            this.dgvx_StockTakeItemsAndPrices.AllowUserToOrderColumns = true;
-            this.dgvx_StockTakeItemsAndPrices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_StockTakeItemsAndPrices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_StockTakeItemsAndPrices.DataGridViewWithRowNumber = false;
-            this.dgvx_StockTakeItemsAndPrices.Location = new System.Drawing.Point(3, 27);
-            this.dgvx_StockTakeItemsAndPrices.Name = "dgvx_StockTakeItemsAndPrices";
-            this.dgvx_StockTakeItemsAndPrices.ReadOnly = true;
-            this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(494, 487);
-            this.dgvx_StockTakeItemsAndPrices.TabIndex = 0;
             // 
             // btn_Exit
             // 
@@ -371,6 +355,25 @@
             this.lbl_TotalPrice.TabIndex = 7;
             this.lbl_TotalPrice.Text = "lbl_TotalPrice";
             this.lbl_TotalPrice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // dgvx_StockTakeItemsAndPrices
+            // 
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToAddRows = false;
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToDeleteRows = false;
+            this.dgvx_StockTakeItemsAndPrices.AllowUserToOrderColumns = true;
+            this.dgvx_StockTakeItemsAndPrices.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_StockTakeItemsAndPrices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_StockTakeItemsAndPrices.DataGridViewWithRowNumber = false;
+            this.dgvx_StockTakeItemsAndPrices.Location = new System.Drawing.Point(3, 27);
+            this.dgvx_StockTakeItemsAndPrices.MultiSelect = false;
+            this.dgvx_StockTakeItemsAndPrices.Name = "dgvx_StockTakeItemsAndPrices";
+            this.dgvx_StockTakeItemsAndPrices.ReadOnly = true;
+            this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(494, 487);
+            this.dgvx_StockTakeItemsAndPrices.TabIndex = 0;
+            this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
             // 
             // usrc_StockEditForSelectedStockTake
             // 

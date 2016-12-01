@@ -41,27 +41,27 @@
             this.btn_New.Location = new System.Drawing.Point(5, 27);
             this.btn_New.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_New.Name = "btn_New";
-            this.btn_New.Size = new System.Drawing.Size(80, 30);
+            this.btn_New.Size = new System.Drawing.Size(69, 30);
             this.btn_New.TabIndex = 8;
             this.btn_New.Text = "New";
             this.btn_New.Click += new System.EventHandler(this.btn_New_Click);
             // 
             // btn_Update
             // 
-            this.btn_Update.Location = new System.Drawing.Point(251, 27);
+            this.btn_Update.Location = new System.Drawing.Point(208, 27);
             this.btn_Update.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Update.Name = "btn_Update";
-            this.btn_Update.Size = new System.Drawing.Size(112, 30);
+            this.btn_Update.Size = new System.Drawing.Size(83, 30);
             this.btn_Update.TabIndex = 7;
             this.btn_Update.Text = "Update";
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
             // btn_Insert
             // 
-            this.btn_Insert.Location = new System.Drawing.Point(101, 27);
+            this.btn_Insert.Location = new System.Drawing.Point(80, 27);
             this.btn_Insert.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_Insert.Name = "btn_Insert";
-            this.btn_Insert.Size = new System.Drawing.Size(140, 30);
+            this.btn_Insert.Size = new System.Drawing.Size(122, 30);
             this.btn_Insert.TabIndex = 5;
             this.btn_Insert.Text = "Insert In Data Base";
             this.btn_Insert.Click += new System.EventHandler(this.btnInsertInDataBase_Click);
@@ -84,7 +84,7 @@
             this.lbl_Title.Location = new System.Drawing.Point(12, 2);
             this.lbl_Title.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Title.Name = "lbl_Title";
-            this.lbl_Title.Size = new System.Drawing.Size(60, 24);
+            this.lbl_Title.Size = new System.Drawing.Size(46, 18);
             this.lbl_Title.TabIndex = 10;
             this.lbl_Title.Text = "label1";
             // 
@@ -111,7 +111,7 @@
             this.Controls.Add(this.btn_Insert);
             this.Controls.Add(this.BtnCallSecretaryToWork);
             this.Controls.Add(this.pnl_Editor);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "usrc_EditRow";
             this.Size = new System.Drawing.Size(716, 592);
             this.ResumeLayout(false);

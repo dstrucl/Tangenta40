@@ -17,6 +17,12 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_ItemIsNotDefined = new ltext("Item is not defined!\r\nSelect item first.", "Artikel ni izbran!\r\nNajprej izberite artikel.");
+        public static ltext s_PurchasePriceIsZeroAreYouSure = new ltext("Purchase price per unit is zero!\r\nAre you shure to write zero purchase item price?"
+                                                                            , "Nabavna cena za artikel je nič!\r\nSte prepričani ");
+        public static ltext s_PurchasePricePerUnitIsNotDefined = new ltext("Purchase price per unit is not defined or is not a decimal naumber!\r\nEnter purchase price per unit." 
+                                                                            ,"Nabavna cena ni vpisana ali pa je vpisana z napako!\r\nVpišite Nabavno ceno na artikel.");
+        public static ltext s_dQuantityEqualsZero_InsertItemInStock = new ltext("Quantity is 0 !\r\n Insert item in stock any way?", "Količina je 0 !\r\nVpišem količino nič v zalogo za izbrani artikel?");
         public static ltext s_btn_Remove = new ltext("Remove row", "Zbriši vrstico");
         public static ltext s_lbl_Description = new ltext("Description", "Opis");
         public static ltext s_lbl_Cost = new ltext("Price", "Cena");

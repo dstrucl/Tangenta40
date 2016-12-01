@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_StockTake_Edit));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.usrc_EditTable1 = new CodeTables.TableDocking_Form.usrc_EditTable();
-            this.usrc_StockEditForSelectedStockTake1 = new ShopC.usrc_StockEditForSelectedStockTake();
+            this.usrc_StockEditForSelectedStockTake1 = new usrc_StockEditForSelectedStockTake();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,7 +61,7 @@
             this.usrc_EditTable1.AllowUserToAddNew = true;
             this.usrc_EditTable1.AllowUserToChange = true;
             this.usrc_EditTable1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.usrc_EditTable1.GetRandomData = true;
+            this.usrc_EditTable1.GetRandomData = false;
             this.usrc_EditTable1.Location = new System.Drawing.Point(0, 0);
             this.usrc_EditTable1.Name = "usrc_EditTable1";
             this.usrc_EditTable1.SelectionButtonVisible = true;
@@ -72,7 +72,6 @@
             this.usrc_EditTable1.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.usrc_EditTable1.SelectedIndexChanged += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_SelectedIndexChanged(this.usrc_EditTable1_SelectedIndexChanged);
             this.usrc_EditTable1.CellFormatting += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_CellFormatting(this.usrc_EditTable1_CellFormatting);
-            this.usrc_EditTable1.Load += new System.EventHandler(this.usrc_EditTable1_Load_1);
             // 
             // usrc_StockEditForSelectedStockTake1
             // 
@@ -81,9 +80,6 @@
             this.usrc_StockEditForSelectedStockTake1.Location = new System.Drawing.Point(0, 0);
             this.usrc_StockEditForSelectedStockTake1.Name = "usrc_StockEditForSelectedStockTake1";
             this.usrc_StockEditForSelectedStockTake1.Size = new System.Drawing.Size(615, 729);
-            this.usrc_StockEditForSelectedStockTake1.StockTake_ID = ((long)(-1));
-            this.usrc_StockEditForSelectedStockTake1.StockTakeName = "";
-            this.usrc_StockEditForSelectedStockTake1.StockTakeTable = null;
             this.usrc_StockEditForSelectedStockTake1.TabIndex = 0;
             this.usrc_StockEditForSelectedStockTake1.BtnExitPressed += new ShopC.usrc_StockEditForSelectedStockTake.delegate_BtnExitPressed(this.usrc_StockEditForSelectedStockTake1_BtnExitPressed);
             // 
@@ -108,7 +104,6 @@
         }
 
         #endregion
-
         private System.Windows.Forms.SplitContainer splitContainer1;
         private CodeTables.TableDocking_Form.usrc_EditTable usrc_EditTable1;
         private usrc_StockEditForSelectedStockTake usrc_StockEditForSelectedStockTake1;
