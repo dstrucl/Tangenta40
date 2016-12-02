@@ -20,6 +20,11 @@ namespace ShopC
 
         internal Form_ShopC_Item_Edit edt_Item_dlg = null;
 
+        private bool m_Changed = false;
+        public bool Changed
+        {
+            get { return m_Changed; }
+        }
 
         private DataTable dt_PurchasePrices = null;
 
@@ -34,6 +39,8 @@ namespace ShopC
         private bool m_Draft = false;
 
         private DataTable dt_Stock_Of_Current_StockTake = new DataTable();
+        internal Doc_ShopC_Item[] aDoc_ShopC_Item = null;
+
 
         internal long CurrentItem_ID
         {
@@ -462,6 +469,7 @@ namespace ShopC
                         long Stock_ID = -1;
                         if (TangentaDB.f_Stock.Add(tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID,this.txt_StockDescription.Text,ref Stock_ID))
                         {
+                            m_Changed = true;
                             if (Reload(StockTakeTable))
                             {
                                 CurrentStock_ID = Stock_ID;
@@ -490,7 +498,7 @@ namespace ShopC
             dgvx_StockTakeItemsAndPrices.DataSource = null;
             dt_Stock_Of_Current_StockTake.Rows.Clear();
             this.dgvx_StockTakeItemsAndPrices.SelectionChanged -= new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
-            if (TangentaDB.f_Stock.GeStockTakeItems(ref dt_Stock_Of_Current_StockTake, StockTake_ID))
+            if (TangentaDB.f_Stock.GeStockTakeItems(ref dt_Stock_Of_Current_StockTake,ref aDoc_ShopC_Item, StockTake_ID))
             {
                 dgvx_StockTakeItemsAndPrices.DataSource = dt_Stock_Of_Current_StockTake;
 
@@ -662,6 +670,10 @@ namespace ShopC
         {
             Form_StockTake_AdditionalCost_Edit frm_add_cost = new Form_StockTake_AdditionalCost_Edit(this.StockTake_ID, this.StockTakeName);
             frm_add_cost.ShowDialog(this);
+            if (frm_add_cost.Changed)
+            {
+                this.m_Changed = true;
+            }
         }
 
         private void btn_Remove_Click(object sender, EventArgs e)
@@ -673,6 +685,7 @@ namespace ShopC
         {
             if (f_Stock.Remove(this.CurrentStock_ID,this.StockTake_ID))
             {
+                m_Changed = true;
                 Reload(StockTakeTable);
                 if (dt_Stock_Of_Current_StockTake.Rows.Count == 0)
                 {
@@ -751,6 +764,7 @@ namespace ShopC
                         long Stock_AddressLevel1_ID = -1;
                         if (TangentaDB.f_Stock.Update(CurrentStock_ID,tImportTime, dquantity, dtExpiry_v, PurchasePrice_Item_ID, Stock_AddressLevel1_ID, this.txt_StockDescription.Text))
                         {
+                            m_Changed = true;
                             if (Reload(StockTakeTable))
                             {
                                 DataRow[] drs = dt_Stock_Of_Current_StockTake.Select("Stock_ID = " + CurrentStock_ID);
@@ -770,6 +784,50 @@ namespace ShopC
                     LogFile.Error.Show("ERROR:ShopC:usrc_StockEditForSelectedStockTake.cs:AddItemToStock:Err=!((bPPriceDefined)&& (CurrentItem_ID >= 0)&&(StockTake_ID>=0))");
                 }
             }
+        }
+
+        private void dgvx_StockTakeItemsAndPrices_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex>0)
+            {
+                if (aDoc_ShopC_Item[e.RowIndex].adata!=null)
+                {
+                    if (aDoc_ShopC_Item[e.RowIndex].adata.Length>0)
+                    {
+                        e.CellStyle.BackColor = Color.LightPink;
+                    }
+                    else
+                    {
+                        e.CellStyle.BackColor = Color.White;
+                    }
+                }
+            }
+        }
+
+        private void dgvx_StockTakeItemsAndPrices_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex >= 0)
+                {
+                    if (aDoc_ShopC_Item[e.RowIndex].adata != null)
+                    {
+                        if (aDoc_ShopC_Item[e.RowIndex].adata.Length > 0)
+                        {
+                            if (e.Button == MouseButtons.Right)
+                            {
+                                Show_Documents_Where_stock_item_was_sold_or_reserved(aDoc_ShopC_Item[e.RowIndex].Stock_ID, aDoc_ShopC_Item[e.RowIndex].adata);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Show_Documents_Where_stock_item_was_sold_or_reserved(long Stock_ID,Doc_ShopC_Item_Data[] adata)
+        {
+            Form_Show_Documents_Where_stock_item_was_sold_or_reserved frs = new Form_Show_Documents_Where_stock_item_was_sold_or_reserved(Stock_ID, adata);
+            frs.ShowDialog(this);
         }
     }
 }

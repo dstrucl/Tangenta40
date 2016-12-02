@@ -408,6 +408,7 @@ namespace Tangenta
                 Program.nav.eExitResult = NavigationButtons.Navigation.eEvent.EXIT;
             }
             Properties.Settings.Default.Current_DocInvoice_ID = m_usrc_Main.m_usrc_InvoiceMan.m_usrc_InvoiceTable.Current_Doc_ID;
+            Properties.Settings.Default.LastDocInvoiceType = Program.RunAs;
             Properties.Settings.Default.Save();
             if (m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA != null)
             {
@@ -428,6 +429,7 @@ namespace Tangenta
                     Program.usrc_FVI_SLO1.End();
                 }
             }
+
 
             //SaveSplitContainerPositions(ref Program.ListOfAllSplitConatinerControls);
         }
@@ -494,21 +496,27 @@ namespace Tangenta
         {
             string Err = null;
 
-            LogFile.LogFile.WriteDEBUG("Form_Document:Form_Document_Shown():before m_startup.Execute!");
+            LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():before m_startup.Execute!");
 
             if (m_startup.Execute(Program.bFirstTimeInstallation, ref Err))
             {
-                LogFile.LogFile.WriteDEBUG("Form_Document:Form_Document_Shown():after m_startup.Execute!");
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.Execute!");
 
                 Program.bFirstTimeInstallation = false;
                 m_usrc_Main.Init(null);
+
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Init(null)!");
 
                 CheckOrganisationDataChange();
 
                 m_startup.RemoveControl();
 
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.RemoveControl()!");
+
                 m_usrc_Main.Visible = true;
                 m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged();
+
+                LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_usrc_Main.Activate_dgvx_XInvoice_SelectionChanged()!");
             }
             else
             {

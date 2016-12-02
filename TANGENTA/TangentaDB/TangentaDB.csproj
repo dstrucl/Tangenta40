@@ -68,6 +68,7 @@
     <Compile Include="Columns_Price_Item_Stock.cs" />
     <Compile Include="CurrentInvoice.cs" />
     <Compile Include="DBTablesAndColumnNames.cs" />
+    <Compile Include="Doc_ShopC_Item_Data.cs" />
     <Compile Include="fs.cs" />
     <Compile Include="f_Atom_cAddress_Org.cs" />
     <Compile Include="f_Atom_cAddress_Person.cs" />
@@ -122,6 +123,10 @@
     <Compile Include="f_cZIP_org.cs" />
     <Compile Include="f_cZIP_Person.cs" />
     <Compile Include="f_doc.cs" />
+    <Compile Include="f_DocInvoice.cs" />
+    <Compile Include="f_DocInvoice_ShopC_Item.cs" />
+    <Compile Include="f_DocProformaInvoice.cs" />
+    <Compile Include="f_DocProformaInvoice_ShopC_Item.cs" />
     <Compile Include="f_doc_page_type.cs" />
     <Compile Include="f_doc_type.cs" />
     <Compile Include="f_Expiry.cs" />
@@ -164,6 +169,7 @@
     <Compile Include="f_StockTakeCostDescription.cs" />
     <Compile Include="f_StockTake_AdditionalCost.cs" />
     <Compile Include="f_StockTakeCostName.cs" />
+    <Compile Include="Doc_ShopC_Item.cs" />
     <Compile Include="f_Taxation.cs" />
     <Compile Include="f_TaxationAtom.cs" />
     <Compile Include="f_Unit.cs" />

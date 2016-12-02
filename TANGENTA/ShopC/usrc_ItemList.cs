@@ -115,6 +115,14 @@ namespace ShopC
             this.pnl_Items.AutoScroll = true;
             this.pnl_Items.HorizontalScroll.Enabled = true;
             this.pnl_Items.VerticalScroll.Enabled = true;
+            if (this.Visible)
+            {
+                LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=TRUE");
+            }
+            else
+            {
+                LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:Init(..) Visible=FALSE");
+            }
         }
 
         void usrc_item_StockChanged(object obj)
@@ -221,6 +229,7 @@ namespace ShopC
         {
             if (this.Visible)
             {
+                LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:m_usrc_Item_PageHandler_ShowObject(..) Visible=TRUE");
                 usrc_Item usrc_item = (usrc_Item)o_usrc;
                 if (bVisible)
                 {
@@ -234,6 +243,10 @@ namespace ShopC
                     usrc_item.Visible = false;
                     usrc_item.Enabled = false;
                 }
+            }
+            else
+            {
+                LogFile.LogFile.WriteDEBUG("-> usrc_ItemList:m_usrc_Item_PageHandler_ShowObject(..) Visible=FALSE");
             }
         }
 

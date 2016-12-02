@@ -73,9 +73,12 @@ namespace TangentaDB
             }
         }
 
-        public static bool GeStockTakeItems(ref DataTable dt_Stock_Of_Current_StockTake, long StockTake_ID)
+        public static bool GeStockTakeItems(ref DataTable dt_Stock_Of_Current_StockTake,ref Doc_ShopC_Item[] array_Doc_ShopC_Item, long StockTake_ID)
         {
+            DataTable dt_DocInvoice_ShopC_Item_of_StockTake = new DataTable();
+            DataTable dt_DocProformaInvoice_ShopC_Item_of_StockTake = new DataTable();
             string Err = null;
+            array_Doc_ShopC_Item = null;
             string sql = @"select i.UniqueName,
                                   s.dQuantity,
                                   s.ImportTime,
@@ -118,14 +121,102 @@ namespace TangentaDB
             {
                 dt_Stock_Of_Current_StockTake = new DataTable();
             }
-            if (DBSync.DBSync.ReadDataTable(ref dt_Stock_Of_Current_StockTake,sql,ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt_Stock_Of_Current_StockTake, sql, ref Err))
             {
-                return true;
+                int iCount = dt_Stock_Of_Current_StockTake.Rows.Count;
+                if (iCount > 0)
+                {
+                    array_Doc_ShopC_Item = new Doc_ShopC_Item[iCount];
+                    sql = @"select  
+                                    di.Draft,
+                                    di.DraftNumber,
+                                    di.FinancialYear,
+                                    di.NumberInFinancialYear,
+                                    disci.Stock_ID,
+                                    disci.DocInvoice_ID,
+                                    disci.ID
+                            from DocInvoice_ShopC_Item disci
+                            inner join  DocInvoice di on disci.DocInvoice_ID = di.ID
+                            inner join  JOURNAL_DocInvoice jdi on jdi.DocInvoice_ID = di.ID
+                            inner join  JOURNAL_DocInvoice_Type jdit on jdi.JOURNAL_DocInvoice_Type_ID = jdit.ID and jdit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @"
+                            inner join  Atom_WorkPeriod awp on jdi.Atom_WorkPeriod_ID = awp.ID
+                            left join  Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                            inner join  Atom_myOrganisation_Person amop on awp.Atom_myOrganisation_Person_ID = amop.ID
+                            left join  Atom_Person ap on amop.Atom_Person_ID = ap.ID
+                            left join  Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
+                            left join  Atom_cLastName acln on ap.Atom_cLastName_ID = acln.ID
+                            inner join  Stock s on disci.Stock_ID = s.ID
+                            inner join  PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and ppi.StockTake_ID = " + StockTake_ID.ToString();
+                    dt_DocInvoice_ShopC_Item_of_StockTake.Rows.Clear();
+                    if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice_ShopC_Item_of_StockTake, sql, ref Err))
+                    {
+                        sql = @"select  
+                                    dpi.Draft,
+                                    dpi.DraftNumber,
+                                    dpi.FinancialYear,
+                                    dpi.NumberInFinancialYear,
+                                    dpisci.Stock_ID,
+                                    dpisci.DocProformaInvoice_ID,
+                                    dpisci.ID
+                            from DocProformaInvoice_ShopC_Item dpisci
+                            inner join  DocProformaInvoice dpi on dpisci.DocProformaInvoice_ID = dpi.ID
+                            inner join  JOURNAL_DocProformaInvoice jdpi on jdpi.DocProformaInvoice_ID = dpi.ID
+                            inner join  JOURNAL_DocProformaInvoice_Type jdpit on jdpi.JOURNAL_DocProformaInvoice_Type_ID = jdpit.ID and jdpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @"
+                            inner join  Atom_WorkPeriod awp on jdpi.Atom_WorkPeriod_ID = awp.ID
+                            left join  Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
+                            inner join  Atom_myOrganisation_Person amop on awp.Atom_myOrganisation_Person_ID = amop.ID
+                            left join  Atom_Person ap on amop.Atom_Person_ID = ap.ID
+                            left join  Atom_cFirstName acfn on ap.Atom_cFirstName_ID = acfn.ID
+                            left join  Atom_cLastName acln on ap.Atom_cLastName_ID = acln.ID
+                            inner join  Stock s on dpisci.Stock_ID = s.ID
+                            inner join  PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID and ppi.StockTake_ID = " + StockTake_ID.ToString();
+                        dt_DocProformaInvoice_ShopC_Item_of_StockTake.Rows.Clear();
+                        if (DBSync.DBSync.ReadDataTable(ref dt_DocProformaInvoice_ShopC_Item_of_StockTake, sql, ref Err))
+                        {
+
+                            for (int i=0;i<iCount;i++)
+                            {
+                                long xstock_id = (long)dt_Stock_Of_Current_StockTake.Rows[i]["Stock_ID"];
+                                DataRow[] drs_DocInvoice = dt_DocInvoice_ShopC_Item_of_StockTake.Select("Stock_ID=" + xstock_id.ToString());
+                                DataRow[] drs_DocProformaInvoice = dt_DocProformaInvoice_ShopC_Item_of_StockTake.Select("Stock_ID=" + xstock_id.ToString());
+
+                                int iCount1 = drs_DocInvoice.Length;
+                                int iCount2 = drs_DocProformaInvoice.Length;
+                                if (iCount1 + iCount2 > 0)
+                                {
+                                    array_Doc_ShopC_Item[i] = new Doc_ShopC_Item(xstock_id,
+                                                                                 drs_DocInvoice,
+                                                                                 drs_DocProformaInvoice);
+                                }
+                                else
+                                {
+                                    array_Doc_ShopC_Item[i] = null;
+                                }
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    array_Doc_ShopC_Item = null;
+                    return true;
+                }
             }
             else
             {
                 LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
-                return false;
+            return false;
             }
         }
 

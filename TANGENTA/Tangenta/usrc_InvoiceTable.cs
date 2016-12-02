@@ -48,7 +48,16 @@ namespace Tangenta
         public string sFromTo_Suffix = "";
         public DataTable dt_XInvoice = new DataTable();
 
-        private int iCurrentSelectedRow = -1;
+        private int m_iCurrentSelectedRow = -1;
+
+        private int iCurrentSelectedRow
+        {
+            get { return m_iCurrentSelectedRow; }
+            set
+            {
+                m_iCurrentSelectedRow = value;
+            }
+        }
 
         private usrc_Invoice.enum_Invoice enum_Invoice;
         private int iColIndex_DocInvoice_Draft = -1;
@@ -518,11 +527,12 @@ namespace Tangenta
                     {
                         if (iRowsCount > 0)
                         {
+                            long my_Current_DocProformaInvoice_ID = Properties.Settings.Default.Current_DocProformaInvoice_ID;
                             if (iCurrentSelectedRow >= 0)
                             {
                                 dgvx_XInvoice.Rows[iCurrentSelectedRow].Selected = true;
                             }
-                            else if (Properties.Settings.Default.Current_DocInvoice_ID >= 0)
+                            else if (my_Current_DocProformaInvoice_ID >= 0)
                             {
                                 DataRow[] dr_Current = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Properties.Settings.Default.Current_DocProformaInvoice_ID.ToString());
                                 if (dr_Current.Count() > 0)

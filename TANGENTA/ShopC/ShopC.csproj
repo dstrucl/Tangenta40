@@ -87,6 +87,12 @@
     <Compile Include="Form_SelectStockEditType.Designer.cs">
       <DependentUpon>Form_SelectStockEditType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Show_Documents_Where_stock_item_was_sold_or_reserved.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Show_Documents_Where_stock_item_was_sold_or_reserved.Designer.cs">
+      <DependentUpon>Form_Show_Documents_Where_stock_item_was_sold_or_reserved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_StockItem_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SelectStockEditType.resx">
       <DependentUpon>Form_SelectStockEditType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Show_Documents_Where_stock_item_was_sold_or_reserved.resx">
+      <DependentUpon>Form_Show_Documents_Where_stock_item_was_sold_or_reserved.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_StockItem_Edit.resx">
       <DependentUpon>Form_StockItem_Edit.cs</DependentUpon>

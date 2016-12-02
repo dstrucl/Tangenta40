@@ -20,6 +20,13 @@ namespace ShopC
         DataTable dtStockTake_AdditionalCost = new DataTable();
         long StockTake_AdditionalCost_ID = -1;
 
+        private bool m_Changed = false;
+
+        public bool Changed
+        {
+            get { return m_Changed; }
+        }
+
         public Form_StockTake_AdditionalCost_Edit(long xStockTake_ID,string xStockTake_Name)
         {
             InitializeComponent();
@@ -32,6 +39,7 @@ namespace ShopC
             lngRPM.s_lbl_StocTakeCostName.Text(lbl_StocTakeCostName);
             lngRPM.s_lbl_Cost.Text(lbl_Cost);
             lngRPM.s_lbl_Description.Text(lbl_StockTakeCostDescription);
+            m_Changed = false;
 
         }
 
@@ -102,6 +110,7 @@ namespace ShopC
                 string description = txt_Description.Text;
                 if (TangentaDB.f_StockTake_AdditionalCost.Add(StockTake_ID, name, cost, description, ref StockTake_AdditionalCost_ID))
                 {
+                    m_Changed = true;
                     Reload(StockTake_ID);
                     DataRow[] drs = dtStockTake_AdditionalCost.Select("ID = " + StockTake_AdditionalCost_ID);
                     if (drs.Length > 0)
@@ -126,6 +135,7 @@ namespace ShopC
                 decimal cost = nmUpDn_Cost.Value;
                 if (TangentaDB.f_StockTake_AdditionalCost.Update(StockTake_AdditionalCost_ID, StockTake_ID, name, cost, txt_Description.Text))
                 {
+                    m_Changed = true;
                     Reload(StockTake_ID);
                     FillControls();
                 }
@@ -196,25 +206,28 @@ namespace ShopC
         {
             if (StockTake_AdditionalCost_ID >= 0)
             {
-                TangentaDB.f_StockTake_AdditionalCost.Remove(StockTake_AdditionalCost_ID, StockTake_ID);
-                Reload(StockTake_ID);
-                if (dtStockTake_AdditionalCost.Rows.Count == 0)
+                if (TangentaDB.f_StockTake_AdditionalCost.Remove(StockTake_AdditionalCost_ID, StockTake_ID))
                 {
-                    current_index = -1;
-                }
-                if (current_index >= dtStockTake_AdditionalCost.Rows.Count)
-                {
-                    current_index = dtStockTake_AdditionalCost.Rows.Count-1;
-                }
-                if (current_index >= 0)
-                {
-                    StockTake_AdditionalCost_ID = (long)dtStockTake_AdditionalCost.Rows[current_index]["ID"];
-                    FillControls();
-                }
-                else
-                {
-                    StockTake_AdditionalCost_ID = -1;
-                    ClearControls();
+                    m_Changed = true;
+                    Reload(StockTake_ID);
+                    if (dtStockTake_AdditionalCost.Rows.Count == 0)
+                    {
+                        current_index = -1;
+                    }
+                    if (current_index >= dtStockTake_AdditionalCost.Rows.Count)
+                    {
+                        current_index = dtStockTake_AdditionalCost.Rows.Count - 1;
+                    }
+                    if (current_index >= 0)
+                    {
+                        StockTake_AdditionalCost_ID = (long)dtStockTake_AdditionalCost.Rows[current_index]["ID"];
+                        FillControls();
+                    }
+                    else
+                    {
+                        StockTake_AdditionalCost_ID = -1;
+                        ClearControls();
+                    }
                 }
 
                 

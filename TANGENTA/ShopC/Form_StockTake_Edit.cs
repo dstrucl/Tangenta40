@@ -19,7 +19,11 @@ namespace ShopC
     {
         CodeTables.DBTableControl dbTables = null;
 
-        internal bool Changed;
+        private bool m_Changed = false;
+        internal bool Changed
+        {
+            get { return m_Changed; }
+        }
 
         private string m_StockTakeName = "";
 
@@ -177,6 +181,14 @@ namespace ShopC
 
         private void Form_StockTake_Edit_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (usrc_EditTable1.Changed)
+            {
+                m_Changed = true;
+            }
+            if (usrc_StockEditForSelectedStockTake1.Changed)
+            {
+                m_Changed = true;
+            }
             usrc_StockEditForSelectedStockTake1.DoClose();
         }
 

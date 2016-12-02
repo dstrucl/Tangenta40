@@ -237,7 +237,11 @@ namespace Tangenta
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before SetInitialMode()");
 
             SetInitialMode();
+
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():after SetInitialMode()");
+
             SetMode(Mode);
+            LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():End procedure ");
             return true;
         }
         private bool SetFinancialYears()
@@ -471,8 +475,10 @@ namespace Tangenta
                     break;
                 case 1: // usrc_Invoice.enum_Invoice.ProformaInvoice:
                     DocInvoice = Program.const_DocProformaInvoice;
+
                     break;
             }
+            Program.RunAs = DocInvoice;
             bool bRes = SetDocument(null);
             Program.Cursor_Arrow();
         }
