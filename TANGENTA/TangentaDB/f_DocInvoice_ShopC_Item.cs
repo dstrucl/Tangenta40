@@ -8,12 +8,16 @@ namespace TangentaDB
 {
     public static class f_DocInvoice_ShopC_Item
     {
-        public static bool Get(long docInvoice_ShopC_Item_ID, 
-                               ref decimal QuantityTakenFromStock,
-                               ref DateTime ExpiryDate,
-                               ref string item_UniqueName, 
-                               ref string stockTakeName, 
-                               ref DateTime stockTakeDate)
+        public class fData
+        {
+            public decimal QuantityTakenFromStock = -1;
+            public DateTime ExpiryDate = DateTime.MinValue;
+            public string Item_UniqueName = null;
+            public string StockTakeName = null;
+            public DateTime StockTakeDate = DateTime.MinValue;
+        }
+
+        public static bool Get(long docInvoice_ShopC_Item_ID, ref fData data)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -32,11 +36,11 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    QuantityTakenFromStock = DBTypes.tf._set_decimal(dt.Rows[0]["QuantityTakenFromStock"]);
-                    ExpiryDate = DBTypes.tf._set_DateTime(dt.Rows[0]["ExpiryDate"]);
-                    item_UniqueName = DBTypes.tf._set_string(dt.Rows[0]["UniqueName"]);
-                    stockTakeName = DBTypes.tf._set_string(dt.Rows[0]["StockTakeName"]);
-                    stockTakeDate = DBTypes.tf._set_DateTime(dt.Rows[0]["StockTakeDate"]);
+                    data.QuantityTakenFromStock = DBTypes.tf._set_decimal(dt.Rows[0]["QuantityTakenFromStock"]);
+                    data.ExpiryDate = DBTypes.tf._set_DateTime(dt.Rows[0]["ExpiryDate"]);
+                    data.Item_UniqueName = DBTypes.tf._set_string(dt.Rows[0]["UniqueName"]);
+                    data.StockTakeName = DBTypes.tf._set_string(dt.Rows[0]["StockTakeName"]);
+                    data.StockTakeDate = DBTypes.tf._set_DateTime(dt.Rows[0]["StockTakeDate"]);
                     return true;
                 }
                 else

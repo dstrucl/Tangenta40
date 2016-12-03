@@ -28,6 +28,10 @@ namespace ShopC
         DataColumn dcol_ExpiryDate = null;
         DataColumn dcol_StockTakeDate = null;
 
+        f_DocInvoice.fData DocInvoice_data = new f_DocInvoice.fData();
+        f_DocProformaInvoice.fData DocProformaInvoice_data = new f_DocProformaInvoice.fData();
+
+
         public Form_Show_Documents_Where_stock_item_was_sold_or_reserved(long xStock_ID, Doc_ShopC_Item_Data[] xadata)
         {
             InitializeComponent();
@@ -75,111 +79,45 @@ namespace ShopC
             {
                 DataRow dr = dt_Where_stock_item_was_sold_or_reserved.NewRow();
 
+
                 if (fs.IDisValid(data.DocInvoice_ID))
                 {
-                    
+
                     dr[dcol_DocumentType.ColumnName] = true;
                     dr[dcol_DocumentTypeName.ColumnName] = lngRPM.s_DocInvoice.s;
-                    FillDocInvoiceCells(data.DocInvoice_ID, ref dr);
-                    FillDocInvoiceItemStockCells(data.DocInvoice_ShopC_Item_ID, ref dr);
+                    if (f_DocInvoice.Get(data.DocInvoice_ID, data.DocInvoice_ShopC_Item_ID, ref DocInvoice_data))
+                    {
+                        dr[dcol_Draft.ColumnName] = DocInvoice_data.bDraft;
+                        dr[dcol_DraftNumber.ColumnName] = DocInvoice_data.DraftNumber;
+                        dr[dcol_FinancialYear.ColumnName] = DocInvoice_data.FinancialYear;
+                        dr[dcol_NumberInFinancialYear.ColumnName] = DocInvoice_data.NumberInFinancialYear;
+                        dr[dcol_QuantityTakenFromStock.ColumnName] = DocInvoice_data.ShopC_Item_Data.QuantityTakenFromStock;
+                        dr[dcol_ExpiryDate.ColumnName] = DocInvoice_data.ShopC_Item_Data.ExpiryDate;
+                        dr[dcol_Item_UniqueName.ColumnName] = DocInvoice_data.ShopC_Item_Data.Item_UniqueName;
+                        dr[dcol_StockTakeName.ColumnName] = DocInvoice_data.ShopC_Item_Data.StockTakeName;
+                        dr[dcol_StockTakeDate.ColumnName] = DocInvoice_data.ShopC_Item_Data.StockTakeDate;
+                    }
                 }
                 else
                 {
                     dr[dcol_DocumentType.ColumnName] = false;
                     dr[dcol_DocumentTypeName.ColumnName] = lngRPM.s_DocProformaInvoice.s;
-                    FillDocProformaInvoiceCells(data.DocProformaInvoice_ID, ref dr);
-                    FillDocProformaInvoiceItemStockCells(data.DocProformaInvoice_ShopC_Item_ID, ref dr);
+                    if (f_DocProformaInvoice.Get(data.DocProformaInvoice_ID, data.DocProformaInvoice_ShopC_Item_ID, ref DocProformaInvoice_data))
+                    {
+                        dr[dcol_Draft.ColumnName] = DocProformaInvoice_data.bDraft;
+                        dr[dcol_DraftNumber.ColumnName] = DocProformaInvoice_data.DraftNumber;
+                        dr[dcol_FinancialYear.ColumnName] = DocProformaInvoice_data.FinancialYear;
+                        dr[dcol_NumberInFinancialYear.ColumnName] = DocProformaInvoice_data.NumberInFinancialYear;
+                        dr[dcol_QuantityTakenFromStock.ColumnName] = DocProformaInvoice_data.ShopC_Item_Data.QuantityTakenFromStock;
+                        dr[dcol_ExpiryDate.ColumnName] = DocProformaInvoice_data.ShopC_Item_Data.ExpiryDate;
+                        dr[dcol_Item_UniqueName.ColumnName] = DocProformaInvoice_data.ShopC_Item_Data.Item_UniqueName;
+                        dr[dcol_StockTakeName.ColumnName] = DocProformaInvoice_data.ShopC_Item_Data.StockTakeName;
+                        dr[dcol_StockTakeDate.ColumnName] = DocProformaInvoice_data.ShopC_Item_Data.StockTakeDate;
+                    }
                 }
                 dt_Where_stock_item_was_sold_or_reserved.Rows.Add(dr);
             }
             dgvx_Stock_Item_OnDocument.DataSource = dt_Where_stock_item_was_sold_or_reserved;
         }
-
-        private void FillDocInvoiceItemStockCells(long docInvoice_ShopC_Item_ID, ref DataRow dr)
-        {
-            decimal QuantityTakenFromStock = -1;
-            string Item_UniqueName = "";
-            string StockTakeName = "";
-            DateTime ExpiryDate = DateTime.MinValue;
-           DateTime StockTakeDate = DateTime.MinValue;
-            if (f_DocInvoice_ShopC_Item.Get(docInvoice_ShopC_Item_ID,
-                                        ref QuantityTakenFromStock,
-                                        ref ExpiryDate,
-                                        ref Item_UniqueName,
-                                        ref StockTakeName,
-                                        ref StockTakeDate
-                                        ))
-            {
-                dr[dcol_QuantityTakenFromStock.ColumnName] = QuantityTakenFromStock;
-                dr[dcol_ExpiryDate.ColumnName] = ExpiryDate;
-                dr[dcol_Item_UniqueName.ColumnName] = Item_UniqueName;
-                dr[dcol_StockTakeName.ColumnName] = StockTakeName;
-                dr[dcol_StockTakeDate.ColumnName] = StockTakeDate;
-            }
-        }
-
-        private void FillDocProformaInvoiceItemStockCells(long docInvoice_ShopC_Item_ID, ref DataRow dr)
-        {
-            decimal QuantityTakenFromStock = -1;
-            string Item_UniqueName = "";
-            string StockTakeName = "";
-            DateTime ExpiryDate = DateTime.MinValue;
-            DateTime StockTakeDate = DateTime.MinValue;
-            if (f_DocProformaInvoice_ShopC_Item.Get(docInvoice_ShopC_Item_ID,
-                                        ref QuantityTakenFromStock,
-                                        ref ExpiryDate,
-                                        ref Item_UniqueName,
-                                        ref StockTakeName,
-                                        ref StockTakeDate
-                                        ))
-            {
-                dr[dcol_QuantityTakenFromStock.ColumnName] = QuantityTakenFromStock;
-                dr[dcol_ExpiryDate.ColumnName] = ExpiryDate;
-                dr[dcol_Item_UniqueName.ColumnName] = Item_UniqueName;
-                dr[dcol_StockTakeName.ColumnName] = StockTakeName;
-                dr[dcol_StockTakeDate.ColumnName] = StockTakeDate;
-            }
-        }
-
-        private void FillDocInvoiceCells(long DocProformaInvoice_ID, ref DataRow dr)
-        {
-            bool bDraft = false;
-            long DraftNumber = -1;
-            long FinancialYear = -1;
-            long NumberInFinancialYear = -1;
-            if (f_DocInvoice.Get(DocProformaInvoice_ID,
-                             ref bDraft,
-                             ref DraftNumber,
-                             ref FinancialYear,
-                             ref NumberInFinancialYear
-                            ))
-            {
-                dr[dcol_Draft.ColumnName] = bDraft;
-                dr[dcol_DraftNumber.ColumnName] = DraftNumber;
-                dr[dcol_FinancialYear.ColumnName] = FinancialYear;
-                dr[dcol_NumberInFinancialYear.ColumnName] = NumberInFinancialYear;
-            }
-        }
-
-        private void FillDocProformaInvoiceCells(long DocProformaInvoice_ID, ref DataRow dr)
-        {
-            bool bDraft = false;
-            long DraftNumber = -1;
-            long FinancialYear = -1;
-            long NumberInFinancialYear = -1;
-            if (f_DocProformaInvoice.Get(DocProformaInvoice_ID,
-                             ref bDraft,
-                             ref DraftNumber,
-                             ref FinancialYear,
-                             ref NumberInFinancialYear
-                            ))
-            {
-                dr[dcol_Draft.ColumnName] = bDraft;
-                dr[dcol_DraftNumber.ColumnName] = DraftNumber;
-                dr[dcol_FinancialYear.ColumnName] = FinancialYear;
-                dr[dcol_NumberInFinancialYear.ColumnName] = NumberInFinancialYear;
-            }
-        }
-
     }
 }

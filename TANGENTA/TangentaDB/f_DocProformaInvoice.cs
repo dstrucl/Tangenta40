@@ -8,7 +8,16 @@ namespace TangentaDB
 {
     public static class f_DocProformaInvoice
     {
-        public static bool Get(long docProformaInvoice_ID, ref bool bDraft, ref long draftNumber, ref long financialYear, ref long numberInFinancialYear)
+        public class fData
+        {
+            public bool bDraft = false;
+            public long DraftNumber = -1;
+            public long FinancialYear = -1;
+            public long NumberInFinancialYear = -1;
+            public f_DocProformaInvoice_ShopC_Item.fData ShopC_Item_Data = new f_DocProformaInvoice_ShopC_Item.fData();
+        }
+
+        public static bool Get(long docProformaInvoice_ID,long docInvoice_ShopC_Item_ID, ref fData data)
         {
             string Err = null;
             DataTable dt = new DataTable();
@@ -21,10 +30,17 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    bDraft = DBTypes.tf._set_bool(dt.Rows[0]["Draft"]);
-                    draftNumber = DBTypes.tf._set_long(dt.Rows[0]["DraftNumber"]);
-                    financialYear = DBTypes.tf._set_long(dt.Rows[0]["FinancialYear"]);
-                    numberInFinancialYear = DBTypes.tf._set_long(dt.Rows[0]["NumberInFinancialYear"]);
+                    data.bDraft = DBTypes.tf._set_bool(dt.Rows[0]["Draft"]);
+                    data.DraftNumber = DBTypes.tf._set_long(dt.Rows[0]["DraftNumber"]);
+                    data.FinancialYear = DBTypes.tf._set_long(dt.Rows[0]["FinancialYear"]);
+                    data.NumberInFinancialYear = DBTypes.tf._set_long(dt.Rows[0]["NumberInFinancialYear"]);
+                    if (f_DocProformaInvoice_ShopC_Item.Get(docInvoice_ShopC_Item_ID,
+                                                ref data.ShopC_Item_Data
+                                                ))
+                    {
+                    }
+
+
                     return true;
                 }
                 else

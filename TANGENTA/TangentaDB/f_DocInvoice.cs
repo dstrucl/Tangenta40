@@ -8,10 +8,24 @@ namespace TangentaDB
 {
     public static class f_DocInvoice
     {
-        public static bool Get(long docInvoice_ID, ref bool bDraft, ref long draftNumber, ref long financialYear, ref long numberInFinancialYear)
+        public class fData
+        {
+            public bool bDraft = false;
+            public long DraftNumber = -1;
+            public long FinancialYear = -1;
+            public long NumberInFinancialYear = -1;
+            public f_DocInvoice_ShopC_Item.fData ShopC_Item_Data = new f_DocInvoice_ShopC_Item.fData();
+        }
+
+
+        public static bool Get(long docInvoice_ID,long docInvoice_ShopC_Item_ID, ref fData ret_data)
         {
             string Err = null;
             DataTable dt = new DataTable();
+            if (ret_data == null)
+            {
+                ret_data = new fData();
+            }
             string sql = @"select Draft,
                                  DraftNumber,
                                  FinancialYear,
@@ -21,11 +35,20 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    bDraft = DBTypes.tf._set_bool(dt.Rows[0]["Draft"]);
-                    draftNumber = DBTypes.tf._set_long(dt.Rows[0]["DraftNumber"]);
-                    financialYear = DBTypes.tf._set_long(dt.Rows[0]["FinancialYear"]);
-                    numberInFinancialYear = DBTypes.tf._set_long(dt.Rows[0]["NumberInFinancialYear"]);
-                    return true;
+                    ret_data.bDraft = DBTypes.tf._set_bool(dt.Rows[0]["Draft"]);
+                    ret_data.DraftNumber = DBTypes.tf._set_long(dt.Rows[0]["DraftNumber"]);
+                    ret_data.FinancialYear = DBTypes.tf._set_long(dt.Rows[0]["FinancialYear"]);
+                    ret_data.NumberInFinancialYear = DBTypes.tf._set_long(dt.Rows[0]["NumberInFinancialYear"]);
+                    if (f_DocInvoice_ShopC_Item.Get(docInvoice_ShopC_Item_ID,
+                                                ref ret_data.ShopC_Item_Data
+                                                ))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
