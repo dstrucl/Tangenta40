@@ -32,7 +32,7 @@ namespace Tangenta
         public delegate bool delegate_Customer_Removed();
         public event delegate_Customer_Removed aa_Customer_Removed = null;
 
-        public long_v Customer_Org_ID_v = null;
+        public long_v Customer_OrganisationData_ID_v = null;
         public long_v Customer_Person_ID_v = null;
         public NavigationButtons.Navigation nav = null;
 
@@ -98,10 +98,23 @@ namespace Tangenta
         internal bool Edit_Customer_Organisation()
         {
             SQLTable tbl_Customer_Org = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Customer_Org)));
-            Form_Customer_Org_Edit edt_Item_dlg = new Form_Customer_Org_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+            Form_Customer_Org_Edit Customer_Org_dlg = new Form_Customer_Org_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_Customer_Org,
                                                             "Customer_Org_$_orgd_$_org_$$Name desc",nav);
-            edt_Item_dlg.ShowDialog();
+            if (Customer_Org_dlg.ShowDialog()==DialogResult.Yes)
+            {
+                if (Customer_OrganisationData_ID_v == null)
+                {
+                    Customer_OrganisationData_ID_v = new long_v();
+                }
+                Customer_OrganisationData_ID_v.v = Customer_Org_dlg.Customer_OrganisationData_ID;
+                if (aa_Customer_Person_Changed != null)
+                {
+                    Program.Cursor_Wait();
+                    aa_Customer_Person_Changed(Customer_OrganisationData_ID_v.v);
+                    Program.Cursor_Arrow();
+                }
+            }
 
             return true;
         }
@@ -220,14 +233,14 @@ namespace Tangenta
             CodeTables.SelectID_Table_Assistant_Form selectID_Table_Assistant_Form = new SelectID_Table_Assistant_Form(tbl_Customer_Org, DBSync.DBSync.DB_for_Tangenta.m_DBTables, sColumnsToView);
             if (selectID_Table_Assistant_Form.ShowDialog() == DialogResult.OK)
             {
-                if (Customer_Org_ID_v == null)
+                if (Customer_OrganisationData_ID_v == null)
                 {
-                    Customer_Org_ID_v = new long_v();
+                    Customer_OrganisationData_ID_v = new long_v();
                 }
-                Customer_Org_ID_v.v = selectID_Table_Assistant_Form.ID;
+                Customer_OrganisationData_ID_v.v = selectID_Table_Assistant_Form.ID;
                 if (aa_Customer_Org_Changed != null)
                 {
-                    aa_Customer_Org_Changed(Customer_Org_ID_v.v);
+                    aa_Customer_Org_Changed(Customer_OrganisationData_ID_v.v);
                 }
             }
         }

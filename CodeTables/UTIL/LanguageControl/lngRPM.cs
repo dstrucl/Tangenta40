@@ -17,6 +17,15 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_Addressee = new ltext("Adresse", "Naslovnik");
+        public static ltext s_StockTakeName = new ltext("Stock take name", "Ime prevzemnice");
+        public static ltext s_StockTakeDate = new ltext("Stock take date", "Datum prevzemnice");
+        public static ltext s_ItemUniqueName = new ltext("Item unique name", "Unikatno ime artikla");
+        public static ltext s_QuantityTakenFromStock = new ltext("Quantity taken from stock", "Količina vzeta iz zaloge");
+        public static ltext s_Document_Type = new ltext("Document Type", "Vrsta dokumenta");
+        public static ltext s_DraftNumber = new ltext("Draft number", "Številka onsutka");
+        public static ltext s_Form_Show_Documents_Where_stock_item_was_sold_or_reserved =
+                  new ltext("Invoices and ProformaInvoices of stock item", "Računi in predračuni kamor je bil prodan ali rezerviran artikel iz zaloge");
         public static ltext s_ItemIsNotDefined = new ltext("Item is not defined!\r\nSelect item first.", "Artikel ni izbran!\r\nNajprej izberite artikel.");
         public static ltext s_PurchasePriceIsZeroAreYouSure = new ltext("Purchase price per unit is zero!\r\nAre you shure to write zero purchase item price?"
                                                                             , "Nabavna cena za artikel je nič!\r\nSte prepričani ");
@@ -118,6 +127,7 @@ namespace LanguageControl
         public static ltext s_Issuer_FirstName = new ltext("Issuer first name", "Ime blagajnika");
         public static ltext s_Issuer_LastName = new ltext("Issuer last name", "Priimek blagajnika");
         public static ltext s_FinancialYear = new ltext("Financial Year", "Poslovno leto");
+        public static ltext s_NumberInFinancialYear = new ltext("Number in financial year", "Številka v obračunskem letu");
         public static ltext s_InvoiceNumber = new ltext("Invoice Number in Financial Year", "Številka računa v poslovnem letu");
         public static ltext s_IssueDate = new ltext("Issue date", "Čas izdaje računa");
         public static ltext s_GrossSum = new ltext("Total", "Znesek računa");
@@ -366,7 +376,8 @@ namespace LanguageControl
         public static ltext s_DateOfBirth = new ltext("Date of Birth", "Datum rojstva");
 
         public static ltext s_WriteOnYourAccount = new ltext("write on the (profroma)invoice?", "vpisati na (pred)račun ?");
-        public static ltext s_DoYouWantPerson = new ltext("Do You want customer:", "Želite stranko:");
+        public static ltext s_DoYouWantCustomer = new ltext("Do You want customer:", "Želite stranko:");
+
         public static ltext s_MethodOfPayment = new ltext("Payment type", "Način plačila");
         
         public static ltext s_Sum_All = new ltext("Total = ", "Skupaj = ");
@@ -2010,7 +2021,10 @@ namespace LanguageControl
        public static ltext s_GroupBoxImport_OrganisationData = new ltext ("Tables for companies data ",
                                                        "Tabele povezane s podjetji");
 
-       public static ltext s_Person = new ltext ("Person",
+        public static ltext s_PhisycalPerson = new ltext("Physical Person",
+                                           "Fizična oseba");
+
+        public static ltext s_Person = new ltext ("Person",
                                           "Oseba");
 
        public static ltext s_chk_PasswordNeverExpires = new ltext("Never",

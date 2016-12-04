@@ -125,7 +125,7 @@ namespace Tangenta
             }
             if (usrc_EditTable.Identity>=0)
             { 
-                Form_Customer_Assign Customer_Assign_dlg = new Form_Customer_Assign(usrc_EditTable.Identity);
+                Form_Customer_Person_Assign Customer_Assign_dlg = new Form_Customer_Person_Assign(usrc_EditTable.Identity);
                 if (Customer_Assign_dlg.ShowDialog()==DialogResult.Yes)
                 {
                     this.FirstName = Customer_Assign_dlg.FirstName;
@@ -143,6 +143,7 @@ namespace Tangenta
                     this.CustomerPerson_ID = Customer_Assign_dlg.CustomerPerson_ID;
                     this.Close();
                     DialogResult = DialogResult.Yes;
+                    CustomerPerson_ID = usrc_EditTable.Identity;
                 }
                 else
                 {

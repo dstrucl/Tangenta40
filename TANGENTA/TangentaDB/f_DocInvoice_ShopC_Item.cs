@@ -22,16 +22,16 @@ namespace TangentaDB
             string Err = null;
             DataTable dt = new DataTable();
             string sql = @"select disci.dQuantity as QuantityTakenFromStock,
-                                  ExpiryDate,
+                                  s.ExpiryDate,
                                   i.UniqueName,
                                   st.Name as StockTakeName,
-                                  st.StockTakeDate
+                                  st.StockTake_Date
                                   from DocInvoice_ShopC_Item disci
                                   inner join Stock s on disci.Stock_ID = s.ID
                                   inner join PurchasePrice_Item ppi on s.PurchasePrice_Item_ID = ppi.ID
                                   inner join StockTake st on ppi.StockTake_ID = st.ID
                                   inner join Item i on ppi.Item_ID = i.ID
-                                  where DocInvoice_ShopC_Item.ID = " + docInvoice_ShopC_Item_ID.ToString();
+                                  where disci.ID = " + docInvoice_ShopC_Item_ID.ToString();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
                 if (dt.Rows.Count > 0)
@@ -40,7 +40,7 @@ namespace TangentaDB
                     data.ExpiryDate = DBTypes.tf._set_DateTime(dt.Rows[0]["ExpiryDate"]);
                     data.Item_UniqueName = DBTypes.tf._set_string(dt.Rows[0]["UniqueName"]);
                     data.StockTakeName = DBTypes.tf._set_string(dt.Rows[0]["StockTakeName"]);
-                    data.StockTakeDate = DBTypes.tf._set_DateTime(dt.Rows[0]["StockTakeDate"]);
+                    data.StockTakeDate = DBTypes.tf._set_DateTime(dt.Rows[0]["StockTake_Date"]);
                     return true;
                 }
                 else

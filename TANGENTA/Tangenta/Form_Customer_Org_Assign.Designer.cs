@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_Customer_Assign
+    partial class Form_Customer_Org_Assign
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Customer_Assign));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Customer_Person_Assign));
             this.lbl_Instruction_part1 = new System.Windows.Forms.Label();
             this.lbl_Instruction_part2 = new System.Windows.Forms.Label();
             this.btn_Yes = new System.Windows.Forms.Button();
             this.btn_No = new System.Windows.Forms.Button();
-            this.lbl_Person = new System.Windows.Forms.TextBox();
+            this.lbl_Org = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbl_Instruction_part1
@@ -81,21 +81,21 @@
             // 
             // lbl_Person
             // 
-            this.lbl_Person.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbl_Person.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Person.Location = new System.Drawing.Point(55, 34);
-            this.lbl_Person.Multiline = true;
-            this.lbl_Person.Name = "lbl_Person";
-            this.lbl_Person.ReadOnly = true;
-            this.lbl_Person.Size = new System.Drawing.Size(667, 158);
-            this.lbl_Person.TabIndex = 5;
+            this.lbl_Org.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbl_Org.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Org.Location = new System.Drawing.Point(55, 34);
+            this.lbl_Org.Multiline = true;
+            this.lbl_Org.Name = "lbl_Person";
+            this.lbl_Org.ReadOnly = true;
+            this.lbl_Org.Size = new System.Drawing.Size(667, 158);
+            this.lbl_Org.TabIndex = 5;
             // 
             // Form_Customer_Assign
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(763, 288);
-            this.Controls.Add(this.lbl_Person);
+            this.Controls.Add(this.lbl_Org);
             this.Controls.Add(this.btn_No);
             this.Controls.Add(this.btn_Yes);
             this.Controls.Add(this.lbl_Instruction_part2);
@@ -120,6 +120,6 @@
         private System.Windows.Forms.Label lbl_Instruction_part2;
         private System.Windows.Forms.Button btn_Yes;
         private System.Windows.Forms.Button btn_No;
-        private System.Windows.Forms.TextBox lbl_Person;
+        private System.Windows.Forms.TextBox lbl_Org;
     }
 }

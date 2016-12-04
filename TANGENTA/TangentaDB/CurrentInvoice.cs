@@ -1568,13 +1568,13 @@ namespace TangentaDB
             return GetNewNumberInFinancialYear(ref NumberInFinancialYear);
         }
 
-        public bool Update_Customer_Person(long Customer_Person_ID, ref long_v xAtom_Customer_Person_ID_v)
+        public bool Update_Customer_Person(string DocInvoice, long Customer_Person_ID, ref long_v xAtom_Customer_Person_ID_v)
         {
             if (f_Atom_Customer_Person.Get(Customer_Person_ID, ref xAtom_Customer_Person_ID_v))
             {
                 if (xAtom_Customer_Person_ID_v != null)
                 {
-                    string sql = "update DocInvoice set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID_v.v.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.DocInvoice_ID.ToString();
+                    string sql = "update "+DocInvoice+" set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID_v.v.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.DocInvoice_ID.ToString();
                     string Err = null;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
@@ -1596,13 +1596,13 @@ namespace TangentaDB
             return false;
         }
 
-        public bool Update_Customer_Org(long Customer_Org_ID, ref long_v xAtom_Customer_Org_ID_v)
+        public bool Update_Customer_Org(string DocInvoice,long Customer_Org_ID, ref long_v xAtom_Customer_Org_ID_v)
         {
             if (f_Atom_Customer_Org.Get(Customer_Org_ID, ref xAtom_Customer_Org_ID_v))
             {
                 if (xAtom_Customer_Org_ID_v != null)
                 {
-                    string sql = "update DocInvoice set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID_v.v.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.DocInvoice_ID.ToString();
+                    string sql = "update "+DocInvoice+" set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID_v.v.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.DocInvoice_ID.ToString();
                     string Err = null;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))

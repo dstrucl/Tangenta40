@@ -27,6 +27,7 @@ namespace ShopC
         DataColumn dcol_QuantityTakenFromStock = null;
         DataColumn dcol_ExpiryDate = null;
         DataColumn dcol_StockTakeDate = null;
+        DataColumn dcol_Addressee = null;
 
         f_DocInvoice.fData DocInvoice_data = new f_DocInvoice.fData();
         f_DocProformaInvoice.fData DocProformaInvoice_data = new f_DocProformaInvoice.fData();
@@ -42,6 +43,9 @@ namespace ShopC
 
             dcol_DocumentTypeName = new DataColumn("DocumentTypeName", typeof(string));
             dt_Where_stock_item_was_sold_or_reserved.Columns.Add(dcol_DocumentTypeName);
+
+            dcol_Addressee = new DataColumn("Addressee", typeof(string));
+            dt_Where_stock_item_was_sold_or_reserved.Columns.Add(dcol_Addressee);
 
             dcol_Draft = new DataColumn("Draft", typeof(bool));
             dt_Where_stock_item_was_sold_or_reserved.Columns.Add(dcol_Draft);
@@ -71,6 +75,8 @@ namespace ShopC
             dcol_StockTakeDate = new DataColumn("StockTakeDate", typeof(DateTime));
             dt_Where_stock_item_was_sold_or_reserved.Columns.Add(dcol_StockTakeDate);
 
+
+            lngRPM.s_Form_Show_Documents_Where_stock_item_was_sold_or_reserved.Text(this);
         }
 
         private void Form_Show_Documents_Where_stock_item_was_sold_or_reserved_Load(object sender, EventArgs e)
@@ -96,6 +102,7 @@ namespace ShopC
                         dr[dcol_Item_UniqueName.ColumnName] = DocInvoice_data.ShopC_Item_Data.Item_UniqueName;
                         dr[dcol_StockTakeName.ColumnName] = DocInvoice_data.ShopC_Item_Data.StockTakeName;
                         dr[dcol_StockTakeDate.ColumnName] = DocInvoice_data.ShopC_Item_Data.StockTakeDate;
+                        dr[dcol_Addressee] = DocInvoice_data.Addressee;
                     }
                 }
                 else
@@ -113,11 +120,30 @@ namespace ShopC
                         dr[dcol_Item_UniqueName.ColumnName] = DocProformaInvoice_data.ShopC_Item_Data.Item_UniqueName;
                         dr[dcol_StockTakeName.ColumnName] = DocProformaInvoice_data.ShopC_Item_Data.StockTakeName;
                         dr[dcol_StockTakeDate.ColumnName] = DocProformaInvoice_data.ShopC_Item_Data.StockTakeDate;
+                        dr[dcol_Addressee] = DocProformaInvoice_data.Addressee;
                     }
                 }
                 dt_Where_stock_item_was_sold_or_reserved.Rows.Add(dr);
             }
             dgvx_Stock_Item_OnDocument.DataSource = dt_Where_stock_item_was_sold_or_reserved;
+
+            dgvx_Stock_Item_OnDocument.Columns[dcol_DocumentType.ColumnName].HeaderText = lngRPM.s_Document_Type.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_Draft.ColumnName].HeaderText = lngRPM.s_Draft.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_DraftNumber.ColumnName].HeaderText = lngRPM.s_DraftNumber.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_FinancialYear.ColumnName].HeaderText = lngRPM.s_FinancialYear.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_NumberInFinancialYear.ColumnName].HeaderText = lngRPM.s_NumberInFinancialYear.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_QuantityTakenFromStock.ColumnName].HeaderText = lngRPM.s_QuantityTakenFromStock.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_ExpiryDate.ColumnName].HeaderText = lngRPM.s_ExpiryDate.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_Item_UniqueName.ColumnName].HeaderText = lngRPM.s_ItemUniqueName.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_StockTakeName.ColumnName].HeaderText = lngRPM.s_StockTakeName.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_StockTakeDate.ColumnName].HeaderText = lngRPM.s_StockTakeDate.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_Addressee.ColumnName].HeaderText = lngRPM.s_Addressee.s;
+        }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
         }
     }
 }

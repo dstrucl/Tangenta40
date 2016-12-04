@@ -2216,21 +2216,11 @@ do_EditMyOrganisation_Data:
             }
         }
 
-
-
-        private void usrc_Customer_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
         private void usrc_Customer_Customer_Person_Changed(long Customer_Person_ID)
         {
             long_v Atom_Customer_Person_ID_v = null;
             this.Cursor = Cursors.WaitCursor;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Person(Customer_Person_ID, ref Atom_Customer_Person_ID_v))
+            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Person(DocInvoice,Customer_Person_ID, ref Atom_Customer_Person_ID_v))
             {
                 if (Atom_Customer_Person_ID_v != null)
                 {
@@ -2344,7 +2334,7 @@ do_EditMyOrganisation_Data:
         {
             this.Cursor = Cursors.WaitCursor;
             long_v Atom_Customer_Org_ID_v = null;
-            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Org(Customer_Org_ID, ref Atom_Customer_Org_ID_v))
+            if (m_ShopABC.m_CurrentInvoice.Update_Customer_Org(DocInvoice,Customer_Org_ID, ref Atom_Customer_Org_ID_v))
             {
                 m_ShopABC.m_CurrentInvoice.Atom_Customer_Org_ID_v = Atom_Customer_Org_ID_v;
                 if (Atom_Customer_Org_ID_v != null)

@@ -112,6 +112,12 @@
     <Compile Include="Form_CodeTables.Designer.cs">
       <DependentUpon>Form_CodeTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Customer_Org_Assign.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Customer_Org_Assign.Designer.cs">
+      <DependentUpon>Form_Customer_Org_Assign.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_DBSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -310,11 +316,11 @@
     <Compile Include="Form_DURS_output.Designer.cs">
       <DependentUpon>Form_DURS_output.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Customer_Assign.cs">
+    <Compile Include="Form_Customer_Person_Assign.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Customer_Assign.Designer.cs">
-      <DependentUpon>Form_Customer_Assign.cs</DependentUpon>
+    <Compile Include="Form_Customer_Person_Assign.Designer.cs">
+      <DependentUpon>Form_Customer_Person_Assign.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_PrintReport.cs">
       <SubType>Form</SubType>
@@ -543,6 +549,9 @@
     <EmbeddedResource Include="Form_CodeTables.resx">
       <DependentUpon>Form_CodeTables.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_Customer_Org_Assign.resx">
+      <DependentUpon>Form_Customer_Org_Assign.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_DBSettings.resx">
       <DependentUpon>Form_DBSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -646,8 +655,8 @@
     <EmbeddedResource Include="Form_DURS_output.resx">
       <DependentUpon>Form_DURS_output.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Customer_Assign.resx">
-      <DependentUpon>Form_Customer_Assign.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Customer_Person_Assign.resx">
+      <DependentUpon>Form_Customer_Person_Assign.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_PrintReport.resx">
       <DependentUpon>Form_PrintReport.cs</DependentUpon>

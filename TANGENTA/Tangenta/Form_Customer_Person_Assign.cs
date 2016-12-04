@@ -19,7 +19,7 @@ using System.Windows.Forms;
 
 namespace Tangenta
 {
-    public partial class Form_Customer_Assign : Form
+    public partial class Form_Customer_Person_Assign : Form
     {
         internal long PersonData_ID;
         internal string FirstName = null;
@@ -36,18 +36,18 @@ namespace Tangenta
         public long Person_ID = -1;
         public long CustomerPerson_ID = -1;
 
-        public Form_Customer_Assign()
+        public Form_Customer_Person_Assign()
         {
             // TODO: Complete member initialization
             InitializeComponent();
         }
 
-        public Form_Customer_Assign(long xPersonData_ID)
+        public Form_Customer_Person_Assign(long xPersonData_ID)
         {
             // TODO: Complete member initialization
             InitializeComponent();
             this.PersonData_ID = xPersonData_ID;
-            this.lbl_Instruction_part1.Text = lngRPM.s_DoYouWantPerson.s;
+            this.lbl_Instruction_part1.Text = lngRPM.s_DoYouWantCustomer.s;
             this.lbl_Instruction_part2.Text = lngRPM.s_WriteOnYourAccount.s;
             this.btn_Yes.Text = lngRPM.s_Yes.s;
             this.btn_No.Text = lngRPM.s_No.s;

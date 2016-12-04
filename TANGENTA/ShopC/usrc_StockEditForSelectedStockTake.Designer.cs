@@ -322,8 +322,7 @@
             this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvx_StockTakeItemsAndPrices.Size = new System.Drawing.Size(494, 487);
             this.dgvx_StockTakeItemsAndPrices.TabIndex = 0;
-            this.dgvx_StockTakeItemsAndPrices.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvx_StockTakeItemsAndPrices_CellFormatting);
-            this.dgvx_StockTakeItemsAndPrices.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_StockTakeItemsAndPrices_CellMouseUp);
+            this.dgvx_StockTakeItemsAndPrices.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_StockTakeItemsAndPrices_CellClick);
             this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
             // 
             // btn_Exit

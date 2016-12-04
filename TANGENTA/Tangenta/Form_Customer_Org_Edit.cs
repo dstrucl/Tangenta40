@@ -26,7 +26,19 @@ namespace Tangenta
     public partial class Form_Customer_Org_Edit : Form
     {
         public enum eCustomer_Org_EditMode { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
-        private eCustomer_Org_EditMode Customer_Person_EditMode = eCustomer_Org_EditMode.SELECT_VALID;
+        private eCustomer_Org_EditMode Customer_Org_EditMode = eCustomer_Org_EditMode.SELECT_VALID;
+
+        internal string Name = null;
+        internal string Tax_ID = null;
+        internal string Registration_ID = null;
+        internal string FaxNumber = null;
+        internal string PhoneNumber = null;
+        internal string StreetName = null;
+        internal string HouseNumber = null;
+        internal string ZIP = null;
+        internal string City = null;
+        internal string State = null;
+        internal string Country = null;
 
         List<long> List_of_Inserted_Items_ID = null; 
         DataTable dt_Item = new DataTable();
@@ -35,6 +47,8 @@ namespace Tangenta
         long_v ID_v = null;
         string ColumnOrderBy = "";
         NavigationButtons.Navigation nav = null;
+        public long Customer_OrganisationData_ID = -1;
+
 
         public Form_Customer_Org_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
@@ -79,7 +93,7 @@ namespace Tangenta
                     Customer_Org_$_orgd_$_chomepgorg_$$HomePage
             ";
 
-            Customer_Person_EditMode = eCustomer_Org_EditMode.SELECT_ALL;
+            Customer_Org_EditMode = eCustomer_Org_EditMode.SELECT_ALL;
             string sWhereCondition = "";
             return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
 
@@ -109,6 +123,34 @@ namespace Tangenta
                     usrc_EditTable.Save();
                 }
             }
+
+            if (usrc_EditTable.Identity >= 0)
+            {
+                Form_Customer_Org_Assign Customer_Assign_Org_dlg = new Form_Customer_Org_Assign(usrc_EditTable.Identity);
+                if (Customer_Assign_Org_dlg.ShowDialog() == DialogResult.Yes)
+                {
+                    this.Name = Customer_Assign_Org_dlg.Name;
+                    this.Tax_ID = Customer_Assign_Org_dlg.Tax_ID;
+                    this.Registration_ID = Customer_Assign_Org_dlg.Registration_ID;
+                    this.FaxNumber = Customer_Assign_Org_dlg.FaxNumber;
+                    this.PhoneNumber = Customer_Assign_Org_dlg.PhoneNumber;
+                    this.StreetName = Customer_Assign_Org_dlg.StreetName;
+                    this.HouseNumber = Customer_Assign_Org_dlg.HouseNumber;
+                    this.ZIP = Customer_Assign_Org_dlg.ZIP;
+                    this.City = Customer_Assign_Org_dlg.City;
+                    this.State = Customer_Assign_Org_dlg.State;
+                    this.State = Customer_Assign_Org_dlg.Country;
+                    this.Customer_OrganisationData_ID = Customer_Assign_Org_dlg.CustomerOrganisationData_ID;
+                    this.Close();
+                    DialogResult = DialogResult.Yes;
+                }
+                else
+                {
+                    this.Close();
+                    DialogResult = DialogResult.No;
+                }
+            }
+
             this.Close();
             DialogResult = DialogResult.Yes;
         }

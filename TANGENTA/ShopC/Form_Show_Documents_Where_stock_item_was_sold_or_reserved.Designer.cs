@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Show_Documents_Where_stock_item_was_sold_or_reserved));
             this.dgvx_Stock_Item_OnDocument = new DataGridView_2xls.DataGridView2xls();
+            this.btn_Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Stock_Item_OnDocument)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,13 +52,27 @@
             this.dgvx_Stock_Item_OnDocument.Size = new System.Drawing.Size(597, 358);
             this.dgvx_Stock_Item_OnDocument.TabIndex = 0;
             // 
+            // btn_Exit
+            // 
+            this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
+            this.btn_Exit.Location = new System.Drawing.Point(520, 3);
+            this.btn_Exit.Name = "btn_Exit";
+            this.btn_Exit.Size = new System.Drawing.Size(78, 25);
+            this.btn_Exit.TabIndex = 1;
+            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
+            // 
             // Form_Show_Documents_Where_stock_item_was_sold_or_reserved
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 435);
+            this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.dgvx_Stock_Item_OnDocument);
+            this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_Show_Documents_Where_stock_item_was_sold_or_reserved";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Show_Documents_Where_stock_item_was_sold_or_reserved";
             this.Load += new System.EventHandler(this.Form_Show_Documents_Where_stock_item_was_sold_or_reserved_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_Stock_Item_OnDocument)).EndInit();
@@ -67,5 +83,6 @@
         #endregion
 
         private DataGridView_2xls.DataGridView2xls dgvx_Stock_Item_OnDocument;
+        private System.Windows.Forms.Button btn_Exit;
     }
 }

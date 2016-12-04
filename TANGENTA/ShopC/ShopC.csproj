@@ -257,6 +257,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridViewDisableButtonCell\DataGridViewDisableButtonCell.csproj">
+      <Project>{3b1cf635-20c3-4781-ab41-41908282c18c}</Project>
+      <Name>DataGridViewDisableButtonCell</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
@@ -378,6 +382,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Cost.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StockOutReference.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -500,7 +500,38 @@ namespace ShopC
             this.dgvx_StockTakeItemsAndPrices.SelectionChanged -= new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
             if (TangentaDB.f_Stock.GeStockTakeItems(ref dt_Stock_Of_Current_StockTake,ref aDoc_ShopC_Item, StockTake_ID))
             {
+                dgvx_StockTakeItemsAndPrices.Columns.Clear();
                 dgvx_StockTakeItemsAndPrices.DataSource = dt_Stock_Of_Current_StockTake;
+
+                //insert button _column
+                DataGridViewButtonColumn dgvbc = new DataGridViewButtonColumn();
+                dgvbc.CellTemplate = new DataGridViewDisableButtonCell.DataGridViewDisableButtonCell();
+                dgvbc.UseColumnTextForButtonValue = true;
+                dgvbc.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvbc.Width = 32;
+                dgvbc.Text = "?";
+                dgvbc.Name = "";
+                dgvbc.DataPropertyName = "";
+                dgvx_StockTakeItemsAndPrices.Columns.Insert(0, dgvbc);
+
+                for (int i = 0;i< dt_Stock_Of_Current_StockTake.Rows.Count;i++)
+                {
+                    ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Visible = false;
+                    ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Enabled = false;
+                    ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Style.BackColor = Color.White;
+                    if (aDoc_ShopC_Item[i] != null)
+                    {
+                        if (aDoc_ShopC_Item[i].adata != null)
+                        {
+                            if (aDoc_ShopC_Item[i].adata.Length > 0)
+                            {
+                                ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Visible = true;
+                                ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Enabled = true;
+                                ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Style.BackColor = Color.LightPink;
+                            }
+                        }
+                    }
+                }
 
                 if (dt_Stock_Of_Current_StockTake.Rows.Count > 0 && current_index < 0)
                 {
@@ -786,35 +817,23 @@ namespace ShopC
             }
         }
 
-        private void dgvx_StockTakeItemsAndPrices_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void Show_Documents_Where_stock_item_was_sold_or_reserved(long Stock_ID,Doc_ShopC_Item_Data[] adata)
         {
-            if (e.RowIndex>0)
-            {
-                if (aDoc_ShopC_Item[e.RowIndex].adata!=null)
-                {
-                    if (aDoc_ShopC_Item[e.RowIndex].adata.Length>0)
-                    {
-                        e.CellStyle.BackColor = Color.LightPink;
-                    }
-                    else
-                    {
-                        e.CellStyle.BackColor = Color.White;
-                    }
-                }
-            }
+            Form_Show_Documents_Where_stock_item_was_sold_or_reserved frs = new Form_Show_Documents_Where_stock_item_was_sold_or_reserved(Stock_ID, adata);
+            frs.ShowDialog(this);
         }
 
-        private void dgvx_StockTakeItemsAndPrices_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvx_StockTakeItemsAndPrices_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex >= 0)
+                if (e.ColumnIndex == 0)
                 {
-                    if (aDoc_ShopC_Item[e.RowIndex].adata != null)
+                    if (aDoc_ShopC_Item[e.RowIndex] != null)
                     {
-                        if (aDoc_ShopC_Item[e.RowIndex].adata.Length > 0)
+                        if (aDoc_ShopC_Item[e.RowIndex].adata != null)
                         {
-                            if (e.Button == MouseButtons.Right)
+                            if (aDoc_ShopC_Item[e.RowIndex].adata.Length > 0)
                             {
                                 Show_Documents_Where_stock_item_was_sold_or_reserved(aDoc_ShopC_Item[e.RowIndex].Stock_ID, aDoc_ShopC_Item[e.RowIndex].adata);
                             }
@@ -822,12 +841,6 @@ namespace ShopC
                     }
                 }
             }
-        }
-
-        private void Show_Documents_Where_stock_item_was_sold_or_reserved(long Stock_ID,Doc_ShopC_Item_Data[] adata)
-        {
-            Form_Show_Documents_Where_stock_item_was_sold_or_reserved frs = new Form_Show_Documents_Where_stock_item_was_sold_or_reserved(Stock_ID, adata);
-            frs.ShowDialog(this);
         }
     }
 }
