@@ -17,6 +17,8 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_YouCanNotLock_StockTakeIfSumNotMatch = new ltext("You can not close stock take unless the sum of all item's prices plus additional costs plus trucking costs plus customs is equal the StockTakeTotalPrice!", 
+                                                                                "Prevzemnice ni možno zapreti, v kolikor vsota cen artiklov plus transportinh stroškov plus carine plus dodatnih stroškov ni enaka celotni ceni prevzemnice!");
         public static ltext s_Addressee = new ltext("Adresse", "Naslovnik");
         public static ltext s_StockTakeName = new ltext("Stock take name", "Ime prevzemnice");
         public static ltext s_StockTakeDate = new ltext("Stock take date", "Datum prevzemnice");
@@ -47,7 +49,7 @@ namespace LanguageControl
         public static ltext s_btn_AdditionalCost = new ltext("Additional Cost", "Dodatni Stroški");
         public static ltext s_lbl_StockTakeName = new ltext("Stock-Take:", "Prevzemnica:");
         public static ltext s_AreYouSureToLock_StockTake = new ltext("Are you sure to lock Stock-Take", "Ste prepričani, da zaklenete prevzemnico?");
-        public static ltext s_btn_LockStockTake = new ltext("Lock Stock-Take", "Zakleni prevzemnico");
+        public static ltext s_btn_CloseStockTake = new ltext("Close Stock-Take", "Zapri prevzemnico");
         public static ltext s_InvalidPurchasePrice = new ltext("Purchase price is not valid\r\nError:Can not convert to decimal velue!", "Nabavna cena ni veljavna.\r\nNapaka:Neupešna pretvorba v decimalno število!");
         public static ltext s_Stock_Description = new ltext("Stock description", "Opis zaloge");
         public static ltext s_SelectedItem = new ltext("Select Item", "Izberite Artikel");

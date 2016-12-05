@@ -138,6 +138,7 @@ namespace ShopC
             dgvx_Stock_Item_OnDocument.Columns[dcol_StockTakeName.ColumnName].HeaderText = lngRPM.s_StockTakeName.s;
             dgvx_Stock_Item_OnDocument.Columns[dcol_StockTakeDate.ColumnName].HeaderText = lngRPM.s_StockTakeDate.s;
             dgvx_Stock_Item_OnDocument.Columns[dcol_Addressee.ColumnName].HeaderText = lngRPM.s_Addressee.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_DocumentType.ColumnName].Visible = false;
         }
 
         private void btn_Exit_Click(object sender, EventArgs e)

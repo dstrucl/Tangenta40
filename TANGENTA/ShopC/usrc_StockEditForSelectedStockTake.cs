@@ -195,7 +195,6 @@ namespace ShopC
         {
             if (iD >= 0)
             {
-                CurrentItem_ID = iD;
                 object ovalue = m_tbl.Value("UniqueName");
                 if (ovalue !=null)
                 {
@@ -205,16 +204,20 @@ namespace ShopC
                         {
                             string Item_UniqueName = ((TangentaTableClass.UniqueName)ovalue).val;
                             lngRPM.s_Item.Text(grp_Item, ":" + Item_UniqueName);
+                            CurrentItem_ID = iD;
                         }
                     }
                 }
-                object oID = cmb_Currency.ValueMember;
-                long Selected_Currency_ID = -1;
-                if (oID is long)
+                if (fs.IDisValid(CurrentItem_ID))
                 {
-                    Selected_Currency_ID = (long)oID;
+                    object oID = cmb_Currency.ValueMember;
+                    long Selected_Currency_ID = -1;
+                    if (oID is long)
+                    {
+                        Selected_Currency_ID = (long)oID;
+                    }
+                    Set_cmb_PurchasePrice(iD, Selected_Currency_ID);
                 }
-                Set_cmb_PurchasePrice(iD, Selected_Currency_ID);
             }
         }
 
@@ -312,7 +315,7 @@ namespace ShopC
                 lngRPM.s_ExpiryDate.Text(chk_ExpiryCheck);
                 lngRPM.s_ImportTime.Text(lbl_ImportTime);
                 lngRPM.s_Stock_Description.Text(lbl_Stock_Description);
-                lngRPM.s_btn_LockStockTake.Text(btn_LockStockTake);
+                lngRPM.s_btn_CloseStockTake.Text(btn_CloseStockTake);
                 lngRPM.s_btn_AdditionalCost.Text(btn_AdditionalCost);
                 lngRPM.s_lbl_StockTakeTotalPrice.Text(this.lbl_TotalPrice);
 
@@ -495,10 +498,15 @@ namespace ShopC
         internal bool Reload(SQLTable tbl_StockTake)
         {
             StockTakeTable = tbl_StockTake;
+            return Reload(this.StockTake_ID);
+        }
+
+        internal bool Reload(long xStockTake_ID)
+        {
             dgvx_StockTakeItemsAndPrices.DataSource = null;
             dt_Stock_Of_Current_StockTake.Rows.Clear();
             this.dgvx_StockTakeItemsAndPrices.SelectionChanged -= new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
-            if (TangentaDB.f_Stock.GeStockTakeItems(ref dt_Stock_Of_Current_StockTake,ref aDoc_ShopC_Item, StockTake_ID))
+            if (TangentaDB.f_Stock.GeStockTakeItems(ref dt_Stock_Of_Current_StockTake, ref aDoc_ShopC_Item, StockTake_ID))
             {
                 dgvx_StockTakeItemsAndPrices.Columns.Clear();
                 dgvx_StockTakeItemsAndPrices.DataSource = dt_Stock_Of_Current_StockTake;
@@ -509,12 +517,12 @@ namespace ShopC
                 dgvbc.UseColumnTextForButtonValue = true;
                 dgvbc.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvbc.Width = 32;
-                dgvbc.Text = "?";
+                dgvbc.Text = "Info";
                 dgvbc.Name = "";
                 dgvbc.DataPropertyName = "";
                 dgvx_StockTakeItemsAndPrices.Columns.Insert(0, dgvbc);
 
-                for (int i = 0;i< dt_Stock_Of_Current_StockTake.Rows.Count;i++)
+                for (int i = 0; i < dt_Stock_Of_Current_StockTake.Rows.Count; i++)
                 {
                     ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Visible = false;
                     ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Enabled = false;
@@ -554,7 +562,7 @@ namespace ShopC
                     CurrentItem_ID = (long)dt_Stock_Of_Current_StockTake.Rows[current_index]["Item_ID"];
                     object ocurrency_id = cmb_Currency.SelectedValue;
                     long xCurrency_ID = -1;
-                    if (ocurrency_id!=null)
+                    if (ocurrency_id != null)
                     {
                         if (ocurrency_id is long)
                         {
@@ -582,6 +590,7 @@ namespace ShopC
                 this.dgvx_StockTakeItemsAndPrices.SelectionChanged += new System.EventHandler(this.dgvx_StockTakeItemsAndPrices_SelectionChanged);
                 Set_StockTakeItems_Table_headers();
                 FillControls();
+                this.CalculateDifference();
                 return true;
             }
             return false;
@@ -655,13 +664,20 @@ namespace ShopC
             }
         }
 
-        private void btn_LockStockTake_Click(object sender, EventArgs e)
+        private void btn_CloseStockTake_Click(object sender, EventArgs e)
         {
             if (fs.IDisValid(StockTake_ID))
             {
-                if (XMessage.Box.Show(this, lngRPM.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (CalculateDifference() == 0)
                 {
-                    f_StockTake.Lock(StockTake_ID);
+                    if (XMessage.Box.Show(this, lngRPM.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        f_StockTake.Lock(StockTake_ID);
+                    }
+                }
+                else
+                {
+                    XMessage.Box.Show(this, false, lngRPM.s_YouCanNotLock_StockTakeIfSumNotMatch);
                 }
             }
         }
@@ -841,6 +857,84 @@ namespace ShopC
                     }
                 }
             }
+        }
+
+        internal decimal CalculateDifference()
+        {
+            if (fs.IDisValid(StockTake_ID))
+            {
+                object oTotalPrice = m_StockTakeTable.Value("StockTakePriceTotal");
+                decimal dTotalPrice = 0;
+                if (oTotalPrice is TangentaTableClass.StockTakePriceTotal)
+                {
+                    if (((TangentaTableClass.StockTakePriceTotal)oTotalPrice).defined)
+                    {
+                        dTotalPrice = ((TangentaTableClass.StockTakePriceTotal)oTotalPrice).val;
+                    }
+                }
+                decimal dTruckingCost = 0;
+                decimal dCustoms = 0;
+                object oTruckingCosts = m_StockTakeTable.Value("StockTake_$_trc_$$TruckingCost");
+                if (oTruckingCosts is TangentaTableClass.TruckingCost)
+                {
+                    if (((TangentaTableClass.TruckingCost)oTruckingCosts).defined)
+                    {
+                        dTruckingCost = ((TangentaTableClass.TruckingCost)oTruckingCosts).val;
+                    }
+                    
+                }
+                object oCustoms = m_StockTakeTable.Value("StockTake_$_trc_$$Customs");
+                if (oCustoms is TangentaTableClass.Customs)
+                {
+                    if (((TangentaTableClass.Customs)oCustoms).defined)
+                    {
+                        dCustoms = ((TangentaTableClass.Customs)oCustoms).val;
+                    }
+                }
+
+                decimal dItemsPrice = 0;
+                foreach (DataRow dr in dt_Stock_Of_Current_StockTake.Rows)
+                {
+                    decimal dQuantity = (decimal)dr["dQuantity"];
+                    decimal dPurchasePricePerUnit = (decimal)dr["PurchasePricePerUnit"];
+                    dItemsPrice += dQuantity * dPurchasePricePerUnit;
+                }
+                decimal dAdditionalCost = 0;
+                DataTable dtStockTake_AdditionalCost = new DataTable();
+                if (TangentaDB.f_StockTake_AdditionalCost.ReadDataTable(ref dtStockTake_AdditionalCost, StockTake_ID))
+                {
+                    foreach (DataRow dr in dtStockTake_AdditionalCost.Rows)
+                    {
+                        decimal addCost = (decimal)dr["Cost"];
+                        dAdditionalCost += addCost;
+                    }
+                }
+                decimal dTruckingCostPLUSdCustomsPLUSdAdditionalCost =  dTruckingCost + dCustoms + dAdditionalCost;
+                decimal difference = dTotalPrice - dTruckingCostPLUSdCustomsPLUSdAdditionalCost - dItemsPrice ;
+
+                ShowComputationOfDifference(dTotalPrice, dTruckingCostPLUSdCustomsPLUSdAdditionalCost, dItemsPrice,difference);
+                return difference;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        private void ShowComputationOfDifference(decimal dTotalPrice, decimal dTruckingCostPLUSdCustomsPLUSdAdditionalCost, decimal dItemsPrice, decimal difference)
+        {
+            txt_TotalPrice.Text = Convert.ToString(dTotalPrice);
+            txt_TruckingCustomsPlusAddtitional.Text = Convert.ToString(dTruckingCostPLUSdCustomsPLUSdAdditionalCost);
+            txt_ItemsPrice.Text = Convert.ToString(dItemsPrice);
+            if (difference != 0)
+            {
+                txt_Difference.BackColor = Color.LightPink;
+            }
+            else
+            {
+                txt_Difference.BackColor = Color.LightGreen;
+            }
+            txt_Difference.Text = Convert.ToString(difference);
         }
     }
 }
