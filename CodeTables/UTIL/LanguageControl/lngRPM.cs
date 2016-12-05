@@ -90,6 +90,7 @@ namespace LanguageControl
         public static ltext s_Startup_GetTaxation = new ltext("Reading default taxation", "Branje davčnih stopenj");
         public static ltext s_Startup_GetSimpleItemData = new ltext("Reading ShopB Items", "Branje artiklov/storitev trgovine B");
         public static ltext s_Startup_GetItemData = new ltext("Reading ShopC Items", "Branje artiklov/storitev trgovine C");
+        public static ltext s_Startup_GetPrinter = new ltext("Get Printers", "Nastavitve tiskanja");
         public static ltext s_Startup_Login = new ltext("Login", "Prijava");
 
 

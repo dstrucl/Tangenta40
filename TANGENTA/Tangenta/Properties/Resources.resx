@@ -271,7 +271,7 @@
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;Example 1&lt;/title&gt;
+    &lt;title&gt;Račun&lt;/title&gt;
     &lt;style&gt;
             .clearfix:after {
         content: "";
@@ -329,7 +329,7 @@
     #project span {
         color: #5D6975;
         text-align: right;
-        width: 52px;
+        width: 96px;
         margin-right: 10px;
         display: inline-block;
         font-size: 0.8em;
@@ -338,11 +338,13 @@
     #company {
         float: right;
         text-align: right;
+		font-size: 1.4em;
     }
 
     #project div,
     #company div {
         white-space: nowrap;        
+		font-size: 1.4em;
     }
 
     table {
@@ -369,8 +371,8 @@
         font-weight: normal;
     }
 
-    table .service,
-    table .desc {
+    table .item
+    {
         text-align: left;
     }
 
@@ -384,9 +386,14 @@
         vertical-align: top;
     }
 
-    table td.unit,
+    table td.priceperunit,
+    table td.discount,
     table td.qty,
-    table td.total {
+    table td.taxrate,
+    table td.price_neto,
+    table td.tax,
+    table td.price_with_tax
+    {
         font-size: 1.2em;
     }
 
@@ -409,91 +416,86 @@
         padding: 8px 0;
         text-align: center;
     }
-    &lt;/style&gt; /&gt;
+    &lt;/style&gt; 
   &lt;/head&gt;
   &lt;body&gt;
     &lt;header class="clearfix"&gt;
-      &lt;div id="logo"&gt;
-        &lt;!-- &lt;img src="logo.png"&gt;--&gt;
-      &lt;/div&gt;
-      &lt;h1&gt;INVOICE 3-2-1&lt;/h1&gt;
+      &lt;h1&gt;Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@)&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
-        &lt;div&gt;Organisation Name&lt;/div&gt;
-        &lt;div&gt;455 Foggy Heights,&lt;br /&gt; AZ 85004, US&lt;/div&gt;
-        &lt;div&gt;(602) 519-0450&lt;/div&gt;
-        &lt;div&gt;&lt;a href="mailto:company@example.com"&gt;company@example.com&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;IZDAJATELJ:(@@Moja_Organizacija_Ime@@)&lt;/div&gt;
+        &lt;div&gt;(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)&lt;/div&gt;
+        &lt;div&gt;Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) &lt;/div&gt;
+        &lt;div&gt;Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) &lt;/div&gt;
+        &lt;div&gt;Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) &lt;/div&gt;
+        &lt;div&gt;Oznaka blagajne:(@@Račun_OznakaBlagajne@@) &lt;/div&gt;
+        &lt;div&gt;Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;&lt;a href="email:(@@Moja_Organizacija_Email@@)"&gt;E-Pošta:(@@Moja_Organizacija_Email@@)&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;a href="http:(@@Moja_Organizacija_DomačaStran@@)"&gt;Domača stran:(@@Moja_Organizacija_DomačaStran@@)&lt;/a&gt;&lt;/div&gt;
       &lt;/div&gt;
       &lt;div id="project"&gt;
-        &lt;div&gt;&lt;span&gt;PROJECT&lt;/span&gt; Website development&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;CLIENT&lt;/span&gt; John Doe&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;ADDRESS&lt;/span&gt; 796 Silver Harbour, TX 79273, US&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;EMAIL&lt;/span&gt; &lt;a href="mailto:john@example.com"&gt;john@example.com&lt;/a&gt;&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;DATE&lt;/span&gt; August 17, 2015&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;DUE DATE&lt;/span&gt; September 17, 2015&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;NASLOVU&lt;/span&gt;(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;&lt;/span&gt;(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;&lt;/span&gt;(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;E-POŠTA&lt;/span&gt; &lt;a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)"&gt;(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;Datum rač.:&lt;/span&gt;(@@Račun_Datum_izdaje_računa@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;Datum zapadlosti:&lt;/span&gt;(@@Račun_Datum_zapadlosti_računa@@)&lt;/div&gt;
       &lt;/div&gt;
     &lt;/header&gt;
     &lt;main&gt;
       &lt;table&gt;
         &lt;thead&gt;
           &lt;tr&gt;
-            &lt;th class="service"&gt;SERVICE&lt;/th&gt;
-            &lt;th class="desc"&gt;DESCRIPTION&lt;/th&gt;
-            &lt;th&gt;PRICE&lt;/th&gt;
-            &lt;th&gt;QTY&lt;/th&gt;
-            &lt;th&gt;TOTAL&lt;/th&gt;
+            &lt;th class="item"&gt;Artikel ali storitev&lt;/th&gt;
+            &lt;th&gt;Cena na enoto&lt;/th&gt;
+	    &lt;th&gt;Popust&lt;/th&gt;
+            &lt;th&gt;Merska Enota&lt;/th&gt;
+            &lt;th&gt;Količina&lt;/th&gt;
+            &lt;th&gt;Davčna stopnja&lt;/th&gt;
+            &lt;th&gt;Cena brez DDV&lt;/th&gt;
+            &lt;th&gt;Davek DDV&lt;/th&gt;
+            &lt;th&gt;Cena z DDV&lt;/th&gt;
           &lt;/tr&gt;
         &lt;/thead&gt;
         &lt;tbody&gt;
-          &lt;tr&gt;
-            &lt;td class="service"&gt;Design&lt;/td&gt;
-            &lt;td class="desc"&gt;Creating a recognizable design solution based on the company's existing visual identity&lt;/td&gt;
-            &lt;td class="unit"&gt;$40.00&lt;/td&gt;
-            &lt;td class="qty"&gt;26&lt;/td&gt;
-            &lt;td class="total"&gt;$1,040.00&lt;/td&gt;
+          &lt;tr class="row"&gt;
+            &lt;td class="service"&gt;(@@Račun_StoritevAliArtikel_Ime@@)&lt;/td&gt;
+            &lt;td class="priceperunit"&gt;(@@Račun_StoritevAliArtikel_CenaNaEnoto@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="discount"&gt;(@@Račun_StoritevAliArtikel_CelotenPopust@@)&lt;/td&gt;
+            &lt;td class="unit"&gt;(@@Račun_StoritevAliArtikel_MerskaEnota@@)&lt;/td&gt;
+            &lt;td class="qty"&gt;(@@Račun_StoritevAliArtikel_Količina@@)&lt;/td&gt;
+            &lt;td class="taxrate"&gt;(@@Račun_StoritevAliArtikel_DavčnaStopnjaVProcentih@@)&lt;/td&gt;
+            &lt;td class="price_neto"&gt;(@@Račun_StoritevAliArtikel_Cena_Brez_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="tax"&gt;(@@Račun_StoritevAliArtikel_Davek@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="price_with_tax"&gt;(@@Račun_StoritevAliArtikel_Cena_z_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
-            &lt;td class="service"&gt;Development&lt;/td&gt;
-            &lt;td class="desc"&gt;Developing a Content Management System-based Website&lt;/td&gt;
-            &lt;td class="unit"&gt;$40.00&lt;/td&gt;
-            &lt;td class="qty"&gt;80&lt;/td&gt;
-            &lt;td class="total"&gt;$3,200.00&lt;/td&gt;
+            &lt;td colspan="4"&gt;SKUPAJ BREZ DAVKA&lt;/td&gt;
+            &lt;td class="total_neto"&gt;(@@Račun_CenaSkupajBrezDavka@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr class="taxsum"&gt;
+            &lt;td colspan="4"&gt;(@@Račun_ImeDavčneStopnje@@)&lt;/td&gt;
+            &lt;td class="tax_95"&gt;(@@Račun_DavekSkupaj@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
-            &lt;td class="service"&gt;SEO&lt;/td&gt;
-            &lt;td class="desc"&gt;Optimize the site for search engines (SEO)&lt;/td&gt;
-            &lt;td class="unit"&gt;$40.00&lt;/td&gt;
-            &lt;td class="qty"&gt;20&lt;/td&gt;
-            &lt;td class="total"&gt;$800.00&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td class="service"&gt;Training&lt;/td&gt;
-            &lt;td class="desc"&gt;Initial training sessions for staff responsible for uploading web content&lt;/td&gt;
-            &lt;td class="unit"&gt;$40.00&lt;/td&gt;
-            &lt;td class="qty"&gt;4&lt;/td&gt;
-            &lt;td class="total"&gt;$160.00&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td colspan="4"&gt;SUBTOTAL&lt;/td&gt;
-            &lt;td class="total"&gt;$5,200.00&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td colspan="4"&gt;TAX 25%&lt;/td&gt;
-            &lt;td class="total"&gt;$1,300.00&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td colspan="4" class="grand total"&gt;GRAND TOTAL&lt;/td&gt;
-            &lt;td class="grand total"&gt;$6,500.00&lt;/td&gt;
+            &lt;td colspan="4" class="grand total"&gt;Končna cena z davkom&lt;/td&gt;
+            &lt;td class="grand total"&gt;(@@Račun_KončnaCenaZDavkom@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
           &lt;/tr&gt;
         &lt;/tbody&gt;
       &lt;/table&gt;
-      &lt;div id="notices"&gt;
-        &lt;div&gt;NOTICE:&lt;/div&gt;
-        &lt;div class="notice"&gt;A finance charge of 1.5% will be made on unpaid balances after 30 days.&lt;/div&gt;
+      &lt;div id="FURS"&gt;
+        &lt;div&gt;FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"&lt;/div&gt;
+        &lt;div&gt;FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"&lt;/div&gt;
+		&lt;img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" /&gt;
       &lt;/div&gt;
+     &lt;!-- &lt;div id="notices"&gt;
+        &lt;div&gt;DOPIS&lt;/div&gt;
+        &lt;div class="notice"&gt;(@@Račun_Dopis@@)&lt;/div&gt;
+      &lt;/div&gt; --&gt;
     &lt;/main&gt;
-    &lt;footer&gt;
-      Invoice was created on a computer and is valid without the signature and seal.
-    &lt;/footer&gt;
+   &lt;!--   &lt;footer&gt;
+      (@@Račun_Noga@@)
+    &lt;/footer&gt;--&gt;
   &lt;/body&gt;
 &lt;/html&gt;</value>
   </data>
@@ -571,7 +573,7 @@
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;Example 1&lt;/title&gt;
+    &lt;title&gt;Račun&lt;/title&gt;
     &lt;style&gt;
             .clearfix:after {
         content: "";
@@ -629,7 +631,7 @@
     #project span {
         color: #5D6975;
         text-align: right;
-        width: 52px;
+        width: 96px;
         margin-right: 10px;
         display: inline-block;
         font-size: 0.8em;
@@ -638,11 +640,13 @@
     #company {
         float: right;
         text-align: right;
+		font-size: 1.4em;
     }
 
     #project div,
     #company div {
         white-space: nowrap;        
+		font-size: 1.4em;
     }
 
     table {
@@ -669,8 +673,8 @@
         font-weight: normal;
     }
 
-    table .service,
-    table .desc {
+    table .item
+    {
         text-align: left;
     }
 
@@ -684,9 +688,14 @@
         vertical-align: top;
     }
 
-    table td.unit,
+    table td.priceperunit,
+    table td.discount,
     table td.qty,
-    table td.total {
+    table td.taxrate,
+    table td.price_neto,
+    table td.tax,
+    table td.price_with_tax
+    {
         font-size: 1.2em;
     }
 
@@ -709,91 +718,86 @@
         padding: 8px 0;
         text-align: center;
     }
-    &lt;/style&gt; /&gt;
+    &lt;/style&gt; 
   &lt;/head&gt;
   &lt;body&gt;
     &lt;header class="clearfix"&gt;
-      &lt;div id="logo"&gt;
-        &lt;!-- &lt;img src="logo.png"&gt;--&gt;
-      &lt;/div&gt;
-      &lt;h1&gt;INVOICE 3-2-1&lt;/h1&gt;
+      &lt;h1&gt;Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@)&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
-        &lt;div&gt;Organisation Name&lt;/div&gt;
-        &lt;div&gt;455 Foggy Heights,&lt;br /&gt; AZ 85004, US&lt;/div&gt;
-        &lt;div&gt;(602) 519-0450&lt;/div&gt;
-        &lt;div&gt;&lt;a href="mailto:company@example.com"&gt;company@example.com&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;IZDAJATELJ:(@@Moja_Organizacija_Ime@@)&lt;/div&gt;
+        &lt;div&gt;(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)&lt;/div&gt;
+        &lt;div&gt;Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) &lt;/div&gt;
+        &lt;div&gt;Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) &lt;/div&gt;
+        &lt;div&gt;Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) &lt;/div&gt;
+        &lt;div&gt;Oznaka blagajne:(@@Račun_OznakaBlagajne@@) &lt;/div&gt;
+        &lt;div&gt;Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;&lt;a href="email:(@@Moja_Organizacija_Email@@)"&gt;E-Pošta:(@@Moja_Organizacija_Email@@)&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;a href="http:(@@Moja_Organizacija_DomačaStran@@)"&gt;Domača stran:(@@Moja_Organizacija_DomačaStran@@)&lt;/a&gt;&lt;/div&gt;
       &lt;/div&gt;
       &lt;div id="project"&gt;
-        &lt;div&gt;&lt;span&gt;PROJECT&lt;/span&gt; Website development&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;CLIENT&lt;/span&gt; John Doe&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;ADDRESS&lt;/span&gt; 796 Silver Harbour, TX 79273, US&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;EMAIL&lt;/span&gt; &lt;a href="mailto:john@example.com"&gt;john@example.com&lt;/a&gt;&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;DATE&lt;/span&gt; August 17, 2015&lt;/div&gt;
-        &lt;div&gt;&lt;span&gt;DUE DATE&lt;/span&gt; September 17, 2015&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;NASLOVU&lt;/span&gt;(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;&lt;/span&gt;(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;&lt;/span&gt;(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;E-POŠTA&lt;/span&gt; &lt;a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)"&gt;(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;Datum rač.:&lt;/span&gt;(@@Račun_Datum_izdaje_računa@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;Datum zapadlosti:&lt;/span&gt;(@@Račun_Datum_zapadlosti_računa@@)&lt;/div&gt;
       &lt;/div&gt;
     &lt;/header&gt;
     &lt;main&gt;
       &lt;table&gt;
         &lt;thead&gt;
           &lt;tr&gt;
-            &lt;th class="service"&gt;SERVICE&lt;/th&gt;
-            &lt;th class="desc"&gt;DESCRIPTION&lt;/th&gt;
-            &lt;th&gt;PRICE&lt;/th&gt;
-            &lt;th&gt;QTY&lt;/th&gt;
-            &lt;th&gt;TOTAL&lt;/th&gt;
+            &lt;th class="item"&gt;Artikel ali storitev&lt;/th&gt;
+            &lt;th&gt;Cena na enoto&lt;/th&gt;
+	    &lt;th&gt;Popust&lt;/th&gt;
+            &lt;th&gt;Merska Enota&lt;/th&gt;
+            &lt;th&gt;Količina&lt;/th&gt;
+            &lt;th&gt;Davčna stopnja&lt;/th&gt;
+            &lt;th&gt;Cena brez DDV&lt;/th&gt;
+            &lt;th&gt;Davek DDV&lt;/th&gt;
+            &lt;th&gt;Cena z DDV&lt;/th&gt;
           &lt;/tr&gt;
         &lt;/thead&gt;
         &lt;tbody&gt;
-          &lt;tr&gt;
-            &lt;td class="service"&gt;Design&lt;/td&gt;
-            &lt;td class="desc"&gt;Creating a recognizable design solution based on the company's existing visual identity&lt;/td&gt;
-            &lt;td class="unit"&gt;$40.00&lt;/td&gt;
-            &lt;td class="qty"&gt;26&lt;/td&gt;
-            &lt;td class="total"&gt;$1,040.00&lt;/td&gt;
+          &lt;tr class="row"&gt;
+            &lt;td class="service"&gt;(@@Račun_StoritevAliArtikel_Ime@@)&lt;/td&gt;
+            &lt;td class="priceperunit"&gt;(@@Račun_StoritevAliArtikel_CenaNaEnoto@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="discount"&gt;(@@Račun_StoritevAliArtikel_CelotenPopust@@)&lt;/td&gt;
+            &lt;td class="unit"&gt;(@@Račun_StoritevAliArtikel_MerskaEnota@@)&lt;/td&gt;
+            &lt;td class="qty"&gt;(@@Račun_StoritevAliArtikel_Količina@@)&lt;/td&gt;
+            &lt;td class="taxrate"&gt;(@@Račun_StoritevAliArtikel_DavčnaStopnjaVProcentih@@)&lt;/td&gt;
+            &lt;td class="price_neto"&gt;(@@Račun_StoritevAliArtikel_Cena_Brez_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="tax"&gt;(@@Račun_StoritevAliArtikel_Davek@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="price_with_tax"&gt;(@@Račun_StoritevAliArtikel_Cena_z_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
-            &lt;td class="service"&gt;Development&lt;/td&gt;
-            &lt;td class="desc"&gt;Developing a Content Management System-based Website&lt;/td&gt;
-            &lt;td class="unit"&gt;$40.00&lt;/td&gt;
-            &lt;td class="qty"&gt;80&lt;/td&gt;
-            &lt;td class="total"&gt;$3,200.00&lt;/td&gt;
+            &lt;td colspan="4"&gt;SKUPAJ BREZ DAVKA&lt;/td&gt;
+            &lt;td class="total_neto"&gt;(@@Račun_CenaSkupajBrezDavka@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr class="taxsum"&gt;
+            &lt;td colspan="4"&gt;(@@Račun_ImeDavčneStopnje@@)&lt;/td&gt;
+            &lt;td class="tax_95"&gt;(@@Račun_DavekSkupaj@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
           &lt;/tr&gt;
           &lt;tr&gt;
-            &lt;td class="service"&gt;SEO&lt;/td&gt;
-            &lt;td class="desc"&gt;Optimize the site for search engines (SEO)&lt;/td&gt;
-            &lt;td class="unit"&gt;$40.00&lt;/td&gt;
-            &lt;td class="qty"&gt;20&lt;/td&gt;
-            &lt;td class="total"&gt;$800.00&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td class="service"&gt;Training&lt;/td&gt;
-            &lt;td class="desc"&gt;Initial training sessions for staff responsible for uploading web content&lt;/td&gt;
-            &lt;td class="unit"&gt;$40.00&lt;/td&gt;
-            &lt;td class="qty"&gt;4&lt;/td&gt;
-            &lt;td class="total"&gt;$160.00&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td colspan="4"&gt;SUBTOTAL&lt;/td&gt;
-            &lt;td class="total"&gt;$5,200.00&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td colspan="4"&gt;TAX 25%&lt;/td&gt;
-            &lt;td class="total"&gt;$1,300.00&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td colspan="4" class="grand total"&gt;GRAND TOTAL&lt;/td&gt;
-            &lt;td class="grand total"&gt;$6,500.00&lt;/td&gt;
+            &lt;td colspan="4" class="grand total"&gt;Končna cena z davkom&lt;/td&gt;
+            &lt;td class="grand total"&gt;(@@Račun_KončnaCenaZDavkom@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
           &lt;/tr&gt;
         &lt;/tbody&gt;
       &lt;/table&gt;
-      &lt;div id="notices"&gt;
-        &lt;div&gt;NOTICE:&lt;/div&gt;
-        &lt;div class="notice"&gt;A finance charge of 1.5% will be made on unpaid balances after 30 days.&lt;/div&gt;
+      &lt;div id="FURS"&gt;
+        &lt;div&gt;FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"&lt;/div&gt;
+        &lt;div&gt;FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"&lt;/div&gt;
+		&lt;img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" /&gt;
       &lt;/div&gt;
+     &lt;!-- &lt;div id="notices"&gt;
+        &lt;div&gt;DOPIS&lt;/div&gt;
+        &lt;div class="notice"&gt;(@@Račun_Dopis@@)&lt;/div&gt;
+      &lt;/div&gt; --&gt;
     &lt;/main&gt;
-    &lt;footer&gt;
-      Invoice was created on a computer and is valid without the signature and seal.
-    &lt;/footer&gt;
+   &lt;!--   &lt;footer&gt;
+      (@@Račun_Noga@@)
+    &lt;/footer&gt;--&gt;
   &lt;/body&gt;
 &lt;/html&gt;</value>
   </data>

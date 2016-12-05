@@ -128,6 +128,8 @@ namespace Tangenta
                 new startup_step(lngRPM.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopB_ItemData,startup_step.eStep.GetSimpleItemData),
                 // GET SHOPC Item Data
                 new startup_step(lngRPM.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopC_ItemData,startup_step.eStep.GetItemData),
+                // GET Printer
+                new startup_step(lngRPM.s_Startup_GetPrinter.s,this.m_usrc_Main.Get_Printer,startup_step.eStep.GetPrinter),
                 // LOGIN
                 new startup_step(lngRPM.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod),
              };

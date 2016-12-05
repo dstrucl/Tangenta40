@@ -970,22 +970,20 @@ namespace TangentaDB
                                                     DataTable dt = new DataTable();
                                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                     {
-                                                        if (dt.Rows.Count == 1)
+                                                        if (dt.Rows.Count > 0)
                                                         {
                                                             IssueDate_v = DBTypes.tf.set_DateTime(dt.Rows[0]["EventTime"]);
+                                                            if (dt.Rows.Count != 1)
+                                                            {
+                                                                LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
+                                                            }
                                                         }
-                                                        else
-                                                        {
-                                                            LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:this error should not happen! EventTime for InvoiceTime must be defined!");
-                                                        }
-
                                                     }
                                                     else
                                                     {
                                                         LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:sql=" + sql + "\r\nERR=" + Err);
                                                     }
                                                 }
-
                                                 this.m_eType = eType.UNKNOWN;
                                             }
 

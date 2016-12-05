@@ -188,6 +188,21 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             }
         }
 
+        internal bool Get_Printer(startup myStartup, object oData, Navigation xnav, ref string Err)
+        {
+            //Insert default templates for Proforma Invoice and for 
+            if (f_doc.InsertDefault())
+            { 
+                myStartup.eNextStep++;
+                return true;
+            }
+            else
+            {
+               myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                return false;
+            }
+        }
+
         internal bool Initialise(Form main_Form)
         {
             Main_Form = main_Form;

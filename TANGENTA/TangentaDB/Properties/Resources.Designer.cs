@@ -65,7 +65,7 @@ namespace TangentaDB.Properties {
         ///&lt;html lang=&quot;en&quot;&gt;
         ///  &lt;head&gt;
         ///    &lt;meta charset=&quot;utf-8&quot;&gt;
-        ///    &lt;title&gt;Example 1&lt;/title&gt;
+        ///    &lt;title&gt;Račun&lt;/title&gt;
         ///    &lt;style&gt;
         ///            .clearfix:after {
         ///        content: &quot;&quot;;
@@ -85,7 +85,7 @@ namespace TangentaDB.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-serif [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_ENG_inv1_A4 {
             get {
@@ -98,7 +98,7 @@ namespace TangentaDB.Properties {
         ///&lt;html lang=&quot;en&quot;&gt;
         ///  &lt;head&gt;
         ///    &lt;meta charset=&quot;utf-8&quot;&gt;
-        ///    &lt;title&gt;Example 1&lt;/title&gt;
+        ///    &lt;title&gt;Račun&lt;/title&gt;
         ///    &lt;style&gt;
         ///            .clearfix:after {
         ///        content: &quot;&quot;;
@@ -118,7 +118,7 @@ namespace TangentaDB.Properties {
         ///        margin: 0 auto; 
         ///        color: #001028;
         ///        background: #FFFFFF; 
-        ///        font-family: Arial, sans-s [rest of string was truncated]&quot;;.
+        ///        font-family: Arial, sans-serif [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string htmlt_SLO_inv1_A4 {
             get {

@@ -22,6 +22,7 @@ namespace Startup
                                   SetShopsPricelists,
                                   GetSimpleItemData,
                                   GetItemData,
+                                  GetPrinter,
                                   GetWorkPeriod,
                                   End,
                                   Cancel,

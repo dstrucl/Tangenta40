@@ -25,8 +25,6 @@ namespace TangentaDB
 
         public static bool InsertDefault()
         {
-            string[] language_Names = new string[] { "English", "Slovene" };
-            string[] language_Descriptions = new string[] { "English", "Slovensko" };
 
 
 
@@ -89,50 +87,58 @@ namespace TangentaDB
             long[] doc_page_type_A4_ID = new long[2];
 
             int i =0;
-            for (i = 0; i < language_Names.Count(); i++)
+            for (i = 0; i < LanguageControl.DynSettings.s_language.sTextArr.Length; i++)
             {
-                string_v Description_v = new string_v(language_Descriptions[i]);
-                if (f_Language.Get(language_Names[i], Description_v, ref languageID[i]))
+                if (LanguageControl.DynSettings.s_language.sTextArr[i] != null)
                 {
-                    long_v Language_ID_v = new long_v(languageID[i]);
-                    byte[] xDoc = null;
-                    if (i == 0)
+                    string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
+                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, ref languageID[i]))
                     {
-                        xDoc = fs.GetBytes(Properties.Resources.htmlt_ENG_inv1_A4);
+                        long_v Language_ID_v = new long_v(languageID[i]);
+                        byte[] xDoc = null;
+
+                        if (i == 0)
+                        {
+                            byte[] bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_ENG_inv1_A4);
+                            string myString = Encoding.UTF8.GetString(bytes);
+                            xDoc = fs.GetBytes(myString);
+                        }
+                        else
+                        {
+                            byte[] bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_SLO_inv1_A4);
+                            string myString = Encoding.UTF8.GetString(bytes);
+                            xDoc = fs.GetBytes(myString);
+                        }
+                        long doc_page_type_ID = 0;
+                        long doc_type_ID = 0;
+                        long doc_ID = 0;
+                        if (!Get(Language_ID_v,
+                                 doc_page_type_A4_Name[i],
+                                 doc_page_type_A4_Description[i],
+                                   210,
+                                   297,
+                                   ref doc_page_type_ID,
+                                   doc_type_Html_Invoice_Template_A4_Name[i],
+                                   doc_type_Html_Invoice_Template_A4_Description[i],
+                                   ref doc_type_ID,
+                                   doc_Html_Invoice_Template_A4_Name[i],
+                                   doc_Html_Invoice_Template_A4_Description[i],
+                                   xDoc,
+                                   true,
+                                   true,
+                                   true,
+                                   ref doc_ID
+                                   )
+                            )
+                        {
+                            return false;
+                        }
+
                     }
                     else
                     {
-                        xDoc = fs.GetBytes(Properties.Resources.htmlt_SLO_inv1_A4);
-                    }
-                    long doc_page_type_ID = 0;
-                    long doc_type_ID = 0;
-                    long doc_ID = 0;
-                    if (!Get(Language_ID_v,
-                             doc_page_type_A4_Name[i],
-                             doc_page_type_A4_Description[i],
-                               210,
-                               297,
-                               ref doc_page_type_ID,
-                               doc_type_Html_Invoice_Template_A4_Name[i],
-                               doc_type_Html_Invoice_Template_A4_Description[i],
-                               ref doc_type_ID,
-                               doc_Html_Invoice_Template_A4_Name[i],
-                               doc_Html_Invoice_Template_A4_Description[i],
-                               xDoc,
-                               true,
-                               true,
-                               false,
-                               ref doc_ID
-                               )
-                        )
-                    {
                         return false;
                     }
-
-                }
-                else
-                {
-                    return false;
                 }
             }
             return true;
@@ -244,6 +250,10 @@ namespace TangentaDB
                         SQL_Parameter par_xDocument = new SQL_Parameter(spar_xDocument, SQL_Parameter.eSQL_Parameter.Varbinary, false, byte_data);
                         lpar.Add(par_xDocument);
 
+                        string spar_bDefault = "@par_bDefault";
+                        SQL_Parameter par_bDefault = new SQL_Parameter(spar_bDefault, SQL_Parameter.eSQL_Parameter.Bit, false, Default);
+                        lpar.Add(par_bDefault);
+
                         sql = @"insert into doc (Name,
                                                  Description,
                                                  xDocument,
@@ -259,7 +269,7 @@ namespace TangentaDB
                                                   + spar_xDocument_HASH + ","
                                                   + sval_doc_type_ID + ","
                                                   + sCompressed +@",
-                                                  1,0)";
+                                                  1,"+ spar_bDefault + ")";
                         object oret = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_ID, ref oret, ref Err, "doc"))
                         {

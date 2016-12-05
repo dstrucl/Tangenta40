@@ -44,9 +44,15 @@ namespace Tangenta
                 {
                     try
                     {
-                        char[] chars = Encoding.UTF8.GetChars(m_Doc);
-                        string s = new string(chars);
-                        return s;
+                        //char[] chars = Encoding.UTF8.GetChars(m_Doc);
+                        //string s = new string(chars);
+                        char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
+                        string s2 = new string(chars2);
+                        //char[] charsASCII = Encoding.ASCII.GetChars(m_Doc);
+                        //string scharsASCII = new string(charsASCII);
+                        //char[] charsBigEndianUnicode = Encoding.BigEndianUnicode.GetChars(m_Doc);
+                        //string scharsBigEndianUnicode = new string(charsBigEndianUnicode);
+                        return s2;
                     }
                     catch
                     {
