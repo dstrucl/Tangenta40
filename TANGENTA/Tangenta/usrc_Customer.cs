@@ -108,10 +108,10 @@ namespace Tangenta
                     Customer_OrganisationData_ID_v = new long_v();
                 }
                 Customer_OrganisationData_ID_v.v = Customer_Org_dlg.Customer_OrganisationData_ID;
-                if (aa_Customer_Person_Changed != null)
+                if (aa_Customer_Org_Changed != null)
                 {
                     Program.Cursor_Wait();
-                    aa_Customer_Person_Changed(Customer_OrganisationData_ID_v.v);
+                    aa_Customer_Org_Changed(Customer_OrganisationData_ID_v.v);
                     Program.Cursor_Arrow();
                 }
             }

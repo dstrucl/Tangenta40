@@ -41,11 +41,11 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        public Form_Customer_Org_Assign(long xOorganisationData_ID)
+        public Form_Customer_Org_Assign(long xCustomer_OrganisationData_ID)
         {
             // TODO: Complete member initialization
             InitializeComponent();
-            this.OrganisationData_ID = xOorganisationData_ID;
+            this.CustomerOrganisationData_ID = xCustomer_OrganisationData_ID;
             this.lbl_Instruction_part1.Text = lngRPM.s_DoYouWantCustomer.s;
             this.lbl_Instruction_part2.Text = lngRPM.s_WriteOnYourAccount.s;
             this.btn_Yes.Text = lngRPM.s_Yes.s;
@@ -58,37 +58,38 @@ namespace Tangenta
         {
             DataTable dt = new DataTable();
             string sql = @"select 
-                            OrganisationData_$_org_$$Name,
-                            OrganisationData_$_org_$$Tax_ID,
-                            OrganisationData_$_org_$$Registration_ID,
-                            OrganisationData_$_cphnnorg_$$PhoneNumber,
-                            OrganisationData_$_cfaxnorg_$$FaxNumber,
-                            OrganisationData_$_cadrorg_$_cstrnorg_$$StreetName,
-                            OrganisationData_$_cadrorg_$_chounorg_$$HouseNumber,
-                            OrganisationData_$_cadrorg_$_cziporg_$$ZIP,
-                            OrganisationData_$_cadrorg_$_ccitorg_$$City,
-                            OrganisationData_$_cadrorg_$_cstorg_$$State,
-                            OrganisationData_$_cadrorg_$_ccouorg_$$Country,
-                            OrganisationData.ID
-                            from OrganisationData_VIEW where ID = " + OrganisationData_ID.ToString();
+                            Customer_Org_$_orgd_$_org_$$Name,
+                            Customer_Org_$_orgd_$_org_$$Tax_ID,
+                            Customer_Org_$_orgd_$_org_$$Registration_ID,
+                            Customer_Org_$_orgd_$_cphnnorg_$$PhoneNumber,
+                            Customer_Org_$_orgd_$_cfaxnorg_$$FaxNumber,
+                            Customer_Org_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
+                            Customer_Org_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
+                            Customer_Org_$_orgd_$_cadrorg_$_cziporg_$$ZIP,
+                            Customer_Org_$_orgd_$_cadrorg_$_ccitorg_$$City,
+                            Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$State,
+                            Customer_Org_$_orgd_$_cadrorg_$_ccouorg_$$Country,
+                            Customer_Org_$_orgd_$$ID,
+                            ID
+                            from Customer_Org_VIEW where ID = " + CustomerOrganisationData_ID.ToString();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt,sql, ref Err))
             {
                 if (dt.Rows.Count>0)
                 {
-                    this.Name = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_org_$$Name"]);
-                    this.Tax_ID = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_org_$$Tax_ID"]);
-                    this.Registration_ID = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_org_$$Registration_ID"]);
-                    this.PhoneNumber = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_cphnnorg_$$PhoneNumber"]);
-                    this.FaxNumber = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_cfaxnorg_$$FaxNumber"]);
-                    this.StreetName = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstrnorg_$$StreetName"]);
-                    this.HouseNumber = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_chounorg_$$HouseNumber"]);
-                    this.ZIP = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cziporg_$$ZIP"]);
-                    this.City = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccitorg_$$City"]);
-                    this.State = DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstorg_$$State"]);
-                    this.Country= DBTypes.tf._set_string(dt.Rows[0]["OrganisationData_$_cadrorg_$_ccouorg_$$Country"]);
+                    this.Name = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_org_$$Name"]);
+                    this.Tax_ID = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_org_$$Tax_ID"]);
+                    this.Registration_ID = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_org_$$Registration_ID"]);
+                    this.PhoneNumber = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cphnnorg_$$PhoneNumber"]);
+                    this.FaxNumber = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cfaxnorg_$$FaxNumber"]);
+                    this.StreetName = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName"]);
+                    this.HouseNumber = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber"]);
+                    this.ZIP = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_cziporg_$$ZIP"]);
+                    this.City = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_ccitorg_$$City"]);
+                    this.State = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_cstorg_$$State"]);
+                    this.Country= DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cadrorg_$_ccouorg_$$Country"]);
 
-                    OrganisationData_ID = (long)dt.Rows[0]["ID"];
+                    OrganisationData_ID = (long)dt.Rows[0]["Customer_Org_$_orgd_$$ID"];
 
                     lbl_Org.Text = "";
                     if (this.Name != null)
