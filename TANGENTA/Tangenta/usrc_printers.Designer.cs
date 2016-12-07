@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class usrc_Printer
+    partial class usrc_printers
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Printer = new System.Windows.Forms.Button();
+            this.btn_Printers = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btn_Printer
+            // btn_Printers
             // 
-            this.btn_Printer.Image = global::Tangenta.Properties.Resources.PrinterSettings;
-            this.btn_Printer.Location = new System.Drawing.Point(2, 0);
-            this.btn_Printer.Name = "btn_Printer";
-            this.btn_Printer.Size = new System.Drawing.Size(39, 28);
-            this.btn_Printer.TabIndex = 0;
-            this.btn_Printer.UseVisualStyleBackColor = true;
-            this.btn_Printer.Click += new System.EventHandler(this.btn_Printer_Click);
+            this.btn_Printers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Printers.Image = global::Tangenta.Properties.Resources.Printers;
+            this.btn_Printers.Location = new System.Drawing.Point(0, 0);
+            this.btn_Printers.Name = "btn_Printers";
+            this.btn_Printers.Size = new System.Drawing.Size(46, 30);
+            this.btn_Printers.TabIndex = 0;
+            this.btn_Printers.UseVisualStyleBackColor = true;
             // 
-            // usrc_Printer
+            // usrc_printers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btn_Printer);
-            this.Name = "usrc_Printer";
-            this.Size = new System.Drawing.Size(263, 28);
+            this.Controls.Add(this.btn_Printers);
+            this.Name = "usrc_printers";
+            this.Size = new System.Drawing.Size(46, 30);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public System.Windows.Forms.Button btn_Printer;
+        private System.Windows.Forms.Button btn_Printers;
     }
 }

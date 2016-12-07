@@ -56,7 +56,7 @@ namespace TangentaDB
 
         public int DraftNumber;
 
-        public long DocInvoice_ID;
+        public long Doc_ID;
 
         // DocInvoice
         public CurrentInvoice.TaxInvoice TInvoice = new CurrentInvoice.TaxInvoice();
@@ -93,7 +93,7 @@ namespace TangentaDB
             DBtcn = xDBtcn;
             FinancialYear = DateTime.Now.Year;
             NumberInFinancialYear = 1;
-            DocInvoice_ID = -1;
+            Doc_ID = -1;
         }
 
 
@@ -317,7 +317,7 @@ namespace TangentaDB
                                                                     RetailPriceWithDiscount,
                                                                     TaxPrice
                                                                     from "+DocInvoice+@"_ShopC_Item
-                                                                    where "+DocInvoice+@"_ID = " + DocInvoice_ID.ToString() + @" and
+                                                                    where "+DocInvoice+@"_ID = " + Doc_ID.ToString() + @" and
                                                                             Atom_Price_Item_ID = " + Atom_Price_Item_ID.ToString() + @" and "
                                                                                     + scond_ExpiryDate + @" and "
                                                                                     + scond_Stock_ID;
@@ -357,7 +357,7 @@ namespace TangentaDB
                                                                             " + spar_ExtraDiscount + @",
                                                                             " + spar_RetailPriceWithDiscount + @",
                                                                             " + spar_TaxPrice + @",
-                                                                            " + DocInvoice_ID.ToString() + @",
+                                                                            " + Doc_ID.ToString() + @",
                                                                             " + Atom_Price_Item_ID.ToString() + @",
                                                                             " + sValue_ExpiryDate + @", 
                                                                             " + sValue_Stock_ID
@@ -394,6 +394,53 @@ namespace TangentaDB
             {
                 return false;
             }
+        }
+
+        internal bool SaveDocProformaInvoice(ref long xDocProformaInvoice_ID, GlobalData.ePaymentType ePaymentType, long MethodOfPayment_ID, long docDuration, long docDurationType, long termsOfPayment_ID, ref int xNumberInFinancialYear)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_PrintTime = "@par_PrintTime";
+            DateTime dtnow = DateTime.Now;
+            SQL_Parameter par_PrintTime = new SQL_Parameter(spar_PrintTime, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Datetime, false, dtnow);
+            lpar.Add(par_PrintTime);
+            string spar_docDuration = "@par_docDuration";
+            SQL_Parameter par_docDuration = new SQL_Parameter(spar_docDuration, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, docDuration);
+            lpar.Add(par_docDuration);
+            string spar_docDurationType = "@par_docDurationType";
+            SQL_Parameter par_docDurationType = new SQL_Parameter(spar_docDurationType, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, docDurationType);
+            lpar.Add(par_docDurationType);
+            string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
+            SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, termsOfPayment_ID);
+            lpar.Add(par_TermsOfPayment_ID);
+            string spar_MethodOfPayment_ID = "@par_MethodOfPayment_ID";
+            SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_ID);
+            lpar.Add(par_MethodOfPayment_ID);
+
+
+            string sql = null;
+            object ores = null;
+            string Err = null;
+            if (GetNewNumberInFinancialYear())
+            {
+                xNumberInFinancialYear = NumberInFinancialYear;
+                sql = @"update DocProformaInvoice set Draft =0,
+                        NumberInFinancialYear = " + NumberInFinancialYear.ToString() 
+                        + ", DocDuration = " + spar_docDuration
+                        + ", DocDurationType = " + spar_docDurationType 
+                        + ", TermsOfPayment_ID = " + spar_TermsOfPayment_ID 
+                        + ", MethodOfPayment_ID = " + spar_MethodOfPayment_ID 
+                        +"  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                {
+                    xDocProformaInvoice_ID = Doc_ID;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:SaveDocProformaInvoice:sql=" + sql+"\r\nErr=" + Err);
+                }
+            }
+            return false;
         }
 
         private bool Get_Atom_Price_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
@@ -959,7 +1006,7 @@ namespace TangentaDB
 
         public bool Update_Customer_Remove()
         {
-            string sql = "update DocInvoice set Atom_Customer_Org_ID = null,Atom_Customer_Person_ID = null where ID = " + this.DocInvoice_ID.ToString();
+            string sql = "update DocInvoice set Atom_Customer_Org_ID = null,Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
             string Err = null;
             object ores = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
@@ -1392,7 +1439,6 @@ namespace TangentaDB
                 return true;
             }
 
-
         }
 
         private bool Get_Atom_Item_Name(string_v Item_Name, ref long Atom_Item_Name_ID)
@@ -1449,7 +1495,7 @@ namespace TangentaDB
             if (sIn_ID_list != null)
             {
                 sIn_ID_list += ")";
-                string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where (DocInvoice_ID = " + DocInvoice_ID.ToString() + ") and DocInvoice_ShopC_Item.Stock_ID is null and Atom_Price_Item_ID in " + sIn_ID_list;
+                string sql_Delete_DocInvoice_Atom_Item_Stock = "delete from DocInvoice_ShopC_Item where (DocInvoice_ID = " + Doc_ID.ToString() + ") and DocInvoice_ShopC_Item.Stock_ID is null and Atom_Price_Item_ID in " + sIn_ID_list;
                 object objret = null;
                 string Err = null;
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql_Delete_DocInvoice_Atom_Item_Stock, null, ref objret, ref Err))
@@ -1499,7 +1545,7 @@ namespace TangentaDB
             }
         }
 
-        public bool Save(ref long xDocInvoice_ID, GlobalData.ePaymentType ePaymentType, string p1, string p2, string p3, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(ref long xDocInvoice_ID, GlobalData.ePaymentType ePaymentType, string p1, string p2, string p3, ref int xNumberInFinancialYear)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_PrintTime = "@par_PrintTime";
@@ -1512,10 +1558,10 @@ namespace TangentaDB
             if (GetNewNumberInFinancialYear())
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
-                sql = "update DocInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + DocInvoice_ID.ToString(); // Close Proforma Invoice
+                sql = "update DocInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
                 {
-                    xDocInvoice_ID = DocInvoice_ID;
+                    xDocInvoice_ID = Doc_ID;
                     return true;
                 }
                 else
@@ -1574,7 +1620,7 @@ namespace TangentaDB
             {
                 if (xAtom_Customer_Person_ID_v != null)
                 {
-                    string sql = "update "+DocInvoice+" set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID_v.v.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.DocInvoice_ID.ToString();
+                    string sql = "update "+DocInvoice+" set Atom_Customer_Person_ID = " + xAtom_Customer_Person_ID_v.v.ToString() + ",Atom_Customer_Org_ID = null where ID = " + this.Doc_ID.ToString();
                     string Err = null;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
@@ -1602,7 +1648,7 @@ namespace TangentaDB
             {
                 if (xAtom_Customer_Org_ID_v != null)
                 {
-                    string sql = "update "+DocInvoice+" set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID_v.v.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.DocInvoice_ID.ToString();
+                    string sql = "update "+DocInvoice+" set Atom_Customer_Org_ID = " + xAtom_Customer_Org_ID_v.v.ToString() + ",Atom_Customer_Person_ID = null where ID = " + this.Doc_ID.ToString();
                     string Err = null;
                     object ores = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
@@ -1632,7 +1678,7 @@ namespace TangentaDB
             if (issue_time != null)
             {
                 long Journal_DocInvoice_ID = -1;
-                return f_Journal_DocInvoice.Write(this.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
+                return f_Journal_DocInvoice.Write(this.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
             }
             else
             {
@@ -1672,7 +1718,7 @@ namespace TangentaDB
                         Paid,
                         Storno,
                         Invoice_Reference_ID,
-                        Invoice_Reference_Type from DocInvoice where DocInvoice.ID  = " + DocInvoice_ID.ToString();
+                        Invoice_Reference_Type from DocInvoice where DocInvoice.ID  = " + Doc_ID.ToString();
             if (DBSync.DBSync.ReadDataTable(ref dt_ProfInv, sql, ref Err))
             {
                 int_v DraftNumber_v = tf.set_int(dt_ProfInv.Rows[0]["DraftNumber"]);
@@ -1695,7 +1741,7 @@ namespace TangentaDB
                 GetNewNumberInFinancialYear(ref iNewNumberInFinancialYear);
                 int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
 
-                long_v Storno_Invoice_ID_v = new long_v(DocInvoice_ID);
+                long_v Storno_Invoice_ID_v = new long_v(Doc_ID);
 
                 NetSum_v.v = -NetSum_v.v;
                 TaxSum_v.v = -TaxSum_v.v;
@@ -1759,7 +1805,7 @@ namespace TangentaDB
                             }
                             sql = " update Docinvoice set Storno  = " + sBit + @",
                                                    Invoice_Reference_ID = " + Storno_DocInvoice_ID.ToString() + @",
-                                                   Invoice_Reference_Type = 'STORNO' where ID = " + this.DocInvoice_ID.ToString();
+                                                   Invoice_Reference_Type = 'STORNO' where ID = " + this.Doc_ID.ToString();
 
                         if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                         {
@@ -1836,9 +1882,9 @@ namespace TangentaDB
         {
             int iCount = 0;
             string Err = null;
-            string sql = "select '"+DocInvoice+"_ShopA_Item' as "+DocInvoice+"_ShopA_Item, count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopA_Item where " + DocInvoice + "_ID = " + DocInvoice_ID.ToString()
-                        + " UNION ALL select '" + DocInvoice + "_ShopB_Item' as " + DocInvoice + "_ShopB_Item,count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopB_Item where " + DocInvoice + "_ID = " + DocInvoice_ID.ToString()
-                        + " UNION ALL select '" + DocInvoice + "_ShopC_Item' as " + DocInvoice + "_ShopC_Item,count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopC_Item where " + DocInvoice + "_ID = " + DocInvoice_ID.ToString();
+            string sql = "select '"+DocInvoice+"_ShopA_Item' as "+DocInvoice+"_ShopA_Item, count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopA_Item where " + DocInvoice + "_ID = " + Doc_ID.ToString()
+                        + " UNION ALL select '" + DocInvoice + "_ShopB_Item' as " + DocInvoice + "_ShopB_Item,count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopB_Item where " + DocInvoice + "_ID = " + Doc_ID.ToString()
+                        + " UNION ALL select '" + DocInvoice + "_ShopC_Item' as " + DocInvoice + "_ShopC_Item,count(ID) AS " + DocInvoice + "_Items_Count from " + DocInvoice + "_ShopC_Item where " + DocInvoice + "_ID = " + Doc_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {

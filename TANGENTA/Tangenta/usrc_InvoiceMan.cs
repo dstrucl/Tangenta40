@@ -335,6 +335,13 @@ namespace Tangenta
             this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear);
         }
 
+        private void m_usrc_Invoice_DocProformaInvoiceSaved(long DocProformaInvoice_id)
+        {
+            splitContainer1.Panel2Collapsed = false;
+            SetMode(eMode.Shops_and_InvoiceTable);
+            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, false, Properties.Settings.Default.FinancialYear);
+        }
+
         private void m_usrc_InvoiceTable_SelectedInvoiceChanged(long DocInvoice_ID,bool bInitialise)
         {
             if (DocInvoice_ID >= 0)

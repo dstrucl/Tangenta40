@@ -94,6 +94,9 @@ namespace Tangenta
         public delegate void delegate_DocInvoiceSaved(long DocInvoice_id);
         public event delegate_DocInvoiceSaved aa_DocInvoiceSaved;
 
+        public delegate void delegate_DocProformaInvoiceSaved(long DocProformaInvoice_id);
+        public event delegate_DocProformaInvoiceSaved aa_DocProformaInvoiceSaved;
+
         public delegate void delegate_Customer_Person_Changed(long Customer_Person_ID);
         public event delegate_Customer_Person_Changed aa_Customer_Person_Changed = null;
 
@@ -1959,7 +1962,7 @@ do_EditMyOrganisation_Data:
             string Err = null;
             if (m_ShopABC.SetNewDraft_DocInvoice(FinancialYear, this, ref DocInvoice_ID, Last_myOrganisation_Person_id,this.DocInvoice, ref Err))
             {
-                if (m_ShopABC.m_CurrentInvoice.DocInvoice_ID >= 0)
+                if (m_ShopABC.m_CurrentInvoice.Doc_ID >= 0)
                 {
                     this.txt_Number.Text = m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "/" + m_ShopABC.m_CurrentInvoice.DraftNumber.ToString();
                     SetMode(emode.edit_eInvoiceType);
@@ -2140,7 +2143,7 @@ do_EditMyOrganisation_Data:
             DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
             lpar.Add(par_NetSum);
 
-            string sql_SetPrice = "update "+this.DocInvoice+" set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.DocInvoice_ID.ToString();
+            string sql_SetPrice = "update "+this.DocInvoice+" set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + m_ShopABC.m_CurrentInvoice.Doc_ID.ToString();
             object ores = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
@@ -2176,7 +2179,7 @@ do_EditMyOrganisation_Data:
                             // print draft invoice
                             if (UpdateInvoicePriceInDraft())
                             {
-                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.DocInvoice_ID, Program.b_FVI_SLO,Properties.Settings.Default.ElectronicDevice_ID);
+                                m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO,Properties.Settings.Default.ElectronicDevice_ID);
                                 if (m_InvoiceData.Read_DocInvoice(DocInvoice)) // read Proforma Invoice again from DataBase
                                 {
                                     if (m_InvoiceData.FURS_QR_v != null)
@@ -2186,12 +2189,24 @@ do_EditMyOrganisation_Data:
 
                                     }
 
-                                    Form_Payment payment_frm = new Form_Payment(m_InvoiceData);
-                                    if (payment_frm.ShowDialog() == DialogResult.OK)
+                                    if (IsDocInvoice)
                                     {
-                                        if (aa_DocInvoiceSaved != null)
+                                        if (usrc_MethodOfPayment_Data1.GetMethodOfPaymentForDocInvoice(m_InvoiceData))
                                         {
-                                            aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.DocInvoice_ID);
+                                            if (aa_DocInvoiceSaved != null)
+                                            {
+                                                aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                                            }
+                                        }
+                                    }
+                                    else if (IsDocProformaInvoice)
+                                    {
+                                        if (usrc_MethodOfPayment_Data1.GetMethodOfPaymentForDocProformaInvoice(m_InvoiceData))
+                                        {
+                                            if (aa_DocProformaInvoiceSaved != null)
+                                            {
+                                                aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                                            }
                                         }
                                     }
                                 }
@@ -2199,7 +2214,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.DocInvoice_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
+                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
                             if (m_InvoiceData.Read_DocInvoice(DocInvoice)) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (m_InvoiceData.FURS_QR_v != null)
@@ -2259,7 +2274,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (MessageBox.Show(this, lngRPM.s_Invoice.s + ": " + txt_Number.Text + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
-                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentInvoice.DocInvoice_ID);
+                            Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentInvoice.Doc_ID);
 
                             if (frm_storno_dlg.ShowDialog()==DialogResult.Yes)
                             {
@@ -2380,6 +2395,14 @@ do_EditMyOrganisation_Data:
             EditMyOrganisation_Data(false, nav_EditMyOrganisation_Data);
         }
 
+        private void usrc_Payment_Data1_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        private void usrc_MethodOfPayment_Data1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

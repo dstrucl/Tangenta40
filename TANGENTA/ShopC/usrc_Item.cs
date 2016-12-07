@@ -344,7 +344,8 @@ namespace ShopC
                             //Mode = eMode.NONE;
                             btn_NoStock.Visible = false;
                             this.nmUpDn_StockQuantity.Visible = false;
-                            this.nmUpDn_FactoryQuantity.Visible = true;
+                            //this.nmUpDn_FactoryQuantity.Visible = true;
+                            this.nmUpDn_FactoryQuantity.Visible = false;
                         }
                     }
                     else
@@ -433,7 +434,7 @@ namespace ShopC
         {
             //appisd.Set(this, ref m_usrc_Atom_ItemsList.m_InvoiceDB.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST, false);
             Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-            m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.DocInvoice_ID,
+            m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.Doc_ID,
                                                                         this,
                                                                         m_Item_Data,
                                                                         nmUpDn_FactoryQuantity.Value,
@@ -460,7 +461,7 @@ namespace ShopC
                 if (EditStock_AvoidStock())
                 {
                     Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-                    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.DocInvoice_ID,
+                    m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.Doc_ID,
                                                                                    this,
                                                                                    m_Item_Data,
                                                                                    nmUpDn_FactoryQuantity.Value,
@@ -480,7 +481,7 @@ namespace ShopC
             else
             {
                 Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd = null;
-                m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.DocInvoice_ID,
+                m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.m_Basket.Add(m_usrc_Atom_ItemsList.m_ShopBC.m_CurrentInvoice.Doc_ID,
                                                                                 this,
                                                                                 m_Item_Data,
                                                                                 nmUpDn_FactoryQuantity.Value,

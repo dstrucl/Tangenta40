@@ -45,7 +45,7 @@ namespace Tangenta
         {
 
             m_InvoiceData = xInvoiceData;
-            DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.DocInvoice_ID;
+            DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.Doc_ID;
             lbl_Invoice_value.Text = InvoiceNumber;
             btn_Print.Text = lngRPM.s_Print.s;
             return ShowJournal();

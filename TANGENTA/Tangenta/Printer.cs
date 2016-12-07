@@ -17,7 +17,8 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
-
+using TangentaDB;
+using DBTypes;
 
 namespace Tangenta
 {
@@ -26,6 +27,43 @@ namespace Tangenta
         public enum eCharacterSet { Slovenia_Croatia, USA };
         public bool m_PrintInBuffer = false;
         private string PrintBuffer = null;
+
+
+        private string m_PrinterName = null;
+        private string m_PaperName = null;
+
+
+        public InvoiceData m_InvoiceData = null;
+        public StaticLib.TaxSum taxSum = null;
+
+
+
+        float cx_paper_in_inch = 0;
+        float cy_paper_in_inch = 0;
+
+        int cx_paper_on_screen_in_pixels = 0;
+        int cy_paper_on_screen_in_pixels = 0;
+
+        public string PaperName
+        {
+            get
+            {
+                return m_PaperName;
+            }
+            set
+            {
+                m_PaperName = value;
+                if (m_PaperName != null)
+                {
+                    //lbl_PaperName_Value.Text = m_PaperName;
+                }
+            }
+        }
+
+        public string HT = "\x09"; //CarriageReturn
+        [DllImport("gdi32.dll")]
+        static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
 
         public bool PrintInBuffer
         {
@@ -66,7 +104,6 @@ namespace Tangenta
         EscPos_RP80 ep_RP80 = new EscPos_RP80();
         EscPos_Star_TSP100 ep_Star_TSP100 = new EscPos_Star_TSP100();
         object print_ESC_POS_device = null;
-        private string m_PrinterName = "";
 
 
         public class RawPrinterHelper
@@ -163,6 +200,22 @@ namespace Tangenta
                 return true;
             }
         }
+
+        internal void Print_Receipt(InvoiceData xInvoiceData, GlobalData.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time,
+                                    NavigationButtons.Navigation nav)
+        {
+
+            if (Printer_is_ESC_POS())
+            {
+                Print_Receipt_ESC_POS(xInvoiceData, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+            }
+            else
+            {
+                Form_Print_A4 print_A4_dlg = new Form_Print_A4(xInvoiceData, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time, nav);
+                print_A4_dlg.ShowDialog();
+            }
+        }
+
 
 
         public string PrinterName
@@ -773,6 +826,448 @@ namespace Tangenta
                 return false;
             }
             return true;
+        }
+
+        private bool Printer_is_ESC_POS()
+        {
+            string[] esc_pos_printer_ident = new string[] { "RP80", "RP58", "TSP100" };
+            foreach (string prn_ident in esc_pos_printer_ident)
+            {
+                if (PrinterName.Contains(prn_ident))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal void Print_Receipt_ESC_POS(InvoiceData xInvoiceData, GlobalData.ePaymentType PaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        {
+
+
+            //ReceiptPrinter.Print(ep.InitializePrinter());
+            long journal_docinvoice_id = -1;
+
+            try
+            {
+
+                if (InitializePrinter())
+                {
+
+                }
+                if (PrintInBuffer)
+                {
+                    Clear();
+                }
+
+                if (xInvoiceData.MyOrganisation.Logo_Data != null)
+                {
+                    this.wr_BitmapByteArray570x570imagesize(xInvoiceData.MyOrganisation.Logo_Data);
+                }
+
+                wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
+                wr_Paragraph(xInvoiceData.MyOrganisation.Name);
+                wr_Paragraph(xInvoiceData.MyOrganisation.Address.StreetName + " " + xInvoiceData.MyOrganisation.Address.HouseNumber);
+                wr_Paragraph(xInvoiceData.MyOrganisation.Address.ZIP + " " + xInvoiceData.MyOrganisation.Address.City);
+                if (xInvoiceData.MyOrganisation.HomePage != null)
+                {
+                    if (xInvoiceData.MyOrganisation.HomePage.Length > 0)
+                    {
+                        wr_String("Domača stran:");
+                        wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
+                        wr_String(xInvoiceData.MyOrganisation.HomePage);
+                        wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
+                        wr_NewLine();
+                        ;
+                    }
+                }
+                if (xInvoiceData.MyOrganisation.Email != null)
+                {
+                    if (xInvoiceData.MyOrganisation.Email.Length > 0)
+                    {
+                        wr_String("EPOŠTA:");
+                        wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.USA);
+                        wr_String(xInvoiceData.MyOrganisation.Email);
+                        wr_SelectAnInternationalCharacterSet(Printer.eCharacterSet.Slovenia_Croatia);
+                    }
+                }
+                wr_NewLine();
+                wr_Paragraph("Davčna Številka:" + xInvoiceData.MyOrganisation.Tax_ID);
+                wr_NewLine(2);
+                //buffer = buffer + "\x1b\x1d\x61\x0";             //Left Alignment - Refer to Pg. 3-29
+                wr_SetHorizontalTabPositions(new byte[] { 2, 0x10, 0x22 });
+                wr_Paragraph("Številka računa: " + xInvoiceData.FinancialYear.ToString() + "/" + xInvoiceData.NumberInFinancialYear.ToString());
+                wr_Paragraph("Datum:" + xInvoiceData.IssueDate_v.v.Day.ToString() + "." + xInvoiceData.IssueDate_v.v.Month.ToString() + "." + xInvoiceData.IssueDate_v.v.Year.ToString() + "\x9" + " Čas:" + xInvoiceData.IssueDate_v.v.Hour.ToString() + ":" + xInvoiceData.IssueDate_v.v.Minute.ToString());      //Moving Horizontal Tab - Pg. 3-26
+                wr_LineDelimeter();
+                wr_BoldOn();
+
+                wr_Paragraph("PRODANO:");
+                wr_NewLine();
+                wr_BoldOff();
+
+                //Select Emphasized Printing - Pg. 3-14;                    //Cancel Emphasized Printing - Pg. 3-14
+
+                taxSum = null;
+                taxSum = new StaticLib.TaxSum();
+
+                foreach (ItemSold itmsold in xInvoiceData.ItemsSold)
+                {
+                    wr_Paragraph(itmsold.Item_Name);
+                    wr_String("Cena za enoto" + HT + itmsold.RetailPricePerUnit.ToString() + " EUR\n");
+                    decimal TotalDiscount = StaticLib.Func.TotalDiscount(itmsold.Discount, itmsold.ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
+                    decimal TotalDiscountPercent = TotalDiscount * 100;
+                    if (TotalDiscountPercent > 0)
+                    {
+                        wr_String("Popust:" + TotalDiscountPercent.ToString() + " %\n");
+                    }
+                    Printer.wr_String("Količina:" + HT + itmsold.dQuantity.ToString() + "\n");
+                    if (TotalDiscountPercent > 0)
+                    {
+                        Printer.wr_String("Cena s popustom:" + HT + HT + itmsold.PriceWithTax.ToString() + " EUR\n");
+                    }
+                    else
+                    {
+                        wr_String("Cena " + HT + HT + HT + itmsold.PriceWithTax.ToString() + " EUR\n");
+                    }
+                    wr_String(itmsold.TaxationName + HT + HT + itmsold.TaxPrice.ToString() + " EUR\n");
+                    wr_NewLine();
+                }
+
+                //foreach (DataRow dr in xInvoiceData.dt_ShopB_Items.Rows)
+                //{
+                //    object o_SimpleItem_name = dr["Name"];
+                //    string SimpleItem_name = null;
+                //    if (o_SimpleItem_name.GetType() == typeof(string))
+                //    {
+                //        SimpleItem_name = (string)o_SimpleItem_name;
+                //    }
+
+                //    decimal RetailSimpleItemPrice = 0;
+                //    object o_RetailSimpleItemPrice = dr["RetailSimpleItemPrice"];
+                //    if (o_RetailSimpleItemPrice.GetType() == typeof(decimal))
+                //    {
+                //        RetailSimpleItemPrice = (decimal)o_RetailSimpleItemPrice;
+                //    }
+
+                //    decimal RetailSimpleItemPriceWithDiscount = 0;
+                //    object o_RetailSimpleItemPriceWithDiscount = dr["RetailSimpleItemPriceWithDiscount"];
+                //    if (o_RetailSimpleItemPriceWithDiscount.GetType() == typeof(decimal))
+                //    {
+                //        RetailSimpleItemPriceWithDiscount = (decimal)o_RetailSimpleItemPriceWithDiscount;
+                //    }
+
+                //    string TaxationName = "Davek ???";
+                //    object oTaxationName = dr["Atom_Taxation_Name"];
+                //    if (oTaxationName is string)
+                //    {
+                //        TaxationName = (string)oTaxationName;
+                //    }
+
+                //    decimal TaxPrice = -1;
+                //    object oTaxPrice = dr["TaxPrice"];
+                //    if (oTaxPrice is decimal)
+                //    {
+                //        TaxPrice = (decimal)oTaxPrice;
+                //        taxSum.Add(TaxPrice, 0, (string)dr["Atom_Taxation_Name"], (decimal)dr["Atom_Taxation_Rate"]);
+                //    }
+
+                //    int iQuantity = -1;
+                //    object oQuantity = dr["iQuantity"];
+                //    if (oQuantity is int)
+                //    {
+                //        iQuantity = (int)oQuantity;
+                //    }
+
+                //    decimal Discount = 0;
+                //    object oDiscount = dr["Discount"];
+                //    if (oDiscount is decimal)
+                //    {
+                //        Discount = (decimal)oDiscount;
+                //    }
+
+                //    decimal ExtraDiscount = 0;
+                //    object oExtraDiscount = dr["ExtraDiscount"];
+                //    if (oExtraDiscount is decimal)
+                //    {
+                //        ExtraDiscount = (decimal)oExtraDiscount;
+                //    }
+
+                //    Printer.wr_Paragraph(SimpleItem_name);
+                //    Printer.wr_String("Cena za enoto" + HT + RetailSimpleItemPrice.ToString() + " EUR\n");
+                //    decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
+                //    decimal TotalDiscountPercent = TotalDiscount * 100;
+                //    if (TotalDiscountPercent > 0)
+                //    {
+                //        Printer.wr_String("Popust:" + TotalDiscountPercent.ToString() + " %\n");
+                //    }
+                //    Printer.wr_String("Količina:" + HT + iQuantity.ToString() + "\n");
+                //    if (TotalDiscountPercent > 0)
+                //    {
+                //        Printer.wr_String("Cena s popustom:" + HT + HT + RetailSimpleItemPriceWithDiscount.ToString() + " EUR\n");
+                //    }
+                //    else
+                //    {
+                //        Printer.wr_String("Cena " + HT + HT + HT + RetailSimpleItemPriceWithDiscount.ToString() + " EUR\n");
+                //    }
+                //    Printer.wr_String(TaxationName + HT + HT + TaxPrice.ToString() + " EUR\n");
+                //    Printer.wr_NewLine();
+
+                //}
+
+                ////DocInvoice_ShopC_Item.ID AS DocInvoice_ShopC_Item_ID,
+                ////DocInvoice_ShopC_Item.DocInvoice_ID,
+                ////DocInvoice.Atom_myOrganisation_Person_ID,
+                ////DocInvoice_ShopC_Item.Stock_ID,
+                ////DocInvoice_ShopC_Item.Atom_Price_Item_ID,
+                ////Atom_Item.ID as Atom_Item_ID,
+                ////itm.ID as Item_ID,
+                ////Atom_Price_Item.RetailPricePerUnit,
+                ////Atom_Price_Item.Discount,
+                ////DocInvoice_ShopC_Item.RetailPriceWithDiscount,
+                ////DocInvoice_ShopC_Item.TaxPrice,
+                ////DocInvoice_ShopC_Item.ExtraDiscount,
+                ////DocInvoice_ShopC_Item.dQuantity,
+                ////DocInvoice_ShopC_Item.ExpiryDate,
+                ////Atom_Item.UniqueName AS Atom_Item_UniqueName,
+                ////Atom_Item_Name.Name AS Atom_Item_Name_Name,
+                ////Atom_Item_barcode.barcode AS Atom_Item_barcode_barcode,
+                ////Atom_Taxation.Name AS Atom_Taxation_Name,
+                ////Atom_Taxation.Rate AS Atom_Taxation_Rate,
+                ////Atom_Item_Description.Description AS Atom_Item_Description_Description,
+                ////Atom_Item.Atom_Warranty_ID,
+                ////Atom_Warranty.WarrantyDurationType AS Atom_Warranty_WarrantyDurationType,
+                ////Atom_Warranty.WarrantyDuration AS Atom_Warranty_WarrantyDuration,
+                ////Atom_Warranty.WarrantyConditions AS Atom_Warranty_WarrantyConditions,
+                ////Atom_Item.Atom_Expiry_ID,
+                ////Atom_Expiry.ExpectedShelfLifeInDays AS Atom_Expiry_ExpectedShelfLifeInDays,
+                ////Atom_Expiry.SaleBeforeExpiryDateInDays AS Atom_Expiry_SaleBeforeExpiryDateInDays,
+                ////Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
+                ////Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
+                ////puitms.Item_ID AS Stock_Item_ID,
+                ////Stock.ImportTime AS Stock_ImportTime,
+                ////Stock.dQuantity AS Stock_dQuantity,
+                ////Stock.ExpiryDate AS Stock_ExpiryDate,
+                ////Atom_Unit.Name AS Atom_Unit_Name,
+                ////Atom_Unit.Symbol AS Atom_Unit_Symbol,
+                ////Atom_Unit.DecimalPlaces AS Atom_Unit_DecimalPlaces,
+                ////Atom_Unit.Description AS Atom_Unit_Description,
+                ////Atom_Unit.StorageOption AS Atom_Unit_StorageOption,
+                ////Atom_PriceList.Name AS Atom_PriceList_Name,
+                ////Atom_Currency.Name AS Atom_Currency_Name,
+                ////Atom_Currency.Abbreviation AS Atom_Currency_Abbreviation,
+                ////Atom_Currency.Symbol AS Atom_Currency_Symbol,
+                ////Atom_Currency.DecimalPlaces AS Atom_Currency_DecimalPlaces
+                //Printer.wr_NewLine();
+
+                //foreach (DocInvoice_ShopC_Item_Data appisd in xInvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.DocInvoice_ShopC_Item_Data_LIST)
+                //{
+                //    string Item_UniqueName = appisd.Atom_Item_UniqueName.v;
+
+                //    decimal RetailPricePerUnit = appisd.RetailPricePerUnit.v;
+
+
+                //    decimal RetailItemPriceWithDiscount = appisd.RetailPriceWithDiscount.v;
+
+                //    Printer.wr_String(Item_UniqueName + "\n");
+
+                //    decimal dQuantity = appisd.dQuantity_FromStock + appisd.dQuantity_FromFactory;
+
+                //    string Atom_Unit_Name = appisd.Atom_Unit_Name.v;
+
+
+                //    Printer.wr_String("Cena za 1 " + Atom_Unit_Name + " = " + RetailPricePerUnit.ToString() + " EUR\n");
+
+                //    decimal Discount = appisd.Discount.v;
+
+                //    decimal ExtraDiscount = appisd.ExtraDiscount.v;
+
+
+                //    decimal TotalDiscount = StaticLib.Func.TotalDiscount(Discount, ExtraDiscount, Program.Get_BaseCurrency_DecimalPlaces());
+                //    decimal TotalDiscountPercent = TotalDiscount * 100;
+                //    if (TotalDiscountPercent > 0)
+                //    {
+                //        Printer.wr_String("Popust:" + TotalDiscountPercent.ToString() + " %\n");
+                //    }
+                //    Printer.wr_String("Količina:" + HT + dQuantity.ToString() + " " + Atom_Unit_Name + "\n");
+
+                //    decimal Atom_Taxation_Rate = appisd.Atom_Taxation_Rate.v;
+
+                //    decimal RetailItemsPriceWithDiscount = 0;
+                //    decimal ItemsTaxPrice = 0;
+                //    decimal ItemsNetPrice = 0;
+
+                //    int decimal_places = appisd.Atom_Currency_DecimalPlaces.v;
+
+                //    StaticLib.Func.CalculatePrice(RetailPricePerUnit, dQuantity, Discount, ExtraDiscount, Atom_Taxation_Rate, ref RetailItemsPriceWithDiscount, ref ItemsTaxPrice, ref ItemsNetPrice, decimal_places);
+
+                //    if (TotalDiscountPercent > 0)
+                //    {
+                //        Printer.wr_String("Cena s popustom:" + HT + HT + RetailItemsPriceWithDiscount.ToString() + " EUR\n");
+                //    }
+                //    else
+                //    {
+                //        Printer.wr_String("Cena " + HT + HT + HT + RetailItemsPriceWithDiscount.ToString() + " EUR\n");
+                //    }
+
+                //    string TaxationName = appisd.Atom_Taxation_Name.v;
+
+                //    decimal TaxPrice = appisd.TaxPrice.v;
+
+                //    taxSum.Add(ItemsTaxPrice, 0, TaxationName, Atom_Taxation_Rate);
+
+
+                //    Printer.wr_String(TaxationName + HT + HT + ItemsTaxPrice.ToString() + " EUR\n");
+                //    Printer.wr_NewLine();
+
+                //}
+                wr_LineDelimeter();
+
+                foreach (StaticLib.Tax tax in taxSum.TaxList)
+                {
+                    wr_String(tax.Name + HT + HT + "" + tax.TaxAmount.ToString() + " EUR\n");
+                }
+
+                wr_String("Brez davka " + HT + HT + "" + xInvoiceData.NetSum.ToString() + " EUR\n");
+                //buffer += "\x1B" + "G" + "\xFF";
+                wr_String("Skupaj " + HT + HT + xInvoiceData.GrossSum.ToString() + " EUR\n");
+                //buffer += "\x1B" + "G" + "\x00\n";
+                if (PaymentType != GlobalData.ePaymentType.NONE)
+                {
+                    wr_String("Način plačila:" + sPaymentMethod + "\n");
+                    if (PaymentType == GlobalData.ePaymentType.CASH)
+                    {
+                        wr_String("  Prejeto: " + sAmountReceived + " EUR\n");
+                        wr_String("  Vrnjeno: " + sToReturn + " EUR\n");
+                    }
+                }
+
+                wr_NewLine(1);
+                wr_String("Številka računa za FURS:\n");
+                wr_String(Program.usrc_FVI_SLO1.FursD_BussinesPremiseID + "-" + Properties.Settings.Default.ElectronicDevice_ID + "-" + xInvoiceData.NumberInFinancialYear.ToString());
+                wr_NewLine(1);
+                wr_String("Oseba, ki je izdala račun:\n");
+                wr_String(xInvoiceData.Invoice_Author.FirstName + " " + xInvoiceData.Invoice_Author.LastName);
+
+                if (xInvoiceData.FURS_QR_v != null)
+                {
+                    if (xInvoiceData.FURS_Image_QRcode != null)
+                    {
+                        //Size size = new Size(32, 32);
+                        //Image img_new = StaticLib.Func.resizeImage(xInvoiceData.FURS_Response_Data.Image_QRcode, size, System.Drawing.Imaging.ImageFormat.Bmp, System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
+                        //byte[] barr = StaticLib.Func.imageToByteArray(img_new);
+                        wr_NewLine(1);
+                        wr_String("ZOI:" + xInvoiceData.FURS_ZOI_v.v + "\n");
+                        wr_String("EOR:" + xInvoiceData.FURS_EOR_v.v + "\n");
+                        wr_NewLine(1);
+                        byte[] barr = StaticLib.Func.imageToByteArray(xInvoiceData.FURS_Image_QRcode);
+                        wr_BitmapByteArray(barr, 180);
+                    }
+                }
+
+                wr_NewLine(6);
+                PartialCutPaper();
+
+                if (PrintInBuffer)
+                {
+                    Print_PrinterBuffer();
+                }
+
+
+                string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
+                string s_journal_invoice_description = PrinterName;
+                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
+            }
+            catch (Exception ex)
+            {
+                string s_journal_invoice_type = lngRPM.s_journal_invoice_type_PrintError.s + PrinterName + "\nErr=" + ex.Message;
+                string s_journal_invoice_description = PrinterName;
+                f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
+            }
+        }
+
+        public bool Init(InvoiceData x_InvoiceData)
+        {
+            m_InvoiceData = x_InvoiceData;
+            //lbl_PrinterName.Text = lngRPM.s_Printer.s;
+            PrinterName = printer_settings.PrinterName;
+            //lbl_PaperName.Text = lngRPM.s_PaperName.s + ":";
+            if (page_settings != null)
+            {
+                PaperName = page_settings.PaperSize.PaperName;
+            }
+            else
+            {
+                PaperName = "??";
+            }
+            //chk_PrintAll.Text = lngRPM.s_chk_PrintAll.s;
+            //this.chk_PrintAll.CheckedChanged -= new System.EventHandler(this.chk_PrintAll_CheckedChanged);
+            //chk_PrintAll.Checked = Properties.Settings.Default.PrintAtOnce;
+            //ReceiptPrinter.PrintInBuffer = chk_PrintAll.Checked;
+            //this.chk_PrintAll.CheckedChanged += new System.EventHandler(this.chk_PrintAll_CheckedChanged);
+
+
+            if (page_settings != null)
+            {
+                int iWidth_inHoundreths_of_Inch = page_settings.PaperSize.Width;
+
+                int dpix = page_settings.PrinterResolution.X;
+
+                cx_paper_in_inch = ((float)iWidth_inHoundreths_of_Inch) / ((float)100);
+                cx_paper_on_screen_in_pixels = (int)(cx_paper_in_inch * getScalingFactorX());
+                //this.pnl_paper.Width = cx_paper_on_screen_in_pixels;
+
+                int iHeight_inHoundreths_of_Inch = page_settings.PaperSize.Height;
+
+                int dpiy = page_settings.PrinterResolution.Y;
+
+                cy_paper_in_inch = ((float)iHeight_inHoundreths_of_Inch) / ((float)100);
+                cy_paper_on_screen_in_pixels = (int)(cy_paper_in_inch * getScalingFactorY());
+                //this.pnl_paper.Height = cy_paper_on_screen_in_pixels;
+            }
+            return true;
+        }
+
+        private float getScalingFactorX()
+        {
+            Graphics g = Graphics.FromHwnd();
+            return g.DpiX;
+        }
+
+        private float getScalingFactorY()
+        {
+            Graphics g = Graphics.FromHwnd(this.Handle);
+            return g.DpiY;
+        }
+
+
+
+        internal int Get_CurrencyD_DecimalPlaces()
+        {
+            if (m_InvoiceData.dt_ShopB_Items.Rows.Count > 0)
+            {
+                object o_Currency_DecimalPlaces = m_InvoiceData.dt_ShopB_Items.Rows[0]["Atom_Currency_DecimalPlaces"];
+                if (o_Currency_DecimalPlaces.GetType() == typeof(int))
+                {
+                    return (int)o_Currency_DecimalPlaces;
+                }
+            }
+            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST.Count > 0)
+            {
+                object o_Data = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.m_DocInvoice_ShopC_Item_Data_LIST[0];
+                if (o_Data is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
+                {
+                    return (int)((Atom_DocInvoice_ShopC_Item_Price_Stock_Data)(o_Data)).Atom_Currency_DecimalPlaces.v;
+                }
+            }
+            if (m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_DocInvoice_Atom_Item_Stock.Rows.Count > 0)
+            {
+                object o_Currency_DecimalPlaces = m_InvoiceData.m_ShopABC.m_CurrentInvoice.m_Basket.dtDraft_DocInvoice_Atom_Item_Stock.Rows[0]["Atom_Currency_DecimalPlaces"];
+                if (o_Currency_DecimalPlaces.GetType() == typeof(int))
+                {
+                    return (int)o_Currency_DecimalPlaces;
+                }
+            }
+            return GlobalData.BaseCurrency.DecimalPlaces;
         }
     }
 }

@@ -21,7 +21,7 @@ using TangentaDB;
 
 namespace Tangenta
 {
-    public partial class Form_Payment : Form
+    public partial class Form_DocProformaInvoice_Payment : Form
     {
         public InvoiceData m_InvoiceData = null;
         public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.NONE;
@@ -29,7 +29,7 @@ namespace Tangenta
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
 
-        public Form_Payment(InvoiceData xInvoiceData)
+        public Form_DocProformaInvoice_Payment(InvoiceData xInvoiceData)
         {
             InitializeComponent();
 

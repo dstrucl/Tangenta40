@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class usrc_Payment
+    partial class usrc_DocInvoice_Payment
     {
         /// <summary> 
         /// Required designer variable.

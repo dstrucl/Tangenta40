@@ -17,6 +17,13 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_rdb_Valid_Tender_Until = new ltext("Valid until", "Veljavnost ponudbe do");
+        public static ltext s_rbtn_NumberOf = new ltext("Number of "," Število");
+        public static ltext s_grp_ValidityOfTheTender = new ltext("The duration of the offer", "Veljavnost ponudbe");
+        public static ltext s_btn_Select_Terms_Of_Payment = new ltext("Select terms of payment", "Izberite plačilne pogoje");
+        public static ltext s_TermsOfPayment = new ltext("Terms of payment", "Plačilni pogoji");
+        public static ltext s_Payment_on_bank_account = new ltext("Payment on bank account", "Plačilo na bančni račun");
+        public static ltext s_Payment_by_cash_or_card_on_delivery = new ltext("Payment by cash or credit card on delivery", "Plačilo z gotovino ali kreditno kartico po povzetju");
         public static ltext s_YouCanNotLock_StockTakeIfSumNotMatch = new ltext("You can not close stock take unless the sum of all item's prices plus additional costs plus trucking costs plus customs is equal the StockTakeTotalPrice!", 
                                                                                 "Prevzemnice ni možno zapreti, v kolikor vsota cen artiklov plus transportinh stroškov plus carine plus dodatnih stroškov ni enaka celotni ceni prevzemnice!");
         public static ltext s_Addressee = new ltext("Adresse", "Naslovnik");

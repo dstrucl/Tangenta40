@@ -174,7 +174,7 @@ namespace TangentaDB
                     {
                         m_CurrentInvoice.Exist = true;
                         m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Draft"];
-                        m_CurrentInvoice.DocInvoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"];
+                        m_CurrentInvoice.Doc_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$ID"];
 
                         m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID"]);
                         m_CurrentInvoice.TInvoice.Invoice_Reference_Type_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type"]);
@@ -220,7 +220,7 @@ namespace TangentaDB
 
                         m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$$DraftNumber"];
 
-                        long xDocInvoice_ID = m_CurrentInvoice.DocInvoice_ID;
+                        long xDocInvoice_ID = m_CurrentInvoice.Doc_ID;
                         if (m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v != null)
                         {
                             xDocInvoice_ID = m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v.v;
@@ -247,7 +247,7 @@ namespace TangentaDB
                     {
                         m_CurrentInvoice.Exist = true;
                         m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$Draft"];
-                        m_CurrentInvoice.DocInvoice_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"];
+                        m_CurrentInvoice.Doc_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"];
 
                         m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDuration"]);
                         m_CurrentInvoice.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDurationType"]);
@@ -294,7 +294,7 @@ namespace TangentaDB
 
                         m_CurrentInvoice.DraftNumber = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber"];
 
-                        long xDocInvoice_ID = m_CurrentInvoice.DocInvoice_ID;
+                        long xDocInvoice_ID = m_CurrentInvoice.Doc_ID;
                         if (m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v != null)
                         {
                             xDocInvoice_ID = m_CurrentInvoice.TInvoice.StornoDocInvoice_ID_v.v;
@@ -700,17 +700,17 @@ namespace TangentaDB
                         return false;
                     }
                     object objret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref this.m_CurrentInvoice.DocInvoice_ID, ref objret, ref Err, DocInvoice))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_SetDraftDocInvoice, null, ref this.m_CurrentInvoice.Doc_ID, ref objret, ref Err, DocInvoice))
                     {
                         long Journal_DocInvoice_ID = -1;
                         if (IsDocInvoice)
                         {
-                            return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocInvoice.Write(this.m_CurrentInvoice.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
                         }
                         else if (IsDocProformaInvoice)
                         {
                             DateTime_v dt_v = new DateTime_v(DateTime.Now);
-                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentInvoice.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
+                            return f_Journal_DocProformaInvoice.Write(this.m_CurrentInvoice.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID, null, ref Journal_DocInvoice_ID);
                         }
                         else
                         {

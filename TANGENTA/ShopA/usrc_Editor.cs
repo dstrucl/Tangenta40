@@ -97,7 +97,7 @@ namespace ShopA
                 m_DocInvoice_ShopA_Item.TAX.set(TaxValue);
                 m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.set(EndPriceWithDiscountAndTax);
                 m_DocInvoice_ShopA_Item.Discount.set(Discount);
-                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.set(m_ShopABC.m_CurrentInvoice.DocInvoice_ID);
+                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.set(m_ShopABC.m_CurrentInvoice.Doc_ID);
                 if (this.usrc_Edit_Item_Unit1.UnitsEnabled)
                 {
                     m_DocInvoice_ShopA_Item.PricePerUnit.set(usrc_Edit_Item_Unit1.PricePerUnit);

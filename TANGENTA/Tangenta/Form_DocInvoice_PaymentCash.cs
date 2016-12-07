@@ -18,11 +18,11 @@ using LanguageControl;
 
 namespace Tangenta
 {
-    public partial class Form_PaymentCash : Form
+    public partial class Form_DocInvoice_PaymentCash : Form
     {
         decimal GrossSum = 0;
         public decimal money = 0;
-        public Form_PaymentCash(decimal xGrossSum)
+        public Form_DocInvoice_PaymentCash(decimal xGrossSum)
         {
             InitializeComponent();
             GrossSum = xGrossSum;

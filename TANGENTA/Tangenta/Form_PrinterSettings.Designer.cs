@@ -33,7 +33,7 @@
             // 
             // usrc_PrinterSettings1
             // 
-            this.usrc_PrinterSettings1.Location = new System.Drawing.Point(13, 13);
+            this.usrc_PrinterSettings1.Location = new System.Drawing.Point(12, 7);
             this.usrc_PrinterSettings1.Name = "usrc_PrinterSettings1";
             this.usrc_PrinterSettings1.Size = new System.Drawing.Size(523, 48);
             this.usrc_PrinterSettings1.TabIndex = 0;
@@ -41,7 +41,7 @@
             // Form_PrinterSettings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(599, 96);
+            this.ClientSize = new System.Drawing.Size(553, 67);
             this.Controls.Add(this.usrc_PrinterSettings1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form_PrinterSettings";

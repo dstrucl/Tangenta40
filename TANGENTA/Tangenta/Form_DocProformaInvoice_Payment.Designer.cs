@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_Payment
+    partial class Form_DocProformaInvoice_Payment
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_usrc_Payment = new Tangenta.usrc_Payment();
+            this.m_usrc_Payment = new Tangenta.usrc_DocInvoice_Payment();
             this.SuspendLayout();
             // 
             // m_usrc_Payment
@@ -39,8 +39,8 @@
             this.m_usrc_Payment.Name = "m_usrc_Payment";
             this.m_usrc_Payment.Size = new System.Drawing.Size(759, 389);
             this.m_usrc_Payment.TabIndex = 1;
-            this.m_usrc_Payment.Cancel += new Tangenta.usrc_Payment.delegate_Cancel(this.m_usrc_Payment_Cancel);
-            this.m_usrc_Payment.OK += new Tangenta.usrc_Payment.delegate_OK(this.m_usrc_Payment_OK);
+            this.m_usrc_Payment.Cancel += new Tangenta.usrc_DocInvoice_Payment.delegate_Cancel(this.m_usrc_Payment_Cancel);
+            this.m_usrc_Payment.OK += new Tangenta.usrc_DocInvoice_Payment.delegate_OK(this.m_usrc_Payment_OK);
             // 
             // Form_Payment
             // 
@@ -58,6 +58,6 @@
 
         #endregion
 
-        private usrc_Payment m_usrc_Payment;
+        private usrc_DocInvoice_Payment m_usrc_Payment;
     }
 }

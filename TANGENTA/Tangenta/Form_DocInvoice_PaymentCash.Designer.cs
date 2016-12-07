@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_PaymentCash
+    partial class Form_DocInvoice_PaymentCash
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PaymentCash));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DocInvoice_PaymentCash));
             this.btn_7 = new System.Windows.Forms.Button();
             this.btn_8 = new System.Windows.Forms.Button();
             this.btn_9 = new System.Windows.Forms.Button();

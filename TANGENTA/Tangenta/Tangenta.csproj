@@ -124,6 +124,12 @@
     <Compile Include="Form_DBSettings.Designer.cs">
       <DependentUpon>Form_DBSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_DocProformaInvoice_Payment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_DocProformaInvoice_Payment.Designer.cs">
+      <DependentUpon>Form_DocProformaInvoice_Payment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Expiry_Check.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +202,12 @@
     <Compile Include="Form_Reset_Properties_Settings_Default.Designer.cs">
       <DependentUpon>Form_Reset_Properties_Settings_Default.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_SelectPrinters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SelectPrinters.Designer.cs">
+      <DependentUpon>Form_SelectPrinters.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ShowShops.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,8 +241,8 @@
     <Compile Include="Form_Print_A4.Designer.cs">
       <DependentUpon>Form_Print_A4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Payment.Designer.cs">
-      <DependentUpon>Form_Payment.cs</DependentUpon>
+    <Compile Include="Form_DocInvoice_Payment.Designer.cs">
+      <DependentUpon>Form_DocInvoice_Payment.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_SimpleItemGroups_Edit.cs">
       <SubType>Form</SubType>
@@ -405,14 +417,14 @@
     </Compile>
     <Compile Include="Printer.cs" />
     <Compile Include="ProformaInvoice_Connection_Class.cs" />
-    <Compile Include="Form_Payment.cs">
+    <Compile Include="Form_DocInvoice_Payment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_PaymentCash.cs">
+    <Compile Include="Form_DocInvoice_PaymentCash.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_PaymentCash.Designer.cs">
-      <DependentUpon>Form_PaymentCash.cs</DependentUpon>
+    <Compile Include="Form_DocInvoice_PaymentCash.Designer.cs">
+      <DependentUpon>Form_DocInvoice_PaymentCash.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -439,6 +451,12 @@
     </Compile>
     <Compile Include="usrc_Customer.Designer.cs">
       <DependentUpon>usrc_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_DocProformaInvoice_Payment .cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_DocProformaInvoice_Payment .Designer.cs">
+      <DependentUpon>usrc_DocProformaInvoice_Payment .cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_InvoiceMan.cs">
       <SubType>UserControl</SubType>
@@ -470,11 +488,23 @@
     <Compile Include="usrc_Notice.Designer.cs">
       <DependentUpon>usrc_Notice.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_MethodOfPayment_Data.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_MethodOfPayment_Data.Designer.cs">
+      <DependentUpon>usrc_MethodOfPayment_Data.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Printer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_Printer.Designer.cs">
       <DependentUpon>usrc_Printer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_printers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_printers.Designer.cs">
+      <DependentUpon>usrc_printers.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_PrintExistingInvoice.cs">
       <SubType>UserControl</SubType>
@@ -482,11 +512,11 @@
     <Compile Include="usrc_PrintExistingInvoice.Designer.cs">
       <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Payment.cs">
+    <Compile Include="usrc_DocInvoice_Payment.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_Payment.Designer.cs">
-      <DependentUpon>usrc_Payment.cs</DependentUpon>
+    <Compile Include="usrc_DocInvoice_Payment.Designer.cs">
+      <DependentUpon>usrc_DocInvoice_Payment.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_PrinterSettings.cs">
       <SubType>UserControl</SubType>
@@ -555,6 +585,9 @@
     <EmbeddedResource Include="Form_DBSettings.resx">
       <DependentUpon>Form_DBSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_DocProformaInvoice_Payment.resx">
+      <DependentUpon>Form_DocProformaInvoice_Payment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Expiry_Check.resx">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
     </EmbeddedResource>
@@ -591,6 +624,9 @@
     <EmbeddedResource Include="Form_Reset_Properties_Settings_Default.resx">
       <DependentUpon>Form_Reset_Properties_Settings_Default.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_SelectPrinters.resx">
+      <DependentUpon>Form_SelectPrinters.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_ShowShops.resx">
       <DependentUpon>Form_ShowShops.cs</DependentUpon>
     </EmbeddedResource>
@@ -610,8 +646,8 @@
     <EmbeddedResource Include="Form_Print_A4.resx">
       <DependentUpon>Form_Print_A4.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Payment.resx">
-      <DependentUpon>Form_Payment.cs</DependentUpon>
+    <EmbeddedResource Include="Form_DocInvoice_Payment.resx">
+      <DependentUpon>Form_DocInvoice_Payment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SimpleItemGroups_Edit.resx">
       <DependentUpon>Form_SimpleItemGroups_Edit.cs</DependentUpon>
@@ -697,8 +733,8 @@
       <DependentUpon>Form_PersonData_Edit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_PaymentCash.resx">
-      <DependentUpon>Form_PaymentCash.cs</DependentUpon>
+    <EmbeddedResource Include="Form_DocInvoice_PaymentCash.resx">
+      <DependentUpon>Form_DocInvoice_PaymentCash.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_checkmark.resx">
       <DependentUpon>usrc_checkmark.cs</DependentUpon>
@@ -708,6 +744,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_Customer.resx">
       <DependentUpon>usrc_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_DocProformaInvoice_Payment .resx">
+      <DependentUpon>usrc_DocProformaInvoice_Payment .cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_InvoiceMan.resx">
       <DependentUpon>usrc_InvoiceMan.cs</DependentUpon>
@@ -724,14 +763,20 @@
     <EmbeddedResource Include="usrc_Notice.resx">
       <DependentUpon>usrc_Notice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_MethodOfPayment_Data.resx">
+      <DependentUpon>usrc_MethodOfPayment_Data.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Printer.resx">
       <DependentUpon>usrc_Printer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_printers.resx">
+      <DependentUpon>usrc_printers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PrintExistingInvoice.resx">
       <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Payment.resx">
-      <DependentUpon>usrc_Payment.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_DocInvoice_Payment.resx">
+      <DependentUpon>usrc_DocInvoice_Payment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PrinterSettings.resx">
       <DependentUpon>usrc_PrinterSettings.cs</DependentUpon>
@@ -1133,6 +1178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\Printers.bmp" />
     <None Include="Resources\Form_DBSettings.ico" />
     <None Include="Resources\PasswordView.png" />
     <None Include="Resources\CodeTables.png" />

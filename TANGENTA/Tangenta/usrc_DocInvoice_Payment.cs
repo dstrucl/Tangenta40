@@ -21,7 +21,7 @@ using TangentaDB;
 
 namespace Tangenta
 {
-    public partial class usrc_Payment : UserControl
+    public partial class usrc_DocInvoice_Payment : UserControl
     {
         public delegate void delegate_Cancel();
         public event delegate_Cancel Cancel;
@@ -38,7 +38,7 @@ namespace Tangenta
         decimal GrossSum = 0;
         public string sPaymentMethod = null;
         long DocInvoice_ID = -1;
-        public usrc_Payment()
+        public usrc_DocInvoice_Payment()
         {
             InitializeComponent();
             lngRPM.s_Cash.Text(rdb_Cash);
@@ -79,7 +79,7 @@ namespace Tangenta
         public bool Init(InvoiceData xInvoiceData, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
             m_InvoiceData = xInvoiceData;
-            DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.DocInvoice_ID;
+            DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.Doc_ID;
             Currency_DecimalPlaces = xCurrency_DecimalPlaces;
             GrossSum = xGrossSum;
             txt__Amount.Text = GrossSum.ToString();
@@ -154,7 +154,7 @@ namespace Tangenta
 
         private void rdb_Cash_MouseUp(object sender, MouseEventArgs e)
         {
-            Form_PaymentCash pay_in_cash_frm = new Form_PaymentCash(GrossSum);
+            Form_DocInvoice_PaymentCash pay_in_cash_frm = new Form_DocInvoice_PaymentCash(GrossSum);
             if (pay_in_cash_frm.ShowDialog() == DialogResult.OK)
             {
                 txt_ToReturn.Text = decimal.Round(pay_in_cash_frm.money - GrossSum, Currency_DecimalPlaces).ToString();
@@ -191,7 +191,7 @@ namespace Tangenta
         {
             long DocInvoice_ID = -1;
             int xNumberInFinancialYear = -1;
-            if (m_InvoiceData.Save(ref DocInvoice_ID, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, ref xNumberInFinancialYear))
+            if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, ref xNumberInFinancialYear))
             {
                 m_InvoiceData.Set_NumberInFinancialYear(xNumberInFinancialYear);
 

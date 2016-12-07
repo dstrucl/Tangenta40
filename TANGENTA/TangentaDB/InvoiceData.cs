@@ -245,7 +245,10 @@ namespace TangentaDB
 
         }
 
-
+        public bool SaveDocProformaInvoice(ref long docInvoice_ID, GlobalData.ePaymentType ePaymentType, long MethodOfPayment_ID, long docDuration, long docDurationType_ID, long termsOfPayment_ID, ref int xNumberInFinancialYear)
+        {
+            return m_ShopABC.m_CurrentInvoice.SaveDocProformaInvoice(ref DocInvoice_ID, ePaymentType, MethodOfPayment_ID, docDuration, docDurationType_ID, termsOfPayment_ID, ref xNumberInFinancialYear);
+        }
 
         public void Fill_Sold_ShopB_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
         {
@@ -445,9 +448,9 @@ namespace TangentaDB
             }
         }
 
-        public bool Save(ref long docinvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(ref long docinvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
-            return m_ShopABC.m_CurrentInvoice.Save(ref DocInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
+            return m_ShopABC.m_CurrentInvoice.SaveDocInvoice(ref DocInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
         }
 
         public bool SetInvoiceTime(DateTime_v issue_time)
@@ -688,10 +691,7 @@ namespace TangentaDB
                                  acusorg.ID as Atom_Customer_Org_ID,
                                  acusper.ID as Atom_Customer_Person_ID,
                                  jpi.EventTime,
-                                 jpit.Name as JOURNAL_DocProformaInvoice_Type_Name,
-                                 pi.Storno,
-                                 pi.Invoice_Reference_Type,
-                                 pi.Invoice_Reference_ID
+                                 jpit.Name as JOURNAL_DocProformaInvoice_Type_Name
                                  from JOURNAL_DocProformaInvoice jpi
                                  inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
                                  inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
@@ -703,8 +703,6 @@ namespace TangentaDB
                                  inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
                                  inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                  inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
-                                 LEFT JOIN FVI_SLO_Response JOURNAL_DocProformaInvoice_$_dpinv_$_fvisres ON JOURNAL_DocProformaInvoice_$_dpinv_$_fvisres.DocProformaInvoice_ID = pi.ID 
-                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocProformaInvoice_$_dpinv_$_fvisbi ON JOURNAL_DocProformaInvoice_$_dpinv_$_fvisbi.DocProformaInvoice_ID = pi.ID 
                                  left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                  left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                  left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
@@ -853,10 +851,7 @@ namespace TangentaDB
                                  acusorg.ID as Atom_Customer_Org_ID,
                                  acusper.ID as Atom_Customer_Person_ID,
                                  jpi.EventTime,
-                                 jpit.Name as JOURNAL_DocProformaInvoice_Type_Name,
-                                 pi.Storno,
-                                 pi.Invoice_Reference_Type,
-                                 pi.Invoice_Reference_ID
+                                 jpit.Name as JOURNAL_DocProformaInvoice_Type_Name
                                  from JOURNAL_DocProformaInvoice jpi
                                  inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
                                  inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
@@ -904,9 +899,18 @@ namespace TangentaDB
                     try
                     {
                         Draft = DBTypes.tf._set_bool(dt_DocInvoice.Rows[0]["Draft"]);
-                        Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
-                        Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
-                        DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
+                        if (DocInvoice.ToUpper().Equals("DOCINVOICE"))
+                        {
+                            Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
+                            Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
+                            DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
+                        }
+                        else
+                        {
+                            Invoice_Storno_v = null;
+                            Invoice_Reference_Type_v = null;
+                            DocInvoice_Reference_ID_v = null;
+                        }
                         DocInvoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0][DocInvoice+"_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["EventTime"]);
                         string_v EventName_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_"+DocInvoice+"_Type_Name"]);
