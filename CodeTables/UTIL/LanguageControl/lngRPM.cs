@@ -17,6 +17,11 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_PrinterDeviceSettings = new ltext("Settings for printer", "Nastavitev tiskalna");
+        public static ltext s_Form_DefinePrinters = new ltext("Printer settings", "Nastavitev tiskalnikov");
+        public static ltext s_Printning_Invoices = new ltext("Printing invoices", "Tiskanje računov");
+        public static ltext s_Printning_ProformaInvoices = new ltext("Printing proforma invoices", "Tiskanje pred-računov");
+        public static ltext s_Printning_Reports = new ltext("Printing reports", "Tiskanje izpiskov");
         public static ltext s_rdb_Valid_Tender_Until = new ltext("Valid until", "Veljavnost ponudbe do");
         public static ltext s_rbtn_NumberOf = new ltext("Number of "," Število");
         public static ltext s_grp_ValidityOfTheTender = new ltext("The duration of the offer", "Veljavnost ponudbe");

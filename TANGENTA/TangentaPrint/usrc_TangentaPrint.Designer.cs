@@ -34,19 +34,20 @@
             // btn_Printers
             // 
             this.btn_Printers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Printers.Image = Properties.Resources.Printers;
+            this.btn_Printers.Image = global::TangentaPrint.Properties.Resources.Printers;
             this.btn_Printers.Location = new System.Drawing.Point(0, 0);
             this.btn_Printers.Name = "btn_Printers";
             this.btn_Printers.Size = new System.Drawing.Size(46, 30);
             this.btn_Printers.TabIndex = 0;
             this.btn_Printers.UseVisualStyleBackColor = true;
+            this.btn_Printers.Click += new System.EventHandler(this.btn_Printers_Click);
             // 
-            // usrc_printers
+            // usrc_TangentaPrint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btn_Printers);
-            this.Name = "usrc_printers";
+            this.Name = "usrc_TangentaPrint";
             this.Size = new System.Drawing.Size(46, 30);
             this.ResumeLayout(false);
 

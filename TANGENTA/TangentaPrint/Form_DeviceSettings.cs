@@ -6,6 +6,7 @@
 */
 #endregion
 
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,19 +19,20 @@ using System.Windows.Forms;
 
 namespace TangentaPrint
 {
-    public partial class Form_PrinterSettings : Form
+    public partial class Form_DeviceSettings : Form
     {
-        usrc_Printer m_usrc_Printer = null;
-        public Form_PrinterSettings(usrc_Printer xusrc_Printer)
+        usrc_Device m_usrc_Device = null;
+        public Form_DeviceSettings(usrc_Device xusrc_Printer)
         {
             InitializeComponent();
-            m_usrc_Printer = xusrc_Printer;
+            m_usrc_Device = xusrc_Printer;
+            this.m_usrc_DeviceSettings.Init(m_usrc_Device.m_Printer);
+            lngRPM.s_PrinterDeviceSettings.Text(this," "+ (m_usrc_Device.m_Printer.Index+1).ToString());
         }
 
         private void Form_PrinterSettings_Load(object sender, EventArgs e)
         {
-            this.Top = m_usrc_Printer.Top + m_usrc_Printer.Height;
-            this.Left = m_usrc_Printer.Right - this.Width;
+         
         }
     }
 }

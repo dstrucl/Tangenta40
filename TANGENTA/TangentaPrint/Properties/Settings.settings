@@ -2,50 +2,107 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TangentaPrint.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ReceiptPrinter" Type="System.String" Scope="User">
+    <Setting Name="Printer1_PrinterName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="PageSettings_Landscape" Type="System.Boolean" Scope="User">
+    <Setting Name="Printer1_PageSettings_Landscape" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="PageSettings_Color" Type="System.Boolean" Scope="User">
+    <Setting Name="Printer1_PageSettings_Color" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="PageSettings_HardMarginX" Type="System.Single" Scope="User">
+    <Setting Name="Printer1_PageSettings_HardMarginX" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PageSettings_HardMarginY" Type="System.Single" Scope="User">
+    <Setting Name="Printer1_PageSettings_HardMarginY" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PageSettings_PaperSize_Width" Type="System.Int32" Scope="User">
+    <Setting Name="Printer1_PageSettings_PaperSize_Width" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PageSettings_PaperSize_Height" Type="System.Int32" Scope="User">
+    <Setting Name="Printer1_PageSettings_PaperSize_Height" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PageSettings_PaperSize_PaperName" Type="System.String" Scope="User">
+    <Setting Name="Printer1_PageSettings_PaperSize_PaperName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="PageSettings_PaperSize_RawKind" Type="System.Int32" Scope="User">
+    <Setting Name="Printer1_PageSettings_PaperSize_RawKind" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PageSettings_PaperSource_RawKind" Type="System.Int32" Scope="User">
+    <Setting Name="Printer1_PageSettings_PaperSource_RawKind" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PageSettings_PaperSource_SourceName" Type="System.String" Scope="User">
+    <Setting Name="Printer1_PageSettings_PaperSource_SourceName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="PageSettings_PrinterResolution_X" Type="System.Int32" Scope="User">
+    <Setting Name="Printer1_PageSettings_PrinterResolution_X" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PageSettings_PrinterResolution_Y" Type="System.Int32" Scope="User">
+    <Setting Name="Printer1_PageSettings_PrinterResolution_Y" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PageSettings_PrinterResolution_Kind" Type="System.Int32" Scope="User">
+    <Setting Name="Printer1_PageSettings_PrinterResolution_Kind" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="PrintAtOnce" Type="System.Boolean" Scope="User">
+    <Setting Name="Printer1_PrintAtOnce" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Printer1_Printing_Invoices" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Printer1_Printing_ProformaInvoices" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Printer1_Printing_Reports" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Printer2_Printing_Invoices" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Printer2_Printing_ProformaInvoices" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Printer2_Printing_Reports" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Printer2_PrinterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_Landscape" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_Color" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_HardMarginX" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_HardMarginY" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_PaperSize_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_PaperSize_Height" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_PaperSize_PaperName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_PaperSize_RawKind" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_PaperSource_SourceName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_PrinterResolution_X" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_PrinterResolution_Y" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Printer2_PageSettings_PrinterResolution_Kind" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

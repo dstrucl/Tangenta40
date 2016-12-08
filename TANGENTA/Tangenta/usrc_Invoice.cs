@@ -943,12 +943,7 @@ namespace Tangenta
 
         private bool GetReceiptPrinter()
         {
-            if (Program.usrc_TangentaPrint1.Printer == null)
-            {
-                Program.usrc_TangentaPrint1.Printer = new TangentaPrint.Printer();
-            }
-            Program.usrc_TangentaPrint1.Printer.Define(null);
-            return true;
+            return Program.usrc_TangentaPrint1.GetReceiptPrinter();
         }
 
         private bool Edit_Taxation()

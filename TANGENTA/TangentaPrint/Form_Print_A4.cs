@@ -36,7 +36,7 @@ namespace TangentaPrint
         private string sAmountReceived;
         private string sToReturn;
         private DateTime_v issue_time;
-        private usrc_PrinterSettings usrc_Printer;
+        private usrc_DeviceSettings usrc_Printer;
         private InvoiceData m_InvoiceData;
         private NavigationButtons.Navigation nav = null;
 

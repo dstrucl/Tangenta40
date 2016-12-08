@@ -25,10 +25,51 @@ namespace TangentaPrint
 {
     public class Printer
     {
+        private int m_Index = -1;
+        public int Index
+        {
+            get { return m_Index; }
+            set { m_Index = value; }
+        }
+
+        public usrc_Printer m_usrc_Printer = null;
+
+
+
+        private bool m_bPrinting_Invoices = false;
+        public bool bPrinting_Invoices
+        {
+            get { return m_bPrinting_Invoices; }
+            set
+            {
+                m_bPrinting_Invoices = value;
+            }
+        }
+        private bool m_bPrinting_ProformaInvoices = false;
+        public bool bPrinting_ProformaInvoices
+        {
+            get { return m_bPrinting_ProformaInvoices; }
+            set
+            {
+                m_bPrinting_ProformaInvoices = value;
+            }
+        }
+
+        private bool m_bPrinting_Reports = false;
+        public bool bPrinting_Reports
+        {
+            get { return m_bPrinting_Reports; }
+            set
+            {
+                m_bPrinting_Reports = value;
+            }
+        }
+
+
         public enum eCharacterSet { Slovenia_Croatia, USA };
         public bool m_PrintInBuffer = false;
         private string PrintBuffer = null;
-
+        
 
         private string m_PrinterName = null;
         private string m_PaperName = null;
@@ -143,10 +184,14 @@ namespace TangentaPrint
 
             [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
             public static extern bool SetDefaultPrinter(string Name);
+
+
             // SendBytesToPrinter()
             // When the function is given a printer name and an unmanaged array
             // of bytes, the function sends those bytes to the print queue.
             // Returns true on success, false on failure.
+
+
             public static bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount)
             {
                 Int32 dwError = 0, dwWritten = 0;
@@ -202,6 +247,12 @@ namespace TangentaPrint
             }
         }
 
+        public Printer(int i)
+        {
+            m_Index = i;
+        }
+
+
         internal void Print_Receipt(InvoiceData xInvoiceData, 
                                     string FursD_BussinesPremiseID,
                                     string ElectronicDevice_ID,
@@ -254,14 +305,20 @@ namespace TangentaPrint
                         }
                     }
                     m_PrinterName = pname;
+                    if (this.m_usrc_Printer!=null)
+                    {
+                        this.m_usrc_Printer.PrinterName = m_PrinterName;
+                    }
                 }
 
         }
-         
+
+
         private PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
         public PrintDocument printDocument = null;
         public PrinterSettings printer_settings = new PrinterSettings();
         public PageSettings page_settings = null;
+
 
         private string FindPrinter(string printerName)
         {
@@ -331,9 +388,16 @@ namespace TangentaPrint
 
                 PrinterName = printDialog.PrinterSettings.PrinterName;
                 printer_settings = printDialog.PrinterSettings;
-                Properties.Settings.Default.ReceiptPrinter = PrinterName;
+                if (Index == 0)
+                {
+                    Properties.Settings.Default.Printer1_PrinterName = PrinterName;
+                }
+                else
+                {
+                    Properties.Settings.Default.Printer2_PrinterName = PrinterName;
+                }
                 Properties.Settings.Default.Save();
-                RawPrinterHelper.SetDefaultPrinter(PrinterName);
+                //RawPrinterHelper.SetDefaultPrinter(PrinterName);
                 return true;
             }
             return false;
@@ -387,19 +451,19 @@ namespace TangentaPrint
 
         private void SavePageSettings(PageSettings page_settings)
         {
-            Properties.Settings.Default.PageSettings_Landscape = page_settings.Landscape;
-            Properties.Settings.Default.PageSettings_Color = page_settings.Color;
-            Properties.Settings.Default.PageSettings_HardMarginX = page_settings.HardMarginX;
-            Properties.Settings.Default.PageSettings_HardMarginY = page_settings.HardMarginY;
-            Properties.Settings.Default.PageSettings_PaperSize_Width = page_settings.PaperSize.Width;
-            Properties.Settings.Default.PageSettings_PaperSize_Height = page_settings.PaperSize.Height;
-            Properties.Settings.Default.PageSettings_PaperSize_PaperName = page_settings.PaperSize.PaperName;
-            Properties.Settings.Default.PageSettings_PaperSize_RawKind = (int)page_settings.PaperSize.RawKind;
-            Properties.Settings.Default.PageSettings_PaperSource_RawKind = page_settings.PaperSource.RawKind;
-            Properties.Settings.Default.PageSettings_PaperSource_SourceName = page_settings.PaperSource.SourceName;
-            Properties.Settings.Default.PageSettings_PrinterResolution_X = page_settings.PrinterResolution.X;
-            Properties.Settings.Default.PageSettings_PrinterResolution_Y = page_settings.PrinterResolution.Y;
-            Properties.Settings.Default.PageSettings_PrinterResolution_Kind = (int)page_settings.PrinterResolution.Kind;
+            Properties.Settings.Default.Printer1_PageSettings_Landscape = page_settings.Landscape;
+            Properties.Settings.Default.Printer1_PageSettings_Color = page_settings.Color;
+            Properties.Settings.Default.Printer1_PageSettings_HardMarginX = page_settings.HardMarginX;
+            Properties.Settings.Default.Printer1_PageSettings_HardMarginY = page_settings.HardMarginY;
+            Properties.Settings.Default.Printer1_PageSettings_PaperSize_Width = page_settings.PaperSize.Width;
+            Properties.Settings.Default.Printer1_PageSettings_PaperSize_Height = page_settings.PaperSize.Height;
+            Properties.Settings.Default.Printer1_PageSettings_PaperSize_PaperName = page_settings.PaperSize.PaperName;
+            Properties.Settings.Default.Printer1_PageSettings_PaperSize_RawKind = (int)page_settings.PaperSize.RawKind;
+            Properties.Settings.Default.Printer1_PageSettings_PaperSource_RawKind = page_settings.PaperSource.RawKind;
+            Properties.Settings.Default.Printer1_PageSettings_PaperSource_SourceName = page_settings.PaperSource.SourceName;
+            Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_X = page_settings.PrinterResolution.X;
+            Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Y = page_settings.PrinterResolution.Y;
+            Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Kind = (int)page_settings.PrinterResolution.Kind;
             Properties.Settings.Default.Save();
         }
 
@@ -413,7 +477,7 @@ namespace TangentaPrint
                     }
                     if (pgset.PaperSource.SourceName.Length > 0)
                     {
-                        string paper_name = Properties.Settings.Default.PageSettings_PaperSize_PaperName;
+                        string paper_name = Properties.Settings.Default.Printer1_PageSettings_PaperSize_PaperName;
 
                         foreach (PaperSize psize in printer_settings.PaperSizes)
                         {
@@ -423,13 +487,13 @@ namespace TangentaPrint
                                 break;
                             }
                         }
-                        pgset.Landscape = Properties.Settings.Default.PageSettings_Landscape;
-                        pgset.Color = Properties.Settings.Default.PageSettings_Color;
-                        pgset.PaperSource.SourceName = Properties.Settings.Default.PageSettings_PaperSource_SourceName;
-                        pgset.PaperSource.RawKind = Properties.Settings.Default.PageSettings_PaperSource_RawKind;
-                        pgset.PrinterResolution.X = Properties.Settings.Default.PageSettings_PrinterResolution_X;
-                        pgset.PrinterResolution.Y = Properties.Settings.Default.PageSettings_PrinterResolution_Y;
-                        pgset.PrinterResolution.Kind = (PrinterResolutionKind)Properties.Settings.Default.PageSettings_PrinterResolution_Kind;
+                        pgset.Landscape = Properties.Settings.Default.Printer1_PageSettings_Landscape;
+                        pgset.Color = Properties.Settings.Default.Printer1_PageSettings_Color;
+                        pgset.PaperSource.SourceName = Properties.Settings.Default.Printer1_PageSettings_PaperSource_SourceName;
+                        pgset.PaperSource.RawKind = Properties.Settings.Default.Printer1_PageSettings_PaperSource_RawKind;
+                        pgset.PrinterResolution.X = Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_X;
+                        pgset.PrinterResolution.Y = Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Y;
+                        pgset.PrinterResolution.Kind = (PrinterResolutionKind)Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Kind;
                         return true;
                     }
                     else
@@ -446,7 +510,7 @@ namespace TangentaPrint
 
         public bool Define(Form frm)
         {
-            string pname = Properties.Settings.Default.ReceiptPrinter;
+            string pname = Properties.Settings.Default.Printer1_PrinterName;
             PrinterName = FindPrinter(pname); ;
             PageSettings pgset = null;
             if (ReadPageSettings(ref pgset))
@@ -455,7 +519,7 @@ namespace TangentaPrint
             }
             if ((PrinterName == null)||(page_settings==null))
             {
-                MessageBox.Show(frm, lngRPM.s_Printer.s + ":" + Properties.Settings.Default.ReceiptPrinter + lngRPM.s_NotInPrinterList.s + "\r\n" + lngRPM.s_SelectReceiptPrinter.s);
+                MessageBox.Show(frm, lngRPM.s_Printer.s + ":" + Properties.Settings.Default.Printer1_PrinterName + lngRPM.s_NotInPrinterList.s + "\r\n" + lngRPM.s_SelectReceiptPrinter.s);
                 if (Select(frm))
                 {
                      return DefinePage(frm);

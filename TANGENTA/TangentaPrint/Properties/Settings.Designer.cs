@@ -26,180 +26,408 @@ namespace TangentaPrint.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ReceiptPrinter {
+        public string Printer1_PrinterName {
             get {
-                return ((string)(this["ReceiptPrinter"]));
+                return ((string)(this["Printer1_PrinterName"]));
             }
             set {
-                this["ReceiptPrinter"] = value;
+                this["Printer1_PrinterName"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PageSettings_Landscape {
+        public bool Printer1_PageSettings_Landscape {
             get {
-                return ((bool)(this["PageSettings_Landscape"]));
+                return ((bool)(this["Printer1_PageSettings_Landscape"]));
             }
             set {
-                this["PageSettings_Landscape"] = value;
+                this["Printer1_PageSettings_Landscape"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PageSettings_Color {
+        public bool Printer1_PageSettings_Color {
             get {
-                return ((bool)(this["PageSettings_Color"]));
+                return ((bool)(this["Printer1_PageSettings_Color"]));
             }
             set {
-                this["PageSettings_Color"] = value;
+                this["Printer1_PageSettings_Color"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public float PageSettings_HardMarginX {
+        public float Printer1_PageSettings_HardMarginX {
             get {
-                return ((float)(this["PageSettings_HardMarginX"]));
+                return ((float)(this["Printer1_PageSettings_HardMarginX"]));
             }
             set {
-                this["PageSettings_HardMarginX"] = value;
+                this["Printer1_PageSettings_HardMarginX"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public float PageSettings_HardMarginY {
+        public float Printer1_PageSettings_HardMarginY {
             get {
-                return ((float)(this["PageSettings_HardMarginY"]));
+                return ((float)(this["Printer1_PageSettings_HardMarginY"]));
             }
             set {
-                this["PageSettings_HardMarginY"] = value;
+                this["Printer1_PageSettings_HardMarginY"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int PageSettings_PaperSize_Width {
+        public int Printer1_PageSettings_PaperSize_Width {
             get {
-                return ((int)(this["PageSettings_PaperSize_Width"]));
+                return ((int)(this["Printer1_PageSettings_PaperSize_Width"]));
             }
             set {
-                this["PageSettings_PaperSize_Width"] = value;
+                this["Printer1_PageSettings_PaperSize_Width"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int PageSettings_PaperSize_Height {
+        public int Printer1_PageSettings_PaperSize_Height {
             get {
-                return ((int)(this["PageSettings_PaperSize_Height"]));
+                return ((int)(this["Printer1_PageSettings_PaperSize_Height"]));
             }
             set {
-                this["PageSettings_PaperSize_Height"] = value;
+                this["Printer1_PageSettings_PaperSize_Height"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PageSettings_PaperSize_PaperName {
+        public string Printer1_PageSettings_PaperSize_PaperName {
             get {
-                return ((string)(this["PageSettings_PaperSize_PaperName"]));
+                return ((string)(this["Printer1_PageSettings_PaperSize_PaperName"]));
             }
             set {
-                this["PageSettings_PaperSize_PaperName"] = value;
+                this["Printer1_PageSettings_PaperSize_PaperName"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int PageSettings_PaperSize_RawKind {
+        public int Printer1_PageSettings_PaperSize_RawKind {
             get {
-                return ((int)(this["PageSettings_PaperSize_RawKind"]));
+                return ((int)(this["Printer1_PageSettings_PaperSize_RawKind"]));
             }
             set {
-                this["PageSettings_PaperSize_RawKind"] = value;
+                this["Printer1_PageSettings_PaperSize_RawKind"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int PageSettings_PaperSource_RawKind {
+        public int Printer1_PageSettings_PaperSource_RawKind {
             get {
-                return ((int)(this["PageSettings_PaperSource_RawKind"]));
+                return ((int)(this["Printer1_PageSettings_PaperSource_RawKind"]));
             }
             set {
-                this["PageSettings_PaperSource_RawKind"] = value;
+                this["Printer1_PageSettings_PaperSource_RawKind"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PageSettings_PaperSource_SourceName {
+        public string Printer1_PageSettings_PaperSource_SourceName {
             get {
-                return ((string)(this["PageSettings_PaperSource_SourceName"]));
+                return ((string)(this["Printer1_PageSettings_PaperSource_SourceName"]));
             }
             set {
-                this["PageSettings_PaperSource_SourceName"] = value;
+                this["Printer1_PageSettings_PaperSource_SourceName"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int PageSettings_PrinterResolution_X {
+        public int Printer1_PageSettings_PrinterResolution_X {
             get {
-                return ((int)(this["PageSettings_PrinterResolution_X"]));
+                return ((int)(this["Printer1_PageSettings_PrinterResolution_X"]));
             }
             set {
-                this["PageSettings_PrinterResolution_X"] = value;
+                this["Printer1_PageSettings_PrinterResolution_X"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int PageSettings_PrinterResolution_Y {
+        public int Printer1_PageSettings_PrinterResolution_Y {
             get {
-                return ((int)(this["PageSettings_PrinterResolution_Y"]));
+                return ((int)(this["Printer1_PageSettings_PrinterResolution_Y"]));
             }
             set {
-                this["PageSettings_PrinterResolution_Y"] = value;
+                this["Printer1_PageSettings_PrinterResolution_Y"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int PageSettings_PrinterResolution_Kind {
+        public int Printer1_PageSettings_PrinterResolution_Kind {
             get {
-                return ((int)(this["PageSettings_PrinterResolution_Kind"]));
+                return ((int)(this["Printer1_PageSettings_PrinterResolution_Kind"]));
             }
             set {
-                this["PageSettings_PrinterResolution_Kind"] = value;
+                this["Printer1_PageSettings_PrinterResolution_Kind"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PrintAtOnce {
+        public bool Printer1_PrintAtOnce {
             get {
-                return ((bool)(this["PrintAtOnce"]));
+                return ((bool)(this["Printer1_PrintAtOnce"]));
             }
             set {
-                this["PrintAtOnce"] = value;
+                this["Printer1_PrintAtOnce"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Printer1_Printing_Invoices {
+            get {
+                return ((bool)(this["Printer1_Printing_Invoices"]));
+            }
+            set {
+                this["Printer1_Printing_Invoices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Printer1_Printing_ProformaInvoices {
+            get {
+                return ((bool)(this["Printer1_Printing_ProformaInvoices"]));
+            }
+            set {
+                this["Printer1_Printing_ProformaInvoices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Printer1_Printing_Reports {
+            get {
+                return ((bool)(this["Printer1_Printing_Reports"]));
+            }
+            set {
+                this["Printer1_Printing_Reports"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Printer2_Printing_Invoices {
+            get {
+                return ((bool)(this["Printer2_Printing_Invoices"]));
+            }
+            set {
+                this["Printer2_Printing_Invoices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Printer2_Printing_ProformaInvoices {
+            get {
+                return ((bool)(this["Printer2_Printing_ProformaInvoices"]));
+            }
+            set {
+                this["Printer2_Printing_ProformaInvoices"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Printer2_Printing_Reports {
+            get {
+                return ((bool)(this["Printer2_Printing_Reports"]));
+            }
+            set {
+                this["Printer2_Printing_Reports"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PrinterName {
+            get {
+                return ((string)(this["Printer2_PrinterName"]));
+            }
+            set {
+                this["Printer2_PrinterName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_Landscape {
+            get {
+                return ((string)(this["Printer2_PageSettings_Landscape"]));
+            }
+            set {
+                this["Printer2_PageSettings_Landscape"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_Color {
+            get {
+                return ((string)(this["Printer2_PageSettings_Color"]));
+            }
+            set {
+                this["Printer2_PageSettings_Color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_HardMarginX {
+            get {
+                return ((string)(this["Printer2_PageSettings_HardMarginX"]));
+            }
+            set {
+                this["Printer2_PageSettings_HardMarginX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_HardMarginY {
+            get {
+                return ((string)(this["Printer2_PageSettings_HardMarginY"]));
+            }
+            set {
+                this["Printer2_PageSettings_HardMarginY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_PaperSize_Width {
+            get {
+                return ((string)(this["Printer2_PageSettings_PaperSize_Width"]));
+            }
+            set {
+                this["Printer2_PageSettings_PaperSize_Width"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_PaperSize_Height {
+            get {
+                return ((string)(this["Printer2_PageSettings_PaperSize_Height"]));
+            }
+            set {
+                this["Printer2_PageSettings_PaperSize_Height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_PaperSize_PaperName {
+            get {
+                return ((string)(this["Printer2_PageSettings_PaperSize_PaperName"]));
+            }
+            set {
+                this["Printer2_PageSettings_PaperSize_PaperName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_PaperSize_RawKind {
+            get {
+                return ((string)(this["Printer2_PageSettings_PaperSize_RawKind"]));
+            }
+            set {
+                this["Printer2_PageSettings_PaperSize_RawKind"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_PaperSource_SourceName {
+            get {
+                return ((string)(this["Printer2_PageSettings_PaperSource_SourceName"]));
+            }
+            set {
+                this["Printer2_PageSettings_PaperSource_SourceName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_PrinterResolution_X {
+            get {
+                return ((string)(this["Printer2_PageSettings_PrinterResolution_X"]));
+            }
+            set {
+                this["Printer2_PageSettings_PrinterResolution_X"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_PrinterResolution_Y {
+            get {
+                return ((string)(this["Printer2_PageSettings_PrinterResolution_Y"]));
+            }
+            set {
+                this["Printer2_PageSettings_PrinterResolution_Y"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Printer2_PageSettings_PrinterResolution_Kind {
+            get {
+                return ((string)(this["Printer2_PageSettings_PrinterResolution_Kind"]));
+            }
+            set {
+                this["Printer2_PageSettings_PrinterResolution_Kind"] = value;
             }
         }
     }

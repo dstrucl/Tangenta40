@@ -13,13 +13,24 @@ namespace TangentaPrint
 {
     public partial class usrc_TangentaPrint : UserControl
     {
-        public Printer Printer;
+        private int m_NumberOfPrinters = 2;
+        public int NumberOfPrinters
+        {
+            get { return m_NumberOfPrinters; }
+        }
+        public Printer[] Printers = null;
 
         public string PrinterName { get; set; }
 
         public usrc_TangentaPrint()
         {
             InitializeComponent();
+            Printers = new Printer[NumberOfPrinters];
+            for (int i = 0; i < Printers.Length; i++)
+            {
+                Printers[i] = new Printer(i);
+            }
+
         }
 
         public bool Init(InvoiceData m_InvoiceData)
@@ -38,6 +49,22 @@ namespace TangentaPrint
         }
 
         public void PrintReport(object m_usrc_InvoiceTable)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void btn_Printers_Click(object sender, EventArgs e)
+        {
+            SelectPrinters();
+        }
+
+        private void SelectPrinters()
+        {
+            Form_DefinePrinters frm_select_printers = new Form_DefinePrinters(this);
+            frm_select_printers.ShowDialog();
+        }
+
+        public bool GetReceiptPrinter()
         {
             throw new NotImplementedException();
         }

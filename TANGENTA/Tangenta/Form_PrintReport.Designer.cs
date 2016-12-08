@@ -33,7 +33,7 @@ namespace Tangenta
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintReport));
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.m_usrc_Print = new usrc_PrinterSettings();
+            this.m_usrc_Print = new usrc_DeviceSettings();
             this.lbl_From_To = new System.Windows.Forms.Label();
             this.btn_DURS_output = new System.Windows.Forms.Button();
             this.btn_XML_export = new System.Windows.Forms.Button();
@@ -131,7 +131,7 @@ namespace Tangenta
 
         #endregion
 
-        private usrc_PrinterSettings m_usrc_Print;
+        private usrc_DeviceSettings m_usrc_Print;
         private System.Windows.Forms.Button btn_Print;
         private System.Windows.Forms.Button btn_Cancel;
         internal System.Windows.Forms.Label lbl_From_To;

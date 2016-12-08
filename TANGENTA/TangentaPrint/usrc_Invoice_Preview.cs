@@ -29,7 +29,7 @@ namespace TangentaPrint
 
         public InvoiceData m_InvoiceData = null;
         private byte[] m_Doc = null;
-        private usrc_PrinterSettings m_usrc_Print;
+        private usrc_DeviceSettings m_usrc_Print;
         private GlobalData.ePaymentType m_paymentType;
         private string m_sPaymentMethod;
         private string m_sAmountReceived;

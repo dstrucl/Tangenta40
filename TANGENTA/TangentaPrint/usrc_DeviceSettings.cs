@@ -23,22 +23,26 @@ using System.IO;
 
 namespace TangentaPrint
 {
-    public partial class usrc_PrinterSettings : UserControl
+    public partial class usrc_DeviceSettings : UserControl
     {
-        private Printer Printer = null;
+        private Printer m_Printer = null;
         private string PaperName;
 
-        public usrc_PrinterSettings()
+        public usrc_DeviceSettings()
         {
             InitializeComponent();
-            //this.Printer = Program.usrc_Printer1.Printer;
+        }
+
+        public void Init(Printer xPrinter)
+        {
+            m_Printer = xPrinter;
             lbl_PrinterName.Text = lngRPM.s_Printer.s;
-            this.lbl_PrinterName_Value.Text = Printer.printer_settings.PrinterName;
+            this.lbl_PrinterName_Value.Text = m_Printer.printer_settings.PrinterName;
             lbl_PaperName.Text = lngRPM.s_PaperName.s + ":";
-            if (Printer.page_settings != null)
+            if (m_Printer.page_settings != null)
             {
-                this.lbl_PaperName_Value.Text = Printer.page_settings.PaperSize.PaperName;
-                PaperName = Printer.page_settings.PaperSize.PaperName;
+                this.lbl_PaperName_Value.Text = m_Printer.page_settings.PaperSize.PaperName;
+                PaperName = m_Printer.page_settings.PaperSize.PaperName;
             }
             else
             {
@@ -48,22 +52,22 @@ namespace TangentaPrint
 
             chk_PrintAll.Text = lngRPM.s_chk_PrintAll.s;
             this.chk_PrintAll.CheckedChanged -= new System.EventHandler(this.chk_PrintAll_CheckedChanged);
-            chk_PrintAll.Checked = Properties.Settings.Default.PrintAtOnce;
-            this.Printer.PrintInBuffer = chk_PrintAll.Checked;
+            chk_PrintAll.Checked = Properties.Settings.Default.Printer1_PrintAtOnce;
+            m_Printer.PrintInBuffer = chk_PrintAll.Checked;
             this.chk_PrintAll.CheckedChanged += new System.EventHandler(this.chk_PrintAll_CheckedChanged);
-
         }
+        
 
 
         private void btn_SelectPrinter_Click(object sender, EventArgs e)
         {
-            if (this.Printer.Select(null))
+            if (m_Printer.Select(null))
             {
-                Printer.PrinterName = Printer.printer_settings.PrinterName;
-                if (Printer.page_settings != null)
+                m_Printer.PrinterName = m_Printer.printer_settings.PrinterName;
+                if (m_Printer.page_settings != null)
                 {
-                    PaperName = Printer.page_settings.PaperSize.PaperName;
-                    this.lbl_PaperName_Value.Text = Printer.page_settings.PaperSize.PaperName;
+                    PaperName = m_Printer.page_settings.PaperSize.PaperName;
+                    this.lbl_PaperName_Value.Text = m_Printer.page_settings.PaperSize.PaperName;
                 }
                 else
                 {
@@ -72,19 +76,19 @@ namespace TangentaPrint
                 }
 
 
-                this.lbl_PrinterName_Value.Text = Printer.printer_settings.PrinterName;
+                this.lbl_PrinterName_Value.Text = m_Printer.printer_settings.PrinterName;
             }
         }
 
         private void btn_PageSetup_Click(object sender, EventArgs e)
         {
-            Printer.SelectPageSettings();
+            m_Printer.SelectPageSettings();
         }
 
         private void chk_PrintAll_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.PrintAtOnce = chk_PrintAll.Checked;
-            Printer.PrintInBuffer = chk_PrintAll.Checked;
+            Properties.Settings.Default.Printer1_PrintAtOnce = chk_PrintAll.Checked;
+            m_Printer.PrintInBuffer = chk_PrintAll.Checked;
             Properties.Settings.Default.Save();
         }
 

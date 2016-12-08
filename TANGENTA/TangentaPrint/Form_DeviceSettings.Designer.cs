@@ -1,6 +1,6 @@
 ﻿namespace TangentaPrint
 {
-    partial class Form_PrinterSettings
+    partial class Form_DeviceSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -28,24 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.usrc_PrinterSettings1 = new usrc_PrinterSettings();
+            this.m_usrc_DeviceSettings = new TangentaPrint.usrc_DeviceSettings();
             this.SuspendLayout();
             // 
-            // usrc_PrinterSettings1
+            // m_usrc_DeviceSettings
             // 
-            this.usrc_PrinterSettings1.Location = new System.Drawing.Point(12, 7);
-            this.usrc_PrinterSettings1.Name = "usrc_PrinterSettings1";
-            this.usrc_PrinterSettings1.Size = new System.Drawing.Size(523, 48);
-            this.usrc_PrinterSettings1.TabIndex = 0;
+            this.m_usrc_DeviceSettings.Location = new System.Drawing.Point(12, 7);
+            this.m_usrc_DeviceSettings.Name = "m_usrc_DeviceSettings";
+            this.m_usrc_DeviceSettings.Size = new System.Drawing.Size(523, 48);
+            this.m_usrc_DeviceSettings.TabIndex = 0;
             // 
-            // Form_PrinterSettings
+            // Form_DeviceSettings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(553, 67);
-            this.Controls.Add(this.usrc_PrinterSettings1);
+            this.Controls.Add(this.m_usrc_DeviceSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Form_PrinterSettings";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Name = "Form_DeviceSettings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nastavitve Tiskalnika";
             this.Load += new System.EventHandler(this.Form_PrinterSettings_Load);
             this.ResumeLayout(false);
@@ -54,6 +54,6 @@
 
         #endregion
 
-        private usrc_PrinterSettings usrc_PrinterSettings1;
+        private usrc_DeviceSettings m_usrc_DeviceSettings;
     }
 }

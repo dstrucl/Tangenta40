@@ -46,11 +46,11 @@
     <Compile Include="EscPos_RP58 .cs" />
     <Compile Include="EscPos_RP80.cs" />
     <Compile Include="EscPos_Star_TSP100.cs" />
-    <Compile Include="Form_PrinterSettings.cs">
+    <Compile Include="Form_DeviceSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_PrinterSettings.Designer.cs">
-      <DependentUpon>Form_PrinterSettings.cs</DependentUpon>
+    <Compile Include="Form_DeviceSettings.Designer.cs">
+      <DependentUpon>Form_DeviceSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_PrintExistingInvoice.cs">
       <SubType>Form</SubType>
@@ -64,11 +64,11 @@
     <Compile Include="Form_Print_A4.Designer.cs">
       <DependentUpon>Form_Print_A4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_SelectPrinters.cs">
+    <Compile Include="Form_DefinePrinters.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_SelectPrinters.Designer.cs">
-      <DependentUpon>Form_SelectPrinters.cs</DependentUpon>
+    <Compile Include="Form_DefinePrinters.Designer.cs">
+      <DependentUpon>Form_DefinePrinters.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Templates.cs">
       <SubType>Form</SubType>
@@ -101,6 +101,12 @@
     <Compile Include="usrc_Invoice_Preview.Designer.cs">
       <DependentUpon>usrc_Invoice_Preview.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_Device.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_Device.Designer.cs">
+      <DependentUpon>usrc_Device.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_Printer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -119,11 +125,11 @@
     <Compile Include="usrc_TangentaPrint.Designer.cs">
       <DependentUpon>usrc_TangentaPrint.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_PrinterSettings.cs">
+    <Compile Include="usrc_DeviceSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_PrinterSettings.Designer.cs">
-      <DependentUpon>usrc_PrinterSettings.cs</DependentUpon>
+    <Compile Include="usrc_DeviceSettings.Designer.cs">
+      <DependentUpon>usrc_DeviceSettings.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -189,8 +195,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_PrinterSettings.resx">
-      <DependentUpon>Form_PrinterSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Form_DeviceSettings.resx">
+      <DependentUpon>Form_DeviceSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_PrintExistingInvoice.resx">
       <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
@@ -198,8 +204,8 @@
     <EmbeddedResource Include="Form_Print_A4.resx">
       <DependentUpon>Form_Print_A4.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_SelectPrinters.resx">
-      <DependentUpon>Form_SelectPrinters.cs</DependentUpon>
+    <EmbeddedResource Include="Form_DefinePrinters.resx">
+      <DependentUpon>Form_DefinePrinters.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Templates.resx">
       <DependentUpon>Form_Templates.cs</DependentUpon>
@@ -215,6 +221,9 @@
     <EmbeddedResource Include="usrc_Invoice_Preview.resx">
       <DependentUpon>usrc_Invoice_Preview.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="usrc_Device.resx">
+      <DependentUpon>usrc_Device.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Printer.resx">
       <DependentUpon>usrc_Printer.cs</DependentUpon>
     </EmbeddedResource>
@@ -224,8 +233,8 @@
     <EmbeddedResource Include="usrc_TangentaPrint.resx">
       <DependentUpon>usrc_TangentaPrint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_PrinterSettings.resx">
-      <DependentUpon>usrc_PrinterSettings.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_DeviceSettings.resx">
+      <DependentUpon>usrc_DeviceSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +262,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Exit.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Form_DefinePrinters.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

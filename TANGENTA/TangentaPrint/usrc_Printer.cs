@@ -1,51 +1,69 @@
-﻿#region LICENSE 
-/*
- This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
- If a copy of the Tangenta Public License (TPL) was not distributed with this 
- file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
-*/
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using DBTypes;
 using LanguageControl;
-//using FiscalVerificationOfInvoices_SLO;
-using TangentaDB;
-using UniversalInvoice;
 
 namespace TangentaPrint
 {
     public partial class usrc_Printer : UserControl
     {
-        public Printer Printer = new Printer();
 
-        Form_PrinterSettings m_frm_prn_settings = null;
-
-        public NavigationButtons.Navigation nav = null;
-
-
-
+        Printer m_Printer = null;
 
         public usrc_Printer()
         {
             InitializeComponent();
+            lngRPM.s_Printning_Invoices.Text(chk_Printing_Invoices);
+            lngRPM.s_Printning_ProformaInvoices.Text(chk_Printing_ProformaInvoices);
+            lngRPM.s_Printning_Reports.Text(chk_Printing_ProformaInvoices);
         }
 
-        private void btn_Printer_Click(object sender, EventArgs e)
+        public string PrinterName
         {
-            m_frm_prn_settings = new Form_PrinterSettings(this);
-            m_frm_prn_settings.ShowDialog();
-            m_frm_prn_settings = null;
+            get
+            {
+                if (m_Printer != null)
+                {
+                    return m_Printer.PrinterName;
+                }
+                else
+                {
+                    return "??";
+                }
+            }
+            set {
+                    this.m_usrc_Device.PrinterName = value;
+                }
+        }
 
+        internal void Init(Printer printer)
+        {
+            m_Printer = printer;
+            this.m_usrc_Device.Init(m_Printer);
+            lngRPM.s_Printer.Text(grp_Printer, " " + (m_Printer.Index + 1).ToString());
+            if (m_Printer.Index == 0)
+            {
+                m_Printer.bPrinting_Invoices = Properties.Settings.Default.Printer1_Printing_Invoices;
+                chk_Printing_Invoices.Checked = m_Printer.bPrinting_Invoices;
+                m_Printer.bPrinting_ProformaInvoices = Properties.Settings.Default.Printer1_Printing_ProformaInvoices;
+                chk_Printing_ProformaInvoices.Checked = m_Printer.bPrinting_ProformaInvoices;
+                m_Printer.bPrinting_Reports = Properties.Settings.Default.Printer1_Printing_Reports;
+                chk_Printing_Reports.Checked = m_Printer.bPrinting_Reports;
+            }
+            else 
+            {
+                m_Printer.bPrinting_Invoices = Properties.Settings.Default.Printer2_Printing_Invoices;
+                chk_Printing_Invoices.Checked = m_Printer.bPrinting_Invoices;
+                m_Printer.bPrinting_ProformaInvoices = Properties.Settings.Default.Printer2_Printing_ProformaInvoices;
+                chk_Printing_ProformaInvoices.Checked = m_Printer.bPrinting_ProformaInvoices;
+                m_Printer.bPrinting_Reports = Properties.Settings.Default.Printer2_Printing_Reports;
+                chk_Printing_Reports.Checked = m_Printer.bPrinting_Reports;
+            }
         }
     }
 }
