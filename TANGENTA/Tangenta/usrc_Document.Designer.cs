@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using TangentaPrint;
+
+namespace Tangenta
 {
     partial class usrc_Document
     {
@@ -35,7 +37,7 @@
             this.usrc_FVI_SLO1 = new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO();
             this.m_usrc_InvoiceMan = new Tangenta.usrc_InvoiceMan();
             this.btn_CodeTables = new System.Windows.Forms.Button();
-            this.usrc_Printer1 = new Tangenta.usrc_Printer();
+            this.usrc_TangentaPrint1 = new TangentaPrint.usrc_TangentaPrint();
             this.SuspendLayout();
             // 
             // btn_Exit
@@ -109,12 +111,11 @@
             // 
             // usrc_Printer1
             // 
-            this.usrc_Printer1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Printer1.Location = new System.Drawing.Point(671, 1);
-            this.usrc_Printer1.Name = "usrc_Printer1";
-            this.usrc_Printer1.PaperName = null;
-            this.usrc_Printer1.Size = new System.Drawing.Size(39, 31);
-            this.usrc_Printer1.TabIndex = 7;
+            this.usrc_TangentaPrint1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_TangentaPrint1.Location = new System.Drawing.Point(671, 1);
+            this.usrc_TangentaPrint1.Name = "usrc_Printer1";
+            this.usrc_TangentaPrint1.Size = new System.Drawing.Size(39, 31);
+            this.usrc_TangentaPrint1.TabIndex = 7;
             // 
             // usrc_Document
             // 
@@ -122,7 +123,7 @@
             this.Controls.Add(this.btn_CodeTables);
             this.Controls.Add(this.btn_Backup);
             this.Controls.Add(this.btn_Settings);
-            this.Controls.Add(this.usrc_Printer1);
+            this.Controls.Add(this.usrc_TangentaPrint1);
             this.Controls.Add(this.usrc_FVI_SLO1);
             this.Controls.Add(this.m_usrc_Help);
             this.Controls.Add(this.btn_Exit);
@@ -142,6 +143,6 @@
         private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.Button btn_Backup;
         private System.Windows.Forms.Button btn_CodeTables;
-        private usrc_Printer usrc_Printer1;
+        private TangentaPrint.usrc_TangentaPrint usrc_TangentaPrint1;
     }
 }

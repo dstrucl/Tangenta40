@@ -1,4 +1,6 @@
-﻿namespace Tangenta
+﻿using TangentaPrint;
+
+namespace Tangenta
 {
     partial class Form_PrintReport
     {
@@ -31,7 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintReport));
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.m_usrc_Print = new Tangenta.usrc_PrinterSettings();
+            this.m_usrc_Print = new usrc_PrinterSettings();
             this.lbl_From_To = new System.Windows.Forms.Label();
             this.btn_DURS_output = new System.Windows.Forms.Button();
             this.btn_XML_export = new System.Windows.Forms.Button();
@@ -40,7 +42,7 @@
             // 
             // btn_Print
             // 
-            this.btn_Print.Image = global::Tangenta.Properties.Resources.Print;
+            this.btn_Print.Image = Properties.Resources.Print;
             this.btn_Print.Location = new System.Drawing.Point(190, 133);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(143, 39);
@@ -50,7 +52,7 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
+            this.btn_Cancel.Image = Properties.Resources.Exit;
             this.btn_Cancel.Location = new System.Drawing.Point(442, 133);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(82, 39);

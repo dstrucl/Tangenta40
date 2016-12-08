@@ -47,11 +47,11 @@ namespace Tangenta
 
         private void Form_Payment_Load(object sender, EventArgs e)
         {
-            if (Program.usrc_Printer1.Init(m_InvoiceData))
+            if (Program.usrc_TangentaPrint1.Init(m_InvoiceData))
             {
                 if ((m_InvoiceData.m_ShopABC.m_CurrentInvoice.bDraft))
                 {
-                    if (m_usrc_Payment.Init(m_InvoiceData, Program.usrc_Printer1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
+                    if (m_usrc_Payment.Init(m_InvoiceData, Program.usrc_TangentaPrint1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
                     {
                         //splitContainer1.Panel1Collapsed = true;
                         return;

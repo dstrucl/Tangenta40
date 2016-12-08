@@ -96,9 +96,6 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="DURS_Izpis_Postavka.cs" />
-    <Compile Include="EscPos_RP58 .cs" />
-    <Compile Include="EscPos_RP80.cs" />
-    <Compile Include="EscPos_Star_TSP100.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Form_CheckInsertSampleData.cs">
       <SubType>Form</SubType>
@@ -184,29 +181,17 @@
     <Compile Include="Form_Notice.Designer.cs">
       <DependentUpon>Form_Notice.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_PrinterSettings.cs">
+    <Compile Include="Form_PrintReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_PrinterSettings.Designer.cs">
-      <DependentUpon>Form_PrinterSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_PrintExistingInvoice.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_PrintExistingInvoice.Designer.cs">
-      <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
+    <Compile Include="Form_PrintReport.Designer.cs">
+      <DependentUpon>Form_PrintReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Reset_Properties_Settings_Default.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_Reset_Properties_Settings_Default.Designer.cs">
       <DependentUpon>Form_Reset_Properties_Settings_Default.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_SelectPrinters.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_SelectPrinters.Designer.cs">
-      <DependentUpon>Form_SelectPrinters.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_ShowShops.cs">
       <SubType>Form</SubType>
@@ -226,20 +211,8 @@
     <Compile Include="Form_ShopsInUse.Designer.cs">
       <DependentUpon>Form_ShopsInUse.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Templates.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Templates.Designer.cs">
-      <DependentUpon>Form_Templates.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_OrganisationAccount_Edit.Designer.cs">
       <DependentUpon>Form_OrganisationAccount_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_Print_A4.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_Print_A4.Designer.cs">
-      <DependentUpon>Form_Print_A4.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_DocInvoice_Payment.Designer.cs">
       <DependentUpon>Form_DocInvoice_Payment.cs</DependentUpon>
@@ -261,12 +234,6 @@
     </Compile>
     <Compile Include="Form_Logo_Edit.Designer.cs">
       <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_TemplateTokens.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_TemplateTokens.Designer.cs">
-      <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_TermsOfPayment_Edit.cs">
       <SubType>Form</SubType>
@@ -333,12 +300,6 @@
     </Compile>
     <Compile Include="Form_Customer_Person_Assign.Designer.cs">
       <DependentUpon>Form_Customer_Person_Assign.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_PrintReport.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_PrintReport.Designer.cs">
-      <DependentUpon>Form_PrintReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Select_from_Stock.cs">
       <SubType>Form</SubType>
@@ -415,7 +376,6 @@
     <Compile Include="Form_Customer_Person_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Printer.cs" />
     <Compile Include="ProformaInvoice_Connection_Class.cs" />
     <Compile Include="Form_DocInvoice_Payment.cs">
       <SubType>Form</SubType>
@@ -470,12 +430,6 @@
     <Compile Include="usrc_InvoiceTable.Designer.cs">
       <DependentUpon>usrc_InvoiceTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Invoice_Preview.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Invoice_Preview.Designer.cs">
-      <DependentUpon>usrc_Invoice_Preview.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_Document.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -494,35 +448,11 @@
     <Compile Include="usrc_MethodOfPayment_Data.Designer.cs">
       <DependentUpon>usrc_MethodOfPayment_Data.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Printer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Printer.Designer.cs">
-      <DependentUpon>usrc_Printer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_printers.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_printers.Designer.cs">
-      <DependentUpon>usrc_printers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_PrintExistingInvoice.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_PrintExistingInvoice.Designer.cs">
-      <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
-    </Compile>
     <Compile Include="usrc_DocInvoice_Payment.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_DocInvoice_Payment.Designer.cs">
       <DependentUpon>usrc_DocInvoice_Payment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_PrinterSettings.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_PrinterSettings.Designer.cs">
-      <DependentUpon>usrc_PrinterSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_PurchasePriceList_Edit.cs">
       <SubType>UserControl</SubType>
@@ -615,17 +545,11 @@
     <EmbeddedResource Include="Form_Notice.resx">
       <DependentUpon>Form_Notice.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_PrinterSettings.resx">
-      <DependentUpon>Form_PrinterSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_PrintExistingInvoice.resx">
-      <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
+    <EmbeddedResource Include="Form_PrintReport.resx">
+      <DependentUpon>Form_PrintReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Reset_Properties_Settings_Default.resx">
       <DependentUpon>Form_Reset_Properties_Settings_Default.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_SelectPrinters.resx">
-      <DependentUpon>Form_SelectPrinters.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ShowShops.resx">
       <DependentUpon>Form_ShowShops.cs</DependentUpon>
@@ -636,15 +560,8 @@
     <EmbeddedResource Include="Form_ShopsInUse.resx">
       <DependentUpon>Form_ShopsInUse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Templates.resx">
-      <DependentUpon>Form_Templates.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_OrganisationAccount_Edit.resx">
       <DependentUpon>Form_OrganisationAccount_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_Print_A4.resx">
-      <DependentUpon>Form_Print_A4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_DocInvoice_Payment.resx">
       <DependentUpon>Form_DocInvoice_Payment.cs</DependentUpon>
@@ -657,9 +574,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Logo_Edit.resx">
       <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_TemplateTokens.resx">
-      <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_TermsOfPayment_Edit.resx">
       <DependentUpon>Form_TermsOfPayment_Edit.cs</DependentUpon>
@@ -693,9 +607,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Customer_Person_Assign.resx">
       <DependentUpon>Form_Customer_Person_Assign.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_PrintReport.resx">
-      <DependentUpon>Form_PrintReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Select_from_Stock.resx">
       <DependentUpon>Form_Select_from_Stock.cs</DependentUpon>
@@ -754,9 +665,6 @@
     <EmbeddedResource Include="usrc_InvoiceTable.resx">
       <DependentUpon>usrc_InvoiceTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Invoice_Preview.resx">
-      <DependentUpon>usrc_Invoice_Preview.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Document.resx">
       <DependentUpon>usrc_Document.cs</DependentUpon>
     </EmbeddedResource>
@@ -766,20 +674,8 @@
     <EmbeddedResource Include="usrc_MethodOfPayment_Data.resx">
       <DependentUpon>usrc_MethodOfPayment_Data.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Printer.resx">
-      <DependentUpon>usrc_Printer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_printers.resx">
-      <DependentUpon>usrc_printers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_PrintExistingInvoice.resx">
-      <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_DocInvoice_Payment.resx">
       <DependentUpon>usrc_DocInvoice_Payment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_PrinterSettings.resx">
-      <DependentUpon>usrc_PrinterSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PurchasePriceList_Edit.resx">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
@@ -990,6 +886,10 @@
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>TangentaDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TangentaPrint\TangentaPrint.csproj">
+      <Project>{728368f2-ecd5-4bc7-b50b-c9581769d429}</Project>
+      <Name>TangentaPrint</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaSampleDB\TangentaSampleDB.csproj">
       <Project>{cf39a97b-c4cb-45f6-9d60-9df5638dd45a}</Project>
       <Name>TangentaSampleDB</Name>
@@ -1129,9 +1029,6 @@
     <None Include="Resources\Exit.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Print.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\PrintIcon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -1178,7 +1075,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
-    <None Include="Resources\Printers.bmp" />
+    <None Include="Resources\Print.bmp" />
     <None Include="Resources\Form_DBSettings.ico" />
     <None Include="Resources\PasswordView.png" />
     <None Include="Resources\CodeTables.png" />
@@ -1191,8 +1088,6 @@
     <None Include="Resources\Exit_Program.bmp" />
     <None Include="Resources\ProgramSettings.ico" />
     <None Include="Resources\Settings.bmp" />
-    <None Include="Resources\PrinterSettings.bmp" />
-    <None Include="Resources\SaveHtml.bmp" />
     <None Include="Resources\SelectRow.bmp" />
   </ItemGroup>
   <ItemGroup>

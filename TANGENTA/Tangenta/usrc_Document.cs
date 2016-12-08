@@ -38,7 +38,7 @@ namespace Tangenta
         public usrc_Document()
         {
             InitializeComponent();
-            Program.usrc_Printer1 = this.usrc_Printer1;
+            Program.usrc_TangentaPrint1 = this.usrc_TangentaPrint1;
             m_UpgradeDB = new UpgradeDB_inThread(this);
         }
 

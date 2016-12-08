@@ -22,6 +22,7 @@ using DBTypes;
 using FiscalVerificationOfInvoices_SLO;
 using TangentaDB;
 using System.Reflection;
+using TangentaPrint;
 
 namespace Tangenta
 {
@@ -96,7 +97,7 @@ namespace Tangenta
         internal static string IniFile = "";
 
         internal static usrc_FVI_SLO usrc_FVI_SLO1 = null;
-        internal static usrc_Printer usrc_Printer1 = null;
+        internal static usrc_TangentaPrint usrc_TangentaPrint1 = null;
 
         internal static Form_Document MainForm = null;
 

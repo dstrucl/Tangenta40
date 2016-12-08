@@ -855,26 +855,6 @@ namespace Tangenta.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Printers {
-            get {
-                object obj = ResourceManager.GetObject("Printers", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PrinterSettings {
-            get {
-                object obj = ResourceManager.GetObject("PrinterSettings", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon PrintIcon {
@@ -920,16 +900,6 @@ namespace Tangenta.Properties {
         internal static System.Drawing.Bitmap RemoveFromBoxToFactory {
             get {
                 object obj = ResourceManager.GetObject("RemoveFromBoxToFactory", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap SaveHtml {
-            get {
-                object obj = ResourceManager.GetObject("SaveHtml", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -943,11 +943,11 @@ namespace Tangenta
 
         private bool GetReceiptPrinter()
         {
-            if (Program.usrc_Printer1.Printer == null)
+            if (Program.usrc_TangentaPrint1.Printer == null)
             {
-                Program.usrc_Printer1.Printer = new Printer();
+                Program.usrc_TangentaPrint1.Printer = new TangentaPrint.Printer();
             }
-            Program.usrc_Printer1.Printer.Define(null);
+            Program.usrc_TangentaPrint1.Printer.Define(null);
             return true;
         }
 
@@ -2222,7 +2222,7 @@ do_EditMyOrganisation_Data:
                                     m_InvoiceData.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.FURS_QR_v.v);
                                     m_InvoiceData.Set_Invoice_Furs_Token();
                                 }
-                                Form_PrintExistingInvoice frm_Print_Existing_invoice = new Form_PrintExistingInvoice(m_InvoiceData);
+                                TangentaPrint.Form_PrintExistingInvoice frm_Print_Existing_invoice = new TangentaPrint.Form_PrintExistingInvoice(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
                                 frm_Print_Existing_invoice.ShowDialog(this);
                             }
                         }

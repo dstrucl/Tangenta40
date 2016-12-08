@@ -245,11 +245,11 @@ namespace Tangenta
         {
             if (ePaymentType == GlobalData.ePaymentType.CASH)
             {
-                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                Program.usrc_TangentaPrint1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
             }
             else
             {
-                Program.usrc_Printer1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, null, null, issue_time);
+                Program.usrc_TangentaPrint1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, null, null, issue_time);
             }
         }
 
