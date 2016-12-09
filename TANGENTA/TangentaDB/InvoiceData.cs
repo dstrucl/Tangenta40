@@ -1011,7 +1011,7 @@ namespace TangentaDB
                                                 if (IssueDate_v == null)
                                                 {
 
-                                                    sql = "select EventTime from JOURNAL_DocProformaInvoice where DocProformaInvoice_ID = " + DocInvoice_ID.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                                    sql = "select EventTime from JOURNAL_DocProformaInvoice where DocProformaInvoice_ID = " + DocInvoice_ID.ToString() + " and JOURNAL_DocProformaInvoice_Type_ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceTime.ID.ToString();
                                                     DataTable dt = new DataTable();
                                                     if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                     {

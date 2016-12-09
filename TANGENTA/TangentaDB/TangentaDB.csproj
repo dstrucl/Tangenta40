@@ -173,6 +173,7 @@
     <Compile Include="f_Taxation.cs" />
     <Compile Include="f_TaxationAtom.cs" />
     <Compile Include="f_Unit.cs" />
+    <Compile Include="f_MethodOfPayment.cs" />
     <Compile Include="f_Warranty.cs" />
     <Compile Include="f_WorkingPlace.cs" />
     <Compile Include="GlobalData.cs" />

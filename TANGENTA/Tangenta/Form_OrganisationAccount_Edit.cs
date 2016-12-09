@@ -24,13 +24,31 @@ namespace Tangenta
 {
     public partial class Form_OrganisationAccount_Edit : Form
     {
-        List<long> List_of_Inserted_Items_ID = null; 
-        DataTable dt_Item = new DataTable();
-        CodeTables.DBTableControl dbTables = null;
-        SQLTable tbl = null;
-        long_v ID_v = null;
-        string ColumnOrderBy = "";
-        NavigationButtons.Navigation nav = null;
+        private List<long> List_of_Inserted_Items_ID = null;
+        private DataTable dt_Item = new DataTable();
+        private CodeTables.DBTableControl dbTables = null;
+        private SQLTable tbl = null;
+        private long_v ID_v = null;
+        private string ColumnOrderBy = "";
+        private NavigationButtons.Navigation nav = null;
+
+        private long m_OgranisationAccount_ID = -1;
+        public long OgranisationAccount_ID
+        {
+            get { return m_OgranisationAccount_ID; }
+        }
+
+        private string m_BankName = null;
+        public string BankName
+        {
+            get { return m_BankName; }
+        }
+
+        private string m_TRR = null;
+        public string TRR
+        {
+            get { return m_TRR; }
+        }
 
         public Form_OrganisationAccount_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
         {
@@ -58,14 +76,14 @@ namespace Tangenta
 
         private bool Init()
         {
-            string selection = @" ID,
+            string selection = @"
+                    OrganisationAccount_$_bankacc_$$TRR,
                     OrganisationAccount_$_bankacc_$_bank_$_org_$$Name,
                     OrganisationAccount_$_bankacc_$_bank_$_org_$$Tax_ID,
-                    OrganisationAccount_$_bankacc_$_bank_$_org_$$Name,
-                    OrganisationAccount_$_bankacc_$$TRR,
                     OrganisationAccount_$_bankacc_$$Active,
                     OrganisationAccount_$_bankacc_$$Description,
-                    OrganisationAccount_$$Description
+                    OrganisationAccount_$$Description,
+                    ID
             ";
 
             string sWhereCondition = "";
@@ -115,11 +133,42 @@ namespace Tangenta
         private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
         {
             List_of_Inserted_Items_ID.Add(ID);
+            if (bRes)
+            {
+                FillProperties(m_tbl, ID);
+            }
+        }
+
+        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        {
+            FillProperties(m_tbl, ID);
         }
 
         private void OrganisationAccount_EditForm_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
 
+        private void FillProperties(SQLTable m_tbl,long ID)
+        {
+            this.m_OgranisationAccount_ID = ID;
+            this.m_BankName = null;
+            object oBankName = m_tbl.Value("OrganisationAccount_$_bankacc_$_bank_$_org_$$Name");
+            if (oBankName is TangentaTableClass.Name)
+            {
+                if (((TangentaTableClass.Name)oBankName).defined)
+                {
+                    this.m_BankName = ((TangentaTableClass.Name)oBankName).val;
+                }
+            }
+            object oTRR = m_tbl.Value("OrganisationAccount_$_bankacc_$$TRR");
+            this.m_TRR = null;
+            if (oTRR is TangentaTableClass.TRR)
+            {
+                if (((TangentaTableClass.TRR)oTRR).defined)
+                {
+                    this.m_TRR = ((TangentaTableClass.TRR)oTRR).val;
+                }
+            }
+        }
     }
 }

@@ -2186,7 +2186,7 @@ do_EditMyOrganisation_Data:
 
                                     if (IsDocInvoice)
                                     {
-                                        if (usrc_MethodOfPayment_Data1.GetMethodOfPaymentForDocInvoice(m_InvoiceData))
+                                        if (usrc_MethodOfPayment_Data1.GetMethodOfPaymentForDocInvoice(m_InvoiceData,DocInvoice))
                                         {
                                             if (aa_DocInvoiceSaved != null)
                                             {
@@ -2196,7 +2196,7 @@ do_EditMyOrganisation_Data:
                                     }
                                     else if (IsDocProformaInvoice)
                                     {
-                                        if (usrc_MethodOfPayment_Data1.GetMethodOfPaymentForDocProformaInvoice(m_InvoiceData))
+                                        if (usrc_MethodOfPayment_Data1.GetMethodOfPaymentForDocProformaInvoice(m_InvoiceData,this.DocInvoice))
                                         {
                                             if (aa_DocProformaInvoiceSaved != null)
                                             {

@@ -32,6 +32,10 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlRenderer.Core.1.5.0.6\lib\net40-client\HtmlRenderer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -69,6 +73,12 @@
     </Compile>
     <Compile Include="Form_DefinePrinters.Designer.cs">
       <DependentUpon>Form_DefinePrinters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SelectPrinter_from_predefined_printer_list.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SelectPrinter_from_predefined_printer_list.Designer.cs">
+      <DependentUpon>Form_SelectPrinter_from_predefined_printer_list.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Templates.cs">
       <SubType>Form</SubType>
@@ -207,6 +217,9 @@
     <EmbeddedResource Include="Form_DefinePrinters.resx">
       <DependentUpon>Form_DefinePrinters.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_SelectPrinter_from_predefined_printer_list.resx">
+      <DependentUpon>Form_SelectPrinter_from_predefined_printer_list.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Templates.resx">
       <DependentUpon>Form_Templates.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -239,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

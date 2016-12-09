@@ -23,18 +23,19 @@ namespace Tangenta
 {
     public partial class Form_DocProformaInvoice_Payment : Form
     {
+        private string m_DocInvoice = null;
         public InvoiceData m_InvoiceData = null;
         public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.NONE;
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
 
-        public Form_DocProformaInvoice_Payment(InvoiceData xInvoiceData)
+        public Form_DocProformaInvoice_Payment(InvoiceData xInvoiceData, string xDocInvoice)
         {
             InitializeComponent();
-
+            m_DocInvoice = xDocInvoice;
             m_InvoiceData = xInvoiceData;
-            this.Text = lngRPM.s_PaymentAndPrint.s;
+            this.Text = lngRPM.s_PaymentOfProformaInvoiceAndPrint.s;
         }
 
 
@@ -45,13 +46,13 @@ namespace Tangenta
         }
 
 
-        private void Form_Payment_Load(object sender, EventArgs e)
+        private void Form_DocProformaInvoice_Payment_Load(object sender, EventArgs e)
         {
-            if (Program.usrc_TangentaPrint1.Init(m_InvoiceData))
+            if (Program.usrc_TangentaPrint1.Init(m_InvoiceData, m_DocInvoice))
             {
                 if ((m_InvoiceData.m_ShopABC.m_CurrentInvoice.bDraft))
                 {
-                    if (m_usrc_Payment.Init(m_InvoiceData, Program.usrc_TangentaPrint1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
+                    if (this.m_usrc_DocProformaInvoice_Payment.Init(m_InvoiceData, Program.usrc_TangentaPrint1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
                     {
                         //splitContainer1.Panel1Collapsed = true;
                         return;

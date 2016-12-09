@@ -29,7 +29,7 @@ namespace TangentaDB
         {
             public long_v TermsOfPayment_ID_v = null;
             public string_v TermsOfPayment_Description_v = null;
-            public int_v DocDuration_v = null;
+            public long_v DocDuration_v = null;
             public int_v DocDuration_Type_v = null;
         }
 

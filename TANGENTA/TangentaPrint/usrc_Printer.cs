@@ -20,7 +20,7 @@ namespace TangentaPrint
             InitializeComponent();
             lngRPM.s_Printning_Invoices.Text(chk_Printing_Invoices);
             lngRPM.s_Printning_ProformaInvoices.Text(chk_Printing_ProformaInvoices);
-            lngRPM.s_Printning_Reports.Text(chk_Printing_ProformaInvoices);
+            lngRPM.s_Printning_Reports.Text(chk_Printing_Reports);
         }
 
         public string PrinterName

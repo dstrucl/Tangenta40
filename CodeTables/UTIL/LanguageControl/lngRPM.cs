@@ -17,6 +17,16 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+
+        public static ltext s_PaymentType_CASH =  new ltext("Cash","Gotovina");
+        public static ltext s_PaymentType_CASH_OR_PAYMENT_CARD = new ltext("Cash or payment card", "Gotovina ali plačilna kartica");
+        public static ltext s_PaymentType_BANK_ACCOUNT_TRANSFER = new ltext("Bank account transfer","Plačilo na tekoči račun");
+        public static ltext s_PaymentType_ALLREADY_PAID = new ltext("Allready paid", "Že plačano");
+        public static ltext s_PaymentType_PAYMENT_CARD = new ltext("Payment card", "Plačilna kartica");
+
+        public static ltext s_Number_Of_Months = new ltext ("Number of months","Število mesecev");
+        public static ltext s_Number_Of_Days = new ltext("Number of days", "Število dni");
+
         public static ltext s_PrinterDeviceSettings = new ltext("Settings for printer", "Nastavitev tiskalna");
         public static ltext s_Form_DefinePrinters = new ltext("Printer settings", "Nastavitev tiskalnikov");
         public static ltext s_Printning_Invoices = new ltext("Printing invoices", "Tiskanje računov");
@@ -25,7 +35,6 @@ namespace LanguageControl
         public static ltext s_rdb_Valid_Tender_Until = new ltext("Valid until", "Veljavnost ponudbe do");
         public static ltext s_rbtn_NumberOf = new ltext("Number of "," Število");
         public static ltext s_grp_ValidityOfTheTender = new ltext("The duration of the offer", "Veljavnost ponudbe");
-        public static ltext s_btn_Select_Terms_Of_Payment = new ltext("Select terms of payment", "Izberite plačilne pogoje");
         public static ltext s_TermsOfPayment = new ltext("Terms of payment", "Plačilni pogoji");
         public static ltext s_Payment_on_bank_account = new ltext("Payment on bank account", "Plačilo na bančni račun");
         public static ltext s_Payment_by_cash_or_card_on_delivery = new ltext("Payment by cash or credit card on delivery", "Plačilo z gotovino ali kreditno kartico po povzetju");
@@ -489,7 +498,8 @@ namespace LanguageControl
         public static ltext s_EditPriceList = new ltext("Edit Price List", "Urejanje Cenikov");
         public static ltext s_ItemPriceUndefined = new ltext("List of items which prices are undefined", "Seznam artiklov, ki nimajo določene prodajne cene");
         public static ltext s_SimpleItemPriceUndefined = new ltext("List of SimpleItems which prices are undefined", "Seznam storitev, ki nimajo določene cene");
-        public static ltext s_PaymentAndPrint = new ltext("Payment and Print", "Način plačila in izdaja računa");
+        public static ltext s_PaymentOfInvoiceAndPrint = new ltext("Payment and Print", "Način plačila in izdaja računa");
+        public static ltext s_PaymentOfProformaInvoiceAndPrint = new ltext("Terms of payment  and print", "Način plačila in izdaja predračuna");
         public static ltext s_AmountReceived = new ltext("Amount received", "Prejeti znesek");
         public static ltext s_AcceptedCashAmount = new ltext("Amount received", "Vnesite prejeti znesek");
         public static ltext s_EndPrice = new ltext("Total", "Cena");

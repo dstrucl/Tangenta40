@@ -105,6 +105,14 @@ namespace DBTypes
             {
                 x = new int_v((uint)p);
             }
+            else if (p is ushort)
+            {
+                x = new int_v((uint)p);
+            }
+            else if (p is short)
+            {
+                x = new int_v((uint)p);
+            }
             else if (!(p is System.DBNull))
             {
                 tf.ShowTypeError(p.GetType().ToString(),x.GetType().ToString());

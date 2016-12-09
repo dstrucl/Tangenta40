@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NavigationButtons;
 
 namespace TangentaPrint
 {
@@ -39,6 +40,9 @@ namespace TangentaPrint
         private usrc_DeviceSettings usrc_Printer;
         private InvoiceData m_InvoiceData;
         private NavigationButtons.Navigation nav = null;
+        private InvoiceData xInvoiceData;
+        private long durationType;
+        private long duration;
 
         public Form_Print_A4(InvoiceData xInvoiceData, GlobalData.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time, NavigationButtons.Navigation xnav)
         {
@@ -52,6 +56,20 @@ namespace TangentaPrint
             this.sToReturn = sToReturn;
             this.issue_time = issue_time;
 
+            lngRPM.s_Template.Text(lbl_Template, ":");
+        }
+
+        public Form_Print_A4(InvoiceData xInvoiceData, GlobalData.ePaymentType paymentType, string sPaymentMethod, long durationType, long duration, DateTime_v issue_time, Navigation xnav)
+        {
+            InitializeComponent();
+            nav = xnav;
+
+            this.m_InvoiceData = xInvoiceData;
+            this.paymentType = paymentType;
+            this.sPaymentMethod = sPaymentMethod;
+            this.issue_time = issue_time;
+            this.durationType = durationType;
+            this.duration = duration;
             lngRPM.s_Template.Text(lbl_Template, ":");
         }
 

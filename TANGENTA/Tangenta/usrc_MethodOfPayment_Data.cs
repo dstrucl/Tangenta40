@@ -33,9 +33,9 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        public bool GetMethodOfPaymentForDocInvoice(TangentaDB.InvoiceData xInvoiceData)
+        public bool GetMethodOfPaymentForDocInvoice(TangentaDB.InvoiceData xInvoiceData, string xDocInvoice)
         {
-            Form_DocInvoice_Payment payment_frm = new Form_DocInvoice_Payment(xInvoiceData);
+            Form_DocInvoice_Payment payment_frm = new Form_DocInvoice_Payment(xInvoiceData, xDocInvoice);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
                 return true;
@@ -43,9 +43,9 @@ namespace Tangenta
             return false;
         }
 
-        public bool GetMethodOfPaymentForDocProformaInvoice(TangentaDB.InvoiceData xInvoiceData)
+        public bool GetMethodOfPaymentForDocProformaInvoice(TangentaDB.InvoiceData xInvoiceData, string xDocInvoice)
         {
-            Form_DocProformaInvoice_Payment payment_frm = new Form_DocProformaInvoice_Payment(xInvoiceData);
+            Form_DocProformaInvoice_Payment payment_frm = new Form_DocProformaInvoice_Payment(xInvoiceData, xDocInvoice);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
                 return true;

@@ -219,6 +219,24 @@ namespace CodeTables.TableDocking_Form
                     Identity = -1;
                 }
                 this.dgvx_Table.SelectionChanged += new System.EventHandler(this.dgvx_Table_SelectionChanged);
+
+                DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_Table.SelectedCells;
+                if (dgvCellCollection.Count >= 1)
+                {
+                    //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
+                    if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
+                    {
+                        long Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                        if (!m_WorkingSemaphore)
+                        {
+                            if (SelectedIndexChanged != null)
+                            {
+                                int index = dgvCellCollection[0].RowIndex;
+                                SelectedIndexChanged(tbl, Identity, index);
+                            }
+                        }
+                    }
+                }
                 return true;
             }
             else
@@ -311,23 +329,6 @@ namespace CodeTables.TableDocking_Form
                 }
                 bInitData = false;
 
-                DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_Table.SelectedCells;
-                if (dgvCellCollection.Count >= 1)
-                {
-                    //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
-                    if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
-                    {
-                        long Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
-                        if (!m_WorkingSemaphore)
-                        {
-                            if (SelectedIndexChanged != null)
-                            {
-                                int index = dgvCellCollection[0].RowIndex;
-                                SelectedIndexChanged(tbl, Identity, index);
-                            }
-                        }
-                    }
-                }
                 return true;
             }
             else
@@ -378,6 +379,23 @@ namespace CodeTables.TableDocking_Form
             if (res)
             {
                 InitDataTable(ID);
+                DataGridViewSelectedCellCollection dgvCellCollection = this.dgvx_Table.SelectedCells;
+                if (dgvCellCollection.Count >= 1)
+                {
+                    //lbl_test_sender_type.Text = "Count:" + dgvCellCollection.Count.ToString() + " CellType=" + dgvCellCollection[0].GetType().ToString() + " ValueType" + dgvCellCollection[0].Value.GetType().ToString() + " Value=" + dgvCellCollection[0].Value.ToString() + " Column Name = " + dgvCellCollection[0].OwningColumn.Name;
+                    if (dgvCellCollection[0].OwningRow.Cells["ID"].Value.GetType() == typeof(long))
+                    {
+                        long Identity = (long)dgvCellCollection[0].OwningRow.Cells["ID"].Value;
+                        if (!m_WorkingSemaphore)
+                        {
+                            if (SelectedIndexChanged != null)
+                            {
+                                int index = dgvCellCollection[0].RowIndex;
+                                SelectedIndexChanged(tbl, Identity, index);
+                            }
+                        }
+                    }
+                }
             }
             else
             {

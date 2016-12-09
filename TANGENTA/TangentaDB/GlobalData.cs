@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class GlobalData
     {
-        public enum ePaymentType { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD, TRR };
+        public enum ePaymentType { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD, BANK_ACCOUNT_TRANSFER, CASH_OR_PAYMENT_CARD };
         public const string const_Storno = "Storno";
         public const string const_Storno_with_description = "Storno*";
 

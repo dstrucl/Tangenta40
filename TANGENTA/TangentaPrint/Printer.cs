@@ -141,6 +141,11 @@ namespace TangentaPrint
             }
         }
 
+        internal void Print()
+        {
+            throw new NotImplementedException();
+        }
+
         int max_char_in_line = 58;
         EscPos_RP58 ep_RP58 = new EscPos_RP58();
         EscPos_RP80 ep_RP80 = new EscPos_RP80();
@@ -247,11 +252,16 @@ namespace TangentaPrint
             }
         }
 
+
         public Printer(int i)
         {
             m_Index = i;
         }
 
+        public Printer ThisPrinter
+        {
+            get { return this; }
+        }
 
         internal void Print_Receipt(InvoiceData xInvoiceData, 
                                     string FursD_BussinesPremiseID,
@@ -270,6 +280,25 @@ namespace TangentaPrint
                 Form_Print_A4 print_A4_dlg = new Form_Print_A4(xInvoiceData, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time, nav);
                 print_A4_dlg.ShowDialog();
             }
+        }
+
+
+
+        internal void Print_ProformaInvoice(InvoiceData xInvoiceData,
+                                    int BaseCurrencyDecimalPlaces,
+                                    GlobalData.ePaymentType PaymentType, 
+                                    string sPaymentMethod,
+                                    string sBank,
+                                    string sBankAccount,
+                                    string sTermsOfPayment_Description,
+                                    long DruationType,
+                                    long Duration,
+                                    DateTime_v issue_time
+                                    )
+        {
+
+            Form_Print_A4 print_A4_dlg = new Form_Print_A4(xInvoiceData, PaymentType, sPaymentMethod, DruationType, Duration, issue_time, null);
+            print_A4_dlg.ShowDialog();
         }
 
 

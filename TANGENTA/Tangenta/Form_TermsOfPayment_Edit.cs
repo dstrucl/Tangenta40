@@ -27,6 +27,18 @@ namespace Tangenta
         string ColumnOrderBy = null;
         NavigationButtons.Navigation nav = null;
 
+        private long m_TermsOfPayment_ID = -1;
+        public long TermsOfPayment_ID
+        {
+            get { return m_TermsOfPayment_ID; }
+        }
+
+        private string m_Description = null;
+        public string Description
+        {
+            get { return m_Description; }
+        }
+
         public Form_TermsOfPayment_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();
@@ -48,7 +60,7 @@ namespace Tangenta
 
         private bool CheckTermsOfPaymentData(ref string Err)
         {
-            string sql_TermsOfPayment = "select * from TermsOfPayment";
+            string sql_TermsOfPayment = "select Description,ID from TermsOfPayment";
             DataTable dt = new DataTable();
             if (dbTables.m_con.ReadDataTable(ref dt, sql_TermsOfPayment, ref Err))
             {
@@ -118,6 +130,30 @@ namespace Tangenta
             return default(bool);
         }
 
-        
+        private void usrc_EditTable_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        {
+            if (bRes)
+            {
+                FillProperties(m_tbl, ID);
+            }
+        }
+        private void FillProperties(SQLTable m_tbl, long ID)
+        {
+            this.m_TermsOfPayment_ID = ID;
+            this.m_Description = null;
+            object oDescription = m_tbl.Value("Description");
+            if (oDescription is TangentaTableClass.Description)
+            {
+                if (((TangentaTableClass.Description)oDescription).defined)
+                {
+                    this.m_Description = ((TangentaTableClass.Description)oDescription).val;
+                }
+            }
+        }
+
+        private void usrc_EditTable_SelectedIndexChanged(SQLTable m_tbl, long ID, int index)
+        {
+            FillProperties(m_tbl, ID);
+        }
     }
 }

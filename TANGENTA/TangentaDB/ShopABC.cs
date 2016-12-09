@@ -249,7 +249,7 @@ namespace TangentaDB
                         m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$Draft"];
                         m_CurrentInvoice.Doc_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"];
 
-                        m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDuration"]);
+                        m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDuration"]);
                         m_CurrentInvoice.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDurationType"]);
                         m_CurrentInvoice.PInvoice.TermsOfPayment_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$ID"]);
                         m_CurrentInvoice.PInvoice.TermsOfPayment_Description_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$Description"]);
