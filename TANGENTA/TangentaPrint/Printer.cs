@@ -1250,18 +1250,18 @@ namespace TangentaPrint
                 wr_String("Oseba, ki je izdala račun:\n");
                 wr_String(xInvoiceData.Invoice_Author.FirstName + " " + xInvoiceData.Invoice_Author.LastName);
 
-                if (xInvoiceData.FURS_QR_v != null)
+                if (xInvoiceData.AddOnDI.FURS_QR_v != null)
                 {
-                    if (xInvoiceData.FURS_Image_QRcode != null)
+                    if (xInvoiceData.AddOnDI.FURS_Image_QRcode != null)
                     {
                         //Size size = new Size(32, 32);
                         //Image img_new = StaticLib.Func.resizeImage(xInvoiceData.FURS_Response_Data.Image_QRcode, size, System.Drawing.Imaging.ImageFormat.Bmp, System.Drawing.Imaging.PixelFormat.Format1bppIndexed);
                         //byte[] barr = StaticLib.Func.imageToByteArray(img_new);
                         wr_NewLine(1);
-                        wr_String("ZOI:" + xInvoiceData.FURS_ZOI_v.v + "\n");
-                        wr_String("EOR:" + xInvoiceData.FURS_EOR_v.v + "\n");
+                        wr_String("ZOI:" + xInvoiceData.AddOnDI.FURS_ZOI_v.v + "\n");
+                        wr_String("EOR:" + xInvoiceData.AddOnDI.FURS_EOR_v.v + "\n");
                         wr_NewLine(1);
-                        byte[] barr = StaticLib.Func.imageToByteArray(xInvoiceData.FURS_Image_QRcode);
+                        byte[] barr = StaticLib.Func.imageToByteArray(xInvoiceData.AddOnDI.FURS_Image_QRcode);
                         wr_BitmapByteArray(barr, 180);
                     }
                 }

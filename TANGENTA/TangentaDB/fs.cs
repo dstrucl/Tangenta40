@@ -2142,5 +2142,38 @@ namespace TangentaDB
             }
         }
 
+        public static bool UpdatePriceInDraft(string DocInvoice,
+                                      long Doc_ID,
+                                      decimal GrossSum,
+                                      decimal TaxSum_Value,
+                                      decimal NetSum
+                                      )
+        {
+            List<DBConnectionControl40.SQL_Parameter> lpar = new List<DBConnectionControl40.SQL_Parameter>();
+            string spar_GrossSum = "@par_GrossSum";
+            DBConnectionControl40.SQL_Parameter par_GrossSum = new DBConnectionControl40.SQL_Parameter(spar_GrossSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, GrossSum);
+            lpar.Add(par_GrossSum);
+            string spar_TaxSum = "@par_TaxSum";
+
+            DBConnectionControl40.SQL_Parameter par_TaxSum = new DBConnectionControl40.SQL_Parameter(spar_TaxSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, TaxSum_Value);
+            lpar.Add(par_TaxSum);
+            string spar_NetSum = "@par_NetSum";
+            DBConnectionControl40.SQL_Parameter par_NetSum = new DBConnectionControl40.SQL_Parameter(spar_NetSum, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Decimal, false, NetSum);
+            lpar.Add(par_NetSum);
+
+            string sql_SetPrice = "update " + DocInvoice + " set GrossSum = " + spar_GrossSum + ",TaxSum = " + spar_TaxSum + ",NetSum = " + spar_NetSum + " where ID = " + Doc_ID.ToString();
+            object ores = null;
+            string Err = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, lpar, ref ores, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Invoice:UpdateInvoicePriceInDraft:Err=" + Err);
+                return false;
+            }
+        }
+
     }
 }

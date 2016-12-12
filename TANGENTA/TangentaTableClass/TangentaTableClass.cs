@@ -285,7 +285,7 @@ namespace TangentaTableClass
     {
     }
         
-    public class PaymentType:DB_varchar_32
+    public class PaymentType:DB_varchar_264
     {
     }
 
@@ -1839,6 +1839,7 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public PaymentType PaymentType  = new PaymentType();
+        public Atom_OrganisationAccount m_Atom_OrganisationAccount = new Atom_OrganisationAccount();
     }
 
     public class Invoice_Reference_ID:DB_Int64

@@ -68,6 +68,8 @@
     <Compile Include="Columns_Price_Item_Stock.cs" />
     <Compile Include="CurrentInvoice.cs" />
     <Compile Include="DBTablesAndColumnNames.cs" />
+    <Compile Include="DocInvoice_AddOn.cs" />
+    <Compile Include="DocProformaInvoice_AddOn.cs" />
     <Compile Include="Doc_ShopC_Item_Data.cs" />
     <Compile Include="fs.cs" />
     <Compile Include="f_Atom_cAddress_Org.cs" />

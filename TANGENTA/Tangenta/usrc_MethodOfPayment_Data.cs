@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TangentaDB;
 
 namespace Tangenta
 {
@@ -43,9 +44,9 @@ namespace Tangenta
             return false;
         }
 
-        public bool GetMethodOfPaymentForDocProformaInvoice(TangentaDB.InvoiceData xInvoiceData, string xDocInvoice)
+        public bool GetMethodOfPaymentForDocProformaInvoice(DocProformaInvoice_AddOn m_DocProformaInvoice_AddOn)
         {
-            Form_DocProformaInvoice_Payment payment_frm = new Form_DocProformaInvoice_Payment(xInvoiceData, xDocInvoice);
+            Form_DocProformaInvoice_Payment payment_frm = new Form_DocProformaInvoice_Payment(m_DocProformaInvoice_AddOn);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
                 return true;

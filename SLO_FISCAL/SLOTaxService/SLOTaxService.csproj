@@ -103,6 +103,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
+      <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
+      <Name>StaticLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\SharedService\SharedService.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\common_reference\StyleCop\Build\StyleCop.MSBuild.Targets" />

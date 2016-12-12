@@ -835,6 +835,7 @@ namespace TangentaDataBaseDef
             t_MethodOfPayment = new SQLTable((Object)new MethodOfPayment(),"metopay", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_SimpleItem);
             t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.PaymentType, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Payment Type", "Način plačila") );
+            t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.m_Atom_OrganisationAccount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Atom Organisation Account ID", "Bančni račun organizacije arhiv ID"));
             m_DBTables.items.Add(t_MethodOfPayment);
 
             /* 32 */

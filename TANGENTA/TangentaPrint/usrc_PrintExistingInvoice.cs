@@ -117,40 +117,47 @@ namespace TangentaPrint
 
         private bool GetInvoiceTime(ref DateTime dtInvoiceTime)
         {
-            string sJournal_DocInvoice_Type_Name = "InvoiceTime";
-            if (m_InvoiceData!=null)
+            if (m_InvoiceData.IsDocInvoice)
             {
-                if (m_InvoiceData.Invoice_Reference_Type_v!=null)
+                string sJournal_DocInvoice_Type_Name = "InvoiceTime";
+                if (m_InvoiceData != null)
                 {
-                    if (m_InvoiceData.Invoice_Reference_Type_v.v.Equals("STORNO"))
+                    if (m_InvoiceData.AddOnDI.Invoice_Reference_Type_v != null)
                     {
-                        sJournal_DocInvoice_Type_Name = "InvoiceStornoTime";
+                        if (m_InvoiceData.AddOnDI.Invoice_Reference_Type_v.v.Equals("STORNO"))
+                        {
+                            sJournal_DocInvoice_Type_Name = "InvoiceStornoTime";
+                        }
                     }
                 }
-            }
-            string sql = @"select   JOURNAL_DocInvoice_$$EventTime
+                string sql = @"select   JOURNAL_DocInvoice_$$EventTime
                                     from JOURNAL_DocInvoice_VIEW where 
-                                    JOURNAL_DocInvoice_$_jpinvt_$$Name = '"+ sJournal_DocInvoice_Type_Name + @"' and
+                                    JOURNAL_DocInvoice_$_jpinvt_$$Name = '" + sJournal_DocInvoice_Type_Name + @"' and
                                     JOURNAL_DocInvoice_$_dinv_$$ID = " + DocInvoice_ID.ToString() + " order by ID desc";
-            dt.Clear();
-            string Err = null;
-            DataTable xdt = new DataTable();
-            if (DBSync.DBSync.ReadDataTable(ref xdt, sql, ref Err))
-            {
-                if (xdt.Rows.Count>0)
+                dt.Clear();
+                string Err = null;
+                DataTable xdt = new DataTable();
+                if (DBSync.DBSync.ReadDataTable(ref xdt, sql, ref Err))
                 {
-                    dtInvoiceTime = (DateTime)xdt.Rows[0]["JOURNAL_DocInvoice_$$EventTime"];
-                    return true;
+                    if (xdt.Rows.Count > 0)
+                    {
+                        dtInvoiceTime = (DateTime)xdt.Rows[0]["JOURNAL_DocInvoice_$$EventTime"];
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_PrintExistingInvoice:GetInvoiceTime:sql=" + sql + "\r\nErr= xdt.Rows.Count == 0");
+                        return false;
+                    }
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrc_PrintExistingInvoice:GetInvoiceTime:sql=" + sql + "\r\nErr= xdt.Rows.Count == 0");
+                    LogFile.Error.Show("ERROR:usrc_PrintExistingInvoice:Init:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_PrintExistingInvoice:Init:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

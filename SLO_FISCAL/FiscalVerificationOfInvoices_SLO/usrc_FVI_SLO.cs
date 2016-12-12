@@ -440,7 +440,13 @@ namespace FiscalVerificationOfInvoices_SLO
         internal bool Send_SalesBookInvoice(Control pctrl,InvoiceData invoiceData, ref string ZOI,ref string EOR, ref string barCodeValue, ref Image img_QR)
         {
             string Xml_SalesBookInvoice_template = Properties.Resources.FVI_SLO_SalesBook;
-            string Xml_SalesBookInvoice = invoiceData.Create_furs_SalesBookInvoiceXML(Xml_SalesBookInvoice_template, FursD_MyOrgTaxID, FursD_BussinesPremiseID, invoiceData.FURS_SalesBookInvoice_SetNumber_v.v, invoiceData.FURS_SalesBookInvoice_SerialNumber.v);
+            string Xml_SalesBookInvoice = invoiceData.AddOnDI.Create_furs_SalesBookInvoiceXML(Xml_SalesBookInvoice_template, FursD_MyOrgTaxID, FursD_BussinesPremiseID,
+                                                                                     invoiceData.AddOnDI.FURS_SalesBookInvoice_SetNumber_v.v, 
+                                                                                     invoiceData.AddOnDI.FURS_SalesBookInvoice_SerialNumber.v,
+                                                                                     invoiceData.IssueDate_v,
+                                                                                     invoiceData.NumberInFinancialYear,
+                                                                                     invoiceData.GrossSum,
+                                                                                     invoiceData.taxSum);
             if (Send_SingleInvoice(true,Xml_SalesBookInvoice, pctrl, ref ZOI, ref EOR, ref barCodeValue, ref img_QR)== Result_MessageBox_Post.OK)
             {
                 return true;

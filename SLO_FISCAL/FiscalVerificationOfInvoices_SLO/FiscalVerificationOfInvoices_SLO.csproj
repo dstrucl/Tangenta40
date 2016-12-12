@@ -256,6 +256,10 @@
       <Project>{3C726999-1AD1-4321-8D63-D1136A3F071C}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
+      <Project>{86E2D927-2C40-4488-A51A-0A1104478886}</Project>
+      <Name>StaticLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TANGENTA\TangentaDB\TangentaDB.csproj">
       <Project>{6583355d-d6dc-46c9-9787-96a74ef27be3}</Project>
       <Name>TangentaDB</Name>

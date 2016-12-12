@@ -40,21 +40,16 @@ namespace TangentaDB
 
     public class InvoiceData
     {
+
+        public DocInvoice_AddOn AddOnDI = null;
+        public DocProformaInvoice_AddOn AddOnDPI = null;
+
         public enum eType { DRAFT_INVOICE, INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
 
         public eType m_eType = eType.UNKNOWN;
-        private bool b_FVI_SLO = false;
         private string CasshierName = "";
 
 
-        public string_v FURS_ZOI_v = null;
-        public string_v FURS_EOR_v = null;
-        public string_v FURS_QR_v = null;
-        public Image FURS_Image_QRcode = null;
-
-        public string_v FURS_SalesBookInvoice_InvoiceNumber_v = null;
-        public string_v FURS_SalesBookInvoice_SetNumber_v = null;
-        public string_v FURS_SalesBookInvoice_SerialNumber = null;
 
 
 
@@ -67,18 +62,17 @@ namespace TangentaDB
 
         public long DocInvoice_ID = -1;
         public long_v DocInvoice_ID_v = null;
-        public long_v DocInvoice_Reference_ID_v = null;
+
 
 
         public int FinancialYear = -1;
         public int NumberInFinancialYear = -1;
         public bool Draft = true;
-        public bool_v Invoice_Storno_v = null;
-        public string_v Invoice_Reference_Type_v = null;
 
 
         public DateTime_v IssueDate_v = null;
-        public DateTime_v StornoIssueDate_v = null;
+
+
 
 
         public string Currency_Symbol = null;
@@ -93,13 +87,14 @@ namespace TangentaDB
         public decimal NetSum = 0;
 
         public UniversalInvoice.Organisation MyOrganisation = null;
-        public UniversalInvoice.FVI_SLO_RealEstateBP FVI_SLO_RealEstateBP = null;
+
+
         public UniversalInvoice.Organisation CustomerOrganisation = null;
         public UniversalInvoice.Person CustomerPerson = null;
         public UniversalInvoice.Person Invoice_Author = null;
         public UniversalInvoice.ItemSold[] ItemsSold = null;
         public UniversalInvoice.InvoiceToken InvoiceToken = null;
-        public UniversalInvoice.Invoice_FURS_Token Invoice_FURS_Token = null;
+
 
         public int iCountSimpleItemsSold = 0;
         public int iCountItemsSold = 0;
@@ -107,6 +102,49 @@ namespace TangentaDB
 
         public TangentaDB.ShopABC m_ShopABC = null;
 
+        public string DocInvoice
+        {
+            get
+            {
+                if (m_ShopABC!=null)
+                {
+                    return m_ShopABC.DocInvoice;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public bool IsDocInvoice
+        {
+            get { 
+                    if (m_ShopABC!=null)
+                    {
+                        return m_ShopABC.IsDocInvoice;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+        }
+
+        public bool IsDocProformaInvoice
+        {
+            get
+            {
+                if (m_ShopABC != null)
+                {
+                    return m_ShopABC.IsDocProformaInvoice;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
         public StaticLib.TaxSum taxSum = null;
 
@@ -135,8 +173,12 @@ namespace TangentaDB
         {
             m_ShopABC = xInvoiceDB;
             DocInvoice_ID = xDocProformaInvoice_ID;
-            Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
-            b_FVI_SLO = xb_FVI_SLO;
+            if (IsDocInvoice)
+            {
+                AddOnDI = new DocInvoice_AddOn();
+                AddOnDI.Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
+                AddOnDI.b_FVI_SLO = xb_FVI_SLO;
+            }
             CasshierName = xCasshierName;
         }
 
@@ -148,7 +190,7 @@ namespace TangentaDB
 
 
 
-        public void Fill_Sold_ShopA_ItemsData(string DocInvoice,ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
+        public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
         {
             int i;
             int end_index = start_index + count;
@@ -336,118 +378,6 @@ namespace TangentaDB
         }
 
 
-        public bool Write_FURS_Response_Data()
-        {
-            object oret = null;
-            string Err = null;
-            string sql = null;
-            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string spar_Invoice_ID = "@par_Invoice_ID";
-            SQL_Parameter par_Invoice_ID = new SQL_Parameter(spar_Invoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID_v.v);
-            lpar.Add(par_Invoice_ID);
-            sql = "select ID from fvi_slo_response where DocInvoice_ID = " + spar_Invoice_ID;
-            DataTable dt = new DataTable();
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
-            {
-                if (dt.Rows.Count > 0)
-                {
-                    LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\n Invoice was confirmed in the past: Invoice_ID" + DocInvoice_ID_v.v.ToString() + " fvi_slo_response.ID=" + ((long)dt.Rows[0]["ID"]).ToString());
-                    return true;
-
-                }
-            }
-            string spar_MessageID = "@par_MessageID";
-            SQL_Parameter par_MessageID = new SQL_Parameter(spar_MessageID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_ZOI_v.v);
-            lpar.Add(par_MessageID);
-
-
-            string spar_UniqueInvoiceID = "@par_UniqueInvoiceID";
-            SQL_Parameter par_UniqueInvoiceID = new SQL_Parameter(spar_UniqueInvoiceID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_EOR_v.v);
-            lpar.Add(par_UniqueInvoiceID);
-
-            string spar_BarCodeValue = "@par_BarCodeValue";
-            SQL_Parameter par_BarCodeValue = new SQL_Parameter(spar_BarCodeValue, SQL_Parameter.eSQL_Parameter.Nvarchar, false, FURS_QR_v.v);
-            lpar.Add(par_BarCodeValue);
-
-            DateTime resp_datetime = DateTime.Now;
-            string spar_Response_DateTime = "@par_Response_DateTime";
-            SQL_Parameter par_Response_DateTime = new SQL_Parameter(spar_Response_DateTime, SQL_Parameter.eSQL_Parameter.Datetime, false, resp_datetime);
-            lpar.Add(par_Response_DateTime);
-
-
-            sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ")";
-            long id = -1;
-            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, "fvi_slo_response"))
-            {
-                Set_Invoice_Furs_Token();
-                return true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-
-
-        public void Set_Invoice_Furs_Token()
-        {
-            if (Invoice_FURS_Token == null)
-            {
-                Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
-            }
-            Invoice_FURS_Token.tUniqueMessageID.Set(this.FURS_ZOI_v.v);
-            Invoice_FURS_Token.tUniqueInvoiceID.Set(this.FURS_EOR_v.v);
-
-            if (this.FURS_Image_QRcode != null)
-            {
-                using (MemoryStream m = new MemoryStream())
-                {
-                    this.FURS_Image_QRcode.Save(m, this.FURS_Image_QRcode.RawFormat);
-                    byte[] imageBytes = m.ToArray();
-
-                    // Convert byte[] to Base64 String
-                    string base64String = Convert.ToBase64String(imageBytes);
-                    Invoice_FURS_Token.tQR.Set(base64String);
-                }
-            }
-        }
-
-
-
-        public bool Read_FURS_Response_Data(long DocProformaInvoice_ID, ref DataTable dt)
-        {
-            string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where DocInvoice_ID = " + DocProformaInvoice_ID.ToString();
-            string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
-            {
-                if (dt.Rows.Count > 0)
-                {
-                    FURS_ZOI_v = tf.set_string(dt.Rows[0]["MessageID"]);
-                    FURS_EOR_v = tf.set_string(dt.Rows[0]["UniqueInvoiceID"]);
-                    FURS_QR_v = tf.set_string(dt.Rows[0]["BarCodeValue"]);
-                    this.FURS_Image_QRcode = null;
-                }
-                else
-                {
-                    if (Invoice_FURS_Token == null)
-                    {
-                        Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
-                    }
-                    Invoice_FURS_Token.tUniqueMessageID.Set("");
-                    Invoice_FURS_Token.tUniqueInvoiceID.Set("");
-                    Invoice_FURS_Token.tQR.Set("");
-                }
-                return true;
-
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:InvoiceData:Read_FURS_Response_Data:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-        }
-
         public bool SaveDocInvoice(ref long docinvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
             return m_ShopABC.m_CurrentInvoice.SaveDocInvoice(ref DocInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
@@ -561,336 +491,252 @@ namespace TangentaDB
 
 
 
-        public bool Read_DocInvoice(string DocInvoice)
+        public bool Read_DocInvoice()
         {
             string sql = null;
-            DocInvoice_Reference_ID_v = null;
-            if (b_FVI_SLO)
+            if (IsDocInvoice)
             {
-                if (DocInvoice.Equals("DocInvoice"))
+                AddOnDI.DocInvoice_Reference_ID_v = null;
+                if (AddOnDI.b_FVI_SLO)
                 {
                     sql = @"select
-                                 pi.ID as DocInvoice_ID,
-                                 pi.FinancialYear,
-                                 pi.NumberInFinancialYear,
-                                 pi.Draft,
-                                 mpay.PaymentType,
-                                 GrossSum,
-                                 TaxSum,
-                                 NetSum,
-                                 ao.Name,
-                                 ao.Tax_ID,
-                                 ao.Registration_ID,
-                                 Atom_cStreetName_Org.StreetName,
-                                 Atom_cHouseNumber_Org.HouseNumber,
-                                 Atom_cCity_Org.City,
-                                 Atom_cZIP_Org.ZIP,
-                                 Atom_cCountry_Org.Country,
-                                 Atom_cState_Org.State,
-                                 cEmail_Org.Email,
-                                 aorgd_hp.HomePage,
-                                 cPhoneNumber_Org.PhoneNumber,
-                                 cFaxNumber_Org.FaxNumber,
-                                 aorgd.BankName,
-                                 aorgd.TRR,
-                                 aoff.Name as Atom_Office_Name,
-                                 apfn.FirstName as My_Organisation_Person_FirstName,
-                                 apln.LastName as My_Organisation_Person_LastName,
-                                 ap.ID as Atom_MyOrganisation_Person_ID,
-                                 ao.Tax_ID as My_Organisation_Tax_ID,
-                                 ap.CardNumber,
-                                 amcp.UserName as My_Organisation_Person_UserName,
-                                 amcp.Job as My_Organisation_Job,
-                                 Atom_Logo.Image_Hash as Logo_Hash,
-                                 Atom_Logo.Image_Data as Logo_Data,
-                                 Atom_Logo.Description as Logo_Description,
-                                 acusorg.ID as Atom_Customer_Org_ID,
-                                 acusper.ID as Atom_Customer_Person_ID,
-                                 jpi.EventTime,
-                                 jpit.Name as JOURNAL_DocInvoice_Type_Name,
-                                 JOURNAL_DocInvoice_$_dinv_$_fvisres.MessageID As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID,
-                                 JOURNAL_DocInvoice_$_dinv_$_fvisres.UniqueInvoiceID As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID,
-                                 JOURNAL_DocInvoice_$_dinv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue,
-                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber,
-                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber,
-                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber,
-                                 pi.Storno,
-                                 pi.Invoice_Reference_Type,
-                                 pi.Invoice_Reference_ID
-                                 from JOURNAL_DocInvoice jpi
-                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
-                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
-                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
-                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
-                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
-                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID 
-                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
-                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
-                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
-                                 LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = pi.ID 
-                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = pi.ID 
-                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
-                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                 left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
-                                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
-                                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
-                                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
-                                 left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
-                                 left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
-                                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
-                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
-                                 left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
-                                 left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
-                                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
-                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
-                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
-                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                 where pi.ID = " + DocInvoice_ID.ToString();
-                }
-                else if (DocInvoice.Equals("DocProformaInvoice"))
-                {
-                    sql = @"select
-                                 pi.ID as DocProformaInvoice_ID,
-                                 pi.FinancialYear,
-                                 pi.NumberInFinancialYear,
-                                 pi.Draft,
-                                 mpay.PaymentType,
-                                 GrossSum,
-                                 TaxSum,
-                                 NetSum,
-                                 ao.Name,
-                                 ao.Tax_ID,
-                                 ao.Registration_ID,
-                                 Atom_cStreetName_Org.StreetName,
-                                 Atom_cHouseNumber_Org.HouseNumber,
-                                 Atom_cCity_Org.City,
-                                 Atom_cZIP_Org.ZIP,
-                                 Atom_cCountry_Org.Country,
-                                 Atom_cState_Org.State,
-                                 cEmail_Org.Email,
-                                 aorgd_hp.HomePage,
-                                 cPhoneNumber_Org.PhoneNumber,
-                                 cFaxNumber_Org.FaxNumber,
-                                 aorgd.BankName,
-                                 aorgd.TRR,
-                                 aoff.Name as Atom_Office_Name,
-                                 apfn.FirstName as My_Organisation_Person_FirstName,
-                                 apln.LastName as My_Organisation_Person_LastName,
-                                 ap.ID as Atom_MyOrganisation_Person_ID,
-                                 ao.Tax_ID as My_Organisation_Tax_ID,
-                                 ap.CardNumber,
-                                 amcp.UserName as My_Organisation_Person_UserName,
-                                 amcp.Job as My_Organisation_Job,
-                                 Atom_Logo.Image_Hash as Logo_Hash,
-                                 Atom_Logo.Image_Data as Logo_Data,
-                                 Atom_Logo.Description as Logo_Description,
-                                 acusorg.ID as Atom_Customer_Org_ID,
-                                 acusper.ID as Atom_Customer_Person_ID,
-                                 jpi.EventTime,
-                                 jpit.Name as JOURNAL_DocProformaInvoice_Type_Name
-                                 from JOURNAL_DocProformaInvoice jpi
-                                 inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
-                                 inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
-                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
-                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
-                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
-                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID 
-                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
-                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
-                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
-                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
-                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                 left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
-                                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
-                                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
-                                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
-                                 left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
-                                 left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
-                                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
-                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
-                                 left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
-                                 left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
-                                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
-                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
-                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
-                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                 where pi.ID = " + DocInvoice_ID.ToString();
-
-
+                                pi.ID as DocInvoice_ID,
+                                pi.FinancialYear,
+                                pi.NumberInFinancialYear,
+                                pi.Draft,
+                                mpay.PaymentType,
+                                GrossSum,
+                                TaxSum,
+                                NetSum,
+                                ao.Name,
+                                ao.Tax_ID,
+                                ao.Registration_ID,
+                                Atom_cStreetName_Org.StreetName,
+                                Atom_cHouseNumber_Org.HouseNumber,
+                                Atom_cCity_Org.City,
+                                Atom_cZIP_Org.ZIP,
+                                Atom_cCountry_Org.Country,
+                                Atom_cState_Org.State,
+                                cEmail_Org.Email,
+                                aorgd_hp.HomePage,
+                                cPhoneNumber_Org.PhoneNumber,
+                                cFaxNumber_Org.FaxNumber,
+                                aorgd.BankName,
+                                aorgd.TRR,
+                                aoff.Name as Atom_Office_Name,
+                                apfn.FirstName as My_Organisation_Person_FirstName,
+                                apln.LastName as My_Organisation_Person_LastName,
+                                ap.ID as Atom_MyOrganisation_Person_ID,
+                                ao.Tax_ID as My_Organisation_Tax_ID,
+                                ap.CardNumber,
+                                amcp.UserName as My_Organisation_Person_UserName,
+                                amcp.Job as My_Organisation_Job,
+                                Atom_Logo.Image_Hash as Logo_Hash,
+                                Atom_Logo.Image_Data as Logo_Data,
+                                Atom_Logo.Description as Logo_Description,
+                                acusorg.ID as Atom_Customer_Org_ID,
+                                acusper.ID as Atom_Customer_Person_ID,
+                                jpi.EventTime,
+                                jpit.Name as JOURNAL_DocInvoice_Type_Name,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisres.MessageID As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisres.UniqueInvoiceID As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber,
+                                pi.Storno,
+                                pi.Invoice_Reference_Type,
+                                pi.Invoice_Reference_ID
+                                from JOURNAL_DocInvoice jpi
+                                inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
+                                inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
+                                inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
+                                inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
+                                inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
+                                inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
+                                inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID 
+                                inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
+                                inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
+                                inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = pi.ID 
+                                LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = pi.ID 
+                                left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
+                                left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
+                                left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
+                                left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
+                                left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
+                                left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
+                                left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
+                                left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
+                                left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
+                                left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
+                                left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
+                                left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
+                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
+                                left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
+                                left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
+                                left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
+                                left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
+                                where pi.ID = " + DocInvoice_ID.ToString();
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:DocInvoice=" + DocInvoice + " not implemented.");
-                    return false;
+                    sql = @"select
+                                pi.ID as DocInvoice_ID,
+                                pi.FinancialYear,
+                                pi.NumberInFinancialYear,
+                                pi.Draft,
+                                mpay.PaymentType,
+                                GrossSum,
+                                TaxSum,
+                                NetSum,
+                                ao.Name,
+                                ao.Tax_ID,
+                                ao.Registration_ID,
+                                Atom_cStreetName_Org.StreetName,
+                                Atom_cHouseNumber_Org.HouseNumber,
+                                Atom_cCity_Org.City,
+                                Atom_cZIP_Org.ZIP,
+                                Atom_cCountry_Org.Country,
+                                Atom_cState_Org.State,
+                                cEmail_Org.Email,
+                                aorgd_hp.HomePage,
+                                cPhoneNumber_Org.PhoneNumber,
+                                cFaxNumber_Org.FaxNumber,
+                                aorgd.BankName,
+                                aorgd.TRR,
+                                aoff.Name as Atom_Office_Name,
+                                apfn.FirstName as My_Organisation_Person_FirstName,
+                                apln.LastName as My_Organisation_Person_LastName,
+                                ap.ID as Atom_MyOrganisation_Person_ID,
+                                ao.Tax_ID as My_Organisation_Tax_ID,
+                                ap.CardNumber,
+                                amcp.UserName as My_Organisation_Person_UserName,
+                                amcp.Job as My_Organisation_Job,
+                                Atom_Logo.Image_Hash as Logo_Hash,
+                                Atom_Logo.Image_Data as Logo_Data,
+                                Atom_Logo.Description as Logo_Description,
+                                acusorg.ID as Atom_Customer_Org_ID,
+                                acusper.ID as Atom_Customer_Person_ID,
+                                jpi.EventTime,
+                                jpit.Name as JOURNAL_DocInvoice_Type_Name,
+                                pi.Storno,
+                                pi.Invoice_Reference_Type,
+                                pi.Invoice_Reference_ID
+                                from JOURNAL_DocInvoice jpi
+                                inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
+                                inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
+                                inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
+                                inner join Atom_myOrganisation_Person amcp on Atom_WorkPeriod.Atom_myOrganisation_Person_ID = amcp.ID
+                                inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
+                                inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
+                                inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
+                                inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
+                                inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
+                                inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
+                                left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
+                                left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
+                                left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
+                                left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
+                                left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
+                                left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
+                                left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
+                                left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
+                                left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
+                                left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
+                                left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
+                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
+                                left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
+                                left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
+                                left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
+                                left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
+                                where pi.ID = " + DocInvoice_ID.ToString();
+                    }
                 }
-
+                else if (IsDocProformaInvoice)
+                {
+                sql = @"select
+                                pi.ID as DocProformaInvoice_ID,
+                                pi.FinancialYear,
+                                pi.NumberInFinancialYear,
+                                pi.Draft,
+                                mpay.PaymentType,
+                                GrossSum,
+                                TaxSum,
+                                NetSum,
+                                ao.Name,
+                                ao.Tax_ID,
+                                ao.Registration_ID,
+                                Atom_cStreetName_Org.StreetName,
+                                Atom_cHouseNumber_Org.HouseNumber,
+                                Atom_cCity_Org.City,
+                                Atom_cZIP_Org.ZIP,
+                                Atom_cCountry_Org.Country,
+                                Atom_cState_Org.State,
+                                cEmail_Org.Email,
+                                aorgd_hp.HomePage,
+                                cPhoneNumber_Org.PhoneNumber,
+                                cFaxNumber_Org.FaxNumber,
+                                aorgd.BankName,
+                                aorgd.TRR,
+                                aoff.Name as Atom_Office_Name,
+                                apfn.FirstName as My_Organisation_Person_FirstName,
+                                apln.LastName as My_Organisation_Person_LastName,
+                                ap.ID as Atom_MyOrganisation_Person_ID,
+                                ao.Tax_ID as My_Organisation_Tax_ID,
+                                ap.CardNumber,
+                                amcp.UserName as My_Organisation_Person_UserName,
+                                amcp.Job as My_Organisation_Job,
+                                Atom_Logo.Image_Hash as Logo_Hash,
+                                Atom_Logo.Image_Data as Logo_Data,
+                                Atom_Logo.Description as Logo_Description,
+                                acusorg.ID as Atom_Customer_Org_ID,
+                                acusper.ID as Atom_Customer_Person_ID,
+                                jpi.EventTime,
+                                jpit.Name as JOURNAL_DocProformaInvoice_Type_Name
+                                from JOURNAL_DocProformaInvoice jpi
+                                inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
+                                inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
+                                inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
+                                inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
+                                inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
+                                inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
+                                inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID 
+                                inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
+                                inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
+                                inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
+                                left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
+                                left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
+                                left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
+                                left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
+                                left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
+                                left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
+                                left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
+                                left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
+                                left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
+                                left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
+                                left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
+                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
+                                left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
+                                left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
+                                left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
+                                left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
+                                where pi.ID = " + DocInvoice_ID.ToString();
             }
             else
             {
-                if (DocInvoice.Equals("DocInvoice"))
-                {
-                    sql = @"select
-                                 pi.ID as DocInvoice_ID,
-                                 pi.FinancialYear,
-                                 pi.NumberInFinancialYear,
-                                 pi.Draft,
-                                 mpay.PaymentType,
-                                 GrossSum,
-                                 TaxSum,
-                                 NetSum,
-                                 ao.Name,
-                                 ao.Tax_ID,
-                                 ao.Registration_ID,
-                                 Atom_cStreetName_Org.StreetName,
-                                 Atom_cHouseNumber_Org.HouseNumber,
-                                 Atom_cCity_Org.City,
-                                 Atom_cZIP_Org.ZIP,
-                                 Atom_cCountry_Org.Country,
-                                 Atom_cState_Org.State,
-                                 cEmail_Org.Email,
-                                 aorgd_hp.HomePage,
-                                 cPhoneNumber_Org.PhoneNumber,
-                                 cFaxNumber_Org.FaxNumber,
-                                 aorgd.BankName,
-                                 aorgd.TRR,
-                                 aoff.Name as Atom_Office_Name,
-                                 apfn.FirstName as My_Organisation_Person_FirstName,
-                                 apln.LastName as My_Organisation_Person_LastName,
-                                 ap.ID as Atom_MyOrganisation_Person_ID,
-                                 ao.Tax_ID as My_Organisation_Tax_ID,
-                                 ap.CardNumber,
-                                 amcp.UserName as My_Organisation_Person_UserName,
-                                 amcp.Job as My_Organisation_Job,
-                                 Atom_Logo.Image_Hash as Logo_Hash,
-                                 Atom_Logo.Image_Data as Logo_Data,
-                                 Atom_Logo.Description as Logo_Description,
-                                 acusorg.ID as Atom_Customer_Org_ID,
-                                 acusper.ID as Atom_Customer_Person_ID,
-                                 jpi.EventTime,
-                                 jpit.Name as JOURNAL_DocInvoice_Type_Name,
-                                 pi.Storno,
-                                 pi.Invoice_Reference_Type,
-                                 pi.Invoice_Reference_ID
-                                 from JOURNAL_DocInvoice jpi
-                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
-                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
-                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
-                                 inner join Atom_myOrganisation_Person amcp on Atom_WorkPeriod.Atom_myOrganisation_Person_ID = amcp.ID
-                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
-                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
-                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
-                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
-                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
-                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
-                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                 left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
-                                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
-                                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
-                                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
-                                 left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
-                                 left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
-                                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
-                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
-                                 left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
-                                 left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
-                                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
-                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
-                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
-                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                 where pi.ID = " + DocInvoice_ID.ToString();
-                }
-                else if (DocInvoice.Equals("DocProformaInvoice"))
-                {
-                    sql = @"select
-                                 pi.ID as DocProformaInvoice_ID,
-                                 pi.FinancialYear,
-                                 pi.NumberInFinancialYear,
-                                 pi.Draft,
-                                 mpay.PaymentType,
-                                 GrossSum,
-                                 TaxSum,
-                                 NetSum,
-                                 ao.Name,
-                                 ao.Tax_ID,
-                                 ao.Registration_ID,
-                                 Atom_cStreetName_Org.StreetName,
-                                 Atom_cHouseNumber_Org.HouseNumber,
-                                 Atom_cCity_Org.City,
-                                 Atom_cZIP_Org.ZIP,
-                                 Atom_cCountry_Org.Country,
-                                 Atom_cState_Org.State,
-                                 cEmail_Org.Email,
-                                 aorgd_hp.HomePage,
-                                 cPhoneNumber_Org.PhoneNumber,
-                                 cFaxNumber_Org.FaxNumber,
-                                 aorgd.BankName,
-                                 aorgd.TRR,
-                                 aoff.Name as Atom_Office_Name,
-                                 apfn.FirstName as My_Organisation_Person_FirstName,
-                                 apln.LastName as My_Organisation_Person_LastName,
-                                 ap.ID as Atom_MyOrganisation_Person_ID,
-                                 ao.Tax_ID as My_Organisation_Tax_ID,
-                                 ap.CardNumber,
-                                 amcp.UserName as My_Organisation_Person_UserName,
-                                 amcp.Job as My_Organisation_Job,
-                                 Atom_Logo.Image_Hash as Logo_Hash,
-                                 Atom_Logo.Image_Data as Logo_Data,
-                                 Atom_Logo.Description as Logo_Description,
-                                 acusorg.ID as Atom_Customer_Org_ID,
-                                 acusper.ID as Atom_Customer_Person_ID,
-                                 jpi.EventTime,
-                                 jpit.Name as JOURNAL_DocProformaInvoice_Type_Name
-                                 from JOURNAL_DocProformaInvoice jpi
-                                 inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
-                                 inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
-                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
-                                 inner join Atom_myOrganisation_Person amcp on Atom_WorkPeriod.Atom_myOrganisation_Person_ID = amcp.ID
-                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
-                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
-                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
-                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
-                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
-                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
-                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
-                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                 left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
-                                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
-                                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
-                                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
-                                 left join Atom_cHouseNumber_Org on acaorg.Atom_cHouseNumber_Org_ID = Atom_cHouseNumber_Org.ID
-                                 left join Atom_cCity_Org on acaorg.Atom_cCity_Org_ID = Atom_cCity_Org.ID
-                                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
-                                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
-                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
-                                 left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
-                                 left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
-                                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
-                                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
-                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
-                                 left join Atom_Customer_Org acusorg on acusorg.ID = pi.Atom_Customer_Org_ID
-                                 left join Atom_Customer_Person acusper on acusper.ID = pi.Atom_Customer_Person_ID
-                                 where pi.ID = " + DocInvoice_ID.ToString();
-
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:DocInvoice=" + DocInvoice + " not implemented.");
-                    return false;
-                }
+                LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:DocInvoice=" + DocInvoice + " not implemented.");
+                return false;
             }
+
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
             {
@@ -899,17 +745,17 @@ namespace TangentaDB
                     try
                     {
                         Draft = DBTypes.tf._set_bool(dt_DocInvoice.Rows[0]["Draft"]);
-                        if (DocInvoice.ToUpper().Equals("DOCINVOICE"))
+                        if (IsDocInvoice)
                         {
-                            Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
-                            Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
-                            DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
+                            AddOnDI.Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
+                            AddOnDI.Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
+                            AddOnDI.DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
                         }
                         else
                         {
-                            Invoice_Storno_v = null;
-                            Invoice_Reference_Type_v = null;
-                            DocInvoice_Reference_ID_v = null;
+                            AddOnDI.Invoice_Storno_v = null;
+                            AddOnDI.Invoice_Reference_Type_v = null;
+                            AddOnDI.DocInvoice_Reference_ID_v = null;
                         }
                         DocInvoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0][DocInvoice+"_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["EventTime"]);
@@ -923,7 +769,7 @@ namespace TangentaDB
                         {
                             if (DocInvoice_ID_v != null)
                             {
-                                    if (DocInvoice.Equals("DocInvoice"))
+                                    if (IsDocInvoice)
                                     {
                                         if (EventName_v != null)
                                         {
@@ -935,12 +781,12 @@ namespace TangentaDB
                                             else if (EventName_v.v.Equals("InvoiceStornoTime"))
                                             {
                                                 this.m_eType = eType.STORNO;
-                                                this.StornoIssueDate_v = EventTime_v.Clone();
-                                                if (DocInvoice_Reference_ID_v != null)
+                                                AddOnDI.StornoIssueDate_v = EventTime_v.Clone();
+                                                if (AddOnDI.DocInvoice_Reference_ID_v != null)
                                                 {
                                                     if (IssueDate_v == null)
                                                     {
-                                                        sql = "select EventTime from JOURNAL_DocInvoice where DocInvoice_ID = " + DocInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                                        sql = "select EventTime from JOURNAL_DocInvoice where DocInvoice_ID = " + AddOnDI.DocInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
                                                         DataTable dt = new DataTable();
                                                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                         {
@@ -997,7 +843,7 @@ namespace TangentaDB
                                             LogFile.Error.Show("ERROR:InvoiceData:Read_DocInvoice:this error should not happen! EventName must be defined!");
                                         }
                                     }
-                                    else if (DocInvoice.Equals("DocProformaInvoice"))
+                                    else if (IsDocProformaInvoice)
                                     {
                                         if (EventName_v != null)
                                         {
@@ -1051,18 +897,20 @@ namespace TangentaDB
                             }
                         }
 
-                        bool bInvoiceStorno = false;
-                        if (Invoice_Reference_Type_v != null)
+                        if (IsDocInvoice)
                         {
-                            if (Invoice_Reference_Type_v.v.Equals("STORNO"))
+                            if (AddOnDI.Invoice_Reference_Type_v != null)
                             {
-                                if (DocInvoice_Reference_ID_v != null)
+                                if (AddOnDI.Invoice_Reference_Type_v.v.Equals("STORNO"))
                                 {
-                                    bInvoiceStorno = true;
-                                }
-                                else
-                                {
-                                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:DocProformaInvoice_Reference_ID_v can not be null when Invoice_Reference_Type_v equals 'STORNO'");
+                                    if (AddOnDI.DocInvoice_Reference_ID_v != null)
+                                    {
+                                        AddOnDI.bInvoiceStorno = true;
+                                    }
+                                    else
+                                    {
+                                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:DocProformaInvoice_Reference_ID_v can not be null when Invoice_Reference_Type_v equals 'STORNO'");
+                                    }
                                 }
                             }
                         }
@@ -1072,25 +920,28 @@ namespace TangentaDB
                         taxsum = DBTypes.tf._set_decimal(dt_DocInvoice.Rows[0]["TaxSum"]);
                         NetSum = DBTypes.tf._set_decimal(dt_DocInvoice.Rows[0]["NetSum"]);
 
-                        if (bInvoiceStorno)
+                        if (IsDocInvoice)
                         {
-                            if (GrossSum > 0) GrossSum = GrossSum * -1;
-                            if (taxsum > 0) taxsum = taxsum * -1;
-                            if (NetSum > 0) NetSum = NetSum * -1;
-                        }
+                            if (AddOnDI.bInvoiceStorno)
+                            {
+                                if (GrossSum > 0) GrossSum = GrossSum * -1;
+                                if (taxsum > 0) taxsum = taxsum * -1;
+                                if (NetSum > 0) NetSum = NetSum * -1;
+                            }
+                            if (AddOnDI.b_FVI_SLO)
+                            {
 
-                        if (b_FVI_SLO)
-                        {
+                                //this.FVI_SLO_RealEstateBP = new UniversalInvoice.FVI_SLO_RealEstateBP(lngToken.st_Invoice,
+                                //                                                                             DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["BuildingNumber"]),
+                                //                                                                             DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["BuildingSectionNumber"]),
+                                //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Community"]),
+                                //                                                                             DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["CadastralNumber"]),
+                                //                                                                             DBTypes.tf._set_DateTime(dt_DocProformaInvoice.Rows[0]["ValidityDate"]),
+                                //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["ClosingTag"]),
+                                //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["SoftwareSupplier_TaxNumber"]),
+                                //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["PremiseType"])   );
+                            }
 
-                            //this.FVI_SLO_RealEstateBP = new UniversalInvoice.FVI_SLO_RealEstateBP(lngToken.st_Invoice,
-                            //                                                                             DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["BuildingNumber"]),
-                            //                                                                             DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["BuildingSectionNumber"]),
-                            //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Community"]),
-                            //                                                                             DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["CadastralNumber"]),
-                            //                                                                             DBTypes.tf._set_DateTime(dt_DocProformaInvoice.Rows[0]["ValidityDate"]),
-                            //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["ClosingTag"]),
-                            //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["SoftwareSupplier_TaxNumber"]),
-                            //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["PremiseType"])   );
                         }
 
                         //byte[] barr_logoData = (byte[])dt_DocProformaInvoice.Rows[0]["Logo_Data"];
@@ -1116,19 +967,19 @@ namespace TangentaDB
                         FinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["FinancialYear"]);
                         NumberInFinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["NumberInFinancialYear"]);
 
-                            if (DocInvoice.Equals("DocInvoice"))
+                            if (IsDocInvoice)
                             {
-                                if (b_FVI_SLO)
+                                if (AddOnDI.b_FVI_SLO)
                                 {
                                     if (!Draft)
                                     {
 
-                                        FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
-                                        FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
-                                        FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"]);
-                                        FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
-                                        FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
-                                        FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
+                                    AddOnDI.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
+                                    AddOnDI.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
+                                    AddOnDI.FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"]);
+                                    AddOnDI.FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
+                                    AddOnDI.FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
+                                    AddOnDI.FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
                                     }
                                 }
                             }
@@ -1162,20 +1013,23 @@ namespace TangentaDB
                             CustomerPerson = new UniversalInvoice.Person(lngToken.st_Customer);
                         }
 
-                        long xDocProformaInvoice_ID = DocInvoice_ID;
-                        if (DocInvoice_Reference_ID_v != null)
+                        long xDoc_ID = DocInvoice_ID;
+                        if (IsDocInvoice)
                         {
-                            xDocProformaInvoice_ID = DocInvoice_Reference_ID_v.v;
+                            if (AddOnDI.DocInvoice_Reference_ID_v != null)
+                            {
+                                xDoc_ID = AddOnDI.DocInvoice_Reference_ID_v.v;
+                            }
                         }
 
-                        if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,xDocProformaInvoice_ID, ref dt_ShopA_Items))
+                        if (dbfunc.Read_ShopA_Price_Item_Table(DocInvoice,xDoc_ID, ref dt_ShopA_Items))
                         {
-                            if (m_ShopABC.Read_ShopB_Price_Item_Table(xDocProformaInvoice_ID, ref dt_ShopB_Items))
+                            if (m_ShopABC.Read_ShopB_Price_Item_Table(xDoc_ID, ref dt_ShopB_Items))
                             {
                                 List<object> xDocProformaInvoice_ShopC_Item_Data_LIST = new List<object>();
                                 if (this.m_eType == eType.STORNO)
                                 {
-                                    if (!m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice,xDocProformaInvoice_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST))
+                                    if (!m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice,xDoc_ID, ref xDocProformaInvoice_ShopC_Item_Data_LIST))
                                     {
                                         return false;
                                     }
@@ -1195,10 +1049,12 @@ namespace TangentaDB
                                 taxSum = new StaticLib.TaxSum();
 
 
-                                Fill_Sold_ShopA_ItemsData(DocInvoice,lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
-                                Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
-                                Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
-
+                                if (IsDocInvoice)
+                                {
+                                    Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, AddOnDI.bInvoiceStorno);
+                                    Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, AddOnDI.bInvoiceStorno);
+                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, AddOnDI.bInvoiceStorno);
+                                }
                                 InvoiceToken = new UniversalInvoice.InvoiceToken();
 
                                 InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
@@ -1206,11 +1062,13 @@ namespace TangentaDB
                                 InvoiceToken.tCashier.Set(CasshierName);
 
                                 InvoiceToken.tStorno.Set("");
-                                if (bInvoiceStorno)
+                                if (IsDocInvoice)
                                 {
-                                    InvoiceToken.tStorno.Set(lngRPM.s_STORNO.s);
+                                    if (AddOnDI.bInvoiceStorno)
+                                    {
+                                        InvoiceToken.tStorno.Set(lngRPM.s_STORNO.s);
+                                    }
                                 }
-
 
                                 if (!Draft)
                                 {
@@ -1262,11 +1120,14 @@ namespace TangentaDB
                 s += "\r\n" + tt.lt.s;
             }
 
-            if (Invoice_FURS_Token != null)
+            if (IsDocInvoice)
             {
-                foreach (UniversalInvoice.TemplateToken tt in this.Invoice_FURS_Token.list)
+                if (AddOnDI.Invoice_FURS_Token != null)
                 {
-                    s += "\r\n" + tt.lt.s;
+                    foreach (UniversalInvoice.TemplateToken tt in AddOnDI.Invoice_FURS_Token.list)
+                    {
+                        s += "\r\n" + tt.lt.s;
+                    }
                 }
             }
 
@@ -1279,11 +1140,14 @@ namespace TangentaDB
                 }
             }
 
-            if (this.FVI_SLO_RealEstateBP != null)
+            if (IsDocInvoice)
             {
-                foreach (UniversalInvoice.TemplateToken tt in this.FVI_SLO_RealEstateBP.token.list)
+                if (AddOnDI.FVI_SLO_RealEstateBP != null)
                 {
-                    s += "\r\n" + tt.lt.s;
+                    foreach (UniversalInvoice.TemplateToken tt in AddOnDI.FVI_SLO_RealEstateBP.token.list)
+                    {
+                        s += "\r\n" + tt.lt.s;
+                    }
                 }
             }
 
@@ -1366,170 +1230,7 @@ namespace TangentaDB
             return s;
         }
 
-        private string sStorno(bool bStorno)
-        {
-            if (bStorno)
-            {
-                return "";
-            }
-            else
-            {
-                return "";
-            }
-        }
 
-        public string Create_furs_InvoiceXML(bool bStorno, string InvoiceXmlTemplate, string FursD_MyOrgTaxID, string FursD_BussinesPremiseID, string CasshierName, string FursD_InvoiceAuthorTaxID, string stornoReferenceInvoiceNumber, string stornoReferenceInvoiceIssueDateTime)
-        {
-            try
-            {
-                //                string InvoiceXmlTemplate = Properties.Resources.FVI_SLO_Invoice;
-                XmlDocument xdoc = new XmlDocument();
-                xdoc.LoadXml(InvoiceXmlTemplate);
-                XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
-                //string sInnerText_MyOrgTaxID = Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; // "10329048";//MyOrganisation.Tax_ID;
-                ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;//Program.usrc_FVI_SLO1.FursD_MyOrgTaxID; //MyOrganisation.Tax_ID;
-                XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDateTime");
-                ndl_IssueDateTime.Item(0).InnerText = fs.GetFURS_Time_Formated(IssueDate_v.v);
-                XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
-                //string sInnerText_FursD_BussinesPremiseID = Program.usrc_FVI_SLO1.FursD_BussinesPremiseID;
-                ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;// Program.usrc_FVI_SLO1.FursD_BussinesPremiseID; // "36CF"; //MyOrganisation.Atom_Office_Name;
-                XmlNodeList ndl_ElectronicDeviceID = xdoc.GetElementsByTagName("fu:ElectronicDeviceID");
-                ndl_ElectronicDeviceID.Item(0).InnerText = CasshierName;//Properties.Settings.Default.CasshierName;
-                XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
-                ndl_InvoiceNumber.Item(0).InnerText = NumberInFinancialYear.ToString();
-                XmlNodeList ndl_InvoiceAmount = xdoc.GetElementsByTagName("fu:InvoiceAmount");
-                ndl_InvoiceAmount.Item(0).InnerText = sStorno(bStorno) + fs.GetFursDecimalString(GrossSum);
-                XmlNodeList ndl_PaymentAmount = xdoc.GetElementsByTagName("fu:PaymentAmount");
-                ndl_PaymentAmount.Item(0).InnerText = sStorno(bStorno) + fs.GetFursDecimalString(GrossSum);
-
-                XmlNodeList ndl_TaxesPerSeller = xdoc.GetElementsByTagName("fu:TaxesPerSeller");
-                string s_innertext = "";
-                foreach (StaticLib.Tax tax in taxSum.TaxList)
-                {
-                    string sVat = "<fu:VAT>\r\n" +
-                                          "<fu:TaxRate>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
-                                          "<fu:TaxableAmount>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
-                                          "<fu:TaxAmount>" + sStorno(bStorno) + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
-                                   "</fu:VAT>" + "\r\n";
-                    s_innertext += sVat;
-                }
-                ndl_TaxesPerSeller.Item(0).InnerXml = s_innertext;
-
-                XmlNodeList ndl_OperatorTaxNumber = xdoc.GetElementsByTagName("fu:OperatorTaxNumber");
-
-                string sFursD_InvoiceAuthorTaxID = FursD_InvoiceAuthorTaxID;// Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
-
-                //Invoice_Author.Tax_ID = "59729481";
-
-                Invoice_Author.Tax_ID = FursD_InvoiceAuthorTaxID;// Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID;
-
-
-                ndl_OperatorTaxNumber.Item(0).InnerText = Invoice_Author.Tax_ID;
-
-                //LK storno 
-                if (bStorno)
-                {
-                    XmlNodeList Fu_Invoice = xdoc.GetElementsByTagName("fu:Invoice");
-                    string ns = Fu_Invoice.Item(0).GetNamespaceOfPrefix("fu");
-
-                    XmlNode xReferenceInvoice = xdoc.CreateNode("element", "ReferenceInvoice", ns);
-                    XmlNode xReferenceInvoiceIdentifier = xdoc.CreateNode("element", "ReferenceInvoiceIdentifier", ns);
-                    XmlNode xBusinessPremiseID = xdoc.CreateNode("element", "BusinessPremiseID", ns);
-                    XmlNode xElectronicDeviceID = xdoc.CreateNode("element", "ElectronicDeviceID", ns);
-                    XmlNode xInvoiceNumber = xdoc.CreateNode("element", "InvoiceNumber", ns);
-                    XmlNode xReferenceInvoiceIssueDateTime = xdoc.CreateNode("element", "ReferenceInvoiceIssueDateTime", ns);
-                    xReferenceInvoice.Prefix = "fu";
-                    xReferenceInvoiceIdentifier.Prefix = "fu";
-                    xBusinessPremiseID.Prefix = "fu";
-                    xElectronicDeviceID.Prefix = "fu";
-                    xInvoiceNumber.Prefix = "fu";
-                    xReferenceInvoiceIssueDateTime.Prefix = "fu";
-
-
-                    xBusinessPremiseID.InnerText = FursD_BussinesPremiseID;
-                    xElectronicDeviceID.InnerText = CasshierName;
-                    xInvoiceNumber.InnerText = stornoReferenceInvoiceNumber;
-                    xReferenceInvoiceIssueDateTime.InnerText = stornoReferenceInvoiceIssueDateTime;
-
-                    xReferenceInvoiceIdentifier.AppendChild(xBusinessPremiseID);
-                    xReferenceInvoiceIdentifier.AppendChild(xElectronicDeviceID);
-                    xReferenceInvoiceIdentifier.AppendChild(xInvoiceNumber);
-                    xReferenceInvoice.AppendChild(xReferenceInvoiceIdentifier);
-                    xReferenceInvoice.AppendChild(xReferenceInvoiceIssueDateTime);
-                    Fu_Invoice.Item(0).AppendChild(xReferenceInvoice);
-
-                    //<fu:ReferenceInvoice>
-                    //  <fu:ReferenceInvoiceIdentifier >  
-                    //    <fu:BusinessPremiseID > TRGOVINA1 </ fu:BusinessPremiseID >
-                    //    <fu:ElectronicDeviceID > BLAG2 </ fu:ElectronicDeviceID >
-                    //    <fu:InvoiceNumber > 145 </ fu:InvoiceNumber >
-                    //  </fu:ReferenceInvoiceIdentifier >
-                    //  <fu:ReferenceInvoiceIssueDateTime > 2015 - 09 - 07T12: 12:54 </ fu:ReferenceInvoiceIssueDateTime >
-                    //</fu:ReferenceInvoice >
-                }
-
-                string InvoiceXml = XmlDcoumentToString(xdoc);
-                return InvoiceXml;
-            }
-            catch (Exception Ex)
-            {
-                LogFile.Error.Show("ERROR:InvoiceData:Create_furs_InvoiceXML:Exception = " + Ex.Message);
-                return null;
-            }
-
-        }
-
-        public string Create_furs_SalesBookInvoiceXML(string InvoiceXmlTemplate, string FursD_MyOrgTaxID, string FursD_BussinesPremiseID, string SalesBookSetNumber, string SalesBookSerialNumber)
-        {
-            try
-            {
-                XmlDocument xdoc = new XmlDocument();
-                xdoc.LoadXml(InvoiceXmlTemplate);
-                XmlNodeList ndl_TaxNumber = xdoc.GetElementsByTagName("fu:TaxNumber");
-                ndl_TaxNumber.Item(0).InnerText = FursD_MyOrgTaxID;
-                XmlNodeList ndl_IssueDateTime = xdoc.GetElementsByTagName("fu:IssueDate");
-                ndl_IssueDateTime.Item(0).InnerText = IssueDate_v.v.ToString("yyyy-MM-dd");
-                XmlNodeList ndl_BusinessPremiseID = xdoc.GetElementsByTagName("fu:BusinessPremiseID");
-                ndl_BusinessPremiseID.Item(0).InnerText = FursD_BussinesPremiseID;
-                XmlNodeList ndl_InvoiceNumber = xdoc.GetElementsByTagName("fu:InvoiceNumber");
-                ndl_InvoiceNumber.Item(0).InnerText = NumberInFinancialYear.ToString();
-                XmlNodeList ndl_InvoiceAmount = xdoc.GetElementsByTagName("fu:InvoiceAmount");
-                ndl_InvoiceAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
-                XmlNodeList ndl_PaymentAmount = xdoc.GetElementsByTagName("fu:PaymentAmount");
-                ndl_PaymentAmount.Item(0).InnerText = fs.GetFursDecimalString(GrossSum);
-
-                XmlNodeList ndl_TaxesPerSeller = xdoc.GetElementsByTagName("fu:TaxesPerSeller");
-                string s_innertext = "";
-                foreach (StaticLib.Tax tax in taxSum.TaxList)
-                {
-                    string sVat = "<fu:VAT>\r\n" +
-                                          "<fu:TaxRate>" + fs.GetFursDecimalString(tax.Rate * 100) + "</fu:TaxRate>\r\n" +
-                                          "<fu:TaxableAmount>" + fs.GetFursDecimalString(tax.TaxableAmount) + "</fu:TaxableAmount>\r\n" +
-                                          "<fu:TaxAmount>" + fs.GetFursDecimalString(tax.TaxAmount) + "</fu:TaxAmount>\r\n" +
-                                   "</fu:VAT>" + "\r\n";
-                    s_innertext += sVat;
-                }
-                ndl_TaxesPerSeller.Item(0).InnerXml = s_innertext;
-
-                // salesbook stuff
-                XmlNodeList ndl_SetNumber = xdoc.GetElementsByTagName("fu:SetNumber");
-                ndl_SetNumber.Item(0).InnerText = Convert.ToInt32(SalesBookSetNumber).ToString("D2");
-
-                XmlNodeList ndl_SerialNumber = xdoc.GetElementsByTagName("fu:SerialNumber");
-                ndl_SerialNumber.Item(0).InnerText = SalesBookSerialNumber;
-
-
-                string InvoiceXml = XmlDcoumentToString(xdoc);
-                return InvoiceXml;
-            }
-            catch (Exception Ex)
-            {
-                LogFile.Error.Show("ERROR:InvoiceData:Create_furs_SalesBookInvoiceXML:Exception = " + Ex.Message);
-                return null;
-            }
-
-
-        }
 
 
         private void GetFursDecimalString(decimal grossSum)
@@ -1537,21 +1238,6 @@ namespace TangentaDB
             throw new NotImplementedException();
         }
 
-        private string XmlDcoumentToString(XmlDocument xmlDoc)
-        {
-            var settings = new XmlWriterSettings();
-            settings.OmitXmlDeclaration = false;
-            settings.Indent = true;
-            settings.NewLineOnAttributes = true;
-
-            var stringBuilder = new StringBuilder();
-            using (var xmlWriter = XmlWriter.Create(stringBuilder, settings))
-            {
-                xmlDoc.Save(xmlWriter);
-            }
-
-            return stringBuilder.ToString();
-        }
 
         public string CreateHTML_Invoice(ref string html_doc_template)
         {
@@ -1625,9 +1311,9 @@ namespace TangentaDB
             html_doc_template = InvoiceToken.tDateOfIssue.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tDateOfMaturity.Replace(html_doc_template);
 
-            html_doc_template = Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
-            html_doc_template = Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
-            html_doc_template = Invoice_FURS_Token.tQR.Replace(html_doc_template);
+            html_doc_template = AddOnDI.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
+            html_doc_template = AddOnDI.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
+            html_doc_template = AddOnDI.Invoice_FURS_Token.tQR.Replace(html_doc_template);
 
 
             int itbody = html_doc_template.IndexOf("<tbody>", 0);

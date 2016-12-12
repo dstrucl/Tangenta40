@@ -24,17 +24,16 @@ namespace Tangenta
     public partial class Form_DocProformaInvoice_Payment : Form
     {
         private string m_DocInvoice = null;
-        public InvoiceData m_InvoiceData = null;
+        public DocProformaInvoice_AddOn m_AddOnDPI = null;
         public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.NONE;
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
 
-        public Form_DocProformaInvoice_Payment(InvoiceData xInvoiceData, string xDocInvoice)
+        public Form_DocProformaInvoice_Payment(DocProformaInvoice_AddOn x_AddOnDPI)
         {
             InitializeComponent();
-            m_DocInvoice = xDocInvoice;
-            m_InvoiceData = xInvoiceData;
+            m_AddOnDPI = x_AddOnDPI;
             this.Text = lngRPM.s_PaymentOfProformaInvoiceAndPrint.s;
         }
 
@@ -48,26 +47,27 @@ namespace Tangenta
 
         private void Form_DocProformaInvoice_Payment_Load(object sender, EventArgs e)
         {
-            if (Program.usrc_TangentaPrint1.Init(m_InvoiceData, m_DocInvoice))
+            if (this.m_usrc_DocProformaInvoice_Payment.Init(ref m_AddOnDPI))
             {
-                if ((m_InvoiceData.m_ShopABC.m_CurrentInvoice.bDraft))
-                {
-                    if (this.m_usrc_DocProformaInvoice_Payment.Init(m_InvoiceData, Program.usrc_TangentaPrint1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
-                    {
-                        //splitContainer1.Panel1Collapsed = true;
-                        return;
-                    }
-                    else
-                    {
-                        this.Close();
-                        DialogResult = DialogResult.Abort;
-                    }
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:Form_Payment:Not Draft!");
-                }
+                //splitContainer1.Panel1Collapsed = true;
+                return;
             }
+            else
+            {
+                this.Close();
+                DialogResult = DialogResult.Abort;
+            }
+
+            //if (Program.usrc_TangentaPrint1.Init(m_AddOnDPI))
+            //{
+            //    if ((m_InvoiceData.m_ShopABC.m_CurrentInvoice.bDraft))
+            //    {
+            //    }
+            //    else
+            //    {
+            //        LogFile.Error.Show("ERROR:Form_Payment:Not Draft!");
+            //    }
+            //}
         }
 
         private void m_usrc_Payment_Cancel()

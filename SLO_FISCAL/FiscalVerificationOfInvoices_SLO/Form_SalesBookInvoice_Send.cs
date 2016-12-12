@@ -56,9 +56,9 @@ namespace FiscalVerificationOfInvoices_SLO
                 InvoiceData xinvd = xInvoiceData_List[i];
                 DataRow dr = dt.NewRow();
                 dr["FinancialYear"] = xinvd.FinancialYear;
-                dr["InvoiceNumber"] = xinvd.FURS_SalesBookInvoice_InvoiceNumber_v.v;
-                dr["SalesBookInvoice_SerialNumber"] = xinvd.FURS_SalesBookInvoice_SetNumber_v.v;
-                dr["SalesBookInvoice_SetNumber"] = xinvd.FURS_SalesBookInvoice_SetNumber_v.v;
+                dr["InvoiceNumber"] = xinvd.AddOnDI.FURS_SalesBookInvoice_InvoiceNumber_v.v;
+                dr["SalesBookInvoice_SerialNumber"] = xinvd.AddOnDI.FURS_SalesBookInvoice_SetNumber_v.v;
+                dr["SalesBookInvoice_SetNumber"] = xinvd.AddOnDI.FURS_SalesBookInvoice_SetNumber_v.v;
                 dr["IssueDate_v"] = xinvd.IssueDate_v.v;
                 dr["GrossSum"] = xinvd.GrossSum;
                 dr["TaxSum"] = xinvd.taxsum;
@@ -134,10 +134,10 @@ namespace FiscalVerificationOfInvoices_SLO
                     {
                         buttonCell.Enabled = false;
                         dt.Rows[e.RowIndex]["BarCodeValue"] = BarCodeValue;
-                        xInvData.FURS_ZOI_v = new string_v(ZOI);
-                        xInvData.FURS_EOR_v = new string_v(EOR);
-                        xInvData.FURS_QR_v = new string_v(BarCodeValue);
-                        xInvData.Write_FURS_Response_Data();
+                        xInvData.AddOnDI.FURS_ZOI_v = new string_v(ZOI);
+                        xInvData.AddOnDI.FURS_EOR_v = new string_v(EOR);
+                        xInvData.AddOnDI.FURS_QR_v = new string_v(BarCodeValue);
+                        xInvData.AddOnDI.Write_FURS_Response_Data(xInvData.DocInvoice_ID);
                     }
                 }
             }

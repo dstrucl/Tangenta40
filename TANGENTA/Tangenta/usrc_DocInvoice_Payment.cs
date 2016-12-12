@@ -200,18 +200,30 @@ namespace Tangenta
 
                     if (Program.b_FVI_SLO)
                     {
-                        string furs_XML = m_InvoiceData.Create_furs_InvoiceXML(false,Properties.Resources.FVI_SLO_Invoice,Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,Properties.Settings.Default.ElectronicDevice_ID,Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID,"","");
+                        string furs_XML = m_InvoiceData.AddOnDI.Create_furs_InvoiceXML(false,
+                                                                                       Properties.Resources.FVI_SLO_Invoice,
+                                                                                       Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
+                                                                                       Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,
+                                                                                       Properties.Settings.Default.ElectronicDevice_ID,
+                                                                                       Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID,
+                                                                                       "","",
+                                                                                       m_InvoiceData.IssueDate_v,
+                                                                                       m_InvoiceData.NumberInFinancialYear,
+                                                                                       m_InvoiceData.GrossSum,
+                                                                                       m_InvoiceData.taxSum,
+                                                                                       m_InvoiceData.Invoice_Author
+                                                                                       );
                         Image img_QR = null;
                         string furs_UniqeMsgID = null;
                         string furs_UniqeInvID = null;
                         string furs_BarCodeValue = null;
                         if (Program.usrc_FVI_SLO1.Send_SingleInvoice(false,furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID,ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
                         {
-                            m_InvoiceData.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
-                            m_InvoiceData.FURS_EOR_v = new string_v(furs_UniqeInvID);
-                            m_InvoiceData.FURS_QR_v = new string_v(furs_BarCodeValue);
-                            m_InvoiceData.FURS_Image_QRcode = img_QR;
-                            m_InvoiceData.Write_FURS_Response_Data();
+                            m_InvoiceData.AddOnDI.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
+                            m_InvoiceData.AddOnDI.FURS_EOR_v = new string_v(furs_UniqeInvID);
+                            m_InvoiceData.AddOnDI.FURS_QR_v = new string_v(furs_BarCodeValue);
+                            m_InvoiceData.AddOnDI.FURS_Image_QRcode = img_QR;
+                            m_InvoiceData.AddOnDI.Write_FURS_Response_Data(m_InvoiceData.DocInvoice_ID);
                         }
                         else
                         {
