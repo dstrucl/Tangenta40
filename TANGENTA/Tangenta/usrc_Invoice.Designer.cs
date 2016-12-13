@@ -46,11 +46,10 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btn_MyOrganisation = new System.Windows.Forms.Button();
             this.lbl_MyOrganisation = new System.Windows.Forms.Label();
+            this.usrc_Customer = new Tangenta.usrc_Customer();
             this.chk_Storno = new System.Windows.Forms.CheckBox();
             this.btn_Show_Shops = new System.Windows.Forms.Button();
-            this.usrc_Notice1 = new Tangenta.usrc_Notice();
-            this.usrc_Customer = new Tangenta.usrc_Customer();
-            this.usrc_MethodOfPayment_Data1 = new Tangenta.usrc_MethodOfPayment_Data();
+            this.usrc_AddOn1 = new Tangenta.usrc_AddOn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -284,6 +283,20 @@
             this.lbl_MyOrganisation.TabIndex = 34;
             this.lbl_MyOrganisation.Text = "My Organisation";
             // 
+            // usrc_Customer
+            // 
+            this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Customer.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_Customer.Location = new System.Drawing.Point(324, 45);
+            this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
+            this.usrc_Customer.Name = "usrc_Customer";
+            this.usrc_Customer.Size = new System.Drawing.Size(245, 29);
+            this.usrc_Customer.TabIndex = 33;
+            this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
+            this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
+            this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
+            // 
             // chk_Storno
             // 
             this.chk_Storno.AutoSize = true;
@@ -307,44 +320,21 @@
             this.btn_Show_Shops.UseVisualStyleBackColor = true;
             this.btn_Show_Shops.Click += new System.EventHandler(this.btn_Select_Shops_Click);
             // 
-            // usrc_Notice1
+            // usrc_AddOn1
             // 
-            this.usrc_Notice1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.usrc_AddOn1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Notice1.BackColor = System.Drawing.Color.LemonChiffon;
-            this.usrc_Notice1.Location = new System.Drawing.Point(174, 639);
-            this.usrc_Notice1.Name = "usrc_Notice1";
-            this.usrc_Notice1.Size = new System.Drawing.Size(395, 41);
-            this.usrc_Notice1.TabIndex = 40;
-            // 
-            // usrc_Customer
-            // 
-            this.usrc_Customer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Customer.BackColor = System.Drawing.SystemColors.Control;
-            this.usrc_Customer.Location = new System.Drawing.Point(324, 45);
-            this.usrc_Customer.Margin = new System.Windows.Forms.Padding(4);
-            this.usrc_Customer.Name = "usrc_Customer";
-            this.usrc_Customer.Size = new System.Drawing.Size(245, 29);
-            this.usrc_Customer.TabIndex = 33;
-            this.usrc_Customer.aa_Customer_Person_Changed += new Tangenta.usrc_Customer.delegate_Customer_Person_Changed(this.usrc_Customer_Customer_Person_Changed);
-            this.usrc_Customer.aa_Customer_Org_Changed += new Tangenta.usrc_Customer.delegate_Customer_Org_Changed(this.usrc_Customer_Customer_Org_Changed);
-            this.usrc_Customer.aa_Customer_Removed += new Tangenta.usrc_Customer.delegate_Customer_Removed(this.usrc_Customer_aa_Customer_Removed);
-            // 
-            // usrc_MethodOfPayment_Data1
-            // 
-            this.usrc_MethodOfPayment_Data1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.usrc_MethodOfPayment_Data1.Location = new System.Drawing.Point(181, 611);
-            this.usrc_MethodOfPayment_Data1.Name = "usrc_MethodOfPayment_Data1";
-            this.usrc_MethodOfPayment_Data1.Size = new System.Drawing.Size(387, 26);
-            this.usrc_MethodOfPayment_Data1.TabIndex = 42;
+            this.usrc_AddOn1.BackColor = System.Drawing.Color.LemonChiffon;
+            this.usrc_AddOn1.Location = new System.Drawing.Point(174, 615);
+            this.usrc_AddOn1.Name = "usrc_AddOn1";
+            this.usrc_AddOn1.Size = new System.Drawing.Size(395, 65);
+            this.usrc_AddOn1.TabIndex = 40;
             // 
             // usrc_Invoice
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.Controls.Add(this.usrc_MethodOfPayment_Data1);
             this.Controls.Add(this.btn_Show_Shops);
-            this.Controls.Add(this.usrc_Notice1);
+            this.Controls.Add(this.usrc_AddOn1);
             this.Controls.Add(this.chk_Storno);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.chk_Head);
@@ -391,13 +381,12 @@
         private System.Windows.Forms.CheckBox chk_Head;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.CheckBox chk_Storno;
-        private usrc_Notice usrc_Notice1;
+        private usrc_AddOn usrc_AddOn1;
         private System.Windows.Forms.SplitContainer splitContainer3;
         public System.Windows.Forms.Button btn_Show_Shops;
         private System.Windows.Forms.Label lbl_MyOrganisation;
         private System.Windows.Forms.Button btn_MyOrganisation;
         public System.Windows.Forms.Label lbl_Sum;
         private usrc_MethodOfPayment_Data usrc_Payment_Data1;
-        private usrc_MethodOfPayment_Data usrc_MethodOfPayment_Data1;
     }
 }

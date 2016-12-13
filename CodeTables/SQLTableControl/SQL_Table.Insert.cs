@@ -187,6 +187,14 @@ namespace CodeTables
             string Err = null;
             if (dbTables.m_con.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref ID, ref objret, ref Err, this.TableName))
             {
+                foreach (Column col in Column)
+                {
+                    if (col.IsIdentity)
+                    {
+                        ((ID)col.obj).val = ID;
+                        break;
+                    }
+                }
                 return true;
             }
             else

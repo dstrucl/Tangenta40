@@ -21,7 +21,7 @@ using TangentaDB;
 
 namespace Tangenta
 {
-    public partial class usrc_DocInvoice_Payment : UserControl
+    public partial class usrc_DocInvoice_AddOn : UserControl
     {
         public delegate void delegate_Cancel();
         public event delegate_Cancel Cancel;
@@ -38,7 +38,7 @@ namespace Tangenta
         decimal GrossSum = 0;
         public string sPaymentMethod = null;
         long DocInvoice_ID = -1;
-        public usrc_DocInvoice_Payment()
+        public usrc_DocInvoice_AddOn()
         {
             InitializeComponent();
             lngRPM.s_Cash.Text(rdb_Cash);

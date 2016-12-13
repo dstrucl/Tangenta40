@@ -835,7 +835,7 @@ namespace TangentaDataBaseDef
             t_MethodOfPayment = new SQLTable((Object)new MethodOfPayment(),"metopay", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_SimpleItem);
             t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.PaymentType, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Payment Type", "Način plačila") );
-            t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.m_Atom_OrganisationAccount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Atom Organisation Account ID", "Bančni račun organizacije arhiv ID"));
+            t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.m_Atom_BankAccount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Atom Bank Account ID", "Bančni račun arhiv ID"));
             m_DBTables.items.Add(t_MethodOfPayment);
 
             /* 32 */
@@ -943,6 +943,7 @@ namespace TangentaDataBaseDef
             t_DocInvoice = new SQLTable((Object)new DocInvoice(), "dinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Invoice);
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Draft, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft", "Osnutek"));
+            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.IssueDate, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Invoice date", "Datum računa"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.DraftNumber, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft Number", "Številka Osnutka"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.FinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Financial Year", "Obračunsko Leto"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.NumberInFinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Number in Financial Year", "Številka v Obračunskem Letu"));
@@ -2110,6 +2111,7 @@ namespace TangentaDataBaseDef
             t_DocProformaInvoice = new SQLTable((Object)new DocProformaInvoice(), "dpinv", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DocProformaInvoice);
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.Draft, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft", "Osnutek"));
+            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.IssueDate, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Proforma Invoice Time", "Datum predračuna"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.DraftNumber, Column.nullTYPE.NOT_NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Draft Number", "Številka Osnutka"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.FinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Financial Year", "Obračunsko Leto"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.NumberInFinancialYear, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Number in Financial Year", "Številka v Obračunskem Letu"));

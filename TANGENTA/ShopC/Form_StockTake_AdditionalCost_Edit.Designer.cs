@@ -39,6 +39,7 @@
             this.btn_Update = new System.Windows.Forms.Button();
             this.btn_Remove = new System.Windows.Forms.Button();
             this.dgvx_StockTakeAdditionalCost = new DataGridView_2xls.DataGridView2xls();
+            this.btn_Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_Cost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_StockTakeAdditionalCost)).BeginInit();
             this.SuspendLayout();
@@ -53,19 +54,24 @@
             // 
             // nmUpDn_Cost
             // 
-            this.nmUpDn_Cost.Location = new System.Drawing.Point(199, 25);
+            this.nmUpDn_Cost.Location = new System.Drawing.Point(190, 25);
+            this.nmUpDn_Cost.Maximum = new decimal(new int[] {
+            1410065408,
+            2,
+            0,
+            0});
             this.nmUpDn_Cost.Name = "nmUpDn_Cost";
-            this.nmUpDn_Cost.Size = new System.Drawing.Size(102, 20);
+            this.nmUpDn_Cost.Size = new System.Drawing.Size(87, 20);
             this.nmUpDn_Cost.TabIndex = 2;
             // 
             // txt_Description
             // 
             this.txt_Description.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Description.Location = new System.Drawing.Point(316, 27);
+            this.txt_Description.Location = new System.Drawing.Point(292, 36);
             this.txt_Description.Multiline = true;
             this.txt_Description.Name = "txt_Description";
-            this.txt_Description.Size = new System.Drawing.Size(209, 43);
+            this.txt_Description.Size = new System.Drawing.Size(225, 38);
             this.txt_Description.TabIndex = 3;
             // 
             // lbl_StocTakeCostName
@@ -89,7 +95,7 @@
             // lbl_StockTakeCostDescription
             // 
             this.lbl_StockTakeCostDescription.AutoSize = true;
-            this.lbl_StockTakeCostDescription.Location = new System.Drawing.Point(317, 9);
+            this.lbl_StockTakeCostDescription.Location = new System.Drawing.Point(289, 17);
             this.lbl_StockTakeCostDescription.Name = "lbl_StockTakeCostDescription";
             this.lbl_StockTakeCostDescription.Size = new System.Drawing.Size(140, 13);
             this.lbl_StockTakeCostDescription.TabIndex = 6;
@@ -119,7 +125,7 @@
             // 
             this.btn_Remove.Location = new System.Drawing.Point(190, 52);
             this.btn_Remove.Name = "btn_Remove";
-            this.btn_Remove.Size = new System.Drawing.Size(111, 22);
+            this.btn_Remove.Size = new System.Drawing.Size(87, 22);
             this.btn_Remove.TabIndex = 9;
             this.btn_Remove.Text = "Remove";
             this.btn_Remove.UseVisualStyleBackColor = true;
@@ -140,14 +146,25 @@
             this.dgvx_StockTakeAdditionalCost.Name = "dgvx_StockTakeAdditionalCost";
             this.dgvx_StockTakeAdditionalCost.ReadOnly = true;
             this.dgvx_StockTakeAdditionalCost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_StockTakeAdditionalCost.Size = new System.Drawing.Size(524, 404);
+            this.dgvx_StockTakeAdditionalCost.Size = new System.Drawing.Size(524, 426);
             this.dgvx_StockTakeAdditionalCost.TabIndex = 0;
+            // 
+            // btn_Exit
+            // 
+            this.btn_Exit.Image = global::ShopC.Properties.Resources.Exit;
+            this.btn_Exit.Location = new System.Drawing.Point(445, 2);
+            this.btn_Exit.Name = "btn_Exit";
+            this.btn_Exit.Size = new System.Drawing.Size(72, 28);
+            this.btn_Exit.TabIndex = 10;
+            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // Form_StockTake_AdditionalCost_Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 484);
+            this.ClientSize = new System.Drawing.Size(526, 506);
+            this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.btn_Remove);
             this.Controls.Add(this.btn_Update);
             this.Controls.Add(this.btn_Add);
@@ -182,5 +199,6 @@
         private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Button btn_Update;
         private System.Windows.Forms.Button btn_Remove;
+        private System.Windows.Forms.Button btn_Exit;
     }
 }

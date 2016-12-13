@@ -23,7 +23,7 @@ using TangentaTableClass;
 
 namespace Tangenta
 {
-    public partial class usrc_DocProformaInvoice_Payment : UserControl
+    public partial class usrc_DocProformaInvoice_AddOn : UserControl
     {
         public delegate void delegate_Cancel();
         public event delegate_Cancel Cancel;
@@ -38,11 +38,16 @@ namespace Tangenta
 
 
 
+
         int Currency_DecimalPlaces = -1;
         decimal GrossSum = 0;
         public string sPaymentMethod = null;
         long DocInvoice_ID = -1;
-        public usrc_DocProformaInvoice_Payment()
+
+        private bool m_bPrint = false;
+        private usrc_AddOn m_usrc_AddOn = null;
+
+        public usrc_DocProformaInvoice_AddOn()
         {
             InitializeComponent();
             lngRPM.s_MethodOfPayment.Text(this.grp_MtehodOfPaymentType);
@@ -52,7 +57,6 @@ namespace Tangenta
             lngRPM.s_grp_ValidityOfTheTender.Text(grp_ValidityOfTheTender);
             lngRPM.s_rbtn_NumberOf.Text(rdb_ValidNumberOf);
             lngRPM.s_rdb_Valid_Tender_Until.Text(rdb_Valid_Tender_Until);
-            lngRPM.s_Print.Text(btn_Print);
             rdb_BankAccountTransfer.CheckedChanged += Rdb_BankAccountTransfer_CheckedChanged;
             rdb_BankAccountTransfer.Checked = true;
 
@@ -111,13 +115,29 @@ namespace Tangenta
 
         }
 
-        public bool Init(ref DocProformaInvoice_AddOn x_AddOnDI) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
+        public bool Init(ref DocProformaInvoice_AddOn x_AddOnDI,bool bxPrint, usrc_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
             //m_InvoiceData = xInvoiceData;
             m_AddOnDPI = x_AddOnDI;
-            //DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.Doc_ID;
-            //Currency_DecimalPlaces = xCurrency_DecimalPlaces;
-            //GrossSum = xGrossSum;
+            m_bPrint = bxPrint;
+            m_usrc_AddOn = x_usrc_AddOn;
+            if (m_bPrint)
+            {
+                lngRPM.s_Print.Text(this.btn_Print);
+            }
+            else
+            {
+                lngRPM.s_OK.Text(this.btn_Print);
+            }
+
+            if (m_AddOnDPI.Get(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID))
+            {
+                if (m_AddOnDPI.IssueDate>DateTime.MinValue)
+                {
+                    dtP_DateOfIssue.Value = m_AddOnDPI.IssueDate;
+                }
+
+            }
             return true;
         }
 
@@ -208,13 +228,13 @@ namespace Tangenta
             NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
             xnav.bDoModal = true;
             xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
+            SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(BankAccount)));
             Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationAccount,
                                                                         " OrganisationAccount_$_org_$$Name desc", xnav);
             if (edt_Item_dlg.ShowDialog(this)==DialogResult.Yes)
             {
-                this.m_AddOnDPI.OrganisationAccount_ID = edt_Item_dlg.OgranisationAccount_ID;
+                this.m_AddOnDPI.BankAccount_ID = edt_Item_dlg.OgranisationAccount_ID;
                 this.m_AddOnDPI.BankName = edt_Item_dlg.BankName;
                 this.m_AddOnDPI.BankAccount = edt_Item_dlg.TRR;
                 this.txt_BankAccount.Text = this.m_AddOnDPI.BankAccount + " ," +  this.m_AddOnDPI.BankName;
@@ -272,6 +292,11 @@ namespace Tangenta
         private void nmUpDn_NumberOfDaysOrMonths_ValueChanged(object sender, EventArgs e)
         {
             CalculateValidUntilDate();
+        }
+
+        private void btn_Print_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -34,24 +34,6 @@ namespace Tangenta
             InitializeComponent();
         }
 
-        public bool GetMethodOfPaymentForDocInvoice(TangentaDB.InvoiceData xInvoiceData, string xDocInvoice)
-        {
-            Form_DocInvoice_Payment payment_frm = new Form_DocInvoice_Payment(xInvoiceData, xDocInvoice);
-            if (payment_frm.ShowDialog() == DialogResult.OK)
-            {
-                return true;
-            }
-            return false;
-        }
 
-        public bool GetMethodOfPaymentForDocProformaInvoice(DocProformaInvoice_AddOn m_DocProformaInvoice_AddOn)
-        {
-            Form_DocProformaInvoice_Payment payment_frm = new Form_DocProformaInvoice_Payment(m_DocProformaInvoice_AddOn);
-            if (payment_frm.ShowDialog() == DialogResult.OK)
-            {
-                return true;
-            }
-            return false;
-        }
     }
 }

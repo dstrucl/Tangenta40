@@ -971,6 +971,10 @@ namespace CodeTables
                     {
                         par = new SQL_Parameter(parname,SQL_Parameter.eSQL_Parameter.Bigint, false, id_v.v);
                         Insert_Into_Paramater = parname;
+                        if (this.obj is ID)
+                        {
+                            ((ID)this.obj).val = id_v.v;
+                        }
                     }
                     else
                     {

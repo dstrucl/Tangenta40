@@ -116,7 +116,8 @@ namespace Tangenta
 
         public TangentaDB.ShopABC m_ShopABC = null;
 
-        public object AddOn = null;
+        public DocInvoice_AddOn AddOnDI = new DocInvoice_AddOn();
+        public DocProformaInvoice_AddOn AddOnDPI = new DocProformaInvoice_AddOn();
         public InvoiceData m_InvoiceData = null;
 
         public long myOrganisation_Person_id
@@ -549,6 +550,7 @@ namespace Tangenta
         public usrc_Invoice()
         {
             InitializeComponent();
+            usrc_AddOn1.Init(this);
             m_mode = emode.view_eInvoiceType;
             lngRPM.s_Show_Shops.Text(btn_Show_Shops);
             lngRPM.s_Issuer.Text(lbl_MyOrganisation);
@@ -2189,7 +2191,7 @@ do_EditMyOrganisation_Data:
 
                                         }
 
-                                        if (usrc_MethodOfPayment_Data1.GetMethodOfPaymentForDocInvoice(m_InvoiceData,DocInvoice))
+                                        if (usrc_AddOn1.Get_DocInvoice_AddOn(m_InvoiceData,DocInvoice))
                                         {
                                             if (aa_DocInvoiceSaved != null)
                                             {
@@ -2199,7 +2201,7 @@ do_EditMyOrganisation_Data:
                                     }
                                     else if (IsDocProformaInvoice)
                                     {
-                                        if (usrc_MethodOfPayment_Data1.GetMethodOfPaymentForDocProformaInvoice((DocProformaInvoice_AddOn)AddOn))
+                                        if (usrc_AddOn1.Get_DocProformaInvoice_AddOn(AddOnDPI))
                                         {
                                             if (aa_DocProformaInvoiceSaved != null)
                                             {

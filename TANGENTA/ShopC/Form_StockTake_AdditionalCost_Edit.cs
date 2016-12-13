@@ -241,5 +241,11 @@ namespace ShopC
             this.nmUpDn_Cost.Value = 0;
             this.txt_Description.Text = "";
         }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
+        }
     }
 }

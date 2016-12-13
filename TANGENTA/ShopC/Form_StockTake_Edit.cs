@@ -160,17 +160,17 @@ namespace ShopC
                 if (TangentaDB.f_JOURNAL_StockTake.Get(ID, f_JOURNAL_StockTake.JOURNAL_StockTake_Type_ID_New_StockTake_opened, DateTime.Now, ref JOURNAL_StockTake_ID_v))
                 {
                     StockTakeTable = m_tbl;
-                    Show_StockTakeItems(ID);
+                    Show_StockTakeItems(m_tbl);
                 }
             }
         }
 
-        private void Show_StockTakeItems(long xStockTake_ID)
+        private void Show_StockTakeItems(SQLTable m_tbl)
         {
-            if (fs.IDisValid(xStockTake_ID))
+            if (fs.IDisValid(StockTake_ID))
             {
                 splitContainer1.Panel2Collapsed = false;
-                usrc_StockEditForSelectedStockTake1.Reload(xStockTake_ID);
+                usrc_StockEditForSelectedStockTake1.Reload(m_tbl);
             }
             else
             {

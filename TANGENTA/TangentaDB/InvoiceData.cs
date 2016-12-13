@@ -753,9 +753,6 @@ namespace TangentaDB
                         }
                         else
                         {
-                            AddOnDI.Invoice_Storno_v = null;
-                            AddOnDI.Invoice_Reference_Type_v = null;
-                            AddOnDI.DocInvoice_Reference_ID_v = null;
                         }
                         DocInvoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0][DocInvoice+"_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["EventTime"]);

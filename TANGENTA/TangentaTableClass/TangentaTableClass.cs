@@ -1839,7 +1839,7 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public PaymentType PaymentType  = new PaymentType();
-        public Atom_OrganisationAccount m_Atom_OrganisationAccount = new Atom_OrganisationAccount();
+        public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
     }
 
     public class Invoice_Reference_ID:DB_Int64
@@ -1883,9 +1883,14 @@ namespace TangentaTableClass
         public Atom_Person m_Atom_Person = new Atom_Person();
     }
 
+    public class IssueDate:DB_DateTime
+    {
+
+    }
     public class DocInvoice 
     {
         public ID ID = new ID();
+        public IssueDate IssueDate = new IssueDate();
         public FinancialYear FinancialYear = new FinancialYear();
         public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
         public Draft Draft = new Draft();
@@ -1913,6 +1918,7 @@ namespace TangentaTableClass
     public class DocProformaInvoice
     {
         public ID ID = new ID();
+        public IssueDate IssueDate = new IssueDate();
         public FinancialYear FinancialYear = new FinancialYear();
         public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
         public Draft Draft = new Draft();

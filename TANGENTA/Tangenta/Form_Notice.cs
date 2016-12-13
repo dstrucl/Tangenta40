@@ -20,14 +20,14 @@ namespace Tangenta
 {
     public partial class Form_Notice : Form
     {
-        private usrc_Notice usrc_Notice;
+        private usrc_AddOn usrc_Notice;
 
         public Form_Notice()
         {
             InitializeComponent();
         }
 
-        public Form_Notice(usrc_Notice usrc_Notice)
+        public Form_Notice(usrc_AddOn usrc_Notice)
         {
             InitializeComponent();
             this.usrc_Notice = usrc_Notice;

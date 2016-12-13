@@ -83,6 +83,7 @@ namespace Tangenta
                     OrganisationAccount_$_bankacc_$$Active,
                     OrganisationAccount_$_bankacc_$$Description,
                     OrganisationAccount_$$Description,
+                    OrganisationAccount_$_bankacc_$$ID,
                     ID
             ";
 

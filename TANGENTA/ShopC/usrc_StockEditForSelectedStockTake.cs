@@ -501,7 +501,7 @@ namespace ShopC
             return Reload(this.StockTake_ID);
         }
 
-        internal bool Reload(long xStockTake_ID)
+        private bool Reload(long xStockTake_ID)
         {
             dgvx_StockTakeItemsAndPrices.DataSource = null;
             dt_Stock_Of_Current_StockTake.Rows.Clear();
@@ -720,6 +720,7 @@ namespace ShopC
             if (frm_add_cost.Changed)
             {
                 this.m_Changed = true;
+                this.CalculateDifference();
             }
         }
 

@@ -121,11 +121,11 @@
     <Compile Include="Form_DBSettings.Designer.cs">
       <DependentUpon>Form_DBSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_DocProformaInvoice_Payment.cs">
+    <Compile Include="Form_DocProformaInvoice_AddOn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_DocProformaInvoice_Payment.Designer.cs">
-      <DependentUpon>Form_DocProformaInvoice_Payment.cs</DependentUpon>
+    <Compile Include="Form_DocProformaInvoice_AddOn.Designer.cs">
+      <DependentUpon>Form_DocProformaInvoice_AddOn.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Expiry_Check.cs">
       <SubType>Form</SubType>
@@ -214,8 +214,8 @@
     <Compile Include="Form_OrganisationAccount_Edit.Designer.cs">
       <DependentUpon>Form_OrganisationAccount_Edit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_DocInvoice_Payment.Designer.cs">
-      <DependentUpon>Form_DocInvoice_Payment.cs</DependentUpon>
+    <Compile Include="Form_DocInvoice_AddOn.Designer.cs">
+      <DependentUpon>Form_DocInvoice_AddOn.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_SimpleItemGroups_Edit.cs">
       <SubType>Form</SubType>
@@ -377,7 +377,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ProformaInvoice_Connection_Class.cs" />
-    <Compile Include="Form_DocInvoice_Payment.cs">
+    <Compile Include="Form_DocInvoice_AddOn.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_DocInvoice_PaymentCash.cs">
@@ -412,11 +412,11 @@
     <Compile Include="usrc_Customer.Designer.cs">
       <DependentUpon>usrc_Customer.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_DocProformaInvoice_Payment .cs">
+    <Compile Include="usrc_DocProformaInvoice_AddOn .cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_DocProformaInvoice_Payment .Designer.cs">
-      <DependentUpon>usrc_DocProformaInvoice_Payment .cs</DependentUpon>
+    <Compile Include="usrc_DocProformaInvoice_AddOn .Designer.cs">
+      <DependentUpon>usrc_DocProformaInvoice_AddOn .cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_InvoiceMan.cs">
       <SubType>UserControl</SubType>
@@ -436,11 +436,11 @@
     <Compile Include="usrc_Document.Designer.cs">
       <DependentUpon>usrc_Document.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_Notice.cs">
+    <Compile Include="usrc_AddOn.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_Notice.Designer.cs">
-      <DependentUpon>usrc_Notice.cs</DependentUpon>
+    <Compile Include="usrc_AddOn.Designer.cs">
+      <DependentUpon>usrc_AddOn.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_MethodOfPayment_Data.cs">
       <SubType>UserControl</SubType>
@@ -448,11 +448,11 @@
     <Compile Include="usrc_MethodOfPayment_Data.Designer.cs">
       <DependentUpon>usrc_MethodOfPayment_Data.cs</DependentUpon>
     </Compile>
-    <Compile Include="usrc_DocInvoice_Payment.cs">
+    <Compile Include="usrc_DocInvoice_AddOn.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usrc_DocInvoice_Payment.Designer.cs">
-      <DependentUpon>usrc_DocInvoice_Payment.cs</DependentUpon>
+    <Compile Include="usrc_DocInvoice_AddOn.Designer.cs">
+      <DependentUpon>usrc_DocInvoice_AddOn.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_PurchasePriceList_Edit.cs">
       <SubType>UserControl</SubType>
@@ -515,8 +515,8 @@
     <EmbeddedResource Include="Form_DBSettings.resx">
       <DependentUpon>Form_DBSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_DocProformaInvoice_Payment.resx">
-      <DependentUpon>Form_DocProformaInvoice_Payment.cs</DependentUpon>
+    <EmbeddedResource Include="Form_DocProformaInvoice_AddOn.resx">
+      <DependentUpon>Form_DocProformaInvoice_AddOn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Expiry_Check.resx">
       <DependentUpon>Form_Expiry_Check.cs</DependentUpon>
@@ -563,8 +563,8 @@
     <EmbeddedResource Include="Form_OrganisationAccount_Edit.resx">
       <DependentUpon>Form_OrganisationAccount_Edit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_DocInvoice_Payment.resx">
-      <DependentUpon>Form_DocInvoice_Payment.cs</DependentUpon>
+    <EmbeddedResource Include="Form_DocInvoice_AddOn.resx">
+      <DependentUpon>Form_DocInvoice_AddOn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_SimpleItemGroups_Edit.resx">
       <DependentUpon>Form_SimpleItemGroups_Edit.cs</DependentUpon>
@@ -656,8 +656,8 @@
     <EmbeddedResource Include="usrc_Customer.resx">
       <DependentUpon>usrc_Customer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_DocProformaInvoice_Payment .resx">
-      <DependentUpon>usrc_DocProformaInvoice_Payment .cs</DependentUpon>
+    <EmbeddedResource Include="usrc_DocProformaInvoice_AddOn .resx">
+      <DependentUpon>usrc_DocProformaInvoice_AddOn .cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_InvoiceMan.resx">
       <DependentUpon>usrc_InvoiceMan.cs</DependentUpon>
@@ -668,14 +668,14 @@
     <EmbeddedResource Include="usrc_Document.resx">
       <DependentUpon>usrc_Document.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Notice.resx">
-      <DependentUpon>usrc_Notice.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_AddOn.resx">
+      <DependentUpon>usrc_AddOn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_MethodOfPayment_Data.resx">
       <DependentUpon>usrc_MethodOfPayment_Data.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_DocInvoice_Payment.resx">
-      <DependentUpon>usrc_DocInvoice_Payment.cs</DependentUpon>
+    <EmbeddedResource Include="usrc_DocInvoice_AddOn.resx">
+      <DependentUpon>usrc_DocInvoice_AddOn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PurchasePriceList_Edit.resx">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>
