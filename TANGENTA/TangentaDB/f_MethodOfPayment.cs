@@ -13,7 +13,10 @@ namespace TangentaDB
     public static class f_MethodOfPayment
     {
 
-        public static bool Get(GlobalData.ePaymentType ePaymentType, ref long MethodOfPayment_ID, ref string sMethodOfPayment)
+        public static bool Get(GlobalData.ePaymentType ePaymentType,
+                              long BankAccount_ID,
+                              ref long MethodOfPayment_ID,
+                              ref string sMethodOfPayment)
         {
             string sPaymentType = null;
             MethodOfPayment_ID = -1;
@@ -53,13 +56,24 @@ namespace TangentaDB
             string scond_PaymentType = " PaymentType is null ";
             string sval_PaymentType = " null ";
 
+
+            string scond_BankAccount_ID = " BankAccount_ID is null ";
+            string sval_BankAccount_ID = " null ";
+
             string spar_PaymentType = "@par_PaymentType";
             SQL_Parameter par_PaymentType = new SQL_Parameter(spar_PaymentType, SQL_Parameter.eSQL_Parameter.Nvarchar, false, sPaymentType);
             lpar.Add(par_PaymentType);
             scond_PaymentType = " PaymentType = " + spar_PaymentType;
             sval_PaymentType = " " + spar_PaymentType + " ";
 
-            string sql = " select ID from MethodOfPayment where PaymentType = " + spar_PaymentType;
+            string spar_BankAccount_ID = "@par_BankAccount_ID";
+            SQL_Parameter par_BankAccount_ID = new SQL_Parameter(spar_BankAccount_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, BankAccount_ID);
+            lpar.Add(par_BankAccount_ID);
+
+            scond_BankAccount_ID = " BankAccount_ID = " + spar_BankAccount_ID;
+            sval_BankAccount_ID = " " + spar_BankAccount_ID + " ";
+
+            string sql = " select ID from MethodOfPayment where " + scond_PaymentType + " and " + scond_BankAccount_ID;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
@@ -70,7 +84,7 @@ namespace TangentaDB
                 else
                 {
 
-                    sql = @" insert into  MethodOfPayment (PaymentType) values
+                    sql = @" insert into  MethodOfPayment (PaymentType,Atom_BankAccount_ID) values
                                                     (" + sval_PaymentType + ")";
                     object oret = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref MethodOfPayment_ID, ref oret, ref Err, "MethodOfPayment"))

@@ -115,7 +115,12 @@ namespace Tangenta
 
         }
 
-        public bool Init(ref DocProformaInvoice_AddOn x_AddOnDI,bool bxPrint, usrc_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
+        private string SetBankAccountText()
+        {
+            return "[" + m_AddOnDPI.m_MethodOfPayment.BankAccount + "] " + m_AddOnDPI.m_MethodOfPayment.BankName;
+        }
+
+        public bool Init(DocProformaInvoice_AddOn x_AddOnDI,bool bxPrint, usrc_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
         {
             //m_InvoiceData = xInvoiceData;
             m_AddOnDPI = x_AddOnDI;
@@ -132,14 +137,62 @@ namespace Tangenta
 
             if (m_AddOnDPI.Get(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID))
             {
-                if (m_AddOnDPI.IssueDate>DateTime.MinValue)
+                if (m_AddOnDPI.m_IssueDate != null)
                 {
-                    dtP_DateOfIssue.Value = m_AddOnDPI.IssueDate;
+                    dtP_DateOfIssue.Value = m_AddOnDPI.m_IssueDate.Date;
                 }
+                if (m_AddOnDPI.m_MethodOfPayment != null)
+                {
+                    switch (m_AddOnDPI.m_MethodOfPayment.eType)
+                    {
+                        case GlobalData.ePaymentType.CASH:
+                        case GlobalData.ePaymentType.PAYMENT_CARD:
+                        case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
+                            rdb_Payment_by_cash_or_credit_card_on_delivery.Checked = true;
+                            break;
+                        case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
+                            rdb_BankAccountTransfer.Checked = true;
+                            txt_BankAccount.Text = SetBankAccountText();
+                            break;
+                    }
+                }
+                if (m_AddOnDPI.m_TermsOfPayment != null)
+                {
+                    txt_PaymantConditionsDescription.Text = m_AddOnDPI.m_TermsOfPayment.Description;
+                }
+                if (m_AddOnDPI.m_Duration != null)
+                {
+                    switch (m_AddOnDPI.m_Duration.type)
+                    {
+                        case 0: //length in months
+                            rdb_ValidNumberOf.Checked = true;
+                            cmb_DaysOrMonths.SelectedIndex = 0;
+                            nmUpDn_NumberOfDaysOrMonths.Value = m_AddOnDPI.m_Duration.length;
+                            dtP_TenderValidUntil.Value = m_AddOnDPI.m_IssueDate.Date.AddMonths((Convert.ToInt32(m_AddOnDPI.m_Duration.length)));
+                            break;
+                        case 1: //length in days
+                            rdb_ValidNumberOf.Checked = true;
+                            cmb_DaysOrMonths.SelectedIndex = 1;
+                            nmUpDn_NumberOfDaysOrMonths.Value = m_AddOnDPI.m_Duration.length;
+                            dtP_TenderValidUntil.Value = m_AddOnDPI.m_IssueDate.Date.AddDays((Convert.ToInt32(m_AddOnDPI.m_Duration.length)));
+                            break;
+                        case 2: //days from IssueDate to end date
+                            rdb_Valid_Tender_Until.Checked = true;
+                            cmb_DaysOrMonths.SelectedIndex = 1;
+                            nmUpDn_NumberOfDaysOrMonths.Value = m_AddOnDPI.m_Duration.length;
+                            dtP_TenderValidUntil.Value = m_AddOnDPI.m_IssueDate.Date.AddDays((Convert.ToInt32(m_AddOnDPI.m_Duration.length)));
+                            break;
+                    }
 
+                }
+                return true;
             }
-            return true;
+            else
+            {
+                return false;
+            }
         }
+            
 
 
 
@@ -228,16 +281,22 @@ namespace Tangenta
             NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
             xnav.bDoModal = true;
             xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(BankAccount)));
+            SQLTable tbl_OrganisationAccount = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(OrganisationAccount)));
             Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationAccount,
                                                                         " OrganisationAccount_$_org_$$Name desc", xnav);
             if (edt_Item_dlg.ShowDialog(this)==DialogResult.Yes)
             {
-                this.m_AddOnDPI.BankAccount_ID = edt_Item_dlg.OgranisationAccount_ID;
-                this.m_AddOnDPI.BankName = edt_Item_dlg.BankName;
-                this.m_AddOnDPI.BankAccount = edt_Item_dlg.TRR;
-                this.txt_BankAccount.Text = this.m_AddOnDPI.BankAccount + " ," +  this.m_AddOnDPI.BankName;
+                if (this.m_AddOnDPI.m_MethodOfPayment==null)
+                {
+                    this.m_AddOnDPI.m_MethodOfPayment = new DocProformaInvoice_AddOn.MethodOfPayment();
+                     
+                }
+                this.m_AddOnDPI.m_MethodOfPayment.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
+                this.m_AddOnDPI.m_MethodOfPayment.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
+                this.m_AddOnDPI.m_MethodOfPayment.BankName = edt_Item_dlg.BankName;
+                this.m_AddOnDPI.m_MethodOfPayment.BankAccount = edt_Item_dlg.TRR;
+                this.txt_BankAccount.Text = SetBankAccountText();
             }
         }
 
@@ -255,7 +314,11 @@ namespace Tangenta
             if (TermsOfPayment_dlg.ShowDialog() == DialogResult.OK)
             {
                 this.txt_PaymantConditionsDescription.Text = TermsOfPayment_dlg.Description;
-                this.m_AddOnDPI.TermsOfPayment_ID = TermsOfPayment_dlg.TermsOfPayment_ID;
+                if (this.m_AddOnDPI.m_TermsOfPayment==null)
+                {
+                    this.m_AddOnDPI.m_TermsOfPayment = new DocProformaInvoice_AddOn.TermsOfPayment();
+                }
+                this.m_AddOnDPI.m_TermsOfPayment.ID = TermsOfPayment_dlg.TermsOfPayment_ID;
             }
         }
 
@@ -296,6 +359,48 @@ namespace Tangenta
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
+            DateTime_v DocProformaInvoiceTime = new DateTime_v();
+            DocProformaInvoiceTime.v = DateTime.Now;
+
+            if (m_AddOnDPI.m_IssueDate==null)
+            {
+                m_AddOnDPI.m_IssueDate = new DocProformaInvoice_AddOn.IssueDate();
+            }
+            m_AddOnDPI.m_IssueDate.Date = dtP_DateOfIssue.Value;
+
+            if (m_AddOnDPI.m_Duration == null)
+            {
+                m_AddOnDPI.m_Duration = new DocProformaInvoice_AddOn.Duration();
+            }
+            if (rdb_ValidNumberOf.Checked)
+            {
+                if (cmb_DaysOrMonths.SelectedIndex==0)
+                {
+                    m_AddOnDPI.m_Duration.type = 0;
+                }
+                else if (cmb_DaysOrMonths.SelectedIndex == 1)
+                {
+                    m_AddOnDPI.m_Duration.type = 1;
+                }
+
+                m_AddOnDPI.m_Duration.length = Convert.ToInt64(nmUpDn_NumberOfDaysOrMonths.Value);
+            }
+            else
+            {
+                DateTime dtValidUntil = this.dtP_TenderValidUntil.Value;
+                if (dtValidUntil > m_AddOnDPI.m_IssueDate.Date)
+                {
+                    m_AddOnDPI.m_Duration.type = 2;
+                    TimeSpan ts = dtValidUntil - m_AddOnDPI.m_IssueDate.Date;
+                    m_AddOnDPI.m_Duration.length = ts.Days;
+                }
+                else
+                {
+                    XMessage.Box.Show(this,false,lngRPM.s_DocProformaInvoice_ValidToDate_must_be_later_than_IssueDay);
+                    return;
+                }
+            }
+            m_AddOnDPI.Save();
 
         }
     }

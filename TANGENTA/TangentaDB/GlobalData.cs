@@ -18,7 +18,7 @@ namespace TangentaDB
 {
     public static class GlobalData
     {
-        public enum ePaymentType { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD, BANK_ACCOUNT_TRANSFER, CASH_OR_PAYMENT_CARD };
+
         public const string const_Storno = "Storno";
         public const string const_Storno_with_description = "Storno*";
 
@@ -38,6 +38,31 @@ namespace TangentaDB
 
         public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
         public static Color Color_Stock = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+
+        public enum ePaymentType : int { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD, BANK_ACCOUNT_TRANSFER, CASH_OR_PAYMENT_CARD };
+        public static string[] sPaymentTypes = new string[] { "NONE", "CASH", "ALLREADY_PAID", "PAYMENT_CARD", "BANK_ACCOUNT_TRANSFER", "CASH_OR_PAYMENT_CARD" };
+
+        public static ePaymentType Get_ePaymentType(string sPaymentType, ref string Err)
+        {
+            Err = null;
+            string spt = sPaymentType.ToUpper();
+            int i = 0;
+            int iCount = sPaymentTypes.Length;
+            for (i=0;i< iCount;i++)
+            {
+                if (spt.Equals(sPaymentTypes[i]))
+                {
+                    return (ePaymentType)i;
+                }
+            }
+            Err = "ERROR:TangentaDB:GlobalData:Get_ePaymentType:sPaymentType =" + sPaymentType + " not implemented!";
+            return ePaymentType.NONE;
+        }
+
+        public static string Get_sPaymentType(ePaymentType xePaymentType)
+        {
+            return sPaymentTypes[(int)xePaymentType];
+        }
 
 
         public static bool GetWorkPeriod(string Atom_WorkPeriod_Type_Name, 

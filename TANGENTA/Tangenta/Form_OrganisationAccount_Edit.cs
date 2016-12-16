@@ -32,10 +32,10 @@ namespace Tangenta
         private string ColumnOrderBy = "";
         private NavigationButtons.Navigation nav = null;
 
-        private long m_OgranisationAccount_ID = -1;
-        public long OgranisationAccount_ID
+        private long m_BankAccount_ID = -1;
+        public long BankAccount_ID
         {
-            get { return m_OgranisationAccount_ID; }
+            get { return m_BankAccount_ID; }
         }
 
         private string m_BankName = null;
@@ -151,7 +151,6 @@ namespace Tangenta
 
         private void FillProperties(SQLTable m_tbl,long ID)
         {
-            this.m_OgranisationAccount_ID = ID;
             this.m_BankName = null;
             object oBankName = m_tbl.Value("OrganisationAccount_$_bankacc_$_bank_$_org_$$Name");
             if (oBankName is TangentaTableClass.Name)
@@ -170,6 +169,17 @@ namespace Tangenta
                     this.m_TRR = ((TangentaTableClass.TRR)oTRR).val;
                 }
             }
+
+            object oBankAccount_ID = m_tbl.Value("OrganisationAccount_$_bankacc_$$ID");
+            if (oBankAccount_ID is ID)
+            {
+                if (((ID)oBankAccount_ID).defined)
+                {
+                    this.m_BankAccount_ID = ((ID)oBankAccount_ID).val;
+                }
+            }
+
+
         }
     }
 }

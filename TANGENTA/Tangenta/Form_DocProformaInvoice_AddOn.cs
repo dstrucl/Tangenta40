@@ -52,7 +52,7 @@ namespace Tangenta
 
         private void Form_DocProformaInvoice_Payment_Load(object sender, EventArgs e)
         {
-            if (this.m_usrc_DocProformaInvoice_AddOn.Init(ref m_AddOnDPI, m_bPrint, m_usrc_AddOn))
+            if (this.m_usrc_DocProformaInvoice_AddOn.Init(m_AddOnDPI, m_bPrint, m_usrc_AddOn))
             {
                 //splitContainer1.Panel1Collapsed = true;
                 return;

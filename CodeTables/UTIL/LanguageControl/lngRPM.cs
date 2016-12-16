@@ -18,6 +18,7 @@ namespace LanguageControl
     public static class lngRPM
     {
 
+        public static ltext s_DocProformaInvoice_ValidToDate_must_be_later_than_IssueDay = new ltext("Proforma Invoice validy date must be later then issue date!", "Datum veljavnosti ponudbe mora biti kasnejši od datuma ponudbe!");
         public static ltext s_PaymentType_CASH =  new ltext("Cash","Gotovina");
         public static ltext s_PaymentType_CASH_OR_PAYMENT_CARD = new ltext("Cash or payment card", "Gotovina ali plačilna kartica");
         public static ltext s_PaymentType_BANK_ACCOUNT_TRANSFER = new ltext("Bank account transfer","Plačilo na tekoči račun");
