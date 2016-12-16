@@ -44,6 +44,19 @@ namespace Tangenta
             get { return m_BankName; }
         }
 
+        private string m_Bank_Tax_ID = null;
+        public string Bank_Tax_ID
+        {
+            get { return m_Bank_Tax_ID; }
+        }
+
+        private string m_Bank_Registration_ID = null;
+        public string Bank_Registration_ID
+        {
+            get { return m_Bank_Registration_ID; }
+        }
+
+
         private string m_TRR = null;
         public string TRR
         {
@@ -80,6 +93,7 @@ namespace Tangenta
                     OrganisationAccount_$_bankacc_$$TRR,
                     OrganisationAccount_$_bankacc_$_bank_$_org_$$Name,
                     OrganisationAccount_$_bankacc_$_bank_$_org_$$Tax_ID,
+                    OrganisationAccount_$_bankacc_$_bank_$_org_$$Registration_ID,
                     OrganisationAccount_$_bankacc_$$Active,
                     OrganisationAccount_$_bankacc_$$Description,
                     OrganisationAccount_$$Description,
@@ -160,6 +174,24 @@ namespace Tangenta
                     this.m_BankName = ((TangentaTableClass.Name)oBankName).val;
                 }
             }
+            object oBank_Tax_ID = m_tbl.Value("OrganisationAccount_$_bankacc_$_bank_$_org_$$Tax_ID");
+            if (oBank_Tax_ID is TangentaTableClass.Tax_ID)
+            {
+                if (((TangentaTableClass.Tax_ID)oBank_Tax_ID).defined)
+                {
+                    this.m_Bank_Tax_ID = ((TangentaTableClass.Tax_ID)oBank_Tax_ID).val;
+                }
+            }
+
+            object oBank_Registration_ID = m_tbl.Value("OrganisationAccount_$_bankacc_$_bank_$_org_$$Registration_ID");
+            if (oBank_Registration_ID is TangentaTableClass.Registration_ID)
+            {
+                if (((TangentaTableClass.Registration_ID)oBank_Registration_ID).defined)
+                {
+                    this.m_Bank_Registration_ID = ((TangentaTableClass.Registration_ID)oBank_Registration_ID).val;
+                }
+            }
+
             object oTRR = m_tbl.Value("OrganisationAccount_$_bankacc_$$TRR");
             this.m_TRR = null;
             if (oTRR is TangentaTableClass.TRR)

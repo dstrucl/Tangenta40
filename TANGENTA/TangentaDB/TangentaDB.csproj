@@ -72,6 +72,8 @@
     <Compile Include="DocProformaInvoice_AddOn.cs" />
     <Compile Include="Doc_ShopC_Item_Data.cs" />
     <Compile Include="fs.cs" />
+    <Compile Include="f_Atom_Bank.cs" />
+    <Compile Include="f_Atom_BankAccount.cs" />
     <Compile Include="f_Atom_cAddress_Org.cs" />
     <Compile Include="f_Atom_cAddress_Person.cs" />
     <Compile Include="f_Atom_cCity_Org.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Doc_ShopC_Item.cs" />
     <Compile Include="f_Taxation.cs" />
     <Compile Include="f_TaxationAtom.cs" />
+    <Compile Include="f_TermsOfPayment.cs" />
     <Compile Include="f_Unit.cs" />
     <Compile Include="f_MethodOfPayment.cs" />
     <Compile Include="f_Warranty.cs" />

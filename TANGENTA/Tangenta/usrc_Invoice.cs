@@ -862,11 +862,13 @@ namespace Tangenta
                     this.m_usrc_ShopB.SetViewButtons();
                 }
                 this.usrc_Customer.Show_Customer(m_ShopABC.m_CurrentInvoice);
+                this.usrc_AddOn1.Show(ID);
                 return true;
             }
             else
             {
                 usrc_Customer.Text = "";
+                this.usrc_AddOn1.Show(-1);
                 return false;
             }
         }
@@ -2191,7 +2193,7 @@ do_EditMyOrganisation_Data:
 
                                         }
 
-                                        if (usrc_AddOn1.Get_DocInvoice_AddOn(m_InvoiceData,DocInvoice))
+                                        if (usrc_AddOn1.Get_DocInvoice_AddOn(this.AddOnDI))
                                         {
                                             if (aa_DocInvoiceSaved != null)
                                             {

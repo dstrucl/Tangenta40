@@ -57,6 +57,7 @@ namespace Tangenta
             lngRPM.s_grp_ValidityOfTheTender.Text(grp_ValidityOfTheTender);
             lngRPM.s_rbtn_NumberOf.Text(rdb_ValidNumberOf);
             lngRPM.s_rdb_Valid_Tender_Until.Text(rdb_Valid_Tender_Until);
+            lngRPM.s_lbl_DateOfProformaInvoiceIssue.Text(lbl_DateOfIssue);
             rdb_BankAccountTransfer.CheckedChanged += Rdb_BankAccountTransfer_CheckedChanged;
             rdb_BankAccountTransfer.Checked = true;
 
@@ -295,6 +296,8 @@ namespace Tangenta
                 this.m_AddOnDPI.m_MethodOfPayment.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
                 this.m_AddOnDPI.m_MethodOfPayment.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
                 this.m_AddOnDPI.m_MethodOfPayment.BankName = edt_Item_dlg.BankName;
+                this.m_AddOnDPI.m_MethodOfPayment.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
+                this.m_AddOnDPI.m_MethodOfPayment.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
                 this.m_AddOnDPI.m_MethodOfPayment.BankAccount = edt_Item_dlg.TRR;
                 this.txt_BankAccount.Text = SetBankAccountText();
             }
@@ -319,6 +322,7 @@ namespace Tangenta
                     this.m_AddOnDPI.m_TermsOfPayment = new DocProformaInvoice_AddOn.TermsOfPayment();
                 }
                 this.m_AddOnDPI.m_TermsOfPayment.ID = TermsOfPayment_dlg.TermsOfPayment_ID;
+                this.m_AddOnDPI.m_TermsOfPayment.Description = TermsOfPayment_dlg.Description;
             }
         }
 
@@ -400,8 +404,51 @@ namespace Tangenta
                     return;
                 }
             }
-            m_AddOnDPI.Save();
+            ltext ltMsg = null;
+            if (m_AddOnDPI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref ltMsg))
+            {
+                if (ltMsg==null)
+                {
+                    if (OK!=null)
+                    {
+                        OK();
+                    }
+                }
+                else
+                {
+                    XMessage.Box.Show(this, false, ltMsg);
+                }
+            }
+        }
 
+        private void rdb_Payment_by_cash_or_credit_card_on_delivery_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdb_Payment_by_cash_or_credit_card_on_delivery.Checked)
+            {
+                if (m_AddOnDPI != null)
+                {
+                    if (m_AddOnDPI.m_MethodOfPayment == null)
+                    {
+                        m_AddOnDPI.m_MethodOfPayment = new DocProformaInvoice_AddOn.MethodOfPayment();
+                    }
+                    m_AddOnDPI.m_MethodOfPayment.eType = GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD;
+                }
+            }
+        }
+
+        private void rdb_BankAccountTransfer_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (rdb_BankAccountTransfer.Checked)
+            {
+                if (m_AddOnDPI != null)
+                {
+                    if (m_AddOnDPI.m_MethodOfPayment == null)
+                    {
+                        m_AddOnDPI.m_MethodOfPayment = new DocProformaInvoice_AddOn.MethodOfPayment();
+                    }
+                    m_AddOnDPI.m_MethodOfPayment.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
+                }
+            }
         }
     }
 }

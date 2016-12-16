@@ -1075,6 +1075,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Blagajna_Icon.ico" />
+    <None Include="Resources\PaymentIcon.ico" />
     <None Include="Resources\Print.bmp" />
     <None Include="Resources\Form_DBSettings.ico" />
     <None Include="Resources\PasswordView.png" />

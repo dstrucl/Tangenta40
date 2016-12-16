@@ -75,16 +75,17 @@ namespace Tangenta
             //}
         }
 
-        private void m_usrc_Payment_Cancel()
-        {
-            this.Close();
-            DialogResult = DialogResult.Cancel;
-        }
 
-        private void m_usrc_Payment_OK()
+        private void m_usrc_DocProformaInvoice_AddOn_OK()
         {
             this.Close();
             DialogResult = DialogResult.OK;
+        }
+
+        private void m_usrc_DocProformaInvoice_AddOn_Cancel()
+        {
+            this.Close();
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

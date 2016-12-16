@@ -6,6 +6,7 @@
 */
 #endregion
 using DBTypes;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -63,6 +64,31 @@ namespace TangentaDB
         {
             return sPaymentTypes[(int)xePaymentType];
         }
+
+        public static ltext Get_sPaymentType_ltext(ePaymentType xePaymentType)
+        {
+            switch (xePaymentType)
+            {
+                case GlobalData.ePaymentType.CASH:
+                    return lngRPM.s_PaymentType_CASH;
+                case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
+                    return lngRPM.s_PaymentType_CASH_OR_PAYMENT_CARD;
+                case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
+                    return lngRPM.s_PaymentType_BANK_ACCOUNT_TRANSFER;
+                case GlobalData.ePaymentType.ALLREADY_PAID:
+                    return lngRPM.s_PaymentType_ALLREADY_PAID;
+                case GlobalData.ePaymentType.PAYMENT_CARD:
+                    return lngRPM.s_PaymentType_PAYMENT_CARD;
+                case GlobalData.ePaymentType.NONE:
+                    LogFile.Error.Show("ERROR:TangentaDB:f_MethodOfPayment:Get:ePaymentType == GlobalData.ePaymentType.NONE!");
+                    return null;
+                default:
+                    LogFile.Error.Show("ERROR:TangentaDB:f_MethodOfPayment:Get:ePaymentType == " +xePaymentType.ToString() + "!");
+                    return null;
+            }
+        }
+
+
 
 
         public static bool GetWorkPeriod(string Atom_WorkPeriod_Type_Name, 

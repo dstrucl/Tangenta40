@@ -585,6 +585,18 @@ namespace DBTypes
             o_v.v = this.v;
             return o_v;
         }
+        public static string_v Set(string s)
+        {
+            if (s!=null)
+            {
+                string_v xstring_v = new string_v(s);
+                return xstring_v;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 
     public class dstring_v : string_v

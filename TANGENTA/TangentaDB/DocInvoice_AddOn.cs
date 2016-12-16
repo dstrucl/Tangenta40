@@ -13,45 +13,285 @@ namespace TangentaDB
 {
     public class DocInvoice_AddOn
     {
-        private long m_TermsOfPayment_ID = -1;
-        private long m_MethodOfPayment_ID = -1;
-        private DateTime m_PaymentDeadline;
 
-        public DateTime PaymentDeadline
+        public class IssueDate
         {
-            get { return m_PaymentDeadline; }
+            private DateTime m_Date = DateTime.MinValue;
+            public DateTime Date
+            {
+                get { return m_Date; }
+                set { m_Date = value; }
+            }
+
+            internal static IssueDate Set(object o)
+            {
+                if (o is DateTime)
+                {
+                    IssueDate xIssueDate = new IssueDate();
+                    xIssueDate.Date = (DateTime)o;
+                    return xIssueDate;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
-        public long TermsOfPayment_ID
+        public class PaymentDeadline
         {
-            get { return m_TermsOfPayment_ID; }
-            set { m_TermsOfPayment_ID = value; }
+            private DateTime m_Date = DateTime.MinValue;
+            public DateTime Date
+            {
+                get { return m_Date; }
+                set { m_Date = value; }
+            }
+
+            internal static PaymentDeadline Set(object o)
+            {
+                if (o is DateTime)
+                {
+                    PaymentDeadline xPaymentDeadline = new PaymentDeadline();
+                    xPaymentDeadline.Date = (DateTime)o;
+                    return xPaymentDeadline;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
-        public long MethodOfPayment_ID
+
+        public class TermsOfPayment
         {
-            get { return m_MethodOfPayment_ID; }
-            set { m_MethodOfPayment_ID = value; }
+            private long m_ID = -1;
+            public long ID
+            {
+                get { return m_ID; }
+                set { m_ID = value; }
+            }
+
+            private string m_Description = null;
+            public string Description
+            {
+                get { return m_Description; }
+                set { m_Description = value; }
+            }
+
+            internal static TermsOfPayment Set(object oID, object oDescription)
+            {
+                if ((oID is long) && (oDescription is string))
+                {
+                    TermsOfPayment xTermsOfPayment = new TermsOfPayment();
+                    xTermsOfPayment.ID = (long)oID;
+                    xTermsOfPayment.Description = (string)oDescription;
+                    return xTermsOfPayment;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+
+            internal bool Set()
+            {
+                long_v TermsOfPayment_ID_v = null;
+                if (f_TermsOfPayment.Get(Description, ref TermsOfPayment_ID_v))
+                {
+                    if (TermsOfPayment_ID_v != null)
+                    {
+                        ID = TermsOfPayment_ID_v.v;
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
 
-        public string m_MethodOfPayment = null;
-        public string MethodOfPayment
+
+        public class MethodOfPayment
         {
-            get { return m_MethodOfPayment; }
+            private long m_ID = -1;
+            public long ID
+            {
+                get { return m_ID; }
+                set { m_ID = value; }
+            }
+
+            private long m_BankAccount_ID = -1;
+            public long BankAccount_ID
+            {
+                get { return m_BankAccount_ID; }
+                set { m_BankAccount_ID = value; }
+            }
+
+            private string m_BankName = null;
+            public string BankName
+            {
+                get { return m_BankName; }
+                set { m_BankName = value; }
+            }
+
+            private string m_Bank_Tax_ID = null;
+            public string Bank_Tax_ID
+            {
+                get { return m_Bank_Tax_ID; }
+                set { m_Bank_Tax_ID = value; }
+            }
+
+            private string m_Bank_Registration_ID = null;
+            public string Bank_Registration_ID
+            {
+                get { return m_Bank_Registration_ID; }
+                set { m_Bank_Registration_ID = value; }
+            }
+
+            private string m_BankAccount = null;
+            public string BankAccount
+            {
+                get { return m_BankAccount; }
+                set { m_BankAccount = value; }
+
+            }
+
+            private string m_Description = null;
+            public string Description
+            {
+                get { return m_Description; }
+                set { m_Description = value; }
+
+            }
+
+            private string m_PaymentType = null;
+            public string PaymentType
+            {
+                get { return m_PaymentType; }
+                set
+                {
+                    m_PaymentType = value;
+                }
+            }
+
+            private GlobalData.ePaymentType m_eType = GlobalData.ePaymentType.NONE;
+            public GlobalData.ePaymentType eType
+            {
+                get { return m_eType; }
+                set
+                {
+                    m_eType = value;
+                    PaymentType = GlobalData.Get_sPaymentType(m_eType);
+                }
+            }
+
+            internal static MethodOfPayment Set(object oID, object oPaymentType, object oBankName,
+                                                                                 object oBank_Tax_ID,
+                                                                                 object oBank_Registration_ID,
+                                                                                 object oBankAccount,
+                                                                                 object oBankAccount_ID)
+            {
+                if ((oID is long) && (oPaymentType is string))
+                {
+                    MethodOfPayment xMethodOfPayment = new MethodOfPayment();
+                    xMethodOfPayment.ID = (long)oID;
+                    string xPaymentType = (string)oPaymentType;
+                    string Err = null;
+                    xMethodOfPayment.eType = GlobalData.Get_ePaymentType(xPaymentType, ref Err);
+                    if (xMethodOfPayment.eType != GlobalData.ePaymentType.NONE)
+                    {
+                        xMethodOfPayment.PaymentType = GlobalData.Get_sPaymentType(xMethodOfPayment.eType);
+                        if (xMethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                        {
+                            if ((oBankName is string)
+                                && (oBank_Tax_ID is string)
+                                && (oBankAccount is string)
+                                && (oBankAccount_ID is long))
+                            {
+                                xMethodOfPayment.BankName = (string)oBankName;
+                                xMethodOfPayment.Bank_Tax_ID = (string)oBank_Tax_ID;
+                                xMethodOfPayment.BankAccount = (string)oBankAccount;
+                                xMethodOfPayment.BankAccount_ID = (long)oBankAccount_ID;
+                                xMethodOfPayment.m_Bank_Registration_ID = null;
+                                if (oBank_Registration_ID != null)
+                                {
+                                    if (oBank_Registration_ID is string)
+                                    {
+                                        xMethodOfPayment.Bank_Registration_ID = (string)oBank_Registration_ID;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (!(oBankName is string))
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:DocInvoice_AddOn.MethodOfPayment:Set:oBankName is not string");
+                                }
+                                else if (!(oBank_Tax_ID is string))
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:DocInvoice_AddOn.MethodOfPayment:Set:oBank_Tax_ID is not string");
+                                }
+                                else if (!(oBankAccount is string))
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:DocInvoice_AddOn.MethodOfPayment:Set: oBankAccount is not string");
+                                }
+                                else if (!(oBankAccount_ID is long))
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:DocInvoice_AddOn.MethodOfPayment:Set: oBankAccount_ID is not long");
+                                }
+                                return null;
+                            }
+                        }
+                        return xMethodOfPayment;
+                    }
+                }
+                return null;
+            }
+
+            internal bool Set()
+            {
+                long_v Atom_BankAccount_ID_v = null;
+                switch (eType)
+                {
+                    case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
+                        if (f_Atom_BankAccount.Get(this.BankName,
+                                                   this.Bank_Tax_ID,
+                                                   this.Bank_Registration_ID,
+                                                   true,
+                                                   this.BankAccount,
+                                                   this.Description,
+                                                   ref Atom_BankAccount_ID_v))
+                        {
+                            if (Atom_BankAccount_ID_v != null)
+                            {
+                                if (f_MethodOfPayment.Get(eType, Atom_BankAccount_ID_v, ref m_ID))
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                        return false;
+                    default:
+                        if (f_MethodOfPayment.Get(eType, null, ref m_ID))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                }
+            }
         }
 
-        public string m_MethodOfPayment_BankAccount = null;
-        public string MethodOfPayment_BankAccount
-        {
-            get { return m_MethodOfPayment_BankAccount; }
-        }
-
-        public string m_MethodOfPayment_BankName = null;
-        public string MethodOfPayment_BankName
-        {
-            get { return m_MethodOfPayment_BankName; }
-        }
-
+        public IssueDate m_IssueDate = null;
+        public TermsOfPayment m_TermsOfPayment = null;
+        public MethodOfPayment m_MethodOfPayment = null;
+        public PaymentDeadline m_PaymentDeadline = null;
 
         public bool b_FVI_SLO = false;
 
@@ -128,6 +368,65 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:InvoiceData:Write_FURS_Response_Data:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
+        }
+
+        public bool Get(long DocInvoice_ID)
+        {
+            string Err = null;
+            Clear();
+            string sql = @"select 
+                            di.IssueDate,
+                            di.TermsOfPayment_ID,
+                            di.MethodOfPayment_ID,
+                            di.PaymentDeadline,
+                            mop.Atom_BankAccount_ID,
+                            top.Description as TermsOfPayment_Description,
+                            mop.PaymentType,
+                            aba.TRR,
+                            ao.Name,
+                            ao.Tax_ID,
+                            ao.Registration_ID
+                            from DocInvoice di
+                            left join  TermsOfPayment top on di.TermsOfPayment_ID = top.ID
+                            left join  MethodOfPayment mop on di.MethodOfPayment_ID = mop.ID
+                            left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID
+                            left join  Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
+                            left join  Atom_Organisation ao on ab.Atom_Organisation_ID = ao.ID
+                            where di.ID = " + DocInvoice_ID.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    m_IssueDate = DocInvoice_AddOn.IssueDate.Set(dt.Rows[0]["IssueDate"]);
+
+                    m_TermsOfPayment = DocInvoice_AddOn.TermsOfPayment.Set(dt.Rows[0]["TermsOfPayment_ID"],
+                                                                                   dt.Rows[0]["TermsOfPayment_Description"]);
+
+                    m_MethodOfPayment = DocInvoice_AddOn.MethodOfPayment.Set(dt.Rows[0]["MethodOfPayment_ID"],
+                                                                                     dt.Rows[0]["PaymentType"],
+                                                                                     dt.Rows[0]["Name"],
+                                                                                     dt.Rows[0]["Tax_ID"],
+                                                                                     dt.Rows[0]["Registration_ID"],
+                                                                                     dt.Rows[0]["TRR"],
+                                                                                     dt.Rows[0]["Atom_BankAccount_ID"]);
+                    m_PaymentDeadline = DocInvoice_AddOn.PaymentDeadline.Set(dt.Rows[0]["PaymentDeadline"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:DocInvoice_AddOn:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        private void Clear()
+        {
+            m_IssueDate = null;
+            m_TermsOfPayment = null;
+            m_MethodOfPayment = null;
+            m_PaymentDeadline = null;
         }
 
         public void Set_Invoice_Furs_Token()

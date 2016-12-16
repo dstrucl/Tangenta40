@@ -63,6 +63,7 @@
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.TabIndex = 0;
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.Text = "Payment by cash or credit card on delivery";
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.UseVisualStyleBackColor = true;
+            this.rdb_Payment_by_cash_or_credit_card_on_delivery.CheckedChanged += new System.EventHandler(this.rdb_Payment_by_cash_or_credit_card_on_delivery_CheckedChanged);
             // 
             // btn_Print
             // 
@@ -87,6 +88,7 @@
             this.rdb_BankAccountTransfer.TabIndex = 10;
             this.rdb_BankAccountTransfer.Text = "Payment on bank account";
             this.rdb_BankAccountTransfer.UseVisualStyleBackColor = true;
+            this.rdb_BankAccountTransfer.CheckedChanged += new System.EventHandler(this.rdb_BankAccountTransfer_CheckedChanged_1);
             // 
             // grp_MtehodOfPaymentType
             // 
