@@ -31,21 +31,11 @@ namespace Tangenta
         public delegate void delegate_OK();
         public event delegate_OK OK;
 
-        //public InvoiceData m_InvoiceData = null;
         public DocProformaInvoice_AddOn m_AddOnDPI = null;
 
-        public GlobalData.ePaymentType PaymentType = GlobalData.ePaymentType.NONE;
-
-
-
-
-        int Currency_DecimalPlaces = -1;
-        decimal GrossSum = 0;
-        public string sPaymentMethod = null;
-        long DocInvoice_ID = -1;
+        private usrc_AddOn m_usrc_AddOn = null;
 
         private bool m_bPrint = false;
-        private usrc_AddOn m_usrc_AddOn = null;
 
         public usrc_DocProformaInvoice_AddOn()
         {
@@ -363,9 +353,6 @@ namespace Tangenta
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
-            DateTime_v DocProformaInvoiceTime = new DateTime_v();
-            DocProformaInvoiceTime.v = DateTime.Now;
-
             if (m_AddOnDPI.m_IssueDate==null)
             {
                 m_AddOnDPI.m_IssueDate = new DocProformaInvoice_AddOn.IssueDate();

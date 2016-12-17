@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DocInvoice_AddOn));
             this.m_usrc_DocInvoice_AddOn = new Tangenta.usrc_DocInvoice_AddOn();
             this.SuspendLayout();
             // 
             // m_usrc_DocInvoice_AddOn
             // 
             this.m_usrc_DocInvoice_AddOn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_DocInvoice_AddOn.ForeColor = System.Drawing.Color.Coral;
+            this.m_usrc_DocInvoice_AddOn.ForeColor = System.Drawing.Color.Black;
             this.m_usrc_DocInvoice_AddOn.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_DocInvoice_AddOn.Name = "m_usrc_DocInvoice_AddOn";
-            this.m_usrc_DocInvoice_AddOn.Size = new System.Drawing.Size(634, 633);
+            this.m_usrc_DocInvoice_AddOn.Size = new System.Drawing.Size(634, 467);
             this.m_usrc_DocInvoice_AddOn.TabIndex = 1;
             this.m_usrc_DocInvoice_AddOn.Cancel += new Tangenta.usrc_DocInvoice_AddOn.delegate_Cancel(this.m_usrc_Payment_Cancel);
             this.m_usrc_DocInvoice_AddOn.OK += new Tangenta.usrc_DocInvoice_AddOn.delegate_OK(this.m_usrc_Payment_OK);
@@ -46,8 +47,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(634, 633);
+            this.ClientSize = new System.Drawing.Size(634, 467);
             this.Controls.Add(this.m_usrc_DocInvoice_AddOn);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_DocInvoice_AddOn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Receipt_Preview_Form";

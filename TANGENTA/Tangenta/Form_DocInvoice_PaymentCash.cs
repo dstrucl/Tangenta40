@@ -15,18 +15,34 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LanguageControl;
+using TangentaDB;
 
 namespace Tangenta
 {
     public partial class Form_DocInvoice_PaymentCash : Form
     {
         decimal GrossSum = 0;
-        public decimal money = 0;
+        private decimal m_Cash_AmountReceived = 0;
+        private decimal m_Cash_ToReturn = 0;
+
+        public decimal Cash_AmountReceived
+        {
+            get { return m_Cash_AmountReceived; }
+        }
+
+        public decimal Cash_ToReturn
+        {
+            get { return m_Cash_ToReturn; }
+        }
+
         public Form_DocInvoice_PaymentCash(decimal xGrossSum)
         {
             InitializeComponent();
             GrossSum = xGrossSum;
             SetText("0");
+            lngRPM.s_ToReturn.Text(lbl_ToReturn);
+            lngRPM.s_Amount.Text(lbl_Amount, ":");
+            lngRPM.s_AmountReceived.Text(lbl_AmountReceived, ":");
             btn_Amount.Text = lngRPM.s_EndPrice.s + ":" + GrossSum.ToString();
             this.Text = lngRPM.s_AcceptedCashAmount.s;
         }
@@ -36,10 +52,17 @@ namespace Tangenta
             if (d >= GrossSum)
             {
                 txt_Display.ForeColor = Color.Green;
+                this.txt__Amount.Text = btn_Amount.Text;
+                this.txt_AmountReceived.Text = txt_Display.Text;
+                decimal dToReturn = d - GrossSum;
+                this.txt_ToReturn.Text = dToReturn.ToString();
             }
             else
             {
                 txt_Display.ForeColor = Color.Red;
+                this.txt__Amount.Text = "";
+                this.txt_AmountReceived.Text = "";
+                this.txt_ToReturn.Text = "";
             }
         }
         private void AddCiffer(string c)
@@ -123,7 +146,8 @@ namespace Tangenta
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            money = Convert.ToDecimal(txt_Display.Text);
+            m_Cash_AmountReceived = Convert.ToDecimal(txt_Display.Text);
+            m_Cash_ToReturn = m_Cash_AmountReceived - GrossSum;
             this.Close();
             DialogResult = DialogResult.OK;
         }

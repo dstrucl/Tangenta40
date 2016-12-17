@@ -176,7 +176,7 @@ namespace TangentaDB
             if (IsDocInvoice)
             {
                 AddOnDI = new DocInvoice_AddOn();
-                AddOnDI.Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
+                AddOnDI.m_FURS.Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
                 AddOnDI.b_FVI_SLO = xb_FVI_SLO;
             }
             CasshierName = xCasshierName;
@@ -971,12 +971,12 @@ namespace TangentaDB
                                     if (!Draft)
                                     {
 
-                                    AddOnDI.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
-                                    AddOnDI.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
-                                    AddOnDI.FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"]);
-                                    AddOnDI.FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
-                                    AddOnDI.FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
-                                    AddOnDI.FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
+                                    AddOnDI.m_FURS.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
+                                    AddOnDI.m_FURS.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
+                                    AddOnDI.m_FURS.FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"]);
+                                    AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
+                                    AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
+                                    AddOnDI.m_FURS.FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
                                     }
                                 }
                             }
@@ -1119,9 +1119,9 @@ namespace TangentaDB
 
             if (IsDocInvoice)
             {
-                if (AddOnDI.Invoice_FURS_Token != null)
+                if (AddOnDI.m_FURS.Invoice_FURS_Token != null)
                 {
-                    foreach (UniversalInvoice.TemplateToken tt in AddOnDI.Invoice_FURS_Token.list)
+                    foreach (UniversalInvoice.TemplateToken tt in AddOnDI.m_FURS.Invoice_FURS_Token.list)
                     {
                         s += "\r\n" + tt.lt.s;
                     }
@@ -1139,9 +1139,9 @@ namespace TangentaDB
 
             if (IsDocInvoice)
             {
-                if (AddOnDI.FVI_SLO_RealEstateBP != null)
+                if (AddOnDI.m_FURS.FVI_SLO_RealEstateBP != null)
                 {
-                    foreach (UniversalInvoice.TemplateToken tt in AddOnDI.FVI_SLO_RealEstateBP.token.list)
+                    foreach (UniversalInvoice.TemplateToken tt in AddOnDI.m_FURS.FVI_SLO_RealEstateBP.token.list)
                     {
                         s += "\r\n" + tt.lt.s;
                     }
@@ -1308,9 +1308,9 @@ namespace TangentaDB
             html_doc_template = InvoiceToken.tDateOfIssue.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tDateOfMaturity.Replace(html_doc_template);
 
-            html_doc_template = AddOnDI.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
-            html_doc_template = AddOnDI.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
-            html_doc_template = AddOnDI.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+            html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
+            html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
+            html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
 
 
             int itbody = html_doc_template.IndexOf("<tbody>", 0);

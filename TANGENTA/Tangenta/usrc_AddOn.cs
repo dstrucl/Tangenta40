@@ -65,31 +65,41 @@ namespace Tangenta
         }
         private void btn_Notice_Click(object sender, EventArgs e)
         {
+
+            Get_Doc_AddOn(false);
+        }
+
+        public bool Get_Doc_AddOn(bool xbPrint)
+        {
             if (IsDocInvoice)
             {
-                Get_DocInvoice_AddOn(m_usrc_Invoice.AddOnDI);
+                return Get_DocInvoice_AddOn(m_usrc_Invoice.AddOnDI, xbPrint);
             }
             else if (IsDocProformaInvoice)
             {
-                Get_DocProformaInvoice_AddOn(m_usrc_Invoice.AddOnDPI);
+                return Get_DocProformaInvoice_AddOn(m_usrc_Invoice.AddOnDPI, xbPrint);
             }
-            //Form_Notice frm_notice = new Form_Notice(this);
-            //frm_notice.ShowDialog();
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:usrc_AddOn:Get_Doc_AddOn: Unknown document type!");
+                return false;
+            }
         }
-
-        public bool Get_DocInvoice_AddOn(DocInvoice_AddOn x_DocInvoice_AddOn)
+        
+        private bool Get_DocInvoice_AddOn(DocInvoice_AddOn x_DocInvoice_AddOn, bool xbPrint)
         {
-            Form_DocInvoice_AddOn payment_frm = new Form_DocInvoice_AddOn(x_DocInvoice_AddOn, false, this);
+            Form_DocInvoice_AddOn payment_frm = new Form_DocInvoice_AddOn(x_DocInvoice_AddOn, xbPrint, this);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
+                Show(m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID);
                 return true;
             }
             return false;
         }
 
-        public bool Get_DocProformaInvoice_AddOn(DocProformaInvoice_AddOn m_DocProformaInvoice_AddOn)
+        private bool Get_DocProformaInvoice_AddOn(DocProformaInvoice_AddOn m_DocProformaInvoice_AddOn, bool xbPrint)
         {
-            Form_DocProformaInvoice_AddOn payment_frm = new Form_DocProformaInvoice_AddOn(m_DocProformaInvoice_AddOn, false, this);
+            Form_DocProformaInvoice_AddOn payment_frm = new Form_DocProformaInvoice_AddOn(m_DocProformaInvoice_AddOn, xbPrint, this);
             if (payment_frm.ShowDialog() == DialogResult.OK)
             {
                 Show(m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID);
@@ -123,7 +133,7 @@ namespace Tangenta
             {
                 if (m_usrc_Invoice.AddOnDI.m_IssueDate != null)
                 {
-                    txt += lngRPM.s_ProformaInvoice_IssueDate.s + ":" + m_usrc_Invoice.AddOnDI.m_IssueDate.Date.ToString() + "\r\n";
+                    txt += lngRPM.s_Invoice_IssueDate.s + ":" + m_usrc_Invoice.AddOnDI.m_IssueDate.Date.ToShortDateString() + "\r\n";
                 }
                 if (m_usrc_Invoice.AddOnDI.m_MethodOfPayment != null)
                 {
@@ -144,7 +154,7 @@ namespace Tangenta
                 }
                 if (m_usrc_Invoice.AddOnDI.m_PaymentDeadline != null)
                 {
-                    string txtTermsOfPayment = lngRPM.s_Payment_Deadline.s + ":" + m_usrc_Invoice.AddOnDI.m_PaymentDeadline.Date.ToString();
+                    string txtTermsOfPayment = lngRPM.s_Payment_Deadline.s + ":" + m_usrc_Invoice.AddOnDI.m_PaymentDeadline.Date.ToShortDateString();
                     txt += txtTermsOfPayment + "\r\n";
                 }
 
@@ -154,7 +164,7 @@ namespace Tangenta
             {
                 if (m_usrc_Invoice.AddOnDPI.m_IssueDate != null)
                 {
-                    txt += lngRPM.s_ProformaInvoice_IssueDate.s + ":" + m_usrc_Invoice.AddOnDPI.m_IssueDate.Date.ToString() + "\r\n";
+                    txt += lngRPM.s_ProformaInvoice_IssueDate.s + ":" + m_usrc_Invoice.AddOnDPI.m_IssueDate.Date.Date.ToShortDateString() + "\r\n";
                 }
                 if (m_usrc_Invoice.AddOnDPI.m_Duration != null)
                 {
@@ -171,7 +181,7 @@ namespace Tangenta
                             if (m_usrc_Invoice.AddOnDPI.m_IssueDate != null)
                             {
                                 DateTime dtValidUntil = m_usrc_Invoice.AddOnDPI.m_IssueDate.Date.AddDays(Convert.ToInt32(m_usrc_Invoice.AddOnDPI.m_Duration.length));
-                                txtValidity += lngRPM.s_Valid_Until.s + dtValidUntil.ToString();
+                                txtValidity += lngRPM.s_Valid_Until.s + dtValidUntil.ToShortDateString();
                             }
                             break;
 
@@ -197,6 +207,28 @@ namespace Tangenta
                 }
                 this.txt_Notice.Text = txt;
             }
+        }
+
+        internal bool Check_DocInvoice_AddOn(DocInvoice_AddOn addOnDI)
+        {
+            if (addOnDI.Completed())
+            {
+                if (addOnDI.IsCashPayment)
+                {
+                    Form_DocInvoice_PaymentCash dlg_cash = new Form_DocInvoice_PaymentCash(this.m_usrc_Invoice.GrossSum);
+                    if (dlg_cash.ShowDialog() == DialogResult.OK)
+                    {
+                        addOnDI.Cash_AmountReceived = dlg_cash.Cash_AmountReceived;
+                        addOnDI.Cash_ToReturn = dlg_cash.Cash_ToReturn;
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+
+            }
+            return false;
         }
     }
 }

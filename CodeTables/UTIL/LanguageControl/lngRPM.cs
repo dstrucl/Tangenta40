@@ -17,9 +17,11 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_lbl_DateOfInvoiceIssue = new ltext("Invoice Date", "Datum računa");
         public static ltext s_Payment_Deadline = new ltext("Payment deadline", "Rok plačila");
         public static ltext s_Valid_Until = new ltext("valid until ", " velja do ");
         public static ltext s_ProformaInvoice_Validity = new ltext("Proforma Invoice Validity", "Veljavnost ponudbe");
+        public static ltext s_Invoice_IssueDate = new ltext("Invoice Date", "Datum računa");
         public static ltext s_ProformaInvoice_IssueDate = new ltext("Proforma Invoice Date", "Datum ponudbe");
         public static ltext s_lbl_DateOfProformaInvoiceIssue = new ltext("Proforma Invoice Date", "Datum ponudbe");
         public static ltext s_MethodOfPayment_is_not_defined = new ltext("Method of payment is not defined", "Način plačila ni določen!");

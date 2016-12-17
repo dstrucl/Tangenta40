@@ -138,7 +138,7 @@ namespace Tangenta
 
 
 
-        private decimal GrossSum = 0;
+        internal decimal GrossSum = 0;
         private decimal NetSum = 0;
         private StaticLib.TaxSum TaxSum = null;
 
@@ -2177,33 +2177,32 @@ do_EditMyOrganisation_Data:
                         if (m_ShopABC.m_CurrentInvoice.bDraft)
                         {
                             m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
-                            // print draft invoice
-                            if (fs.UpdatePriceInDraft(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID,GrossSum, TaxSum.Value,NetSum))
+
+                            if (usrc_AddOn1.Check_DocInvoice_AddOn(this.AddOnDI))
                             {
-                                if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
+                                // print draft invoice
+                                if (fs.UpdatePriceInDraft(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID, GrossSum, TaxSum.Value, NetSum))
                                 {
-
-
-                                    if (IsDocInvoice)
+                                    if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                                     {
-                                        if (m_InvoiceData.AddOnDI.FURS_QR_v != null)
+                                        if (IsDocInvoice)
                                         {
-                                            m_InvoiceData.AddOnDI.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.FURS_QR_v.v);
-                                            m_InvoiceData.AddOnDI.Set_Invoice_Furs_Token();
+                                            if (AddOnDI.IsCashPayment)
+                                            {
+                                                if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
+                                                {
+                                                    m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
+                                                    m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
 
-                                        }
+                                                }
+                                            }
 
-                                        if (usrc_AddOn1.Get_DocInvoice_AddOn(this.AddOnDI))
-                                        {
                                             if (aa_DocInvoiceSaved != null)
                                             {
                                                 aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
                                             }
                                         }
-                                    }
-                                    else if (IsDocProformaInvoice)
-                                    {
-                                        if (usrc_AddOn1.Get_DocProformaInvoice_AddOn(AddOnDPI))
+                                        else if (IsDocProformaInvoice)
                                         {
                                             if (aa_DocProformaInvoiceSaved != null)
                                             {
@@ -2213,15 +2212,20 @@ do_EditMyOrganisation_Data:
                                     }
                                 }
                             }
+                            else
+                            {
+                                // AddOn is not defined yet
+                                usrc_AddOn1.Get_Doc_AddOn(true);
+                            }
                         }
                         else
                         {
                             if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
-                                if (m_InvoiceData.AddOnDI.FURS_QR_v != null)
+                                if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
                                 {
-                                    m_InvoiceData.AddOnDI.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.FURS_QR_v.v);
-                                    m_InvoiceData.AddOnDI.Set_Invoice_Furs_Token();
+                                    m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
+                                    m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
                                 }
                                 TangentaPrint.Form_PrintExistingInvoice frm_Print_Existing_invoice = new TangentaPrint.Form_PrintExistingInvoice(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
                                 frm_Print_Existing_invoice.ShowDialog(this);
@@ -2301,7 +2305,7 @@ do_EditMyOrganisation_Data:
                                         if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                                         {
 
-                                            string furs_XML = xInvoiceData.AddOnDI.Create_furs_InvoiceXML(true,
+                                            string furs_XML = xInvoiceData.AddOnDI.m_FURS.Create_furs_InvoiceXML(true,
                                                                                                           Properties.Resources.FVI_SLO_Invoice,
                                                                                                           Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
                                                                                                           Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,
@@ -2321,10 +2325,10 @@ do_EditMyOrganisation_Data:
                                             Image img_QR = null;
                                             if (Program.usrc_FVI_SLO1.Send_SingleInvoice(false,furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
                                             {
-                                                xInvoiceData.AddOnDI.FURS_ZOI_v = new string_v(furs_UniqeMsgID);  
-                                                xInvoiceData.AddOnDI.FURS_EOR_v = new string_v(furs_UniqeInvID);
-                                                xInvoiceData.AddOnDI.FURS_QR_v = new string_v(furs_BarCodeValue);
-                                                xInvoiceData.AddOnDI.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID);
+                                                xInvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);  
+                                                xInvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
+                                                xInvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
+                                                xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID);
                                             }
                                             else
                                             {

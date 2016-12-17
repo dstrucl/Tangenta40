@@ -65,6 +65,12 @@
             this.btn_500 = new System.Windows.Forms.Button();
             this.btn_400 = new System.Windows.Forms.Button();
             this.btn_250 = new System.Windows.Forms.Button();
+            this.txt_AmountReceived = new System.Windows.Forms.TextBox();
+            this.lbl_AmountReceived = new System.Windows.Forms.Label();
+            this.txt_ToReturn = new System.Windows.Forms.TextBox();
+            this.lbl_ToReturn = new System.Windows.Forms.Label();
+            this.txt__Amount = new System.Windows.Forms.TextBox();
+            this.lbl_Amount = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_7
@@ -191,9 +197,9 @@
             // btn_OK
             // 
             this.btn_OK.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_OK.Location = new System.Drawing.Point(16, 452);
+            this.btn_OK.Location = new System.Drawing.Point(583, 617);
             this.btn_OK.Name = "btn_OK";
-            this.btn_OK.Size = new System.Drawing.Size(302, 75);
+            this.btn_OK.Size = new System.Drawing.Size(267, 75);
             this.btn_OK.TabIndex = 11;
             this.btn_OK.Text = "OK";
             this.btn_OK.UseVisualStyleBackColor = true;
@@ -391,7 +397,7 @@
             this.btn_200.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_200.Location = new System.Drawing.Point(737, 350);
             this.btn_200.Name = "btn_200";
-            this.btn_200.Size = new System.Drawing.Size(117, 81);
+            this.btn_200.Size = new System.Drawing.Size(113, 81);
             this.btn_200.TabIndex = 29;
             this.btn_200.Text = "200";
             this.btn_200.UseVisualStyleBackColor = true;
@@ -464,11 +470,79 @@
             this.btn_250.UseVisualStyleBackColor = true;
             this.btn_250.Click += new System.EventHandler(this.btn_250_Click);
             // 
-            // Form_PaymentCash
+            // txt_AmountReceived
+            // 
+            this.txt_AmountReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_AmountReceived.ForeColor = System.Drawing.Color.Olive;
+            this.txt_AmountReceived.Location = new System.Drawing.Point(302, 602);
+            this.txt_AmountReceived.Name = "txt_AmountReceived";
+            this.txt_AmountReceived.ReadOnly = true;
+            this.txt_AmountReceived.Size = new System.Drawing.Size(256, 38);
+            this.txt_AmountReceived.TabIndex = 43;
+            // 
+            // lbl_AmountReceived
+            // 
+            this.lbl_AmountReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_AmountReceived.ForeColor = System.Drawing.Color.Black;
+            this.lbl_AmountReceived.Location = new System.Drawing.Point(37, 605);
+            this.lbl_AmountReceived.Name = "lbl_AmountReceived";
+            this.lbl_AmountReceived.Size = new System.Drawing.Size(259, 37);
+            this.lbl_AmountReceived.TabIndex = 42;
+            this.lbl_AmountReceived.Text = "Amount Received:";
+            this.lbl_AmountReceived.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // txt_ToReturn
+            // 
+            this.txt_ToReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt_ToReturn.ForeColor = System.Drawing.Color.Tomato;
+            this.txt_ToReturn.Location = new System.Drawing.Point(302, 654);
+            this.txt_ToReturn.Name = "txt_ToReturn";
+            this.txt_ToReturn.ReadOnly = true;
+            this.txt_ToReturn.Size = new System.Drawing.Size(256, 38);
+            this.txt_ToReturn.TabIndex = 41;
+            // 
+            // lbl_ToReturn
+            // 
+            this.lbl_ToReturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_ToReturn.ForeColor = System.Drawing.Color.Black;
+            this.lbl_ToReturn.Location = new System.Drawing.Point(99, 657);
+            this.lbl_ToReturn.Name = "lbl_ToReturn";
+            this.lbl_ToReturn.Size = new System.Drawing.Size(197, 33);
+            this.lbl_ToReturn.TabIndex = 40;
+            this.lbl_ToReturn.Text = "Vračilo:";
+            this.lbl_ToReturn.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // txt__Amount
+            // 
+            this.txt__Amount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txt__Amount.Location = new System.Drawing.Point(302, 553);
+            this.txt__Amount.Name = "txt__Amount";
+            this.txt__Amount.ReadOnly = true;
+            this.txt__Amount.Size = new System.Drawing.Size(256, 38);
+            this.txt__Amount.TabIndex = 39;
+            // 
+            // lbl_Amount
+            // 
+            this.lbl_Amount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Amount.ForeColor = System.Drawing.Color.Black;
+            this.lbl_Amount.Location = new System.Drawing.Point(90, 553);
+            this.lbl_Amount.Name = "lbl_Amount";
+            this.lbl_Amount.Size = new System.Drawing.Size(207, 37);
+            this.lbl_Amount.TabIndex = 38;
+            this.lbl_Amount.Text = "Amount:";
+            this.lbl_Amount.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // Form_DocInvoice_PaymentCash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(872, 547);
+            this.ClientSize = new System.Drawing.Size(865, 709);
+            this.Controls.Add(this.txt_AmountReceived);
+            this.Controls.Add(this.lbl_AmountReceived);
+            this.Controls.Add(this.txt_ToReturn);
+            this.Controls.Add(this.lbl_ToReturn);
+            this.Controls.Add(this.txt__Amount);
+            this.Controls.Add(this.lbl_Amount);
             this.Controls.Add(this.btn_300);
             this.Controls.Add(this.btn_500);
             this.Controls.Add(this.btn_400);
@@ -509,7 +583,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form_PaymentCash";
+            this.Name = "Form_DocInvoice_PaymentCash";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AcceptedCash_Form";
             this.Load += new System.EventHandler(this.PaymentCash_Form_Load);
@@ -556,5 +630,11 @@
         private System.Windows.Forms.Button btn_500;
         private System.Windows.Forms.Button btn_400;
         private System.Windows.Forms.Button btn_250;
+        private System.Windows.Forms.TextBox txt_AmountReceived;
+        private System.Windows.Forms.Label lbl_AmountReceived;
+        private System.Windows.Forms.TextBox txt_ToReturn;
+        private System.Windows.Forms.Label lbl_ToReturn;
+        private System.Windows.Forms.TextBox txt__Amount;
+        private System.Windows.Forms.Label lbl_Amount;
     }
 }
