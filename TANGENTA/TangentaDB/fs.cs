@@ -1895,6 +1895,27 @@ namespace TangentaDB
             }
         }
 
+        public static bool IssueDoc(string docInvoice, long doc_ID)
+        {
+            string sql_SetPrice = "update "+ docInvoice + " set Draft = 1 where ID = " + doc_ID.ToString();
+            object ores = null;
+            string Err = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, null, ref ores, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Invoice:UpdateInvoicePriceInDraft:Err=" + Err);
+                return false;
+            }
+        }
+
+        public static bool IssueDoc(string docInvoice, DocInvoice_AddOn addOnDI, long doc_ID)
+        {
+            throw new NotImplementedException();
+        }
+
         public static bool Get_string_table_ID(string TableName, string ColumnName, string_v s_v, ref long_v ID_v)
         {
             List<SQL_Parameter> lpar = null;

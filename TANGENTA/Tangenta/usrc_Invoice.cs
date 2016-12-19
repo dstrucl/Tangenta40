@@ -2158,6 +2158,57 @@ do_EditMyOrganisation_Data:
             }
         }
 
+
+        private bool IssueDocument()
+        {
+            if (fs.UpdatePriceInDraft(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID, GrossSum, TaxSum.Value, NetSum))
+            {
+                if (fs.IssueDoc(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID))
+                {
+                    if (IsDocInvoice)
+                    {
+
+                        if (AddOnDI.IsCashPayment)
+                        {
+                            if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
+                            {
+                                m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
+                                m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
+
+                            }
+                        }
+
+                        if (aa_DocInvoiceSaved != null)
+                        {
+                            aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                        }
+                        return true;
+                    }
+                    else if (IsDocProformaInvoice)
+                    {
+                        if (aa_DocProformaInvoiceSaved != null)
+                        {
+                            aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:Tangenta:usrc_Invoice:IssueDocument:Unknown doc type!");
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void btn_Issue_Click(object sender, EventArgs e)
         {
             if (m_ShopABC != null)
@@ -2176,50 +2227,26 @@ do_EditMyOrganisation_Data:
                     {
                         if (m_ShopABC.m_CurrentInvoice.bDraft)
                         {
-                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
 
-                            if (usrc_AddOn1.Check_DocInvoice_AddOn(this.AddOnDI))
+                            if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.AddOnDI))
                             {
-                                // print draft invoice
-                                if (fs.UpdatePriceInDraft(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID, GrossSum, TaxSum.Value, NetSum))
+                                if (!usrc_AddOn1.Get_Doc_AddOn(true))
                                 {
-                                    if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
-                                    {
-                                        if (IsDocInvoice)
-                                        {
-                                            if (AddOnDI.IsCashPayment)
-                                            {
-                                                if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
-                                                {
-                                                    m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
-                                                    m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
-
-                                                }
-                                            }
-
-                                            if (aa_DocInvoiceSaved != null)
-                                            {
-                                                aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
-                                            }
-                                        }
-                                        else if (IsDocProformaInvoice)
-                                        {
-                                            if (aa_DocProformaInvoiceSaved != null)
-                                            {
-                                                aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
-                                            }
-                                        }
-                                    }
+                                    return;
                                 }
+                            }
+                            if (IssueDocument())
+                            {
+                                SelectTemplate();
                             }
                             else
                             {
-                                // AddOn is not defined yet
-                                usrc_AddOn1.Get_Doc_AddOn(true);
+                                return;
                             }
                         }
                         else
                         {
+                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
                             if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
@@ -2234,6 +2261,17 @@ do_EditMyOrganisation_Data:
                     }
                 }
             }
+        }
+
+        private bool SelectTemplate()
+        {
+            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
+            if (m_InvoiceData.Read_DocInvoice()) // Invoice again from DataBase
+            {
+
+
+            }
+            return false;
         }
 
         private void usrc_Customer_Customer_Person_Changed(long Customer_Person_ID)
