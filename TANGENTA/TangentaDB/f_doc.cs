@@ -16,6 +16,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LanguageControl;
 
 namespace TangentaDB
 {
@@ -25,117 +26,61 @@ namespace TangentaDB
 
         public static bool InsertDefault()
         {
-
-
-
-            string[] doc_page_type_A4_Name = new string[] { "A4", "A4" };
-            string[] doc_page_type_A4_Description = new string[] { "A4", "A4" };
-
-            string[] doc_page_type_Roll_80_Name = new string[] { "Roll 80mm", "Rola 80mm" };
-            string[] doc_page_type_Roll_80_Description = new string[] { "Roll 80mm", "Rola 80mm" };
-
-            string[] doc_page_type_Roll_58_Name = new string[] { "Roll 58mm", "Rola 58mm" };
-            string[] doc_page_type_Roll_58_Description = new string[] { "Roll 58mm", "Rola 58mm" };
-
-
-            string[] doc_type_Html_Invoice_Template_A4_Name = new string[] { "HTML Template Invoice A4", "HTML predloga računi A4" };
-            string[] doc_type_Html_Invoice_Template_A4_Description = new string[] { "HTML Template Invoice A4", "HTML predloga računi A4" };
-
-            string[] doc_type_Html_Proforma_Invoice_Template_A4_Name = new string[] { "HTML Template Proforma Invoice A4", "HTML predloga predračuni" };
-            string[] doc_type_Html_Proforma_Invoice_Template_A4_Description = new string[] { "HTML Template Proforma Invoice", "HTML predloga predračuni" };
-
-            string[] doc_Html_Invoice_Template_A4_Name = new string[] { "English HTML Template Invoice A4", "Slovenska HTML predloga računi A4" };
-            string[] doc_Html_Invoice_Template_A4_Description = new string[] { "English HTML Template Invoice", "Slovenska HTML predloga računi A4" };
-
-            string[] doc_Html_Proforma_Invoice_Template_A4_Name = new string[] { "English HTML Template Proforma Invoice A4", "Slovenska HTML predloga pred računi A4"};
-            string[] doc_Html_Proforma_Invoice_Template_A4_Description = new string[] { "English HTML Template Proforma Invoice A4", "Slovenska HTML predloga pred računi A4"};
-
-
-            string[] doc_type_Html_Invoice_Template_Roll58_Name = new string[] { "HTML Template Invoice Roll58", "HTML predloga računi Roll58" };
-            string[] doc_type_Html_Invoice_Template_Roll58_Description = new string[] { "HTML Template Invoice Roll58", "HTML predloga računi Roll58" };
-
-            string[] doc_type_Html_Proforma_Invoice_Template_Roll58_Name = new string[] { "HTML Template Proforma Invoice Roll58", "HTML predloga predračuni" };
-            string[] doc_type_Html_Proforma_Invoice_Template_Roll58_Description = new string[] { "HTML Template Proforma Invoice", "HTML predloga predračuni" };
-
-            string[] doc_Html_Invoice_Template_Roll58_Name = new string[] { "English HTML Template Invoice Roll58", "Slovenska HTML predloga računi Roll58" };
-            string[] doc_Html_Invoice_Template_Roll58_Description = new string[] { "English HTML Template Invoice", "Slovenska HTML predloga računi Roll58" };
-
-            string[] doc_Html_Proforma_Invoice_Template_Roll58_Name = new string[] { "English HTML Template Proforma Invoice Roll58", "Slovenska HTML predloga pred računi Roll58" };
-            string[] doc_Html_Proforma_Invoice_Template_Roll58_Description = new string[] { "English HTML Template Proforma Invoice Roll58", "Slovenska HTML predloga pred računi Roll58" };
-
-
-
-            string[] doc_type_Html_Invoice_Template_Roll80_Name = new string[] { "HTML Template Invoice Roll80", "HTML predloga računi Roll80" };
-            string[] doc_type_Html_Invoice_Template_Roll80_Description = new string[] { "HTML Template Invoice Roll80", "HTML predloga računi Roll80" };
-
-            string[] doc_type_Html_Proforma_Invoice_Template_Roll80_Name = new string[] { "HTML Template Proforma Invoice Roll80", "HTML predloga predračuni" };
-            string[] doc_type_Html_Proforma_Invoice_Template_Roll80_Description = new string[] { "HTML Template Proforma Invoice", "HTML predloga predračuni" };
-
-            string[] doc_Html_Invoice_Template_Roll80_Name = new string[] { "English HTML Template Invoice Roll80", "Slovenska HTML predloga računi Roll80" };
-            string[] doc_Html_Invoice_Template_Roll80_Description = new string[] { "English HTML Template Invoice", "Slovenska HTML predloga računi Roll80" };
-
-            string[] doc_Html_Proforma_Invoice_Template_Roll80_Name = new string[] { "English HTML Template Proforma Invoice Roll80", "Slovenska HTML predloga pred računi Roll80" };
-            string[] doc_Html_Proforma_Invoice_Template_Roll80_Description = new string[] { "English HTML Template Proforma Invoice Roll80", "Slovenska HTML predloga pred računi Roll80" };
-
-
-
-            long[] doc_type_A4_ID = new long[2];
-            long[] doc_ID_inv = new long[2];
-            long[] doc_ID_pinv = new long[2];
-
-            long[] languageID = new long[2];
-            long[] doc_page_type_A4_ID = new long[2];
-
             int i =0;
-            for (i = 0; i < LanguageControl.DynSettings.s_language.sTextArr.Length; i++)
+            for (i = 0; i < GlobalData.language_definitions.Language_list.Count; i++)
             {
-                if (LanguageControl.DynSettings.s_language.sTextArr[i] != null)
+                    long_v Language_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
+                    byte[] xDoc = null;
+
+                int j = 0;
+                string sName = null;
+                for (j = 0; j < GlobalData.doc_type_definitions.doc_type_list.Count; j++)
                 {
-                    string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
-                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, ref languageID[i]))
+                    sName = lngRPM.s_basic_HTML_template.s + GlobalData.doc_type_definitions.doc_type_list[i].Name + "_" + GlobalData.language_definitions.Language_list[i].Name;
+                    byte[] bytes = null;
+                    if ((i == 0)&&(j==0))
                     {
-                        long_v Language_ID_v = new long_v(languageID[i]);
-                        byte[] xDoc = null;
-
-                        if (i == 0)
-                        {
-                            byte[] bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_ENG_inv1_A4);
-                            string myString = Encoding.UTF8.GetString(bytes);
-                            xDoc = fs.GetBytes(myString);
-                        }
-                        else
-                        {
-                            byte[] bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_SLO_inv1_A4);
-                            string myString = Encoding.UTF8.GetString(bytes);
-                            xDoc = fs.GetBytes(myString);
-                        }
-                        long doc_page_type_ID = 0;
-                        long doc_type_ID = 0;
-                        long doc_ID = 0;
-                        if (!Get(Language_ID_v,
-                                 doc_page_type_A4_Name[i],
-                                 doc_page_type_A4_Description[i],
-                                   210,
-                                   297,
-                                   ref doc_page_type_ID,
-                                   doc_type_Html_Invoice_Template_A4_Name[i],
-                                   doc_type_Html_Invoice_Template_A4_Description[i],
-                                   ref doc_type_ID,
-                                   doc_Html_Invoice_Template_A4_Name[i],
-                                   doc_Html_Invoice_Template_A4_Description[i],
-                                   xDoc,
-                                   true,
-                                   true,
-                                   true,
-                                   ref doc_ID
-                                   )
-                            )
-                        {
-                            return false;
-                        }
-
+                        bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_ENG_inv1_A4);
+                        string myString = Encoding.UTF8.GetString(bytes);
+                        xDoc = fs.GetBytes(myString);
                     }
-                    else
+                    else if ((i == 0) && (j == 1))
+                    {
+                        bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_ENG_pinv1_A4);
+                        string myString = Encoding.UTF8.GetString(bytes);
+                        xDoc = fs.GetBytes(myString);
+                    }
+                    else if ((i == 1) && (j == 0))
+                    {
+                        bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_SLO_inv1_A4);
+                        string myString = Encoding.UTF8.GetString(bytes);
+                        xDoc = fs.GetBytes(myString);
+                    }
+
+                    else if ((i == 1) && (j == 1))
+                    {
+                        bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_SLO_pinv1_A4);
+                        string myString = Encoding.UTF8.GetString(bytes);
+                        xDoc = fs.GetBytes(myString);
+                    }
+
+
+                    long doc_ID = 0;
+                    long_v doc_type_ID_v = new long_v(GlobalData.doc_type_definitions.doc_type_list[j].ID);
+                    long_v doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.A4_Portrait_description.ID);
+                    long_v xLanguage_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
+                    if (!Get(sName,
+                              null,
+                              xDoc,
+                              doc_type_ID_v,
+                              doc_page_type_ID_v,
+                              xLanguage_ID_v,
+                                true,
+                                true,
+                                true,
+                                ref doc_ID
+                                )
+                        )
                     {
                         return false;
                     }
@@ -144,45 +89,18 @@ namespace TangentaDB
             return true;
         }
 
-        public static bool Get(long_v Language_ID_v,
-                               string doc_page_type_Name,
-                               string doc_page_type_Description,
-                               decimal Page_Width,
-                               decimal Page_Height,
-                               ref long doc_page_type_ID,
-                               string doc_type_Name,
-                               string doc_type_Description,
-                               ref long doc_type_ID,
-                               string doc_Name,
-                               string doc_Description,
-                               byte[] doc,
-                               bool Compressed,
-                               bool Active,
-                               bool Default,
-                               ref long doc_ID
-                               )
-        {
-            string_v doc_page_type_Description_v = new string_v(doc_page_type_Description);
-            decimal_v Width_v = new decimal_v(Page_Width);
-            decimal_v Height_v = new decimal_v(Page_Height);
-            if (f_doc_page_type.Get(doc_page_type_Name, doc_page_type_Description_v, Width_v, Height_v, ref doc_page_type_ID))
-            {
-                string_v doc_type_Description_v = new string_v(doc_type_Description);
-                long_v doc_page_type_ID_v = new long_v(doc_page_type_ID);
-                if (f_doc_type.Get(doc_type_Name, doc_type_Description_v, Language_ID_v, doc_page_type_ID_v, ref doc_type_ID))
-                {
-                    long_v doc_type_ID_v = new long_v(doc_type_ID);
-                    string_v doc_Description_v = new string_v(doc_Description);
-                    if (Get(doc_Name, doc_Description_v, doc, doc_type_ID_v, Compressed, Active, Default, ref doc_ID))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
 
-        public static bool Get(string Name, string_v Description_v, byte[] xDocument, long_v doc_type_ID_v,bool commpressed,bool Active,bool Default, ref long doc_ID)
+
+        public static bool Get(string Name, 
+                                string_v Description_v,
+                                byte[] xDocument, 
+                                long_v doc_type_ID_v,
+                                long_v doc_page_type_ID_v,
+                                long_v Language_ID_v,
+                                bool commpressed,
+                                bool Active,
+                                bool Default,
+                                ref long doc_ID)
         {
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -219,6 +137,29 @@ namespace TangentaDB
                     sval_doc_type_ID = spar_doc_type_ID;
                 }
 
+                string sval_doc_page_type_ID = "null";
+
+                if (doc_page_type_ID_v != null)
+                {
+                    string spar_doc_page_type_ID = "@par_doc_page_type_ID";
+
+                    SQL_Parameter par_doc_page_type_ID = new SQL_Parameter(spar_doc_page_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID_v.v);
+                    lpar.Add(par_doc_page_type_ID);
+                    sval_doc_page_type_ID = spar_doc_page_type_ID;
+                }
+
+
+                string sval_Language_ID = "null";
+
+                if (Language_ID_v != null)
+                {
+                    string spar_Language_ID = "@par_Language_ID";
+
+                    SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Language_ID_v.v);
+                    lpar.Add(par_Language_ID);
+                    sval_Language_ID = spar_Language_ID;
+                }
+
 
                 xDocument_HASH = DBtypesFunc.GetHash_SHA1(xDocument);
                 string spar_xDocument_HASH = "@par_xDocument_HASH";
@@ -226,7 +167,12 @@ namespace TangentaDB
                 lpar.Add(par_xDocument_HASH);
 
 
-                string sql = "select ID from doc where Name = " + spar_Name + " and Description = " + sval_Description + " and doc_type_ID = " + sval_doc_type_ID + " and xDocument_HASH = " + spar_xDocument_HASH;
+                string sql = "select ID from doc where Name = " + spar_Name 
+                                                                + " and Description = " + sval_Description 
+                                                                + " and doc_type_ID = " + sval_doc_type_ID
+                                                                + " and doc_page_type_ID = " + sval_doc_page_type_ID
+                                                                + " and Language_ID = " + sval_Language_ID
+                                                                + " and xDocument_HASH = " + spar_xDocument_HASH;
 
                 DataTable dt = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -259,6 +205,8 @@ namespace TangentaDB
                                                  xDocument,
                                                  xDocument_Hash,
                                                  doc_type_ID,
+                                                 doc_page_type_ID,
+                                                 Language_ID,
                                                  Compressed,
                                                  Active,
                                                  bDefault)
@@ -268,6 +216,8 @@ namespace TangentaDB
                                                   + spar_xDocument + ","
                                                   + spar_xDocument_HASH + ","
                                                   + sval_doc_type_ID + ","
+                                                  + sval_doc_page_type_ID + ","
+                                                  + sval_Language_ID + ","
                                                   + sCompressed +@",
                                                   1,"+ spar_bDefault + ")";
                         object oret = null;

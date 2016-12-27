@@ -2227,14 +2227,31 @@ do_EditMyOrganisation_Data:
                     {
                         if (m_ShopABC.m_CurrentInvoice.bDraft)
                         {
-
-                            if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.AddOnDI))
+                            if (IsDocInvoice)
                             {
-                                if (!usrc_AddOn1.Get_Doc_AddOn(true))
+                                if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.AddOnDI))
                                 {
-                                    return;
+                                    if (!usrc_AddOn1.Get_Doc_AddOn(true))
+                                    {
+                                        return;
+                                    }
                                 }
                             }
+                            else if (IsDocProformaInvoice)
+                            {
+                                if (!usrc_AddOn1.Check_DocProformaInvoice_AddOn(this.AddOnDPI))
+                                {
+                                    if (!usrc_AddOn1.Get_Doc_AddOn(true))
+                                    {
+                                        return;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:Tangenta:uscr_Invoice:btn_Issue_Click:Unknown doc type.");
+                            }
+
                             if (IssueDocument())
                             {
                                 SelectTemplate();
@@ -2246,7 +2263,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
+                            m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID));
                             if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
@@ -2263,13 +2280,34 @@ do_EditMyOrganisation_Data:
             }
         }
 
+        private InvoiceData Set_AddOn(InvoiceData invoiceData)
+        {
+            if (IsDocInvoice)
+            {
+                invoiceData.AddOnDI = this.AddOnDI;
+                invoiceData.AddOnDPI = null;
+            }
+            else if (IsDocProformaInvoice)
+            {
+                invoiceData.AddOnDPI = this.AddOnDPI;
+                invoiceData.AddOnDI = null;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:usrc_Invoice:SetAddOn:Unknown doc type!");
+                invoiceData.AddOnDI = null;
+                invoiceData.AddOnDPI = null;
+            }
+            return invoiceData;
+        }
+
         private bool SelectTemplate()
         {
-            m_InvoiceData = new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID);
+            m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID));
             if (m_InvoiceData.Read_DocInvoice()) // Invoice again from DataBase
             {
-
-
+                TangentaPrint.Form_SelectTemplate template_dlg = new TangentaPrint.Form_SelectTemplate(m_InvoiceData);
+                template_dlg.ShowDialog(this);
             }
             return false;
         }

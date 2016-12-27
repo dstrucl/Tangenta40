@@ -24,7 +24,7 @@ using NavigationButtons;
 
 namespace TangentaPrint
 {
-    public partial class Form_Print_A4 : Form
+    public partial class Form_SelectTemplate : Form
     {
         public bool bCompressedDocumentTemplate = false;
         public long Default_ID = -1;
@@ -39,39 +39,34 @@ namespace TangentaPrint
         private DateTime_v issue_time;
         private usrc_DeviceSettings usrc_Printer;
         private InvoiceData m_InvoiceData;
-        private NavigationButtons.Navigation nav = null;
-        private InvoiceData xInvoiceData;
         private long durationType;
         private long duration;
 
-        public Form_Print_A4(InvoiceData xInvoiceData, GlobalData.ePaymentType paymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time, NavigationButtons.Navigation xnav)
+        public Form_SelectTemplate(InvoiceData xInvoiceData)
         {
             InitializeComponent();
-            nav = xnav;
 
             this.m_InvoiceData = xInvoiceData;
-            this.paymentType = paymentType;
-            this.sPaymentMethod = sPaymentMethod;
-            this.sAmountReceived = sAmountReceived;
-            this.sToReturn = sToReturn;
-            this.issue_time = issue_time;
+            if (m_InvoiceData.IsDocInvoice)
+            {
+                this.paymentType = m_InvoiceData.AddOnDI.m_MethodOfPayment.eType;
+                this.sPaymentMethod = m_InvoiceData.AddOnDI.m_MethodOfPayment.PaymentType;
+                this.sAmountReceived = m_InvoiceData.AddOnDI.sCash_AmountReceived;
+                this.sToReturn = m_InvoiceData.AddOnDI.sCash_ToReturn;
+                this.issue_time = new DateTime_v(m_InvoiceData.AddOnDI.m_IssueDate.Date);
+            }
+            else if (m_InvoiceData.IsDocProformaInvoice)
+            {
+                this.paymentType = m_InvoiceData.AddOnDPI.m_MethodOfPayment.eType;
+                this.sPaymentMethod = m_InvoiceData.AddOnDPI.m_MethodOfPayment.PaymentType;
+                this.issue_time = new DateTime_v(m_InvoiceData.AddOnDPI.m_IssueDate.Date);
+                this.durationType = m_InvoiceData.AddOnDPI.m_Duration.type;
+                this.duration = m_InvoiceData.AddOnDPI.m_Duration.length;
+            }
 
             lngRPM.s_Template.Text(lbl_Template, ":");
         }
 
-        public Form_Print_A4(InvoiceData xInvoiceData, GlobalData.ePaymentType paymentType, string sPaymentMethod, long durationType, long duration, DateTime_v issue_time, Navigation xnav)
-        {
-            InitializeComponent();
-            nav = xnav;
-
-            this.m_InvoiceData = xInvoiceData;
-            this.paymentType = paymentType;
-            this.sPaymentMethod = sPaymentMethod;
-            this.issue_time = issue_time;
-            this.durationType = durationType;
-            this.duration = duration;
-            lngRPM.s_Template.Text(lbl_Template, ":");
-        }
 
         public void Init()
         {
@@ -106,8 +101,9 @@ namespace TangentaPrint
             this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
             this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(923, 560);
             this.m_usrc_Invoice_Preview.TabIndex = 0;
+            this.m_usrc_Invoice_Preview.Dock = DockStyle.Fill;
             this.m_usrc_Invoice_Preview.OK += new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
-            this.Controls.Add(m_usrc_Invoice_Preview);
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_Invoice_Preview);
 
         }
         private void btn_EditTemplates_Click(object sender, EventArgs e)
@@ -115,7 +111,7 @@ namespace TangentaPrint
             SQLTable tbl_doc = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(doc)));
             Form_Templates edt_doc_dlg = new Form_Templates(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                             tbl_doc,
-                                                            "doc_$$Name",nav);
+                                                            "doc_$$Name");
             if (edt_doc_dlg.ShowDialog() == DialogResult.OK)
             {
                 long id = edt_doc_dlg.ID_v.v;

@@ -504,6 +504,7 @@ namespace TangentaDB
                                 pi.FinancialYear,
                                 pi.NumberInFinancialYear,
                                 pi.Draft,
+                                pi.IssueDate,
                                 mpay.PaymentType,
                                 GrossSum,
                                 TaxSum,
@@ -588,6 +589,7 @@ namespace TangentaDB
                                 pi.FinancialYear,
                                 pi.NumberInFinancialYear,
                                 pi.Draft,
+                                pi.IssueDate,
                                 mpay.PaymentType,
                                 GrossSum,
                                 TaxSum,
@@ -629,7 +631,7 @@ namespace TangentaDB
                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
-                                inner join Atom_myOrganisation_Person amcp on Atom_WorkPeriod.Atom_myOrganisation_Person_ID = amcp.ID
+                                inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
                                 inner join Atom_Office_Data aoffd on aoffd.Atom_Office_ID = aoff.ID
@@ -665,6 +667,7 @@ namespace TangentaDB
                                 pi.FinancialYear,
                                 pi.NumberInFinancialYear,
                                 pi.Draft,
+                                pi.IssueDate,
                                 mpay.PaymentType,
                                 GrossSum,
                                 TaxSum,
@@ -745,6 +748,7 @@ namespace TangentaDB
                     try
                     {
                         Draft = DBTypes.tf._set_bool(dt_DocInvoice.Rows[0]["Draft"]);
+                        IssueDate_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["IssueDate"]);
                         if (IsDocInvoice)
                         {
                             AddOnDI.Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
@@ -773,7 +777,6 @@ namespace TangentaDB
                                             if (EventName_v.v.Equals("InvoiceTime"))
                                             {
                                                 this.m_eType = eType.INVOICE;
-                                                this.IssueDate_v = EventTime_v.Clone();
                                             }
                                             else if (EventName_v.v.Equals("InvoiceStornoTime"))
                                             {
@@ -1308,10 +1311,12 @@ namespace TangentaDB
             html_doc_template = InvoiceToken.tDateOfIssue.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tDateOfMaturity.Replace(html_doc_template);
 
-            html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
-            html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
-            html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
-
+            if (AddOnDI.b_FVI_SLO)
+            {
+                html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
+                html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
+                html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+            }
 
             int itbody = html_doc_template.IndexOf("<tbody>", 0);
             if (itbody > 0)

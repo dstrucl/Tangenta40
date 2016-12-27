@@ -120,9 +120,75 @@ namespace TangentaDB.Properties {
         ///        background: #FFFFFF; 
         ///        font-family: Arial, sans-serif [rest of string was truncated]&quot;;.
         /// </summary>
+        internal static string htmlt_ENG_pinv1_A4 {
+            get {
+                return ResourceManager.GetString("htmlt_ENG_pinv1_A4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;en&quot;&gt;
+        ///  &lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot;&gt;
+        ///    &lt;title&gt;Račun&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///            .clearfix:after {
+        ///        content: &quot;&quot;;
+        ///        display: table;
+        ///        clear: both;
+        ///    }
+        ///
+        ///    a {
+        ///        color: #5D6975;
+        ///        text-decoration: underline;
+        ///    }
+        ///
+        ///    body {
+        ///        position: relative;
+        ///        width: 21cm;  
+        ///        height: 29.7cm; 
+        ///        margin: 0 auto; 
+        ///        color: #001028;
+        ///        background: #FFFFFF; 
+        ///        font-family: Arial, sans-serif [rest of string was truncated]&quot;;.
+        /// </summary>
         internal static string htmlt_SLO_inv1_A4 {
             get {
                 return ResourceManager.GetString("htmlt_SLO_inv1_A4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html lang=&quot;en&quot;&gt;
+        ///  &lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot;&gt;
+        ///    &lt;title&gt;Račun&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///            .clearfix:after {
+        ///        content: &quot;&quot;;
+        ///        display: table;
+        ///        clear: both;
+        ///    }
+        ///
+        ///    a {
+        ///        color: #5D6975;
+        ///        text-decoration: underline;
+        ///    }
+        ///
+        ///    body {
+        ///        position: relative;
+        ///        width: 21cm;  
+        ///        height: 29.7cm; 
+        ///        margin: 0 auto; 
+        ///        color: #001028;
+        ///        background: #FFFFFF; 
+        ///        font-family: Arial, sans-serif [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string htmlt_SLO_pinv1_A4 {
+            get {
+                return ResourceManager.GetString("htmlt_SLO_pinv1_A4", resourceCulture);
             }
         }
     }

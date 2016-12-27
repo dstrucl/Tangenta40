@@ -293,6 +293,24 @@ namespace TangentaDB
             }
         }
 
+        public bool Completed()
+        {
+            if (m_IssueDate != null)
+            {
+                if (m_MethodOfPayment != null)
+                {
+                    if (m_Duration != null)
+                    {
+                        if (m_TermsOfPayment != null)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         public IssueDate m_IssueDate = null;
         public Duration m_Duration = null;
         public TermsOfPayment m_TermsOfPayment = null;

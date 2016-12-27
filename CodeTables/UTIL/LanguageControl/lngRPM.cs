@@ -17,6 +17,11 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_basic_HTML_template = new ltext("Basic HTML template ", "Osnovna HTML predloga ");
+        public static ltext s_A4_Portrait_description = new ltext("A4 portrait", "A4 pokončno");
+        public static ltext s_A4_landscape_description = new ltext("A4 landscape", "A4 landscape");
+        public static ltext s_Roll_paper_80_mm_description = new ltext("Roll paper 80 mm", "Papir v roli 80 mm");
+        public static ltext s_Roll_paper_58_mm__description = new ltext("Roll paper 58 mm", "Papir v roli 58 mm");
         public static ltext s_lbl_DateOfInvoiceIssue = new ltext("Invoice Date", "Datum računa");
         public static ltext s_Payment_Deadline = new ltext("Payment deadline", "Rok plačila");
         public static ltext s_Valid_Until = new ltext("valid until ", " velja do ");

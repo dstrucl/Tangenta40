@@ -583,4 +583,470 @@
   &lt;/body&gt;
 &lt;/html&gt;</value>
   </data>
+  <data name="htmlt_ENG_pinv1_A4" xml:space="preserve">
+    <value>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Račun&lt;/title&gt;
+    &lt;style&gt;
+            .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    a {
+        color: #5D6975;
+        text-decoration: underline;
+    }
+
+    body {
+        position: relative;
+        width: 21cm;  
+        height: 29.7cm; 
+        margin: 0 auto; 
+        color: #001028;
+        background: #FFFFFF; 
+        font-family: Arial, sans-serif; 
+        font-size: 12px; 
+        font-family: Arial;
+    }
+
+    header {
+        padding: 10px 0;
+        margin-bottom: 30px;
+    }
+
+    #logo {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #logo img {
+        width: 90px;
+    }
+
+    h1 {
+        border-top: 1px solid  #5D6975;
+        border-bottom: 1px solid  #5D6975;
+        color: #5D6975;
+        font-size: 2.4em;
+        line-height: 1.4em;
+        font-weight: normal;
+        text-align: center;
+        margin: 0 0 20px 0;
+        /* background: url(dimension.png); */
+    }
+
+    #project {
+        float: left;
+    }
+
+    #project span {
+        color: #5D6975;
+        text-align: right;
+        width: 96px;
+        margin-right: 10px;
+        display: inline-block;
+        font-size: 0.8em;
+    }
+
+    #company {
+        float: right;
+        text-align: right;
+		font-size: 1.4em;
+    }
+
+    #project div,
+    #company div {
+        white-space: nowrap;        
+		font-size: 1.4em;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 20px;
+    }
+
+    table tr:nth-child(2n-1) td {
+        background: #F5F5F5;
+    }
+
+    table th,
+    table td {
+        text-align: center;
+    }
+
+    table th {
+        padding: 5px 20px;
+        color: #5D6975;
+        border-bottom: 1px solid #C1CED9;
+        white-space: nowrap;        
+        font-weight: normal;
+    }
+
+    table .item
+    {
+        text-align: left;
+    }
+
+    table td {
+        padding: 20px;
+        text-align: right;
+    }
+
+    table td.service,
+    table td.desc {
+        vertical-align: top;
+    }
+
+    table td.priceperunit,
+    table td.discount,
+    table td.qty,
+    table td.taxrate,
+    table td.price_neto,
+    table td.tax,
+    table td.price_with_tax
+    {
+        font-size: 1.2em;
+    }
+
+    table td.grand {
+        border-top: 1px solid #5D6975;;
+    }
+
+    #notices .notice {
+        color: #5D6975;
+        font-size: 1.2em;
+    }
+
+    footer {
+        color: #5D6975;
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        bottom: 0;
+        border-top: 1px solid #C1CED9;
+        padding: 8px 0;
+        text-align: center;
+    }
+    &lt;/style&gt; 
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header class="clearfix"&gt;
+      &lt;h1&gt;Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@)&lt;/h1&gt;
+      &lt;div id="company" class="clearfix"&gt;
+        &lt;div&gt;IZDAJATELJ:(@@Moja_Organizacija_Ime@@)&lt;/div&gt;
+        &lt;div&gt;(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)&lt;/div&gt;
+        &lt;div&gt;Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) &lt;/div&gt;
+        &lt;div&gt;Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) &lt;/div&gt;
+        &lt;div&gt;Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) &lt;/div&gt;
+        &lt;div&gt;Oznaka blagajne:(@@Račun_OznakaBlagajne@@) &lt;/div&gt;
+        &lt;div&gt;Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;&lt;a href="email:(@@Moja_Organizacija_Email@@)"&gt;E-Pošta:(@@Moja_Organizacija_Email@@)&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;a href="http:(@@Moja_Organizacija_DomačaStran@@)"&gt;Domača stran:(@@Moja_Organizacija_DomačaStran@@)&lt;/a&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div id="project"&gt;
+        &lt;div&gt;&lt;span&gt;NASLOVU&lt;/span&gt;(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;&lt;/span&gt;(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;&lt;/span&gt;(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;E-POŠTA&lt;/span&gt; &lt;a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)"&gt;(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;Datum rač.:&lt;/span&gt;(@@Račun_Datum_izdaje_računa@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;Datum zapadlosti:&lt;/span&gt;(@@Račun_Datum_zapadlosti_računa@@)&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;table&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th class="item"&gt;Artikel ali storitev&lt;/th&gt;
+            &lt;th&gt;Cena na enoto&lt;/th&gt;
+	    &lt;th&gt;Popust&lt;/th&gt;
+            &lt;th&gt;Merska Enota&lt;/th&gt;
+            &lt;th&gt;Količina&lt;/th&gt;
+            &lt;th&gt;Davčna stopnja&lt;/th&gt;
+            &lt;th&gt;Cena brez DDV&lt;/th&gt;
+            &lt;th&gt;Davek DDV&lt;/th&gt;
+            &lt;th&gt;Cena z DDV&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr class="row"&gt;
+            &lt;td class="service"&gt;(@@Račun_StoritevAliArtikel_Ime@@)&lt;/td&gt;
+            &lt;td class="priceperunit"&gt;(@@Račun_StoritevAliArtikel_CenaNaEnoto@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="discount"&gt;(@@Račun_StoritevAliArtikel_CelotenPopust@@)&lt;/td&gt;
+            &lt;td class="unit"&gt;(@@Račun_StoritevAliArtikel_MerskaEnota@@)&lt;/td&gt;
+            &lt;td class="qty"&gt;(@@Račun_StoritevAliArtikel_Količina@@)&lt;/td&gt;
+            &lt;td class="taxrate"&gt;(@@Račun_StoritevAliArtikel_DavčnaStopnjaVProcentih@@)&lt;/td&gt;
+            &lt;td class="price_neto"&gt;(@@Račun_StoritevAliArtikel_Cena_Brez_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="tax"&gt;(@@Račun_StoritevAliArtikel_Davek@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="price_with_tax"&gt;(@@Račun_StoritevAliArtikel_Cena_z_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td colspan="4"&gt;SKUPAJ BREZ DAVKA&lt;/td&gt;
+            &lt;td class="total_neto"&gt;(@@Račun_CenaSkupajBrezDavka@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr class="taxsum"&gt;
+            &lt;td colspan="4"&gt;(@@Račun_ImeDavčneStopnje@@)&lt;/td&gt;
+            &lt;td class="tax_95"&gt;(@@Račun_DavekSkupaj@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td colspan="4" class="grand total"&gt;Končna cena z davkom&lt;/td&gt;
+            &lt;td class="grand total"&gt;(@@Račun_KončnaCenaZDavkom@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;div id="FURS"&gt;
+        &lt;div&gt;FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"&lt;/div&gt;
+        &lt;div&gt;FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"&lt;/div&gt;
+		&lt;img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" /&gt;
+      &lt;/div&gt;
+     &lt;!-- &lt;div id="notices"&gt;
+        &lt;div&gt;DOPIS&lt;/div&gt;
+        &lt;div class="notice"&gt;(@@Račun_Dopis@@)&lt;/div&gt;
+      &lt;/div&gt; --&gt;
+    &lt;/main&gt;
+   &lt;!--   &lt;footer&gt;
+      (@@Račun_Noga@@)
+    &lt;/footer&gt;--&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="htmlt_SLO_pinv1_A4" xml:space="preserve">
+    <value>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Račun&lt;/title&gt;
+    &lt;style&gt;
+            .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    a {
+        color: #5D6975;
+        text-decoration: underline;
+    }
+
+    body {
+        position: relative;
+        width: 21cm;  
+        height: 29.7cm; 
+        margin: 0 auto; 
+        color: #001028;
+        background: #FFFFFF; 
+        font-family: Arial, sans-serif; 
+        font-size: 12px; 
+        font-family: Arial;
+    }
+
+    header {
+        padding: 10px 0;
+        margin-bottom: 30px;
+    }
+
+    #logo {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #logo img {
+        width: 90px;
+    }
+
+    h1 {
+        border-top: 1px solid  #5D6975;
+        border-bottom: 1px solid  #5D6975;
+        color: #5D6975;
+        font-size: 2.4em;
+        line-height: 1.4em;
+        font-weight: normal;
+        text-align: center;
+        margin: 0 0 20px 0;
+        /* background: url(dimension.png); */
+    }
+
+    #project {
+        float: left;
+    }
+
+    #project span {
+        color: #5D6975;
+        text-align: right;
+        width: 96px;
+        margin-right: 10px;
+        display: inline-block;
+        font-size: 0.8em;
+    }
+
+    #company {
+        float: right;
+        text-align: right;
+		font-size: 1.4em;
+    }
+
+    #project div,
+    #company div {
+        white-space: nowrap;        
+		font-size: 1.4em;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 20px;
+    }
+
+    table tr:nth-child(2n-1) td {
+        background: #F5F5F5;
+    }
+
+    table th,
+    table td {
+        text-align: center;
+    }
+
+    table th {
+        padding: 5px 20px;
+        color: #5D6975;
+        border-bottom: 1px solid #C1CED9;
+        white-space: nowrap;        
+        font-weight: normal;
+    }
+
+    table .item
+    {
+        text-align: left;
+    }
+
+    table td {
+        padding: 20px;
+        text-align: right;
+    }
+
+    table td.service,
+    table td.desc {
+        vertical-align: top;
+    }
+
+    table td.priceperunit,
+    table td.discount,
+    table td.qty,
+    table td.taxrate,
+    table td.price_neto,
+    table td.tax,
+    table td.price_with_tax
+    {
+        font-size: 1.2em;
+    }
+
+    table td.grand {
+        border-top: 1px solid #5D6975;;
+    }
+
+    #notices .notice {
+        color: #5D6975;
+        font-size: 1.2em;
+    }
+
+    footer {
+        color: #5D6975;
+        width: 100%;
+        height: 30px;
+        position: absolute;
+        bottom: 0;
+        border-top: 1px solid #C1CED9;
+        padding: 8px 0;
+        text-align: center;
+    }
+    &lt;/style&gt; 
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header class="clearfix"&gt;
+      &lt;h1&gt;Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@)&lt;/h1&gt;
+      &lt;div id="company" class="clearfix"&gt;
+        &lt;div&gt;IZDAJATELJ:(@@Moja_Organizacija_Ime@@)&lt;/div&gt;
+        &lt;div&gt;(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)&lt;/div&gt;
+        &lt;div&gt;Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) &lt;/div&gt;
+        &lt;div&gt;Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) &lt;/div&gt;
+        &lt;div&gt;Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) &lt;/div&gt;
+        &lt;div&gt;Oznaka blagajne:(@@Račun_OznakaBlagajne@@) &lt;/div&gt;
+        &lt;div&gt;Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;&lt;a href="email:(@@Moja_Organizacija_Email@@)"&gt;E-Pošta:(@@Moja_Organizacija_Email@@)&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;a href="http:(@@Moja_Organizacija_DomačaStran@@)"&gt;Domača stran:(@@Moja_Organizacija_DomačaStran@@)&lt;/a&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div id="project"&gt;
+        &lt;div&gt;&lt;span&gt;NASLOVU&lt;/span&gt;(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;&lt;/span&gt;(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;&lt;/span&gt;(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;E-POŠTA&lt;/span&gt; &lt;a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)"&gt;(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;Datum rač.:&lt;/span&gt;(@@Račun_Datum_izdaje_računa@@)&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;Datum zapadlosti:&lt;/span&gt;(@@Račun_Datum_zapadlosti_računa@@)&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;table&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th class="item"&gt;Artikel ali storitev&lt;/th&gt;
+            &lt;th&gt;Cena na enoto&lt;/th&gt;
+	    &lt;th&gt;Popust&lt;/th&gt;
+            &lt;th&gt;Merska Enota&lt;/th&gt;
+            &lt;th&gt;Količina&lt;/th&gt;
+            &lt;th&gt;Davčna stopnja&lt;/th&gt;
+            &lt;th&gt;Cena brez DDV&lt;/th&gt;
+            &lt;th&gt;Davek DDV&lt;/th&gt;
+            &lt;th&gt;Cena z DDV&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr class="row"&gt;
+            &lt;td class="service"&gt;(@@Račun_StoritevAliArtikel_Ime@@)&lt;/td&gt;
+            &lt;td class="priceperunit"&gt;(@@Račun_StoritevAliArtikel_CenaNaEnoto@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="discount"&gt;(@@Račun_StoritevAliArtikel_CelotenPopust@@)&lt;/td&gt;
+            &lt;td class="unit"&gt;(@@Račun_StoritevAliArtikel_MerskaEnota@@)&lt;/td&gt;
+            &lt;td class="qty"&gt;(@@Račun_StoritevAliArtikel_Količina@@)&lt;/td&gt;
+            &lt;td class="taxrate"&gt;(@@Račun_StoritevAliArtikel_DavčnaStopnjaVProcentih@@)&lt;/td&gt;
+            &lt;td class="price_neto"&gt;(@@Račun_StoritevAliArtikel_Cena_Brez_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="tax"&gt;(@@Račun_StoritevAliArtikel_Davek@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+            &lt;td class="price_with_tax"&gt;(@@Račun_StoritevAliArtikel_Cena_z_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td colspan="4"&gt;SKUPAJ BREZ DAVKA&lt;/td&gt;
+            &lt;td class="total_neto"&gt;(@@Račun_CenaSkupajBrezDavka@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr class="taxsum"&gt;
+            &lt;td colspan="4"&gt;(@@Račun_ImeDavčneStopnje@@)&lt;/td&gt;
+            &lt;td class="tax_95"&gt;(@@Račun_DavekSkupaj@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td colspan="4" class="grand total"&gt;Končna cena z davkom&lt;/td&gt;
+            &lt;td class="grand total"&gt;(@@Račun_KončnaCenaZDavkom@@) (@@Račun_StoritevAliArtikel_Valuta@@)&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;div id="FURS"&gt;
+        &lt;div&gt;FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"&lt;/div&gt;
+        &lt;div&gt;FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"&lt;/div&gt;
+		&lt;img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" /&gt;
+      &lt;/div&gt;
+     &lt;!-- &lt;div id="notices"&gt;
+        &lt;div&gt;DOPIS&lt;/div&gt;
+        &lt;div class="notice"&gt;(@@Račun_Dopis@@)&lt;/div&gt;
+      &lt;/div&gt; --&gt;
+    &lt;/main&gt;
+   &lt;!--   &lt;footer&gt;
+      (@@Račun_Noga@@)
+    &lt;/footer&gt;--&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
 </root>

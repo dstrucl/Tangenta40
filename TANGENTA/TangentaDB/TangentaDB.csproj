@@ -70,7 +70,9 @@
     <Compile Include="DBTablesAndColumnNames.cs" />
     <Compile Include="DocInvoice_AddOn.cs" />
     <Compile Include="DocProformaInvoice_AddOn.cs" />
+    <Compile Include="doc_page_type_definitions.cs" />
     <Compile Include="Doc_ShopC_Item_Data.cs" />
+    <Compile Include="doc_type_definitions.cs" />
     <Compile Include="fs.cs" />
     <Compile Include="f_Atom_Bank.cs" />
     <Compile Include="f_Atom_BankAccount.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="Item_Data.cs" />
     <Compile Include="JOURNAL_DocProformaInvoice_Type_definitions .cs" />
     <Compile Include="JOURNAL_DocInvoice_Type_definitions.cs" />
+    <Compile Include="Language_definitions.cs" />
     <Compile Include="MyOrg.cs" />
     <Compile Include="myOrg_Office.cs" />
     <Compile Include="myOrg_Office_FVI_SLO_RealEstate.cs" />

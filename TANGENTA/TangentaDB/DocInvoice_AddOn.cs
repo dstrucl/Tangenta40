@@ -15,8 +15,30 @@ namespace TangentaDB
     public class DocInvoice_AddOn
     {
 
-        public decimal Cash_AmountReceived = 0;
-        public decimal Cash_ToReturn = 0;
+        private decimal m_Cash_AmountReceived = 0;
+        private decimal m_Cash_ToReturn = 0;
+
+        public decimal Cash_AmountReceived
+        {
+            get { return m_Cash_AmountReceived; }
+            set { m_Cash_AmountReceived = value; }
+        }
+
+        public string sCash_AmountReceived
+        {
+            get { return m_Cash_AmountReceived.ToString(); }
+        }
+
+        public decimal Cash_ToReturn
+        {
+            get { return m_Cash_ToReturn; }
+            set { m_Cash_ToReturn = value; }
+        }
+
+        public string sCash_ToReturn
+        {
+            get { return m_Cash_ToReturn.ToString(); }
+        }
 
         public class IssueDate
         {

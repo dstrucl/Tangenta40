@@ -37,10 +37,9 @@ namespace TangentaPrint
         public bool bPriceListChanged = false;
         private NavigationButtons.Navigation nav = null;
 
-        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy, NavigationButtons.Navigation xnav)
+        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl,string xColumnOrderBy)
         {
             InitializeComponent();
-            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
@@ -52,10 +51,9 @@ namespace TangentaPrint
 
         }
 
-        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID, NavigationButtons.Navigation xnav)
+        public Form_Templates(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID)
         {
             InitializeComponent();
-            nav = xnav;
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;

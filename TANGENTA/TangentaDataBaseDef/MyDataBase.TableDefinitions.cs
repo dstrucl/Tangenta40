@@ -1965,8 +1965,6 @@ namespace TangentaDataBaseDef
             t_doc_type.AddColumn((Object)mt.m_doc_type.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_doc_type.AddColumn((Object)mt.m_doc_type.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Document type name", "Ime vrste dokumenta"));
             t_doc_type.AddColumn((Object)mt.m_doc_type.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Document type description", "Opis vrste dokumenta"));
-            t_doc_type.AddColumn((Object)mt.m_doc_type.m_Language, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Language ID", "Jezik ID"));
-            t_doc_type.AddColumn((Object)mt.m_doc_type.m_doc_page_type, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Page type ID", "Oblika strani ID"));
             m_DBTables.items.Add(t_doc_type);
 
         /* 167 */
@@ -1980,6 +1978,8 @@ namespace TangentaDataBaseDef
             t_doc.AddColumn((Object)mt.m_doc.bDefault, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Default", "Privzeti dokument"));
             t_doc.AddColumn((Object)mt.m_doc.Compressed, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Compressed", "Stisnjen"));
             t_doc.AddColumn((Object)mt.m_doc.m_doc_type, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Document type ID", "Vrsta dokumenta ID"));
+            t_doc.AddColumn((Object)mt.m_doc.m_Language, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Language ID", "Jezik ID"));
+            t_doc.AddColumn((Object)mt.m_doc.m_doc_page_type, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Page Type ID", "Oblika strani ID"));
             m_DBTables.items.Add(t_doc);
 
          /* 168 */

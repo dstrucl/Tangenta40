@@ -2245,10 +2245,8 @@ namespace TangentaTableClass
     public class doc_type
     {
         public ID ID = new ID();
-        public Language m_Language = new Language();
         public Name Name = new Name();
         public Description Description = new Description();
-        public doc_page_type m_doc_page_type = new doc_page_type();
     }
 
     public class doc_page_type
@@ -2267,10 +2265,12 @@ namespace TangentaTableClass
         public Description Description = new Description();
         public xDocument xDocument = new xDocument();
         public xDocument_Hash xDocument_Hash = new xDocument_Hash();
-        public doc_type m_doc_type = new doc_type();
         public Active Active = new Active();
         public bDefault bDefault = new bDefault();
         public Compressed Compressed = new Compressed();
+        public Language m_Language = new Language();
+        public doc_type m_doc_type = new doc_type();
+        public doc_page_type m_doc_page_type = new doc_page_type();
     }
 
     public class JOURNAL_doc_Type

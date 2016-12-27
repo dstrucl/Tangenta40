@@ -230,5 +230,19 @@ namespace Tangenta
             }
             return false;
         }
+
+        internal bool Check_DocProformaInvoice_AddOn(DocProformaInvoice_AddOn addOnDPI)
+        {
+            if (addOnDPI.Completed())
+            {
+                return true;
+            }
+            else
+            {
+
+            }
+            return false;
+        }
+
     }
 }

@@ -359,7 +359,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                     return false;
             }
             myStartup.eNextStep++;
-            return GlobalData.JOURNAL_type_definitions_Read();
+            return GlobalData.Type_definitions_Read();
 
         }
 
@@ -461,7 +461,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                     else
                     {
                         myStartup.eNextStep = startup_step.eStep.GetOrganisationData;
-                        return GlobalData.JOURNAL_type_definitions_Read();
+                        return GlobalData.Type_definitions_Read();
                     }
                     return true;
                 }
@@ -485,7 +485,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             {
                 if (fs.Init_Default_DB(ref Err))
                 {
-                    if (GlobalData.JOURNAL_type_definitions_Read())
+                    if (GlobalData.Type_definitions_Read())
                     {
                         myStartup.eNextStep++;
                         return true;

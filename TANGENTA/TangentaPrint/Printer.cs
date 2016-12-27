@@ -277,7 +277,7 @@ namespace TangentaPrint
             }
             else
             {
-                Form_Print_A4 print_A4_dlg = new Form_Print_A4(xInvoiceData, PaymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time, nav);
+                Form_SelectTemplate print_A4_dlg = new Form_SelectTemplate(xInvoiceData);
                 print_A4_dlg.ShowDialog();
             }
         }
@@ -297,7 +297,7 @@ namespace TangentaPrint
                                     )
         {
 
-            Form_Print_A4 print_A4_dlg = new Form_Print_A4(xInvoiceData, PaymentType, sPaymentMethod, DruationType, Duration, issue_time, null);
+            Form_SelectTemplate print_A4_dlg = new Form_SelectTemplate(xInvoiceData);
             print_A4_dlg.ShowDialog();
         }
 
