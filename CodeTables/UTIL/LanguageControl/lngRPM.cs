@@ -17,6 +17,13 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_PaperOrientation_Portrait = new ltext("Portrait", "Pokončno");
+        public static ltext s_PaperOrientation_Landscape = new ltext("Landscape", "Ležeče");
+        public static ltext s_PaperOrientation = new ltext("Paper orientation", "Pozicija papirja");
+        public static ltext s_Roll_80 = new ltext("Roll paper 80mm", "Rol papir 80mm");
+        public static ltext s_Roll_58 = new ltext("Roll paper 58mm", "Rol papir 58mm");
+        public static ltext s_A4 = new ltext("A4", "A4");
+        public static ltext s_PaperSize = new ltext("Paper size", "Velikost papirja");
         public static ltext s_basic_HTML_template = new ltext("Basic HTML template ", "Osnovna HTML predloga ");
         public static ltext s_A4_Portrait_description = new ltext("A4 portrait", "A4 pokončno");
         public static ltext s_A4_landscape_description = new ltext("A4 landscape", "A4 landscape");

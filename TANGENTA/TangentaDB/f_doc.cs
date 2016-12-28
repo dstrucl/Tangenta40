@@ -36,7 +36,7 @@ namespace TangentaDB
                 string sName = null;
                 for (j = 0; j < GlobalData.doc_type_definitions.doc_type_list.Count; j++)
                 {
-                    sName = lngRPM.s_basic_HTML_template.s + GlobalData.doc_type_definitions.doc_type_list[i].Name + "_" + GlobalData.language_definitions.Language_list[i].Name;
+                    sName = lngRPM.s_basic_HTML_template.s + GlobalData.doc_type_definitions.doc_type_list[j].Description + "_" + GlobalData.language_definitions.Language_list[i].Name;
                     byte[] bytes = null;
                     if ((i == 0)&&(j==0))
                     {

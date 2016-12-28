@@ -69,14 +69,17 @@ namespace TangentaPrint
 
         private bool Init()
         {
-            string selection = @"ID,
-                                doc_$$Name,
+            string selection = @"doc_$$Name,
+                                doc_$_doctype_$$Description,
+                                doc_$_pgt_$$Description,
+                                doc_$_doctype_$$Name,
+                                doc_$_pgt_$$Name,
                                 doc_$$Description,
+                                doc_$$bDefault,
                                 doc_$$xDocument,
                                 doc_$$Active,
                                 doc_$_doctype_$$ID,
-                                doc_$_doctype_$$Name,
-                                doc_$_doctype_$$Description
+                                ID
             ";
             string sWhereCondition = "";
             switch (eTemplatesSelectionMode)

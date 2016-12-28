@@ -430,5 +430,17 @@ namespace TangentaPrint.Properties {
                 this["Printer2_PageSettings_PrinterResolution_Kind"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Default_Roll_80 {
+            get {
+                return ((bool)(this["Default_Roll_80"]));
+            }
+            set {
+                this["Default_Roll_80"] = value;
+            }
+        }
     }
 }

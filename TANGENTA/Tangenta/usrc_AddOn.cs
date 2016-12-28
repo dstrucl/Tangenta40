@@ -223,6 +223,10 @@ namespace Tangenta
                         return true;
                     }
                 }
+                else
+                {
+                    return true;
+                }
             }
             else
             {

@@ -21,6 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NavigationButtons;
+using DBConnectionControl40;
 
 namespace TangentaPrint
 {
@@ -64,7 +65,17 @@ namespace TangentaPrint
                 this.duration = m_InvoiceData.AddOnDPI.m_Duration.length;
             }
 
+            lngRPM.s_Language.Text(lbl_Language);
+            lngRPM.s_PaperSize.Text(grp_PaperSize);
             lngRPM.s_Template.Text(lbl_Template, ":");
+            lngRPM.s_A4.Text(rdb_A4);
+            lngRPM.s_Roll_80.Text(rdb_80);
+            lngRPM.s_Roll_58.Text(rdb_58);
+            lngRPM.s_PaperOrientation.Text(grp_Orientation);
+            lngRPM.s_PaperOrientation_Portrait.Text(rdb_Portrait);
+            lngRPM.s_PaperOrientation_Landscape.Text(rdb_Landscape);
+            cmb_Language.DataSource = LanguageControl.DynSettings.s_language.sTextArr;
+            cmb_Language.SelectedIndex = LanguageControl.DynSettings.LanguageID;
         }
 
 
@@ -139,12 +150,12 @@ namespace TangentaPrint
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:Form_Print_A4:SetDefault:sql=" + sql + "\r\nErr" + Err);
+                    LogFile.Error.Show("ERROR:Form_SelectTemplate:SetDefault:sql=" + sql + "\r\nErr" + Err);
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:Form_Print_A4:SetDefault:sql=" + sql + "\r\nErr" + Err);
+                LogFile.Error.Show("ERROR:Form_SelectTemplate:SetDefault:sql=" + sql + "\r\nErr" + Err);
             }
             return false;
         }
@@ -198,7 +209,7 @@ namespace TangentaPrint
             }
             else
             {
-                LogFile.Error.Show("ERROR:Form_Print_A4:GetTemplateName:sql=" + sql + "\r\nErr" + Err);
+                LogFile.Error.Show("ERROR:Form_SelectTemplate:GetTemplateName:sql=" + sql + "\r\nErr" + Err);
             }
             doc_Name = "";
             return false;
@@ -213,9 +224,74 @@ namespace TangentaPrint
         {
             string Err = null;
             bool Commpressed = false;
-            string sql = "select id,doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where doc_$$bDefault = 1";
+            int iLang = cmb_Language.SelectedIndex;
+            int iLang_ID = iLang + 1;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string scond_Language_ID = null;
+            string sval_Language_ID = null;
+            string scond_doc_type_ID = null;
+            string sval_doc_type_ID = null;
+            string scond_page_name = null;
+            string sval_page_name = null;
+            if (!fs.Add_lpar(lpar, "doc_$_lng_$$ID", iLang_ID, ref scond_Language_ID, ref sval_Language_ID))
+            {
+                return false;
+            }
+            if (m_InvoiceData.IsDocInvoice)
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_doctype_$$ID", GlobalData.doc_type_definitions.Invoice.ID, ref scond_doc_type_ID, ref sval_doc_type_ID))
+                {
+                return false;
+                }
+            }
+            else if (m_InvoiceData.IsDocProformaInvoice)
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_doctype_$$ID", GlobalData.doc_type_definitions.ProformaInvoice.ID, ref scond_doc_type_ID, ref sval_doc_type_ID))
+                {
+                return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaPrint:Form_SelectTemplate:GetDefaultTemplate:Unknown document type!");
+                return false;
+            }
+
+            if (rdb_A4.Checked && rdb_Portrait.Checked)
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Portrait", ref scond_page_name, ref sval_page_name))
+                {
+                    return false;
+                }
+            }
+            else if (rdb_A4.Checked && rdb_Landscape.Checked)
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Landscape", ref scond_page_name, ref sval_page_name))
+                {
+                    return false;
+                }
+            }
+            else if (rdb_80.Checked)
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
+                {
+                    return false;
+                }
+            }
+            else if (rdb_58.Checked)
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
+                {
+                    return false;
+                }
+            }
+
+            string sql = "select id,doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where doc_$$bDefault = 1 "
+                          + " and " + scond_Language_ID
+                          + " and " + scond_doc_type_ID
+                          + " and " + scond_page_name;
             DataTable dt = new DataTable();
-            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, ref Err))
+            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql,lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
@@ -262,14 +338,52 @@ namespace TangentaPrint
             }
             else
             {
-              LogFile.Error.Show("ERROR:Form_Print_A4:GetTemplateName:sql=" + sql + "\r\nErr" + Err);
+              LogFile.Error.Show("ERROR:Form_SelectTemplate:GetTemplateName:sql=" + sql + "\r\nErr" + Err);
             }
             doc_Name = "";
             return false;
         }
 
-        private void Form_Print_A4_Load(object sender, EventArgs e)
+        private void Form_SelectTemplate_Load(object sender, EventArgs e)
         {
+            grp_Orientation.Enabled = false;
+            if (m_InvoiceData.IsDocInvoice)
+            {
+                switch (m_InvoiceData.AddOnDI.m_MethodOfPayment.eType)
+                {
+                    case GlobalData.ePaymentType.CASH:
+                    case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
+                    case GlobalData.ePaymentType.PAYMENT_CARD:
+                        if (Properties.Settings.Default.Default_Roll_80)
+                        {
+                            rdb_80.Checked = true;
+                        }
+                        else
+                        {
+                            rdb_58.Checked = true;
+                        }
+                        break;
+                    default:
+                        rdb_A4.Checked = true;
+                        grp_Orientation.Enabled = true;
+                        rdb_Portrait.Checked = true;
+                        break;
+
+                }
+            }
+            else if (m_InvoiceData.IsDocProformaInvoice)
+            {
+                rdb_A4.Checked = true;
+                grp_Orientation.Enabled = true;
+                rdb_Portrait.Checked = true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Form_SelectTemplate:Form_SelectTemplate:Unknown document type!");
+                this.Close();
+                DialogResult = DialogResult.Abort;
+                return;
+            }
             Init();
         }
 

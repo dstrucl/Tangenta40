@@ -244,6 +244,172 @@ namespace TangentaDB
             }
         }
 
+        public static bool Add_lpar(List<SQL_Parameter> lpar, string col_name,object param, ref string scond, ref string sval)
+        {
+            string filterColumnName = col_name.Replace("$", "");
+            string spar_name = "@par_" + filterColumnName;
+            scond = " " + col_name + " =" + spar_name + " ";
+            sval = " " + spar_name + " ";
+            if (param is long)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Bigint,false, param);
+                lpar.Add(par);
+            }
+            else if (param is ulong)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Bigint, false, param);
+                lpar.Add(par);
+            }
+            else if (param is int)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Int, false, param);
+                lpar.Add(par);
+            }
+            else if (param is uint)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Int, false, param);
+                lpar.Add(par);
+            }
+            else if (param is short)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Smallint, false, param);
+                lpar.Add(par);
+            }
+            else if (param is ushort)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Smallint, false, param);
+                lpar.Add(par);
+            }
+            else if (param is bool)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Bit, false, param);
+                lpar.Add(par);
+            }
+            else if (param is DateTime)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Datetime, false, param);
+                lpar.Add(par);
+            }
+            else if (param is decimal)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Decimal, false, param);
+                lpar.Add(par);
+            }
+            else if (param is float)
+            {
+                SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Float, false, param);
+                lpar.Add(par);
+            }
+            else if (param is string)
+            {
+                if (param != null)
+                {
+                    SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, param);
+                    lpar.Add(par);
+                }
+                else
+                {
+                    scond = " "+ col_name + " is null ";
+                    sval = " null ";
+                }
+            }
+            else if (param is long_v)
+            {
+
+                if (param != null)
+                {
+                    SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Bigint, false, ((long_v)param).v);
+                    lpar.Add(par);
+                }
+                else
+                {
+                    scond = " " + col_name + " is null ";
+                    sval = " null ";
+                }
+            }
+            else if (param is int_v)
+            {
+                if (param != null)
+                {
+                    SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Int, false, ((int_v)param).v);
+                    lpar.Add(par);
+                }
+                else
+                {
+                    scond = " " + col_name + " is null ";
+                    sval = " null ";
+                }
+            }
+            else if (param is short_v)
+            {
+                if (param != null)
+                {
+                    SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Smallint, false, ((short_v)param).v);
+                    lpar.Add(par);
+                }
+                else
+                {
+                    scond = " " + col_name + " is null ";
+                    sval = " null ";
+                }
+            }
+            else if (param is bool_v)
+            {
+                if (param != null)
+                {
+                    SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Bit, false, ((bool_v)param).v);
+                    lpar.Add(par);
+                }
+            }
+            else if (param is DateTime_v)
+            {
+                if (param != null)
+                {
+                    SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Datetime, false, ((DateTime_v)param).v);
+                    lpar.Add(par);
+                }
+                else
+                {
+                    scond = " " + col_name + " is null ";
+                    sval = " null ";
+                }
+            }
+            else if (param is decimal_v)
+            {
+                if (param != null)
+                {
+                    SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Decimal, false,((decimal_v)param).v);
+                    lpar.Add(par);
+                }
+                else
+                {
+                    scond = " " + col_name + " is null ";
+                    sval = " null ";
+                }
+            }
+            else if (param is string_v)
+            {
+                if (param != null)
+                {
+                    SQL_Parameter par = new SQL_Parameter(spar_name, SQL_Parameter.eSQL_Parameter.Nvarchar, false,((string_v)param).v);
+                    lpar.Add(par);
+                    scond = " " + col_name + " =" + spar_name + " ";
+                    sval = " " + spar_name + " ";
+                }
+                else
+                {
+                    scond = " " + col_name + " is null ";
+                    sval = " null ";
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:fs:Add_lpar:Param not supported = " + param.GetType().ToString());
+                return false;
+            }
+            return true;
+        }
+
         public static int GetFirstIntParamFromString(string s)
         {
             int num = -1;

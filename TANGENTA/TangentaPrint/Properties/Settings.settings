@@ -104,5 +104,8 @@
     <Setting Name="Printer2_PageSettings_PrinterResolution_Kind" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Default_Roll_80" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
