@@ -98,8 +98,9 @@ namespace TangentaPrint
             m_issue_time = issue_time;
             string shtml_doc_text = html_doc_text;
             string s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
-            this.m_webBrowser.DocumentText = s;
-            this.m_webBrowser.Refresh();
+            this.htmlPanel1.Text = s;
+            //this.m_webBrowser.DocumentText = s;
+            //this.m_webBrowser.Refresh();
             this.btn_Print.Enabled = true;
             return true;
         }
@@ -107,8 +108,8 @@ namespace TangentaPrint
         public bool Init(InvoiceData xInvoiceData)
         {
             m_InvoiceData = xInvoiceData;
-            this.m_webBrowser.DocumentText = "HTML Predloga ni določena, brez nje pa ne morete tiskati računa.";
-            this.m_webBrowser.Refresh();
+            this.htmlPanel1.Text = "HTML Predloga ni določena, brez nje pa ne morete tiskati računa.";
+            //this.m_webBrowser.Refresh();
             this.btn_Print.Enabled = false;
             return true;
         }
@@ -116,7 +117,7 @@ namespace TangentaPrint
 
     private void btn_Print_Click(object sender, EventArgs e)
         {
-            m_webBrowser.ShowPrintDialog();
+            //m_webBrowser.ShowPrintDialog();
         }
 
         private void btn_SaveAs_Click(object sender, EventArgs e)
@@ -126,7 +127,7 @@ namespace TangentaPrint
             if (dres == DialogResult.OK)
             {
                 string sFileName = sfd.FileName;
-                System.IO.File.WriteAllText(sFileName, this.m_webBrowser.DocumentText, Encoding.UTF8);
+                System.IO.File.WriteAllText(sFileName, this.htmlPanel1.Text, Encoding.UTF8);
             }
         }
 

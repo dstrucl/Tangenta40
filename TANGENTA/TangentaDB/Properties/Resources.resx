@@ -526,7 +526,6 @@
         &lt;div&gt;&lt;span&gt;Datum zapadlosti:&lt;/span&gt;(@@Račun_Datum_zapadlosti_računa@@)&lt;/div&gt;
       &lt;/div&gt;
     &lt;/header&gt;
-    &lt;main&gt;
       &lt;table&gt;
         &lt;thead&gt;
           &lt;tr&gt;
@@ -576,7 +575,6 @@
         &lt;div&gt;DOPIS&lt;/div&gt;
         &lt;div class="notice"&gt;(@@Račun_Dopis@@)&lt;/div&gt;
       &lt;/div&gt; --&gt;
-    &lt;/main&gt;
    &lt;!--   &lt;footer&gt;
       (@@Račun_Noga@@)
     &lt;/footer&gt;--&gt;
@@ -970,7 +968,7 @@
   &lt;/head&gt;
   &lt;body&gt;
     &lt;header class="clearfix"&gt;
-      &lt;h1&gt;Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@)&lt;/h1&gt;
+      &lt;h1&gt;Ponudba številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@)&lt;/h1&gt;
       &lt;div id="company" class="clearfix"&gt;
         &lt;div&gt;IZDAJATELJ:(@@Moja_Organizacija_Ime@@)&lt;/div&gt;
         &lt;div&gt;(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)&lt;/div&gt;
@@ -992,7 +990,6 @@
         &lt;div&gt;&lt;span&gt;Datum zapadlosti:&lt;/span&gt;(@@Račun_Datum_zapadlosti_računa@@)&lt;/div&gt;
       &lt;/div&gt;
     &lt;/header&gt;
-    &lt;main&gt;
       &lt;table&gt;
         &lt;thead&gt;
           &lt;tr&gt;
@@ -1042,7 +1039,6 @@
         &lt;div&gt;DOPIS&lt;/div&gt;
         &lt;div class="notice"&gt;(@@Račun_Dopis@@)&lt;/div&gt;
       &lt;/div&gt; --&gt;
-    &lt;/main&gt;
    &lt;!--   &lt;footer&gt;
       (@@Račun_Noga@@)
     &lt;/footer&gt;--&gt;
