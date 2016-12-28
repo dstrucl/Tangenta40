@@ -40,26 +40,26 @@ namespace TangentaDB
                     byte[] bytes = null;
                     if ((i == 0)&&(j==0))
                     {
-                        bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_ENG_inv1_A4);
+                        bytes = Encoding.UTF8.GetBytes(Properties.Resources.htmlt_ENG_inv1_A4);
                         string myString = Encoding.UTF8.GetString(bytes);
                         xDoc = fs.GetBytes(myString);
                     }
                     else if ((i == 0) && (j == 1))
                     {
-                        bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_ENG_pinv1_A4);
+                        bytes = Encoding.UTF8.GetBytes(Properties.Resources.htmlt_ENG_pinv1_A4);
                         string myString = Encoding.UTF8.GetString(bytes);
                         xDoc = fs.GetBytes(myString);
                     }
                     else if ((i == 1) && (j == 0))
                     {
-                        bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_SLO_inv1_A4);
+                        bytes = Encoding.UTF8.GetBytes(Properties.Resources.htmlt_SLO_inv1_A4);
                         string myString = Encoding.UTF8.GetString(bytes);
                         xDoc = fs.GetBytes(myString);
                     }
 
                     else if ((i == 1) && (j == 1))
                     {
-                        bytes = Encoding.Default.GetBytes(Properties.Resources.htmlt_SLO_pinv1_A4);
+                        bytes = Encoding.UTF8.GetBytes(Properties.Resources.htmlt_SLO_pinv1_A4);
                         string myString = Encoding.UTF8.GetString(bytes);
                         xDoc = fs.GetBytes(myString);
                     }
