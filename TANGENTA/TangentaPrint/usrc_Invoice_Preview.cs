@@ -19,11 +19,16 @@ using System.Runtime.InteropServices;
 using DBConnectionControl40;
 using DBTypes;
 using TangentaDB;
+using System.Drawing.Printing;
 
 namespace TangentaPrint
 {
     public partial class usrc_Invoice_Preview : UserControl
     {
+
+        PrintDocument pd = new PrintDocument();
+        TheArtOfDev.HtmlRenderer.WinForms.HtmlContainer hc = new TheArtOfDev.HtmlRenderer.WinForms.HtmlContainer();
+
         public delegate void delegate_OK();
         public event delegate_OK OK;
 
@@ -84,6 +89,7 @@ namespace TangentaPrint
         {
             InitializeComponent();
             lngRPM.s_btn_Tokens.Text(btn_Tokens);
+            pd.PrintPage += Pd_PrintPage;
             //string html_doc = Properties.Resources.html_doc;
 
         }
@@ -117,7 +123,26 @@ namespace TangentaPrint
 
     private void btn_Print_Click(object sender, EventArgs e)
         {
+            PrintDialog pdlg = new PrintDialog();
+            pdlg.Document = pd;
+            DialogResult dlgRes = pdlg.ShowDialog();
+            if (dlgRes == DialogResult.OK)
+            {
+                hc.SetHtml(htmlPanel1.Text);
+                hc.UseGdiPlusTextRendering = true;
+                pd.Print();
+
+            }
             //m_webBrowser.ShowPrintDialog();
+        }
+
+        private void Pd_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            //Font printFont = new Font("Arial", 10);
+
+            //e.Graphics.DrawString("test LINE", printFont, Brushes.Black, 0, 0, new StringFormat());
+            hc.PerformLayout(e.Graphics);
+            hc.PerformPaint(e.Graphics);
         }
 
         private void btn_SaveAs_Click(object sender, EventArgs e)
