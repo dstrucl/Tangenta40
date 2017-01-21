@@ -27,6 +27,10 @@ namespace TangentaPrint
     {
 
         PrintDocument pd = new PrintDocument();
+        int scrollOffset = 0;
+
+        bool bFirstPage = false;
+
         TheArtOfDev.HtmlRenderer.WinForms.HtmlContainer hc = new TheArtOfDev.HtmlRenderer.WinForms.HtmlContainer();
 
         public delegate void delegate_OK();
@@ -130,6 +134,8 @@ namespace TangentaPrint
             {
                 hc.SetHtml(htmlPanel1.Text);
                 hc.UseGdiPlusTextRendering = true;
+                scrollOffset = 0;
+                bFirstPage = true;
                 pd.Print();
 
             }
@@ -138,11 +144,25 @@ namespace TangentaPrint
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
         {
-            //Font printFont = new Font("Arial", 10);
 
-            //e.Graphics.DrawString("test LINE", printFont, Brushes.Black, 0, 0, new StringFormat());
-            hc.PerformLayout(e.Graphics);
+            if (bFirstPage)
+            {
+                bFirstPage = false;
+                hc.PerformLayout(e.Graphics);
+            }
+
+            e.Graphics.IntersectClip(new RectangleF(e.PageSettings.PrintableArea.Left, e.PageSettings.PrintableArea.Top, e.PageSettings.PrintableArea.Width, e.PageSettings.PrintableArea.Height));
+            hc.ScrollOffset = new Point(0, scrollOffset);
             hc.PerformPaint(e.Graphics);
+            scrollOffset -= Convert.ToInt32(e.PageSettings.PrintableArea.Height);
+            if (scrollOffset > -hc.ActualSize.Height)
+            {
+                e.HasMorePages = true;
+            }
+            else
+            {
+                e.HasMorePages = false;
+            }
         }
 
         private void btn_SaveAs_Click(object sender, EventArgs e)
