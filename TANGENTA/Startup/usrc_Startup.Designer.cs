@@ -40,7 +40,7 @@
             this.lbl_StartUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_StartUp.Location = new System.Drawing.Point(18, 12);
             this.lbl_StartUp.Name = "lbl_StartUp";
-            this.lbl_StartUp.Size = new System.Drawing.Size(70, 26);
+            this.lbl_StartUp.Size = new System.Drawing.Size(93, 32);
             this.lbl_StartUp.TabIndex = 0;
             this.lbl_StartUp.Text = "label1";
             // 
@@ -52,10 +52,10 @@
             this.usrc_web_Help1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.usrc_web_Help1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.usrc_web_Help1.LocalUrl = "Local URL:";
-            this.usrc_web_Help1.Location = new System.Drawing.Point(359, 3);
+            this.usrc_web_Help1.Location = new System.Drawing.Point(392, 3);
             this.usrc_web_Help1.Name = "usrc_web_Help1";
             this.usrc_web_Help1.RemoteUrl = "Remote URL:";
-            this.usrc_web_Help1.Size = new System.Drawing.Size(507, 610);
+            this.usrc_web_Help1.Size = new System.Drawing.Size(474, 629);
             this.usrc_web_Help1.TabIndex = 1;
             // 
             // timer_Startup
@@ -70,6 +70,7 @@
             this.Controls.Add(this.lbl_StartUp);
             this.Name = "usrc_Startup";
             this.Size = new System.Drawing.Size(869, 635);
+            this.Load += new System.EventHandler(this.usrc_Startup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

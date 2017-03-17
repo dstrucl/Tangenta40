@@ -12,6 +12,7 @@ namespace Startup
 {
     public partial class usrc_Startup : UserControl
     {
+        int xusrc_startup_step_Width = 0;
 
         public startup m_startup = null;
         
@@ -32,8 +33,13 @@ namespace Startup
                 usrc_startup_step xusrc_startup_step = new usrc_startup_step(m_startup.Step[iStep]);
                 xusrc_startup_step.Left = lbl_StartUp.Left;
                 xusrc_startup_step.Top = lbl_StartUp.Bottom+ Y_DIST + iStep * (xusrc_startup_step.Height + Y_DIST);
+                if (xusrc_startup_step_Width < xusrc_startup_step.Width) { }
+                {
+                    xusrc_startup_step_Width = xusrc_startup_step.Width;
+                }
                 this.Controls.Add(xusrc_startup_step);
             }
+            
         }
 
         private void timer_Startup_Tick(object sender, EventArgs e)
@@ -44,6 +50,12 @@ namespace Startup
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
         {
             m_startup.nav.eExitResult = evt;
+        }
+
+        private void usrc_Startup_Load(object sender, EventArgs e)
+        {
+            this.usrc_web_Help1.Left = lbl_StartUp.Left + xusrc_startup_step_Width + 5;
+            this.usrc_web_Help1.Width = this.Width - (lbl_StartUp.Left + xusrc_startup_step_Width + 5);
         }
     }
 }

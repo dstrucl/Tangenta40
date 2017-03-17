@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LanguageControl;
+using Tangenta_DefaultPrintTemplates;
 
 namespace TangentaDB
 {
@@ -26,66 +27,63 @@ namespace TangentaDB
 
         public static bool InsertDefault()
         {
-            int i =0;
-            for (i = 0; i < GlobalData.language_definitions.Language_list.Count; i++)
+            
+            Tangenta_DefaultPrintTemplates.TemplatesLoader.Init();
+            foreach(HtmlTemplate ht in Tangenta_DefaultPrintTemplates.TemplatesLoader.Templates)
             {
-                    long_v Language_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
-                    byte[] xDoc = null;
-
+                byte[] xDoc = null;
+                int i = 0;
                 int j = 0;
-                string sName = null;
-                for (j = 0; j < GlobalData.doc_type_definitions.doc_type_list.Count; j++)
+                byte[] bytes = null;
+                bytes = Encoding.UTF8.GetBytes(ht.Html);
+                string myString = Encoding.UTF8.GetString(bytes);
+                xDoc = fs.GetBytes(myString);
+
+                if (ht.Name.ToLower().Contains("_pinvoice") || (ht.Name.ToLower().Contains("_proformainvoice")))
                 {
-                    sName = lngRPM.s_basic_HTML_template.s + GlobalData.doc_type_definitions.doc_type_list[j].Description + "_" + GlobalData.language_definitions.Language_list[i].Name;
-                    byte[] bytes = null;
-                    if ((i == 0)&&(j==0))
-                    {
-                        bytes = Encoding.UTF8.GetBytes(Properties.Resources.htmlt_ENG_inv1_A4);
-                        string myString = Encoding.UTF8.GetString(bytes);
-                        xDoc = fs.GetBytes(myString);
-                    }
-                    else if ((i == 0) && (j == 1))
-                    {
-                        bytes = Encoding.UTF8.GetBytes(Properties.Resources.htmlt_ENG_pinv1_A4);
-                        string myString = Encoding.UTF8.GetString(bytes);
-                        xDoc = fs.GetBytes(myString);
-                    }
-                    else if ((i == 1) && (j == 0))
-                    {
-                        bytes = Encoding.UTF8.GetBytes(Properties.Resources.htmlt_SLO_inv1_A4);
-                        string myString = Encoding.UTF8.GetString(bytes);
-                        xDoc = fs.GetBytes(myString);
-                    }
+                    j = 1;
+                }
+                else if (ht.Name.ToLower().Contains("_invoice"))
+                {
+                    j = 0;
+                }
+                string ilang  = ht.Name.Substring(0, 3);
+                if (ilang[2]=='_')
+                {
+                    ilang = ht.Name.Substring(0, 2);
+                }
+                try
+                {
+                    i = Convert.ToInt32(ilang);
+                }
+                catch (Exception ex)
+                {
+                    LogFile.Error.Show("ERROR:DefaultPrintTemplate name should start with number (example: 000_ENG_...)\r\n"+ex.Message);
+                    return false;
+                }
 
-                    else if ((i == 1) && (j == 1))
-                    {
-                        bytes = Encoding.UTF8.GetBytes(Properties.Resources.htmlt_SLO_pinv1_A4);
-                        string myString = Encoding.UTF8.GetString(bytes);
-                        xDoc = fs.GetBytes(myString);
-                    }
-
-
-                    long doc_ID = 0;
-                    long_v doc_type_ID_v = new long_v(GlobalData.doc_type_definitions.doc_type_list[j].ID);
-                    long_v doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.A4_Portrait_description.ID);
-                    long_v xLanguage_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
-                    if (!Get(sName,
-                              null,
-                              xDoc,
-                              doc_type_ID_v,
-                              doc_page_type_ID_v,
-                              xLanguage_ID_v,
-                                true,
-                                true,
-                                true,
-                                ref doc_ID
-                                )
-                        )
-                    {
-                        return false;
-                    }
+                long doc_ID = 0;
+                long_v doc_type_ID_v = new long_v(GlobalData.doc_type_definitions.doc_type_list[j].ID);
+                long_v doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.A4_Portrait_description.ID);
+                long_v xLanguage_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
+            
+                if (!Get(ht.Name,
+                          null,
+                          xDoc,
+                          doc_type_ID_v,
+                          doc_page_type_ID_v,
+                          xLanguage_ID_v,
+                            true,
+                            true,
+                            true,
+                            ref doc_ID
+                            )
+                    )
+                {
+                    return false;
                 }
             }
+  
             return true;
         }
 

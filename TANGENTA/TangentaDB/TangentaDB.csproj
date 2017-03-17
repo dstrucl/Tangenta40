@@ -255,6 +255,10 @@
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tangenta_DefaultPrintTemplates\Tangenta_DefaultPrintTemplates.csproj">
+      <Project>{881e369b-527b-4a80-83e8-f350c26b6bab}</Project>
+      <Name>Tangenta_DefaultPrintTemplates</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
       <Name>UniversalInvoice</Name>

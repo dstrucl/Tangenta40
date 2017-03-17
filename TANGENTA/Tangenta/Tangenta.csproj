@@ -235,6 +235,12 @@
     <Compile Include="Form_Logo_Edit.Designer.cs">
       <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_StartupWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_StartupWindow.designer.cs">
+      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_TermsOfPayment_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -575,6 +581,9 @@
     <EmbeddedResource Include="Form_Logo_Edit.resx">
       <DependentUpon>Form_Logo_Edit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_StartupWindow.resx">
+      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_TermsOfPayment_Edit.resx">
       <DependentUpon>Form_TermsOfPayment_Edit.cs</DependentUpon>
     </EmbeddedResource>
@@ -703,10 +712,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_StartupWindow.resx">
-      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Invoice.resx">
       <DependentUpon>usrc_Invoice.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -726,12 +731,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Form_StartupWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_StartupWindow.designer.cs">
-      <DependentUpon>Form_StartupWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="StartupWindowThread.cs" />
     <Compile Include="usrc_Invoice.cs">
@@ -897,6 +896,10 @@
     <ProjectReference Include="..\TangentaTableClass\TangentaTableClass.csproj">
       <Project>{6a6ba51a-a49e-4be9-8c5d-2b332efa0b62}</Project>
       <Name>TangentaTableClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tangenta_DefaultPrintTemplates\Tangenta_DefaultPrintTemplates.csproj">
+      <Project>{881e369b-527b-4a80-83e8-f350c26b6bab}</Project>
+      <Name>Tangenta_DefaultPrintTemplates</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversalInvoice\UniversalInvoice.csproj">
       <Project>{1494ce99-385c-42cc-8fff-75597007da72}</Project>
@@ -1074,6 +1077,7 @@
     <None Include="Resources\SimpleItemGroups.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="00_ENG_Invoice_A4.htm" />
     <Content Include="Blagajna_Icon.ico" />
     <None Include="Resources\PaymentIcon.ico" />
     <None Include="Resources\Print.bmp" />
