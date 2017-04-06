@@ -140,6 +140,12 @@
     <Compile Include="usrc_PrintExistingInvoice.Designer.cs">
       <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_SelectPrintTemplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_SelectPrintTemplate.Designer.cs">
+      <DependentUpon>usrc_SelectPrintTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_TangentaPrint.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -253,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PrintExistingInvoice.resx">
       <DependentUpon>usrc_PrintExistingInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_SelectPrintTemplate.resx">
+      <DependentUpon>usrc_SelectPrintTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_TangentaPrint.resx">
       <DependentUpon>usrc_TangentaPrint.cs</DependentUpon>

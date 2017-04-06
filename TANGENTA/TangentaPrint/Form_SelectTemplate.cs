@@ -233,6 +233,11 @@ namespace TangentaPrint
             string sval_doc_type_ID = null;
             string scond_page_name = null;
             string sval_page_name = null;
+            string scond_page_width = null;
+            string scond_page_height = null;
+            string sval_page_width = null;
+            string sval_page_height = null;
+
             if (!fs.Add_lpar(lpar, "doc_$_lng_$$ID", iLang_ID, ref scond_Language_ID, ref sval_Language_ID))
             {
                 return false;
@@ -259,14 +264,50 @@ namespace TangentaPrint
 
             if (rdb_A4.Checked && rdb_Portrait.Checked)
             {
-                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Portrait", ref scond_page_name, ref sval_page_name))
+                if (fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Portrait", ref scond_page_name, ref sval_page_name))
+                {
+                    if (fs.Add_lpar(lpar, "doc_$_pgt_$$Width", Printer.A4_PORTRAIT_WIDTH, ref scond_page_width, ref sval_page_width))
+                    {
+                        if (fs.Add_lpar(lpar, "doc_$_pgt_$$Height", Printer.A4_PORTRAIT_HEIGHT, ref scond_page_height, ref sval_page_height))
+                        {
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
                 {
                     return false;
                 }
             }
             else if (rdb_A4.Checked && rdb_Landscape.Checked)
             {
-                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Landscape", ref scond_page_name, ref sval_page_name))
+                if (fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Landscape", ref scond_page_name, ref sval_page_name))
+                {
+                    if (fs.Add_lpar(lpar, "doc_$_pgt_$$Width", Printer.A4_LANDSCAPE_WIDTH, ref scond_page_width, ref sval_page_width))
+                    {
+                        if (fs.Add_lpar(lpar, "doc_$_pgt_$$Height", Printer.A4_LANDSCAPE_HEIGHT, ref scond_page_height, ref sval_page_height))
+                        {
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
                 {
                     return false;
                 }
@@ -286,10 +327,13 @@ namespace TangentaPrint
                 }
             }
 
-            string sql = "select id,doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where doc_$$bDefault = 1 "
-                          + " and " + scond_Language_ID
-                          + " and " + scond_doc_type_ID
-                          + " and " + scond_page_name;
+                string sql = "select id,doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where doc_$$Active = 1 "
+                              + " and " + scond_Language_ID
+                              + " and " + scond_doc_type_ID
+                              + " and " + scond_page_name
+                              + " and " + scond_page_width
+                              + " and " + scond_page_height
+                              + " order by doc_$$bDefault desc;";
             DataTable dt = new DataTable();
             if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql,lpar, ref Err))
             {

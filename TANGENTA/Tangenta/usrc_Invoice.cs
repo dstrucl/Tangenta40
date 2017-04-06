@@ -2170,11 +2170,14 @@ do_EditMyOrganisation_Data:
 
                         if (AddOnDI.IsCashPayment)
                         {
-                            if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
+                            if (m_InvoiceData != null)
                             {
-                                m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
-                                m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
+                                if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
+                                {
+                                    m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
+                                    m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
 
+                                }
                             }
                         }
 
