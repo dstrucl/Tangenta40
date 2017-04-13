@@ -949,7 +949,7 @@ namespace Tangenta
 
         private bool GetReceiptPrinter()
         {
-            return Program.usrc_TangentaPrint1.GetReceiptPrinter();
+            return false;// Program.usrc_TangentaPrint1.GetReceiptPrinter();
         }
 
         private bool Edit_Taxation()

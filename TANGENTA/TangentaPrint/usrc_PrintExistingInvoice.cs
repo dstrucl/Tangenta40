@@ -110,7 +110,7 @@ namespace TangentaPrint
                     DocInvoiceTime_v = new DateTime_v();
                 }
                 DocInvoiceTime_v.v = dtInvoiceTime;
-                m_usrc_TangentaPrint1.Print_Receipt(m_InvoiceData, GlobalData.ePaymentType.NONE, null, null, null, DocInvoiceTime_v);
+                //m_usrc_TangentaPrint1.Print_Receipt(m_InvoiceData, GlobalData.ePaymentType.NONE, null, null, null, DocInvoiceTime_v);
                 ShowJournal();
             }
         }

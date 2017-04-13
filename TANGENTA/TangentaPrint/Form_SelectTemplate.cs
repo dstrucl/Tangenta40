@@ -27,6 +27,7 @@ namespace TangentaPrint
 {
     public partial class Form_SelectTemplate : Form
     {
+       
         public bool bCompressedDocumentTemplate = false;
         public long Default_ID = -1;
         public string Default_Tamplate = null;
@@ -38,7 +39,6 @@ namespace TangentaPrint
         private string sAmountReceived;
         private string sToReturn;
         private DateTime_v issue_time;
-        private usrc_DeviceSettings usrc_Printer;
         private InvoiceData m_InvoiceData;
         private long durationType;
         private long duration;
@@ -65,17 +65,7 @@ namespace TangentaPrint
                 this.duration = m_InvoiceData.AddOnDPI.m_Duration.length;
             }
 
-            lngRPM.s_Language.Text(lbl_Language);
-            lngRPM.s_PaperSize.Text(grp_PaperSize);
-            lngRPM.s_Template.Text(lbl_Template, ":");
-            lngRPM.s_A4.Text(rdb_A4);
-            lngRPM.s_Roll_80.Text(rdb_80);
-            lngRPM.s_Roll_58.Text(rdb_58);
-            lngRPM.s_PaperOrientation.Text(grp_Orientation);
-            lngRPM.s_PaperOrientation_Portrait.Text(rdb_Portrait);
-            lngRPM.s_PaperOrientation_Landscape.Text(rdb_Landscape);
-            cmb_Language.DataSource = LanguageControl.DynSettings.s_language.sTextArr;
-            cmb_Language.SelectedIndex = LanguageControl.DynSettings.LanguageID;
+ 
         }
 
 
@@ -83,7 +73,7 @@ namespace TangentaPrint
         {
             if (GetDefaultTemplate(ref Default_ID, ref Default_Tamplate, ref Doc, ref bCompressedDocumentTemplate))
             {
-                txt_Template.Text = Default_Tamplate;
+                m_usrc_SelectPrintTemplate.TemplateName = Default_Tamplate;
             }
         }
 
@@ -130,7 +120,7 @@ namespace TangentaPrint
                 SetDefault(id);
                 if (GetTemplate(id,ref doc_name, ref Doc, ref bCompressedDocumentTemplate))
                 {
-                    txt_Template.Text = doc_name;
+                    this.m_usrc_SelectPrintTemplate.TemplateName = doc_name;
                 }
             }
         }
@@ -224,7 +214,7 @@ namespace TangentaPrint
         {
             string Err = null;
             bool Commpressed = false;
-            int iLang = cmb_Language.SelectedIndex;
+            int iLang = m_usrc_SelectPrintTemplate.SelectedLangugage;
             int iLang_ID = iLang + 1;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string scond_Language_ID = null;
@@ -262,7 +252,8 @@ namespace TangentaPrint
                 return false;
             }
 
-            if (rdb_A4.Checked && rdb_Portrait.Checked)
+            if ((m_usrc_SelectPrintTemplate.PageType == Printer.StandardPages.A4)
+                && (m_usrc_SelectPrintTemplate.PageOrientation == Printer.PageOreintation.PORTRAIT))
             {
                 if (fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Portrait", ref scond_page_name, ref sval_page_name))
                 {
@@ -287,7 +278,8 @@ namespace TangentaPrint
                     return false;
                 }
             }
-            else if (rdb_A4.Checked && rdb_Landscape.Checked)
+            else if ((m_usrc_SelectPrintTemplate.PageType == Printer.StandardPages.A4)
+                && (m_usrc_SelectPrintTemplate.PageOrientation == Printer.PageOreintation.LANDSCAPE))
             {
                 if (fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Landscape", ref scond_page_name, ref sval_page_name))
                 {
@@ -312,14 +304,14 @@ namespace TangentaPrint
                     return false;
                 }
             }
-            else if (rdb_80.Checked)
+            else if (m_usrc_SelectPrintTemplate.PageType == Printer.StandardPages.ROLL_80)
             {
                 if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
                 {
                     return false;
                 }
             }
-            else if (rdb_58.Checked)
+            else if (m_usrc_SelectPrintTemplate.PageType == Printer.StandardPages.ROLL_58)
             {
                 if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
                 {
@@ -390,45 +382,15 @@ namespace TangentaPrint
 
         private void Form_SelectTemplate_Load(object sender, EventArgs e)
         {
-            grp_Orientation.Enabled = false;
-            if (m_InvoiceData.IsDocInvoice)
+            if (m_usrc_SelectPrintTemplate.Init(m_InvoiceData))
             {
-                switch (m_InvoiceData.AddOnDI.m_MethodOfPayment.eType)
-                {
-                    case GlobalData.ePaymentType.CASH:
-                    case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
-                    case GlobalData.ePaymentType.PAYMENT_CARD:
-                        if (Properties.Settings.Default.Default_Roll_80)
-                        {
-                            rdb_80.Checked = true;
-                        }
-                        else
-                        {
-                            rdb_58.Checked = true;
-                        }
-                        break;
-                    default:
-                        rdb_A4.Checked = true;
-                        grp_Orientation.Enabled = true;
-                        rdb_Portrait.Checked = true;
-                        break;
-
-                }
-            }
-            else if (m_InvoiceData.IsDocProformaInvoice)
-            {
-                rdb_A4.Checked = true;
-                grp_Orientation.Enabled = true;
-                rdb_Portrait.Checked = true;
+                Init();
             }
             else
             {
-                LogFile.Error.Show("ERROR:Form_SelectTemplate:Form_SelectTemplate:Unknown document type!");
                 this.Close();
                 DialogResult = DialogResult.Abort;
-                return;
             }
-            Init();
         }
 
         private void m_usrc_Invoice_Preview_OK()

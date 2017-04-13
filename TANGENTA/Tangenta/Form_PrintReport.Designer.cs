@@ -33,7 +33,6 @@ namespace Tangenta
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintReport));
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.m_usrc_Print = new usrc_DeviceSettings();
             this.lbl_From_To = new System.Windows.Forms.Label();
             this.btn_DURS_output = new System.Windows.Forms.Button();
             this.btn_XML_export = new System.Windows.Forms.Button();
@@ -59,13 +58,6 @@ namespace Tangenta
             this.btn_Cancel.TabIndex = 2;
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
-            // 
-            // m_usrc_Print
-            // 
-            this.m_usrc_Print.Location = new System.Drawing.Point(8, 5);
-            this.m_usrc_Print.Name = "m_usrc_Print";
-            this.m_usrc_Print.Size = new System.Drawing.Size(516, 57);
-            this.m_usrc_Print.TabIndex = 0;
             // 
             // lbl_From_To
             // 
@@ -116,7 +108,6 @@ namespace Tangenta
             this.Controls.Add(this.lbl_From_To);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_Print);
-            this.Controls.Add(this.m_usrc_Print);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -131,7 +122,6 @@ namespace Tangenta
 
         #endregion
 
-        private usrc_DeviceSettings m_usrc_Print;
         private System.Windows.Forms.Button btn_Print;
         private System.Windows.Forms.Button btn_Cancel;
         internal System.Windows.Forms.Label lbl_From_To;

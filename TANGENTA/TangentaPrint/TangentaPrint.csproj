@@ -61,12 +61,6 @@
     <Compile Include="EscPos_RP58 .cs" />
     <Compile Include="EscPos_RP80.cs" />
     <Compile Include="EscPos_Star_TSP100.cs" />
-    <Compile Include="Form_DeviceSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_DeviceSettings.Designer.cs">
-      <DependentUpon>Form_DeviceSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form_PrintExistingInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,7 +97,7 @@
     <Compile Include="Form_TemplateTokens.Designer.cs">
       <DependentUpon>Form_TemplateTokens.cs</DependentUpon>
     </Compile>
-    <Compile Include="Printning.cs" />
+    <Compile Include="PrintersList.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -121,12 +115,6 @@
     </Compile>
     <Compile Include="usrc_Invoice_Preview.Designer.cs">
       <DependentUpon>usrc_Invoice_Preview.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_Device.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_Device.Designer.cs">
-      <DependentUpon>usrc_Device.cs</DependentUpon>
     </Compile>
     <Compile Include="usrc_Printer.cs">
       <SubType>UserControl</SubType>
@@ -151,12 +139,6 @@
     </Compile>
     <Compile Include="usrc_TangentaPrint.Designer.cs">
       <DependentUpon>usrc_TangentaPrint.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usrc_DeviceSettings.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="usrc_DeviceSettings.Designer.cs">
-      <DependentUpon>usrc_DeviceSettings.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -222,9 +204,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_DeviceSettings.resx">
-      <DependentUpon>Form_DeviceSettings.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form_PrintExistingInvoice.resx">
       <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
     </EmbeddedResource>
@@ -251,9 +230,6 @@
     <EmbeddedResource Include="usrc_Invoice_Preview.resx">
       <DependentUpon>usrc_Invoice_Preview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usrc_Device.resx">
-      <DependentUpon>usrc_Device.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="usrc_Printer.resx">
       <DependentUpon>usrc_Printer.cs</DependentUpon>
     </EmbeddedResource>
@@ -265,9 +241,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_TangentaPrint.resx">
       <DependentUpon>usrc_TangentaPrint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_DeviceSettings.resx">
-      <DependentUpon>usrc_DeviceSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

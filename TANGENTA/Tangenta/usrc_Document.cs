@@ -192,9 +192,36 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
         {
             //Insert default templates for Proforma Invoice and for 
             if (f_doc.InsertDefault())
-            { 
-                myStartup.eNextStep++;
-                return true;
+            {
+                TangentaPrint.PrintersList.Init();
+
+                if (TangentaPrint.PrintersList.Read())
+                {
+                    myStartup.eNextStep++;
+                    return true;
+                }
+                else
+                {
+                    if (TangentaPrint.PrintersList.Define(xnav))
+                    {
+                        if (xnav.eExitResult == Navigation.eEvent.NEXT)
+                        {
+                            myStartup.eNextStep++;
+                            return true;
+                        }
+                        else if (xnav.eExitResult == Navigation.eEvent.PREV)
+                        {
+                            myStartup.eNextStep--;
+                            return true;
+                        }
+                        else if (xnav.eExitResult == Navigation.eEvent.CANCEL)
+                        {
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            return false;
+                        }
+                    }
+                    return false;
+                }
             }
             else
             {
