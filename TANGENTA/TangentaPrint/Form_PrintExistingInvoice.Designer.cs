@@ -83,7 +83,6 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         internal usrc_Invoice_Preview usrc_Invoice_Preview;
-        private usrc_DeviceSettings m_usrc_Print;
         private System.Windows.Forms.Button btn_Cancel;
         private usrc_PrintExistingInvoice m_usrc_PrintExistingInvoice;
         private usrc_PrintExistingInvoice usrc_PrintExistingInvoice1;

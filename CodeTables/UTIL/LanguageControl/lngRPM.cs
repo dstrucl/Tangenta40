@@ -17,6 +17,10 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+
+        public static ltext sPrinterNotFound = new ltext("Printer not found:", "Tiskalnik ni nameščen:");
+        public static ltext sPrinterListDataChanged_Save = new ltext("Printer data list and settings has changed. Save new list?", "Podatki o tiskalnikih so se spremenili. Shranim podatke? ");
+        public static ltext s_PrinterIsAllreadyOnTheList = new ltext("Printer is allready on the list", "Tiskalnik je že v seznamu za uporabo");
         public static ltext s_PaperOrientation_Portrait = new ltext("Portrait", "Pokončno");
         public static ltext s_PaperOrientation_Landscape = new ltext("Landscape", "Ležeče");
         public static ltext s_PaperOrientation = new ltext("Paper orientation", "Pozicija papirja");

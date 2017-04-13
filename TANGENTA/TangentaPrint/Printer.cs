@@ -20,11 +20,17 @@ using System.ComponentModel;
 using TangentaDB;
 using DBTypes;
 using UniversalInvoice;
+using System.Data;
 
 namespace TangentaPrint
 {
     public class Printer
     {
+    
+
+        public enum StandardPages {A4,ROLL_80,ROLL_58 };
+        public enum PageOreintation {PORTRAIT,LANDSCAPE};
+
         public const int A4_PORTRAIT_WIDTH = 210;
         public const int A4_PORTRAIT_HEIGHT = 297;
         public const int A4_LANDSCAPE_WIDTH = 297;
@@ -35,6 +41,26 @@ namespace TangentaPrint
         {
             get { return m_Index; }
             set { m_Index = value; }
+        }
+
+        internal bool GetPrinter()
+        {
+            if (this.m_Index >= 0)
+            {
+                if (PrintersList.dt.Rows.Count > this.m_Index)
+                {
+                    string PrinterName = (string)PrintersList.dt.Rows[this.m_Index][PrintersList.dcol_PrinterName];
+                    foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+                    {
+                        if (PrinterName.Equals(printer))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+
         }
 
         public usrc_Printer m_usrc_Printer = null;
@@ -422,14 +448,6 @@ namespace TangentaPrint
 
                 PrinterName = printDialog.PrinterSettings.PrinterName;
                 printer_settings = printDialog.PrinterSettings;
-                if (Index == 0)
-                {
-                    Properties.Settings.Default.Printer1_PrinterName = PrinterName;
-                }
-                else
-                {
-                    Properties.Settings.Default.Printer2_PrinterName = PrinterName;
-                }
                 Properties.Settings.Default.Save();
                 //RawPrinterHelper.SetDefaultPrinter(PrinterName);
                 return true;
@@ -485,20 +503,20 @@ namespace TangentaPrint
 
         private void SavePageSettings(PageSettings page_settings)
         {
-            Properties.Settings.Default.Printer1_PageSettings_Landscape = page_settings.Landscape;
-            Properties.Settings.Default.Printer1_PageSettings_Color = page_settings.Color;
-            Properties.Settings.Default.Printer1_PageSettings_HardMarginX = page_settings.HardMarginX;
-            Properties.Settings.Default.Printer1_PageSettings_HardMarginY = page_settings.HardMarginY;
-            Properties.Settings.Default.Printer1_PageSettings_PaperSize_Width = page_settings.PaperSize.Width;
-            Properties.Settings.Default.Printer1_PageSettings_PaperSize_Height = page_settings.PaperSize.Height;
-            Properties.Settings.Default.Printer1_PageSettings_PaperSize_PaperName = page_settings.PaperSize.PaperName;
-            Properties.Settings.Default.Printer1_PageSettings_PaperSize_RawKind = (int)page_settings.PaperSize.RawKind;
-            Properties.Settings.Default.Printer1_PageSettings_PaperSource_RawKind = page_settings.PaperSource.RawKind;
-            Properties.Settings.Default.Printer1_PageSettings_PaperSource_SourceName = page_settings.PaperSource.SourceName;
-            Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_X = page_settings.PrinterResolution.X;
-            Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Y = page_settings.PrinterResolution.Y;
-            Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Kind = (int)page_settings.PrinterResolution.Kind;
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Printer1_PageSettings_Landscape = page_settings.Landscape;
+            //Properties.Settings.Default.Printer1_PageSettings_Color = page_settings.Color;
+            //Properties.Settings.Default.Printer1_PageSettings_HardMarginX = page_settings.HardMarginX;
+            //Properties.Settings.Default.Printer1_PageSettings_HardMarginY = page_settings.HardMarginY;
+            //Properties.Settings.Default.Printer1_PageSettings_PaperSize_Width = page_settings.PaperSize.Width;
+            //Properties.Settings.Default.Printer1_PageSettings_PaperSize_Height = page_settings.PaperSize.Height;
+            //Properties.Settings.Default.Printer1_PageSettings_PaperSize_PaperName = page_settings.PaperSize.PaperName;
+            //Properties.Settings.Default.Printer1_PageSettings_PaperSize_RawKind = (int)page_settings.PaperSize.RawKind;
+            //Properties.Settings.Default.Printer1_PageSettings_PaperSource_RawKind = page_settings.PaperSource.RawKind;
+            //Properties.Settings.Default.Printer1_PageSettings_PaperSource_SourceName = page_settings.PaperSource.SourceName;
+            //Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_X = page_settings.PrinterResolution.X;
+            //Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Y = page_settings.PrinterResolution.Y;
+            //Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Kind = (int)page_settings.PrinterResolution.Kind;
+            //Properties.Settings.Default.Save();
         }
 
         private bool ReadPageSettings(ref PageSettings pgset)
@@ -511,23 +529,23 @@ namespace TangentaPrint
                     }
                     if (pgset.PaperSource.SourceName.Length > 0)
                     {
-                        string paper_name = Properties.Settings.Default.Printer1_PageSettings_PaperSize_PaperName;
+                        //string paper_name = Properties.Settings.Default.Printer1_PageSettings_PaperSize_PaperName;
 
                         foreach (PaperSize psize in printer_settings.PaperSizes)
                         {
-                            if (psize.PaperName.Equals(paper_name))
-                            {
-                                pgset.PaperSize = psize;
-                                break;
-                            }
+                            //if (psize.PaperName.Equals(paper_name))
+                            //{
+                            //    pgset.PaperSize = psize;
+                            //    break;
+                            //}
                         }
-                        pgset.Landscape = Properties.Settings.Default.Printer1_PageSettings_Landscape;
-                        pgset.Color = Properties.Settings.Default.Printer1_PageSettings_Color;
-                        pgset.PaperSource.SourceName = Properties.Settings.Default.Printer1_PageSettings_PaperSource_SourceName;
-                        pgset.PaperSource.RawKind = Properties.Settings.Default.Printer1_PageSettings_PaperSource_RawKind;
-                        pgset.PrinterResolution.X = Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_X;
-                        pgset.PrinterResolution.Y = Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Y;
-                        pgset.PrinterResolution.Kind = (PrinterResolutionKind)Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Kind;
+                        //pgset.Landscape = Properties.Settings.Default.Printer1_PageSettings_Landscape;
+                        //pgset.Color = Properties.Settings.Default.Printer1_PageSettings_Color;
+                        //pgset.PaperSource.SourceName = Properties.Settings.Default.Printer1_PageSettings_PaperSource_SourceName;
+                        //pgset.PaperSource.RawKind = Properties.Settings.Default.Printer1_PageSettings_PaperSource_RawKind;
+                        //pgset.PrinterResolution.X = Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_X;
+                        //pgset.PrinterResolution.Y = Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Y;
+                        //pgset.PrinterResolution.Kind = (PrinterResolutionKind)Properties.Settings.Default.Printer1_PageSettings_PrinterResolution_Kind;
                         return true;
                     }
                     else
@@ -542,33 +560,33 @@ namespace TangentaPrint
                 }
         }
 
-        public bool Define(Form frm)
-        {
-            string pname = Properties.Settings.Default.Printer1_PrinterName;
-            PrinterName = FindPrinter(pname); ;
-            PageSettings pgset = null;
-            if (ReadPageSettings(ref pgset))
-            {
-                page_settings = pgset;
-            }
-            if ((PrinterName == null)||(page_settings==null))
-            {
-                MessageBox.Show(frm, lngRPM.s_Printer.s + ":" + Properties.Settings.Default.Printer1_PrinterName + lngRPM.s_NotInPrinterList.s + "\r\n" + lngRPM.s_SelectReceiptPrinter.s);
-                if (Select(frm))
-                {
-                     return DefinePage(frm);
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                printer_settings.PrinterName = PrinterName;
-                return true;
-            }
-        }
+//        public bool Define(Form frm)
+//        {
+////            string pname = Properties.Settings.Default.Printer1_PrinterName;
+////            PrinterName = FindPrinter(pname); ;
+//            PageSettings pgset = null;
+//            if (ReadPageSettings(ref pgset))
+//            {
+//                page_settings = pgset;
+//            }
+//            if ((PrinterName == null)||(page_settings==null))
+//            {
+//  //              MessageBox.Show(frm, lngRPM.s_Printer.s + ":" + Properties.Settings.Default.Printer1_PrinterName + lngRPM.s_NotInPrinterList.s + "\r\n" + lngRPM.s_SelectReceiptPrinter.s);
+//                if (Select(frm))
+//                {
+//                     return DefinePage(frm);
+//                }
+//                else
+//                {
+//                    return false;
+//                }
+//            }
+//            else
+//            {
+//                printer_settings.PrinterName = PrinterName;
+//                return true;
+//            }
+//        }
 
         private bool FindPaper(string paper_name, ref PaperSize psize)
         {
