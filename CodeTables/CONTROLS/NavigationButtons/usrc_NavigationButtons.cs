@@ -21,6 +21,8 @@ namespace NavigationButtons
 
         public Navigation.eButtons m_eButtons = Navigation.eButtons.OkCancel;
 
+        public Navigation m_nav = null;
+
         public Navigation.eButtons Buttons
         {
             get { return m_eButtons; }
@@ -81,6 +83,11 @@ namespace NavigationButtons
                     }
                 }
             }
+        }
+
+        public void HidePreviousButton()
+        {
+            btn1.Visible = false;
         }
 
         private string m_btn3_ToolTip_Text = "";
@@ -198,21 +205,26 @@ namespace NavigationButtons
             btn2.ImageAlign = ContentAlignment.MiddleRight;
         }
 
-        public void Init(Navigation nav)
+        public void Init(Navigation xnav)
         {
-            if (nav != null)
+            if (xnav != null)
             {
-                if (nav.ExitProgramQuestionInLanguage != null)
+                m_nav = xnav;
+                if (m_nav != null)
                 {
-                    ExitQuestion = nav.ExitProgramQuestionInLanguage;
+                    m_nav.DialogShown = false;
                 }
-                this.m_eButtons = nav.m_eButtons;
-                if (nav.m_Auto_NEXT != null)
+                if (xnav.ExitProgramQuestionInLanguage != null)
+                {
+                    ExitQuestion = xnav.ExitProgramQuestionInLanguage;
+                }
+                this.m_eButtons = xnav.m_eButtons;
+                if (xnav.m_Auto_NEXT != null)
                 {
                     if (this.m_eButtons == Navigation.eButtons.PrevNextExit)
                     {
                         this.Timer_Next = new System.Windows.Forms.Timer(this.components);
-                        this.Timer_Next.Interval = nav.m_Auto_NEXT.NextButtonPressedInMiliSeconds;
+                        this.Timer_Next.Interval = xnav.m_Auto_NEXT.NextButtonPressedInMiliSeconds;
                         this.Timer_Next.Enabled = true;
                         this.Timer_Next.Tick += Timer_Next_Tick;
                     }
@@ -221,19 +233,19 @@ namespace NavigationButtons
                         MessageBox.Show("AUTO_NEXT works only with (this.m_eButtons == Navigation.eButtons.PrevNextExit");
                     }
                 }
-                btn1.Visible = nav.btn1_Visible;
-                btn2.Visible = nav.btn2_Visible;
-                btn3.Visible = nav.btn3_Visible;
-                btn1.Text = nav.btn1_Text;
-                btn1_ToolTip_Text = nav.btn1_ToolTip_Text;
-                btn2.Text = nav.btn2_Text;
-                btn2_ToolTip_Text = nav.btn2_ToolTip_Text;
-                btn3.Text = nav.btn3_Text;
-                btn3_ToolTip_Text = nav.btn3_ToolTip_Text;
+                btn1.Visible = xnav.btn1_Visible;
+                btn2.Visible = xnav.btn2_Visible;
+                btn3.Visible = xnav.btn3_Visible;
+                btn1.Text = xnav.btn1_Text;
+                btn1_ToolTip_Text = xnav.btn1_ToolTip_Text;
+                btn2.Text = xnav.btn2_Text;
+                btn2_ToolTip_Text = xnav.btn2_ToolTip_Text;
+                btn3.Text = xnav.btn3_Text;
+                btn3_ToolTip_Text = xnav.btn3_ToolTip_Text;
 
-                btn1.Image = nav.btn1_Image;
-                btn2.Image = nav.btn2_Image;
-                btn3.Image = nav.btn3_Image;
+                btn1.Image = xnav.btn1_Image;
+                btn2.Image = xnav.btn2_Image;
+                btn3.Image = xnav.btn3_Image;
             }
             else
             {
@@ -279,6 +291,10 @@ namespace NavigationButtons
                         ButtonPressed(Navigation.eEvent.OK);
                         break;
                 }
+                if (m_nav != null)
+                {
+                    m_nav.DialogShown = true;
+                }
             }
         }
 
@@ -291,6 +307,10 @@ namespace NavigationButtons
                     case Navigation.eButtons.PrevNextExit:
                         ButtonPressed(Navigation.eEvent.NEXT);
                         break;
+                }
+                if (m_nav != null)
+                {
+                    m_nav.DialogShown = true;
                 }
             }
         }
@@ -310,6 +330,10 @@ namespace NavigationButtons
                     case Navigation.eButtons.OkCancel:
                         ButtonPressed(Navigation.eEvent.CANCEL);
                         break;
+                }
+                if (m_nav != null)
+                {
+                    m_nav.DialogShown = true;
                 }
             }
         }

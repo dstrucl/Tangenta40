@@ -193,8 +193,6 @@ namespace TangentaPrint
             DataRow dr = dt.NewRow();
             DataRow drPrinterObject = dtPrinterObject.NewRow();
             dr[dcol_PrinterName.ColumnName] = prn.PrinterName;
-            dt.Rows.Add(dr);
-            prn.Index = dt.Rows.IndexOf(dr);
             if (prn.Index==0)
             {
                 dr[dcol_InvoicePrinting] = true;
@@ -231,7 +229,9 @@ namespace TangentaPrint
             //dt.Rows[prn.Index][dcol_PageSettings_PrinterResolution_Y] = 
             //dt.Rows[prn.Index][dcol_PageSettings_PrinterResolution_Kind] = 
 
-
+            dt.Rows.Add(dr);
+            dtPrinterObject.Rows.Add(drPrinterObject);
+            prn.Index = dt.Rows.IndexOf(dr);
             return prn.Index;
         }
     }

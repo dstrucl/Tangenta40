@@ -1,4 +1,5 @@
 ﻿using LanguageControl;
+using Startup;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,6 @@ namespace TangentaPrint
             m_nav = xnav;
             bChanged = false;
             this.usrc_NavigationButtons1.Init(xnav);
-
             this.m_usrc_TangentaPrint = xusrc_TangentaPrint;
             lngRPM.s_Form_DefinePrinters.Text(this);
             if (m_dt.Rows.Count > 0)
@@ -38,6 +38,28 @@ namespace TangentaPrint
                     this.panel1.Controls.Add(printer.m_usrc_Printer);
                 }
                 ArrangePrinterControls();
+            }
+            SetNavigationButtonsInRelationToPreviouseDialog();
+        }
+
+        private void SetNavigationButtonsInRelationToPreviouseDialog()
+        {
+            if (m_nav!=null)
+            {
+                if (m_nav.oStartup is startup)
+                {
+                    if (m_nav.StartupStep_index>0)
+                    {
+                        if (m_nav.m_eButtons == NavigationButtons.Navigation.eButtons.PrevNextExit)
+                        {
+                            int iPrev_StartupStep_Index = m_nav.StartupStep_index - 1;
+                            if (!(((startup)m_nav.oStartup).Step[iPrev_StartupStep_Index].DialogShown))
+                            {
+                                    this.usrc_NavigationButtons1.HidePreviousButton();
+                            }
+                        }
+                    }
+                }
             }
         }
 

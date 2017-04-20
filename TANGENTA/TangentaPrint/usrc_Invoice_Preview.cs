@@ -44,6 +44,48 @@ namespace TangentaPrint
         private string m_sToReturn;
         private DateTime_v m_issue_time;
 
+        public byte[] DocumentTemplate
+        {
+            get { return m_Doc; }
+            set
+            {
+                m_Doc = value;
+            }
+        }
+
+        public string html_doc_template_text
+        {
+            get
+            {
+                if (m_Doc != null)
+                {
+                    try
+                    {
+                        char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
+                        string shtml_doc_template_text = new string(chars2);
+                        return shtml_doc_template_text;
+                    }
+                    catch
+                    {
+                        return "Error can not decode template!";
+                    }
+                }
+                else
+                {
+                    return "Document Template not set";
+                }
+            }
+
+            set
+            {
+                byte[] bytes = null;
+                bytes = Encoding.UTF8.GetBytes(value);
+                string myString = Encoding.UTF8.GetString(bytes);
+                m_Doc = fs.GetBytes(myString);
+            }
+        }
+
+
         public string html_doc_text
         {
             get
@@ -52,15 +94,11 @@ namespace TangentaPrint
                 {
                     try
                     {
-                        //char[] chars = Encoding.UTF8.GetChars(m_Doc);
-                        //string s = new string(chars);
                         char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
-                        string s2 = new string(chars2);
-                        //char[] charsASCII = Encoding.ASCII.GetChars(m_Doc);
-                        //string scharsASCII = new string(charsASCII);
-                        //char[] charsBigEndianUnicode = Encoding.BigEndianUnicode.GetChars(m_Doc);
-                        //string scharsBigEndianUnicode = new string(charsBigEndianUnicode);
-                        return s2;
+                        string shtml_doc_text = new string(chars2);
+                        string s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
+                        this.htmlPanel1.Text = s;
+                        return s;
                     }
                     catch
                     {
@@ -77,7 +115,17 @@ namespace TangentaPrint
             {
                 try
                 {
-                    m_Doc = System.Text.Encoding.UTF8.GetBytes(value);
+                    string shtml_doc_text = value;
+                    string s = null;
+                    if (m_InvoiceData != null)
+                    {
+                        s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
+                    }
+                    else
+                    {
+                        s = shtml_doc_text;
+                    }
+                    this.htmlPanel1.Text = s;
                 }
                 catch (Exception ex)
                 {
@@ -99,17 +147,16 @@ namespace TangentaPrint
         public bool Init(byte[] xdoc, InvoiceData xInvoiceData, GlobalData.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             m_InvoiceData = xInvoiceData;
-            m_Doc = xdoc;
             m_paymentType = xpaymentType;
             m_sPaymentMethod = sPaymentMethod;
             m_sAmountReceived = sAmountReceived;
             m_sToReturn = sToReturn;
             m_issue_time = issue_time;
-            string shtml_doc_text = html_doc_text;
+            m_Doc = xdoc;
+            char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
+            string shtml_doc_text = new string(chars2);
             string s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
             this.htmlPanel1.Text = s;
-            //this.m_webBrowser.DocumentText = s;
-            //this.m_webBrowser.Refresh();
             this.btn_Print.Enabled = true;
             return true;
         }

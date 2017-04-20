@@ -31,7 +31,7 @@ namespace Startup
 
         public Form m_parent_form = null;
         public usrc_Startup m_usrc_Startup = null;
-        internal startup_step[] Step = null;
+        public startup_step[] Step = null;
         public Image m_ImageCancel = null;
         private bool m_bCancel = false;
         public Icon m_FormIconQuestion = null;

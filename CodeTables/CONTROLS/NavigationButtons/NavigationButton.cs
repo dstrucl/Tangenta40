@@ -48,9 +48,16 @@ namespace NavigationButtons
 
         public string ExitProgramQuestionInLanguage = null;
 
-
+        private bool m_DialogShown = false;
 
         public bool Auto_NEXT { get { return (m_Auto_NEXT != null) && (m_eButtons == eButtons.PrevNextExit); } }
+
+        public object oStartup = null;
+        public int StartupStep_index;
+
+        public bool DialogShown { get { return m_DialogShown; }
+                                  set { m_DialogShown = value; }
+                                }
 
         public void ShowDialog()
         {
@@ -75,6 +82,7 @@ namespace NavigationButtons
             {
                 ChildDialog.ShowDialog();
             }
+            m_DialogShown = true;
         }
 
         public void ShowDialog(Form parent)
@@ -100,6 +108,7 @@ namespace NavigationButtons
             {
                 ChildDialog.ShowDialog(parent);
             }
+            m_DialogShown = true;
         }
 
 

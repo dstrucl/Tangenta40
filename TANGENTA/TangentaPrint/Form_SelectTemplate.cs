@@ -193,6 +193,7 @@ namespace TangentaPrint
                         //private DateTime_v issue_time;
                         Create_usrc_Invoice_Preview();
                         m_usrc_Invoice_Preview.Init(xDocument, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                         return true;
                     }
                 }
@@ -360,6 +361,7 @@ namespace TangentaPrint
                         }
                         Create_usrc_Invoice_Preview();
                         m_usrc_Invoice_Preview.Init(xDocument, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                        this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                         return true;
                     }
                     return true;
@@ -397,6 +399,12 @@ namespace TangentaPrint
         {
             this.Close();
             DialogResult = DialogResult.OK;
+        }
+
+        private void btn_Refresh_Click(object sender, EventArgs e)
+        {
+            this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
+            this.m_usrc_Invoice_Preview.html_doc_text = this.m_usrc_Invoice_Preview.html_doc_template_text;
         }
     }
 }

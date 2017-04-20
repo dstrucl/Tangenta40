@@ -186,6 +186,10 @@
       <Project>{3d077dc4-bdab-414f-8907-c902b91fcb0e}</Project>
       <Name>ShopC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Startup\Startup.csproj">
+      <Project>{C4E59CF1-D085-4636-8BB4-2BFA63E54F4D}</Project>
+      <Name>Startup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TangentaDataBaseDef\TangentaDataBaseDef.csproj">
       <Project>{5acce3b7-eb06-439e-b24d-393ecab98980}</Project>
       <Name>TangentaDataBaseDef</Name>
