@@ -365,6 +365,7 @@ namespace Tangenta
                         else
                         {
                             bExitBeforeLogFileInitialised = true;
+                            rpc.End();
                             return;
                         }
                     }
@@ -384,7 +385,6 @@ namespace Tangenta
                         command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCPROFORMAINVOICE, lngRPM.s_commandline_DOCPROFORMAINVOICE.s));
                         command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
                         command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lngRPM.s_commandline_RESETNEW.s));
-                        command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_SYMULATOR, lngRPM.s_commandline_SYMULATOR.s));
                         command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
                         command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
                         command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lngRPM.s_commandline_AUTONEXT.s));
@@ -435,6 +435,7 @@ namespace Tangenta
                         else
                         {
                             bExitBeforeLogFileInitialised = true;
+                            rpc.End();
                             return;
                         }
                     }
@@ -471,6 +472,7 @@ namespace Tangenta
                     {
                         LogFile.LogFile.Write(1, "Another instance is allready running !");
                         MessageBox.Show(lngRPM.s_Another_instance_is_running.s);
+                        rpc.End();
                         return;
                     }
 
