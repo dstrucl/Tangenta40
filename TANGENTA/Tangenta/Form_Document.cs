@@ -422,7 +422,8 @@ namespace Tangenta
                     m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.m_usrc_ShopA.usrc_Editor1.m_tool_SelectItem = null;
                 }
             }
-            if (fs.IDisValid(TangentaDB.GlobalData.Atom_WorkPeriod_ID))
+            long atom_work_period_id = TangentaDB.GlobalData.Atom_WorkPeriod_ID;
+            if (fs.IDisValid(atom_work_period_id))
             {
                 TangentaDB.f_Atom_WorkPeriod.End(TangentaDB.GlobalData.Atom_WorkPeriod_ID);
             }
