@@ -1212,7 +1212,7 @@ namespace Tangenta
                 {
                     if (Program.Shops_in_use.Contains("C"))
                     {
-                        MessageBox.Show(this, lngRPM.s_No_Price_SimpleItem_Data.s);
+                        MessageBox.Show(this, lngRPM.s_No_ShopC_Items_or_no_prices_for_those_items.s);
                         return true;
                     }
                     else

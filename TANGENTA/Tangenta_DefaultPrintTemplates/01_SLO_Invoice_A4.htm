@@ -11,16 +11,15 @@
         margin-bottom: 0.5cm;
         margin-left: 0.5cm;
         box-shadow: 0 0 0.1cm rgba(0,0,0,0.5);
-width: 21cm;
+        width: 21cm;
         height: 29.7cm;
         overflow: hidden;
         background-color: white;
-        padding-left:1cm;
-        padding-right:1cm;
-     }
+        padding-left: 1cm;
+        padding-right: 1cm;
+    }
 
-    div.pagenumbers
-    {
+    div.pagenumbers {
         font-size: 0.3cm;
     }
 
@@ -50,180 +49,174 @@ width: 21cm;
         background: url(dimension.png);
     }
 
-    #project {
-        float: left;
-        border-color: green;
-        border-style: solid;
+    #customer_company td {
+        vertical-align: top;
     }
 
-    #project span {
-        color: #5D6975;
-        text-align: right;
-        width: 52px;
-        margin-right: 0.5cm;
-        display: inline-block;
-        font-size: 0.8em;
+    #project {
+        float: left;
     }
+
+        #project span {
+            color: #5D6975;
+            text-align: right;
+            width: 52px;
+            margin-right: 0.5cm;
+            display: inline-block;
+            font-size: 0.8em;
+        }
 
     #company {
         float: right;
         text-align: right;
-        border-color: red;
-        border-style: solid;
     }
 
-    #project div,
-    #company div {
-        white-space: nowrap;
-    }
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
 
     .tableitems {
         width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0.5cm;
+        border-spacing: 0.01cm;
+        font-size: 0.4cm;
         margin-bottom: 1cm;
     }
 
 
         .tableitems th,
-        .tableitems td
-{
-    text-align: center;
-}
+        .tableitems td {
+            text-align: left;
+        }
 
-        .tableitems th
-{
-    padding: 0.3cm 1cm;
-    color: #5D6975;
-            border-bottom: 0.05cm solid #C1CED9;
-            white-space: nowrap;
-    font-weight: normal;
-}
+        .tableitems th {
+            color: black;
+            padding: 0.1cm;
+            border-bottom: 0.05cm solid black;
+            white-space: wrap;
+            word-wrap: wrap;
+            font-weight: normal;
+            text-align: left;
+            font-size: 0.3cm;
+        }
+
 
         .tableitems.service,
         .tableitems.desc {
             text-align: left;
         }
 
-        .tableitems td
-{
-    padding: 1cm;
-    text-align: right;
-}
+        .tableitems td {
+            padding: 0.1cm;
+            text-align: right;
+            font-size: 0.3cm;
+        }
 
-# tableitems td.service,
-# tableitems td.desc {
-vertical-align: top;
+    # tableitems td.service,
+    # tableitems td.desc {
+        vertical-align: top;
     }
 
-    .tableitems td.unit,
-    .tableitems td.qty,
-    .tableitems td.total {
-    font - size: 0.3cm;
-}
 
-    .tableitems td.grand
-{
-    border-top: 0.1cm solid #5D6975;
+    .tableitems td.grand {
+        border-top: 0.1cm solid #5D6975;
     }
 
-# notices .notice {
-color: #5D6975;
+    # notices .notice {
+        color: #5D6975;
         font-size: 0.8cm;
     }
-
-    
 </style>
 
 
 <html>
 <body>
     <page>
-                <div class="pagenumbers">page 1 of 3</div>
-                <h1>Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@) (@@Račun_Stornacija@@)</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>NASLOVU</th>
-                            <th>IZDAJATELJ:</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div id = "project" >
-                                    <div><span>NASLOVU</span>(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)</div>
-                                    <div><span></span>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
-                                    <div><span></span>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
-                                    <div><span>E-POŠTA</span> <a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)">(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)</a></div>
-                                    <div><span>Datum rač.:</span>(@@Račun_Datum_izdaje_računa@@)</div>
-                                    <div><span>Datum zapadlosti:</span>(@@Račun_Datum_zapadlosti_računa@@)</div>
-                                </div>
-                            </td>
-                            <td>
-                                <div id = "company" class="clearfix">
-                                    <div>IZDAJATELJ:(@@Moja_Organizacija_Ime@@)</div>
-                                    <div>(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)</div>
-                                    <div>(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)</div>
-                                    <div>Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) </div>
-                                    <div>Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) </div>
-                                    <div>Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) </div>
-                                    <div>Oznaka blagajne:(@@Račun_OznakaBlagajne@@) </div>
-                                    <div>Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)</div>
-                                    <div><a href="email:(@@Moja_Organizacija_Email@@)">E-Pošta:(@@Moja_Organizacija_Email@@)</a></div>
-                                    <div><a href="http:(@@Moja_Organizacija_DomačaStran@@)">Domača stran:(@@Moja_Organizacija_DomačaStran@@)</a></div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-               </table>
-            <table class="tableitems">
-                <thead>
-                    <tr>
-                        <th class="item">Artikel ali storitev</th>
-                        <th>Cena na enoto</th>
-                        <th>Popust</th>
-                        <th>Merska Enota</th>
-                        <th>Količina</th>
-                        <th>Davčna stopnja</th>
-                        <th>Cena brez DDV</th>
-                        <th>Davek DDV</th>
-                        <th>Cena z DDV</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="row">
-                        <td class="service">(@@Račun_StoritevAliArtikel_Ime@@)</td>
-                        <td class="priceperunit">(@@Račun_StoritevAliArtikel_CenaNaEnoto@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
-                        <td class="discount">(@@Račun_StoritevAliArtikel_CelotenPopust@@)</td>
-                        <td class="unit">(@@Račun_StoritevAliArtikel_MerskaEnota@@)</td>
-                        <td class="qty">(@@Račun_StoritevAliArtikel_Količina@@)</td>
-                        <td class="taxrate">(@@Račun_StoritevAliArtikel_DavčnaStopnjaVProcentih@@)</td>
-                        <td class="price_neto">(@@Račun_StoritevAliArtikel_Cena_Brez_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
-                        <td class="tax">(@@Račun_StoritevAliArtikel_Davek@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
-                        <td class="price_with_tax">(@@Račun_StoritevAliArtikel_Cena_z_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
-                    </tr>
+        <div class="pagenumbers">page 1 of 3</div>
+        <h1>Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@) (@@Račun_Stornacija@@)</h1>
+        <table id="customer_company">
+            <thead>
+                <tr>
+                    <th>NASLOVU</th>
+                    <th>IZDAJATELJ:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div id="project">
+                            <div><span>NASLOVU</span>(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)</div>
+                            <div><span></span>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
+                            <div><span></span>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
+                            <div><span>E-POŠTA</span> <a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)">(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)</a></div>
+                            <div><span>Datum rač.:</span>(@@Račun_Datum_izdaje_računa@@)</div>
+                            <div><span>Datum zapadlosti:</span>(@@Račun_Datum_zapadlosti_računa@@)</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="company" class="clearfix">
+                            <div>IZDAJATELJ:(@@Moja_Organizacija_Ime@@)</div>
+                            <div>(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)</div>
+                            <div>(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)</div>
+                            <div>Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) </div>
+                            <div>Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) </div>
+                            <div>Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) </div>
+                            <div>Oznaka blagajne:(@@Račun_OznakaBlagajne@@) </div>
+                            <div>Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)</div>
+                            <div><a href="email:(@@Moja_Organizacija_Email@@)">E-Pošta:(@@Moja_Organizacija_Email@@)</a></div>
+                            <div><a href="http:(@@Moja_Organizacija_DomačaStran@@)">Domača stran:(@@Moja_Organizacija_DomačaStran@@)</a></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:3cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:0.8cm">Kol.</th>
+                    <th style="width:2.8cm">Davčna stopnja</th>
+                    <th>Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row">
+                    <td class="service">(@@Račun_StoritevAliArtikel_Ime@@)</td>
+                    <td class="priceperunit">(@@Račun_StoritevAliArtikel_CenaNaEnoto@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+                    <td class="discount">(@@Račun_StoritevAliArtikel_CelotenPopust@@)</td>
+                    <td class="unit">(@@Račun_StoritevAliArtikel_MerskaEnota@@)</td>
+                    <td class="qty">(@@Račun_StoritevAliArtikel_Količina@@)</td>
+                    <td class="taxrate">(@@Račun_StoritevAliArtikel_DavčnaStopnjaVProcentih@@)</td>
+                    <td class="price_neto">(@@Račun_StoritevAliArtikel_Cena_Brez_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+                    <td class="tax">(@@Račun_StoritevAliArtikel_Davek@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+                    <td class="price_with_tax">(@@Račun_StoritevAliArtikel_Cena_z_DDV@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+                </tr>
 
-                    <tr>
+                <tr>
 
-                        <td class="total_neto" colspan="4">SKUPAJ BREZ DAVKA</td>
-                        <td colspan="2" class="total_neto">(@@Račun_CenaSkupajBrezDavka@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
-                    </tr>
-                    <tr class="taxsum">
-                        <td class="tax_95" colspan="4">(@@Račun_ImeDavčneStopnje@@)</td>
-                        <td colspan="2" class="tax_95">(@@Račun_DavekSkupaj@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="grand_total">Končna cena z davkom</td>
-                        <td colspan="2" class="grand_total">(@@Račun_KončnaCenaZDavkom@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
-                    </tr>
-                </tbody>
-            </table>
+                    <td class="total_neto" colspan="4">SKUPAJ BREZ DAVKA</td>
+                    <td colspan="5" class="total_neto">(@@Račun_CenaSkupajBrezDavka@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+                </tr>
+                <tr class="taxsum">
+                    <td class="tax_95" colspan="4">(@@Račun_ImeDavčneStopnje@@)</td>
+                    <td colspan="5" class="tax_95">(@@Račun_DavekSkupaj@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="grand_total">Končna cena z davkom</td>
+                    <td colspan="5" class="grand_total">(@@Račun_KončnaCenaZDavkom@@) (@@Račun_StoritevAliArtikel_Valuta@@)</td>
+                </tr>
+            </tbody>
+        </table>
         <div id="FURS">
             <div>FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"</div>
             <div>FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"</div>
             <img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" />
         </div>
-     </page>	
-  </body>
+    </page>
+</body>
 </html>

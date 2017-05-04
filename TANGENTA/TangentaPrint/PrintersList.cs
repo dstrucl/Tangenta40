@@ -41,9 +41,24 @@ namespace TangentaPrint
         public static DataColumn dcol_PageSettings_PrinterResolution_Y = null;
         public static DataColumn dcol_PageSettings_PrinterResolution_Kind = null;
 
-        public static bool Read()
+        public static bool Read(bool bReset2FactorySettings)
         {
-            if (File.Exists(PrinterListFile))
+            if (bReset2FactorySettings)
+            {
+                try
+                {
+                    if (File.Exists(PrinterListFile))
+                    {
+                        File.Delete(PrinterListFile);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogFile.Error.Show("ERROR:TangentaPrint:PrintersList:Read(bReset2FactorySettings = true):Exception = " + ex.Message);
+                }
+            }
+
+                if (File.Exists(PrinterListFile))
             {
                 try
                 {

@@ -40,13 +40,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Debug\DigitalRune.Windows.TextEditor.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\DLL\HtmlRenderer.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlRenderer.WinForms">
-      <HintPath>..\..\DLL\HtmlRenderer.WinForms.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -181,6 +174,14 @@
     <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HtmlRenderer 1.5.0.6 with print pages support\HtmlRenderer.WinForms\HtmlRenderer.WinForms.csproj">
+      <Project>{1b058920-24b4-4140-8ae7-c8c6c38ca52d}</Project>
+      <Name>HtmlRenderer.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HtmlRenderer 1.5.0.6 with print pages support\HtmlRenderer\HtmlRenderer.csproj">
+      <Project>{fe611685-391f-4e3e-b27e-d3150e51e49b}</Project>
+      <Name>HtmlRenderer</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopC\ShopC.csproj">
       <Project>{3d077dc4-bdab-414f-8907-c902b91fcb0e}</Project>

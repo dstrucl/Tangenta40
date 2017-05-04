@@ -37,6 +37,7 @@
             this.chk_DBConnectionControl_DLL = new System.Windows.Forms.CheckBox();
             this.chk_FiscalVerifiaction = new System.Windows.Forms.CheckBox();
             this.chk_LogFile_DLL = new System.Windows.Forms.CheckBox();
+            this.chk_TangentaPrint_DLL = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn_Yes
@@ -117,11 +118,22 @@
             this.chk_LogFile_DLL.Text = "LogFile.DLL";
             this.chk_LogFile_DLL.UseVisualStyleBackColor = true;
             // 
+            // chk_TangentaPrint_DLL
+            // 
+            this.chk_TangentaPrint_DLL.AutoSize = true;
+            this.chk_TangentaPrint_DLL.Location = new System.Drawing.Point(328, 130);
+            this.chk_TangentaPrint_DLL.Name = "chk_TangentaPrint_DLL";
+            this.chk_TangentaPrint_DLL.Size = new System.Drawing.Size(116, 17);
+            this.chk_TangentaPrint_DLL.TabIndex = 8;
+            this.chk_TangentaPrint_DLL.Text = "TangentaPrint.DLL";
+            this.chk_TangentaPrint_DLL.UseVisualStyleBackColor = true;
+            // 
             // Form_Reset_Properties_Settings_Default
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 251);
+            this.Controls.Add(this.chk_TangentaPrint_DLL);
             this.Controls.Add(this.chk_LogFile_DLL);
             this.Controls.Add(this.chk_FiscalVerifiaction);
             this.Controls.Add(this.chk_DBConnectionControl_DLL);
@@ -153,5 +165,6 @@
         private System.Windows.Forms.CheckBox chk_DBConnectionControl_DLL;
         private System.Windows.Forms.CheckBox chk_FiscalVerifiaction;
         private System.Windows.Forms.CheckBox chk_LogFile_DLL;
+        private System.Windows.Forms.CheckBox chk_TangentaPrint_DLL;
     }
 }

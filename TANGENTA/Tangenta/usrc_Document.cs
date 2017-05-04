@@ -22,6 +22,7 @@ using TangentaDB;
 using UpgradeDB;
 using Startup;
 using NavigationButtons;
+using static Tangenta.Program;
 
 namespace Tangenta
 {
@@ -195,7 +196,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             {
                 TangentaPrint.PrintersList.Init();
 
-                if (TangentaPrint.PrintersList.Read())
+                if (TangentaPrint.PrintersList.Read(Reset2FactorySettings.TangentaPrint_DLL)) 
                 {
                     myStartup.eNextStep++;
                     return true;

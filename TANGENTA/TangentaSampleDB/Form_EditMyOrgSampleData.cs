@@ -22,6 +22,7 @@ namespace TangentaSampleDB
         public Form_EditMyOrgSampleData(SampleDB smd, NavigationButtons.Navigation xnav,Icon xoIcon)
         {
             InitializeComponent();
+            lngRPM.s_Form_EditMyOrgSampleData.Text(this);
             oIcon = xoIcon;
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);

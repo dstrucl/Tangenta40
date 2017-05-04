@@ -16,6 +16,7 @@ namespace Tangenta
         internal bool bDBConnectionControlXX_EXE = false;
         internal bool bFiscalVerification_DLL = false;
         internal bool bLangugaControl_DLL = false;
+        internal bool bTangentaPrint_DLL = false;
         internal bool bLogFile_DLL = false;
 
         public Form_Reset_Properties_Settings_Default()
@@ -25,6 +26,7 @@ namespace Tangenta
             this.chk_Tangenta_EXE.Checked = true;
             this.chk_DBConnectionControl_DLL.Checked = true;
             this.chk_LanguageControl_DLL.Checked = true;
+            this.chk_TangentaPrint_DLL.Checked = true;
             this.chk_FiscalVerifiaction.Checked = false;
             this.chk_LogFile_DLL.Checked = true; 
             lngRPM.s_Yes.Text(btn_Yes);
@@ -36,6 +38,7 @@ namespace Tangenta
             bTangenta_EXE = this.chk_Tangenta_EXE.Checked;
             bDBConnectionControlXX_EXE = this.chk_DBConnectionControl_DLL.Checked;
             bLangugaControl_DLL = this.chk_LanguageControl_DLL.Checked;
+            bTangentaPrint_DLL = this.chk_TangentaPrint_DLL.Checked;
             bFiscalVerification_DLL = this.chk_FiscalVerifiaction.Checked;
             bLogFile_DLL = this.chk_LogFile_DLL.Checked;
             Close();

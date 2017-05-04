@@ -18,6 +18,7 @@ namespace LanguageControl
     public static class lngRPM
     {
 
+        public static ltext s_Form_EditMyOrgSampleData = new ltext("Sample data for organisation name Company1. You can change them to your organisation data.", "Vzorčni podatki organizacije z imenom Podjetje1, ki jih lahko spremenite v tem dialogu v podatke vaše organizacije.");
         public static ltext sPrinterNotFound = new ltext("Printer not found:", "Tiskalnik ni nameščen:");
         public static ltext sPrinterListDataChanged_Save = new ltext("Printer data list and settings has changed. Save new list?", "Podatki o tiskalnikih so se spremenili. Shranim podatke? ");
         public static ltext s_PrinterIsAllreadyOnTheList = new ltext("Printer is allready on the list", "Tiskalnik je že v seznamu za uporabo");
@@ -580,7 +581,7 @@ namespace LanguageControl
         public static ltext s_Item = new ltext("Item", "Artikel");
         public static ltext s_NoItemData_EnterItemDataQuestion = new ltext("No item data. Enter item data ?", "Ni podatkov o artiklih. Vnesite podatke o artiklih?");
 
-        public static ltext s_No_Price_SimpleItem_Data = new ltext("Pricelist for SimpleItems has no prices!", "V izbranem ceniku ni cen o vaših storitvah !");
+        public static ltext s_No_ShopC_Items_or_no_prices_for_those_items = new ltext("Shop %s has no items to sell or prices for them are not defined!", "V prodajalni %s ni nobenih artiklov ali pa le ti nimajo določenih prodajnih cen v ceniku!");
 
         public static ltext s_NoSimpleItemData_EnterSimpleItemDataQuestion = new ltext("No SimpleItem data. Enter SimpleItem data ?", "Ni podatkov o vaših storitvah. Vnesite podatke o storitvah?");
         public static ltext s_Yes = new ltext("Yes", "Da");
