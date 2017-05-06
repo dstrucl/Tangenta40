@@ -35,7 +35,8 @@ namespace TangentaDB
                                  string_v Image_Description_v,
                                  ref ID_v cAdressAtom_Org_iD_v,
                                  ref long_v Organisation_ID_v,
-                                 ref long_v OrganisationData_ID_v)
+                                 ref long_v OrganisationData_ID_v,
+                                 ref long_v OrganisationAccount_ID_v)
         {
             string Err = null;
             string Name_condition = null;
@@ -100,7 +101,7 @@ namespace TangentaDB
                         Organisation_ID_v = new long_v();
                     }
                     Organisation_ID_v.v = (long)dt.Rows[0]["ID"];
-                    return f_OrganisationData.Get(Organisation_ID_v.v,
+                    if (f_OrganisationData.Get(Organisation_ID_v.v,
                                                        OrganisationTYPE_v,
                                                        Address_v,
                                                        PhoneNumber_v,
@@ -111,7 +112,24 @@ namespace TangentaDB
                                                        Image_Data_v,
                                                        Image_Description_v,
                                                        ref cAdressAtom_Org_iD_v,
-                                                       ref OrganisationData_ID_v);
+                                                       ref OrganisationData_ID_v))
+                    {
+                        if (BankAccount_ID_v != null)
+                        {
+                            return f_OrganisationAccount.Get(BankAccount_ID_v,
+                                                      Organisation_ID_v,
+                                                      Organisation_BankAccount_Description_v,
+                                                      ref OrganisationAccount_ID_v);
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -138,12 +156,17 @@ namespace TangentaDB
                                                                                 ref cAdressAtom_Org_iD_v,
                                                                                ref OrganisationData_ID_v))
                         {
-
-                            long_v OrganisationAccount_ID_v = null;
-                            return f_OrganisationAccount.Get(BankAccount_ID_v,
-                                                      Organisation_ID_v,
-                                                      Organisation_BankAccount_Description_v,
-                                                      ref OrganisationAccount_ID_v);
+                            if (BankAccount_ID_v != null)
+                            {
+                                return f_OrganisationAccount.Get(BankAccount_ID_v,
+                                                          Organisation_ID_v,
+                                                          Organisation_BankAccount_Description_v,
+                                                          ref OrganisationAccount_ID_v);
+                            }
+                            else
+                            {
+                                return true;
+                            }
                         }
                         else
                         {

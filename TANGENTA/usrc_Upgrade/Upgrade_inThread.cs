@@ -93,12 +93,22 @@ namespace UpgradeDB
                     frm_upgr.ShowDialog();
                 }
             }
+            CheckDataBaseTables(ref Err);
             return true;
         }
 
         private object UpgradeDB_1_20_to_1_21(object obj, ref string Err)
         {
-            string[] new_tables = new string[] { "Atom_ElectronicDevice" };
+            string[] new_tables = new string[] {"Contact",
+                                                "Trucking",
+                                                "Purchase_Order",
+                                                "StockTake",
+                                                "StockTakeCostName",
+                                                "StockTakeCostDescription",
+                                                "StockTake_AdditionalCost",
+                                                "JOURNAL_StockTake_Type",
+                                                "JOURNAL_StockTake",
+                                                "Atom_ElectronicDevice" };
             if (DBSync.DBSync.CreateTables(new_tables, ref Err))
             {
                 long Atom_ElectronicDevice_ID = -1;
@@ -137,7 +147,7 @@ namespace UpgradeDB
                         Atom_myOrganisation_Person_ID,
                         Atom_WorkingPlace_ID,
                         Atom_Computer_ID,
-                        "+ spar_Atom_ElectronicDevice_ID + @",
+                        " + spar_Atom_ElectronicDevice_ID + @",
                         Atom_WorkPeriod_TYPE_ID,
                         LoginTime,
                         LogoutTime
@@ -151,6 +161,70 @@ namespace UpgradeDB
                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
+                    sql = @"
+                    PRAGMA foreign_keys = OFF;
+                    CREATE TABLE PurchasePrice_NEW(
+                    'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                    'PurchasePricePerUnit' DECIMAL(18,5) NOT NULL,
+                        Currency_ID INTEGER NOT NULL REFERENCES Currency(ID),
+                        Taxation_ID INTEGER NOT NULL REFERENCES Taxation(ID),
+                    'PurchasePriceDate' DATETIME NOT NULL );
+
+                        Insert into PurchasePrice_NEW
+                            (
+                                PurchasePricePerUnit,
+                                Currency_ID,
+                                Taxation_ID,
+                                PurchasePriceDate
+                            )
+                            select
+                                PurchasePricePerUnit,
+                                Currency_ID,
+                                Taxation_ID,
+                                PurchasePriceDate
+                            from PurchasePrice;
+                        
+                    CREATE TABLE PurchasePrice_Item_NEW 
+                    ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                        Item_ID INTEGER NOT NULL REFERENCES Item(ID),
+                        PurchasePrice_ID INTEGER NOT NULL REFERENCES PurchasePrice(ID),
+                        StockTake_ID INTEGER NOT NULL REFERENCES StockTake(ID) 
+                    );
+
+                        Insert into PurchasePrice_NEW
+                            (
+                                PurchasePricePerUnit,
+                                Currency_ID,
+                                Taxation_ID,
+                                PurchasePriceDate
+                            )
+                            select
+                                PurchasePricePerUnit,
+                                Currency_ID,
+                                Taxation_ID,
+                                PurchasePriceDate
+                            from PurchasePrice;
+
+                        DROP TABLE Supplier; 
+
+                        CREATE TABLE Supplier 
+                        ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 
+                        Contact_ID INTEGER NOT NULL REFERENCES Contact(ID) UNIQUE );
+
+                        PRAGMA foreign_keys = ON;
+                    ";
+
+                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+
+                    if (!FillStockTake())
+                    {
+                        return false;
+                    }
+
                     return Set_DatBase_Version("1.21");
                 }
                 else
@@ -163,6 +237,269 @@ namespace UpgradeDB
                 return false;
             }
         }
+
+        private bool FillStockTake()
+        {
+            DataTable dtPurchasePrice_Item_OLD = new DataTable();
+            DataTable dtPurchasePrice_OLD = new DataTable();
+            DataTable dtReference = new DataTable();
+            DataTable dtSupplier = new DataTable();
+            DataTable dtOrganisation = new DataTable();
+
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dtPurchasePrice_Item_OLD, "select * from PurchasePrice_Item", ref Err))
+            {
+                if (DBSync.DBSync.ReadDataTable(ref dtPurchasePrice_OLD, "select * from PurchasePrice", ref Err))
+                {
+                    if (DBSync.DBSync.ReadDataTable(ref dtReference, "select * from Reference", ref Err))
+                    {
+                        if (DBSync.DBSync.ReadDataTable(ref dtSupplier, "select * from Supplier", ref Err))
+                        {
+                            if (DBSync.DBSync.ReadDataTable(ref dtOrganisation, "select * from Organisation", ref Err))
+                            {
+                                string sdb = DBSync.DBSync.DataBase;
+
+                                if (sdb.Contains("StudioMarjetka"))
+                                {
+                                    long Contact_ID_drEckstein = -1;
+                                    if (InsertDrEcksteinGmbh_Contact(ref Contact_ID_drEckstein))
+                                    {
+                                        long Contact_ID_Bizjan_doo = -1;
+                                        if (InsertBizjan_doo_Contact(ref Contact_ID_Bizjan_doo))
+                                        {
+                                            string sql = @"
+                                            PRAGMA foreign_keys = OFF;
+                                            DROP TABLE Supplier;
+                                            CREATE TABLE Supplier
+                                            ('ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                            Contact_ID INTEGER NOT NULL REFERENCES Contact(ID) UNIQUE);
+
+                                            PRAGMA foreign_keys = ON;
+                                             "
+                                            sql += "insert into Supplier (Contact_ID)values(" + Contact_ID_drEckstein.ToString() + ");\r\n";
+                                            sql += "insert into Supplier (Contact_ID)values(" + Contact_ID_Bizjan_doo.ToString() + ");";
+                                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                            {
+                                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                                return false;
+                                            }
+                                            foreach (DataRow drReference in dtReference.Rows)
+                                            {
+                                                long Reference_ID = (long)drReference["Reference_ID"];
+                                                string ReferenceNote = (string)drReference["ReferenceNote"];
+
+                                                DataRow[] drs_of_dtPurchasePrice_with_same_Reference_ID = dtPurchasePrice_OLD.Select("Reference_ID = " + Reference_ID.ToString());
+
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            return false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
+                                }
+
+
+
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:Upgrade_inThread:FillStockTake:Err=" + Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:Upgrade_inThread:FillStockTake:Err=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:Upgrade_inThread:FillStockTake:Err=" + Err);
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:Upgrade_inThread:FillStockTake:Err=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Upgrade_inThread:FillStockTake:Err=" + Err);
+                return false;
+            }
+        }
+
+        private bool InsertDrEcksteinGmbh_Contact(ref long Contact_ID)
+        {
+            string_v Organisation_Name_v = new string_v("Linde Eckstein GmbH");
+            string_v Tax_ID_v = new string_v("132747963");
+            string_v Registration_ID_v = new string_v("218/167/50501");
+            string_v OrganisationTYPE_v = new string_v("Gmbh");
+            PostAddress_v Address_v = new PostAddress_v();
+
+            Address_v.StreetName_v = new dstring_v("Flurstraße");
+            Address_v.HouseNumber_v = new dstring_v("27 a – 35");
+            Address_v.ZIP_v = new dstring_v("90522");
+            Address_v.City_v = new dstring_v("Oberasbach");
+            Address_v.Country_v = new dstring_v("Germany");
+            Address_v.Country_ISO_3166_a2_v = new dstring_v("DE");
+            Address_v.Country_ISO_3166_a3_v = new dstring_v("DEU");
+            Address_v.Country_ISO_3166_num_v = new dshort_v(276);
+            Address_v.State_v = null;
+
+            string_v PhoneNumber_v = new string_v("+49 911 96 92-0");
+            string_v FaxNumber_v = new string_v("+49 911 96 92-200");
+            string_v Email_v = new string_v("M.Peter@eckstein-kosmetik.de");
+            string_v HomePage_v = new string_v("http://www.eckstein-kosmetik.de/");
+            long_v BankAccount_ID_v = null;
+            string_v Organisation_BankAccount_Description_v = null;
+            string_v Image_Hash_v = null;
+            byte_array_v Image_Data_v = null;
+            string_v Image_Description_v = null;
+            ID_v cAdressAtom_Org_iD_v = null;
+            long_v Organisation_ID_v = null;
+            long_v OrganisationData_ID_v = null;
+            long_v OrganisationAccount_ID_v = null;
+
+            bool_v Person_Gender_v = null;
+            string_v FirstName_v = null;
+            string_v LastName_v = null;
+            DateTime_v DateOfBirth_v = null;
+            string_v Person_Tax_ID_v = null;
+            string_v Person_Registration_ID_v = null;
+
+
+            long_v Person_ID_v = null;
+            long_v Contact_ID_v = null;
+
+            if (f_Contact.Get(Organisation_Name_v,
+            Tax_ID_v,
+            Registration_ID_v,
+            OrganisationTYPE_v,
+            Address_v,
+            PhoneNumber_v,
+            FaxNumber_v,
+            Email_v,
+            HomePage_v,
+            BankAccount_ID_v,
+            Organisation_BankAccount_Description_v,
+            Image_Hash_v,
+            Image_Data_v,
+            Image_Description_v,
+            Person_Gender_v,
+            FirstName_v,
+            LastName_v,
+            DateOfBirth_v,
+            Person_Tax_ID_v,
+            Person_Registration_ID_v,
+            ref cAdressAtom_Org_iD_v,
+            ref Organisation_ID_v,
+            ref OrganisationData_ID_v,
+            ref OrganisationAccount_ID_v,
+            ref Person_ID_v,
+            ref Contact_ID_v))
+            {
+                Contact_ID = Contact_ID_v.v;
+                return true;
+            }
+            else
+            {
+                Contact_ID = -1;
+                return false;
+            }
+        }
+
+       
+
+        private bool InsertBizjan_doo_Contact(ref long Contact_ID)
+        {
+            string_v Organisation_Name_v = new string_v("Bizjan d.o.o.&Co");
+            string_v Tax_ID_v = new string_v("18351182");
+            string_v Registration_ID_v = new string_v("1319337000");
+            string_v OrganisationTYPE_v = new string_v("d.o.o.");
+            PostAddress_v Address_v = new PostAddress_v();
+
+            Address_v.StreetName_v = new dstring_v("Malgajeva ulica");
+            Address_v.HouseNumber_v = new dstring_v("7");
+            Address_v.ZIP_v = new dstring_v("1000");
+            Address_v.City_v = new dstring_v("Ljubljana");
+            Address_v.Country_v = new dstring_v("Slovenija");
+            Address_v.Country_ISO_3166_a2_v = new dstring_v("SI");
+            Address_v.Country_ISO_3166_a3_v = new dstring_v("SVN");
+            Address_v.Country_ISO_3166_num_v = new dshort_v(705);
+            Address_v.State_v = null;
+
+            string_v PhoneNumber_v = new string_v("+386 1 4347711 ");
+            string_v FaxNumber_v = new string_v("+386 1 4347712");
+            string_v Email_v = new string_v("bizjan.co@siol.net");
+            string_v HomePage_v = new string_v("http://www.bizjan-co.si");
+            long_v BankAccount_ID_v = null;
+            string_v Organisation_BankAccount_Description_v = null;
+            string_v Image_Hash_v = null;
+            byte_array_v Image_Data_v = null;
+            string_v Image_Description_v = null;
+            ID_v cAdressAtom_Org_iD_v = null;
+            long_v Organisation_ID_v = null;
+            long_v OrganisationData_ID_v = null;
+            long_v OrganisationAccount_ID_v = null;
+            bool_v Person_Gender_v = null;
+            string_v FirstName_v = null;
+            string_v LastName_v = null;
+            DateTime_v DateOfBirth_v = null;
+            string_v Person_Tax_ID_v = null;
+            string_v Person_Registration_ID_v = null;
+
+
+            long_v Person_ID_v = null;
+            long_v Contact_ID_v = null;
+
+            if (f_Contact.Get(Organisation_Name_v,
+            Tax_ID_v,
+            Registration_ID_v,
+            OrganisationTYPE_v,
+            Address_v,
+            PhoneNumber_v,
+            FaxNumber_v,
+            Email_v,
+            HomePage_v,
+            BankAccount_ID_v,
+            Organisation_BankAccount_Description_v,
+            Image_Hash_v,
+            Image_Data_v,
+            Image_Description_v,
+            Person_Gender_v,
+            FirstName_v,
+            LastName_v,
+            DateOfBirth_v,
+            Person_Tax_ID_v,
+            Person_Registration_ID_v,
+            ref cAdressAtom_Org_iD_v,
+            ref Organisation_ID_v,
+            ref OrganisationData_ID_v,
+            ref OrganisationAccount_ID_v, 
+            ref Person_ID_v,
+            ref Contact_ID_v))
+            {
+                Contact_ID = Contact_ID_v.v;
+                return true;
+            }
+            else
+            {
+                Contact_ID = -1;
+                return false;
+            }
+        }
+
 
         private object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
         {
@@ -465,6 +802,12 @@ namespace UpgradeDB
                             sql = @"
                                   PRAGMA foreign_keys = OFF;
 
+                                  CREATE TABLE AccessR 
+                                  ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                    'Name' varchar(264) UNIQUE NOT NULL UNIQUE ,
+                                    'Description' varchar(2000) NOT NULL 
+                                  );
+
                                   CREATE TABLE myOrganisation
                                   (
                                   'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -582,6 +925,16 @@ namespace UpgradeDB
                                 'ShortName' varchar(10) UNIQUE  NOT NULL
                                 );
 
+                                insert into AccessR
+                                (
+                                    'Name',
+                                    'Description'
+                                )
+                                select
+                                    'Name',
+                                    'Description'
+                                    from AccessRights;
+
                                 insert into myOrganisation
                                 (
                                   OrganisationData_ID
@@ -617,9 +970,9 @@ namespace UpgradeDB
                                    myOrganisation_Person_ID
                                   )
                                   select
-                                   AccessR_ID,
+                                   AccessRights_ID,
                                    myCompany_Person_ID
-                                 from myCompany_Person_AccessR;
+                                 from myCompany_Person_AccessRights;
 
 
                                 insert into Atom_myOrganisation_Person
@@ -700,11 +1053,12 @@ namespace UpgradeDB
                                 ALTER TABLE Atom_WorkPeriod_new RENAME TO Atom_WorkPeriod;
                                 Drop Table JOURNAL_myCompany;
                                 Drop Table JOURNAL_myCompany_TYPE;
-                                Drop Table myCompany_Person_AccessR;
+                                Drop Table myCompany_Person_AccessRights;
                                 Drop Table myCompany_Person;
                                 Drop Table Atom_myCompany_Person;
                                 Drop Table Atom_myCompany;
                                 Drop Table myCompany;
+                                Drop Table AccessRights;
 
                                 PRAGMA foreign_keys = ON;
 
@@ -732,7 +1086,6 @@ namespace UpgradeDB
                                 {
                                     if (DBSync.DBSync.Create_VIEWs())
                                     {
-                                        CheckDataBaseTables(ref Err);
                                         Set_DatBase_Version("1.20");
                                         return true;
                                     }

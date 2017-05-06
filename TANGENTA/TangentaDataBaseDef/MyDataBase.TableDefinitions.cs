@@ -1432,7 +1432,7 @@ namespace TangentaDataBaseDef
             t_AccessR = new SQLTable((Object)new AccessR(),"accr", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_AccessRights); ;
             t_AccessR.AddColumn((Object)mt.m_AccessR.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
             t_AccessR.AddColumn((Object)mt.m_AccessR.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Name of access Rights", "Ime dostopne pravice") );
-            t_AccessR.AddColumn((Object)mt.m_AccessR.Description, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Description of access Rights", "Opis dostopne pravice") );
+            t_AccessR.AddColumn((Object)mt.m_AccessR.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Description of access Rights", "Opis dostopne pravice") );
             m_DBTables.items.Add(t_AccessR);
 
         /* 100 */

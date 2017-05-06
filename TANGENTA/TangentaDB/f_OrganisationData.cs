@@ -148,8 +148,8 @@ namespace TangentaDB
                     string cOrgTYPE_ID_value = null;
                     if (OrganisationTYPE_ID_v != null)
                     {
-                        cOrgTYPE_ID_condition = " cOrgTYPE_ID = " + cAdressAtom_Org_iD_v.v.ToString();
-                        cOrgTYPE_ID_value = cAdressAtom_Org_iD_v.v.ToString();
+                        cOrgTYPE_ID_condition = " cOrgTYPE_ID = " + OrganisationTYPE_ID_v.v.ToString();
+                        cOrgTYPE_ID_value = OrganisationTYPE_ID_v.v.ToString();
                     }
                     else
                     {

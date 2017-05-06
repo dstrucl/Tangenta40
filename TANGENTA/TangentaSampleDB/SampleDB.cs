@@ -332,6 +332,7 @@ namespace TangentaSampleDB
                     {
 
                         long_v MyOrg_BankAccount_ID_v = null;
+                        long_v OrganisationAccount_ID_v = null;
                         if (f_BankAccount.Get(MyOrg_BankAccount_TRR_v, MyOrg_BankAccount_Active_v, MyOrg_BankAccount_Description_v, Bank_ID_v, ref MyOrg_BankAccount_ID_v))
                         {
                             if (f_Organisation.Get(MyOrg_Name_v,
@@ -350,9 +351,9 @@ namespace TangentaSampleDB
                                                 MyOrg_Image_Description_v,
                                                     ref cAdressAtom_Org_iD_v,
                                                     ref MyOrg_Organisation_ID_v,
-                                                    ref MyOrg_OrganisationData_ID_v))
+                                                    ref MyOrg_OrganisationData_ID_v,
+                                                    ref OrganisationAccount_ID_v))
                             {
-                                long_v OrganisationAccount_ID_v = null;
                                 if (f_OrganisationAccount.Get(MyOrg_BankAccount_ID_v, MyOrg_Organisation_ID_v, MyOrg_BankAccount_Description_v, ref OrganisationAccount_ID_v))
                                 {
                                     long myOrganisation_ID = -1;

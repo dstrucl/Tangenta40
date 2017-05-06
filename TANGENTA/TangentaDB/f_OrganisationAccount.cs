@@ -38,7 +38,7 @@ namespace TangentaDB
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
-            string Organisation_BankAccount_Description_v_ID_v_cond = "Organisation_BankAccount_Description_v_ID is null";
+            string Organisation_BankAccount_Description_v_ID_v_cond = "Description is null";
             string Organisation_BankAccount_Description_v_ID_v_Value = "null";
 
             if (Organisation_BankAccount_Description_v != null)
