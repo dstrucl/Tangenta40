@@ -190,6 +190,94 @@ namespace TangentaDB
             return false;
         }
 
+        public static bool GetData(long Person_ID,
+                                   ref string_v FirstName_v,
+                                   ref string_v LastName_v,
+                                   ref DateTime_v DateOfBirth_v,
+                                   ref string_v Tax_ID_v,
+                                   ref string_v Registration_ID_v
+                                   )
+        {
+            string Err = null;
+            DataTable dt = new DataTable();
+            string sql = @"select Person_$_cfn_$$FirstName,
+                                  Person_$_cln_$$LastName,
+                                  Person_$$DateOfBirth,
+                                  Person_$$Tax_ID,
+                                  Person_$$Registration_ID from Person_VIEW where ID = " + Person_ID.ToString();
+            if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    object oFirstName = dt.Rows[0]["Person_$_cfn_$$FirstName"];
+                    if (oFirstName is string)
+                    {
+                        FirstName_v = new string_v((string)oFirstName);
+                    }
+                    else
+                    {
+                        FirstName_v = null;
+                    }
+
+                    object oLastName = dt.Rows[0]["Person_$_cln_$$LastName"];
+                    if (oLastName is string)
+                    {
+                        LastName_v = new string_v((string)oLastName);
+                    }
+                    else
+                    {
+                        LastName_v = null;
+                    }
+
+
+
+                    object oDateOfBirth = dt.Rows[0]["Person_$$DateOfBirth"];
+                    if (oDateOfBirth is DateTime)
+                    {
+                        DateOfBirth_v = new DateTime_v((DateTime)oDateOfBirth);
+                    }
+                    else
+                    {
+                        DateOfBirth_v = null;
+                    }
+
+
+                    object oTax_ID = dt.Rows[0]["Person_$$Tax_ID"];
+                    if (oTax_ID is string)
+                    {
+                        Tax_ID_v = new string_v((string)oTax_ID);
+                    }
+                    else
+                    {
+                        Tax_ID_v = null;
+                    }
+
+
+                    object oRegistration_ID = dt.Rows[0]["Person_$$Registration_ID"];
+                    if (oRegistration_ID is string)
+                    {
+                        Registration_ID_v = new string_v((string)oRegistration_ID);
+                    }
+                    else
+                    {
+                        Registration_ID_v = null;
+                    }
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:f_Person:GetData:sql=" + sql + "\r\n No Person data for Person_ID = "+ Person_ID.ToString());
+                    return false;
+                }
+                
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Person:GetData:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+
+        }
         public static bool DeleteAll()
         {
             return fs.DeleteAll("Person");

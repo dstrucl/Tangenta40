@@ -243,7 +243,6 @@ namespace UpgradeDB
             DataTable dtPurchasePrice_Item_OLD = new DataTable();
             DataTable dtPurchasePrice_OLD = new DataTable();
             DataTable dtReference = new DataTable();
-            DataTable dtSupplier = new DataTable();
             DataTable dtOrganisation = new DataTable();
 
             string Err = null;
@@ -253,66 +252,131 @@ namespace UpgradeDB
                 {
                     if (DBSync.DBSync.ReadDataTable(ref dtReference, "select * from Reference", ref Err))
                     {
-                        if (DBSync.DBSync.ReadDataTable(ref dtSupplier, "select * from Supplier", ref Err))
+                        if (DBSync.DBSync.ReadDataTable(ref dtOrganisation, "select * from Organisation", ref Err))
                         {
-                            if (DBSync.DBSync.ReadDataTable(ref dtOrganisation, "select * from Organisation", ref Err))
+                            string sdb = DBSync.DBSync.DataBase;
+
+                            if (sdb.Contains("StudioMarjetka"))
                             {
-                                string sdb = DBSync.DBSync.DataBase;
-
-                                if (sdb.Contains("StudioMarjetka"))
+                                long Contact_ID_drEckstein = -1;
+                                if (InsertDrEcksteinGmbh_Contact(ref Contact_ID_drEckstein))
                                 {
-                                    long Contact_ID_drEckstein = -1;
-                                    if (InsertDrEcksteinGmbh_Contact(ref Contact_ID_drEckstein))
+                                    long Contact_ID_Bizjan_doo = -1;
+                                    if (InsertBizjan_doo_Contact(ref Contact_ID_Bizjan_doo))
                                     {
-                                        long Contact_ID_Bizjan_doo = -1;
-                                        if (InsertBizjan_doo_Contact(ref Contact_ID_Bizjan_doo))
+                                        string sql = @"
+                                        PRAGMA foreign_keys = OFF;
+                                        CREATE TABLE Supplier_NEW
+                                        ('ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        Contact_ID INTEGER NOT NULL REFERENCES Contact(ID) UNIQUE);
+
+                                        PRAGMA foreign_keys = ON;
+                                            ";
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                                         {
-                                            string sql = @"
-                                            PRAGMA foreign_keys = OFF;
-                                            DROP TABLE Supplier;
-                                            CREATE TABLE Supplier
-                                            ('ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                            Contact_ID INTEGER NOT NULL REFERENCES Contact(ID) UNIQUE);
-
-                                            PRAGMA foreign_keys = ON;
-                                             "
-                                            sql += "insert into Supplier (Contact_ID)values(" + Contact_ID_drEckstein.ToString() + ");\r\n";
-                                            sql += "insert into Supplier (Contact_ID)values(" + Contact_ID_Bizjan_doo.ToString() + ");";
-                                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                                            {
-                                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
-                                                return false;
-                                            }
-                                            foreach (DataRow drReference in dtReference.Rows)
-                                            {
-                                                long Reference_ID = (long)drReference["Reference_ID"];
-                                                string ReferenceNote = (string)drReference["ReferenceNote"];
-
-                                                DataRow[] drs_of_dtPurchasePrice_with_same_Reference_ID = dtPurchasePrice_OLD.Select("Reference_ID = " + Reference_ID.ToString());
-
-
-                                            }
-
-                                        }
-                                        else
-                                        {
+                                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                             return false;
                                         }
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-                                }
+
+                                        sql = "insert into Supplier_NEW (Contact_ID)values(" + Contact_ID_drEckstein.ToString() + ")";
+
+                                        long Suplier_ID_drEckstein = -1;
+                                        object oret = null;
+
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Suplier_ID_drEckstein, ref oret, ref Err, "Supplier_NEW"))
+                                        {
+                                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                            return false;
+                                        }
+
+                                        long Suplier_ID_Bizjan_doo = -1;
+                                        sql = "insert into Supplier_NEW (Contact_ID)values(" + Contact_ID_Bizjan_doo.ToString() + ")";
+                                        if (!DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref Suplier_ID_Bizjan_doo, ref oret, ref Err, "Supplier_NEW"))
+                                        {
+                                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                            return false;
+                                        }
+
+                                        int iCount = dtPurchasePrice_Item_OLD.Rows.Count;
+                                        for (int i = 0; i < iCount; i++)
+                                        {
+                                            DataRow drPurchasePrice_Item = dtPurchasePrice_Item_OLD.Rows[i];
+
+                                            long PurchasePrice_ID = (long)drPurchasePrice_Item["PurchasePrice_ID"];
+                                            long Item_ID = (long)drPurchasePrice_Item["Item_ID"];
+
+                                            DataRow[] drs_PurchasePrice_OLD = dtPurchasePrice_OLD.Select("ID=" + PurchasePrice_ID.ToString());
+                                            if (drs_PurchasePrice_OLD.Count()==1)
+                                            {
+                                                DataRow drPurchasePrice = drs_PurchasePrice_OLD[0];
+                                                decimal PurchasePricePerUnit = (decimal)drPurchasePrice["PurchasePricePerUnit"];
+                                                DateTime PurchasePriceDate = (DateTime)drPurchasePrice["PurchasePriceDate"];
+                                                long Currency_ID = (long)drPurchasePrice["Currency_ID"];
+                                                long Taxation_ID = (long)drPurchasePrice["Taxation_ID"];
+                                                long Supplier_ID = (long)drPurchasePrice["Supplier_ID"];
+                                                long Reference_ID = -1;
+                                                if (drPurchasePrice["Reference_ID"] is long)
+                                                {
+                                                    Reference_ID = (long)drPurchasePrice["Reference_ID"];
+                                                }
+
+                                                
+
+                                                sql = @"select o.Name from Organisation o
+                                                                inner join Supplier s  on s.Organisation_ID = o.ID where s.ID = " + Supplier_ID.ToString();
+                                                DataTable dtSupplier = new DataTable();
+                                                if (!DBSync.DBSync.ReadDataTable(ref dtSupplier, sql, ref Err))
+                                                {
+                                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                                    return false;
+                                                }
+                                                string SupplierName = null;
+                                                if (dtSupplier.Rows.Count > 0)
+                                                {
+                                                    SupplierName = (string)dtSupplier.Rows[0]["Name"];
+                                                }
+
+                                                long supplier_id = -1;
+                                                if (SupplierName != null)
+                                                {
+                                                    if (SupplierName.Contains("Eckstein"))
+                                                    {
+                                                        supplier_id = Suplier_ID_drEckstein;
+                                                    }
+                                                    else if (SupplierName.Contains("Bizjan"))
+                                                    {
+                                                        supplier_id = Suplier_ID_Bizjan_doo;
+                                                    }
+                                                }
+                                                string ReferenceNote = null;
+                                                string ReferenceHash = null;
+                                                Image ReferenceImage = null;
+
+                                                if (Reference_ID >= 0)
+                                                {
+                                                    if (f_Reference.GetData(Reference_ID, ref ReferenceNote, ref ReferenceHash, ref ReferenceImage))
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+                                                        return false;
+                                                    }
+                                                 }
+                                                 else
+                                                 {
+
+                                                 }
 
 
+                                            }
+                                            else
+                                            {
+                                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:No data row in PurchasePrice ID =" + PurchasePrice_ID.ToString());
+                                                return false;
+                                            }
+                                        }
 
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:Upgrade_inThread:FillStockTake:Err=" + Err);
-                                return false;
-                            }
                         }
                         else
                         {

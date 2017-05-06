@@ -164,6 +164,8 @@
     <Compile Include="f_PurchasePrice.cs" />
     <Compile Include="f_PurchasePrice_Item.cs" />
     <Compile Include="f_Atom_ShopBItem.cs" />
+    <Compile Include="f_Reference.cs" />
+    <Compile Include="f_Reference_Image.cs" />
     <Compile Include="f_SimpleItem.cs" />
     <Compile Include="f_SimpleItemAtom_Image.cs" />
     <Compile Include="f_SimpleItemAtom_Name.cs" />
@@ -177,6 +179,7 @@
     <Compile Include="f_StockTake_AdditionalCost.cs" />
     <Compile Include="f_StockTakeCostName.cs" />
     <Compile Include="Doc_ShopC_Item.cs" />
+    <Compile Include="f_Supplier.cs" />
     <Compile Include="f_Taxation.cs" />
     <Compile Include="f_TaxationAtom.cs" />
     <Compile Include="f_TermsOfPayment.cs" />
