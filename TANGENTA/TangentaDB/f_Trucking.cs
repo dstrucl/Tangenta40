@@ -9,48 +9,122 @@ using System.Text;
 
 namespace TangentaDB
 {
-    public static class f_Supplier
+    public static class f_Trucking
     {
-        public static bool Get(long_v Contact_ID_v,ref long_v Supplier_ID_v)
+        public static bool Get(long_v Contact_ID_v,
+                               decimal_v TruckingCost_v,
+                               string_v TruckingNumber_v,
+                               decimal_v Customs_v,
+                               string_v Description_v,
+                               ref long_v Trucking_ID_v)
         {
-            string sql = "select ID from Supplier where Contact_ID = " + Contact_ID_v.v.ToString();
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+            string scond_Contact_ID = " Contact_ID is null ";
+            string sval_Contact_ID = "null";
+            if (Contact_ID_v != null)
+            {
+                string spar_Contact_ID = "@par_Contact_ID";
+                SQL_Parameter par_Contact_ID = new SQL_Parameter(spar_Contact_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Contact_ID_v.v);
+                lpar.Add(par_Contact_ID);
+                scond_Contact_ID = " Contact_ID = " + spar_Contact_ID + " ";
+                sval_Contact_ID = " " + spar_Contact_ID + " ";
+            }
+
+            string scond_TruckingCost = " TruckingCost is null ";
+            string sval_TruckingCost = "null";
+            if (TruckingCost_v != null)
+            {
+                string spar_TruckingCost = "@par_TruckingCost";
+                SQL_Parameter par_TruckingCost = new SQL_Parameter(spar_TruckingCost, SQL_Parameter.eSQL_Parameter.Decimal, false, TruckingCost_v.v);
+                lpar.Add(par_TruckingCost);
+                scond_TruckingCost = " TruckingCost = " + spar_TruckingCost + " ";
+                sval_TruckingCost = " " + spar_TruckingCost + " ";
+            }
+
+
+            string scond_TruckingNumber = " TruckingNumber is null ";
+            string sval_TruckingNumber = "null";
+            if (TruckingNumber_v != null)
+            {
+                string spar_TruckingNumber = "@par_TruckingNumber";
+                SQL_Parameter par_TruckingNumber = new SQL_Parameter(spar_TruckingNumber, SQL_Parameter.eSQL_Parameter.Nvarchar, false, TruckingNumber_v.v);
+                lpar.Add(par_TruckingNumber);
+                scond_TruckingNumber = " TruckingNumber = " + spar_TruckingNumber + " ";
+                sval_TruckingNumber = " " + spar_TruckingNumber + " ";
+            }
+
+
+            string scond_Customs = " Customs is null ";
+            string sval_Customs = "null";
+            if (Customs_v != null)
+            {
+                string spar_Customs = "@par_Customs";
+                SQL_Parameter par_Customs = new SQL_Parameter(spar_Customs, SQL_Parameter.eSQL_Parameter.Decimal, false, Customs_v.v);
+                lpar.Add(par_Customs);
+                scond_Customs = " Customs = " + spar_Customs + " ";
+                sval_Customs = " " + spar_Customs + " ";
+            }
+
+            string scond_Description = " Description is null ";
+            string sval_Description = "null";
+            if (Description_v != null)
+            {
+                string spar_Description = "@par_Description";
+                SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Description_v.v);
+                lpar.Add(par_Description);
+                scond_Description = " Description = " + spar_Description + " ";
+                sval_Description = " " + spar_Description + " ";
+            }
+
+
+            string sql = "select ID from Trucking where " + scond_Contact_ID + " and " +
+                                                            scond_TruckingCost + " and " +
+                                                            scond_TruckingNumber + " and " +
+                                                            scond_Customs + " and " +
+                                                            scond_Description;
             DataTable dt = new DataTable();
             string Err = null;
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-                    if (Supplier_ID_v == null)
+                    if (Trucking_ID_v == null)
                     {
-                        Supplier_ID_v = new long_v();
+                        Trucking_ID_v = new long_v();
                     }
-                    Supplier_ID_v.v = (long)dt.Rows[0]["ID"];
+                    Trucking_ID_v.v = (long)dt.Rows[0]["ID"];
                     return true;
                 }
                 else
                 {
-                    sql = "insert into Supplier (Contact_ID)values(" + Contact_ID_v.v.ToString() + ")";
-                    long supplier_ID = -1;
+                    sql = @"insert into Trucking (Contact_ID,TruckingCost,TruckingNumber,Customs,Description
+                                                )values(" + sval_Contact_ID +","
+                                                          + sval_TruckingCost + ","
+                                                          + sval_TruckingNumber + ","
+                                                          + sval_Customs + ","
+                                                          + sval_Description + ")";
+                    long trucking_ID = -1;
                     object oret = null;
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, null, ref supplier_ID, ref oret, ref Err, "Supplier"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref trucking_ID, ref oret, ref Err, "Trucking"))
                     {
-                        if (Supplier_ID_v == null)
+                        if (Trucking_ID_v == null)
                         {
-                            Supplier_ID_v = new long_v();
+                            Trucking_ID_v = new long_v();
                         }
-                        Supplier_ID_v.v = supplier_ID;
+                        Trucking_ID_v.v = trucking_ID;
                         return true;
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:Get:sql=" + sql + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:Get:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:Get:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
 
@@ -76,13 +150,17 @@ namespace TangentaDB
                    DateTime_v DateOfBirth_v,
                    string_v Person_Tax_ID_v,
                    string_v Person_Registration_ID_v,
+                   decimal_v TruckingCost_v,
+                   string_v TruckingNumber_v,
+                   decimal_v Customs_v,
+                   string_v Description_v,
                    ref ID_v cAdressAtom_Org_iD_v,
                    ref long_v Organisation_ID_v,
                    ref long_v OrganisationData_ID_v,
                    ref long_v OrganisationAccount_ID_v,
                    ref long_v Person_ID_v,
                    ref long_v Contact_ID_v,
-                   ref long_v Supplier_ID_v)
+                   ref long_v Trucking_ID_v)
         {
             if (f_Contact.Get(Organisation_Name_v,
                               Tax_ID_v,
@@ -111,15 +189,16 @@ namespace TangentaDB
                    ref Person_ID_v,
                    ref Contact_ID_v))
             {
-                return f_Supplier.Get(Contact_ID_v, ref Supplier_ID_v);
+                return f_Trucking.Get(Contact_ID_v, TruckingCost_v, TruckingNumber_v, Customs_v, Description_v,ref Trucking_ID_v);
             }
             else
             {
-                    return false;
+                return false;
             }
         }
 
-        public static bool GetData(long Supplier_ID, ref string OrganisationName,
+        public static bool GetData(long Trucking_ID, 
+                                               ref string OrganisationName,
                                                ref string Person_FirstName,
                                                ref string Person_LastName,
                                                ref long OrganisationData_ID,
@@ -127,7 +206,7 @@ namespace TangentaDB
         {
             string sql = null;
             string Err = null;
-            sql = "select c.OrganisationData_ID,c.Person_ID from Contact c inner join Supplier s on s.Contact_ID = c.ID where s.ID = " + Supplier_ID.ToString();
+            sql = "select c.OrganisationData_ID,c.Person_ID from Contact c inner join Trucking s on s.Contact_ID = c.ID where s.ID = " + Trucking_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
@@ -156,17 +235,17 @@ namespace TangentaDB
                             }
                             else
                             {
-                                LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:No Organisation data for OrganisationData_ID = " + ((long)oOrganisationData_ID).ToString());
+                                LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:No Organisation data for OrganisationData_ID = " + ((long)oOrganisationData_ID).ToString());
                                 return false;
                             }
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:sql=" + sql + "\r\nErr=" + Err);
+                            LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
-                    
+
                     object oPerson_ID = dt.Rows[0]["Person_ID"];
                     if (oPerson_ID is long)
                     {
@@ -203,7 +282,7 @@ namespace TangentaDB
                         }
                         else
                         {
-                            LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:No Person data for Person ID = " + ((long)oPerson_ID).ToString());
+                            LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:No Person data for Person ID = " + ((long)oPerson_ID).ToString());
                             return false;
                         }
                         return true;
@@ -215,13 +294,13 @@ namespace TangentaDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:No Contact data for Supplier ID = " + Supplier_ID.ToString());
+                    LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:No Contact data for Supplier ID = " + Trucking_ID.ToString());
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:TangentaDB:f_Supplier:GetData:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:TangentaDB:f_Trucking:GetData:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }
