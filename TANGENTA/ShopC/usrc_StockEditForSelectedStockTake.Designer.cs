@@ -323,7 +323,6 @@
             this.dgvx_StockTakeItemsAndPrices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_StockTakeItemsAndPrices.DataGridViewWithRowNumber = false;
             this.dgvx_StockTakeItemsAndPrices.Location = new System.Drawing.Point(3, 27);
-            this.dgvx_StockTakeItemsAndPrices.MultiSelect = false;
             this.dgvx_StockTakeItemsAndPrices.Name = "dgvx_StockTakeItemsAndPrices";
             this.dgvx_StockTakeItemsAndPrices.ReadOnly = true;
             this.dgvx_StockTakeItemsAndPrices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

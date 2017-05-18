@@ -52,9 +52,9 @@ namespace TangentaDB
                 if (dt.Rows.Count > 0)
                 {
                     ret_data.bDraft = DBTypes.tf._set_bool(dt.Rows[0]["Draft"]);
-                    ret_data.DraftNumber = DBTypes.tf._set_long(dt.Rows[0]["DraftNumber"]);
-                    ret_data.FinancialYear = DBTypes.tf._set_long(dt.Rows[0]["FinancialYear"]);
-                    ret_data.NumberInFinancialYear = DBTypes.tf._set_long(dt.Rows[0]["NumberInFinancialYear"]);
+                    ret_data.DraftNumber = DBTypes.tf._set_int(dt.Rows[0]["DraftNumber"]);
+                    ret_data.FinancialYear = DBTypes.tf._set_int(dt.Rows[0]["FinancialYear"]);
+                    ret_data.NumberInFinancialYear = DBTypes.tf._set_int(dt.Rows[0]["NumberInFinancialYear"]);
                     ret_data.Addressee = "";
                     if (!(dt.Rows[0]["Atom_Person_ID"] is System.DBNull))
                     {

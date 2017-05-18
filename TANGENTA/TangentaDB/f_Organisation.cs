@@ -88,9 +88,8 @@ namespace TangentaDB
             }
 
 
-            string sql_select = "select ID from Organisation where " + Name_condition + @" and 
-                                                                        " + Tax_ID_condition + @" and  
-                                                                        " + Registration_ID_condition;
+            string sql_select = "select ID,Registration_ID from Organisation where " + Name_condition + @" and 
+                                                                                   " + Tax_ID_condition ;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_select, lpar, ref Err))
             {
@@ -101,6 +100,57 @@ namespace TangentaDB
                         Organisation_ID_v = new long_v();
                     }
                     Organisation_ID_v.v = (long)dt.Rows[0]["ID"];
+
+                    object oRegistration_ID = dt.Rows[0]["Registration_ID"];
+                    if (oRegistration_ID is string)
+                    {
+                        string registration_ID = (string)oRegistration_ID;
+                        if (Registration_ID_v == null)
+                        {
+                            string sql = "update Organisation set Registration_ID = null  where ID = " + Organisation_ID_v.v.ToString();
+                            object ores = null;
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            if (!(Registration_ID_v.v.Equals(registration_ID)))
+                            {
+                                List<SQL_Parameter> lpar1 = new List<SQL_Parameter>();
+                                string spar_Registration_ID = "@par_Registration_ID";
+                                SQL_Parameter par_Registration_ID = new SQL_Parameter(spar_Registration_ID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Registration_ID_v.v);
+                                lpar1.Add(par_Registration_ID);
+                                string sql = "update Organisation set Registration_ID = " + spar_Registration_ID + " where ID = " + Organisation_ID_v.v.ToString();
+                                object ores = null;
+                                if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
+                                {
+                                    LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (Registration_ID_v != null)
+                        {
+                            List<SQL_Parameter> lpar1 = new List<SQL_Parameter>();
+                            string spar_Registration_ID = "@par_Registration_ID";
+                            SQL_Parameter par_Registration_ID = new SQL_Parameter(spar_Registration_ID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Registration_ID_v.v);
+                            lpar1.Add(par_Registration_ID);
+                            string sql = "update Organisation set Registration_ID = " + spar_Registration_ID + " where ID = " + Organisation_ID_v.v.ToString();
+                            object ores = null;
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                    }
+
                     if (f_OrganisationData.Get(Organisation_ID_v.v,
                                                        OrganisationTYPE_v,
                                                        Address_v,

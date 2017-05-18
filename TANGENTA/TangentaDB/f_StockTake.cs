@@ -124,15 +124,15 @@ namespace TangentaDB
             string sval_Draft = "null";
             if (StockTake_Draft_v != null)
             {
-                string spar_Draft_ID = "@par_Draft_ID";
-                SQL_Parameter par_Draft_ID = new SQL_Parameter(spar_Draft_ID, SQL_Parameter.eSQL_Parameter.Bit, false, StockTake_Draft_v.v);
+                string spar_Draft = "@par_Draft";
+                SQL_Parameter par_Draft_ID = new SQL_Parameter(spar_Draft, SQL_Parameter.eSQL_Parameter.Bit, false, StockTake_Draft_v.v);
                 lpar.Add(par_Draft_ID);
-                scond_Draft = "Draft_ID = " + spar_Draft_ID;
-                sval_Draft = spar_Draft_ID;
+                scond_Draft = "Draft = " + spar_Draft;
+                sval_Draft = spar_Draft;
             }
             else
             {
-                scond_Draft = "Draft_ID is null";
+                scond_Draft = "Draft is null";
                 sval_Draft = "null";
             }
 

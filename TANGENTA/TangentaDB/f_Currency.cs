@@ -61,7 +61,7 @@ namespace TangentaDB
             SQL_Parameter par_DecimalPlaces = new SQL_Parameter(spar_DecimalPlaces, SQL_Parameter.eSQL_Parameter.Int, false, DecimalPlaces);
             lpar.Add(par_DecimalPlaces);
 
-            string sql = "select ID from Currency where Abbreviation = "+ spar_Abbreviation + " and  Name = " + spar_Name + " and CurrencyCode = " + spar_CurrencyCode + " and DecimalPlaces = " + spar_DecimalPlaces;
+            string sql = "select ID,Name,Symbol,CurrencyCode,DecimalPlaces from Currency where Abbreviation = " + spar_Abbreviation;// + " and  Name = " + spar_Name + " and CurrencyCode = " + spar_CurrencyCode + " and DecimalPlaces = " + spar_DecimalPlaces;
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -69,6 +69,58 @@ namespace TangentaDB
                 if (dt.Rows.Count > 0)
                 {
                     Currency_ID = (long)dt.Rows[0]["ID"];
+                    object oName = dt.Rows[0]["Name"];
+                    string xCurrencyName = null;
+                    if (oName is string)
+                    {
+                        xCurrencyName = (string)oName;
+                    }
+
+                    object oSymbol = dt.Rows[0]["Symbol"];
+                    string xCurrencySymbol = null;
+                    if (oSymbol is string)
+                    {
+                        xCurrencySymbol = (string)oSymbol;
+                    }
+
+                    object oCurrencyCode = dt.Rows[0]["CurrencyCode"];
+                    int xCurrencyCode = -1;
+                    if (oCurrencyCode is int)
+                    {
+                        xCurrencyCode = (int)oCurrencyCode;
+                    }
+
+                    object oDecimalPlaces = dt.Rows[0]["DecimalPlaces"];
+                    int xDecimalPlaces = -1;
+                    if (oDecimalPlaces is int)
+                    {
+                        xDecimalPlaces = (int)oDecimalPlaces;
+                    }
+
+                    if ((xCurrencyName!=null)&&(xCurrencySymbol!=null)&&(xCurrencyCode>=0))
+                    {
+                        if ((xCurrencyName.Equals(Name))&& (xCurrencySymbol.Equals(Symbol))&&(xCurrencyCode== CurrencyCode)&&(xDecimalPlaces== DecimalPlaces))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            sql = "update Currency set Name = " + spar_Name + ", Symbol = " + spar_Symbol + ", CurrencyCode = " + spar_CurrencyCode + ",DecimalPlaces = " + spar_DecimalPlaces + " where ID = " + Currency_ID.ToString();
+                            object ores = null;
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql,lpar,ref ores,ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:f_Currency:InsertDefault:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:f_Currency:InsertDefault:Err= !((xCurrencyName!=null)&&(xCurrencySymbol!=null)&&(xCurrencyCode>=0))");
+                        return false;
+                    }
+
+
                     return true;
                 }
                 else
