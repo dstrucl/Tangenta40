@@ -40,9 +40,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(5, 3);
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(6, 4);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(594, 199);
+            this.listBox1.Size = new System.Drawing.Size(742, 244);
             this.listBox1.TabIndex = 0;
             // 
             // timer_GetMessage
@@ -53,9 +55,10 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Cancel.Location = new System.Drawing.Point(244, 210);
+            this.btn_Cancel.Location = new System.Drawing.Point(305, 262);
+            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(77, 31);
+            this.btn_Cancel.Size = new System.Drawing.Size(96, 39);
             this.btn_Cancel.TabIndex = 1;
             this.btn_Cancel.Text = "Končaj";
             this.btn_Cancel.UseVisualStyleBackColor = true;
@@ -64,16 +67,18 @@
             // 
             // Form_Upgrade_inThread
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(600, 249);
+            this.ClientSize = new System.Drawing.Size(750, 311);
             this.ControlBox = false;
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.listBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_Upgrade_inThread";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nadgradnja podatkovne baze";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Form_Upgrade_Load);
             this.ResumeLayout(false);
 

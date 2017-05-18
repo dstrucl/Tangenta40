@@ -1327,6 +1327,7 @@ namespace DBConnectionControl40
                     else
                     {
                         SQLiteConnectionDialog.TopMost = true;
+                        nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
                         SQLiteConnectionDialog.Show();
                         while (nav.eExitResult== NavigationButtons.Navigation.eEvent.NOTHING)
                         {
