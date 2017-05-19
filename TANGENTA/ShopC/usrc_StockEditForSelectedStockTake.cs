@@ -599,7 +599,11 @@ namespace ShopC
         private void Set_StockTakeItems_Table_headers()
         {
             dgvx_StockTakeItemsAndPrices.Columns["UniqueName"].HeaderText = lngRPM.s_UniqueName.s;
+            dgvx_StockTakeItemsAndPrices.Columns["UniqueName"].DisplayIndex = 0;
+            dgvx_StockTakeItemsAndPrices.Columns["dInitialQuantity"].HeaderText = lngRPM.s_Stock_dInitialQuantity.s;
+            dgvx_StockTakeItemsAndPrices.Columns["dInitialQuantity"].DisplayIndex = 1;
             dgvx_StockTakeItemsAndPrices.Columns["dQuantity"].HeaderText = lngRPM.s_Stock_dQuantity.s;
+            dgvx_StockTakeItemsAndPrices.Columns["dQuantity"].DisplayIndex = 2;
             dgvx_StockTakeItemsAndPrices.Columns["ImportTime"].HeaderText = lngRPM.s_ImportTime.s;
             dgvx_StockTakeItemsAndPrices.Columns["ExpiryDate"].HeaderText = lngRPM.s_ExpiryDate.s;
             dgvx_StockTakeItemsAndPrices.Columns["PurchasePricePerUnit"].HeaderText = lngRPM.s_PurchasePricePerUnit.s;
@@ -896,7 +900,7 @@ namespace ShopC
                 decimal dItemsPrice = 0;
                 foreach (DataRow dr in dt_Stock_Of_Current_StockTake.Rows)
                 {
-                    decimal dQuantity = (decimal)dr["dQuantity"];
+                    decimal dQuantity = (decimal)dr["dInitialQuantity"];
                     decimal dPurchasePricePerUnit = (decimal)dr["PurchasePricePerUnit"];
                     dItemsPrice += dQuantity * dPurchasePricePerUnit;
                 }

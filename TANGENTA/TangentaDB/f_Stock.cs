@@ -64,7 +64,15 @@ namespace TangentaDB
             object oret = null;
             if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Stock_ID, ref oret, ref Err, "Stock"))
             {
-                return true;
+                long_v JOURNAL_Stock_ID_v = null;
+                if (f_JOURNAL_Stock.Get(Stock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data,DateTime.Now, dQuantity, ref JOURNAL_Stock_ID_v))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -75,6 +83,8 @@ namespace TangentaDB
 
         public static bool GeStockTakeItems(ref DataTable dt_Stock_Of_Current_StockTake,ref Doc_ShopC_Item[] array_Doc_ShopC_Item, long StockTake_ID)
         {
+            DataTable dt_dQuantity = new DataTable();
+
             DataTable dt_DocInvoice_ShopC_Item_of_StockTake = new DataTable();
             DataTable dt_DocProformaInvoice_ShopC_Item_of_StockTake = new DataTable();
             string Err = null;
@@ -121,8 +131,44 @@ namespace TangentaDB
             {
                 dt_Stock_Of_Current_StockTake = new DataTable();
             }
+            dt_Stock_Of_Current_StockTake.Columns.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_Stock_Of_Current_StockTake, sql, ref Err))
             {
+                DataColumn dcol_InitialQuantity = new DataColumn("dInitialQuantity", typeof(decimal));
+                dt_Stock_Of_Current_StockTake.Columns.Add(dcol_InitialQuantity);
+                foreach (DataRow dr in dt_Stock_Of_Current_StockTake.Rows)
+                {
+                    long stock_id = (long)dr["stock_id"];
+                    if ((DBSync.DBSync.m_DBType == DBConnection.eDBType.MSSQL))
+                    {
+                        sql = "select top 1 dQuantity from Journal_Stock where Stock_ID = " + stock_id.ToString() + " and ((Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data.ToString() + ") OR (Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data + ")) order by EventTime desc";
+                    }
+                    else
+                    {
+                        sql = "select dQuantity from Journal_Stock where Stock_ID = " + stock_id.ToString() + " and ((Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data.ToString() + ") OR (Journal_Stock_Type_ID = " + f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_new_stock_data + ")) order by EventTime desc limit 1";
+                    }
+                    dt_dQuantity.Rows.Clear();
+                    dt_dQuantity.Columns.Clear();
+                    if (DBSync.DBSync.ReadDataTable(ref dt_dQuantity,sql,ref Err))
+                    {
+                        decimal dInitialQuantity = 0;
+                        if (dt_dQuantity.Rows.Count>0)
+                        {
+                            dInitialQuantity = (decimal)dt_dQuantity.Rows[0]["dQuantity"];
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:No initial quantity for Stock_ID = "+ stock_id.ToString() + " in JOURNAL_STOCK!");
+                        }
+                        dr[dcol_InitialQuantity] = dInitialQuantity;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB.f_Stock.cs:Get_OfStockTake:sql=" + sql + "\r\nErr=" + Err);
+                        return false;
+                    }
+                }
+
                 int iCount = dt_Stock_Of_Current_StockTake.Rows.Count;
                 if (iCount > 0)
                 {
@@ -224,7 +270,9 @@ namespace TangentaDB
         public static bool Remove(long Stock_ID, long StockTake_ID)
         {
                 string Err = null;
-            string sql = @"delete from Stock 
+            string sql = @"
+                         delete from JOURNAL_Stock where Stock_ID  =" + Stock_ID.ToString() + @";
+                         delete from Stock 
                          where ID in (select s.ID from Stock s
                                      inner join PurchasePrice_Item ppi on  s.PurchasePrice_Item_ID = ppi.ID
                                      where ppi.StockTake_ID = " + StockTake_ID.ToString() + " and s.ID =" + Stock_ID.ToString()+")";
@@ -299,7 +347,15 @@ namespace TangentaDB
             object oret = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref oret, ref Err))
             {
-                return true;
+                long_v JOURNAL_Stock_ID_v = null;
+                if (f_JOURNAL_Stock.Get(currentStock_ID, f_JOURNAL_Stock.JOURNAL_Stock_Type_ID_stock_data_changed, DateTime.Now, dQuantity, ref JOURNAL_Stock_ID_v))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

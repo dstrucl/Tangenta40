@@ -629,6 +629,9 @@ namespace LanguageControl
         public static ltext s_Stock_dQuantity = new ltext("Stock quantity",
                                                           "Kol. v skladišču");
 
+        public static ltext s_Stock_dInitialQuantity = new ltext("Stock take quantity",
+                                                                  "Kol. prevzeta");
+
         public static ltext s_RetailPricePerUnit = new ltext("Retail price per unit",
                                                                 "Prodajna cena na enoto");
 

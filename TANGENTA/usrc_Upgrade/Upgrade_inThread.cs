@@ -502,6 +502,10 @@ namespace UpgradeDB
                                             return false;
                                         }
 
+                                        if (!f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())
+                                        {
+                                            return false;
+                                        }
                                         sql = "select ID from StockTake";
                                         DataTable dtStockTake = new DataTable();
                                         if (DBSync.DBSync.ReadDataTable(ref dtStockTake, sql, ref Err))
@@ -516,7 +520,7 @@ namespace UpgradeDB
                                                     decimal dsum = 0;
                                                     foreach (DataRow drx in dt_Stock_Of_Current_StockTake.Rows)
                                                     {
-                                                        decimal dquantity = (decimal) drx["dQuantity"];
+                                                        decimal dquantity = (decimal) drx["dInitialQuantity"];
                                                         decimal dpurchasepriceperitem = (decimal)drx["PurchasePricePerUnit"];
                                                         dsum += dquantity * dpurchasepriceperitem;
                                                     }
