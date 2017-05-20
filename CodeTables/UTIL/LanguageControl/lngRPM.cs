@@ -54,6 +54,7 @@ namespace LanguageControl
         public static ltext s_Number_Of_Days = new ltext("Number of days", "Število dni");
 
         public static ltext s_PrinterDeviceSettings = new ltext("Settings for printer", "Nastavitev tiskalna");
+        public static ltext s_Add_Printer = new ltext("Add Printer", "Dodaj tiskalnik");
         public static ltext s_Form_DefinePrinters = new ltext("Printer settings", "Nastavitev tiskalnikov");
         public static ltext s_Printning_Invoices = new ltext("Printing invoices", "Tiskanje računov");
         public static ltext s_Printning_ProformaInvoices = new ltext("Printing proforma invoices", "Tiskanje pred-računov");

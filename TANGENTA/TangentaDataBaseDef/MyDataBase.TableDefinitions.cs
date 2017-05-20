@@ -1347,7 +1347,7 @@ namespace TangentaDataBaseDef
         /* 91 */
             t_Atom_PriceList = new SQLTable((Object)new Atom_PriceList(),"apl", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_Atom_PriceList);;
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.Name, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "Price list name ", "Ime cenika") );
+            t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Price list name ", "Ime cenika") );
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.Valid, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid", "Veljavno") );
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.ValidFrom, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid from", "Veljavno od") );
             t_Atom_PriceList.AddColumn((Object)mt.m_Atom_PriceList.ValidTo, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Valid to", "Veljavno do") );

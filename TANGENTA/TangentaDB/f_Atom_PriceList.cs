@@ -114,7 +114,7 @@ namespace TangentaDB
                 string sql = @"select Atom_PriceList.ID
                             from Atom_PriceList
                             inner join Atom_Currency on Atom_PriceList.Atom_Currency_ID = Atom_Currency.ID 
-                            where Atom_PriceList.Name = " + spar_Atom_PriceList_Name + " and  Atom_Currency.Name = " + spar_Atom_Currency_Name + " and  Atom_Currency.Abbreviation = " + spar_Atom_Currency_Abbreviation;
+                            where Atom_PriceList.Name = " + spar_Atom_PriceList_Name + " and  Atom_Currency.Abbreviation = " + spar_Atom_Currency_Abbreviation;
 
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                 {
@@ -128,7 +128,7 @@ namespace TangentaDB
                         sql = @"select PriceList.ID
                                       from PriceList 
                                       inner join Currency on PriceList.Currency_ID = Currency.ID 
-                                      where PriceList.Name = " + spar_Atom_PriceList_Name + " and  Currency.Name = " + spar_Atom_Currency_Name + " and  Currency.Abbreviation = " + spar_Atom_Currency_Abbreviation;
+                                      where PriceList.Name = " + spar_Atom_PriceList_Name + " and  Currency.Abbreviation = " + spar_Atom_Currency_Abbreviation;
                         dt.Clear();
                         dt.Rows.Clear();
                         dt.Columns.Clear();

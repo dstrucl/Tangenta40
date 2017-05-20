@@ -27,6 +27,7 @@ namespace TangentaPrint
             this.usrc_NavigationButtons1.Init(xnav);
             this.m_usrc_TangentaPrint = xusrc_TangentaPrint;
             lngRPM.s_Form_DefinePrinters.Text(this);
+            lngRPM.s_Add_Printer.Text(btn_AddPrinter);
             if (m_dt.Rows.Count > 0)
             {
                 for (int i = 0; i < m_dt.Rows.Count; i++)

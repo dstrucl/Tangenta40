@@ -240,6 +240,22 @@ namespace UpgradeDB
 
                                         ALTER TABLE MethodOfPayment_NEW RENAME TO MethodOfPayment;
 
+                                        CREATE TABLE Atom_Currency_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Abbreviation' varchar(50) NOT NULL, 'Symbol' varchar(5) NOT NULL, 'CurrencyCode' INT NOT NULL, 'DecimalPlaces' INT NOT NULL );
+
+                                        insert into Atom_Currency_NEW (ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces) select ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces from Atom_Currency;
+
+                                        CREATE TABLE Atom_PriceList_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Valid' BIT NOT NULL, 'ValidFrom' DATETIME NULL, 'ValidTo' DATETIME NULL, 'Description' varchar(2000) NULL, Atom_Currency_ID INTEGER NOT NULL REFERENCES Atom_Currency(ID) );
+
+                                        insert into Atom_PriceList_NEW (ID,Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select ID,Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID from Atom_PriceList;
+
+                                        DROP TABLE Atom_Currency;
+
+                                        ALTER TABLE Atom_Currency_NEW RENAME TO Atom_Currency;
+
+                                        DROP TABLE Atom_PriceList;
+
+                                        ALTER TABLE Atom_PriceList_NEW RENAME TO Atom_PriceList;
+
                                         PRAGMA foreign_keys = ON;
                                         ";
                     if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
@@ -475,6 +491,7 @@ namespace UpgradeDB
                                         ALTER TABLE PurchasePrice_Item_NEW RENAME TO PurchasePrice_Item;
                                         DROP TABLE JOURNAL_PurchasePrice;
                                         DROP TABLE JOURNAL_PurchasePrice_TYPE;
+                                        update Language set Name = 'Slovensko' where Name = 'Slovene';
                                         PRAGMA foreign_keys = ON;
                                         ";
                                         if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))

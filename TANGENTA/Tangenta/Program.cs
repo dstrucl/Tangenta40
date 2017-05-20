@@ -373,11 +373,11 @@ namespace Tangenta
                         }
                     }
 
+                    LogFile.Language.id = LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
+
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
                     NavigationButtons.lngRPM_strings.s_OK = LanguageControl.lngRPM.s_OK.s;
                     NavigationButtons.lngRPM_strings.s_Cancel = LanguageControl.lngRPM.s_Cancel.s;
-
-                    LogFile.Language.id = LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
 
                     Parse_CommandLineArguments(CommandLineArguments);
 

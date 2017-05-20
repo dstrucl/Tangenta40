@@ -194,7 +194,6 @@ namespace NavigationButtons
             Text_NEXT = "";
 
             toolTip1 = new ToolTip();
-
             // Set up the delays for the ToolTip.
             toolTip1.AutoPopDelay = 2000;
             toolTip1.InitialDelay = 1000;

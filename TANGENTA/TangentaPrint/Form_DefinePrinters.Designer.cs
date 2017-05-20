@@ -80,7 +80,7 @@
             // 
             this.btn_AddPrinter.Location = new System.Drawing.Point(6, 3);
             this.btn_AddPrinter.Name = "btn_AddPrinter";
-            this.btn_AddPrinter.Size = new System.Drawing.Size(144, 26);
+            this.btn_AddPrinter.Size = new System.Drawing.Size(150, 26);
             this.btn_AddPrinter.TabIndex = 6;
             this.btn_AddPrinter.Text = "Add Printer";
             this.btn_AddPrinter.UseVisualStyleBackColor = true;
