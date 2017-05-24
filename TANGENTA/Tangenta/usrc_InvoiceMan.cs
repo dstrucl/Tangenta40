@@ -488,6 +488,13 @@ namespace Tangenta
             Program.RunAs = DocInvoice;
             bool bRes = SetDocument(null);
             Program.Cursor_Arrow();
+            if (this.IsDocInvoice)
+            {
+                if (Program.b_FVI_SLO)
+                {
+                    Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_Invoice.m_ShopABC);
+                }
+            }
         }
     }
 }

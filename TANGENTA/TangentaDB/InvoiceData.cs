@@ -1100,8 +1100,18 @@ namespace TangentaDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:dt_DocProformaInvoice.Rows.Count != 1! for DocProformaInvoice_ID=" + DocInvoice_ID.ToString() + "!\r\nsql = " + sql);
-                    return false;
+                    if (dt_DocInvoice.Rows.Count == 0)
+                    {
+                        //no invoices or ProformaInvoices
+                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:dt_DocProformaInvoice.Rows.Count == 0  for DocProformaInvoice_ID=" + DocInvoice_ID.ToString() + "!\r\nsql = " + sql);
+                        return false;
+                    }
+                    else
+                    {
+                        //more than one invoice or ProformaInvoice
+                        LogFile.Error.Show("ERROR:usrc_Invoice_Preview:Read_DocProformaInvoice:dt_DocProformaInvoice.Rows.Count != 1! for DocProformaInvoice_ID=" + DocInvoice_ID.ToString() + "!\r\nsql = " + sql);
+                        return false;
+                    }
                 }
             }
             else

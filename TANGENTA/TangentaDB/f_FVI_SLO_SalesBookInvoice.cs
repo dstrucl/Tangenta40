@@ -86,8 +86,8 @@ namespace TangentaDB
                     list.Clear();
                     foreach (DataRow dr in dt.Rows)
                     {
-                        long proforma_invoice_id = (long)dr["ID"];
-                        InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB, proforma_invoice_id, true, xCasshierName);
+                        long invoice_id = (long)dr["ID"];
+                        InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB, invoice_id, true, xCasshierName);
                         if (xInvoiceData.Read_DocInvoice())
                         {
                             list.Add(xInvoiceData);
