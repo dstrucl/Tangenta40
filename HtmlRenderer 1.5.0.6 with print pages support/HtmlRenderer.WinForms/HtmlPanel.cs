@@ -346,6 +346,38 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             }
         }
 
+      
+
+        /// <summary>
+        /// Gets or sets the text of this panel
+        /// </summary>
+        [Browsable(true)]
+        [Description("GetPages of the html ")]
+        public void GetPages(string _text,ref TheArtOfDev.HtmlRenderer.Core.PageLayout pglayut)
+        {
+
+          
+            if (!IsDisposed)
+            {
+                base.Text = _text;
+                if (pglayut != null)
+                {
+                    pglayut = null;
+                }
+                pglayut = new TheArtOfDev.HtmlRenderer.Core.PageLayout();
+
+                VerticalScroll.Value = VerticalScroll.Minimum;
+                _htmlContainer.SetHtml(_text, _baseCssData);
+                PerformLayout();
+                GetLayout(ref pglayut);
+            }
+        }
+
+        private void GetLayout(ref TheArtOfDev.HtmlRenderer.Core.PageLayout pglayut)
+        {
+            _htmlContainer.GetLayout(ref pglayut);
+        }
+
         public void Refresh()
         {
             if (!IsDisposed)
@@ -356,11 +388,10 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             }
         }
 
-
-    /// <summary>
-    /// Get the currently selected text segment in the html.
-    /// </summary>
-    [Browsable(false)]
+        /// <summary>
+        /// Get the currently selected text segment in the html.
+        /// </summary>
+        [Browsable(false)]
         public virtual string SelectedText
         {
             get { return _htmlContainer.SelectedText; }

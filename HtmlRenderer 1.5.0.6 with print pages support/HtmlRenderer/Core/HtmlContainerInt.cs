@@ -368,6 +368,20 @@ namespace TheArtOfDev.HtmlRenderer.Core
             get { return _selectionHandler.GetSelectedText(); }
         }
 
+        public void GetLayout(ref TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout)
+        {
+            int level = 0;
+            DomUtils.EnumerateElements(_root,pglayout,this.my_CssBox_CallBack,level);
+        }
+
+        internal void my_CssBox_CallBack(CssBox box, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout, int level)
+        {
+            if (box!=null)
+            {
+                pglayout.Set(box,level);
+            }
+         
+        }
         /// <summary>
         /// Copy the currently selected html segment with style.
         /// </summary>

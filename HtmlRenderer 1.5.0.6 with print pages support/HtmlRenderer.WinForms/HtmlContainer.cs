@@ -371,6 +371,13 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             return _htmlContainerInt.GetLinkAt(Utils.Convert(location));
         }
 
+        internal void GetLayout(ref TheArtOfDev.HtmlRenderer.Core.PageLayout pglayut)
+        {
+            _htmlContainerInt.GetLayout(ref pglayut);
+        }
+
+      
+
         /// <summary>
         /// Get the rectangle of html element as calculated by html layout.<br/>
         /// Element if found by id (id attribute on the html element).<br/>

@@ -404,7 +404,7 @@ namespace TangentaPrint
         private void btn_Refresh_Click(object sender, EventArgs e)
         {
             this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
-            this.m_usrc_Invoice_Preview.html_doc_text = this.m_usrc_Invoice_Preview.html_doc_template_text;
+            this.m_usrc_Invoice_Preview.ShowPreview(this.m_usrc_Invoice_Preview.html_doc_template_text);
         }
     }
 }

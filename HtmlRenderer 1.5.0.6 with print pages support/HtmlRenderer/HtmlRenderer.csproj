@@ -90,6 +90,7 @@
     <Compile Include="Core\Handlers\SelectionHandler.cs" />
     <Compile Include="Core\Handlers\StylesheetLoadHandler.cs" />
     <Compile Include="Core\HtmlRendererUtils.cs" />
+    <Compile Include="Core\PageLayout.cs" />
     <Compile Include="Core\Parse\CssParser.cs" />
     <Compile Include="Core\Parse\CssValueParser.cs" />
     <Compile Include="Core\Parse\DomParser.cs" />

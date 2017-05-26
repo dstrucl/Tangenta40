@@ -134,6 +134,31 @@ namespace TangentaPrint
             }
         }
 
+        public bool ShowPreview(string shtml_doc_text)
+            {
+                try
+                {
+                  
+                     string s = null;
+                    if (m_InvoiceData != null)
+                    {
+                        s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
+                    }
+                    else
+                    {
+                        s = shtml_doc_text;
+                    }
+                //this.htmlPanel1.Text = s;
+                TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
+                this.htmlPanel1.GetPages(s, ref pglayout);
+                return true;
+                }
+                catch (Exception ex)
+                {
+                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:propertiy:html_doc_text:Exception=" + ex.Message);
+                return false;
+                }
+            }
 
 
         public usrc_Invoice_Preview()

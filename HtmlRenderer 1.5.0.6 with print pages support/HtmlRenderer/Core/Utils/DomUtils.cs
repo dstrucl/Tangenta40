@@ -25,6 +25,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Utils
     /// </summary>
     internal sealed class DomUtils
     {
+
         /// <summary>
         /// Check if the given location is inside the given box deep.<br/>
         /// Check inner boxes and all lines that the given box spans to.
@@ -301,6 +302,25 @@ namespace TheArtOfDev.HtmlRenderer.Core.Utils
             }
 
             return null;
+        }
+
+        public static void EnumerateElements(CssBox _xroot, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout, CssBox.delegate_CssBox_CallBack  CssBoxCallBack, int level)
+        {
+            CssBoxCallBack(_xroot, pglayout, level);
+            if (_xroot.Boxes.Count > 0)
+            {
+                
+                foreach (var childBox in _xroot.Boxes)
+                {
+                    TheArtOfDev.HtmlRenderer.Core.PageLayout pgnewlayout = new TheArtOfDev.HtmlRenderer.Core.PageLayout();
+                    EnumerateElements(childBox, pgnewlayout, CssBoxCallBack, level + 1);
+                    if (pglayout.childbox == null)
+                    {
+                        pglayout.childbox = new List<PageLayout>();
+                    }
+                    pglayout.childbox.Add(pgnewlayout);
+                }
+            }
         }
 
         /// <summary>

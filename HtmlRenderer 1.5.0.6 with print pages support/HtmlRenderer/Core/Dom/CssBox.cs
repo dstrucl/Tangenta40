@@ -34,6 +34,8 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
     /// </remarks>
     internal class CssBox : CssBoxProperties, IDisposable
     {
+        public delegate void delegate_CssBox_CallBack(CssBox box, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout, int level);
+
         #region Fields and Consts
 
         /// <summary>
