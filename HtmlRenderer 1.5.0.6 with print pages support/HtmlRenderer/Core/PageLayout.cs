@@ -8,40 +8,24 @@ namespace TheArtOfDev.HtmlRenderer.Core
 {
     public class PageLayout
     {
-        public double MaximalBottom;
-        public Adapters.Entities.RPoint rp;
-        public Adapters.Entities.RSize rsize;
-        public Adapters.Entities.RRect rrect;
-        public Adapters.Entities.RRect CLIENTrect;
-        public int level = -1;
-        public string html = null;
-        public string text=null;
+        public Adapters.Entities.RRect HtmlTagRect;
         public string html_tag_name = null;
         public Dictionary<string, string> dictionary = null;
-        public List<PageLayout> childbox = null;
+        public List<PageLayout> Child_HtmlTag_PageLayout = null;
 
-        internal void Set(CssBox box, int xlevel )
+        internal void Set(CssBox box)
         {
             if (box!=null)
             {
-                level = xlevel;
                 if (box.HtmlTag != null)
                 {
                    html_tag_name = box.HtmlTag.Name;
                    dictionary = box.HtmlTag.Attributes;
                 }
-                if (box.Text != null)
-                {
-                   
-                    text = box.Text.CutSubstring();
-
-                }
-                MaximalBottom = box.GetMaximumBottom(box, 0);
-                CLIENTrect = box.ClientRectangle;
-                rp = box.Location;
-                rsize = box.Size;
-                rrect = box.Bounds;
-            }
+              
+                HtmlTagRect = new Adapters.Entities.RRect(-1, -1, 0, 0);
+                box.GetHtmlTagRect(box,ref HtmlTagRect);
+             }
         }
     }
 }

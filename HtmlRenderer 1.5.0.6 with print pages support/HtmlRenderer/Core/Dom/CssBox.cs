@@ -34,7 +34,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
     /// </remarks>
     internal class CssBox : CssBoxProperties, IDisposable
     {
-        public delegate void delegate_CssBox_CallBack(CssBox box, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout, int level);
+        public delegate void delegate_CssBox_CallBack(CssBox box, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout);
 
         #region Fields and Consts
 
@@ -1033,6 +1033,96 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             }
             return sum;
         }
+
+        /// <summary>
+        /// Gets the HtmlTag RRECT of all the boxes inside the startBox
+        /// </summary>
+        /// <param name="startBox"></param>
+        /// <param name="rrect"></param>
+        /// <returns></returns>
+        internal bool GetHtmlTagRect(CssBox startBox, ref RRect xrrect)
+        {
+            bool bRes = false;
+            foreach (var line in startBox.Rectangles.Keys)
+            {
+                if (!startBox.Rectangles[line].Size.IsEmpty)
+                {
+                    double x = xrrect.Location.X;
+                    if (x > startBox.Rectangles[line].X)
+                    {
+                        x = startBox.Rectangles[line].X;
+                    }
+                    double y = xrrect.Location.Y;
+                    if (y > startBox.Rectangles[line].Y)
+                    {
+                        y = startBox.Rectangles[line].Y;
+                    }
+                    double right = xrrect.Right;
+                    if (right < startBox.Rectangles[line].Right)
+                    {
+                        right = startBox.Rectangles[line].Right;
+                    }
+                    double bottom = xrrect.Bottom;
+                    if (bottom < startBox.Rectangles[line].Bottom)
+                    {
+                        bottom = startBox.Rectangles[line].Bottom;
+                    }
+                    xrrect.X = x;
+                    xrrect.Y = y;
+                    xrrect.Width = right - x;
+                    xrrect.Height = bottom - y;
+                    bRes = true;
+                }
+            }
+         
+
+            foreach (CssBox b in startBox.Boxes)
+            {
+                if (GetHtmlTagRect(b, ref xrrect))
+                {
+                    if (!b.Size.IsEmpty)
+                    {
+                        double x = xrrect.Location.X;
+                        if (x == -1)
+                        {
+                            x = b.Location.X;
+                        }
+                        else if (x > b.Location.X)
+                        {
+                            x = b.Location.X;
+                        }
+                        
+                      
+                        double y = xrrect.Location.Y;
+                        if (y == -1)
+                        {
+                            y = b.Location.Y;
+                        }
+                        else if (y > b.Location.Y)
+                        {
+                            y = b.Location.Y;
+                        }
+                        double right = xrrect.Right;
+                        if (right < b.Location.X+b.Size.Width)
+                        {
+                            right = b.Location.X + b.Size.Width;
+                        }
+                        double bottom = xrrect.Bottom;
+                        if (bottom < b.Location.Y+b.Size.Height)
+                        {
+                            bottom = b.Location.Y + b.Size.Height;
+                        }
+                        xrrect.X = x;
+                        xrrect.Y = y;
+                        xrrect.Width = right - x;
+                        xrrect.Height = bottom - y;
+                    }
+                    bRes = true;
+                }
+            }
+            return bRes;
+        }
+
 
         /// <summary>
         /// Gets the maximum bottom of the boxes inside the startBox

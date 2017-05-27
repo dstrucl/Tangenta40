@@ -370,15 +370,14 @@ namespace TheArtOfDev.HtmlRenderer.Core
 
         public void GetLayout(ref TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout)
         {
-            int level = 0;
-            DomUtils.EnumerateElements(_root,pglayout,this.my_CssBox_CallBack,level);
+            DomUtils.EnumerateElements(_root,pglayout,this.my_CssBox_CallBack);
         }
 
-        internal void my_CssBox_CallBack(CssBox box, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout, int level)
+        internal void my_CssBox_CallBack(CssBox box, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout)
         {
             if (box!=null)
             {
-                pglayout.Set(box,level);
+                pglayout.Set(box);
             }
          
         }

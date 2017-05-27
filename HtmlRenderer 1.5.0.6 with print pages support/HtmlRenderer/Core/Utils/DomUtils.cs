@@ -304,21 +304,21 @@ namespace TheArtOfDev.HtmlRenderer.Core.Utils
             return null;
         }
 
-        public static void EnumerateElements(CssBox _xroot, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout, CssBox.delegate_CssBox_CallBack  CssBoxCallBack, int level)
+        public static void EnumerateElements(CssBox _xroot, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout, CssBox.delegate_CssBox_CallBack  CssBoxCallBack)
         {
-            CssBoxCallBack(_xroot, pglayout, level);
+            CssBoxCallBack(_xroot, pglayout);
             if (_xroot.Boxes.Count > 0)
             {
                 
                 foreach (var childBox in _xroot.Boxes)
                 {
                     TheArtOfDev.HtmlRenderer.Core.PageLayout pgnewlayout = new TheArtOfDev.HtmlRenderer.Core.PageLayout();
-                    EnumerateElements(childBox, pgnewlayout, CssBoxCallBack, level + 1);
-                    if (pglayout.childbox == null)
+                    EnumerateElements(childBox, pgnewlayout, CssBoxCallBack);
+                    if (pglayout.Child_HtmlTag_PageLayout == null)
                     {
-                        pglayout.childbox = new List<PageLayout>();
+                        pglayout.Child_HtmlTag_PageLayout = new List<PageLayout>();
                     }
-                    pglayout.childbox.Add(pgnewlayout);
+                    pglayout.Child_HtmlTag_PageLayout.Add(pgnewlayout);
                 }
             }
         }
