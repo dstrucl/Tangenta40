@@ -180,8 +180,7 @@ namespace TangentaPrint
             m_Doc = xdoc;
             char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
             string shtml_doc_text = new string(chars2);
-            string s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
-            this.htmlPanel1.Text = s;
+            this.ShowPreview(shtml_doc_text);
             this.btn_Print.Enabled = true;
             return true;
         }

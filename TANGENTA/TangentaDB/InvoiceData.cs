@@ -1328,22 +1328,21 @@ namespace TangentaDB
                 html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
             }
 
-            int itbody = html_doc_template.IndexOf("<tbody>", 0);
-            if (itbody > 0)
+            int iStartIndexOftable = -1;
+            int iEndIndexOftable = -1;
+            int start_index = 0;
+            if (GetElementByClass(html_doc_template, start_index,ref iStartIndexOftable,ref iEndIndexOftable, "table", "tableitems"))
             {
-                int itr_start = html_doc_template.IndexOf("<tr class=\"row\">", itbody);
-                if (itr_start > 0)
+                int iStartIndexOf_tr = -1;
+                int iEndIndexOf_tr = -1;
+                string HtmlTable_TableItems = html_doc_template.Substring(iStartIndexOftable, iEndIndexOftable - iStartIndexOftable + 1);
+                if (GetElementByClass(html_doc_template, iStartIndexOftable, ref iStartIndexOf_tr, ref iEndIndexOf_tr, "tr", "row"))
                 {
-                    int itr_end = html_doc_template.IndexOf("</tr>", itr_start);
-                    if (itr_end > 0)
-                    {
+                        string tr_RowTemplate = html_doc_template.Substring(iStartIndexOf_tr, iEndIndexOf_tr - iStartIndexOf_tr+1);
 
-                        string tr_RowTemplate = html_doc_template.Substring(itr_start, itr_end - itr_start + 5);
+                        html_doc_template = html_doc_template.Remove(iStartIndexOf_tr, iEndIndexOf_tr - iStartIndexOf_tr + 1);
 
-
-                        html_doc_template = html_doc_template.Remove(itr_start, itr_end - itr_start + 5);
-
-                        int ipos = itr_start;
+                        int ipos = iStartIndexOf_tr;
 
                         UniversalInvoice.TemplateToken tCurrency = null;
                         foreach (UniversalInvoice.ItemSold itms in ItemsSold)
@@ -1429,21 +1428,172 @@ namespace TangentaDB
                         {
                             return "ERROR:itr_taxsum_start <= 0";
                         }
-                    }
-                    else
-                    {
-                        return "ERROR:itr_end <= 0";
-                    }
                 }
                 else
                 {
-                    return "ERROR:itr_start <= 0";
+                    return "ERROR:<tr class=\"row\"> not found !";
                 }
             }
             else
             {
-                return "ERROR:itbody <= 0";
+                return "ERROR:<table class=\"tableitems\"> not found !";
             }
+        }
+
+        public bool GetStartTag(string html, int start_index, ref int index_of_start_tag, ref int index_of_end_tag, string htmltagname)
+        {
+            index_of_start_tag = html.IndexOf("<" + htmltagname, start_index);
+            if (index_of_start_tag > 0)
+            {
+                index_of_end_tag = html.IndexOf(">", index_of_start_tag+1);
+                if (index_of_end_tag > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:InvoiceDate:GetElementStartTag:HTML syntax error: End of html tag not found!");
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool GetEndTag(string html, int start_index, ref int index_of_start_endtag, ref int index_of_end_endtag, string htmltagname)
+        {
+            index_of_start_endtag = html.IndexOf("</" + htmltagname, start_index);
+            if (index_of_start_endtag > 0)
+            {
+                index_of_end_endtag = html.IndexOf(">", index_of_start_endtag);
+                if (index_of_end_endtag > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:InvoiceDate:GetElementEndTag:HTML syntax error: End of html tag not found!");
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool HtmlTagContainsClassName(string html,int index_of_start_tag, int index_of_end_tag,string class_name)
+        {
+            string stag = html.Substring(index_of_start_tag, index_of_end_tag - index_of_start_tag);
+            fs.RemoveToManySpaces(ref stag);
+            int iclass = stag.IndexOf("class=", 0);
+            if (iclass > 0)
+            {
+                int iStartBracets = stag.IndexOf("\"", iclass);
+                if (iStartBracets > 0)
+                {
+                    int iEndBracets = stag.IndexOf("\"", iStartBracets + 1);
+                    if (iEndBracets > 0)
+                    {
+                        if (iEndBracets - iStartBracets > 1)
+                        {
+                            string sClassName = stag.Substring(iStartBracets + 1, iEndBracets - iStartBracets - 1);
+                            if (sClassName.Equals(class_name))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("WARNING:TangentaDB:InvoiceDate:GetElementStartByClass:HTML syntax error: No \" at the end of class attribute!");
+                        return false;
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:InvoiceDate:GetElementStartByClass:HTML syntax error: No \" after class attribute!");
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        public bool GetElementStartIndexByClass(string html,int start_index, ref int IndexOfElement, string htmltagname, string class_name)
+        {
+            int index_of_start_tag = 0;
+            while (index_of_start_tag >= 0)
+            {
+                int index_of_end_tag = -1;
+                if (GetStartTag(html, start_index, ref index_of_start_tag, ref index_of_end_tag, htmltagname))
+                {
+                    if (HtmlTagContainsClassName(html, index_of_start_tag, index_of_end_tag, class_name))
+                    {
+                        IndexOfElement = index_of_start_tag;
+                        return true;
+                    }
+                    start_index = index_of_end_tag;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+
+        public bool GetElementByClass(string html, int start_index, ref int StartIndexOfElementInString, ref int EndIndexOfElementInString, string htmltagname, string class_name)
+        {
+            if (GetElementStartIndexByClass(html, start_index, ref StartIndexOfElementInString, htmltagname, class_name))
+            {
+                if (GetEndOfElement(html,StartIndexOfElementInString,ref EndIndexOfElementInString,htmltagname))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool GetEndOfElement(string html, int startIndexOfElementInString, ref int endIndexOfElementInString, string htmltagname)
+        {
+            int index_of_start_end_tag = -1;
+            int index_of_end_end_tag = -1;
+            int html_length = html.Length;
+            int index_of_start_tag = -1;
+            int index_of_end_tag = -1;
+            while (startIndexOfElementInString < html_length)
+            {
+                if (GetEndTag(html, startIndexOfElementInString + 1, ref index_of_start_end_tag, ref index_of_end_end_tag, htmltagname))
+                {
+                    // check for nesting tag
+                    if (GetStartTag(html, startIndexOfElementInString + 1, ref index_of_start_tag, ref index_of_end_tag, htmltagname))
+                    {
+                        if (index_of_start_tag < index_of_end_end_tag)
+                        {
+                            // nesting
+                            startIndexOfElementInString = index_of_end_tag + 1;
+                        }
+                        else
+                        {
+                            endIndexOfElementInString = index_of_end_end_tag;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        endIndexOfElementInString = index_of_end_end_tag; 
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
         }
     }
 }

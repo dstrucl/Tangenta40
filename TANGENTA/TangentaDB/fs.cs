@@ -1880,6 +1880,17 @@ namespace TangentaDB
             }
         }
 
+        internal static void RemoveToManySpaces(ref string stag)
+        {
+            stag = stag.Replace("\t", " ");
+            string stag1 = stag.Replace("  ", " ");
+            while (stag1.Length != stag.Length)
+            {
+                stag = stag1;
+                stag1 = stag.Replace("  ", " ");
+            }
+        }
+
         public static string GetFURS_Time_Formated(DateTime dtime)
         {
             return fs.GetString(dtime.Year, 4) + "-"
