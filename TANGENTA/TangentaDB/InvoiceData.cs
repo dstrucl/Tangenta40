@@ -1562,35 +1562,58 @@ namespace TangentaDB
             int index_of_start_end_tag = -1;
             int index_of_end_end_tag = -1;
             int html_length = html.Length;
-            int index_of_start_tag = -1;
-            int index_of_end_tag = -1;
+            int index_of_start_start_tag = -1;
+            int index_of_end_start_tag = -1;
+            int NestingLevel = 0;
             while (startIndexOfElementInString < html_length)
             {
-                if (GetEndTag(html, startIndexOfElementInString + 1, ref index_of_start_end_tag, ref index_of_end_end_tag, htmltagname))
+                // check for nesting tag
+                if (GetStartTag(html, startIndexOfElementInString + 1, ref index_of_start_start_tag, ref index_of_end_start_tag, htmltagname))
                 {
-                    // check for nesting tag
-                    if (GetStartTag(html, startIndexOfElementInString + 1, ref index_of_start_tag, ref index_of_end_tag, htmltagname))
+                    if (GetEndTag(html, startIndexOfElementInString + 1, ref index_of_start_end_tag, ref index_of_end_end_tag, htmltagname))
                     {
-                        if (index_of_start_tag < index_of_end_end_tag)
+                        if (index_of_start_start_tag < index_of_end_end_tag)
                         {
                             // nesting
-                            startIndexOfElementInString = index_of_end_tag + 1;
+                            startIndexOfElementInString = index_of_end_start_tag;
+                            NestingLevel++;
                         }
                         else
                         {
-                            endIndexOfElementInString = index_of_end_end_tag;
-                            return true;
+                            if (NestingLevel > 0)
+                            {
+                                NestingLevel--;
+                                startIndexOfElementInString = index_of_end_end_tag;
+                            }
+                            else
+                            {
+                                endIndexOfElementInString = index_of_end_end_tag;
+                                return true;
+                            }
                         }
                     }
                     else
                     {
-                        endIndexOfElementInString = index_of_end_end_tag; 
-                        return true;
+                        return false;
                     }
+
                 }
                 else
                 {
-                    return false;
+                    while (NestingLevel >=0)
+                    {
+                        if (GetEndTag(html, startIndexOfElementInString + 1, ref index_of_start_end_tag, ref index_of_end_end_tag, htmltagname))
+                        {
+                            startIndexOfElementInString = index_of_end_end_tag;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        NestingLevel--;
+                    }
+                    endIndexOfElementInString = index_of_end_end_tag;
+                    return true;
                 }
             }
             return false;
