@@ -44,13 +44,15 @@ namespace TangentaDB
         public bool IsDocInvoice
         {
             get
-            { return DocInvoice.Equals("DocInvoice"); }
+            { return fs.IsDocInvoice(DocInvoice); }
         }
 
         public bool IsDocProformaInvoice
         {
             get
-            { return DocInvoice.Equals("DocProformaInvoice"); }
+            {
+               return fs.IsDocProformaInvoice(DocInvoice);
+            }
         }
 
         public bool Get(bool bDraft, long ID, ref string Err)

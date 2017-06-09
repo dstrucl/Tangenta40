@@ -225,6 +225,17 @@ start_init:
             return DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, ref Err);
         }
 
+        public static bool SessionConnect(ref string Err)
+        {
+            return DB_for_Tangenta.m_DBTables.m_con.SessionConnect(ref Err);
+        }
+
+        public static bool SessionDisconnect()
+        {
+            return DB_for_Tangenta.m_DBTables.m_con.SessionDisconnect();
+        }
+
+
         public static bool ReadDataTable(ref DataTable dt, string sql,List<SQL_Parameter> lpar, ref string Err)
         {
             return DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql,lpar, ref Err);

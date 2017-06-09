@@ -164,6 +164,10 @@ namespace Tangenta
                 Properties.Settings.Default.Save();
 
                 myStartup.eNextStep++;
+                if (!DBSync.DBSync.SessionConnect(ref Err))
+                {
+                    bResult = false;
+                }
             }
             else
             {

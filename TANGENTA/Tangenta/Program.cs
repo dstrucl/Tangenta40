@@ -534,6 +534,7 @@ namespace Tangenta
                 }
                 finally
                 {
+                    DBSync.DBSync.SessionDisconnect();
                     if (!bExitBeforeLogFileInitialised)
                     {
                         if (LogFile.LogFile.WriteLog2DBOnProgramExit)

@@ -13,15 +13,18 @@ namespace TangentaPrint
 {
     public partial class usrc_SelectPrintTemplate : UserControl
     {
-        public Printer.StandardPages PageType
+
+        private f_doc.StandardPages m_PageType = f_doc.StandardPages.A4;
+        public f_doc.StandardPages PageType
         {
             get
-            { return Printer.StandardPages.A4; }
+            { return m_PageType; }
         }
 
-        public Printer.PageOreintation PageOrientation
+        private f_doc.PageOreintation m_PageOrientation = f_doc.PageOreintation.PORTRAIT;
+        public f_doc.PageOreintation PageOrientation
         {
-            get { return Printer.PageOreintation.PORTRAIT; }
+            get { return m_PageOrientation; }
         }
 
         public int SelectedLangugage

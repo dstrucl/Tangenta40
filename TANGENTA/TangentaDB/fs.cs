@@ -68,6 +68,16 @@ namespace TangentaDB
             }
         }
 
+        public static bool IsDocProformaInvoice(string docInvoice)
+        {
+            return docInvoice.Equals("DocProformaInvoice");
+        }
+
+        public static bool IsDocInvoice(string docInvoice)
+        {
+            return docInvoice.Equals("DocInvoice");
+        }
+
         public static bool Get_JOURNAL_TYPE_ID()
         {
             if (f_JOURNAL_Stock.Get_JOURNAL_Stock_Type_ID())

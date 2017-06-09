@@ -28,14 +28,6 @@ namespace TangentaPrint
     {
     
 
-        public enum StandardPages {A4,ROLL_80,ROLL_58 };
-        public enum PageOreintation {PORTRAIT,LANDSCAPE};
-
-        public const int A4_PORTRAIT_WIDTH = 210;
-        public const int A4_PORTRAIT_HEIGHT = 297;
-        public const int A4_LANDSCAPE_WIDTH = 297;
-        public const int A4_LANDSCAPE_HEIGHT = 210;
-
         private int m_Index = -1;
         public int Index
         {

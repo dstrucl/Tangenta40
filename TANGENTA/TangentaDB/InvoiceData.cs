@@ -1331,12 +1331,12 @@ namespace TangentaDB
             int iStartIndexOftable = -1;
             int iEndIndexOftable = -1;
             int start_index = 0;
-            if (GetElementByClass(html_doc_template, start_index,ref iStartIndexOftable,ref iEndIndexOftable, "table", "tableitems"))
+            if (GetHtmlElementByTagNameAndClassName(html_doc_template, start_index,ref iStartIndexOftable,ref iEndIndexOftable, "table", "tableitems"))
             {
                 int iStartIndexOf_tr = -1;
                 int iEndIndexOf_tr = -1;
                 string HtmlTable_TableItems = html_doc_template.Substring(iStartIndexOftable, iEndIndexOftable - iStartIndexOftable + 1);
-                if (GetElementByClass(html_doc_template, iStartIndexOftable, ref iStartIndexOf_tr, ref iEndIndexOf_tr, "tr", "row"))
+                if (GetHtmlElementByTagNameAndClassName(html_doc_template, iStartIndexOftable, ref iStartIndexOf_tr, ref iEndIndexOf_tr, "tr", "item"))
                 {
                         string tr_RowTemplate = html_doc_template.Substring(iStartIndexOf_tr, iEndIndexOf_tr - iStartIndexOf_tr+1);
 
@@ -1521,7 +1521,7 @@ namespace TangentaDB
             return false;
         }
 
-        public bool GetElementStartIndexByClass(string html,int start_index, ref int IndexOfElement, string htmltagname, string class_name)
+        public bool GetHtmlElementStartIndexByTagNameAndClassName(string html,int start_index, ref int IndexOfElement, string htmltagname, string class_name)
         {
             int index_of_start_tag = 0;
             while (index_of_start_tag >= 0)
@@ -1544,12 +1544,28 @@ namespace TangentaDB
             return false;
         }
 
-
-        public bool GetElementByClass(string html, int start_index, ref int StartIndexOfElementInString, ref int EndIndexOfElementInString, string htmltagname, string class_name)
+        public bool GetHtmlElementStartIndexByTagName(string html, int start_index, ref int IndexOfElement, string htmltagname)
         {
-            if (GetElementStartIndexByClass(html, start_index, ref StartIndexOfElementInString, htmltagname, class_name))
+            int index_of_start_tag = 0;
+            int index_of_end_tag = -1;
+            if (GetStartTag(html, start_index, ref index_of_start_tag, ref index_of_end_tag, htmltagname))
             {
-                if (GetEndOfElement(html,StartIndexOfElementInString,ref EndIndexOfElementInString,htmltagname))
+                    IndexOfElement = index_of_start_tag;
+                    return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+        public bool GetHtmlElementByTagNameAndClassName(string html, int start_index, ref int StartIndexOfElementInString, ref int EndIndexOfElementInString, string htmltagname, string class_name)
+        {
+            if (GetHtmlElementStartIndexByTagNameAndClassName(html, start_index, ref StartIndexOfElementInString, htmltagname, class_name))
+            {
+                if (GetEndOfHtmlElement(html,StartIndexOfElementInString,ref EndIndexOfElementInString,htmltagname))
                 {
                     return true;
                 }
@@ -1557,7 +1573,7 @@ namespace TangentaDB
             return false;
         }
 
-        public bool GetEndOfElement(string html, int startIndexOfElementInString, ref int endIndexOfElementInString, string htmltagname)
+        public bool GetEndOfHtmlElement(string html, int startIndexOfElementInString, ref int endIndexOfElementInString, string htmltagname)
         {
             int index_of_start_end_tag = -1;
             int index_of_end_end_tag = -1;

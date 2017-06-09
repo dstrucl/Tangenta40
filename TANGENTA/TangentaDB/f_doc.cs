@@ -23,6 +23,17 @@ namespace TangentaDB
 {
     public static class f_doc
     {
+        public enum StandardPages { A4, ROLL_80, ROLL_58 };
+        public enum PageOreintation { PORTRAIT, LANDSCAPE };
+
+        public const int A4_PORTRAIT_WIDTH = 210;
+        public const int A4_PORTRAIT_HEIGHT = 297;
+        public const int A4_LANDSCAPE_WIDTH = 297;
+        public const int A4_LANDSCAPE_HEIGHT = 210;
+
+        public enum eGetPrintDocumentTemplateResult { OK, ERROR, NO_DOCUMENT_TEMPLATE };
+
+
         public static long doc_Html_Invoice_Template_A4_ID = 0;
 
         public static bool InsertDefault()
@@ -242,5 +253,266 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool SetDefault(long id)
+        {
+            string Err = null;
+            string sql = "update doc set bDefault = 0";
+            object objres = null;
+            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null, ref objres, ref Err))
+            {
+                sql = "update doc set bDefault = 1 where id = " + id.ToString();
+                objres = null;
+                if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ExecuteNonQuerySQL(sql, null, ref objres, ref Err))
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:f_doc:SetDefault:sql=" + sql + "\r\nErr" + Err);
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_doc:SetDefault:sql=" + sql + "\r\nErr" + Err);
+            }
+            return false;
+        }
+
+
+        public static bool GetTemplate(long id, ref string doc_Name, ref byte[] xDocument, ref bool bCommpressed)
+        {
+            bool Commpressed = false;
+            string Err = null;
+            string sql = "select doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where ID = " + id.ToString();
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    object o_doc_name = dt.Rows[0]["doc_$$Name"];
+                    if (o_doc_name is string)
+                    {
+                        doc_Name = (string)o_doc_name;
+                    }
+                    object o_Compressed = dt.Rows[0]["doc_$$Compressed"];
+                    if (o_Compressed is bool)
+                    {
+                        Commpressed = (bool)o_Compressed;
+                        bCommpressed = Commpressed;
+                    }
+
+                    object o_doc = dt.Rows[0]["doc_$$xDocument"];
+                    if (o_doc is byte[])
+                    {
+                        if (Commpressed)
+                        {
+                            xDocument = fs.Decompress((byte[])((byte[])o_doc).Clone());
+                        }
+                        else
+                        {
+                            xDocument = (byte[])((byte[])o_doc).Clone();
+                        }
+
+                        //private usrc_Print usrc_Print;
+                        //private usrc_Payment.ePaymentType paymentType;
+                        //private string sPaymentMethod;
+                        //private string sAmountReceived;
+                        //private string sToReturn;
+                        //private DateTime_v issue_time;
+                        return true;
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_doc:GetTemplateName:sql=" + sql + "\r\nErr" + Err);
+            }
+            doc_Name = "";
+            return false;
+        }
+
+
+        public static eGetPrintDocumentTemplateResult GetDefaultTemplate(ref long id,
+                                        ref string doc_Name,
+                                        ref byte[] xDocument,
+                                        ref bool bCommpressed,
+                                        int iLang,
+                                        string DocType,
+                                        f_doc.StandardPages PageType,
+                                        f_doc.PageOreintation PageOrientation
+                                        )
+        {
+            string Err = null;
+            bool Commpressed = false;
+//            int iLang = m_usrc_SelectPrintTemplate.SelectedLangugage;
+            int iLang_ID = iLang + 1;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string scond_Language_ID = null;
+            string sval_Language_ID = null;
+            string scond_doc_type_ID = null;
+            string sval_doc_type_ID = null;
+            string scond_page_name = null;
+            string sval_page_name = null;
+            string scond_page_width = null;
+            string scond_page_height = null;
+            string sval_page_width = null;
+            string sval_page_height = null;
+
+            if (!fs.Add_lpar(lpar, "doc_$_lng_$$ID", iLang_ID, ref scond_Language_ID, ref sval_Language_ID))
+            {
+                return eGetPrintDocumentTemplateResult.ERROR;
+            }
+            if (fs.IsDocInvoice(DocType))
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_doctype_$$ID", GlobalData.doc_type_definitions.Invoice.ID, ref scond_doc_type_ID, ref sval_doc_type_ID))
+                {
+                    return eGetPrintDocumentTemplateResult.ERROR;
+                }
+            }
+            else if (fs.IsDocProformaInvoice(DocType))
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_doctype_$$ID", GlobalData.doc_type_definitions.ProformaInvoice.ID, ref scond_doc_type_ID, ref sval_doc_type_ID))
+                {
+                    return eGetPrintDocumentTemplateResult.ERROR;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaPrint:Form_SelectTemplate:GetDefaultTemplate:Unknown document type!");
+                return eGetPrintDocumentTemplateResult.ERROR;
+            }
+
+            if ((PageType == f_doc.StandardPages.A4)
+                && (PageOrientation == f_doc.PageOreintation.PORTRAIT))
+            {
+                if (fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Portrait", ref scond_page_name, ref sval_page_name))
+                {
+                    if (fs.Add_lpar(lpar, "doc_$_pgt_$$Width", f_doc.A4_PORTRAIT_WIDTH, ref scond_page_width, ref sval_page_width))
+                    {
+                        if (fs.Add_lpar(lpar, "doc_$_pgt_$$Height", f_doc.A4_PORTRAIT_HEIGHT, ref scond_page_height, ref sval_page_height))
+                        {
+
+                        }
+                        else
+                        {
+                            return eGetPrintDocumentTemplateResult.ERROR;
+                        }
+                    }
+                    else
+                    {
+                        return eGetPrintDocumentTemplateResult.ERROR;
+                    }
+                }
+                else
+                {
+                    return eGetPrintDocumentTemplateResult.ERROR;
+                }
+            }
+            else if ((PageType == f_doc.StandardPages.A4)
+                && (PageOrientation == f_doc.PageOreintation.LANDSCAPE))
+            {
+                if (fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "A4 Landscape", ref scond_page_name, ref sval_page_name))
+                {
+                    if (fs.Add_lpar(lpar, "doc_$_pgt_$$Width", f_doc.A4_LANDSCAPE_WIDTH, ref scond_page_width, ref sval_page_width))
+                    {
+                        if (fs.Add_lpar(lpar, "doc_$_pgt_$$Height", f_doc.A4_LANDSCAPE_HEIGHT, ref scond_page_height, ref sval_page_height))
+                        {
+
+                        }
+                        else
+                        {
+                            return eGetPrintDocumentTemplateResult.ERROR;
+                        }
+                    }
+                    else
+                    {
+                        return eGetPrintDocumentTemplateResult.ERROR;
+                    }
+                }
+                else
+                {
+                    return eGetPrintDocumentTemplateResult.ERROR;
+                }
+            }
+            else if (PageType == f_doc.StandardPages.ROLL_80)
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
+                {
+                    return eGetPrintDocumentTemplateResult.ERROR;
+                }
+            }
+            else if (PageType == f_doc.StandardPages.ROLL_58)
+            {
+                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
+                {
+                    return eGetPrintDocumentTemplateResult.ERROR;
+                }
+            }
+
+            string sql = "select id,doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where doc_$$Active = 1 "
+                          + " and " + scond_Language_ID
+                          + " and " + scond_doc_type_ID
+                          + " and " + scond_page_name
+                          + " and " + scond_page_width
+                          + " and " + scond_page_height
+                          + " order by doc_$$bDefault desc;";
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    object o_doc_name = dt.Rows[0]["doc_$$Name"];
+                    if (o_doc_name is string)
+                    {
+                        doc_Name = (string)o_doc_name;
+                    }
+                    object o_id = dt.Rows[0]["id"];
+                    if (o_id is long)
+                    {
+                        id = (long)o_id;
+                    }
+                    object o_Compressed = dt.Rows[0]["doc_$$Compressed"];
+                    if (o_Compressed is bool)
+                    {
+                        Commpressed = (bool)o_Compressed;
+                        bCommpressed = Commpressed;
+                    }
+                    object o_doc = dt.Rows[0]["doc_$$xDocument"];
+                    if (o_doc is byte[])
+                    {
+                        if (Commpressed)
+                        {
+                            xDocument = fs.Decompress((byte[])((byte[])o_doc).Clone());
+                        }
+                        else
+                        {
+                            xDocument = (byte[])((byte[])o_doc).Clone();
+                        }
+                        return eGetPrintDocumentTemplateResult.OK;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:TangentaDB:f_doc:GetTemplateName:sql=" + sql + "\r\ndoc_$$xDocument is not of type byte[]");
+                        return eGetPrintDocumentTemplateResult.ERROR;
+                    }
+                }
+                else
+                {
+                    return eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Form_SelectTemplate:GetTemplateName:sql=" + sql + "\r\nErr" + Err);
+            }
+            doc_Name = "";
+            return eGetPrintDocumentTemplateResult.ERROR;
+        }
+
     }
 }

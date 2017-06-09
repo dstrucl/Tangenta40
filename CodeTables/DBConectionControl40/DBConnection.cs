@@ -281,6 +281,76 @@ namespace DBConnectionControl40
             set { m_bBatchOpen = value; }
         }
 
+        public bool SessionConnect(ref string sError)
+        {
+            if (BatchOpen)
+            {
+                return true;
+            }
+            else
+            {
+                if (m_bBatchOpen)
+                {
+                    if (m_bOpened)
+                    {
+                        return true;
+                    }
+                }
+
+                if (Connect(ref sError))
+                {
+                    m_bBatchOpen = true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool SessionDisconnect()
+        {
+            if (BatchOpen)
+            {
+                if (Disconnect())
+                {
+                    m_bBatchOpen = false;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (!m_bBatchOpen)
+                {
+                    if (!m_bOpened)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        if (Disconnect())
+                        {
+                            m_bBatchOpen = false;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
         public bool SQLite_AllwaysCreateNew
         {
             get

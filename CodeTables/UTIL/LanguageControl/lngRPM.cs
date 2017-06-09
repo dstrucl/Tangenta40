@@ -18,6 +18,8 @@ namespace LanguageControl
     public static class lngRPM
     {
 
+        public static ltext s_btn_SaveHtmlTemplate = new ltext("Save Template", "Shrani predlogo");
+        public static ltext s_btn_Refresh = new ltext("Refresh", "Osveži");
         public static ltext s_Form_EditMyOrgSampleData = new ltext("Sample data for organisation name Company1. You can change them to your organisation data.", "Vzorčni podatki organizacije z imenom Podjetje1, ki jih lahko spremenite v tem dialogu v podatke vaše organizacije.");
         public static ltext sPrinterNotFound = new ltext("Printer not found:", "Tiskalnik ni nameščen:");
         public static ltext sPrinterListDataChanged_Save = new ltext("Printer data list and settings has changed. Save new list?", "Podatki o tiskalnikih so se spremenili. Shranim podatke? ");
