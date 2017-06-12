@@ -46,6 +46,7 @@ namespace DBConnectionControl40
 
         private bool m_bOpened = false;
         private bool m_bBatchOpen = false;
+        private bool m_bSessionConnected = false;
 
 
 
@@ -275,6 +276,11 @@ namespace DBConnectionControl40
 
         #region PUBLIC PROPERTIES
 
+        public bool SessionConnected
+        {
+            get { return m_bSessionConnected; }
+        }
+
         public bool BatchOpen
         {
             get { return m_bBatchOpen; }
@@ -285,6 +291,7 @@ namespace DBConnectionControl40
         {
             if (BatchOpen)
             {
+                m_bSessionConnected = true;
                 return true;
             }
             else
@@ -293,6 +300,7 @@ namespace DBConnectionControl40
                 {
                     if (m_bOpened)
                     {
+                        m_bSessionConnected = true;
                         return true;
                     }
                 }
@@ -300,6 +308,7 @@ namespace DBConnectionControl40
                 if (Connect(ref sError))
                 {
                     m_bBatchOpen = true;
+                    m_bSessionConnected = true;
                     return true;
                 }
                 else
@@ -316,10 +325,12 @@ namespace DBConnectionControl40
                 if (Disconnect())
                 {
                     m_bBatchOpen = false;
+                    m_bSessionConnected = false;
                     return true;
                 }
                 else
                 {
+                    m_bSessionConnected = false;
                     return false;
                 }
             }
@@ -329,6 +340,7 @@ namespace DBConnectionControl40
                 {
                     if (!m_bOpened)
                     {
+                        m_bSessionConnected = false;
                         return true;
                     }
                     else
@@ -336,16 +348,19 @@ namespace DBConnectionControl40
                         if (Disconnect())
                         {
                             m_bBatchOpen = false;
+                            m_bSessionConnected = false;
                             return true;
                         }
                         else
                         {
+                            m_bSessionConnected = false;
                             return false;
                         }
                     }
                 }
                 else
                 {
+                    m_bSessionConnected = false;
                     return true;
                 }
             }

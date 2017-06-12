@@ -40,6 +40,9 @@
             this.rdb_A4 = new System.Windows.Forms.RadioButton();
             this.lbl_Template = new System.Windows.Forms.Label();
             this.btn_EditTemplates = new System.Windows.Forms.Button();
+            this.cmb_SelectPrinter = new System.Windows.Forms.ComboBox();
+            this.lbl_printer = new System.Windows.Forms.Label();
+            this.btn_SelectPrinter = new System.Windows.Forms.Button();
             this.grp_Orientation.SuspendLayout();
             this.grp_PaperSize.SuspendLayout();
             this.SuspendLayout();
@@ -47,16 +50,17 @@
             // cmb_SelectPrintTemplate
             // 
             this.cmb_SelectPrintTemplate.FormattingEnabled = true;
-            this.cmb_SelectPrintTemplate.Location = new System.Drawing.Point(304, 47);
+            this.cmb_SelectPrintTemplate.Location = new System.Drawing.Point(303, 82);
             this.cmb_SelectPrintTemplate.Name = "cmb_SelectPrintTemplate";
             this.cmb_SelectPrintTemplate.Size = new System.Drawing.Size(353, 21);
             this.cmb_SelectPrintTemplate.TabIndex = 19;
+            this.cmb_SelectPrintTemplate.SelectedIndexChanged += new System.EventHandler(this.cmb_SelectPrintTemplate_SelectedIndexChanged);
             // 
             // grp_Orientation
             // 
             this.grp_Orientation.Controls.Add(this.rdb_Landscape);
             this.grp_Orientation.Controls.Add(this.rdb_Portrait);
-            this.grp_Orientation.Location = new System.Drawing.Point(165, 3);
+            this.grp_Orientation.Location = new System.Drawing.Point(164, 39);
             this.grp_Orientation.Name = "grp_Orientation";
             this.grp_Orientation.Size = new System.Drawing.Size(208, 34);
             this.grp_Orientation.TabIndex = 16;
@@ -88,7 +92,7 @@
             // lbl_Language
             // 
             this.lbl_Language.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Language.Location = new System.Drawing.Point(356, 15);
+            this.lbl_Language.Location = new System.Drawing.Point(355, 50);
             this.lbl_Language.Name = "lbl_Language";
             this.lbl_Language.Size = new System.Drawing.Size(98, 20);
             this.lbl_Language.TabIndex = 18;
@@ -98,17 +102,18 @@
             // cmb_Language
             // 
             this.cmb_Language.FormattingEnabled = true;
-            this.cmb_Language.Location = new System.Drawing.Point(461, 14);
+            this.cmb_Language.Location = new System.Drawing.Point(460, 49);
             this.cmb_Language.Name = "cmb_Language";
             this.cmb_Language.Size = new System.Drawing.Size(187, 21);
             this.cmb_Language.TabIndex = 17;
+            this.cmb_Language.SelectedValueChanged += new System.EventHandler(this.cmb_Language_SelectedValueChanged);
             // 
             // grp_PaperSize
             // 
             this.grp_PaperSize.Controls.Add(this.rdb_80);
             this.grp_PaperSize.Controls.Add(this.rdb_58);
             this.grp_PaperSize.Controls.Add(this.rdb_A4);
-            this.grp_PaperSize.Location = new System.Drawing.Point(3, 3);
+            this.grp_PaperSize.Location = new System.Drawing.Point(2, 38);
             this.grp_PaperSize.Name = "grp_PaperSize";
             this.grp_PaperSize.Size = new System.Drawing.Size(156, 98);
             this.grp_PaperSize.TabIndex = 15;
@@ -151,7 +156,7 @@
             // lbl_Template
             // 
             this.lbl_Template.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_Template.Location = new System.Drawing.Point(152, 50);
+            this.lbl_Template.Location = new System.Drawing.Point(151, 85);
             this.lbl_Template.Name = "lbl_Template";
             this.lbl_Template.Size = new System.Drawing.Size(98, 20);
             this.lbl_Template.TabIndex = 13;
@@ -161,16 +166,48 @@
             // btn_EditTemplates
             // 
             this.btn_EditTemplates.Image = global::TangentaPrint.Properties.Resources.Edit;
-            this.btn_EditTemplates.Location = new System.Drawing.Point(256, 45);
+            this.btn_EditTemplates.Location = new System.Drawing.Point(255, 80);
             this.btn_EditTemplates.Name = "btn_EditTemplates";
             this.btn_EditTemplates.Size = new System.Drawing.Size(43, 29);
             this.btn_EditTemplates.TabIndex = 14;
             this.btn_EditTemplates.UseVisualStyleBackColor = true;
             // 
+            // cmb_SelectPrinter
+            // 
+            this.cmb_SelectPrinter.FormattingEnabled = true;
+            this.cmb_SelectPrinter.Location = new System.Drawing.Point(127, 9);
+            this.cmb_SelectPrinter.Name = "cmb_SelectPrinter";
+            this.cmb_SelectPrinter.Size = new System.Drawing.Size(353, 21);
+            this.cmb_SelectPrinter.TabIndex = 20;
+            this.cmb_SelectPrinter.TextChanged += new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
+            // 
+            // lbl_printer
+            // 
+            this.lbl_printer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_printer.Location = new System.Drawing.Point(2, 10);
+            this.lbl_printer.Name = "lbl_printer";
+            this.lbl_printer.Size = new System.Drawing.Size(119, 20);
+            this.lbl_printer.TabIndex = 21;
+            this.lbl_printer.Text = "Printer";
+            this.lbl_printer.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // btn_SelectPrinter
+            // 
+            this.btn_SelectPrinter.Location = new System.Drawing.Point(486, 9);
+            this.btn_SelectPrinter.Name = "btn_SelectPrinter";
+            this.btn_SelectPrinter.Size = new System.Drawing.Size(170, 23);
+            this.btn_SelectPrinter.TabIndex = 22;
+            this.btn_SelectPrinter.Text = "Select printer";
+            this.btn_SelectPrinter.UseVisualStyleBackColor = true;
+            this.btn_SelectPrinter.Click += new System.EventHandler(this.btn_SelectPrinter_Click);
+            // 
             // usrc_SelectPrintTemplate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_SelectPrinter);
+            this.Controls.Add(this.lbl_printer);
+            this.Controls.Add(this.cmb_SelectPrinter);
             this.Controls.Add(this.cmb_SelectPrintTemplate);
             this.Controls.Add(this.grp_Orientation);
             this.Controls.Add(this.lbl_Language);
@@ -179,7 +216,7 @@
             this.Controls.Add(this.btn_EditTemplates);
             this.Controls.Add(this.lbl_Template);
             this.Name = "usrc_SelectPrintTemplate";
-            this.Size = new System.Drawing.Size(672, 106);
+            this.Size = new System.Drawing.Size(672, 135);
             this.grp_Orientation.ResumeLayout(false);
             this.grp_Orientation.PerformLayout();
             this.grp_PaperSize.ResumeLayout(false);
@@ -202,5 +239,8 @@
         private System.Windows.Forms.RadioButton rdb_A4;
         private System.Windows.Forms.Button btn_EditTemplates;
         private System.Windows.Forms.Label lbl_Template;
+        private System.Windows.Forms.ComboBox cmb_SelectPrinter;
+        private System.Windows.Forms.Label lbl_printer;
+        private System.Windows.Forms.Button btn_SelectPrinter;
     }
 }

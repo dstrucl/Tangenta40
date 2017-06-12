@@ -225,14 +225,25 @@ start_init:
             return DB_for_Tangenta.m_DBTables.m_con.ReadDataTable(ref dt, sql, ref Err);
         }
 
-        public static bool SessionConnect(ref string Err)
+
+        public static bool DB_for_Tangenta_SessionConnect(ref string Err)
         {
             return DB_for_Tangenta.m_DBTables.m_con.SessionConnect(ref Err);
         }
 
-        public static bool SessionDisconnect()
+        public static bool DB_for_Tangenta_SessionDisconnect()
         {
-            return DB_for_Tangenta.m_DBTables.m_con.SessionDisconnect();
+            if (DB_for_Tangenta!=null)
+            {
+                if (DB_for_Tangenta.m_DBTables!=null)
+                {
+                    if (DB_for_Tangenta.m_DBTables.m_con!=null)
+                    {
+                        return DB_for_Tangenta.m_DBTables.m_con.SessionDisconnect();
+                    }
+                }
+            }
+            return true;
         }
 
 

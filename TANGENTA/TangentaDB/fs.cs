@@ -466,7 +466,10 @@ namespace TangentaDB
                 }
                 else if (Currency_table_Rows_Count == 0)
                 {
-                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = true;
+                    if (!DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SessionConnected)
+                    {
+                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = true;
+                    }
                     string sql_Currency = "insert into " + s_Currency_table_name + " ( " + s_col_Name + "," + s_col_Abbreviation + "," + s_col_Symbol + "," + s_col_CurrencyCode + "," + s_col_DecimalPlaces + " ) values (";
                     foreach (xCurrency currency in xCurrencyList.m_CurrencyList)
                     {
@@ -476,13 +479,19 @@ namespace TangentaDB
                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
                         {
                             Err = "ERROR::TangentaDB:fs:Init_Currency_Table:Err=" + Err;
-                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
-                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                            if (!DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SessionConnected)
+                            {
+                                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                            }
                             return false;
                         }
                     }
-                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
-                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                    if (!DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SessionConnected)
+                    {
+                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                    }
                     return true;
                 }
                 else
@@ -544,7 +553,10 @@ namespace TangentaDB
                 }
                 else if (Unit_table_Rows_Count == 0)
                 {
-                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = true;
+                    if (!DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SessionConnected)
+                    {
+                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = true;
+                    }
                     string sql_Unit = "insert into " + s_Unit_table_name + " ( " + s_col_Name + "," + s_col_Symbol + "," + s_col_DecimalPlaces + "," + s_col_StorageOption + "," + s_col_Description + " ) values (";
                     foreach (xUnit unit in xUnitList.m_DefaltUnitList)
                     {
@@ -563,13 +575,19 @@ namespace TangentaDB
                         if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref Result, ref Err))
                         {
                             Err = "ERROR::TangentaDB:fs:Init_Unit_Table:Err=" + Err;
-                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
-                            DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                            if (!DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SessionConnected)
+                            {
+                                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                                DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                            }
                             return false;
                         }
                     }
-                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
-                    DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                    if (!DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.SessionConnected)
+                    {
+                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.Disconnect();
+                        DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con.BatchOpen = false;
+                    }
                     return true;
                 }
                 else

@@ -276,7 +276,17 @@ namespace LanguageControl
         public static ltext s_Furs_Environment = new ltext("FURS environment", "FURS okolje");
 
         public static ltext s_Furs_Test_Environment = new ltext("FURS Test environment", "FURS TESTNO okolje !");
-        public static ltext s_YouHaveNoDocumentTemplateToPrintOnA4 = new ltext("You have no html document template for printing Invoice on A4 paper format!\r\nYou must insert document template html into database!", "Nimate vnešenih html predlog za tiskanje na A4 papir.\r\nVnesti morate v bazo vsaj eno html predlogo za tisaknje računov na A4 tiskalniku!");
+
+        public static ltext s_PageType_NotDefined = new ltext("Page type not defined !", "Neveljaven tip papirja !");
+
+        public static ltext s_PageOrientation_PORTRAIT = new ltext("Page orientation PORTRAIT", "POKONČNA orientacija papirja");
+        public static ltext s_PageOrientation_LANDSCAPE = new ltext("Page orientation LANDSCAPE", "LEŽEČA orientacija papirja");
+
+        public static ltext s_YouHaveNoDocumentTemplateFor = new ltext("You have no html document template for printing:\r\nYou must insert document template html into database!", "Nimate vnešenih html predlog za tiskanje na:");
+
+        public static ltext s_Paper_A4 = new ltext("A4 paper format", "A4 papir");
+        public static ltext s_Paper_Roll58 = new ltext("58mm roll paper format", "Rolo papir širine 58 mm");
+        public static ltext s_Paper_Roll80 = new ltext("80mm roll paper format", "Rolo papir širine 80 mm");
         public static ltext s_FVI_SLO_RealEstateBP_has_no_Data = new ltext("No data for Fiscal Verification system in Slovenia. \r\nYou can not do fiscal verification until you enter RealEstate data!", "Ni vnešenih podatkov o poslovnem prosturu potrebnih za davčno upravo.\r\nPotrejavanje računov ne bo delalo dokler ne vnesete podatkov o poslovnem prostoru!");
         public static ltext s_btn_Tokens = new ltext("View replacement word", "Ključne besede za izdelavo predlog");
         public static ltext s_Form_Select_Country_ISO_3166_Title = new ltext("Select State", "Izberite Državo");
@@ -545,6 +555,7 @@ namespace LanguageControl
         public static ltext s_chk_PrintAll = new ltext("Print all at once", "Tiskaj vse naenkrat");
         public static ltext s_PaperName = new ltext("Paper Name", "Vrsta papirja");
         public static ltext s_Printer = new ltext("Printer", "Tiskalnik");
+        public static ltext s_SelectPrinter = new ltext("Select printer", "Izberi tiskalnik");
         public static ltext s_NotInPrinterList = new ltext(" is not installed.", " ni nameščen.");
         public static ltext s_SelectReceiptPrinter = new ltext("Select receipt printe", "Izbrati morate tiskalnik za tiskanje računov!");
 

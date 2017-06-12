@@ -30,6 +30,10 @@ namespace TangentaDB
         public const int A4_PORTRAIT_HEIGHT = 297;
         public const int A4_LANDSCAPE_WIDTH = 297;
         public const int A4_LANDSCAPE_HEIGHT = 210;
+        public const int Roll80_WIDTH = 80;
+        public const int Roll80_HEIGHT = 99999;
+        public const int Roll58_WIDTH = 58;
+        public const int Roll58_HEIGHT = 99999;
 
         public enum eGetPrintDocumentTemplateResult { OK, ERROR, NO_DOCUMENT_TEMPLATE };
 
@@ -441,18 +445,57 @@ namespace TangentaDB
             }
             else if (PageType == f_doc.StandardPages.ROLL_80)
             {
-                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
+                if (fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
+                {
+                    if (fs.Add_lpar(lpar, "doc_$_pgt_$$Width", f_doc.Roll80_WIDTH, ref scond_page_width, ref sval_page_width))
+                    {
+                        if (fs.Add_lpar(lpar, "doc_$_pgt_$$Height", f_doc.Roll80_HEIGHT, ref scond_page_height, ref sval_page_height))
+                        {
+
+                        }
+                        else
+                        {
+                            return eGetPrintDocumentTemplateResult.ERROR;
+                        }
+                    }
+                    else
+                    {
+                        return eGetPrintDocumentTemplateResult.ERROR;
+                    }
+
+                }
+                else
                 {
                     return eGetPrintDocumentTemplateResult.ERROR;
                 }
             }
             else if (PageType == f_doc.StandardPages.ROLL_58)
             {
-                if (!fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
+                if (fs.Add_lpar(lpar, "doc_$_pgt_$$Name", "Roll paper 80mm", ref scond_page_name, ref sval_page_name))
+                {
+                    if (fs.Add_lpar(lpar, "doc_$_pgt_$$Width", f_doc.Roll58_WIDTH, ref scond_page_width, ref sval_page_width))
+                    {
+                        if (fs.Add_lpar(lpar, "doc_$_pgt_$$Height", f_doc.Roll58_HEIGHT, ref scond_page_height, ref sval_page_height))
+                        {
+
+                        }
+                        else
+                        {
+                            return eGetPrintDocumentTemplateResult.ERROR;
+                        }
+                    }
+                    else
+                    {
+                        return eGetPrintDocumentTemplateResult.ERROR;
+                    }
+
+                }
+                else
                 {
                     return eGetPrintDocumentTemplateResult.ERROR;
                 }
             }
+
 
             string sql = "select id,doc_$$Name,doc_$$xDocument,doc_$$Compressed from doc_VIEW where doc_$$Active = 1 "
                           + " and " + scond_Language_ID

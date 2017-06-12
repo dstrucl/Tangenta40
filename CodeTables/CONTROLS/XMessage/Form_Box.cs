@@ -168,7 +168,6 @@ namespace XMessage
             // TODO: Complete member initialization
             InitializeComponent();
             this.owner = owner;
-            this.text = text;
             this.caption = caption;
             this.m_buttons = buttons;
             if (oIcon is MessageBoxIcon)
@@ -187,7 +186,7 @@ namespace XMessage
             this.defaultButton = defaultButton;
             this.Text = caption;
             xltext.Text(textBox1);
-            textBox1.Text = text;
+            textBox1.Text += text;
             button1.Visible = false;
             button2.Visible = false;
             button3.Visible = false;
