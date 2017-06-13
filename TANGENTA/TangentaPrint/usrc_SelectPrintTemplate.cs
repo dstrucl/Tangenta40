@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using LanguageControl;
 using TangentaDB;
 using System.Drawing.Printing;
+using CodeTables;
+using TangentaTableClass;
 
 namespace TangentaPrint
 {
@@ -17,6 +19,8 @@ namespace TangentaPrint
 
         public delegate void delagate_SettingsChanged();
         public event delagate_SettingsChanged SettingsChanged = null;
+        public byte[] Doc = null;
+        public bool bCompressedDocumentTemplate = false;
 
         public Printer SelectedPrinter = null;
 
@@ -347,6 +351,24 @@ namespace TangentaPrint
             if (SettingsChanged != null)
             {
                 SettingsChanged();
+            }
+        }
+
+        private void btn_EditTemplates_Click(object sender, EventArgs e)
+        {
+            SQLTable tbl_doc = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(doc)));
+            Form_Templates edt_doc_dlg = new Form_Templates(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
+                                                            tbl_doc,
+                                                            "doc_$$Name");
+            if (edt_doc_dlg.ShowDialog() == DialogResult.OK)
+            {
+                long id = edt_doc_dlg.ID_v.v;
+                string doc_name = null;
+                f_doc.SetDefault(id);
+                if (f_doc.GetTemplate(id, ref doc_name, ref Doc, ref bCompressedDocumentTemplate))
+                {
+                    this.TemplateName = doc_name;
+                }
             }
         }
     }

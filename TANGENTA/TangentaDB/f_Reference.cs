@@ -81,9 +81,13 @@ namespace TangentaDB
                                    )
         {
             string Err = null;
-            string sql = @"select Reference_$$ReferenceNote,
-                                  Reference_$_refimg_$$Image_Hash,
-                                  Reference_$_refimg_$$Image_Data from Reference_VIEW where ID = " + Reference_ID.ToString();
+            string sql = @"SELECT Reference.ID,
+                                  Reference.ReferenceNote AS Reference_$$ReferenceNote,
+                                  Reference_$_refimg.ID AS Reference_$_refimg_$$ID,
+                                  Reference_$_refimg.Image_Hash AS Reference_$_refimg_$$Image_Hash,
+                                  Reference_$_refimg.Image_Data AS Reference_$_refimg_$$Image_Data
+                                  FROM Reference 
+                                  LEFT JOIN Reference_Image Reference_$_refimg ON Reference.Reference_Image_ID = Reference_$_refimg.ID where Reference.ID = " + Reference_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql,ref Err))
             {

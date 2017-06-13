@@ -2274,7 +2274,7 @@ do_EditMyOrganisation_Data:
                                     m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
                                     m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
                                 }
-                                TangentaPrint.Form_PrintExistingInvoice frm_Print_Existing_invoice = new TangentaPrint.Form_PrintExistingInvoice(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
+                                TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
                                 frm_Print_Existing_invoice.ShowDialog(this);
                             }
                         }
@@ -2309,7 +2309,7 @@ do_EditMyOrganisation_Data:
             m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID));
             if (m_InvoiceData.Read_DocInvoice()) // Invoice again from DataBase
             {
-                TangentaPrint.Form_SelectTemplate template_dlg = new TangentaPrint.Form_SelectTemplate(m_InvoiceData);
+                TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_InvoiceData);
                 template_dlg.ShowDialog(this);
             }
             return false;

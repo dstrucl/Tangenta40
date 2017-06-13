@@ -2,7 +2,7 @@
 
 namespace TangentaPrint
 {
-    partial class Form_SelectTemplate
+    partial class Form_PrintDocument
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace TangentaPrint
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_SelectTemplate));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintDocument));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textEditorControl1 = new DigitalRune.Windows.TextEditor.TextEditorControl();
             this.btn_Refresh = new System.Windows.Forms.Button();

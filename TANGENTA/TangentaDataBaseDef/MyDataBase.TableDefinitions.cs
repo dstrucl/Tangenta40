@@ -2002,6 +2002,7 @@ namespace TangentaDataBaseDef
         /* 170 */
             t_Language = new SQLTable((Object)new TangentaTableClass.Language(), "lng", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Language);
             t_Language.AddColumn((Object)mt.m_Language.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Language.AddColumn((Object)mt.m_Language.LanguageIndex, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.none, new ltext("Language Index", "Index jezika"));
             t_Language.AddColumn((Object)mt.m_Language.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Language", "Jezik"));
             t_Language.AddColumn((Object)mt.m_Language.Description, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             t_Language.AddColumn((Object)mt.m_Language.bDefault, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Default", "Privzeti jezik"));

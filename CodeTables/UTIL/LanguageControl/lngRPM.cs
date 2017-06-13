@@ -17,7 +17,8 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
-
+        public static ltext s_Print_DocInvoice = new ltext("Print invoice", "Natisni račun");
+        public static ltext s_Print_DocProformaInvoice = new ltext("Print proforma invoice", "Natisni predračun");
         public static ltext s_btn_SaveHtmlTemplate = new ltext("Save Template", "Shrani predlogo");
         public static ltext s_btn_Refresh = new ltext("Refresh", "Osveži");
         public static ltext s_Form_EditMyOrgSampleData = new ltext("Sample data for organisation name Company1. You can change them to your organisation data.", "Vzorčni podatki organizacije z imenom Podjetje1, ki jih lahko spremenite v tem dialogu v podatke vaše organizacije.");

@@ -18,11 +18,15 @@ namespace TangentaDB
 {
     public static class f_Language
     {
-        public static bool Get(string Name,string_v Description_v,ref long Language_ID)
+        public static bool Get(string Name,string_v Description_v,int Index,ref long Language_ID)
         {
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 
             //Table Language
+            string spar_LanguageIndex = "@par_LanguageIndex";
+            SQL_Parameter par_LanguageIndex = new SQL_Parameter(spar_LanguageIndex, SQL_Parameter.eSQL_Parameter.Int, false, Index);
+            lpar.Add(par_LanguageIndex);
+
             string spar_Name = "@par_Name";
             SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
             lpar.Add(par_Name);
@@ -36,7 +40,7 @@ namespace TangentaDB
                 sval_Description = spar_Description;
             }
 
-            string sql = "select ID from Language where Name = " + spar_Name + " and Description = " + sval_Description;
+            string sql = "select ID from Language where LanguageIndex = "+ spar_LanguageIndex + " and Name = " + spar_Name + " and Description = " + sval_Description;
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
@@ -48,7 +52,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    sql = "insert into Language (Name,Description,bDefault)values(" + spar_Name + "," + sval_Description + ",0)";
+                    sql = "insert into Language (LanguageIndex,Name,Description,bDefault)values(" + spar_LanguageIndex + "," + spar_Name + "," + sval_Description + ",0)";
                     object oret = null;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref Language_ID, ref oret, ref Err, "Language"))
                     {
@@ -56,7 +60,7 @@ namespace TangentaDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_doc:InsertDefault:sql=" + sql + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:f_Language:Get:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
@@ -81,13 +85,37 @@ namespace TangentaDB
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:f_doc:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:f_Language:SetDefault:sql=" + sql + "\r\nErr=" + Err);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_doc:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:f_Language:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+        public static bool SetDefault(int LanguageIndex)
+        {
+            object oret = null;
+            string Err = null;
+            string sql = "update Language set bDefault = 0";
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
+            {
+                sql = "update Language set bDefault = 1 where LanguageIndex = " + LanguageIndex.ToString();
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
+                {
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_Language:SetDefault:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Language:SetDefault:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

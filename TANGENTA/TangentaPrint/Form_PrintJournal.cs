@@ -21,7 +21,7 @@ using TangentaDB;
 
 namespace TangentaPrint
 {
-    public partial class Form_PrintExistingInvoice : Form
+    public partial class Form_PrintJournal : Form
     {
         public InvoiceData m_InvoiceData = null;
         public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.NONE;
@@ -29,7 +29,7 @@ namespace TangentaPrint
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;
         public usrc_TangentaPrint m_usrc_TangentaPrint = null;
-        public Form_PrintExistingInvoice(InvoiceData xInvoiceData, string PrinterName, usrc_TangentaPrint xusrc_TangentaPrint)
+        public Form_PrintJournal(InvoiceData xInvoiceData, string PrinterName, usrc_TangentaPrint xusrc_TangentaPrint)
         {
             InitializeComponent();
             m_usrc_TangentaPrint = xusrc_TangentaPrint;

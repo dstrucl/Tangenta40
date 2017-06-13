@@ -189,6 +189,8 @@
     <Compile Include="f_Warranty.cs" />
     <Compile Include="f_WorkingPlace.cs" />
     <Compile Include="GlobalData.cs" />
+    <Compile Include="HTML_PrintingElement.cs" />
+    <Compile Include="HTML_PrintingOutput.cs" />
     <Compile Include="InvoiceData.cs" />
     <Compile Include="Item_Data.cs" />
     <Compile Include="JOURNAL_DocProformaInvoice_Type_definitions .cs" />
@@ -247,6 +249,10 @@
     <ProjectReference Include="..\..\CodeTables\UTIL\StaticLib\StaticLib.csproj">
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HtmlRenderer 1.5.0.6 with print pages support\HtmlRenderer\HtmlRenderer.csproj">
+      <Project>{fe611685-391f-4e3e-b27e-d3150e51e49b}</Project>
+      <Name>HtmlRenderer</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopA_dbfunc\ShopA_dbfunc.csproj">
       <Project>{3501813f-d72e-4190-9d0f-d491d42bbbfc}</Project>

@@ -96,7 +96,8 @@ namespace TangentaPrint
                     {
                         char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
                         string shtml_doc_text = new string(chars2);
-                        string s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
+                        HTML_PrintingOutput HTML_RollPaperPrintingOutput = null;
+                        string s = m_InvoiceData.CreateHTML_RollPaperPrintingOutput(ref shtml_doc_text, ref HTML_RollPaperPrintingOutput);
                         this.htmlPanel1.Text = s;
                         return s;
                     }
@@ -115,11 +116,13 @@ namespace TangentaPrint
             {
                 try
                 {
+                    HTML_PrintingOutput HTML_RollPaperPrintingOutput = null;
                     string shtml_doc_text = value;
                     string s = null;
                     if (m_InvoiceData != null)
                     {
-                        s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
+
+                        s = m_InvoiceData.CreateHTML_RollPaperPrintingOutput(ref shtml_doc_text,ref HTML_RollPaperPrintingOutput);
                     }
                     else
                     {
@@ -134,24 +137,34 @@ namespace TangentaPrint
             }
         }
 
-        public bool ShowPreview(string shtml_doc_text)
+        public bool ShowPreview(Printer printer,string shtml_doc_text)
             {
                 try
                 {
-                  
-                     string s = null;
+                    HTML_PrintingOutput HTML_RollPaperPrintingOutput = null;
+                    string s = null;
                     if (m_InvoiceData != null)
                     {
-                        s = m_InvoiceData.CreateHTML_Invoice(ref shtml_doc_text);
+                        s = m_InvoiceData.CreateHTML_RollPaperPrintingOutput(ref shtml_doc_text,ref HTML_RollPaperPrintingOutput);
                     }
                     else
                     {
                         s = shtml_doc_text;
                     }
-                //this.htmlPanel1.Text = s;
-                TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
-                this.htmlPanel1.GetPages(s, ref pglayout);
-                return true;
+                    //this.htmlPanel1.Text = s;
+                    TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
+                    this.htmlPanel1.GetPages(s, ref pglayout);
+                    if (pglayout.OnePageSize(printer.PageHeight, 0, 0))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(s, HTML_RollPaperPrintingOutput, pglayout);
+                        this.htmlPanel1.Text = s;
+                        return true;
+                    }
+                
                 }
                 catch (Exception ex)
                 {

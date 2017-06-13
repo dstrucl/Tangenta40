@@ -25,13 +25,11 @@ using DBConnectionControl40;
 
 namespace TangentaPrint
 {
-    public partial class Form_SelectTemplate : Form
+    public partial class Form_PrintDocument : Form
     {
        
-        public bool bCompressedDocumentTemplate = false;
         public long Default_ID = -1;
         public string Default_Tamplate = null;
-        public byte[] Doc = null;
 
         private usrc_Invoice_Preview m_usrc_Invoice_Preview = null;
         private GlobalData.ePaymentType paymentType;
@@ -43,7 +41,7 @@ namespace TangentaPrint
         private long durationType;
         private long duration;
 
-        public Form_SelectTemplate(InvoiceData xInvoiceData)
+        public Form_PrintDocument(InvoiceData xInvoiceData)
         {
             InitializeComponent();
 
@@ -55,6 +53,7 @@ namespace TangentaPrint
                 this.sAmountReceived = m_InvoiceData.AddOnDI.sCash_AmountReceived;
                 this.sToReturn = m_InvoiceData.AddOnDI.sCash_ToReturn;
                 this.issue_time = new DateTime_v(m_InvoiceData.AddOnDI.m_IssueDate.Date);
+                lngRPM.s_Print_DocInvoice.Text(this);
             }
             else if (m_InvoiceData.IsDocProformaInvoice)
             {
@@ -63,11 +62,13 @@ namespace TangentaPrint
                 this.issue_time = new DateTime_v(m_InvoiceData.AddOnDPI.m_IssueDate.Date);
                 this.durationType = m_InvoiceData.AddOnDPI.m_Duration.type;
                 this.duration = m_InvoiceData.AddOnDPI.m_Duration.length;
+                lngRPM.s_Print_DocProformaInvoice.Text(this);
             }
             btn_SaveTemplate.Visible = false;
             btn_Refresh.Visible = false;
             lngRPM.s_btn_Refresh.Text(btn_Refresh);
             lngRPM.s_btn_SaveHtmlTemplate.Text(btn_SaveTemplate);
+            
         }
 
 
@@ -75,8 +76,8 @@ namespace TangentaPrint
         {
             switch (f_doc.GetDefaultTemplate(ref Default_ID,
                                              ref Default_Tamplate,
-                                             ref Doc,
-                                             ref bCompressedDocumentTemplate,
+                                             ref m_usrc_SelectPrintTemplate.Doc,
+                                             ref m_usrc_SelectPrintTemplate.bCompressedDocumentTemplate,
                                              m_usrc_SelectPrintTemplate.SelectedLangugage,
                                              m_InvoiceData.DocInvoice,
                                              m_usrc_SelectPrintTemplate.PageType,
@@ -85,12 +86,16 @@ namespace TangentaPrint
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     Create_usrc_Invoice_Preview();
-                    m_usrc_Invoice_Preview.Init(Doc, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                     m_usrc_SelectPrintTemplate.TemplateName = Default_Tamplate;
+                    btn_SaveTemplate.Visible = false;
+                    btn_Refresh.Visible = false;
                     break;
                 
                 case f_doc.eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE:
+                    btn_SaveTemplate.Visible = false;
+                    btn_Refresh.Visible = false;
                     ltext lMsg = lngRPM.s_YouHaveNoDocumentTemplateFor;
                     string sMsg_paper = "";
                     switch (m_usrc_SelectPrintTemplate.PageType)
@@ -169,23 +174,6 @@ namespace TangentaPrint
             this.m_usrc_Invoice_Preview.OK += new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
             this.splitContainer1.Panel1.Controls.Add(m_usrc_Invoice_Preview);
 
-        }
-        private void btn_EditTemplates_Click(object sender, EventArgs e)
-        {
-            SQLTable tbl_doc = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(doc)));
-            Form_Templates edt_doc_dlg = new Form_Templates(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
-                                                            tbl_doc,
-                                                            "doc_$$Name");
-            if (edt_doc_dlg.ShowDialog() == DialogResult.OK)
-            {
-                long id = edt_doc_dlg.ID_v.v;
-                string doc_name = null;
-                f_doc.SetDefault(id);
-                if (f_doc.GetTemplate(id,ref doc_name, ref Doc, ref bCompressedDocumentTemplate))
-                {
-                    this.m_usrc_SelectPrintTemplate.TemplateName = doc_name;
-                }
-            }
         }
 
   

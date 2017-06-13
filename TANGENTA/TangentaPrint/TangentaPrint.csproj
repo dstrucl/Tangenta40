@@ -54,29 +54,23 @@
     <Compile Include="EscPos_RP58 .cs" />
     <Compile Include="EscPos_RP80.cs" />
     <Compile Include="EscPos_Star_TSP100.cs" />
-    <Compile Include="Form_PrintExistingInvoice.cs">
+    <Compile Include="Form_PrintJournal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_PrintExistingInvoice.Designer.cs">
-      <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
+    <Compile Include="Form_PrintJournal.Designer.cs">
+      <DependentUpon>Form_PrintJournal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_SelectTemplate.cs">
+    <Compile Include="Form_PrintDocument.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_SelectTemplate.Designer.cs">
-      <DependentUpon>Form_SelectTemplate.cs</DependentUpon>
+    <Compile Include="Form_PrintDocument.Designer.cs">
+      <DependentUpon>Form_PrintDocument.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_DefinePrinters.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_DefinePrinters.Designer.cs">
       <DependentUpon>Form_DefinePrinters.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_SelectPrinter_from_predefined_printer_list.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_SelectPrinter_from_predefined_printer_list.Designer.cs">
-      <DependentUpon>Form_SelectPrinter_from_predefined_printer_list.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Templates.cs">
       <SubType>Form</SubType>
@@ -221,17 +215,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_PrintExistingInvoice.resx">
-      <DependentUpon>Form_PrintExistingInvoice.cs</DependentUpon>
+    <EmbeddedResource Include="Form_PrintJournal.resx">
+      <DependentUpon>Form_PrintJournal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_SelectTemplate.resx">
-      <DependentUpon>Form_SelectTemplate.cs</DependentUpon>
+    <EmbeddedResource Include="Form_PrintDocument.resx">
+      <DependentUpon>Form_PrintDocument.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_DefinePrinters.resx">
       <DependentUpon>Form_DefinePrinters.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_SelectPrinter_from_predefined_printer_list.resx">
-      <DependentUpon>Form_SelectPrinter_from_predefined_printer_list.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Templates.resx">
       <DependentUpon>Form_Templates.cs</DependentUpon>

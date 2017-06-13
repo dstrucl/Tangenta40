@@ -2290,9 +2290,15 @@ namespace TangentaTableClass
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
     }
 
+    public class LanguageIndex : DB_Int32
+    {
+
+    }
+
     public class Language
     {
         public ID ID = new ID();
+        public LanguageIndex LanguageIndex = new LanguageIndex();
         public Name Name = new Name();
         public Description Description = new Description();
         public bDefault bDefault = new bDefault();

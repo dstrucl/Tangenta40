@@ -132,8 +132,8 @@
 <html>
 <body>
     <page>
-        <div class="pagenumbers">page 1 of 3</div>
-        <div class="invoicenumber">
+        <div class="pagenumbers">page @@PageNumber of @@NumberOfPages</div>
+        <div class="invoicetop">
             <h1>Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@) (@@Račun_Stornacija@@)</h1>
             <table id="customer_company">
                 <thead>
@@ -213,11 +213,13 @@
                 </tr>
             </tbody>
         </table>
-        <div id="FURS">
-            <div>FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"</div>
-            <div>FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"</div>
-            <img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" />
+        <div class="invoicebottom">
+            <div id="FURS">
+                <div>FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"</div>
+                <div>FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"</div>
+                <img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" />
+            </div>
         </div>
-    </page>
+</page>
 </body>
 </html>

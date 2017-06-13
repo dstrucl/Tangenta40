@@ -171,6 +171,7 @@
             this.btn_EditTemplates.Size = new System.Drawing.Size(43, 29);
             this.btn_EditTemplates.TabIndex = 14;
             this.btn_EditTemplates.UseVisualStyleBackColor = true;
+            this.btn_EditTemplates.Click += new System.EventHandler(this.btn_EditTemplates_Click);
             // 
             // cmb_SelectPrinter
             // 

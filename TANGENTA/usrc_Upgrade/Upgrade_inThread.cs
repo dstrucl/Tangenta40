@@ -99,7 +99,9 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_20_to_1_21(object obj, ref string Err)
         {
-            string[] new_tables = new string[] {"Contact",
+            if (DBSync.DBSync.Drop_VIEWs(ref Err))
+            {
+                string[] new_tables = new string[] {"Contact",
                                                 "Trucking",
                                                 "Purchase_Order",
                                                 "StockTake",
@@ -109,167 +111,180 @@ namespace UpgradeDB
                                                 "JOURNAL_StockTake_Type",
                                                 "JOURNAL_StockTake",
                                                 "Atom_ElectronicDevice" };
-            if (DBSync.DBSync.CreateTables(new_tables, ref Err))
-            {
-                long Atom_ElectronicDevice_ID = -1;
-                if (f_Atom_ElectronicDevice.Get("ED1", null, ref Atom_ElectronicDevice_ID))
+                if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
-                    List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                    string spar_Atom_ElectronicDevice_ID = "@par_Atom_ElectronicDevice_ID";
-                    SQL_Parameter par_Atom_ElectronicDevice_ID = new SQL_Parameter(spar_Atom_ElectronicDevice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_ElectronicDevice_ID);
-                    lpar.Add(par_Atom_ElectronicDevice_ID);
-                    string sql = @"
-                    PRAGMA foreign_keys = OFF;
-                    DROP TABLE IF EXISTS Atom_WorkPeriod_temp;
-
-                    CREATE TABLE Atom_WorkPeriod_temp ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                        Atom_myOrganisation_Person_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
-                                                        Atom_WorkingPlace_ID INTEGER NOT NULL REFERENCES Atom_WorkingPlace(ID),
-                                                        Atom_Computer_ID INTEGER NOT NULL REFERENCES Atom_Computer(ID),
-                                                        Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES Atom_ElectronicDevice(ID),
-                                                        'LoginTime' DATETIME NULL,
-                                                        'LogoutTime' DATETIME NULL,
-                                                        Atom_WorkPeriod_TYPE_ID INTEGER NULL REFERENCES Atom_WorkPeriod_TYPE(ID));
-
-                    insert into Atom_WorkPeriod_temp
-                    (
-                      ID,
-                      Atom_myOrganisation_Person_ID,
-                      Atom_WorkingPlace_ID,
-                      Atom_Computer_ID,
-                      Atom_ElectronicDevice_ID,
-                      Atom_WorkPeriod_TYPE_ID,
-                      LoginTime,
-                      LogoutTime
-                    )
-                    select
-                        ID,
-                        Atom_myOrganisation_Person_ID,
-                        Atom_WorkingPlace_ID,
-                        Atom_Computer_ID,
-                        " + spar_Atom_ElectronicDevice_ID + @",
-                        Atom_WorkPeriod_TYPE_ID,
-                        LoginTime,
-                        LogoutTime
-                        from Atom_WorkPeriod;
-                    DROP TABLE Atom_WorkPeriod;
-                    ALTER TABLE Atom_WorkPeriod_temp RENAME TO Atom_WorkPeriod;
-                    PRAGMA foreign_keys = ON;
-                    ";
-                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
+                    long Atom_ElectronicDevice_ID = -1;
+                    if (f_Atom_ElectronicDevice.Get("ED1", null, ref Atom_ElectronicDevice_ID))
                     {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
-                    sql = @"
-                    PRAGMA foreign_keys = OFF;
-                    CREATE TABLE PurchasePrice_NEW(
-                    'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                    'PurchasePricePerUnit' DECIMAL(18,5) NOT NULL,
-                        Currency_ID INTEGER NOT NULL REFERENCES Currency(ID),
-                        Taxation_ID INTEGER NOT NULL REFERENCES Taxation(ID),
-                    'PurchasePriceDate' DATETIME NOT NULL );
+                        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                        string spar_Atom_ElectronicDevice_ID = "@par_Atom_ElectronicDevice_ID";
+                        SQL_Parameter par_Atom_ElectronicDevice_ID = new SQL_Parameter(spar_Atom_ElectronicDevice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_ElectronicDevice_ID);
+                        lpar.Add(par_Atom_ElectronicDevice_ID);
+                        string sql = @"
+                        PRAGMA foreign_keys = OFF;
+                        DROP TABLE IF EXISTS Atom_WorkPeriod_temp;
 
-                        Insert into PurchasePrice_NEW
-                            (
-                                PurchasePricePerUnit,
-                                Currency_ID,
-                                Taxation_ID,
-                                PurchasePriceDate
-                            )
-                            select
-                                PurchasePricePerUnit,
-                                Currency_ID,
-                                Taxation_ID,
-                                PurchasePriceDate
-                            from PurchasePrice;
-                        
-                    CREATE TABLE PurchasePrice_Item_NEW 
-                    ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Item_ID INTEGER NOT NULL REFERENCES Item(ID),
-                        PurchasePrice_ID INTEGER NOT NULL REFERENCES PurchasePrice(ID),
-                        StockTake_ID INTEGER NOT NULL REFERENCES StockTake(ID) 
-                    );
+                        CREATE TABLE Atom_WorkPeriod_temp ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                            Atom_myOrganisation_Person_ID INTEGER NOT NULL REFERENCES Atom_myOrganisation_Person(ID),
+                                                            Atom_WorkingPlace_ID INTEGER NOT NULL REFERENCES Atom_WorkingPlace(ID),
+                                                            Atom_Computer_ID INTEGER NOT NULL REFERENCES Atom_Computer(ID),
+                                                            Atom_ElectronicDevice_ID INTEGER NOT NULL REFERENCES Atom_ElectronicDevice(ID),
+                                                            'LoginTime' DATETIME NULL,
+                                                            'LogoutTime' DATETIME NULL,
+                                                            Atom_WorkPeriod_TYPE_ID INTEGER NULL REFERENCES Atom_WorkPeriod_TYPE(ID));
 
-                        Insert into PurchasePrice_NEW
-                            (
-                                PurchasePricePerUnit,
-                                Currency_ID,
-                                Taxation_ID,
-                                PurchasePriceDate
-                            )
-                            select
-                                PurchasePricePerUnit,
-                                Currency_ID,
-                                Taxation_ID,
-                                PurchasePriceDate
-                            from PurchasePrice;
-
-                        CREATE TABLE Supplier_NEW 
-                        ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 
-                        Contact_ID INTEGER NOT NULL REFERENCES Contact(ID) UNIQUE );
-
+                        insert into Atom_WorkPeriod_temp
+                        (
+                          ID,
+                          Atom_myOrganisation_Person_ID,
+                          Atom_WorkingPlace_ID,
+                          Atom_Computer_ID,
+                          Atom_ElectronicDevice_ID,
+                          Atom_WorkPeriod_TYPE_ID,
+                          LoginTime,
+                          LogoutTime
+                        )
+                        select
+                            ID,
+                            Atom_myOrganisation_Person_ID,
+                            Atom_WorkingPlace_ID,
+                            Atom_Computer_ID,
+                            " + spar_Atom_ElectronicDevice_ID + @",
+                            Atom_WorkPeriod_TYPE_ID,
+                            LoginTime,
+                            LogoutTime
+                            from Atom_WorkPeriod;
+                        DROP TABLE Atom_WorkPeriod;
+                        ALTER TABLE Atom_WorkPeriod_temp RENAME TO Atom_WorkPeriod;
                         PRAGMA foreign_keys = ON;
-                    ";
+                        ";
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lpar, ref Err))
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                        sql = @"
+                        PRAGMA foreign_keys = OFF;
+                        CREATE TABLE PurchasePrice_NEW(
+                        'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                        'PurchasePricePerUnit' DECIMAL(18,5) NOT NULL,
+                            Currency_ID INTEGER NOT NULL REFERENCES Currency(ID),
+                            Taxation_ID INTEGER NOT NULL REFERENCES Taxation(ID),
+                        'PurchasePriceDate' DATETIME NOT NULL );
 
-                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
+                            Insert into PurchasePrice_NEW
+                                (
+                                    PurchasePricePerUnit,
+                                    Currency_ID,
+                                    Taxation_ID,
+                                    PurchasePriceDate
+                                )
+                                select
+                                    PurchasePricePerUnit,
+                                    Currency_ID,
+                                    Taxation_ID,
+                                    PurchasePriceDate
+                                from PurchasePrice;
+                        
+                        CREATE TABLE PurchasePrice_Item_NEW 
+                        ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Item_ID INTEGER NOT NULL REFERENCES Item(ID),
+                            PurchasePrice_ID INTEGER NOT NULL REFERENCES PurchasePrice(ID),
+                            StockTake_ID INTEGER NOT NULL REFERENCES StockTake(ID) 
+                        );
 
-                    if (!FillStockTake())
-                    {
-                        return false;
-                    }
+                            Insert into PurchasePrice_NEW
+                                (
+                                    PurchasePricePerUnit,
+                                    Currency_ID,
+                                    Taxation_ID,
+                                    PurchasePriceDate
+                                )
+                                select
+                                    PurchasePricePerUnit,
+                                    Currency_ID,
+                                    Taxation_ID,
+                                    PurchasePriceDate
+                                from PurchasePrice;
 
-                    sql = sql = @"
-                                        PRAGMA foreign_keys = OFF;
-                                        DROP TABLE doc;
-                                        DROP TABLE doc_type;
-                                        DROP TABLE doc_page_type;
+                            CREATE TABLE Supplier_NEW 
+                            ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 
+                            Contact_ID INTEGER NOT NULL REFERENCES Contact(ID) UNIQUE );
 
-                                        CREATE TABLE MethodOfPayment_NEW ( 
-                                                     'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                     'PaymentType' varchar(264) UNIQUE NOT NULL UNIQUE ,
-                                                      Atom_BankAccount_ID INTEGER NULL REFERENCES Atom_BankAccount(ID) );
+                            PRAGMA foreign_keys = ON;
+                        ";
 
-                                        insert into MethodOfPayment_NEW (PaymentType) select PaymentType from MethodOfPayment;
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
 
-                                        DROP TABLE MethodOfPayment;
+                        if (!FillStockTake())
+                        {
+                            return false;
+                        }
 
-                                        ALTER TABLE MethodOfPayment_NEW RENAME TO MethodOfPayment;
+                        sql = @"
+                                            PRAGMA foreign_keys = OFF;
+                                            DROP TABLE doc;
+                                            DROP TABLE doc_type;
+                                            DROP TABLE doc_page_type;
 
-                                        CREATE TABLE Atom_Currency_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Abbreviation' varchar(50) NOT NULL, 'Symbol' varchar(5) NOT NULL, 'CurrencyCode' INT NOT NULL, 'DecimalPlaces' INT NOT NULL );
+                                            CREATE TABLE MethodOfPayment_NEW ( 
+                                                         'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                         'PaymentType' varchar(264) NOT NULL UNIQUE ,
+                                                          Atom_BankAccount_ID INTEGER NULL REFERENCES Atom_BankAccount(ID) );
 
-                                        insert into Atom_Currency_NEW (ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces) select ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces from Atom_Currency;
+                                            insert into MethodOfPayment_NEW (PaymentType) select PaymentType from MethodOfPayment;
 
-                                        CREATE TABLE Atom_PriceList_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Valid' BIT NOT NULL, 'ValidFrom' DATETIME NULL, 'ValidTo' DATETIME NULL, 'Description' varchar(2000) NULL, Atom_Currency_ID INTEGER NOT NULL REFERENCES Atom_Currency(ID) );
+                                            DROP TABLE MethodOfPayment;
 
-                                        insert into Atom_PriceList_NEW (ID,Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select ID,Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID from Atom_PriceList;
+                                            ALTER TABLE MethodOfPayment_NEW RENAME TO MethodOfPayment;
 
-                                        DROP TABLE Atom_Currency;
+                                            CREATE TABLE Atom_Currency_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Abbreviation' varchar(50) NOT NULL, 'Symbol' varchar(5) NOT NULL, 'CurrencyCode' INT NOT NULL, 'DecimalPlaces' INT NOT NULL );
 
-                                        ALTER TABLE Atom_Currency_NEW RENAME TO Atom_Currency;
+                                            insert into Atom_Currency_NEW (ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces) select ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces from Atom_Currency;
 
-                                        DROP TABLE Atom_PriceList;
+                                            CREATE TABLE Atom_PriceList_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Valid' BIT NOT NULL, 'ValidFrom' DATETIME NULL, 'ValidTo' DATETIME NULL, 'Description' varchar(2000) NULL, Atom_Currency_ID INTEGER NOT NULL REFERENCES Atom_Currency(ID) );
 
-                                        ALTER TABLE Atom_PriceList_NEW RENAME TO Atom_PriceList;
+                                            insert into Atom_PriceList_NEW (ID,Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID) select ID,Name,Valid,ValidFrom,ValidTo,Description,Atom_Currency_ID from Atom_PriceList;
 
-                                        PRAGMA foreign_keys = ON;
-                                        ";
-                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
-                    {
-                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
-                        return false;
-                    }
+                                            DROP TABLE Atom_Currency;
 
-                    new_tables = new string[] {"doc_type",
-                                                "doc_page_type",
-                                                "doc"};
-                    if (DBSync.DBSync.CreateTables(new_tables, ref Err))
-                    {
-                        return Set_DatBase_Version("1.21");
+                                            ALTER TABLE Atom_Currency_NEW RENAME TO Atom_Currency;
+
+                                            DROP TABLE Atom_PriceList;
+
+                                            ALTER TABLE Atom_PriceList_NEW RENAME TO Atom_PriceList;
+
+                                            PRAGMA foreign_keys = ON;
+                                            ";
+                        if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+
+
+                        new_tables = new string[] {"doc_type",
+                                                    "doc_page_type",
+                                                    "doc"};
+                        if (DBSync.DBSync.CreateTables(new_tables, ref Err))
+                        {
+                            if (DBSync.DBSync.Create_VIEWs())
+                            {
+                                return Set_DatBase_Version("1.21");
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -1423,12 +1438,72 @@ namespace UpgradeDB
                                 Drop Table myCompany;
                                 Drop Table AccessRights;
 
+                                CREATE TABLE Language_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT,'LanguageIndex' INT NOT NULL UNIQUE, 'Name' varchar(264) NOT NULL, 'Description' varchar(2000) NULL, 'bDefault' BIT NULL );
+
                                 PRAGMA foreign_keys = ON;
 
                                 ";
 
                             if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                             {
+                                DataTable dtLanguage = new DataTable();
+                                sql = "select Name,Description,bDefault from Language";
+                                if (!DBSync.DBSync.ReadDataTable(ref dtLanguage, sql, null, ref Err))
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+                                int iCount = dtLanguage.Rows.Count;
+                                for (int i = 0; i < iCount; i++)
+                                {
+                                    List<SQL_Parameter> lparx = new List<SQL_Parameter>();
+
+                                    string spar_LanguageIndex = "@par_LanguageIndex";
+                                    SQL_Parameter par_LanguageIndex = new SQL_Parameter(spar_LanguageIndex, SQL_Parameter.eSQL_Parameter.Int, false, i);
+                                    lparx.Add(par_LanguageIndex);
+
+                                    string Name = (string)dtLanguage.Rows[i]["Name"];
+                                    string spar_Name = "@par_Name";
+                                    SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
+                                    lparx.Add(par_Name);
+
+                                    object oDescription = dtLanguage.Rows[i]["Description"];
+                                    string sval_Description = "null";
+                                    if (oDescription is string)
+                                    {
+                                        string spar_Description = "@par_Description";
+                                        SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, (string)oDescription);
+                                        lparx.Add(par_Description);
+                                        sval_Description = spar_Description;
+                                    }
+
+                                    object obDefault = dtLanguage.Rows[i]["bDefault"];
+                                    string sval_bDefault = "null";
+                                    if (obDefault is bool)
+                                    {
+                                        string spar_bDefault = "@par_bDefault";
+                                        SQL_Parameter par_bDefault = new SQL_Parameter(spar_bDefault, SQL_Parameter.eSQL_Parameter.Bit, false, (bool)obDefault);
+                                        lparx.Add(par_bDefault);
+                                        sval_bDefault = spar_bDefault;
+                                    }
+                                    sql = "insert into Language_NEW (LanguageIndex,Name,Description,bDefault)values(" + spar_LanguageIndex + "," + spar_Name + "," + sval_Description + "," + sval_bDefault + ")";
+                                    if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, lparx, ref Err))
+                                    {
+                                        LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                        return false;
+                                    }
+                                }
+                                sql = @"            PRAGMA foreign_keys = OFF;
+                                        DROP TABLE Language;
+                                        ALTER TABLE Language_NEW RENAME TO Language;
+                                        PRAGMA foreign_keys = ON;
+                                        ";
+                                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                                {
+                                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                    return false;
+                                }
+
                                 string sdb = DBSync.DBSync.DataBase;
 
                                 if (sdb.Contains("StudioMarjetka"))

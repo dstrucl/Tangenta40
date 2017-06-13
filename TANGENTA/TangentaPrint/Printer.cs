@@ -26,7 +26,26 @@ namespace TangentaPrint
 {
     public class Printer
     {
-    
+        private PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
+        public PrintDocument printDocument = null;
+        public PrinterSettings printer_settings = new PrinterSettings();
+        public PageSettings page_settings = null;
+
+        public enum eCharacterSet { Slovenia_Croatia, USA };
+        public bool m_PrintInBuffer = false;
+        private string PrintBuffer = null;
+
+
+        private string m_PrinterName = null;
+        private string m_PaperName = null;
+
+        public usrc_Printer m_usrc_Printer = null;
+
+
+
+        public InvoiceData m_InvoiceData = null;
+        public StaticLib.TaxSum taxSum = null;
+
 
         private int m_Index = -1;
         public int Index
@@ -55,7 +74,7 @@ namespace TangentaPrint
 
         }
 
-        public usrc_Printer m_usrc_Printer = null;
+
 
 
 
@@ -89,19 +108,20 @@ namespace TangentaPrint
         }
 
 
-        public enum eCharacterSet { Slovenia_Croatia, USA };
-        public bool m_PrintInBuffer = false;
-        private string PrintBuffer = null;
-        
 
-        private string m_PrinterName = null;
-        private string m_PaperName = null;
+        public double PageHeight
+        {
+            get
+            {
+                if (this.printer_settings == null)
+                {
+                    this.printer_settings = new PrinterSettings();
+                }
+                printer_settings.PrinterName = PrinterName;
+                return (double)printer_settings.DefaultPageSettings.PaperSize.Height * 0.254;
+            }
 
-
-        public InvoiceData m_InvoiceData = null;
-        public StaticLib.TaxSum taxSum = null;
-
-
+        }
 
         float cx_paper_in_inch = 0;
         float cy_paper_in_inch = 0;
@@ -300,7 +320,7 @@ namespace TangentaPrint
             }
             else
             {
-                Form_SelectTemplate print_A4_dlg = new Form_SelectTemplate(xInvoiceData);
+                Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xInvoiceData);
                 print_A4_dlg.ShowDialog();
             }
         }
@@ -320,7 +340,7 @@ namespace TangentaPrint
                                     )
         {
 
-            Form_SelectTemplate print_A4_dlg = new Form_SelectTemplate(xInvoiceData);
+            Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xInvoiceData);
             print_A4_dlg.ShowDialog();
         }
 
@@ -366,10 +386,6 @@ namespace TangentaPrint
         }
 
 
-        private PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
-        public PrintDocument printDocument = null;
-        public PrinterSettings printer_settings = new PrinterSettings();
-        public PageSettings page_settings = null;
 
 
         private string FindPrinter(string printerName)

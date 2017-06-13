@@ -1,7 +1,7 @@
 ﻿namespace TangentaPrint
 
 {
-    partial class Form_PrintExistingInvoice
+    partial class Form_PrintJournal
     {
         /// <summary>
         /// Required designer variable.

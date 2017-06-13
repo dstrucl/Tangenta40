@@ -125,10 +125,10 @@ namespace TangentaDB
                 string spar_Name = "@par_Name";
                 SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
                 lpar.Add(par_Name);
-
+                string scond_Name = " Name = "+ spar_Name + " ";
 
                 string sval_Description = "null";
-
+                string scond_Description = " Description is null ";
                 if (Description_v != null)
                 {
                     string spar_Description = "@par_Description";
@@ -136,11 +136,12 @@ namespace TangentaDB
                     SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Description_v.v);
                     lpar.Add(par_Description);
                     sval_Description = spar_Description;
+                    scond_Description = " Description = "+ spar_Description + " ";
                 }
 
 
                 string sval_doc_type_ID = "null";
-
+                string scond_doc_type_ID = " doc_type_ID is null ";
                 if (doc_type_ID_v != null)
                 {
                     string spar_doc_type_ID = "@par_doc_type_ID";
@@ -148,10 +149,11 @@ namespace TangentaDB
                     SQL_Parameter par_doc_type_ID = new SQL_Parameter(spar_doc_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_type_ID_v.v);
                     lpar.Add(par_doc_type_ID);
                     sval_doc_type_ID = spar_doc_type_ID;
+                    scond_doc_type_ID = " doc_type_ID = " + spar_doc_type_ID + " ";
                 }
 
                 string sval_doc_page_type_ID = "null";
-
+                string scond_doc_page_type_ID = " doc_page_type_ID is null";
                 if (doc_page_type_ID_v != null)
                 {
                     string spar_doc_page_type_ID = "@par_doc_page_type_ID";
@@ -159,10 +161,12 @@ namespace TangentaDB
                     SQL_Parameter par_doc_page_type_ID = new SQL_Parameter(spar_doc_page_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID_v.v);
                     lpar.Add(par_doc_page_type_ID);
                     sval_doc_page_type_ID = spar_doc_page_type_ID;
+                    scond_doc_page_type_ID = " doc_page_type_ID = "+ spar_doc_page_type_ID+" ";
                 }
 
 
                 string sval_Language_ID = "null";
+                string scond_Language_ID = " Language_ID is null ";
 
                 if (Language_ID_v != null)
                 {
@@ -171,21 +175,22 @@ namespace TangentaDB
                     SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Language_ID_v.v);
                     lpar.Add(par_Language_ID);
                     sval_Language_ID = spar_Language_ID;
+                    scond_Language_ID = " Language_ID = "+ spar_Language_ID + " ";
                 }
 
-
+                
                 xDocument_HASH = DBtypesFunc.GetHash_SHA1(xDocument);
                 string spar_xDocument_HASH = "@par_xDocument_HASH";
                 SQL_Parameter par_xDocument_HASH = new SQL_Parameter(spar_xDocument_HASH, SQL_Parameter.eSQL_Parameter.Nvarchar, false, xDocument_HASH);
                 lpar.Add(par_xDocument_HASH);
+                string scond_xDocument_HASH = " xDocument_HASH = " + spar_xDocument_HASH + " ";
 
-
-                string sql = "select ID from doc where Name = " + spar_Name 
-                                                                + " and Description = " + sval_Description 
-                                                                + " and doc_type_ID = " + sval_doc_type_ID
-                                                                + " and doc_page_type_ID = " + sval_doc_page_type_ID
-                                                                + " and Language_ID = " + sval_Language_ID
-                                                                + " and xDocument_HASH = " + spar_xDocument_HASH;
+                string sql = "select ID from doc where "+scond_Name 
+                                                                + " and " + scond_Description 
+                                                                + " and " + scond_doc_type_ID
+                                                                + " and " + scond_doc_page_type_ID
+                                                                + " and " + scond_Language_ID
+                                                                + " and " + scond_xDocument_HASH;
 
                 DataTable dt = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))

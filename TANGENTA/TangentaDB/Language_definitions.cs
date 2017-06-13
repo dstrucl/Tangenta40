@@ -13,6 +13,7 @@ namespace TangentaDB
         public class Language
         {
             public long ID = -1;
+            public int Index = -1;
             public string Name = null;
             public string Description = null;
             public Language(string Language_Name, string Language_Description)
@@ -28,15 +29,17 @@ namespace TangentaDB
         {
 
             int i = 0;
+            int index = 0;
             for (i = 0; i < LanguageControl.DynSettings.s_language.sTextArr.Length; i++)
             {
                 if (LanguageControl.DynSettings.s_language.sTextArr[i] != null)
                 {
                     string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
                     Language lang = new Language(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v.v);
-                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, ref lang.ID))
+                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v,index, ref lang.ID))
                     {
                         Language_list.Add(lang);
+                        index++;
                     }
                 }
             }

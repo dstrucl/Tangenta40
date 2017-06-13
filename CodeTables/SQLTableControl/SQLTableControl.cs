@@ -1199,7 +1199,7 @@ namespace CodeTables
                 }
                 else
                 {
-                    LogFile.Error.Show(lngRPM.s_err_CreateViews.s + "\n\nException = " + csErrorMsg);
+                    LogFile.Error.Show(lngRPM.s_err_CreateViews.s +"\r\nsql="+sql+ "\r\nException = " + csErrorMsg);
                     return false;
                 }
             }
