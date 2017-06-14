@@ -1048,21 +1048,37 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 if (!startBox.Rectangles[line].Size.IsEmpty)
                 {
                     double x = xrrect.Location.X;
-                    if (x > startBox.Rectangles[line].X)
+                    if (x == -1)
+                    {
+                        x = startBox.Rectangles[line].X;
+                    }
+                    else if (x > startBox.Rectangles[line].X)
                     {
                         x = startBox.Rectangles[line].X;
                     }
                     double y = xrrect.Location.Y;
-                    if (y > startBox.Rectangles[line].Y)
+                    if (y == -1)
+                    {
+                        y = startBox.Rectangles[line].Y;
+                    }
+                    else if (y > startBox.Rectangles[line].Y)
                     {
                         y = startBox.Rectangles[line].Y;
                     }
                     double right = xrrect.Right;
-                    if (right < startBox.Rectangles[line].Right)
+                    if (right==-1)
+                    {
+                        right = startBox.Rectangles[line].Right;
+                    }
+                    else if (right < startBox.Rectangles[line].Right)
                     {
                         right = startBox.Rectangles[line].Right;
                     }
                     double bottom = xrrect.Bottom;
+                    if (bottom==-1)
+                    {
+                        bottom = startBox.Rectangles[line].Bottom;
+                    }
                     if (bottom < startBox.Rectangles[line].Bottom)
                     {
                         bottom = startBox.Rectangles[line].Bottom;

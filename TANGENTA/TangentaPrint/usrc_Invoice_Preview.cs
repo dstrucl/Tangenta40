@@ -160,9 +160,16 @@ namespace TangentaPrint
                     }
                     else
                     {
-                        s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(s, HTML_RollPaperPrintingOutput, pglayout);
-                        this.htmlPanel1.Text = s;
-                        return true;
+                        if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))
+                        {
+                            s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_RollPaperPrintingOutput,8000);
+                            this.htmlPanel1.Text = s;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                 
                 }
@@ -182,7 +189,7 @@ namespace TangentaPrint
             //string html_doc = Properties.Resources.html_doc;
 
         }
-        public bool Init(byte[] xdoc, InvoiceData xInvoiceData, GlobalData.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
+        public bool Init(byte[] xdoc,Printer printer, InvoiceData xInvoiceData, GlobalData.ePaymentType xpaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
         {
             m_InvoiceData = xInvoiceData;
             m_paymentType = xpaymentType;
@@ -193,7 +200,7 @@ namespace TangentaPrint
             m_Doc = xdoc;
             char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
             string shtml_doc_text = new string(chars2);
-            this.ShowPreview(shtml_doc_text);
+            this.ShowPreview(printer,shtml_doc_text);
             this.btn_Print.Enabled = true;
             return true;
         }

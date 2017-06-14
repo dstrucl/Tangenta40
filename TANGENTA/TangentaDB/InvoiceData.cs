@@ -195,12 +195,12 @@ namespace TangentaDB
                 <body>
                     <page>";
                     html += hTML_RollPaperPrintingOutput.pagenumber.html;
-                    html += hTML_RollPaperPrintingOutput.invoicetop.html;
+                    html += hTML_RollPaperPrintingOutput.doctop.html;
            // start table 
            html += hTML_RollPaperPrintingOutput.tableitems.html;
             html += @"
                      <tbody>";
-            List<TheArtOfDev.HtmlRenderer.Core.PageLayout> PageLayoutItemsList = pglayout.ItemList;
+            List<TheArtOfDev.HtmlRenderer.Core.PageLayout> PageLayoutItemsList = pglayout.ItemList("tbody");
             int iCount = PageLayoutItemsList.Count;
             int i = 0;
             while (i<iCount)
@@ -228,6 +228,216 @@ namespace TangentaDB
 
             return "ERROR CreateHTML_PagePaperPrintingOutput";
         }
+
+        public string CreateHTML_PagePaperPrintingOutput(HTML_PrintingOutput hTML_RollPaperPrintingOutput, double PageHeight)
+        {
+            PageHeight = 2000;
+            string html = hTML_RollPaperPrintingOutput.style.html;
+            html += @"
+             <html>
+                <body>
+                    <page> ";
+            double bottom = -1;
+            int i = 0;
+            int iCount = hTML_RollPaperPrintingOutput.elements.Count;
+            hTML_RollPaperPrintingOutput.NumberOfPages = 1;
+            for (i = 0; i < iCount; i++)
+            {
+                HTML_PrintingElement pel = hTML_RollPaperPrintingOutput.elements[i];
+                string shtml = null;
+                if (pel.Is("div", "pagenumbers"))
+                {
+                    shtml = pel.html;
+                }
+                else if (pel.Is("div", "invoicetop"))
+                {
+                    shtml = pel.html;
+                }
+                else if (pel.Is("table", "tableitems"))
+                {
+                    shtml = pel.html;
+                }
+                else if (pel.Is("tr", "item"))
+                {
+                    shtml = pel.html;
+                }
+                else if (pel.Is("tr", "totalneto"))
+                {
+                    shtml = pel.html;
+                }
+                else if (pel.Is("tr", "taxsum"))
+                {
+                    shtml = pel.html;
+                }
+                else if (pel.Is("tr", "grandtotal"))
+                {
+                    shtml = pel.html;
+                }
+                else if (pel.Is("div", "invoicebottom"))
+                {
+                    shtml = pel.html;
+                }
+
+                if (shtml != null)
+                {
+                    if (hTML_RollPaperPrintingOutput.NumberOfPages == 1)
+                    {
+                        bottom = pel.Ypos + pel.Height;
+                    }
+                    else
+                    {
+                        bottom += pel.Height;
+                    }
+                    if (bottom >= PageHeight)
+                    {
+                        //new page
+                        if (pel.Is("table", "tableitems"))
+                        {
+                            html += shtml + "/r/n";
+                            bottom = pel.Ypos;
+                        }
+                        else if (pel.Is("tr", "item"))
+                        {
+                            if (pel.index < hTML_RollPaperPrintingOutput.iItemsCount - 1)
+                            {
+                                // close table and open new page
+                                html += @"
+                                            </tbody>
+                                          </table>
+                                        </page>
+                                        <page>";
+                                hTML_RollPaperPrintingOutput.NumberOfPages++;
+                                if (hTML_RollPaperPrintingOutput.pagenumber != null)
+                                {
+                                    html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
+                                }
+                                html += hTML_RollPaperPrintingOutput.tableitems.html;
+                                bottom +=  pel.Height;
+                                html += "\r\n<tbody>\r\n";
+                                html += "\r\n" + pel.html + "\r\n";
+                            }
+                            else
+                            {
+                                html += "\r\n" + pel.html + "\r\n";
+                            }
+                        }
+                        else if (pel.Is("tr", "totalneto"))
+                        {
+                            html += @"
+                                            </tbody>
+                                          </table>
+                                        </page>
+                                        <page>";
+                            hTML_RollPaperPrintingOutput.NumberOfPages++;
+                            if (hTML_RollPaperPrintingOutput.pagenumber != null)
+                            {
+                                html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
+                                bottom = hTML_RollPaperPrintingOutput.pagenumber.Ypos+ hTML_RollPaperPrintingOutput.pagenumber.Height;
+                            }
+                            else
+                            {
+                                bottom = 0;
+                            }
+                            html += "\r\n<table class = \"tableitems\">\r\n";
+                            html += "\r\n<tbody>\r\n";
+                            html += "\r\n" + pel.html + "\r\n";
+                            if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
+                            {
+                                html += @"</tbody>
+                                        </table>
+                                        ";
+                            }
+                        }
+                        else if (pel.Is("tr", "taxsum"))
+                        {
+                            html += @"
+                                            </tbody>
+                                          </table>
+                                        </page>
+                                        <page>";
+                            hTML_RollPaperPrintingOutput.NumberOfPages++;
+                            if (hTML_RollPaperPrintingOutput.pagenumber != null)
+                            {
+                                html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
+                                bottom = hTML_RollPaperPrintingOutput.pagenumber.Ypos + hTML_RollPaperPrintingOutput.pagenumber.Height;
+                            }
+                            else
+                            {
+                                bottom = 0;
+                            }
+
+                            html += "\r\n" + pel.html + "\r\n";
+                            html += "\r\n<table class = \"tableitems\">\r\n";
+                            html += "\r\n<tbody>\r\n";
+                            html += "\r\n" + pel.html + "\r\n";
+                            if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
+                            {
+                                html += @"</tbody>
+                                        </table>
+                                        ";
+                            }
+                        }
+                        else if (pel.Is("tr", "grandtotal"))
+                        {
+                            html += @"
+                                            </tbody>
+                                          </table>
+                                        </page>
+                                        <page>";
+                            hTML_RollPaperPrintingOutput.NumberOfPages++;
+                            if (hTML_RollPaperPrintingOutput.pagenumber != null)
+                            {
+                                html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
+                                bottom = hTML_RollPaperPrintingOutput.pagenumber.Ypos + hTML_RollPaperPrintingOutput.pagenumber.Height;
+                            }
+                            else
+                            {
+                                bottom = 0;
+                            }
+                            html += "\r\n<table class = \"tableitems\">\r\n";
+                            html += "\r\n<tbody>\r\n";
+                            html += "\r\n" + pel.html + "\r\n";
+                            if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
+                            {
+                                html += @"</tbody>
+                                        </table>
+                                        ";
+                            }
+                        }
+                        else if (pel.Is("div", "invoicebottom"))
+                        {
+                            html += @"
+                                            </tbody>
+                                          </table>
+                                        </page>
+                                        <page>";
+                            hTML_RollPaperPrintingOutput.NumberOfPages++;
+                            if (hTML_RollPaperPrintingOutput.pagenumber != null)
+                            {
+                                html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
+                                bottom = hTML_RollPaperPrintingOutput.pagenumber.Ypos + hTML_RollPaperPrintingOutput.pagenumber.Height;
+                            }
+                            else
+                            {
+                                bottom = 0;
+                            }
+                            html += "\r\n" + pel.html + "\r\n";
+                            html += @"
+                                    </page>
+                                   </body>
+                                 </html>";
+                        }
+                    }
+                    else
+                    {
+                        html += shtml + "/r/n";
+                        bottom += pel.Height;
+                    }
+                }
+            }
+            return html;
+        }
+
 
         public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
         {
@@ -1400,8 +1610,8 @@ namespace TangentaDB
 
             if (GetHtmlElementByTagNameAndClassName(html_doc_template, start_index, ref iStartIndexOfInvoiceTop, ref iEndIndexOfInvoiceTop, "div", "invoicetop"))
             {
-                RollPaperPrintingOutput.invoicetop = new HTML_PrintingElement();
-                RollPaperPrintingOutput.invoicetop.html = html_doc_template.Substring(iStartIndexOfInvoiceTop, iEndIndexOfInvoiceTop - iStartIndexOfInvoiceTop + 1);
+                RollPaperPrintingOutput.doctop = new HTML_PrintingElement();
+                RollPaperPrintingOutput.doctop.html = html_doc_template.Substring(iStartIndexOfInvoiceTop, iEndIndexOfInvoiceTop - iStartIndexOfInvoiceTop + 1);
             }
             else
             {
@@ -1560,11 +1770,11 @@ namespace TangentaDB
                             int iEndIndexOf_InvoiceBottom = -1;
                             if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_InvoiceBottom, ref iEndIndexOf_InvoiceBottom, "div", "invoicebottom"))
                             {
-                                if (RollPaperPrintingOutput.invoicebottom == null)
+                                if (RollPaperPrintingOutput.docbottom == null)
                                 {
-                                    RollPaperPrintingOutput.invoicebottom = new HTML_PrintingElement();
+                                    RollPaperPrintingOutput.docbottom = new HTML_PrintingElement();
                                 }
-                                RollPaperPrintingOutput.invoicebottom.html = html_doc_template.Substring(iStartIndexOf_InvoiceBottom, iEndIndexOf_InvoiceBottom - iStartIndexOf_InvoiceBottom + 1);
+                                RollPaperPrintingOutput.docbottom.html = html_doc_template.Substring(iStartIndexOf_InvoiceBottom, iEndIndexOf_InvoiceBottom - iStartIndexOf_InvoiceBottom + 1);
                             }
                             else
                             {
@@ -1596,10 +1806,10 @@ namespace TangentaDB
         public bool GetStartTag(string html, int start_index, ref int index_of_start_tag, ref int index_of_end_tag, string htmltagname)
         {
             index_of_start_tag = html.IndexOf("<" + htmltagname, start_index);
-            if (index_of_start_tag > 0)
+            if (index_of_start_tag >= 0)
             {
                 index_of_end_tag = html.IndexOf(">", index_of_start_tag+1);
-                if (index_of_end_tag > 0)
+                if (index_of_end_tag >= 0)
                 {
                     return true;
                 }

@@ -86,7 +86,7 @@ namespace TangentaPrint
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     Create_usrc_Invoice_Preview();
-                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                     m_usrc_SelectPrintTemplate.TemplateName = Default_Tamplate;
                     btn_SaveTemplate.Visible = false;
@@ -207,7 +207,7 @@ namespace TangentaPrint
         private void btn_Refresh_Click(object sender, EventArgs e)
         {
             this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
-            this.m_usrc_Invoice_Preview.ShowPreview(this.m_usrc_Invoice_Preview.html_doc_template_text);
+            this.m_usrc_Invoice_Preview.ShowPreview(this.m_usrc_SelectPrintTemplate.SelectedPrinter,this.m_usrc_Invoice_Preview.html_doc_template_text);
         }
 
         private void textEditorControl1_DocumentChanged(object sender, DigitalRune.Windows.TextEditor.Document.DocumentEventArgs e)
