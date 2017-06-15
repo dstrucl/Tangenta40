@@ -315,21 +315,47 @@ namespace TangentaPrint
 
         private void GetSettings(Printer selectedPrinter)
         {
-            if (SelectedPrinter.printer_settings.DefaultPageSettings.Landscape)
+            SelectedPrinter = selectedPrinter;
+            if (SelectedPrinter== null)
             {
-                this.rdb_Landscape.Checked = true;
+                LogFile.Error.Show("WARNING:SelectedPrinter is not defined!");
+                return;
             }
-            else
+            if (SelectedPrinter.printer_settings==null)
             {
-                this.rdb_Portrait.Checked = true;
+                LogFile.Error.Show("WARNING:printer_settings is not defined!");
+                return;
             }
-            if (SelectedPrinter.printer_settings.DefaultPageSettings.PaperSize.PaperName.Contains("A4"))
+            try
             {
-                rdb_A4.Checked = true;
+                if (SelectedPrinter.printer_settings.DefaultPageSettings.Landscape)
+                {
+                    this.rdb_Landscape.Checked = true;
+                }
+                else
+                {
+                    this.rdb_Portrait.Checked = true;
+                }
+                if (SelectedPrinter.printer_settings.DefaultPageSettings.PaperSize != null)
+                {
+                    if (SelectedPrinter.printer_settings.DefaultPageSettings.PaperSize.PaperName.Contains("A4"))
+                    {
+                        rdb_A4.Checked = true;
+                    }
+                    else
+                    {
+                        rdb_A4.Checked = false;
+                    }
+                }
+                else
+                {
+
+                    LogFile.Error.Show("WARNING:Selected printer:" + SelectedPrinter.PrinterName + " has no Paper Size information");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                rdb_A4.Checked = false;
+                LogFile.Error.Show("WARNING:Selected printer:" + SelectedPrinter.PrinterName + " printer exception ="+ex.Message);
             }
             if (SettingsChanged!=null)
             {
