@@ -89,6 +89,7 @@ namespace TangentaPrint
             lngRPM.s_PaperOrientation.Text(grp_Orientation);
             lngRPM.s_PaperOrientation_Portrait.Text(rdb_Portrait);
             lngRPM.s_PaperOrientation_Landscape.Text(rdb_Landscape);
+            lngRPM.s_Description.Text(lbl_Description);
             cmb_Language.DataSource = LanguageControl.DynSettings.s_language.sTextArr;
             cmb_Language.SelectedIndex = LanguageControl.DynSettings.LanguageID;
         }

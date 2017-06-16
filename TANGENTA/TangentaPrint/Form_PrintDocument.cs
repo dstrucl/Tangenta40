@@ -219,6 +219,57 @@ namespace TangentaPrint
 
         private void btn_SaveTemplate_Click(object sender, EventArgs e)
         {
+            SaveTemaplate();
+        }
+
+        private void SaveTemaplate()
+        {
+            long Doc_ID = -1;
+            switch (f_doc.Exists(m_usrc_SelectPrintTemplate.TemplateName,GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID,ref Doc_ID))
+            {
+                case f_doc.ExistsResult.EXISTS:
+                    if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+
+                    }
+                    break;
+                case f_doc.ExistsResult.NOT_FOUND:
+                    if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_SaveYesNo, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        long_v doc_type_ID_v = null;
+                        if (m_InvoiceData.IsDocInvoice)
+                        {
+                            doc_type_ID_v = GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID;
+                        }
+                        else if (m_InvoiceData.IsDocInvoice)
+                        {
+                            doc_type_ID_v = GlobalData.doc_type_definitions.HTMLPrintTemplate_Proforma_Invoice_doc_type_ID;
+                        }
+
+                        if (doc_type_ID_v!=null)
+                        {
+                            switch (m_usrc_SelectPrintTemplate.PageOrientation)
+                            {
+                                case f_doc.PageOreintation.PORTRAIT:
+                                    break;
+                                case f_doc.PageOreintation.LANDSCAPE:
+                                    break;
+                            }
+                            //f_doc.Get(m_usrc_SelectPrintTemplate.TemplateName,)
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaPrint:Form_PrintDocument:SaveTemaplate:doc_type_ID_v==null");
+                            return;
+                        }
+
+
+
+                        //f_doc.Get(m_usrc_SelectPrintTemplate.TemplateName,)
+                    }
+                    break;
+
+            }
         }
     }
 }

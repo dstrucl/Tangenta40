@@ -188,155 +188,98 @@ namespace TangentaDB
             InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
         }
 
-        public string CreateHTML_PagePaperPrintingOutput(double PageHeight,HTML_PrintingOutput hTML_RollPaperPrintingOutput, TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout)
-        {
-            string html = hTML_RollPaperPrintingOutput.style.html + @"
-            <html>
-                <body>
-                    <page>";
-                    html += hTML_RollPaperPrintingOutput.pagenumber.html;
-                    html += hTML_RollPaperPrintingOutput.doctop.html;
-           // start table 
-           html += hTML_RollPaperPrintingOutput.tableitems.html;
-            html += @"
-                     <tbody>";
-            List<TheArtOfDev.HtmlRenderer.Core.PageLayout> PageLayoutItemsList = pglayout.ItemList("tbody");
-            int iCount = PageLayoutItemsList.Count;
-            int i = 0;
-            while (i<iCount)
-            {
-                if (PageLayoutItemsList[i].HtmlTagRect.Bottom < PageHeight)
-                {
-                    html += hTML_RollPaperPrintingOutput.items[i];
-                    i++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            html += @"
-                     </tbody>
-                   </table>
-                  </page>
-                  <page>
-                   ";
-
-
-
-
-
-            return "ERROR CreateHTML_PagePaperPrintingOutput";
-        }
+   
 
         public string CreateHTML_PagePaperPrintingOutput(HTML_PrintingOutput hTML_RollPaperPrintingOutput, double PageHeight)
         {
-            PageHeight = 2000;
+            PageHeight = 1000;
             string html = hTML_RollPaperPrintingOutput.style.html;
             html += @"
              <html>
                 <body>
                     <page> ";
-            double bottom = -1;
+            double bottom = 0;
             int i = 0;
             int iCount = hTML_RollPaperPrintingOutput.elements.Count;
             hTML_RollPaperPrintingOutput.NumberOfPages = 1;
+
+            double Thead_Height = -1;
+            if (hTML_RollPaperPrintingOutput.items.Count > 0)
+            {
+                Thead_Height = hTML_RollPaperPrintingOutput.items[0].Ypos - hTML_RollPaperPrintingOutput.tableitems.Ypos;
+            }
+            else
+            {
+                return "WARNING:TangentaDB:InvoiceData:CreateHTML_PagePaperPrintingOutput:Document has no items!";
+            }
+
             for (i = 0; i < iCount; i++)
             {
                 HTML_PrintingElement pel = hTML_RollPaperPrintingOutput.elements[i];
                 string shtml = null;
-                if (pel.Is("div", "pagenumbers"))
+                if (pel.Is("div", "pagenumbers")
+                    || pel.Is("div", "invoicetop")
+                    || pel.Is("tr", "item")
+                    || pel.Is("tr", "totalneto")
+                    || pel.Is("tr", "taxsum")
+                    || pel.Is("tr", "grandtotal")
+                    || pel.Is("div", "invoicebottom")
+                    )
                 {
                     shtml = pel.html;
-                }
-                else if (pel.Is("div", "invoicetop"))
-                {
-                    shtml = pel.html;
+                    bottom += pel.Height;
                 }
                 else if (pel.Is("table", "tableitems"))
                 {
                     shtml = pel.html;
-                }
-                else if (pel.Is("tr", "item"))
-                {
-                    shtml = pel.html;
-                }
-                else if (pel.Is("tr", "totalneto"))
-                {
-                    shtml = pel.html;
-                }
-                else if (pel.Is("tr", "taxsum"))
-                {
-                    shtml = pel.html;
-                }
-                else if (pel.Is("tr", "grandtotal"))
-                {
-                    shtml = pel.html;
-                }
-                else if (pel.Is("div", "invoicebottom"))
-                {
-                    shtml = pel.html;
+                    bottom += Thead_Height;
                 }
 
                 if (shtml != null)
                 {
-                    if (hTML_RollPaperPrintingOutput.NumberOfPages == 1)
-                    {
-                        bottom = pel.Ypos + pel.Height;
-                    }
-                    else
-                    {
-                        bottom += pel.Height;
-                    }
                     if (bottom >= PageHeight)
                     {
                         //new page
                         if (pel.Is("table", "tableitems"))
                         {
-                            html += shtml + "/r/n";
-                            bottom = pel.Ypos;
+                            html += @"</page>
+                                        <page>";
+                            hTML_RollPaperPrintingOutput.NumberOfPages++;
+
+                            if (hTML_RollPaperPrintingOutput.pagenumber != null)
+                            {
+                                html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
+                            }
+                            html += shtml + "\r\n";
                         }
                         else if (pel.Is("tr", "item"))
                         {
-                            if (pel.index < hTML_RollPaperPrintingOutput.iItemsCount - 1)
-                            {
-                                // close table and open new page
-                                html += @"
-                                            </tbody>
-                                          </table>
+                            // close table and open new page
+                            html += @"</tbody>
+                                            </table>
                                         </page>
                                         <page>";
-                                hTML_RollPaperPrintingOutput.NumberOfPages++;
-                                if (hTML_RollPaperPrintingOutput.pagenumber != null)
-                                {
-                                    html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
-                                }
-                                html += hTML_RollPaperPrintingOutput.tableitems.html;
-                                bottom +=  pel.Height;
-                                html += "\r\n<tbody>\r\n";
-                                html += "\r\n" + pel.html + "\r\n";
-                            }
-                            else
+                            hTML_RollPaperPrintingOutput.NumberOfPages++;
+
+                            if (hTML_RollPaperPrintingOutput.pagenumber != null)
                             {
-                                html += "\r\n" + pel.html + "\r\n";
+                                html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
                             }
+                            html += hTML_RollPaperPrintingOutput.tableitems.html;
+                            html += "\r\n<tbody>\r\n";
+                            html += shtml + "\r\n";
                         }
                         else if (pel.Is("tr", "totalneto"))
                         {
                             html += @"
-                                            </tbody>
-                                          </table>
-                                        </page>
-                                        <page>";
+                                                </tbody>
+                                              </table>
+                                            </page>
+                                            <page>";
                             hTML_RollPaperPrintingOutput.NumberOfPages++;
                             if (hTML_RollPaperPrintingOutput.pagenumber != null)
                             {
                                 html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
-                                bottom = hTML_RollPaperPrintingOutput.pagenumber.Ypos+ hTML_RollPaperPrintingOutput.pagenumber.Height;
-                            }
-                            else
-                            {
-                                bottom = 0;
                             }
                             html += "\r\n<table class = \"tableitems\">\r\n";
                             html += "\r\n<tbody>\r\n";
@@ -344,28 +287,22 @@ namespace TangentaDB
                             if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
                             {
                                 html += @"</tbody>
-                                        </table>
-                                        ";
+                                            </table>
+                                            ";
                             }
                         }
                         else if (pel.Is("tr", "taxsum"))
                         {
                             html += @"
-                                            </tbody>
-                                          </table>
-                                        </page>
-                                        <page>";
+                                                </tbody>
+                                              </table>
+                                            </page>
+                                            <page>";
                             hTML_RollPaperPrintingOutput.NumberOfPages++;
                             if (hTML_RollPaperPrintingOutput.pagenumber != null)
                             {
                                 html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
-                                bottom = hTML_RollPaperPrintingOutput.pagenumber.Ypos + hTML_RollPaperPrintingOutput.pagenumber.Height;
                             }
-                            else
-                            {
-                                bottom = 0;
-                            }
-
                             html += "\r\n" + pel.html + "\r\n";
                             html += "\r\n<table class = \"tableitems\">\r\n";
                             html += "\r\n<tbody>\r\n";
@@ -373,26 +310,21 @@ namespace TangentaDB
                             if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
                             {
                                 html += @"</tbody>
-                                        </table>
-                                        ";
+                                            </table>
+                                            ";
                             }
                         }
                         else if (pel.Is("tr", "grandtotal"))
                         {
                             html += @"
-                                            </tbody>
-                                          </table>
-                                        </page>
-                                        <page>";
+                                                </tbody>
+                                              </table>
+                                            </page>
+                                            <page>";
                             hTML_RollPaperPrintingOutput.NumberOfPages++;
                             if (hTML_RollPaperPrintingOutput.pagenumber != null)
                             {
                                 html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
-                                bottom = hTML_RollPaperPrintingOutput.pagenumber.Ypos + hTML_RollPaperPrintingOutput.pagenumber.Height;
-                            }
-                            else
-                            {
-                                bottom = 0;
                             }
                             html += "\r\n<table class = \"tableitems\">\r\n";
                             html += "\r\n<tbody>\r\n";
@@ -400,41 +332,41 @@ namespace TangentaDB
                             if (pel.row_index == hTML_RollPaperPrintingOutput.rows_count - 1)
                             {
                                 html += @"</tbody>
-                                        </table>
-                                        ";
+                                            </table>
+                                            ";
                             }
                         }
                         else if (pel.Is("div", "invoicebottom"))
                         {
                             html += @"
-                                            </tbody>
-                                          </table>
-                                        </page>
-                                        <page>";
+                                                </tbody>
+                                              </table>
+                                            </page>
+                                            <page>";
                             hTML_RollPaperPrintingOutput.NumberOfPages++;
                             if (hTML_RollPaperPrintingOutput.pagenumber != null)
                             {
                                 html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
-                                bottom = hTML_RollPaperPrintingOutput.pagenumber.Ypos + hTML_RollPaperPrintingOutput.pagenumber.Height;
-                            }
-                            else
-                            {
-                                bottom = 0;
                             }
                             html += "\r\n" + pel.html + "\r\n";
                             html += @"
-                                    </page>
-                                   </body>
-                                 </html>";
+                                        </page>
+                                       </body>
+                                     </html>";
+                            return html;
                         }
+                        bottom = 0;
                     }
                     else
                     {
-                        html += shtml + "/r/n";
-                        bottom += pel.Height;
+                        html += shtml + "\r\n";
                     }
                 }
             }
+            html += @"
+                                        </page>
+                                       </body>
+                                     </html>";
             return html;
         }
 

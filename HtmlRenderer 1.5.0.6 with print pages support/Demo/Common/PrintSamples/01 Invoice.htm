@@ -1,0 +1,2269 @@
+﻿<style>
+    html {
+        background-color: gray;
+    }
+
+    body {
+        background-color: gray;
+        margin: 0;
+    }
+
+    page {
+        background: white;
+        display: block;
+        margin-top: 0.5cm;
+        margin-bottom: 0.5cm;
+        margin-left: 0.5cm;
+        box-shadow: 0 0 0.1cm rgba(0,0,0,0.5);
+        width: 21cm;
+        height: 29.7cm;
+        overflow: hidden;
+        background-color: white;
+        padding-left: 1cm;
+        padding-right: 1cm;
+    }
+
+    div.pagenumbers {
+        font-size: 0.3cm;
+    }
+
+    header {
+        padding: 0.5cm 0;
+        margin-bottom: 0.5cm;
+    }
+
+    #logo {
+        text-align: center;
+        margin-bottom: 0.5cm;
+    }
+
+        #logo img {
+            width: 5cm;
+        }
+
+    h1 {
+        border-top: 1cm #5D6975;
+        border-bottom: 0.1cm solid #5D6975;
+        color: #5D6975;
+        font-size: 2.4em;
+        line-height: 1.4em;
+        font-weight: normal;
+        text-align: center;
+        margin: 0 0 1cm 0;
+        background: url(dimension.png);
+    }
+
+    #customer_company td {
+        vertical-align: top;
+    }
+
+    #project {
+        float: left;
+    }
+
+        #project span {
+            color: #5D6975;
+            text-align: right;
+            width: 52px;
+            margin-right: 0.5cm;
+            display: inline-block;
+            font-size: 0.8em;
+        }
+
+    #company {
+        float: right;
+        text-align: right;
+    }
+
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
+
+    .tableitems {
+        width: 100%;
+        border-spacing: 0.01cm;
+        font-size: 0.2cm;
+        margin-bottom: 1cm;
+    }
+
+
+        .tableitems th,
+        .tableitems td {
+            text-align: left;
+        }
+
+        .tableitems th {
+            color: black;
+            padding: 0.1cm;
+            border-bottom: 0.05cm solid black;
+            white-space: wrap;
+            word-wrap: wrap;
+            font-weight: normal;
+            text-align: left;
+            font-size: 0.2cm;
+        }
+
+
+        .tableitems.service,
+        .tableitems.desc {
+            text-align: left;
+        }
+
+        .tableitems td {
+            padding: 0.1cm;
+            text-align: right;
+            font-size: 0.25cm;
+        }
+
+    # tableitems td.service,
+    # tableitems td.desc {
+        vertical-align: top;
+    }
+
+
+    .tableitems td.grand {
+        border-top: 0.1cm solid #5D6975;
+    }
+
+    # notices .notice {
+        color: #5D6975;
+        font-size: 0.8cm;
+    }
+</style>
+<html>
+<body>
+    <page>
+        <div class="pagenumbers">stran 1 od 7</div>
+        <div class="invoicetop">
+            <h1>Račun številka:P1-ED1--1 </h1>
+            <table id="customer_company">
+                <thead>
+                    <tr>
+                        <th>NASLOVU</th>
+                        <th>IZDAJATELJ:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div id="project">
+                                <div><span>NASLOVU</span> </div>
+                                <div><span></span> </div>
+                                <div><span></span> </div>
+                                <div><span>E-POŠTA</span> <a href="mailto:"></a></div>
+                                <div><span>Datum rač.:</span>16.6.2017 9:12</div>
+                                <div><span>Datum zapadlosti:</span>16.6.2017 9:12</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="company" class="clearfix">
+                                <div>IZDAJATELJ:Kozmetični Studio Marjetka d.o.o.</div>
+                                <div>Kunaverjeva 6</div>
+                                <div>1117 Ljubljana</div>
+                                <div>Davčna številka:19300808 </div>
+                                <div>Matična številka:3802809000 </div>
+                                <div>Poslovna enota:P1 </div>
+                                <div>Oznaka blagajne:ED1 </div>
+                                <div>Oseba izdajatelja:Marjetka Hrnčič-Štrucl DŠ:59729481</div>
+                                <div><a href="email:marjetka.hrncic@gmail.com">E-Pošta:marjetka.hrncic@gmail.com</a></div>
+                                <div><a href="http:www.studio-mp.net">Domača stran:www.studio-mp.net</a></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tr class="item">
+                <td class="service">Depilacija  nog do kolen moški</td>
+                <td class="priceperunit">20 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">16,39 €</td>
+                <td class="tax">3,61 €</td>
+                <td class="price_with_tax">20 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija cele noge moški</td>
+                <td class="priceperunit">30 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">24,59 €</td>
+                <td class="tax">5,41 €</td>
+                <td class="price_with_tax">30 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija bikini moški</td>
+                <td class="priceperunit">15 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">12,3 €</td>
+                <td class="tax">2,7 €</td>
+                <td class="price_with_tax">15 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija zadnjice moški</td>
+                <td class="priceperunit">15 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">12,3 €</td>
+                <td class="tax">2,7 €</td>
+                <td class="price_with_tax">15 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija pazduh moški</td>
+                <td class="priceperunit">7 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">5,74 €</td>
+                <td class="tax">1,26 €</td>
+                <td class="price_with_tax">7 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Roke cele moški</td>
+                <td class="priceperunit">20 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">16,39 €</td>
+                <td class="tax">3,61 €</td>
+                <td class="price_with_tax">20 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija hrbta ali sprednjega dela telesa-trebuha</td>
+                <td class="priceperunit">22 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">18,03 €</td>
+                <td class="tax">3,97 €</td>
+                <td class="price_with_tax">22 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija cele noge zahtevna moški</td>
+                <td class="priceperunit">35 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">28,69 €</td>
+                <td class="tax">6,31 €</td>
+                <td class="price_with_tax">35 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija cele roke moški</td>
+                <td class="priceperunit">25 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">20,49 €</td>
+                <td class="tax">4,51 €</td>
+                <td class="price_with_tax">25 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija rok delno moški</td>
+                <td class="priceperunit">18 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">14,75 €</td>
+                <td class="tax">3,25 €</td>
+                <td class="price_with_tax">18 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija polovica rok moški</td>
+                <td class="priceperunit">15 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">12,3 €</td>
+                <td class="tax">2,7 €</td>
+                <td class="price_with_tax">15 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija ½ nog spodaj ženska</td>
+                <td class="priceperunit">15 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">12,3 €</td>
+                <td class="tax">2,7 €</td>
+                <td class="price_with_tax">15 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija ½ nog zgoraj ženska</td>
+                <td class="priceperunit">17 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">13,93 €</td>
+                <td class="tax">3,07 €</td>
+                <td class="price_with_tax">17 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija bikini ženska</td>
+                <td class="priceperunit">8 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">6,56 €</td>
+                <td class="tax">1,44 €</td>
+                <td class="price_with_tax">8 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Brazilska depilacija1 ženska</td>
+                <td class="priceperunit">12 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">9,84 €</td>
+                <td class="tax">2,16 €</td>
+                <td class="price_with_tax">12 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Brazilska depilacija 2 ženska</td>
+                <td class="priceperunit">15 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">12,3 €</td>
+                <td class="tax">2,7 €</td>
+                <td class="price_with_tax">15 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija zadnjice ženska</td>
+                <td class="priceperunit">10 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">8,2 €</td>
+                <td class="tax">1,8 €</td>
+                <td class="price_with_tax">10 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija cele noge +bikini ženska</td>
+                <td class="priceperunit">28 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">22,95 €</td>
+                <td class="tax">5,05 €</td>
+                <td class="price_with_tax">28 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija cele noge ženska</td>
+                <td class="priceperunit">25 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">20,49 €</td>
+                <td class="tax">4,51 €</td>
+                <td class="price_with_tax">25 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija pazduh ženska</td>
+                <td class="priceperunit">6 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">4,92 €</td>
+                <td class="tax">1,08 €</td>
+                <td class="price_with_tax">6 €</td>
+            </tr>
+            <tr class="item">
+                <td class="service">Depilacija rok ženska</td>
+                <td class="priceperunit">16 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">22,00%</td>
+                <td class="price_neto">13,11 €</td>
+                <td class="tax">2,89 €</td>
+                <td class="price_with_tax">16 €</td>
+            </tr>
+            </tbody>
+        </table>
+    </page>
+    <page>
+        <div class="pagenumbers">stran 2 od 7</div>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td class="service">Depilacija zadnjice delno ženska</td>
+                    <td class="priceperunit">8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">6,56 €</td>
+                    <td class="tax">1,44 €</td>
+                    <td class="price_with_tax">8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Depilacija rok delno ženska</td>
+                    <td class="priceperunit">13 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">10,66 €</td>
+                    <td class="tax">2,34 €</td>
+                    <td class="price_with_tax">13 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Manikira (samo oblikovanje nohtov)</td>
+                    <td class="priceperunit">14 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,48 €</td>
+                    <td class="tax">2,52 €</td>
+                    <td class="price_with_tax">14 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Manikira +lak</td>
+                    <td class="priceperunit">20 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,39 €</td>
+                    <td class="tax">3,61 €</td>
+                    <td class="price_with_tax">20 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Manikira +lak+parafin</td>
+                    <td class="priceperunit">25 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">20,49 €</td>
+                    <td class="tax">4,51 €</td>
+                    <td class="price_with_tax">25 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Maska rok(brez manikiranja(masaža+ parafin)</td>
+                    <td class="priceperunit">15 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,3 €</td>
+                    <td class="tax">2,7 €</td>
+                    <td class="price_with_tax">15 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Lakiranje nohtov </td>
+                    <td class="priceperunit">8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">6,56 €</td>
+                    <td class="tax">1,44 €</td>
+                    <td class="price_with_tax">8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Lakiranje francoska manikira</td>
+                    <td class="priceperunit">10 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">8,2 €</td>
+                    <td class="tax">1,8 €</td>
+                    <td class="price_with_tax">10 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Gel lak - lakiranje nohtov</td>
+                    <td class="priceperunit">20 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,39 €</td>
+                    <td class="tax">3,61 €</td>
+                    <td class="price_with_tax">20 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Odstranjevanje gel laka</td>
+                    <td class="priceperunit">5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">4,1 €</td>
+                    <td class="tax">0,9 €</td>
+                    <td class="price_with_tax">5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Lakiranje nohtov delno</td>
+                    <td class="priceperunit">5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">4,1 €</td>
+                    <td class="tax">0,9 €</td>
+                    <td class="price_with_tax">5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Gel lak delno lakiranje</td>
+                    <td class="priceperunit">15 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,3 €</td>
+                    <td class="tax">2,7 €</td>
+                    <td class="price_with_tax">15 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega obraza</td>
+                    <td class="priceperunit">43 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">35,25 €</td>
+                    <td class="tax">7,75 €</td>
+                    <td class="price_with_tax">43 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Maska brez čiščenja in masaže(piling+ampula+maska)</td>
+                    <td class="priceperunit">25 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">20,49 €</td>
+                    <td class="tax">4,51 €</td>
+                    <td class="price_with_tax">25 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega +ultrazvok</td>
+                    <td class="priceperunit">50 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">40,98 €</td>
+                    <td class="tax">9,02 €</td>
+                    <td class="price_with_tax">50 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Ultrazvok +ampula (akne, proti staranju)</td>
+                    <td class="priceperunit">20 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,39 €</td>
+                    <td class="tax">3,61 €</td>
+                    <td class="price_with_tax">20 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega s kollagensko ali lifting masko</td>
+                    <td class="priceperunit">50 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">40,98 €</td>
+                    <td class="tax">9,02 €</td>
+                    <td class="price_with_tax">50 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega obraza za študente(z študentsko izkaznico)</td>
+                    <td class="priceperunit">40 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">32,79 €</td>
+                    <td class="tax">7,21 €</td>
+                    <td class="price_with_tax">40 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega nečiste aknaste kože +ultrazvok za študente</td>
+                    <td class="priceperunit">45 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">36,89 €</td>
+                    <td class="tax">8,11 €</td>
+                    <td class="price_with_tax">45 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Glikolna kislina obraza 30 minut</td>
+                    <td class="priceperunit">25 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">20,49 €</td>
+                    <td class="tax">4,51 €</td>
+                    <td class="price_with_tax">25 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Glikolna kislina obraza ob negi-doplačilo</td>
+                    <td class="priceperunit">10 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">8,2 €</td>
+                    <td class="tax">1,8 €</td>
+                    <td class="price_with_tax">10 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Limfna drenaža obraza ročna 40 minut</td>
+                    <td class="priceperunit">25 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">20,49 €</td>
+                    <td class="tax">4,51 €</td>
+                    <td class="price_with_tax">25 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Limfna drenaža obraza ob negi doplačilo</td>
+                    <td class="priceperunit">15 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,3 €</td>
+                    <td class="tax">2,7 €</td>
+                    <td class="price_with_tax">15 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Aromaterapija obraza 30 minut</td>
+                    <td class="priceperunit">35 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">28,69 €</td>
+                    <td class="tax">6,31 €</td>
+                    <td class="price_with_tax">35 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Peel off maska za obraz</td>
+                    <td class="priceperunit">10 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">8,2 €</td>
+                    <td class="tax">1,8 €</td>
+                    <td class="price_with_tax">10 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega okrog oči(maska masaža tonik +krema)</td>
+                    <td class="priceperunit">15 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,3 €</td>
+                    <td class="tax">2,7 €</td>
+                    <td class="price_with_tax">15 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega okrog oči ob negi obraza (maska + tonik)-doplačilo</td>
+                    <td class="priceperunit">7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">5,74 €</td>
+                    <td class="tax">1,26 €</td>
+                    <td class="price_with_tax">7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Korekcija obrvi</td>
+                    <td class="priceperunit">4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">3,28 €</td>
+                    <td class="tax">0,72 €</td>
+                    <td class="price_with_tax">4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Oblikovanje obrvi</td>
+                    <td class="priceperunit">6 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">4,92 €</td>
+                    <td class="tax">1,08 €</td>
+                    <td class="price_with_tax">6 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Barvanje obrvi</td>
+                    <td class="priceperunit">5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">4,1 €</td>
+                    <td class="tax">0,9 €</td>
+                    <td class="price_with_tax">5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Barvanje trepalnic</td>
+                    <td class="priceperunit">5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">4,1 €</td>
+                    <td class="tax">0,9 €</td>
+                    <td class="price_with_tax">5 €</td>
+                </tr>
+            </tbody>
+        </table>
+    </page>
+    <page>
+        <div class="pagenumbers">stran 3 od 7</div>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td class="service">Maska za telo</td>
+                    <td class="priceperunit">15 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,3 €</td>
+                    <td class="tax">2,7 €</td>
+                    <td class="price_with_tax">15 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega hrbta</td>
+                    <td class="priceperunit">40 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">32,79 €</td>
+                    <td class="tax">7,21 €</td>
+                    <td class="price_with_tax">40 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Piling telesa+končna krema</td>
+                    <td class="priceperunit">23 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">18,85 €</td>
+                    <td class="tax">4,15 €</td>
+                    <td class="price_with_tax">23 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Piling telesa+maska+končna krema 50 minut</td>
+                    <td class="priceperunit">35 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">28,69 €</td>
+                    <td class="tax">6,31 €</td>
+                    <td class="price_with_tax">35 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Piling telesa+maska+masaža 20 minut+ končna krema = 60 minut</td>
+                    <td class="priceperunit">45 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">36,89 €</td>
+                    <td class="tax">8,11 €</td>
+                    <td class="price_with_tax">45 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Piling telesa+maska(alge morski mulj)+končna krema</td>
+                    <td class="priceperunit">35 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">28,69 €</td>
+                    <td class="tax">6,31 €</td>
+                    <td class="price_with_tax">35 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Nega telesa s čokoladno masko 60 minut(piling+masaža+maska+krema</td>
+                    <td class="priceperunit">50 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">40,98 €</td>
+                    <td class="tax">9,02 €</td>
+                    <td class="price_with_tax">50 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Limfna drenaža telesa 30 minut-strojna1</td>
+                    <td class="priceperunit">15 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,3 €</td>
+                    <td class="tax">2,7 €</td>
+                    <td class="price_with_tax">15 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Limfna drenaža telesa 60 minut-strojna 2</td>
+                    <td class="priceperunit">20 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,39 €</td>
+                    <td class="tax">3,61 €</td>
+                    <td class="price_with_tax">20 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Ultrazvok telesa (30minut)</td>
+                    <td class="priceperunit">30 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">24,59 €</td>
+                    <td class="tax">5,41 €</td>
+                    <td class="price_with_tax">30 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Anticelulitna terapija tens+magnet 30minut</td>
+                    <td class="priceperunit">30 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">24,59 €</td>
+                    <td class="tax">5,41 €</td>
+                    <td class="price_with_tax">30 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Anticelulitni program (body wrap)60 minut en obisk</td>
+                    <td class="priceperunit">35 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">28,69 €</td>
+                    <td class="tax">6,31 €</td>
+                    <td class="price_with_tax">35 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Program hujšanja (kombinacija aparatov+masaža)60 minut</td>
+                    <td class="priceperunit">35 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">28,69 €</td>
+                    <td class="tax">6,31 €</td>
+                    <td class="price_with_tax">35 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Body wrap+limfna drenaža 60 minut</td>
+                    <td class="priceperunit">40 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">32,79 €</td>
+                    <td class="tax">7,21 €</td>
+                    <td class="price_with_tax">40 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Relaksacijska masaža telesa 50 minut</td>
+                    <td class="priceperunit">37 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">30,33 €</td>
+                    <td class="tax">6,67 €</td>
+                    <td class="price_with_tax">37 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Relksacijska masaža telesa –delna 30 minut</td>
+                    <td class="priceperunit">27 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">22,13 €</td>
+                    <td class="tax">4,87 €</td>
+                    <td class="price_with_tax">27 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Aromaterapija telesa 60 minut</td>
+                    <td class="priceperunit">55 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">45,08 €</td>
+                    <td class="tax">9,92 €</td>
+                    <td class="price_with_tax">55 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Aromaterapija telesa in obraza 80 minut</td>
+                    <td class="priceperunit">75 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">61,48 €</td>
+                    <td class="tax">13,52 €</td>
+                    <td class="price_with_tax">75 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Pedikura</td>
+                    <td class="priceperunit">24 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,67 €</td>
+                    <td class="tax">4,33 €</td>
+                    <td class="price_with_tax">24 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Pedikura zahtevna</td>
+                    <td class="priceperunit">28 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">22,95 €</td>
+                    <td class="tax">5,05 €</td>
+                    <td class="price_with_tax">28 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Pedikura z pilingom in masažo</td>
+                    <td class="priceperunit">35 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">28,69 €</td>
+                    <td class="tax">6,31 €</td>
+                    <td class="price_with_tax">35 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Pedikura SPA</td>
+                    <td class="priceperunit">45 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">36,89 €</td>
+                    <td class="tax">8,11 €</td>
+                    <td class="price_with_tax">45 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Pedikira delno</td>
+                    <td class="priceperunit">15 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,3 €</td>
+                    <td class="tax">2,7 €</td>
+                    <td class="price_with_tax">15 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Saniranje vraščenih nohtov kurja očesa otiščanci</td>
+                    <td class="priceperunit">8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">6,56 €</td>
+                    <td class="tax">1,44 €</td>
+                    <td class="price_with_tax">8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Lakiranje ob pedikuri</td>
+                    <td class="priceperunit">5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">4,1 €</td>
+                    <td class="tax">0,9 €</td>
+                    <td class="price_with_tax">5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Pedikura delna nezahtevna</td>
+                    <td class="priceperunit">20 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,39 €</td>
+                    <td class="tax">3,61 €</td>
+                    <td class="price_with_tax">20 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Striženje nohtov delno</td>
+                    <td class="priceperunit">10 €</td>
+                    <td class="discount"></td>
+                    <td class="unit"></td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">8,2 €</td>
+                    <td class="tax">1,8 €</td>
+                    <td class="price_with_tax">10 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Regeneration Serum-ampule za obnavljanje kože</td>
+                    <td class="priceperunit">-1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">-0,82 €</td>
+                    <td class="tax">-0,18 €</td>
+                    <td class="price_with_tax">-1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">Moisture Serum -vlažilne ampule</td>
+                    <td class="priceperunit">-1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">-0,82 €</td>
+                    <td class="tax">-0,18 €</td>
+                    <td class="price_with_tax">-1 €</td>
+                </tr>
+            </tbody>
+        </table>
+    </page>
+    <page>
+        <div class="pagenumbers">stran 4 od 7</div>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td class="service">311 - Kremno čistilo za obraz 200 ml</td>
+                    <td class="priceperunit">17,2 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">14,10 €</td>
+                    <td class="tax">3,10 €</td>
+                    <td class="price_with_tax">17,2 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">312 - Vlažilni dnevni balzam za obraz SPF 15 – 50 ml</td>
+                    <td class="priceperunit">30,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">24,92 €</td>
+                    <td class="tax">5,48 €</td>
+                    <td class="price_with_tax">30,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">313 - Vlažilni tonik za obraz 200 ml</td>
+                    <td class="priceperunit">17,9 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">14,67 €</td>
+                    <td class="tax">3,23 €</td>
+                    <td class="price_with_tax">17,9 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">319 - Balzam za nego okrog oči SPF 15 – 30 ml</td>
+                    <td class="priceperunit">27,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">22,38 €</td>
+                    <td class="tax">4,92 €</td>
+                    <td class="price_with_tax">27,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">315 - Vlažilna emulzija za nego telesa SPF 15 – 250 ml</td>
+                    <td class="priceperunit">23,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,10 €</td>
+                    <td class="tax">4,20 €</td>
+                    <td class="price_with_tax">23,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">440-Osvežilni gel za tuširanje 200 ml</td>
+                    <td class="priceperunit">18,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,08 €</td>
+                    <td class="tax">3,32 €</td>
+                    <td class="price_with_tax">18,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">441-Osvežilno deo milo 100 gr</td>
+                    <td class="priceperunit">5,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">4,34 €</td>
+                    <td class="tax">0,96 €</td>
+                    <td class="price_with_tax">5,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">442 - Pomarančno olje z vitamini 150 ml</td>
+                    <td class="priceperunit">20,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,72 €</td>
+                    <td class="tax">3,68 €</td>
+                    <td class="price_with_tax">20,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">445 - Rich & Silky Body Butter 200ml</td>
+                    <td class="priceperunit">22,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">18,44 €</td>
+                    <td class="tax">4,06 €</td>
+                    <td class="price_with_tax">22,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">463 - Osvežilni tonik za telo 200 ml</td>
+                    <td class="priceperunit">19,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,82 €</td>
+                    <td class="tax">3,48 €</td>
+                    <td class="price_with_tax">19,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">464 - Gel za tuširanje Supreme 200 ml</td>
+                    <td class="priceperunit">22,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">18,28 €</td>
+                    <td class="tax">4,02 €</td>
+                    <td class="price_with_tax">22,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">465-Body Balm Supreme200ml</td>
+                    <td class="priceperunit">11,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">9,43 €</td>
+                    <td class="tax">2,07 €</td>
+                    <td class="price_with_tax">11,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">466-Negovalno milo Supreme 100 gr</td>
+                    <td class="priceperunit">8,2 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">6,72 €</td>
+                    <td class="tax">1,48 €</td>
+                    <td class="price_with_tax">8,2 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">471 - Balzam za telo  200 ml</td>
+                    <td class="priceperunit">22,8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">18,69 €</td>
+                    <td class="tax">4,11 €</td>
+                    <td class="price_with_tax">22,8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">476-Gel za tuširanje z vitamini 200 ml</td>
+                    <td class="priceperunit">21,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">17,30 €</td>
+                    <td class="tax">3,80 €</td>
+                    <td class="price_with_tax">21,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">478 - Gel za nego oprsja 100 ml</td>
+                    <td class="priceperunit">30,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">24,67 €</td>
+                    <td class="tax">5,43 €</td>
+                    <td class="price_with_tax">30,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">479 - Losjon proti celulitu 200 ml</td>
+                    <td class="priceperunit">28,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">23,03 €</td>
+                    <td class="tax">5,07 €</td>
+                    <td class="price_with_tax">28,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">483 - Olje za nego nohtov z lecitinom 15 ml</td>
+                    <td class="priceperunit">14 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,48 €</td>
+                    <td class="tax">2,52 €</td>
+                    <td class="price_with_tax">14 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">485 - Krema za nego rok 100 ml</td>
+                    <td class="priceperunit">15 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,30 €</td>
+                    <td class="tax">2,70 €</td>
+                    <td class="price_with_tax">15 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">5000-Unguinsan 30 ml</td>
+                    <td class="priceperunit">13 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">10,66 €</td>
+                    <td class="tax">2,34 €</td>
+                    <td class="price_with_tax">13 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">48503 - Krema za nego rok 30 ml</td>
+                    <td class="priceperunit">6,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">5,25 €</td>
+                    <td class="tax">1,15 €</td>
+                    <td class="price_with_tax">6,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">151 - Azulen čistilno olje za obraz 150 ml</td>
+                    <td class="priceperunit">17,2 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">14,10 €</td>
+                    <td class="tax">3,10 €</td>
+                    <td class="price_with_tax">17,2 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">234 - Mleko za čiščenje 150 ml</td>
+                    <td class="priceperunit">14,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">19</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">225,82 €</td>
+                    <td class="tax">49,68 €</td>
+                    <td class="price_with_tax">275,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">235 - Mleko za čiščenje 250 ml</td>
+                    <td class="priceperunit">18,8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,41 €</td>
+                    <td class="tax">3,39 €</td>
+                    <td class="price_with_tax">18,8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">236 - Mlekoza čiščenje supreme 150 ml</td>
+                    <td class="priceperunit">19,8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,23 €</td>
+                    <td class="tax">3,57 €</td>
+                    <td class="price_with_tax">19,8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">291 - Piling za obraz 50 ml</td>
+                    <td class="priceperunit">16,7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">13,69 €</td>
+                    <td class="tax">3,01 €</td>
+                    <td class="price_with_tax">16,7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">382 - Lavolind čistilno sredstvo 250 ml</td>
+                    <td class="priceperunit">14,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,89 €</td>
+                    <td class="tax">2,61 €</td>
+                    <td class="price_with_tax">14,5 €</td>
+                </tr>
+            </tbody>
+        </table>
+    </page>
+    <page>
+        <div class="pagenumbers">stran 5 od 7</div>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td class="service">573 - Sensitive čistilni gel 150 ml</td>
+                    <td class="priceperunit">19,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,98 €</td>
+                    <td class="tax">3,52 €</td>
+                    <td class="price_with_tax">19,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">8835 - Odstranjevalec make up-a 150 ml</td>
+                    <td class="priceperunit">14,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,56 €</td>
+                    <td class="tax">2,54 €</td>
+                    <td class="price_with_tax">14,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">130 - Azulen balzam 50 ml</td>
+                    <td class="priceperunit">19,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,66 €</td>
+                    <td class="tax">3,44 €</td>
+                    <td class="price_with_tax">19,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">170-Vlažilni balzam s karotenom 50 ml</td>
+                    <td class="priceperunit">19,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,66 €</td>
+                    <td class="tax">3,44 €</td>
+                    <td class="price_with_tax">19,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">481 - Kollagen balzam 50 ml</td>
+                    <td class="priceperunit">23,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,18 €</td>
+                    <td class="tax">4,22 €</td>
+                    <td class="price_with_tax">23,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">523 - Cvetni vlažilni supreme 50 ml</td>
+                    <td class="priceperunit">19,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,66 €</td>
+                    <td class="tax">3,44 €</td>
+                    <td class="price_with_tax">19,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">535 - Zeliščni balzam 50 ml</td>
+                    <td class="priceperunit">17,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">14,26 €</td>
+                    <td class="tax">3,14 €</td>
+                    <td class="price_with_tax">17,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">555 - Dnevni hidratantni supreme toniran 50 ml</td>
+                    <td class="priceperunit">19,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,82 €</td>
+                    <td class="tax">3,48 €</td>
+                    <td class="price_with_tax">19,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">559 - Repair balzam 50 ml</td>
+                    <td class="priceperunit">34 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">27,87 €</td>
+                    <td class="tax">6,13 €</td>
+                    <td class="price_with_tax">34 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">570 - Sensitive balzam 50 ml</td>
+                    <td class="priceperunit">23,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,26 €</td>
+                    <td class="tax">4,24 €</td>
+                    <td class="price_with_tax">23,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">501 - Gel z liposomi 30 ml</td>
+                    <td class="priceperunit">41 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">33,61 €</td>
+                    <td class="tax">7,39 €</td>
+                    <td class="price_with_tax">41 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">503 - AHA biosadežni liposomi 30 ml</td>
+                    <td class="priceperunit">38 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">31,15 €</td>
+                    <td class="tax">6,85 €</td>
+                    <td class="price_with_tax">38 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">592 - AC vlažilni koncentrat 30 ml</td>
+                    <td class="priceperunit">32,8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">26,89 €</td>
+                    <td class="tax">5,91 €</td>
+                    <td class="price_with_tax">32,8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">593 - AC sensitive koncentrat 30 ml</td>
+                    <td class="priceperunit">48,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">39,59 €</td>
+                    <td class="tax">8,71 €</td>
+                    <td class="price_with_tax">48,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">594 - AC kollagen koncentrat 30 ml</td>
+                    <td class="priceperunit">48,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">39,59 €</td>
+                    <td class="tax">8,71 €</td>
+                    <td class="price_with_tax">48,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">595 - AC repair koncentrat 30 ml</td>
+                    <td class="priceperunit">55,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">45,49 €</td>
+                    <td class="tax">10,01 €</td>
+                    <td class="price_with_tax">55,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">596 - AC vitamin koncentrat 30 ml</td>
+                    <td class="priceperunit">48,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">39,59 €</td>
+                    <td class="tax">8,71 €</td>
+                    <td class="price_with_tax">48,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">597 - AC impure skin koncentrat (nečista koža) 30 ml</td>
+                    <td class="priceperunit">39 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">31,97 €</td>
+                    <td class="tax">7,03 €</td>
+                    <td class="price_with_tax">39 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">598 - AC Sun shield SPF 50 30 ml</td>
+                    <td class="priceperunit">26 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">21,31 €</td>
+                    <td class="tax">4,69 €</td>
+                    <td class="price_with_tax">26 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">292 - Kamilična maska z azulenom 50 ml</td>
+                    <td class="priceperunit">14,6 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,97 €</td>
+                    <td class="tax">2,63 €</td>
+                    <td class="price_with_tax">14,6 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">293 - Moor zeliščna maska 50 ml</td>
+                    <td class="priceperunit">14,6 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,97 €</td>
+                    <td class="tax">2,63 €</td>
+                    <td class="price_with_tax">14,6 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">294 - Maska z vitamini 50 ml</td>
+                    <td class="priceperunit">15,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,62 €</td>
+                    <td class="tax">2,78 €</td>
+                    <td class="price_with_tax">15,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">482 - Kollagen maska 50 ml</td>
+                    <td class="priceperunit">18,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,16 €</td>
+                    <td class="tax">3,34 €</td>
+                    <td class="price_with_tax">18,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">556 - Repair maska 50 ml</td>
+                    <td class="priceperunit">20,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,64 €</td>
+                    <td class="tax">3,66 €</td>
+                    <td class="price_with_tax">20,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">572 - Sensitive maska 50 ml</td>
+                    <td class="priceperunit">20,9 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">17,13 €</td>
+                    <td class="tax">3,77 €</td>
+                    <td class="price_with_tax">20,9 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">320 - Negovalni puder (več odtenkov na voljo)</td>
+                    <td class="priceperunit">26 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">21,31 €</td>
+                    <td class="tax">4,69 €</td>
+                    <td class="price_with_tax">26 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">323 - Negovalni puder (več odtenkov na voljo)</td>
+                    <td class="priceperunit">-1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">-0,82 €</td>
+                    <td class="tax">-0,18 €</td>
+                    <td class="price_with_tax">-1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">324 - Negovalni puder (več odtenkov na voljo)</td>
+                    <td class="priceperunit">-1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">-0,82 €</td>
+                    <td class="tax">-0,18 €</td>
+                    <td class="price_with_tax">-1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">129 - Krema iz azulenskega mleka 50 ml</td>
+                    <td class="priceperunit">18,9 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,49 €</td>
+                    <td class="tax">3,41 €</td>
+                    <td class="price_with_tax">18,9 €</td>
+                </tr>
+            </tbody>
+        </table>
+    </page>
+    <page>
+        <div class="pagenumbers">stran 6 od 7</div>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td class="service">171 - Vlažilna krema s karotenom 50 ml</td>
+                    <td class="priceperunit">19,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,90 €</td>
+                    <td class="tax">3,50 €</td>
+                    <td class="price_with_tax">19,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">180 - Krema z ognjičem 50 ml</td>
+                    <td class="priceperunit">18,7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,33 €</td>
+                    <td class="tax">3,37 €</td>
+                    <td class="price_with_tax">18,7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">480 - Kollagen supreme 50 ml</td>
+                    <td class="priceperunit">31,7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">25,98 €</td>
+                    <td class="tax">5,72 €</td>
+                    <td class="price_with_tax">31,7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">509 - Azulen supreme 50 ml</td>
+                    <td class="priceperunit">23,7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,43 €</td>
+                    <td class="tax">4,27 €</td>
+                    <td class="price_with_tax">23,7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">516 - Biokor supreme 50 ml</td>
+                    <td class="priceperunit">38,2 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">31,31 €</td>
+                    <td class="tax">6,89 €</td>
+                    <td class="price_with_tax">38,2 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">537 - Zeliščni supreme 50 ml</td>
+                    <td class="priceperunit">23,9 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,59 €</td>
+                    <td class="tax">4,31 €</td>
+                    <td class="price_with_tax">23,9 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">551 - Supreme za obnavljanje kože 50 ml</td>
+                    <td class="priceperunit">32,2 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">26,39 €</td>
+                    <td class="tax">5,81 €</td>
+                    <td class="price_with_tax">32,2 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">553 - Repair supreme 50 ml</td>
+                    <td class="priceperunit">47,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">38,85 €</td>
+                    <td class="tax">8,55 €</td>
+                    <td class="price_with_tax">47,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">558 - Supreme z vitamini 50 ml</td>
+                    <td class="priceperunit">23,9 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,59 €</td>
+                    <td class="tax">4,31 €</td>
+                    <td class="price_with_tax">23,9 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">571-Sensitive Supreme 50 ml</td>
+                    <td class="priceperunit">31,9 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">26,15 €</td>
+                    <td class="tax">5,75 €</td>
+                    <td class="price_with_tax">31,9 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">221 - Balzam za nego okrog oči 150 ml</td>
+                    <td class="priceperunit">16,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">13,20 €</td>
+                    <td class="tax">2,90 €</td>
+                    <td class="price_with_tax">16,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">225 - Eye Gel Supreme 15 ml</td>
+                    <td class="priceperunit">34,16 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">28,00 €</td>
+                    <td class="tax">6,16 €</td>
+                    <td class="price_with_tax">34,16 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">226 - Eye Balm Supreme 15 ml</td>
+                    <td class="priceperunit">39,9 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">32,70 €</td>
+                    <td class="tax">7,20 €</td>
+                    <td class="price_with_tax">39,9 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">280 - Mleko po sončenju 200 ml</td>
+                    <td class="priceperunit">21,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">17,62 €</td>
+                    <td class="tax">3,88 €</td>
+                    <td class="price_with_tax">21,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">281 - Mleko za sončenje SPF 12 – 150 ml</td>
+                    <td class="priceperunit">21,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">17,54 €</td>
+                    <td class="tax">3,86 €</td>
+                    <td class="price_with_tax">21,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">283 - Mleko za sončenje SPF 30 – 150 ml</td>
+                    <td class="priceperunit">28 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">22,95 €</td>
+                    <td class="tax">5,05 €</td>
+                    <td class="price_with_tax">28 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">285 - Šminka za sončenje</td>
+                    <td class="priceperunit">5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">4,10 €</td>
+                    <td class="tax">0,90 €</td>
+                    <td class="price_with_tax">5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">284 - Krema za samoporjavitev 150 ml</td>
+                    <td class="priceperunit">22,8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">18,69 €</td>
+                    <td class="tax">4,11 €</td>
+                    <td class="price_with_tax">22,8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">282 - Mleko za sončenje SPF 20 – 150 ml</td>
+                    <td class="priceperunit">25,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">20,74 €</td>
+                    <td class="tax">4,56 €</td>
+                    <td class="price_with_tax">25,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">136 - Azulen pasta 15 ml</td>
+                    <td class="priceperunit">13,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">10,90 €</td>
+                    <td class="tax">2,40 €</td>
+                    <td class="price_with_tax">13,3 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">137- Azulen pasta tonirana 15 ml</td>
+                    <td class="priceperunit">16,7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">13,69 €</td>
+                    <td class="tax">3,01 €</td>
+                    <td class="price_with_tax">16,7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">486 - Krema za nego dekolteja 50 ml</td>
+                    <td class="priceperunit">29,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">24,18 €</td>
+                    <td class="tax">5,32 €</td>
+                    <td class="price_with_tax">29,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">432 - Sport tonik za telo 200 ml</td>
+                    <td class="priceperunit">23,6 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,34 €</td>
+                    <td class="tax">4,26 €</td>
+                    <td class="price_with_tax">23,6 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">433 - Sport vodica po britju 50 ml</td>
+                    <td class="priceperunit">23,7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,43 €</td>
+                    <td class="tax">4,27 €</td>
+                    <td class="price_with_tax">23,7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">435 - Sport balzam po britju 125 ml</td>
+                    <td class="priceperunit">23,6 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">19,34 €</td>
+                    <td class="tax">4,26 €</td>
+                    <td class="price_with_tax">23,6 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">436 - Sport 24h balzam za nego obraza</td>
+                    <td class="priceperunit">26 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">21,31 €</td>
+                    <td class="tax">4,69 €</td>
+                    <td class="price_with_tax">26 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">443 - Olje za telo -relaxing body oil 150 ml</td>
+                    <td class="priceperunit">20,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,72 €</td>
+                    <td class="tax">3,68 €</td>
+                    <td class="price_with_tax">20,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">444 - Olje za telo vitalising body oil 150 ml</td>
+                    <td class="priceperunit">20,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,72 €</td>
+                    <td class="tax">3,68 €</td>
+                    <td class="price_with_tax">20,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">461 - Aroma fragrance 10 ml</td>
+                    <td class="priceperunit">14,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,56 €</td>
+                    <td class="tax">2,54 €</td>
+                    <td class="price_with_tax">14,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">474 - Piling za telo 150 ml</td>
+                    <td class="priceperunit">22,1 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">18,11 €</td>
+                    <td class="tax">3,99 €</td>
+                    <td class="price_with_tax">22,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">101 - Adstringent tonik 150 ml</td>
+                    <td class="priceperunit">14,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,89 €</td>
+                    <td class="tax">2,61 €</td>
+                    <td class="price_with_tax">14,5 €</td>
+                </tr>
+            </tbody>
+        </table>
+    </page>
+    <page>
+        <div class="pagenumbers">stran 7 od 7</div>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td class="service">122 - Azulen tonik 150 ml</td>
+                    <td class="priceperunit">15,3 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">7</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">87,79 €</td>
+                    <td class="tax">19,31 €</td>
+                    <td class="price_with_tax">107,1 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">185 - Hamamelis tonik 150 ml</td>
+                    <td class="priceperunit">14,9 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">12,21 €</td>
+                    <td class="tax">2,69 €</td>
+                    <td class="price_with_tax">14,9 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">192 - Tonik 150 ml (za vse tipe kož)</td>
+                    <td class="priceperunit">14,4 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">11,80 €</td>
+                    <td class="tax">2,60 €</td>
+                    <td class="price_with_tax">14,4 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">193 - Tonik 250 ml (za vse tipe kož)</td>
+                    <td class="priceperunit">18,8 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">15,41 €</td>
+                    <td class="tax">3,39 €</td>
+                    <td class="price_with_tax">18,8 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">194 - Tonik supreme 150 ml</td>
+                    <td class="priceperunit">20,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,80 €</td>
+                    <td class="tax">3,70 €</td>
+                    <td class="price_with_tax">20,5 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">220 - Tonik za nego oči 150 ml</td>
+                    <td class="priceperunit">16,7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">13,69 €</td>
+                    <td class="tax">3,01 €</td>
+                    <td class="price_with_tax">16,7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">220 - Tonik za nego okrog oči 150 ml</td>
+                    <td class="priceperunit">16,7 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">13,69 €</td>
+                    <td class="tax">3,01 €</td>
+                    <td class="price_with_tax">16,7 €</td>
+                </tr>
+                <tr class="item">
+                    <td class="service">574 - Sensitive tonik 150 ml</td>
+                    <td class="priceperunit">20,5 €</td>
+                    <td class="discount"></td>
+                    <td class="unit">komad</td>
+                    <td class="qty">1</td>
+                    <td class="taxrate">22,00%</td>
+                    <td class="price_neto">16,80 €</td>
+                    <td class="tax">3,70 €</td>
+                    <td class="price_with_tax">20,5 €</td>
+                </tr>
+                <tr class="totalneto">
+                    <td colspan="4">SKUPAJ BREZ DAVKA</td>
+                    <td colspan="5">3499,75 €</td>
+                </tr>
+                <tr class="taxsum">
+                    <td colspan="4">DDV 22%</td>
+                    <td colspan="5" class="tax_95">769,81 €</td>
+                </tr>
+                <tr class="grandtotal">
+                    <td colspan="4">Končna cena z davkom</td>
+                    <td colspan="5">4269,56 €</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="invoicebottom">
+            <div id="FURS">
+                <div>FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"</div>
+                <div>FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"</div>            
+            </div>
+        </div>
+    </page>
+</body>
+</html>

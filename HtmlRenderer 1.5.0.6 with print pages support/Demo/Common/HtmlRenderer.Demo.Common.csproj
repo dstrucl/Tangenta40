@@ -159,7 +159,9 @@
       <Name>HtmlRenderer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PrintSamples\01 Invoice.htm" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PrintSamples\00 Invoice.htm" />
   </ItemGroup>

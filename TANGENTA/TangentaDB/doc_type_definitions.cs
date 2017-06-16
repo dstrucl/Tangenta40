@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using DBTypes;
 
 namespace TangentaDB
 {
@@ -22,22 +23,52 @@ namespace TangentaDB
             }
         }
 
-        public doc_type Invoice = null;
-        public doc_type ProformaInvoice = null;
+        public doc_type HTMLPrintTemplate_Invoice = null;
+        public doc_type HTMLPrintTemplate_ProformaInvoice = null;
 
 
 
         public List<doc_type> doc_type_list = new List<doc_type>();
 
+        public long_v HTMLPrintTemplate_Invoice_doc_type_ID
+        {
+            get
+            {
+                if (doc_type_list.Count > 0)
+                {
+                    return new long_v(doc_type_list[0].ID);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public long_v HTMLPrintTemplate_Proforma_Invoice_doc_type_ID
+        {
+            get
+            {
+                if (doc_type_list.Count > 0)
+                {
+                    return new long_v(doc_type_list[1].ID);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public doc_type_definitions()
         {
 
             //Proforma Invoice
-            Invoice = new doc_type("Invoice", lngRPM.s_DocInvoice.s);
-            ProformaInvoice = new doc_type("Proforma Invoice", lngRPM.s_DocProformaInvoice.s);
+            HTMLPrintTemplate_Invoice = new doc_type("HTML Print Template Invoice", lngRPM.s_HTML_Print_template_DocInvoice.s);
+            HTMLPrintTemplate_ProformaInvoice = new doc_type("HTML Print Template Proforma Invoice", lngRPM.s_HTML_Print_template_DocProformaInvoice.s);
 
-            doc_type_list.Add(Invoice);
-            doc_type_list.Add(ProformaInvoice);
+            doc_type_list.Add(HTMLPrintTemplate_Invoice);
+            doc_type_list.Add(HTMLPrintTemplate_ProformaInvoice);
         }
 
 

@@ -17,6 +17,8 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_HTML_PrintDocument_SaveYesNo = new ltext("Do you want to save new printing template ?", "Želite shraniti novo predlogo za tiskanje?");
+        public static ltext s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo = new ltext("Name for html print document template must be unique.\r\nDo you want to change existing template ?", "Ime HTML predloge za tiskanje mora biti unikatno.\r\nŽelite spremeniti obstoječo predlogo ?");
         public static ltext s_Print_DocInvoice = new ltext("Print invoice", "Natisni račun");
         public static ltext s_Print_DocProformaInvoice = new ltext("Print proforma invoice", "Natisni predračun");
         public static ltext s_btn_SaveHtmlTemplate = new ltext("Save Template", "Shrani predlogo");
@@ -673,6 +675,12 @@ namespace LanguageControl
 
         public static ltext s_DocInvoice= new ltext("Invoice",
                                                          "Račun");
+
+        public static ltext s_HTML_Print_template_DocProformaInvoice = new ltext("HTML Print Template Proforma-Invoice",
+                                                         "HTML predloga za tiskanje predračuna");
+
+        public static ltext s_HTML_Print_template_DocInvoice = new ltext("HTML Print Template Invoice",
+                                                                         "HTML predloga za tiskanje računa");
 
         public static ltext s_DocInvoice_From_DocProformaInvoice = new ltext("Invoice from Proforma-Invoice",
                                                                        "Račun iz Predračuna");

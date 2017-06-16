@@ -23,6 +23,7 @@ namespace TangentaDB
 {
     public static class f_doc
     {
+        public enum ExistsResult { EXISTS, NOT_FOUND, ERROR };
         public enum StandardPages { A4, ROLL_80, ROLL_58 };
         public enum PageOreintation { PORTRAIT, LANDSCAPE };
 
@@ -42,9 +43,9 @@ namespace TangentaDB
 
         public static bool InsertDefault()
         {
-            
+
             Tangenta_DefaultPrintTemplates.TemplatesLoader.Init();
-            foreach(HtmlTemplate ht in Tangenta_DefaultPrintTemplates.TemplatesLoader.Templates)
+            foreach (HtmlTemplate ht in Tangenta_DefaultPrintTemplates.TemplatesLoader.Templates)
             {
                 byte[] xDoc = null;
                 int i = 0;
@@ -62,8 +63,8 @@ namespace TangentaDB
                 {
                     j = 0;
                 }
-                string ilang  = ht.Name.Substring(0, 3);
-                if (ilang[2]=='_')
+                string ilang = ht.Name.Substring(0, 3);
+                if (ilang[2] == '_')
                 {
                     ilang = ht.Name.Substring(0, 2);
                 }
@@ -73,7 +74,7 @@ namespace TangentaDB
                 }
                 catch (Exception ex)
                 {
-                    LogFile.Error.Show("ERROR:DefaultPrintTemplate name should start with number (example: 000_ENG_...)\r\n"+ex.Message);
+                    LogFile.Error.Show("ERROR:DefaultPrintTemplate name should start with number (example: 000_ENG_...)\r\n" + ex.Message);
                     return false;
                 }
 
@@ -81,7 +82,7 @@ namespace TangentaDB
                 long_v doc_type_ID_v = new long_v(GlobalData.doc_type_definitions.doc_type_list[j].ID);
                 long_v doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.A4_Portrait_description.ID);
                 long_v xLanguage_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
-            
+
                 if (!Get(ht.Name,
                           null,
                           xDoc,
@@ -92,18 +93,128 @@ namespace TangentaDB
                             true,
                             true,
                             ref doc_ID
-                            )
-                    )
+                            ))
                 {
                     return false;
                 }
             }
-  
+
             return true;
         }
 
+        public static ExistsResult Exists(string Name, long_v doc_type_ID_v, ref long doc_ID)
+        {
+            doc_ID = -1;
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Name = "@par_Name";
+            SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
+            lpar.Add(par_Name);
+            string scond_Name = " Name = " + spar_Name + " ";
 
 
+            string sval_doc_type_ID = "null";
+            string scond_doc_type_ID = " doc_type_ID is null ";
+            if (doc_type_ID_v != null)
+            {
+                string spar_doc_type_ID = "@par_doc_type_ID";
+
+                SQL_Parameter par_doc_type_ID = new SQL_Parameter(spar_doc_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_type_ID_v.v);
+                lpar.Add(par_doc_type_ID);
+                sval_doc_type_ID = spar_doc_type_ID;
+                scond_doc_type_ID = " doc_type_ID = " + spar_doc_type_ID + " ";
+            }
+
+
+            string sql = "select ID from doc where " + scond_Name
+                                                            + " and " + scond_doc_type_ID;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    doc_ID = (long)dt.Rows[0]["ID"];
+                    return ExistsResult.EXISTS;
+                }
+                return ExistsResult.NOT_FOUND;
+            }
+            else
+            {
+
+                LogFile.Error.Show("ERROR:f_doc:Exists:sql=" + sql + "\r\nErr=" + Err);
+                return ExistsResult.ERROR;
+            }
+        }
+
+        public static bool GetTemplates(ref DataTable dtTemplates,
+                                        long_v doc_type_ID_v,
+                                        long_v doc_page_type_ID_v,
+                                        long_v Language_ID_v
+                                        )
+
+        {
+            string Err = null;
+            if (dtTemplates == null)
+            {
+                dtTemplates = new DataTable();
+            }
+            else
+            {
+                dtTemplates.Clear();
+                dtTemplates.Columns.Clear();
+            }
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string sval_doc_type_ID = "null";
+            string scond_doc_type_ID = " doc_type_ID is null ";
+            if (doc_type_ID_v != null)
+            {
+                string spar_doc_type_ID = "@par_doc_type_ID";
+
+                SQL_Parameter par_doc_type_ID = new SQL_Parameter(spar_doc_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_type_ID_v.v);
+                lpar.Add(par_doc_type_ID);
+                sval_doc_type_ID = spar_doc_type_ID;
+                scond_doc_type_ID = " doc_type_ID = " + spar_doc_type_ID + " ";
+            }
+
+            string sval_doc_page_type_ID = "null";
+            string scond_doc_page_type_ID = " doc_page_type_ID is null";
+            if (doc_page_type_ID_v != null)
+            {
+                string spar_doc_page_type_ID = "@par_doc_page_type_ID";
+
+                SQL_Parameter par_doc_page_type_ID = new SQL_Parameter(spar_doc_page_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID_v.v);
+                lpar.Add(par_doc_page_type_ID);
+                sval_doc_page_type_ID = spar_doc_page_type_ID;
+                scond_doc_page_type_ID = " doc_page_type_ID = " + spar_doc_page_type_ID + " ";
+            }
+
+
+            string sval_Language_ID = "null";
+            string scond_Language_ID = " Language_ID is null ";
+
+            if (Language_ID_v != null)
+            {
+                string spar_Language_ID = "@par_Language_ID";
+
+                SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Language_ID_v.v);
+                lpar.Add(par_Language_ID);
+                sval_Language_ID = spar_Language_ID;
+                scond_Language_ID = " Language_ID = " + spar_Language_ID + " ";
+            }
+            string sql = "select Name,Description from doc where " + scond_doc_type_ID
+                                                          + " and " + scond_doc_page_type_ID
+                                                          + " and " + scond_Language_ID;
+
+            if (DBSync.DBSync.ReadDataTable(ref dtTemplates, sql, lpar, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_doc:GetTemplates:\r\nsql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
         public static bool Get(string Name, 
                                 string_v Description_v,
                                 byte[] xDocument, 
@@ -378,14 +489,14 @@ namespace TangentaDB
             }
             if (fs.IsDocInvoice(DocType))
             {
-                if (!fs.Add_lpar(lpar, "doc_$_doctype_$$ID", GlobalData.doc_type_definitions.Invoice.ID, ref scond_doc_type_ID, ref sval_doc_type_ID))
+                if (!fs.Add_lpar(lpar, "doc_$_doctype_$$ID", GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice.ID, ref scond_doc_type_ID, ref sval_doc_type_ID))
                 {
                     return eGetPrintDocumentTemplateResult.ERROR;
                 }
             }
             else if (fs.IsDocProformaInvoice(DocType))
             {
-                if (!fs.Add_lpar(lpar, "doc_$_doctype_$$ID", GlobalData.doc_type_definitions.ProformaInvoice.ID, ref scond_doc_type_ID, ref sval_doc_type_ID))
+                if (!fs.Add_lpar(lpar, "doc_$_doctype_$$ID", GlobalData.doc_type_definitions.HTMLPrintTemplate_ProformaInvoice.ID, ref scond_doc_type_ID, ref sval_doc_type_ID))
                 {
                     return eGetPrintDocumentTemplateResult.ERROR;
                 }
