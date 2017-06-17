@@ -13,7 +13,7 @@ namespace TangentaDB
         public class Language
         {
             public long ID = -1;
-            public int Index = -1;
+            public int LanguageIndex = -1;
             public string Name = null;
             public string Description = null;
             public Language(string Language_Name, string Language_Description)
@@ -24,6 +24,15 @@ namespace TangentaDB
         }
 
         public List<Language> Language_list = new List<Language>();
+
+        public long_v Language_ID_v
+        {
+            get
+            {
+                return new long_v(Language_list[LanguageControl.DynSettings.LanguageID].ID);
+            }
+        }
+                    
 
         public Language_definitions()
         {
@@ -49,7 +58,7 @@ namespace TangentaDB
         public bool Read()
         {
             string Err = null;
-            string sql = "select ID,Name, Description from Language";
+            string sql = "select Name, Description,LanguageIndex,ID from Language";
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
             {
@@ -84,6 +93,7 @@ namespace TangentaDB
                     if (lang.Name.Equals(sName))
                     {
                         lang.ID = (long)dr["ID"];
+                        lang.LanguageIndex = (int)dr["LanguageIndex"];
                         return true;
                     }
                 }
@@ -112,8 +122,14 @@ namespace TangentaDB
                 }
             }
 
+            string sval_LanguageIndex = "null";
+            string spar_LanguageIndex = "@par_LanguageIndex";
+            SQL_Parameter par_LanguageIndex = new SQL_Parameter(spar_LanguageIndex, SQL_Parameter.eSQL_Parameter.Int, false, lang.LanguageIndex);
+            sval_Description = spar_LanguageIndex;
+            lpar.Add(par_LanguageIndex);
 
-            string sql = "insert into Language (Name,Description) values (" + sval_Name + "," + sval_Description + ")";
+
+            string sql = "insert into Language (Name,Description,LanguageIndex) values (" + sval_Name + "," + sval_Description + ","+ sval_LanguageIndex + ")";
             long dpt_id = -1;
             object oret = null;
             string Err = null;

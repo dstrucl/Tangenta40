@@ -11,11 +11,14 @@ using TangentaDB;
 using System.Drawing.Printing;
 using CodeTables;
 using TangentaTableClass;
+using DBTypes;
 
 namespace TangentaPrint
 {
     public partial class usrc_SelectPrintTemplate : UserControl
     {
+        object dataSource;
+        string displayMember, valueMember;
 
         public delegate void delagate_SettingsChanged();
         public event delagate_SettingsChanged SettingsChanged = null;
@@ -24,6 +27,9 @@ namespace TangentaPrint
 
         public Printer SelectedPrinter = null;
 
+        public DataTable dtTemplates = null;
+
+        public InvoiceData m_InvoiceData = null;
         public f_doc.StandardPages PageType
         {
             get
@@ -74,6 +80,44 @@ namespace TangentaPrint
             set { cmb_SelectPrintTemplate.Text = value; }
         }
 
+        public long_v DocType_ID_v { get
+            {
+              if (m_InvoiceData.IsDocInvoice)
+                {
+                    return GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID;
+                }
+               else if (m_InvoiceData.IsDocProformaInvoice)
+                {
+                    return GlobalData.doc_type_definitions.HTMLPrintTemplate_Proforma_Invoice_doc_type_ID;
+                }
+              else
+                { return null;
+                }
+            }
+        }
+        public long_v doc_page_type_ID_v
+        {
+            get
+            {
+                switch (PageOrientation)
+                {
+                    case f_doc.PageOreintation.PORTRAIT:
+                        return GlobalData.doc_page_type_definitions.HTML_doc_page_type_A4_Portrait_ID_v;
+                    case f_doc.PageOreintation.LANDSCAPE:
+                        return GlobalData.doc_page_type_definitions.HTML_doc_page_type_A4_Landscape_ID_v;
+                }
+                return null;
+            }
+        }
+                
+        public long_v Language_ID_v {
+            get
+            {
+                return GlobalData.language_definitions.Language_ID_v;
+            }
+
+        }
+
         public usrc_SelectPrintTemplate()
         {
             InitializeComponent();
@@ -95,8 +139,9 @@ namespace TangentaPrint
         }
 
 
-        internal bool Init(InvoiceData m_InvoiceData)
+        internal f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)
         {
+            m_InvoiceData = x_InvoiceData;
             if (m_InvoiceData.IsDocInvoice)
             {
                 MakeInvoicePrinterSelection(m_InvoiceData);
@@ -110,14 +155,55 @@ namespace TangentaPrint
             else
             {
                 LogFile.Error.Show("ERROR:Form_SelectTemplate:Form_SelectTemplate:Unknown document type!");
-                return false;
+                return f_doc.eGetPrintDocumentTemplateResult.ERROR;
             }
             this.rdb_Landscape.CheckedChanged += Rdb_Landscape_CheckedChanged;
             this.rdb_Portrait.CheckedChanged += Rdb_Portrait_CheckedChanged;
             this.rdb_A4.CheckedChanged += Rdb_A4_CheckedChanged; ;
             this.rdb_80.CheckedChanged += Rdb_80_CheckedChanged;
             this.rdb_58.CheckedChanged += Rdb_58_CheckedChanged;
-            return true;
+
+            
+            f_doc.eGetPrintDocumentTemplateResult eres = f_doc.GetTemplates(ref dtTemplates,
+                           DocType_ID_v,
+                           doc_page_type_ID_v,
+                           Language_ID_v
+                          );
+            switch (eres)
+            {
+                case f_doc.eGetPrintDocumentTemplateResult.OK:
+                    {
+                        foreach (DataRow dr in dtTemplates.Rows)
+                        {
+                            if ((bool)dr["bDefault"])
+                            {
+                                bool bCompressed = false;
+                                string xTemplateName = null;
+                                if (f_doc.GetTemplate((long)dr["ID"],ref xTemplateName, ref Doc,ref bCompressed))
+                                {
+                                    TemplateName = xTemplateName;
+                                }
+                            }
+                        }
+                        cmb_SelectPrintTemplate.BeginInit();
+                        dataSource = dtTemplates;
+                        displayMember = "Name";
+                        valueMember = "ID";
+                        if (dataSource != null)
+                        {
+                            cmb_SelectPrintTemplate.DisplayMember = displayMember;
+                            cmb_SelectPrintTemplate.ValueMember = valueMember;
+                            cmb_SelectPrintTemplate.DataSource = dataSource;
+                        }
+                        cmb_SelectPrintTemplate.EndInit();
+
+                    }
+                    break;
+
+            }
+
+
+            return eres;
         }
 
         private void Rdb_Portrait_CheckedChanged(object sender, EventArgs e)

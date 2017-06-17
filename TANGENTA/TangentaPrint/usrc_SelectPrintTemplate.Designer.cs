@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmb_SelectPrintTemplate = new System.Windows.Forms.ComboBox();
             this.grp_Orientation = new System.Windows.Forms.GroupBox();
             this.rdb_Landscape = new System.Windows.Forms.RadioButton();
             this.rdb_Portrait = new System.Windows.Forms.RadioButton();
@@ -45,18 +44,11 @@
             this.btn_SelectPrinter = new System.Windows.Forms.Button();
             this.txt_Description = new System.Windows.Forms.TextBox();
             this.lbl_Description = new System.Windows.Forms.Label();
+            this.cmb_SelectPrintTemplate = new EWSoftware.ListControls.MultiColumnComboBox();
             this.grp_Orientation.SuspendLayout();
             this.grp_PaperSize.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmb_SelectPrintTemplate)).BeginInit();
             this.SuspendLayout();
-            // 
-            // cmb_SelectPrintTemplate
-            // 
-            this.cmb_SelectPrintTemplate.FormattingEnabled = true;
-            this.cmb_SelectPrintTemplate.Location = new System.Drawing.Point(317, 82);
-            this.cmb_SelectPrintTemplate.Name = "cmb_SelectPrintTemplate";
-            this.cmb_SelectPrintTemplate.Size = new System.Drawing.Size(339, 21);
-            this.cmb_SelectPrintTemplate.TabIndex = 19;
-            this.cmb_SelectPrintTemplate.SelectedIndexChanged += new System.EventHandler(this.cmb_SelectPrintTemplate_SelectedIndexChanged);
             // 
             // grp_Orientation
             // 
@@ -221,16 +213,25 @@
             this.lbl_Description.Text = "Description";
             this.lbl_Description.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // cmb_SelectPrintTemplate
+            // 
+            this.cmb_SelectPrintTemplate.DropDownFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.cmb_SelectPrintTemplate.Location = new System.Drawing.Point(320, 82);
+            this.cmb_SelectPrintTemplate.Name = "cmb_SelectPrintTemplate";
+            this.cmb_SelectPrintTemplate.Size = new System.Drawing.Size(333, 21);
+            this.cmb_SelectPrintTemplate.TabIndex = 25;
+            this.cmb_SelectPrintTemplate.Text = "cmb_SelectPrintTemplate";
+            // 
             // usrc_SelectPrintTemplate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cmb_SelectPrintTemplate);
             this.Controls.Add(this.txt_Description);
             this.Controls.Add(this.lbl_Description);
             this.Controls.Add(this.btn_SelectPrinter);
             this.Controls.Add(this.lbl_printer);
             this.Controls.Add(this.cmb_SelectPrinter);
-            this.Controls.Add(this.cmb_SelectPrintTemplate);
             this.Controls.Add(this.grp_Orientation);
             this.Controls.Add(this.lbl_Language);
             this.Controls.Add(this.cmb_Language);
@@ -243,14 +244,13 @@
             this.grp_Orientation.PerformLayout();
             this.grp_PaperSize.ResumeLayout(false);
             this.grp_PaperSize.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmb_SelectPrintTemplate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cmb_SelectPrintTemplate;
         private System.Windows.Forms.GroupBox grp_Orientation;
         private System.Windows.Forms.RadioButton rdb_Landscape;
         private System.Windows.Forms.RadioButton rdb_Portrait;
@@ -267,5 +267,6 @@
         private System.Windows.Forms.Button btn_SelectPrinter;
         private System.Windows.Forms.TextBox txt_Description;
         private System.Windows.Forms.Label lbl_Description;
+        private EWSoftware.ListControls.MultiColumnComboBox cmb_SelectPrintTemplate;
     }
 }

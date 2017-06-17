@@ -74,74 +74,6 @@ namespace TangentaPrint
 
         public void Init()
         {
-            switch (f_doc.GetDefaultTemplate(ref Default_ID,
-                                             ref Default_Tamplate,
-                                             ref m_usrc_SelectPrintTemplate.Doc,
-                                             ref m_usrc_SelectPrintTemplate.bCompressedDocumentTemplate,
-                                             m_usrc_SelectPrintTemplate.SelectedLangugage,
-                                             m_InvoiceData.DocInvoice,
-                                             m_usrc_SelectPrintTemplate.PageType,
-                                             m_usrc_SelectPrintTemplate.PageOrientation
-                    ))
-            {
-                case f_doc.eGetPrintDocumentTemplateResult.OK:
-                    Create_usrc_Invoice_Preview();
-                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-                    this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
-                    m_usrc_SelectPrintTemplate.TemplateName = Default_Tamplate;
-                    btn_SaveTemplate.Visible = false;
-                    btn_Refresh.Visible = false;
-                    break;
-                
-                case f_doc.eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE:
-                    btn_SaveTemplate.Visible = false;
-                    btn_Refresh.Visible = false;
-                    ltext lMsg = lngRPM.s_YouHaveNoDocumentTemplateFor;
-                    string sMsg_paper = "";
-                    switch (m_usrc_SelectPrintTemplate.PageType)
-                    {
-                        case f_doc.StandardPages.A4:
-                            sMsg_paper = lngRPM.s_Paper_A4.s;
-                            break;
-                        case f_doc.StandardPages.ROLL_58:
-                            sMsg_paper = lngRPM.s_Paper_Roll58.s;
-                            break;
-                        case f_doc.StandardPages.ROLL_80:
-                            sMsg_paper = lngRPM.s_Paper_Roll80.s;
-                            break;
-                        default:
-                            sMsg_paper = lngRPM.s_PageType_NotDefined.s;
-                            break;
-
-                    }
-                    string sMsg = "";
-                    switch (m_usrc_SelectPrintTemplate.PageOrientation)
-                    {
-                        case f_doc.PageOreintation.PORTRAIT:
-                            sMsg = lngRPM.s_PageOrientation_PORTRAIT.s;
-                            break;
-                        case f_doc.PageOreintation.LANDSCAPE:
-                            sMsg = lngRPM.s_PageOrientation_LANDSCAPE.s;
-                            break;
-                    }
-
-                    string sDocMsg = "";
-                    if (m_InvoiceData.DocInvoice.Equals("DocInvoice"))
-                    {
-                        sDocMsg = lngRPM.s_DocInvoice.s;
-                    }
-                    else if (m_InvoiceData.DocInvoice.Equals("DocProformaInvoice"))
-                    {
-                        sDocMsg = lngRPM.s_DocProformaInvoice.s;
-                    }
-
-                    XMessage.Box.Show(this, lMsg, "\r\n"+ sMsg_paper + ",\r\n" +sDocMsg+ ",\r\n" + sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                    Create_usrc_Invoice_Preview();
-                    m_usrc_Invoice_Preview.Init(m_InvoiceData);
-                    m_usrc_SelectPrintTemplate.TemplateName = "";
-                    break;
-
-            }
 
         }
 
@@ -186,10 +118,69 @@ namespace TangentaPrint
         private void Form_SelectTemplate_Load(object sender, EventArgs e)
         {
             m_usrc_SelectPrintTemplate.SettingsChanged += M_usrc_SelectPrintTemplate_SettingsChanged;
-            if (!m_usrc_SelectPrintTemplate.Init(m_InvoiceData))
+            switch (m_usrc_SelectPrintTemplate.Init(m_InvoiceData))
             {
-                this.Close();
-                DialogResult = DialogResult.Abort;
+                case f_doc.eGetPrintDocumentTemplateResult.OK:
+                    Create_usrc_Invoice_Preview();
+                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                    this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
+                    m_usrc_SelectPrintTemplate.TemplateName = Default_Tamplate;
+                    btn_SaveTemplate.Visible = false;
+                    btn_Refresh.Visible = false;
+                    break;
+
+                case f_doc.eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE:
+                    btn_SaveTemplate.Visible = false;
+                    btn_Refresh.Visible = false;
+                    ltext lMsg = lngRPM.s_YouHaveNoDocumentTemplateFor;
+                    string sMsg_paper = "";
+                    switch (m_usrc_SelectPrintTemplate.PageType)
+                    {
+                        case f_doc.StandardPages.A4:
+                            sMsg_paper = lngRPM.s_Paper_A4.s;
+                            break;
+                        case f_doc.StandardPages.ROLL_58:
+                            sMsg_paper = lngRPM.s_Paper_Roll58.s;
+                            break;
+                        case f_doc.StandardPages.ROLL_80:
+                            sMsg_paper = lngRPM.s_Paper_Roll80.s;
+                            break;
+                        default:
+                            sMsg_paper = lngRPM.s_PageType_NotDefined.s;
+                            break;
+
+                    }
+                    string sMsg = "";
+                    switch (m_usrc_SelectPrintTemplate.PageOrientation)
+                    {
+                        case f_doc.PageOreintation.PORTRAIT:
+                            sMsg = lngRPM.s_PageOrientation_PORTRAIT.s;
+                            break;
+                        case f_doc.PageOreintation.LANDSCAPE:
+                            sMsg = lngRPM.s_PageOrientation_LANDSCAPE.s;
+                            break;
+                    }
+
+                    string sDocMsg = "";
+                    if (m_InvoiceData.DocInvoice.Equals("DocInvoice"))
+                    {
+                        sDocMsg = lngRPM.s_DocInvoice.s;
+                    }
+                    else if (m_InvoiceData.DocInvoice.Equals("DocProformaInvoice"))
+                    {
+                        sDocMsg = lngRPM.s_DocProformaInvoice.s;
+                    }
+
+                    XMessage.Box.Show(this, lMsg, "\r\n" + sMsg_paper + ",\r\n" + sDocMsg + ",\r\n" + sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                    Create_usrc_Invoice_Preview();
+                    m_usrc_Invoice_Preview.Init(m_InvoiceData);
+                    m_usrc_SelectPrintTemplate.TemplateName = "";
+                    break;
+
+                case f_doc.eGetPrintDocumentTemplateResult.ERROR:
+                    this.Close();
+                    DialogResult = DialogResult.Abort;
+                    break;
             }
         }
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using DBTypes;
 
 namespace TangentaDB
 {
@@ -34,6 +35,37 @@ namespace TangentaDB
 
 
         public List<doc_page_type> doc_page_type_list = new List<doc_page_type>();
+
+        public long_v HTML_doc_page_type_A4_Portrait_ID_v
+        {
+            get
+            {
+                return new long_v(doc_page_type_list[0].ID);
+            }
+        }
+        public long_v HTML_doc_page_type_A4_Landscape_ID_v 
+        {
+            get
+            {
+                return new long_v(doc_page_type_list[1].ID);
+            }
+        }
+
+        public long_v HTML_doc_page_type_Roll_80_mm_ID_v
+        {
+            get
+            {
+                return new long_v(doc_page_type_list[2].ID);
+            }
+        }
+
+        public long_v HTML_doc_page_type_Roll_58_mm_ID_v
+        {
+            get
+            {
+                return new long_v(doc_page_type_list[3].ID);
+            }
+        }
 
         public doc_page_type_definitions()
         {

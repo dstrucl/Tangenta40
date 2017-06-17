@@ -133,6 +133,10 @@
       <Project>{3A0F6691-D8D0-4005-902A-215DA5F671B4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ListControls-master\Source\EWSListControls.csproj">
+      <Project>{8b77e8dd-a857-4a6e-bca3-93ac56b80f57}</Project>
+      <Name>EWSListControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>

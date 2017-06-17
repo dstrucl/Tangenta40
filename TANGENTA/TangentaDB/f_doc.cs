@@ -146,7 +146,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool GetTemplates(ref DataTable dtTemplates,
+        public static eGetPrintDocumentTemplateResult GetTemplates(ref DataTable dtTemplates,
                                         long_v doc_type_ID_v,
                                         long_v doc_page_type_ID_v,
                                         long_v Language_ID_v
@@ -201,18 +201,26 @@ namespace TangentaDB
                 sval_Language_ID = spar_Language_ID;
                 scond_Language_ID = " Language_ID = " + spar_Language_ID + " ";
             }
-            string sql = "select Name,Description from doc where " + scond_doc_type_ID
+            string sql = "select Name,Description,bDefault,ID from doc where " + scond_doc_type_ID
                                                           + " and " + scond_doc_page_type_ID
-                                                          + " and " + scond_Language_ID;
+                                                          + " and " + scond_Language_ID
+                                                          + " and Active = 1";
 
             if (DBSync.DBSync.ReadDataTable(ref dtTemplates, sql, lpar, ref Err))
             {
-                return true;
+                if (dtTemplates.Rows.Count > 0)
+                {
+                  return eGetPrintDocumentTemplateResult.OK;
+                }
+                else
+                {
+                    return eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE;
+                }
             }
             else
             {
                 LogFile.Error.Show("ERROR:TangentaDB:f_doc:GetTemplates:\r\nsql=" + sql + "\r\nErr=" + Err);
-                return false;
+                return eGetPrintDocumentTemplateResult.ERROR;
             }
         }
         public static bool Get(string Name, 
