@@ -217,5 +217,40 @@ namespace UniversalInvoice
                 return html_doc_template;
             }
         }
+
+        public int IndexOf(string s, ref int length)
+        {
+            int index = s.IndexOf(lt.s);
+            if (index>=0)
+            {
+                length = lt.s.Length;
+                return index;
+                
+            }
+            else
+            {
+                //replace if token is written in other languages
+                int i = 0;
+                int iCount = lt.sText_Length;
+                for (i = 0; i < iCount; i++)
+                {
+                    if (i == DynSettings.LanguageID)
+                    {
+                        continue;
+                    }
+                    string sx = lt.sText(i);
+                    if (sx != null)
+                    {
+                        index = s.IndexOf(sx);
+                        if (index >=0)
+                        {
+                            length = sx.Length;
+                            return index;
+                        }
+                    }
+                }
+                return index;
+            }
+        }
     }
 }

@@ -45,6 +45,7 @@
             this.txt_Description = new System.Windows.Forms.TextBox();
             this.lbl_Description = new System.Windows.Forms.Label();
             this.cmb_SelectPrintTemplate = new EWSoftware.ListControls.MultiColumnComboBox();
+            this.chk_Default = new System.Windows.Forms.CheckBox();
             this.grp_Orientation.SuspendLayout();
             this.grp_PaperSize.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmb_SelectPrintTemplate)).BeginInit();
@@ -200,7 +201,7 @@
             // 
             this.txt_Description.Location = new System.Drawing.Point(274, 109);
             this.txt_Description.Name = "txt_Description";
-            this.txt_Description.Size = new System.Drawing.Size(379, 20);
+            this.txt_Description.Size = new System.Drawing.Size(419, 20);
             this.txt_Description.TabIndex = 24;
             // 
             // lbl_Description
@@ -218,14 +219,25 @@
             this.cmb_SelectPrintTemplate.DropDownFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.cmb_SelectPrintTemplate.Location = new System.Drawing.Point(320, 82);
             this.cmb_SelectPrintTemplate.Name = "cmb_SelectPrintTemplate";
-            this.cmb_SelectPrintTemplate.Size = new System.Drawing.Size(333, 21);
+            this.cmb_SelectPrintTemplate.Size = new System.Drawing.Size(268, 21);
             this.cmb_SelectPrintTemplate.TabIndex = 25;
             this.cmb_SelectPrintTemplate.Text = "cmb_SelectPrintTemplate";
+            // 
+            // chk_Default
+            // 
+            this.chk_Default.AutoSize = true;
+            this.chk_Default.Location = new System.Drawing.Point(595, 85);
+            this.chk_Default.Name = "chk_Default";
+            this.chk_Default.Size = new System.Drawing.Size(60, 17);
+            this.chk_Default.TabIndex = 26;
+            this.chk_Default.Text = "Default";
+            this.chk_Default.UseVisualStyleBackColor = true;
             // 
             // usrc_SelectPrintTemplate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chk_Default);
             this.Controls.Add(this.cmb_SelectPrintTemplate);
             this.Controls.Add(this.txt_Description);
             this.Controls.Add(this.lbl_Description);
@@ -239,7 +251,7 @@
             this.Controls.Add(this.btn_EditTemplates);
             this.Controls.Add(this.lbl_Template);
             this.Name = "usrc_SelectPrintTemplate";
-            this.Size = new System.Drawing.Size(672, 135);
+            this.Size = new System.Drawing.Size(696, 135);
             this.grp_Orientation.ResumeLayout(false);
             this.grp_Orientation.PerformLayout();
             this.grp_PaperSize.ResumeLayout(false);
@@ -268,5 +280,6 @@
         private System.Windows.Forms.TextBox txt_Description;
         private System.Windows.Forms.Label lbl_Description;
         private EWSoftware.ListControls.MultiColumnComboBox cmb_SelectPrintTemplate;
+        private System.Windows.Forms.CheckBox chk_Default;
     }
 }

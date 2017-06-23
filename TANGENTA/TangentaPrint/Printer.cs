@@ -118,9 +118,9 @@ namespace TangentaPrint
                     this.printer_settings = new PrinterSettings();
                 }
                 printer_settings.PrinterName = PrinterName;
-                return (double)printer_settings.DefaultPageSettings.PaperSize.Height * 0.254;
+                double paper_size_height = (double)printer_settings.DefaultPageSettings.PaperSize.Height;
+                return paper_size_height;
             }
-
         }
 
         float cx_paper_in_inch = 0;

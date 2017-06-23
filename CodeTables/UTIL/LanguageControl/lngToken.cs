@@ -26,6 +26,8 @@ namespace LanguageControl
         public static ltext st_Person = new ltext("Person", "Oseba");
         public static ltext st_Address = new ltext("Address", "Naslov");
 
+        public static ltext st_PageNumber = new ltext("PageNumber", "ŠtevilkaStrani");
+        public static ltext st_NumberOfPages = new ltext("NumberOfPages", "ŠteviloStrani");
 
         public static ltext st_FiscalYear = new ltext("FiscalYear", "ObračunskoLeto");
         public static ltext st_Number = new ltext("Number", "Številka");

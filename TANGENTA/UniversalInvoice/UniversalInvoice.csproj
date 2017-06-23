@@ -65,6 +65,7 @@
     <Compile Include="AddressToken.cs" />
     <Compile Include="FVI_SLO_RealEstateBP.cs" />
     <Compile Include="FVI_SLO_RealEstateBPToken.cs" />
+    <Compile Include="GeneralToken.cs" />
     <Compile Include="InvoiceToken.cs" />
     <Compile Include="Invoice_FURS_Token.cs" />
     <Compile Include="ItemSoldToken.cs" />

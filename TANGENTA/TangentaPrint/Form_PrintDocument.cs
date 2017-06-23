@@ -122,9 +122,9 @@ namespace TangentaPrint
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     Create_usrc_Invoice_Preview();
-                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
-                    m_usrc_SelectPrintTemplate.TemplateName = Default_Tamplate;
+                    m_usrc_SelectPrintTemplate.f_doc_TemplateName = Default_Tamplate;
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
                     break;
@@ -134,7 +134,7 @@ namespace TangentaPrint
                     btn_Refresh.Visible = false;
                     ltext lMsg = lngRPM.s_YouHaveNoDocumentTemplateFor;
                     string sMsg_paper = "";
-                    switch (m_usrc_SelectPrintTemplate.PageType)
+                    switch (m_usrc_SelectPrintTemplate.f_doc_PageType)
                     {
                         case f_doc.StandardPages.A4:
                             sMsg_paper = lngRPM.s_Paper_A4.s;
@@ -151,7 +151,7 @@ namespace TangentaPrint
 
                     }
                     string sMsg = "";
-                    switch (m_usrc_SelectPrintTemplate.PageOrientation)
+                    switch (m_usrc_SelectPrintTemplate.f_doc_PageOrientation)
                     {
                         case f_doc.PageOreintation.PORTRAIT:
                             sMsg = lngRPM.s_PageOrientation_PORTRAIT.s;
@@ -174,7 +174,7 @@ namespace TangentaPrint
                     XMessage.Box.Show(this, lMsg, "\r\n" + sMsg_paper + ",\r\n" + sDocMsg + ",\r\n" + sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                     Create_usrc_Invoice_Preview();
                     m_usrc_Invoice_Preview.Init(m_InvoiceData);
-                    m_usrc_SelectPrintTemplate.TemplateName = "";
+                    m_usrc_SelectPrintTemplate.f_doc_TemplateName = "";
                     break;
 
                 case f_doc.eGetPrintDocumentTemplateResult.ERROR:
@@ -216,11 +216,21 @@ namespace TangentaPrint
         private void SaveTemaplate()
         {
             long Doc_ID = -1;
-            switch (f_doc.Exists(m_usrc_SelectPrintTemplate.TemplateName,GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID,ref Doc_ID))
+            switch (f_doc.Exists(m_usrc_SelectPrintTemplate.f_doc_TemplateName,GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID,ref Doc_ID))
             {
                 case f_doc.ExistsResult.EXISTS:
                     if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
+                        f_doc.Update(Doc_ID,
+                                     m_usrc_SelectPrintTemplate.f_doc_TemplateName,
+                                     m_usrc_SelectPrintTemplate.f_doc_TemplateDescription,
+                                     m_usrc_SelectPrintTemplate.Doc_v.v,
+                                     m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v,
+                                     m_usrc_SelectPrintTemplate.f_doc_page_type_ID_v,
+                                     m_usrc_SelectPrintTemplate.f_doc_Language_ID_v,
+                                     m_usrc_SelectPrintTemplate.bCompressedDocumentTemplate,
+                                     m_usrc_SelectPrintTemplate.f_doc_bActive,
+                                     m_usrc_SelectPrintTemplate.f_doc_bDefault);
 
                     }
                     break;
@@ -239,7 +249,7 @@ namespace TangentaPrint
 
                         if (doc_type_ID_v!=null)
                         {
-                            switch (m_usrc_SelectPrintTemplate.PageOrientation)
+                            switch (m_usrc_SelectPrintTemplate.f_doc_PageOrientation)
                             {
                                 case f_doc.PageOreintation.PORTRAIT:
                                     break;

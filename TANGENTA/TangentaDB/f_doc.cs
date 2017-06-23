@@ -83,7 +83,13 @@ namespace TangentaDB
                 long_v doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.A4_Portrait_description.ID);
                 long_v xLanguage_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
 
-                if (!Get(ht.Name,
+                string doc_Name = ht.Name;
+                if (Exists(ht.Name, doc_type_ID_v,ref doc_ID)== ExistsResult.EXISTS)
+                {
+                    doc_Name += "_default";
+                }
+
+                if (!Get(doc_Name,
                           null,
                           xDoc,
                           doc_type_ID_v,
@@ -146,6 +152,56 @@ namespace TangentaDB
             }
         }
 
+        public static eGetPrintDocumentTemplateResult GetTemplate(long doc_ID,
+                                                                  ref byte_array_v xDoc_v,
+                                                                  ref string_v xDoc_Hash_v,
+                                                                  ref long_v doc_type_ID_v,
+                                                                  ref long_v doc_page_type_ID_v,
+                                                                  ref long_v Language_ID_v,
+                                                                  ref bool_v bCompressed_v)
+
+        {
+
+            string Err = null;
+            
+            DataTable     dt= new DataTable();
+            string sql = "select xDocument,xDocument_Hash,doc_type_ID,doc_page_type_ID,Language_ID,Compressed from doc where ID =" + doc_ID.ToString();
+
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    xDoc_v = null;
+                    xDoc_Hash_v = tf.set_string(dt.Rows[0]["xDocument_Hash"]);
+                    doc_type_ID_v = tf.set_long(dt.Rows[0]["doc_type_ID"]);
+                    doc_page_type_ID_v = tf.set_long(dt.Rows[0]["doc_page_type_ID"]);
+                    Language_ID_v = tf.set_long(dt.Rows[0]["Language_ID"]);
+                    bCompressed_v = tf.set_bool(dt.Rows[0]["Compressed"]);
+                    if (bCompressed_v!=null)
+                    {
+                        if (bCompressed_v.v)
+                        {
+                           object oxDoc = dt.Rows[0]["xDocument"];
+                           if (oxDoc is byte[])
+                            {
+                                xDoc_v = tf.set_byte_array(fs.Decompress((byte[])oxDoc));
+                            }
+                        }
+                    }
+                    return eGetPrintDocumentTemplateResult.OK;
+                }
+                else
+                {
+                    return eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_doc:GetTemplate:\r\nsql=" + sql + "\r\nErr=" + Err);
+                return eGetPrintDocumentTemplateResult.ERROR;
+            }
+
+        }
         public static eGetPrintDocumentTemplateResult GetTemplates(ref DataTable dtTemplates,
                                         long_v doc_type_ID_v,
                                         long_v doc_page_type_ID_v,
@@ -223,6 +279,7 @@ namespace TangentaDB
                 return eGetPrintDocumentTemplateResult.ERROR;
             }
         }
+
         public static bool Get(string Name, 
                                 string_v Description_v,
                                 byte[] xDocument, 
@@ -337,6 +394,17 @@ namespace TangentaDB
                         SQL_Parameter par_bDefault = new SQL_Parameter(spar_bDefault, SQL_Parameter.eSQL_Parameter.Bit, false, Default);
                         lpar.Add(par_bDefault);
 
+                        object oret = null;
+
+                        if (Default)
+                        {
+                            sql = @"update doc set bDefault = 0 where doc_type_ID = " + sval_doc_type_ID + " and doc_page_type_ID = " + sval_doc_page_type_ID + " and Language_ID = " + sval_Language_ID;
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar,ref oret,  ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:f_doc:Get:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
                         sql = @"insert into doc (Name,
                                                  Description,
                                                  xDocument,
@@ -357,7 +425,7 @@ namespace TangentaDB
                                                   + sval_Language_ID + ","
                                                   + sCompressed +@",
                                                   1,"+ spar_bDefault + ")";
-                        object oret = null;
+                        oret = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_ID, ref oret, ref Err, "doc"))
                         {
                             return true;
@@ -368,6 +436,131 @@ namespace TangentaDB
                             return false;
                         }
                     }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:f_doc:Get:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_doc:Get:Error xDocument may not be null!");
+                return false;
+            }
+        }
+
+
+        public static bool Update(long doc_ID,
+                                string Name,
+                                string_v Description_v,
+                                byte[] xDocument,
+                                long_v doc_type_ID_v,
+                                long_v doc_page_type_ID_v,
+                                long_v Language_ID_v,
+                                bool commpressed,
+                                bool Active,
+                                bool Default)
+        {
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            //Table doc_page_type
+            if (xDocument != null)
+            {
+                string xDocument_HASH = DBtypesFunc.GetHash_SHA1(xDocument);
+
+                string spar_Name = "@par_Name";
+                SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
+                lpar.Add(par_Name);
+                string scond_Name = " Name = " + spar_Name + " ";
+
+                string sval_Description = "null";
+                string scond_Description = " Description is null ";
+                if (Description_v != null)
+                {
+                    string spar_Description = "@par_Description";
+
+                    SQL_Parameter par_Description = new SQL_Parameter(spar_Description, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Description_v.v);
+                    lpar.Add(par_Description);
+                    sval_Description = spar_Description;
+                    scond_Description = " Description = " + spar_Description + " ";
+                }
+
+
+                string sval_doc_type_ID = "null";
+                string scond_doc_type_ID = " doc_type_ID is null ";
+                if (doc_type_ID_v != null)
+                {
+                    string spar_doc_type_ID = "@par_doc_type_ID";
+
+                    SQL_Parameter par_doc_type_ID = new SQL_Parameter(spar_doc_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_type_ID_v.v);
+                    lpar.Add(par_doc_type_ID);
+                    sval_doc_type_ID = spar_doc_type_ID;
+                    scond_doc_type_ID = " doc_type_ID = " + spar_doc_type_ID + " ";
+                }
+
+                string sval_doc_page_type_ID = "null";
+                string scond_doc_page_type_ID = " doc_page_type_ID is null";
+                if (doc_page_type_ID_v != null)
+                {
+                    string spar_doc_page_type_ID = "@par_doc_page_type_ID";
+
+                    SQL_Parameter par_doc_page_type_ID = new SQL_Parameter(spar_doc_page_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID_v.v);
+                    lpar.Add(par_doc_page_type_ID);
+                    sval_doc_page_type_ID = spar_doc_page_type_ID;
+                    scond_doc_page_type_ID = " doc_page_type_ID = " + spar_doc_page_type_ID + " ";
+                }
+
+
+                string sval_Language_ID = "null";
+                string scond_Language_ID = " Language_ID is null ";
+
+                if (Language_ID_v != null)
+                {
+                    string spar_Language_ID = "@par_Language_ID";
+
+                    SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Language_ID_v.v);
+                    lpar.Add(par_Language_ID);
+                    sval_Language_ID = spar_Language_ID;
+                    scond_Language_ID = " Language_ID = " + spar_Language_ID + " ";
+                }
+
+
+                xDocument_HASH = DBtypesFunc.GetHash_SHA1(xDocument);
+                string spar_xDocument_HASH = "@par_xDocument_HASH";
+                SQL_Parameter par_xDocument_HASH = new SQL_Parameter(spar_xDocument_HASH, SQL_Parameter.eSQL_Parameter.Nvarchar, false, xDocument_HASH);
+                lpar.Add(par_xDocument_HASH);
+                string scond_xDocument_HASH = " xDocument_HASH = " + spar_xDocument_HASH + " ";
+
+                byte[] byte_data = xDocument;
+                string sCompressed = "0";
+                if (commpressed)
+                {
+                    sCompressed = "1";
+                    byte_data = fs.Compress(xDocument);
+                }
+
+                string spar_xDocument = "@par_xDocument";
+                SQL_Parameter par_xDocument = new SQL_Parameter(spar_xDocument, SQL_Parameter.eSQL_Parameter.Varbinary, false, byte_data);
+                lpar.Add(par_xDocument);
+
+                string spar_bDefault = "@par_bDefault";
+                SQL_Parameter par_bDefault = new SQL_Parameter(spar_bDefault, SQL_Parameter.eSQL_Parameter.Bit, false, Default);
+                lpar.Add(par_bDefault);
+
+                string sql = @"Update doc set Name = " + spar_Name
+                                            + ", Description = " + sval_Description
+                                            + ", xDocument = " + spar_xDocument
+                                            + ", xDocument_Hash = " + spar_xDocument_HASH
+                                            + ", doc_type_ID = " + sval_doc_type_ID
+                                            + ", doc_page_type_ID = " + sval_doc_page_type_ID
+                                            + ", Language_ID = " + sval_Language_ID
+                                            + ", Compressed = " + sCompressed
+                                            + ", Active =1,bDefault = " + spar_bDefault + " where ID = " + doc_ID.ToString();
+                object oret = null;
+                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref doc_ID, ref oret, ref Err, "doc"))
+                {
+                    return true;
                 }
                 else
                 {

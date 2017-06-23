@@ -93,7 +93,7 @@ namespace TangentaPrint
             this.m_usrc_SelectPrintTemplate.Name = "m_usrc_SelectPrintTemplate";
             this.m_usrc_SelectPrintTemplate.Size = new System.Drawing.Size(672, 142);
             this.m_usrc_SelectPrintTemplate.TabIndex = 9;
-            this.m_usrc_SelectPrintTemplate.TemplateName = "";
+            this.m_usrc_SelectPrintTemplate.f_doc_TemplateName = "";
             // 
             // Form_SelectTemplate
             // 

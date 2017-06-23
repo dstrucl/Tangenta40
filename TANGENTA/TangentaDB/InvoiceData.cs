@@ -93,6 +93,7 @@ namespace TangentaDB
         public UniversalInvoice.Person CustomerPerson = null;
         public UniversalInvoice.Person Invoice_Author = null;
         public UniversalInvoice.ItemSold[] ItemsSold = null;
+        public UniversalInvoice.GeneralToken GeneralToken = null;
         public UniversalInvoice.InvoiceToken InvoiceToken = null;
 
 
@@ -192,7 +193,7 @@ namespace TangentaDB
 
         public string CreateHTML_PagePaperPrintingOutput(HTML_PrintingOutput hTML_RollPaperPrintingOutput, double PageHeight)
         {
-            PageHeight = 1000;
+            //PageHeight = 1000;
             string html = hTML_RollPaperPrintingOutput.style.html;
             html += @"
              <html>
@@ -353,6 +354,7 @@ namespace TangentaDB
                                         </page>
                                        </body>
                                      </html>";
+                            html = InsertPageNumbers(html);
                             return html;
                         }
                         bottom = 0;
@@ -367,9 +369,30 @@ namespace TangentaDB
                                         </page>
                                        </body>
                                      </html>";
+
+            html = InsertPageNumbers(html);
+            return html;
+       }
+
+        private string InsertPageNumbers(string html)
+        {
+            int index_of_page_number = -1;
+            int page_number_length = -1;
+            index_of_page_number = GeneralToken.tPageNumber.IndexOf(html, ref page_number_length);
+            int iPage = 1;
+            while (index_of_page_number >= 0)
+            {
+                html = html.Substring(index_of_page_number) + iPage.ToString() + html.Substring(index_of_page_number + page_number_length);
+                index_of_page_number = GeneralToken.tPageNumber.IndexOf(html, ref page_number_length);
+                if (index_of_page_number >= 0)
+                {
+                    iPage++;
+                }
+            }
+            GeneralToken.tNumberOfPages.Set(iPage.ToString());
+            html = GeneralToken.tNumberOfPages.Replace(html);
             return html;
         }
-
 
         public void Fill_Sold_ShopA_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
         {
@@ -1236,6 +1259,7 @@ namespace TangentaDB
                                     Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, AddOnDI.bInvoiceStorno);
                                     Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, AddOnDI.bInvoiceStorno);
                                 }
+                                GeneralToken = new UniversalInvoice.GeneralToken();
                                 InvoiceToken = new UniversalInvoice.InvoiceToken();
 
                                 InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
