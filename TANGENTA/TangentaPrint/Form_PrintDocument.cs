@@ -67,9 +67,44 @@ namespace TangentaPrint
             btn_Refresh.Visible = false;
             lngRPM.s_btn_Refresh.Text(btn_Refresh);
             lngRPM.s_btn_SaveHtmlTemplate.Text(btn_SaveTemplate);
-            
+            lngRPM.s_chk_Edit_PrintTemplate.Text(chk_EditTemplate);
+            splitContainer1.Panel2Collapsed = true;
+            chk_EditTemplate.Checked = false;
+            chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
         }
 
+        private void Chk_EditTemplate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_EditTemplate.Checked)
+            {
+                string AdministratorLockedPassword = null;
+                if (fs.GetAdministratorPassword(ref AdministratorLockedPassword))
+                {
+                    if (Password.Password.Check(this,null, AdministratorLockedPassword))
+                    {
+                        splitContainer1.Panel2Collapsed = false;
+                    }
+                    else
+                    {
+                        chk_EditTemplate.CheckedChanged -= Chk_EditTemplate_CheckedChanged;
+                        chk_EditTemplate.Checked = false;
+                        splitContainer1.Panel2Collapsed = true;
+                        chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
+                    }
+                }
+                else
+                {
+                    chk_EditTemplate.CheckedChanged -= Chk_EditTemplate_CheckedChanged;
+                    chk_EditTemplate.Checked = false;
+                    splitContainer1.Panel2Collapsed = true;
+                    chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
+                }
+            }
+            else
+            {
+                splitContainer1.Panel2Collapsed = true;
+            }
+        }
 
         public void Init()
         {
@@ -271,6 +306,11 @@ namespace TangentaPrint
                     break;
 
             }
+        }
+
+        private void chk_EditTemplate_CheckedChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

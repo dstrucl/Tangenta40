@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LanguageControl;
 
 namespace TangentaPrint
 {
@@ -27,7 +28,7 @@ namespace TangentaPrint
             InitializeComponent();
             m_InvoiceData = xInvoiceData;
 
-
+            lngRPM.s_Form_TemplateTokens_Caption.Text(this);
             this.txt_Tokens.Text = m_InvoiceData.GetAllTokens();
         }
 

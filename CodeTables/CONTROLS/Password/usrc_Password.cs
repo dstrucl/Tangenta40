@@ -113,7 +113,7 @@ namespace Password
             }
         }
 
-        public string UnlockPassword(string s)
+        public static string UnlockPassword(string s)
         {
             string sunLocked = "";
             if (s != null)
@@ -134,7 +134,7 @@ namespace Password
             return sunLocked;
         }
 
-        public string LockPassword(string s)
+        public static string LockPassword(string s)
         {
             string sLocked = "";
             if (s != null)

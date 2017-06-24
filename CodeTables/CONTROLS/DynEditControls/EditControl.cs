@@ -172,7 +172,7 @@ namespace DynEditControls
                     }
                     if (bltValDefined)
                     {
-                        ((Password.usrc_Password)edit_control).Text = ((Password.usrc_Password)edit_control).LockPassword(lt_val.s);
+                        ((Password.usrc_Password)edit_control).Text = Password.usrc_Password.LockPassword(lt_val.s);
                         ((dstring_v)m_refobj).v = lt_val.s;
                     }
                     else
@@ -423,7 +423,7 @@ namespace DynEditControls
                     }
                     else if (edit_control is Password.usrc_Password)
                     {
-                        return ((Password.usrc_Password)edit_control).LockPassword((((dstring_v)m_refobj).v)).Equals(((Password.usrc_Password)edit_control).Text);
+                        return Password.usrc_Password.LockPassword((((dstring_v)m_refobj).v)).Equals(((Password.usrc_Password)edit_control).Text);
                     }
                     else
                     {

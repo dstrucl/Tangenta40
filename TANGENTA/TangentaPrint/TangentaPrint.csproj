@@ -142,6 +142,10 @@
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Password\Password.csproj">
+      <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
+      <Name>Password</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\XMessage\XMessage.csproj">
       <Project>{e3223150-d4af-4438-acba-98be7905273f}</Project>
       <Name>XMessage</Name>

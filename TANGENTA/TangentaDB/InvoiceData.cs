@@ -1330,6 +1330,11 @@ namespace TangentaDB
         {
             string s = "";
 
+            foreach (UniversalInvoice.TemplateToken tt in this.GeneralToken.list)
+            {
+                s += "\r\n" + tt.lt.s;
+            }
+
             foreach (UniversalInvoice.TemplateToken tt in this.InvoiceToken.list)
             {
                 s += "\r\n" + tt.lt.s;

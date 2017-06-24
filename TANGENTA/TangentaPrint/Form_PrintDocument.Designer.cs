@@ -36,6 +36,7 @@ namespace TangentaPrint
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_SaveTemplate = new System.Windows.Forms.Button();
             this.m_usrc_SelectPrintTemplate = new TangentaPrint.usrc_SelectPrintTemplate();
+            this.chk_EditTemplate = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -105,12 +106,24 @@ namespace TangentaPrint
             this.m_usrc_SelectPrintTemplate.Size = new System.Drawing.Size(881, 132);
             this.m_usrc_SelectPrintTemplate.TabIndex = 9;
             // 
+            // chk_EditTemplate
+            // 
+            this.chk_EditTemplate.AutoSize = true;
+            this.chk_EditTemplate.Location = new System.Drawing.Point(12, 146);
+            this.chk_EditTemplate.Name = "chk_EditTemplate";
+            this.chk_EditTemplate.Size = new System.Drawing.Size(91, 17);
+            this.chk_EditTemplate.TabIndex = 10;
+            this.chk_EditTemplate.Text = "Edit Template";
+            this.chk_EditTemplate.UseVisualStyleBackColor = true;
+            this.chk_EditTemplate.CheckedChanged += new System.EventHandler(this.chk_EditTemplate_CheckedChanged_1);
+            // 
             // Form_PrintDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(884, 605);
+            this.Controls.Add(this.chk_EditTemplate);
             this.Controls.Add(this.btn_SaveTemplate);
             this.Controls.Add(this.btn_Refresh);
             this.Controls.Add(this.m_usrc_SelectPrintTemplate);
@@ -123,6 +136,7 @@ namespace TangentaPrint
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -132,5 +146,6 @@ namespace TangentaPrint
         private System.Windows.Forms.Button btn_Refresh;
         private System.Windows.Forms.Button btn_SaveTemplate;
         private usrc_SelectPrintTemplate m_usrc_SelectPrintTemplate;
+        private System.Windows.Forms.CheckBox chk_EditTemplate;
     }
 }

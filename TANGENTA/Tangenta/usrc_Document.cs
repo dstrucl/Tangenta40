@@ -335,12 +335,12 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             {
                 case fs.enum_GetDBSettings.DBSettings_OK:
                     string MultiuserOperationWithLogin = null;
-                    switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref MultiuserOperationWithLogin, ref bReadOnly, ref Err))
+                    switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, ref MultiuserOperationWithLogin, ref bReadOnly, ref Err))
                     {
                         case fs.enum_GetDBSettings.DBSettings_OK:
                             Program.MultiuserOperationWithLogin = MultiuserOperationWithLogin.Equals("1");
                             string StockCheckAtStartup = null;
-                            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref StockCheckAtStartup, ref bReadOnly, ref Err))
+                            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, ref StockCheckAtStartup, ref bReadOnly, ref Err))
                             {
                                 case fs.enum_GetDBSettings.DBSettings_OK:
                                     Program.StockCheckAtStartup = StockCheckAtStartup.Equals("1");

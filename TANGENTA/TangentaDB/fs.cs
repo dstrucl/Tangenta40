@@ -142,6 +142,18 @@ namespace TangentaDB
 
         }
 
+        public static bool GetAdministratorPassword(ref string AdministratorLockedPassword)
+        {
+            bool bReadOnly = false;
+            string Err = null;
+            switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.AdminPassword.Name, ref AdministratorLockedPassword, ref bReadOnly, ref Err))
+            {
+                case enum_GetDBSettings.DBSettings_OK:
+                    return true;
+            }
+            return false;
+        }
+
 
 
         public static bool Init_Default_DB(ref string Err)
