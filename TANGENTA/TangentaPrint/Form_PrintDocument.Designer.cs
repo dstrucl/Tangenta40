@@ -46,13 +46,13 @@ namespace TangentaPrint
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(2, 150);
+            this.splitContainer1.Location = new System.Drawing.Point(2, 173);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textEditorControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(870, 454);
+            this.splitContainer1.Size = new System.Drawing.Size(870, 431);
             this.splitContainer1.SplitterDistance = 444;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -61,14 +61,14 @@ namespace TangentaPrint
             this.textEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textEditorControl1.Location = new System.Drawing.Point(0, 0);
             this.textEditorControl1.Name = "textEditorControl1";
-            this.textEditorControl1.Size = new System.Drawing.Size(422, 454);
+            this.textEditorControl1.Size = new System.Drawing.Size(422, 431);
             this.textEditorControl1.TabIndex = 0;
             this.textEditorControl1.Text = "textEditorControl1";
             this.textEditorControl1.DocumentChanged += new System.EventHandler<DigitalRune.Windows.TextEditor.Document.DocumentEventArgs>(this.textEditorControl1_DocumentChanged);
             // 
             // btn_Refresh
             // 
-            this.btn_Refresh.Location = new System.Drawing.Point(337, 117);
+            this.btn_Refresh.Location = new System.Drawing.Point(331, 140);
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(91, 27);
             this.btn_Refresh.TabIndex = 7;
@@ -79,7 +79,7 @@ namespace TangentaPrint
             // btn_SaveTemplate
             // 
             this.btn_SaveTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SaveTemplate.Location = new System.Drawing.Point(716, 117);
+            this.btn_SaveTemplate.Location = new System.Drawing.Point(716, 140);
             this.btn_SaveTemplate.Name = "btn_SaveTemplate";
             this.btn_SaveTemplate.Size = new System.Drawing.Size(156, 27);
             this.btn_SaveTemplate.TabIndex = 8;
@@ -89,13 +89,23 @@ namespace TangentaPrint
             // 
             // m_usrc_SelectPrintTemplate
             // 
+            this.m_usrc_SelectPrintTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_usrc_SelectPrintTemplate.f_doc_bActive = false;
+            this.m_usrc_SelectPrintTemplate.f_doc_bCompressed = false;
+            this.m_usrc_SelectPrintTemplate.f_doc_bDefault = false;
+            this.m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v = null;
+            this.m_usrc_SelectPrintTemplate.f_doc_Language_ID_v = null;
+            this.m_usrc_SelectPrintTemplate.f_doc_page_type_ID_v = null;
+            this.m_usrc_SelectPrintTemplate.f_doc_TemplateDescription = null;
+            this.m_usrc_SelectPrintTemplate.f_doc_TemplateName = "";
+            this.m_usrc_SelectPrintTemplate.f_doc_xDocument_Hash = null;
             this.m_usrc_SelectPrintTemplate.Location = new System.Drawing.Point(2, 2);
             this.m_usrc_SelectPrintTemplate.Name = "m_usrc_SelectPrintTemplate";
-            this.m_usrc_SelectPrintTemplate.Size = new System.Drawing.Size(672, 142);
+            this.m_usrc_SelectPrintTemplate.Size = new System.Drawing.Size(881, 132);
             this.m_usrc_SelectPrintTemplate.TabIndex = 9;
-            this.m_usrc_SelectPrintTemplate.f_doc_TemplateName = "";
             // 
-            // Form_SelectTemplate
+            // Form_PrintDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -106,7 +116,7 @@ namespace TangentaPrint
             this.Controls.Add(this.m_usrc_SelectPrintTemplate);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_SelectTemplate";
+            this.Name = "Form_PrintDocument";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Form_SelectTemplate_Load);
             this.splitContainer1.Panel2.ResumeLayout(false);

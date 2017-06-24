@@ -23,7 +23,6 @@ namespace TangentaPrint
         public delegate void delagate_SettingsChanged();
         public event delagate_SettingsChanged SettingsChanged = null;
         public byte_array_v Doc_v = null;
-        public bool bCompressedDocumentTemplate = false;
 
         public Printer SelectedPrinter = null;
 
@@ -74,7 +73,9 @@ namespace TangentaPrint
         public string f_doc_TemplateName
         {
             get { return cmb_SelectPrintTemplate.Text; }
-            set { cmb_SelectPrintTemplate.Text = value; }
+            set { string sname = value;
+                  cmb_SelectPrintTemplate.Text = sname;
+                }
         }
 
         public long_v Default_DocType_ID_v { get
@@ -226,11 +227,25 @@ namespace TangentaPrint
             {
                 if (m_InvoiceData.IsDocInvoice)
                 {
-                    return Properties.Settings.Default.DocInvoicePrintTemplate;
+                    if (Properties.Settings.Default.DocInvoicePrintTemplate.Length > 0)
+                    {
+                        return Properties.Settings.Default.DocInvoicePrintTemplate;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else if (m_InvoiceData.IsDocProformaInvoice)
                 {
-                    return Properties.Settings.Default.DocProformaInvoicePrintTemplate;
+                    if (Properties.Settings.Default.DocProformaInvoicePrintTemplate.Length>0)
+                    {
+                        return Properties.Settings.Default.DocProformaInvoicePrintTemplate;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
@@ -323,7 +338,7 @@ namespace TangentaPrint
                             }
                         }
                         else
-                        { 
+                        {
                             foreach (DataRow dr in dtTemplates.Rows)
                             {
                                 if ((bool)dr["bDefault"])
@@ -373,6 +388,15 @@ namespace TangentaPrint
                     f_doc_DocType_ID_v = DocType_ID_v;
                     f_doc_page_type_ID_v = doc_page_type_ID_v;
                     f_doc_xDocument_Hash = xDoc_Hash_v.v;
+                    f_doc_Language_ID_v = Language_ID_v;
+                    if (Compressed_v != null)
+                    {
+                        f_doc_bCompressed = Compressed_v.v;
+                    }
+                    else
+                    {
+                        f_doc_bCompressed = false;
+                    }
                     Doc_v = xDoc_v;
                     break;
                 default:
@@ -381,6 +405,7 @@ namespace TangentaPrint
                     f_doc_page_type_ID_v = null;
                     f_doc_xDocument_Hash = null;
                     f_doc_bCompressed = false;
+                    f_doc_Language_ID_v = null;
                     break;
             }
         }
@@ -657,7 +682,7 @@ namespace TangentaPrint
                 long id = edt_doc_dlg.ID_v.v;
                 string doc_name = null;
                 f_doc.SetDefault(id);
-                if (f_doc.GetTemplate(id, ref doc_name, ref Doc_v.v, ref bCompressedDocumentTemplate))
+                if (f_doc.GetTemplate(id, ref doc_name, ref Doc_v.v, ref m_bCompressed))
                 {
                     this.f_doc_TemplateName = doc_name;
                 }

@@ -84,7 +84,7 @@ namespace TangentaDB
                 long_v xLanguage_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
 
                 string doc_Name = ht.Name;
-                if (Exists(ht.Name, doc_type_ID_v,ref doc_ID)== ExistsResult.EXISTS)
+                if (Exists(ht.Name, doc_type_ID_v, ref doc_ID) == ExistsResult.EXISTS)
                 {
                     doc_Name += "_default";
                 }
@@ -95,6 +95,7 @@ namespace TangentaDB
                           doc_type_ID_v,
                           doc_page_type_ID_v,
                           xLanguage_ID_v,
+                            true,
                             true,
                             true,
                             true,
@@ -289,6 +290,7 @@ namespace TangentaDB
                                 bool commpressed,
                                 bool Active,
                                 bool Default,
+                                bool bOverwriteIfNameAndTypesAreTheSame,
                                 ref long doc_ID)
         {
             string Err = null;
@@ -378,6 +380,46 @@ namespace TangentaDB
                     }
                     else
                     {
+                        if (bOverwriteIfNameAndTypesAreTheSame)
+                        {
+                            sql = "select ID from doc where " + scond_Name
+                                                                                            + " and " + scond_doc_type_ID
+                                                                                            + " and " + scond_doc_page_type_ID
+                                                                                            + " and " + scond_Language_ID;
+                            dt.Clear();
+                            dt.Columns.Clear();
+                            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+                            {
+                                if (dt.Rows.Count > 0)
+                                {
+                                    long doc_id = (long)dt.Rows[0]["ID"];
+
+                                    if (Update(doc_ID,
+                                           Name,
+                                           Description_v,
+                                           xDocument,
+                                           doc_type_ID_v,
+                                           doc_page_type_ID_v,
+                                           Language_ID_v,
+                                           commpressed,
+                                           Active,
+                                           Default))
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:f_doc:Get:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+                        }
+
                         byte[] byte_data = xDocument;
                         string sCompressed = "0";
                         if (commpressed)

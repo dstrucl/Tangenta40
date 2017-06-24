@@ -199,6 +199,8 @@
             // 
             // txt_Description
             // 
+            this.txt_Description.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_Description.Location = new System.Drawing.Point(274, 109);
             this.txt_Description.Name = "txt_Description";
             this.txt_Description.Size = new System.Drawing.Size(419, 20);
@@ -216,6 +218,8 @@
             // 
             // cmb_SelectPrintTemplate
             // 
+            this.cmb_SelectPrintTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmb_SelectPrintTemplate.DropDownFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.cmb_SelectPrintTemplate.Location = new System.Drawing.Point(320, 82);
             this.cmb_SelectPrintTemplate.Name = "cmb_SelectPrintTemplate";
@@ -225,6 +229,7 @@
             // 
             // chk_Default
             // 
+            this.chk_Default.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chk_Default.AutoSize = true;
             this.chk_Default.Location = new System.Drawing.Point(595, 85);
             this.chk_Default.Name = "chk_Default";

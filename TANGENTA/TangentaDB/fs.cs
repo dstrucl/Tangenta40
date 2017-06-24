@@ -254,6 +254,13 @@ namespace TangentaDB
             }
         }
 
+        public static byte[] ConvertToByteArray(string input)
+        {
+            byte[] bytes = new byte[input.Length * sizeof(char)];
+            System.Buffer.BlockCopy(input.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
         public static bool Add_lpar(List<SQL_Parameter> lpar, string col_name,object param, ref string scond, ref string sval)
         {
             string filterColumnName = col_name.Replace("$", "");

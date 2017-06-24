@@ -29,7 +29,6 @@ namespace TangentaPrint
     {
        
         public long Default_ID = -1;
-        public string Default_Tamplate = null;
 
         private usrc_Invoice_Preview m_usrc_Invoice_Preview = null;
         private GlobalData.ePaymentType paymentType;
@@ -124,7 +123,6 @@ namespace TangentaPrint
                     Create_usrc_Invoice_Preview();
                     m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
                     this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
-                    m_usrc_SelectPrintTemplate.f_doc_TemplateName = Default_Tamplate;
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
                     break;
@@ -221,6 +219,8 @@ namespace TangentaPrint
                 case f_doc.ExistsResult.EXISTS:
                     if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
+                        this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
+                        m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
                         f_doc.Update(Doc_ID,
                                      m_usrc_SelectPrintTemplate.f_doc_TemplateName,
                                      m_usrc_SelectPrintTemplate.f_doc_TemplateDescription,
@@ -228,7 +228,7 @@ namespace TangentaPrint
                                      m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v,
                                      m_usrc_SelectPrintTemplate.f_doc_page_type_ID_v,
                                      m_usrc_SelectPrintTemplate.f_doc_Language_ID_v,
-                                     m_usrc_SelectPrintTemplate.bCompressedDocumentTemplate,
+                                     m_usrc_SelectPrintTemplate.f_doc_bCompressed,
                                      m_usrc_SelectPrintTemplate.f_doc_bActive,
                                      m_usrc_SelectPrintTemplate.f_doc_bDefault);
 

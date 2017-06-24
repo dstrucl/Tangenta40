@@ -382,7 +382,7 @@ namespace TangentaDB
             int iPage = 1;
             while (index_of_page_number >= 0)
             {
-                html = html.Substring(index_of_page_number) + iPage.ToString() + html.Substring(index_of_page_number + page_number_length);
+                html = html.Substring(0,index_of_page_number) + iPage.ToString() + html.Substring(index_of_page_number + page_number_length);
                 index_of_page_number = GeneralToken.tPageNumber.IndexOf(html, ref page_number_length);
                 if (index_of_page_number >= 0)
                 {
