@@ -307,10 +307,5 @@ namespace TangentaPrint
 
             }
         }
-
-        private void chk_EditTemplate_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
     }
 }

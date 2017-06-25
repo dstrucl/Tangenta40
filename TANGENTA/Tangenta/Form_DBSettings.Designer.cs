@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DBSettings));
             this.lbl_Administrator_Password = new System.Windows.Forms.Label();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
-            this.usrc_Password1 = new Password.usrc_Password();
+            this.usrc_Password1 = new Password.usrc_PasswordDefinition();
             this.chk_StockCheckAtStartup = new System.Windows.Forms.CheckBox();
             this.chk_MultiUserOperation = new System.Windows.Forms.CheckBox();
             this.lbl_DataBaseVersion = new System.Windows.Forms.Label();
@@ -139,7 +139,7 @@
 
         #endregion
 
-        private Password.usrc_Password usrc_Password1;
+        private Password.usrc_PasswordDefinition usrc_Password1;
         private System.Windows.Forms.Label lbl_Administrator_Password;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
         private System.Windows.Forms.CheckBox chk_StockCheckAtStartup;

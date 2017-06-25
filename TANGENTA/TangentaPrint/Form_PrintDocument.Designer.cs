@@ -32,11 +32,11 @@ namespace TangentaPrint
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_PrintDocument));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.textEditorControl1 = new DigitalRune.Windows.TextEditor.TextEditorControl();
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_SaveTemplate = new System.Windows.Forms.Button();
             this.m_usrc_SelectPrintTemplate = new TangentaPrint.usrc_SelectPrintTemplate();
             this.chk_EditTemplate = new System.Windows.Forms.CheckBox();
+            this.textEditorControl1 = new DigitalRune.Windows.TextEditor.TextEditorControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -56,16 +56,6 @@ namespace TangentaPrint
             this.splitContainer1.Size = new System.Drawing.Size(870, 431);
             this.splitContainer1.SplitterDistance = 444;
             this.splitContainer1.TabIndex = 5;
-            // 
-            // textEditorControl1
-            // 
-            this.textEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textEditorControl1.Location = new System.Drawing.Point(0, 0);
-            this.textEditorControl1.Name = "textEditorControl1";
-            this.textEditorControl1.Size = new System.Drawing.Size(422, 431);
-            this.textEditorControl1.TabIndex = 0;
-            this.textEditorControl1.Text = "textEditorControl1";
-            this.textEditorControl1.DocumentChanged += new System.EventHandler<DigitalRune.Windows.TextEditor.Document.DocumentEventArgs>(this.textEditorControl1_DocumentChanged);
             // 
             // btn_Refresh
             // 
@@ -115,7 +105,16 @@ namespace TangentaPrint
             this.chk_EditTemplate.TabIndex = 10;
             this.chk_EditTemplate.Text = "Edit Template";
             this.chk_EditTemplate.UseVisualStyleBackColor = true;
-            this.chk_EditTemplate.CheckedChanged += new System.EventHandler(this.chk_EditTemplate_CheckedChanged_1);
+            // 
+            // textEditorControl1
+            // 
+            this.textEditorControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textEditorControl1.Location = new System.Drawing.Point(0, 0);
+            this.textEditorControl1.Name = "textEditorControl1";
+            this.textEditorControl1.Size = new System.Drawing.Size(422, 431);
+            this.textEditorControl1.TabIndex = 0;
+            this.textEditorControl1.Text = "textEditorControl1";
+            this.textEditorControl1.DocumentChanged += new System.EventHandler<DigitalRune.Windows.TextEditor.Document.DocumentEventArgs>(this.textEditorControl1_DocumentChanged);
             // 
             // Form_PrintDocument
             // 

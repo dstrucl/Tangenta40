@@ -17,6 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_RememberPasswordForSession = new ltext("Until the end of program, don't ask for password again", "Za čas tokratnega delovanja aplikacije ni potrebno ponovno vnesti skrbniškega gesla");
         public static ltext s_Enter_Administrator_Password = new ltext("Enter Administrator Password", "Vpišite skrbniško geslo");
         public static ltext s_Wrong_Password = new ltext("Wrong Password", "Napačno geslo");
         public static ltext s_chk_Edit_PrintTemplate = new ltext("Edit printning template", "Urejanje predloge za tiskanje");

@@ -323,7 +323,7 @@ namespace Tangenta
         {
             bool bExitBeforeLogFileInitialised = false;
             string Err = null;
-
+            Password.Password.pwdchk = true;
             rpc = new RPC.RPC();
             LogFile.LogFile.rpc = Program.rpc;
             if (rpc.Start(ref Err))

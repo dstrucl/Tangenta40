@@ -30,7 +30,7 @@ namespace Tangenta
             lngRPM.s_StockCheckAtStartup.Text(chk_StockCheckAtStartup);
             if (AdministratorLockedPassword == null)
             {
-                this.usrc_Password1.Text =Password.usrc_Password.LockPassword("12345");
+                this.usrc_Password1.Text =Password.Password.LockPassword("12345");
             }
             else
             {

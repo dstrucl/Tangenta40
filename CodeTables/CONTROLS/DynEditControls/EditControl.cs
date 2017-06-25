@@ -119,9 +119,9 @@ namespace DynEditControls
                     {
                         ((TextBox)edit_control).ReadOnly = m_ReadOnly;
                     }
-                    if (edit_control is Password.usrc_Password)
+                    if (edit_control is Password.usrc_PasswordDefinition)
                     {
-                        ((Password.usrc_Password)edit_control).ReadOnly = m_ReadOnly;
+                        ((Password.usrc_PasswordDefinition)edit_control).ReadOnly = m_ReadOnly;
                     }
                     else if (edit_control is usrc_NumericUpDown)
                     {
@@ -161,7 +161,7 @@ namespace DynEditControls
             {
                 if (xName.Equals("MyOrg_Person_Password"))
                 {
-                    edit_control = new Password.usrc_Password();
+                    edit_control = new Password.usrc_PasswordDefinition();
                     bool bltValDefined = false;
                     if (lt_val != null)
                     {
@@ -172,7 +172,7 @@ namespace DynEditControls
                     }
                     if (bltValDefined)
                     {
-                        ((Password.usrc_Password)edit_control).Text = Password.usrc_Password.LockPassword(lt_val.s);
+                        ((Password.usrc_PasswordDefinition)edit_control).Text = Password.Password.LockPassword(lt_val.s);
                         ((dstring_v)m_refobj).v = lt_val.s;
                     }
                     else
@@ -282,7 +282,7 @@ namespace DynEditControls
                         edit_control.Width = txt_calculated_width;
                     }
                 }
-                else if (edit_control is Password.usrc_Password)
+                else if (edit_control is Password.usrc_PasswordDefinition)
                 {
                     edit_control.Width = 128;
                 }
@@ -361,9 +361,9 @@ namespace DynEditControls
                 {
                     ((dstring_v)m_refobj).v = ((TextBox)edit_control).Text;
                 }
-                else if (edit_control is Password.usrc_Password)
+                else if (edit_control is Password.usrc_PasswordDefinition)
                 {
-                    ((dstring_v)m_refobj).v = ((Password.usrc_Password)edit_control).Text;
+                    ((dstring_v)m_refobj).v = ((Password.usrc_PasswordDefinition)edit_control).Text;
                 }
             }
             else if (m_refobj is dbool_v)
@@ -421,9 +421,9 @@ namespace DynEditControls
                     {
                         return ((dstring_v)m_refobj).v.Equals(((TextBox)edit_control).Text);
                     }
-                    else if (edit_control is Password.usrc_Password)
+                    else if (edit_control is Password.usrc_PasswordDefinition)
                     {
-                        return Password.usrc_Password.LockPassword((((dstring_v)m_refobj).v)).Equals(((Password.usrc_Password)edit_control).Text);
+                        return Password.Password.LockPassword((((dstring_v)m_refobj).v)).Equals(((Password.usrc_PasswordDefinition)edit_control).Text);
                     }
                     else
                     {
@@ -439,9 +439,9 @@ namespace DynEditControls
                         s = ((TextBox)edit_control).Text;
                         s.Replace(" ", "");
                     }
-                    else if (edit_control is Password.usrc_Password)
+                    else if (edit_control is Password.usrc_PasswordDefinition)
                     {
-                        s = ((Password.usrc_Password)edit_control).Text;
+                        s = ((Password.usrc_PasswordDefinition)edit_control).Text;
                     }
                     if (s.Length == 0)
                     {
