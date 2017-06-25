@@ -15,6 +15,8 @@ namespace ProgramDiagnostic
         {
             if (Enabled)
             {
+                dt_Diagnostic.Clear();
+                dt_Diagnostic.Columns.Clear();
                 dt_Diagnostic.Columns.Add("Name", typeof(string));
                 dt_Diagnostic.Columns.Add("Time", typeof(DateTime));
                 dt_Diagnostic.Columns.Add("Elapsed in mili seconds", typeof(decimal));

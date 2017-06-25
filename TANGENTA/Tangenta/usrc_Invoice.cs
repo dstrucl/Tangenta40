@@ -2161,10 +2161,17 @@ do_EditMyOrganisation_Data:
 
         private bool IssueDocument()
         {
+            ProgramDiagnostic.Diagnostic.Enabled = true;
+            ProgramDiagnostic.Diagnostic.Init();
+            ProgramDiagnostic.Diagnostic.Clear();
+            ProgramDiagnostic.Diagnostic.Meassure("Before fs.UpdatePriceInDraft", "?");
+
             if (fs.UpdatePriceInDraft(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID, GrossSum, TaxSum.Value, NetSum))
             {
+                ProgramDiagnostic.Diagnostic.Meassure("before fs.IssueDoc", "?");
                 if (fs.IssueDoc(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID))
                 {
+                    ProgramDiagnostic.Diagnostic.Meassure("After fs.IssueDoc", "?");
                     if (IsDocInvoice)
                     {
 
@@ -2309,8 +2316,11 @@ do_EditMyOrganisation_Data:
             m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID));
             if (m_InvoiceData.Read_DocInvoice()) // Invoice again from DataBase
             {
+                ProgramDiagnostic.Diagnostic.Meassure("Before Form_PrintDocument", "START");
                 TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_InvoiceData);
                 template_dlg.ShowDialog(this);
+                ProgramDiagnostic.Diagnostic.Meassure("After Form_PrintDocument", "?");
+                ProgramDiagnostic.Diagnostic.ShowResults();
             }
             return false;
         }

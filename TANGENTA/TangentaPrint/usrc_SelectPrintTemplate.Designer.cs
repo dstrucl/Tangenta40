@@ -175,7 +175,6 @@
             this.cmb_SelectPrinter.Name = "cmb_SelectPrinter";
             this.cmb_SelectPrinter.Size = new System.Drawing.Size(353, 21);
             this.cmb_SelectPrinter.TabIndex = 20;
-            this.cmb_SelectPrinter.TextChanged += new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
             // 
             // lbl_printer
             // 

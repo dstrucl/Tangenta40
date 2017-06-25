@@ -42,6 +42,8 @@ namespace TangentaPrint
 
         public Form_PrintDocument(InvoiceData xInvoiceData)
         {
+            ProgramDiagnostic.Diagnostic.Meassure("Form_PrintDocument(InvoiceData xInvoiceData)", "?");
+
             InitializeComponent();
 
             this.m_InvoiceData = xInvoiceData;
@@ -71,6 +73,7 @@ namespace TangentaPrint
             splitContainer1.Panel2Collapsed = true;
             chk_EditTemplate.Checked = false;
             chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
+            ProgramDiagnostic.Diagnostic.Meassure("Form_PrintDocument(InvoiceData xInvoiceData) END", "?");
         }
 
         private void Chk_EditTemplate_CheckedChanged(object sender, EventArgs e)
@@ -106,17 +109,13 @@ namespace TangentaPrint
             }
         }
 
-        public void Init()
-        {
-
-        }
-
 
         // 
         // m_usrc_Invoice_Preview
         // 
         public void Create_usrc_Invoice_Preview()
         {
+            ProgramDiagnostic.Diagnostic.Meassure("Create_usrc_Invoice_Preview START", "?");
             if (m_usrc_Invoice_Preview!=null)
             {
                 this.m_usrc_Invoice_Preview.OK -= new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
@@ -139,10 +138,10 @@ namespace TangentaPrint
             this.m_usrc_Invoice_Preview.Dock = DockStyle.Fill;
             this.m_usrc_Invoice_Preview.OK += new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
             this.splitContainer1.Panel1.Controls.Add(m_usrc_Invoice_Preview);
-
+            ProgramDiagnostic.Diagnostic.Meassure("Create_usrc_Invoice_Preview END", "?");
         }
 
-  
+
         private void btn_Select_Template_Click(object sender, EventArgs e)
         {
 
@@ -151,6 +150,31 @@ namespace TangentaPrint
 
         private void Form_SelectTemplate_Load(object sender, EventArgs e)
         {
+            ProgramDiagnostic.Diagnostic.Meassure("Form_SelectTemplate_Load START", "?");
+            if (m_usrc_Invoice_Preview != null)
+            {
+                this.m_usrc_Invoice_Preview.OK -= new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
+                this.Controls.Remove(m_usrc_Invoice_Preview);
+                m_usrc_Invoice_Preview.Dispose();
+                m_usrc_Invoice_Preview = null;
+            }
+            m_usrc_Invoice_Preview = new usrc_Invoice_Preview();
+            this.m_usrc_Invoice_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_usrc_Invoice_Preview.AutoScroll = true;
+            this.m_usrc_Invoice_Preview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_usrc_Invoice_Preview.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.m_usrc_Invoice_Preview.html_doc_text = "Document Template not set";
+            this.m_usrc_Invoice_Preview.Location = new System.Drawing.Point(1, 42);
+            this.m_usrc_Invoice_Preview.Name = "m_usrc_Invoice_Preview";
+            this.m_usrc_Invoice_Preview.Size = new System.Drawing.Size(923, 560);
+            this.m_usrc_Invoice_Preview.TabIndex = 0;
+            this.m_usrc_Invoice_Preview.Dock = DockStyle.Fill;
+            this.m_usrc_Invoice_Preview.OK += new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
+            this.splitContainer1.Panel1.Controls.Add(m_usrc_Invoice_Preview);
+            ProgramDiagnostic.Diagnostic.Meassure("Create_usrc_Invoice_Preview END", "?");
+
             m_usrc_SelectPrintTemplate.SettingsChanged += M_usrc_SelectPrintTemplate_SettingsChanged;
             switch (m_usrc_SelectPrintTemplate.Init(m_InvoiceData))
             {
@@ -215,11 +239,12 @@ namespace TangentaPrint
                     DialogResult = DialogResult.Abort;
                     break;
             }
+            ProgramDiagnostic.Diagnostic.Meassure("Form_SelectTemplate_Load END", "?");
         }
 
         private void M_usrc_SelectPrintTemplate_SettingsChanged()
         {
-            Init();
+            //Init();
         }
 
         private void m_usrc_Invoice_Preview_OK()
@@ -230,8 +255,11 @@ namespace TangentaPrint
 
         private void btn_Refresh_Click(object sender, EventArgs e)
         {
+            Cursor curs = this.Cursor;
+            this.Cursor = Cursors.WaitCursor;
             this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
             this.m_usrc_Invoice_Preview.ShowPreview(this.m_usrc_SelectPrintTemplate.SelectedPrinter,this.m_usrc_Invoice_Preview.html_doc_template_text);
+            this.Cursor = curs;
         }
 
         private void textEditorControl1_DocumentChanged(object sender, DigitalRune.Windows.TextEditor.Document.DocumentEventArgs e)
@@ -243,7 +271,10 @@ namespace TangentaPrint
 
         private void btn_SaveTemplate_Click(object sender, EventArgs e)
         {
+            Cursor curs = this.Cursor;
+            this.Cursor = Cursors.WaitCursor;
             SaveTemaplate();
+            this.Cursor = curs;
         }
 
         private void SaveTemaplate()
@@ -306,6 +337,11 @@ namespace TangentaPrint
                     break;
 
             }
+        }
+
+        private void Form_PrintDocument_Shown(object sender, EventArgs e)
+        {
+            ProgramDiagnostic.Diagnostic.Meassure("Form_PrintDocument_Shown", "END");
         }
     }
 }

@@ -280,6 +280,9 @@ namespace TangentaPrint
 
         internal f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)
         {
+            this.cmb_SelectPrinter.TextChanged -= new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
+            ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "START");
+
             m_InvoiceData = x_InvoiceData;
             if (m_InvoiceData.IsDocInvoice)
             {
@@ -333,6 +336,7 @@ namespace TangentaPrint
                                 {
                                     SetValues(dr);
                                     btemplate_selected = true;
+                                    ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END1");
                                     return eres;
                                 }
                             }
@@ -345,6 +349,7 @@ namespace TangentaPrint
                                 {
                                     SetValues(dr);
                                     btemplate_selected = true;
+                                    ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END2");
                                     return eres;
                                 }
                             }
@@ -357,6 +362,7 @@ namespace TangentaPrint
                                 DataRow dr = dtTemplates.Rows[0];
                                 SetValues(dr);
                                 btemplate_selected = true;
+                                ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END3");
                                 return eres;
                             }
                         }
@@ -366,6 +372,8 @@ namespace TangentaPrint
 
             }
 
+            ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END4");
+            this.cmb_SelectPrinter.TextChanged += new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
 
             return eres;
         }
@@ -467,45 +475,59 @@ namespace TangentaPrint
 
         private void MakeInvoicePrinterSelection(InvoiceData m_InvoiceData)
         {
+            ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "START");
 
             this.cmb_SelectPrinter.Items.Clear();
-            string selection = PrintersList.dcol_InvoicePrinting.ColumnName + " = true";
-
-            switch (m_InvoiceData.AddOnDI.m_MethodOfPayment.eType)
+            bool bSelected = false;
+            int iCount = PrintersList.dt.Rows.Count;
+            ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "before for (int i=0;i<iCount;i++)");
+            for (int i=0;i<iCount;i++)
             {
-                case GlobalData.ePaymentType.CASH:
-                    selection += " and " + PrintersList.dcol_InvoicePrinting_PaymentCash.ColumnName + " = true";
-                    break;
-                case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
-                    selection += " and ((" + PrintersList.dcol_InvoicePrinting_PaymentCash.ColumnName + " = true ) or (" + PrintersList.dcol_InvoicePrinting_PaymentCard.ColumnName + " = true ))";
-                    break;
-                case GlobalData.ePaymentType.PAYMENT_CARD:
-                    selection += " and (" + PrintersList.dcol_InvoicePrinting_PaymentCard.ColumnName + " = true )";
-                    break;
-
-                default:
-                    rdb_A4.Checked = true;
-                    grp_Orientation.Enabled = true;
-                    rdb_Portrait.Checked = true;
-                    break;
-
-            }
-            DataRow[] drs = PrintersList.dt.Select(selection);
-            if (drs.Count() > 0)
-            {
-                foreach (DataRow dr in drs)
+                ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "before if (Match_m_MethodOfPayment(PrintersList.dt.Rows[i]))");
+                if (Match_m_MethodOfPayment(PrintersList.dt.Rows[i]))
                 {
-                    this.cmb_SelectPrinter.Items.Add((string)dr[PrintersList.dcol_PrinterName]);
+                    ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "after if (Match_m_MethodOfPayment(PrintersList.dt.Rows[i])) = true");
+                    this.cmb_SelectPrinter.Items.Add((string)PrintersList.dt.Rows[i][PrintersList.dcol_PrinterName]);
+                    bSelected = true;
                 }
+            }
+            ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "after for (int i=0;i<iCount;i++)");
+            if (bSelected)
+            {
+                ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "before this.cmb_SelectPrinter.SelectedIndex = 0;");
                 this.cmb_SelectPrinter.SelectedIndex = 0;
+                ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "after this.cmb_SelectPrinter.SelectedIndex = 0;");
             }
             else
             {
                 SelectPrinter();
             }
-
+            ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "END");
         }
 
+        private bool Match_m_MethodOfPayment(DataRow dr)
+        {
+            switch (m_InvoiceData.AddOnDI.m_MethodOfPayment.eType)
+            {
+                case GlobalData.ePaymentType.CASH:
+                    return ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCash]);
+                case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
+                    return (((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCash])
+                            || ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCard]));
+                case GlobalData.ePaymentType.PAYMENT_CARD:
+                    return ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCard]);
+
+                case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
+                    return ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentBankAccount]);
+
+                default:
+                    rdb_A4.Checked = true;
+                    grp_Orientation.Enabled = true;
+                    rdb_Portrait.Checked = true;
+                    return false;
+
+            }
+        }
         public bool SelectPrinter()
         {
             Printer  prn = null;

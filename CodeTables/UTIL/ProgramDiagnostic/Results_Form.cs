@@ -47,6 +47,8 @@ namespace ProgramDiagnostic
                 }
             }
             dgvx_Results.DataSource = dt;
+            dgvx_Results.Columns["Time"].DefaultCellStyle.Format = "HH:mm:ss:ms";
+
         }
 
         private int FindEnd(string xsParam, DataTable dt, int iStart)
