@@ -200,12 +200,16 @@ namespace TheArtOfDev.HtmlRenderer.Core
         {
             if (html_tag_name != null)
             {
-                if (html_tag_name.Equals("body"))
+                if (html_tag_name.Equals("html"))
                 {
                     double PrintableAreaHeight = PageHeight - TopMargin - BottomMargin;
                     if (HtmlTagRect.Height <= PrintableAreaHeight)
                     {
                         return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }

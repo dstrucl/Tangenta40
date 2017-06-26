@@ -154,6 +154,7 @@ namespace TangentaPrint
                     string s = null;
                     if (m_InvoiceData != null)
                     {
+                        ProgramDiagnostic.Diagnostic.Meassure("before m_InvoiceData.CreateHTML_RollPaperPrintingOutput(..)", "!!");
                         s = m_InvoiceData.CreateHTML_RollPaperPrintingOutput(ref shtml_doc_text, ref HTML_RollPaperPrintingOutput);
                     }
                     else
@@ -162,17 +163,22 @@ namespace TangentaPrint
                     }
                     //this.htmlPanel1.Text = s;
                     TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
+                    ProgramDiagnostic.Diagnostic.Meassure("before this.htmlPanel1.GetPages(s, ref pglayout)", "!!");
                     this.htmlPanel1.GetPages(s, ref pglayout);
+                    ProgramDiagnostic.Diagnostic.Meassure("before if (pglayout.OnePageSize(printer.PageHeight, 0, 0))", "!!");
                     if (pglayout.OnePageSize(printer.PageHeight, 0, 0))
                     {
                         return true;
                     }
                     else
                     {
+                        ProgramDiagnostic.Diagnostic.Meassure("before if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))", "!!");
                         if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))
                         {
+                            ProgramDiagnostic.Diagnostic.Meassure("after if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))", "!!");
                             double PageHeight = printer.PageHeight;
                             s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_RollPaperPrintingOutput, PageHeight);
+                            ProgramDiagnostic.Diagnostic.Meassure("after m_InvoiceData.CreateHTML_PagePaperPrintingOutput(..)", "!!");
                             this.htmlPanel1.Text = s;
                             return true;
                         }

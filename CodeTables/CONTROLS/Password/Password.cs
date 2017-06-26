@@ -9,7 +9,7 @@ namespace Password
 {
     public static class Password
     {
-        public static bool pwdchk = true;
+        private static bool pwdchk = true;
 
         public static string UnlockPassword(string s)
         {

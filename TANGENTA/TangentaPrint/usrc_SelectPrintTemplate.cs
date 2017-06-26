@@ -280,7 +280,6 @@ namespace TangentaPrint
 
         internal f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)
         {
-            this.cmb_SelectPrinter.TextChanged -= new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
             ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "START");
 
             m_InvoiceData = x_InvoiceData;
@@ -373,8 +372,6 @@ namespace TangentaPrint
             }
 
             ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END4");
-            this.cmb_SelectPrinter.TextChanged += new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
-
             return eres;
         }
 
@@ -550,10 +547,13 @@ namespace TangentaPrint
             SelectPrinter();
         }
 
-        private void cmb_SelectPrinter_TextChanged(object sender, EventArgs e)
+        public void GetSelectedPrinterSettings()
         {
             string PrinterName = cmb_SelectPrinter.Text;
-            foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            ProgramDiagnostic.Diagnostic.Meassure("GetSelectedPrinterSettings", "before System.Drawing.Printing.PrinterSettings.InstalledPrinters");
+            PrinterSettings.StringCollection printers = System.Drawing.Printing.PrinterSettings.InstalledPrinters;
+            ProgramDiagnostic.Diagnostic.Meassure("GetSelectedPrinterSettings", "after System.Drawing.Printing.PrinterSettings.InstalledPrinters");
+            foreach (string printer in printers)
             {
                 if (SelectedPrinter != null)
                 {
@@ -590,7 +590,7 @@ namespace TangentaPrint
                     }
                     else
                     {
-                        if (GetSelectedPrinterFromPrinterList(PrinterName,ref SelectedPrinter))
+                        if (GetSelectedPrinterFromPrinterList(PrinterName, ref SelectedPrinter))
                         {
                             GetSettings(SelectedPrinter);
                             return;
@@ -605,6 +605,11 @@ namespace TangentaPrint
                     }
                 }
             }
+        }
+
+        private void cmb_SelectPrinter_TextChanged(object sender, EventArgs e)
+        {
+            GetSelectedPrinterSettings();
         }
 
         private bool GetSelectedPrinterFromPrinterList(string printerName, ref Printer selectedPrinter)
@@ -628,6 +633,7 @@ namespace TangentaPrint
 
         private void GetSettings(Printer selectedPrinter)
         {
+            ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "START");
             SelectedPrinter = selectedPrinter;
             if (SelectedPrinter== null)
             {
@@ -641,6 +647,7 @@ namespace TangentaPrint
             }
             try
             {
+                ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "SelectedPrinter.printer_settings.DefaultPageSettings.Landscape START");
                 if (SelectedPrinter.printer_settings.DefaultPageSettings.Landscape)
                 {
                     this.rdb_Landscape.Checked = true;
@@ -649,9 +656,11 @@ namespace TangentaPrint
                 {
                     this.rdb_Portrait.Checked = true;
                 }
-                if (SelectedPrinter.printer_settings.DefaultPageSettings.PaperSize != null)
+                ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "SelectedPrinter.printer_settings.DefaultPageSettings.Landscape END");
+                PaperSize paper_size = SelectedPrinter.printer_settings.DefaultPageSettings.PaperSize;
+                if (paper_size != null)
                 {
-                    if (SelectedPrinter.printer_settings.DefaultPageSettings.PaperSize.PaperName.Contains("A4"))
+                    if (paper_size.PaperName.Contains("A4"))
                     {
                         rdb_A4.Checked = true;
                     }
@@ -665,6 +674,7 @@ namespace TangentaPrint
 
                     LogFile.Error.Show("WARNING:Selected printer:" + SelectedPrinter.PrinterName + " has no Paper Size information");
                 }
+                ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "DefaultPageSettings.PaperSize END");
             }
             catch (Exception ex)
             {
@@ -674,6 +684,7 @@ namespace TangentaPrint
             {
                 SettingsChanged();
             }
+            ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "END");
             return;
         }
 
@@ -692,6 +703,7 @@ namespace TangentaPrint
                 SettingsChanged();
             }
         }
+
 
         private void btn_EditTemplates_Click(object sender, EventArgs e)
         {

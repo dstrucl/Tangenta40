@@ -173,14 +173,16 @@ namespace TangentaPrint
             this.m_usrc_Invoice_Preview.Dock = DockStyle.Fill;
             this.m_usrc_Invoice_Preview.OK += new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
             this.splitContainer1.Panel1.Controls.Add(m_usrc_Invoice_Preview);
-            ProgramDiagnostic.Diagnostic.Meassure("Create_usrc_Invoice_Preview END", "?");
 
             m_usrc_SelectPrintTemplate.SettingsChanged += M_usrc_SelectPrintTemplate_SettingsChanged;
+            ProgramDiagnostic.Diagnostic.Meassure("before switch (m_usrc_SelectPrintTemplate.Init(m_InvoiceData)", "?");
             switch (m_usrc_SelectPrintTemplate.Init(m_InvoiceData))
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     Create_usrc_Invoice_Preview();
+                    ProgramDiagnostic.Diagnostic.Meassure("before m_usrc_Invoice_Preview.Init(", "?");
                     m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                    ProgramDiagnostic.Diagnostic.Meassure("after m_usrc_Invoice_Preview.Init(", "?");
                     this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
