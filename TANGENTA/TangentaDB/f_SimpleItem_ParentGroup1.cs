@@ -1,4 +1,5 @@
 ﻿using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -86,6 +87,60 @@ namespace TangentaDB
                     }
                 }
             }
+        }
+    public static bool Get(long SimpleItem_ParentGroup1_ID, ref string Name_ParentGroup1, ref long_v SimpleItem_ParentGroup2_ID_v)
+    {
+        DataTable dt = new DataTable();
+        string Err = null;
+        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+        string spar_ID = "@par_ID";
+        SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, SimpleItem_ParentGroup1_ID);
+        lpar.Add(par_ID);
+        string sql = "select Name,SimpleItem_ParentGroup2_ID from SimpleItem_ParentGroup1 where ID = " + spar_ID;
+        if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+        {
+            if (dt.Rows.Count > 0)
+            {
+                Name_ParentGroup1 = tf._set_string(dt.Rows[0]["Name"]);
+                SimpleItem_ParentGroup2_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_ParentGroup2_ID"]);
+            }
+            return true;
+        }
+        else
+        {
+            LogFile.Error.Show("ERROR:f_SimpleItem_ParentGroup1:Get:sql=" + sql + "\r\nErr=" + Err);
+            return false;
+        }
+    }
+
+    public static bool Get(long SimpleItem_ParentGroup1_ID, ref string Name_ParentGroup1,ref string Name_ParentGroup2,ref string Name_ParentGroup3)
+    {
+        DataTable dt = new DataTable();
+        string Err = null;
+        Name_ParentGroup1 = null;
+        Name_ParentGroup2 = null;
+        Name_ParentGroup3 = null;
+        long_v SimpleItem_ParentGroup2_ID_v = null;
+        if (Get(SimpleItem_ParentGroup1_ID, ref Name_ParentGroup1, ref SimpleItem_ParentGroup2_ID_v))
+        {
+            if (SimpleItem_ParentGroup2_ID_v != null)
+            {
+                long_v SimpleItem_ParentGroup3_ID_v = null;
+                if (f_SimpleItem_ParentGroup2.Get(SimpleItem_ParentGroup2_ID_v.v, ref Name_ParentGroup2, ref SimpleItem_ParentGroup3_ID_v))
+                {
+                    if (SimpleItem_ParentGroup3_ID_v != null)
+                    {
+                        if (f_SimpleItem_ParentGroup3.Get(SimpleItem_ParentGroup3_ID_v.v, ref Name_ParentGroup3))
+                        {
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

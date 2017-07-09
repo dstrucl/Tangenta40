@@ -92,6 +92,7 @@
             this.htmlPanel1.Size = new System.Drawing.Size(488, 593);
             this.htmlPanel1.TabIndex = 7;
             this.htmlPanel1.Text = "htmlPanel1";
+            this.htmlPanel1.UseGdiPlusTextRendering = true;
             // 
             // usrc_Invoice_Preview
             // 

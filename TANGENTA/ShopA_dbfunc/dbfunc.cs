@@ -100,73 +100,116 @@ namespace ShopA_dbfunc
             }
         }
 
+        public static bool Write_ShopA_Price_Item_Table(string docInvoice, long doc_ID, DataTable xdt_ShopA_Items)
+        {
+            DocInvoice_ShopA_Item x_DocInvoice_ShopA_Item = new DocInvoice_ShopA_Item();
+            foreach (DataRow dr in xdt_ShopA_Items.Rows)
+            {
+                x_DocInvoice_ShopA_Item.Discount.type_v = tf.set_decimal(dr["DocInvoice_ShopA_Item_$$Discount"]);
+
+                x_DocInvoice_ShopA_Item.dQuantity.type_v = tf.set_decimal(dr["DocInvoice_ShopA_Item_$$dQuantity"]);
+
+                x_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.type_v = tf.set_decimal(dr["DocInvoice_ShopA_Item_$$EndPriceWithDiscountAndTax"]);
+
+                x_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.type_v = tf.set_long(dr["DocInvoice_ShopA_Item_$_aisha_$$ID"]);
+
+                x_DocInvoice_ShopA_Item.m_DocInvoice.ID.type_v = new long_v(doc_ID);
+
+                x_DocInvoice_ShopA_Item.PricePerUnit.type_v = tf.set_decimal(dr["DocInvoice_ShopA_Item_$$PricePerUnit"]);
+
+                x_DocInvoice_ShopA_Item.TAX.type_v = tf.set_decimal(dr["DocInvoice_ShopA_Item_$$TAX"]);
+                long DocInvoice_ShopA_Item_ID = -1;
+                if (insert(docInvoice, x_DocInvoice_ShopA_Item,ref DocInvoice_ShopA_Item_ID))
+                {
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
         public static bool insert(string DocInvoice,DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref long DocInvoice_ShopA_Item_ID)
         {
-            long Atom_ItemShopA_ID = -1;
-            
-            if (get(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA, ref Atom_ItemShopA_ID))
+            if (m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.type_v != null)
             {
-                string Err = null;
-                string scond = null;
-                string sval = null;
-                string sql = null;
-                List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.set(Atom_ItemShopA_ID);
-                if (DocInvoice.Equals("DocInvoice"))
+                return insert_ex(DocInvoice, m_DocInvoice_ShopA_Item, ref  DocInvoice_ShopA_Item_ID);
+            }
+            else
+            {
+                long Atom_ItemShopA_ID = -1;
+                if (get(m_DocInvoice_ShopA_Item.m_Atom_ItemShopA, ref Atom_ItemShopA_ID))
                 {
-                    m_DocInvoice_ShopA_Item.m_DocInvoice.ID.setsqlp(ref lpar, "DocInvoice_ID", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
-                    sql = "insert into DocInvoice_ShopA_Item (DocInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
-                                  + m_DocInvoice_ShopA_Item.m_DocInvoice.ID.value + ","
-                                  + m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.value + ","
-                                  + m_DocInvoice_ShopA_Item.Discount.value + ","
-                                  + m_DocInvoice_ShopA_Item.dQuantity.value + ","
-                                  + m_DocInvoice_ShopA_Item.PricePerUnit.value + ","
-                                  + m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.value + ","
-                                  + m_DocInvoice_ShopA_Item.TAX.value + ")";
-                }
-                else if (DocInvoice.Equals("DocProformaInvoice"))
-                {
-                    m_DocInvoice_ShopA_Item.m_DocInvoice.ID.setsqlp(ref lpar, "DocProformaInvoice_ID", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
-                    m_DocInvoice_ShopA_Item.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
-                    sql = "insert into DocProformaInvoice_ShopA_Item (DocProformaInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
-                                  + m_DocInvoice_ShopA_Item.m_DocInvoice.ID.value + ","
-                                  + m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.value + ","
-                                  + m_DocInvoice_ShopA_Item.Discount.value + ","
-                                  + m_DocInvoice_ShopA_Item.dQuantity.value + ","
-                                  + m_DocInvoice_ShopA_Item.PricePerUnit.value + ","
-                                  + m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.value + ","
-                                  + m_DocInvoice_ShopA_Item.TAX.value + ")";
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) DocInvoice=" +DocInvoice+ " not implemented.");
-                    return false;
-                }
-                object oret = null;
-                if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopA_Item_ID, ref oret, ref Err, "DocInvoice_ShopA_Item"))
-                {
-                    return true;
-                }
-                else
-                {
-                    LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:get(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
-                    return false;
+                    m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.set(Atom_ItemShopA_ID);
+                    return insert_ex(DocInvoice, m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID);
                 }
             }
             return false;
         }
+
+        private static bool insert_ex(string DocInvoice, DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item, ref long DocInvoice_ShopA_Item_ID)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string Err = null;
+            string scond = null;
+            string sval = null;
+            string sql = null;
+            if (DocInvoice.Equals("DocInvoice"))
+            {
+                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.setsqlp(ref lpar, "DocInvoice_ID", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
+                sql = "insert into DocInvoice_ShopA_Item (DocInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
+                              + m_DocInvoice_ShopA_Item.m_DocInvoice.ID.value + ","
+                              + m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.value + ","
+                              + m_DocInvoice_ShopA_Item.Discount.value + ","
+                              + m_DocInvoice_ShopA_Item.dQuantity.value + ","
+                              + m_DocInvoice_ShopA_Item.PricePerUnit.value + ","
+                              + m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.value + ","
+                              + m_DocInvoice_ShopA_Item.TAX.value + ")";
+            }
+            else if (DocInvoice.Equals("DocProformaInvoice"))
+            {
+                m_DocInvoice_ShopA_Item.m_DocInvoice.ID.setsqlp(ref lpar, "DocProformaInvoice_ID", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.setsqlp(ref lpar, "Atom_ItemShopA_ID", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.setsqlp(ref lpar, "EndPriceWithDiscountAndTax", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.PricePerUnit.setsqlp(ref lpar, "PricePerUnit", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.dQuantity.setsqlp(ref lpar, "dQuantity", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.Discount.setsqlp(ref lpar, "Discount", ref scond, ref sval);
+                m_DocInvoice_ShopA_Item.TAX.setsqlp(ref lpar, "TAX", ref scond, ref sval);
+                sql = "insert into DocProformaInvoice_ShopA_Item (DocProformaInvoice_ID,Atom_ItemShopA_ID,Discount,dQuantity,PricePerUnit,EndPriceWithDiscountAndTax,TAX) values ("
+                              + m_DocInvoice_ShopA_Item.m_DocInvoice.ID.value + ","
+                              + m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.value + ","
+                              + m_DocInvoice_ShopA_Item.Discount.value + ","
+                              + m_DocInvoice_ShopA_Item.dQuantity.value + ","
+                              + m_DocInvoice_ShopA_Item.PricePerUnit.value + ","
+                              + m_DocInvoice_ShopA_Item.EndPriceWithDiscountAndTax.value + ","
+                              + m_DocInvoice_ShopA_Item.TAX.value + ")";
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:insert_ex(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) DocInvoice=" + DocInvoice + " not implemented.");
+                return false;
+            }
+            object oret = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref DocInvoice_ShopA_Item_ID, ref oret, ref Err, "DocInvoice_ShopA_Item"))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:ShopA_dbfunc:dbfunc:insert_ex(Atom_ItemShopA m_Atom_ItemShopA, ref long atom_ItemShopA_ID) sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
 
         public static bool get(Atom_ItemShopA m_Atom_ItemShopA, ref long Atom_ItemShopA_ID)
         {
@@ -250,5 +293,6 @@ namespace ShopA_dbfunc
                 return false;
             }
         }
+
     }
 }

@@ -374,7 +374,7 @@ namespace TangentaDB
             return html;
        }
 
-        private string InsertPageNumbers(string html)
+        public string InsertPageNumbers(string html)
         {
             int index_of_page_number = -1;
             int page_number_length = -1;

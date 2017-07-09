@@ -94,5 +94,59 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool Get(string Name, 
+                            string Abbreviation,
+                            ref bool bToOffer,
+                            ref long_v SimpleItem_Image_ID_v,
+                            ref Image SimpleItem_Image,
+                            ref string SimpleItem_Image_Hash,
+                            ref int_v Code_v,
+                            ref string SimpleItem_ParentGroup1,
+                            ref string SimpleItem_ParentGroup2,
+                            ref string SimpleItem_ParentGroup3, 
+                            ref long SimpleItem_ID)
+        {
+        string Err = null;
+        DataTable dt = new DataTable();
+        string sql = null;
+        object oret = null;
+        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+        string spar_Name = "@par_Name";
+        SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
+        lpar.Add(par_Name);
+        string spar_Abbreviation = "@par_Abbreviation";
+        SQL_Parameter par_Abbreviation = new SQL_Parameter(spar_Abbreviation, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Abbreviation);
+        lpar.Add(par_Abbreviation);
+
+        sql = "select ID,ToOffer,SimpleItem_Image_ID,Code,SimpleItem_ParentGroup1_ID from SimpleItem where Name = " + spar_Name + " and Abbreviation = " + spar_Abbreviation;
+        if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+        {
+            if (dt.Rows.Count > 0)
+            {
+                SimpleItem_ID = (long)dt.Rows[0]["ID"];
+                bToOffer = tf._set_bool(dt.Rows[0]["ToOffer"]);
+                SimpleItem_Image_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_Image_ID"]);
+                SimpleItem_Image = null;
+                SimpleItem_Image_Hash = null;
+                if (SimpleItem_Image_ID_v!=null)
+                {
+                    f_SimpleItem_Image.Get(SimpleItem_Image_ID_v.v, ref SimpleItem_Image, ref SimpleItem_Image_Hash);
+                }
+                long_v SimpleItem_ParentGroup1_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_ParentGroup1_ID"]);
+                if (SimpleItem_ParentGroup1_ID_v != null)
+                {
+                    if (!f_SimpleItem_ParentGroup1.Get(SimpleItem_ParentGroup1_ID_v.v, ref SimpleItem_ParentGroup1, ref SimpleItem_ParentGroup2, ref SimpleItem_ParentGroup3))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        else
+        {
+            LogFile.Error.Show("ERROR:f_SimpleItem:Find:sql=" + sql + "\r\nErr=" + Err);
+            return false;
+        }
     }
-}

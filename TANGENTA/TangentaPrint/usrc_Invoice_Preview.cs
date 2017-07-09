@@ -168,6 +168,8 @@ namespace TangentaPrint
                     ProgramDiagnostic.Diagnostic.Meassure("before if (pglayout.OnePageSize(printer.PageHeight, 0, 0))", "!!");
                     if (pglayout.OnePageSize(printer.PageHeight, 0, 0))
                     {
+                        s = m_InvoiceData.InsertPageNumbers(s);
+                        this.htmlPanel1.Text = s;
                         return true;
                     }
                     else

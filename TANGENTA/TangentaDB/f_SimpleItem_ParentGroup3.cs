@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DBConnectionControl40;
 using System.Data;
+using DBTypes;
 
 namespace TangentaDB
 {
@@ -40,6 +41,30 @@ namespace TangentaDB
                         return false;
                     }
                 }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_SimpleItem_ParentGroup3:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool Get(long SimpleItem_ParentGroup3_ID, ref string name_ParentGroup3)
+        {
+            DataTable dt = new DataTable();
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_ID = "@par_ID";
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, SimpleItem_ParentGroup3_ID);
+            lpar.Add(par_ID);
+            string sql = "select Name,from SimpleItem_ParentGroup3 where ID = " + spar_ID;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    name_ParentGroup3 = tf._set_string(dt.Rows[0]["Name"]);
+                }
+                return true;
             }
             else
             {

@@ -402,7 +402,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             {
                 _htmlContainerInt.PerformLayout(ig);
 
-                _htmlContainerInt.GetPages();
+                //_htmlContainerInt.GetPages();
 
             }
         }

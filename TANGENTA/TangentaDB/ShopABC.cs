@@ -16,6 +16,7 @@ using LanguageControl;
 using DBTypes;
 using System.Data;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace TangentaDB
 {
@@ -356,7 +357,6 @@ namespace TangentaDB
                                                 DocInvoice_ShopB_Item.ExtraDiscount,
                                                 DocInvoice_ShopB_Item.TaxPrice, 
                                                 DocInvoice_ShopB_Item.RetailSimpleItemPriceWithDiscount,
-                                                Atom_PriceList.Name As Atom_PriceList_Name,
                                                 DocInvoice_ShopB_Item.Atom_Taxation_ID,
                                                 Atom_Taxation.Name As Atom_Taxation_Name,
                                                 Atom_Taxation.Rate As Atom_Taxation_Rate,
@@ -391,7 +391,6 @@ namespace TangentaDB
                                                 DocProformaInvoice_ShopB_Item.ExtraDiscount,
                                                 DocProformaInvoice_ShopB_Item.TaxPrice, 
                                                 DocProformaInvoice_ShopB_Item.RetailSimpleItemPriceWithDiscount,
-                                                Atom_PriceList.Name As Atom_PriceList_Name,
                                                 DocProformaInvoice_ShopB_Item.Atom_Taxation_ID,
                                                 Atom_Taxation.Name As Atom_Taxation_Name,
                                                 Atom_Taxation.Rate As Atom_Taxation_Rate,
@@ -430,6 +429,79 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:Read_Atom_SimpleItem_Table:select ... from Atom_SimpleItem:sql="+ sql_select_DocInvoice_ShopB_Item+"\r\n Err=" + Err);
                 return false;
             }
+        }
+
+        public bool Copy_ShopB_Price_Item_Table(string xDocInvoice, long doc_ID, DataTable xdt_ShopB_Items)
+        {
+            foreach (DataRow dr in xdt_ShopB_Items.Rows)
+            {
+                string ShopB_Item_Name = tf._set_string(dr["Name"]);
+                string ShopB_Item_Abbreviation = tf._set_string(dr["Abbreviation"]);
+                string Atom_PriceList_Name = tf._set_string(dr["Atom_PriceList_Name"]);
+                long Atom_PriceList_ID = tf._set_long(dr["Atom_PriceList_ID"]);
+                bool ToOffer = false;
+                long_v SimpleItem_Image_ID_v = null;
+                Image SimpleItem_Image = null;
+                string SimpleItem_Image_Hash = null;
+                string SimpleItem_ParentGroup1 = null;
+                string SimpleItem_ParentGroup2 = null;
+                string SimpleItem_ParentGroup3 = null;
+                int_v Code_v = null;
+                long SimpleItem_ID = -1;
+                if (f_SimpleItem.Get(ShopB_Item_Name,
+                                     ShopB_Item_Abbreviation,
+                                     ref ToOffer,
+                                     ref SimpleItem_Image_ID_v,
+                                     ref SimpleItem_Image,
+                                     ref SimpleItem_Image_Hash,
+                                     ref Code_v,
+                                     ref SimpleItem_ParentGroup1,
+                                     ref SimpleItem_ParentGroup2,
+                                     ref SimpleItem_ParentGroup3,
+                                     ref SimpleItem_ID
+                                     ))
+                {
+                    if (!ToOffer)
+                    {
+                        // ShopB Item is not in offer any more
+                    }
+                    if (f_PriceList.Get(Atom_PriceList_Name,ref long))
+                }
+
+                decimal RetailPriceWithDiscount = 0;
+                decimal RetailShopBItemPrice = 0;
+                decimal Discount = 0;
+                decimal ExtraDiscount = 0;
+                decimal Taxation_Rate = 0;
+                string Taxation_Name = null;
+                decimal Tax = 0;
+                int iCount = 1;
+                long Atom_Price_ShopBItem_ID = -1;
+                decimal PriceWithoutTax = 0;
+                if (f_Atom_Price_ShopBItem.Get(xDocInvoice, 
+                                            Atom_PriceList_ID, 
+                                            doc_ID,
+                                            ref Atom_Price_ShopBItem_ID,
+                                            ref iCount,
+                                            ref RetailShopBItemPrice,
+                                            ref Discount,
+                                            ref ExtraDiscount,
+                                            ref Taxation_Rate,
+                                            ref Taxation_Name,
+                                            ref RetailPriceWithDiscount,
+                                            ref Tax,
+                                            ref PriceWithoutTax
+                                          ))
+                {
+                    continue;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            return true;
         }
 
 

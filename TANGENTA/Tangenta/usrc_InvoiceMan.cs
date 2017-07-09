@@ -352,6 +352,26 @@ namespace Tangenta
             }
         }
 
+
+        private void btn_New_Click(object sender, EventArgs e)
+        {
+            Form_NewDocument frm_new = new Form_NewDocument(this);
+            frm_new.ShowDialog(this);
+            switch (frm_new.eNewDocumentResult)
+            {
+                case Form_NewDocument.e_NewDocument.New_Empty:
+                    New_Empty_Doc();
+                    break;
+
+                case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
+                    New_Copy_Of_SameDocType();
+                    break;
+                case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
+                    New_Copy_To_Another_DocType();
+                    break;
+            }
+        }
+
         private void New_Empty_Doc()
         {
             Program.Cursor_Wait();
@@ -379,33 +399,77 @@ namespace Tangenta
             Program.Cursor_Arrow();
         }
 
-        private void btn_New_Click(object sender, EventArgs e)
-        {
-            Form_NewDocument frm_new = new Form_NewDocument(this);
-            frm_new.ShowDialog(this);
-            switch (frm_new.eNewDocumentResult)
-            {
-                case Form_NewDocument.e_NewDocument.New_Empty:
-                    New_Empty_Doc();
-                    break;
-
-                case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                    New_Copy_Of_SameDocType();
-                    break;
-                case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                    New_Copy_To_Another_DocType();
-                    break;
-            }
-        }
 
         private void New_Copy_To_Another_DocType()
         {
-            MessageBox.Show("NOT implemented New_Copy_To_Another_DocType()");
+            Program.Cursor_Wait();
+            if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
+            {
+                Tangenta.usrc_Invoice.InvoiceType xInvoiceType = (Tangenta.usrc_Invoice.InvoiceType)cmb_InvoiceType.SelectedItem;
+                Tangenta.usrc_Invoice.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
+                if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
+                {
+                    System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
+                    int FinancialYear = (int)drv.Row.ItemArray[0];
+
+                    m_usrc_Invoice.SetNewDraft(eInvType, FinancialYear);
+                    DateTime dtStart = DateTime.Now;
+                    DateTime dtEnd = DateTime.Now;
+                    m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
+                    m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear);
+
+                }
+                else
+                {
+                    Program.Cursor_Arrow();
+                    LogFile.Error.Show("ERROR:usrc_InvoiceMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
+                }
+            }
+            Program.Cursor_Arrow();
         }
 
         private void New_Copy_Of_SameDocType()
         {
-            MessageBox.Show("NOT implemented New_Copy_Of_SameDocType()");
+            Program.Cursor_Wait();
+            if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
+            {
+                Tangenta.usrc_Invoice.InvoiceType xInvoiceType = (Tangenta.usrc_Invoice.InvoiceType)cmb_InvoiceType.SelectedItem;
+                Tangenta.usrc_Invoice.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
+                if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
+                {
+                    System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
+                    int FinancialYear = (int)drv.Row.ItemArray[0];
+                    List<object> xShopC_Data_Item_List = new List<object>();
+                    if (this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xShopC_Data_Item_List))
+                    {
+                        DataTable xdt_ShopB_Items = new DataTable();
+                        if (this.m_usrc_Invoice.m_ShopABC.Read_ShopB_Price_Item_Table(this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopB_Items))
+                        {
+                            DataTable xdt_ShopA_Items = new DataTable();
+                            if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopA_Items))
+                            {
+                                m_usrc_Invoice.SetNewDraft(eInvType, FinancialYear);
+                                DateTime dtStart = DateTime.Now;
+                                DateTime dtEnd = DateTime.Now;
+                                m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
+                                if (ShopA_dbfunc.dbfunc.Write_ShopA_Price_Item_Table(DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, xdt_ShopA_Items))
+                                {
+                                    if (this.m_usrc_Invoice.m_ShopABC.Copy_ShopB_Price_Item_Table(this.DocInvoice,this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, xdt_ShopB_Items))
+                                    {
+                                        m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Program.Cursor_Arrow();
+                    LogFile.Error.Show("ERROR:usrc_InvoiceMan:btn_New_Click:cmb_FinancialYear.SelectedItem is not type of System.Data.DataRowView but is type of " + cmb_FinancialYear.SelectedItem.GetType().ToString());
+                }
+            }
+            Program.Cursor_Arrow();
         }
 
         private void m_usrc_Invoice_Customer_Person_Changed(long Customer_Person_ID)
