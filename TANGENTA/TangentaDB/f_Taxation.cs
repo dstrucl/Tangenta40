@@ -1,5 +1,6 @@
 ﻿using Country_ISO_3166;
 using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -118,6 +119,37 @@ namespace TangentaDB
                     LogFile.Error.Show("ERROR:TangentaDB:f_taxation.cs:GetTable:sql=" + sql + "\r\nErr=" + Err);
                     return null;
                 }
+            }
+        }
+
+        public static bool Get(long Taxation_ID, ref  string_v Taxation_Name_v, ref decimal_v Taxation_Rate_v)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+            //Table Language
+            string spar_ID = "@par_ID";
+            Taxation_Name_v = null;
+            Taxation_Rate_v = null;
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Taxation_ID);
+            lpar.Add(par_ID);
+
+
+            string sql = "select Name,Rate from Taxation where ID = " + spar_ID;
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    Taxation_Name_v = tf.set_string(dt.Rows[0]["Name"]);
+                    Taxation_Rate_v = tf.set_decimal(dt.Rows[0]["Rate"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Taxation:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
             }
         }
     }

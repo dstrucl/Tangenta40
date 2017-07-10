@@ -107,7 +107,7 @@ namespace TangentaDB
                     dt.Clear();
                     dt.Rows.Clear();
                     dt.Columns.Clear();
-                    if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
+                    if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                     {
                         if (dt.Rows.Count > 0)
                         {
@@ -156,7 +156,7 @@ namespace TangentaDB
                                                     "," + sval_CreationDate +
                                                     "," + sval_Description +
                                                         ")";
-                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar,ref PriceList_ID,  ref oret, ref Err, "PriceList"))
+                    if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref PriceList_ID, ref oret, ref Err, "PriceList"))
                     {
                         return true;
                     }
@@ -367,7 +367,7 @@ namespace TangentaDB
 
 
 
-        public static bool CheckAndComplete_PriceList_if_needed(char chShop,Control parent_ctrl)
+        public static bool CheckAndComplete_PriceList_if_needed(char chShop, Control parent_ctrl)
         {
             DataTable dt_Item_NotIn_PriceList = new DataTable();
             if (chShop == 'B')
@@ -486,5 +486,137 @@ namespace TangentaDB
                 LogFile.Error.Show("ERROR:f_PriceList:CheckPriceUndefined_ShopB:sql=" + sql + "\r\nErr=" + Err);
             }
         }
+
+
+        internal static bool Get(string PriceList_Name,
+                                 ref long_v priceList_ID_v,
+                                 ref bool_v valid_v,
+                                 ref DateTime_v validFrom_v,
+                                 ref DateTime_v validTo_v,
+                                 ref DateTime_v creationDate_v,
+                                 ref string_v description_v,
+                                 ref long_v Currency_ID_v,
+                                 ref string_v CurrencyAbbreviation_v,
+                                 ref string_v CurrencyName_v,
+                                 ref string_v CurrencySymbol_v,
+                                 ref int_v CurrencyCode_v,
+                                 ref int_v CurrencyDecimalPlaces_v)
+        {
+            string Err = null;
+            priceList_ID_v = null;
+            valid_v = null;
+            validFrom_v = null;
+            validTo_v = null;
+            creationDate_v = null;
+            description_v = null;
+            Currency_ID_v = null;
+            CurrencyAbbreviation_v = null;
+            CurrencyName_v = null;
+            CurrencySymbol_v = null;
+            CurrencyCode_v = null;
+            CurrencyDecimalPlaces_v = null;
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Name = "@par_Name";
+            SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, PriceList_Name);
+            lpar.Add(par_Name);
+            DataTable dt_PriceList = new DataTable();
+            string sql = @"select ID,Valid,Currency_ID,ValidFrom,ValidTo,CreationDate,Description from PriceList where Name = " + spar_Name;
+            if (DBSync.DBSync.ReadDataTable(ref dt_PriceList, sql, lpar, ref Err))
+            {
+                if (dt_PriceList.Rows.Count > 0)
+                {
+                    priceList_ID_v = tf.set_long(dt_PriceList.Rows[0]["ID"]);
+                    valid_v = tf.set_bool(dt_PriceList.Rows[0]["Valid"]);
+                    validFrom_v = tf.set_DateTime(dt_PriceList.Rows[0]["ValidFrom"]);
+                    validTo_v = tf.set_DateTime(dt_PriceList.Rows[0]["ValidTo"]);
+                    creationDate_v = tf.set_DateTime(dt_PriceList.Rows[0]["CreationDate"]);
+                    description_v = tf.set_string(dt_PriceList.Rows[0]["Description"]);
+                    Currency_ID_v = tf.set_long(dt_PriceList.Rows[0]["Currency_ID"]);
+                    if (Currency_ID_v != null)
+                    {
+                        return f_Currency.Get(Currency_ID_v.v,
+                                              ref CurrencyAbbreviation_v,
+                                              ref CurrencyName_v,
+                                              ref CurrencySymbol_v,
+                                              ref CurrencyCode_v,
+                                              ref CurrencyDecimalPlaces_v
+                                             );
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+        internal static bool Get(
+                             long priceList_ID,
+                             ref string_v PriceList_Name_v,
+                             ref bool_v valid_v,
+                             ref DateTime_v validFrom_v,
+                             ref DateTime_v validTo_v,
+                             ref DateTime_v creationDate_v,
+                             ref string_v description_v,
+                             ref long_v Currency_ID_v,
+                             ref string_v CurrencyAbbreviation_v,
+                             ref string_v CurrencyName_v,
+                             ref string_v CurrencySymbol_v,
+                             ref int_v CurrencyCode_v,
+                             ref int_v CurrencyDecimalPlaces_v)
+        {
+            string Err = null;
+            PriceList_Name_v = null;
+            valid_v = null;
+            validFrom_v = null;
+            validTo_v = null;
+            creationDate_v = null;
+            description_v = null;
+            Currency_ID_v = null;
+            CurrencyAbbreviation_v = null;
+            CurrencyName_v = null;
+            CurrencySymbol_v = null;
+            CurrencyCode_v = null;
+            CurrencyDecimalPlaces_v = null;
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_ID = "@par_ID";
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, priceList_ID);
+            lpar.Add(par_ID);
+            DataTable dt_PriceList = new DataTable();
+            string sql = @"select Name,Valid,Currency_ID,ValidFrom,ValidTo,CreationDate,Description from PriceList where ID = " + spar_ID;
+            if (DBSync.DBSync.ReadDataTable(ref dt_PriceList, sql, lpar, ref Err))
+            {
+                if (dt_PriceList.Rows.Count > 0)
+                {
+                    PriceList_Name_v = tf.set_string(dt_PriceList.Rows[0]["Name"]);
+                    valid_v = tf.set_bool(dt_PriceList.Rows[0]["Valid"]);
+                    validFrom_v = tf.set_DateTime(dt_PriceList.Rows[0]["ValidFrom"]);
+                    validTo_v = tf.set_DateTime(dt_PriceList.Rows[0]["ValidTo"]);
+                    creationDate_v = tf.set_DateTime(dt_PriceList.Rows[0]["CreationDate"]);
+                    description_v = tf.set_string(dt_PriceList.Rows[0]["Description"]);
+                    Currency_ID_v = tf.set_long(dt_PriceList.Rows[0]["Currency_ID"]);
+                    if (Currency_ID_v != null)
+                    {
+                        return f_Currency.Get(Currency_ID_v.v,
+                                              ref CurrencyAbbreviation_v,
+                                              ref CurrencyName_v,
+                                              ref CurrencySymbol_v,
+                                              ref CurrencyCode_v,
+                                              ref CurrencyDecimalPlaces_v
+                                             );
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_PriceList:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }
+

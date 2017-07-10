@@ -150,7 +150,7 @@ namespace TangentaDB
                 DocInvoice_ShopB_Item_PriceWithoutTax = DocInvoice_ShopB_Item_RetailSimpleItemPriceWithDiscount - DocInvoice_ShopB_Item_TaxPrice;
 
                 DataRow dr = dt_SelectedSimpleItem.NewRow();
-                dr[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index] = Find_dt_SimpleItem_Index(dt_SimpleItems, DocInvoice_ShopB_Item_SimpleItem_ID);
+                //dr[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index] = Find_dt_SimpleItem_Index(dt_SimpleItems, DocInvoice_ShopB_Item_SimpleItem_ID);
                 dr[DBtcn.column_Selected_Atom_Price_ShopBItem_ID] = Atom_SimpleItem_ID;
                 dr[DBtcn.column_SelectedShopBItem_ShopBItem_ID] = DocInvoice_ShopB_Item_SimpleItem_ID;
                 dr[DBtcn.column_SelectedShopBItem_Count] = DocInvoice_ShopB_Item_Quantity;
@@ -161,6 +161,7 @@ namespace TangentaDB
                 dr[DBtcn.column_SelectedShopBItem_TaxRate] = DocInvoice_ShopB_Item_Atom_Taxation_Rate;
                 dr[DBtcn.column_SelectedShopBItem_ExtraDiscount] = DocInvoice_ShopB_Item_ExtraDiscount;
                 dr[DBtcn.column_SelectedShopBItemPrice] = DocInvoice_ShopB_Item_RetailSimpleItemPriceWithDiscount;
+                dr[DBtcn.column_SelectedShopBItemRetailPricePerUnit] = DocInvoice_ShopB_Item_RetailSimpleItemPrice;
                 dt_SelectedSimpleItem.Rows.Add(dr);
                 int index = dt_SelectedSimpleItem.Rows.IndexOf(dr);
                 if (DocInvoice_ShopB_Item_ExtraDiscount != 0)

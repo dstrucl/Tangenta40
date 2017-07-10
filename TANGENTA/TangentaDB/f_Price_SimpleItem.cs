@@ -131,7 +131,46 @@ namespace TangentaDB
             }
             return false;
         }
+
+        internal static bool Get(long PriceList_ID, long SimpleItem_ID, ref long_v price_SimpleItem_ID_v,ref decimal_v RetailSimpleItemPrice_v, ref decimal_v discount_v, ref long_v taxation_ID_v, ref string_v taxation_Name_v, ref decimal_v taxation_Rate_v)
+        {
+            string Err = null;
+            price_SimpleItem_ID_v = null;
+            RetailSimpleItemPrice_v = null;
+            discount_v = null;
+            taxation_ID_v = null;
+            taxation_Name_v = null;
+            taxation_Rate_v = null;
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_PriceList_ID = "@par_PriceList_ID";
+            SQL_Parameter par_PriceList_ID = new SQL_Parameter(spar_PriceList_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, PriceList_ID);
+            lpar.Add(par_PriceList_ID);
+            string spar_SimpleItem_ID = "@par_SimpleItem_ID";
+            SQL_Parameter par_SimpleItem_ID = new SQL_Parameter(spar_SimpleItem_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, SimpleItem_ID);
+            lpar.Add(par_SimpleItem_ID);
+            DataTable dt = new DataTable();
+            string sql = "select ID,RetailSimpleItemPrice,Discount,Taxation_ID from Price_SimpleItem where SimpleItem_ID=" + spar_SimpleItem_ID + " and PriceList_ID = " + spar_PriceList_ID;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql,lpar, ref Err))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    price_SimpleItem_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                    RetailSimpleItemPrice_v = tf.set_decimal(dt.Rows[0]["RetailSimpleItemPrice"]);
+                    discount_v = tf.set_decimal(dt.Rows[0]["Discount"]);
+                    taxation_ID_v = tf.set_long(dt.Rows[0]["Taxation_ID"]);
+                    if (taxation_ID_v!=null)
+                    {
+                        return f_Taxation.Get(taxation_ID_v.v, ref taxation_Name_v, ref taxation_Rate_v);
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Price_SimpleItem:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
-
-
 }

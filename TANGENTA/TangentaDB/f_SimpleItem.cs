@@ -52,7 +52,7 @@ namespace TangentaDB
                     scond_SimpleItem_ParentGroup1_ID = " SimpleItem_ParentGroup1_ID = " + SimpleItem_ParentGroup1_ID.ToString() + " ";
                     sval_SimpleItem_ParentGroup1_ID = " " + SimpleItem_ParentGroup1_ID.ToString() + " ";
 
-                    if (SimpleItem_Image!=null)
+                    if (SimpleItem_Image != null)
                     {
                         if (f_SimpleItem_Image.Get(SimpleItem_Image, ref SimpleItem_Image_ID))
                         {
@@ -95,58 +95,76 @@ namespace TangentaDB
             }
         }
 
-        public static bool Get(string Name, 
+        public static bool Get(string Name,
                             string Abbreviation,
-                            ref bool bToOffer,
+                            ref bool_v bToOffer_v,
                             ref long_v SimpleItem_Image_ID_v,
                             ref Image SimpleItem_Image,
-                            ref string SimpleItem_Image_Hash,
+                            ref string_v SimpleItem_Image_Hash_v,
                             ref int_v Code_v,
-                            ref string SimpleItem_ParentGroup1,
-                            ref string SimpleItem_ParentGroup2,
-                            ref string SimpleItem_ParentGroup3, 
-                            ref long SimpleItem_ID)
+                            ref string_v SimpleItem_ParentGroup1_v,
+                            ref string_v SimpleItem_ParentGroup2_v,
+                            ref string_v SimpleItem_ParentGroup3_v,
+                            ref long_v SimpleItem_ID_v)
         {
-        string Err = null;
-        DataTable dt = new DataTable();
-        string sql = null;
-        object oret = null;
-        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-        string spar_Name = "@par_Name";
-        SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
-        lpar.Add(par_Name);
-        string spar_Abbreviation = "@par_Abbreviation";
-        SQL_Parameter par_Abbreviation = new SQL_Parameter(spar_Abbreviation, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Abbreviation);
-        lpar.Add(par_Abbreviation);
 
-        sql = "select ID,ToOffer,SimpleItem_Image_ID,Code,SimpleItem_ParentGroup1_ID from SimpleItem where Name = " + spar_Name + " and Abbreviation = " + spar_Abbreviation;
-        if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
-        {
-            if (dt.Rows.Count > 0)
+
+            string Err = null;
+            bToOffer_v = null;
+            SimpleItem_Image_ID_v = null;
+            SimpleItem_Image = null;
+            SimpleItem_Image_Hash_v = null;
+            Code_v = null;
+            SimpleItem_ParentGroup1_v = null;
+            SimpleItem_ParentGroup2_v = null;
+            SimpleItem_ParentGroup3_v = null;
+            SimpleItem_ID_v = null;
+            DataTable dt = new DataTable();
+            string sql = null;
+            object oret = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_Name = "@par_Name";
+            SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);
+            lpar.Add(par_Name);
+            string spar_Abbreviation = "@par_Abbreviation";
+            SQL_Parameter par_Abbreviation = new SQL_Parameter(spar_Abbreviation, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Abbreviation);
+            lpar.Add(par_Abbreviation);
+
+            sql = "select ID,ToOffer,SimpleItem_Image_ID,Code,SimpleItem_ParentGroup1_ID from SimpleItem where Name = " + spar_Name + " and Abbreviation = " + spar_Abbreviation;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
-                SimpleItem_ID = (long)dt.Rows[0]["ID"];
-                bToOffer = tf._set_bool(dt.Rows[0]["ToOffer"]);
-                SimpleItem_Image_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_Image_ID"]);
-                SimpleItem_Image = null;
-                SimpleItem_Image_Hash = null;
-                if (SimpleItem_Image_ID_v!=null)
+                if (dt.Rows.Count > 0)
                 {
-                    f_SimpleItem_Image.Get(SimpleItem_Image_ID_v.v, ref SimpleItem_Image, ref SimpleItem_Image_Hash);
-                }
-                long_v SimpleItem_ParentGroup1_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_ParentGroup1_ID"]);
-                if (SimpleItem_ParentGroup1_ID_v != null)
-                {
-                    if (!f_SimpleItem_ParentGroup1.Get(SimpleItem_ParentGroup1_ID_v.v, ref SimpleItem_ParentGroup1, ref SimpleItem_ParentGroup2, ref SimpleItem_ParentGroup3))
+                    SimpleItem_ID_v = tf.set_long(dt.Rows[0]["ID"]);
+                    bToOffer_v = tf.set_bool(dt.Rows[0]["ToOffer"]);
+                    SimpleItem_Image_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_Image_ID"]);
+                    SimpleItem_Image = null;
+                    SimpleItem_Image_Hash_v = null;
+                    if (SimpleItem_Image_ID_v != null)
                     {
-                        return false;
+                        string simpleItem_Image_Hash = null;
+                        f_SimpleItem_Image.Get(SimpleItem_Image_ID_v.v, ref SimpleItem_Image, ref simpleItem_Image_Hash);
+                        if (simpleItem_Image_Hash != null)
+                        {
+                            SimpleItem_Image_Hash_v = new string_v(simpleItem_Image_Hash);
+                        }
+                    }
+                    long_v SimpleItem_ParentGroup1_ID_v = tf.set_long(dt.Rows[0]["SimpleItem_ParentGroup1_ID"]);
+                    if (SimpleItem_ParentGroup1_ID_v != null)
+                    {
+                        if (!f_SimpleItem_ParentGroup1.Get(SimpleItem_ParentGroup1_ID_v.v, ref SimpleItem_ParentGroup1_v, ref SimpleItem_ParentGroup2_v, ref SimpleItem_ParentGroup3_v))
+                        {
+                            return false;
+                        }
                     }
                 }
+                return true;
             }
-            return true;
-        }
-        else
-        {
-            LogFile.Error.Show("ERROR:f_SimpleItem:Find:sql=" + sql + "\r\nErr=" + Err);
-            return false;
+            else
+            {
+                LogFile.Error.Show("ERROR:f_SimpleItem:Find:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
         }
     }
+}

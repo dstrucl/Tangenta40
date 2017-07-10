@@ -49,8 +49,9 @@ namespace TangentaDB
             }
         }
 
-        internal static bool Get(long SimpleItem_ParentGroup3_ID, ref string name_ParentGroup3)
+        internal static bool Get(long SimpleItem_ParentGroup3_ID, ref string_v name_ParentGroup3_v)
         {
+            name_ParentGroup3_v = null;
             DataTable dt = new DataTable();
             string Err = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
@@ -62,7 +63,7 @@ namespace TangentaDB
             {
                 if (dt.Rows.Count > 0)
                 {
-                    name_ParentGroup3 = tf._set_string(dt.Rows[0]["Name"]);
+                    name_ParentGroup3_v = tf.set_string(dt.Rows[0]["Name"]);
                 }
                 return true;
             }

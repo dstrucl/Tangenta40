@@ -1,5 +1,6 @@
 ﻿using Country_ISO_3166;
 using DBConnectionControl40;
+using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -195,6 +196,40 @@ namespace TangentaDB
             else
             {
                 LogFile.Error.Show("ERROR:f_Currency.Get(long Currency_ID, ref string Abbreviation, ref string Name, ref string Symbol, ref int CurrencyCode, ref int DecimalPlaces):sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        public static bool Get(long Currency_ID, 
+                               ref string_v Abbreviation_v, 
+                               ref string_v Name_v, 
+                               ref string_v Symbol_v, 
+                               ref int_v CurrencyCode_v, 
+                               ref int_v DecimalPlaces_v)
+        {
+            string sql = "select Abbreviation,Name,Symbol,CurrencyCode,DecimalPlaces from Currency where ID = " + Currency_ID.ToString();
+            DataTable dt = new DataTable();
+            string Err = null;
+            Abbreviation_v = null;
+            Name_v = null;
+            Symbol_v = null;
+            CurrencyCode_v = null;
+            DecimalPlaces_v = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    Abbreviation_v = tf.set_string(dt.Rows[0]["Abbreviation"]);
+                    Name_v = tf.set_string(dt.Rows[0]["Name"]);
+                    Symbol_v = tf.set_string(dt.Rows[0]["Symbol"]);
+                    CurrencyCode_v = tf.set_int(dt.Rows[0]["CurrencyCode"]);
+                    DecimalPlaces_v = tf.set_int(dt.Rows[0]["DecimalPlaces"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Currency:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

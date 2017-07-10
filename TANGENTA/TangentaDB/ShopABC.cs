@@ -435,71 +435,125 @@ namespace TangentaDB
         {
             foreach (DataRow dr in xdt_ShopB_Items.Rows)
             {
-                string ShopB_Item_Name = tf._set_string(dr["Name"]);
-                string ShopB_Item_Abbreviation = tf._set_string(dr["Abbreviation"]);
+                string Atom_ShopB_Item_Name = tf._set_string(dr["Name"]);
+                string Atom_ShopB_Item_Abbreviation = tf._set_string(dr["Abbreviation"]);
                 string Atom_PriceList_Name = tf._set_string(dr["Atom_PriceList_Name"]);
+                string_v Atom_Taxation_Name_v= tf.set_string(dr["Atom_Taxation_Name"]);
+                decimal_v Atom_Taxation_Rate_v = tf.set_decimal(dr["Atom_Taxation_Rate"]);
                 long Atom_PriceList_ID = tf._set_long(dr["Atom_PriceList_ID"]);
-                bool ToOffer = false;
+                bool_v ToOffer_v = null;
                 long_v SimpleItem_Image_ID_v = null;
                 Image SimpleItem_Image = null;
-                string SimpleItem_Image_Hash = null;
-                string SimpleItem_ParentGroup1 = null;
-                string SimpleItem_ParentGroup2 = null;
-                string SimpleItem_ParentGroup3 = null;
+                string_v SimpleItem_Image_Hash = null;
+                string_v SimpleItem_ParentGroup1_v = null;
+                string_v SimpleItem_ParentGroup2_v = null;
+                string_v SimpleItem_ParentGroup3_v = null;
                 int_v Code_v = null;
-                long SimpleItem_ID = -1;
-                if (f_SimpleItem.Get(ShopB_Item_Name,
-                                     ShopB_Item_Abbreviation,
-                                     ref ToOffer,
+                long_v SimpleItem_ID_v = null;
+                if (f_SimpleItem.Get(Atom_ShopB_Item_Name,
+                                     Atom_ShopB_Item_Abbreviation,
+                                     ref ToOffer_v,
                                      ref SimpleItem_Image_ID_v,
                                      ref SimpleItem_Image,
                                      ref SimpleItem_Image_Hash,
                                      ref Code_v,
-                                     ref SimpleItem_ParentGroup1,
-                                     ref SimpleItem_ParentGroup2,
-                                     ref SimpleItem_ParentGroup3,
-                                     ref SimpleItem_ID
+                                     ref SimpleItem_ParentGroup1_v,
+                                     ref SimpleItem_ParentGroup2_v,
+                                     ref SimpleItem_ParentGroup3_v,
+                                     ref SimpleItem_ID_v
                                      ))
                 {
-                    if (!ToOffer)
+                    if (ToOffer_v != null)
                     {
-                        // ShopB Item is not in offer any more
+                        if (!ToOffer_v.v)
+                        {
+                            // ShopB Item is not in offer any more
+                        }
                     }
-                    if (f_PriceList.Get(Atom_PriceList_Name,ref long))
+                    long_v PriceList_ID_v = null;
+                    bool_v Valid_v = null;
+                    DateTime_v ValidFrom_v = null;
+                    DateTime_v ValidTo_v = null;
+                    DateTime_v CreationDate_v = null;
+                    string_v Description_v = null;
+                    long_v Currency_ID_v = null;
+                    string_v CurrencyAbbreviation_v = null;
+                    string_v CurrencyName_v = null;
+                    string_v CurrencySymbol_v = null;
+                    int_v CurrencyCode_v = null;
+                    int_v CurrencyDecimalPlaces_v = null;
+                    if (!f_PriceList.Get(Atom_PriceList_Name,
+                                         ref PriceList_ID_v,
+                                         ref Valid_v,
+                                         ref ValidFrom_v,
+                                         ref ValidTo_v,
+                                         ref CreationDate_v,
+                                         ref Description_v,
+                                         ref Currency_ID_v,
+                                         ref CurrencyAbbreviation_v,
+                                         ref CurrencyName_v,
+                                         ref CurrencySymbol_v,
+                                         ref CurrencyCode_v,
+                                         ref CurrencyDecimalPlaces_v
+                                         ))
+                    {
+                        return false;
+                    }
+                    if (PriceList_ID_v!=null)
+                    {
+                        long_v Price_SimpleItem_ID_v = null;
+                        decimal_v RetailSimpleItemPrice_v = null;
+                        decimal_v Discount_v = null;
+                        long_v Taxation_ID_v = null;
+                        string_v Taxation_Name_v = null;
+                        decimal_v Taxation_Rate_v = null;
+                        if (f_Price_SimpleItem.Get(PriceList_ID_v.v,
+                                               SimpleItem_ID_v.v,
+                                               ref Price_SimpleItem_ID_v,
+                                               ref RetailSimpleItemPrice_v,
+                                               ref Discount_v,
+                                               ref Taxation_ID_v,
+                                               ref Taxation_Name_v,
+                                               ref Taxation_Rate_v
+                                               ))
+                        {
+                            if (Price_SimpleItem_ID_v!=null)
+                            {
+                                decimal RetailPriceWithDiscount = 0;
+                                decimal RetailShopBItemPrice = 0;
+                                decimal Discount = 0;
+                                decimal ExtraDiscount = 0;
+                                decimal Taxation_Rate = 0;
+                                string Taxation_Name = null;
+                                decimal Tax = 0;
+                                int iCount = 1;
+                                long Atom_Price_ShopBItem_ID = -1;
+                                decimal PriceWithoutTax = 0;
+                                if (f_Atom_Price_ShopBItem.Get(xDocInvoice,
+                                                            Price_SimpleItem_ID_v.v,
+                                                            doc_ID,
+                                                            ref Atom_Price_ShopBItem_ID,
+                                                            ref iCount,
+                                                            ref RetailShopBItemPrice,
+                                                            ref Discount,
+                                                            ref ExtraDiscount,
+                                                            ref Taxation_Rate,
+                                                            ref Taxation_Name,
+                                                            ref RetailPriceWithDiscount,
+                                                            ref Tax,
+                                                            ref PriceWithoutTax
+                                                          ))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
                 }
-
-                decimal RetailPriceWithDiscount = 0;
-                decimal RetailShopBItemPrice = 0;
-                decimal Discount = 0;
-                decimal ExtraDiscount = 0;
-                decimal Taxation_Rate = 0;
-                string Taxation_Name = null;
-                decimal Tax = 0;
-                int iCount = 1;
-                long Atom_Price_ShopBItem_ID = -1;
-                decimal PriceWithoutTax = 0;
-                if (f_Atom_Price_ShopBItem.Get(xDocInvoice, 
-                                            Atom_PriceList_ID, 
-                                            doc_ID,
-                                            ref Atom_Price_ShopBItem_ID,
-                                            ref iCount,
-                                            ref RetailShopBItemPrice,
-                                            ref Discount,
-                                            ref ExtraDiscount,
-                                            ref Taxation_Rate,
-                                            ref Taxation_Name,
-                                            ref RetailPriceWithDiscount,
-                                            ref Tax,
-                                            ref PriceWithoutTax
-                                          ))
-                {
-                    continue;
-                }
-                else
-                {
-                    return false;
-                }
-
             }
             return true;
         }
@@ -1117,8 +1171,10 @@ namespace TangentaDB
             dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = false;
             dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ShopBItem_ID].Visible = false;
             dgv_SelectedShopB_Items.Columns[DBtcn.column_Selected_Atom_Price_ShopBItem_ID].Visible = false;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index].Visible = false;
+            //dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index].Visible = false;
             dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = false;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].Visible = true;
+            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].HeaderText = lngRPM.s_RetailPricePerUnit.s;
 
             dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_TaxName].Visible = false;
             dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_TaxRate].Visible = false;
