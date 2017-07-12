@@ -10,6 +10,7 @@ using DBTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -155,6 +156,7 @@ namespace TangentaDB
                 Atom_Expiry.DiscardBeforeExpiryDateInDays AS Atom_Expiry_DiscardBeforeExpiryDateInDays,
                 Atom_Expiry.ExpiryDescription AS Atom_Expiry_ExpiryDescription,
                 puitms.Item_ID AS Stock_Item_ID,
+                Stock.ID AS Stock_ID,
                 Stock.ImportTime AS Stock_ImportTime,
                 Stock.dQuantity AS Stock_dQuantity,
                 Stock.ExpiryDate AS Stock_ExpiryDate,
@@ -233,6 +235,129 @@ namespace TangentaDB
         }
 
 
+        public bool Copy_ShopC_Price_Item_Stock_Table(string docInvoice, CurrentInvoice xCurrentInvoice, List<object> xShopC_Data_Item_List)
+        {
+            foreach (object oxShopC_Data_Item in xShopC_Data_Item_List)
+            {
+                if (oxShopC_Data_Item is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
+                {
+                    Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oxShopC_Data_Item;
+                    string_v Name_v = null;
+                    bool_v bToOffer_v = null;
+                    Image Item_Image = null;
+                    long_v Item_Image_ID_v = null;
+                    string_v Item_Image_Hash_v = null;
+                    long_v Code_v = null;
+                    string_v Unit_Name_v = null;
+                    string_v Unit_Symbol_v = null;
+                    int_v Unit_DecimalPlaces_v = null;
+                    bool_v Unit_StorageOption_v = null;
+                    string_v Unit_Description_v = null;
+                    string_v barcode_v = null;
+                    string_v Description_v = null;
+                    long_v Expiry_ID_v = null;
+                    long_v Warranty_ID_v = null;
+                    f_Expiry.Expiry_v Expiry_v = null;
+                    f_Warranty.Warranty_v Warranty_v = null;
+                    long_v Item_ParentGroup1_ID_v = null;
+                    string_v Item_ParentGroup1_v = null;
+                    long_v Item_ParentGroup2_ID_v = null;
+                    string_v Item_ParentGroup2_v = null;
+                    long_v Item_ParentGroup3_ID_v = null;
+                    string_v Item_ParentGroup3_v = null;
+                    long_v Unit_ID_v = null;
+                    long_v Item_ID_v = null;
+                    if (!f_Item.Get(xShopC_Data_Item.Atom_Item_UniqueName.v,
+                                   ref Name_v,
+                                   ref bToOffer_v,
+                                   ref Item_Image,
+                                   ref Item_Image_ID_v,
+                                   ref Item_Image_Hash_v,
+                                   ref Code_v,
+                                   ref Unit_Name_v,
+                                   ref Unit_Symbol_v,
+                                   ref Unit_DecimalPlaces_v,
+                                   ref Unit_StorageOption_v,
+                                   ref Unit_Description_v,
+                                   ref barcode_v,
+                                   ref Description_v,
+                                   ref Expiry_ID_v,
+                                   ref Warranty_ID_v,
+                                   ref Expiry_v,
+                                   ref Warranty_v,
+                                   ref Item_ParentGroup1_ID_v,
+                                   ref Item_ParentGroup1_v,
+                                   ref Item_ParentGroup2_ID_v,
+                                   ref Item_ParentGroup2_v,
+                                   ref Item_ParentGroup3_ID_v,
+                                   ref Item_ParentGroup3_v,
+                                   ref Unit_ID_v,
+                                   ref Item_ID_v))
+                    {
+                        return false;
+                    }
+                    if (Item_ID_v!=null)
+                    {
+                        if (!InOffer(bToOffer_v))
+                        {
+                            // Item not in offer
+                        }
+                    }
+                    else
+                    {
+                        // No item found in offer !!
+                    }
+                    decimal dStockCount = 0;
+                    decimal dFromFactoryCount = 0;
+                    int iStockDataListCount = 0;
+                    if (xShopC_Data_Item.m_ShopShelf_Source != null)
+                    {
+                        if (xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List != null)
+                        {
+                            iStockDataListCount = xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List.Count;
+                            for (int i=0;i< iStockDataListCount;i++)
+                            {
+                                if (xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List[i].dQuantity_from_stock != null)
+                                {
+                                    dStockCount += xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List[i].dQuantity_from_stock.v;
+                                }
+                                if (xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List[i].dQuantity_from_factory != null)
+                                {
+                                    dFromFactoryCount += xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List[i].dQuantity_from_factory.v;
+                                }
+                            }
+                        }
+                    }
+                    if (dStockCount > 0)
+                    {
+                        //this item was taken from stock
+                    }
+                    else
+                    {
+                        //this item was taken directly from factory
+                    }
+
+                    //if (!xCurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(docInvoice, ref xShopC_Data_Item, true))
+                    //{
+                      //  return false;
+                    //}
+                    
+                }
+            }
+            return true;
+        }
+
+        private bool InOffer(bool_v bToOffer_v)
+        {
+            if (bToOffer_v!=null)
+            {
+                return bToOffer_v.v;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public bool RemoveFactory(string DocInvoice,Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {

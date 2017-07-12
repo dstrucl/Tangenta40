@@ -739,7 +739,8 @@ namespace Tangenta
                             {
                                 if (f_PriceList.Insert_ShopB_Items_in_PriceList(dt_ShopB_Item_NotIn_PriceList, this))
                                 {
-                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav);
+                                    bool bPriceListChanged = false;
+                                    this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
                                 }
                             }
                         }
@@ -749,7 +750,8 @@ namespace Tangenta
                             f_PriceList.CheckPriceUndefined_ShopB(ref bEdit);
                             if (bEdit)
                             {
-                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav);
+                                bool bPriceListChanged = false;
+                                this.m_usrc_ShopB.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
 
                             }
                         }
@@ -779,7 +781,8 @@ namespace Tangenta
                                 {
                                     if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Item_NotIn_PriceList, this))
                                     {
-                                        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav);
+                                        bool bPriceListChanged = false;
+                                        this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
                                     }
                                 }
                             }
@@ -789,7 +792,8 @@ namespace Tangenta
                                 f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
                                 if (bEdit)
                                 {
-                                    this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav);
+                                    bool bPriceListChanged = false;
+                                    this.m_usrc_ShopC.usrc_PriceList1.PriceList_Edit(true,xnav, ref bPriceListChanged);
                                 }
                             }
                         }

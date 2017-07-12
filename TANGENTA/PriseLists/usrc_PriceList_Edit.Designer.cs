@@ -87,6 +87,7 @@
             this.usrc_EditTable_PriceList.SetInputControlProperties += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_SetInputControlProperties(this.usrc_EditTable_PriceList_SetInputControlProperties);
             this.usrc_EditTable_PriceList.before_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_before_InsertInDataBase(this.usrc_EditTable_PriceList_before_InsertInDataBase);
             this.usrc_EditTable_PriceList.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_PriceList_after_InsertInDataBase);
+            this.usrc_EditTable_PriceList.after_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.usrc_EditTable_PriceList_after_UpdateDataBase);
             this.usrc_EditTable_PriceList.SelectedIndexChanged += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_SelectedIndexChanged(this.usrc_EditTable_PriceList_SelectedIndexChanged);
             // 
             // txt_PriceList_Name
@@ -122,6 +123,8 @@
             this.usrc_EditTable_Shop_Prices.Title = "label1";
             this.usrc_EditTable_Shop_Prices.Title_Color = System.Drawing.SystemColors.ControlText;
             this.usrc_EditTable_Shop_Prices.Title_Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.usrc_EditTable_Shop_Prices.after_InsertInDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_InsertInDataBase(this.usrc_EditTable_Shop_Prices_after_InsertInDataBase);
+            this.usrc_EditTable_Shop_Prices.after_UpdateDataBase += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_after_UpdateDataBase(this.usrc_EditTable_Shop_Prices_after_UpdateDataBase);
             this.usrc_EditTable_Shop_Prices.CellFormatting += new CodeTables.TableDocking_Form.usrc_EditTable.delegate_CellFormatting(this.usrc_EditTable_Shop_Prices_CellFormatting);
             // 
             // rdb_OnlyUnvalid

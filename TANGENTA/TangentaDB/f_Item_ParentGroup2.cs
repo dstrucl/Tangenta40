@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBTypes;
 
 namespace TangentaDB
 {
@@ -85,6 +86,32 @@ namespace TangentaDB
                         return false;
                     }
                 }
+            }
+        }
+
+
+        internal static bool Get(long Item_ParentGroup2_ID, ref string_v item_ParentGroup2_v, ref long_v item_ParentGroup3_ID_v)
+        {
+            DataTable dt = new DataTable();
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_ID = "@par_ID";
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Item_ParentGroup2_ID);
+            lpar.Add(par_ID);
+            string sql = "select Name,Item_ParentGroup3_ID from Item_ParentGroup2 where ID = " + spar_ID;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    item_ParentGroup2_v = tf.set_string(dt.Rows[0]["Name"]);
+                    item_ParentGroup3_ID_v = tf.set_long(dt.Rows[0]["Item_ParentGroup3_ID"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Item_ParentGroup2:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
             }
         }
     }

@@ -95,5 +95,42 @@ namespace TangentaDB
                 return true;
             }
         }
+
+        internal static bool Get(long Expiry_ID, ref Expiry_v expiry_v)
+        {
+            expiry_v = null;
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+
+            string spar_ID = "@par_ID";
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Expiry_ID);
+            lpar.Add(par_ID);
+
+            string sql = "select ExpectedShelfLifeInDays,SaleBeforeExpiryDateInDays,DiscardBeforeExpiryDateInDays,ExpiryDescription from Expiry where ID = " + spar_ID;
+
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    if (expiry_v==null)
+                    {
+                        expiry_v = new Expiry_v();
+                    }
+                    expiry_v.DiscardBeforeExpiryDateInDays = tf._set_int(dt.Rows[0]["DiscardBeforeExpiryDateInDays"]);
+                    expiry_v.SaleBeforeExpiryDateInDays = tf._set_int(dt.Rows[0]["SaleBeforeExpiryDateInDays"]);
+                    expiry_v.ExpectedShelfLifeInDays= tf._set_int(dt.Rows[0]["ExpectedShelfLifeInDays"]);
+                    expiry_v.ExpiryDescription = tf._set_string(dt.Rows[0]["ExpiryDescription"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Expiry:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

@@ -36,6 +36,12 @@ namespace PriseLists
         SQLTable tbl_PriceList = null;
         SQLTable tbl_Price_SimpleItem = null;
         SQLTable tbl_Price_Item = null;
+        private bool bChanged = false;
+
+        public bool Changed
+        {
+            get { return bChanged; }
+        }
 
         private eShopType m_eShopType;
 
@@ -182,6 +188,7 @@ namespace PriseLists
             // Now create price lists
             if (bRes)
             {
+                bChanged = true;
                 if (nav.m_eButtons == Navigation.eButtons.OkCancel)
                 {
                     SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
@@ -641,6 +648,21 @@ namespace PriseLists
                     }
                 }
             }
+        }
+
+        private void usrc_EditTable_Shop_Prices_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        {
+            bChanged = true;
+        }
+
+        private void usrc_EditTable_Shop_Prices_after_InsertInDataBase(SQLTable m_tbl, long ID, bool bRes)
+        {
+            bChanged = true;
+        }
+
+        private void usrc_EditTable_PriceList_after_UpdateDataBase(SQLTable m_tbl, long ID, bool bRes)
+        {
+            bChanged = true;
         }
     }
 }

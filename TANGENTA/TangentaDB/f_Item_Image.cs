@@ -66,5 +66,33 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        internal static bool Get(long Item_Image_ID, ref Image item_Image, ref string_v item_Image_Hash_v)
+        {
+            DataTable dt = new DataTable();
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            string spar_ID = "@par_ID";
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Item_Image_ID);
+            lpar.Add(par_ID);
+            string sql = "select Image_Data,Image_Hash from Item_Image where ID = " + spar_ID;
+            item_Image = null;
+            item_Image_Hash_v = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    byte_array_v image_bytes_v = tf.set_byte_array(dt.Rows[0]["Image_Data"]);
+                    item_Image = DBTypes.func.byteArrayToImage(image_bytes_v.v);
+                    item_Image_Hash_v = tf.set_string(dt.Rows[0]["Image_Hash"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Item_Image:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

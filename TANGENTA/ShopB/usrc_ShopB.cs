@@ -763,6 +763,7 @@ namespace ShopB
 
             string Err = null;
             dt_ShopBItem.Clear();
+            dt_ShopBItem.Columns.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_ShopBItem, sql_ShopBItem, ref Err))
             {
                 iCount = dt_ShopBItem.Rows.Count;
@@ -904,7 +905,8 @@ namespace ShopB
                         {
                             NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation();
                             nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit);
+                            bool bPriceListChanged = false;
+                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit, ref bPriceListChanged);
                         }
                     }
                 }
@@ -1011,6 +1013,13 @@ namespace ShopB
                 dgv_ShopB_Items.Width = m_usrc_Item_Group_Handler.Left - dgv_ShopB_Items.Left-2;
             }
 
+        }
+
+        private void usrc_PriceList1_PriceListChanged()
+        {
+            int iCount = 0;
+            this.GetShopBItemData(ref iCount);
+            SetGroups(m_PriceList_id);
         }
     }
 }

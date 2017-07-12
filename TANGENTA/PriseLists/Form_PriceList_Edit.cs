@@ -26,6 +26,12 @@ namespace PriseLists
         SQLTable m_tbl_PriceList = null;
         private bool bEditUndefined = false;
         NavigationButtons.Navigation nav = null;
+        public bool Changed
+        {
+            get { return this.usrc_PriceList_Edit.Changed; }
+        }
+
+
         public Form_PriceList_Edit(bool xbEditUndefined,usrc_PriceList_Edit.eShopType xeShopType,NavigationButtons.Navigation xnav)
         {
             InitializeComponent();

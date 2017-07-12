@@ -91,5 +91,41 @@ namespace TangentaDB
                 return true;
             }
         }
+
+        internal static bool Get(long Warranty_ID, ref Warranty_v warranty_v)
+        {
+            warranty_v = null;
+
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+
+            string spar_ID = "@par_ID";
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Warranty_ID);
+            lpar.Add(par_ID);
+
+            string sql = "select WarrantyDuration,WarrantyDurationType,WarrantyConditions from Warranty where ID = " + spar_ID;
+
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    if (warranty_v == null)
+                    {
+                        warranty_v = new Warranty_v();
+                    }
+                    warranty_v.WarrantyDuration = tf._set_int(dt.Rows[0]["WarrantyDuration"]);
+                    warranty_v.WarrantyDurationType = tf._set_int(dt.Rows[0]["WarrantyDurationType"]);
+                    warranty_v.WarrantyConditions = tf._set_string(dt.Rows[0]["WarrantyConditions"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Warranty:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

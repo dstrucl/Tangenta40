@@ -37,12 +37,12 @@
             this.pnl_DataGrid = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dgv_ShopB_Items = new System.Windows.Forms.DataGridView();
+            this.m_usrc_Item_Group_Handler = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
             this.lbl_ShopB_Name = new System.Windows.Forms.Label();
             this.lbl_GroupPath = new System.Windows.Forms.Label();
             this.btn_edit_ShopB_Items = new System.Windows.Forms.Button();
             this.lbl_ShopB_Items = new System.Windows.Forms.Label();
             this.usrc_PriceList1 = new PriseLists.usrc_PriceList();
-            this.m_usrc_Item_Group_Handler = new usrc_Item_Group_Handler.usrc_Item_Group_Handler();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -168,6 +168,19 @@
             this.dgv_ShopB_Items.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ShopB_Items_CellMouseLeave);
             this.dgv_ShopB_Items.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_ShopB_Items_CellMouseUp);
             // 
+            // m_usrc_Item_Group_Handler
+            // 
+            this.m_usrc_Item_Group_Handler.Button_Height = 32;
+            this.m_usrc_Item_Group_Handler.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_usrc_Item_Group_Handler.Font_Height = 10;
+            this.m_usrc_Item_Group_Handler.Location = new System.Drawing.Point(0, 0);
+            this.m_usrc_Item_Group_Handler.Name = "m_usrc_Item_Group_Handler";
+            this.m_usrc_Item_Group_Handler.ShopName = "";
+            this.m_usrc_Item_Group_Handler.Size = new System.Drawing.Size(145, 409);
+            this.m_usrc_Item_Group_Handler.TabIndex = 20;
+            this.m_usrc_Item_Group_Handler.GroupsRedefined += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_GroupsRedefined(this.usrc_Item_Group_Handler_GroupsRedefined);
+            this.m_usrc_Item_Group_Handler.PaintGroup += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_PaintGroup(this.usrc_Item_Group_Handler_GroupChanged);
+            // 
             // lbl_ShopB_Name
             // 
             this.lbl_ShopB_Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -222,19 +235,7 @@
             this.usrc_PriceList1.Name = "usrc_PriceList1";
             this.usrc_PriceList1.Size = new System.Drawing.Size(278, 24);
             this.usrc_PriceList1.TabIndex = 22;
-            // 
-            // m_usrc_Item_Group_Handler
-            // 
-            this.m_usrc_Item_Group_Handler.Button_Height = 32;
-            this.m_usrc_Item_Group_Handler.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_Item_Group_Handler.Font_Height = 10;
-            this.m_usrc_Item_Group_Handler.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_Item_Group_Handler.Name = "m_usrc_Item_Group_Handler";
-            this.m_usrc_Item_Group_Handler.ShopName = "";
-            this.m_usrc_Item_Group_Handler.Size = new System.Drawing.Size(145, 409);
-            this.m_usrc_Item_Group_Handler.TabIndex = 20;
-            this.m_usrc_Item_Group_Handler.GroupsRedefined += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_GroupsRedefined(this.usrc_Item_Group_Handler_GroupsRedefined);
-            this.m_usrc_Item_Group_Handler.PaintGroup += new usrc_Item_Group_Handler.usrc_Item_Group_Handler.delegate_PaintGroup(this.usrc_Item_Group_Handler_GroupChanged);
+            this.usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             // 
             // usrc_ShopB
             // 

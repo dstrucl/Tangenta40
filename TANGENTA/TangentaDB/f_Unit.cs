@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBTypes;
 
 namespace TangentaDB
 {
@@ -73,6 +74,49 @@ namespace TangentaDB
             else
             {
                 LogFile.Error.Show("ERROR:f_Unit:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
+        internal static bool Get(long Unit_ID,
+                                 ref string_v unit_Name_v,
+                                 ref string_v unit_Symbol_v,
+                                 ref int_v unit_DecimalPlaces_v,
+                                 ref bool_v unit_StorageOption_v,
+                                 ref string_v unit_Description_v)
+        {
+
+            unit_Name_v = null;
+            unit_Symbol_v = null;
+            unit_StorageOption_v = null;
+            unit_DecimalPlaces_v = null;
+            unit_Description_v = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+
+            string spar_ID = "@par_ID";
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Unit_ID);
+            lpar.Add(par_ID);
+
+            string sql = "select Name,Symbol,DecimalPlaces,StorageOption,Description from Unit where ID = " + spar_ID;
+
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    unit_Name_v = tf.set_string(dt.Rows[0]["Name"]);
+                    unit_Symbol_v = tf.set_string(dt.Rows[0]["Symbol"]);
+                    unit_DecimalPlaces_v = tf.set_int(dt.Rows[0]["DecimalPlaces"]);
+                    unit_StorageOption_v = tf.set_bool(dt.Rows[0]["StorageOption"]);
+                    unit_Description_v = tf.set_string(dt.Rows[0]["Description"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_Unit:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

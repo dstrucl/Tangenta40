@@ -327,11 +327,8 @@ namespace ShopC
                     {
                         if (f_PriceList.Insert_ShopC_Items_in_PriceList(dt_ShopC_Items_NotIn_PriceList, this))
                         {
-                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit);
-                            if (PriceListChanged != null)
-                            {
-                                PriceListChanged();
-                            }
+                            bool bPriceListChanged = false;
+                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit, ref bPriceListChanged);
                         }
                     }
                     else
@@ -340,7 +337,8 @@ namespace ShopC
                         f_PriceList.CheckPriceUndefined_ShopC(ref bEdit);
                         if (bEdit)
                         {
-                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit);
+                            bool bPriceListChanged = false;
+                            this.usrc_PriceList1.PriceList_Edit(true, nav_PriceList_Edit, ref bPriceListChanged);
                         }
                     }
                 }
@@ -353,7 +351,9 @@ namespace ShopC
             return edt_Item_dlg.Changed;
         }
 
-
-
+        private void usrc_PriceList1_PriceListChanged()
+        {
+            usrc_ItemList.Get_Price_Item_Stock_Data(this.usrc_PriceList1.ID);
+        }
     }
 }

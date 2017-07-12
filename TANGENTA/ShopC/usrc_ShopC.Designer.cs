@@ -71,6 +71,7 @@
             this.usrc_Atom_ItemsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_Atom_ItemsList.DocInvoice = "DocInvoice";
             this.usrc_Atom_ItemsList.Location = new System.Drawing.Point(5, 6);
             this.usrc_Atom_ItemsList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_Atom_ItemsList.Name = "usrc_Atom_ItemsList";
@@ -83,6 +84,7 @@
             this.usrc_ItemList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.usrc_ItemList.DocInvoice = "DocInvoice";
             this.usrc_ItemList.Location = new System.Drawing.Point(1, 6);
             this.usrc_ItemList.Margin = new System.Windows.Forms.Padding(5);
             this.usrc_ItemList.Name = "usrc_ItemList";
@@ -155,6 +157,7 @@
             this.usrc_PriceList1.Name = "usrc_PriceList1";
             this.usrc_PriceList1.Size = new System.Drawing.Size(278, 24);
             this.usrc_PriceList1.TabIndex = 22;
+            this.usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             // 
             // usrc_ShopC
             // 

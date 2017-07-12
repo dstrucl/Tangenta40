@@ -26,6 +26,8 @@ namespace PriseLists
         private usrc_PriceList_Edit.eShopType m_eShopType;
 
         public TangentaDB.xPriceList m_xPriceList = null;
+        public delegate void delegate_PriceListChanged();
+        public event delegate_PriceListChanged PriceListChanged = null;
 
         public usrc_PriceList()
         {
@@ -71,7 +73,8 @@ namespace PriseLists
             {
                 if (xnav.LastStartupDialog_TYPE.Equals("TangentaSampleDB.Form_Items_Samples"))
                 {
-                    return DoEditPriceList(Currency_ID, xnav, ref Err);
+                    bool bChanged = false;
+                    return DoEditPriceList(Currency_ID, xnav,ref bChanged, ref Err);
                 }
             }
 
@@ -100,7 +103,8 @@ namespace PriseLists
                         }
                         if (bDialogResult)
                         {
-                            return DoEditPriceList(Currency_ID, xnav, ref Err);
+                            bool bChanged = false;
+                            return DoEditPriceList(Currency_ID, xnav,ref bChanged, ref Err);
                         }
                     }
                 }
@@ -113,8 +117,9 @@ namespace PriseLists
             }
         }
 
-        private bool DoEditPriceList(long Currency_ID,NavigationButtons.Navigation xnav, ref string Err)
+        private bool DoEditPriceList(long Currency_ID,NavigationButtons.Navigation xnav,ref bool   Changed,  ref string Err)
         {
+            Changed = false;
             Form_PriceList_Edit PriceListType_Edit_dlg = null;
             NavigationButtons.Navigation nav_Form_PriceList_Edit = null;
             if (xnav == null)
@@ -136,6 +141,7 @@ namespace PriseLists
                 xnav.ChildDialog = PriceListType_Edit_dlg;
             }
             nav_Form_PriceList_Edit.ShowDialog();
+            Changed = ((Form_PriceList_Edit)nav_Form_PriceList_Edit.ChildDialog).Changed;
             if ((nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (nav_Form_PriceList_Edit.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
             {
                 if (m_xPriceList.Get_PriceLists_of_Currency(Currency_ID, ref xPriceList_Count, ref Err))
@@ -167,6 +173,7 @@ namespace PriseLists
 
         private void btn_PriceListType_Click(object sender, EventArgs e)
         {
+            bool bPriceListChanged = false;
             this.Cursor = Cursors.WaitCursor;
             Control pctrl = null;
             if (this.Parent!=null)
@@ -176,21 +183,31 @@ namespace PriseLists
             }
             NavigationButtons.Navigation nav_PriceList_Edit = new NavigationButtons.Navigation();
             nav_PriceList_Edit.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            PriceList_Edit(false, nav_PriceList_Edit);
+            PriceList_Edit(false, nav_PriceList_Edit, ref bPriceListChanged);
             this.Cursor = Cursors.Arrow;
             if (pctrl != null)
             {
                 pctrl.Cursor = Cursors.Arrow;
             }
+            if (bPriceListChanged)
+            {
+                if (PriceListChanged!=null)
+                {
+                    PriceListChanged();
+                }
+            }
         }
 
-        public void PriceList_Edit(bool bEditUndefined,NavigationButtons.Navigation xnav)
+        public void PriceList_Edit(bool bEditUndefined,NavigationButtons.Navigation xnav, ref bool bChanged)
         {
+
             string Err = null;
+            bChanged = false;
             int xPriceListType_Count = 0;
             Form_PriceList_Edit PriceList_Edit_dlg = new Form_PriceList_Edit(bEditUndefined, m_eShopType, xnav);
             if (PriceList_Edit_dlg.ShowDialog() == DialogResult.OK)
             {
+                bChanged = PriceList_Edit_dlg.Changed;
                 if (m_xPriceList.Get_PriceLists_of_Currency(m_Currency_ID, ref xPriceListType_Count, ref Err))
                 {
                     if (xPriceListType_Count > 0)
