@@ -40,6 +40,14 @@ namespace TangentaDB
             }
         }
 
+        /// <summary>
+        /// Gets ShopC Items of DocInvoice_ID
+        /// </summary>
+        /// <param name="DocInvoice">prefix string of DocInvoice or DocProformaInvoice table (can be:"DocInvoice" and "DocProformaInvoice")</param>
+        /// <param name="DocInvoice_ID">ID of row in DocInvoice or DocProformaInvoice table)</param>
+        /// <param name="xDocInvoice_ShopC_Item_Data_LIST">output list of  item objects</param>
+        /// <returns>Return true if no DB error
+        ///</returns>
         public bool Read_ShopC_Price_Item_Stock_Table(string DocInvoice,long DocInvoice_ID, ref List<object> xDocInvoice_ShopC_Item_Data_LIST)
         {
             string Err = null;
@@ -223,6 +231,14 @@ namespace TangentaDB
             }
         }
 
+        /// <summary>
+        /// Gets ShopC Items of DocInvoice_ID
+        /// </summary>
+        /// <param name="DocInvoice">prefix string of DocInvoice or DocProformaInvoice table (can be:"DocInvoice" and "DocProformaInvoice")</param>
+        /// <param name="xdtDraft_DocInvoice_Atom_Item_Stock">table of ShopC Items for particular DocInvoice_ID </param>
+        /// <param name="xDocInvoice_ShopC_Item_Data_LIST">output list of  item objects</param>
+        /// <returns>void
+        ///</returns>
         public void Parse_Atom_DocInvoice_Item_Stock(string DocInvoice,DataTable xdtDraft_DocInvoice_Atom_Item_Stock, ref List<object> xDocInvoice_ShopC_Item_Data_LIST)
         {
             int i = 0;
@@ -337,11 +353,10 @@ namespace TangentaDB
                         //this item was taken directly from factory
                     }
 
-                    //if (!xCurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(docInvoice, ref xShopC_Data_Item, true))
-                    //{
-                      //  return false;
-                    //}
-                    
+                    if (!xCurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(docInvoice, ref xShopC_Data_Item, true))
+                    {
+                      return false;
+                    }
                 }
             }
             return true;

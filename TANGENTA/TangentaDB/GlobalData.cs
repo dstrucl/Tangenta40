@@ -32,11 +32,11 @@ namespace TangentaDB
         public static long Atom_myOrganisation_Person_ID = -1;
         public static long Atom_WorkPeriod_ID = -1;
 
-        public static JOURNAL_DocInvoice_Type_definitions JOURNAL_DocInvoice_Type_definitions = new JOURNAL_DocInvoice_Type_definitions();
-        public static JOURNAL_DocProformaInvoice_Type_definitions JOURNAL_DocProformaInvoice_Type_definitions = new JOURNAL_DocProformaInvoice_Type_definitions();
-        public static doc_page_type_definitions doc_page_type_definitions = new doc_page_type_definitions();
-        public static doc_type_definitions doc_type_definitions = new doc_type_definitions();
-        public static Language_definitions language_definitions = new Language_definitions();
+        public static JOURNAL_DocInvoice_Type_definitions JOURNAL_DocInvoice_Type_definitions = null;
+        public static JOURNAL_DocProformaInvoice_Type_definitions JOURNAL_DocProformaInvoice_Type_definitions = null;
+        public static doc_page_type_definitions doc_page_type_definitions = null;
+        public static doc_type_definitions doc_type_definitions = null;
+        public static Language_definitions language_definitions = null;
 
         public static xCurrency BaseCurrency = null;
 
@@ -45,6 +45,16 @@ namespace TangentaDB
 
         public enum ePaymentType : int { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD, BANK_ACCOUNT_TRANSFER, CASH_OR_PAYMENT_CARD };
         public static string[] sPaymentTypes = new string[] { "NONE", "CASH", "ALLREADY_PAID", "PAYMENT_CARD", "BANK_ACCOUNT_TRANSFER", "CASH_OR_PAYMENT_CARD" };
+
+        public static void Init()
+        {
+            JOURNAL_DocInvoice_Type_definitions = new JOURNAL_DocInvoice_Type_definitions();
+            JOURNAL_DocProformaInvoice_Type_definitions = new JOURNAL_DocProformaInvoice_Type_definitions();
+            doc_page_type_definitions = new doc_page_type_definitions();
+            doc_type_definitions = new doc_type_definitions();
+            language_definitions = new Language_definitions();
+        }
+
 
         public static ePaymentType Get_ePaymentType(string sPaymentType, ref string Err)
         {

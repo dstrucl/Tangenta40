@@ -24,24 +24,32 @@ namespace ShopC
 {
     public partial class usrc_ShopC : UserControl
     {
+        /// <summary>
+        /// eMode eMode { VIEW, EDIT }: VIEW mode is for closed documents (invoices, proforma invoices etc..)
+        ///                             EDIT mode is for draft documents only
+        /// </summary>
         public enum eMode { VIEW, EDIT };
 
 
         public delegate void delegate_ItemAdded();
+
+        /// <summary>
+        /// Raised After Item is added
+        /// </summary>
         public event delegate_ItemAdded ItemAdded = null;
 
         public delegate void delegate_After_Atom_Item_Remove();
+
+        /// <summary>
+        /// Raised After Atom Item Removed
+        /// </summary>
         public event delegate_After_Atom_Item_Remove After_Atom_Item_Remove = null;
 
-        public delegate void delegate_PriceListChanged();
-        public event delegate_PriceListChanged PriceListChanged = null;
-        
 
         DataTable dt_Item = new DataTable();
         private TangentaDB.ShopABC m_InvoiceDB = null;
         private DBTablesAndColumnNames DBtcn = null;
         public NavigationButtons.Navigation nav = null;
-        // private usrc_Invoice m_usrc_Invoice = null;
         private string m_DocInvoice = "DocInvoice";
 
         public string DocInvoice
@@ -96,9 +104,6 @@ namespace ShopC
 
         public void Init(TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, string ShopsInUse, NavigationButtons.Navigation xnav)
         {
-            //Program.iGDIcUser502 = Program.getGuiResourcesUserCount();
-
-            //m_usrc_Invoice = x_usrc_Invoice;
             m_InvoiceDB = xm_InvoiceDB;
 
             DBtcn = xDBtcn;
@@ -231,8 +236,6 @@ namespace ShopC
                 }
 
             }
-            //Init(m_InvoiceDB, DBtcn, m_usrc_Invoice);
-            //this.usrc_ItemList.Get_Price_Item_Data(PriceList_ID);
         }
 
         internal bool CountInBaskets(ref decimal count_in_baskets)

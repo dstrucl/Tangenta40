@@ -248,14 +248,8 @@ namespace TangentaDB
                 m_cpis.Set(dt_Price_Item_Stock);
                 Set();
 
-                //Program.iGDIcUser101 = Program.getGuiResourcesUserCount();
-
-                //Program.iGDIcUser102 = Program.getGuiResourcesUserCount();
-
                 dt_Price_Item_Group.Clear();
                 dt_Price_Item_Group.Columns.Clear();
-                //Program.iGDIcUser103 = Program.getGuiResourcesUserCount();
-                //Program.iGDIcUser104 = Program.getGuiResourcesUserCount();
                 return true;
             }
             else
@@ -266,6 +260,12 @@ namespace TangentaDB
 
         }
 
+        /// <summary>
+        /// Get item groups of  Price List into the table dt_Price_Item_Group<br/>
+        /// </summary>
+        /// <param name="PriceList_ID">ID of PriceList table (table PriceList)</param>
+        /// <returns>Return true if no DB error
+        ///</returns>
         public bool GetGroupsTable(long PriceList_ID)
         {
             string sql = @"select 
