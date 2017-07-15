@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LanguageControl;
+using TangentaDB;
 
 namespace Tangenta
 {
@@ -204,7 +205,19 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before SetFinancialYears()");
 
-            SetFinancialYears();
+            cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
+            int Default_FinancialYear = Properties.Settings.Default.FinancialYear;
+            if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref dt_FinancialYears,IsDocInvoice,IsDocProformaInvoice,ref Default_FinancialYear))
+            {
+                Properties.Settings.Default.FinancialYear = Default_FinancialYear;
+                Properties.Settings.Default.Save();
+                cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:Tangenta:usrc_InvoiceMan:Init:GlobalData.SetFinancialYears Failed!");
+                return false;
+            }
 
 
 
@@ -244,40 +257,7 @@ namespace Tangenta
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():End procedure ");
             return true;
         }
-        private bool SetFinancialYears()
-        {
-            cmb_FinancialYear.SelectedIndexChanged -= Cmb_FinancialYear_SelectedIndexChanged;
-            string sql = "select distinct FinancialYear from DocInvoice";
-            string Err = null;
-            dt_FinancialYears.Clear();
-            if (DBSync.DBSync.ReadDataTable(ref dt_FinancialYears,sql,ref Err))
-            {
-                int CurrentYear = DateTime.Now.Year;
-                if (!FinancialYearExist(dt_FinancialYears, CurrentYear))
-                {
-                    DataRow dr = dt_FinancialYears.NewRow();
-                    dr["FinancialYear"] = CurrentYear;
-                    dt_FinancialYears.Rows.Add(dr);
-                }
-                cmb_FinancialYear.DataSource = dt_FinancialYears;
-                cmb_FinancialYear.DisplayMember = "FinancialYear";
-                cmb_FinancialYear.ValueMember = "FinancialYear";
-                if (Properties.Settings.Default.FinancialYear==0)
-                {
-                    Properties.Settings.Default.FinancialYear = DateTime.Now.Year;
-                    Properties.Settings.Default.Save();
-                }
-                SelectFinancialYear(Properties.Settings.Default.FinancialYear);
-                //CheckFinancialYear()
-                cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
-                return true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:usrc_Invoice_Man:SetFinancialYears:Err="+Err);
-                return false;
-            }
-        }
+
 
         private void Cmb_FinancialYear_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -295,37 +275,7 @@ namespace Tangenta
         }
 
 
-        private void SelectFinancialYear(int financialYear)
-        {
-            
-            foreach (object oItem in cmb_FinancialYear.Items)
-            {
-                if (oItem is System.Data.DataRowView)
-                {
-                    System.Data.DataRowView drv = (System.Data.DataRowView)oItem;
-                    if (drv["FinancialYear"] is int)
-                    {
-                        if (((int)drv["FinancialYear"])== financialYear)
-                        {
-                            cmb_FinancialYear.SelectedItem = oItem;
-                        }
-                    }
-                }
-            }
-                    
-        }
 
-        private bool FinancialYearExist(DataTable dt, int Year)
-        {
-            foreach (DataRow dr in dt.Rows)
-            {
-                if ((int)dr["FinancialYear"] == Year)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
 
 
         private void m_usrc_Invoice_DocInvoiceSaved(long DocInvoice_id)
@@ -364,10 +314,10 @@ namespace Tangenta
                     break;
 
                 case Form_NewDocument.e_NewDocument.New_Copy_Of_SameDocType:
-                    New_Copy_Of_SameDocType();
+                    New_Copy_Of_SameDocType(frm_new.FinancialYear);
                     break;
                 case Form_NewDocument.e_NewDocument.New_Copy_To_Another_DocType:
-                    New_Copy_To_Another_DocType();
+                    New_Copy_To_Another_DocType(frm_new.FinancialYear);
                     break;
             }
         }
@@ -400,7 +350,7 @@ namespace Tangenta
         }
 
 
-        private void New_Copy_To_Another_DocType()
+        private void New_Copy_To_Another_DocType(int xFinancialYear)
         {
             Program.Cursor_Wait();
             if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
@@ -409,10 +359,10 @@ namespace Tangenta
                 Tangenta.usrc_Invoice.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
                 if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
                 {
-                    System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
-                    int FinancialYear = (int)drv.Row.ItemArray[0];
+                    //System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
+                    //int FinancialYear = (int)drv.Row.ItemArray[0];
 
-                    m_usrc_Invoice.SetNewDraft(eInvType, FinancialYear);
+                    m_usrc_Invoice.SetNewDraft(eInvType, xFinancialYear);
                     DateTime dtStart = DateTime.Now;
                     DateTime dtEnd = DateTime.Now;
                     m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
@@ -428,7 +378,7 @@ namespace Tangenta
             Program.Cursor_Arrow();
         }
 
-        private void New_Copy_Of_SameDocType()
+        private void New_Copy_Of_SameDocType(int xFinancialYear)
         {
             Program.Cursor_Wait();
             if (cmb_InvoiceType.SelectedItem is Tangenta.usrc_Invoice.InvoiceType)
@@ -437,8 +387,8 @@ namespace Tangenta
                 Tangenta.usrc_Invoice.enum_Invoice eInvType = xInvoiceType.eInvoiceType;
                 if (cmb_FinancialYear.SelectedItem is System.Data.DataRowView)
                 {
-                    System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
-                    int FinancialYear = (int)drv.Row.ItemArray[0];
+                    //System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
+                    //int FinancialYear = (int)drv.Row.ItemArray[0];
                     List<object> xShopC_Data_Item_List = new List<object>();
                     if (this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.m_Basket.Read_ShopC_Price_Item_Stock_Table(DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xShopC_Data_Item_List))
                     {
@@ -448,7 +398,7 @@ namespace Tangenta
                             DataTable xdt_ShopA_Items = new DataTable();
                             if (ShopA_dbfunc.dbfunc.Read_ShopA_Price_Item_Table(DocInvoice, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref xdt_ShopA_Items))
                             {
-                                m_usrc_Invoice.SetNewDraft(eInvType, FinancialYear);
+                                m_usrc_Invoice.SetNewDraft(eInvType, xFinancialYear);
                                 DateTime dtStart = DateTime.Now;
                                 DateTime dtEnd = DateTime.Now;
                                 m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
@@ -461,12 +411,19 @@ namespace Tangenta
                                                                                                                                         xShopC_Data_Item_List,
                                                                                                                                         this.m_usrc_Invoice.m_usrc_ShopC.AutomaticSelectionOfItemsFromStock,
                                                                                                                                         this.m_usrc_Invoice.m_usrc_ShopC.proc_Select_ShopC_Item_from_Stock,
-                                                                                                                                        this.m_usrc_Invoice.m_usrc_ShopC.proc_Item_Not_In_Offer
-
-                                                                                                                                        ))
+                                                                                                                                        this.m_usrc_Invoice.m_usrc_ShopC.proc_Item_Not_In_Offer))
                                         {
                                             case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
-                                                m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear);
+                                                Properties.Settings.Default.FinancialYear = this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear;
+                                                Properties.Settings.Default.Save();
+                                                m_usrc_InvoiceTable.Init(eInvType, true, false, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear);
+                                                cmb_FinancialYear.SelectedIndexChanged  -= Cmb_FinancialYear_SelectedIndexChanged;
+                                                GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear);
+                                                cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
+                                                if (this.m_usrc_Invoice.m_usrc_ShopC != null)
+                                                {
+                                                    this.m_usrc_Invoice.m_usrc_ShopC.usrc_ItemList.Paint_Current_Group();
+                                                }
                                                 break;
                                             case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_NO_ITEM_IN_DB:
                                                 LogFile.Error.Show("ERROR:usrc_InvoiceMan:New_Copy_Of_SameDocType:ERROR_NO_ITEM_IN_DB ");

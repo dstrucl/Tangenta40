@@ -250,17 +250,26 @@ namespace ShopC
             }
         }
 
-        private void m_usrc_Item_Group_Handler_GroupChanged(string[] s_name)
+        private void Paint_Group(string[] s_name)
         {
-            s_name_Group = s_name;
-
             if (m_ShopBC.m_CurrentInvoice.m_ShopShelf.Load(m_PriceList_ID, s_name))
             {
                 lbl_GroupPath.Text = m_usrc_Item_Group_Handler.GroupPath;
                 m_usrc_Item_PageHandler.Init(m_ShopBC.m_CurrentInvoice.m_ShopShelf.items, 5, usrc_Item_aray);
             }
-
         }
+
+        private void m_usrc_Item_Group_Handler_GroupChanged(string[] s_name)
+        {
+            s_name_Group = s_name;
+            Paint_Group(s_name_Group);
+        }
+
+        public void Paint_Current_Group()
+        {
+            Paint_Group(s_name_Group);
+        }
+
 
         internal bool Show(TangentaDB.Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {

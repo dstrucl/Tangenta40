@@ -42,7 +42,7 @@
             this.lbl_ExpiryDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_ExpiryDate.Location = new System.Drawing.Point(4, 5);
             this.lbl_ExpiryDate.Name = "lbl_ExpiryDate";
-            this.lbl_ExpiryDate.Size = new System.Drawing.Size(397, 44);
+            this.lbl_ExpiryDate.Size = new System.Drawing.Size(505, 44);
             this.lbl_ExpiryDate.TabIndex = 0;
             this.lbl_ExpiryDate.Text = "label1";
             // 
@@ -80,7 +80,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(405, 128);
+            this.ClientSize = new System.Drawing.Size(513, 128);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.dateTimePicker);

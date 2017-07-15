@@ -22,7 +22,8 @@ namespace TangentaDB
         public delegate bool delegate_Select_ShopC_Item_in_Stock(string DocInvoice,
                                                                   DataTable dt_ShopC_Item_in_Stock,
                                                                   Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item,
-                                                                  decimal dQuantity,
+                                                                  decimal dStockQuantity,
+                                                                  decimal dFromFactoryQuantity,
                                                                   ref decimal dQuantitySelected, 
                                                                   ref bool bOK);
         public delegate void delegate_Item_Not_InOffer(ShopC_Item shopC_Item);
@@ -351,9 +352,8 @@ namespace TangentaDB
                         //this item was taken directly from factory
                     }
 
-                    decimal dShopCItemCount = dStockCount + dFromFactoryCount;
                     decimal dQuantitySelected = 0;
-                    if (!CopyShopCItemInNewDocInvoice(docInvoice, xCurrentInvoice.Doc_ID, xShopC_Data_Item,shopC_Item, dShopCItemCount,ref dQuantitySelected, bSelectItemsFromStockInDialog, proc_Select_ShopC_Item_in_Stock))
+                    if (!CopyShopCItemInNewDocInvoice(docInvoice, xCurrentInvoice.Doc_ID, xShopC_Data_Item,shopC_Item, dStockCount, dFromFactoryCount, ref dQuantitySelected, bSelectItemsFromStockInDialog, proc_Select_ShopC_Item_in_Stock))
                     {
                         return eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_DB;
                     }
@@ -368,7 +368,8 @@ namespace TangentaDB
                                                   long doc_ID,
                                                   Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item,
                                                   ShopC_Item shopC_Item,
-                                                  decimal dQuantity,
+                                                  decimal dStockCount,
+                                                  decimal dFromFactoryCount,
                                                   ref decimal dQuantitySelected,
                                                   bool bAutomaticSelectItemsFromStock,
                                                   delegate_Select_ShopC_Item_in_Stock proc_Select_ShopC_Item_in_Stock)
@@ -377,7 +378,7 @@ namespace TangentaDB
           if (f_Stock.GetItemInStock(shopC_Item.Item_ID_v.v,ref dt_ShopC_Item_In_Stock))
           {
                 bool bDialogOk = false;
-                return proc_Select_ShopC_Item_in_Stock(docInvoice,dt_ShopC_Item_In_Stock, xShopC_Data_Item,dQuantity, ref dQuantitySelected, ref bDialogOk);
+                return proc_Select_ShopC_Item_in_Stock(docInvoice,dt_ShopC_Item_In_Stock, xShopC_Data_Item,dStockCount, dFromFactoryCount, ref dQuantitySelected, ref bDialogOk);
           }
           else
           {

@@ -500,7 +500,15 @@ namespace ShopC
 
         private bool EditStock_AvoidStock()
         {
-            Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(m_Item_Data.ExpiryDate);
+            DateTime_v ExpiryDate_v = m_Item_Data.ExpiryDate;
+            if (ExpiryDate_v == null)
+            {
+                DateTime dtNow = DateTime.Now;
+                DateTime dtExpiry = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day);
+                dtExpiry = dtExpiry.AddMonths(1);
+                ExpiryDate_v = new DateTime_v(dtExpiry);
+            }
+            Form_Stock_AvoidStock_Edit edt_Stock_AvoidStock_dlg = new Form_Stock_AvoidStock_Edit(ExpiryDate_v, m_Item_Data.Item_UniqueName.v);
             if (edt_Stock_AvoidStock_dlg.ShowDialog() == DialogResult.OK)
             {
                 m_Item_Data.ExpiryDate = DateTime_v.Copy(edt_Stock_AvoidStock_dlg.ExpiryDate);

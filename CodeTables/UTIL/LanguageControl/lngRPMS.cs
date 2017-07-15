@@ -315,12 +315,12 @@ namespace LanguageControl
         public static ltext PriceList_Name = new ltext("PRICE LIST CUSTOMERS", "CENIK STRANKE");
         public static ltext PriceList_Description = new ltext("Price list for usual customers.", "Cenik za stalne stranke.");
 
-        public static ltext ShopB_Item_Name_Item = new ltext("ShopBItem","ProdajalnaBArtikel");
-        public static ltext ShopB_Item_Abbreviation_SB = new ltext("Itm", "Art");
+        public static ltext ShopB_Item_Name_Item = new ltext("BItem","BArtikel");
+        public static ltext ShopB_Item_Abbreviation_SB = new ltext("BItem", "BArtikel");
         public static ltext ShopB_Item_ParentGroup = new ltext("ShopBGroup","ProdajalnaBSkupina" );
 
-        public static ltext ShopC_Item_Name_Item = new ltext("ShopCItem", "ProdajalnaCArtikel");
-        public static ltext ShopC_Item_Abbreviation_SB = new ltext("Itm", "Art");
+        public static ltext ShopC_Item_Name_Item = new ltext("CItem", "CArtikel");
+        public static ltext ShopC_Item_Abbreviation_SB = new ltext("CItem", "CArtikel");
 
         public static ltext ShopC_Item_UniquName_UniqueItemName1 = new ltext("UniqueItemName1", "UnikatnoImeArtikla1");
         public static ltext ShopC_Item_Name_ItemName1 = new ltext("ItemName1", "ImeArtikla1");

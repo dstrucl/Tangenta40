@@ -553,6 +553,8 @@ select_country:
             string Currency_Symbol = null;
             int Currency_Code = 0;
             int Currency_DecimalPlaces = 2;
+            int iItem1 = 0;
+            int iItem2 = 0;
 
             if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
             {
@@ -583,20 +585,20 @@ select_country:
                         {
                             for (i3 = 0; i3 < iNumberOfGroupsInLevel3; i3++)
                             {
-                                string sln3 = "L3g" + i3.ToString();
+                                string sln3 = " L3g" + i3.ToString();
                                 sl3 = "." + sln3;
                                 for (i2 = 0; i2 < iNumberOfGroupsInLevel2; i2++)
                                 {
-                                    string sln2 = sln3+"L2g" + i2.ToString();
+                                    string sln2 = sln3+" L2g" + i2.ToString();
                                     sl2 = "." + sln2;
                                     for (i1 = 0; i1 < iNumberOfGroupsInLevel1; i1++)
                                     {
-                                        string sln1 = sln3 + sln2+ "L1g" + i1.ToString();
+                                        string sln1 = sln3 + sln2+ " L1g" + i1.ToString();
                                         sl1 = "."+ sln1;
                                         for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                         {
-                                            ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sln1;
-                                            ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sln1;
+                                            ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sln1);
+                                            ShopB_Item_Name = SetBName(ref iItem2, ig, sln1);
                                             SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                                     ShopB_Item_Abbreviation,
                                                                     true,
@@ -625,8 +627,8 @@ select_country:
                                     }
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sln2;
-                                        ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sln2;
+                                        ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sln2);
+                                        ShopB_Item_Name = SetBName(ref iItem2, ig, sln2);
                                         SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                                 ShopB_Item_Abbreviation,
                                                                 true,
@@ -657,8 +659,8 @@ select_country:
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
 
-                                    ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sln3;
-                                    ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sln3;
+                                    ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sln3);
+                                    ShopB_Item_Name = SetBName(ref iItem2, ig, sln3);
                                     SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -687,8 +689,8 @@ select_country:
                             }
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + "noL1noL2noL3";
-                                ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + "noL1noL2noL3";
+                                ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, " noL1noL2noL3");
+                                ShopB_Item_Name = SetBName(ref iItem2, ig, " noL1noL2noL3");
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -725,8 +727,8 @@ select_country:
                                     sl1 = ".L1g" + i1.ToString();
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl2 + sl1;
-                                        ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() +  sl2 + sl1;
+                                        ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl2 + sl1);
+                                        ShopB_Item_Name = SetBName(ref iItem2, ig, sl2 + sl1);
                                         SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                                 ShopB_Item_Abbreviation,
                                                                 true,
@@ -759,8 +761,8 @@ select_country:
                                 sl2 = ".L2g" + i2.ToString() + "(...)";
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl2;
-                                    ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl2;
+                                    ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl2);
+                                    ShopB_Item_Name = SetBName(ref iItem2, ig, sl2);
                                     SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                             ShopB_Item_Abbreviation,
                                                             true,
@@ -790,8 +792,8 @@ select_country:
                             sl2 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl2;
-                                ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl2;
+                                ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl2);
+                                ShopB_Item_Name = SetBName(ref iItem2, ig, sl2);
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -825,8 +827,8 @@ select_country:
                                 sl1 = ".L1g" + i1.ToString();
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl1;
-                                    ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl1;
+                                    ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl1);
+                                    ShopB_Item_Name = SetBName(ref iItem2, ig, sl1);
                                     SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                             ShopB_Item_Abbreviation,
                                                             true,
@@ -856,8 +858,8 @@ select_country:
                             sl1 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl1;
-                                ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl1;
+                                ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl1);
+                                ShopB_Item_Name = SetBName(ref iItem2, ig, sl1);
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -889,8 +891,8 @@ select_country:
                             sl1 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = lngRPMS.ShopB_Item_Abbreviation_SB.s + ig.ToString() + sl1;
-                                ShopB_Item_Name = lngRPMS.ShopB_Item_Name_Item.s + ig.ToString() + sl1;
+                                ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl1);
+                                ShopB_Item_Name = SetBName(ref iItem2, ig, sl1);
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -1009,6 +1011,30 @@ select_country:
             }
         }
 
+        private string SetBAbbreviation(ref int iItem, int ig, string sufix)
+        {
+            iItem++;
+            return lngRPMS.ShopB_Item_Abbreviation_SB.s + iItem.ToString() + "    " + ig.ToString() + sufix;
+        }
+
+        private string SetBName(ref int iItem, int ig, string sufix)
+        {
+            iItem++;
+            return lngRPMS.ShopB_Item_Name_Item.s + iItem.ToString() + "    " + ig.ToString() + sufix;
+        }
+
+        private string SetCAbbreviation(ref int iItem, int ig, string sufix)
+        {
+            iItem++;
+            return lngRPMS.ShopC_Item_Abbreviation_SB.s + iItem.ToString() + "    " + ig.ToString() + sufix;
+        }
+
+        private string SetCName(ref int iItem, int ig, string sufix)
+        {
+            iItem++;
+            return lngRPMS.ShopC_Item_Name_Item.s + iItem.ToString() + "    " + ig.ToString() + sufix;
+        }
+
         public bool Write_ShopC_Items(NavigationButtons.Navigation xnav)
         {
             string Currency_Name = null;
@@ -1016,6 +1042,8 @@ select_country:
             string Currency_Symbol = null;
             int Currency_Code = 0;
             int Currency_DecimalPlaces = 2;
+            int iItem1 = 0;
+            int iItem2 = 0;
 
             if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
             {
@@ -1060,8 +1088,8 @@ select_country:
                                         sl1 = "." + sln1;
                                         for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                         {
-                                            ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sln1;
-                                            ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sln1;
+                                            ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sln1);
+                                            ShopC_Item_Name = SetCName(ref iItem2, ig, sln1);
 
                                             SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                            ShopC_Item_Name,
@@ -1108,8 +1136,8 @@ select_country:
                                     }
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sln2;
-                                        ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sln2;
+                                        ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sln2);
+                                        ShopC_Item_Name = SetCName(ref iItem2, ig, sln2);
                                         SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                        ShopC_Item_Name,
                                                                        ShopC_Item_Abbreviation,
@@ -1156,8 +1184,8 @@ select_country:
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
 
-                                    ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sln3;
-                                    ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sln3;
+                                    ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sln3);
+                                    ShopC_Item_Name = SetCName(ref iItem2, ig, sln3);
                                     SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                                                ShopC_Item_Name,
                                                                                                                ShopC_Item_Abbreviation,
@@ -1201,8 +1229,8 @@ select_country:
                             }
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + "noL1noL2noL3";
-                                ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + "noL1noL2noL3";
+                                ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, " noL1noL2noL3");
+                                ShopC_Item_Name = SetCName(ref iItem2, ig, " noL1noL2noL3");
                                 SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                                            ShopC_Item_Name,
                                                                                                            ShopC_Item_Abbreviation,
@@ -1254,8 +1282,8 @@ select_country:
                                     sl1 = ".L1g" + i1.ToString();
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sl2 + sl1;
-                                        ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sl2 + sl1;
+                                        ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl2 + sl1);
+                                        ShopC_Item_Name = SetCName(ref iItem2, ig, sl2 + sl1);
                                         SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                        ShopC_Item_Name,
                                                                        ShopC_Item_Abbreviation,
@@ -1304,8 +1332,8 @@ select_country:
                                 sl2 = ".L2g" + i2.ToString() + "(...)";
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sl2;
-                                    ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sl2;
+                                    ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl2);
+                                    ShopC_Item_Name = SetCName(ref iItem2, ig, sl2);
                                     SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                    ShopC_Item_Name,
                                                                    ShopC_Item_Abbreviation,
@@ -1351,8 +1379,8 @@ select_country:
                             sl2 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sl2;
-                                ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sl2;
+                                ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl2);
+                                ShopC_Item_Name = SetCName(ref iItem2, ig, sl2);
                                 SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                ShopC_Item_Name,
                                                                ShopC_Item_Abbreviation,
@@ -1403,8 +1431,8 @@ select_country:
                                 sl1 = ".L1g" + i1.ToString();
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sl1;
-                                    ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sl1;
+                                    ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl1);
+                                    ShopC_Item_Name = SetCName(ref iItem2, ig, sl1);
                                     SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                                   ShopC_Item_Name,
                                                                                                   ShopC_Item_Abbreviation,
@@ -1450,8 +1478,8 @@ select_country:
                             sl1 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sl1;
-                                ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sl1;
+                                ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl1);
+                                ShopC_Item_Name = SetCName(ref iItem2, ig, sl1);
                                 SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                               ShopC_Item_Name,
                                                                                               ShopC_Item_Abbreviation,
@@ -1499,9 +1527,9 @@ select_country:
                             sl1 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopC_Item_Abbreviation = lngRPMS.ShopC_Item_Abbreviation_SB.s + ig.ToString() + sl1;
-                                ShopC_Item_Name = lngRPMS.ShopC_Item_Name_Item.s + ig.ToString() + sl1;
-                                SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
+                                ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl1);
+                                ShopC_Item_Name = SetCName(ref iItem2, ig, sl1);
+                                                         SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                                                              ShopC_Item_Name,
                                                                                                                              ShopC_Item_Abbreviation,
                                                                                                                              new int_v(1),

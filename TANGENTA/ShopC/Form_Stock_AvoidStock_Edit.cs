@@ -25,11 +25,11 @@ namespace ShopC
         public DateTime_v ExpiryDate = null;
         DataTable dt_Stock = new DataTable();
 
-        public Form_Stock_AvoidStock_Edit(DateTime_v xExpiryDate)
+        public Form_Stock_AvoidStock_Edit(DateTime_v xExpiryDate, string Item_UniqueName)
         {
             InitializeComponent();
             lngRPM.s_ExpiryDateFormText.Text(this);
-            lngRPM.s_PleaseDefineExpiryDate.Text(this.lbl_ExpiryDate);
+            lngRPM.s_PleaseDefineExpiryDateForItem.Text(this.lbl_ExpiryDate,":"+ Item_UniqueName);
             lngRPM.s_Cancel.Text(btn_Cancel);
             lngRPM.s_OK.Text(this.btn_OK);
             ExpiryDate = xExpiryDate;

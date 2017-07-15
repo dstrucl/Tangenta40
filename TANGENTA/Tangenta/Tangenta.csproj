@@ -460,6 +460,18 @@
     <Compile Include="usrc_DocInvoice_AddOn.Designer.cs">
       <DependentUpon>usrc_DocInvoice_AddOn.cs</DependentUpon>
     </Compile>
+    <Compile Include="usrc_New_Copy_of_Another_DocType.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_New_Copy_of_Another_DocType.Designer.cs">
+      <DependentUpon>usrc_New_Copy_of_Another_DocType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usrc_New_Copy_of_Same_DocType.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usrc_New_Copy_of_Same_DocType.Designer.cs">
+      <DependentUpon>usrc_New_Copy_of_Same_DocType.cs</DependentUpon>
+    </Compile>
     <Compile Include="usrc_PurchasePriceList_Edit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -685,6 +697,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_DocInvoice_AddOn.resx">
       <DependentUpon>usrc_DocInvoice_AddOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_New_Copy_of_Another_DocType.resx">
+      <DependentUpon>usrc_New_Copy_of_Another_DocType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usrc_New_Copy_of_Same_DocType.resx">
+      <DependentUpon>usrc_New_Copy_of_Same_DocType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usrc_PurchasePriceList_Edit.resx">
       <DependentUpon>usrc_PurchasePriceList_Edit.cs</DependentUpon>

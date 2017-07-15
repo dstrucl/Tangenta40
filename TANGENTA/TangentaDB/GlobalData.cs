@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TangentaDB
 {
@@ -53,6 +54,79 @@ namespace TangentaDB
             doc_page_type_definitions = new doc_page_type_definitions();
             doc_type_definitions = new doc_type_definitions();
             language_definitions = new Language_definitions();
+        }
+
+
+        public static bool SetFinancialYears(ComboBox cmb_FinancialYear,ref DataTable dt_FinancialYears,bool IsDocInvoice,bool IsDocProformaInvoice,ref int Default_FinancialYear)
+        {
+            if (IsDocInvoice)
+            {
+                if (!f_DocInvoice.GetExistingFinancialYears(ref dt_FinancialYears))
+                {
+                    return false;
+                }
+
+            }
+            else if (IsDocProformaInvoice)
+            {
+                if (!f_DocProformaInvoice.GetExistingFinancialYears(ref dt_FinancialYears))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:GlobalData:SetFinancialYears:Unsupported DocInvoice");
+                return false;
+            }
+            int CurrentYear = DateTime.Now.Year;
+            if (!FinancialYearExist(dt_FinancialYears, CurrentYear))
+            {
+                DataRow dr = dt_FinancialYears.NewRow();
+                dr["FinancialYear"] = CurrentYear;
+                dt_FinancialYears.Rows.Add(dr);
+            }
+            cmb_FinancialYear.DataSource = dt_FinancialYears;
+            cmb_FinancialYear.DisplayMember = "FinancialYear";
+            cmb_FinancialYear.ValueMember = "FinancialYear";
+            if (Default_FinancialYear == 0)
+            {
+                Default_FinancialYear = DateTime.Now.Year;
+            }
+            SelectFinancialYear(cmb_FinancialYear,Default_FinancialYear);
+            return true;
+        }
+
+
+        public static void SelectFinancialYear(ComboBox cmb_FinancialYear,int financialYear)
+        {
+
+            foreach (object oItem in cmb_FinancialYear.Items)
+            {
+                if (oItem is System.Data.DataRowView)
+                {
+                    System.Data.DataRowView drv = (System.Data.DataRowView)oItem;
+                    if (drv["FinancialYear"] is int)
+                    {
+                        if (((int)drv["FinancialYear"]) == financialYear)
+                        {
+                            cmb_FinancialYear.SelectedItem = oItem;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static bool FinancialYearExist(DataTable dt, int Year)
+        {
+            foreach (DataRow dr in dt.Rows)
+            {
+                if ((int)dr["FinancialYear"] == Year)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 

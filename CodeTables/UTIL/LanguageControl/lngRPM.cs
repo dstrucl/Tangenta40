@@ -19,6 +19,7 @@ namespace LanguageControl
     {
         public static ltext s_Item_Not_In_Offer = new ltext("Item is not in offer any more!", "Artikel ni več v ponudbi!");
         public static ltext s_NotEnoughItemsInStock = new ltext("There is not enough items in stock", "Ni dovolj artikla (artiklov) v zalogah!");
+        public static ltext s_NotEnoughItemsInStock_DoIgnoreStockQuestion = new ltext("There is not enough items in stock!\r\nInsert items ignoring stock (Yes/No)?", "Ni dovolj artikla (artiklov) v zalogah!\r\nVnesi artikel mimo skladišča (Da/Ne)?");
         public static ltext s_YourSelectedQuantityIsNotEqualTo = new ltext("Selected quantity is not equal to requested quantity!", "Izbrana količina ni enaka zahtevani količini! ");
         public static ltext s_SelectedQuantity = new ltext("Selected quantity", "Izbrana količina");
         public static ltext s_Form_SelectItemFromStock = new ltext("Select Items from stock", "Izberi artikel iz zaloge");
@@ -194,6 +195,7 @@ namespace LanguageControl
         public static ltext s_SendtoDurs = new ltext("Send", "Pošlji");
         public static ltext s_Issuer_FirstName = new ltext("Issuer first name", "Ime blagajnika");
         public static ltext s_Issuer_LastName = new ltext("Issuer last name", "Priimek blagajnika");
+        public static ltext s_IntoFinancialYear = new ltext("Into Financial Year", "v poslovno leto");
         public static ltext s_FinancialYear = new ltext("Financial Year", "Poslovno leto");
         public static ltext s_NumberInFinancialYear = new ltext("Number in financial year", "Številka v obračunskem letu");
         public static ltext s_InvoiceNumber = new ltext("Invoice Number in Financial Year", "Številka računa v poslovnem letu");
@@ -594,7 +596,7 @@ namespace LanguageControl
         public static ltext s_DataChangedSaveYourData = new ltext("You have changed data. Save your work?", "Vnesli ste podatke.\r\nShranim vnešene podatke?");
         public static ltext s_DataChangedDoYouWantToCloseYesNo = new ltext("You have changed data. Do you want to cancel edit?", "Vnesli ste podatke.\r\nŽelite prekiniti vnos?");
         public static ltext s_ExpiryDateFormText = new ltext("Expiry Date", "Rok uporabe");
-        public static ltext s_PleaseDefineExpiryDate = new ltext("Define Expiry Date!", "Določite rok uporabe!");
+        public static ltext s_PleaseDefineExpiryDateForItem = new ltext("Define Expiry Date for Item", "Določite rok uporabe artiklu");
         public static ltext s_Manage_PriceLists = new ltext("Manage PRICE LISTS", "UREJANJE CENIKOV");
         public static ltext s_TaxationTableHasNoData_YouMustEnterData_close_anyway = new ltext("Taxation table has no data. You must have at least one taxation row data!\r\nDo you realy want to cancel? ", "Tabela davčnih stopenj je prazna.\r\nVnesti morate vsaj eno davčno stopnjo!Želite kljub temu zapustiti dialog?");
         public static ltext s_PriceList_SimpleItems = new ltext("Pricelist SimpleItems","CENIK STORITEV");

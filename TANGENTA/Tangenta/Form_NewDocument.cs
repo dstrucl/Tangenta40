@@ -16,6 +16,7 @@ namespace Tangenta
 
         usrc_InvoiceMan m_usrc_InvoiceMan = null;
         public e_NewDocument eNewDocumentResult = e_NewDocument.UNKNOWN;
+        public int FinancialYear = -1;
 
         public Form_NewDocument(usrc_InvoiceMan xusrc_InvoiceMan)
         {
@@ -40,14 +41,10 @@ namespace Tangenta
             if (m_usrc_InvoiceMan.IsDocInvoice)
             {
                 lngRPM.s_New_Empty_Invoice.Text(this.btn_New_Empty);
-                lngRPM.s_New_Copy_ThisInvoice_ToNewOne.Text(this.btn_New_Copy_Of_SameDocType);
-                lngRPM.s_New_Copy_ThisInvoice_ToNewProformaInvoice.Text(this.btn_New_Copy_To_Another_DocType);
             }
             else if (m_usrc_InvoiceMan.IsDocProformaInvoice)
             {
                 lngRPM.s_New_Empty_ProformaInvoice.Text(this.btn_New_Empty);
-                lngRPM.s_New_Copy_ThisProformaInvoice_ToNewOne.Text(this.btn_New_Copy_Of_SameDocType);
-                lngRPM.s_New_Copy_ThisProformaInvoice_ToInvoice.Text(this.btn_New_Copy_To_Another_DocType);
             }
             else
             {
@@ -55,13 +52,17 @@ namespace Tangenta
             }
             if (ItemsCount == 0 )
             {
-                btn_New_Copy_Of_SameDocType.Visible = false;
-                btn_New_Copy_To_Another_DocType.Visible = false;
+                this.usrc_New_Copy_of_Same_DocType1.Visible = false;
+                this.usrc_New_Copy_of_Another_DocType1.Visible = false;
+                this.btn_Cancel.Top = this.btn_New_Empty.Bottom + 20;
+                this.Height = this.btn_Cancel.Bottom + 50;
             }
             else
             {
-                btn_New_Copy_Of_SameDocType.Text = btn_New_Copy_Of_SameDocType.Text.Replace("%s", sInvoiceNumber);
-                btn_New_Copy_To_Another_DocType.Text = btn_New_Copy_To_Another_DocType.Text.Replace("%s", sInvoiceNumber);
+                this.usrc_New_Copy_of_Same_DocType1.Visible = true;
+                this.usrc_New_Copy_of_Another_DocType1.Visible = true;
+                this.usrc_New_Copy_of_Same_DocType1.Init(m_usrc_InvoiceMan.DocInvoice, sInvoiceNumber);
+                this.usrc_New_Copy_of_Another_DocType1.Init(m_usrc_InvoiceMan.DocInvoice, sInvoiceNumber);
             }
         }
 
@@ -72,24 +73,28 @@ namespace Tangenta
             DialogResult = DialogResult.OK;
         }
 
-        private void btn_New_Copy_Of_SameDocType_Click(object sender, EventArgs e)
-        {
-            eNewDocumentResult = e_NewDocument.New_Copy_Of_SameDocType;
-            this.Close();
-            DialogResult = DialogResult.OK;
-        }
 
-        private void btn_New_Copy_To_Another_DocType_Click(object sender, EventArgs e)
-        {
-            eNewDocumentResult = e_NewDocument.New_Copy_To_Another_DocType;
-            this.Close();
-            DialogResult = DialogResult.OK;
-        }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void usrc_New_Copy_of_Same_DocType1_Set_New_Copy_of_Same_DocType(string DocInvoice, int ixFinancialYear)
+        {
+            eNewDocumentResult = e_NewDocument.New_Copy_Of_SameDocType;
+            FinancialYear = ixFinancialYear;
+            this.Close();
+            DialogResult = DialogResult.OK;
+        }
+
+        private void usrc_New_Copy_of_Another_DocType1_Set_New_Copy_of_Another_DocType(string DocInvoice, int ixFinancialYear)
+        {
+            eNewDocumentResult = e_NewDocument.New_Copy_To_Another_DocType;
+            FinancialYear = ixFinancialYear;
+            this.Close();
+            DialogResult = DialogResult.OK;
         }
     }
 }

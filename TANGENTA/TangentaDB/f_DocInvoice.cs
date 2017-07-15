@@ -103,5 +103,26 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool GetExistingFinancialYears(ref DataTable dt_FinancialYears)
+        {
+            string sql = "select distinct FinancialYear from DocInvoice";
+            string Err = null;
+            if (dt_FinancialYears==null)
+            {
+                dt_FinancialYears = new DataTable();
+            }
+            dt_FinancialYears.Clear();
+            dt_FinancialYears.Columns.Clear();
+            if (DBSync.DBSync.ReadDataTable(ref dt_FinancialYears, sql, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:f_DocInvoice:GetExistingFinancialYears:sql:"+sql+"\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }
