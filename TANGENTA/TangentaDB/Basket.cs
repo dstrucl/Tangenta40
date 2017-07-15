@@ -19,6 +19,14 @@ namespace TangentaDB
 {
     public class Basket
     {
+        public delegate bool delegate_Select_ShopC_Item_in_Stock(string DocInvoice,
+                                                                  DataTable dt_ShopC_Item_in_Stock,
+                                                                  Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item,
+                                                                  decimal dQuantity,
+                                                                  ref decimal dQuantitySelected, 
+                                                                  ref bool bOK);
+        public delegate void delegate_Item_Not_InOffer(ShopC_Item shopC_Item);
+
         public List<object> m_DocInvoice_ShopC_Item_Data_LIST = new List<object>();
         public DataTable dtDraft_DocInvoice_Atom_Item_Stock = new DataTable();
 
@@ -250,78 +258,68 @@ namespace TangentaDB
             }
         }
 
-
-        public bool Copy_ShopC_Price_Item_Stock_Table(string docInvoice, CurrentInvoice xCurrentInvoice, List<object> xShopC_Data_Item_List)
+        public enum eCopy_ShopC_Price_Item_Stock_Table_Result { OK,ERROR_NO_ITEM_IN_DB,ERROR_DB};
+        public eCopy_ShopC_Price_Item_Stock_Table_Result Copy_ShopC_Price_Item_Stock_Table(string docInvoice,
+                                                      CurrentInvoice xCurrentInvoice,
+                                                      List<object> xShopC_Data_Item_List,
+                                                      bool bSelectItemsFromStockInDialog,
+                                                      delegate_Select_ShopC_Item_in_Stock proc_Select_ShopC_Item_in_Stock,
+                                                      delegate_Item_Not_InOffer proc_Item_Not_InOffer
+                                                      )
         {
             foreach (object oxShopC_Data_Item in xShopC_Data_Item_List)
             {
                 if (oxShopC_Data_Item is Atom_DocInvoice_ShopC_Item_Price_Stock_Data)
                 {
                     Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item = (Atom_DocInvoice_ShopC_Item_Price_Stock_Data)oxShopC_Data_Item;
-                    string_v Name_v = null;
-                    bool_v bToOffer_v = null;
-                    Image Item_Image = null;
-                    long_v Item_Image_ID_v = null;
-                    string_v Item_Image_Hash_v = null;
-                    long_v Code_v = null;
-                    string_v Unit_Name_v = null;
-                    string_v Unit_Symbol_v = null;
-                    int_v Unit_DecimalPlaces_v = null;
-                    bool_v Unit_StorageOption_v = null;
-                    string_v Unit_Description_v = null;
-                    string_v barcode_v = null;
-                    string_v Description_v = null;
-                    long_v Expiry_ID_v = null;
-                    long_v Warranty_ID_v = null;
-                    f_Expiry.Expiry_v Expiry_v = null;
-                    f_Warranty.Warranty_v Warranty_v = null;
-                    long_v Item_ParentGroup1_ID_v = null;
-                    string_v Item_ParentGroup1_v = null;
-                    long_v Item_ParentGroup2_ID_v = null;
-                    string_v Item_ParentGroup2_v = null;
-                    long_v Item_ParentGroup3_ID_v = null;
-                    string_v Item_ParentGroup3_v = null;
-                    long_v Unit_ID_v = null;
-                    long_v Item_ID_v = null;
+                    ShopC_Item shopC_Item = new ShopC_Item();
                     if (!f_Item.Get(xShopC_Data_Item.Atom_Item_UniqueName.v,
-                                   ref Name_v,
-                                   ref bToOffer_v,
-                                   ref Item_Image,
-                                   ref Item_Image_ID_v,
-                                   ref Item_Image_Hash_v,
-                                   ref Code_v,
-                                   ref Unit_Name_v,
-                                   ref Unit_Symbol_v,
-                                   ref Unit_DecimalPlaces_v,
-                                   ref Unit_StorageOption_v,
-                                   ref Unit_Description_v,
-                                   ref barcode_v,
-                                   ref Description_v,
-                                   ref Expiry_ID_v,
-                                   ref Warranty_ID_v,
-                                   ref Expiry_v,
-                                   ref Warranty_v,
-                                   ref Item_ParentGroup1_ID_v,
-                                   ref Item_ParentGroup1_v,
-                                   ref Item_ParentGroup2_ID_v,
-                                   ref Item_ParentGroup2_v,
-                                   ref Item_ParentGroup3_ID_v,
-                                   ref Item_ParentGroup3_v,
-                                   ref Unit_ID_v,
-                                   ref Item_ID_v))
+                                   ref shopC_Item.UniqueName_v,
+                                   ref shopC_Item.Name_v,
+                                   ref shopC_Item.bToOffer_v,
+                                   ref shopC_Item.Item_Image,
+                                   ref shopC_Item.Item_Image_ID_v,
+                                   ref shopC_Item.Item_Image_Hash_v,
+                                   ref shopC_Item.Code_v,
+                                   ref shopC_Item.Unit_Name_v,
+                                   ref shopC_Item.Unit_Symbol_v,
+                                   ref shopC_Item.Unit_DecimalPlaces_v,
+                                   ref shopC_Item.Unit_StorageOption_v,
+                                   ref shopC_Item.Unit_Description_v,
+                                   ref shopC_Item.barcode_v,
+                                   ref shopC_Item.Description_v,
+                                   ref shopC_Item.Expiry_ID_v,
+                                   ref shopC_Item.Warranty_ID_v,
+                                   ref shopC_Item.Expiry_v,
+                                   ref shopC_Item.Warranty_v,
+                                   ref shopC_Item.Item_ParentGroup1_ID_v,
+                                   ref shopC_Item.Item_ParentGroup1_v,
+                                   ref shopC_Item.Item_ParentGroup2_ID_v,
+                                   ref shopC_Item.Item_ParentGroup2_v,
+                                   ref shopC_Item.Item_ParentGroup3_ID_v,
+                                   ref shopC_Item.Item_ParentGroup3_v,
+                                   ref shopC_Item.Unit_ID_v,
+                                   ref shopC_Item.Item_ID_v))
                     {
-                        return false;
+                        return eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_DB;
                     }
-                    if (Item_ID_v!=null)
+
+
+
+                    if (shopC_Item.Item_ID_v !=null)
                     {
-                        if (!InOffer(bToOffer_v))
+                        if (!InOffer(shopC_Item.bToOffer_v))
                         {
-                            // Item not in offer
+                            if (proc_Item_Not_InOffer!=null)
+                            {
+                                proc_Item_Not_InOffer(shopC_Item);
+                            }
                         }
                     }
                     else
                     {
                         // No item found in offer !!
+                        return eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_NO_ITEM_IN_DB;
                     }
                     decimal dStockCount = 0;
                     decimal dFromFactoryCount = 0;
@@ -353,13 +351,119 @@ namespace TangentaDB
                         //this item was taken directly from factory
                     }
 
-                    if (!xCurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(docInvoice, ref xShopC_Data_Item, true))
+                    decimal dShopCItemCount = dStockCount + dFromFactoryCount;
+                    decimal dQuantitySelected = 0;
+                    if (!CopyShopCItemInNewDocInvoice(docInvoice, xCurrentInvoice.Doc_ID, xShopC_Data_Item,shopC_Item, dShopCItemCount,ref dQuantitySelected, bSelectItemsFromStockInDialog, proc_Select_ShopC_Item_in_Stock))
                     {
-                      return false;
+                        return eCopy_ShopC_Price_Item_Stock_Table_Result.ERROR_DB;
                     }
+
                 }
             }
-            return true;
+            return eCopy_ShopC_Price_Item_Stock_Table_Result.OK;
+        }
+
+
+        private bool CopyShopCItemInNewDocInvoice(string docInvoice, 
+                                                  long doc_ID,
+                                                  Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item,
+                                                  ShopC_Item shopC_Item,
+                                                  decimal dQuantity,
+                                                  ref decimal dQuantitySelected,
+                                                  bool bAutomaticSelectItemsFromStock,
+                                                  delegate_Select_ShopC_Item_in_Stock proc_Select_ShopC_Item_in_Stock)
+        {
+          DataTable dt_ShopC_Item_In_Stock = null;
+          if (f_Stock.GetItemInStock(shopC_Item.Item_ID_v.v,ref dt_ShopC_Item_In_Stock))
+          {
+                bool bDialogOk = false;
+                return proc_Select_ShopC_Item_in_Stock(docInvoice,dt_ShopC_Item_In_Stock, xShopC_Data_Item,dQuantity, ref dQuantitySelected, ref bDialogOk);
+          }
+          else
+          {
+                return false;
+          }
+        }
+
+        public bool AutomaticSelectItems(DataTable dt_ShopC_Item_In_Stock,decimal dQuantity,ref decimal dQuantitySelected, ref string UnitSymbol)
+        {
+            if (!dt_ShopC_Item_In_Stock.Columns.Contains("Supplier"))
+            {
+                dt_ShopC_Item_In_Stock.Columns.Add(new DataColumn("Supplier", typeof(string)));
+            }
+            if (!dt_ShopC_Item_In_Stock.Columns.Contains("TakeFromStock"))
+            {
+                dt_ShopC_Item_In_Stock.Columns.Add(new DataColumn("TakeFromStock", typeof(decimal)));
+            }
+
+            decimal dQuantityToTake = dQuantity;
+
+            foreach (DataRow dr in dt_ShopC_Item_In_Stock.Rows)
+            {
+                if (UnitSymbol == null)
+                {
+                    UnitSymbol = (string)dr["UnitSymbol"];
+                }
+                object oSupplierOrg = dr["Supplier_Organisation_Name"];
+                if (oSupplierOrg is string)
+                {
+                    dr["Supplier"] = (string)oSupplierOrg;
+                }
+                else
+                {
+                    string Supplier_Person_FirstName = "";
+                    string Supplier_Person_LastName = "";
+                    string Supplier_Person_GsmNumber = "";
+                    string Supplier_Person_Email = "";
+                    object oSupplierPerson = dr["Supplier_Person_FirstName"];
+                    if (oSupplierPerson is string)
+
+                    {
+                        Supplier_Person_FirstName = (string)oSupplierPerson;
+                    }
+                    oSupplierPerson = dr["Supplier_Person_LastName"];
+                    if (oSupplierPerson is string)
+                    {
+                        Supplier_Person_LastName = (string)oSupplierPerson;
+                    }
+                    oSupplierPerson = dr["Supplier_Person_GsmNumber"];
+                    if (oSupplierPerson is string)
+                    {
+                        Supplier_Person_GsmNumber = (string)oSupplierPerson;
+                    }
+                    oSupplierPerson = dr["Supplier_Person_Email"];
+                    if (oSupplierPerson is string)
+                    {
+                        Supplier_Person_Email = (string)oSupplierPerson;
+                    }
+                    dr["Supplier"] = Supplier_Person_FirstName + " " + Supplier_Person_LastName + " gsm:" + Supplier_Person_GsmNumber + " email:" + Supplier_Person_Email;
+                }
+            }
+
+            foreach (DataRow dr in dt_ShopC_Item_In_Stock.Rows)
+            {
+                if (dQuantityToTake > 0)
+                {
+                    decimal dq = (decimal)dr["Stock_dQuantity"];
+                    if (dQuantityToTake >= dq)
+                    {
+                        dr["TakeFromStock"] = dq;
+                        dQuantityToTake -= dq;
+                    }
+                    else
+                    {
+                        dr["TakeFromStock"] = dQuantityToTake;
+                        dQuantityToTake = 0;
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            dQuantitySelected = dQuantity - dQuantityToTake;
+            return (dQuantityToTake == 0);
         }
 
         private bool InOffer(bool_v bToOffer_v)

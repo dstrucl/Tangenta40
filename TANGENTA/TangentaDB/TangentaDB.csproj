@@ -212,6 +212,7 @@
     </Compile>
     <Compile Include="Return_to_shop_shelf_data.cs" />
     <Compile Include="ShopABC.cs" />
+    <Compile Include="ShopC_Item.cs" />
     <Compile Include="ShopShelf.cs" />
     <Compile Include="ShopShelf_Source.cs" />
     <Compile Include="Stock_Data.cs" />

@@ -17,6 +17,12 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_Item_Not_In_Offer = new ltext("Item is not in offer any more!", "Artikel ni več v ponudbi!");
+        public static ltext s_NotEnoughItemsInStock = new ltext("There is not enough items in stock", "Ni dovolj artikla (artiklov) v zalogah!");
+        public static ltext s_YourSelectedQuantityIsNotEqualTo = new ltext("Selected quantity is not equal to requested quantity!", "Izbrana količina ni enaka zahtevani količini! ");
+        public static ltext s_SelectedQuantity = new ltext("Selected quantity", "Izbrana količina");
+        public static ltext s_Form_SelectItemFromStock = new ltext("Select Items from stock", "Izberi artikel iz zaloge");
+        public static ltext s_AutomaticSelectionOfItemFromStock = new ltext("Automatic selection of item from stock", "Samodejno izberi artikel iz zaloge");
         public static ltext s_RememberPasswordForSession = new ltext("Until the end of program, don't ask for password again", "Za čas tokratnega delovanja aplikacije ni potrebno ponovno vnesti skrbniškega gesla");
         public static ltext s_Enter_Administrator_Password = new ltext("Enter Administrator Password", "Vpišite skrbniško geslo");
         public static ltext s_Wrong_Password = new ltext("Wrong Password", "Napačno geslo");

@@ -37,6 +37,7 @@
             this.btn_Items = new System.Windows.Forms.Button();
             this.lbl_Stock = new System.Windows.Forms.Label();
             this.usrc_PriceList1 = new PriseLists.usrc_PriceList();
+            this.chk_AutomaticSelectionOfItemFromStock = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -159,9 +160,20 @@
             this.usrc_PriceList1.TabIndex = 22;
             this.usrc_PriceList1.PriceListChanged += new PriseLists.usrc_PriceList.delegate_PriceListChanged(this.usrc_PriceList1_PriceListChanged);
             // 
+            // chk_AutomaticSelectionOfItemFromStock
+            // 
+            this.chk_AutomaticSelectionOfItemFromStock.AutoSize = true;
+            this.chk_AutomaticSelectionOfItemFromStock.Location = new System.Drawing.Point(508, 7);
+            this.chk_AutomaticSelectionOfItemFromStock.Name = "chk_AutomaticSelectionOfItemFromStock";
+            this.chk_AutomaticSelectionOfItemFromStock.Size = new System.Drawing.Size(199, 17);
+            this.chk_AutomaticSelectionOfItemFromStock.TabIndex = 23;
+            this.chk_AutomaticSelectionOfItemFromStock.Text = "AutomaticSelectionOfItemFromStock";
+            this.chk_AutomaticSelectionOfItemFromStock.UseVisualStyleBackColor = true;
+            // 
             // usrc_ShopC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.Controls.Add(this.chk_AutomaticSelectionOfItemFromStock);
             this.Controls.Add(this.usrc_PriceList1);
             this.Controls.Add(this.splitContainer3);
             this.Controls.Add(this.lbl_Items);
@@ -192,5 +204,6 @@
         public usrc_Atom_ItemsList usrc_Atom_ItemsList;
         public usrc_ItemList usrc_ItemList;
         public PriseLists.usrc_PriceList usrc_PriceList1;
+        private System.Windows.Forms.CheckBox chk_AutomaticSelectionOfItemFromStock;
     }
 }

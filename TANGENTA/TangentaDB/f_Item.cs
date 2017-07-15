@@ -244,6 +244,7 @@ namespace TangentaDB
         }
 
         public static bool Get(string UniqueName,
+                                   ref string_v UniqueName_v,
                                    ref string_v Name_v,
                                    ref bool_v bToOffer_v,
                                    ref Image Item_Image,
@@ -270,6 +271,7 @@ namespace TangentaDB
                                    ref long_v Unit_ID_v,
                                    ref long_v Item_ID_v)
         {
+            UniqueName_v = null;
             Name_v = null;
             bToOffer_v = null;
             Item_Image = null;
@@ -299,16 +301,15 @@ namespace TangentaDB
             string spar_UniqueName = "@par_UniqueName";
             SQL_Parameter par_UniqueName = new SQL_Parameter(spar_UniqueName, SQL_Parameter.eSQL_Parameter.Nvarchar, false, UniqueName);
             lpar.Add(par_UniqueName);
-            string sql = @"select ID,Code,Name,Unit_ID,ToOffer,barcode,Description,Item_Image_ID,Expiry_ID,Warranty_ID,Item_ParentGroup1_ID from Item where UniqueName =" + spar_UniqueName;
+            string sql = @"select ID,Code,UniqueName,Name,Unit_ID,ToOffer,barcode,Description,Item_Image_ID,Expiry_ID,Warranty_ID,Item_ParentGroup1_ID from Item where UniqueName =" + spar_UniqueName;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
-
+                    UniqueName_v = tf.set_string(dt.Rows[0]["UniqueName"]);
                     Name_v = tf.set_string(dt.Rows[0]["Name"]);
                     bToOffer_v = tf.set_bool(dt.Rows[0]["ToOffer"]);
-
                     Item_Image_ID_v = tf.set_long(dt.Rows[0]["Item_Image_ID"]);
 
                     if (Item_Image_ID_v != null)

@@ -466,5 +466,17 @@ namespace Tangenta.Properties {
                 this["MyOrgID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutomaticSelectionOfItemFromStock {
+            get {
+                return ((bool)(this["AutomaticSelectionOfItemFromStock"]));
+            }
+            set {
+                this["AutomaticSelectionOfItemFromStock"] = value;
+            }
+        }
     }
 }

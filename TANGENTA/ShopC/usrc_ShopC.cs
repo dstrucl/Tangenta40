@@ -94,6 +94,8 @@ namespace ShopC
             lngRPM.s_lbl_Stock.Text(lbl_Stock);
             lngRPM.s_lbl_Items.Text(lbl_Items);
             usrc_ItemList.Init(this.usrc_Atom_ItemsList);
+            lngRPM.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
+
         }
 
         public long PriceList_ID
@@ -101,11 +103,18 @@ namespace ShopC
             get { return this.usrc_PriceList1.ID; }
         }
 
+        public bool AutomaticSelectionOfItemsFromStock {
+            get { return chk_AutomaticSelectionOfItemFromStock.Checked; }
+        }
 
-        public void Init(TangentaDB.ShopABC xm_InvoiceDB, DBTablesAndColumnNames xDBtcn, string ShopsInUse, NavigationButtons.Navigation xnav)
+        public void Init(TangentaDB.ShopABC xm_InvoiceDB, 
+                        DBTablesAndColumnNames xDBtcn, 
+                        string ShopsInUse, NavigationButtons.Navigation xnav,
+                        bool bAutomaticSelectionOfItemFromStock)
+                        
         {
             m_InvoiceDB = xm_InvoiceDB;
-
+            this.chk_AutomaticSelectionOfItemFromStock.Checked = bAutomaticSelectionOfItemFromStock;
             DBtcn = xDBtcn;
             if (DBtcn == null)
             {
@@ -357,6 +366,49 @@ namespace ShopC
         private void usrc_PriceList1_PriceListChanged()
         {
             usrc_ItemList.Get_Price_Item_Stock_Data(this.usrc_PriceList1.ID);
+        }
+
+        public bool proc_Select_ShopC_Item_from_Stock(string DocInvoice,DataTable dt_ShopC_Item_in_Stock, Atom_DocInvoice_ShopC_Item_Price_Stock_Data xShopC_Data_Item, decimal dQuantity,ref decimal dQuantitySelected, ref bool bOK)
+        {
+            decimal dQuantityToTake = dQuantity;
+            string UnitSymbol = null;
+            this.m_InvoiceDB.m_CurrentInvoice.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dQuantity, ref dQuantitySelected, ref UnitSymbol);
+            if (dQuantitySelected != dQuantity)
+            {
+                string Item_UniqueName = (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
+                string smsg = Item_UniqueName + ":"+lngRPM.s_Stock_dQuantity.s + " = " + dQuantitySelected.ToString() + " " + UnitSymbol;
+                XMessage.Box.Show(this, lngRPM.s_NotEnoughItemsInStock, smsg, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            }
+            if (!AutomaticSelectionOfItemsFromStock)
+            {
+                Form_Select_Item_From_Stock Select_Item_From_Stock_Dialog = new Form_Select_Item_From_Stock(dt_ShopC_Item_in_Stock, dQuantity);
+                bOK = Select_Item_From_Stock_Dialog.ShowDialog() == DialogResult.OK;
+                dQuantitySelected = Select_Item_From_Stock_Dialog.dQuantitySelected;
+
+
+            }
+
+            xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List = new List<Stock_Data>();
+            foreach (DataRow dr in dt_ShopC_Item_in_Stock.Rows)
+            {
+                Stock_Data stock_data= new Stock_Data();
+                stock_data.Stock_ID = tf.set_long(dr["Stock_ID"]);
+                stock_data.Stock_ImportTime = tf.set_DateTime(dr["Stock_ImportTime"]);
+                stock_data.Stock_ExpiryDate = tf.set_DateTime(dr["Stock_Expiry_Date"]);
+                stock_data.dQuantity = tf.set_decimal(dr["Stock_dQuantity"]);
+                decimal_v dQuantityTakenFromStock = tf.set_decimal(dr["TakeFromStock"]);
+                decimal dNewQuantityInStock = stock_data.dQuantity.v - dQuantityTakenFromStock.v;
+                stock_data.dQuantity_New_in_Stock = new decimal_v(dNewQuantityInStock);
+                xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List.Add(stock_data);
+            }
+
+            return this.m_InvoiceDB.m_CurrentInvoice.Insert_DocInvoice_Atom_Price_Items_Stock(DocInvoice, ref xShopC_Data_Item, true);
+        }
+
+        public void proc_Item_Not_In_Offer(ShopC_Item shopC_Item)
+        {
+            string s = "\r\n " + lngRPM.s_Item.s + ":" + shopC_Item.UniqueName_v.v;
+            XMessage.Box.Show(this, lngRPM.s_Item_Not_In_Offer, s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
         }
     }
 }
