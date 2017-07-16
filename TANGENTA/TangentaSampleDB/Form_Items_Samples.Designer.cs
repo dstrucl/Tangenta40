@@ -258,6 +258,7 @@
             this.Name = "Form_Items_Samples";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_ShopB_Items_Samples";
+            this.Shown += new System.EventHandler(this.Form_Items_Samples_Shown);
             this.grp_AutoGenerateSampleItems.ResumeLayout(false);
             this.grp_AutoGenerateSampleItems.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmUpDn_NumberOfItemsPerGroup)).EndInit();

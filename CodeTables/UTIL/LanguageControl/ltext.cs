@@ -118,6 +118,35 @@ namespace LanguageControl
                     return s;
                 }
             }
+            set
+            {
+                if (complex_text_list == null)
+                {
+                    m_sText[DynSettings.LanguageID] = value;
+                }
+                else
+                {
+                    string s = "";
+                    int icount = complex_text_list.Count;
+                    for (int i = 0; i < icount; i++)
+                    {
+                        object otext = complex_text_list[i];
+                        if (otext is string)
+                        {
+                            s += (string)otext;
+                        }
+                        else if (otext is ltext)
+                        {
+                            s += ((ltext)otext).s;
+                        }
+                        else
+                        {
+                            s = "ERROR LTEXT!";
+                        }
+                    }
+                    m_sText[DynSettings.LanguageID] = s;
+                }
+            }
         }
 
         public ltext AddAtTheEnd(ltext st_Address)

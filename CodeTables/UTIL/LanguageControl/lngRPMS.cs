@@ -17,6 +17,9 @@ namespace LanguageControl
 {
     public static class lngRPMS
     {
+        public static ltext s_IfYouAreRunningThisApplicationOnlyForDemoOrTestPurposesPressYes =  new ltext("If you are running this application only for demo or test pruposes select Yes, otherwise press No ?", 
+                                                                                                            "V kolikor sta zagnali to aplikacijo zgolj z namenom preizkusa ali testiranja izberite Da sicer izberite Ne ?");
+
         public static ltext s_Community1 = new ltext("Community1", "Krajevna skupnost 1");
         public static ltext s_NumberOfItemsToInsert = new ltext("Number of items to insert ", "Število artiklov za vpis ");
         public static ltext s_JobInPercentDone = new ltext("Job done:", "Količina opravljenaga dela v odstotkih:");
@@ -25,8 +28,6 @@ namespace LanguageControl
         public static ltext s_Piece = new ltext("Piece", "Komad");
         public static ltext s_PieceAbr = new ltext("Pcs", "Kom.");
 
-        public static ltext s_txt_Item_Name_Prefix = new ltext("Art", "Art");
-        public static ltext s_txt_Item_Name_AbrPrefix = new ltext("Ar", "Ar");
 
         public static ltext s_lbl_Number_Of_Items_per_group = new ltext("Number of items in group", "Število artiklov ali storitev v skupini");
         public static ltext s_lbl_Number_Of_Groups_in_Level1 = new ltext("Number of groups in Level 1", "Število skupin artiklov ali storitev nivoja 1");
@@ -316,11 +317,11 @@ namespace LanguageControl
         public static ltext PriceList_Description = new ltext("Price list for usual customers.", "Cenik za stalne stranke.");
 
         public static ltext ShopB_Item_Name_Item = new ltext("BItem","BArtikel");
-        public static ltext ShopB_Item_Abbreviation_SB = new ltext("BItem", "BArtikel");
+        public static ltext ShopB_Item_Abbreviation_SB = new ltext("BItm", "BArt");
         public static ltext ShopB_Item_ParentGroup = new ltext("ShopBGroup","ProdajalnaBSkupina" );
 
         public static ltext ShopC_Item_Name_Item = new ltext("CItem", "CArtikel");
-        public static ltext ShopC_Item_Abbreviation_SB = new ltext("CItem", "CArtikel");
+        public static ltext ShopC_Item_Abbreviation_SB = new ltext("CItm", "CArt");
 
         public static ltext ShopC_Item_UniquName_UniqueItemName1 = new ltext("UniqueItemName1", "UnikatnoImeArtikla1");
         public static ltext ShopC_Item_Name_ItemName1 = new ltext("ItemName1", "ImeArtikla1");

@@ -129,6 +129,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="TestCertificate.cs" />
     <Compile Include="Thread_FVI.cs" />
     <Compile Include="Thread_FVI_Message.cs" />
     <Compile Include="Thread_FVI_MessageBox.cs" />

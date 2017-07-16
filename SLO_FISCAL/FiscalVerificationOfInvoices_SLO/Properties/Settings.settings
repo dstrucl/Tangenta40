@@ -863,10 +863,10 @@
       <Value Profile="(Default)">128</Value>
     </Setting>
     <Setting Name="furscertificateFileName_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Luka\TestCert\10329048-1.p12</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursCertPass_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">NVIJCY55TF3L</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursWebServiceURL_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://blagajne-test.fu.gov.si:9002/v1/cash_registers</Value>

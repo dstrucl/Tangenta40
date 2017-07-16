@@ -989,7 +989,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Luka\\TestCert\\10329048-1.p12")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string furscertificateFileName_TEST {
             get {
                 return ((string)(this["furscertificateFileName_TEST"]));
@@ -1001,7 +1001,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NVIJCY55TF3L")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string fursCertPass_TEST {
             get {
                 return ((string)(this["fursCertPass_TEST"]));

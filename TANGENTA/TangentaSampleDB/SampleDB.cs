@@ -13,11 +13,14 @@ using System.IO;
 using System.Security.Cryptography;
 using StaticLib;
 using System.Windows.Forms;
+using System.Data;
 
 namespace TangentaSampleDB
 {
     public class SampleDB
     {
+        public enum eSampleType { DEMO,REAL,NONE};
+        public static eSampleType eType = eSampleType.NONE;
 
         public class MyOrgSample
         {
@@ -555,7 +558,9 @@ select_country:
             int Currency_DecimalPlaces = 2;
             int iItem1 = 0;
             int iItem2 = 0;
-
+            string Taxation_Name_B = "";
+            decimal Taxation_Rate_B = 0;
+            DataTable dt_Taxation = TangentaDB.f_Taxation.GetTable(false);
             if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
             {
                 xnav.ChildDialog = new Form_Items_Samples(xnav, lngRPM.s_Shop_B.s);
@@ -581,6 +586,7 @@ select_country:
                         int i2 = 0;
                         int i3 = 0;
                         int ig = 0;
+                        decimal BRandomPrice = 0;
                         if (iNumberOfGroupsInLevel3 > 0)
                         {
                             for (i3 = 0; i3 < iNumberOfGroupsInLevel3; i3++)
@@ -597,8 +603,21 @@ select_country:
                                         sl1 = "."+ sln1;
                                         for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                         {
-                                            ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sln1);
-                                            ShopB_Item_Name = SetBName(ref iItem2, ig, sln1);
+                                            SetBValues(ref ShopB_Item_Abbreviation,
+                                                       ref ShopB_Item_Name,
+                                                       ref Taxation_Name_B,
+                                                       ref Taxation_Rate_B,
+                                                       ref BRandomPrice,
+                                                       Currency_DecimalPlaces,
+                                                       ref iItem1,
+                                                       ref iItem2,
+                                                       ig,
+                                                       sln1,
+                                                       sln1,
+                                                       dt_Taxation
+                                                       );
+
+
                                             SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                                     ShopB_Item_Abbreviation,
                                                                     true,
@@ -618,17 +637,29 @@ select_country:
                                                                     Currency_Symbol,
                                                                     Currency_Code,
                                                                     Currency_DecimalPlaces,
-                                                                    "DDV 22%",
-                                                                    0.22M,
-                                                                    2,
+                                                                    Taxation_Name_B,
+                                                                    Taxation_Rate_B,
+                                                                    BRandomPrice,
                                                                     null);
                                             j++;
                                         }
                                     }
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sln2);
-                                        ShopB_Item_Name = SetBName(ref iItem2, ig, sln2);
+                                        SetBValues(ref ShopB_Item_Abbreviation,
+                                                   ref ShopB_Item_Name,
+                                                   ref Taxation_Name_B,
+                                                   ref Taxation_Rate_B,
+                                                   ref BRandomPrice,
+                                                   Currency_DecimalPlaces,
+                                                   ref iItem1,
+                                                   ref iItem2,
+                                                   ig,
+                                                   sln2,
+                                                   sln2,
+                                                   dt_Taxation
+                                                   );
+
                                         SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                                 ShopB_Item_Abbreviation,
                                                                 true,
@@ -648,9 +679,9 @@ select_country:
                                                                 Currency_Symbol,
                                                                 Currency_Code,
                                                                 Currency_DecimalPlaces,
-                                                                "DDV 22%",
-                                                                0.22M,
-                                                                2,
+                                                                Taxation_Name_B,
+                                                                Taxation_Rate_B,
+                                                                BRandomPrice,
                                                                 null);
                                         j++;
                                     }
@@ -658,9 +689,19 @@ select_country:
                                 }
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-
-                                    ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sln3);
-                                    ShopB_Item_Name = SetBName(ref iItem2, ig, sln3);
+                                    SetBValues(ref ShopB_Item_Abbreviation,
+                                               ref ShopB_Item_Name,
+                                               ref Taxation_Name_B,
+                                               ref Taxation_Rate_B,
+                                               ref BRandomPrice,
+                                               Currency_DecimalPlaces,
+                                               ref iItem1,
+                                               ref iItem2,
+                                               ig,
+                                               sln3,
+                                               sln3,
+                                               dt_Taxation
+                                               );
                                     SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -680,17 +721,28 @@ select_country:
                                                         Currency_Symbol,
                                                         Currency_Code,
                                                         Currency_DecimalPlaces,
-                                                        "DDV 22%",
-                                                        0.22M,
-                                                        2,
+                                                        Taxation_Name_B,
+                                                        Taxation_Rate_B,
+                                                        BRandomPrice,
                                                         null);
                                     j++;
                                 }
                             }
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, " noL1noL2noL3");
-                                ShopB_Item_Name = SetBName(ref iItem2, ig, " noL1noL2noL3");
+                                SetBValues(ref ShopB_Item_Abbreviation,
+                                           ref ShopB_Item_Name,
+                                           ref Taxation_Name_B,
+                                           ref Taxation_Rate_B,
+                                           ref BRandomPrice,
+                                           Currency_DecimalPlaces,
+                                           ref iItem1,
+                                           ref iItem2,
+                                           ig,
+                                           " noL1noL2noL3",
+                                           " noL1noL2noL3",
+                                           dt_Taxation
+                                           );
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -710,9 +762,9 @@ select_country:
                                                         Currency_Symbol,
                                                         Currency_Code,
                                                         Currency_DecimalPlaces,
-                                                        "DDV 22%",
-                                                        0.22M,
-                                                        2,
+                                                        Taxation_Name_B,
+                                                        Taxation_Rate_B,
+                                                        BRandomPrice,
                                                         null);
                                 j++;
                             }
@@ -727,8 +779,19 @@ select_country:
                                     sl1 = ".L1g" + i1.ToString();
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl2 + sl1);
-                                        ShopB_Item_Name = SetBName(ref iItem2, ig, sl2 + sl1);
+                                        SetBValues(ref ShopB_Item_Abbreviation,
+                                           ref ShopB_Item_Name,
+                                           ref Taxation_Name_B,
+                                           ref Taxation_Rate_B,
+                                           ref BRandomPrice,
+                                           Currency_DecimalPlaces,
+                                           ref iItem1,
+                                           ref iItem2,
+                                           ig,
+                                           sl2 + sl1,
+                                           sl2 + sl1,
+                                           dt_Taxation
+                                           );
                                         SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                                 ShopB_Item_Abbreviation,
                                                                 true,
@@ -748,9 +811,9 @@ select_country:
                                                                 Currency_Symbol,
                                                                 Currency_Code,
                                                                 Currency_DecimalPlaces,
-                                                                "DDV 22%",
-                                                                0.22M,
-                                                                2,
+                                                                Taxation_Name_B,
+                                                                Taxation_Rate_B,
+                                                                BRandomPrice,
                                                                 null);
                                         j++;
                                     }
@@ -761,8 +824,19 @@ select_country:
                                 sl2 = ".L2g" + i2.ToString() + "(...)";
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl2);
-                                    ShopB_Item_Name = SetBName(ref iItem2, ig, sl2);
+                                    SetBValues(ref ShopB_Item_Abbreviation,
+                                               ref ShopB_Item_Name,
+                                               ref Taxation_Name_B,
+                                               ref Taxation_Rate_B,
+                                               ref BRandomPrice,
+                                               Currency_DecimalPlaces,
+                                               ref iItem1,
+                                               ref iItem2,
+                                               ig,
+                                               sl2,
+                                               sl2,
+                                               dt_Taxation
+                                               );
                                     SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                             ShopB_Item_Abbreviation,
                                                             true,
@@ -782,9 +856,9 @@ select_country:
                                                             Currency_Symbol,
                                                             Currency_Code,
                                                             Currency_DecimalPlaces,
-                                                            "DDV 22%",
-                                                            0.22M,
-                                                            2,
+                                                            Taxation_Name_B,
+                                                            Taxation_Rate_B,
+                                                            BRandomPrice,
                                                             null);
                                     j++;
                                 }
@@ -792,8 +866,19 @@ select_country:
                             sl2 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl2);
-                                ShopB_Item_Name = SetBName(ref iItem2, ig, sl2);
+                                SetBValues(ref ShopB_Item_Abbreviation,
+                                                                           ref ShopB_Item_Name,
+                                                                           ref Taxation_Name_B,
+                                                                           ref Taxation_Rate_B,
+                                                                           ref BRandomPrice,
+                                                                           Currency_DecimalPlaces,
+                                                                           ref iItem1,
+                                                                           ref iItem2,
+                                                                           ig,
+                                                                           sl2,
+                                                                           sl2,
+                                                                           dt_Taxation
+                                                                           );
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -813,9 +898,9 @@ select_country:
                                                         Currency_Symbol,
                                                         Currency_Code,
                                                         Currency_DecimalPlaces,
-                                                        "DDV 22%",
-                                                        0.22M,
-                                                        2,
+                                                        Taxation_Name_B,
+                                                        Taxation_Rate_B,
+                                                        BRandomPrice,
                                                         null);
                                 j++;
                             }
@@ -827,8 +912,19 @@ select_country:
                                 sl1 = ".L1g" + i1.ToString();
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl1);
-                                    ShopB_Item_Name = SetBName(ref iItem2, ig, sl1);
+                                    SetBValues(ref ShopB_Item_Abbreviation,
+                                                                               ref ShopB_Item_Name,
+                                                                               ref Taxation_Name_B,
+                                                                               ref Taxation_Rate_B,
+                                                                               ref BRandomPrice,
+                                                                               Currency_DecimalPlaces,
+                                                                               ref iItem1,
+                                                                               ref iItem2,
+                                                                               ig,
+                                                                               sl1,
+                                                                               sl1,
+                                                                               dt_Taxation
+                                                                               );
                                     SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                             ShopB_Item_Abbreviation,
                                                             true,
@@ -848,9 +944,9 @@ select_country:
                                                             Currency_Symbol,
                                                             Currency_Code,
                                                             Currency_DecimalPlaces,
-                                                            "DDV 22%",
-                                                            0.22M,
-                                                            2,
+                                                            Taxation_Name_B,
+                                                            Taxation_Rate_B,
+                                                            BRandomPrice,
                                                             null);
                                     j++;
                                 }
@@ -858,8 +954,19 @@ select_country:
                             sl1 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl1);
-                                ShopB_Item_Name = SetBName(ref iItem2, ig, sl1);
+                                SetBValues(ref ShopB_Item_Abbreviation,
+                                                                              ref ShopB_Item_Name,
+                                                                              ref Taxation_Name_B,
+                                                                              ref Taxation_Rate_B,
+                                                                              ref BRandomPrice,
+                                                                              Currency_DecimalPlaces,
+                                                                              ref iItem1,
+                                                                              ref iItem2,
+                                                                              ig,
+                                                                              sl1,
+                                                                              sl1,
+                                                                              dt_Taxation
+                                                                              );
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -879,9 +986,9 @@ select_country:
                                                         Currency_Symbol,
                                                         Currency_Code,
                                                         Currency_DecimalPlaces,
-                                                        "DDV 22%",
-                                                        0.22M,
-                                                        2,
+                                                        Taxation_Name_B,
+                                                        Taxation_Rate_B,
+                                                        BRandomPrice,
                                                         null);
                                 j++;
                             }
@@ -891,8 +998,19 @@ select_country:
                             sl1 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, sl1);
-                                ShopB_Item_Name = SetBName(ref iItem2, ig, sl1);
+                                SetBValues(ref ShopB_Item_Abbreviation,
+                                                                              ref ShopB_Item_Name,
+                                                                              ref Taxation_Name_B,
+                                                                              ref Taxation_Rate_B,
+                                                                              ref BRandomPrice,
+                                                                              Currency_DecimalPlaces,
+                                                                              ref iItem1,
+                                                                              ref iItem2,
+                                                                              ig,
+                                                                              sl1,
+                                                                              sl1,
+                                                                              dt_Taxation
+                                                                              );
                                 SampleDB_Price_ShopB_Item_List[j] = new SampleDB_Price_ShopB_Item(ShopB_Item_Name,
                                                         ShopB_Item_Abbreviation,
                                                         true,
@@ -912,9 +1030,9 @@ select_country:
                                                         Currency_Symbol,
                                                         Currency_Code,
                                                         Currency_DecimalPlaces,
-                                                        "DDV 22%",
-                                                        0.22M,
-                                                        2,
+                                                        Taxation_Name_B,
+                                                        Taxation_Rate_B,
+                                                        BRandomPrice,
                                                         null);
                                 j++;
                             }
@@ -1011,6 +1129,65 @@ select_country:
             }
         }
 
+        private void SetBValues(ref string ShopB_Item_Abbreviation,
+            ref string ShopB_Item_Name,
+            ref string Taxation_Name,
+            ref decimal Taxation_Rate,
+            ref decimal Price,
+            int Currency_DecimalPlaces,
+            ref int iItem1,
+            ref int iItem2,
+            int ig,
+            string Abbreviation_sufix,
+            string Name_sufix,
+            DataTable dt_Taxation
+            )
+        {
+            ShopB_Item_Abbreviation = SetBAbbreviation(ref iItem1, ig, Abbreviation_sufix);
+            ShopB_Item_Name = SetBName(ref iItem2, ig, Name_sufix);
+            GetRandomTaxation(ref Taxation_Name, ref Taxation_Rate, dt_Taxation);
+            Price = GetBRandomPrice(Currency_DecimalPlaces);
+        }
+
+        private void SetCValues(ref string ShopC_Item_Abbreviation,
+            ref string ShopC_Item_Name,
+            ref string Taxation_Name,
+            ref decimal Taxation_Rate,
+            ref decimal Price,
+            int Currency_DecimalPlaces,
+            ref int iItem1,
+            ref int iItem2,
+            int ig,
+            string Abbreviation_sufix,
+            string Name_sufix,
+            DataTable dt_Taxation
+            )
+        {
+            ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, Abbreviation_sufix);
+            ShopC_Item_Name = SetCName(ref iItem2, ig, Name_sufix);
+            GetRandomTaxation(ref Taxation_Name, ref Taxation_Rate, dt_Taxation);
+            Price = GetCRandomPrice(Currency_DecimalPlaces);
+        }
+
+        private void GetRandomTaxation(ref string taxation_Name_B, ref decimal taxation_Rate_B, DataTable dt_Taxation)
+        {
+            int imin = 0;
+            int imax = dt_Taxation.Rows.Count - 1;
+            int irand = GlobalData.GetRandomNumber(imin, imax);
+            taxation_Name_B = (string)dt_Taxation.Rows[irand]["Name"];
+            taxation_Rate_B = (decimal)dt_Taxation.Rows[irand]["Rate"];
+        }
+
+        private decimal GetBRandomPrice(int Currency_DecimalPlaces)
+        {
+            return GlobalData.GetRandomPrice(1.0M, 200.0M, Currency_DecimalPlaces);
+        }
+
+        private decimal GetCRandomPrice(int Currency_DecimalPlaces)
+        {
+            return GlobalData.GetRandomPrice(10.0M, 400.0M, Currency_DecimalPlaces);
+        }
+
         private string SetBAbbreviation(ref int iItem, int ig, string sufix)
         {
             iItem++;
@@ -1044,6 +1221,10 @@ select_country:
             int Currency_DecimalPlaces = 2;
             int iItem1 = 0;
             int iItem2 = 0;
+            string Taxation_Name_C = "";
+            decimal Taxation_Rate_C = 0;
+            DataTable dt_Taxation = TangentaDB.f_Taxation.GetTable(false);
+            decimal CRandomPrice = 0;
 
             if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
             {
@@ -1088,8 +1269,19 @@ select_country:
                                         sl1 = "." + sln1;
                                         for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                         {
-                                            ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sln1);
-                                            ShopC_Item_Name = SetCName(ref iItem2, ig, sln1);
+                                            SetCValues(ref ShopC_Item_Abbreviation,
+                                                       ref ShopC_Item_Name,
+                                                       ref Taxation_Name_C,
+                                                       ref Taxation_Rate_C,
+                                                       ref CRandomPrice,
+                                                       Currency_DecimalPlaces,
+                                                       ref iItem1,
+                                                       ref iItem2,
+                                                       ig,
+                                                       sln1,
+                                                       sln1,
+                                                       dt_Taxation
+                                                       );
 
                                             SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                            ShopC_Item_Name,
@@ -1125,9 +1317,9 @@ select_country:
                                                                            null,
                                                                            new DateTime_v(DateTime.Now),
                                                                            null,
-                                                                           "DDV 22%",
-                                                                           0.22M,
-                                                                           10M,
+                                                                           Taxation_Name_C,
+                                                                           Taxation_Rate_C,
+                                                                           CRandomPrice,
                                                                            new decimal_v(0)
                                                                            );
 
@@ -1136,8 +1328,19 @@ select_country:
                                     }
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sln2);
-                                        ShopC_Item_Name = SetCName(ref iItem2, ig, sln2);
+                                        SetCValues(ref ShopC_Item_Abbreviation,
+                                                   ref ShopC_Item_Name,
+                                                   ref Taxation_Name_C,
+                                                   ref Taxation_Rate_C,
+                                                   ref CRandomPrice,
+                                                   Currency_DecimalPlaces,
+                                                   ref iItem1,
+                                                   ref iItem2,
+                                                   ig,
+                                                   sln2,
+                                                   sln2,
+                                                   dt_Taxation
+                                                   );
                                         SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                        ShopC_Item_Name,
                                                                        ShopC_Item_Abbreviation,
@@ -1172,9 +1375,9 @@ select_country:
                                                                        null,
                                                                        new DateTime_v(DateTime.Now),
                                                                        null,
-                                                                       "DDV 22%",
-                                                                       0.22M,
-                                                                       10M,
+                                                                       Taxation_Name_C,
+                                                                       Taxation_Rate_C,
+                                                                       CRandomPrice,
                                                                        new decimal_v(0)
                                                                        );
                                         j++;
@@ -1183,9 +1386,19 @@ select_country:
                                 }
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-
-                                    ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sln3);
-                                    ShopC_Item_Name = SetCName(ref iItem2, ig, sln3);
+                                    SetCValues(ref ShopC_Item_Abbreviation,
+                                          ref ShopC_Item_Name,
+                                          ref Taxation_Name_C,
+                                          ref Taxation_Rate_C,
+                                          ref CRandomPrice,
+                                          Currency_DecimalPlaces,
+                                          ref iItem1,
+                                          ref iItem2,
+                                          ig,
+                                          sln3,
+                                          sln3,
+                                          dt_Taxation
+                                          );
                                     SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                                                ShopC_Item_Name,
                                                                                                                ShopC_Item_Abbreviation,
@@ -1220,17 +1433,28 @@ select_country:
                                                                                                                null,
                                                                                                                new DateTime_v(DateTime.Now),
                                                                                                                null,
-                                                                                                               "DDV 22%",
-                                                                                                               0.22M,
-                                                                                                               10M,
+                                                                                                               Taxation_Name_C,
+                                                                                                               Taxation_Rate_C,
+                                                                                                               CRandomPrice,
                                                                                                                new decimal_v(0)
                                                                                                                ); j++;
                                 }
                             }
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, " noL1noL2noL3");
-                                ShopC_Item_Name = SetCName(ref iItem2, ig, " noL1noL2noL3");
+                                SetCValues(ref ShopC_Item_Abbreviation,
+                                          ref ShopC_Item_Name,
+                                          ref Taxation_Name_C,
+                                          ref Taxation_Rate_C,
+                                          ref CRandomPrice,
+                                          Currency_DecimalPlaces,
+                                          ref iItem1,
+                                          ref iItem2,
+                                          ig,
+                                          " noL1noL2noL3",
+                                          " noL1noL2noL3",
+                                          dt_Taxation
+                                          );
                                 SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                                            ShopC_Item_Name,
                                                                                                            ShopC_Item_Abbreviation,
@@ -1265,9 +1489,9 @@ select_country:
                                                                                                            null,
                                                                                                            new DateTime_v(DateTime.Now),
                                                                                                            null,
-                                                                                                           "DDV 22%",
-                                                                                                           0.22M,
-                                                                                                           10M,
+                                                                                                           Taxation_Name_C,
+                                                                                                           Taxation_Rate_C,
+                                                                                                           CRandomPrice,
                                                                                                            new decimal_v(0)
                                                                                                            ); j++;
                             }
@@ -1282,8 +1506,19 @@ select_country:
                                     sl1 = ".L1g" + i1.ToString();
                                     for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                     {
-                                        ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl2 + sl1);
-                                        ShopC_Item_Name = SetCName(ref iItem2, ig, sl2 + sl1);
+                                        SetCValues(ref ShopC_Item_Abbreviation,
+                                         ref ShopC_Item_Name,
+                                         ref Taxation_Name_C,
+                                         ref Taxation_Rate_C,
+                                         ref CRandomPrice,
+                                         Currency_DecimalPlaces,
+                                         ref iItem1,
+                                         ref iItem2,
+                                         ig,
+                                         sl2 + sl1,
+                                         sl2 + sl1,
+                                         dt_Taxation
+                                         );
                                         SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                        ShopC_Item_Name,
                                                                        ShopC_Item_Abbreviation,
@@ -1318,9 +1553,9 @@ select_country:
                                                                        null,
                                                                        new DateTime_v(DateTime.Now),
                                                                        null,
-                                                                       "DDV 22%",
-                                                                       0.22M,
-                                                                       10M,
+                                                                       Taxation_Name_C,
+                                                                       Taxation_Rate_C,
+                                                                       CRandomPrice,
                                                                        new decimal_v(0)
                                                                        );
                                         j++;
@@ -1332,8 +1567,19 @@ select_country:
                                 sl2 = ".L2g" + i2.ToString() + "(...)";
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl2);
-                                    ShopC_Item_Name = SetCName(ref iItem2, ig, sl2);
+                                    SetCValues(ref ShopC_Item_Abbreviation,
+                                     ref ShopC_Item_Name,
+                                     ref Taxation_Name_C,
+                                     ref Taxation_Rate_C,
+                                     ref CRandomPrice,
+                                     Currency_DecimalPlaces,
+                                     ref iItem1,
+                                     ref iItem2,
+                                     ig,
+                                     sl2,
+                                     sl2,
+                                     dt_Taxation
+                                     );
                                     SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                    ShopC_Item_Name,
                                                                    ShopC_Item_Abbreviation,
@@ -1368,9 +1614,9 @@ select_country:
                                                                    null,
                                                                    new DateTime_v(DateTime.Now),
                                                                    null,
-                                                                   "DDV 22%",
-                                                                   0.22M,
-                                                                   10M,
+                                                                   Taxation_Name_C,
+                                                                   Taxation_Rate_C,
+                                                                   CRandomPrice,
                                                                    new decimal_v(0)
                                                                    );
                                     j++;
@@ -1379,8 +1625,20 @@ select_country:
                             sl2 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl2);
-                                ShopC_Item_Name = SetCName(ref iItem2, ig, sl2);
+                                SetCValues(ref ShopC_Item_Abbreviation,
+                                            ref ShopC_Item_Name,
+                                            ref Taxation_Name_C,
+                                            ref Taxation_Rate_C,
+                                            ref CRandomPrice,
+                                            Currency_DecimalPlaces,
+                                            ref iItem1,
+                                            ref iItem2,
+                                            ig,
+                                            sl2,
+                                            sl2,
+                                            dt_Taxation
+                                            );
+
                                 SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                ShopC_Item_Name,
                                                                ShopC_Item_Abbreviation,
@@ -1415,9 +1673,9 @@ select_country:
                                                                null,
                                                                new DateTime_v(DateTime.Now),
                                                                null,
-                                                               "DDV 22%",
-                                                               0.22M,
-                                                               10M,
+                                                               Taxation_Name_C,
+                                                               Taxation_Rate_C,
+                                                               CRandomPrice,
                                                                new decimal_v(0)
                                                                );
 
@@ -1431,8 +1689,19 @@ select_country:
                                 sl1 = ".L1g" + i1.ToString();
                                 for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                                 {
-                                    ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl1);
-                                    ShopC_Item_Name = SetCName(ref iItem2, ig, sl1);
+                                    SetCValues(ref ShopC_Item_Abbreviation,
+                                         ref ShopC_Item_Name,
+                                         ref Taxation_Name_C,
+                                         ref Taxation_Rate_C,
+                                         ref CRandomPrice,
+                                         Currency_DecimalPlaces,
+                                         ref iItem1,
+                                         ref iItem2,
+                                         ig,
+                                         sl1,
+                                         sl1,
+                                         dt_Taxation
+                                         );
                                     SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                                   ShopC_Item_Name,
                                                                                                   ShopC_Item_Abbreviation,
@@ -1467,9 +1736,9 @@ select_country:
                                                                                                   null,
                                                                                                   new DateTime_v(DateTime.Now),
                                                                                                   null,
-                                                                                                  "DDV 22%",
-                                                                                                  0.22M,
-                                                                                                  10M,
+                                                                                                  Taxation_Name_C,
+                                                                                                  Taxation_Rate_C,
+                                                                                                  CRandomPrice,
                                                                                                   new decimal_v(0)
                                                                                                   );
                                     j++;
@@ -1478,8 +1747,20 @@ select_country:
                             sl1 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl1);
-                                ShopC_Item_Name = SetCName(ref iItem2, ig, sl1);
+                                SetCValues(ref ShopC_Item_Abbreviation,
+                                          ref ShopC_Item_Name,
+                                          ref Taxation_Name_C,
+                                          ref Taxation_Rate_C,
+                                          ref CRandomPrice,
+                                          Currency_DecimalPlaces,
+                                          ref iItem1,
+                                          ref iItem2,
+                                          ig,
+                                          sl1,
+                                          sl1,
+                                          dt_Taxation
+                                          );
+
                                 SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                               ShopC_Item_Name,
                                                                                               ShopC_Item_Abbreviation,
@@ -1514,9 +1795,9 @@ select_country:
                                                                                               null,
                                                                                               new DateTime_v(DateTime.Now),
                                                                                               null,
-                                                                                              "DDV 22%",
-                                                                                              0.22M,
-                                                                                              10M,
+                                                                                              Taxation_Name_C,
+                                                                                              Taxation_Rate_C,
+                                                                                              CRandomPrice,
                                                                                               new decimal_v(0)
                                                                                               );
                                 j++;
@@ -1527,8 +1808,19 @@ select_country:
                             sl1 = "(...)";
                             for (ig = 0; ig < iNumberOfItemsPerGroup; ig++)
                             {
-                                ShopC_Item_Abbreviation = SetCAbbreviation(ref iItem1, ig, sl1);
-                                ShopC_Item_Name = SetCName(ref iItem2, ig, sl1);
+                                SetCValues(ref ShopC_Item_Abbreviation,
+                                         ref ShopC_Item_Name,
+                                         ref Taxation_Name_C,
+                                         ref Taxation_Rate_C,
+                                         ref CRandomPrice,
+                                         Currency_DecimalPlaces,
+                                         ref iItem1,
+                                         ref iItem2,
+                                         ig,
+                                         sl1,
+                                         sl1,
+                                         dt_Taxation
+                                         );
                                                          SampleDB_Price_ShopC_Item_List[j] = new SampleDB_Price_ShopC_Item(
                                                                                                                              ShopC_Item_Name,
                                                                                                                              ShopC_Item_Abbreviation,
@@ -1563,9 +1855,9 @@ select_country:
                                                                                                                              null,
                                                                                                                              new DateTime_v(DateTime.Now),
                                                                                                                              null,
-                                                                                                                             "DDV 22%",
-                                                                                                                             0.22M,
-                                                                                                                             10M,
+                                                                                                                             Taxation_Name_C,
+                                                                                                                             Taxation_Rate_C,
+                                                                                                                             CRandomPrice,
                                                                                                                              new decimal_v(0)
                                                                                                                              ); j++;
                             }
