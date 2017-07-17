@@ -14,9 +14,7 @@ using System.Drawing;
 //using System.Collections.Generic;
 //using System.ComponentModel;
 using System.Windows.Forms;
-
-
-
+using System.IO;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
@@ -340,6 +338,39 @@ namespace FiscalVerificationOfInvoices_SLO
             btn_FVI.Enabled = false;
         }
 
+        public bool SetTestCertificate()
+        {
+            string xfurscertificateFileName_TEST = Properties.Settings.Default.furscertificateFileName_TEST;
+            if (xfurscertificateFileName_TEST.Length == 0)
+            {
+                string FullAssemblyPath = System.Reflection.Assembly.GetEntryAssembly().Location;
+                string FullTestCertificatePath = Path.GetDirectoryName(FullAssemblyPath);
+                if (FullTestCertificatePath.Length > 0)
+                {
+                    if (FullTestCertificatePath[FullTestCertificatePath.Length - 1] == '\\')
+                    {
+                        FullTestCertificatePath += TestCertificate.TestCertName;
+                    }
+                    else
+                    {
+                        FullTestCertificatePath += '\\' + TestCertificate.TestCertName;
+                    }
+                    if (TestCertificate.Save(ref FullTestCertificatePath))
+                    {
+                        Properties.Settings.Default.furscertificateFileName_TEST = FullTestCertificatePath;
+                        Properties.Settings.Default.fursCertPass_TEST = "269BODLY9RBL";
+                        Properties.Settings.Default.fursTEST_Environment = true;
+                        Properties.Settings.Default.Save();
+                    }
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:FiscalVerification_SLO:usrc_FVI_SLO:usrc_FVI_SLO():FullTestCertificatePath.Length==0!");
+                    return false;
+                }
+            }
+            return true;
+        }
         private void usrc_FVI_SLO_Load(object sender, EventArgs e)
         {
         }
@@ -424,7 +455,8 @@ namespace FiscalVerificationOfInvoices_SLO
                         NavigationButtons.Navigation nav_Form_Settings = new NavigationButtons.Navigation();
                         nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
                         nav_Form_Settings.bDoModal = true;
-                        Form_Settings fvi_settings = new Form_Settings(this, nav_Form_Settings);
+                        bool Reset2FactorySettings_FiscalVerification_DLL = false;
+                        Form_Settings fvi_settings = new Form_Settings(this, nav_Form_Settings, ref Reset2FactorySettings_FiscalVerification_DLL);
                         dlgResult = fvi_settings.ShowDialog();
                     }
                 }

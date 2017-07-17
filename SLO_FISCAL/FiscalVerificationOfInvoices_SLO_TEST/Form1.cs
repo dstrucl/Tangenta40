@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using LanguageControl;
+using FiscalVerificationOfInvoices_SLO;
 
 namespace FiscalVerificationOfInvoices_SLO_TEST
 {
@@ -130,6 +131,22 @@ namespace FiscalVerificationOfInvoices_SLO_TEST
             LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
 
             btn_Start_Click(null, null);
+        }
+
+        private void btn_CompareCertFileToBuiltInTestCertificate_Click(object sender, EventArgs e)
+        {
+            
+            OpenFileDialog opnf = new OpenFileDialog();
+            opnf.InitialDirectory = "c:\\";
+            opnf.Filter = "txt files (*.crt)|*.crt|(*.p*)|*.p*|All files (*.*)|*.*";
+            opnf.FilterIndex = 2;
+            opnf.RestoreDirectory = true;
+
+            if (opnf.ShowDialog() == DialogResult.OK)
+            {
+                string CerticateFullPath = opnf.FileName;
+                TestCertificate.Compare(CerticateFullPath);
+            }
         }
     }
 }

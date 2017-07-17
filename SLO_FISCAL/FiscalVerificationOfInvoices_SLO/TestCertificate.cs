@@ -1,16 +1,18 @@
-﻿using System;
+﻿using LanguageControl;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace FiscalVerificationOfInvoices_SLO
 {
-    public class TestCertificate
+    public static class TestCertificate
     {
-        public string TestCertName = "10286853-1.p12";
-        public string TestCertPath = null;
-        private string Certificate = @"MIIR5gIBAzCCEaAGCSqGSIb3DQEHAaCCEZEEghGNMIIRiTCCBYYGCSqGSIb3DQEHAaCCBXcEggVz
+        public static string TestCertName = "10286853-1.p12";
+        public static string TestCertPath = null;
+        private static string Certificate = @"MIIR5gIBAzCCEaAGCSqGSIb3DQEHAaCCEZEEghGNMIIRiTCCBYYGCSqGSIb3DQEHAaCCBXcEggVz
 MIIFbzCCBWsGCyqGSIb3DQEMCgECoIIE+jCCBPYwKAYKKoZIhvcNAQwBAzAaBBSXFssmoJ50hreO
 JnbGaDcSAydE7AICBAAEggTIEHnu9izraajs4DG7vOSehOlwDMKUHS+uVABWLTea0iMCdSqF9Egw
 ZK3GE+cHggUM2/D/6RI6wxc17HH79TDq9n8HMjxaDjI6NNMtxmDltoaJ1kXAqn8rDKQhjXb/P3ga
@@ -92,23 +94,61 @@ wASbUT7hB5lhi8LnOkT10ovILa0Wn27lNA8qtHeO3sDjnc5YJIScZTFq/S+z6q79l8ziFAhF2b4l
 2X/M/+cJfgSufnf+M9++VVHB+EswPTAhMAkGBSsOAwIaBQAEFJLDmr3kSKD6/uxcmbPWxrTlWFM/
 BBRcHGW4NPpzQ7I9OIz4hopjurrM6AICBAA=";
 
-        public bool Save()
+        public static bool Save(ref string CertificateFullPath)
         {
-            string CertificateFullPath = "";
             try
             {
                 byte[] u8_Data = Convert.FromBase64String(Certificate);
-                string CertificatePath = System.Windows.Forms.Application.StartupPath;
-                if (CertificatePath[CertificatePath.Length - 1] != '\\')
+                if (CertificateFullPath == null)
                 {
-                    CertificateFullPath = CertificatePath + '\\' + TestCertName;
+                    string CertificatePath = System.Windows.Forms.Application.StartupPath;
+
+                    if (CertificatePath[CertificatePath.Length - 1] != '\\')
+                    {
+                        CertificateFullPath = CertificatePath + '\\' + TestCertName;
+                    }
+                    else
+                    {
+                        CertificateFullPath = CertificatePath + TestCertName;
+                    }
+                }
+                File.WriteAllBytes(CertificateFullPath, u8_Data);
+                TestCertPath = CertificateFullPath;
+                return true;
+            }
+            catch (Exception Ex)
+            {
+                LogFile.Error.Show("ERROR:SLO_FISCAL:TestCertificate:Save:Error File.WriteAllBytes  to " + CertificateFullPath + "\r\nExcpetion=" + Ex.Message);
+                return false;
+            }
+        }
+
+        public static bool Compare(string CertificateFullPath)
+        {
+
+            try
+            {
+                byte[] u8_Data = Convert.FromBase64String(Certificate);
+                byte[] CertificateData = File.ReadAllBytes(CertificateFullPath);
+                int iCount = u8_Data.Length;
+                if (iCount == CertificateData.Length)
+                {
+                    for (int i=0;i<iCount;i++)
+                    {
+                        if (u8_Data[i]!= CertificateData[i])
+                        {
+                            MessageBox.Show(lngRPM.s_CertificateNotEqualToBuiltInTestCertificate.s);
+                            return false;
+                        }
+                    }
+                    MessageBox.Show(lngRPM.s_CertificateIsEqualToBuiltInTestCertificate.s);
                 }
                 else
                 {
-                    CertificateFullPath = CertificatePath + TestCertName;
+                    MessageBox.Show(lngRPM.s_CertificateNotEqualToBuiltInTestCertificate.s +"\r\n "+ lngRPM.ss_Length.s + ":" + iCount.ToString() + "!=" + CertificateData.Length.ToString());
+                    return false;
                 }
-
-                File.WriteAllBytes(CertificateFullPath, u8_Data);
+                TestCertPath = CertificateFullPath;
                 return true;
             }
             catch (Exception Ex)

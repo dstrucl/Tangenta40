@@ -30,11 +30,18 @@ namespace FiscalVerificationOfInvoices_SLO
         public int timeOutInSec = -1;
         NavigationButtons.Navigation nav = null;
 
-        public Form_Settings(usrc_FVI_SLO x_usrc_FVI_SLO,NavigationButtons.Navigation xnav)
+        public Form_Settings(usrc_FVI_SLO x_usrc_FVI_SLO,NavigationButtons.Navigation xnav,ref bool Reset2FactorySettings_FiscalVerification_DLL)
         {
             InitializeComponent();
             nav = xnav;
             m_usrc_FVI_SLO = x_usrc_FVI_SLO;
+
+            if (Reset2FactorySettings_FiscalVerification_DLL)
+            {
+                m_usrc_FVI_SLO.Settings_Reset(this);
+                Reset2FactorySettings_FiscalVerification_DLL = false;
+            }
+
             usrc_NavigationButtons1.Init(nav);
             Properties.Settings.Default.timeOutInSec = SetValue(nm_UpDown_timeOutInSec,Properties.Settings.Default.timeOutInSec);
             Properties.Settings.Default.timeToShowSuccessfulFURSResult = SetValue(this.nm_TimeToShoqSuccessfulFURS_Transaction, Properties.Settings.Default.timeToShowSuccessfulFURSResult);

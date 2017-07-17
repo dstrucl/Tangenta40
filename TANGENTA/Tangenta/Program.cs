@@ -106,6 +106,7 @@ namespace Tangenta
 
         internal static List<CommandLineHelp.CommandLineHelp> command_line_help = new List<CommandLineHelp.CommandLineHelp>();
 
+        internal static bool bResetNew = false;
         internal static bool bChangeConnection = false;
         internal static bool bSymulator = false;
         internal static bool bRS232Monitor = false;
@@ -274,26 +275,7 @@ namespace Tangenta
                         }
                         if (s.Contains(const_command_RESETNEW))
                         {
-                            Form_Reset_Properties_Settings_Default frm_set = new Form_Reset_Properties_Settings_Default();
-
-                            if (frm_set.ShowDialog() == DialogResult.Yes)
-                            {
-                                Properties.Settings.Default.Reset();
-                                CodeTables.ASet.Settings_Reset();
-                                Reset2FactorySettings.Tangenta_EXE = frm_set.bTangenta_EXE;
-                                Reset2FactorySettings.DBConnectionControlXX_EXE = frm_set.bDBConnectionControlXX_EXE;
-                                Reset2FactorySettings.LangugaControl_DLL = frm_set.bLangugaControl_DLL;
-                                Reset2FactorySettings.TangentaPrint_DLL = frm_set.bTangentaPrint_DLL;
-                                Reset2FactorySettings.FiscalVerification_DLL = frm_set.bFiscalVerification_DLL;
-                            }
-                            else
-                            {
-                                Reset2FactorySettings.Tangenta_EXE = false;
-                                Reset2FactorySettings.DBConnectionControlXX_EXE = false;
-                                Reset2FactorySettings.LangugaControl_DLL = false;
-                                Reset2FactorySettings.TangentaPrint_DLL = false;
-                                Reset2FactorySettings.FiscalVerification_DLL = false;
-                            }
+                            bResetNew = true;
                         }
                         if (s.Contains(const_command_AUTONEXT))
                         {
@@ -315,6 +297,72 @@ namespace Tangenta
             }       
         }
 
+        public enum eCommandLineHelpResult {OK,DO_SELECT_LANGUAGE,EXIT }
+
+        public static eCommandLineHelpResult DoCommandLineHelp(ref string[] CommandLineArguments,
+                                                               bool bLanguageSelectDialogShown,
+                                                               ref bool bExitBeforeLogFileInitialised)
+        {
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCINVOICE, lngRPM.s_commandline_DOCINVOICE.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCPROFORMAINVOICE, lngRPM.s_commandline_DOCPROFORMAINVOICE.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lngRPM.s_commandline_RESETNEW.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lngRPM.s_commandline_AUTONEXT.s));
+
+            NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation();
+            if (Auto_NEXT)
+            {
+                CommandLineHelpNav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(10);
+            }
+            CommandLineHelpNav.bDoModal = true;
+            CommandLineHelpNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
+            if (bLanguageSelectDialogShown)
+            {
+                CommandLineHelpNav.btn1_Visible = true;
+                CommandLineHelpNav.btn1_Image = Properties.Resources.Prev;
+            }
+            else
+            {
+                CommandLineHelpNav.btn1_Visible = false;
+            }
+            CommandLineHelpNav.btn1_Text = lngRPM.s_Previous.s;
+            CommandLineHelpNav.btn2_Image = Properties.Resources.Next;
+            CommandLineHelpNav.btn2_Text = lngRPM.s_Next.s;
+            CommandLineHelpNav.btn2_Visible = true;
+            CommandLineHelpNav.btn3_Image = Properties.Resources.Exit_Program;
+            CommandLineHelpNav.btn3_Text = "";
+            CommandLineHelpNav.btn3_Visible = true;
+            CommandLineHelpNav.btn2_ToolTip_Text = "Press to go to next step";
+            CommandLineHelpNav.btn3_ToolTip_Text = "Exit program Tangenta";
+            CommandLineHelpNav.ExitProgramQuestionInLanguage = lngRPM.s_RealyWantToExitProgram.s;
+
+            CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, CommandLineHelpNav, Properties.Resources.Tangenta_Question);
+            CommandLineHelpNav.ChildDialog = hlp_frm;
+            CommandLineHelpNav.ShowDialog();
+            if ((CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
+            {
+                CommandLineArguments = hlp_frm.CommandLineArguments;
+                Parse_CommandLineArguments(CommandLineArguments);
+            }
+            else if (CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
+            {
+                if (bLanguageSelectDialogShown)
+                {
+                    Properties.Settings.Default.LanguageID = -1;
+                    return eCommandLineHelpResult.DO_SELECT_LANGUAGE;
+                }
+            }
+            else
+            {
+                bExitBeforeLogFileInitialised = true;
+                rpc.End();
+                return eCommandLineHelpResult.EXIT;
+            }
+            return eCommandLineHelpResult.OK;
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -329,120 +377,56 @@ namespace Tangenta
             {
                 try
                 {
-                    bool bLanguageSelectDialogShown = false;
-                    bool bLanguageSelected = false;
 
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
 
                     string[] CommandLineArguments = System.Environment.GetCommandLineArgs();
 
+                    Parse_CommandLineArguments(CommandLineArguments);
 
-                DoSelectLanguage:
+                DoResetNew:
+                    bool bLanguageSelectDialogShown = false;
+                    bool bLanguageSelected = false;
 
-                    if (Properties.Settings.Default.LanguageID < 0)
+                    if (bResetNew)
                     {
-                        bFirstTimeInstallation = true;
-                        NavigationButtons.Navigation LanguageNav = new NavigationButtons.Navigation();
-                        LanguageNav.bDoModal = true;
-                        LanguageNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
-                        LanguageNav.btn1_Visible = false;
-                        LanguageNav.btn2_Image = Properties.Resources.Next;
-                        LanguageNav.btn2_Text = "START";
-                        LanguageNav.btn2_Visible = true;
-                        LanguageNav.btn3_Image = Properties.Resources.Exit_Program;
-                        LanguageNav.btn3_Text = "";
-                        LanguageNav.btn3_Visible = true;
-                        LanguageNav.btn2_ToolTip_Text = "Press to select language and go to next step";
-                        LanguageNav.btn3_ToolTip_Text = "Exit program Tangenta";
-
-                        bLanguageSelectDialogShown = true;
-
-                        if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1, LanguageNav))
-                        {
-                            bLanguageSelected = true;
-                            Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
-                            Properties.Settings.Default.Save();
-                        }
-                        else
-                        {
-                            bExitBeforeLogFileInitialised = true;
-                            rpc.End();
-                            return;
-                        }
+                        Properties.Settings.Default.Reset();
+                        CodeTables.ASet.Settings_Reset();
                     }
 
-                    LogFile.Language.id = LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
+
+                DoSelectLanguage:
+                    if (!bLanguageSelected)
+                    {
+                        SelectLanguage(ref bLanguageSelectDialogShown, ref bLanguageSelected, ref bExitBeforeLogFileInitialised);
+                    }
 
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
                     NavigationButtons.lngRPM_strings.s_OK = LanguageControl.lngRPM.s_OK.s;
                     NavigationButtons.lngRPM_strings.s_Cancel = LanguageControl.lngRPM.s_Cancel.s;
 
-                    Parse_CommandLineArguments(CommandLineArguments);
+                    if (bResetNew)
+                    {
+                        DoResetNewModules();
+                        bResetNew = false;
+                    }
 
                     if (bShowCommandLineHelp)
                     {
-
-                        command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCINVOICE, lngRPM.s_commandline_DOCINVOICE.s));
-                        command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCPROFORMAINVOICE, lngRPM.s_commandline_DOCPROFORMAINVOICE.s));
-                        command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
-                        command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lngRPM.s_commandline_RESETNEW.s));
-                        command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
-                        command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
-                        command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lngRPM.s_commandline_AUTONEXT.s));
-
-                        NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation();
-                        if (Auto_NEXT)
+                        bShowCommandLineHelp = false;
+                        switch (DoCommandLineHelp(ref CommandLineArguments,bLanguageSelectDialogShown,ref bExitBeforeLogFileInitialised))
                         {
-                            CommandLineHelpNav.m_Auto_NEXT = new NavigationButtons.Auto_NEXT(10);
-                        }
-                        CommandLineHelpNav.bDoModal = true;
-                        CommandLineHelpNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
-                        if (bLanguageSelectDialogShown)
-                        {
-                            CommandLineHelpNav.btn1_Visible = true;
-                            CommandLineHelpNav.btn1_Image = Properties.Resources.Prev;
-                        }
-                        else
-                        {
-                            CommandLineHelpNav.btn1_Visible = false;
-                        }
-                        CommandLineHelpNav.btn1_Text = lngRPM.s_Previous.s;
-                        CommandLineHelpNav.btn2_Image = Properties.Resources.Next;
-                        CommandLineHelpNav.btn2_Text = lngRPM.s_Next.s;
-                        CommandLineHelpNav.btn2_Visible = true;
-                        CommandLineHelpNav.btn3_Image = Properties.Resources.Exit_Program;
-                        CommandLineHelpNav.btn3_Text = "";
-                        CommandLineHelpNav.btn3_Visible = true;
-                        CommandLineHelpNav.btn2_ToolTip_Text = "Press to go to next step";
-                        CommandLineHelpNav.btn3_ToolTip_Text = "Exit program Tangenta";
-                        CommandLineHelpNav.ExitProgramQuestionInLanguage = lngRPM.s_RealyWantToExitProgram.s;
-
-                        CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, CommandLineHelpNav, Properties.Resources.Tangenta_Question);
-                        CommandLineHelpNav.ChildDialog = hlp_frm;
-                        CommandLineHelpNav.ShowDialog();
-                        if ((CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.OK) || (CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT))
-                        {
-                            CommandLineArguments = hlp_frm.CommandLineArguments;
-                            Parse_CommandLineArguments(CommandLineArguments);
-                        }
-                        else if (CommandLineHelpNav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
-                        {
-                            if (bLanguageSelectDialogShown)
-                            {
-                                Properties.Settings.Default.LanguageID = -1;
+                            case eCommandLineHelpResult.DO_SELECT_LANGUAGE:
                                 goto DoSelectLanguage;
-                            }
-                        }
-                        else
-                        {
-                            bExitBeforeLogFileInitialised = true;
-                            rpc.End();
-                            return;
                         }
                     }
 
-                    
+                    if (bResetNew)
+                    {
+                        goto DoResetNew;
+                    }
+
 
                     IniFolder = Application.CommonAppDataPath;
                     int iLen = IniFolder.Length;
@@ -544,6 +528,65 @@ namespace Tangenta
                     }
                 }
                 rpc.End();
+            }
+        }
+
+        private static void SelectLanguage(ref bool bLanguageSelectDialogShown,ref bool bLanguageSelected,ref bool bExitBeforeLogFileInitialised)
+        {
+            if (Properties.Settings.Default.LanguageID < 0)
+            {
+                bFirstTimeInstallation = true;
+                NavigationButtons.Navigation LanguageNav = new NavigationButtons.Navigation();
+                LanguageNav.bDoModal = true;
+                LanguageNav.m_eButtons = NavigationButtons.Navigation.eButtons.PrevNextExit;
+                LanguageNav.btn1_Visible = false;
+                LanguageNav.btn2_Image = Properties.Resources.Next;
+                LanguageNav.btn2_Text = "START";
+                LanguageNav.btn2_Visible = true;
+                LanguageNav.btn3_Image = Properties.Resources.Exit_Program;
+                LanguageNav.btn3_Text = "";
+                LanguageNav.btn3_Visible = true;
+                LanguageNav.btn2_ToolTip_Text = "Press to select language and go to next step";
+                LanguageNav.btn3_ToolTip_Text = "Exit program Tangenta";
+
+                bLanguageSelectDialogShown = true;
+
+                if (LanguageControl.DynSettings.SelectLanguage(Properties.Resources.Tangenta_Icon, AssemblyName, -1, LanguageNav))
+                {
+                    bLanguageSelected = true;
+                    Properties.Settings.Default.LanguageID = LanguageControl.DynSettings.LanguageID;
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    bExitBeforeLogFileInitialised = true;
+                    rpc.End();
+                    return;
+                }
+            }
+
+            LogFile.Language.id = LanguageControl.DynSettings.LanguageID = Properties.Settings.Default.LanguageID;    //Settings_Tangenta.Settings.LanguageID; ;
+        }
+
+        private static void DoResetNewModules()
+        {
+            Form_Reset_Properties_Settings_Default frm_set = new Form_Reset_Properties_Settings_Default();
+
+            if (frm_set.ShowDialog() == DialogResult.Yes)
+            {
+                Reset2FactorySettings.Tangenta_EXE = frm_set.bTangenta_EXE;
+                Reset2FactorySettings.DBConnectionControlXX_EXE = frm_set.bDBConnectionControlXX_EXE;
+                Reset2FactorySettings.LangugaControl_DLL = frm_set.bLangugaControl_DLL;
+                Reset2FactorySettings.TangentaPrint_DLL = frm_set.bTangentaPrint_DLL;
+                Reset2FactorySettings.FiscalVerification_DLL = frm_set.bFiscalVerification_DLL;
+            }
+            else
+            {
+                Reset2FactorySettings.Tangenta_EXE = false;
+                Reset2FactorySettings.DBConnectionControlXX_EXE = false;
+                Reset2FactorySettings.LangugaControl_DLL = false;
+                Reset2FactorySettings.TangentaPrint_DLL = false;
+                Reset2FactorySettings.FiscalVerification_DLL = false;
             }
         }
     }

@@ -36,6 +36,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
             if (Test)
             {
+                m_usrc_FVI_SLO.SetTestCertificate();
                 lngRPM.s_Furs_Test_Environment.Text(this.lbl_Environment);
                 this.lbl_Environment.ForeColor = Color.HotPink;
                 this.txt_CertificateFile.Text = Properties.Settings.Default.furscertificateFileName_TEST;

@@ -17,6 +17,8 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_CertificateIsEqualToBuiltInTestCertificate = new ltext("Certificate is equal with built in test certificate!", "Certfikat se ujema z vgrajenim testnim certifikatom!");
+        public static ltext s_CertificateNotEqualToBuiltInTestCertificate = new ltext("Certificate is not equal with built in test certificate!", "Certfikat se ne ujema z vgrajenim testnim certifikatom!");
         public static ltext s_Item_Not_In_Offer = new ltext("Item is not in offer any more!", "Artikel ni več v ponudbi!");
         public static ltext s_NotEnoughItemsInStock = new ltext("There is not enough items in stock", "Ni dovolj artikla (artiklov) v zalogah!");
         public static ltext s_NotEnoughItemsInStock_DoIgnoreStockQuestion = new ltext("There is not enough items in stock!\r\nInsert items ignoring stock (Yes/No)?", "Ni dovolj artikla (artiklov) v zalogah!\r\nVnesi artikel mimo skladišča (Da/Ne)?");
@@ -76,6 +78,10 @@ namespace LanguageControl
         public static ltext s_Form_DefinePrinters = new ltext("Printer settings", "Nastavitev tiskalnikov");
         public static ltext s_Printning_Invoices = new ltext("Printing invoices", "Tiskanje računov");
         public static ltext s_Printning_ProformaInvoices = new ltext("Printing proforma invoices", "Tiskanje pred-računov");
+        public static ltext s_Printning_MothodOfPayment_Cash = new ltext("Cash", "Gotovina");
+        public static ltext s_Printning_MothodOfPayment_Card = new ltext("Card", "Kartica");
+        public static ltext s_Printning_MothodOfPayment_BankAccount = new ltext("Bank Account", "Plačilo na bančni račun");
+        public static ltext s_Printning_MothodOfPayment = new ltext("Method of payment", "Način plačila");
         public static ltext s_Printning_Reports = new ltext("Printing reports", "Tiskanje izpiskov");
         public static ltext s_rdb_Valid_Tender_Until = new ltext("Valid until", "Veljavnost ponudbe do");
         public static ltext s_rbtn_NumberOf = new ltext("Number of "," Število");
@@ -680,6 +686,9 @@ namespace LanguageControl
         
         public static ltext s_Discount = new ltext("Discount:",
                                                    "Popust:");
+
+        public static ltext s_Invoices = new ltext("Invoices",
+                                                  "Računi");
 
         public static ltext s_Invoice = new ltext("Invoice",
                                                   "Račun");

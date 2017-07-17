@@ -116,7 +116,9 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                                 }
                                 else if (xnav.eExitResult == Navigation.eEvent.NEXT)
                                 {
-                                    xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1,xnav);
+                                    bool Reset2FactorySettings_FiscalVerification_DLL = Program.Reset2FactorySettings.FiscalVerification_DLL;
+                                    xnav.ChildDialog = new FiscalVerificationOfInvoices_SLO.Form_Settings(usrc_FVI_SLO1,xnav, ref Reset2FactorySettings_FiscalVerification_DLL);
+                                    Program.Reset2FactorySettings.FiscalVerification_DLL = Reset2FactorySettings_FiscalVerification_DLL;
                                     xnav.ShowDialog();
                                     if (xnav.eExitResult == Navigation.eEvent.PREV)
                                     {

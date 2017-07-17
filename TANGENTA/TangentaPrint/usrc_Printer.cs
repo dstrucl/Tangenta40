@@ -50,12 +50,19 @@ namespace TangentaPrint
         public usrc_Printer()
         {
             InitializeComponent();
+            lngRPM.s_Invoices.Text(grp_Invoice);
+            lngRPM.s_Remove.Text(btn_Remove);
             lngRPM.s_Printning_Invoices.Text(chk_Printing_Invoices);
             lngRPM.s_Printning_ProformaInvoices.Text(chk_Printing_ProformaInvoices);
             lngRPM.s_Printning_Reports.Text(chk_Printing_Reports);
-        }
+            lngRPM.s_Printning_MothodOfPayment.Text(grp_Payment);
+            lngRPM.s_Printning_MothodOfPayment_Cash.Text(chk_Cash);
+            lngRPM.s_Printning_MothodOfPayment_Card.Text(chk_Card);
+            lngRPM.s_Printning_MothodOfPayment_BankAccount.Text(chk_BankAccount);
 
-        public string PrinterName
+    }
+
+    public string PrinterName
         {
             get
             {
