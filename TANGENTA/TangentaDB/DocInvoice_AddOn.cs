@@ -211,6 +211,9 @@ namespace TangentaDB
                 }
             }
 
+            public string m_sAmountReceived { get; internal set; }
+            public string m_sToReturn { get; internal set; }
+
             internal static MethodOfPayment Set(object oID, object oPaymentType, object oBankName,
                                                                                  object oBank_Tax_ID,
                                                                                  object oBank_Registration_ID,

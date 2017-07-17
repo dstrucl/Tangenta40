@@ -2172,47 +2172,95 @@ do_EditMyOrganisation_Data:
 
             if (fs.UpdatePriceInDraft(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID, GrossSum, TaxSum.Value, NetSum))
             {
-                if (fs.IssueDoc(DocInvoice, m_ShopABC.m_CurrentInvoice.Doc_ID))
+                if (IsDocInvoice)
                 {
-                    if (IsDocInvoice)
+                    m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID));
+                    long DocInvoice_ID = -1;
+                    if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID))
                     {
-                        m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Program.b_FVI_SLO, Properties.Settings.Default.ElectronicDevice_ID));
-
                         if (AddOnDI.IsCashPayment)
                         {
-                            if (m_InvoiceData != null)
+                            if (Program.b_FVI_SLO)
                             {
                                 if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
                                 {
                                     m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
                                     m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
+                                }
+                                else
+                                { 
+                                    string furs_XML = m_InvoiceData.AddOnDI.m_FURS.Create_furs_InvoiceXML(false,
+                                                           Properties.Resources.FVI_SLO_Invoice,
+                                                           Program.usrc_FVI_SLO1.FursD_MyOrgTaxID,
+                                                           Program.usrc_FVI_SLO1.FursD_BussinesPremiseID,
+                                                           Properties.Settings.Default.ElectronicDevice_ID,
+                                                           Program.usrc_FVI_SLO1.FursD_InvoiceAuthorTaxID,
+                                                           "", "",
+                                                           m_InvoiceData.IssueDate_v,
+                                                           m_InvoiceData.NumberInFinancialYear,
+                                                           m_InvoiceData.GrossSum,
+                                                           m_InvoiceData.taxSum,
+                                                           m_InvoiceData.Invoice_Author
+                                                           );
+                                    Image img_QR = null;
+                                    string furs_UniqeMsgID = null;
+                                    string furs_UniqeInvID = null;
+                                    string furs_BarCodeValue = null;
+                                    if (Program.usrc_FVI_SLO1.Send_SingleInvoice(false, furs_XML, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
+                                    {
+                                        m_InvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);
+                                        m_InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
+                                        m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
+                                        m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
+                                        m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(m_InvoiceData.DocInvoice_ID);
+                                    }
+                                    else
+                                    {
+                                        string xSerialNumber = null;
+                                        string xSetNumber = null;
+                                        string xInvoiceNumber = null;
+                                        Program.usrc_FVI_SLO1.Write_SalesBookInvoice(m_InvoiceData.DocInvoice_ID_v.v, m_InvoiceData.FinancialYear, m_InvoiceData.NumberInFinancialYear, ref xSerialNumber, ref xSetNumber, ref xInvoiceNumber);
+                                        long FVI_SLO_SalesBookInvoice_ID = -1;
+                                        if (TangentaDB.f_FVI_SLO_SalesBookInvoice.Get(m_InvoiceData.DocInvoice_ID_v.v, xSerialNumber, xSetNumber, xInvoiceNumber, ref FVI_SLO_SalesBookInvoice_ID))
+                                        {
+                                            MessageBox.Show("Račun je zabeležen v tabeli za pošiljanje računov iz vezane knjige računov! ");
 
+                                            //LK SalesBookInvoice  prestavi na gumb
+                                            //string furs_XML_SB = m_InvoiceData.Create_furs_SalesBookInvoiceXML(Program.usrc_FVI_SLO1.XML_Template_FVI_SLO_SalesBook, Program.usrc_FVI_SLO1.FursD_MyOrgTaxID, Program.usrc_FVI_SLO1.FursD_BussinesPremiseID, xSetNumber, xSerialNumber);
+                                            //if (Program.usrc_FVI_SLO1.Send_SingleInvoice(furs_XML_SB, this.Parent, ref furs_UniqeMsgID, ref furs_UniqeInvID, ref furs_BarCodeValue, ref img_QR) == FiscalVerificationOfInvoices_SLO.Result_MessageBox_Post.OK)
+                                            //{
+                                            //    m_InvoiceData.FURS_Response_Data = new FURS_Response_data(furs_UniqeMsgID, furs_UniqeInvID, furs_BarCodeValue, img_QR);
+                                            //    m_InvoiceData.FURS_Response_Data.Image_QRcode = img_QR;
+                                            //    m_InvoiceData.Write_FURS_Response_Data();
+                                            //}
+                                        }
+                                    }
+                                    m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
                                 }
                             }
                         }
-
                         if (aa_DocInvoiceSaved != null)
                         {
                             aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
                         }
                         return true;
                     }
-                    else if (IsDocProformaInvoice)
-                    {
-                        if (aa_DocProformaInvoiceSaved != null)
-                        {
-                            aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
-                        }
-                        return true;
-                    }
                     else
                     {
-                        LogFile.Error.Show("ERROR:Tangenta:usrc_Invoice:IssueDocument:Unknown doc type!");
                         return false;
                     }
                 }
+                else if (IsDocProformaInvoice)
+                {
+                    if (aa_DocProformaInvoiceSaved != null)
+                    {
+                        aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                    }
+                    return true;
+                }
                 else
                 {
+                    LogFile.Error.Show("ERROR:Tangenta:usrc_Invoice:IssueDocument:Unknown doc type!");
                     return false;
                 }
             }

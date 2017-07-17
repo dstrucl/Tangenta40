@@ -186,6 +186,10 @@ namespace TangentaDB
         public void Set_NumberInFinancialYear(int xNumberInFinancialYear)
         {
             NumberInFinancialYear = xNumberInFinancialYear;
+            if (InvoiceToken==null)
+            {
+                InvoiceToken = new UniversalInvoice.InvoiceToken();
+            }
             InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
         }
 
@@ -582,9 +586,18 @@ namespace TangentaDB
         }
 
 
-        public bool SaveDocInvoice(ref long docinvoice_ID, GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(ref long docinvoice_ID)// GlobalData.ePaymentType m_ePaymentType, string m_sPaymentMethod, string m_sAmountReceived, string m_sToReturn, ref int xNumberInFinancialYear)
         {
-            return m_ShopABC.m_CurrentInvoice.SaveDocInvoice(ref DocInvoice_ID, m_ePaymentType, m_sPaymentMethod, m_sAmountReceived, m_sToReturn, ref xNumberInFinancialYear);
+            int xNumberInFinancialYear = -1;
+            DateTime_v InvoiceTime_v = new DateTime_v();
+            InvoiceTime_v.v = DateTime.Now;
+            bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(ref DocInvoice_ID, this.AddOnDI.m_MethodOfPayment.eType, this.AddOnDI.m_MethodOfPayment.PaymentType, this.AddOnDI.m_MethodOfPayment.m_sAmountReceived, this.AddOnDI.m_MethodOfPayment.m_sToReturn, ref xNumberInFinancialYear);
+            if (bRet)
+            {
+                this.Set_NumberInFinancialYear(xNumberInFinancialYear);
+                this.SetInvoiceTime(InvoiceTime_v);
+            }
+            return bRet;
         }
 
         public bool SetInvoiceTime(DateTime_v issue_time)

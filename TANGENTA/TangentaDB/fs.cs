@@ -2123,7 +2123,7 @@ namespace TangentaDB
 
         public static bool IssueDoc(string docInvoice, long doc_ID)
         {
-            string sql_SetPrice = "update "+ docInvoice + " set Draft = 1 where ID = " + doc_ID.ToString();
+            string sql_SetPrice = "update "+ docInvoice + " set Draft = 0 where ID = " + doc_ID.ToString();
             object ores = null;
             string Err = null;
             if (DBSync.DBSync.ExecuteNonQuerySQL(sql_SetPrice, null, ref ores, ref Err))

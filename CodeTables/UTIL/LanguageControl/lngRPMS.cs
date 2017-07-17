@@ -20,7 +20,7 @@ namespace LanguageControl
         public static ltext s_IfYouAreRunningThisApplicationOnlyForDemoOrTestPurposesPressYes =  new ltext("If you are running this application only for demo or test pruposes select Yes, otherwise press No ?", 
                                                                                                             "V kolikor sta zagnali to aplikacijo zgolj z namenom preizkusa ali testiranja izberite Da sicer izberite Ne ?");
 
-        public static ltext s_Community1 = new ltext("Community1", "Krajevna skupnost 1");
+        public static ltext s_Community1 = new ltext("C1", "KS1");
         public static ltext s_NumberOfItemsToInsert = new ltext("Number of items to insert ", "Število artiklov za vpis ");
         public static ltext s_JobInPercentDone = new ltext("Job done:", "Količina opravljenaga dela v odstotkih:");
         public static ltext s_WriteItemsToDatabase = new ltext("Number of items to write:", "Število artiklov za vpis:");
@@ -124,7 +124,7 @@ namespace LanguageControl
         public static ltext sh_MyOrg_Address_HouseNumber = new ltext("Enter house number", "Vpišite hišno številko");
 
         public static ltext sl_MyOrg_Address_ZIP = new ltext("ZIP", "Številka pošte");
-        public static ltext s_MyOrg_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
+        public static ltext s_MyOrg_Address_ZIP_v = new ltext("Zip1", "ŠP1");
         public static ltext sh_MyOrg_Address_ZIP = new ltext("Enter ZIP", "Vpišite številko pošte");
 
         public static ltext sl_MyOrg_Address_City = new ltext("City", "Mesto");
