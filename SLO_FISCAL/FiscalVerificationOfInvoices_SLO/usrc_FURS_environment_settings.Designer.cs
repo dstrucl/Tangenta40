@@ -39,6 +39,8 @@
             this.lbl_CertificateFileName = new System.Windows.Forms.Label();
             this.lbl_Environment = new System.Windows.Forms.Label();
             this.usrc_FURS_BussinesPremiseData1 = new FiscalVerificationOfInvoices_SLO.usrc_FURS_BussinesPremiseData();
+            this.txt_fursWWW_check_invoice = new System.Windows.Forms.TextBox();
+            this.lbl_fursWWW_check_invoice = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txt_fursXmlNamespace
@@ -138,17 +140,37 @@
             this.usrc_FURS_BussinesPremiseData1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_FURS_BussinesPremiseData1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.usrc_FURS_BussinesPremiseData1.Location = new System.Drawing.Point(-1, 104);
+            this.usrc_FURS_BussinesPremiseData1.Location = new System.Drawing.Point(3, 127);
             this.usrc_FURS_BussinesPremiseData1.Name = "usrc_FURS_BussinesPremiseData1";
             this.usrc_FURS_BussinesPremiseData1.ReadOnly = false;
             this.usrc_FURS_BussinesPremiseData1.Size = new System.Drawing.Size(667, 235);
             this.usrc_FURS_BussinesPremiseData1.TabIndex = 20;
+            // 
+            // txt_fursWWW_check_invoice
+            // 
+            this.txt_fursWWW_check_invoice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_fursWWW_check_invoice.Location = new System.Drawing.Point(156, 104);
+            this.txt_fursWWW_check_invoice.Name = "txt_fursWWW_check_invoice";
+            this.txt_fursWWW_check_invoice.Size = new System.Drawing.Size(368, 20);
+            this.txt_fursWWW_check_invoice.TabIndex = 22;
+            // 
+            // lbl_fursWWW_check_invoice
+            // 
+            this.lbl_fursWWW_check_invoice.AutoSize = true;
+            this.lbl_fursWWW_check_invoice.Location = new System.Drawing.Point(5, 107);
+            this.lbl_fursWWW_check_invoice.Name = "lbl_fursWWW_check_invoice";
+            this.lbl_fursWWW_check_invoice.Size = new System.Drawing.Size(145, 13);
+            this.lbl_fursWWW_check_invoice.TabIndex = 21;
+            this.lbl_fursWWW_check_invoice.Text = "FURS WWW check invoice:";
             // 
             // usrc_FURS_environment_settings
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.txt_fursWWW_check_invoice);
+            this.Controls.Add(this.lbl_fursWWW_check_invoice);
             this.Controls.Add(this.usrc_FURS_BussinesPremiseData1);
             this.Controls.Add(this.lbl_Environment);
             this.Controls.Add(this.txt_fursXmlNamespace);
@@ -161,7 +183,7 @@
             this.Controls.Add(this.txt_CertificateFile);
             this.Controls.Add(this.lbl_CertificateFileName);
             this.Name = "usrc_FURS_environment_settings";
-            this.Size = new System.Drawing.Size(665, 342);
+            this.Size = new System.Drawing.Size(665, 365);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,5 +202,7 @@
         private System.Windows.Forms.Label lbl_CertificateFileName;
         private System.Windows.Forms.Label lbl_Environment;
         private usrc_FURS_BussinesPremiseData usrc_FURS_BussinesPremiseData1;
+        private System.Windows.Forms.TextBox txt_fursWWW_check_invoice;
+        private System.Windows.Forms.Label lbl_fursWWW_check_invoice;
     }
 }

@@ -110,7 +110,17 @@ namespace Tangenta
         internal static bool bChangeConnection = false;
         internal static bool bSymulator = false;
         internal static bool bRS232Monitor = false;
-        internal static bool b_FVI_SLO = false;
+        private static bool m_b_FVI_SLO = false;
+        internal static bool b_FVI_SLO
+        {
+            get {
+                return m_b_FVI_SLO;
+                }
+            set {
+                m_b_FVI_SLO = value;
+                }
+        }
+
         internal static long Atom_FVI_SLO_RealEstateBP_ID = -1;
         internal static class Reset2FactorySettings
         {

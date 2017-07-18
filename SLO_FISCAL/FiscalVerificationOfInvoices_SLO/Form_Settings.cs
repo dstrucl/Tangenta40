@@ -66,7 +66,7 @@ namespace FiscalVerificationOfInvoices_SLO
             this.txt_SalesBookInvoice_Current_SerialNumber.Text = Properties.Settings.Default.Last_SalesBookInvoice_SerialNumber;
             this.txt_SalesBookInvoice_SerialNumber_Format.Text = Properties.Settings.Default.SalesBookInvoice_SerialNumber_RegularExpression_pattern;
 
-            if (Properties.Settings.Default.fursTEST_Environment)
+            if (m_usrc_FVI_SLO.FursTESTEnvironment)
             {
                 this.rdb_FURS_TEST_Environment.Checked = true;
                 this.usrc_FURS_environment_settings.Enabled = false;
@@ -110,7 +110,7 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (rdb_FURS_Environment.Checked)
             {
-                Properties.Settings.Default.fursTEST_Environment = false;
+                m_usrc_FVI_SLO.FursTESTEnvironment = false;
                 this.usrc_FURS_environment_settings.Enabled = true;
                 this.usrc_FURS_environment_settings_TEST.Enabled = false;
                 m_usrc_FVI_SLO.LoadSettingsValues(false);
@@ -122,7 +122,7 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (rdb_FURS_TEST_Environment.Checked)
             {
-                Properties.Settings.Default.fursTEST_Environment = true;
+                m_usrc_FVI_SLO.FursTESTEnvironment = true;
                 this.usrc_FURS_environment_settings.Enabled = false;
                 this.usrc_FURS_environment_settings_TEST.Enabled = true;
                 m_usrc_FVI_SLO.LoadSettingsValues(true);

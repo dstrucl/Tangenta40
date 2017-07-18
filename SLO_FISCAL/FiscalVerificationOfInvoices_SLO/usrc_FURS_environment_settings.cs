@@ -43,6 +43,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_CertificatePassword.Text = Properties.Settings.Default.fursCertPass_TEST;
                 this.txt_fursWebServiceURL.Text = Properties.Settings.Default.fursWebServiceURL_TEST;
                 this.txt_fursXmlNamespace.Text = Properties.Settings.Default.fursXmlNamespace_TEST;
+                this.txt_fursWWW_check_invoice.Text = Properties.Settings.Default.fursWWW_check_invoice_TEST;
             }
             else
             {
@@ -52,6 +53,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 this.txt_CertificatePassword.Text = Properties.Settings.Default.fursCertPass;
                 this.txt_fursWebServiceURL.Text = Properties.Settings.Default.fursWebServiceURL;
                 this.txt_fursXmlNamespace.Text = Properties.Settings.Default.fursXmlNamespace;
+                this.txt_fursWWW_check_invoice.Text = Properties.Settings.Default.fursWWW_check_invoice;
             }
             this.usrc_FURS_BussinesPremiseData1.Init(Test, m_usrc_FVI_SLO);
         }
@@ -76,6 +78,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursCertPass_TEST = this.txt_CertificatePassword.Text;
                 Properties.Settings.Default.fursWebServiceURL_TEST = this.txt_fursWebServiceURL.Text;
                 Properties.Settings.Default.fursXmlNamespace_TEST = this.txt_fursXmlNamespace.Text;
+                Properties.Settings.Default.fursWWW_check_invoice_TEST = this.txt_fursWWW_check_invoice.Text;
             }
             else
             {
@@ -83,6 +86,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 Properties.Settings.Default.fursCertPass = this.txt_CertificatePassword.Text;
                 Properties.Settings.Default.fursWebServiceURL = this.txt_fursWebServiceURL.Text;
                 Properties.Settings.Default.fursXmlNamespace = this.txt_fursXmlNamespace.Text;
+                Properties.Settings.Default.fursWWW_check_invoice = this.txt_fursWWW_check_invoice.Text;
             }
             Properties.Settings.Default.Save();
         }

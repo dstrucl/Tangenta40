@@ -30,23 +30,20 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             InitializeComponent();
             m_usrc_FVI_SLO = xusrc_FVI_SLO;
-            this.Text = "FURS";
+            lngRPM.s_FURS_WWW_btn_Check_invoice.Text(btn_CheckInvoice);
             Init();
         }
 
         public void Init()
         {
-            //if (m_usrc_FVI_SLO.FursTESTEnvironment)
-            //{
-            //    this.lbl_FURS_Environment.Text = lngRPM.s_Furs_Test_Environment.s;
-            //}
-            //else
-            //{
-            //    this.lbl_FURS_Environment.Text = lngRPM.s_Furs_Environment.s;
-            //}
-            //usrc_FURS_BussinesPremiseData1.ReadOnly = true;
-            //usrc_FURS_BussinesPremiseData1.Init(m_usrc_FVI_SLO.FursTESTEnvironment);
-
+            if (m_usrc_FVI_SLO.FursTESTEnvironment)
+            {
+                this.Text = lngRPM.s_FVI_Check.s + " " + lngRPM.s_Furs_Test_Environment.s;
+            }
+            else
+            {
+                this.Text = lngRPM.s_FVI_Check.s;
+            }
         }
 
         private void btn_Settings_Click(object sender, EventArgs e)
@@ -105,6 +102,22 @@ namespace FiscalVerificationOfInvoices_SLO
 
         }
 
+        private void btn_CheckInvoice_Click(object sender, EventArgs e)
+        {
+            string surl = m_usrc_FVI_SLO.FursD_WWW_check_invoice;
 
+            if (m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice==null)
+            {
+                m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice = new Form_FURS_WEB_check_invoice(surl);
+            }
+            else
+            {
+                if (m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice.IsDisposed)
+                {
+                    m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice = new Form_FURS_WEB_check_invoice(surl);
+                }
+            }
+            m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice.Show();
+        }
     }
 }

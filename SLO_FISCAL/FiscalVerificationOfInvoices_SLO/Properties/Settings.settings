@@ -985,5 +985,11 @@
     <Setting Name="SalesBookInvoice_SerialNumber_RegularExpression_pattern" Type="System.String" Scope="User">
       <Value Profile="(Default)">\d{4}[-]\d{7}</Value>
     </Setting>
+    <Setting Name="fursWWW_check_invoice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://miniblagajna.fu.gov.si/</Value>
+    </Setting>
+    <Setting Name="fursWWW_check_invoice_TEST" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://blagajne-test.fu.gov.si:9002/cash_registers/ui/check_invoice/index.html</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

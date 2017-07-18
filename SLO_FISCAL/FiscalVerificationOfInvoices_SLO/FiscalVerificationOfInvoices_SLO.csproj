@@ -94,11 +94,23 @@
     <Compile Include="FormFURSCommunicationERRORhandler.Designer.cs">
       <DependentUpon>FormFURSCommunicationERRORhandler.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_BussinesPremisse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_BussinesPremisse.Designer.cs">
+      <DependentUpon>Form_BussinesPremisse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_EnterData_to_SalesBookInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_EnterData_to_SalesBookInvoice.Designer.cs">
       <DependentUpon>Form_EnterData_to_SalesBookInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_FURS_WEB_check_invoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_FURS_WEB_check_invoice.Designer.cs">
+      <DependentUpon>Form_FURS_WEB_check_invoice.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
@@ -179,8 +191,14 @@
     <EmbeddedResource Include="FormFURSCommunicationERRORhandler.resx">
       <DependentUpon>FormFURSCommunicationERRORhandler.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_BussinesPremisse.resx">
+      <DependentUpon>Form_BussinesPremisse.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_EnterData_to_SalesBookInvoice.resx">
       <DependentUpon>Form_EnterData_to_SalesBookInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_FURS_WEB_check_invoice.resx">
+      <DependentUpon>Form_FURS_WEB_check_invoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
@@ -245,7 +263,9 @@
     <None Include="Resources\DURS.ico" />
     <None Include="Resources\FURS_Settings.bmp" />
     <None Include="Resources\Exit.bmp" />
+    <None Include="Resources\TAX_Office_Connection.bmp" />
     <Content Include="Resources\TAX_Office_Connection_NONE.bmp" />
+    <None Include="Resources\TAX_Office_Connection_NONE_TestEnvironment.bmp" />
     <Content Include="Resources\TAX_Office_Transmission_ERROR.bmp" />
   </ItemGroup>
   <ItemGroup>

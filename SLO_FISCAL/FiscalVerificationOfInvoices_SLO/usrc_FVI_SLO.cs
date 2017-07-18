@@ -23,6 +23,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
 
         #region Declaration
+        public const string FormFURSCommunication_ErrorMessage_BUSSINES_PREMISE_NOT_DEFINED = "[S006]";
 
         public bool DEBUG = false;
         public int timeOutInSec = 0;
@@ -53,11 +54,25 @@ namespace FiscalVerificationOfInvoices_SLO
 
         #endregion
 
+        internal Form_FURS_WEB_check_invoice m_Form_FURS_WEB_check_invoice = null;
+
         #region Properties
 
         public bool   FursTESTEnvironment
         {
-                 get { return Properties.Settings.Default.fursTEST_Environment; }
+        get { return Properties.Settings.Default.fursTEST_Environment; }
+        set { bool bTest = value;
+                if (bTest)
+                {
+                    btn_FVI.Image = Properties.Resources.TAX_Office_Connection_TEST_environment;
+                    Properties.Settings.Default.fursTEST_Environment = true;
+                }
+                else
+                {
+                    btn_FVI.Image = Properties.Resources.TAX_Office_Connection;
+                    Properties.Settings.Default.fursTEST_Environment = false;
+                }
+            }
         }
 
         //if (TestValues)
@@ -315,6 +330,21 @@ namespace FiscalVerificationOfInvoices_SLO
             }
         }
 
+        public string FursD_WWW_check_invoice
+        {
+            get
+            {
+                if (FursTESTEnvironment)
+                {
+                    return Properties.Settings.Default.fursWWW_check_invoice_TEST;
+                }
+                else
+                {
+                    return Properties.Settings.Default.fursWWW_check_invoice;
+                }
+            }
+        }
+
         public string XML_Template_FVI_SLO_SalesBook
         {
             get { return Properties.Resources.FVI_SLO_SalesBook; }
@@ -359,7 +389,7 @@ namespace FiscalVerificationOfInvoices_SLO
                     {
                         Properties.Settings.Default.furscertificateFileName_TEST = FullTestCertificatePath;
                         Properties.Settings.Default.fursCertPass_TEST = "269BODLY9RBL";
-                        Properties.Settings.Default.fursTEST_Environment = true;
+                        this.FursTESTEnvironment = true;
                         Properties.Settings.Default.Save();
                     }
                 }
@@ -371,6 +401,7 @@ namespace FiscalVerificationOfInvoices_SLO
             }
             return true;
         }
+
         private void usrc_FVI_SLO_Load(object sender, EventArgs e)
         {
         }
@@ -495,6 +526,19 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (bRun)
             {
+                if (m_Form_FURS_WEB_check_invoice!=null)
+                {
+                    if (m_Form_FURS_WEB_check_invoice.IsDisposed)
+                    {
+                        m_Form_FURS_WEB_check_invoice = null;
+                    }
+                    else
+                    {
+                        m_Form_FURS_WEB_check_invoice.Close();
+                        m_Form_FURS_WEB_check_invoice.Dispose();
+                        m_Form_FURS_WEB_check_invoice = null;
+                    }
+                }
                 bRun = false;
                 timer_MessagePump.Enabled = false;
                 thread_fvi.End(message_box);
@@ -523,6 +567,17 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
+                    if (FormFURSCommunication.ErrorMessage.Contains(FormFURSCommunication_ErrorMessage_BUSSINES_PREMISE_NOT_DEFINED))
+                    {
+                        Form_BussinesPremisse frm_BP = new Form_BussinesPremisse(this,this.FursTESTEnvironment,FormFURSCommunication.ErrorMessage + "\r\n" + lngRPM.s_SignUpYourBussinesBremise.s);
+                        if (frm_BP.ShowDialog(this)==DialogResult.OK)
+                        {
+                            if (frm_BP.FURS_BussinesPremiseData_SignedUp)
+                            {
+                                continue;
+                            }
+                        }
+                    }
                     if (bSendSalesBookInvoice)
                     {
                         return Result_MessageBox_Post.ERROR;

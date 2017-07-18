@@ -31,16 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MainFiscal));
             this.btn_Settings = new System.Windows.Forms.Button();
             this.btn_Send_ECHO = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.SuspendLayout();
+            this.btn_CheckInvoice = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Settings
             // 
-            this.btn_Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Settings.Image = global::FiscalVerificationOfInvoices_SLO.Properties.Resources.FURS_Settings;
-            this.btn_Settings.Location = new System.Drawing.Point(816, 6);
+            this.btn_Settings.Location = new System.Drawing.Point(104, 6);
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.Size = new System.Drawing.Size(102, 38);
             this.btn_Settings.TabIndex = 3;
@@ -57,39 +54,31 @@
             this.btn_Send_ECHO.UseVisualStyleBackColor = true;
             this.btn_Send_ECHO.Click += new System.EventHandler(this.btn_Send_ECHO_Click);
             // 
-            // splitContainer1
+            // btn_CheckInvoice
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.splitContainer1.Location = new System.Drawing.Point(4, 56);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1.Panel2Collapsed = true;
-            this.splitContainer1.Size = new System.Drawing.Size(914, 670);
-            this.splitContainer1.SplitterDistance = 229;
-            this.splitContainer1.TabIndex = 6;
+            this.btn_CheckInvoice.Location = new System.Drawing.Point(212, 6);
+            this.btn_CheckInvoice.Name = "btn_CheckInvoice";
+            this.btn_CheckInvoice.Size = new System.Drawing.Size(467, 38);
+            this.btn_CheckInvoice.TabIndex = 5;
+            this.btn_CheckInvoice.Text = "CheckInvoice";
+            this.btn_CheckInvoice.UseVisualStyleBackColor = true;
+            this.btn_CheckInvoice.Click += new System.EventHandler(this.btn_CheckInvoice_Click);
             // 
             // Form_MainFiscal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 728);
-            this.Controls.Add(this.splitContainer1);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(689, 54);
+            this.Controls.Add(this.btn_CheckInvoice);
             this.Controls.Add(this.btn_Send_ECHO);
             this.Controls.Add(this.btn_Settings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_MainFiscal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Main";
             this.Load += new System.EventHandler(this.Form_Main_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -97,6 +86,6 @@
         #endregion
         private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.Button btn_Send_ECHO;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button btn_CheckInvoice;
     }
 }

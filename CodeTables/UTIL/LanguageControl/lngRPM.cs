@@ -17,6 +17,9 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_FURS_WWW_btn_Check_invoice = new ltext("FURS WWW for checking invoices", "Domača stran davčne uprave za preverjanje računov in ostalo");
+        public static ltext s_SignUpYourBussinesBremise = new ltext("Sign up your bussines premise at fiscal authorites", "Registrirajte poslovni prostor pri davčni upravi!\r\n");
+        public static ltext s_SignUpBussinesPremisse = new ltext("Sign up your bussines premise at fiscal authorites", "Prijava poslovnega prostora pri davčni upravi");
         public static ltext s_CertificateIsEqualToBuiltInTestCertificate = new ltext("Certificate is equal with built in test certificate!", "Certfikat se ujema z vgrajenim testnim certifikatom!");
         public static ltext s_CertificateNotEqualToBuiltInTestCertificate = new ltext("Certificate is not equal with built in test certificate!", "Certfikat se ne ujema z vgrajenim testnim certifikatom!");
         public static ltext s_Item_Not_In_Offer = new ltext("Item is not in offer any more!", "Artikel ni več v ponudbi!");

@@ -22,6 +22,10 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class usrc_FURS_BussinesPremiseData : UserControl
     {
+        public delegate void delegate_FURS_BussinesPremiseData_SignedUp(bool bResult);
+
+        public event delegate_FURS_BussinesPremiseData_SignedUp FURS_BussinesPremiseData_SignedUp = null;
+
         private bool Test = false;
         private bool m_ReadOnly = false;
         private usrc_FVI_SLO m_usrc_FVI_SLO;
@@ -194,10 +198,35 @@ namespace FiscalVerificationOfInvoices_SLO
 
             if (MakePP_XML(ref xml))
             {
+                if (m_usrc_FVI_SLO.Send_PP(xml)== Result_MessageBox_Post.OK)
+                {
+                    if (FURS_BussinesPremiseData_SignedUp!=null)
+                    {
+                        FURS_BussinesPremiseData_SignedUp(true);
+                    }
+
+                }
+                else
+                {
+                    if (FURS_BussinesPremiseData_SignedUp != null)
+                    {
+                        FURS_BussinesPremiseData_SignedUp(false);
+                    }
+                }
+            }
+        }
+
+        private void SendBussinesPremise()
+        {
+            //save settings ? 
+            string xml = "";
+
+            Save();
+
+            if (MakePP_XML(ref xml))
+            {
                 m_usrc_FVI_SLO.Send_PP(xml);
             }
-
-
         }
 
         bool MakePP_XML(ref string xml)

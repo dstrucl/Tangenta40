@@ -958,6 +958,8 @@ namespace TangentaDB
             }
 
             string Err = null;
+            dt_DocInvoice.Clear();
+            dt_DocInvoice.Columns.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_DocInvoice, sql, ref Err))
             {
                 if (dt_DocInvoice.Rows.Count == 1)
@@ -1740,6 +1742,10 @@ namespace TangentaDB
                             {
                                 return "ERROR:<tr class=\"grandtotal\"> not found !";
                             }
+                            html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
+                            html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
+                            html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+
                             int iStartIndexOf_InvoiceBottom = -1;
                             int iEndIndexOf_InvoiceBottom = -1;
                             if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_InvoiceBottom, ref iEndIndexOf_InvoiceBottom, "div", "invoicebottom"))

@@ -1049,7 +1049,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10329048")]
         public string fursD_MyOrgTaxID {
             get {
                 return ((string)(this["fursD_MyOrgTaxID"]));
@@ -1061,7 +1061,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10286853")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10329048")]
         public string fursD_MyOrgTaxID_TEST {
             get {
                 return ((string)(this["fursD_MyOrgTaxID_TEST"]));
@@ -1073,7 +1073,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("KUNAVE6")]
         public string fursD_BussinesPremiseID {
             get {
                 return ((string)(this["fursD_BussinesPremiseID"]));
@@ -1085,7 +1085,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("P1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("KUNAVE6")]
         public string fursD_BussinesPremiseID_TEST {
             get {
                 return ((string)(this["fursD_BussinesPremiseID_TEST"]));
@@ -1097,7 +1097,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10329048")]
         public string fursD_InvoiceAuthorTaxID {
             get {
                 return ((string)(this["fursD_InvoiceAuthorTaxID"]));
@@ -1109,7 +1109,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10286853")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10329048")]
         public string fursD_InvoiceAuthorTaxID_TEST {
             get {
                 return ((string)(this["fursD_InvoiceAuthorTaxID_TEST"]));
@@ -1133,7 +1133,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string fursD_BuildingNumber_TEST {
             get {
                 return ((string)(this["fursD_BuildingNumber_TEST"]));
@@ -1157,7 +1157,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string fursD_BuildingSectionNumber_TEST {
             get {
                 return ((string)(this["fursD_BuildingSectionNumber_TEST"]));
@@ -1181,7 +1181,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("KS1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string fursD_Community_TEST {
             get {
                 return ((string)(this["fursD_Community_TEST"]));
@@ -1205,7 +1205,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1738")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string fursD_CadastralNumber_TEST {
             get {
                 return ((string)(this["fursD_CadastralNumber_TEST"]));
@@ -1289,7 +1289,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("89304489")]
+        [global::System.Configuration.DefaultSettingValueAttribute("99999999")]
         public string fursD_SoftwareSupplierTaxID {
             get {
                 return ((string)(this["fursD_SoftwareSupplierTaxID"]));
@@ -1301,7 +1301,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("89304489")]
+        [global::System.Configuration.DefaultSettingValueAttribute("99999999")]
         public string fursD_SoftwareSupplierTaxID_TEST {
             get {
                 return ((string)(this["fursD_SoftwareSupplierTaxID_TEST"]));
@@ -1313,7 +1313,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Mesto1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ljubljana")]
         public string fursD_City_TEST {
             get {
                 return ((string)(this["fursD_City_TEST"]));
@@ -1361,7 +1361,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Cesta1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Na trati")]
         public string fursD_StreetName_TEST {
             get {
                 return ((string)(this["fursD_StreetName_TEST"]));
@@ -1373,7 +1373,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ljubljana")]
         public string fursD_City {
             get {
                 return ((string)(this["fursD_City"]));
@@ -1385,7 +1385,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public string fursD_PostNumber {
             get {
                 return ((string)(this["fursD_PostNumber"]));
@@ -1397,7 +1397,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string fursD_StreetNumber {
             get {
                 return ((string)(this["fursD_StreetNumber"]));
@@ -1409,7 +1409,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Na trati")]
         public string fursD_StreetName {
             get {
                 return ((string)(this["fursD_StreetName"]));
@@ -1476,6 +1476,30 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
             }
             set {
                 this["SalesBookInvoice_SerialNumber_RegularExpression_pattern"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://miniblagajna.fu.gov.si/")]
+        public string fursWWW_check_invoice {
+            get {
+                return ((string)(this["fursWWW_check_invoice"]));
+            }
+            set {
+                this["fursWWW_check_invoice"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://blagajne-test.fu.gov.si:9002/cash_registers/ui/check_invoice/index.html")]
+        public string fursWWW_check_invoice_TEST {
+            get {
+                return ((string)(this["fursWWW_check_invoice_TEST"]));
+            }
+            set {
+                this["fursWWW_check_invoice_TEST"] = value;
             }
         }
     }
