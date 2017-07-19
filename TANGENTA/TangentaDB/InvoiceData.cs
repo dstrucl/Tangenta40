@@ -47,7 +47,7 @@ namespace TangentaDB
         public enum eType { DRAFT_INVOICE, INVOICE, PROFORMA_INVOICE, STORNO, UNKNOWN };
 
         public eType m_eType = eType.UNKNOWN;
-        private string CasshierName = "";
+        private string_v Electronic_Device_Name_v = null;
 
 
 
@@ -170,17 +170,11 @@ namespace TangentaDB
         }
 
 
-        public InvoiceData(TangentaDB.ShopABC xInvoiceDB, long xDocProformaInvoice_ID, bool xb_FVI_SLO, string xCasshierName)
+        public InvoiceData(TangentaDB.ShopABC xInvoiceDB, long xDocInvoice_ID,  string xElectronic_Device_Name)
         {
             m_ShopABC = xInvoiceDB;
-            DocInvoice_ID = xDocProformaInvoice_ID;
-            if (IsDocInvoice)
-            {
-                AddOnDI = new DocInvoice_AddOn();
-                AddOnDI.m_FURS.Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
-                AddOnDI.b_FVI_SLO = xb_FVI_SLO;
-            }
-            CasshierName = xCasshierName;
+            DocInvoice_ID = xDocInvoice_ID;
+            Electronic_Device_Name_v = new string_v(xElectronic_Device_Name);
         }
 
         public void Set_NumberInFinancialYear(int xNumberInFinancialYear)
@@ -742,6 +736,7 @@ namespace TangentaDB
                                 aorgd.BankName,
                                 aorgd.TRR,
                                 aoff.Name as Atom_Office_Name,
+                                aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
                                 ap.ID as Atom_MyOrganisation_Person_ID,
@@ -769,6 +764,7 @@ namespace TangentaDB
                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
+                                inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
@@ -827,6 +823,7 @@ namespace TangentaDB
                                 aorgd.BankName,
                                 aorgd.TRR,
                                 aoff.Name as Atom_Office_Name,
+                                aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
                                 ap.ID as Atom_MyOrganisation_Person_ID,
@@ -848,6 +845,7 @@ namespace TangentaDB
                                 inner join JOURNAL_DocInvoice_Type jpit on jpi.JOURNAL_DocInvoice_Type_ID = jpit.ID and ((jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceDraftTime.ID.ToString() + @") or (jpit.ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceStornoTime.ID.ToString() + @"))
                                 inner join DocInvoice pi on jpi.DocInvoice_ID = pi.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
+                                inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
@@ -905,6 +903,7 @@ namespace TangentaDB
                                 aorgd.BankName,
                                 aorgd.TRR,
                                 aoff.Name as Atom_Office_Name,
+                                aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
                                 apln.LastName as My_Organisation_Person_LastName,
                                 ap.ID as Atom_MyOrganisation_Person_ID,
@@ -923,6 +922,7 @@ namespace TangentaDB
                                 inner join JOURNAL_DocProformaInvoice_Type jpit on jpi.JOURNAL_DocProformaInvoice_Type_ID = jpit.ID and (jpit.ID = " + GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceDraftTime.ID.ToString() + @")
                                 inner join DocProformaInvoice pi on jpi.DocProformaInvoice_ID = pi.ID
                                 inner join Atom_WorkPeriod awp on jpi.Atom_WorkPeriod_ID = awp.ID
+                                inner join Atom_ElectronicDevice aed on awp.Atom_ElectronicDevice_ID = aed.ID
                                 inner join Atom_myOrganisation_Person amcp on awp.Atom_myOrganisation_Person_ID = amcp.ID
                                 inner join Atom_Person ap on ap.ID = amcp.Atom_Person_ID
                                 inner join Atom_Office aoff on amcp.Atom_Office_ID = aoff.ID
@@ -968,6 +968,7 @@ namespace TangentaDB
                     {
                         Draft = DBTypes.tf._set_bool(dt_DocInvoice.Rows[0]["Draft"]);
                         IssueDate_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["IssueDate"]);
+                        Electronic_Device_Name_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Atom_Electronic_Device_Name"]);
                         if (IsDocInvoice)
                         {
                             AddOnDI.Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
@@ -1186,12 +1187,12 @@ namespace TangentaDB
                         FinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["FinancialYear"]);
                         NumberInFinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["NumberInFinancialYear"]);
 
-                            if (IsDocInvoice)
+                        if (IsDocInvoice)
+                        {
+                            if (AddOnDI.b_FVI_SLO)
                             {
-                                if (AddOnDI.b_FVI_SLO)
+                                if (!Draft)
                                 {
-                                    if (!Draft)
-                                    {
 
                                     AddOnDI.m_FURS.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
                                     AddOnDI.m_FURS.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
@@ -1199,9 +1200,25 @@ namespace TangentaDB
                                     AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
                                     AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
                                     AddOnDI.m_FURS.FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
+                                    if (AddOnDI.m_FURS.Invoice_FURS_Token==null)
+                                    {
+                                        AddOnDI.m_FURS.Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
+                                    }
+                                    if (AddOnDI.m_FURS.FURS_ZOI_v != null)
+                                    {
+                                        AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Set(AddOnDI.m_FURS.FURS_ZOI_v.v);
+                                    }
+                                    if (AddOnDI.m_FURS.FURS_EOR_v != null)
+                                    {
+                                        AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Set(AddOnDI.m_FURS.FURS_EOR_v.v);
+                                    }
+                                    if (AddOnDI.m_FURS.FURS_QR_v != null)
+                                    {
+                                        AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Set(AddOnDI.m_FURS.FURS_QR_v.v);
                                     }
                                 }
                             }
+                        }
 
                         object oAtom_MyOrganisation_Person_ID = dt_DocInvoice.Rows[0]["Atom_MyOrganisation_Person_ID"];
                         if (oAtom_MyOrganisation_Person_ID is long)
@@ -1279,7 +1296,7 @@ namespace TangentaDB
 
                                 InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
                                 InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
-                                InvoiceToken.tCashier.Set(CasshierName);
+                                InvoiceToken.tCashier.Set(Electronic_Device_Name_v.v);
 
                                 InvoiceToken.tStorno.Set("");
                                 if (IsDocInvoice)

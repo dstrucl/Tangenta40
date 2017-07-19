@@ -168,9 +168,16 @@ namespace TangentaPrint
                     ProgramDiagnostic.Diagnostic.Meassure("before if (pglayout.OnePageSize(printer.PageHeight, 0, 0))", "!!");
                     if (pglayout.OnePageSize(printer.PageHeight, 0, 0))
                     {
-                        s = m_InvoiceData.InsertPageNumbers(s);
-                        this.htmlPanel1.Text = s;
-                        return true;
+                        if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))
+                        {
+                            s = m_InvoiceData.InsertPageNumbers(s);
+                            this.htmlPanel1.Text = s;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -308,6 +315,9 @@ namespace TangentaPrint
             }
             else
             {
+                //    hc.PerformPrint(e.Graphics, 0);
+                //    e.HasMorePages = false;
+                //}
                 XSize e_Graphics_XSize = new XSize(Convert.ToDouble(e.PageSettings.PrintableArea.Width), Convert.ToDouble(e.PageSettings.PrintableArea.Height));
                 e.Graphics.IntersectClip(new RectangleF(config.MarginLeft, config.MarginTop, pageSize.Width, pageSize.Height));
                 hc.ScrollOffset = new Point(0, Convert.ToInt32(scrollOffset));

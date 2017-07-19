@@ -23,7 +23,7 @@ namespace LanguageControl
         public static ltext lngt_t_PurchasePrice = new ltext("Purchase Price", "Prevzemne cene");
         public static ltext lngt_t_Purchase_Order = new ltext("Purchase Order", "Naročilo Dobavitelju");
         public static ltext lngt_t_Trucking = new ltext("Trucking", "Transport");
-        public static ltext lngt_t_Atom_ElectronicDevice = new ltext("Electronic Device", "Elektronska namprava");
+        public static ltext lngt_t_Atom_ElectronicDevice = new ltext("Electronic Device", "Elektronska naprava");
         public static ltext lngt_t_Atom_Bank = new ltext("Archive Bank", "Arhiv bank");
         public static ltext lngt_t_Atom_BankAccount = new ltext("Archive Bank Account", "Arhiv bančnih računov");
         public static ltext lngt_t_Atom_OrganisationAccount = new ltext("Archive Organisation Account", "Arhiv bančnih računov organizacije");

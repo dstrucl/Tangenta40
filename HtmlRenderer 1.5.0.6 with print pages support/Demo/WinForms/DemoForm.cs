@@ -198,11 +198,11 @@ namespace TheArtOfDev.HtmlRenderer.Demo.WinForms
             }
             if (hc.PageListCount > 0)
             {
-                if (iPage <= hc.PageListCount-1)
+                if (iPage <= hc.PageListCount - 1)
                 {
                     if (iPage == hc.PageListCount - 1)
                     {
-                        hc.PerformPrint(e.Graphics,iPage);
+                        hc.PerformPrint(e.Graphics, iPage);
                         e.HasMorePages = false;
                     }
                     else
@@ -211,7 +211,7 @@ namespace TheArtOfDev.HtmlRenderer.Demo.WinForms
                         e.HasMorePages = true;
                         iPage++;
                     }
-                    
+
                 }
                 else
                 {
@@ -219,21 +219,24 @@ namespace TheArtOfDev.HtmlRenderer.Demo.WinForms
                 }
             }
             else
-            { 
-                XSize e_Graphics_XSize = new XSize(Convert.ToDouble(e.PageSettings.PrintableArea.Width), Convert.ToDouble(e.PageSettings.PrintableArea.Height));
-                e.Graphics.IntersectClip(new RectangleF(config.MarginLeft, config.MarginTop, pageSize.Width, pageSize.Height));
-                hc.ScrollOffset = new Point(0, Convert.ToInt32(scrollOffset));
-                hc.PerformPaint(e.Graphics);
-                scrollOffset -= pageSize.Height;
-                if (scrollOffset > -hc.ActualSize.Height)
-                {
-                    e.HasMorePages = true;
-                }
-                else
-                {
-                    e.HasMorePages = false;
-                }
+            {
+                hc.PerformPrint(e.Graphics, 0);
+                e.HasMorePages = false;
             }
+            //    XSize e_Graphics_XSize = new XSize(Convert.ToDouble(e.PageSettings.PrintableArea.Width), Convert.ToDouble(e.PageSettings.PrintableArea.Height));
+            //    e.Graphics.IntersectClip(new RectangleF(config.MarginLeft, config.MarginTop, pageSize.Width, pageSize.Height));
+            //    hc.ScrollOffset = new Point(0, Convert.ToInt32(scrollOffset));
+            //    hc.PerformPaint(e.Graphics);
+            //    scrollOffset -= pageSize.Height;
+            //    if (scrollOffset > -hc.ActualSize.Height)
+            //    {
+            //        e.HasMorePages = true;
+            //    }
+            //    else
+            //    {
+            //        e.HasMorePages = false;
+            //    }
+            //}
         }
 
         private void btn_Pages_Click(object sender, EventArgs e)

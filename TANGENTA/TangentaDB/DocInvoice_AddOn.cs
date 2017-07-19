@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace TangentaDB
@@ -583,10 +584,11 @@ namespace TangentaDB
 
 
 
-            public bool Read_FURS_Response_Data(long DocProformaInvoice_ID, ref DataTable dt)
+            public bool Read_FURS_Response_Data(long DocInvoice_ID)
             {
-                string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where DocInvoice_ID = " + DocProformaInvoice_ID.ToString();
+                string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where DocInvoice_ID = " + DocInvoice_ID.ToString();
                 string Err = null;
+                DataTable dt = new DataTable();
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                 {
                     if (dt.Rows.Count > 0)
@@ -594,6 +596,14 @@ namespace TangentaDB
                         FURS_ZOI_v = tf.set_string(dt.Rows[0]["MessageID"]);
                         FURS_EOR_v = tf.set_string(dt.Rows[0]["UniqueInvoiceID"]);
                         FURS_QR_v = tf.set_string(dt.Rows[0]["BarCodeValue"]);
+                        if (Invoice_FURS_Token == null)
+                        {
+                            Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
+                        }
+                        Invoice_FURS_Token.tUniqueMessageID.Set(FURS_ZOI_v.v);
+                        Invoice_FURS_Token.tUniqueInvoiceID.Set(FURS_EOR_v.v);
+                        Invoice_FURS_Token.tUniqueInvoiceID.Set(FURS_QR_v.v);
+                        Invoice_FURS_Token.tQR.Set("");
                         this.FURS_Image_QRcode = null;
                     }
                     else
@@ -818,6 +828,7 @@ namespace TangentaDB
 
             }
         }
+
         public FURS m_FURS = new FURS();
 
         public bool IsCashPayment
@@ -826,7 +837,22 @@ namespace TangentaDB
             {
                 if (m_MethodOfPayment != null)
                 {
-                    return m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH;
+                    return ((m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH) || (m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD));
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsCardPayment
+        {
+            get
+            {
+                if (m_MethodOfPayment != null)
+                {
+                    return ((m_MethodOfPayment.eType == GlobalData.ePaymentType.PAYMENT_CARD) || (m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD));
                 }
                 else
                 {
