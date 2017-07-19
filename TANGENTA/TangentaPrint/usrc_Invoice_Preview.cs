@@ -185,11 +185,20 @@ namespace TangentaPrint
                         if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))
                         {
                             ProgramDiagnostic.Diagnostic.Meassure("after if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))", "!!");
-                            double PageHeight = printer.PageHeight;
-                            s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_RollPaperPrintingOutput, PageHeight);
-                            ProgramDiagnostic.Diagnostic.Meassure("after m_InvoiceData.CreateHTML_PagePaperPrintingOutput(..)", "!!");
-                            this.htmlPanel1.Text = s;
-                            return true;
+                            double xPageHeight = HTML_RollPaperPrintingOutput.GetScreenPageHeight(pglayout);
+                            //double PageHeight = printer.PageHeight;
+                            if (xPageHeight > 0)
+                            {
+                                s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_RollPaperPrintingOutput, xPageHeight);
+                                ProgramDiagnostic.Diagnostic.Meassure("after m_InvoiceData.CreateHTML_PagePaperPrintingOutput(..)", "!!");
+                                this.htmlPanel1.Text = s;
+                                return true;
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:usrc_InvoicePrevier:ShowPreview:PageHeight<=0,Print Template error PageIsNot defined!");
+                                return false;
+                            }
                         }
                         else
                         {
