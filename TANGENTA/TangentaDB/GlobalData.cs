@@ -38,6 +38,8 @@ namespace TangentaDB
         public static doc_page_type_definitions doc_page_type_definitions = null;
         public static doc_type_definitions doc_type_definitions = null;
         public static Language_definitions language_definitions = null;
+        public static MethodOfPayment_definitions methodOfPayment_definitions = null;
+
 
         public static xCurrency BaseCurrency = null;
 
@@ -387,7 +389,7 @@ namespace TangentaDB
             }
             else
             {
-                Err = "ERROR:usrc_Invoice:Init_Currency_Table:sql = "+ sql_SetBaseCurrency+"\r\nErr = " + Err;
+                Err = "ERROR:TangentaDB:GlobalData:InsertIntoBaseCurrency:sql = " + sql_SetBaseCurrency+"\r\nErr = " + Err;
                 LogFile.Error.Show(Err);
                 return false;
             }
@@ -430,6 +432,24 @@ namespace TangentaDB
                 }
             }
             return false;
+        }
+
+
+        public static bool InsertDefaultPaymentMethods(ref string Err)
+        {
+            return true;
+            string sql_InsertDefaultPaymentMethods = "Insert into BaseCurrency (Currency_ID) Values )";
+            object oRes = null;
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_InsertDefaultPaymentMethods, null, ref oRes, ref Err))
+            {
+                return true;
+            }
+            else
+            {
+                Err = "ERROR:TangentaDB:GlobalData:InsertDefaultPaymentMethods:sql = " + sql_InsertDefaultPaymentMethods + "\r\nErr = " + Err;
+                LogFile.Error.Show(Err);
+                return false;
+            }
         }
     }
 }

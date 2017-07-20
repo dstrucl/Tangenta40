@@ -16,12 +16,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LanguageControl;
 
 namespace ShopA
 {
     public partial class Form_Tool_SelectItem : Form
     {
         public Atom_ItemShopA m_Atom_ItemShopA = null;
+        public int iSelectedIndex = -1;
         DataTable dt_Atom_ItemShopA = new DataTable();
         usrc_Editor m_usrc_Editor = null;
         SQLTable t_Atom_ItemShopA = null;
@@ -32,6 +34,7 @@ namespace ShopA
             InitializeComponent();
             m_Atom_ItemShopA = xAtom_ItemShopA;
             m_usrc_Editor = xusrc_Editor;
+            lngRPM.s_Select_ShopA_Item.Text(this);
             t_Atom_ItemShopA = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ItemShopA)));
         }
 
@@ -53,10 +56,10 @@ namespace ShopA
                 Atom_ItemShopA_$_u_$$StorageOption,
                 Atom_ItemShopA_$_u_$$Description,
                 Atom_ItemShopA_$_sup_$$ID,
-                Atom_ItemShopA_$_sup_$_org_$$ID,
-                Atom_ItemShopA_$_sup_$_org_$$Name,
-                Atom_ItemShopA_$_sup_$_org_$$Tax_ID,
-                Atom_ItemShopA_$_sup_$_org_$$Registration_ID
+                Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$ID,
+                Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Name,
+                Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Tax_ID,
+                Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$Registration_ID
                 FROM Atom_ItemShopA_VIEW
                 where Atom_ItemShopA_$$VisibleForSelection = 1";
             dt_Atom_ItemShopA.Clear();
@@ -69,7 +72,7 @@ namespace ShopA
                 dgvx_Item.Columns["Atom_ItemShopA_$_tax_$$ID"].Visible = false;
                 dgvx_Item.Columns["Atom_ItemShopA_$_u_$$ID"].Visible = false;
                 dgvx_Item.Columns["Atom_ItemShopA_$_sup_$$ID"].Visible = false;
-                dgvx_Item.Columns["Atom_ItemShopA_$_sup_$_org_$$ID"].Visible = false;
+                dgvx_Item.Columns["Atom_ItemShopA_$_sup_$_c_$_orgd_$_org_$$ID"].Visible = false;
                 dgvx_Item.ClearSelection();
                 return true;
             }
@@ -120,6 +123,37 @@ namespace ShopA
         private void Form_Tool_SelectItem_Shown(object sender, EventArgs e)
         {
             this.dgvx_Item.SelectionChanged += new System.EventHandler(this.dgvx_Item_SelectionChanged);
+            dgvx_Item.ClearSelection();
+        }
+
+        private void btn_OK_Click(object sender, EventArgs e)
+        {
+            if (dgvx_Item.SelectedRows.Count>0)
+            {
+                DataGridViewSelectedRowCollection dgvrc = dgvx_Item.SelectedRows;
+                iSelectedIndex = dgvrc[0].Index;
+
+                m_Atom_ItemShopA.ID.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["ID"]);
+                m_Atom_ItemShopA.Name.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$$Name"]);
+                m_Atom_ItemShopA.Description.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$$Description"]);
+                m_Atom_ItemShopA.m_Unit.ID.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$ID"]);
+                m_Atom_ItemShopA.m_Unit.Name.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$Name"]);
+                m_Atom_ItemShopA.m_Unit.Symbol.set(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$Symbol"]);
+                short decimal_places = 0;
+                if (dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$DecimalPlaces"] is int)
+                {
+                    decimal_places = Convert.ToInt16(dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$DecimalPlaces"]);
+                    m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(decimal_places);
+                }
+                else if (dt_Atom_ItemShopA.Rows[iSelectedIndex]["Atom_ItemShopA_$_u_$$DecimalPlaces"] is System.DBNull)
+                {
+                    m_Atom_ItemShopA.m_Unit.DecimalPlaces.set(null);
+                }
+
+                this.Close();
+                DialogResult = DialogResult.OK;
+
+            }
         }
     }
 }

@@ -1851,12 +1851,20 @@ do_EditMyOrganisation_Data:
             {
                 if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
                 {
-                    this.txt_Currency.Text = GlobalData.BaseCurrency.Abbreviation + " " + GlobalData.BaseCurrency.Symbol;
-                    return true;
+                    if (GlobalData.InsertDefaultPaymentMethods(ref Err))
+                    {
+                        this.txt_Currency.Text = GlobalData.BaseCurrency.Abbreviation + " " + GlobalData.BaseCurrency.Symbol;
+                        return true;
+                    }
+                    else
+                    {
+                        Err = "ERROR:usrc_Invoice:Select_BaseCurrency:InsertDefaultPaymentMethods:Err=" + Err;
+                        return false;
+                    }
                 }
                 else
                 {
-                    Err = "ERROR:usrc_Invoice:Init_Currency_Table:Err=" + Err;
+                    Err = "ERROR:usrc_Invoice:Select_BaseCurrency:InsertIntoBaseCurrency:Err=" + Err;
                     return false;
                 }
 

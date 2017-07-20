@@ -196,6 +196,7 @@
     <Compile Include="JOURNAL_DocProformaInvoice_Type_definitions .cs" />
     <Compile Include="JOURNAL_DocInvoice_Type_definitions.cs" />
     <Compile Include="Language_definitions.cs" />
+    <Compile Include="MethodOfPayment_definitions.cs" />
     <Compile Include="MyOrg.cs" />
     <Compile Include="myOrg_Office.cs" />
     <Compile Include="myOrg_Office_FVI_SLO_RealEstate.cs" />

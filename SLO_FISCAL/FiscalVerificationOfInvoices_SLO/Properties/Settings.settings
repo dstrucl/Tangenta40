@@ -878,22 +878,22 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="fursD_MyOrgTaxID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">10329048</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_MyOrgTaxID_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">10329048</Value>
+      <Value Profile="(Default)">10286853</Value>
     </Setting>
     <Setting Name="fursD_BussinesPremiseID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">KUNAVE6</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_BussinesPremiseID_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">KUNAVE6</Value>
+      <Value Profile="(Default)">P1</Value>
     </Setting>
     <Setting Name="fursD_InvoiceAuthorTaxID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">10329048</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_InvoiceAuthorTaxID_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">10329048</Value>
+      <Value Profile="(Default)">12345678</Value>
     </Setting>
     <Setting Name="fursD_BuildingNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -938,13 +938,14 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_SoftwareSupplierTaxID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">99999999</Value>
+      <Value Profile="(Default)">89304489
+</Value>
     </Setting>
     <Setting Name="fursD_SoftwareSupplierTaxID_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">99999999</Value>
+      <Value Profile="(Default)">89304489</Value>
     </Setting>
     <Setting Name="fursD_City_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Ljubljana</Value>
+      <Value Profile="(Default)">Mesto1</Value>
     </Setting>
     <Setting Name="fursD_PostNumber_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">1000</Value>
@@ -956,19 +957,19 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_StreetName_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Na trati</Value>
+      <Value Profile="(Default)">Cesta1</Value>
     </Setting>
     <Setting Name="fursD_City" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Ljubljana</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_PostNumber" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1000</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_StreetNumber" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_StreetName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Na trati</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_StreetNumberAdt" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

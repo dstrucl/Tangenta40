@@ -17,6 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_Select_ShopA_Item = new ltext("Select Item", "Izberite Artikel");
         public static ltext s_FURS_WWW_btn_Check_invoice = new ltext("FURS WWW for checking invoices", "Domača stran davčne uprave za preverjanje računov in ostalo");
         public static ltext s_SignUpYourBussinesBremise = new ltext("Sign up your bussines premise at fiscal authorites", "Registrirajte poslovni prostor pri davčni upravi!\r\n");
         public static ltext s_SignUpBussinesPremisse = new ltext("Sign up your bussines premise at fiscal authorites", "Prijava poslovnega prostora pri davčni upravi");
