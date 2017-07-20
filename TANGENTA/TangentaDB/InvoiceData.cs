@@ -189,10 +189,11 @@ namespace TangentaDB
 
    
 
-        public string CreateHTML_PagePaperPrintingOutput(HTML_PrintingOutput hTML_RollPaperPrintingOutput, double xPageHeight)
+        public string CreateHTML_PagePaperPrintingOutput(HTML_PrintingElement_List hTML_RollPaperPrintingOutput, double xPageHeight)
         {
             //PageHeight = 1000;
             string html = hTML_RollPaperPrintingOutput.style.html;
+            bool bFirstItemFound = false;
             html += @"
              <html>
                 <body>
@@ -253,6 +254,14 @@ namespace TangentaDB
                         }
                         else
                         {
+                            if (pel.Is("tr", "item"))
+                            {
+                                if (!bFirstItemFound)
+                                {
+                                    bFirstItemFound = true;
+                                    html += "\r\n<tbody>";
+                                }
+                            }
                             html += shtml + "\r\n";
                         }
                     }
@@ -267,7 +276,7 @@ namespace TangentaDB
             return html;
        }
 
-        private void InsertPage(ref string html, HTML_PrintingOutput hTML_RollPaperPrintingOutput)
+        private void InsertPage(ref string html, HTML_PrintingElement_List hTML_RollPaperPrintingOutput)
         {
             html += @"</page>
                                         <page>";
@@ -278,7 +287,7 @@ namespace TangentaDB
                 html += "\r\n" + hTML_RollPaperPrintingOutput.pagenumber.html + "\r\n";
             }
         }
-        private void StartBuildHtmlElementsOnNewPage(HTML_PrintingElement pel, HTML_PrintingOutput hTML_RollPaperPrintingOutput,ref string shtml, ref string html)
+        private void StartBuildHtmlElementsOnNewPage(HTML_PrintingElement pel, HTML_PrintingElement_List hTML_RollPaperPrintingOutput,ref string shtml, ref string html)
         {
             if (pel.Is("table", "tableitems"))
             {
@@ -1484,11 +1493,11 @@ namespace TangentaDB
         }
 
 
-        public string CreateHTML_RollPaperPrintingOutput(ref string html_doc_template, ref HTML_PrintingOutput RollPaperPrintingOutput)
+        public string CreateHTML_PrintingElementList(ref string html_doc_template, ref HTML_PrintingElement_List PrintingElement_List)
         {
-            if (RollPaperPrintingOutput == null)
+            if (PrintingElement_List == null)
             {
-                RollPaperPrintingOutput = new HTML_PrintingOutput();
+                PrintingElement_List = new HTML_PrintingElement_List();
             }
 
             string stime = IssueDate_v.v.Day.ToString() + "."
@@ -1574,8 +1583,8 @@ namespace TangentaDB
 
             if (GetHtmlElementByTagName(html_doc_template, start_index, ref iStartIndexOf_style, ref iEndIndexOf_style, "style"))
             {
-                RollPaperPrintingOutput.style = new HTML_PrintingElement();
-                RollPaperPrintingOutput.style.html = html_doc_template.Substring(iStartIndexOf_style, iEndIndexOf_style - iStartIndexOf_style + 1);
+                PrintingElement_List.style = new HTML_PrintingElement();
+                PrintingElement_List.style.html = html_doc_template.Substring(iStartIndexOf_style, iEndIndexOf_style - iStartIndexOf_style + 1);
             }
             else
             {
@@ -1587,8 +1596,8 @@ namespace TangentaDB
             int iEndIndexOfPageNumbers = -1;
             if (GetHtmlElementByTagNameAndClassName(html_doc_template, iEndIndexOf_style, ref iStartIndexOfPageNumbers, ref iEndIndexOfPageNumbers, "div", "pagenumbers"))
             {
-                RollPaperPrintingOutput.pagenumber = new HTML_PrintingElement();
-                RollPaperPrintingOutput.pagenumber.html = html_doc_template.Substring(iStartIndexOfPageNumbers, iEndIndexOfPageNumbers - iStartIndexOfPageNumbers+1);
+                PrintingElement_List.pagenumber = new HTML_PrintingElement();
+                PrintingElement_List.pagenumber.html = html_doc_template.Substring(iStartIndexOfPageNumbers, iEndIndexOfPageNumbers - iStartIndexOfPageNumbers+1);
             }
 
             int iStartIndexOfInvoiceTop = -1;
@@ -1596,8 +1605,8 @@ namespace TangentaDB
 
             if (GetHtmlElementByTagNameAndClassName(html_doc_template, start_index, ref iStartIndexOfInvoiceTop, ref iEndIndexOfInvoiceTop, "div", "invoicetop"))
             {
-                RollPaperPrintingOutput.doctop = new HTML_PrintingElement();
-                RollPaperPrintingOutput.doctop.html = html_doc_template.Substring(iStartIndexOfInvoiceTop, iEndIndexOfInvoiceTop - iStartIndexOfInvoiceTop + 1);
+                PrintingElement_List.doctop = new HTML_PrintingElement();
+                PrintingElement_List.doctop.html = html_doc_template.Substring(iStartIndexOfInvoiceTop, iEndIndexOfInvoiceTop - iStartIndexOfInvoiceTop + 1);
             }
             else
             {
@@ -1614,8 +1623,8 @@ namespace TangentaDB
                 int iEndIndexOf_Thead = -1;
                 if  (GetHtmlElementByTagName(html_doc_template, iStartIndexOftable,ref iStartIndexOf_Thead, ref iEndIndexOf_Thead,"thead"))
                 {
-                    RollPaperPrintingOutput.tableitems = new HTML_PrintingElement();
-                    RollPaperPrintingOutput.tableitems.html = html_doc_template.Substring(iStartIndexOftable, iEndIndexOf_Thead - iStartIndexOftable + 1);
+                    PrintingElement_List.tableitems = new HTML_PrintingElement();
+                    PrintingElement_List.tableitems.html = html_doc_template.Substring(iStartIndexOftable, iEndIndexOf_Thead - iStartIndexOftable + 1);
                 }
                 else
                 {
@@ -1672,13 +1681,13 @@ namespace TangentaDB
                         sRow = itms.token.tTax.Replace(sRow);
                         sRow = itms.token.tPriceWithTax.Replace(sRow);
                         html_doc_template = html_doc_template.Insert(ipos, sRow);
-                        if (RollPaperPrintingOutput.items == null)
+                        if (PrintingElement_List.items == null)
                         {
-                            RollPaperPrintingOutput.items = new List<HTML_PrintingElement>();
+                            PrintingElement_List.items = new List<HTML_PrintingElement>();
                         }
                         HTML_PrintingElement html_item = new HTML_PrintingElement();
                         html_item.html = sRow;
-                        RollPaperPrintingOutput.items.Add(html_item);
+                        PrintingElement_List.items.Add(html_item);
                         ipos += sRow.Length;
                     }
 
@@ -1697,11 +1706,11 @@ namespace TangentaDB
                     int iEndIndexOf_NetSum = -1;
                     if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_NetSum, ref iEndIndexOf_NetSum, "tr", "totalneto"))
                     {
-                        if (RollPaperPrintingOutput.totalneto == null)
+                        if (PrintingElement_List.totalneto == null)
                         {
-                            RollPaperPrintingOutput.totalneto = new HTML_PrintingElement();
+                            PrintingElement_List.totalneto = new HTML_PrintingElement();
                         }
-                        RollPaperPrintingOutput.totalneto.html = html_doc_template.Substring(iStartIndexOf_NetSum, iEndIndexOf_NetSum - iStartIndexOf_NetSum + 1);
+                        PrintingElement_List.totalneto.html = html_doc_template.Substring(iStartIndexOf_NetSum, iEndIndexOf_NetSum - iStartIndexOf_NetSum + 1);
                     }
                     else
                     {
@@ -1726,13 +1735,13 @@ namespace TangentaDB
                                 string str = InvoiceToken.tTaxRateName.Replace(tr_TaxSum);
                                 str = InvoiceToken.tSumTax.Replace(str);
                                 html_doc_template = html_doc_template.Insert(ipos, str);
-                                if (RollPaperPrintingOutput.taxsum==null)
+                                if (PrintingElement_List.taxsum==null)
                                 {
-                                    RollPaperPrintingOutput.taxsum = new List<HTML_PrintingElement>();
+                                    PrintingElement_List.taxsum = new List<HTML_PrintingElement>();
                                 }
                                 HTML_PrintingElement html_taxsum = new HTML_PrintingElement();
                                 html_taxsum.html = str;
-                                RollPaperPrintingOutput.taxsum.Add(html_taxsum);
+                                PrintingElement_List.taxsum.Add(html_taxsum);
                                 ipos += str.Length;
                             }
                             InvoiceToken.tTotalSum.Set(GrossSum.ToString());
@@ -1742,11 +1751,11 @@ namespace TangentaDB
                             int iEndIndexOf_GrossSum = -1;
                             if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_GrossSum, ref iEndIndexOf_GrossSum, "tr", "grandtotal"))
                             {
-                                if (RollPaperPrintingOutput.grandtotal == null)
+                                if (PrintingElement_List.grandtotal == null)
                                 {
-                                    RollPaperPrintingOutput.grandtotal = new HTML_PrintingElement();
+                                    PrintingElement_List.grandtotal = new HTML_PrintingElement();
                                 }
-                                RollPaperPrintingOutput.grandtotal.html = html_doc_template.Substring(iStartIndexOf_GrossSum, iEndIndexOf_GrossSum - iStartIndexOf_GrossSum + 1);
+                                PrintingElement_List.grandtotal.html = html_doc_template.Substring(iStartIndexOf_GrossSum, iEndIndexOf_GrossSum - iStartIndexOf_GrossSum + 1);
                             }
                             else
                             {
@@ -1760,11 +1769,11 @@ namespace TangentaDB
                             int iEndIndexOf_InvoiceBottom = -1;
                             if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_InvoiceBottom, ref iEndIndexOf_InvoiceBottom, "div", "invoicebottom"))
                             {
-                                if (RollPaperPrintingOutput.docbottom == null)
+                                if (PrintingElement_List.docbottom == null)
                                 {
-                                    RollPaperPrintingOutput.docbottom = new HTML_PrintingElement();
+                                    PrintingElement_List.docbottom = new HTML_PrintingElement();
                                 }
-                                RollPaperPrintingOutput.docbottom.html = html_doc_template.Substring(iStartIndexOf_InvoiceBottom, iEndIndexOf_InvoiceBottom - iStartIndexOf_InvoiceBottom + 1);
+                                PrintingElement_List.docbottom.html = html_doc_template.Substring(iStartIndexOf_InvoiceBottom, iEndIndexOf_InvoiceBottom - iStartIndexOf_InvoiceBottom + 1);
                             }
                             else
                             {

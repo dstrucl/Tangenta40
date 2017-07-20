@@ -145,6 +145,13 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             get { return _htmlContainerInt._pagelist.Count; }
         }
 
+        /// <summary>
+        /// returns page list count
+        /// </summary>
+        public void GetPages()
+        {
+            _htmlContainerInt.GetPages();
+        }
 
         /// <summary>
         /// The internal core html container

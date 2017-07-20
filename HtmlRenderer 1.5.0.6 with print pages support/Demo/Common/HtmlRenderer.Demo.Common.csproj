@@ -54,6 +54,8 @@
     <EmbeddedResource Include="PerfSamples\1.Big table.htm" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="PrintSamples\01 Invoice.htm" />
+    <EmbeddedResource Include="PrintSamples\03 Invoice.htm" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -160,10 +162,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PrintSamples\01 Invoice.htm" />
+    <EmbeddedResource Include="PrintSamples\00 Invoice.htm" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PrintSamples\00 Invoice.htm" />
+    <EmbeddedResource Include="PrintSamples\02 Invoice.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PrintSamples\04 Invoice.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PrintSamples\05 Invoice.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

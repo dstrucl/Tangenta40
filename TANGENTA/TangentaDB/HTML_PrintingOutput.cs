@@ -7,7 +7,7 @@ using TheArtOfDev.HtmlRenderer.Core;
 namespace TangentaDB
 {
 
-    public class HTML_PrintingOutput
+    public class HTML_PrintingElement_List
     {
         public HTML_PrintingElement style = null;
         public HTML_PrintingElement pagenumber = null;
@@ -163,28 +163,5 @@ namespace TangentaDB
             return true;
         }
 
-        public double GetScreenPageHeight(PageLayout pglayout)
-        {
-            if (pglayout.html_tag_name != null)
-            {
-                if (pglayout.html_tag_name.Equals("page"))
-                {
-                    return pglayout.HtmlTagRect.Height;
-                }
-                else if (pglayout.html_tag_name.Equals("style"))
-                {
-                    return -1;
-                }
-            }
-            foreach (PageLayout pgl in pglayout.Child_HtmlTag_PageLayout)
-            {
-                double page_height = GetScreenPageHeight(pgl);
-                if (page_height > 0)
-                {
-                    return page_height;
-                }
-            }
-            return -1;
-        }
     }
 }

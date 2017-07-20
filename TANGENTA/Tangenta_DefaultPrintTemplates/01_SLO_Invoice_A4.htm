@@ -1,5 +1,5 @@
 ﻿<style>
-    html{
+    html {
         background-color: gray;
     }
 
@@ -62,12 +62,12 @@
     }
 
         #project span {
-            color: #5D6975;
+            color: black;
             text-align: right;
             width: 52px;
             margin-right: 0.5cm;
             display: inline-block;
-            font-size: 0.8em;
+            font-size: 1em;
         }
 
     #company {
@@ -130,6 +130,11 @@
         color: #5D6975;
         font-size: 0.8cm;
     }
+
+    .QRImage {
+        width: 128px;
+        height: 128px;
+    }
 </style>
 
 
@@ -154,8 +159,8 @@
                                 <div><span></span>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
                                 <div><span></span>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
                                 <div><span>E-POŠTA</span> <a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)">(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)</a></div>
-                                <div><span>Datum rač.:</span>(@@Račun_Datum_izdaje_računa@@)</div>
-                                <div><span>Datum zapadlosti:</span>(@@Račun_Datum_zapadlosti_računa@@)</div>
+                                <div><span><b>Datum rač.:</b></span>(@@Račun_Datum_izdaje_računa@@)</div>
+                                <div><span><b>Datum zapadlosti:</b></span>(@@Račun_Datum_zapadlosti_računa@@)</div>
                             </div>
                         </td>
                         <td>
@@ -221,9 +226,9 @@
             <div id="FURS">
                 <div>FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"</div>
                 <div>FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"</div>
-                <img alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" />
+                <img class="QRImage" alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" />
             </div>
         </div>
-</page>
+    </page>
 </body>
 </html>

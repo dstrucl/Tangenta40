@@ -195,6 +195,7 @@ namespace TheArtOfDev.HtmlRenderer.Demo.WinForms
             {
                 bFirstPagePrinting = false;
                 hc.PerformLayout(e.Graphics);
+                hc.GetPages();
             }
             if (hc.PageListCount > 0)
             {
@@ -259,7 +260,8 @@ namespace TheArtOfDev.HtmlRenderer.Demo.WinForms
                 hc.SetHtml(_mainControl._htmlPanel.Text);
                 hc.Location = new PointF(config.MarginLeft, config.MarginTop);
                 hc.MaxSize = new Size(Convert.ToInt32(pageSize.Width), 0);
-                hc.SetHtml(_mainControl._htmlPanel.Text);
+                string shtml =_mainControl._htmlPanel.Text;
+                hc.SetHtml(shtml);
 
                 scrollOffset = 0;
 

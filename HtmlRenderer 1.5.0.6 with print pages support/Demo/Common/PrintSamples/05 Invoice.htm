@@ -1,0 +1,229 @@
+﻿<style>
+    html {
+        background-color: gray;
+    }
+
+    body {
+        background-color: gray;
+        margin: 0;
+    }
+
+    page {
+        background: white;
+        display: block;
+        margin-top: 0.5cm;
+        margin-bottom: 0.5cm;
+        margin-left: 0.5cm;
+        box-shadow: 0 0 0.1cm rgba(0,0,0,0.5);
+        width: 21cm;
+        height: 29.7cm;
+        overflow: hidden;
+        background-color: white;
+        padding-left: 1cm;
+        padding-right: 1cm;
+    }
+
+    div.pagenumbers {
+        font-size: 0.3cm;
+    }
+
+    header {
+        padding: 0.5cm 0;
+        margin-bottom: 0.5cm;
+    }
+
+    #logo {
+        text-align: center;
+        margin-bottom: 0.5cm;
+    }
+
+        #logo img {
+            width: 5cm;
+        }
+
+    h1 {
+        border-top: 1cm #5D6975;
+        border-bottom: 0.1cm solid #5D6975;
+        color: #5D6975;
+        font-size: 2.4em;
+        line-height: 1.4em;
+        font-weight: normal;
+        text-align: center;
+        margin: 0 0 1cm 0;
+        background: url(dimension.png);
+    }
+
+    #customer_company td {
+        vertical-align: top;
+    }
+
+    #project {
+        float: left;
+    }
+
+        #project span {
+            color: #5D6975;
+            text-align: right;
+            width: 52px;
+            margin-right: 0.5cm;
+            display: inline-block;
+            font-size: 0.8em;
+        }
+
+    #company {
+        float: right;
+        text-align: right;
+    }
+
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
+
+    .tableitems {
+        width: 100%;
+        border-spacing: 0.01cm;
+        font-size: 0.2cm;
+        margin-bottom: 1cm;
+    }
+
+
+        .tableitems th,
+        .tableitems td {
+            text-align: left;
+        }
+
+        .tableitems th {
+            color: black;
+            padding: 0.1cm;
+            border-bottom: 0.05cm solid black;
+            white-space: wrap;
+            word-wrap: wrap;
+            font-weight: normal;
+            text-align: left;
+            font-size: 0.2cm;
+        }
+
+
+        .tableitems.service,
+        .tableitems.desc {
+            text-align: left;
+        }
+
+        .tableitems td {
+            padding: 0.1cm;
+            text-align: right;
+            font-size: 0.25cm;
+        }
+
+    # tableitems td.service,
+    # tableitems td.desc {
+        vertical-align: top;
+    }
+
+
+    .tableitems td.grand {
+        border-top: 0.1cm solid #5D6975;
+    }
+
+    # notices .notice {
+        color: #5D6975;
+        font-size: 0.8cm;
+    }
+
+    }
+</style>
+<html>
+<body>
+    <page>
+        <div class="pagenumbers">stran 1 od 1</div>
+        <div class="invoicetop">
+            <h1>Račun številka:Pisarna1-ED1-1 </h1>
+            <table id="customer_company">
+                <thead>
+                    <tr>
+                        <th>NASLOVU</th>
+                        <th>IZDAJATELJ:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div id="project">
+                                <div><span>NASLOVU</span> </div>
+                                <div><span></span> </div>
+                                <div><span></span> </div>
+                                <div><span>E-POŠTA</span> <a href="mailto:"></a></div>
+                                <div><span>Datum rač.:</span>20.7.2017 15:52</div>
+                                <div><span>Datum zapadlosti:</span>20.7.2017 15:52</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="company" class="clearfix">
+                                <div>IZDAJATELJ:Podjetje1</div>
+                                <div>Cesta1 1</div>
+                                <div>ŠP1 Mesto1</div>
+                                <div>Davčna številka:12345678 </div>
+                                <div>Matična številka:00000001 </div>
+                                <div>Poslovna enota:Pisarna1 </div>
+                                <div>Oznaka blagajne:ED1 </div>
+                                <div>Oseba izdajatelja:ImeOsebe1Podjetja1 PrimekOsebe1Podjetja1 DŠ:12345678</div>
+                                <div><a href="email:">E-Pošta:</a></div>
+                                <div><a href="http:">Domača stran:</a></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <table class="tableitems">
+            <thead>
+                <tr>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr class="item">
+                <td class="service">BArtikel1    0(...)</td>
+                <td class="priceperunit">195,38 €</td>
+                <td class="discount"></td>
+                <td class="unit"></td>
+                <td class="qty">1</td>
+                <td class="taxrate">9,500%</td>
+                <td class="price_neto">178,43 €</td>
+                <td class="tax">16,95 €</td>
+                <td class="price_with_tax">195,38 €</td>
+            </tr>
+            <tr class="totalneto">
+                <td colspan="4">SKUPAJ BREZ DAVKA</td>
+                <td colspan="5">178,43 €</td>
+            </tr>
+            <tr class="taxsum">
+                <td colspan="4">DDV 9.5%</td>
+                <td colspan="5" class="tax_95">16,95 €</td>
+            </tr>
+            <tr class="grandtotal">
+                <td colspan="4">Končna cena z davkom</td>
+                <td colspan="5">195,38 €</td>
+            </tr>
+
+            </tbody>
+        </table><div class="invoicebottom">
+            <div id="FURS">
+                <div>FURS unikatna številka sporočila:"58a4558fbd3e8997ba6173c2a0cd7676"</div>
+                <div>FURS unikatna številka računa:"c1a32092-744c-4534-95e9-18fa35d417ef"</div>
+                <img alt="Embedded Image" src="data:image/png;base64,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" />
+            </div>
+        </div>
+
+    </page>
+</body>
+</html>

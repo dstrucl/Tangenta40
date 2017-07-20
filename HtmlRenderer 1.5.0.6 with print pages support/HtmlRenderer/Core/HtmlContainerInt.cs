@@ -436,14 +436,13 @@ namespace TheArtOfDev.HtmlRenderer.Core
             }
         }
 
-        public int GetPages()
+        public void GetPages()
         {
             if (_root != null)
             {
                 _pagelist.Clear();
                 _root.GetPages(_pagelist);
             }
-            return 0;
         }
 
         /// <summary>

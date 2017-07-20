@@ -1500,7 +1500,8 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                     {
                         if (this._htmltag.Name.ToLower().Equals("page"))
                         {
-                            if (this.Location.Y == pagelist.Page(iPage).YOffset)
+                            double yofs = pagelist.Page(iPage).YOffset;
+                            if (this.Location.Y == yofs)
                             {
                                 return true;
                             }

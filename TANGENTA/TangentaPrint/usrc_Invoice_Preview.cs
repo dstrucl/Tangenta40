@@ -102,8 +102,8 @@ namespace TangentaPrint
                     {
                         char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
                         string shtml_doc_text = new string(chars2);
-                        HTML_PrintingOutput HTML_RollPaperPrintingOutput = null;
-                        string s = m_InvoiceData.CreateHTML_RollPaperPrintingOutput(ref shtml_doc_text, ref HTML_RollPaperPrintingOutput);
+                        HTML_PrintingElement_List HTML_RollPaperPrintingOutput = null;
+                        string s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_RollPaperPrintingOutput);
                         this.htmlPanel1.Text = s;
                         return s;
                     }
@@ -122,13 +122,13 @@ namespace TangentaPrint
             {
                 try
                 {
-                    HTML_PrintingOutput HTML_RollPaperPrintingOutput = null;
+                    HTML_PrintingElement_List HTML_RollPaperPrintingOutput = null;
                     string shtml_doc_text = value;
                     string s = null;
                     if (m_InvoiceData != null)
                     {
 
-                        s = m_InvoiceData.CreateHTML_RollPaperPrintingOutput(ref shtml_doc_text,ref HTML_RollPaperPrintingOutput);
+                        s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text,ref HTML_RollPaperPrintingOutput);
                     }
                     else
                     {
@@ -143,6 +143,30 @@ namespace TangentaPrint
             }
         }
 
+        public double GetScreenPageHeight(TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout)
+        {
+            if (pglayout.html_tag_name != null)
+            {
+                if (pglayout.html_tag_name.Equals("page"))
+                {
+                    return pglayout.HtmlTagRect.Height;
+                }
+                else if (pglayout.html_tag_name.Equals("style"))
+                {
+                    return -1;
+                }
+            }
+            foreach (TheArtOfDev.HtmlRenderer.Core.PageLayout pgl in pglayout.Child_HtmlTag_PageLayout)
+            {
+                double page_height = GetScreenPageHeight(pgl);
+                if (page_height > 0)
+                {
+                    return page_height;
+                }
+            }
+            return -1;
+        }
+
         public bool ShowPreview(Printer printer, string shtml_doc_text)
         {
             if (printer != null)
@@ -150,62 +174,39 @@ namespace TangentaPrint
                 try
                 {
 
-                    HTML_PrintingOutput HTML_RollPaperPrintingOutput = null;
+                    HTML_PrintingElement_List HTML_Printing_ElementList = null;
                     string s = null;
+                    double xPageHeight = 1122.51;
                     if (m_InvoiceData != null)
                     {
-                        ProgramDiagnostic.Diagnostic.Meassure("before m_InvoiceData.CreateHTML_RollPaperPrintingOutput(..)", "!!");
-                        s = m_InvoiceData.CreateHTML_RollPaperPrintingOutput(ref shtml_doc_text, ref HTML_RollPaperPrintingOutput);
+                        s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_Printing_ElementList);
+
+                        TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
+
+                        // now get roll paper layout
+                        this.htmlPanel1.GetPages(s, ref pglayout);
+
+                        // set layout of elements
+                        HTML_Printing_ElementList.SetLayout(pglayout);
+
+                        if (pglayout.OnePageSize(xPageHeight, 0, 0))
+                        {
+                            s = m_InvoiceData.InsertPageNumbers(s);
+                        }
+                        else
+                        {
+                            s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_Printing_ElementList, xPageHeight);
+                            s = m_InvoiceData.InsertPageNumbers(s);
+                        }
+                        this.htmlPanel1.Text = s;
+                        return true;
                     }
                     else
                     {
                         s = shtml_doc_text;
+                        this.htmlPanel1.Text = s;
+                        return true;
                     }
-                    //this.htmlPanel1.Text = s;
-                    TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
-                    ProgramDiagnostic.Diagnostic.Meassure("before this.htmlPanel1.GetPages(s, ref pglayout)", "!!");
-                    this.htmlPanel1.GetPages(s, ref pglayout);
-                    ProgramDiagnostic.Diagnostic.Meassure("before if (pglayout.OnePageSize(printer.PageHeight, 0, 0))", "!!");
-                    if (pglayout.OnePageSize(printer.PageHeight, 0, 0))
-                    {
-                        if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))
-                        {
-                            s = m_InvoiceData.InsertPageNumbers(s);
-                            this.htmlPanel1.Text = s;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        ProgramDiagnostic.Diagnostic.Meassure("before if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))", "!!");
-                        if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))
-                        {
-                            ProgramDiagnostic.Diagnostic.Meassure("after if (HTML_RollPaperPrintingOutput.SetLayout(pglayout))", "!!");
-                            double xPageHeight = HTML_RollPaperPrintingOutput.GetScreenPageHeight(pglayout);
-                            //double PageHeight = printer.PageHeight;
-                            if (xPageHeight > 0)
-                            {
-                                s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_RollPaperPrintingOutput, xPageHeight);
-                                ProgramDiagnostic.Diagnostic.Meassure("after m_InvoiceData.CreateHTML_PagePaperPrintingOutput(..)", "!!");
-                                this.htmlPanel1.Text = s;
-                                return true;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:usrc_InvoicePrevier:ShowPreview:PageHeight<=0,Print Template error PageIsNot defined!");
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-
                 }
                 catch (Exception ex)
                 {
@@ -263,15 +264,22 @@ namespace TangentaPrint
             DialogResult dlgRes = pdlg.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
+
                 config.PageSize = PageSize.A4;
                 config.SetMargins(20);
+
                 XSize orgPageSize = PageSizeConverter.ToSize(config.PageSize);
                 orgPageSize = new Size(Convert.ToInt32(orgPageSize.Width), Convert.ToInt32(orgPageSize.Height));
                 pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
+
                 hc.SetHtml(htmlPanel1.Text);
                 hc.Location = new PointF(config.MarginLeft, config.MarginTop);
                 hc.MaxSize = new Size(Convert.ToInt32(pageSize.Width), 0);
-                hc.SetHtml(htmlPanel1.Text);
+
+                string shtml = htmlPanel1.Text;
+
+                hc.SetHtml(shtml);
+
 
                 scrollOffset = 0;
 
@@ -299,7 +307,9 @@ namespace TangentaPrint
             {
                 bFirstPagePrinting = false;
                 hc.PerformLayout(e.Graphics);
+                hc.GetPages();
             }
+
             if (hc.PageListCount > 0)
             {
                 if (iPage <= hc.PageListCount - 1)
