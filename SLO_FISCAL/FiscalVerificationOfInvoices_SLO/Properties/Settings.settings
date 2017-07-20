@@ -899,25 +899,25 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_BuildingNumber_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="fursD_BuildingSectionNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_BuildingSectionNumber_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="fursD_Community" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_Community_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">KS1</Value>
     </Setting>
     <Setting Name="fursD_CadastralNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="fursD_CadastralNumber_TEST" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">1738</Value>
     </Setting>
     <Setting Name="fursD_ValidityDate" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2100-01-01</Value>

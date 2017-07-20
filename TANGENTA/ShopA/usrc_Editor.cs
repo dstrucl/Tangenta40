@@ -109,6 +109,7 @@ namespace ShopA
                     m_DocInvoice_ShopA_Item.PricePerUnit.set(null);
                     m_DocInvoice_ShopA_Item.dQuantity.set(null);
                 }
+                m_DocInvoice_ShopA_Item.m_Atom_ItemShopA.ID.set(null);
                 long DocInvoice_ShopA_Item_ID = -1;
                 if (ShopA_dbfunc.dbfunc.insert(DocInvoice,m_DocInvoice_ShopA_Item, ref DocInvoice_ShopA_Item_ID))
                 {

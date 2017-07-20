@@ -1133,7 +1133,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string fursD_BuildingNumber_TEST {
             get {
                 return ((string)(this["fursD_BuildingNumber_TEST"]));
@@ -1157,7 +1157,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string fursD_BuildingSectionNumber_TEST {
             get {
                 return ((string)(this["fursD_BuildingSectionNumber_TEST"]));
@@ -1181,7 +1181,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("KS1")]
         public string fursD_Community_TEST {
             get {
                 return ((string)(this["fursD_Community_TEST"]));
@@ -1205,7 +1205,7 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1738")]
         public string fursD_CadastralNumber_TEST {
             get {
                 return ((string)(this["fursD_CadastralNumber_TEST"]));
