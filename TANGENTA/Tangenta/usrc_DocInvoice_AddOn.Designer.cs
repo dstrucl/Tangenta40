@@ -30,7 +30,7 @@
         {
             this.rdb_Cash = new System.Windows.Forms.RadioButton();
             this.rdb_AllreadyPayed = new System.Windows.Forms.RadioButton();
-            this.btn_Print = new System.Windows.Forms.Button();
+            this.btn_Invoice_Issue = new System.Windows.Forms.Button();
             this.rdb_BankAccountTransfer = new System.Windows.Forms.RadioButton();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.lbl_PaymentDeadline = new System.Windows.Forms.Label();
@@ -74,15 +74,15 @@
             // 
             // btn_Print
             // 
-            this.btn_Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Print.ForeColor = System.Drawing.Color.Black;
-            this.btn_Print.Location = new System.Drawing.Point(188, 399);
-            this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(197, 55);
-            this.btn_Print.TabIndex = 7;
-            this.btn_Print.Text = "Print";
-            this.btn_Print.UseVisualStyleBackColor = true;
-            this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
+            this.btn_Invoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_Invoice_Issue.ForeColor = System.Drawing.Color.Black;
+            this.btn_Invoice_Issue.Location = new System.Drawing.Point(188, 399);
+            this.btn_Invoice_Issue.Name = "btn_Print";
+            this.btn_Invoice_Issue.Size = new System.Drawing.Size(197, 55);
+            this.btn_Invoice_Issue.TabIndex = 7;
+            this.btn_Invoice_Issue.Text = "Print";
+            this.btn_Invoice_Issue.UseVisualStyleBackColor = true;
+            this.btn_Invoice_Issue.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // rdb_BankAccountTransfer
             // 
@@ -238,7 +238,7 @@
             this.Controls.Add(this.grp_TermsOfPayment);
             this.Controls.Add(this.grp_MtehodOfPaymentType);
             this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_Print);
+            this.Controls.Add(this.btn_Invoice_Issue);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "usrc_DocInvoice_AddOn";
             this.Size = new System.Drawing.Size(594, 463);
@@ -254,7 +254,7 @@
 
         private System.Windows.Forms.RadioButton rdb_Cash;
         private System.Windows.Forms.RadioButton rdb_AllreadyPayed;
-        private System.Windows.Forms.Button btn_Print;
+        private System.Windows.Forms.Button btn_Invoice_Issue;
         private System.Windows.Forms.RadioButton rdb_BankAccountTransfer;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Label lbl_PaymentDeadline;

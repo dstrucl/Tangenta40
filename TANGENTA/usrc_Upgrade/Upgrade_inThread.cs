@@ -233,7 +233,7 @@ namespace UpgradeDB
 
                                             CREATE TABLE MethodOfPayment_NEW ( 
                                                          'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                         'PaymentType' varchar(264) NOT NULL UNIQUE ,
+                                                         'PaymentType' varchar(264) NOT NULL,
                                                           Atom_BankAccount_ID INTEGER NULL REFERENCES Atom_BankAccount(ID) );
 
                                             insert into MethodOfPayment_NEW (PaymentType) select PaymentType from MethodOfPayment;

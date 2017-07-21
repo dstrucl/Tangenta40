@@ -17,6 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_TermsOfPayment_Default_100PercentInAdvance = new ltext("100% full payment in advance", "100% Avans");
         public static ltext s_Select_ShopA_Item = new ltext("Select Item", "Izberite Artikel");
         public static ltext s_FURS_WWW_btn_Check_invoice = new ltext("FURS WWW for checking invoices", "Domača stran davčne uprave za preverjanje računov in ostalo");
         public static ltext s_SignUpYourBussinesBremise = new ltext("Sign up your bussines premise at fiscal authorites", "Registrirajte poslovni prostor pri davčni upravi!\r\n");
@@ -62,6 +63,9 @@ namespace LanguageControl
         public static ltext s_Payment_Deadline = new ltext("Payment deadline", "Rok plačila");
         public static ltext s_Valid_Until = new ltext("valid until ", " velja do ");
         public static ltext s_ProformaInvoice_Validity = new ltext("Proforma Invoice Validity", "Veljavnost ponudbe");
+        public static ltext s_btn_Select_BankAccount = new ltext("Select your bank account", "Izberite vaš bančni račun");
+        public static ltext s_Invoice_Issue = new ltext("Issue an invoice", "Izdaj račun");
+        public static ltext s_ProformaInvoice_Issue = new ltext("Issue an offer", "Izdaj ponudbo");
         public static ltext s_Invoice_IssueDate = new ltext("Invoice Date", "Datum računa");
         public static ltext s_ProformaInvoice_IssueDate = new ltext("Proforma Invoice Date", "Datum ponudbe");
         public static ltext s_lbl_DateOfProformaInvoiceIssue = new ltext("Proforma Invoice Date", "Datum ponudbe");

@@ -45,14 +45,13 @@ namespace Tangenta
             lngRPM.s_Cash.Text(rdb_Cash);
             lngRPM.s_PaymentCard.Text(this.rdb_CARD);
             lngRPM.s_AlreadyPaid.Text(rdb_AllreadyPayed);
-            lngRPM.s_Print.Text(btn_Print);
             lngRPM.s_PaymentOnBankAccount.Text(rdb_BankAccountTransfer);
             lngRPM.s_lbl_DateOfInvoiceIssue.Text(lbl_DateOfIssue);
             lngRPM.s_Payment_Deadline.Text(lbl_PaymentDeadline);
             lngRPM.s_MethodOfPayment.Text(grp_MtehodOfPaymentType);
             lngRPM.s_TermsOfPayment.Text(grp_TermsOfPayment);
-            btn_Print.Text = "OK";
-
+            lngRPM.s_Invoice_Issue.Text(btn_Invoice_Issue);
+            lngRPM.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
 
             this.rdb_Cash.CheckedChanged += new System.EventHandler(this.rdb_Cash_CheckedChanged);
             this.rdb_Cash.MouseUp += new System.Windows.Forms.MouseEventHandler(this.rdb_Cash_MouseUp);
@@ -84,12 +83,13 @@ namespace Tangenta
             m_usrc_AddOn = x_usrc_AddOn;
             if (m_bPrint)
             {
-                lngRPM.s_Print.Text(this.btn_Print);
+                lngRPM.s_Invoice_Issue.Text(this.btn_Invoice_Issue);
             }
             else
             {
-                this.btn_Print.Text = "OK";
+                this.btn_Invoice_Issue.Text = lngRPM.s_OK.s;
             }
+
             if (m_AddOnDI.Get(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID))
             {
                 if (m_AddOnDI.m_IssueDate != null)

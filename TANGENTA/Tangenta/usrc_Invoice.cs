@@ -1851,16 +1851,8 @@ do_EditMyOrganisation_Data:
             {
                 if (GlobalData.InsertIntoBaseCurrency(sel_basecurrency_dlg.Currency_ID, ref Err))
                 {
-                    if (GlobalData.InsertDefaultPaymentMethods(ref Err))
-                    {
-                        this.txt_Currency.Text = GlobalData.BaseCurrency.Abbreviation + " " + GlobalData.BaseCurrency.Symbol;
-                        return true;
-                    }
-                    else
-                    {
-                        Err = "ERROR:usrc_Invoice:Select_BaseCurrency:InsertDefaultPaymentMethods:Err=" + Err;
-                        return false;
-                    }
+                    this.txt_Currency.Text = GlobalData.BaseCurrency.Abbreviation + " " + GlobalData.BaseCurrency.Symbol;
+                    return true;
                 }
                 else
                 {
@@ -2183,6 +2175,10 @@ do_EditMyOrganisation_Data:
                 if (IsDocInvoice)
                 {
                     m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID,Properties.Settings.Default.ElectronicDevice_ID));
+                    if (m_InvoiceData.AddOnDI.m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH )
+                    {
+
+                    }
                     long DocInvoice_ID = -1;
                     // save doc Invoice 
                     if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID))
@@ -2203,7 +2199,7 @@ do_EditMyOrganisation_Data:
                             {
                                 aa_DocInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
                             }
-                            SelectTemplate();
+                            Printing_DocInvoice();
                             return true;
                         }
                         else
@@ -2321,6 +2317,10 @@ do_EditMyOrganisation_Data:
                                     {
                                         return;
                                     }
+                                    if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.AddOnDI))
+                                    {
+                                        return;
+                                    }
                                 }
                             }
                             else if (IsDocProformaInvoice)
@@ -2351,7 +2351,7 @@ do_EditMyOrganisation_Data:
                                     m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
                                     m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
                                 }
-                                SelectTemplate();
+                                Printing_DocInvoice();
                                 //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
                                 //frm_Print_Existing_invoice.ShowDialog(this);
                             }
@@ -2383,7 +2383,7 @@ do_EditMyOrganisation_Data:
             return invoiceData;
         }
 
-        private bool SelectTemplate()
+        private bool Printing_DocInvoice()
         {
             TangentaPrint.Form_PrintDocument template_dlg = new TangentaPrint.Form_PrintDocument(m_InvoiceData);
             if (template_dlg.ShowDialog(this)==DialogResult.OK)

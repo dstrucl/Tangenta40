@@ -38,7 +38,7 @@ namespace TangentaDB
         public static doc_page_type_definitions doc_page_type_definitions = null;
         public static doc_type_definitions doc_type_definitions = null;
         public static Language_definitions language_definitions = null;
-        public static MethodOfPayment_definitions methodOfPayment_definitions = null;
+        public static TermsOfPayment_definitions termsOfPayment_definitions = null;
 
 
         public static xCurrency BaseCurrency = null;
@@ -56,6 +56,7 @@ namespace TangentaDB
             doc_page_type_definitions = new doc_page_type_definitions();
             doc_type_definitions = new doc_type_definitions();
             language_definitions = new Language_definitions();
+            termsOfPayment_definitions = new TermsOfPayment_definitions();
         }
 
         //Function to get random number
@@ -403,8 +404,23 @@ namespace TangentaDB
                 {
                     if (Doc_type_definitions_Read())
                     {
-                        return true;
+                        if (TermsOfPayment_definitions_Read())
+                        {
+                            return true;
+                        }
                     }
+                }
+            }
+            return false;
+        }
+
+        private static bool TermsOfPayment_definitions_Read()
+        {
+            if (termsOfPayment_definitions.Read())
+            {
+                if (termsOfPayment_definitions.Advanced_100PercentPayment_ID_v==null)
+                {
+                    return termsOfPayment_definitions.InsertDefault();
                 }
             }
             return false;
@@ -432,24 +448,6 @@ namespace TangentaDB
                 }
             }
             return false;
-        }
-
-
-        public static bool InsertDefaultPaymentMethods(ref string Err)
-        {
-            return true;
-            string sql_InsertDefaultPaymentMethods = "Insert into BaseCurrency (Currency_ID) Values )";
-            object oRes = null;
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql_InsertDefaultPaymentMethods, null, ref oRes, ref Err))
-            {
-                return true;
-            }
-            else
-            {
-                Err = "ERROR:TangentaDB:GlobalData:InsertDefaultPaymentMethods:sql = " + sql_InsertDefaultPaymentMethods + "\r\nErr = " + Err;
-                LogFile.Error.Show(Err);
-                return false;
-            }
         }
     }
 }

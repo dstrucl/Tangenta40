@@ -48,6 +48,9 @@ namespace Tangenta
             lngRPM.s_rbtn_NumberOf.Text(rdb_ValidNumberOf);
             lngRPM.s_rdb_Valid_Tender_Until.Text(rdb_Valid_Tender_Until);
             lngRPM.s_lbl_DateOfProformaInvoiceIssue.Text(lbl_DateOfIssue);
+            lngRPM.s_Invoice_Issue.Text(btn_ProformaInvoice_Issue);
+            lngRPM.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
+
             rdb_BankAccountTransfer.CheckedChanged += Rdb_BankAccountTransfer_CheckedChanged;
             rdb_BankAccountTransfer.Checked = true;
 
@@ -119,11 +122,11 @@ namespace Tangenta
             m_usrc_AddOn = x_usrc_AddOn;
             if (m_bPrint)
             {
-                lngRPM.s_Print.Text(this.btn_Print);
+                lngRPM.s_ProformaInvoice_Issue.Text(this.btn_ProformaInvoice_Issue);
             }
             else
             {
-                lngRPM.s_OK.Text(this.btn_Print);
+                lngRPM.s_OK.Text(this.btn_ProformaInvoice_Issue);
             }
 
             if (m_AddOnDPI.Get(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID))

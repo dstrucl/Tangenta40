@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.rdb_Payment_by_cash_or_credit_card_on_delivery = new System.Windows.Forms.RadioButton();
-            this.btn_Print = new System.Windows.Forms.Button();
+            this.btn_ProformaInvoice_Issue = new System.Windows.Forms.Button();
             this.rdb_BankAccountTransfer = new System.Windows.Forms.RadioButton();
             this.grp_MtehodOfPaymentType = new System.Windows.Forms.GroupBox();
             this.btn_Select_BankAccount = new System.Windows.Forms.Button();
@@ -67,15 +67,15 @@
             // 
             // btn_Print
             // 
-            this.btn_Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Print.ForeColor = System.Drawing.Color.Black;
-            this.btn_Print.Location = new System.Drawing.Point(136, 428);
-            this.btn_Print.Name = "btn_Print";
-            this.btn_Print.Size = new System.Drawing.Size(197, 55);
-            this.btn_Print.TabIndex = 7;
-            this.btn_Print.Text = "Print";
-            this.btn_Print.UseVisualStyleBackColor = true;
-            this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
+            this.btn_ProformaInvoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_ProformaInvoice_Issue.ForeColor = System.Drawing.Color.Black;
+            this.btn_ProformaInvoice_Issue.Location = new System.Drawing.Point(136, 428);
+            this.btn_ProformaInvoice_Issue.Name = "btn_Print";
+            this.btn_ProformaInvoice_Issue.Size = new System.Drawing.Size(197, 55);
+            this.btn_ProformaInvoice_Issue.TabIndex = 7;
+            this.btn_ProformaInvoice_Issue.Text = "Print";
+            this.btn_ProformaInvoice_Issue.UseVisualStyleBackColor = true;
+            this.btn_ProformaInvoice_Issue.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // rdb_BankAccountTransfer
             // 
@@ -274,7 +274,7 @@
             this.Controls.Add(this.grp_ValidityOfTheTender);
             this.Controls.Add(this.grp_MtehodOfPaymentType);
             this.Controls.Add(this.btn_Cancel);
-            this.Controls.Add(this.btn_Print);
+            this.Controls.Add(this.btn_ProformaInvoice_Issue);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "usrc_DocProformaInvoice_AddOn";
@@ -293,7 +293,7 @@
         #endregion
 
         private System.Windows.Forms.RadioButton rdb_Payment_by_cash_or_credit_card_on_delivery;
-        private System.Windows.Forms.Button btn_Print;
+        private System.Windows.Forms.Button btn_ProformaInvoice_Issue;
         private System.Windows.Forms.RadioButton rdb_BankAccountTransfer;
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.GroupBox grp_MtehodOfPaymentType;
