@@ -170,6 +170,12 @@ namespace UniversalInvoice
                     }
                 }
             }
+            else if (Replacement is byte[])
+            {
+                //replace byte with Base64 string!
+                string base64String = Convert.ToBase64String((byte[])Replacement);
+                replacement = base64String;
+            }
         }
 
 

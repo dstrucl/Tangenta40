@@ -1103,7 +1103,8 @@ namespace UpgradeDB
                       'MessageID' varchar(45) NULL,
                       'UniqueInvoiceID' varchar(45) NULL,
                       'BarCodeValue' varchar(64) NULL,
-                      'Response_DateTime' DATETIME NULL
+                      'Response_DateTime' DATETIME NULL,
+                      'TestEnvironment' BIT NULL
                       );
 
                     insert into FVI_SLO_Response

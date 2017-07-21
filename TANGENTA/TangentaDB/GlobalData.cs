@@ -418,7 +418,11 @@ namespace TangentaDB
         {
             if (termsOfPayment_definitions.Read())
             {
-                if (termsOfPayment_definitions.Advanced_100PercentPayment_ID_v==null)
+                if (termsOfPayment_definitions.Advanced_100PercentPayment_ID_v!=null)
+                {
+                    return true;
+                }
+                else
                 {
                     return termsOfPayment_definitions.InsertDefault();
                 }

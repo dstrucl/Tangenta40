@@ -42,15 +42,13 @@
         }
 
     h1 {
-        border-top: 1cm #5D6975;
         border-bottom: 0.1cm solid #5D6975;
         color: #5D6975;
-        font-size: 2.4em;
+        font-size: 2em;
         line-height: 1.4em;
         font-weight: normal;
-        text-align: center;
-        margin: 0 0 1cm 0;
-        background: url(dimension.png);
+        text-align: left;
+        margin: 0.3cm 0 0.2cm 0;
     }
 
     #customer_company td {
@@ -131,6 +129,21 @@
         font-size: 0.8cm;
     }
 
+    .myORG_Logo {
+        padding-left: 50px;
+        height: 80px;
+        width: 160px;
+        ;
+    }
+
+    .methodofpayment {
+        padding: 0.2cm;
+    }
+
+    .paymenttobankaccount {
+        padding: 0.2cm;
+    }
+
     .QRImage {
         width: 128px;
         height: 128px;
@@ -143,7 +156,10 @@
     <page>
         <div class="pagenumbers">stran (@@ŠtevilkaStrani@@) od (@@ŠteviloStrani@@)</div>
         <div class="invoicetop">
-            <h1>Račun številka:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@) (@@Račun_Stornacija@@)</h1>
+            <h1>
+                Račun št.:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Račun_OznakaBlagajne@@)-(@@Račun_Številka@@) (@@Račun_Stornacija@@)
+                <img class="myORG_Logo" alt="Embedded Image" src="data:image/png;base64,(@@Moja_Organizacija_Logo@@)" />
+            </h1>
             <table id="customer_company">
                 <thead>
                     <tr>
@@ -223,6 +239,12 @@
             </tbody>
         </table>
         <div class="invoicebottom">
+            <div class="methodofpayment">
+                Način plačila:(@@Račun_NačinPlačila@@)
+            </div>
+            <div class="paymenttobankaccount">
+                <b>(@@Račun_PlačiloNaBančniRačun@@) (@@Račun_PlačiloNaBanko@@)</b>
+            </div>
             <div id="FURS">
                 <div>FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"</div>
                 <div>FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"</div>

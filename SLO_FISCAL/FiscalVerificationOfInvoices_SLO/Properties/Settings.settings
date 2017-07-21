@@ -992,5 +992,14 @@
     <Setting Name="fursWWW_check_invoice_TEST" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://blagajne-test.fu.gov.si:9002/cash_registers/ui/check_invoice/index.html</Value>
     </Setting>
+    <Setting Name="FVI_for_cash_payment" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FVI_for_card_payment" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FVI_for_payment_on_bank_account" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

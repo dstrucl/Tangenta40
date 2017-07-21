@@ -24,6 +24,8 @@ namespace UniversalInvoice
         public TemplateToken tDateOfIssue = null;
         public TemplateToken tDateOfMaturity = null;
         public TemplateToken tPaymentType = null;
+        public TemplateToken tPaymentToBankAccount = null;
+        public TemplateToken tPaymentToBankName = null;
         public TemplateToken tSumNetPrice = null;
         public TemplateToken tTaxRateName = null;
         public TemplateToken tSumTax = null;
@@ -44,6 +46,8 @@ namespace UniversalInvoice
             tDateOfIssue = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfIssue, null,null);
             tDateOfMaturity = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfMaturity, null, null);
             tPaymentType = new TemplateToken(lngToken.st_Invoice, lngToken.st_PaymentType, null, null);
+            tPaymentToBankAccount = new TemplateToken(lngToken.st_Invoice, lngToken.st_PaymentToBankAccount, null, null);
+            tPaymentToBankName = new TemplateToken(lngToken.st_Invoice, lngToken.st_PaymentToBankName, null, null);
 
 
             tSumNetPrice = new TemplateToken(lngToken.st_Invoice, lngToken.st_SumNetPrice, null, null);
@@ -61,6 +65,8 @@ namespace UniversalInvoice
             list.Add(tDateOfIssue);
             list.Add(tDateOfMaturity);
             list.Add(tPaymentType);
+            list.Add(tPaymentToBankAccount);
+            list.Add(tPaymentToBankName);
             list.Add(tSumNetPrice);
             list.Add(tTaxRateName);
             list.Add(tSumTax);

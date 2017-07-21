@@ -31,6 +31,10 @@ namespace FiscalVerificationOfInvoices_SLO
             InitializeComponent();
             m_usrc_FVI_SLO = xusrc_FVI_SLO;
             lngRPM.s_FURS_WWW_btn_Check_invoice.Text(btn_CheckInvoice);
+            lngRPM.s_FVI_for_cash_payment.Text(chk_FVI_CASH_PAYMENT);
+            lngRPM.s_FVI_for_card_payment.Text(chk_FVI_CARD_PAYMENT);
+            lngRPM.s_FVI_for_payment_on_bankaccount.Text(chk_FVI_PAYMENT_ON_BANK_ACCOUNT);
+            chk_FVI_CASH_PAYMENT.Enabled = false;
             Init();
         }
 
@@ -44,6 +48,9 @@ namespace FiscalVerificationOfInvoices_SLO
             {
                 this.Text = lngRPM.s_FVI_Check.s;
             }
+            chk_FVI_CASH_PAYMENT.Checked = Properties.Settings.Default.FVI_for_cash_payment;
+            chk_FVI_CARD_PAYMENT.Checked = Properties.Settings.Default.FVI_for_card_payment;
+            chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Checked = Properties.Settings.Default.FVI_for_payment_on_bank_account;
         }
 
         private void btn_Settings_Click(object sender, EventArgs e)
@@ -118,6 +125,24 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
             }
             m_usrc_FVI_SLO.m_Form_FURS_WEB_check_invoice.Show();
+        }
+
+        private void chk_FVI_CASH_PAYMENT_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.FVI_for_cash_payment = chk_FVI_CASH_PAYMENT.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void chk_FVI_CARD_PAYMENT_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.FVI_for_card_payment = chk_FVI_CARD_PAYMENT.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void chk_FVI_PAYMENT_ON_BANK_ACCOUNT_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.FVI_for_payment_on_bank_account = chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

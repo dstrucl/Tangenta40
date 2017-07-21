@@ -137,7 +137,7 @@ namespace FiscalVerificationOfInvoices_SLO
                         xInvData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(ZOI);
                         xInvData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(EOR);
                         xInvData.AddOnDI.m_FURS.FURS_QR_v = new string_v(BarCodeValue);
-                        xInvData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvData.DocInvoice_ID);
+                        xInvData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvData.DocInvoice_ID,this.m_usrc_FVI_SLO.FursTESTEnvironment);
                     }
                 }
             }

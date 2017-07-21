@@ -2354,6 +2354,11 @@ namespace TangentaTableClass
 
     }
 
+    public class TestEnvironment:DB_bit
+    {
+
+    }
+
     public class FVI_SLO_Response
     {
         public ID ID = new ID();
@@ -2362,6 +2367,7 @@ namespace TangentaTableClass
         public MessageID MessageID = new MessageID();
         public UniqueInvoiceID UniqueInvoiceID = new UniqueInvoiceID();
         public BarCodeValue BarCodeValue = new BarCodeValue();
+        public TestEnvironment TestEnvironment = new TestEnvironment();
     }
 
     public class InvoiceNumber:DB_varchar_25

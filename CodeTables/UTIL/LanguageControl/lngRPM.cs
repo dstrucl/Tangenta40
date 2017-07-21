@@ -17,6 +17,12 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_FVI_not_done = new ltext("Fiscal verification of invoice was not done", "Davčno potrjevanje računa ni bilo izvedeno");
+        public static ltext s_FVI_done_in_test_environment = new ltext("Fiscal verification done in TEST ENVIRONMENT!", "Davčno potrjevanje računa izvedeno v TESTNEM OKOLJU");
+        public static ltext s_FVI_for_cash_payment = new ltext("Fiscal verification of invoices for cash payment", "Davčno potrjevanje računov za plačila z gotovino");
+        public static ltext s_FVI_for_card_payment = new ltext("Fiscal verification of invoices for card payment", "Davčno potrjevanje računov za plačila s kartico");
+        public static ltext s_FVI_for_payment_on_bankaccount = new ltext("Fiscal verification of invoices for payment on bank account", "Davčno potrjevanje računov za plačila na bančni račun");
+
         public static ltext s_TermsOfPayment_Default_100PercentInAdvance = new ltext("100% full payment in advance", "100% Avans");
         public static ltext s_Select_ShopA_Item = new ltext("Select Item", "Izberite Artikel");
         public static ltext s_FURS_WWW_btn_Check_invoice = new ltext("FURS WWW for checking invoices", "Domača stran davčne uprave za preverjanje računov in ostalo");

@@ -2041,6 +2041,7 @@ namespace TangentaDataBaseDef
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.UniqueInvoiceID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("UniqueInvoiceID", "Enkratna identifikacijska oznaka računa"));
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.BarCodeValue, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("QR BarCode", "QR bar koda"));
             t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.Response_DateTime, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Response Time", "Čas odgovora"));
+            t_FVI_SLO_Response.AddColumn((Object)mt.m_FVI_SLO_Response.TestEnvironment, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Test Environment", "TESTNO OKOLJE"));
             m_DBTables.items.Add(t_FVI_SLO_Response);
 
 

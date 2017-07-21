@@ -32,6 +32,9 @@
             this.btn_Settings = new System.Windows.Forms.Button();
             this.btn_Send_ECHO = new System.Windows.Forms.Button();
             this.btn_CheckInvoice = new System.Windows.Forms.Button();
+            this.chk_FVI_CARD_PAYMENT = new System.Windows.Forms.CheckBox();
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT = new System.Windows.Forms.CheckBox();
+            this.chk_FVI_CASH_PAYMENT = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn_Settings
@@ -64,11 +67,47 @@
             this.btn_CheckInvoice.UseVisualStyleBackColor = true;
             this.btn_CheckInvoice.Click += new System.EventHandler(this.btn_CheckInvoice_Click);
             // 
+            // chk_FVI_CARD_PAYMENT
+            // 
+            this.chk_FVI_CARD_PAYMENT.AutoSize = true;
+            this.chk_FVI_CARD_PAYMENT.Location = new System.Drawing.Point(15, 86);
+            this.chk_FVI_CARD_PAYMENT.Name = "chk_FVI_CARD_PAYMENT";
+            this.chk_FVI_CARD_PAYMENT.Size = new System.Drawing.Size(186, 17);
+            this.chk_FVI_CARD_PAYMENT.TabIndex = 6;
+            this.chk_FVI_CARD_PAYMENT.Text = "Fiscal verification of card payment";
+            this.chk_FVI_CARD_PAYMENT.UseVisualStyleBackColor = true;
+            this.chk_FVI_CARD_PAYMENT.CheckedChanged += new System.EventHandler(this.chk_FVI_CARD_PAYMENT_CheckedChanged);
+            // 
+            // chk_FVI_PAYMENT_ON_BANK_ACCOUNT
+            // 
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.AutoSize = true;
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Location = new System.Drawing.Point(15, 109);
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Name = "chk_FVI_PAYMENT_ON_BANK_ACCOUNT";
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Size = new System.Drawing.Size(248, 17);
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.TabIndex = 7;
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Text = "Fiscal verification of payment on Bank Account";
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.UseVisualStyleBackColor = true;
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.CheckedChanged += new System.EventHandler(this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT_CheckedChanged);
+            // 
+            // chk_FVI_CASH_PAYMENT
+            // 
+            this.chk_FVI_CASH_PAYMENT.AutoSize = true;
+            this.chk_FVI_CASH_PAYMENT.Location = new System.Drawing.Point(15, 63);
+            this.chk_FVI_CASH_PAYMENT.Name = "chk_FVI_CASH_PAYMENT";
+            this.chk_FVI_CASH_PAYMENT.Size = new System.Drawing.Size(188, 17);
+            this.chk_FVI_CASH_PAYMENT.TabIndex = 8;
+            this.chk_FVI_CASH_PAYMENT.Text = "Fiscal verification of cash payment";
+            this.chk_FVI_CASH_PAYMENT.UseVisualStyleBackColor = true;
+            this.chk_FVI_CASH_PAYMENT.CheckedChanged += new System.EventHandler(this.chk_FVI_CASH_PAYMENT_CheckedChanged);
+            // 
             // Form_MainFiscal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(689, 54);
+            this.ClientSize = new System.Drawing.Size(689, 137);
+            this.Controls.Add(this.chk_FVI_CASH_PAYMENT);
+            this.Controls.Add(this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT);
+            this.Controls.Add(this.chk_FVI_CARD_PAYMENT);
             this.Controls.Add(this.btn_CheckInvoice);
             this.Controls.Add(this.btn_Send_ECHO);
             this.Controls.Add(this.btn_Settings);
@@ -80,6 +119,7 @@
             this.Text = "Form_Main";
             this.Load += new System.EventHandler(this.Form_Main_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -87,5 +127,8 @@
         private System.Windows.Forms.Button btn_Settings;
         private System.Windows.Forms.Button btn_Send_ECHO;
         private System.Windows.Forms.Button btn_CheckInvoice;
+        private System.Windows.Forms.CheckBox chk_FVI_CARD_PAYMENT;
+        private System.Windows.Forms.CheckBox chk_FVI_PAYMENT_ON_BANK_ACCOUNT;
+        private System.Windows.Forms.CheckBox chk_FVI_CASH_PAYMENT;
     }
 }

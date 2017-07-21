@@ -37,6 +37,8 @@ namespace LanguageControl
 
         public static ltext st_DateOfIssue = new ltext("DateOfIssue", "Datum_izdaje_računa");
         public static ltext st_DateOfMaturity = new ltext("DateOfMaturity", "Datum_zapadlosti_računa");
+        public static ltext st_PaymentToBankAccount = new ltext("PaymentToBankAccount", "PlačiloNaBančniRačun");
+        public static ltext st_PaymentToBankName = new ltext("PaymentToBankName", "PlačiloNaBanko");
         public static ltext st_PaymentType = new ltext("PaymentType", "NačinPlačila");
 
 

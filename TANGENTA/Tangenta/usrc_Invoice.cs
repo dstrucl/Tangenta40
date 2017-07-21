@@ -2189,7 +2189,10 @@ do_EditMyOrganisation_Data:
                             if (Program.b_FVI_SLO)
                             {
 
-                                if (AddOnDI.IsCashPayment || AddOnDI.IsCardPayment)
+                                if ((AddOnDI.IsCashPayment && Program.usrc_FVI_SLO1.FVI_for_cash_payment) 
+                                    || (AddOnDI.IsCardPayment && Program.usrc_FVI_SLO1.FVI_for_card_payment)
+                                    || (AddOnDI.IsPaymentOnBankAccount && Program.usrc_FVI_SLO1.FVI_for_payment_on_bank_account)
+                                    )
                                 {
                                     this.SendInvoice();
                                 }
@@ -2264,7 +2267,7 @@ do_EditMyOrganisation_Data:
                     m_InvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                     m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
                     m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = img_QR;
-                    m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(m_InvoiceData.DocInvoice_ID);
+                    m_InvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(m_InvoiceData.DocInvoice_ID,Program.usrc_FVI_SLO1.FursTESTEnvironment);
                 }
                 else
                 {
@@ -2485,7 +2488,7 @@ do_EditMyOrganisation_Data:
                                                 xInvoiceData.AddOnDI.m_FURS.FURS_ZOI_v = new string_v(furs_UniqeMsgID);  
                                                 xInvoiceData.AddOnDI.m_FURS.FURS_EOR_v = new string_v(furs_UniqeInvID);
                                                 xInvoiceData.AddOnDI.m_FURS.FURS_QR_v = new string_v(furs_BarCodeValue);
-                                                xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID);
+                                                xInvoiceData.AddOnDI.m_FURS.Write_FURS_Response_Data(xInvoiceData.DocInvoice_ID,Program.usrc_FVI_SLO1.FursTESTEnvironment);
                                             }
                                             else
                                             {

@@ -169,13 +169,18 @@ namespace TangentaDB
 
             }
 
-            private string m_PaymentType = null;
             public string PaymentType
             {
-                get { return m_PaymentType; }
-                set
-                {
-                    m_PaymentType = value;
+                get {
+                    ltext l_v = GlobalData.Get_sPaymentType_ltext(m_eType);
+                    if (l_v != null)
+                    {
+                        return l_v.s;
+                    }
+                    else
+                    {
+                        return GlobalData.Get_sPaymentType(m_eType);
+                    }
                 }
             }
 
@@ -186,7 +191,6 @@ namespace TangentaDB
                 set
                 {
                     m_eType = value;
-                    PaymentType = GlobalData.Get_sPaymentType(m_eType);
                 }
             }
 
@@ -205,7 +209,6 @@ namespace TangentaDB
                     xMethodOfPayment.eType = GlobalData.Get_ePaymentType(xPaymentType, ref Err);
                     if (xMethodOfPayment.eType != GlobalData.ePaymentType.NONE)
                     {
-                        xMethodOfPayment.PaymentType = GlobalData.Get_sPaymentType(xMethodOfPayment.eType);
                         if (xMethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                         {
                             if ((oBankName is string)

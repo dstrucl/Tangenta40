@@ -107,7 +107,22 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
             }
         }
-                                                    
+
+        
+        public bool FVI_for_cash_payment
+        {
+            get { return Properties.Settings.Default.FVI_for_cash_payment; }
+        }
+
+        public bool FVI_for_card_payment
+        {
+            get { return Properties.Settings.Default.FVI_for_card_payment; }
+        }
+
+        public bool FVI_for_payment_on_bank_account
+        {
+            get { return Properties.Settings.Default.FVI_for_payment_on_bank_account; }
+        }
 
         public string FursCertificatePassword
         {

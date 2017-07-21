@@ -1502,5 +1502,41 @@ namespace FiscalVerificationOfInvoices_SLO.Properties {
                 this["fursWWW_check_invoice_TEST"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FVI_for_cash_payment {
+            get {
+                return ((bool)(this["FVI_for_cash_payment"]));
+            }
+            set {
+                this["FVI_for_cash_payment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FVI_for_card_payment {
+            get {
+                return ((bool)(this["FVI_for_card_payment"]));
+            }
+            set {
+                this["FVI_for_card_payment"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FVI_for_payment_on_bank_account {
+            get {
+                return ((bool)(this["FVI_for_payment_on_bank_account"]));
+            }
+            set {
+                this["FVI_for_payment_on_bank_account"] = value;
+            }
+        }
     }
 }

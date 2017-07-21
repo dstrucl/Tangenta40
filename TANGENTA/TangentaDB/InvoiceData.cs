@@ -100,6 +100,13 @@ namespace TangentaDB
         public int iCountSimpleItemsSold = 0;
         public int iCountItemsSold = 0;
 
+        string sMethodOfPayment = "";
+        string sBankAccount = "";
+        string sBankName = "";
+
+        string sFiscalVerificationOfInvoicesNotDone = null;
+        string sFiscalVerification_ZOI = "";
+        string sFiscalVerification_EOR = "";
 
         public TangentaDB.ShopABC m_ShopABC = null;
 
@@ -753,9 +760,10 @@ namespace TangentaDB
                                 acusper.ID as Atom_Customer_Person_ID,
                                 jpi.EventTime,
                                 jpit.Name as JOURNAL_DocInvoice_Type_Name,
-                                JOURNAL_DocInvoice_$_dinv_$_fvisres.MessageID As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID,
-                                JOURNAL_DocInvoice_$_dinv_$_fvisres.UniqueInvoiceID As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID,
-                                JOURNAL_DocInvoice_$_dinv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisres.MessageID As JOURNAL_DocInvoice_$_dinv_$_fvisres_$$MessageID,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisres.UniqueInvoiceID As JOURNAL_DocInvoice_$_dinv_$_fvisres_$$UniqueInvoiceID,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisres.BarCodeValue As JOURNAL_DocInvoice_$_dinv_$_fvisres_$$BarCodeValue,
+                                JOURNAL_DocInvoice_$_dinv_$_fvisres.TestEnvironment As JOURNAL_DocInvoice_$_dinv_$_fvisres_$$TestEnvironment,
                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.InvoiceNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber,
                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.SetNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber,
                                 JOURNAL_DocInvoice_$_dinv_$_fvisbi.SerialNumber AS JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber,
@@ -1189,16 +1197,19 @@ namespace TangentaDB
                         FinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["FinancialYear"]);
                         NumberInFinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["NumberInFinancialYear"]);
 
+                        sFiscalVerificationOfInvoicesNotDone = lngRPM.s_FVI_not_done.s;
                         if (IsDocInvoice)
                         {
                             if (AddOnDI.b_FVI_SLO)
                             {
+
                                 if (!Draft)
                                 {
 
-                                    AddOnDI.m_FURS.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$MessageID"]);
-                                    AddOnDI.m_FURS.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$UniqueInvoiceID"]);
-                                    AddOnDI.m_FURS.FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"]);
+                                    AddOnDI.m_FURS.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$MessageID"]);
+                                    AddOnDI.m_FURS.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$UniqueInvoiceID"]);
+                                    AddOnDI.m_FURS.FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$BarCodeValue"]);
+                                    AddOnDI.m_FURS.FURS_TestEnvironment_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$TestEnvironment"]);
                                     AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
                                     AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
                                     AddOnDI.m_FURS.FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
@@ -1206,14 +1217,42 @@ namespace TangentaDB
                                     {
                                         AddOnDI.m_FURS.Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
                                     }
+
                                     if (AddOnDI.m_FURS.FURS_ZOI_v != null)
                                     {
-                                        AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Set(AddOnDI.m_FURS.FURS_ZOI_v.v);
+                                        sFiscalVerification_ZOI = AddOnDI.m_FURS.FURS_ZOI_v.v;
+                                        if (AddOnDI.m_FURS.FURS_TestEnvironment_v!=null)
+                                        {
+                                            if (AddOnDI.m_FURS.FURS_TestEnvironment_v.v)
+                                            {
+                                                sFiscalVerification_ZOI = AddOnDI.m_FURS.FURS_ZOI_v.v + " "+lngRPM.s_Furs_Test_Environment.s+"!";
+                                            }
+                                        }
+                                        
+                                        AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Set(sFiscalVerification_ZOI);
                                     }
+                                    else
+                                    {
+                                        AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Set(sFiscalVerificationOfInvoicesNotDone);
+                                    }
+
                                     if (AddOnDI.m_FURS.FURS_EOR_v != null)
                                     {
-                                        AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Set(AddOnDI.m_FURS.FURS_EOR_v.v);
+                                        sFiscalVerification_EOR = AddOnDI.m_FURS.FURS_EOR_v.v;
+                                        if (AddOnDI.m_FURS.FURS_TestEnvironment_v != null)
+                                        {
+                                            if (AddOnDI.m_FURS.FURS_TestEnvironment_v.v)
+                                            {
+                                                sFiscalVerification_EOR = AddOnDI.m_FURS.FURS_EOR_v.v + " " + lngRPM.s_Furs_Test_Environment.s + "!";
+                                            }
+                                        }
+                                        AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Set(sFiscalVerification_EOR);
                                     }
+                                    else
+                                    {
+                                        AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Set(sFiscalVerificationOfInvoicesNotDone);
+                                    }
+
                                     if (AddOnDI.m_FURS.FURS_QR_v != null)
                                     {
                                         AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Set(AddOnDI.m_FURS.FURS_QR_v.v);
@@ -1508,6 +1547,45 @@ namespace TangentaDB
             InvoiceToken.tDateOfIssue.Set(stime);
             InvoiceToken.tDateOfMaturity.Set(stime);
 
+            sMethodOfPayment = "";
+            if (IsDocInvoice)
+            {
+                sMethodOfPayment = this.AddOnDI.m_MethodOfPayment.PaymentType;
+                sBankAccount = this.AddOnDI.m_MethodOfPayment.BankAccount;
+                sBankName = this.AddOnDI.m_MethodOfPayment.BankName;
+
+            }
+            else if (IsDocProformaInvoice)
+            {
+                sMethodOfPayment = this.AddOnDPI.m_MethodOfPayment.PaymentType;
+                sBankAccount = this.AddOnDPI.m_MethodOfPayment.BankAccount;
+                sBankName = this.AddOnDPI.m_MethodOfPayment.BankName;
+            }
+            if (sBankAccount!=null)
+            {
+                sBankAccount = lngRPM.s_PaymentOnBankAccount.s + ": " + sBankAccount;
+            }
+            else
+            {
+                sBankAccount = "";
+            }
+
+            if (sBankName != null)
+            {
+                sBankName = lngRPM.s_Bank.s + ": " + sBankName;
+            }
+            else
+            {
+                sBankName = "";
+            }
+
+            InvoiceToken.tPaymentType.Set(sMethodOfPayment);
+            InvoiceToken.tPaymentToBankAccount.Set(sBankAccount);
+            InvoiceToken.tPaymentToBankName.Set(sBankName);
+
+            html_doc_template = InvoiceToken.tPaymentType.Replace(html_doc_template);
+            html_doc_template = InvoiceToken.tPaymentToBankAccount.Replace(html_doc_template);
+            html_doc_template = InvoiceToken.tPaymentToBankName.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tStorno.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tFiscalYear.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tInvoiceNumber.Replace(html_doc_template);

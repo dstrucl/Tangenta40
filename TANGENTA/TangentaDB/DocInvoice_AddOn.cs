@@ -19,6 +19,7 @@ namespace TangentaDB
         private decimal m_Cash_AmountReceived = 0;
         private decimal m_Cash_ToReturn = 0;
 
+
         public decimal Cash_AmountReceived
         {
             get { return m_Cash_AmountReceived; }
@@ -191,13 +192,20 @@ namespace TangentaDB
 
             }
 
-            private string m_PaymentType = null;
             public string PaymentType
             {
-                get { return m_PaymentType; }
-                set
-                {
-                    m_PaymentType = value;
+                get {
+
+                    ltext l_v = GlobalData.Get_sPaymentType_ltext(m_eType);
+                    if (l_v != null)
+                    {
+                         return l_v.s;
+                    }
+                    else
+                    {
+                        return GlobalData.Get_sPaymentType(m_eType);
+                    }
+
                 }
             }
 
@@ -208,7 +216,6 @@ namespace TangentaDB
                 set
                 {
                     m_eType = value;
-                    PaymentType = GlobalData.Get_sPaymentType(m_eType);
                 }
             }
 
@@ -230,7 +237,6 @@ namespace TangentaDB
                     xMethodOfPayment.eType = GlobalData.Get_ePaymentType(xPaymentType, ref Err);
                     if (xMethodOfPayment.eType != GlobalData.ePaymentType.NONE)
                     {
-                        xMethodOfPayment.PaymentType = GlobalData.Get_sPaymentType(xMethodOfPayment.eType);
                         if (xMethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                         {
                             if ((oBankName is string)
@@ -491,7 +497,10 @@ namespace TangentaDB
         {
             public string_v FURS_ZOI_v = null;
             public string_v FURS_EOR_v = null;
+            public string sFURS_ZOI = "";
+            public string sFURS_EOR = "";
             public string_v FURS_QR_v = null;
+            public bool_v FURS_TestEnvironment_v = null;
             public Image FURS_Image_QRcode = null;
 
             public string_v FURS_SalesBookInvoice_InvoiceNumber_v = null;
@@ -504,7 +513,7 @@ namespace TangentaDB
             public UniversalInvoice.Invoice_FURS_Token Invoice_FURS_Token = null;
 
 
-            public bool Write_FURS_Response_Data(long DocInvoice_ID)
+            public bool Write_FURS_Response_Data(long DocInvoice_ID,bool FursTESTEnvironment)
             {
                 object oret = null;
                 string Err = null;
@@ -542,8 +551,12 @@ namespace TangentaDB
                 SQL_Parameter par_Response_DateTime = new SQL_Parameter(spar_Response_DateTime, SQL_Parameter.eSQL_Parameter.Datetime, false, resp_datetime);
                 lpar.Add(par_Response_DateTime);
 
+                
+                string spar_TestEnvironment = "@par_TestEnvironment";
+                SQL_Parameter par_TestEnvironment = new SQL_Parameter(spar_TestEnvironment, SQL_Parameter.eSQL_Parameter.Bit, false, FursTESTEnvironment);
+                lpar.Add(par_TestEnvironment);
 
-                sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ")";
+                sql = "insert into fvi_slo_response (DocInvoice_ID,MessageID,UniqueInvoiceID,BarCodeValue,Response_DateTime,TestEnvironment) values (" + spar_Invoice_ID + "," + spar_MessageID + "," + spar_UniqueInvoiceID + "," + spar_BarCodeValue + "," + spar_Response_DateTime + ","+ spar_TestEnvironment+")";
                 long id = -1;
                 if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref id, ref oret, ref Err, "fvi_slo_response"))
                 {
@@ -565,8 +578,32 @@ namespace TangentaDB
                 {
                     Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
                 }
-                Invoice_FURS_Token.tUniqueMessageID.Set(this.FURS_ZOI_v.v);
-                Invoice_FURS_Token.tUniqueInvoiceID.Set(this.FURS_EOR_v.v);
+                if (this.FURS_ZOI_v != null)
+                {
+                    sFURS_ZOI = this.FURS_ZOI_v.v;
+                    if (this.FURS_TestEnvironment_v!=null)
+                    {
+                        if (this.FURS_TestEnvironment_v.v)
+                        {
+                            sFURS_ZOI = this.FURS_ZOI_v.v + " " + lngRPM.s_FVI_done_in_test_environment.s;
+                        }
+
+                    }
+                }
+                if (this.FURS_EOR_v != null)
+                {
+                    sFURS_EOR = this.FURS_EOR_v.v;
+                    if (this.FURS_TestEnvironment_v != null)
+                    {
+                        if (this.FURS_TestEnvironment_v.v)
+                        {
+                            sFURS_EOR = this.FURS_EOR_v.v + " " + lngRPM.s_FVI_done_in_test_environment.s;
+                        }
+                    }
+                }
+
+                Invoice_FURS_Token.tUniqueMessageID.Set(sFURS_ZOI);
+                Invoice_FURS_Token.tUniqueInvoiceID.Set(sFURS_EOR);
 
                 if (this.FURS_Image_QRcode != null)
                 {
@@ -589,6 +626,8 @@ namespace TangentaDB
                 string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where DocInvoice_ID = " + DocInvoice_ID.ToString();
                 string Err = null;
                 DataTable dt = new DataTable();
+                sFURS_ZOI = lngRPM.s_FVI_not_done.s;
+                sFURS_EOR = lngRPM.s_FVI_not_done.s;
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                 {
                     if (dt.Rows.Count > 0)
@@ -596,12 +635,37 @@ namespace TangentaDB
                         FURS_ZOI_v = tf.set_string(dt.Rows[0]["MessageID"]);
                         FURS_EOR_v = tf.set_string(dt.Rows[0]["UniqueInvoiceID"]);
                         FURS_QR_v = tf.set_string(dt.Rows[0]["BarCodeValue"]);
+                        FURS_TestEnvironment_v = tf.set_bool(dt.Rows[0]["TestEnvironment"]);
                         if (Invoice_FURS_Token == null)
                         {
                             Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
                         }
-                        Invoice_FURS_Token.tUniqueMessageID.Set(FURS_ZOI_v.v);
-                        Invoice_FURS_Token.tUniqueInvoiceID.Set(FURS_EOR_v.v);
+
+                        if (this.FURS_ZOI_v != null)
+                        {
+                            sFURS_ZOI = this.FURS_ZOI_v.v;
+                            if (FURS_TestEnvironment_v!=null)
+                            {
+                                if (FURS_TestEnvironment_v.v)
+                                {
+                                    sFURS_ZOI = this.FURS_ZOI_v.v + lngRPM.s_FVI_done_in_test_environment.s;
+                                }
+                            }
+                        }
+                        if (this.FURS_EOR_v != null)
+                        {
+                            sFURS_EOR = this.FURS_EOR_v.v;
+                            if (FURS_TestEnvironment_v != null)
+                            {
+                                if (FURS_TestEnvironment_v.v)
+                                {
+                                    sFURS_EOR = this.FURS_EOR_v.v + lngRPM.s_FVI_done_in_test_environment.s;
+                                }
+                            }
+                        }
+
+                        Invoice_FURS_Token.tUniqueMessageID.Set(sFURS_ZOI);
+                        Invoice_FURS_Token.tUniqueInvoiceID.Set(sFURS_EOR);
                         Invoice_FURS_Token.tUniqueInvoiceID.Set(FURS_QR_v.v);
                         Invoice_FURS_Token.tQR.Set("");
                         this.FURS_Image_QRcode = null;
@@ -612,8 +676,8 @@ namespace TangentaDB
                         {
                             Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
                         }
-                        Invoice_FURS_Token.tUniqueMessageID.Set("");
-                        Invoice_FURS_Token.tUniqueInvoiceID.Set("");
+                        Invoice_FURS_Token.tUniqueMessageID.Set(sFURS_ZOI);
+                        Invoice_FURS_Token.tUniqueInvoiceID.Set(sFURS_EOR);
                         Invoice_FURS_Token.tQR.Set("");
                     }
                     return true;
@@ -853,6 +917,21 @@ namespace TangentaDB
                 if (m_MethodOfPayment != null)
                 {
                     return ((m_MethodOfPayment.eType == GlobalData.ePaymentType.PAYMENT_CARD) || (m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD));
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsPaymentOnBankAccount
+        {
+            get
+            {
+                if (m_MethodOfPayment != null)
+                {
+                    return (m_MethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER);
                 }
                 else
                 {
