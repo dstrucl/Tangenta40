@@ -67,7 +67,7 @@ namespace TangentaDB
             }
         }
 
-        public static bool Select_SalesBookInvoice_NotSent(ShopABC xInvoiceDB, ref List<InvoiceData> list, string xCasshierName)
+        public static bool Select_SalesBookInvoice_NotSent(ShopABC xInvoiceDB,DocInvoice_AddOn xAddOnDI, DocProformaInvoice_AddOn xAddOnDPI, ref List<InvoiceData> list, string xCasshierName)
         {
             string sql = @"select pi.ID from DocInvoice pi
                                 inner join FVI_SLO_SalesBookInvoice fvisbi on fvisbi.DocInvoice_ID = pi.ID
@@ -87,7 +87,7 @@ namespace TangentaDB
                     foreach (DataRow dr in dt.Rows)
                     {
                         long invoice_id = (long)dr["ID"];
-                        InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB, invoice_id,  xCasshierName);
+                        InvoiceData xInvoiceData = new InvoiceData(xInvoiceDB, xAddOnDI, xAddOnDPI, invoice_id,  xCasshierName);
                         if (xInvoiceData.Read_DocInvoice())
                         {
                             list.Add(xInvoiceData);

@@ -2174,7 +2174,8 @@ do_EditMyOrganisation_Data:
             {
                 if (IsDocInvoice)
                 {
-                    m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID,Properties.Settings.Default.ElectronicDevice_ID));
+                    this.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                    m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC,this.AddOnDI,this.AddOnDPI, m_ShopABC.m_CurrentInvoice.Doc_ID,Properties.Settings.Default.ElectronicDevice_ID));
                     if (m_InvoiceData.AddOnDI.m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH )
                     {
 
@@ -2346,7 +2347,8 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC, m_ShopABC.m_CurrentInvoice.Doc_ID, Properties.Settings.Default.ElectronicDevice_ID));
+                            this.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                            m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC,this.AddOnDI,this.AddOnDPI, m_ShopABC.m_CurrentInvoice.Doc_ID, Properties.Settings.Default.ElectronicDevice_ID));
                             if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
@@ -2461,7 +2463,8 @@ do_EditMyOrganisation_Data:
 
                                     if (Program.b_FVI_SLO)
                                     {
-                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID);
+                                        this.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC,this.AddOnDI,this.AddOnDPI, Storno_DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID);
                                         if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                                         {
 

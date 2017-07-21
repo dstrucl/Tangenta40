@@ -443,10 +443,10 @@ namespace FiscalVerificationOfInvoices_SLO
             return FursD_BussinesPremiseID + "-" + FursD_ElectronicDeviceID + "-" + invoiceNumber.ToString();
         }
 
-        public void Check_SalesBookInvoice(ShopABC xShopABC)
+        public void Check_SalesBookInvoice(ShopABC xShopABC,DocInvoice_AddOn xAddOnDPI,DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
         {
             List<InvoiceData> InvoiceData_List = null;
-            if (f_FVI_SLO_SalesBookInvoice.Select_SalesBookInvoice_NotSent(xShopABC, ref InvoiceData_List, FursD_ElectronicDeviceID))
+            if (f_FVI_SLO_SalesBookInvoice.Select_SalesBookInvoice_NotSent(xShopABC, xAddOnDPI, xDocProformaInvoice_AddOn, ref InvoiceData_List, FursD_ElectronicDeviceID))
             {
                 if (InvoiceData_List != null)
                 {

@@ -202,6 +202,41 @@ namespace TangentaDB
             }
         }
 
+        public static GlobalData.ePaymentType Get_ePaymentType(string s)
+        {
+            if (s!=null)
+            {
+                if (s.ToLower().Equals(lngRPM.s_PaymentType_CASH.s.ToLower()))
+                {
+                    return GlobalData.ePaymentType.CASH;
+                }
+                else if (s.ToLower().Equals(lngRPM.s_PaymentType_CASH_OR_PAYMENT_CARD.s.ToLower()))
+                {
+                    return GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD;
+                }
+                else if (s.ToLower().Equals(lngRPM.s_PaymentType_PAYMENT_CARD.s.ToLower()))
+                {
+                    return GlobalData.ePaymentType.PAYMENT_CARD;
+                }
+                else if (s.ToLower().Equals(lngRPM.s_PaymentType_BANK_ACCOUNT_TRANSFER.s.ToLower()))
+                {
+                    return GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
+                }
+                else if (s.ToLower().Equals(lngRPM.s_PaymentType_ALLREADY_PAID.s.ToLower()))
+                {
+                    return GlobalData.ePaymentType.ALLREADY_PAID;
+                }
+                else
+                {
+                    return GlobalData.ePaymentType.NONE;
+                }
+            }
+            else
+            {
+                return GlobalData.ePaymentType.NONE;
+            }
+        }
+
 
 
 

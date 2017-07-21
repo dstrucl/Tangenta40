@@ -177,11 +177,13 @@ namespace TangentaDB
         }
 
 
-        public InvoiceData(TangentaDB.ShopABC xInvoiceDB, long xDocInvoice_ID,  string xElectronic_Device_Name)
+        public InvoiceData(TangentaDB.ShopABC xShopABC,DocInvoice_AddOn xDocInvoice_AddOn, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn, long xDocInvoice_ID,  string xElectronic_Device_Name)
         {
-            m_ShopABC = xInvoiceDB;
+            m_ShopABC = xShopABC;
             DocInvoice_ID = xDocInvoice_ID;
             Electronic_Device_Name_v = new string_v(xElectronic_Device_Name);
+            AddOnDI = xDocInvoice_AddOn;
+            AddOnDPI = xDocProformaInvoice_AddOn;
         }
 
         public void Set_NumberInFinancialYear(int xNumberInFinancialYear)
@@ -1206,6 +1208,16 @@ namespace TangentaDB
                                 if (!Draft)
                                 {
 
+                                    if (AddOnDI.m_MethodOfPayment==null)
+                                    {
+                                        AddOnDI.m_MethodOfPayment = new DocInvoice_AddOn.MethodOfPayment();
+                                    }
+                                    if (AddOnDI.m_IssueDate==null)
+                                    {
+                                        AddOnDI.m_IssueDate = new DocInvoice_AddOn.IssueDate();
+                                    }
+                                    AddOnDI.m_IssueDate.Date = DBTypes.tf._set_DateTime(dt_DocInvoice.Rows[0]["IssueDate"]);
+                                    AddOnDI.m_MethodOfPayment.eType = AddOnDI.m_MethodOfPayment.Set(dt_DocInvoice.Rows[0]["PaymentType"]);
                                     AddOnDI.m_FURS.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$MessageID"]);
                                     AddOnDI.m_FURS.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$UniqueInvoiceID"]);
                                     AddOnDI.m_FURS.FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$BarCodeValue"]);

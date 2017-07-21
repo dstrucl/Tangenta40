@@ -304,7 +304,12 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                         {
                             if (Program.b_FVI_SLO)
                             {
-                                Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC);
+                                if (this.m_usrc_InvoiceMan.m_usrc_Invoice.AddOnDI==null)
+                                {
+                                    this.m_usrc_InvoiceMan.m_usrc_Invoice.AddOnDI = new DocInvoice_AddOn();
+                                }
+                                this.m_usrc_InvoiceMan.m_usrc_Invoice.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                Program.usrc_FVI_SLO1.Check_SalesBookInvoice(this.m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC, this.m_usrc_InvoiceMan.m_usrc_Invoice.AddOnDI, this.m_usrc_InvoiceMan.m_usrc_Invoice.AddOnDPI);
                             }
                         }
                     }

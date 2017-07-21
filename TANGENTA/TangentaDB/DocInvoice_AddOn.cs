@@ -322,6 +322,18 @@ namespace TangentaDB
                         }
                 }
             }
+
+            internal GlobalData.ePaymentType Set(object oPaymentType)
+            {
+                if (oPaymentType is string)
+                {
+                    return GlobalData.Get_ePaymentType((string)oPaymentType);
+                }
+                else
+                {
+                    return GlobalData.ePaymentType.NONE;
+                }
+            }
         }
 
         public bool Completed()
