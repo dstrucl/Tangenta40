@@ -162,6 +162,7 @@ namespace FiscalVerificationOfInvoices_SLO
             Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber = Convert.ToInt32(this.nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook.Value);
             Properties.Settings.Default.Save();
             timeOutInSec = Properties.Settings.Default.timeOutInSec;
+            bool bTest = Properties.Settings.Default.fursTEST_Environment;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

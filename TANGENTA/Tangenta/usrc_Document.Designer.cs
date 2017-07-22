@@ -85,14 +85,18 @@ namespace Tangenta
             // 
             this.usrc_FVI_SLO1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_FVI_SLO1.FursD_ElectronicDeviceID = "";
+            this.usrc_FVI_SLO1.FursTESTEnvironment = false;
+            this.usrc_FVI_SLO1.Image_ButtonExit = global::Tangenta.Properties.Resources.Exit;
             this.usrc_FVI_SLO1.Location = new System.Drawing.Point(627, 1);
             this.usrc_FVI_SLO1.MessageBox_Length = 100;
             this.usrc_FVI_SLO1.Name = "usrc_FVI_SLO1";
             this.usrc_FVI_SLO1.Size = new System.Drawing.Size(39, 31);
             this.usrc_FVI_SLO1.TabIndex = 6;
+            this.usrc_FVI_SLO1.PasswordCheck += new FiscalVerificationOfInvoices_SLO.usrc_FVI_SLO.deleagteRequestPasswordCheck(this.usrc_FVI_SLO1_PasswordCheck);
             // 
             // m_usrc_InvoiceMan
             // 
+            this.m_usrc_InvoiceMan.DocInvoice = "DocInvoice";
             this.m_usrc_InvoiceMan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_usrc_InvoiceMan.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_InvoiceMan.Name = "m_usrc_InvoiceMan";
@@ -109,11 +113,11 @@ namespace Tangenta
             this.btn_CodeTables.UseVisualStyleBackColor = true;
             this.btn_CodeTables.Click += new System.EventHandler(this.btn_CodeTables_Click);
             // 
-            // usrc_Printer1
+            // usrc_TangentaPrint1
             // 
             this.usrc_TangentaPrint1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_TangentaPrint1.Location = new System.Drawing.Point(671, 1);
-            this.usrc_TangentaPrint1.Name = "usrc_Printer1";
+            this.usrc_TangentaPrint1.Name = "usrc_TangentaPrint1";
             this.usrc_TangentaPrint1.Size = new System.Drawing.Size(39, 31);
             this.usrc_TangentaPrint1.TabIndex = 7;
             // 

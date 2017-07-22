@@ -704,5 +704,17 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             fct_dlg.ShowDialog();
         }
 
+        private void usrc_FVI_SLO1_PasswordCheck(ref bool PasswordOK)
+        {
+            PasswordOK = false;
+            string AdministratorLockedPassword = null;
+            if (fs.GetAdministratorPassword(ref AdministratorLockedPassword))
+            {
+                if (Password.Password.Check(Main_Form, null, AdministratorLockedPassword))
+                {
+                    PasswordOK = true;
+                }
+            }
+        }
     }
 }

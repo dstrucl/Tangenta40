@@ -35,6 +35,10 @@
             this.chk_FVI_CARD_PAYMENT = new System.Windows.Forms.CheckBox();
             this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT = new System.Windows.Forms.CheckBox();
             this.chk_FVI_CASH_PAYMENT = new System.Windows.Forms.CheckBox();
+            this.grp_DocTypeSettings = new System.Windows.Forms.GroupBox();
+            this.chk_Edit_DocType_Settings = new System.Windows.Forms.CheckBox();
+            this.btn_Exit = new System.Windows.Forms.Button();
+            this.grp_DocTypeSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Settings
@@ -61,7 +65,7 @@
             // 
             this.btn_CheckInvoice.Location = new System.Drawing.Point(212, 6);
             this.btn_CheckInvoice.Name = "btn_CheckInvoice";
-            this.btn_CheckInvoice.Size = new System.Drawing.Size(467, 38);
+            this.btn_CheckInvoice.Size = new System.Drawing.Size(388, 38);
             this.btn_CheckInvoice.TabIndex = 5;
             this.btn_CheckInvoice.Text = "CheckInvoice";
             this.btn_CheckInvoice.UseVisualStyleBackColor = true;
@@ -70,7 +74,7 @@
             // chk_FVI_CARD_PAYMENT
             // 
             this.chk_FVI_CARD_PAYMENT.AutoSize = true;
-            this.chk_FVI_CARD_PAYMENT.Location = new System.Drawing.Point(15, 86);
+            this.chk_FVI_CARD_PAYMENT.Location = new System.Drawing.Point(7, 32);
             this.chk_FVI_CARD_PAYMENT.Name = "chk_FVI_CARD_PAYMENT";
             this.chk_FVI_CARD_PAYMENT.Size = new System.Drawing.Size(186, 17);
             this.chk_FVI_CARD_PAYMENT.TabIndex = 6;
@@ -81,7 +85,7 @@
             // chk_FVI_PAYMENT_ON_BANK_ACCOUNT
             // 
             this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.AutoSize = true;
-            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Location = new System.Drawing.Point(15, 109);
+            this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Location = new System.Drawing.Point(6, 55);
             this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Name = "chk_FVI_PAYMENT_ON_BANK_ACCOUNT";
             this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Size = new System.Drawing.Size(248, 17);
             this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT.TabIndex = 7;
@@ -92,7 +96,7 @@
             // chk_FVI_CASH_PAYMENT
             // 
             this.chk_FVI_CASH_PAYMENT.AutoSize = true;
-            this.chk_FVI_CASH_PAYMENT.Location = new System.Drawing.Point(15, 63);
+            this.chk_FVI_CASH_PAYMENT.Location = new System.Drawing.Point(7, 9);
             this.chk_FVI_CASH_PAYMENT.Name = "chk_FVI_CASH_PAYMENT";
             this.chk_FVI_CASH_PAYMENT.Size = new System.Drawing.Size(188, 17);
             this.chk_FVI_CASH_PAYMENT.TabIndex = 8;
@@ -100,17 +104,50 @@
             this.chk_FVI_CASH_PAYMENT.UseVisualStyleBackColor = true;
             this.chk_FVI_CASH_PAYMENT.CheckedChanged += new System.EventHandler(this.chk_FVI_CASH_PAYMENT_CheckedChanged);
             // 
+            // grp_DocTypeSettings
+            // 
+            this.grp_DocTypeSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grp_DocTypeSettings.Controls.Add(this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT);
+            this.grp_DocTypeSettings.Controls.Add(this.chk_FVI_CASH_PAYMENT);
+            this.grp_DocTypeSettings.Controls.Add(this.chk_FVI_CARD_PAYMENT);
+            this.grp_DocTypeSettings.Location = new System.Drawing.Point(18, 66);
+            this.grp_DocTypeSettings.Name = "grp_DocTypeSettings";
+            this.grp_DocTypeSettings.Size = new System.Drawing.Size(659, 78);
+            this.grp_DocTypeSettings.TabIndex = 9;
+            this.grp_DocTypeSettings.TabStop = false;
+            // 
+            // chk_Edit_DocType_Settings
+            // 
+            this.chk_Edit_DocType_Settings.AutoSize = true;
+            this.chk_Edit_DocType_Settings.Location = new System.Drawing.Point(25, 49);
+            this.chk_Edit_DocType_Settings.Name = "chk_Edit_DocType_Settings";
+            this.chk_Edit_DocType_Settings.Size = new System.Drawing.Size(80, 17);
+            this.chk_Edit_DocType_Settings.TabIndex = 10;
+            this.chk_Edit_DocType_Settings.Text = "checkBox1";
+            this.chk_Edit_DocType_Settings.UseVisualStyleBackColor = true;
+            // 
+            // btn_Exit
+            // 
+            this.btn_Exit.Location = new System.Drawing.Point(613, 8);
+            this.btn_Exit.Name = "btn_Exit";
+            this.btn_Exit.Size = new System.Drawing.Size(64, 35);
+            this.btn_Exit.TabIndex = 11;
+            this.btn_Exit.Text = "Exit";
+            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
+            // 
             // Form_MainFiscal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(689, 137);
-            this.Controls.Add(this.chk_FVI_CASH_PAYMENT);
-            this.Controls.Add(this.chk_FVI_PAYMENT_ON_BANK_ACCOUNT);
-            this.Controls.Add(this.chk_FVI_CARD_PAYMENT);
+            this.ClientSize = new System.Drawing.Size(689, 158);
+            this.Controls.Add(this.btn_Exit);
+            this.Controls.Add(this.chk_Edit_DocType_Settings);
             this.Controls.Add(this.btn_CheckInvoice);
             this.Controls.Add(this.btn_Send_ECHO);
             this.Controls.Add(this.btn_Settings);
+            this.Controls.Add(this.grp_DocTypeSettings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -118,6 +155,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Main";
             this.Load += new System.EventHandler(this.Form_Main_Load);
+            this.grp_DocTypeSettings.ResumeLayout(false);
+            this.grp_DocTypeSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,5 +169,8 @@
         private System.Windows.Forms.CheckBox chk_FVI_CARD_PAYMENT;
         private System.Windows.Forms.CheckBox chk_FVI_PAYMENT_ON_BANK_ACCOUNT;
         private System.Windows.Forms.CheckBox chk_FVI_CASH_PAYMENT;
+        private System.Windows.Forms.GroupBox grp_DocTypeSettings;
+        private System.Windows.Forms.CheckBox chk_Edit_DocType_Settings;
+        private System.Windows.Forms.Button btn_Exit;
     }
 }

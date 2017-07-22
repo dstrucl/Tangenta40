@@ -21,6 +21,8 @@ namespace FiscalVerificationOfInvoices_SLO
 {
     public partial class Form_MainFiscal : Form
     {
+        public usrc_FVI_SLO.deleagteRequestPasswordCheck PasswordCheck = null;
+
         string Xml_ECHO = @"<?xml version=""1.0"" encoding=""UTF-8""?> <fu:EchoRequest xmlns:fu=""http://www.fu.gov.si/"">Echo</fu:EchoRequest>";
         ToolTip ToolTipEcho = new ToolTip();
 
@@ -34,8 +36,51 @@ namespace FiscalVerificationOfInvoices_SLO
             lngRPM.s_FVI_for_cash_payment.Text(chk_FVI_CASH_PAYMENT);
             lngRPM.s_FVI_for_card_payment.Text(chk_FVI_CARD_PAYMENT);
             lngRPM.s_FVI_for_payment_on_bankaccount.Text(chk_FVI_PAYMENT_ON_BANK_ACCOUNT);
+            lngRPM.s_FVI_Edit_DocType_Settings.Text(chk_Edit_DocType_Settings);
+            chk_Edit_DocType_Settings.Enabled = true;
+            chk_Edit_DocType_Settings.Checked = false;
+            chk_Edit_DocType_Settings.CheckedChanged += Chk_Edit_DocType_Settings_CheckedChanged;
+            grp_DocTypeSettings.Enabled = false;
             chk_FVI_CASH_PAYMENT.Enabled = false;
+            if (m_usrc_FVI_SLO.Image_ButtonExit != null)
+            {
+                this.btn_Exit.Image = m_usrc_FVI_SLO.Image_ButtonExit;
+                this.btn_Exit.Text = "";
+            }
+            else
+            {
+                this.btn_Exit.Image = null;
+                this.btn_Exit.Text = lngRPM.ss_Exit.s;
+            }
             Init();
+        }
+
+        private void Chk_Edit_DocType_Settings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_Edit_DocType_Settings.Checked)
+            {
+                if (PasswordCheck != null)
+                {
+                    bool bPasswordOK = false;
+                    PasswordCheck(ref bPasswordOK);
+                    if (bPasswordOK)
+                    {
+                        grp_DocTypeSettings.Enabled = true;
+                    }
+                    else
+                    {
+                        grp_DocTypeSettings.Enabled = false; 
+                    }
+                }
+                else
+                {
+                    grp_DocTypeSettings.Enabled = true;
+                }
+            }
+            else
+            {
+                grp_DocTypeSettings.Enabled = false;
+            }
         }
 
         public void Init()
@@ -55,13 +100,22 @@ namespace FiscalVerificationOfInvoices_SLO
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            NavigationButtons.Navigation nav_Form_Settings = new NavigationButtons.Navigation();
-            nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            nav_Form_Settings.bDoModal = true;
-            bool Reset2FactorySettings_FiscalVerification_DLL = false;
-            Form_Settings fvi_settings = new Form_Settings(m_usrc_FVI_SLO, nav_Form_Settings,ref Reset2FactorySettings_FiscalVerification_DLL);
-            fvi_settings.ShowDialog(this);
-            Init();
+            bool bPasswordCheckOK = true;
+            if (PasswordCheck!=null)
+            {
+                bPasswordCheckOK = false;
+                PasswordCheck(ref bPasswordCheckOK);
+            }
+            if (bPasswordCheckOK)
+            {
+                NavigationButtons.Navigation nav_Form_Settings = new NavigationButtons.Navigation();
+                nav_Form_Settings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                nav_Form_Settings.bDoModal = true;
+                bool Reset2FactorySettings_FiscalVerification_DLL = false;
+                Form_Settings fvi_settings = new Form_Settings(m_usrc_FVI_SLO, nav_Form_Settings, ref Reset2FactorySettings_FiscalVerification_DLL);
+                fvi_settings.ShowDialog(this);
+                Init();
+            }
         }
 
         public void btn_Send_ECHO_Click(object sender, EventArgs e)
@@ -143,6 +197,12 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             Properties.Settings.Default.FVI_for_payment_on_bank_account = chk_FVI_PAYMENT_ON_BANK_ACCOUNT.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            DialogResult = DialogResult.OK;
         }
     }
 }

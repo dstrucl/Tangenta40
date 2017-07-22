@@ -320,28 +320,9 @@ namespace TangentaPrint
             }
             else
             {
-                Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xInvoiceData);
+                Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xInvoiceData, nav.btn3_Image);
                 print_A4_dlg.ShowDialog();
             }
-        }
-
-
-
-        internal void Print_ProformaInvoice(InvoiceData xInvoiceData,
-                                    int BaseCurrencyDecimalPlaces,
-                                    GlobalData.ePaymentType PaymentType, 
-                                    string sPaymentMethod,
-                                    string sBank,
-                                    string sBankAccount,
-                                    string sTermsOfPayment_Description,
-                                    long DruationType,
-                                    long Duration,
-                                    DateTime_v issue_time
-                                    )
-        {
-
-            Form_PrintDocument print_A4_dlg = new Form_PrintDocument(xInvoiceData);
-            print_A4_dlg.ShowDialog();
         }
 
 

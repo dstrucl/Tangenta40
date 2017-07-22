@@ -27,6 +27,12 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public bool DEBUG = false;
         public int timeOutInSec = 0;
+        private Image m_Image_ButtonExit = null;
+        public Image Image_ButtonExit
+        {
+            get { return m_Image_ButtonExit; }
+            set { m_Image_ButtonExit = value; }
+        }
 
         private FormFURSCommunication FormFURSCommunication = null;
         private Form_MainFiscal frm_main = null;
@@ -40,6 +46,10 @@ namespace FiscalVerificationOfInvoices_SLO
         public event delegate_Response_ManyInvoices Response_ManyInvoices = null;
         public event delegate_Response_PP Response_PP = null;
         public event delegate_Response_ECHO Response_ECHO = null;
+
+        public delegate void deleagteRequestPasswordCheck(ref bool PasswordOK);
+        public event deleagteRequestPasswordCheck PasswordCheck = null;
+
 
         private bool bRun = false;
         internal usrc_FVI_SLO_MessageBox message_box = null;
@@ -446,6 +456,8 @@ namespace FiscalVerificationOfInvoices_SLO
         public void Check_SalesBookInvoice(ShopABC xShopABC,DocInvoice_AddOn xAddOnDPI,DocProformaInvoice_AddOn xDocProformaInvoice_AddOn)
         {
             List<InvoiceData> InvoiceData_List = null;
+            Properties.Settings.Default.Reload();
+            bool bTest = Properties.Settings.Default.fursTEST_Environment;
             if (f_FVI_SLO_SalesBookInvoice.Select_SalesBookInvoice_NotSent(xShopABC, xAddOnDPI, xDocProformaInvoice_AddOn, ref InvoiceData_List, FursD_ElectronicDeviceID))
             {
                 if (InvoiceData_List != null)
@@ -483,6 +495,9 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (!bRun)
             {
+                Properties.Settings.Default.Reload();
+                bool bTest = Properties.Settings.Default.fursTEST_Environment;
+                FursTESTEnvironment = bTest;
                 message_box = new usrc_FVI_SLO_MessageBox(MessageBox_Length);
                 DialogResult dlgResult = DialogResult.None;
                 while (dlgResult != DialogResult.Cancel)
@@ -698,12 +713,7 @@ namespace FiscalVerificationOfInvoices_SLO
                                 if (message.Success == true)
                                 {
                                     frm_main.FVI_Response_ECHO(message.Success, message.ErrorMessage);
-
-
-
-    }
-
-
+                                }
                             }
 
                             if (Response_ECHO!=null)
@@ -792,8 +802,8 @@ namespace FiscalVerificationOfInvoices_SLO
         {
 
             frm_main = new Form_MainFiscal(this);
+            frm_main.PasswordCheck = this.PasswordCheck;
             frm_main.ShowDialog(this);
-
             frm_main = null;
         }
 

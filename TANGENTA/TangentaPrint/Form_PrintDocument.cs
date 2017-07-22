@@ -39,13 +39,11 @@ namespace TangentaPrint
         private InvoiceData m_InvoiceData;
         private long durationType;
         private long duration;
-
-        public Form_PrintDocument(InvoiceData xInvoiceData)
+        private Image m_image_for_btn_exit = null;
+        public Form_PrintDocument(InvoiceData xInvoiceData,Image image_for_btn_exit)
         {
-            ProgramDiagnostic.Diagnostic.Meassure("Form_PrintDocument(InvoiceData xInvoiceData)", "?");
-
             InitializeComponent();
-
+            m_image_for_btn_exit = image_for_btn_exit;
             this.m_InvoiceData = xInvoiceData;
             if (m_InvoiceData.IsDocInvoice)
             {
@@ -73,11 +71,11 @@ namespace TangentaPrint
             splitContainer1.Panel2Collapsed = true;
             chk_EditTemplate.Checked = false;
             chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
-            ProgramDiagnostic.Diagnostic.Meassure("Form_PrintDocument(InvoiceData xInvoiceData) END", "?");
         }
 
         private void Chk_EditTemplate_CheckedChanged(object sender, EventArgs e)
         {
+            m_usrc_Invoice_Preview.btn_Tokens.Visible = false;
             if (chk_EditTemplate.Checked)
             {
                 string AdministratorLockedPassword = null;
@@ -86,6 +84,7 @@ namespace TangentaPrint
                     if (Password.Password.Check(this,null, AdministratorLockedPassword))
                     {
                         splitContainer1.Panel2Collapsed = false;
+                        m_usrc_Invoice_Preview.btn_Tokens.Visible = true;
                     }
                     else
                     {
@@ -115,7 +114,6 @@ namespace TangentaPrint
         // 
         public void Create_usrc_Invoice_Preview()
         {
-            ProgramDiagnostic.Diagnostic.Meassure("Create_usrc_Invoice_Preview START", "?");
             if (m_usrc_Invoice_Preview!=null)
             {
                 this.m_usrc_Invoice_Preview.OK -= new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
@@ -138,7 +136,18 @@ namespace TangentaPrint
             this.m_usrc_Invoice_Preview.Dock = DockStyle.Fill;
             this.m_usrc_Invoice_Preview.OK += new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
             this.splitContainer1.Panel1.Controls.Add(m_usrc_Invoice_Preview);
-            ProgramDiagnostic.Diagnostic.Meassure("Create_usrc_Invoice_Preview END", "?");
+            m_usrc_Invoice_Preview.btn_Tokens.Visible = false;
+            if (m_image_for_btn_exit!=null)
+            {
+                m_usrc_Invoice_Preview.btn_Exit.Image = m_image_for_btn_exit;
+                m_usrc_Invoice_Preview.btn_Exit.Text = "";
+            }
+            else
+            {
+                m_usrc_Invoice_Preview.btn_Exit.Image = null;
+                m_usrc_Invoice_Preview.btn_Exit.Text = lngRPM.ss_Exit.s;
+            }
+
         }
 
 
@@ -150,7 +159,6 @@ namespace TangentaPrint
 
         private void Form_SelectTemplate_Load(object sender, EventArgs e)
         {
-            ProgramDiagnostic.Diagnostic.Meassure("Form_SelectTemplate_Load START", "?");
             if (m_usrc_Invoice_Preview != null)
             {
                 this.m_usrc_Invoice_Preview.OK -= new usrc_Invoice_Preview.delegate_OK(this.m_usrc_Invoice_Preview_OK);
@@ -175,14 +183,11 @@ namespace TangentaPrint
             this.splitContainer1.Panel1.Controls.Add(m_usrc_Invoice_Preview);
 
             m_usrc_SelectPrintTemplate.SettingsChanged += M_usrc_SelectPrintTemplate_SettingsChanged;
-            ProgramDiagnostic.Diagnostic.Meassure("before switch (m_usrc_SelectPrintTemplate.Init(m_InvoiceData)", "?");
             switch (m_usrc_SelectPrintTemplate.Init(m_InvoiceData))
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     Create_usrc_Invoice_Preview();
-                    ProgramDiagnostic.Diagnostic.Meassure("before m_usrc_Invoice_Preview.Init(", "?");
                     m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-                    ProgramDiagnostic.Diagnostic.Meassure("after m_usrc_Invoice_Preview.Init(", "?");
                     this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
@@ -343,7 +348,7 @@ namespace TangentaPrint
 
         private void Form_PrintDocument_Shown(object sender, EventArgs e)
         {
-            ProgramDiagnostic.Diagnostic.Meassure("Form_PrintDocument_Shown", "END");
+            
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Tangenta
             lngRPM.s_rdb_Valid_Tender_Until.Text(rdb_Valid_Tender_Until);
             lngRPM.s_lbl_DateOfProformaInvoiceIssue.Text(lbl_DateOfIssue);
             lngRPM.s_Invoice_Issue.Text(btn_ProformaInvoice_Issue);
-            lngRPM.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
+            //lngRPM.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
 
             rdb_BankAccountTransfer.CheckedChanged += Rdb_BankAccountTransfer_CheckedChanged;
             rdb_BankAccountTransfer.Checked = true;

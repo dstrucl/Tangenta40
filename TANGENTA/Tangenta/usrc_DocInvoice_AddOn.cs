@@ -51,7 +51,7 @@ namespace Tangenta
             lngRPM.s_MethodOfPayment.Text(grp_MtehodOfPaymentType);
             lngRPM.s_TermsOfPayment.Text(grp_TermsOfPayment);
             lngRPM.s_Invoice_Issue.Text(btn_Invoice_Issue);
-            lngRPM.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
+            //lngRPM.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
 
             this.rdb_Cash.CheckedChanged += new System.EventHandler(this.rdb_Cash_CheckedChanged);
             this.rdb_Cash.MouseUp += new System.Windows.Forms.MouseEventHandler(this.rdb_Cash_MouseUp);

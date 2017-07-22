@@ -17,6 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_FVI_Edit_DocType_Settings = new ltext("Edit settings for Fiscal verification of invoice types", "Urejanje nastavitev davčnega potrjevanja glede na način plačila");
         public static ltext s_FVI_not_done = new ltext("Fiscal verification of invoice was not done", "Davčno potrjevanje računa ni bilo izvedeno");
         public static ltext s_FVI_done_in_test_environment = new ltext("Fiscal verification done in TEST ENVIRONMENT!", "Davčno potrjevanje računa izvedeno v TESTNEM OKOLJU");
         public static ltext s_FVI_for_cash_payment = new ltext("Fiscal verification of invoices for cash payment", "Davčno potrjevanje računov za plačila z gotovino");
