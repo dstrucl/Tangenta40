@@ -23,8 +23,21 @@ namespace TangentaPrint
         public delegate void delagate_SettingsChanged();
         public event delagate_SettingsChanged SettingsChanged = null;
         public byte_array_v Doc_v = null;
+        private Printer m_SelectedPrinter = null;
+        public Printer SelectedPrinter
+        {
+            get
+            {
+                string printer_name = cmb_SelectPrinter.Text;
+                return GetPrinter(printer_name);
+            }
+        }
 
-        public Printer SelectedPrinter = null;
+        private Printer GetPrinter(string printer_name)
+        {
+
+            return null;
+        }
 
         public DataTable dtTemplates = null;
 
@@ -280,9 +293,13 @@ namespace TangentaPrint
 
         internal f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)
         {
-            ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "START");
-
             m_InvoiceData = x_InvoiceData;
+            return Init();
+        }
+
+        private f_doc.eGetPrintDocumentTemplateResult Init()
+        {
+            RemoveHandlers();
             if (m_InvoiceData.IsDocInvoice)
             {
                 MakeInvoicePrinterSelection(m_InvoiceData);
@@ -296,6 +313,7 @@ namespace TangentaPrint
             else
             {
                 LogFile.Error.Show("ERROR:Form_SelectTemplate:Form_SelectTemplate:Unknown document type!");
+                AddHandlers();
                 return f_doc.eGetPrintDocumentTemplateResult.ERROR;
             }
             this.rdb_Landscape.CheckedChanged += Rdb_Landscape_CheckedChanged;
@@ -304,7 +322,7 @@ namespace TangentaPrint
             this.rdb_80.CheckedChanged += Rdb_80_CheckedChanged;
             this.rdb_58.CheckedChanged += Rdb_58_CheckedChanged;
 
-            
+
             f_doc.eGetPrintDocumentTemplateResult eres = f_doc.GetTemplates(ref dtTemplates,
                            Default_DocType_ID_v,
                            Default_page_type_ID_v,
@@ -335,7 +353,7 @@ namespace TangentaPrint
                                 {
                                     SetValues(dr);
                                     btemplate_selected = true;
-                                    ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END1");
+                                    AddHandlers();
                                     return eres;
                                 }
                             }
@@ -348,7 +366,7 @@ namespace TangentaPrint
                                 {
                                     SetValues(dr);
                                     btemplate_selected = true;
-                                    ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END2");
+                                    AddHandlers();
                                     return eres;
                                 }
                             }
@@ -361,7 +379,7 @@ namespace TangentaPrint
                                 DataRow dr = dtTemplates.Rows[0];
                                 SetValues(dr);
                                 btemplate_selected = true;
-                                ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END3");
+                                AddHandlers();
                                 return eres;
                             }
                         }
@@ -371,8 +389,25 @@ namespace TangentaPrint
 
             }
 
-            ProgramDiagnostic.Diagnostic.Meassure("f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)", "END4");
+            AddHandlers();
             return eres;
+
+        }
+
+        private void AddHandlers()
+        {
+            this.cmb_Language.SelectedValueChanged += new System.EventHandler(this.cmb_Language_SelectedValueChanged);
+            this.btn_EditTemplates.Click += new System.EventHandler(this.btn_EditTemplates_Click);
+            this.cmb_SelectPrinter.TextChanged += new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
+            this.btn_SelectPrinter.Click += new System.EventHandler(this.btn_SelectPrinter_Click);
+        }
+
+        private void RemoveHandlers()
+        {
+            this.cmb_Language.SelectedValueChanged -= new System.EventHandler(this.cmb_Language_SelectedValueChanged);
+            this.btn_EditTemplates.Click -= new System.EventHandler(this.btn_EditTemplates_Click);
+            this.cmb_SelectPrinter.TextChanged -= new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
+            this.btn_SelectPrinter.Click -= new System.EventHandler(this.btn_SelectPrinter_Click);
         }
 
         private void SetValues(DataRow dr)
@@ -419,6 +454,7 @@ namespace TangentaPrint
         {
             if (rdb_Portrait.Checked)
             {
+                Init();
                 if (SettingsChanged != null)
                 {
                     SettingsChanged();
@@ -430,6 +466,7 @@ namespace TangentaPrint
         {
             if (this.rdb_58.Checked)
             {
+                Init();
                 if (SettingsChanged != null)
                 {
                     SettingsChanged();
@@ -441,6 +478,7 @@ namespace TangentaPrint
         {
             if (this.rdb_80.Checked)
             {
+                Init();
                 if (SettingsChanged != null)
                 {
                     SettingsChanged();
@@ -452,6 +490,7 @@ namespace TangentaPrint
         {
             if (this.rdb_A4.Checked)
             {
+                Init();
                 if (SettingsChanged != null)
                 {
                     SettingsChanged();
@@ -463,6 +502,7 @@ namespace TangentaPrint
         {
             if (rdb_Landscape.Checked)
             {
+                Init();
                 if (SettingsChanged != null)
                 {
                     SettingsChanged();
@@ -472,34 +512,25 @@ namespace TangentaPrint
 
         private void MakeInvoicePrinterSelection(InvoiceData m_InvoiceData)
         {
-            ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "START");
-
             this.cmb_SelectPrinter.Items.Clear();
             bool bSelected = false;
             int iCount = PrintersList.dt.Rows.Count;
-            ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "before for (int i=0;i<iCount;i++)");
             for (int i=0;i<iCount;i++)
             {
-                ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "before if (Match_m_MethodOfPayment(PrintersList.dt.Rows[i]))");
                 if (Match_m_MethodOfPayment(PrintersList.dt.Rows[i]))
                 {
-                    ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "after if (Match_m_MethodOfPayment(PrintersList.dt.Rows[i])) = true");
                     this.cmb_SelectPrinter.Items.Add((string)PrintersList.dt.Rows[i][PrintersList.dcol_PrinterName]);
                     bSelected = true;
                 }
             }
-            ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "after for (int i=0;i<iCount;i++)");
             if (bSelected)
             {
-                ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "before this.cmb_SelectPrinter.SelectedIndex = 0;");
                 this.cmb_SelectPrinter.SelectedIndex = 0;
-                ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "after this.cmb_SelectPrinter.SelectedIndex = 0;");
             }
             else
             {
                 SelectPrinter();
             }
-            ProgramDiagnostic.Diagnostic.Meassure("MakeInvoicePrinterSelection", "END");
         }
 
         private bool Match_m_MethodOfPayment(DataRow dr)
@@ -525,14 +556,15 @@ namespace TangentaPrint
 
             }
         }
+
         public bool SelectPrinter()
         {
             Printer  prn = null;
             prn = new Printer(0);
             if (prn.Select((Form)this.Parent))
             {
-                SelectedPrinter = null;
-                SelectedPrinter = prn;
+                m_SelectedPrinter = null;
+                m_SelectedPrinter = prn;
                 this.cmb_SelectPrinter.Text = prn.PrinterName;
                 return true;
             }
@@ -545,6 +577,7 @@ namespace TangentaPrint
         private void btn_SelectPrinter_Click(object sender, EventArgs e)
         {
             SelectPrinter();
+            Init();
         }
 
         public void GetSelectedPrinterSettings()
@@ -574,15 +607,15 @@ namespace TangentaPrint
                         }
                         else
                         {
-                            if (GetSelectedPrinterFromPrinterList(PrinterName, ref SelectedPrinter))
+                            if (GetSelectedPrinterFromPrinterList(PrinterName, ref m_SelectedPrinter))
                             {
                                 GetSettings(SelectedPrinter);
                                 return;
                             }
                             else
                             {
-                                SelectedPrinter = null;
-                                SelectedPrinter = new Printer(0);
+                                m_SelectedPrinter = null;
+                                m_SelectedPrinter = new Printer(0);
                                 SelectedPrinter.PrinterName = PrinterName;
                                 GetSettings(SelectedPrinter);
                             }
@@ -590,14 +623,14 @@ namespace TangentaPrint
                     }
                     else
                     {
-                        if (GetSelectedPrinterFromPrinterList(PrinterName, ref SelectedPrinter))
+                        if (GetSelectedPrinterFromPrinterList(PrinterName, ref m_SelectedPrinter))
                         {
                             GetSettings(SelectedPrinter);
                             return;
                         }
                         else
                         {
-                            SelectedPrinter = new Printer(0);
+                            m_SelectedPrinter = new Printer(0);
                             SelectedPrinter.PrinterName = PrinterName;
                             GetSettings(SelectedPrinter);
                         }
@@ -610,6 +643,7 @@ namespace TangentaPrint
         private void cmb_SelectPrinter_TextChanged(object sender, EventArgs e)
         {
             GetSelectedPrinterSettings();
+            Init();
         }
 
         private bool GetSelectedPrinterFromPrinterList(string printerName, ref Printer selectedPrinter)
@@ -622,8 +656,11 @@ namespace TangentaPrint
                     string sPrinterName = (string)PrintersList.dt.Rows[i][PrintersList.dcol_PrinterName];
                     if (sPrinterName.Equals(printerName))
                     {
-                        selectedPrinter = null;
                         selectedPrinter = (Printer)PrintersList.dtPrinterObject.Rows[i][PrintersList.dcol_PrinterObject];
+                        selectedPrinter.bPrinting_Invoices = (bool) PrintersList.dt.Rows[i][PrintersList.dcol_InvoicePrinting];
+                        selectedPrinter.bPrinting_ProformaInvoices = (bool)PrintersList.dt.Rows[i][PrintersList.dcol_ProformaInvoicePrinting];
+                        selectedPrinter.bPrinting_Reports = (bool)PrintersList.dt.Rows[i][PrintersList.dcol_ReportsPrinting];
+                        selectedPrinter.PrinterName = sPrinterName;
                         return true;
                     }
                 }
@@ -634,7 +671,7 @@ namespace TangentaPrint
         private void GetSettings(Printer selectedPrinter)
         {
             ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "START");
-            SelectedPrinter = selectedPrinter;
+            m_SelectedPrinter = selectedPrinter;
             if (SelectedPrinter== null)
             {
                 LogFile.Error.Show("WARNING:SelectedPrinter is not defined!");
@@ -690,6 +727,7 @@ namespace TangentaPrint
 
         private void cmb_Language_SelectedValueChanged(object sender, EventArgs e)
         {
+            Init();
             if (SettingsChanged != null)
             {
                 SettingsChanged();
@@ -698,6 +736,7 @@ namespace TangentaPrint
 
         private void cmb_SelectPrintTemplate_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Init();
             if (SettingsChanged != null)
             {
                 SettingsChanged();

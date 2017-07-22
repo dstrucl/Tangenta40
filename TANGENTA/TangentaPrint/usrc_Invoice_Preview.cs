@@ -39,8 +39,8 @@ namespace TangentaPrint
 
         TheArtOfDev.HtmlRenderer.WinForms.HtmlContainer hc = new TheArtOfDev.HtmlRenderer.WinForms.HtmlContainer();
 
-        public delegate void delegate_OK();
-        public event delegate_OK OK;
+        public delegate void delegate_Exit();
+        public event delegate_Exit Exit;
 
         public InvoiceData m_InvoiceData = null;
         private byte[] m_Doc = null;
@@ -391,11 +391,11 @@ namespace TangentaPrint
             frm_tokens.ShowDialog();
         }
 
-        private void btn_OK_Click(object sender, EventArgs e)
+        private void btn_Exit_Click(object sender, EventArgs e)
         {
-            if (OK != null)
+            if (Exit != null)
             {
-                OK();
+                Exit();
             }
         }
     }

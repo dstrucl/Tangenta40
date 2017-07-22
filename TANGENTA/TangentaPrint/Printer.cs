@@ -405,24 +405,7 @@ namespace TangentaPrint
             else
             { 
                 return RawPrinterHelper.SendStringToPrinter(printer_settings.PrinterName, buffer);
-            }
-
-           // streamToPrint = new StreamReader("D:\\DOS\\MyFile.txt");
-
-           // try 
-           //{
-
-           // PrintDocument pd = new PrintDocument();
-
-           // pd.PrinterSettings = printer_settings;
-           // pd.PrintPage += new PrintPageEventHandler(pd_PrintPage);
-           // pd.Print();
-           //}
-           // finally
-           // {
-           //     streamToPrint.Close();
-           // }
-
+            }   
         }
 
        

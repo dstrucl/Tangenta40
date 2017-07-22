@@ -101,7 +101,6 @@
             this.cmb_Language.Name = "cmb_Language";
             this.cmb_Language.Size = new System.Drawing.Size(187, 21);
             this.cmb_Language.TabIndex = 17;
-            this.cmb_Language.SelectedValueChanged += new System.EventHandler(this.cmb_Language_SelectedValueChanged);
             // 
             // grp_PaperSize
             // 
@@ -166,7 +165,6 @@
             this.btn_EditTemplates.Size = new System.Drawing.Size(43, 29);
             this.btn_EditTemplates.TabIndex = 14;
             this.btn_EditTemplates.UseVisualStyleBackColor = true;
-            this.btn_EditTemplates.Click += new System.EventHandler(this.btn_EditTemplates_Click);
             // 
             // cmb_SelectPrinter
             // 
@@ -175,7 +173,6 @@
             this.cmb_SelectPrinter.Name = "cmb_SelectPrinter";
             this.cmb_SelectPrinter.Size = new System.Drawing.Size(353, 21);
             this.cmb_SelectPrinter.TabIndex = 20;
-            this.cmb_SelectPrinter.TextChanged += new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
             // 
             // lbl_printer
             // 
@@ -195,7 +192,6 @@
             this.btn_SelectPrinter.TabIndex = 22;
             this.btn_SelectPrinter.Text = "Select printer";
             this.btn_SelectPrinter.UseVisualStyleBackColor = true;
-            this.btn_SelectPrinter.Click += new System.EventHandler(this.btn_SelectPrinter_Click);
             // 
             // txt_Description
             // 
