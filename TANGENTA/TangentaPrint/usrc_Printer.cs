@@ -96,7 +96,6 @@ namespace TangentaPrint
                 this.grp_Printer.ForeColor = Color.Red;
             }
 
-            this.m_Printer = (Printer)PrintersList.dtPrinterObject.Rows[IndexInPrinterList][PrintersList.dcol_PrinterObject];
             this.chk_Printing_Invoices.Checked = (bool)PrintersList.dt.Rows[IndexInPrinterList][PrintersList.dcol_InvoicePrinting.ColumnName];
             this.chk_Cash.Checked = (bool)PrintersList.dt.Rows[IndexInPrinterList][PrintersList.dcol_InvoicePrinting_PaymentCash.ColumnName];
             this.chk_Card.Checked = (bool)PrintersList.dt.Rows[IndexInPrinterList][PrintersList.dcol_InvoicePrinting_PaymentCard.ColumnName];

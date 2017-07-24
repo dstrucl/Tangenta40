@@ -12,14 +12,38 @@ namespace TangentaDB
     {
         public class Language
         {
-            public long ID = -1;
-            public int LanguageIndex = -1;
-            public string Name = null;
-            public string Description = null;
+            private string m_Name = null;
+
+            private long m_ID = -1;
+            public long ID
+            {
+                get { return m_ID; }
+                set { m_ID = value; }
+            }
+
+            public string Name
+            {
+                get { return m_Name; }
+                set { m_Name = value; }
+            }
+
+            private int m_LanguageIndex = -1;
+            public int LanguageIndex
+            {
+                get { return m_LanguageIndex; }
+                set { m_LanguageIndex = value; }
+            }
+
+            public string m_Description = null;
+            public string Description
+            {
+                get { return m_Description; }
+                set { m_Description = value; }
+            }
             public Language(string Language_Name, string Language_Description)
             {
-                Name = Language_Name;
-                Description = Language_Description;
+                m_Name = Language_Name;
+                m_Description = Language_Description;
             }
         }
 
@@ -36,7 +60,10 @@ namespace TangentaDB
 
         public Language_definitions()
         {
+        }
 
+        public bool Get()
+        {
             int i = 0;
             int index = 0;
             for (i = 0; i < LanguageControl.DynSettings.s_language.sTextArr.Length; i++)
@@ -45,13 +72,20 @@ namespace TangentaDB
                 {
                     string_v Description_v = new string_v(LanguageControl.DynSettings.s_language.sTextArr[i]);
                     Language lang = new Language(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v.v);
-                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v,index, ref lang.ID))
+                    long Language_ID = -1;
+                    if (f_Language.Get(LanguageControl.DynSettings.s_language.sTextArr[i], Description_v, index, ref Language_ID))
                     {
+                        lang.ID = Language_ID;
                         Language_list.Add(lang);
                         index++;
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
+            return true;
         }
 
 

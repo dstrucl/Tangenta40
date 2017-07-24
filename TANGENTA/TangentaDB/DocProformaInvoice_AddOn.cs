@@ -116,7 +116,7 @@ namespace TangentaDB
         }
 
 
-        public class MethodOfPayment
+        public class MethodOfPayment_DPI
         {
             private long m_ID = -1;
             public long ID
@@ -184,7 +184,7 @@ namespace TangentaDB
                 }
             }
 
-            private GlobalData.ePaymentType m_eType = GlobalData.ePaymentType.NONE;
+            private GlobalData.ePaymentType m_eType = GlobalData.ePaymentType.ANY_TYPE;
             public GlobalData.ePaymentType eType
             {
                 get { return m_eType; }
@@ -194,7 +194,7 @@ namespace TangentaDB
                 }
             }
 
-            internal static MethodOfPayment Set(object oID, object oPaymentType, object oBankName,
+            internal static MethodOfPayment_DPI Set(object oID, object oPaymentType, object oBankName,
                                                                                  object oBank_Tax_ID,
                                                                                  object oBank_Registration_ID,
                                                                                  object oBankAccount,
@@ -202,12 +202,12 @@ namespace TangentaDB
             {
                 if ((oID is long) && (oPaymentType is string))
                 {
-                    MethodOfPayment xMethodOfPayment = new MethodOfPayment();
+                    MethodOfPayment_DPI xMethodOfPayment = new MethodOfPayment_DPI();
                     xMethodOfPayment.ID = (long)oID;
                     string xPaymentType = (string)oPaymentType;
                     string Err = null;
                     xMethodOfPayment.eType = GlobalData.Get_ePaymentType(xPaymentType, ref Err);
-                    if (xMethodOfPayment.eType != GlobalData.ePaymentType.NONE)
+                    if (xMethodOfPayment.eType != GlobalData.ePaymentType.ANY_TYPE)
                     {
                         if (xMethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                         {
@@ -256,9 +256,13 @@ namespace TangentaDB
                 return null;
             }
 
-            internal bool Set()
+            internal bool Set(long DocProformaInvoice_ID)
             {
                 long_v Atom_BankAccount_ID_v = null;
+                long_v PaymentType_ID_v = null;
+                string_v PaymentType_v = null;
+                long_v MethodOfPayment_DPI_BAccount_ID_v = null;
+                long_v MethodOfPayment_DPI_v = null;
                 switch (eType)
                 {
                     case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
@@ -272,7 +276,13 @@ namespace TangentaDB
                         {
                             if (Atom_BankAccount_ID_v != null)
                             {
-                                if (f_MethodOfPayment.Get(eType, Atom_BankAccount_ID_v, ref m_ID))
+                                if (f_MethodOfPayment_DPI.Get(DocProformaInvoice_ID,
+                                                            eType, 
+                                                            Atom_BankAccount_ID_v,
+                                                            ref PaymentType_ID_v,
+                                                            ref PaymentType_v,
+                                                            ref MethodOfPayment_DPI_BAccount_ID_v,
+                                                            ref MethodOfPayment_DPI_v))
                                 {
                                     return true;
                                 }
@@ -284,7 +294,13 @@ namespace TangentaDB
                         }
                         return false;
                     default:
-                        if (f_MethodOfPayment.Get(eType, null, ref m_ID))
+                        if (f_MethodOfPayment_DI.Get(DocProformaInvoice_ID,
+                                                            eType,
+                                                            null,
+                                                            ref PaymentType_ID_v,
+                                                            ref PaymentType_v,
+                                                            ref MethodOfPayment_DPI_BAccount_ID_v,
+                                                            ref MethodOfPayment_DPI_v))
                         {
                             return true;
                         }
@@ -300,7 +316,7 @@ namespace TangentaDB
         {
             if (m_IssueDate != null)
             {
-                if (m_MethodOfPayment != null)
+                if (m_MethodOfPayment_DPI != null)
                 {
                     if (m_Duration != null)
                     {
@@ -317,14 +333,14 @@ namespace TangentaDB
         public IssueDate m_IssueDate = null;
         public Duration m_Duration = null;
         public TermsOfPayment m_TermsOfPayment = null;
-        public MethodOfPayment m_MethodOfPayment = null;
+        public MethodOfPayment_DPI m_MethodOfPayment_DPI = null;
 
         private void Clear()
         {
             m_IssueDate = null;
             m_Duration = null;
             m_TermsOfPayment = null;
-            m_MethodOfPayment = null;
+            m_MethodOfPayment_DPI = null;
         }
 
         public bool Get(long DocProformaInvoice_ID)
@@ -336,18 +352,20 @@ namespace TangentaDB
                             dpi.DocDuration,
                             dpi.DocDurationType,
                             dpi.TermsOfPayment_ID,
-                            dpi.MethodOfPayment_ID,
-                            mop.Atom_BankAccount_ID,
+                            mop.ID as MethodOfPayment_DPI_ID,
+                            mopba.Atom_BankAccount_ID,
                             top.Description as TermsOfPayment_Description,
-                            mop.PaymentType,
+                            pt.Identification as PaymentType_Identification,
                             aba.TRR,
                             ao.Name,
                             ao.Tax_ID,
                             ao.Registration_ID
                             from DocProformaInvoice dpi
                             left join  TermsOfPayment top on dpi.TermsOfPayment_ID = top.ID
-                            left join  MethodOfPayment mop on dpi.MethodOfPayment_ID = mop.ID
-                            left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID
+                            left join  MethodOfPayment_DPI mop on mop.DocProformaInvoice_ID = dpi.ID
+                            left join  PaymentType pt on mop.PaymentType_ID = pt.ID
+                            left join  MethodOfPayment_DPI_BAccount mopba on mopba.MethodOfPayment_DPI_ID = dpi.ID
+                            left join  Atom_BankAccount aba on mopba.Atom_BankAccount_ID = aba.ID
                             left join  Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                             left join  Atom_Organisation ao on ab.Atom_Organisation_ID = ao.ID
                             where dpi.ID = " + DocProformaInvoice_ID.ToString();
@@ -363,8 +381,8 @@ namespace TangentaDB
                     m_TermsOfPayment = DocProformaInvoice_AddOn.TermsOfPayment.Set(dt.Rows[0]["TermsOfPayment_ID"],
                                                                                    dt.Rows[0]["TermsOfPayment_Description"]);
 
-                    m_MethodOfPayment = DocProformaInvoice_AddOn.MethodOfPayment.Set(dt.Rows[0]["MethodOfPayment_ID"],
-                                                                                     dt.Rows[0]["PaymentType"],
+                    m_MethodOfPayment_DPI = DocProformaInvoice_AddOn.MethodOfPayment_DPI.Set(dt.Rows[0]["MethodOfPayment_ID"],
+                                                                                     dt.Rows[0]["PaymentType_Identification"],
                                                                                      dt.Rows[0]["Name"],
                                                                                      dt.Rows[0]["Tax_ID"],
                                                                                      dt.Rows[0]["Registration_ID"],
@@ -383,9 +401,9 @@ namespace TangentaDB
         public bool Set(long DocProformaInvoice_ID, ref ltext ltMsg)
         {
             ltMsg = null;
-            if (m_MethodOfPayment != null)
+            if (m_MethodOfPayment_DPI != null)
             {
-                if (m_MethodOfPayment.Set())
+                if (m_MethodOfPayment_DPI.Set(DocProformaInvoice_ID))
                 {
                     if (m_TermsOfPayment != null)
                     {
@@ -393,7 +411,7 @@ namespace TangentaDB
                         {
                             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                             string spar_MethodOfPayment_ID = "@par_MethodOfPayment_ID";
-                            SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_MethodOfPayment.ID);
+                            SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_MethodOfPayment_DPI.ID);
                             lpar.Add(par_MethodOfPayment_ID);
                             string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
                             SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_TermsOfPayment.ID);

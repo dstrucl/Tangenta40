@@ -135,13 +135,13 @@ namespace Tangenta
                 {
                     txt += lngRPM.s_Invoice_IssueDate.s + ":" + m_usrc_Invoice.AddOnDI.m_IssueDate.Date.ToShortDateString() + "\r\n";
                 }
-                if (m_usrc_Invoice.AddOnDI.m_MethodOfPayment != null)
+                if (m_usrc_Invoice.AddOnDI.m_MethodOfPayment_DI != null)
                 {
-                    string txtMethodOfPayment = lngRPM.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(m_usrc_Invoice.AddOnDI.m_MethodOfPayment.eType).s;
-                    switch (m_usrc_Invoice.AddOnDI.m_MethodOfPayment.eType)
+                    string txtMethodOfPayment = lngRPM.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(m_usrc_Invoice.AddOnDI.m_MethodOfPayment_DI.eType).s;
+                    switch (m_usrc_Invoice.AddOnDI.m_MethodOfPayment_DI.eType)
                     {
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                            txtMethodOfPayment += " [" + m_usrc_Invoice.AddOnDI.m_MethodOfPayment.BankAccount + "] " + m_usrc_Invoice.AddOnDI.m_MethodOfPayment.BankName;
+                            txtMethodOfPayment += " [" + m_usrc_Invoice.AddOnDI.m_MethodOfPayment_DI.BankAccount + "] " + m_usrc_Invoice.AddOnDI.m_MethodOfPayment_DI.BankName;
                             break;
 
                     }
@@ -188,13 +188,13 @@ namespace Tangenta
                     }
                     txt += txtValidity + "\r\n";
                 }
-                if (m_usrc_Invoice.AddOnDPI.m_MethodOfPayment != null)
+                if (m_usrc_Invoice.AddOnDPI.m_MethodOfPayment_DPI != null)
                 {
-                    string txtMethodOfPayment = lngRPM.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(m_usrc_Invoice.AddOnDPI.m_MethodOfPayment.eType).s;
-                    switch (m_usrc_Invoice.AddOnDPI.m_MethodOfPayment.eType)
+                    string txtMethodOfPayment = lngRPM.s_MethodOfPayment.s + ":" + GlobalData.Get_sPaymentType_ltext(m_usrc_Invoice.AddOnDPI.m_MethodOfPayment_DPI.eType).s;
+                    switch (m_usrc_Invoice.AddOnDPI.m_MethodOfPayment_DPI.eType)
                     {
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                            txtMethodOfPayment += " [" + m_usrc_Invoice.AddOnDPI.m_MethodOfPayment.BankAccount + "] " + m_usrc_Invoice.AddOnDPI.m_MethodOfPayment.BankName;
+                            txtMethodOfPayment += " [" + m_usrc_Invoice.AddOnDPI.m_MethodOfPayment_DPI.BankAccount + "] " + m_usrc_Invoice.AddOnDPI.m_MethodOfPayment_DPI.BankName;
                             break;
 
                     }

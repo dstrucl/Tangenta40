@@ -116,7 +116,7 @@ namespace TangentaDataBaseDef
         /* 30 */
         public SQLTable t_SimpleItem = null;
         /* 31 */
-        public SQLTable t_MethodOfPayment = null;
+        public SQLTable t_MethodOfPayment_DI = null;
         /* 32 */
         public SQLTable t_JOURNAL_DocProformaInvoice_Type = null;
         /* 33 */
@@ -605,6 +605,18 @@ namespace TangentaDataBaseDef
         /* 206 */
         public SQLTable t_StockTakeCostDescription = null;
 
+        /* 207 */
+        public SQLTable t_PaymentType = null;
+
+        /* 208 */
+        public SQLTable t_MethodOfPayment_DPI = null;
+
+        /* 209 */
+        public SQLTable t_MethodOfPayment_DI_BAccount = null;
+
+        /* 210 */
+        public SQLTable t_MethodOfPayment_DPI_BAccount = null;
+
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -832,11 +844,11 @@ namespace TangentaDataBaseDef
             m_DBTables.items.Add(t_SimpleItem);
 
             /* 31 */
-            t_MethodOfPayment = new SQLTable((Object)new MethodOfPayment(),"metopay", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_SimpleItem);
-            t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
-            t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.PaymentType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Payment Type", "Način plačila") );
-            t_MethodOfPayment.AddColumn((Object)mt.m_MethodOfPayment.m_Atom_BankAccount, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Atom Bank Account ID", "Bančni račun arhiv ID"));
-            m_DBTables.items.Add(t_MethodOfPayment);
+            t_MethodOfPayment_DI = new SQLTable((Object)new MethodOfPayment_DI(),"mtpdi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_MethodOfPayment_DI);
+            t_MethodOfPayment_DI.AddColumn((Object)mt.m_MethodOfPayment_DI.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext( "ID", "ID") );
+            t_MethodOfPayment_DI.AddColumn((Object)mt.m_MethodOfPayment_DI.m_DocInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice ID", "Račun ID"));
+            t_MethodOfPayment_DI.AddColumn((Object)mt.m_MethodOfPayment_DI.m_PaymentType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Payment Type ID", "Način plačila ID") );
+            m_DBTables.items.Add(t_MethodOfPayment_DI);
 
             /* 32 */
             t_JOURNAL_DocProformaInvoice_Type = new SQLTable((Object)new JOURNAL_DocProformaInvoice_Type(), "jdpinvt", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_JOURNAL_DocProformaInvoice_Type);
@@ -960,7 +972,6 @@ namespace TangentaDataBaseDef
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.WarrantyDuration, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration", "Garancijski čas"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_TermsOfPayment, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("TermsOfPayment ID", "Plačilni pogoji ID"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.PaymentDeadline, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Payment Deadline", "Rok plačila"));
-            t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.m_MethodOfPayment, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Method Of Payment ID", "Način Plačila ID"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Paid, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Paid", "Plačano"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Storno, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Storno", "Stornirano"));
             t_DocInvoice.AddColumn((Object)mt.m_DocInvoice.Invoice_Reference_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice Reference ID", "Referenca na račun ID"));
@@ -2129,7 +2140,6 @@ namespace TangentaDataBaseDef
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.WarrantyDurationType, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration Type", "Tip trajanja garancije"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.WarrantyDuration, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("Warranty Duration", "Garancijski čas"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_TermsOfPayment, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("TermsOfPayment ID", "Plačilni pogoji ID"));
-            t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.m_MethodOfPayment, Column.nullTYPE.NULL, Column.Flags.DUPLICATE, Column.eStyle.none, new ltext("MethodOfPayment ID", "Način plačila ID"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.DocDuration, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Duration", "Veljavnost ponudbe"));
             t_DocProformaInvoice.AddColumn((Object)mt.m_DocProformaInvoice.DocDurationType, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Duration Type", "Tip veljavnosti ponudbe"));
             m_DBTables.items.Add(t_DocProformaInvoice);
@@ -2362,6 +2372,36 @@ namespace TangentaDataBaseDef
             t_StockTakeCostDescription.AddColumn((Object)mt.m_StockTakeCostDescription.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
             t_StockTakeCostDescription.AddColumn((Object)mt.m_StockTakeCostDescription.Description, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Description", "Opis"));
             m_DBTables.items.Add(t_StockTakeCostDescription);
+
+            /* 207 */
+            t_PaymentType = new SQLTable((Object)new PaymentType(), "pt", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_PaymentType);
+            t_PaymentType.AddColumn((Object)mt.m_PaymentType.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_PaymentType.AddColumn((Object)mt.m_PaymentType.Identification, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Payment Type Identification", "Univerzalana oznaka načina plačila"));
+            t_PaymentType.AddColumn((Object)mt.m_PaymentType.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Payment Type", "Način plačila"));
+            m_DBTables.items.Add(t_PaymentType);
+
+
+            /* 208 */
+            t_MethodOfPayment_DPI = new SQLTable((Object)new MethodOfPayment_DPI(), "mtpdpi", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_MethodOfPayment_DPI);
+            t_MethodOfPayment_DPI.AddColumn((Object)mt.m_MethodOfPayment_DPI.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_MethodOfPayment_DPI.AddColumn((Object)mt.m_MethodOfPayment_DPI.m_DocProformaInvoice, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Proforma Invoice ID", "Predačun ID"));
+            t_MethodOfPayment_DPI.AddColumn((Object)mt.m_MethodOfPayment_DPI.m_PaymentType, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Payment Type ID", "Način plačila ID"));
+            m_DBTables.items.Add(t_MethodOfPayment_DPI);
+
+            /* 209 */
+            t_MethodOfPayment_DI_BAccount = new SQLTable((Object)new MethodOfPayment_DI_BAccount(), "mtpdiba", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_MethodOfPayment_DI_BAccount);
+            t_MethodOfPayment_DI_BAccount.AddColumn((Object)mt.m_MethodOfPayment_DI_BAccount.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_MethodOfPayment_DI_BAccount.AddColumn((Object)mt.m_MethodOfPayment_DI_BAccount.m_MethodOfPayment_DI, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Invoice method of payment ID", "Račun način plačila ID"));
+            t_MethodOfPayment_DI_BAccount.AddColumn((Object)mt.m_MethodOfPayment_DI_BAccount.m_Atom_BankAccount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Bank Account ID", "Bančni račun ID"));
+            m_DBTables.items.Add(t_MethodOfPayment_DI_BAccount);
+
+
+            /* 210 */
+            t_MethodOfPayment_DPI_BAccount = new SQLTable((Object)new MethodOfPayment_DPI_BAccount(), "mtpdpiba", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_MethodOfPayment_DPI_BAccount);
+            t_MethodOfPayment_DPI_BAccount.AddColumn((Object)mt.m_MethodOfPayment_DPI_BAccount.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_MethodOfPayment_DPI_BAccount.AddColumn((Object)mt.m_MethodOfPayment_DPI_BAccount.m_MethodOfPayment_DPI, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Proforma Invoice method of payment ID", "Predačun način plačila ID"));
+            t_MethodOfPayment_DPI_BAccount.AddColumn((Object)mt.m_MethodOfPayment_DPI_BAccount.m_Atom_BankAccount, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Bank Account ID", "Bančni račun ID"));
+            m_DBTables.items.Add(t_MethodOfPayment_DPI_BAccount);
 
         }
     }

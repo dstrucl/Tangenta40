@@ -596,7 +596,7 @@ namespace TangentaDB
             int xNumberInFinancialYear = -1;
             DateTime_v InvoiceTime_v = new DateTime_v();
             InvoiceTime_v.v = DateTime.Now;
-            bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(ref DocInvoice_ID, this.AddOnDI.m_MethodOfPayment.eType, this.AddOnDI.m_MethodOfPayment.PaymentType, this.AddOnDI.m_MethodOfPayment.m_sAmountReceived, this.AddOnDI.m_MethodOfPayment.m_sToReturn, ref xNumberInFinancialYear);
+            bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(ref DocInvoice_ID, this.AddOnDI.m_MethodOfPayment_DI.eType, this.AddOnDI.m_MethodOfPayment_DI.PaymentType, this.AddOnDI.m_MethodOfPayment_DI.m_sAmountReceived, this.AddOnDI.m_MethodOfPayment_DI.m_sToReturn, ref xNumberInFinancialYear);
             if (bRet)
             {
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
@@ -727,7 +727,7 @@ namespace TangentaDB
                                 pi.NumberInFinancialYear,
                                 pi.Draft,
                                 pi.IssueDate,
-                                mpay.PaymentType,
+                                pt.Identification as PaymentType_Identification,
                                 GrossSum,
                                 TaxSum,
                                 NetSum,
@@ -788,7 +788,12 @@ namespace TangentaDB
                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = pi.ID 
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
+                                left join MethodOfPayment_DI mpdi on mpdi.DocInvoice_ID = pi.ID
+                                left join MethodOfPayment_DI_BAccount mptdiba on mptdiba.MethodOfPayment_DI_ID = mpdi.ID
+                                left join Atom_BankAccount aba on mptdiba.Atom_BankAccount_ID = aba.ID
+                                left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
+                                left join Atom_Organisation abo on ab.Atom_Organisation_ID = abo.ID
+                                left join PaymentType pt on mpdi.PaymentType_ID = pt.ID
                                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
                                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
                                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
@@ -815,7 +820,7 @@ namespace TangentaDB
                                 pi.NumberInFinancialYear,
                                 pi.Draft,
                                 pi.IssueDate,
-                                mpay.PaymentType,
+                                pt.Identification as PaymentType_Identification,
                                 GrossSum,
                                 TaxSum,
                                 NetSum,
@@ -832,8 +837,8 @@ namespace TangentaDB
                                 aorgd_hp.HomePage,
                                 cPhoneNumber_Org.PhoneNumber,
                                 cFaxNumber_Org.FaxNumber,
-                                aorgd.BankName,
-                                aorgd.TRR,
+                                abo.BankName,
+                                aba.TRR,
                                 aoff.Name as Atom_Office_Name,
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
@@ -867,7 +872,12 @@ namespace TangentaDB
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
+                                left join MethodOfPayment_DI mpdi on mpdi.DocInvoice_ID = pi.ID
+                                left join MethodOfPayment_DI_BAccount mptdiba on mptdiba.MethodOfPayment_DI_ID = mptdi.ID
+                                left join Atom_BankAccount aba on mptdiba.Atom_BankAccount_ID = aba.ID
+                                left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
+                                left join Atom_Organisation abo on ab.Atom_Organisation_ID = abo.ID
+                                left join PaymentType pt on mpdi.PaymentType_ID = pt.ID
                                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
                                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
                                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
@@ -895,7 +905,7 @@ namespace TangentaDB
                                 pi.NumberInFinancialYear,
                                 pi.Draft,
                                 pi.IssueDate,
-                                mpay.PaymentType,
+                                pt.Identification as PaymentType_Identification,
                                 GrossSum,
                                 TaxSum,
                                 NetSum,
@@ -912,8 +922,8 @@ namespace TangentaDB
                                 aorgd_hp.HomePage,
                                 cPhoneNumber_Org.PhoneNumber,
                                 cFaxNumber_Org.FaxNumber,
-                                aorgd.BankName,
-                                aorgd.TRR,
+                                abo.BankName,
+                                aba.TRR,
                                 aoff.Name as Atom_Office_Name,
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
@@ -944,7 +954,12 @@ namespace TangentaDB
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                left join MethodOfPayment mpay on pi.MethodOfPayment_ID = mpay.ID
+                                left join MethodOfPayment_DPI mptdpi on mptdpi.DocInvoice_ID = pi.ID
+                                left join MethodOfPayment_DPI_BAccount mptdpiba on mptdpiba.MethodOfPayment_DPI_ID = mptdpi.ID
+                                left join Atom_BankAccount aba on mptdpiba.Atom_BankAccount_ID = aba.ID
+                                left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
+                                left join Atom_Organisation abo on ab.Atom_Organisation_ID = abo.ID
+                                left join PaymentType pt on mptdpi.PaymentType_ID = pt.ID
                                 left join cOrgTYPE aorgd_cOrgTYPE on aorgd.cOrgTYPE_ID = aorgd_cOrgTYPE.ID
                                 left join Atom_cAddress_Org acaorg on aorgd.Atom_cAddress_Org_ID = acaorg.ID
                                 left join Atom_cStreetName_Org on acaorg.Atom_cStreetName_Org_ID = Atom_cStreetName_Org.ID
@@ -1208,16 +1223,16 @@ namespace TangentaDB
                                 if (!Draft)
                                 {
 
-                                    if (AddOnDI.m_MethodOfPayment==null)
+                                    if (AddOnDI.m_MethodOfPayment_DI == null)
                                     {
-                                        AddOnDI.m_MethodOfPayment = new DocInvoice_AddOn.MethodOfPayment();
+                                        AddOnDI.m_MethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
                                     }
                                     if (AddOnDI.m_IssueDate==null)
                                     {
                                         AddOnDI.m_IssueDate = new DocInvoice_AddOn.IssueDate();
                                     }
                                     AddOnDI.m_IssueDate.Date = DBTypes.tf._set_DateTime(dt_DocInvoice.Rows[0]["IssueDate"]);
-                                    AddOnDI.m_MethodOfPayment.eType = AddOnDI.m_MethodOfPayment.Set(dt_DocInvoice.Rows[0]["PaymentType"]);
+                                    AddOnDI.m_MethodOfPayment_DI.eType = AddOnDI.m_MethodOfPayment_DI.Set(dt_DocInvoice.Rows[0]["PaymentType_Identification"]);
                                     AddOnDI.m_FURS.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$MessageID"]);
                                     AddOnDI.m_FURS.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$UniqueInvoiceID"]);
                                     AddOnDI.m_FURS.FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$BarCodeValue"]);
@@ -1562,16 +1577,16 @@ namespace TangentaDB
             sMethodOfPayment = "";
             if (IsDocInvoice)
             {
-                sMethodOfPayment = this.AddOnDI.m_MethodOfPayment.PaymentType;
-                sBankAccount = this.AddOnDI.m_MethodOfPayment.BankAccount;
-                sBankName = this.AddOnDI.m_MethodOfPayment.BankName;
+                sMethodOfPayment = this.AddOnDI.m_MethodOfPayment_DI.PaymentType;
+                sBankAccount = this.AddOnDI.m_MethodOfPayment_DI.BankAccount;
+                sBankName = this.AddOnDI.m_MethodOfPayment_DI.BankName;
 
             }
             else if (IsDocProformaInvoice)
             {
-                sMethodOfPayment = this.AddOnDPI.m_MethodOfPayment.PaymentType;
-                sBankAccount = this.AddOnDPI.m_MethodOfPayment.BankAccount;
-                sBankName = this.AddOnDPI.m_MethodOfPayment.BankName;
+                sMethodOfPayment = this.AddOnDPI.m_MethodOfPayment_DPI.PaymentType;
+                sBankAccount = this.AddOnDPI.m_MethodOfPayment_DPI.BankAccount;
+                sBankName = this.AddOnDPI.m_MethodOfPayment_DPI.BankName;
             }
             if (sBankAccount!=null)
             {

@@ -139,7 +139,7 @@ namespace TangentaDB
         }
 
 
-        public class MethodOfPayment
+        public class MethodOfPayment_DI
         {
             private long m_ID = -1;
             public long ID
@@ -209,7 +209,7 @@ namespace TangentaDB
                 }
             }
 
-            private GlobalData.ePaymentType m_eType = GlobalData.ePaymentType.NONE;
+            private GlobalData.ePaymentType m_eType = GlobalData.ePaymentType.ANY_TYPE;
             public GlobalData.ePaymentType eType
             {
                 get { return m_eType; }
@@ -222,38 +222,38 @@ namespace TangentaDB
             public string m_sAmountReceived { get; internal set; }
             public string m_sToReturn { get; internal set; }
 
-            internal static MethodOfPayment Set(object oID, object oPaymentType, object oBankName,
+            internal static MethodOfPayment_DI Set(object oID, object oPaymentType_Identification, object oBankName,
                                                                                  object oBank_Tax_ID,
                                                                                  object oBank_Registration_ID,
                                                                                  object oBankAccount,
                                                                                  object oBankAccount_ID)
             {
-                if ((oID is long) && (oPaymentType is string))
+                if ((oID is long) && (oPaymentType_Identification is string))
                 {
-                    MethodOfPayment xMethodOfPayment = new MethodOfPayment();
-                    xMethodOfPayment.ID = (long)oID;
-                    string xPaymentType = (string)oPaymentType;
+                    MethodOfPayment_DI xMethodOfPayment_DI = new MethodOfPayment_DI();
+                    xMethodOfPayment_DI.ID = (long)oID;
+                    string xPaymentType = (string)oPaymentType_Identification;
                     string Err = null;
-                    xMethodOfPayment.eType = GlobalData.Get_ePaymentType(xPaymentType, ref Err);
-                    if (xMethodOfPayment.eType != GlobalData.ePaymentType.NONE)
+                    xMethodOfPayment_DI.eType = GlobalData.Get_ePaymentType(xPaymentType, ref Err);
+                    if (xMethodOfPayment_DI.eType != GlobalData.ePaymentType.ANY_TYPE)
                     {
-                        if (xMethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                        if (xMethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                         {
                             if ((oBankName is string)
                                 && (oBank_Tax_ID is string)
                                 && (oBankAccount is string)
                                 && (oBankAccount_ID is long))
                             {
-                                xMethodOfPayment.BankName = (string)oBankName;
-                                xMethodOfPayment.Bank_Tax_ID = (string)oBank_Tax_ID;
-                                xMethodOfPayment.BankAccount = (string)oBankAccount;
-                                xMethodOfPayment.BankAccount_ID = (long)oBankAccount_ID;
-                                xMethodOfPayment.m_Bank_Registration_ID = null;
+                                xMethodOfPayment_DI.BankName = (string)oBankName;
+                                xMethodOfPayment_DI.Bank_Tax_ID = (string)oBank_Tax_ID;
+                                xMethodOfPayment_DI.BankAccount = (string)oBankAccount;
+                                xMethodOfPayment_DI.BankAccount_ID = (long)oBankAccount_ID;
+                                xMethodOfPayment_DI.m_Bank_Registration_ID = null;
                                 if (oBank_Registration_ID != null)
                                 {
                                     if (oBank_Registration_ID is string)
                                     {
-                                        xMethodOfPayment.Bank_Registration_ID = (string)oBank_Registration_ID;
+                                        xMethodOfPayment_DI.Bank_Registration_ID = (string)oBank_Registration_ID;
                                     }
                                 }
                             }
@@ -278,15 +278,19 @@ namespace TangentaDB
                                 return null;
                             }
                         }
-                        return xMethodOfPayment;
+                        return xMethodOfPayment_DI;
                     }
                 }
                 return null;
             }
 
-            internal bool Set()
+            internal bool Set(long DocInvoice_ID)
             {
                 long_v Atom_BankAccount_ID_v = null;
+                long_v PaymentType_ID_v = null;
+                string_v PaymentType_v = null;
+                long_v MethodOfPayment_DI_BAccount_ID_v = null;
+                long_v MethodOfPayment_DI_v = null;
                 switch (eType)
                 {
                     case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
@@ -300,7 +304,13 @@ namespace TangentaDB
                         {
                             if (Atom_BankAccount_ID_v != null)
                             {
-                                if (f_MethodOfPayment.Get(eType, Atom_BankAccount_ID_v, ref m_ID))
+                                if (f_MethodOfPayment_DI.Get(DocInvoice_ID,
+                                                             eType,
+                                                             Atom_BankAccount_ID_v,
+                                                             ref PaymentType_ID_v,
+                                                             ref PaymentType_v,
+                                                             ref MethodOfPayment_DI_BAccount_ID_v,
+                                                             ref MethodOfPayment_DI_v))
                                 {
                                     return true;
                                 }
@@ -312,7 +322,13 @@ namespace TangentaDB
                         }
                         return false;
                     default:
-                        if (f_MethodOfPayment.Get(eType, null, ref m_ID))
+                        if (f_MethodOfPayment_DI.Get(DocInvoice_ID,
+                                                             eType,
+                                                             null,
+                                                             ref PaymentType_ID_v,
+                                                             ref PaymentType_v,
+                                                             ref MethodOfPayment_DI_BAccount_ID_v,
+                                                             ref MethodOfPayment_DI_v))
                         {
                             return true;
                         }
@@ -331,7 +347,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    return GlobalData.ePaymentType.NONE;
+                    return GlobalData.ePaymentType.ANY_TYPE;
                 }
             }
         }
@@ -340,9 +356,9 @@ namespace TangentaDB
         {
             if (m_IssueDate!=null)
             {
-                if (m_MethodOfPayment!=null)
+                if (m_MethodOfPayment_DI!=null)
                 {
-                    if (m_MethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                    if (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                     {
                         if (m_PaymentDeadline!=null)
                         {
@@ -360,7 +376,7 @@ namespace TangentaDB
 
         public IssueDate m_IssueDate = null;
         public TermsOfPayment m_TermsOfPayment = null;
-        public MethodOfPayment m_MethodOfPayment = null;
+        public MethodOfPayment_DI m_MethodOfPayment_DI = null;
         public PaymentDeadline m_PaymentDeadline = null;
 
 
@@ -368,7 +384,7 @@ namespace TangentaDB
         {
             m_IssueDate = null;
             m_TermsOfPayment = null;
-            m_MethodOfPayment = null;
+            m_MethodOfPayment_DI = null;
             m_PaymentDeadline = null;
         }
 
@@ -379,19 +395,22 @@ namespace TangentaDB
             string sql = @"select 
                             di.IssueDate,
                             di.TermsOfPayment_ID,
-                            di.MethodOfPayment_ID,
+                            mop.ID as MethodOfPayment_DI_ID,
                             di.PaymentDeadline,
-                            mop.Atom_BankAccount_ID,
+                            mopba.Atom_BankAccount_ID,
                             top.Description as TermsOfPayment_Description,
-                            mop.PaymentType,
+                            mop.PaymentType_ID,
+                            pt.Identification as PaymentType_Identification,
                             aba.TRR,
                             ao.Name,
                             ao.Tax_ID,
                             ao.Registration_ID
                             from DocInvoice di
                             left join  TermsOfPayment top on di.TermsOfPayment_ID = top.ID
-                            left join  MethodOfPayment mop on di.MethodOfPayment_ID = mop.ID
-                            left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID
+                            left join  MethodOfPayment_DI mop on mop.DocInvoice_ID = di.ID
+                            left join  PaymentType pt on mop.PaymentType_ID = pt.ID
+                            left join  MethodOfPayment_DI_BAccount mopba on mopba.MethodOfPayment_DI_ID = mop.ID
+                            left join  Atom_BankAccount aba on mopba.Atom_BankAccount_ID = aba.ID
                             left join  Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                             left join  Atom_Organisation ao on ab.Atom_Organisation_ID = ao.ID
                             where di.ID = " + DocInvoice_ID.ToString();
@@ -405,8 +424,8 @@ namespace TangentaDB
                     m_TermsOfPayment = DocInvoice_AddOn.TermsOfPayment.Set(dt.Rows[0]["TermsOfPayment_ID"],
                                                                                    dt.Rows[0]["TermsOfPayment_Description"]);
 
-                    m_MethodOfPayment = DocInvoice_AddOn.MethodOfPayment.Set(dt.Rows[0]["MethodOfPayment_ID"],
-                                                                                     dt.Rows[0]["PaymentType"],
+                    m_MethodOfPayment_DI = DocInvoice_AddOn.MethodOfPayment_DI.Set(dt.Rows[0]["MethodOfPayment_DI_ID"],
+                                                                                     dt.Rows[0]["PaymentType_Identification"],
                                                                                      dt.Rows[0]["Name"],
                                                                                      dt.Rows[0]["Tax_ID"],
                                                                                      dt.Rows[0]["Registration_ID"],
@@ -423,21 +442,18 @@ namespace TangentaDB
             }
         }
 
-        public bool Set(long DocProformaInvoice_ID, ref ltext ltMsg)
+        public bool Set(long DocInvoice_ID, ref ltext ltMsg)
         {
             ltMsg = null;
-            if (m_MethodOfPayment != null)
+            if (m_MethodOfPayment_DI != null)
             {
-                if (m_MethodOfPayment.Set())
+                if (m_MethodOfPayment_DI.Set(DocInvoice_ID))
                 {
                     if (m_TermsOfPayment != null)
                     {
                         if (m_TermsOfPayment.Set())
                         {
                             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                            string spar_MethodOfPayment_ID = "@par_MethodOfPayment_ID";
-                            SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_MethodOfPayment.ID);
-                            lpar.Add(par_MethodOfPayment_ID);
                             string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
                             SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_TermsOfPayment.ID);
                             lpar.Add(par_TermsOfPayment_ID);
@@ -455,11 +471,10 @@ namespace TangentaDB
                                 sval_PaymentDeadline = "PaymentDeadline = "+ spar_PaymentDeadline;
                             }
 
-                            string sql = "update DocInvoice set MethodOfPayment_ID = " + spar_MethodOfPayment_ID
-                                                                    + ",TermsOfPayment_ID = " + spar_TermsOfPayment_ID
-                                                                    + ",IssueDate = " + spar_IssueDate
-                                                                    + "," + sval_PaymentDeadline
-                                                                    + " where ID = " + DocProformaInvoice_ID.ToString();
+                            string sql = "update DocInvoice set TermsOfPayment_ID = " + spar_TermsOfPayment_ID
+                                                                + ",IssueDate = " + spar_IssueDate
+                                                                + "," + sval_PaymentDeadline
+                                                                + " where ID = " + DocInvoice_ID.ToString();
                             object ores = null;
                             string Err = null;
 
@@ -911,9 +926,9 @@ namespace TangentaDB
         {
             get
             {
-                if (m_MethodOfPayment != null)
+                if (m_MethodOfPayment_DI != null)
                 {
-                    return ((m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH) || (m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD));
+                    return ((m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH) || (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH_OR_CARD));
                 }
                 else
                 {
@@ -926,9 +941,9 @@ namespace TangentaDB
         {
             get
             {
-                if (m_MethodOfPayment != null)
+                if (m_MethodOfPayment_DI != null)
                 {
-                    return ((m_MethodOfPayment.eType == GlobalData.ePaymentType.PAYMENT_CARD) || (m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD));
+                    return ((m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CARD) || (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH_OR_CARD));
                 }
                 else
                 {
@@ -941,9 +956,9 @@ namespace TangentaDB
         {
             get
             {
-                if (m_MethodOfPayment != null)
+                if (m_MethodOfPayment_DI != null)
                 {
-                    return (m_MethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER);
+                    return (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER);
                 }
                 else
                 {

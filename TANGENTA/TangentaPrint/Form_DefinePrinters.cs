@@ -107,7 +107,6 @@ namespace TangentaPrint
                     {
                         panel1.Controls.Remove(ctrl);
                         PrintersList.dt.Rows.RemoveAt(x_index);
-                        PrintersList.dtPrinterObject.Rows.RemoveAt(x_index);
                         bChanged = true;
                         PrintersList.Save();
                         break;

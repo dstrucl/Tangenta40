@@ -15,6 +15,16 @@ using DBTypes;
 
 namespace TangentaPrint
 {
+    /// <summary>
+    ///  usrc_SelectPrintTemplate inputs are: PrintersList and m_InvoiceData
+    ///  in the constructor cmb_Languge is filled with languages
+    ///  in the procedure Init on the base of m_InvoiceData and selected Language in cmb_Languge coresponding printers are selected from PrintersList and put (listed,displayed)
+    ///  up to the selected printer in cmb_SelectPrinter.Text properties such PaperSize and Paper orientation are shown and 
+    ///  appropriate templates are selected from DataBase !
+    /// <see cref="usrc_Invoice_Preview"/>
+    /// </summary>
+    /// <seealso cref="HtmlContainerInt"/>
+
     public partial class usrc_SelectPrintTemplate : UserControl
     {
         object dataSource;
@@ -43,43 +53,7 @@ namespace TangentaPrint
 
         public InvoiceData m_InvoiceData = null;
 
-        public f_doc.StandardPages f_doc_PageType
-        {
-            get
-            {
-                if (rdb_A4.Checked)
-                {
-                    return f_doc.StandardPages.A4;
-                }
-                else if (rdb_58.Checked)
-                {
-                    return f_doc.StandardPages.ROLL_58;
-                }
-                else if (rdb_80.Checked)
-                {
-                    return f_doc.StandardPages.ROLL_80;
-                }
-                else
-                {
-                    return f_doc.StandardPages.A4;
-                }
-            }
-        }
 
-
-        public f_doc.PageOreintation f_doc_PageOrientation
-        {
-            get {
-                    if (rdb_Landscape.Checked)
-                    {
-                        return f_doc.PageOreintation.LANDSCAPE;
-                    }
-                    else
-                    {
-                         return f_doc.PageOreintation.PORTRAIT;
-                    }
-            }
-        }
 
 
 
@@ -90,8 +64,7 @@ namespace TangentaPrint
                   cmb_SelectPrintTemplate.Text = sname;
                 }
         }
-
-        public long_v Default_DocType_ID_v { get
+        public long_v Doc_Type_ID_v { get
             {
               if (m_InvoiceData.IsDocInvoice)
                 {
@@ -109,47 +82,16 @@ namespace TangentaPrint
             }
         }
 
-        private long_v m_f_doc_DocType_ID_v = null;
-        public long_v f_doc_DocType_ID_v
+        private long_v m_Doc_Page_Type_ID_v = null;
+
+        public long_v Doc_Page_Type_ID_v
         {
             get
             {
-                return m_f_doc_DocType_ID_v;
-            }
-            set
-            {
-                m_f_doc_DocType_ID_v = value;
+                return m_Doc_Page_Type_ID_v;
             }
         }
 
-        public long_v Default_page_type_ID_v
-        {
-            get
-            {
-                switch (f_doc_PageOrientation)
-                {
-                    case f_doc.PageOreintation.PORTRAIT:
-                        return GlobalData.doc_page_type_definitions.HTML_doc_page_type_A4_Portrait_ID_v;
-                    case f_doc.PageOreintation.LANDSCAPE:
-                        return GlobalData.doc_page_type_definitions.HTML_doc_page_type_A4_Landscape_ID_v;
-                }
-                return null;
-            }
-        }
-
-        private long_v m_f_doc_page_type_ID_v = null;
-        public long_v f_doc_page_type_ID_v
-        {
-            get
-            {
-                return m_f_doc_page_type_ID_v;
-            }
-            set
-            {
-                m_f_doc_page_type_ID_v = value;
-            }
-        }
-                
         public long_v Default_Language_ID_v {
             get
             {
@@ -158,20 +100,16 @@ namespace TangentaPrint
 
         }
 
-        public long_v m_f_doc_Language_ID_v = null;
-        public long_v f_doc_Language_ID_v
+        public long_v Language_ID_v
         {
             get
             {
-                return m_f_doc_Language_ID_v;
-            }
-            set
-            {
-                m_f_doc_Language_ID_v = value;
+                return new long_v((long)cmb_Language.SelectedValue);
             }
 
         }
 
+    
         private string m_f_doc_xDocument_Hash = null;
         public string f_doc_xDocument_Hash
         {
@@ -269,6 +207,8 @@ namespace TangentaPrint
             }
         }
 
+        public long_v f_doc_DocType_ID_v { get; internal set; }
+
         public usrc_SelectPrintTemplate()
         {
             InitializeComponent();
@@ -276,17 +216,14 @@ namespace TangentaPrint
             lngRPM.s_SelectPrinter.Text(btn_SelectPrinter);
 
             lngRPM.s_Language.Text(lbl_Language);
-            lngRPM.s_PaperSize.Text(grp_PaperSize);
+            lngRPM.s_PaperSize.Text(lbl_PaperSize);
             lngRPM.s_Template.Text(lbl_Template, ":");
-            lngRPM.s_A4.Text(rdb_A4);
-            lngRPM.s_Roll_80.Text(rdb_80);
-            lngRPM.s_Roll_58.Text(rdb_58);
-            lngRPM.s_PaperOrientation.Text(grp_Orientation);
-            lngRPM.s_PaperOrientation_Portrait.Text(rdb_Portrait);
-            lngRPM.s_PaperOrientation_Landscape.Text(rdb_Landscape);
+            lngRPM.s_PaperOrientation.Text(lbl_Orientation);
             lngRPM.s_Description.Text(lbl_Description);
             lngRPM.s_Default.Text(chk_Default);
-            cmb_Language.DataSource = LanguageControl.DynSettings.s_language.sTextArr;
+            cmb_Language.DataSource = GlobalData.language_definitions.Language_list;
+            cmb_Language.DisplayMember = "Name";
+            cmb_Language.ValueMember = "ID";
             cmb_Language.SelectedIndex = LanguageControl.DynSettings.LanguageID;
         }
 
@@ -294,39 +231,19 @@ namespace TangentaPrint
         internal f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)
         {
             m_InvoiceData = x_InvoiceData;
-            return Init();
+            return f_doc.eGetPrintDocumentTemplateResult.OK;
+            //return Init();
         }
 
         private f_doc.eGetPrintDocumentTemplateResult Init()
         {
             RemoveHandlers();
-            if (m_InvoiceData.IsDocInvoice)
-            {
-                MakeInvoicePrinterSelection(m_InvoiceData);
-            }
-            else if (m_InvoiceData.IsDocProformaInvoice)
-            {
-                rdb_A4.Checked = true;
-                grp_Orientation.Enabled = true;
-                rdb_Portrait.Checked = true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Form_SelectTemplate:Form_SelectTemplate:Unknown document type!");
-                AddHandlers();
-                return f_doc.eGetPrintDocumentTemplateResult.ERROR;
-            }
-            this.rdb_Landscape.CheckedChanged += Rdb_Landscape_CheckedChanged;
-            this.rdb_Portrait.CheckedChanged += Rdb_Portrait_CheckedChanged;
-            this.rdb_A4.CheckedChanged += Rdb_A4_CheckedChanged; ;
-            this.rdb_80.CheckedChanged += Rdb_80_CheckedChanged;
-            this.rdb_58.CheckedChanged += Rdb_58_CheckedChanged;
-
+            SetPrinterSelection(m_InvoiceData);
 
             f_doc.eGetPrintDocumentTemplateResult eres = f_doc.GetTemplates(ref dtTemplates,
-                           Default_DocType_ID_v,
-                           Default_page_type_ID_v,
-                           Default_Language_ID_v
+                           Doc_Type_ID_v,
+                           Doc_Page_Type_ID_v,
+                           Language_ID_v
                           );
             switch (eres)
             {
@@ -425,10 +342,10 @@ namespace TangentaPrint
             switch (f_doc.GetTemplate(doc_ID, ref xDoc_v, ref xDoc_Hash_v, ref DocType_ID_v, ref doc_page_type_ID_v, ref Language_ID_v, ref Compressed_v))
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
-                    f_doc_DocType_ID_v = DocType_ID_v;
-                    f_doc_page_type_ID_v = doc_page_type_ID_v;
-                    f_doc_xDocument_Hash = xDoc_Hash_v.v;
-                    f_doc_Language_ID_v = Language_ID_v;
+                    //f_doc_DocType_ID_v = DocType_ID_v;
+                    //f_doc_page_type_ID_v = doc_page_type_ID_v;
+                    //f_doc_xDocument_Hash = xDoc_Hash_v.v;
+                    //f_doc_Language_ID_v = Language_ID_v;
                     if (Compressed_v != null)
                     {
                         f_doc_bCompressed = Compressed_v.v;
@@ -441,76 +358,17 @@ namespace TangentaPrint
                     break;
                 default:
                     Doc_v = null;
-                    f_doc_DocType_ID_v = null;
-                    f_doc_page_type_ID_v = null;
+                    //f_doc_DocType_ID_v = null;
+                    //f_doc_page_type_ID_v = null;
                     f_doc_xDocument_Hash = null;
                     f_doc_bCompressed = false;
-                    f_doc_Language_ID_v = null;
+                    //f_doc_Language_ID_v = null;
                     break;
             }
         }
 
-        private void Rdb_Portrait_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdb_Portrait.Checked)
-            {
-                Init();
-                if (SettingsChanged != null)
-                {
-                    SettingsChanged();
-                }
-            }
-        }
 
-        private void Rdb_58_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.rdb_58.Checked)
-            {
-                Init();
-                if (SettingsChanged != null)
-                {
-                    SettingsChanged();
-                }
-            }
-        }
-
-        private void Rdb_80_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.rdb_80.Checked)
-            {
-                Init();
-                if (SettingsChanged != null)
-                {
-                    SettingsChanged();
-                }
-            }
-        }
-
-        private void Rdb_A4_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.rdb_A4.Checked)
-            {
-                Init();
-                if (SettingsChanged != null)
-                {
-                    SettingsChanged();
-                }
-            }
-        }
-
-        private void Rdb_Landscape_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdb_Landscape.Checked)
-            {
-                Init();
-                if (SettingsChanged != null)
-                {
-                    SettingsChanged();
-                }
-            }
-        }
-
-        private void MakeInvoicePrinterSelection(InvoiceData m_InvoiceData)
+        private void SetPrinterSelection(InvoiceData m_InvoiceData)
         {
             this.cmb_SelectPrinter.Items.Clear();
             bool bSelected = false;
@@ -535,23 +393,22 @@ namespace TangentaPrint
 
         private bool Match_m_MethodOfPayment(DataRow dr)
         {
-            switch (m_InvoiceData.AddOnDI.m_MethodOfPayment.eType)
+            switch (m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType)
             {
                 case GlobalData.ePaymentType.CASH:
                     return ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCash]);
-                case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
+
+                case GlobalData.ePaymentType.CASH_OR_CARD:
                     return (((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCash])
                             || ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCard]));
-                case GlobalData.ePaymentType.PAYMENT_CARD:
+
+                case GlobalData.ePaymentType.CARD:
                     return ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCard]);
 
                 case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
                     return ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentBankAccount]);
 
                 default:
-                    rdb_A4.Checked = true;
-                    grp_Orientation.Enabled = true;
-                    rdb_Portrait.Checked = true;
                     return false;
 
             }
@@ -583,9 +440,7 @@ namespace TangentaPrint
         public void GetSelectedPrinterSettings()
         {
             string PrinterName = cmb_SelectPrinter.Text;
-            ProgramDiagnostic.Diagnostic.Meassure("GetSelectedPrinterSettings", "before System.Drawing.Printing.PrinterSettings.InstalledPrinters");
             PrinterSettings.StringCollection printers = System.Drawing.Printing.PrinterSettings.InstalledPrinters;
-            ProgramDiagnostic.Diagnostic.Meassure("GetSelectedPrinterSettings", "after System.Drawing.Printing.PrinterSettings.InstalledPrinters");
             foreach (string printer in printers)
             {
                 if (SelectedPrinter != null)
@@ -656,7 +511,6 @@ namespace TangentaPrint
                     string sPrinterName = (string)PrintersList.dt.Rows[i][PrintersList.dcol_PrinterName];
                     if (sPrinterName.Equals(printerName))
                     {
-                        selectedPrinter = (Printer)PrintersList.dtPrinterObject.Rows[i][PrintersList.dcol_PrinterObject];
                         selectedPrinter.bPrinting_Invoices = (bool) PrintersList.dt.Rows[i][PrintersList.dcol_InvoicePrinting];
                         selectedPrinter.bPrinting_ProformaInvoices = (bool)PrintersList.dt.Rows[i][PrintersList.dcol_ProformaInvoicePrinting];
                         selectedPrinter.bPrinting_Reports = (bool)PrintersList.dt.Rows[i][PrintersList.dcol_ReportsPrinting];
@@ -670,7 +524,6 @@ namespace TangentaPrint
 
         private void GetSettings(Printer selectedPrinter)
         {
-            ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "START");
             m_SelectedPrinter = selectedPrinter;
             if (SelectedPrinter== null)
             {
@@ -684,26 +537,20 @@ namespace TangentaPrint
             }
             try
             {
-                ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "SelectedPrinter.printer_settings.DefaultPageSettings.Landscape START");
                 if (SelectedPrinter.printer_settings.DefaultPageSettings.Landscape)
                 {
-                    this.rdb_Landscape.Checked = true;
                 }
                 else
                 {
-                    this.rdb_Portrait.Checked = true;
                 }
-                ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "SelectedPrinter.printer_settings.DefaultPageSettings.Landscape END");
                 PaperSize paper_size = SelectedPrinter.printer_settings.DefaultPageSettings.PaperSize;
                 if (paper_size != null)
                 {
                     if (paper_size.PaperName.Contains("A4"))
                     {
-                        rdb_A4.Checked = true;
                     }
                     else
                     {
-                        rdb_A4.Checked = false;
                     }
                 }
                 else
@@ -711,7 +558,6 @@ namespace TangentaPrint
 
                     LogFile.Error.Show("WARNING:Selected printer:" + SelectedPrinter.PrinterName + " has no Paper Size information");
                 }
-                ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "DefaultPageSettings.PaperSize END");
             }
             catch (Exception ex)
             {
@@ -721,7 +567,6 @@ namespace TangentaPrint
             {
                 SettingsChanged();
             }
-            ProgramDiagnostic.Diagnostic.Meassure(" private void GetSettings(Printer selectedPrinter)", "END");
             return;
         }
 

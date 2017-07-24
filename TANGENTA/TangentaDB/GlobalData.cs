@@ -39,6 +39,7 @@ namespace TangentaDB
         public static doc_type_definitions doc_type_definitions = null;
         public static Language_definitions language_definitions = null;
         public static TermsOfPayment_definitions termsOfPayment_definitions = null;
+        public static PaymentType_definitions paymentType_definitions = null;
 
 
         public static xCurrency BaseCurrency = null;
@@ -46,8 +47,27 @@ namespace TangentaDB
         public static Color Color_Factory = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
         public static Color Color_Stock = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
 
-        public enum ePaymentType : int { NONE, CASH, ALLREADY_PAID, PAYMENT_CARD, BANK_ACCOUNT_TRANSFER, CASH_OR_PAYMENT_CARD };
-        public static string[] sPaymentTypes = new string[] { "NONE", "CASH", "ALLREADY_PAID", "PAYMENT_CARD", "BANK_ACCOUNT_TRANSFER", "CASH_OR_PAYMENT_CARD" };
+        public enum ePaymentType : int { ANY_TYPE,
+                                         CASH,
+                                         CARD,
+                                         BANK_ACCOUNT_TRANSFER,
+                                         CASH_OR_CARD,
+                                         ALLREADY_PAID
+                                        };
+
+        public const string const_PaymentType_ANY_TYPE = "ANY_TYPE";
+        public const string const_PaymentType_CASH = "CASH";
+        public const string const_PaymentType_CARD = "CARD";
+        public const string const_PaymentType_BANK_ACCOUNT_TRANSFER = "BANK_ACCOUNT_TRANSFER";
+        public const string const_PaymentType_CASH_OR_CARD = "CASH_OR_CARD";
+        public const string const_PaymentType_ALLREADY_PAID = "ALLREADY_PAID";
+        public static string[] sPaymentTypes = new string[] { const_PaymentType_ANY_TYPE,
+                                                              const_PaymentType_CASH,
+                                                              const_PaymentType_CARD,
+                                                              const_PaymentType_BANK_ACCOUNT_TRANSFER,
+                                                              const_PaymentType_CASH_OR_CARD,
+                                                              const_PaymentType_ALLREADY_PAID
+                                                              };
 
         public static void Init()
         {
@@ -57,7 +77,9 @@ namespace TangentaDB
             doc_type_definitions = new doc_type_definitions();
             language_definitions = new Language_definitions();
             termsOfPayment_definitions = new TermsOfPayment_definitions();
+            paymentType_definitions = new PaymentType_definitions();
         }
+
 
         //Function to get random number
         private static readonly Random getrandom = new Random();
@@ -171,7 +193,7 @@ namespace TangentaDB
                 }
             }
             Err = "ERROR:TangentaDB:GlobalData:Get_ePaymentType:sPaymentType =" + sPaymentType + " not implemented!";
-            return ePaymentType.NONE;
+            return ePaymentType.ANY_TYPE;
         }
 
         public static string Get_sPaymentType(ePaymentType xePaymentType)
@@ -185,17 +207,16 @@ namespace TangentaDB
             {
                 case GlobalData.ePaymentType.CASH:
                     return lngRPM.s_PaymentType_CASH;
-                case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
+                case GlobalData.ePaymentType.CASH_OR_CARD:
                     return lngRPM.s_PaymentType_CASH_OR_PAYMENT_CARD;
                 case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
                     return lngRPM.s_PaymentType_BANK_ACCOUNT_TRANSFER;
                 case GlobalData.ePaymentType.ALLREADY_PAID:
                     return lngRPM.s_PaymentType_ALLREADY_PAID;
-                case GlobalData.ePaymentType.PAYMENT_CARD:
+                case GlobalData.ePaymentType.CARD:
                     return lngRPM.s_PaymentType_PAYMENT_CARD;
-                case GlobalData.ePaymentType.NONE:
-                    LogFile.Error.Show("ERROR:TangentaDB:f_MethodOfPayment:Get:ePaymentType == GlobalData.ePaymentType.NONE!");
-                    return null;
+                case GlobalData.ePaymentType.ANY_TYPE:
+                    return lngRPM.s_PaymentType_ANY_TYPE;
                 default:
                     LogFile.Error.Show("ERROR:TangentaDB:f_MethodOfPayment:Get:ePaymentType == " +xePaymentType.ToString() + "!");
                     return null;
@@ -212,11 +233,11 @@ namespace TangentaDB
                 }
                 else if (s.ToLower().Equals(lngRPM.s_PaymentType_CASH_OR_PAYMENT_CARD.s.ToLower()))
                 {
-                    return GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD;
+                    return GlobalData.ePaymentType.CASH_OR_CARD;
                 }
                 else if (s.ToLower().Equals(lngRPM.s_PaymentType_PAYMENT_CARD.s.ToLower()))
                 {
-                    return GlobalData.ePaymentType.PAYMENT_CARD;
+                    return GlobalData.ePaymentType.CARD;
                 }
                 else if (s.ToLower().Equals(lngRPM.s_PaymentType_BANK_ACCOUNT_TRANSFER.s.ToLower()))
                 {
@@ -228,12 +249,12 @@ namespace TangentaDB
                 }
                 else
                 {
-                    return GlobalData.ePaymentType.NONE;
+                    return GlobalData.ePaymentType.ANY_TYPE;
                 }
             }
             else
             {
-                return GlobalData.ePaymentType.NONE;
+                return GlobalData.ePaymentType.ANY_TYPE;
             }
         }
 
@@ -433,7 +454,7 @@ namespace TangentaDB
 
         public static bool Type_definitions_Read()
         {
-            if (language_definitions.Read())
+            if (language_definitions.Get())
             {
                 if (JOURNAL_type_definitions_Read())
                 {
@@ -441,12 +462,20 @@ namespace TangentaDB
                     {
                         if (TermsOfPayment_definitions_Read())
                         {
-                            return true;
+                            if (Payment_definitions_Read())
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
             }
             return false;
+        }
+
+        private static bool Payment_definitions_Read()
+        {
+            return paymentType_definitions.Get();
         }
 
         private static bool TermsOfPayment_definitions_Read()

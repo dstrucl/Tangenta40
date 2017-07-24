@@ -24,7 +24,7 @@ namespace TangentaPrint
     public partial class Form_PrintJournal : Form
     {
         public InvoiceData m_InvoiceData = null;
-        public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.NONE;
+        public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.ANY_TYPE;
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;

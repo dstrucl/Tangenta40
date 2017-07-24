@@ -236,7 +236,7 @@ namespace Tangenta
                     JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
-                    JOURNAL_DocInvoice_$_dinv_$_metopay.PaymentType AS JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType,
+                    pt.Identification AS PaymentType_Identification,
                     JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
                     JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                     JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
@@ -283,7 +283,8 @@ namespace Tangenta
                     LEFT JOIN TermsOfPayment JOURNAL_DocInvoice_$_dinv_$_trmpay ON JOURNAL_DocInvoice_$_dinv.TermsOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_trmpay.ID
                     LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID 
                     LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
-                    LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_metopay ON JOURNAL_DocInvoice_$_dinv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_metopay.ID
+                    LEFT JOIN MethodOfPayment_DI mtpdi ON mtpdi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                    LEFT JOIN PaymentType pt ON mtpdi.PaymentType_ID = pt.ID
                     INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
                     INNER JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
                     INNER JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
@@ -321,7 +322,7 @@ namespace Tangenta
                     JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
-                    JOURNAL_DocInvoice_$_dinv_$_metopay.PaymentType AS JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType,
+                    pt.Identification AS PaymentType_Identification,
                     JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
                     JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
@@ -357,7 +358,8 @@ namespace Tangenta
                     LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
                     LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
                     LEFT JOIN TermsOfPayment JOURNAL_DocInvoice_$_dinv_$_trmpay ON JOURNAL_DocInvoice_$_dinv.TermsOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_trmpay.ID
-                    LEFT JOIN MethodOfPayment JOURNAL_DocInvoice_$_dinv_$_metopay ON JOURNAL_DocInvoice_$_dinv.MethodOfPayment_ID = JOURNAL_DocInvoice_$_dinv_$_metopay.ID
+                    LEFT JOIN MethodOfPayment_DI mtpdi ON mtpdi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                    LEFT JOIN PaymentType pt ON mtpdi.PaymentType_ID = pt.ID
                     INNER JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
                     INNER JOIN Atom_ElectronicDevice JOURNAL_DocInvoice_$_awperiod_$_aed ON JOURNAL_DocInvoice_$_awperiod.Atom_ElectronicDevice_ID = JOURNAL_DocInvoice_$_awperiod_$_aed.ID
                     INNER JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
@@ -396,7 +398,7 @@ namespace Tangenta
                 JOURNAL_DocProformaInvoice.EventTime AS JOURNAL_DocProformaInvoice_$$EventTime,
                 JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn_$$FirstName,
                 JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln_$$LastName,
-                JOURNAL_DocProformaInvoice_$_dpinv_$_metopay.PaymentType AS JOURNAL_DocProformaInvoice_$_dpinv_$_metopay_$$PaymentType,
+                pt.Identification AS PaymentType_Identification,
                 JOURNAL_DocProformaInvoice_$_dpinv.NetSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum,
                 JOURNAL_DocProformaInvoice_$_dpinv.TaxSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
                 JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
@@ -429,7 +431,8 @@ namespace Tangenta
                 LEFT JOIN Atom_Customer_Org JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg ON JOURNAL_DocProformaInvoice_$_dpinv.Atom_Customer_Org_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.ID
                 LEFT JOIN Atom_Organisation JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg.ID
                 LEFT JOIN TermsOfPayment JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay ON JOURNAL_DocProformaInvoice_$_dpinv.TermsOfPayment_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay.ID
-                LEFT JOIN MethodOfPayment JOURNAL_DocProformaInvoice_$_dpinv_$_metopay ON JOURNAL_DocProformaInvoice_$_dpinv.MethodOfPayment_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_metopay.ID
+                LEFT JOIN MethodOfPayment_DPI mtpdpi ON mtpdpi.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv.ID
+                LEFT JOIN PaymentType pt ON mtpdpi.PaymentType_ID = pt.ID
                 INNER JOIN Atom_WorkPeriod JOURNAL_DocProformaInvoice_$_awperiod ON JOURNAL_DocProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_DocProformaInvoice_$_awperiod.ID
                 INNER JOIN Atom_myOrganisation_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID
                 INNER JOIN Atom_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.ID
@@ -601,13 +604,13 @@ namespace Tangenta
             {
                 iColDraft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
                 iCol = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$GrossSum");
-                iColPayment = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType");
+                iColPayment = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
             }
             else if (IsDocProformaInvoice)
             {
                 iColDraft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
                 iCol = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum");
-                iColPayment = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$_metopay_$$PaymentType");
+                iColPayment = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
             }
 
             int iCount = dt_XInvoice.Rows.Count;

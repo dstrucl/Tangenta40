@@ -96,8 +96,6 @@ namespace TangentaPrint
             this.m_usrc_SelectPrintTemplate.f_doc_bCompressed = false;
             this.m_usrc_SelectPrintTemplate.f_doc_bDefault = false;
             this.m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v = null;
-            this.m_usrc_SelectPrintTemplate.f_doc_Language_ID_v = null;
-            this.m_usrc_SelectPrintTemplate.f_doc_page_type_ID_v = null;
             this.m_usrc_SelectPrintTemplate.f_doc_TemplateDescription = null;
             this.m_usrc_SelectPrintTemplate.f_doc_TemplateName = "";
             this.m_usrc_SelectPrintTemplate.f_doc_xDocument_Hash = null;

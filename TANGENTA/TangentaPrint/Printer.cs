@@ -1228,7 +1228,7 @@ namespace TangentaPrint
                 //buffer += "\x1B" + "G" + "\xFF";
                 wr_String("Skupaj " + HT + HT + xInvoiceData.GrossSum.ToString() + " EUR\n");
                 //buffer += "\x1B" + "G" + "\x00\n";
-                if (PaymentType != GlobalData.ePaymentType.NONE)
+                if (PaymentType != GlobalData.ePaymentType.ANY_TYPE)
                 {
                     wr_String("Način plačila:" + sPaymentMethod + "\n");
                     if (PaymentType == GlobalData.ePaymentType.CASH)

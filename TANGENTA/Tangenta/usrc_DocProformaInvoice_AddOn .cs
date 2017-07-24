@@ -111,7 +111,7 @@ namespace Tangenta
 
         private string SetBankAccountText()
         {
-            return "[" + m_AddOnDPI.m_MethodOfPayment.BankAccount + "] " + m_AddOnDPI.m_MethodOfPayment.BankName;
+            return "[" + m_AddOnDPI.m_MethodOfPayment_DPI.BankAccount + "] " + m_AddOnDPI.m_MethodOfPayment_DPI.BankName;
         }
 
         public bool Init(DocProformaInvoice_AddOn x_AddOnDI,bool bxPrint, usrc_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
@@ -135,13 +135,13 @@ namespace Tangenta
                 {
                     dtP_DateOfIssue.Value = m_AddOnDPI.m_IssueDate.Date;
                 }
-                if (m_AddOnDPI.m_MethodOfPayment != null)
+                if (m_AddOnDPI.m_MethodOfPayment_DPI != null)
                 {
-                    switch (m_AddOnDPI.m_MethodOfPayment.eType)
+                    switch (m_AddOnDPI.m_MethodOfPayment_DPI.eType)
                     {
                         case GlobalData.ePaymentType.CASH:
-                        case GlobalData.ePaymentType.PAYMENT_CARD:
-                        case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
+                        case GlobalData.ePaymentType.CARD:
+                        case GlobalData.ePaymentType.CASH_OR_CARD:
                             rdb_Payment_by_cash_or_credit_card_on_delivery.Checked = true;
                             break;
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
@@ -281,17 +281,17 @@ namespace Tangenta
                                                                         " OrganisationAccount_$_org_$$Name desc", xnav);
             if (edt_Item_dlg.ShowDialog(this)==DialogResult.Yes)
             {
-                if (this.m_AddOnDPI.m_MethodOfPayment==null)
+                if (this.m_AddOnDPI.m_MethodOfPayment_DPI==null)
                 {
-                    this.m_AddOnDPI.m_MethodOfPayment = new DocProformaInvoice_AddOn.MethodOfPayment();
+                    this.m_AddOnDPI.m_MethodOfPayment_DPI = new DocProformaInvoice_AddOn.MethodOfPayment_DPI();
                      
                 }
-                this.m_AddOnDPI.m_MethodOfPayment.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
-                this.m_AddOnDPI.m_MethodOfPayment.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
-                this.m_AddOnDPI.m_MethodOfPayment.BankName = edt_Item_dlg.BankName;
-                this.m_AddOnDPI.m_MethodOfPayment.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
-                this.m_AddOnDPI.m_MethodOfPayment.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
-                this.m_AddOnDPI.m_MethodOfPayment.BankAccount = edt_Item_dlg.TRR;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.BankName = edt_Item_dlg.BankName;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.BankAccount = edt_Item_dlg.TRR;
                 this.txt_BankAccount.Text = SetBankAccountText();
             }
         }
@@ -417,11 +417,11 @@ namespace Tangenta
             {
                 if (m_AddOnDPI != null)
                 {
-                    if (m_AddOnDPI.m_MethodOfPayment == null)
+                    if (m_AddOnDPI.m_MethodOfPayment_DPI == null)
                     {
-                        m_AddOnDPI.m_MethodOfPayment = new DocProformaInvoice_AddOn.MethodOfPayment();
+                        m_AddOnDPI.m_MethodOfPayment_DPI = new DocProformaInvoice_AddOn.MethodOfPayment_DPI();
                     }
-                    m_AddOnDPI.m_MethodOfPayment.eType = GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD;
+                    m_AddOnDPI.m_MethodOfPayment_DPI.eType = GlobalData.ePaymentType.CASH_OR_CARD;
                 }
             }
         }
@@ -432,11 +432,11 @@ namespace Tangenta
             {
                 if (m_AddOnDPI != null)
                 {
-                    if (m_AddOnDPI.m_MethodOfPayment == null)
+                    if (m_AddOnDPI.m_MethodOfPayment_DPI == null)
                     {
-                        m_AddOnDPI.m_MethodOfPayment = new DocProformaInvoice_AddOn.MethodOfPayment();
+                        m_AddOnDPI.m_MethodOfPayment_DPI = new DocProformaInvoice_AddOn.MethodOfPayment_DPI();
                     }
-                    m_AddOnDPI.m_MethodOfPayment.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
+                    m_AddOnDPI.m_MethodOfPayment_DPI.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
                 }
             }
         }

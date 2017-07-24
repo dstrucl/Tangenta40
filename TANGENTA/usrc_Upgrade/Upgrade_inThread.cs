@@ -110,7 +110,7 @@ namespace UpgradeDB
                                                 "StockTake_AdditionalCost",
                                                 "JOURNAL_StockTake_Type",
                                                 "JOURNAL_StockTake",
-                                                "Atom_ElectronicDevice" };
+                                                "Atom_ElectronicDevice"};
                 if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                 {
                     long Atom_ElectronicDevice_ID = -1;
@@ -231,17 +231,6 @@ namespace UpgradeDB
                                             DROP TABLE doc_type;
                                             DROP TABLE doc_page_type;
 
-                                            CREATE TABLE MethodOfPayment_NEW ( 
-                                                         'ID' INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                         'PaymentType' varchar(264) NOT NULL,
-                                                          Atom_BankAccount_ID INTEGER NULL REFERENCES Atom_BankAccount(ID) );
-
-                                            insert into MethodOfPayment_NEW (PaymentType) select PaymentType from MethodOfPayment;
-
-                                            DROP TABLE MethodOfPayment;
-
-                                            ALTER TABLE MethodOfPayment_NEW RENAME TO MethodOfPayment;
-
                                             CREATE TABLE Atom_Currency_NEW ( 'ID' INTEGER PRIMARY KEY AUTOINCREMENT, 'Name' varchar(264) NOT NULL, 'Abbreviation' varchar(50) NOT NULL, 'Symbol' varchar(5) NOT NULL, 'CurrencyCode' INT NOT NULL, 'DecimalPlaces' INT NOT NULL );
 
                                             insert into Atom_Currency_NEW (ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces) select ID,Name,Abbreviation,Symbol,CurrencyCode,DecimalPlaces from Atom_Currency;
@@ -265,7 +254,6 @@ namespace UpgradeDB
                             LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
-
 
                         new_tables = new string[] {"doc_type",
                                                     "doc_page_type",
@@ -301,6 +289,7 @@ namespace UpgradeDB
                 return false;
             }
         }
+
 
         private bool FillStockTake()
         {
@@ -906,7 +895,12 @@ namespace UpgradeDB
                                                 "JOURNAL_Name",
                                                 "JOURNAL_TableName",
                                                 "JOURNAL_TYPE",
-                                                "JOURNAL"
+                                                "JOURNAL",
+                                                "PaymentType",
+                                                "MethodOfPayment_DI",
+                                                "MethodOfPayment_DPI",
+                                                "MethodOfPayment_DI_BAccount",
+                                                "MethodOfPayment_DPI_BAccount"
                                                 };
 
             if (DBSync.DBSync.CreateTables(new_tables, ref Err))
@@ -932,7 +926,6 @@ namespace UpgradeDB
                                WarrantyDuration,
                                TermsOfPayment_ID,
                                PaymentDeadline,
-                               MethodOfPayment_ID,
                                Paid,
                                Storno,
                                Invoice_Reference_ID,
@@ -956,7 +949,6 @@ namespace UpgradeDB
                                 pi.WarrantyDuration,
                                 pi.TermsOfPayment_ID,
                                 inv.PaymentDeadline,
-                                inv.MethodOfPayment_ID,
                                 inv.Paid,
                                 inv.Storno,
                                 inv.Invoice_Reference_ID,
@@ -1160,6 +1152,11 @@ namespace UpgradeDB
                 {
                     if (DBSync.DBSync.Drop_VIEWs(ref Err))
                     {
+                        if (!Upgrade_MethodOfPayment_DB_1_19_to_DB_1_20())
+                        {
+                            return false;
+                        }
+
                         sql = @"Drop Table Atom_ProformaInvoice_Price_Item_Stock;
                                 Drop Table Atom_Price_SimpleItem;
                                 Drop Table Atom_ItemShopA_Price;
@@ -1175,6 +1172,7 @@ namespace UpgradeDB
                                 Drop Table Invoice_Image;
                                 Drop Table ProformaInvoice;
                                 Drop Table Invoice;
+                                Drop Table MethodOfPayment;
                         ";
                         if (DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                         {
@@ -1566,6 +1564,68 @@ namespace UpgradeDB
                 return false;
             }
         }
+
+        private bool Upgrade_MethodOfPayment_DB_1_19_to_DB_1_20()
+        {
+            string Err = null;
+            DataTable dt = new DataTable();
+            string sql = @"select 
+                            di.ID as Invoice_ID,
+                            mop.PaymentType
+                            from Invoice di
+                            left join MethodOfPayment mop on di.MethodOfPayment_ID = mop.ID
+                            ";
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    long_v DocInvoice_ID_v = tf.set_long(dr["Invoice_ID"]);
+                    string_v PaymentType_v = tf.set_string(dr["PaymentType"]);
+                    GlobalData.ePaymentType ePaymentType = GlobalData.ePaymentType.ANY_TYPE;
+                    if (PaymentType_v!=null)
+                    {
+                        if (PaymentType_v.v.Equals("Gotovina"))
+                        {
+                            ePaymentType = GlobalData.ePaymentType.CASH;
+                        }
+                        else if (PaymentType_v.v.Equals("Plačilna Kartica"))
+                        {
+                            ePaymentType = GlobalData.ePaymentType.CARD;
+                        }
+                        else if (PaymentType_v.v.Equals("Že plačano"))
+                        {
+                            ePaymentType = GlobalData.ePaymentType.ALLREADY_PAID;
+                        }
+                    }
+
+                    if (DocInvoice_ID_v!=null)
+                    {
+                        long_v PaymentType_ID_v = null;
+                        string_v PaymentType_Name_v = null;
+                        long_v MethodOfPayment_DI_BAccount_ID_v = null;
+                        long_v MethodOfPayment_DI_ID_v = null;
+                        if (!f_MethodOfPayment_DI.Get(DocInvoice_ID_v.v,
+                                                 ePaymentType,
+                                                 GlobalData.Get_sPaymentType_ltext(ePaymentType).s,
+                                                 null,
+                                                 ref PaymentType_ID_v,
+                                                 ref PaymentType_Name_v,
+                                                 ref MethodOfPayment_DI_BAccount_ID_v,
+                                                 ref MethodOfPayment_DI_ID_v
+                                                ))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:UpgradeDB:Upgrade_inThread:Upgrade_MethodOfPayment_DB_1_19_to_DB_1_20:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+            }
 
         private bool CheckDataBaseTables(ref string Err)
         {

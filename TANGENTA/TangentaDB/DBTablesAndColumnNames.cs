@@ -217,7 +217,6 @@ namespace TangentaDB
         public string colInvoice_ID;
         public string colInvoice_InvoiceTime;
         public string colInvoice_PaymentDeadline;
-        public string colInvoice_m_MethodOfPayment;
         public string colInvoice_Paid;
         public string colInvoice_Storno;
 
@@ -390,7 +389,6 @@ namespace TangentaDB
             colDocInvoice_Invoice_ID = stbl_DocInvoice_TableName + "." + stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.ID.GetType());
 
             colInvoice_PaymentDeadline = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.PaymentDeadline.GetType());
-            colInvoice_m_MethodOfPayment = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.m_MethodOfPayment.GetType()) + "_ID";
             colInvoice_Paid = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.Paid.GetType());
             colInvoice_Storno = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.Storno.GetType()); ;
 

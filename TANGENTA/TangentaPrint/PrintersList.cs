@@ -11,7 +11,6 @@ namespace TangentaPrint
     public static class PrintersList
     {
         public static DataTable dt = new DataTable();
-        public static DataTable dtPrinterObject = new DataTable();
         public static string PrinterListFile = "TangentaPrinterList.xml";
 
         public static DataColumn dcol_PrinterName = null;
@@ -23,8 +22,6 @@ namespace TangentaPrint
         public static DataColumn dcol_ProformaInvoicePrinting = null;
 
         public static DataColumn dcol_ReportsPrinting = null;
-
-        public static DataColumn dcol_PrinterObject = null;
 
 
         public static DataColumn dcol_PageSettings_Landscape =  null;
@@ -63,18 +60,6 @@ namespace TangentaPrint
                 try
                 {
                     XmlReadMode xml_readmode = dt.ReadXml(PrinterListFile);
-                    dtPrinterObject.Rows.Clear();
-                    if (dt.Rows.Count > 0)
-                    {
-                        for (int i = 0; i < dt.Rows.Count; i++)
-                        {
-                            Printer printer = new Printer(i);
-                            printer.Index = i;
-                            DataRow dr = dtPrinterObject.NewRow();
-                            dr[dcol_PrinterObject] = printer;
-                            dtPrinterObject.Rows.Add(dr);
-                        }
-                    }
                     return true;
                 }
                 catch (Exception ex)
@@ -141,15 +126,6 @@ namespace TangentaPrint
 
 
 
-
-
-            dcol_PrinterObject = new DataColumn("PrinterObject", typeof(object));
-
-
-            dtPrinterObject.Rows.Clear();
-            dtPrinterObject.Columns.Clear();
-            dtPrinterObject.Columns.Add(dcol_PrinterObject);
-
         }
 
         internal static void Fill(int x_index, 
@@ -206,7 +182,6 @@ namespace TangentaPrint
         internal static int Add(Printer prn)
         {
             DataRow dr = dt.NewRow();
-            DataRow drPrinterObject = dtPrinterObject.NewRow();
             dr[dcol_PrinterName.ColumnName] = prn.PrinterName;
             if (prn.Index==0)
             {
@@ -216,8 +191,6 @@ namespace TangentaPrint
                 dr[dcol_InvoicePrinting_PaymentCard] = true;
                 dr[dcol_ProformaInvoicePrinting] = true;
                 dr[dcol_ReportsPrinting] = true;
-
-                drPrinterObject[dcol_PrinterObject] = prn;
             }
             else
             {
@@ -227,7 +200,6 @@ namespace TangentaPrint
                 dr[dcol_InvoicePrinting_PaymentCard.ColumnName] = false;
                 dr[dcol_ProformaInvoicePrinting.ColumnName] = false;
                 dr[dcol_ReportsPrinting.ColumnName] = false;
-                drPrinterObject[dcol_PrinterObject] = prn;
             }
 
             //dt.Rows[prn.Index][dcol_PageSettings_Landscape] = prn.
@@ -245,7 +217,6 @@ namespace TangentaPrint
             //dt.Rows[prn.Index][dcol_PageSettings_PrinterResolution_Kind] = 
 
             dt.Rows.Add(dr);
-            dtPrinterObject.Rows.Add(drPrinterObject);
             prn.Index = dt.Rows.IndexOf(dr);
             return prn.Index;
         }

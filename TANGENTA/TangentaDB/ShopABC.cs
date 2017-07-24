@@ -104,13 +104,16 @@ namespace TangentaDB
                         JOURNAL_DocInvoice_$_dinv_$$WarrantyConditions,
                         JOURNAL_DocInvoice_$_dinv_$_trmpay_$$ID,
                         JOURNAL_DocInvoice_$_dinv_$$PaymentDeadline,
-                        JOURNAL_DocInvoice_$_dinv_$_metopay_$$ID,
-                        JOURNAL_DocInvoice_$_dinv_$_metopay_$$PaymentType,
+                        mtpdi.ID as MethodOfPayment_DI_ID,
+                        pt.Identification as PaymentType_Identification,
                         JOURNAL_DocInvoice_$_dinv_$$Paid,
                         JOURNAL_DocInvoice_$_dinv_$$Storno,
                         JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID,
                         JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type
-                        from JOURNAL_DocInvoice_VIEW " + cond;
+                        from JOURNAL_DocInvoice_VIEW 
+                        left join MethodOfPayment_DI mtpdi on mtpdi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv_$$ID
+                        left join PaymentType pt on mtpdi.PaymentType_ID = pt.ID
+                        " + cond;
 
             }
             else if (IsDocProformaInvoice)

@@ -285,9 +285,6 @@ namespace TangentaTableClass
     {
     }
         
-    public class PaymentType:DB_varchar_264
-    {
-    }
 
 
     public class TaxPrice:DB_Money
@@ -1835,10 +1832,42 @@ namespace TangentaTableClass
         public Atom_SimpleItem_Image m_Atom_SimpleItem_Image = new Atom_SimpleItem_Image();
     }
 
-    public class MethodOfPayment
+    public class Identification:DB_varchar_64
+    {
+
+    }
+    public class PaymentType
     {
         public ID ID = new ID();
-        public PaymentType PaymentType  = new PaymentType();
+        public Identification Identification = new Identification();
+        public Name Name = new Name();
+    }
+
+    public class MethodOfPayment_DI
+    {
+        public ID ID = new ID();
+        public DocInvoice m_DocInvoice = new DocInvoice();
+        public PaymentType m_PaymentType  = new PaymentType();
+    }
+
+    public class MethodOfPayment_DI_BAccount
+    {
+        public ID ID = new ID();
+        public MethodOfPayment_DI m_MethodOfPayment_DI = new MethodOfPayment_DI();
+        public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
+    }
+
+    public class MethodOfPayment_DPI
+    {
+        public ID ID = new ID();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public PaymentType m_PaymentType = new PaymentType();
+    }
+
+    public class MethodOfPayment_DPI_BAccount
+    {
+        public ID ID = new ID();
+        public MethodOfPayment_DPI m_MethodOfPayment_DPI = new MethodOfPayment_DPI();
         public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
     }
 
@@ -1908,7 +1937,6 @@ namespace TangentaTableClass
         public WarrantyConditions WarrantyConditions = new WarrantyConditions();
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
         public PaymentDeadline PaymentDeadline = new PaymentDeadline();
-        public MethodOfPayment m_MethodOfPayment = new MethodOfPayment();
         public Paid Paid = new Paid();
         public Storno Storno = new Storno();
         public Invoice_Reference_ID Invoice_Reference_ID = new Invoice_Reference_ID();
@@ -1937,7 +1965,6 @@ namespace TangentaTableClass
         public DocDuration DocDuration = new DocDuration();
         public DocDurationType DocDurationType = new DocDurationType();
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
-        public MethodOfPayment m_MethodOfPayment = new MethodOfPayment();
     }
 
     public class Doc_ImageLib
@@ -2583,7 +2610,7 @@ namespace TangentaTableClass
         public SimpleItem m_SimpleItem = new SimpleItem();
 
         /* 31 */
-        public MethodOfPayment m_MethodOfPayment = new MethodOfPayment();
+        public MethodOfPayment_DI m_MethodOfPayment_DI = new MethodOfPayment_DI();
 
         /* 32 */
         public JOURNAL_DocProformaInvoice_Type m_JOURNAL_DocProformaInvoice_Type = new JOURNAL_DocProformaInvoice_Type();
@@ -3109,5 +3136,18 @@ namespace TangentaTableClass
 
         /* 206 */
         public StockTakeCostDescription m_StockTakeCostDescription = new StockTakeCostDescription();
+
+        /* 207 */
+        public PaymentType m_PaymentType = new PaymentType();
+
+        /* 208 */
+        public MethodOfPayment_DPI m_MethodOfPayment_DPI = new MethodOfPayment_DPI();
+
+        /* 209 */
+        public MethodOfPayment_DI_BAccount m_MethodOfPayment_DI_BAccount = new MethodOfPayment_DI_BAccount();
+
+        /* 210 */
+        public MethodOfPayment_DPI_BAccount m_MethodOfPayment_DPI_BAccount = new MethodOfPayment_DPI_BAccount();
+
     }
 }

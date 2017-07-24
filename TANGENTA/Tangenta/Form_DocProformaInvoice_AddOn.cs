@@ -25,7 +25,7 @@ namespace Tangenta
     {
         private string m_DocInvoice = null;
         public DocProformaInvoice_AddOn m_AddOnDPI = null;
-        public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.NONE;
+        public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.ANY_TYPE;
         public string m_sPaymentMethod = null;
         public string m_sAmountReceived = null;
         public string m_sToReturn = null;

@@ -149,6 +149,9 @@
     <Compile Include="f_JOURNAL_StockTake.cs" />
     <Compile Include="f_Language.cs" />
     <Compile Include="f_Logo.cs" />
+    <Compile Include="f_MethodOfPayment_DPI.cs" />
+    <Compile Include="f_MethodOfPayment_DPI_BAccount .cs" />
+    <Compile Include="f_MethodOfPayment_DI_BAccount.cs" />
     <Compile Include="f_myOrganisation.cs" />
     <Compile Include="f_myOrganisation_Person.cs" />
     <Compile Include="f_Office.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="f_Organisation.cs" />
     <Compile Include="f_OrganisationAccount.cs" />
     <Compile Include="f_OrganisationData.cs" />
+    <Compile Include="f_PaymentType.cs" />
     <Compile Include="f_Person.cs" />
     <Compile Include="f_PriceAtom_ServiceAtom.cs" />
     <Compile Include="f_PriceList.cs" />
@@ -185,7 +189,7 @@
     <Compile Include="f_TermsOfPayment.cs" />
     <Compile Include="f_Trucking.cs" />
     <Compile Include="f_Unit.cs" />
-    <Compile Include="f_MethodOfPayment.cs" />
+    <Compile Include="f_MethodOfPayment_DI.cs" />
     <Compile Include="f_Warranty.cs" />
     <Compile Include="f_WorkingPlace.cs" />
     <Compile Include="GlobalData.cs" />
@@ -196,6 +200,7 @@
     <Compile Include="JOURNAL_DocProformaInvoice_Type_definitions .cs" />
     <Compile Include="JOURNAL_DocInvoice_Type_definitions.cs" />
     <Compile Include="Language_definitions.cs" />
+    <Compile Include="PaymentType_definitions.cs" />
     <Compile Include="TermsOfPayment_definitions.cs" />
     <Compile Include="MyOrg.cs" />
     <Compile Include="myOrg_Office.cs" />
@@ -293,6 +298,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="InvoiceDB.licenseheader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

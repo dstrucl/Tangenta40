@@ -102,17 +102,17 @@ namespace Tangenta
                     dtP_PaymentDeadline.Value = m_AddOnDI.m_PaymentDeadline.Date;
                 }
 
-                if (m_AddOnDI.m_MethodOfPayment != null)
+                if (m_AddOnDI.m_MethodOfPayment_DI != null)
                 {
-                    switch (m_AddOnDI.m_MethodOfPayment.eType)
+                    switch (m_AddOnDI.m_MethodOfPayment_DI.eType)
                     {
                         case GlobalData.ePaymentType.CASH:
                             rdb_Cash.Checked = true;
                             break;
-                        case GlobalData.ePaymentType.PAYMENT_CARD:
+                        case GlobalData.ePaymentType.CARD:
                             rdb_CARD.Checked = true;
                             break;
-                        case GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD:
+                        case GlobalData.ePaymentType.CASH_OR_CARD:
                             rdb_Cash.Checked = true;
                             break;
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
@@ -137,7 +137,7 @@ namespace Tangenta
 
         private string SetBankAccountText()
         {
-            return "[" + m_AddOnDI.m_MethodOfPayment.BankAccount + "] " + m_AddOnDI.m_MethodOfPayment.BankName;
+            return "[" + m_AddOnDI.m_MethodOfPayment_DI.BankAccount + "] " + m_AddOnDI.m_MethodOfPayment_DI.BankName;
         }
 
         private void Rdb_CARD_CheckedChanged(object sender, EventArgs e)
@@ -145,11 +145,11 @@ namespace Tangenta
             if (rdb_CARD.Checked)
             {
                 Enable_BankAccountTransfer(false);
-                if (m_AddOnDI.m_MethodOfPayment==null)
+                if (m_AddOnDI.m_MethodOfPayment_DI==null)
                 {
-                    m_AddOnDI.m_MethodOfPayment = new DocInvoice_AddOn.MethodOfPayment();
+                    m_AddOnDI.m_MethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
                 }
-                m_AddOnDI.m_MethodOfPayment.eType = GlobalData.ePaymentType.PAYMENT_CARD;
+                m_AddOnDI.m_MethodOfPayment_DI.eType = GlobalData.ePaymentType.CARD;
             }
         }
 
@@ -157,11 +157,11 @@ namespace Tangenta
         {
             if (rdb_BankAccountTransfer.Checked)
             {
-                if (m_AddOnDI.m_MethodOfPayment == null)
+                if (m_AddOnDI.m_MethodOfPayment_DI == null)
                 {
-                    m_AddOnDI.m_MethodOfPayment = new DocInvoice_AddOn.MethodOfPayment();
+                    m_AddOnDI.m_MethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
                 }
-                m_AddOnDI.m_MethodOfPayment.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
+                m_AddOnDI.m_MethodOfPayment_DI.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
                 Enable_BankAccountTransfer(true);
             }
         }
@@ -170,11 +170,11 @@ namespace Tangenta
         {
             if (rdb_AllreadyPayed.Checked)
             {
-                if (m_AddOnDI.m_MethodOfPayment == null)
+                if (m_AddOnDI.m_MethodOfPayment_DI == null)
                 {
-                    m_AddOnDI.m_MethodOfPayment = new DocInvoice_AddOn.MethodOfPayment();
+                    m_AddOnDI.m_MethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
                 }
-                m_AddOnDI.m_MethodOfPayment.eType = GlobalData.ePaymentType.ALLREADY_PAID;
+                m_AddOnDI.m_MethodOfPayment_DI.eType = GlobalData.ePaymentType.ALLREADY_PAID;
                 Enable_BankAccountTransfer(false);
 
             }
@@ -185,11 +185,11 @@ namespace Tangenta
         {
             if (rdb_Cash.Checked)
             {
-                if (m_AddOnDI.m_MethodOfPayment == null)
+                if (m_AddOnDI.m_MethodOfPayment_DI == null)
                 {
-                    m_AddOnDI.m_MethodOfPayment = new DocInvoice_AddOn.MethodOfPayment();
+                    m_AddOnDI.m_MethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
                 }
-                m_AddOnDI.m_MethodOfPayment.eType = GlobalData.ePaymentType.CASH;
+                m_AddOnDI.m_MethodOfPayment_DI.eType = GlobalData.ePaymentType.CASH;
                 Enable_BankAccountTransfer(false);
             }
             else
@@ -214,17 +214,17 @@ namespace Tangenta
                                                                         " OrganisationAccount_$_org_$$Name desc", xnav);
             if (edt_Item_dlg.ShowDialog(this) == DialogResult.Yes)
             {
-                if (this.m_AddOnDI.m_MethodOfPayment == null)
+                if (this.m_AddOnDI.m_MethodOfPayment_DI == null)
                 {
-                    this.m_AddOnDI.m_MethodOfPayment = new DocInvoice_AddOn.MethodOfPayment();
+                    this.m_AddOnDI.m_MethodOfPayment_DI = new DocInvoice_AddOn.MethodOfPayment_DI();
 
                 }
-                this.m_AddOnDI.m_MethodOfPayment.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
-                this.m_AddOnDI.m_MethodOfPayment.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
-                this.m_AddOnDI.m_MethodOfPayment.BankName = edt_Item_dlg.BankName;
-                this.m_AddOnDI.m_MethodOfPayment.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
-                this.m_AddOnDI.m_MethodOfPayment.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
-                this.m_AddOnDI.m_MethodOfPayment.BankAccount = edt_Item_dlg.TRR;
+                this.m_AddOnDI.m_MethodOfPayment_DI.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
+                this.m_AddOnDI.m_MethodOfPayment_DI.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
+                this.m_AddOnDI.m_MethodOfPayment_DI.BankName = edt_Item_dlg.BankName;
+                this.m_AddOnDI.m_MethodOfPayment_DI.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
+                this.m_AddOnDI.m_MethodOfPayment_DI.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
+                this.m_AddOnDI.m_MethodOfPayment_DI.BankAccount = edt_Item_dlg.TRR;
                 this.txt_BankAccount.Text = SetBankAccountText();
             }
         }
@@ -281,11 +281,11 @@ namespace Tangenta
             m_AddOnDI.m_IssueDate.Date = dtP_DateOfIssue.Value;
 
             m_AddOnDI.m_PaymentDeadline = null;
-            if (m_AddOnDI.m_MethodOfPayment != null)
+            if (m_AddOnDI.m_MethodOfPayment_DI != null)
             {
-                if (m_AddOnDI.m_MethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                if (m_AddOnDI.m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                 {
-                    if (m_AddOnDI.m_PaymentDeadline == null)
+                    if (m_AddOnDI.m_MethodOfPayment_DI == null)
                     {
                         m_AddOnDI.m_PaymentDeadline = new DocInvoice_AddOn.PaymentDeadline();
                     }

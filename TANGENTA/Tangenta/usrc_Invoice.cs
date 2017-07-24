@@ -2176,7 +2176,7 @@ do_EditMyOrganisation_Data:
                 {
                     this.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
                     m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC,this.AddOnDI,this.AddOnDPI, m_ShopABC.m_CurrentInvoice.Doc_ID,Properties.Settings.Default.ElectronicDevice_ID));
-                    if (m_InvoiceData.AddOnDI.m_MethodOfPayment.eType == GlobalData.ePaymentType.CASH )
+                    if (m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH )
                     {
 
                     }

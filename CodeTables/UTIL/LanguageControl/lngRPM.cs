@@ -84,6 +84,7 @@ namespace LanguageControl
         public static ltext s_PaymentType_BANK_ACCOUNT_TRANSFER = new ltext("Bank account transfer","Plačilo na tekoči račun");
         public static ltext s_PaymentType_ALLREADY_PAID = new ltext("Allready paid", "Že plačano");
         public static ltext s_PaymentType_PAYMENT_CARD = new ltext("Payment card", "Plačilna kartica");
+        public static ltext s_PaymentType_ANY_TYPE = new ltext("Payment any type", "Vsi načini plačila");
 
         public static ltext s_Number_Of_Months = new ltext ("Number of months","Število mesecev");
         public static ltext s_Number_Of_Days = new ltext("Number of days", "Število dni");
