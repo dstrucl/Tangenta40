@@ -394,9 +394,9 @@ namespace TangentaDB
             Clear();
             string sql = @"select 
                             di.IssueDate,
-                            di.TermsOfPayment_ID,
+                            diao.TermsOfPayment_ID,
                             mop.ID as MethodOfPayment_DI_ID,
-                            di.PaymentDeadline,
+                            diao.PaymentDeadline,
                             mopba.Atom_BankAccount_ID,
                             top.Description as TermsOfPayment_Description,
                             mop.PaymentType_ID,
@@ -406,8 +406,9 @@ namespace TangentaDB
                             ao.Tax_ID,
                             ao.Registration_ID
                             from DocInvoice di
-                            left join  TermsOfPayment top on di.TermsOfPayment_ID = top.ID
-                            left join  MethodOfPayment_DI mop on mop.DocInvoice_ID = di.ID
+							left join  DocInvoiceAddOn diao on diao.DocInvoice_ID = di.ID
+                            left join  TermsOfPayment top on diao.TermsOfPayment_ID = top.ID
+                            left join  MethodOfPayment_DI mop on diao.MethodOfPayment_DI_ID = mop.ID
                             left join  PaymentType pt on mop.PaymentType_ID = pt.ID
                             left join  MethodOfPayment_DI_BAccount mopba on mopba.MethodOfPayment_DI_ID = mop.ID
                             left join  Atom_BankAccount aba on mopba.Atom_BankAccount_ID = aba.ID

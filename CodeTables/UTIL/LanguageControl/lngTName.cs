@@ -255,8 +255,8 @@ namespace LanguageControl
         public static ltext lngt_t_DocProformaInvoice_ShopC_Item = new ltext("Proforma Invoice ShopC Item", "Artikli prodajalne C na pred-računu");
         public static ltext lngt_myOrganisation_Person = new ltext("myCommpany_Person", "Oseba podjetja");
         public static ltext lngt_TermsOfPayment = new ltext("TermsOfPayment", "Plačilni pogoji");
-        public static ltext lngt_Invoice_Image = new ltext("Invoice Image", "Račun Slika");
-        public static ltext lngt_ProformaInvoice_Image = new ltext("Proforma Invoice Image", "Predračun Slika");
+        public static ltext lngt_DocInvoiceAddOn = new ltext("Invoice addition", "Račun dodatek");
+        public static ltext lngt_ProformaInvoiceAddOn = new ltext("Proforma Invoice ", "Predračun dodatek");
         public static ltext lngt_DocInvoice_Image = new ltext("Invoice Image", "Slike računa");
         public static ltext lngt_DocInvoice_Notice = new ltext("Invoice Notice", "Dopis na računu");
         public static ltext lngt_DocProformaInvoice_Notice = new ltext("Proforma Invoice Notice", "Dopis na predračunu");

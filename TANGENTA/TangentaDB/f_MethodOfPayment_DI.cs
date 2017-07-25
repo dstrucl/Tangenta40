@@ -14,7 +14,6 @@ namespace TangentaDB
     {
 
         public static bool Get(
-                              long DocInvoice_ID,
                               GlobalData.ePaymentType ePaymentType,
                               long_v Atom_BankAccount_ID_v,
                               ref long_v PaymentType_ID_v,
@@ -29,10 +28,6 @@ namespace TangentaDB
                 string Err = null;
                 DataTable dt = new DataTable();
 
-                string spar_DocInvoice_ID = "@par_DocInvoice_ID";
-                SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID);
-                lpar.Add(par_DocInvoice_ID);
-
 
                 string spar_PaymentType_ID = "@par_PaymentType";
                 SQL_Parameter par_PaymentType_ID = new SQL_Parameter(spar_PaymentType_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, PaymentType_ID_v.v);
@@ -40,7 +35,7 @@ namespace TangentaDB
 
 
 
-                string sql = " select ID from MethodOfPayment_DI where DocInvoice_ID = "+ spar_DocInvoice_ID+ " and PaymentType_ID = " + spar_PaymentType_ID;
+                string sql = " select ID from MethodOfPayment_DI where PaymentType_ID = " + spar_PaymentType_ID;
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                 {
                     if (dt.Rows.Count > 0)
@@ -55,8 +50,8 @@ namespace TangentaDB
                     else
                     {
 
-                        sql = @" insert into  MethodOfPayment_DI (DocInvoice_ID, PaymentType_ID) values
-                                                        (" + spar_DocInvoice_ID + "," + spar_PaymentType_ID + ")";
+                        sql = @" insert into  MethodOfPayment_DI (PaymentType_ID) values
+                                                        (" + spar_PaymentType_ID + ")";
                         object oret = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref MethodOfPayment_DI_ID, ref oret, ref Err, "MethodOfPayment_DI"))
                         {
@@ -87,7 +82,6 @@ namespace TangentaDB
         }
 
         public static bool Get(
-                              long DocInvoice_ID,
                               GlobalData.ePaymentType ePaymentType,
                               string PaymentType_Name,
                               long_v Atom_BankAccount_ID_v,
@@ -103,9 +97,6 @@ namespace TangentaDB
                 string Err = null;
                 DataTable dt = new DataTable();
 
-                string spar_DocInvoice_ID = "@par_DocInvoice_ID";
-                SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID);
-                lpar.Add(par_DocInvoice_ID);
 
 
                 string spar_PaymentType_ID = "@par_PaymentType";
@@ -114,7 +105,7 @@ namespace TangentaDB
 
 
 
-                string sql = " select ID from MethodOfPayment_DI where DocInvoice_ID = " + spar_DocInvoice_ID + " and PaymentType_ID = " + spar_PaymentType_ID;
+                string sql = " select ID from MethodOfPayment_DI where PaymentType_ID = " + spar_PaymentType_ID;
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                 {
                     if (dt.Rows.Count > 0)
@@ -129,8 +120,8 @@ namespace TangentaDB
                     else
                     {
 
-                        sql = @" insert into  MethodOfPayment_DI (DocInvoice_ID, PaymentType_ID) values
-                                                        (" + spar_DocInvoice_ID + "," + spar_PaymentType_ID + ")";
+                        sql = @" insert into  MethodOfPayment_DI ( PaymentType_ID) values
+                                                        ("+ spar_PaymentType_ID + ")";
                         object oret = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref MethodOfPayment_DI_ID, ref oret, ref Err, "MethodOfPayment_DI"))
                         {

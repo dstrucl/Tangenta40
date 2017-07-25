@@ -205,18 +205,18 @@ namespace TangentaDB
         public string colDocInvoice_GrossSum;
         public string colDocInvoice_BuyerAtom_Person_ID;
         public string colDocInvoice_BuyerOrganisationAtom_ID;
-        public string colDocInvoice_WarrantyExists;
-        public string colDocInvoice_WarrantyDurationType;
-        public string colDocInvoice_WarrantyDuration;
-        public string colDocInvoice_WarrantyConditions;
-        public string colDocInvoice_DocDuration;
-        public string colDocInvoice_DocDurationType;
-        public string colDocInvoice_TermsOfPayment_ID;
+        //public string colDocInvoice_WarrantyExists;
+        //public string colDocInvoice_WarrantyDurationType;
+        //public string colDocInvoice_WarrantyDuration;
+        //public string colDocInvoice_WarrantyConditions;
+        //public string colDocInvoice_DocDuration;
+        //public string colDocInvoice_DocDurationType;
+        //public string colDocInvoice_TermsOfPayment_ID;
         public string colDocInvoice_Invoice_ID;
 
         public string colInvoice_ID;
         public string colInvoice_InvoiceTime;
-        public string colInvoice_PaymentDeadline;
+        //public string colInvoice_PaymentDeadline;
         public string colInvoice_Paid;
         public string colInvoice_Storno;
 
@@ -377,18 +377,18 @@ namespace TangentaDB
             colDocInvoice_GrossSum = GetName(td.m_DocInvoice.GrossSum.GetType()); ;
             colDocInvoice_BuyerAtom_Person_ID = stbl_BuyerAtom_Person_TableName + "_" + GetName(td.m_BuyerAtom_Person.ID.GetType());
             colDocInvoice_BuyerOrganisationAtom_ID = stbl_BuyerOrganisationAtom_TableName + "_" + GetName(td.m_Atom_Organisation.ID.GetType());
-            colDocInvoice_WarrantyExists = GetName(td.m_DocInvoice.WarrantyExist.GetType());
-            colDocInvoice_WarrantyDurationType = GetName(td.m_DocInvoice.WarrantyDurationType.GetType());
-            colDocInvoice_WarrantyDuration = GetName(td.m_DocInvoice.WarrantyDuration.GetType());
-            colDocInvoice_WarrantyConditions = GetName(td.m_DocInvoice.WarrantyConditions.GetType());
-            colDocInvoice_TermsOfPayment_ID = stbl_TermsOfPayment_TableName + "_" + GetName(td.m_TermsOfPayment.ID.GetType());
+            //colDocInvoice_WarrantyExists = GetName(td.m_DocInvoice.WarrantyExist.GetType());
+            //colDocInvoice_WarrantyDurationType = GetName(td.m_DocInvoice.WarrantyDurationType.GetType());
+            //colDocInvoice_WarrantyDuration = GetName(td.m_DocInvoice.WarrantyDuration.GetType());
+            //colDocInvoice_WarrantyConditions = GetName(td.m_DocInvoice.WarrantyConditions.GetType());
+            //colDocInvoice_TermsOfPayment_ID = stbl_TermsOfPayment_TableName + "_" + GetName(td.m_TermsOfPayment.ID.GetType());
             colDocInvoice_FinancialYear = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.FinancialYear.GetType());
             colDocInvoice_as_FinancialYear = stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.FinancialYear.GetType());
             colDocInvoice_NumberInFinancialYear = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
             colDocInvoice_as_NumberInFinancialYear = stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.NumberInFinancialYear.GetType());
             colDocInvoice_Invoice_ID = stbl_DocInvoice_TableName + "." + stbl_DocInvoice_TableName + "_" + GetName(td.m_DocInvoice.ID.GetType());
 
-            colInvoice_PaymentDeadline = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.PaymentDeadline.GetType());
+            //colInvoice_PaymentDeadline = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.PaymentDeadline.GetType());
             colInvoice_Paid = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.Paid.GetType());
             colInvoice_Storno = stbl_DocInvoice_TableName + "." + GetName(td.m_DocInvoice.Storno.GetType()); ;
 

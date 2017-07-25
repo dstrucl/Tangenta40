@@ -98,12 +98,12 @@ namespace TangentaDB
                         JOURNAL_DocInvoice_$_dinv_$$EndSum,
                         JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                         JOURNAL_DocInvoice_$_dinv_$$GrossSum,
-                        JOURNAL_DocInvoice_$_dinv_$$WarrantyExist,
-                        JOURNAL_DocInvoice_$_dinv_$$WarrantyDurationType,
-                        JOURNAL_DocInvoice_$_dinv_$$WarrantyDuration,
-                        JOURNAL_DocInvoice_$_dinv_$$WarrantyConditions,
-                        JOURNAL_DocInvoice_$_dinv_$_trmpay_$$ID,
-                        JOURNAL_DocInvoice_$_dinv_$$PaymentDeadline,
+                        diao.Atom_Warranty_ID,
+                        aw.WarrantyDurationType,
+                        aw.WarrantyDuration,
+                        aw.WarrantyConditions,
+                        diao.TermsOfPayment_ID,
+                        diao.PaymentDeadline,
                         mtpdi.ID as MethodOfPayment_DI_ID,
                         pt.Identification as PaymentType_Identification,
                         JOURNAL_DocInvoice_$_dinv_$$Paid,
@@ -111,8 +111,11 @@ namespace TangentaDB
                         JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID,
                         JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type
                         from JOURNAL_DocInvoice_VIEW 
-                        left join MethodOfPayment_DI mtpdi on mtpdi.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv_$$ID
+						left join DocInvoiceAddOn diao on diao.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv_$$ID
+                        left join TermsOfPayment top on diao.TermsOfPayment_ID = top.id
+                        left join MethodOfPayment_DI mtpdi on diao.MethodOfPayment_DI_ID = mtpdi.id
                         left join PaymentType pt on mtpdi.PaymentType_ID = pt.ID
+                        left join Atom_Warranty aw on diao.Atom_Warranty_ID = aw.ID
                         " + cond;
 
             }
@@ -149,15 +152,19 @@ namespace TangentaDB
                         JOURNAL_DocProformaInvoice_$_dpinv_$$EndSum,
                         JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
                         JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyExist,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyDurationType,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyDuration,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$WarrantyConditions,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$ID,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$Description,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$DocDuration,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$DocDurationType
-                        from JOURNAL_DocProformaInvoice_VIEW " + cond;
+                        dpiao.Atom_Warranty_ID,
+                        aw.WarrantyDurationType,
+                        aw.WarrantyDuration,
+                        aw.WarrantyConditions,
+                        dpiao.TermsOfPayment_ID,
+                        top.Description as TermsOfPayment_Description,
+                        dpiao.DocDuration,
+                        dpiao.DocDurationType
+                        from JOURNAL_DocProformaInvoice_VIEW
+                        left join DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv_$$ID
+                        left join TermsOfPayment top on dpiao.TermsOfPayment_ID = top.ID
+                        left join Atom_Warranty aw on dpiao.Atom_Warranty_ID = aw.ID
+                        " + cond;
             }
             else
             {

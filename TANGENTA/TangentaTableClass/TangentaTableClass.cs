@@ -1846,7 +1846,6 @@ namespace TangentaTableClass
     public class MethodOfPayment_DI
     {
         public ID ID = new ID();
-        public DocInvoice m_DocInvoice = new DocInvoice();
         public PaymentType m_PaymentType  = new PaymentType();
     }
 
@@ -1860,7 +1859,6 @@ namespace TangentaTableClass
     public class MethodOfPayment_DPI
     {
         public ID ID = new ID();
-        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
         public PaymentType m_PaymentType = new PaymentType();
     }
 
@@ -1916,6 +1914,7 @@ namespace TangentaTableClass
     {
 
     }
+
     public class DocInvoice 
     {
         public ID ID = new ID();
@@ -1931,16 +1930,20 @@ namespace TangentaTableClass
         public GrossSum GrossSum = new GrossSum();
         public Atom_Customer_Person m_Atom_Customer_Person = new Atom_Customer_Person();
         public Atom_Customer_Org m_Atom_Customer_Org = new Atom_Customer_Org();
-        public WarrantyExist WarrantyExist = new WarrantyExist();
-        public WarrantyDurationType WarrantyDurationType = new WarrantyDurationType();
-        public WarrantyDuration WarrantyDuration = new WarrantyDuration();
-        public WarrantyConditions WarrantyConditions = new WarrantyConditions();
-        public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
-        public PaymentDeadline PaymentDeadline = new PaymentDeadline();
         public Paid Paid = new Paid();
         public Storno Storno = new Storno();
         public Invoice_Reference_ID Invoice_Reference_ID = new Invoice_Reference_ID();
         public Invoice_Reference_Type Invoice_Reference_Type = new Invoice_Reference_Type();
+    }
+
+    public class DocInvoiceAddOn
+    {
+        public ID ID = new ID();
+        public DocInvoice m_DocInvoice = new DocInvoice();
+        public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
+        public PaymentDeadline PaymentDeadline = new PaymentDeadline();
+        public MethodOfPayment_DI m_MethodOfPayment_DI = new MethodOfPayment_DI();
+        public Atom_Warranty m_Atom_Warranty = new Atom_Warranty();
     }
 
     public class DocProformaInvoice
@@ -1958,13 +1961,18 @@ namespace TangentaTableClass
         public GrossSum GrossSum = new GrossSum();
         public Atom_Customer_Person m_Atom_Customer_Person = new Atom_Customer_Person();
         public Atom_Customer_Org m_Atom_Customer_Org = new Atom_Customer_Org();
-        public WarrantyExist WarrantyExist = new WarrantyExist();
-        public WarrantyDurationType WarrantyDurationType = new WarrantyDurationType();
-        public WarrantyDuration WarrantyDuration = new WarrantyDuration();
-        public WarrantyConditions WarrantyConditions = new WarrantyConditions();
+    }
+
+    public class DocProformaInvoiceAddOn
+    {
+        public ID ID = new ID();
+        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
         public DocDuration DocDuration = new DocDuration();
         public DocDurationType DocDurationType = new DocDurationType();
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
+        public MethodOfPayment_DPI m_MethodOfPayment_DPI = new MethodOfPayment_DPI();
+        public Atom_Warranty m_Atom_Warranty = new Atom_Warranty();
+
     }
 
     public class Doc_ImageLib
@@ -1983,35 +1991,23 @@ namespace TangentaTableClass
         public Description Description = new Description();
     }
 
-    public class DocInvoice_Notice
+    public class DocInvoiceAddOn_Notice
     {
         public ID ID = new ID();
-        public DocInvoice m_DocInvoice = new DocInvoice();
+        public DocInvoiceAddOn m_DocInvoiceAddOn = new DocInvoiceAddOn();
         public Notice m_Notice = new Notice();
         public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
     }
 
-    public class DocProformaInvoice_Notice
+    public class DocProformaInvoiceAddOn_Notice
     {
         public ID ID = new ID();
-        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public DocProformaInvoiceAddOn m_DocProformaInvoiceAddOn = new DocProformaInvoiceAddOn();
         public Notice m_Notice = new Notice();
         public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
     }
 
-    public class DocInvoice_Image
-    {
-        public ID ID = new ID();
-        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
-        public DocInvoice m_DocInvoice = new DocInvoice();
-    }
 
-    public class DocProformaInvoice_Image
-    {
-        public ID ID = new ID();
-        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
-        public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
-    }
 
     public class DBSettings
     {
@@ -2655,13 +2651,13 @@ namespace TangentaTableClass
         public DocInvoice m_DocInvoice = new DocInvoice();
 
         /* 46 */
-        public DocInvoice_Notice m_DocInvoice_Notice = new DocInvoice_Notice();
+        public DocInvoiceAddOn_Notice m_DocInvoiceAddOn_Notice = new DocInvoiceAddOn_Notice();
 
         /* 47 */
         public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
 
         /* 48 */
-        public DocInvoice_Image m_DocInvoice_Image = new DocInvoice_Image();
+        public DocInvoiceAddOn m_DocInvoiceAddOn = new DocInvoiceAddOn();
 
         /* 49 */
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
@@ -3066,10 +3062,10 @@ namespace TangentaTableClass
         public DocProformaInvoice_ShopB_Item m_DocProformaInvoice_ShopB_Item = new DocProformaInvoice_ShopB_Item();
 
         /* 183 */
-        public DocProformaInvoice_Notice m_DocProformaInvoice_Notice = new DocProformaInvoice_Notice();
+        public DocProformaInvoiceAddOn_Notice m_DocProformaInvoiceAddOn_Notice = new DocProformaInvoiceAddOn_Notice();
 
         /* 184 */
-        public DocProformaInvoice_Image m_DocProformaInvoice_Image = new DocProformaInvoice_Image();
+        public DocProformaInvoiceAddOn m_DocProformaInvoiceAddOn = new DocProformaInvoiceAddOn();
 
         /* 185 */
         public DocProformaInvoice_ShopA_Item m_DocProformaInvoice_ShopA_Item = new DocProformaInvoice_ShopA_Item();
