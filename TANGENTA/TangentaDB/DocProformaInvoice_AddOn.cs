@@ -263,6 +263,7 @@ namespace TangentaDB
                 string_v PaymentType_v = null;
                 long_v MethodOfPayment_DPI_BAccount_ID_v = null;
                 long_v MethodOfPayment_DPI_v = null;
+                return false;
                 switch (eType)
                 {
                     case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
@@ -293,21 +294,21 @@ namespace TangentaDB
                             }
                         }
                         return false;
-                    default:
-                        if (f_MethodOfPayment_DI.Get(DocProformaInvoice_ID,
-                                                            eType,
-                                                            null,
-                                                            ref PaymentType_ID_v,
-                                                            ref PaymentType_v,
-                                                            ref MethodOfPayment_DPI_BAccount_ID_v,
-                                                            ref MethodOfPayment_DPI_v))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                    //default:
+                    //    if (f_MethodOfPayment_DI.Get(DocProformaInvoice_ID,
+                    //                                        eType,
+                    //                                        null,
+                    //                                        ref PaymentType_ID_v,
+                    //                                        ref PaymentType_v,
+                    //                                        ref MethodOfPayment_DPI_BAccount_ID_v,
+                    //                                        ref MethodOfPayment_DPI_v))
+                    //    {
+                    //        return true;
+                    //    }
+                    //    else
+                    //    {
+                    //        return false;
+                    //    }
                 }
             }
         }

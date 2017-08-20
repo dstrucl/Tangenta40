@@ -1604,18 +1604,18 @@ namespace UpgradeDB
                         string_v PaymentType_Name_v = null;
                         long_v MethodOfPayment_DI_BAccount_ID_v = null;
                         long_v MethodOfPayment_DI_ID_v = null;
-                        if (!f_MethodOfPayment_DI.Get(DocInvoice_ID_v.v,
-                                                 ePaymentType,
-                                                 GlobalData.Get_sPaymentType_ltext(ePaymentType).s,
-                                                 null,
-                                                 ref PaymentType_ID_v,
-                                                 ref PaymentType_Name_v,
-                                                 ref MethodOfPayment_DI_BAccount_ID_v,
-                                                 ref MethodOfPayment_DI_ID_v
-                                                ))
-                        {
+                        //if (!f_MethodOfPayment_DI.Get(DocInvoice_ID_v.v,
+                        //                         ePaymentType,
+                        //                         GlobalData.Get_sPaymentType_ltext(ePaymentType).s,
+                        //                         null,
+                        //                         ref PaymentType_ID_v,
+                        //                         ref PaymentType_Name_v,
+                        //                         ref MethodOfPayment_DI_BAccount_ID_v,
+                        //                         ref MethodOfPayment_DI_ID_v
+                        //                        ))
+                        //{
                             return false;
-                        }
+                        //
                     }
                 }
                 return true;

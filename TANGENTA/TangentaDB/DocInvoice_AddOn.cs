@@ -304,39 +304,40 @@ namespace TangentaDB
                         {
                             if (Atom_BankAccount_ID_v != null)
                             {
-                                if (f_MethodOfPayment_DI.Get(DocInvoice_ID,
-                                                             eType,
-                                                             Atom_BankAccount_ID_v,
-                                                             ref PaymentType_ID_v,
-                                                             ref PaymentType_v,
-                                                             ref MethodOfPayment_DI_BAccount_ID_v,
-                                                             ref MethodOfPayment_DI_v))
-                                {
-                                    return true;
-                                }
-                                else
-                                {
-                                    return false;
-                                }
+                                //if (f_MethodOfPayment_DI.Get(DocInvoice_ID,
+                                //                             eType,
+                                //                             Atom_BankAccount_ID_v,
+                                //                             ref PaymentType_ID_v,
+                                //                             ref PaymentType_v,
+                                //                             ref MethodOfPayment_DI_BAccount_ID_v,
+                                //                             ref MethodOfPayment_DI_v))
+                                //{
+                                //    return true;
+                                //}
+                                //else
+                                //{
+                                //    return false;
+                                //}
                             }
                         }
                         return false;
-                    default:
-                        if (f_MethodOfPayment_DI.Get(DocInvoice_ID,
-                                                             eType,
-                                                             null,
-                                                             ref PaymentType_ID_v,
-                                                             ref PaymentType_v,
-                                                             ref MethodOfPayment_DI_BAccount_ID_v,
-                                                             ref MethodOfPayment_DI_v))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                    //default:
+                        //if (f_MethodOfPayment_DI.Get(DocInvoice_ID,
+                        //                                     eType,
+                        //                                     null,
+                        //                                     ref PaymentType_ID_v,
+                        //                                     ref PaymentType_v,
+                        //                                     ref MethodOfPayment_DI_BAccount_ID_v,
+                        //                                     ref MethodOfPayment_DI_v))
+                        //{
+                        //    return true;
+                        //}
+                        //else
+                        //{
+                        //    return false;
+                        //}
                 }
+                return false;
             }
 
             internal GlobalData.ePaymentType Set(object oPaymentType)
