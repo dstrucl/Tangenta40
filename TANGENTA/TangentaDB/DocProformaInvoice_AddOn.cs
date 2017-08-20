@@ -349,18 +349,18 @@ namespace TangentaDB
             string Err = null;
             Clear();
             string sql = @"select 
-                            dpi.IssueDate,
-                            dpiao.DocDuration,
-                            dpiao.DocDurationType,
-                            dpiao.TermsOfPayment_ID,
+                            dpi.IssueDate as IssueDate,
+                            dpiao.DocDuration as DocDuration,
+                            dpiao.DocDurationType as DocDurationType,
+                            dpiao.TermsOfPayment_ID as TermsOfPayment_ID,
                             mop.ID as MethodOfPayment_DPI_ID,
-                            mopba.Atom_BankAccount_ID,
+                            mopba.Atom_BankAccount_ID as Atom_BankAccount_ID,
                             top.Description as TermsOfPayment_Description,
                             pt.Identification as PaymentType_Identification,
-                            aba.TRR,
-                            ao.Name,
-                            ao.Tax_ID,
-                            ao.Registration_ID
+                            aba.TRR as TRR,
+                            ao.Name as AtomOrganisationName,
+                            ao.Tax_ID as Tax_ID,
+                            ao.Registration_ID as Registration_ID
                             from DocProformaInvoice dpi
                             left join  DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = dpi.ID
                             left join  TermsOfPayment top on dpiao.TermsOfPayment_ID = top.ID
@@ -383,9 +383,9 @@ namespace TangentaDB
                     m_TermsOfPayment = DocProformaInvoice_AddOn.TermsOfPayment.Set(dt.Rows[0]["TermsOfPayment_ID"],
                                                                                    dt.Rows[0]["TermsOfPayment_Description"]);
 
-                    m_MethodOfPayment_DPI = DocProformaInvoice_AddOn.MethodOfPayment_DPI.Set(dt.Rows[0]["MethodOfPayment_ID"],
+                    m_MethodOfPayment_DPI = DocProformaInvoice_AddOn.MethodOfPayment_DPI.Set(dt.Rows[0]["MethodOfPayment_DPI_ID"],
                                                                                      dt.Rows[0]["PaymentType_Identification"],
-                                                                                     dt.Rows[0]["Name"],
+                                                                                     dt.Rows[0]["AtomOrganisationName"],
                                                                                      dt.Rows[0]["Tax_ID"],
                                                                                      dt.Rows[0]["Registration_ID"],
                                                                                      dt.Rows[0]["TRR"],

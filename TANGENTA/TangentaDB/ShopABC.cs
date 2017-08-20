@@ -152,14 +152,14 @@ namespace TangentaDB
                         JOURNAL_DocProformaInvoice_$_dpinv_$$EndSum,
                         JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
                         JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum,
-                        dpiao.Atom_Warranty_ID,
-                        aw.WarrantyDurationType,
-                        aw.WarrantyDuration,
-                        aw.WarrantyConditions,
-                        dpiao.TermsOfPayment_ID,
+                        dpiao.Atom_Warranty_ID as Atom_Warranty_ID,
+                        aw.WarrantyDurationType as WarrantyDurationType,
+                        aw.WarrantyDuration as WarrantyDuration,
+                        aw.WarrantyConditions as WarrantyConditions,
+                        dpiao.TermsOfPayment_ID as TermsOfPayment_ID,
                         top.Description as TermsOfPayment_Description,
-                        dpiao.DocDuration,
-                        dpiao.DocDurationType
+                        dpiao.DocDuration as DocDuration,
+                        dpiao.DocDurationType as DocDurationType
                         from JOURNAL_DocProformaInvoice_VIEW
                         left join DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv_$$ID
                         left join TermsOfPayment top on dpiao.TermsOfPayment_ID = top.ID
@@ -177,7 +177,7 @@ namespace TangentaDB
 
 
 
-
+            m_CurrentInvoice.dtCurrent_Invoice.Columns.Clear();
             m_CurrentInvoice.dtCurrent_Invoice.Clear();
             if (DBSync.DBSync.ReadDataTable(ref m_CurrentInvoice.dtCurrent_Invoice, sql_GetDraft, ref Err))
             {
@@ -262,10 +262,10 @@ namespace TangentaDB
                         m_CurrentInvoice.bDraft = (bool)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$Draft"];
                         m_CurrentInvoice.Doc_ID = (long)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$ID"];
 
-                        m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDuration"]);
-                        m_CurrentInvoice.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$DocDurationType"]);
-                        m_CurrentInvoice.PInvoice.TermsOfPayment_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$ID"]);
-                        m_CurrentInvoice.PInvoice.TermsOfPayment_Description_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$_trmpay_$$Description"]);
+                        m_CurrentInvoice.PInvoice.DocDuration_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["DocDuration"]);
+                        m_CurrentInvoice.PInvoice.DocDuration_Type_v = tf.set_int(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["DocDurationType"]);
+                        m_CurrentInvoice.PInvoice.TermsOfPayment_ID_v = tf.set_long(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["TermsOfPayment_ID"]);
+                        m_CurrentInvoice.PInvoice.TermsOfPayment_Description_v = tf.set_string(m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["TermsOfPayment_Description"]);
 
                         m_CurrentInvoice.FinancialYear = (int)m_CurrentInvoice.dtCurrent_Invoice.Rows[0]["JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear"];
 
