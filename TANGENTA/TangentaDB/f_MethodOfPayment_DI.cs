@@ -13,8 +13,7 @@ namespace TangentaDB
     public static class f_MethodOfPayment_DI
     {
 
-        public static bool Get(
-                              GlobalData.ePaymentType ePaymentType,
+        public static bool Get(GlobalData.ePaymentType ePaymentType,
                               long_v Atom_BankAccount_ID_v,
                               ref long_v PaymentType_ID_v,
                               ref string_v PaymentType_v,
