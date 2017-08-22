@@ -449,7 +449,7 @@ namespace TangentaDB
 
             if (DocInvoice_ID_v == null)
             {
-                DocInvoiceAddOn_ID_v = new long_v(DocInvoice_ID);
+                DocInvoice_ID_v = new long_v(DocInvoice_ID);
             }
             else
             {
@@ -477,6 +477,11 @@ namespace TangentaDB
 
         private bool Insert()
         {
+            if (DocInvoice_ID_v== null)
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:Insert:DocInvoice_ID_v== null");
+                return false;
+            }
             ltext ltMsg = null;
             long_v MethodOfPayment_DI_ID_v = null;
             if (m_MethodOfPayment_DI.Get(ref MethodOfPayment_DI_ID_v))
@@ -490,12 +495,12 @@ namespace TangentaDB
 
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                         string spar_DocInvoice_ID = "@par_DocInvoice_ID";
-                        SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DI_ID_v);
+                        SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID_v.v);
                         lpar.Add(par_DocInvoice_ID);
 
-                        string spar_MethodOfPayment_ID = "@par_MethodOfPayment_ID";
-                        SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DI_ID_v);
-                        lpar.Add(par_MethodOfPayment_ID);
+                        string spar_MethodOfPayment_DI_ID = "@par_MethodOfPayment_DI_ID";
+                        SQL_Parameter par_MethodOfPayment_DI_ID = new SQL_Parameter(spar_MethodOfPayment_DI_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DI_ID_v.v);
+                        lpar.Add(par_MethodOfPayment_DI_ID);
 
                         string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
                         SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_TermsOfPayment.ID);
@@ -519,11 +524,11 @@ namespace TangentaDB
 
 
                         string sql = @"insert into DocInvoiceAddOn (DocInvoice_ID,
-                                                                   MethodOfPayment_ID,
+                                                                   MethodOfPayment_DI_ID,
                                                                    TermsOfPayment_ID,
                                                                    PaymentDeadline) values
                                                                    (" + spar_DocInvoice_ID + ","
-                                                                   + spar_MethodOfPayment_ID + ","
+                                                                   + spar_MethodOfPayment_DI_ID + ","
                                                                    + spar_TermsOfPayment_ID + "," +
                                                                    sval_PaymentDeadline + ")";
                                                               

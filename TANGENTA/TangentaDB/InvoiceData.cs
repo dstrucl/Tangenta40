@@ -784,11 +784,12 @@ namespace TangentaDB
                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                left join DocInvoiceAddOn piao on piao.DocInvoice_ID = pi.ID
                                 LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = pi.ID 
                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = pi.ID 
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                left join MethodOfPayment_DI mpdi on mpdi.DocInvoice_ID = pi.ID
+                                left join MethodOfPayment_DI mpdi on mpdi.ID = piao.MethodOfPayment_DI_ID
                                 left join MethodOfPayment_DI_BAccount mptdiba on mptdiba.MethodOfPayment_DI_ID = mpdi.ID
                                 left join Atom_BankAccount aba on mptdiba.Atom_BankAccount_ID = aba.ID
                                 left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
@@ -870,9 +871,10 @@ namespace TangentaDB
                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                left join DocInvoiceAddOn piao on piao.DocInvoice_ID = pi.ID
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                left join MethodOfPayment_DI mpdi on mpdi.DocInvoice_ID = pi.ID
+                                left join MethodOfPayment_DI mpdi on mpdi.ID = piao.MethodOfPayment_DI_ID
                                 left join MethodOfPayment_DI_BAccount mptdiba on mptdiba.MethodOfPayment_DI_ID = mptdi.ID
                                 left join Atom_BankAccount aba on mptdiba.Atom_BankAccount_ID = aba.ID
                                 left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
@@ -952,9 +954,10 @@ namespace TangentaDB
                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                left join DocProformaInvoiceAddOn piao on piao.DocProformaInvoice_ID = pi.ID
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
-                                left join MethodOfPayment_DPI mptdpi on mptdpi.DocInvoice_ID = pi.ID
+                                left join MethodOfPayment_DPI mptdpi on mptdpi.ID = piao.MethodOfPayment_DPI_ID
                                 left join MethodOfPayment_DPI_BAccount mptdpiba on mptdpiba.MethodOfPayment_DPI_ID = mptdpi.ID
                                 left join Atom_BankAccount aba on mptdpiba.Atom_BankAccount_ID = aba.ID
                                 left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID

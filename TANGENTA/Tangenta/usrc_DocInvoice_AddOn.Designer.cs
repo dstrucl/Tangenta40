@@ -55,7 +55,7 @@
             this.rdb_Cash.ForeColor = System.Drawing.Color.Black;
             this.rdb_Cash.Location = new System.Drawing.Point(14, 37);
             this.rdb_Cash.Name = "rdb_Cash";
-            this.rdb_Cash.Size = new System.Drawing.Size(88, 29);
+            this.rdb_Cash.Size = new System.Drawing.Size(111, 35);
             this.rdb_Cash.TabIndex = 0;
             this.rdb_Cash.Text = "CASH";
             this.rdb_Cash.UseVisualStyleBackColor = true;
@@ -65,20 +65,20 @@
             this.rdb_AllreadyPayed.AutoSize = true;
             this.rdb_AllreadyPayed.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_AllreadyPayed.ForeColor = System.Drawing.Color.Black;
-            this.rdb_AllreadyPayed.Location = new System.Drawing.Point(384, 37);
+            this.rdb_AllreadyPayed.Location = new System.Drawing.Point(447, 37);
             this.rdb_AllreadyPayed.Name = "rdb_AllreadyPayed";
-            this.rdb_AllreadyPayed.Size = new System.Drawing.Size(175, 29);
+            this.rdb_AllreadyPayed.Size = new System.Drawing.Size(217, 35);
             this.rdb_AllreadyPayed.TabIndex = 2;
             this.rdb_AllreadyPayed.Text = "Allready Payed";
             this.rdb_AllreadyPayed.UseVisualStyleBackColor = true;
             // 
-            // btn_Print
+            // btn_Invoice_Issue
             // 
             this.btn_Invoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Invoice_Issue.ForeColor = System.Drawing.Color.Black;
-            this.btn_Invoice_Issue.Location = new System.Drawing.Point(188, 399);
-            this.btn_Invoice_Issue.Name = "btn_Print";
-            this.btn_Invoice_Issue.Size = new System.Drawing.Size(197, 55);
+            this.btn_Invoice_Issue.Location = new System.Drawing.Point(20, 385);
+            this.btn_Invoice_Issue.Name = "btn_Invoice_Issue";
+            this.btn_Invoice_Issue.Size = new System.Drawing.Size(398, 65);
             this.btn_Invoice_Issue.TabIndex = 7;
             this.btn_Invoice_Issue.Text = "Print";
             this.btn_Invoice_Issue.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             this.rdb_BankAccountTransfer.ForeColor = System.Drawing.Color.Black;
             this.rdb_BankAccountTransfer.Location = new System.Drawing.Point(14, 92);
             this.rdb_BankAccountTransfer.Name = "rdb_BankAccountTransfer";
-            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(163, 29);
+            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(203, 35);
             this.rdb_BankAccountTransfer.TabIndex = 10;
             this.rdb_BankAccountTransfer.Text = "Bank Account";
             this.rdb_BankAccountTransfer.UseVisualStyleBackColor = true;
@@ -102,7 +102,7 @@
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(464, 398);
+            this.btn_Cancel.Location = new System.Drawing.Point(590, 398);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(115, 52);
             this.btn_Cancel.TabIndex = 12;
@@ -114,7 +114,7 @@
             this.lbl_PaymentDeadline.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_PaymentDeadline.Location = new System.Drawing.Point(23, 341);
             this.lbl_PaymentDeadline.Name = "lbl_PaymentDeadline";
-            this.lbl_PaymentDeadline.Size = new System.Drawing.Size(228, 25);
+            this.lbl_PaymentDeadline.Size = new System.Drawing.Size(228, 32);
             this.lbl_PaymentDeadline.TabIndex = 20;
             this.lbl_PaymentDeadline.Text = "Payment Deadline";
             this.lbl_PaymentDeadline.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -125,7 +125,7 @@
             this.dtP_DateOfIssue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_DateOfIssue.Location = new System.Drawing.Point(264, 5);
             this.dtP_DateOfIssue.Name = "dtP_DateOfIssue";
-            this.dtP_DateOfIssue.Size = new System.Drawing.Size(315, 29);
+            this.dtP_DateOfIssue.Size = new System.Drawing.Size(315, 34);
             this.dtP_DateOfIssue.TabIndex = 17;
             // 
             // grp_TermsOfPayment
@@ -133,9 +133,9 @@
             this.grp_TermsOfPayment.Controls.Add(this.btn_Select_Terms_of_Payment);
             this.grp_TermsOfPayment.Controls.Add(this.txt_PaymantConditionsDescription);
             this.grp_TermsOfPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.grp_TermsOfPayment.Location = new System.Drawing.Point(26, 189);
+            this.grp_TermsOfPayment.Location = new System.Drawing.Point(20, 189);
             this.grp_TermsOfPayment.Name = "grp_TermsOfPayment";
-            this.grp_TermsOfPayment.Size = new System.Drawing.Size(563, 135);
+            this.grp_TermsOfPayment.Size = new System.Drawing.Size(687, 135);
             this.grp_TermsOfPayment.TabIndex = 19;
             this.grp_TermsOfPayment.TabStop = false;
             this.grp_TermsOfPayment.Text = "Terms of Payment";
@@ -144,7 +144,7 @@
             // 
             this.btn_Select_Terms_of_Payment.ForeColor = System.Drawing.Color.Black;
             this.btn_Select_Terms_of_Payment.Image = global::Tangenta.Properties.Resources.SelectRow;
-            this.btn_Select_Terms_of_Payment.Location = new System.Drawing.Point(162, 13);
+            this.btn_Select_Terms_of_Payment.Location = new System.Drawing.Point(192, 13);
             this.btn_Select_Terms_of_Payment.Name = "btn_Select_Terms_of_Payment";
             this.btn_Select_Terms_of_Payment.Size = new System.Drawing.Size(55, 26);
             this.btn_Select_Terms_of_Payment.TabIndex = 14;
@@ -157,7 +157,7 @@
             this.txt_PaymantConditionsDescription.Multiline = true;
             this.txt_PaymantConditionsDescription.Name = "txt_PaymantConditionsDescription";
             this.txt_PaymantConditionsDescription.ReadOnly = true;
-            this.txt_PaymantConditionsDescription.Size = new System.Drawing.Size(537, 72);
+            this.txt_PaymantConditionsDescription.Size = new System.Drawing.Size(642, 72);
             this.txt_PaymantConditionsDescription.TabIndex = 13;
             this.txt_PaymantConditionsDescription.TextChanged += new System.EventHandler(this.txt_PaymantConditionsDescription_TextChanged);
             // 
@@ -172,7 +172,7 @@
             this.grp_MtehodOfPaymentType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.grp_MtehodOfPaymentType.Location = new System.Drawing.Point(20, 46);
             this.grp_MtehodOfPaymentType.Name = "grp_MtehodOfPaymentType";
-            this.grp_MtehodOfPaymentType.Size = new System.Drawing.Size(569, 137);
+            this.grp_MtehodOfPaymentType.Size = new System.Drawing.Size(687, 137);
             this.grp_MtehodOfPaymentType.TabIndex = 18;
             this.grp_MtehodOfPaymentType.TabStop = false;
             this.grp_MtehodOfPaymentType.Text = "Method of Payment";
@@ -182,9 +182,9 @@
             this.rdb_CARD.AutoSize = true;
             this.rdb_CARD.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_CARD.ForeColor = System.Drawing.Color.Black;
-            this.rdb_CARD.Location = new System.Drawing.Point(188, 37);
+            this.rdb_CARD.Location = new System.Drawing.Point(207, 37);
             this.rdb_CARD.Name = "rdb_CARD";
-            this.rdb_CARD.Size = new System.Drawing.Size(89, 29);
+            this.rdb_CARD.Size = new System.Drawing.Size(113, 35);
             this.rdb_CARD.TabIndex = 13;
             this.rdb_CARD.Text = "CARD";
             this.rdb_CARD.UseVisualStyleBackColor = true;
@@ -193,7 +193,7 @@
             // 
             this.btn_Select_BankAccount.ForeColor = System.Drawing.Color.Black;
             this.btn_Select_BankAccount.Image = global::Tangenta.Properties.Resources.SelectRow;
-            this.btn_Select_BankAccount.Location = new System.Drawing.Point(505, 96);
+            this.btn_Select_BankAccount.Location = new System.Drawing.Point(618, 99);
             this.btn_Select_BankAccount.Name = "btn_Select_BankAccount";
             this.btn_Select_BankAccount.Size = new System.Drawing.Size(40, 25);
             this.btn_Select_BankAccount.TabIndex = 12;
@@ -203,10 +203,10 @@
             // txt_BankAccount
             // 
             this.txt_BankAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_BankAccount.Location = new System.Drawing.Point(263, 96);
+            this.txt_BankAccount.Location = new System.Drawing.Point(378, 100);
             this.txt_BankAccount.Name = "txt_BankAccount";
             this.txt_BankAccount.ReadOnly = true;
-            this.txt_BankAccount.Size = new System.Drawing.Size(234, 22);
+            this.txt_BankAccount.Size = new System.Drawing.Size(234, 26);
             this.txt_BankAccount.TabIndex = 11;
             // 
             // lbl_DateOfIssue
@@ -225,7 +225,7 @@
             this.dtP_PaymentDeadline.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_PaymentDeadline.Location = new System.Drawing.Point(259, 339);
             this.dtP_PaymentDeadline.Name = "dtP_PaymentDeadline";
-            this.dtP_PaymentDeadline.Size = new System.Drawing.Size(320, 29);
+            this.dtP_PaymentDeadline.Size = new System.Drawing.Size(320, 34);
             this.dtP_PaymentDeadline.TabIndex = 21;
             // 
             // usrc_DocInvoice_AddOn
@@ -241,7 +241,7 @@
             this.Controls.Add(this.btn_Invoice_Issue);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "usrc_DocInvoice_AddOn";
-            this.Size = new System.Drawing.Size(594, 463);
+            this.Size = new System.Drawing.Size(720, 463);
             this.grp_TermsOfPayment.ResumeLayout(false);
             this.grp_TermsOfPayment.PerformLayout();
             this.grp_MtehodOfPaymentType.ResumeLayout(false);

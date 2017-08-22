@@ -285,7 +285,7 @@ namespace Tangenta
             {
                 if (m_AddOnDI.m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                 {
-                    if (m_AddOnDI.m_MethodOfPayment_DI == null)
+                    if (m_AddOnDI.m_PaymentDeadline == null)
                     {
                         m_AddOnDI.m_PaymentDeadline = new DocInvoice_AddOn.PaymentDeadline();
                     }
