@@ -1918,7 +1918,6 @@ namespace TangentaTableClass
     public class DocInvoice 
     {
         public ID ID = new ID();
-        public IssueDate IssueDate = new IssueDate();
         public FinancialYear FinancialYear = new FinancialYear();
         public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
         public Draft Draft = new Draft();
@@ -1940,6 +1939,7 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public DocInvoice m_DocInvoice = new DocInvoice();
+        public IssueDate IssueDate = new IssueDate();
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
         public PaymentDeadline PaymentDeadline = new PaymentDeadline();
         public MethodOfPayment_DI m_MethodOfPayment_DI = new MethodOfPayment_DI();
@@ -1949,7 +1949,6 @@ namespace TangentaTableClass
     public class DocProformaInvoice
     {
         public ID ID = new ID();
-        public IssueDate IssueDate = new IssueDate();
         public FinancialYear FinancialYear = new FinancialYear();
         public NumberInFinancialYear NumberInFinancialYear = new NumberInFinancialYear();
         public Draft Draft = new Draft();
@@ -1967,6 +1966,7 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
+        public IssueDate IssueDate = new IssueDate();
         public DocDuration DocDuration = new DocDuration();
         public DocDurationType DocDurationType = new DocDurationType();
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();

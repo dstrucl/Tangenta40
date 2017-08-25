@@ -174,7 +174,7 @@ namespace TangentaPrint
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     //m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-                    this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
+                    //this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
                     break;

@@ -55,7 +55,7 @@
             this.rdb_Cash.ForeColor = System.Drawing.Color.Black;
             this.rdb_Cash.Location = new System.Drawing.Point(14, 37);
             this.rdb_Cash.Name = "rdb_Cash";
-            this.rdb_Cash.Size = new System.Drawing.Size(111, 35);
+            this.rdb_Cash.Size = new System.Drawing.Size(88, 29);
             this.rdb_Cash.TabIndex = 0;
             this.rdb_Cash.Text = "CASH";
             this.rdb_Cash.UseVisualStyleBackColor = true;
@@ -67,7 +67,7 @@
             this.rdb_AllreadyPayed.ForeColor = System.Drawing.Color.Black;
             this.rdb_AllreadyPayed.Location = new System.Drawing.Point(447, 37);
             this.rdb_AllreadyPayed.Name = "rdb_AllreadyPayed";
-            this.rdb_AllreadyPayed.Size = new System.Drawing.Size(217, 35);
+            this.rdb_AllreadyPayed.Size = new System.Drawing.Size(175, 29);
             this.rdb_AllreadyPayed.TabIndex = 2;
             this.rdb_AllreadyPayed.Text = "Allready Payed";
             this.rdb_AllreadyPayed.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             this.rdb_BankAccountTransfer.ForeColor = System.Drawing.Color.Black;
             this.rdb_BankAccountTransfer.Location = new System.Drawing.Point(14, 92);
             this.rdb_BankAccountTransfer.Name = "rdb_BankAccountTransfer";
-            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(203, 35);
+            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(163, 29);
             this.rdb_BankAccountTransfer.TabIndex = 10;
             this.rdb_BankAccountTransfer.Text = "Bank Account";
             this.rdb_BankAccountTransfer.UseVisualStyleBackColor = true;
@@ -125,7 +125,7 @@
             this.dtP_DateOfIssue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_DateOfIssue.Location = new System.Drawing.Point(264, 5);
             this.dtP_DateOfIssue.Name = "dtP_DateOfIssue";
-            this.dtP_DateOfIssue.Size = new System.Drawing.Size(315, 34);
+            this.dtP_DateOfIssue.Size = new System.Drawing.Size(441, 29);
             this.dtP_DateOfIssue.TabIndex = 17;
             // 
             // grp_TermsOfPayment
@@ -184,7 +184,7 @@
             this.rdb_CARD.ForeColor = System.Drawing.Color.Black;
             this.rdb_CARD.Location = new System.Drawing.Point(207, 37);
             this.rdb_CARD.Name = "rdb_CARD";
-            this.rdb_CARD.Size = new System.Drawing.Size(113, 35);
+            this.rdb_CARD.Size = new System.Drawing.Size(89, 29);
             this.rdb_CARD.TabIndex = 13;
             this.rdb_CARD.Text = "CARD";
             this.rdb_CARD.UseVisualStyleBackColor = true;
@@ -206,7 +206,7 @@
             this.txt_BankAccount.Location = new System.Drawing.Point(378, 100);
             this.txt_BankAccount.Name = "txt_BankAccount";
             this.txt_BankAccount.ReadOnly = true;
-            this.txt_BankAccount.Size = new System.Drawing.Size(234, 26);
+            this.txt_BankAccount.Size = new System.Drawing.Size(234, 22);
             this.txt_BankAccount.TabIndex = 11;
             // 
             // lbl_DateOfIssue
@@ -225,12 +225,13 @@
             this.dtP_PaymentDeadline.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_PaymentDeadline.Location = new System.Drawing.Point(259, 339);
             this.dtP_PaymentDeadline.Name = "dtP_PaymentDeadline";
-            this.dtP_PaymentDeadline.Size = new System.Drawing.Size(320, 34);
+            this.dtP_PaymentDeadline.Size = new System.Drawing.Size(320, 29);
             this.dtP_PaymentDeadline.TabIndex = 21;
             // 
             // usrc_DocInvoice_AddOn
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.lbl_DateOfIssue);
             this.Controls.Add(this.dtP_PaymentDeadline);
             this.Controls.Add(this.lbl_PaymentDeadline);

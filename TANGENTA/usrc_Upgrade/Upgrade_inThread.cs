@@ -881,8 +881,6 @@ namespace UpgradeDB
                                                 "Doc_ImageLib",
                                                 "DocInvoiceAddOn_Notice",
                                                 "DocProformaInvoiceAddOn_Notice",
-                                                "DocInvoice_Image",
-                                                "DocProformaInvoice_Image",
                                                 "JOURNAL_DocInvoice_Type",
                                                 "JOURNAL_DocProformaInvoice_Type",
                                                 "JOURNAL_DocInvoice",
@@ -912,65 +910,55 @@ namespace UpgradeDB
                 {
                     return false;
                 }
+
+                TermsOfPayment_definitions tmpdef = new TermsOfPayment_definitions();
+                tmpdef.InsertDefault();
+
                 long_v PaymentType_ID_v = null;
                 string_v sPaymentType_v = null;
-                long_v MethodOfPayment_DI_BAccount_v
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH,null,ref PaymentType_ID_v,ref sPaymentType_v,))
-                string sql = @"insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_ProformaInvoice_Type;
+                long_v MethodOfPayment_DI_BAccount_v = null;
+                long_v CASH_MethodOfPayment_DI_v = null;
+                long_v CARD_MethodOfPayment_DI_v = null;
+                long_v ALLREADY_PAID_MethodOfPayment_DI_v = null;
+
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH,null,ref PaymentType_ID_v,ref sPaymentType_v,ref MethodOfPayment_DI_BAccount_v,ref CASH_MethodOfPayment_DI_v))
+                {
+                    return false;
+                }
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CARD, null, ref PaymentType_ID_v, ref sPaymentType_v, ref MethodOfPayment_DI_BAccount_v, ref CARD_MethodOfPayment_DI_v))
+                {
+                    return false;
+                }
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.ALLREADY_PAID, null, ref PaymentType_ID_v, ref sPaymentType_v, ref MethodOfPayment_DI_BAccount_v, ref ALLREADY_PAID_MethodOfPayment_DI_v))
+                {
+                    return false;
+                }
+
+                string sql = @"PRAGMA foreign_keys = OFF;
+                               insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_ProformaInvoice_Type;
                                insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_Invoice_Type;
+                               update Invoice set MethodOfPayment_ID = 3 where MethodOfPayment_ID is null;
                                insert into DocInvoiceAddOn
                                (
                                  DocInvoice_ID,
+                                 IssueDate,
                                  TermsOfPayment_ID,
-                                 MethodOfPayment_DI_ID
+                                 MethodOfPayment_DI_ID,
                                  Atom_Warranty_ID,
                                  PaymentDeadline
-                               Draft,
-                               DraftNumber,
-                               FinancialYear,
-                               NumberInFinancialYear,
-                               NetSum,
-                               Discount,
-                               EndSum,
-                               TaxSum,
-                               GrossSum,
-                               Atom_Customer_Person_ID,
-                               Atom_Customer_Org_ID,
-                               WarrantyExist,
-                               WarrantyConditions,
-                               WarrantyDurationType,
-                               WarrantyDuration,
-                               TermsOfPayment_ID,
-                               PaymentDeadline,
-                               Paid,
-                               Storno,
-                               Invoice_Reference_ID,
-                               Invoice_Reference_Type
                                )
                                select 
-                                pi.Draft,
-                                pi.DraftNumber,
-                                pi.FinancialYear,
-                                pi.NumberInFinancialYear,
-                                pi.NetSum,
-                                pi.Discount,
-                                pi.EndSum,
-                                pi.TaxSum,
-                                pi.GrossSum,
-                                pi.Atom_Customer_Person_ID,
-                                pi.Atom_Customer_Org_ID,
-                                pi.WarrantyExist,
-                                pi.WarrantyConditions,
-                                pi.WarrantyDurationType,
-                                pi.WarrantyDuration,
-                                pi.TermsOfPayment_ID,
-                                inv.PaymentDeadline,
-                                inv.Paid,
-                                inv.Storno,
-                                inv.Invoice_Reference_ID,
-                                inv.Invoice_Reference_Type
+                                pi.ID,
+                                jpi.EventTime,
+                                " + tmpdef.Advanced_100PercentPayment_ID_v.v.ToString()+ @",
+                                inv.MethodOfPayment_ID,
+                                null,
+                                null
                                 from ProformaInvoice pi
+								inner join JOURNAL_ProformaInvoice jpi on jpi.ProformaInvoice_ID = pi.ID
+								inner join JOURNAL_ProformaInvoice_TYPE jpit on jpit.ID = jpi.JOURNAL_ProformaInvoice_TYPE_ID and ((jpit.ID = 2) OR (jpit.ID = 4) OR ((jpit.ID = 1)and(pi.Draft=1)))
                                 left join Invoice inv on pi.Invoice_ID = inv.ID;
+
                                insert into DocInvoice
                                (
                                Draft,
@@ -984,12 +972,6 @@ namespace UpgradeDB
                                GrossSum,
                                Atom_Customer_Person_ID,
                                Atom_Customer_Org_ID,
-                               WarrantyExist,
-                               WarrantyConditions,
-                               WarrantyDurationType,
-                               WarrantyDuration,
-                               TermsOfPayment_ID,
-                               PaymentDeadline,
                                Paid,
                                Storno,
                                Invoice_Reference_ID,
@@ -1007,12 +989,6 @@ namespace UpgradeDB
                                 pi.GrossSum,
                                 pi.Atom_Customer_Person_ID,
                                 pi.Atom_Customer_Org_ID,
-                                pi.WarrantyExist,
-                                pi.WarrantyConditions,
-                                pi.WarrantyDurationType,
-                                pi.WarrantyDuration,
-                                pi.TermsOfPayment_ID,
-                                inv.PaymentDeadline,
                                 inv.Paid,
                                 inv.Storno,
                                 inv.Invoice_Reference_ID,
@@ -1087,7 +1063,7 @@ namespace UpgradeDB
                                    ExpiryDate,
                                    Stock_ID
                                 from Atom_ProformaInvoice_Price_Item_Stock;
-
+                                PRAGMA foreign_keys = ON;
                 ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
@@ -1216,11 +1192,7 @@ namespace UpgradeDB
                 {
                     if (DBSync.DBSync.Drop_VIEWs(ref Err))
                     {
-                        if (!Upgrade_MethodOfPayment_DB_1_19_to_DB_1_20())
-                        {
-                            return false;
-                        }
-
+                       
                         sql = @"Drop Table Atom_ProformaInvoice_Price_Item_Stock;
                                 Drop Table Atom_Price_SimpleItem;
                                 Drop Table Atom_ItemShopA_Price;
@@ -1629,67 +1601,67 @@ namespace UpgradeDB
             }
         }
 
-        private bool Upgrade_MethodOfPayment_DB_1_19_to_DB_1_20()
-        {
-            string Err = null;
-            DataTable dt = new DataTable();
-            string sql = @"select 
-                            di.ID as Invoice_ID,
-                            mop.PaymentType
-                            from Invoice di
-                            left join MethodOfPayment mop on di.MethodOfPayment_ID = mop.ID
-                            ";
-            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    long_v DocInvoice_ID_v = tf.set_long(dr["Invoice_ID"]);
-                    string_v PaymentType_v = tf.set_string(dr["PaymentType"]);
-                    GlobalData.ePaymentType ePaymentType = GlobalData.ePaymentType.ANY_TYPE;
-                    if (PaymentType_v!=null)
-                    {
-                        if (PaymentType_v.v.Equals("Gotovina"))
-                        {
-                            ePaymentType = GlobalData.ePaymentType.CASH;
-                        }
-                        else if (PaymentType_v.v.Equals("Plačilna Kartica"))
-                        {
-                            ePaymentType = GlobalData.ePaymentType.CARD;
-                        }
-                        else if (PaymentType_v.v.Equals("Že plačano"))
-                        {
-                            ePaymentType = GlobalData.ePaymentType.ALLREADY_PAID;
-                        }
-                    }
+        //private bool Upgrade_MethodOfPayment_DB_1_19_to_DB_1_20()
+        //{
+        //    string Err = null;
+        //    DataTable dt = new DataTable();
+        //    string sql = @"select 
+        //                    di.ID as Invoice_ID,
+        //                    mop.PaymentType
+        //                    from Invoice di
+        //                    left join MethodOfPayment mop on di.MethodOfPayment_ID = mop.ID
+        //                    ";
+        //    if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+        //    {
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            long_v DocInvoice_ID_v = tf.set_long(dr["Invoice_ID"]);
+        //            string_v PaymentType_v = tf.set_string(dr["PaymentType"]);
+        //            GlobalData.ePaymentType ePaymentType = GlobalData.ePaymentType.ANY_TYPE;
+        //            if (PaymentType_v!=null)
+        //            {
+        //                if (PaymentType_v.v.Equals("Gotovina"))
+        //                {
+        //                    ePaymentType = GlobalData.ePaymentType.CASH;
+        //                }
+        //                else if (PaymentType_v.v.Equals("Plačilna Kartica"))
+        //                {
+        //                    ePaymentType = GlobalData.ePaymentType.CARD;
+        //                }
+        //                else if (PaymentType_v.v.Equals("Že plačano"))
+        //                {
+        //                    ePaymentType = GlobalData.ePaymentType.ALLREADY_PAID;
+        //                }
+        //            }
 
-                    if (DocInvoice_ID_v!=null)
-                    {
-                        long_v PaymentType_ID_v = null;
-                        string_v PaymentType_Name_v = null;
-                        long_v MethodOfPayment_DI_BAccount_ID_v = null;
-                        long_v MethodOfPayment_DI_ID_v = null;
-                        //if (!f_MethodOfPayment_DI.Get(DocInvoice_ID_v.v,
-                        //                         ePaymentType,
-                        //                         GlobalData.Get_sPaymentType_ltext(ePaymentType).s,
-                        //                         null,
-                        //                         ref PaymentType_ID_v,
-                        //                         ref PaymentType_Name_v,
-                        //                         ref MethodOfPayment_DI_BAccount_ID_v,
-                        //                         ref MethodOfPayment_DI_ID_v
-                        //                        ))
-                        //{
-                            return false;
-                        //
-                    }
-                }
-                return true;
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:UpgradeDB:Upgrade_inThread:Upgrade_MethodOfPayment_DB_1_19_to_DB_1_20:sql=" + sql + "\r\nErr=" + Err);
-                return false;
-            }
-            }
+        //            if (DocInvoice_ID_v!=null)
+        //            {
+        //                long_v PaymentType_ID_v = null;
+        //                string_v PaymentType_Name_v = null;
+        //                long_v MethodOfPayment_DI_BAccount_ID_v = null;
+        //                long_v MethodOfPayment_DI_ID_v = null;
+        //                //if (!f_MethodOfPayment_DI.Get(DocInvoice_ID_v.v,
+        //                //                         ePaymentType,
+        //                //                         GlobalData.Get_sPaymentType_ltext(ePaymentType).s,
+        //                //                         null,
+        //                //                         ref PaymentType_ID_v,
+        //                //                         ref PaymentType_Name_v,
+        //                //                         ref MethodOfPayment_DI_BAccount_ID_v,
+        //                //                         ref MethodOfPayment_DI_ID_v
+        //                //                        ))
+        //                //{
+        //                    return false;
+        //                //
+        //            }
+        //        }
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        LogFile.Error.Show("ERROR:UpgradeDB:Upgrade_inThread:Upgrade_MethodOfPayment_DB_1_19_to_DB_1_20:sql=" + sql + "\r\nErr=" + Err);
+        //        return false;
+        //    }
+        //    }
 
         private bool CheckDataBaseTables(ref string Err)
         {

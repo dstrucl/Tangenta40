@@ -394,7 +394,7 @@ namespace TangentaDB
             string Err = null;
             Clear();
             string sql = @"select 
-                            di.IssueDate,
+                            diao.IssueDate,
                             diao.TermsOfPayment_ID,
                             mop.ID as MethodOfPayment_DI_ID,
                             diao.PaymentDeadline,
@@ -517,17 +517,19 @@ namespace TangentaDB
 
 
 
-                        //string spar_IssueDate = "@par_IssueDate";
-                        //SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
-                        //lpar.Add(par_IssueDate);
+                        string spar_IssueDate = "@par_IssueDate";
+                        SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
+                        lpar.Add(par_IssueDate);
 
 
 
                         string sql = @"insert into DocInvoiceAddOn (DocInvoice_ID,
-                                                                   MethodOfPayment_DI_ID,
-                                                                   TermsOfPayment_ID,
-                                                                   PaymentDeadline) values
+                                                                    IssueDate,
+                                                                    MethodOfPayment_DI_ID,
+                                                                    TermsOfPayment_ID,
+                                                                    PaymentDeadline) values
                                                                    (" + spar_DocInvoice_ID + ","
+                                                                   + spar_IssueDate +","
                                                                    + spar_MethodOfPayment_DI_ID + ","
                                                                    + spar_TermsOfPayment_ID + "," +
                                                                    sval_PaymentDeadline + ")";
@@ -578,7 +580,7 @@ namespace TangentaDB
 
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                         string spar_MethodOfPayment_ID = "@par_MethodOfPayment_ID";
-                        SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DI_ID_v);
+                        SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DI_ID_v.v);
                         lpar.Add(par_MethodOfPayment_ID);
 
                         string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
@@ -596,13 +598,14 @@ namespace TangentaDB
 
 
 
-                        //string spar_IssueDate = "@par_IssueDate";
-                        //SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
-                        //lpar.Add(par_IssueDate);
+                        string spar_IssueDate = "@par_IssueDate";
+                        SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
+                        lpar.Add(par_IssueDate);
 
 
 
-                        string sql = "update DocInvoiceAddOn set MethodOfPayment_DI_ID = " + spar_MethodOfPayment_ID
+                        string sql = "update DocInvoiceAddOn set IssueDate = " + spar_IssueDate
+                                                                + ",MethodOfPayment_DI_ID = " + spar_MethodOfPayment_ID
                                                                 + ",TermsOfPayment_ID = " + spar_TermsOfPayment_ID
                                                                 + "," + sval_PaymentDeadline
                                                                 + " where ID = " + DocInvoiceAddOn_ID_v.v.ToString();
