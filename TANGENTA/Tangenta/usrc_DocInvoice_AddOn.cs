@@ -29,8 +29,8 @@ namespace Tangenta
         public delegate void delegate_Cancel();
         public event delegate_Cancel Cancel;
 
-        public delegate void delegate_OK();
-        public event delegate_OK OK;
+        public delegate void delegate_Issue();
+        public event delegate_Issue Issue;
 
         private DocInvoice_AddOn m_AddOnDI;
 
@@ -298,9 +298,9 @@ namespace Tangenta
             {
                 if (ltMsg == null)
                 {
-                    if (OK != null)
+                    if (Issue != null)
                     {
-                        OK();
+                        Issue();
                     }
                 }
                 else

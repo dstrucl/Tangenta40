@@ -871,14 +871,16 @@ namespace UpgradeDB
         private object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
         {
             string[] new_tables = new string[] {"DocInvoice",
+                                                "DocInvoiceAddOn",
                                                 "DocProformaInvoice",
+                                                "DocProformaInvoiceAddOn",
                                                 "DocInvoice_ShopC_Item",
                                                 "DocProformaInvoice_ShopC_Item",
                                                 "DocInvoice_ShopB_Item",
                                                 "DocProformaInvoice_ShopB_Item",
                                                 "Doc_ImageLib",
-                                                "DocInvoice_Notice",
-                                                "DocProformaInvoice_Notice",
+                                                "DocInvoiceAddOn_Notice",
+                                                "DocProformaInvoiceAddOn_Notice",
                                                 "DocInvoice_Image",
                                                 "DocProformaInvoice_Image",
                                                 "JOURNAL_DocInvoice_Type",
@@ -905,8 +907,70 @@ namespace UpgradeDB
 
             if (DBSync.DBSync.CreateTables(new_tables, ref Err))
             {
+                PaymentType_definitions xpaymentType_definitions = new PaymentType_definitions();
+                if (!xpaymentType_definitions.Get())
+                {
+                    return false;
+                }
+                long_v PaymentType_ID_v = null;
+                string_v sPaymentType_v = null;
+                long_v MethodOfPayment_DI_BAccount_v
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH,null,ref PaymentType_ID_v,ref sPaymentType_v,))
                 string sql = @"insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_ProformaInvoice_Type;
                                insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_Invoice_Type;
+                               insert into DocInvoiceAddOn
+                               (
+                                 DocInvoice_ID,
+                                 TermsOfPayment_ID,
+                                 MethodOfPayment_DI_ID
+                                 Atom_Warranty_ID,
+                                 PaymentDeadline
+                               Draft,
+                               DraftNumber,
+                               FinancialYear,
+                               NumberInFinancialYear,
+                               NetSum,
+                               Discount,
+                               EndSum,
+                               TaxSum,
+                               GrossSum,
+                               Atom_Customer_Person_ID,
+                               Atom_Customer_Org_ID,
+                               WarrantyExist,
+                               WarrantyConditions,
+                               WarrantyDurationType,
+                               WarrantyDuration,
+                               TermsOfPayment_ID,
+                               PaymentDeadline,
+                               Paid,
+                               Storno,
+                               Invoice_Reference_ID,
+                               Invoice_Reference_Type
+                               )
+                               select 
+                                pi.Draft,
+                                pi.DraftNumber,
+                                pi.FinancialYear,
+                                pi.NumberInFinancialYear,
+                                pi.NetSum,
+                                pi.Discount,
+                                pi.EndSum,
+                                pi.TaxSum,
+                                pi.GrossSum,
+                                pi.Atom_Customer_Person_ID,
+                                pi.Atom_Customer_Org_ID,
+                                pi.WarrantyExist,
+                                pi.WarrantyConditions,
+                                pi.WarrantyDurationType,
+                                pi.WarrantyDuration,
+                                pi.TermsOfPayment_ID,
+                                inv.PaymentDeadline,
+                                inv.Paid,
+                                inv.Storno,
+                                inv.Invoice_Reference_ID,
+                                inv.Invoice_Reference_Type
+                                from ProformaInvoice pi
+                                left join Invoice inv on pi.Invoice_ID = inv.ID;
                                insert into DocInvoice
                                (
                                Draft,

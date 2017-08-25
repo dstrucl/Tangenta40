@@ -602,7 +602,7 @@ namespace TangentaDB
 
 
 
-                        string sql = "update DocInvoiceAddOn set MethodOfPayment_ID = " + spar_MethodOfPayment_ID
+                        string sql = "update DocInvoiceAddOn set MethodOfPayment_DI_ID = " + spar_MethodOfPayment_ID
                                                                 + ",TermsOfPayment_ID = " + spar_TermsOfPayment_ID
                                                                 + "," + sval_PaymentDeadline
                                                                 + " where ID = " + DocInvoiceAddOn_ID_v.v.ToString();

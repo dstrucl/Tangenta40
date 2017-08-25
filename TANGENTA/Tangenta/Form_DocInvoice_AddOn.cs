@@ -50,7 +50,6 @@ namespace Tangenta
         {
             if (this.m_usrc_DocInvoice_AddOn.Init(m_AddOnDI, m_bPrint, m_usrc_AddOn))
             {
-                //splitContainer1.Panel1Collapsed = true;
                 return;
             }
             else
@@ -58,27 +57,6 @@ namespace Tangenta
                 this.Close();
                 DialogResult = DialogResult.Abort;
             }
-
-            //if (Program.usrc_TangentaPrint1.Init(m_InvoiceData, m_DocInvoice))
-            //{
-            //    if ((m_InvoiceData.m_ShopABC.m_CurrentInvoice.bDraft))
-            //    {
-            //        if (m_usrc_DocInvoice_AddOn.Init(m_InvoiceData, Program.usrc_TangentaPrint1.Get_CurrencyD_DecimalPlaces(), m_InvoiceData.GrossSum))
-            //        {
-            //            //splitContainer1.Panel1Collapsed = true;
-            //            return;
-            //        }
-            //        else
-            //        {
-            //            this.Close();
-            //            DialogResult = DialogResult.Abort;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        LogFile.Error.Show("ERROR:Form_Payment:Not Draft!");
-            //    }
-            //}
         }
 
         private void m_usrc_Payment_Cancel()
@@ -87,7 +65,7 @@ namespace Tangenta
             DialogResult = DialogResult.Cancel;
         }
 
-        private void m_usrc_Payment_OK()
+        private void m_usrc_Payment_Issue()
         {
             this.Close();
             DialogResult = DialogResult.OK;

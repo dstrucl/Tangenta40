@@ -28,7 +28,7 @@ namespace TangentaDB
             string spar_DocInvoice_ID = "@par_DocInvoice_ID";
             SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID_v.v);
             lpar.Add(par_DocInvoice_ID);
-            string sql = "select ID from DocInvoiceAddOn where ID = " + spar_DocInvoice_ID;
+            string sql = "select ID from DocInvoiceAddOn where DocInvoice_ID = " + spar_DocInvoice_ID;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt,sql, lpar,ref Err))
             {

@@ -996,7 +996,7 @@ namespace TangentaDataBaseDef
             t_DocInvoiceAddOn.AddColumn((Object)mt.m_DocInvoiceAddOn.m_TermsOfPayment, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Terms of payment ID", "Plačilni pogoji ID") );
             t_DocInvoiceAddOn.AddColumn((Object)mt.m_DocInvoiceAddOn.m_MethodOfPayment_DI, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Terms of payment ID", "Plačilni pogoji ID"));
             t_DocInvoiceAddOn.AddColumn((Object)mt.m_DocInvoiceAddOn.m_Atom_Warranty, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Warranty archive ID", "Garancija arhiv ID"));
-            t_DocInvoiceAddOn.AddColumn((Object)mt.m_DocInvoiceAddOn.PaymentDeadline, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Payment deadline", "Rok plačila"));
+            t_DocInvoiceAddOn.AddColumn((Object)mt.m_DocInvoiceAddOn.PaymentDeadline, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Payment deadline", "Rok plačila"));
             m_DBTables.items.Add(t_DocInvoiceAddOn);
 
         /* 49 */

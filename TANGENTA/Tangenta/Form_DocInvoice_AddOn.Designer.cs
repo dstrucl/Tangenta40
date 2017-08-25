@@ -40,19 +40,19 @@
             this.m_usrc_DocInvoice_AddOn.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_DocInvoice_AddOn.Margin = new System.Windows.Forms.Padding(4);
             this.m_usrc_DocInvoice_AddOn.Name = "m_usrc_DocInvoice_AddOn";
-            this.m_usrc_DocInvoice_AddOn.Size = new System.Drawing.Size(734, 584);
+            this.m_usrc_DocInvoice_AddOn.Size = new System.Drawing.Size(734, 468);
             this.m_usrc_DocInvoice_AddOn.TabIndex = 1;
             this.m_usrc_DocInvoice_AddOn.Cancel += new Tangenta.usrc_DocInvoice_AddOn.delegate_Cancel(this.m_usrc_Payment_Cancel);
-            this.m_usrc_DocInvoice_AddOn.OK += new Tangenta.usrc_DocInvoice_AddOn.delegate_OK(this.m_usrc_Payment_OK);
+            this.m_usrc_DocInvoice_AddOn.Issue += new Tangenta.usrc_DocInvoice_AddOn.delegate_Issue(this.m_usrc_Payment_Issue);
             // 
             // Form_DocInvoice_AddOn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(736, 584);
+            this.ClientSize = new System.Drawing.Size(736, 474);
             this.Controls.Add(this.m_usrc_DocInvoice_AddOn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form_DocInvoice_AddOn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Receipt_Preview_Form";
