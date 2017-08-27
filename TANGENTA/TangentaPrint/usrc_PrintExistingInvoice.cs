@@ -122,9 +122,9 @@ namespace TangentaPrint
                 string sJournal_DocInvoice_Type_Name = "InvoiceTime";
                 if (m_InvoiceData != null)
                 {
-                    if (m_InvoiceData.AddOnDI.Invoice_Reference_Type_v != null)
+                    if (m_InvoiceData.Invoice_Reference_Type_v != null)
                     {
-                        if (m_InvoiceData.AddOnDI.Invoice_Reference_Type_v.v.Equals("STORNO"))
+                        if (m_InvoiceData.Invoice_Reference_Type_v.v.Equals("STORNO"))
                         {
                             sJournal_DocInvoice_Type_Name = "InvoiceStornoTime";
                         }

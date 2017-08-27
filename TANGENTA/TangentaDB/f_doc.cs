@@ -86,7 +86,7 @@ namespace TangentaDB
                 string doc_Name = ht.Name;
                 if (Exists(ht.Name, doc_type_ID_v, ref doc_ID) == ExistsResult.EXISTS)
                 {
-                    doc_Name += "_default";
+                    return true;
                 }
 
                 if (!Get(doc_Name,
@@ -154,6 +154,8 @@ namespace TangentaDB
         }
 
         public static eGetPrintDocumentTemplateResult GetTemplate(long doc_ID,
+                                                                  ref string_v xName_v,
+                                                                  ref string_v xDescription_v,
                                                                   ref byte_array_v xDoc_v,
                                                                   ref string_v xDoc_Hash_v,
                                                                   ref long_v doc_type_ID_v,
@@ -166,13 +168,15 @@ namespace TangentaDB
             string Err = null;
             
             DataTable     dt= new DataTable();
-            string sql = "select xDocument,xDocument_Hash,doc_type_ID,doc_page_type_ID,Language_ID,Compressed from doc where ID =" + doc_ID.ToString();
+            string sql = "select Name,Description,xDocument,xDocument_Hash,doc_type_ID,doc_page_type_ID,Language_ID,Compressed from doc where ID =" + doc_ID.ToString();
 
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, null, ref Err))
             {
                 if (dt.Rows.Count > 0)
                 {
                     xDoc_v = null;
+                    xName_v = tf.set_string(dt.Rows[0]["Name"]);
+                    xDescription_v = tf.set_string(dt.Rows[0]["Description"]);
                     xDoc_Hash_v = tf.set_string(dt.Rows[0]["xDocument_Hash"]);
                     doc_type_ID_v = tf.set_long(dt.Rows[0]["doc_type_ID"]);
                     doc_page_type_ID_v = tf.set_long(dt.Rows[0]["doc_page_type_ID"]);
@@ -193,11 +197,27 @@ namespace TangentaDB
                 }
                 else
                 {
+                    xDoc_v = null;
+                    xName_v = null;
+                    xDescription_v = null;
+                    xDoc_Hash_v = null;
+                    doc_type_ID_v = null;
+                    doc_page_type_ID_v = null;
+                    Language_ID_v = null;
+                    bCompressed_v = null;
                     return eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE;
                 }
             }
             else
             {
+                xDoc_v = null;
+                xName_v = null;
+                xDescription_v = null;
+                xDoc_Hash_v = null;
+                doc_type_ID_v = null;
+                doc_page_type_ID_v = null;
+                Language_ID_v = null;
+                bCompressed_v = null;
                 LogFile.Error.Show("ERROR:TangentaDB:f_doc:GetTemplate:\r\nsql=" + sql + "\r\nErr=" + Err);
                 return eGetPrintDocumentTemplateResult.ERROR;
             }
@@ -205,7 +225,6 @@ namespace TangentaDB
         }
         public static eGetPrintDocumentTemplateResult GetTemplates(ref DataTable dtTemplates,
                                         long_v doc_type_ID_v,
-                                        long_v doc_page_type_ID_v,
                                         long_v Language_ID_v
                                         )
 
@@ -233,17 +252,7 @@ namespace TangentaDB
                 scond_doc_type_ID = " doc_type_ID = " + spar_doc_type_ID + " ";
             }
 
-            string sval_doc_page_type_ID = "null";
-            string scond_doc_page_type_ID = " doc_page_type_ID is null";
-            if (doc_page_type_ID_v != null)
-            {
-                string spar_doc_page_type_ID = "@par_doc_page_type_ID";
-
-                SQL_Parameter par_doc_page_type_ID = new SQL_Parameter(spar_doc_page_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID_v.v);
-                lpar.Add(par_doc_page_type_ID);
-                sval_doc_page_type_ID = spar_doc_page_type_ID;
-                scond_doc_page_type_ID = " doc_page_type_ID = " + spar_doc_page_type_ID + " ";
-            }
+          
 
 
             string sval_Language_ID = "null";
@@ -259,7 +268,6 @@ namespace TangentaDB
                 scond_Language_ID = " Language_ID = " + spar_Language_ID + " ";
             }
             string sql = "select Name,Description,bDefault,ID from doc where " + scond_doc_type_ID
-                                                          + " and " + scond_doc_page_type_ID
                                                           + " and " + scond_Language_ID
                                                           + " and Active = 1";
 

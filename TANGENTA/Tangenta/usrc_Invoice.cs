@@ -116,8 +116,7 @@ namespace Tangenta
 
         public TangentaDB.ShopABC m_ShopABC = null;
 
-        public DocInvoice_AddOn AddOnDI = new DocInvoice_AddOn();
-        public DocProformaInvoice_AddOn AddOnDPI = new DocProformaInvoice_AddOn();
+
         public InvoiceData m_InvoiceData = null;
 
         public long myOrganisation_Person_id
@@ -567,10 +566,11 @@ namespace Tangenta
 
             lngRPM.s_MyOrganisation.Text(lbl_MyOrganisation);
             lngRPM.s_Total.Text(this.lbl_Sum);
+
             //SetMode(m_mode);
 
 
-  
+
 
 
         }
@@ -709,16 +709,34 @@ namespace Tangenta
         public bool Initialise(usrc_InvoiceMan xusrc_InvoiceMan)
         {
             m_usrc_InvoiceMan = xusrc_InvoiceMan;
-
             lngRPM.s_Head.Text(chk_Head);
             chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             splitContainer2.Panel1Collapsed = !chk_Head.Checked;
+           
             return true;
         }
 
         public bool Init(NavigationButtons.Navigation xnav,long Document_ID)
         {
+            if (DBtcn == null)
+            {
+                DBtcn = new DBTablesAndColumnNames();
+            }
+            if (m_ShopABC == null)
+            {
+                m_ShopABC = new ShopABC(DBtcn);
+            }
+            if (m_InvoiceData == null)
+            {
+                m_InvoiceData = new InvoiceData(m_ShopABC, Document_ID, Properties.Settings.Default.ElectronicDevice_ID);
+            }
+            else
+            {
+                m_InvoiceData.DocInvoice_ID = Document_ID;
+                m_InvoiceData.DocInvoice_ID_v = tf.set_long(Document_ID);
+            }
+
             if (Properties.Settings.Default.eShopsMode.Length==0)
             {
                 Properties.Settings.Default.eShopsMode = Properties.Settings.Default.eShopsInUse;
@@ -2174,8 +2192,7 @@ do_EditMyOrganisation_Data:
             {
                 if (IsDocInvoice)
                 {
-                    this.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                    m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC,this.AddOnDI,this.AddOnDPI, m_ShopABC.m_CurrentInvoice.Doc_ID,Properties.Settings.Default.ElectronicDevice_ID));
+                    this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
                     if (m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH )
                     {
 
@@ -2190,9 +2207,9 @@ do_EditMyOrganisation_Data:
                             if (Program.b_FVI_SLO)
                             {
 
-                                if ((AddOnDI.IsCashPayment && Program.usrc_FVI_SLO1.FVI_for_cash_payment) 
-                                    || (AddOnDI.IsCardPayment && Program.usrc_FVI_SLO1.FVI_for_card_payment)
-                                    || (AddOnDI.IsPaymentOnBankAccount && Program.usrc_FVI_SLO1.FVI_for_payment_on_bank_account)
+                                if ((m_InvoiceData.AddOnDI.IsCashPayment && Program.usrc_FVI_SLO1.FVI_for_cash_payment) 
+                                    || (m_InvoiceData.AddOnDI.IsCardPayment && Program.usrc_FVI_SLO1.FVI_for_card_payment)
+                                    || (m_InvoiceData.AddOnDI.IsPaymentOnBankAccount && Program.usrc_FVI_SLO1.FVI_for_payment_on_bank_account)
                                     )
                                 {
                                     this.SendInvoice();
@@ -2315,13 +2332,13 @@ do_EditMyOrganisation_Data:
                         {
                             if (IsDocInvoice)
                             {
-                                if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.AddOnDI))
+                                if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.m_InvoiceData.AddOnDI))
                                 {
                                     if (!usrc_AddOn1.Get_Doc_AddOn(true))
                                     {
                                         return;
                                     }
-                                    if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.AddOnDI))
+                                    if (!usrc_AddOn1.Check_DocInvoice_AddOn(this.m_InvoiceData.AddOnDI))
                                     {
                                         return;
                                     }
@@ -2329,7 +2346,7 @@ do_EditMyOrganisation_Data:
                             }
                             else if (IsDocProformaInvoice)
                             {
-                                if (!usrc_AddOn1.Check_DocProformaInvoice_AddOn(this.AddOnDPI))
+                                if (!usrc_AddOn1.Check_DocProformaInvoice_AddOn(this.m_InvoiceData.AddOnDPI))
                                 {
                                     if (!usrc_AddOn1.Get_Doc_AddOn(true))
                                     {
@@ -2347,8 +2364,7 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            this.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                            m_InvoiceData = Set_AddOn(new InvoiceData(m_ShopABC,this.AddOnDI,this.AddOnDPI, m_ShopABC.m_CurrentInvoice.Doc_ID, Properties.Settings.Default.ElectronicDevice_ID));
+                            this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
                             if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                             { // print invoice if you wish
                                 if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
@@ -2370,14 +2386,16 @@ do_EditMyOrganisation_Data:
         {
             if (IsDocInvoice)
             {
-                invoiceData.AddOnDI = this.AddOnDI;
+                invoiceData.AddOnDI = this.m_InvoiceData.AddOnDI;
                 invoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
                 invoiceData.AddOnDPI = null;
+                invoiceData.AddOnDI.Get(invoiceData.DocInvoice_ID);
             }
             else if (IsDocProformaInvoice)
             {
-                invoiceData.AddOnDPI = this.AddOnDPI;
+                invoiceData.AddOnDPI = this.m_InvoiceData.AddOnDPI;
                 invoiceData.AddOnDI = null;
+                invoiceData.AddOnDPI.Get(invoiceData.DocInvoice_ID);
             }
             else
             {
@@ -2463,8 +2481,8 @@ do_EditMyOrganisation_Data:
 
                                     if (Program.b_FVI_SLO)
                                     {
-                                        this.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC,this.AddOnDI,this.AddOnDPI, Storno_DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID);
+                                        this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                        InvoiceData xInvoiceData = new InvoiceData(m_ShopABC, Storno_DocInvoice_ID,Properties.Settings.Default.ElectronicDevice_ID);
                                         if (xInvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
                                         {
 

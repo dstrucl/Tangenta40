@@ -75,7 +75,10 @@ namespace TangentaPrint
         }
 
 
-
+        public Printer(string printer_name)
+        {
+            this.m_PrinterName = printer_name;
+        }
 
 
         private bool m_bPrinting_Invoices = false;

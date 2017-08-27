@@ -72,9 +72,9 @@ namespace TangentaDB
 
             //Proforma Invoice
             A4_Portrait_description = new doc_page_type("A4 Portrait", lngRPM.s_A4_Portrait_description.s,210,297); 
-            A4_Landscape_description = new doc_page_type("A4 Landscape", lngRPM.s_A4_Portrait_description.s, 297,210 );
-            Roll_80_mm = new doc_page_type("Roll paper 80mm", lngRPM.s_A4_Portrait_description.s, 80,-1);
-            Roll_58_mm = new doc_page_type("Roll paper 58mm", lngRPM.s_A4_Portrait_description.s, 58,-1);
+            A4_Landscape_description = new doc_page_type("A4 Landscape", lngRPM.s_A4_Landscape_description.s, 297,210 );
+            Roll_80_mm = new doc_page_type("Roll paper 80mm", lngRPM.s_Roll_paper_80_mm_description.s, 80,-1);
+            Roll_58_mm = new doc_page_type("Roll paper 58mm", lngRPM.s_Roll_paper_58_mm_description.s, 58,-1);
 
             doc_page_type_list.Add(A4_Portrait_description);
             doc_page_type_list.Add(A4_Landscape_description);

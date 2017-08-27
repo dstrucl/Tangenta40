@@ -90,5 +90,50 @@ namespace TangentaDB
                 return false;
             }
         }
+
+        public static bool Get(long doc_page_type_ID,ref string_v Name_v,ref string_v Description_v,ref decimal_v Width_v, ref decimal_v Height_v)
+        {
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            //Table doc_page_type
+
+            //Table Language
+            string spar_ID = "@par_ID";
+            SQL_Parameter par_ID = new SQL_Parameter(spar_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID);
+            lpar.Add(par_ID);
+
+
+            string sql = "select Name,Description,Width,Height from doc_page_type where ID = "+ spar_ID;
+
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    Name_v = tf.set_string(dt.Rows[0]["Name"]);
+                    Description_v = tf.set_string(dt.Rows[0]["Description"]);
+                    Width_v = tf.set_decimal(dt.Rows[0]["Width"]);
+                    Height_v = tf.set_decimal(dt.Rows[0]["Height"]);
+                }
+                else
+                {
+                    Name_v = null;
+                    Description_v = null;
+                    Width_v = null;
+                    Height_v = null;
+
+                }
+                return true;
+            }
+            else
+            {
+                Name_v = null;
+                Description_v = null;
+                Width_v = null;
+                Height_v = null;
+                LogFile.Error.Show("ERROR:f_doc_page_type:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }

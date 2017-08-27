@@ -19,7 +19,7 @@ namespace TangentaPrint
     ///  usrc_SelectPrintTemplate inputs are: PrintersList and m_InvoiceData
     ///  in the constructor cmb_Languge is filled with languages
     ///  in the procedure Init on the base of m_InvoiceData and selected Language in cmb_Languge coresponding printers are selected from PrintersList and put (listed,displayed)
-    ///  up to the selected printer in cmb_SelectPrinter.Text properties such PaperSize and Paper orientation are shown and 
+    ///  up to the selected printer in cmb_SelectPrinter.Text properties  PaperSize and Paper orientation are shown 
     ///  appropriate templates are selected from DataBase !
     /// <see cref="usrc_Invoice_Preview"/>
     /// </summary>
@@ -34,6 +34,13 @@ namespace TangentaPrint
         public event delagate_SettingsChanged SettingsChanged = null;
         public byte_array_v Doc_v = null;
         private Printer m_SelectedPrinter = null;
+
+        string_v Page_Name_v = null;
+        string_v Page_Description_v = null;
+        decimal_v Page_Width_v = null;
+        decimal_v Page_Height_v = null;
+
+
         public Printer SelectedPrinter
         {
             get
@@ -45,8 +52,7 @@ namespace TangentaPrint
 
         private Printer GetPrinter(string printer_name)
         {
-
-            return null;
+            return new Printer(printer_name);
         }
 
         public DataTable dtTemplates = null;
@@ -218,21 +224,26 @@ namespace TangentaPrint
             lngRPM.s_Language.Text(lbl_Language);
             lngRPM.s_PaperSize.Text(lbl_PaperSize);
             lngRPM.s_Template.Text(lbl_Template, ":");
-            lngRPM.s_PaperOrientation.Text(lbl_Orientation);
             lngRPM.s_Description.Text(lbl_Description);
             lngRPM.s_Default.Text(chk_Default);
-            cmb_Language.DataSource = GlobalData.language_definitions.Language_list;
-            cmb_Language.DisplayMember = "Name";
-            cmb_Language.ValueMember = "ID";
-            cmb_Language.SelectedIndex = LanguageControl.DynSettings.LanguageID;
+           
         }
 
 
         internal f_doc.eGetPrintDocumentTemplateResult Init(InvoiceData x_InvoiceData)
         {
             m_InvoiceData = x_InvoiceData;
-            return f_doc.eGetPrintDocumentTemplateResult.OK;
-            //return Init();
+            if (GlobalData.language_definitions != null)
+            {
+                if (GlobalData.language_definitions.Language_list != null)
+                {
+                    cmb_Language.DataSource = GlobalData.language_definitions.Language_list;
+                    cmb_Language.DisplayMember = "Name";
+                    cmb_Language.ValueMember = "ID";
+                    cmb_Language.SelectedIndex = LanguageControl.DynSettings.LanguageID;
+                }
+            }
+            return Init();
         }
 
         private f_doc.eGetPrintDocumentTemplateResult Init()
@@ -242,7 +253,6 @@ namespace TangentaPrint
 
             f_doc.eGetPrintDocumentTemplateResult eres = f_doc.GetTemplates(ref dtTemplates,
                            Doc_Type_ID_v,
-                           Doc_Page_Type_ID_v,
                            Language_ID_v
                           );
             switch (eres)
@@ -333,13 +343,15 @@ namespace TangentaPrint
             f_doc_TemplateName = (string)dr["Name"];
             f_doc_TemplateDescription = tf.set_string(dr["Description"]);
             long doc_ID = (long)dr["ID"];
+            string_v Name_v = null;
+            string_v Description_v = null;
             byte_array_v xDoc_v = null;
             string_v xDoc_Hash_v = null;
             long_v DocType_ID_v = null;
             long_v doc_page_type_ID_v = null;
             long_v Language_ID_v = null;
             bool_v Compressed_v = null;
-            switch (f_doc.GetTemplate(doc_ID, ref xDoc_v, ref xDoc_Hash_v, ref DocType_ID_v, ref doc_page_type_ID_v, ref Language_ID_v, ref Compressed_v))
+            switch (f_doc.GetTemplate(doc_ID,ref Name_v,ref Description_v, ref xDoc_v, ref xDoc_Hash_v, ref DocType_ID_v, ref doc_page_type_ID_v, ref Language_ID_v, ref Compressed_v))
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     //f_doc_DocType_ID_v = DocType_ID_v;
@@ -355,7 +367,23 @@ namespace TangentaPrint
                         f_doc_bCompressed = false;
                     }
                     Doc_v = xDoc_v;
+                    if (doc_page_type_ID_v!=null)
+                    {
+                        if (f_doc_page_type.Get(doc_page_type_ID_v.v,ref Page_Name_v,ref Page_Description_v,ref Page_Width_v,ref Page_Height_v))
+                        {
+                            if (Page_Description_v != null)
+                            {
+                                lbl_PaperSize_value.Text = Page_Description_v.v;
+                            }
+                        }
+                    }
+
+                    if (Description_v!=null)
+                    {
+                        this.txt_Description.Text = Description_v.v;
+                    }
                     break;
+
                 default:
                     Doc_v = null;
                     //f_doc_DocType_ID_v = null;
@@ -393,6 +421,7 @@ namespace TangentaPrint
 
         private bool Match_m_MethodOfPayment(DataRow dr)
         {
+            m_InvoiceData.AddOnDI.Get(m_InvoiceData.DocInvoice_ID);
             switch (m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType)
             {
                 case GlobalData.ePaymentType.CASH:

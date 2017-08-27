@@ -51,6 +51,11 @@ namespace TangentaDB
 
 
 
+        public long_v DocInvoice_Reference_ID_v = null;
+        public bool bInvoiceStorno = false;
+        public DateTime_v StornoIssueDate_v = null;
+        public bool_v Invoice_Storno_v = null;
+        public string_v Invoice_Reference_Type_v = null;
 
 
 
@@ -177,13 +182,13 @@ namespace TangentaDB
         }
 
 
-        public InvoiceData(TangentaDB.ShopABC xShopABC,DocInvoice_AddOn xDocInvoice_AddOn, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn, long xDocInvoice_ID,  string xElectronic_Device_Name)
+        public InvoiceData(TangentaDB.ShopABC xShopABC, long xDocInvoice_ID,  string xElectronic_Device_Name)
         {
             m_ShopABC = xShopABC;
             DocInvoice_ID = xDocInvoice_ID;
             Electronic_Device_Name_v = new string_v(xElectronic_Device_Name);
-            AddOnDI = xDocInvoice_AddOn;
-            AddOnDPI = xDocProformaInvoice_AddOn;
+            AddOnDI = new DocInvoice_AddOn();
+            AddOnDPI = new DocProformaInvoice_AddOn();
         }
 
         public void Set_NumberInFinancialYear(int xNumberInFinancialYear)
@@ -718,7 +723,7 @@ namespace TangentaDB
             string sql = null;
             if (IsDocInvoice)
             {
-                AddOnDI.DocInvoice_Reference_ID_v = null;
+                DocInvoice_Reference_ID_v = null;
                 if (AddOnDI.b_FVI_SLO)
                 {
                     sql = @"select
@@ -1001,12 +1006,20 @@ namespace TangentaDB
                         Electronic_Device_Name_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Atom_Electronic_Device_Name"]);
                         if (IsDocInvoice)
                         {
-                            AddOnDI.Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
-                            AddOnDI.Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
-                            AddOnDI.DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
+                            if (!AddOnDI.Get(DocInvoice_ID))
+                            {
+                                return false;
+                            }
+                            Invoice_Storno_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["Storno"]);
+                            Invoice_Reference_Type_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Invoice_Reference_Type"]);
+                            DocInvoice_Reference_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0]["Invoice_Reference_ID"]);
                         }
                         else
                         {
+                            if (!AddOnDPI.Get(DocInvoice_ID))
+                            {
+                                return false;
+                            }
                         }
                         DocInvoice_ID_v = DBTypes.tf.set_long(dt_DocInvoice.Rows[0][DocInvoice+"_ID"]);
                         DateTime_v EventTime_v = DBTypes.tf.set_DateTime(dt_DocInvoice.Rows[0]["EventTime"]);
@@ -1031,12 +1044,12 @@ namespace TangentaDB
                                             else if (EventName_v.v.Equals("InvoiceStornoTime"))
                                             {
                                                 this.m_eType = eType.STORNO;
-                                                AddOnDI.StornoIssueDate_v = EventTime_v.Clone();
-                                                if (AddOnDI.DocInvoice_Reference_ID_v != null)
+                                                StornoIssueDate_v = EventTime_v.Clone();
+                                                if (DocInvoice_Reference_ID_v != null)
                                                 {
                                                     if (IssueDate_v == null)
                                                     {
-                                                        sql = "select EventTime from JOURNAL_DocInvoice where DocInvoice_ID = " + AddOnDI.DocInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
+                                                        sql = "select EventTime from JOURNAL_DocInvoice where DocInvoice_ID = " + DocInvoice_Reference_ID_v.v.ToString() + " and JOURNAL_DocInvoice_Type_ID = " + GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID.ToString();
                                                         DataTable dt = new DataTable();
                                                         if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                                                         {
@@ -1149,13 +1162,13 @@ namespace TangentaDB
 
                         if (IsDocInvoice)
                         {
-                            if (AddOnDI.Invoice_Reference_Type_v != null)
+                            if (Invoice_Reference_Type_v != null)
                             {
-                                if (AddOnDI.Invoice_Reference_Type_v.v.Equals("STORNO"))
+                                if (Invoice_Reference_Type_v.v.Equals("STORNO"))
                                 {
-                                    if (AddOnDI.DocInvoice_Reference_ID_v != null)
+                                    if (DocInvoice_Reference_ID_v != null)
                                     {
-                                        AddOnDI.bInvoiceStorno = true;
+                                        bInvoiceStorno = true;
                                     }
                                     else
                                     {
@@ -1172,7 +1185,7 @@ namespace TangentaDB
 
                         if (IsDocInvoice)
                         {
-                            if (AddOnDI.bInvoiceStorno)
+                            if (bInvoiceStorno)
                             {
                                 if (GrossSum > 0) GrossSum = GrossSum * -1;
                                 if (taxsum > 0) taxsum = taxsum * -1;
@@ -1323,9 +1336,9 @@ namespace TangentaDB
                         long xDoc_ID = DocInvoice_ID;
                         if (IsDocInvoice)
                         {
-                            if (AddOnDI.DocInvoice_Reference_ID_v != null)
+                            if (DocInvoice_Reference_ID_v != null)
                             {
-                                xDoc_ID = AddOnDI.DocInvoice_Reference_ID_v.v;
+                                xDoc_ID = DocInvoice_Reference_ID_v.v;
                             }
                         }
 
@@ -1358,9 +1371,9 @@ namespace TangentaDB
 
                                 if (IsDocInvoice)
                                 {
-                                    Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, AddOnDI.bInvoiceStorno);
-                                    Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, AddOnDI.bInvoiceStorno);
-                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, AddOnDI.bInvoiceStorno);
+                                    Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
+                                    Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
+                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
                                 }
                                 GeneralToken = new UniversalInvoice.GeneralToken();
                                 InvoiceToken = new UniversalInvoice.InvoiceToken();
@@ -1372,7 +1385,7 @@ namespace TangentaDB
                                 InvoiceToken.tStorno.Set("");
                                 if (IsDocInvoice)
                                 {
-                                    if (AddOnDI.bInvoiceStorno)
+                                    if (bInvoiceStorno)
                                     {
                                         InvoiceToken.tStorno.Set(lngRPM.s_STORNO.s);
                                     }

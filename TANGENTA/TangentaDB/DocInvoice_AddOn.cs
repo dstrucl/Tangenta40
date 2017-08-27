@@ -639,12 +639,6 @@ namespace TangentaDB
             }
         }
 
-    
-        public long_v DocInvoice_Reference_ID_v = null;
-        public bool bInvoiceStorno = false;
-        public DateTime_v StornoIssueDate_v = null;
-        public bool_v Invoice_Storno_v = null;
-        public string_v Invoice_Reference_Type_v = null;
 
         public bool b_FVI_SLO = false;
 

@@ -30,7 +30,6 @@ namespace TangentaPrint
        
         public long Default_ID = -1;
 
-        private usrc_Invoice_Preview m_usrc_Invoice_Preview = null;
         private GlobalData.ePaymentType paymentType;
         private string sPaymentMethod;
         private string sAmountReceived;
@@ -173,8 +172,8 @@ namespace TangentaPrint
             switch (m_usrc_SelectPrintTemplate.Init(m_InvoiceData))
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
-                    //m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
-                    //this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
+                    m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+                    this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
                     break;
