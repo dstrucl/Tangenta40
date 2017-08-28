@@ -138,6 +138,21 @@ namespace TangentaDB
                 }
                 return false;
             }
+
+            public bool SetDefault()
+            {
+                string_v description_v = null;
+                if (f_TermsOfPayment.Get(1, ref description_v))
+                {
+                    if (description_v != null)
+                    {
+                        ID = 1;
+                        Description = description_v.v;
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
 
 

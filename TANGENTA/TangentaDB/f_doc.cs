@@ -80,13 +80,30 @@ namespace TangentaDB
 
                 long doc_ID = 0;
                 long_v doc_type_ID_v = new long_v(GlobalData.doc_type_definitions.doc_type_list[j].ID);
-                long_v doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.A4_Portrait_description.ID);
+                long_v doc_page_type_ID_v = null;
+                if (ht.Name.Contains("A4"))
+                {
+                    doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.A4_Portrait_description.ID);
+                }
+                else if (ht.Name.Contains("Roll80"))
+                {
+                    doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.Roll_80_mm.ID);
+                }
+                else if (ht.Name.Contains("Roll58"))
+                {
+                    doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.Roll_58_mm.ID);
+                }
+                else
+                {
+                    doc_page_type_ID_v = new long_v(GlobalData.doc_page_type_definitions.A4_Portrait_description.ID);
+                }
+
                 long_v xLanguage_ID_v = new long_v(GlobalData.language_definitions.Language_list[i].ID);
 
                 string doc_Name = ht.Name;
                 if (Exists(ht.Name, doc_type_ID_v, ref doc_ID) == ExistsResult.EXISTS)
                 {
-                    return true;
+                    continue;
                 }
 
                 if (!Get(doc_Name,
@@ -225,6 +242,7 @@ namespace TangentaDB
         }
         public static eGetPrintDocumentTemplateResult GetTemplates(ref DataTable dtTemplates,
                                         long_v doc_type_ID_v,
+                                        long_v doc_page_type_ID_v,
                                         long_v Language_ID_v
                                         )
 
@@ -267,9 +285,25 @@ namespace TangentaDB
                 sval_Language_ID = spar_Language_ID;
                 scond_Language_ID = " Language_ID = " + spar_Language_ID + " ";
             }
+
             string sql = "select Name,Description,bDefault,ID from doc where " + scond_doc_type_ID
                                                           + " and " + scond_Language_ID
                                                           + " and Active = 1";
+            string sval_doc_page_type_ID = null;
+            string scond_doc_page_type_ID = null;
+            if (doc_page_type_ID_v!=null)
+            {
+                string spar_doc_page_type_ID = "@par_doc_page_type_ID";
+                SQL_Parameter par_doc_page_type_ID = new SQL_Parameter(spar_doc_page_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_page_type_ID_v.v);
+                lpar.Add(par_doc_page_type_ID);
+                sval_doc_page_type_ID = spar_doc_page_type_ID;
+                scond_doc_page_type_ID = " doc_page_type_ID = " + spar_doc_page_type_ID + " ";
+
+                sql = "select Name,Description,bDefault,ID from doc where " + scond_doc_type_ID
+                                                          + " and " + scond_doc_page_type_ID
+                                                          + " and " + scond_Language_ID
+                                                          + " and Active = 1";
+            }
 
             if (DBSync.DBSync.ReadDataTable(ref dtTemplates, sql, lpar, ref Err))
             {

@@ -250,9 +250,12 @@ namespace TangentaPrint
         {
             RemoveHandlers();
             SetPrinterSelection(m_InvoiceData);
+            long_v doc_page_type_ID_v = null;
+            Ge_doc_page_type_ID_v_FromSelectedPrinter(ref doc_page_type_ID_v);
 
             f_doc.eGetPrintDocumentTemplateResult eres = f_doc.GetTemplates(ref dtTemplates,
                            Doc_Type_ID_v,
+                           doc_page_type_ID_v,
                            Language_ID_v
                           );
             switch (eres)
@@ -319,6 +322,17 @@ namespace TangentaPrint
             AddHandlers();
             return eres;
 
+        }
+
+        private void Ge_doc_page_type_ID_v_FromSelectedPrinter(ref long_v doc_page_type_ID_v)
+        {
+            PrinterSettings prn_sttings = new PrinterSettings();
+            string printer_name = cmb_SelectPrinter.Text;
+            if (printer_name.Length > 0)
+            {
+                prn_sttings.PrinterName = printer_name;
+                GlobalData.doc_page_type_definitions.FindMatching_page_type("inch", Convert.ToDecimal(prn_sttings.DefaultPageSettings.PaperSize.Width) / 100.0m, 0.393m, ref doc_page_type_ID_v);
+            }
         }
 
         private void AddHandlers()

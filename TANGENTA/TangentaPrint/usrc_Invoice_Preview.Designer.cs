@@ -32,7 +32,6 @@
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_SaveAs = new System.Windows.Forms.Button();
             this.btn_Tokens = new System.Windows.Forms.Button();
-            this.btn_Exit = new System.Windows.Forms.Button();
             this.htmlPanel1 = new TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel();
             this.SuspendLayout();
             // 
@@ -64,19 +63,8 @@
             this.btn_Tokens.TabIndex = 5;
             this.btn_Tokens.Text = "button1";
             this.btn_Tokens.UseVisualStyleBackColor = true;
+            this.btn_Tokens.Visible = false;
             this.btn_Tokens.Click += new System.EventHandler(this.btn_Tokens_Click);
-            // 
-            // btn_Exit
-            // 
-            this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_Exit.Location = new System.Drawing.Point(428, 3);
-            this.btn_Exit.Name = "btn_Exit";
-            this.btn_Exit.Size = new System.Drawing.Size(61, 39);
-            this.btn_Exit.TabIndex = 6;
-            this.btn_Exit.Text = "Exit";
-            this.btn_Exit.UseVisualStyleBackColor = true;
-            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
             // htmlPanel1
             // 
@@ -101,7 +89,6 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.Controls.Add(this.htmlPanel1);
-            this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.btn_Tokens);
             this.Controls.Add(this.btn_SaveAs);
             this.Controls.Add(this.btn_Print);
@@ -118,6 +105,5 @@
         private System.Windows.Forms.Button btn_SaveAs;
         private TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel htmlPanel1;
         internal System.Windows.Forms.Button btn_Tokens;
-        internal System.Windows.Forms.Button btn_Exit;
     }
 }

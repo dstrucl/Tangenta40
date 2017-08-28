@@ -122,7 +122,17 @@ namespace Tangenta
                             break;
                     }
                 }
-                if (m_AddOnDI.m_TermsOfPayment != null)
+                if (m_AddOnDI.m_TermsOfPayment == null)
+                {
+                    // set default value !
+                    m_AddOnDI.m_TermsOfPayment = new DocInvoice_AddOn.TermsOfPayment();
+                    m_AddOnDI.m_TermsOfPayment.SetDefault();
+                    if (m_AddOnDI.m_TermsOfPayment.Description.Length > 0)
+                    {
+                        txt_PaymantConditionsDescription.Text = m_AddOnDI.m_TermsOfPayment.Description;
+                    }
+                }
+                else
                 {
                     txt_PaymantConditionsDescription.Text = m_AddOnDI.m_TermsOfPayment.Description;
                 }

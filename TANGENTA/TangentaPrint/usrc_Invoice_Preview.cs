@@ -35,7 +35,7 @@ namespace TangentaPrint
         int scrollOffset = 0;
         int iPage = 0;
         bool bFirstPagePrinting = false;
-
+        Printer m_Printer = null;
 
         TheArtOfDev.HtmlRenderer.WinForms.HtmlContainer hc = new TheArtOfDev.HtmlRenderer.WinForms.HtmlContainer();
 
@@ -173,10 +173,14 @@ namespace TangentaPrint
             {
                 try
                 {
-
+                    m_Printer = printer;
                     HTML_PrintingElement_List HTML_Printing_ElementList = null;
                     string s = null;
                     double xPageHeight = 1122.51;
+                    PrinterSettings psettings = new PrinterSettings();
+                    psettings.PrinterName = printer.PrinterName;
+                    xPageHeight = psettings.DefaultPageSettings.PaperSize.Height;
+
                     if (m_InvoiceData != null)
                     {
                         s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_Printing_ElementList);
@@ -259,12 +263,13 @@ namespace TangentaPrint
 
     private void btn_Print_Click(object sender, EventArgs e)
         {
-            PrintDialog pdlg = new PrintDialog();
-            pdlg.Document = pd;
-            DialogResult dlgRes = pdlg.ShowDialog();
-            if (dlgRes == DialogResult.OK)
-            {
+            //PrintDialog pdlg = new PrintDialog();
+            //pdlg.Document = pd;
+            //DialogResult dlgRes = pdlg.ShowDialog();
+            //if (dlgRes == DialogResult.OK)
+            //{
 
+                pd.PrinterSettings.PrinterName = m_Printer.PrinterName;
                 config.PageSize = PageSize.A4;
                 config.SetMargins(20);
 
@@ -297,7 +302,7 @@ namespace TangentaPrint
                 //bFirstPagePrinting = true;
                 //pd.Print();
 
-            }
+            //}
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)

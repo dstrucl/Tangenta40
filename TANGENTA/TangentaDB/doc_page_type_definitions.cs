@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using DBTypes;
+using System.Drawing.Printing;
 
 namespace TangentaDB
 {
@@ -16,14 +17,61 @@ namespace TangentaDB
             public long ID = -1;
             public string Name = null;
             public string Description = null;
-            public decimal Width = 0;
-            public decimal Height = 0;
-            public doc_page_type(string Page_Type_Name, string Page_Type_Description, decimal xWidth, decimal xHeight)
+
+            public decimal m_Width_in_mm = 0;
+            public decimal m_Height_in_mm = 0;
+
+            public decimal Width_in_mm
+            {
+                get {
+                    return m_Width_in_mm;
+                }
+                set
+                {
+                    m_Width_in_mm = value;
+                }
+            }
+
+            public decimal Height_in_mm
+            {
+                get
+                {
+                    return m_Height_in_mm;
+                }
+                set
+                {
+                    m_Height_in_mm = value;
+                }
+            }
+
+            public decimal Width_in_inch
+            {
+                get { return Convert_mm_to_inch(Width_in_mm); }
+                set { Width_in_mm = Convert_inch_to_mm(value); }
+            }
+
+            public decimal Height_in_inch
+            {
+                get { return Convert_mm_to_inch(Height_in_mm); }
+                set { Height_in_mm = Convert_inch_to_mm(value); }
+            }
+
+            public static decimal Convert_mm_to_inch(decimal l_in_mm)
+            {
+                return l_in_mm * 0.03937007874m; 
+            }
+
+            public static decimal Convert_inch_to_mm(decimal l_in_inch)
+            {
+                return l_in_inch * 25.4m; 
+            }
+
+            public doc_page_type(string Page_Type_Name, string Page_Type_Description, decimal xWidth, decimal xHeight_in_mm)
             {
                 Name = Page_Type_Name;
                 Description = Page_Type_Description;
-                Width = xWidth;
-                Height = xHeight;
+                Width_in_mm = xWidth;
+                Height_in_mm = xHeight_in_mm;
             }
         }
 
@@ -80,8 +128,47 @@ namespace TangentaDB
             doc_page_type_list.Add(A4_Landscape_description);
             doc_page_type_list.Add(Roll_80_mm);
             doc_page_type_list.Add(Roll_58_mm);
-
         }
+
+        public bool FindMatching_page_type(string unit, decimal width, decimal tolerance, ref long_v doc_page_type_ID_v)
+        {
+            decimal width_in_mm = 0;
+            decimal tolerance_in_mm = 0;
+            foreach (doc_page_type dpt in doc_page_type_list)
+            {
+                if (unit.ToLower().Equals("mm"))
+                {
+                    width_in_mm = width;
+                    tolerance_in_mm = tolerance;
+                }
+                else if (unit.ToLower().Equals("inch"))
+                {
+                    width_in_mm = doc_page_type.Convert_inch_to_mm(width);
+                    tolerance_in_mm = doc_page_type.Convert_inch_to_mm(tolerance);
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaDB:doc_page_type_definitions:FindMatching_page_type: parameter unit:\"" + unit + "\"not implemented!");
+                    return false;
+                }
+
+                if ((width_in_mm + tolerance_in_mm >= dpt.Width_in_mm) && (width_in_mm - tolerance_in_mm <= dpt.Width_in_mm))
+                {
+                    if (dpt.ID >= 0)
+                    {
+                        doc_page_type_ID_v = tf.set_long(dpt.ID);
+                    }
+                    else
+                    {
+                        doc_page_type_ID_v = null;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
 
         public  bool Read()
@@ -151,12 +238,12 @@ namespace TangentaDB
             }
 
             string spar_Width = "@par_Width";
-            SQL_Parameter par_Width = new SQL_Parameter(spar_Width, SQL_Parameter.eSQL_Parameter.Decimal, false, dpt.Width);
+            SQL_Parameter par_Width = new SQL_Parameter(spar_Width, SQL_Parameter.eSQL_Parameter.Decimal, false, dpt.Width_in_mm);
             string sval_Width = spar_Width;
             lpar.Add(par_Width);
 
             string spar_Height = "@par_Height";
-            SQL_Parameter par_Height = new SQL_Parameter(spar_Height, SQL_Parameter.eSQL_Parameter.Decimal, false, dpt.Height);
+            SQL_Parameter par_Height = new SQL_Parameter(spar_Height, SQL_Parameter.eSQL_Parameter.Decimal, false, dpt.Height_in_mm);
             string sval_Height = spar_Height;
             lpar.Add(par_Height);
 

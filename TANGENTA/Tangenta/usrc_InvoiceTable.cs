@@ -64,6 +64,10 @@ namespace Tangenta
         private int iColIndex_DocInvoice_Invoice_Storno = -1;
         private int iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = -1;
         private int iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = -1;
+        private int iColIndex_DocInvoice_PaymentType_Name = -1;
+        private int iColIndex_DocInvoice_PaymentType_Identification = -1;
+
+
         private bool bIgnoreChangeSelectionEvent = false;
 
         private string m_DocInvoice = Program.const_DocInvoice;
@@ -237,6 +241,7 @@ namespace Tangenta
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
                     pt.Identification AS PaymentType_Identification,
+                    pt.Name AS PaymentType_Name,
                     JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
                     JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                     JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
@@ -324,6 +329,7 @@ namespace Tangenta
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
                     pt.Identification AS PaymentType_Identification,
+                    pt.Name AS PaymentType_Name,
                     JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
                     JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
@@ -401,6 +407,7 @@ namespace Tangenta
                 JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn_$$FirstName,
                 JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln_$$LastName,
                 pt.Identification AS PaymentType_Identification,
+                pt.Name AS PaymentType_Name,
                 JOURNAL_DocProformaInvoice_$_dpinv.NetSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum,
                 JOURNAL_DocProformaInvoice_$_dpinv.TaxSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
                 JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
@@ -492,6 +499,10 @@ namespace Tangenta
                         iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_iinv_$_fvisbi_$$InvoiceNumber");
                     }
 
+                    iColIndex_DocInvoice_PaymentType_Identification = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
+                    iColIndex_DocInvoice_PaymentType_Name = dt_XInvoice.Columns.IndexOf("PaymentType_Name");
+
+                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
 
                     SetLabels();
                     SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocInvoice)));
@@ -529,6 +540,10 @@ namespace Tangenta
                 else if (IsDocProformaInvoice)
                 {
                     iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
+                    iColIndex_DocInvoice_PaymentType_Identification = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
+                    iColIndex_DocInvoice_PaymentType_Name = dt_XInvoice.Columns.IndexOf("PaymentType_Name");
+
+                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
 
                     SetLabels();
                     SQLTable tbl = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(DocProformaInvoice)));

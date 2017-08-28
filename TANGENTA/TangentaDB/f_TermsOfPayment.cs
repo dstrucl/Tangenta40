@@ -77,5 +77,30 @@ namespace TangentaDB
                 return true;
             }
         }
+
+        public static bool Get(long TermsOfPayment_ID, ref string_v xDescription_v)
+        {
+            DataTable dt = new DataTable();
+            string Err = null;
+            string sql = " select Description from TermsOfPayment where ID = " + TermsOfPayment_ID.ToString();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    xDescription_v = tf.set_string(dt.Rows[0]["Description"]);
+                }
+                else
+                {
+                    xDescription_v = null;
+                }
+                return true;
+            }
+            else
+            {
+                xDescription_v = null;
+                LogFile.Error.Show("ERROR:TangentaDB:f_TermsOfPayment:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
     }
 }
