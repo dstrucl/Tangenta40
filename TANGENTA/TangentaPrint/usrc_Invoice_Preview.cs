@@ -289,6 +289,7 @@ namespace TangentaPrint
                 scrollOffset = 0;
 
                 hc.UseGdiPlusTextRendering = true;
+                hc.ScrollOffset = new Point(0, 0);
 
                 //SizeF szf = new SizeF(pd.DefaultPageSettings.PaperSize.Width, pd.DefaultPageSettings.PaperSize.Height);
                 //hc.MaxSize = szf;

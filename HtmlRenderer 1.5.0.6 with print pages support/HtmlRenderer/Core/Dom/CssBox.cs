@@ -541,7 +541,14 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                         clip.Intersect(rect);
 
                         if (clip != RRect.Empty)
+                        {
                             visible = true;
+                        }
+                        else
+                        {
+                            visible = false;
+                        }
+
                     }
 
                     if (visible)
@@ -573,7 +580,6 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                         rect.X -= 2;
                         rect.Width += 2;
                         rect.Offset(new RPoint(-HtmlContainer.Location.X, -HtmlContainer.Location.Y));
-                        rect.Offset(HtmlContainer.ScrollOffset);
                         clip.Intersect(rect);
 
                         if (clip != RRect.Empty)
@@ -1423,6 +1429,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             }
         }
 
+
         /// <summary>
         /// Prints the fragment
         /// </summary>
@@ -1436,12 +1443,111 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 rp.X = -this.Location.X;
                 HtmlContainer.ScrollOffset = rp;
                 PaintImp(g);
+                //if (Display != CssConstants.None && (Display != CssConstants.TableCell || EmptyCells != CssConstants.Hide || !IsSpaceOrEmpty))
+                //{
+                //    var clipped = RenderUtils.ClipGraphicsByOverflow(g, this);
+
+                //    var areas = Rectangles.Count == 0 ? new List<RRect>(new[] { Bounds }) : new List<RRect>(Rectangles.Values);
+
+                //    RRect[] rects = areas.ToArray();
+                //    RPoint offset = HtmlContainer.ScrollOffset;
+
+                //    for (int i = 0; i < rects.Length; i++)
+                //    {
+                //        var actualRect = rects[i];
+                //        actualRect.Offset(offset);
+
+                //        PaintBackground(g, actualRect, i == 0, i == rects.Length - 1);
+                //        BordersDrawHandler.DrawBoxBorders(g, this, actualRect, i == 0, i == rects.Length - 1);
+                //    }
+
+
+
+
+                //    PaintWords(g, offset);
+
+                //    for (int i = 0; i < rects.Length; i++)
+                //    {
+                //        var actualRect = rects[i];
+                //        actualRect.Offset(offset);
+                //        PaintDecoration(g, actualRect, i == 0, i == rects.Length - 1);
+                //    }
+
+                //    // split paint to handle z-order
+                //    foreach (CssBox b in Boxes)
+                //    {
+                //        if (b.Position != CssConstants.Absolute)
+                //            b.Print(g, iPage, pagelist); ;
+                //    }
+                //    foreach (CssBox b in Boxes)
+                //    {
+                //        if (b.Position == CssConstants.Absolute)
+                //            b.Print(g, iPage, pagelist);
+                //    }
+
+                //    if (clipped)
+                //        g.PopClip();
+
+                //    if (_listItemBox != null)
+                //    {
+                //        _listItemBox.Print(g, iPage, pagelist);
+                //    }
+                //}
             }
             else
             {
+                //if (Display != CssConstants.None && (Display != CssConstants.TableCell || EmptyCells != CssConstants.Hide || !IsSpaceOrEmpty))
+                //{
+
+                //    var clipped = RenderUtils.ClipGraphicsByOverflow(g, this);
+
+                //    var areas = Rectangles.Count == 0 ? new List<RRect>(new[] { Bounds }) : new List<RRect>(Rectangles.Values);
+
+                //    RRect[] rects = areas.ToArray();
+                //    RPoint offset = HtmlContainer.ScrollOffset;
+
+                //    //for (int i = 0; i < rects.Length; i++)
+                //    //{
+                //    //    var actualRect = rects[i];
+                //    //    actualRect.Offset(offset);
+
+                //    //    PaintBackground(g, actualRect, i == 0, i == rects.Length - 1);
+                //    //    BordersDrawHandler.DrawBoxBorders(g, this, actualRect, i == 0, i == rects.Length - 1);
+                //    //}
+
+                //    //PaintWords(g, offset);
+
+                //    //for (int i = 0; i < rects.Length; i++)
+                //    //{
+                //    //    var actualRect = rects[i];
+                //    //    actualRect.Offset(offset);
+                //    //    PaintDecoration(g, actualRect, i == 0, i == rects.Length - 1);
+                //    //}
+
+                //    // split paint to handle z-order
+                //    foreach (CssBox b in Boxes)
+                //    {
+                //        if (b.Position != CssConstants.Absolute)
+                //            b.Print(g, iPage, pagelist);
+                //    }
+                //    foreach (CssBox b in Boxes)
+                //    {
+                //        if (b.Position == CssConstants.Absolute)
+                //            b.Print(g, iPage, pagelist);
+                //    }
+
+                //    if (clipped)
+                //        g.PopClip();
+
+                //    if (_listItemBox != null)
+                //    {
+                //        _listItemBox.Print(g, iPage, pagelist);
+                //    }
+                //}
+
+
                 if (Display != CssConstants.None && (Display != CssConstants.TableCell || EmptyCells != CssConstants.Hide || !IsSpaceOrEmpty))
                 {
-
                     var clipped = RenderUtils.ClipGraphicsByOverflow(g, this);
 
                     var areas = Rectangles.Count == 0 ? new List<RRect>(new[] { Bounds }) : new List<RRect>(Rectangles.Values);
@@ -1449,29 +1555,32 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                     RRect[] rects = areas.ToArray();
                     RPoint offset = HtmlContainer.ScrollOffset;
 
-                    //for (int i = 0; i < rects.Length; i++)
-                    //{
-                    //    var actualRect = rects[i];
-                    //    actualRect.Offset(offset);
+                    for (int i = 0; i < rects.Length; i++)
+                    {
+                        var actualRect = rects[i];
+                        actualRect.Offset(offset);
 
-                    //    PaintBackground(g, actualRect, i == 0, i == rects.Length - 1);
-                    //    BordersDrawHandler.DrawBoxBorders(g, this, actualRect, i == 0, i == rects.Length - 1);
-                    //}
+                        PaintBackground(g, actualRect, i == 0, i == rects.Length - 1);
+                        BordersDrawHandler.DrawBoxBorders(g, this, actualRect, i == 0, i == rects.Length - 1);
+                    }
 
-                    //PaintWords(g, offset);
 
-                    //for (int i = 0; i < rects.Length; i++)
-                    //{
-                    //    var actualRect = rects[i];
-                    //    actualRect.Offset(offset);
-                    //    PaintDecoration(g, actualRect, i == 0, i == rects.Length - 1);
-                    //}
+
+
+                    PaintWords(g, offset);
+
+                    for (int i = 0; i < rects.Length; i++)
+                    {
+                        var actualRect = rects[i];
+                        actualRect.Offset(offset);
+                        PaintDecoration(g, actualRect, i == 0, i == rects.Length - 1);
+                    }
 
                     // split paint to handle z-order
                     foreach (CssBox b in Boxes)
                     {
                         if (b.Position != CssConstants.Absolute)
-                            b.Print(g, iPage, pagelist);
+                            b.Print(g, iPage, pagelist); ;
                     }
                     foreach (CssBox b in Boxes)
                     {
@@ -1487,6 +1596,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                         _listItemBox.Print(g, iPage, pagelist);
                     }
                 }
+
             }
         }
 

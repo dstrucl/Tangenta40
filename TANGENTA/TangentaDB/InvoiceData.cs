@@ -604,6 +604,7 @@ namespace TangentaDB
             bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(ref DocInvoice_ID, this.AddOnDI.m_MethodOfPayment_DI.eType, this.AddOnDI.m_MethodOfPayment_DI.PaymentType, this.AddOnDI.m_MethodOfPayment_DI.m_sAmountReceived, this.AddOnDI.m_MethodOfPayment_DI.m_sToReturn, ref xNumberInFinancialYear);
             if (bRet)
             {
+                docinvoice_ID = DocInvoice_ID;
                 this.Set_NumberInFinancialYear(xNumberInFinancialYear);
                 this.SetInvoiceTime(InvoiceTime_v);
             }
@@ -1247,8 +1248,6 @@ namespace TangentaDB
                                     {
                                         AddOnDI.m_IssueDate = new DocInvoice_AddOn.IssueDate();
                                     }
-                                    AddOnDI.m_IssueDate.Date = DBTypes.tf._set_DateTime(dt_DocInvoice.Rows[0]["IssueDate"]);
-                                    AddOnDI.m_MethodOfPayment_DI.eType = AddOnDI.m_MethodOfPayment_DI.Set(dt_DocInvoice.Rows[0]["PaymentType_Identification"]);
                                     AddOnDI.m_FURS.FURS_ZOI_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$MessageID"]);
                                     AddOnDI.m_FURS.FURS_EOR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$UniqueInvoiceID"]);
                                     AddOnDI.m_FURS.FURS_QR_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$BarCodeValue"]);

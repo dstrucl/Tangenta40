@@ -2201,6 +2201,7 @@ do_EditMyOrganisation_Data:
                     // save doc Invoice 
                     if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID))
                     {
+                        m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
                         // read saved doc Invoice again !
                         if (m_InvoiceData.Read_DocInvoice())
                         {

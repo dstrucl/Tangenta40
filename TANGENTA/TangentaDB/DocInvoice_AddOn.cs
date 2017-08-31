@@ -422,7 +422,7 @@ namespace TangentaDB
                             ao.Tax_ID,
                             ao.Registration_ID
                             from DocInvoice di
-							left join  DocInvoiceAddOn diao on diao.DocInvoice_ID = di.ID
+							inner join  DocInvoiceAddOn diao on diao.DocInvoice_ID = di.ID
                             left join  TermsOfPayment top on diao.TermsOfPayment_ID = top.ID
                             left join  MethodOfPayment_DI mop on diao.MethodOfPayment_DI_ID = mop.ID
                             left join  PaymentType pt on mop.PaymentType_ID = pt.ID
