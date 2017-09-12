@@ -349,7 +349,7 @@ namespace TangentaDB
             string Err = null;
             Clear();
             string sql = @"select 
-                            dpi.IssueDate as IssueDate,
+                            dpiao.IssueDate as IssueDate,
                             dpiao.DocDuration as DocDuration,
                             dpiao.DocDurationType as DocDurationType,
                             dpiao.TermsOfPayment_ID as TermsOfPayment_ID,

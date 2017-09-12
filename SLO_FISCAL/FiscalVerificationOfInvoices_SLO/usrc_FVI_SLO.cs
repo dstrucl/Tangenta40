@@ -535,7 +535,7 @@ namespace FiscalVerificationOfInvoices_SLO
             string Xml_SalesBookInvoice_template = Properties.Resources.FVI_SLO_SalesBook;
             string Xml_SalesBookInvoice = invoiceData.AddOnDI.m_FURS.Create_furs_SalesBookInvoiceXML(Xml_SalesBookInvoice_template, FursD_MyOrgTaxID, FursD_BussinesPremiseID,
                                                                                      invoiceData.AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v.v, 
-                                                                                     invoiceData.AddOnDI.m_FURS.FURS_SalesBookInvoice_SerialNumber.v,
+                                                                                     invoiceData.AddOnDI.m_FURS.FURS_SalesBookInvoice_SerialNumber_v.v,
                                                                                      invoiceData.IssueDate_v,
                                                                                      invoiceData.NumberInFinancialYear,
                                                                                      invoiceData.GrossSum,

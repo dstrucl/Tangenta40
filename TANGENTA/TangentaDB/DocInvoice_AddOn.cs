@@ -669,7 +669,7 @@ namespace TangentaDB
 
             public string_v FURS_SalesBookInvoice_InvoiceNumber_v = null;
             public string_v FURS_SalesBookInvoice_SetNumber_v = null;
-            public string_v FURS_SalesBookInvoice_SerialNumber = null;
+            public string_v FURS_SalesBookInvoice_SerialNumber_v = null;
 
 
 

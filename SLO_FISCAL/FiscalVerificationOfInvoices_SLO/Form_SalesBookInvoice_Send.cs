@@ -51,14 +51,38 @@ namespace FiscalVerificationOfInvoices_SLO
             dt.Columns.Add(dcol_IssuerLastName);
             int i = 0;
             int iCount = xInvoiceData_List.Count;
+            string FURS_SalesBookInvoice_error = null;
             for (i = 0; i < iCount; i++)
             {
                 InvoiceData xinvd = xInvoiceData_List[i];
                 DataRow dr = dt.NewRow();
                 dr["FinancialYear"] = xinvd.FinancialYear;
-                dr["InvoiceNumber"] = xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v.v;
-                dr["SalesBookInvoice_SerialNumber"] = xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v.v;
-                dr["SalesBookInvoice_SetNumber"] = xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v.v;
+                dr["InvoiceNumber"] = xinvd.NumberInFinancialYear;
+                if (xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v != null)
+                {
+                    dr["InvoiceNumber"] = xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v.v;
+                }
+                else
+                {
+                    Set_FURS_SalesBookInvoice_error(ref FURS_SalesBookInvoice_error, xinvd, "No SalesBookInvoice InvoiceNumber");
+                }
+                if (xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_SerialNumber_v != null)
+                {
+                    dr["SalesBookInvoice_SerialNumber"] = xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v.v;
+                }
+                else
+                {
+                    Set_FURS_SalesBookInvoice_error(ref FURS_SalesBookInvoice_error, xinvd, "No SalesBookInvoice SerialNumber");
+                }
+                if (xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v != null)
+                {
+                    dr["SalesBookInvoice_SetNumber"] = xinvd.AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v.v;
+                }
+                else
+                {
+                    Set_FURS_SalesBookInvoice_error(ref FURS_SalesBookInvoice_error, xinvd, "No SalesBookInvoice SetNumber");
+                }
+                
                 dr["IssueDate_v"] = xinvd.IssueDate_v.v;
                 dr["GrossSum"] = xinvd.GrossSum;
                 dr["TaxSum"] = xinvd.taxsum;
@@ -66,6 +90,10 @@ namespace FiscalVerificationOfInvoices_SLO
                 dr["IssuerFirstName"] = xinvd.Invoice_Author.FirstName;
                 dr["IssuerLastName"] = xinvd.Invoice_Author.LastName;
                 dt.Rows.Add(dr);
+            }
+            if (FURS_SalesBookInvoice_error != null)
+            {
+                LogFile.Error.Show(FURS_SalesBookInvoice_error);
             }
             dgvx_SalesBookInvoice_Unsent.DataSource = dt;
             dgvx_SalesBookInvoice_Unsent.Columns["FinancialYear"].HeaderText = lngRPM.s_FinancialYear.s;
@@ -89,6 +117,15 @@ namespace FiscalVerificationOfInvoices_SLO
             dgvx_SalesBookInvoice_Unsent.CellValueChanged += Dgvx_SalesBookInvoice_Unsent_CellValueChanged;
             dgvx_SalesBookInvoice_Unsent.CurrentCellDirtyStateChanged += Dgvx_SalesBookInvoice_Unsent_CurrentCellDirtyStateChanged;
 
+        }
+
+        private void Set_FURS_SalesBookInvoice_error(ref string fURS_SalesBookInvoice_error, InvoiceData xinvd, string serr)
+        {
+            if (fURS_SalesBookInvoice_error == null)
+            {
+                fURS_SalesBookInvoice_error = "ERROR:FiscalVerificationOfInvoices_SLO:Form_SalesBookInvoice_Send:";
+            }
+            fURS_SalesBookInvoice_error += "\r\n FiscalYear:"+ xinvd.FinancialYear.ToString()+",Number in financial year:" + xinvd.NumberInFinancialYear.ToString()+" Error:"+ serr;
         }
 
         private void Dgvx_SalesBookInvoice_Unsent_CurrentCellDirtyStateChanged(object sender, EventArgs e)

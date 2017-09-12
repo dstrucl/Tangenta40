@@ -750,8 +750,8 @@ namespace TangentaDB
                                 aorgd_hp.HomePage,
                                 cPhoneNumber_Org.PhoneNumber,
                                 cFaxNumber_Org.FaxNumber,
-                                aorgd.BankName,
-                                aorgd.TRR,
+                                abo.Name as BankName,
+                                aba.TRR,
                                 aoff.Name as Atom_Office_Name,
                                 aed.Name as Atom_Electronic_Device_Name,
                                 apfn.FirstName as My_Organisation_Person_FirstName,
@@ -844,7 +844,7 @@ namespace TangentaDB
                                 aorgd_hp.HomePage,
                                 cPhoneNumber_Org.PhoneNumber,
                                 cFaxNumber_Org.FaxNumber,
-                                abo.BankName,
+                                abo.Name as BankName,
                                 aba.TRR,
                                 aoff.Name as Atom_Office_Name,
                                 aed.Name as Atom_Electronic_Device_Name,
@@ -881,7 +881,7 @@ namespace TangentaDB
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                 left join MethodOfPayment_DI mpdi on mpdi.ID = piao.MethodOfPayment_DI_ID
-                                left join MethodOfPayment_DI_BAccount mptdiba on mptdiba.MethodOfPayment_DI_ID = mptdi.ID
+                                left join MethodOfPayment_DI_BAccount mptdiba on mptdiba.MethodOfPayment_DI_ID = mpdi.ID
                                 left join Atom_BankAccount aba on mptdiba.Atom_BankAccount_ID = aba.ID
                                 left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                                 left join Atom_Organisation abo on ab.Atom_Organisation_ID = abo.ID
@@ -1254,7 +1254,7 @@ namespace TangentaDB
                                     AddOnDI.m_FURS.FURS_TestEnvironment_v = DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisres_$$TestEnvironment"]);
                                     AddOnDI.m_FURS.FURS_SalesBookInvoice_InvoiceNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$InvoiceNumber"]);
                                     AddOnDI.m_FURS.FURS_SalesBookInvoice_SetNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SetNumber"]);
-                                    AddOnDI.m_FURS.FURS_SalesBookInvoice_SerialNumber = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
+                                    AddOnDI.m_FURS.FURS_SalesBookInvoice_SerialNumber_v = DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$SerialNumber"]);
                                     if (AddOnDI.m_FURS.Invoice_FURS_Token==null)
                                     {
                                         AddOnDI.m_FURS.Invoice_FURS_Token = new UniversalInvoice.Invoice_FURS_Token();
