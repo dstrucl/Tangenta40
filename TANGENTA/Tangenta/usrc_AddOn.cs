@@ -141,7 +141,7 @@ namespace Tangenta
                     switch (m_usrc_Invoice.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType)
                     {
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                            txtMethodOfPayment += " [" + m_usrc_Invoice.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.BankAccount + "] " + m_usrc_Invoice.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.BankName;
+                            txtMethodOfPayment += " [" + m_usrc_Invoice.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount + "] " + m_usrc_Invoice.m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
                             break;
 
                     }
@@ -194,7 +194,7 @@ namespace Tangenta
                     switch (m_usrc_Invoice.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.eType)
                     {
                         case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                            txtMethodOfPayment += " [" + m_usrc_Invoice.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.BankAccount + "] " + m_usrc_Invoice.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.BankName;
+                            txtMethodOfPayment += " [" + m_usrc_Invoice.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount + "] " + m_usrc_Invoice.m_InvoiceData.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankName;
                             break;
 
                     }
@@ -211,7 +211,8 @@ namespace Tangenta
 
         internal bool Check_DocInvoice_AddOn(DocInvoice_AddOn addOnDI)
         {
-            if (addOnDI.Completed())
+            ltext ltMsg = null;
+            if (addOnDI.Completed(ref ltMsg))
             {
                 if (addOnDI.IsCashPayment)
                 {
@@ -237,7 +238,8 @@ namespace Tangenta
 
         internal bool Check_DocProformaInvoice_AddOn(DocProformaInvoice_AddOn addOnDPI)
         {
-            if (addOnDPI.Completed())
+            ltext ltMsg = null;
+            if (addOnDPI.Completed(ref ltMsg))
             {
                 return true;
             }

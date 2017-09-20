@@ -147,7 +147,7 @@ namespace Tangenta
 
         private string SetBankAccountText()
         {
-            return "[" + m_AddOnDI.m_MethodOfPayment_DI.BankAccount + "] " + m_AddOnDI.m_MethodOfPayment_DI.BankName;
+            return "[" + m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount + "] " + m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
         }
 
         private void Rdb_CARD_CheckedChanged(object sender, EventArgs e)
@@ -230,11 +230,15 @@ namespace Tangenta
 
                 }
                 this.m_AddOnDI.m_MethodOfPayment_DI.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
-                this.m_AddOnDI.m_MethodOfPayment_DI.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
-                this.m_AddOnDI.m_MethodOfPayment_DI.BankName = edt_Item_dlg.BankName;
-                this.m_AddOnDI.m_MethodOfPayment_DI.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
-                this.m_AddOnDI.m_MethodOfPayment_DI.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
-                this.m_AddOnDI.m_MethodOfPayment_DI.BankAccount = edt_Item_dlg.TRR;
+                if (this.m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment==null)
+                {
+                    this.m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment = new MyOrgBankAccountPayment();
+                }
+                this.m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
+                this.m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName = edt_Item_dlg.BankName;
+                this.m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
+                this.m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
+                this.m_AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount = edt_Item_dlg.TRR;
                 this.txt_BankAccount.Text = SetBankAccountText();
             }
         }
@@ -304,32 +308,20 @@ namespace Tangenta
             }
 
             ltext ltMsg = null;
-            if (m_AddOnDI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref ltMsg))
+            if (m_AddOnDI.Completed(ref ltMsg))
             {
-                if (ltMsg == null)
+                if (m_AddOnDI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref ltMsg))
                 {
                     if (Issue != null)
                     {
                         Issue();
-                    }
-                }
-                else
-                {
-                    XMessage.Box.Show(this, false, ltMsg);
+                    }                 
                 }
             }
-            //DateTime_v DocInvoiceTime = new DateTime_v();
-            //DocInvoiceTime.v = DateTime.Now;
-            //if (PaymentType == GlobalData.ePaymentType.CASH)
-            //{
-            //    DoPrint(PaymentType, sPaymentMethod, txt_AmountReceived.Text, txt_ToReturn.Text, DocInvoiceTime);
-            //}
-            //else
-            //{
-            //    DoPrint(PaymentType, sPaymentMethod, null, null, DocInvoiceTime);
-            //}
-
-
+            else
+            {
+                XMessage.Box.Show(this, false, ltMsg);
+            }
         }
 
         //private void DoPrint(GlobalData.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)

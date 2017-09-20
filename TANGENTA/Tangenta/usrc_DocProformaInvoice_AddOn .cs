@@ -111,7 +111,7 @@ namespace Tangenta
 
         private string SetBankAccountText()
         {
-            return "[" + m_AddOnDPI.m_MethodOfPayment_DPI.BankAccount + "] " + m_AddOnDPI.m_MethodOfPayment_DPI.BankName;
+            return "[" + m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount + "] " + m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankName;
         }
 
         public bool Init(DocProformaInvoice_AddOn x_AddOnDI,bool bxPrint, usrc_AddOn x_usrc_AddOn) //, int xCurrency_DecimalPlaces, decimal xGrossSum)
@@ -224,11 +224,15 @@ namespace Tangenta
                      
                 }
                 this.m_AddOnDPI.m_MethodOfPayment_DPI.eType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
-                this.m_AddOnDPI.m_MethodOfPayment_DPI.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
-                this.m_AddOnDPI.m_MethodOfPayment_DPI.BankName = edt_Item_dlg.BankName;
-                this.m_AddOnDPI.m_MethodOfPayment_DPI.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
-                this.m_AddOnDPI.m_MethodOfPayment_DPI.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
-                this.m_AddOnDPI.m_MethodOfPayment_DPI.BankAccount = edt_Item_dlg.TRR;
+                if (this.m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment==null)
+                {
+                    this.m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment = new MyOrgBankAccountPayment();
+                }
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount_ID = edt_Item_dlg.BankAccount_ID;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankName = edt_Item_dlg.BankName;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.Bank_Tax_ID = edt_Item_dlg.Bank_Tax_ID;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.Bank_Registration_ID = edt_Item_dlg.Bank_Registration_ID;
+                this.m_AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount = edt_Item_dlg.TRR;
                 this.txt_BankAccount.Text = SetBankAccountText();
             }
         }
@@ -341,19 +345,20 @@ namespace Tangenta
             }
 
             ltext ltMsg = null;
-            if (m_AddOnDPI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref ltMsg))
+            if (m_AddOnDPI.Completed(ref ltMsg))
             {
-                if (ltMsg==null)
+                if (m_AddOnDPI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref ltMsg))
                 {
-                    if (OK!=null)
+
+                    if (OK != null)
                     {
                         OK();
                     }
                 }
-                else
-                {
-                    XMessage.Box.Show(this, false, ltMsg);
-                }
+            }
+            else
+            {
+               XMessage.Box.Show(this, false, ltMsg);
             }
         }
 

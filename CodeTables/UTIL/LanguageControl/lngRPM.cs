@@ -17,6 +17,16 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_IssueDate_not_defined = new ltext(" Issue Date Not defined!\r\n", " Datum izdaje računa ni določen!\r\n");
+        public static ltext s_MethodOfPayment_DI_not_defined = new ltext(" Method of payment is not defined!\r\n", " Način plačila ni določen!\r\n");
+        public static ltext s_MethodOfPayment_DI_BankAccount_not_defined = new ltext(" Bank Account is not defined!\r\n", " Bančni račun ni določen!\r\n");
+        public static ltext s_MethodOfPayment_DI_PaymentDeadline_not_defined = new ltext(" Payment deadline is not defined!\r\n", " Rok plačila ni določen!\r\n");
+
+        public static ltext s_MethodOfPayment_DPI_not_defined = new ltext(" Proforma Invoice method of payment is not defined!\r\n", " Način plačila za predračun ni določen!\r\n");
+        public static ltext s_MethodOfPayment_DPI_BankAccount_not_defined = new ltext(" Bank Account is not defined!\r\n", " Bančni račun ni določen!\r\n");
+        public static ltext s_MethodOfPayment_DPI_Duration_is_not_defined = new ltext(" Payment deadline is not defined!\r\n", " Rok plačila ni določen!\r\n");
+
+
         public static ltext s_FVI_Edit_DocType_Settings = new ltext("Edit settings for Fiscal verification of invoice types", "Urejanje nastavitev davčnega potrjevanja glede na način plačila");
         public static ltext s_FVI_not_done = new ltext("Fiscal verification of invoice was not done", "Davčno potrjevanje računa ni bilo izvedeno");
         public static ltext s_FVI_done_in_test_environment = new ltext("Fiscal verification done in TEST ENVIRONMENT!", "Davčno potrjevanje računa izvedeno v TESTNEM OKOLJU");
@@ -76,8 +86,8 @@ namespace LanguageControl
         public static ltext s_Invoice_IssueDate = new ltext("Invoice Date", "Datum računa");
         public static ltext s_ProformaInvoice_IssueDate = new ltext("Proforma Invoice Date", "Datum ponudbe");
         public static ltext s_lbl_DateOfProformaInvoiceIssue = new ltext("Proforma Invoice Date", "Datum ponudbe");
-        public static ltext s_MethodOfPayment_is_not_defined = new ltext("Method of payment is not defined", "Način plačila ni določen!");
-        public static ltext s_TermsOfPayment_are_not_defined = new ltext("Terms of payment are not defined", "Plačilni pogoji niso določeni!");
+        public static ltext s_MethodOfPayment_is_not_defined = new ltext(" Method of payment is not defined\r\n", " Način plačila ni določen!\r\n");
+        public static ltext s_TermsOfPayment_are_not_defined = new ltext(" Terms of payment are not defined\r\n", " Plačilni pogoji niso določeni!\r\n");
         public static ltext s_DocProformaInvoice_ValidToDate_must_be_later_than_IssueDay = new ltext("Proforma Invoice validy date must be later then issue date!", "Datum veljavnosti ponudbe mora biti kasnejši od datuma ponudbe!");
         public static ltext s_PaymentType_CASH =  new ltext("Cash","Gotovina");
         public static ltext s_PaymentType_CASH_OR_PAYMENT_CARD = new ltext("Cash or payment card", "Gotovina ali plačilna kartica");

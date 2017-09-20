@@ -1661,18 +1661,26 @@ namespace TangentaDB
             InvoiceToken.tDateOfMaturity.Set(stime);
 
             sMethodOfPayment = "";
+            sBankAccount = "";
+            sBankName = "";
             if (IsDocInvoice)
             {
                 sMethodOfPayment = this.AddOnDI.m_MethodOfPayment_DI.PaymentType;
-                sBankAccount = this.AddOnDI.m_MethodOfPayment_DI.BankAccount;
-                sBankName = this.AddOnDI.m_MethodOfPayment_DI.BankName;
+                if (this.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment != null)
+                {
+                    sBankAccount = this.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount;
+                    sBankName = this.AddOnDI.m_MethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName;
+                }
 
             }
             else if (IsDocProformaInvoice)
             {
                 sMethodOfPayment = this.AddOnDPI.m_MethodOfPayment_DPI.PaymentType;
-                sBankAccount = this.AddOnDPI.m_MethodOfPayment_DPI.BankAccount;
-                sBankName = this.AddOnDPI.m_MethodOfPayment_DPI.BankName;
+                if (this.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment != null)
+                {
+                    sBankAccount = this.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankAccount;
+                    sBankName = this.AddOnDPI.m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment.BankName;
+                }
             }
             if (sBankAccount!=null)
             {

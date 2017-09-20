@@ -165,41 +165,7 @@ namespace TangentaDB
                 set { m_ID = value; }
             }
 
-            private long m_BankAccount_ID = -1;
-            public long BankAccount_ID
-            {
-                get { return m_BankAccount_ID; }
-                set { m_BankAccount_ID = value; }
-            }
 
-            private string m_BankName = null;
-            public string BankName
-            {
-                get { return m_BankName; }
-                set { m_BankName = value; }
-            }
-
-            private string m_Bank_Tax_ID = null;
-            public string Bank_Tax_ID
-            {
-                get { return m_Bank_Tax_ID; }
-                set { m_Bank_Tax_ID = value; }
-            }
-
-            private string m_Bank_Registration_ID = null;
-            public string Bank_Registration_ID
-            {
-                get { return m_Bank_Registration_ID; }
-                set { m_Bank_Registration_ID = value; }
-            }
-
-            private string m_BankAccount = null;
-            public string BankAccount
-            {
-                get { return m_BankAccount; }
-                set { m_BankAccount = value; }
-
-            }
 
             private string m_Description = null;
             public string Description
@@ -236,7 +202,9 @@ namespace TangentaDB
                 }
             }
 
-            
+            public MyOrgBankAccountPayment m_MyOrgBankAccountPayment = null;
+
+
 
             internal static MethodOfPayment_DI Set(object oID, object oPaymentType_Identification, object oBankName,
                                                                                  object oBank_Tax_ID,
@@ -255,21 +223,25 @@ namespace TangentaDB
                     {
                         if (xMethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                         {
+                            if (xMethodOfPayment_DI.m_MyOrgBankAccountPayment == null)
+                            {
+                                xMethodOfPayment_DI.m_MyOrgBankAccountPayment = new MyOrgBankAccountPayment();
+                            }
                             if ((oBankName is string)
                                 && (oBank_Tax_ID is string)
                                 && (oBankAccount is string)
                                 && (oBankAccount_ID is long))
                             {
-                                xMethodOfPayment_DI.BankName = (string)oBankName;
-                                xMethodOfPayment_DI.Bank_Tax_ID = (string)oBank_Tax_ID;
-                                xMethodOfPayment_DI.BankAccount = (string)oBankAccount;
-                                xMethodOfPayment_DI.BankAccount_ID = (long)oBankAccount_ID;
-                                xMethodOfPayment_DI.m_Bank_Registration_ID = null;
+                                xMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankName = (string)oBankName;
+                                xMethodOfPayment_DI.m_MyOrgBankAccountPayment.Bank_Tax_ID = (string)oBank_Tax_ID;
+                                xMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount = (string)oBankAccount;
+                                xMethodOfPayment_DI.m_MyOrgBankAccountPayment.BankAccount_ID = (long)oBankAccount_ID;
+                                xMethodOfPayment_DI.m_MyOrgBankAccountPayment.Bank_Registration_ID = null;
                                 if (oBank_Registration_ID != null)
                                 {
                                     if (oBank_Registration_ID is string)
                                     {
-                                        xMethodOfPayment_DI.Bank_Registration_ID = (string)oBank_Registration_ID;
+                                        xMethodOfPayment_DI.m_MyOrgBankAccountPayment.Bank_Registration_ID = (string)oBank_Registration_ID;
                                     }
                                 }
                             }
@@ -310,11 +282,15 @@ namespace TangentaDB
                 switch (eType)
                 {
                     case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                        if (f_Atom_BankAccount.Get(this.BankName,
-                                                   this.Bank_Tax_ID,
-                                                   this.Bank_Registration_ID,
+                        if (m_MyOrgBankAccountPayment==null)
+                        {
+                            m_MyOrgBankAccountPayment = new MyOrgBankAccountPayment();
+                        }
+                        if (f_Atom_BankAccount.Get(this.m_MyOrgBankAccountPayment.BankName,
+                                                   this.m_MyOrgBankAccountPayment.Bank_Tax_ID,
+                                                   this.m_MyOrgBankAccountPayment.Bank_Registration_ID,
                                                    true,
-                                                   this.BankAccount,
+                                                   this.m_MyOrgBankAccountPayment.BankAccount,
                                                    this.Description,
                                                    ref Atom_BankAccount_ID_v))
                         {
@@ -375,17 +351,20 @@ namespace TangentaDB
 
         public CashHandling m_CashHandling = null;
 
-        public bool Completed()
+        public bool Completed(ref ltext ltMsg)
         {
-            if (m_IssueDate!=null)
+            if (m_IssueDate != null)
             {
-                if (m_MethodOfPayment_DI!=null)
+                if (m_MethodOfPayment_DI != null)
                 {
                     if (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                     {
-                        if (m_PaymentDeadline!=null)
+                        if (m_MethodOfPayment_DI.m_MyOrgBankAccountPayment != null)
                         {
-                            return true;
+                            if (m_PaymentDeadline != null)
+                            {
+                                return true;
+                            }
                         }
                     }
                     else
@@ -394,6 +373,38 @@ namespace TangentaDB
                     }
                 }
             }
+            List<object> Complex_ltMsg = new List<object>();
+            if (m_IssueDate == null)
+            {
+                Complex_ltMsg.Add(lngRPM.s_IssueDate_not_defined);
+            }
+            if (m_MethodOfPayment_DI == null)
+            {
+                Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DI_not_defined);
+            }
+            else
+            {
+                if (m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                {
+                    if (m_MethodOfPayment_DI.m_MyOrgBankAccountPayment == null)
+                    {
+                        Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DI_BankAccount_not_defined);
+                    }
+                    if (m_PaymentDeadline == null)
+                    {
+                        Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DI_PaymentDeadline_not_defined);
+                    }
+                }
+            }
+            if (m_TermsOfPayment == null)
+            {
+                Complex_ltMsg.Add(lngRPM.s_TermsOfPayment_are_not_defined);
+            }
+            if (Complex_ltMsg.Count>0)
+            {
+                ltMsg = new ltext(Complex_ltMsg);
+            }
+                
             return false;
         }
 
@@ -468,33 +479,33 @@ namespace TangentaDB
 
         public bool Set(long DocInvoice_ID, ref ltext ltMsg)
         {
-
-            if (DocInvoice_ID_v == null)
-            {
-                DocInvoice_ID_v = new long_v(DocInvoice_ID);
-            }
-            else
-            {
-                DocInvoice_ID_v.v = DocInvoice_ID;
-
-            }
-
-            if (f_DocInvoiceAddOn.Get(DocInvoice_ID_v, ref DocInvoiceAddOn_ID_v))
-            {
-                if (DocInvoiceAddOn_ID_v != null)
+           
+                if (DocInvoice_ID_v == null)
                 {
-                   return Update();
+                    DocInvoice_ID_v = new long_v(DocInvoice_ID);
                 }
                 else
                 {
-                   return Insert();
+                    DocInvoice_ID_v.v = DocInvoice_ID;
+
                 }
-            }
-            else
-            {
-                return false;
-            }
-          
+
+                if (f_DocInvoiceAddOn.Get(DocInvoice_ID_v, ref DocInvoiceAddOn_ID_v))
+                {
+                    if (DocInvoiceAddOn_ID_v != null)
+                    {
+                        return Update();
+                    }
+                    else
+                    {
+                        return Insert();
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+           
         }
 
         private bool Insert()

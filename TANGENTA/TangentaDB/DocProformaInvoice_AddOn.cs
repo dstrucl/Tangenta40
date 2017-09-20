@@ -143,41 +143,7 @@ namespace TangentaDB
                 set { m_ID = value; }
             }
 
-            private long m_BankAccount_ID = -1;
-            public long BankAccount_ID
-            {
-                get { return m_BankAccount_ID; }
-                set { m_BankAccount_ID = value; }
-            }
-
-            private string m_BankName = null;
-            public string BankName
-            {
-                get { return m_BankName; }
-                set { m_BankName = value; }
-            }
-
-            private string m_Bank_Tax_ID = null;
-            public string Bank_Tax_ID
-            {
-                get { return m_Bank_Tax_ID; }
-                set { m_Bank_Tax_ID = value; }
-            }
-
-            private string m_Bank_Registration_ID = null;
-            public string Bank_Registration_ID
-            {
-                get { return m_Bank_Registration_ID; }
-                set { m_Bank_Registration_ID = value; }
-            }
-
-            private string m_BankAccount = null;
-            public string BankAccount
-            {
-                get { return m_BankAccount; }
-                set { m_BankAccount = value; }
-
-            }
+            public MyOrgBankAccountPayment m_MyOrgBankAccountPayment = null;
 
             private string m_Description = null;
             public string Description
@@ -229,21 +195,25 @@ namespace TangentaDB
                     {
                         if (xMethodOfPayment.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
                         {
+                           if (xMethodOfPayment.m_MyOrgBankAccountPayment == null)
+                            {
+                                xMethodOfPayment.m_MyOrgBankAccountPayment = new MyOrgBankAccountPayment();
+                            }
                             if ((oBankName is string)
                                 && (oBank_Tax_ID is string)
                                 && (oBankAccount is string) 
                                 && (oBankAccount_ID is long))
                             {
-                                xMethodOfPayment.BankName = (string)oBankName;
-                                xMethodOfPayment.Bank_Tax_ID = (string)oBank_Tax_ID;
-                                xMethodOfPayment.BankAccount = (string)oBankAccount;
-                                xMethodOfPayment.BankAccount_ID = (long)oBankAccount_ID;
-                                xMethodOfPayment.m_Bank_Registration_ID = null;
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.BankName = (string)oBankName;
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Tax_ID = (string)oBank_Tax_ID;
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.BankAccount = (string)oBankAccount;
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.BankAccount_ID = (long)oBankAccount_ID;
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Registration_ID = null;
                                 if (oBank_Registration_ID!=null)
                                 {
                                     if (oBank_Registration_ID is string)
                                     {
-                                        xMethodOfPayment.Bank_Registration_ID = (string)oBank_Registration_ID;
+                                        xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Registration_ID = (string)oBank_Registration_ID;
                                     }
                                 }
                             }
@@ -284,11 +254,11 @@ namespace TangentaDB
                 switch (eType)
                 {
                     case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                        if (f_Atom_BankAccount.Get(this.BankName,
-                                                   this.Bank_Tax_ID,
-                                                   this.Bank_Registration_ID,
+                        if (f_Atom_BankAccount.Get(this.m_MyOrgBankAccountPayment.BankName,
+                                                   this.m_MyOrgBankAccountPayment.Bank_Tax_ID,
+                                                   this.m_MyOrgBankAccountPayment.Bank_Registration_ID,
                                                    true,
-                                                   this.BankAccount,
+                                                   this.m_MyOrgBankAccountPayment.BankAccount,
                                                    this.Description,
                                                    ref Atom_BankAccount_ID_v))
                         {
@@ -329,20 +299,67 @@ namespace TangentaDB
             }
         }
 
-        public bool Completed()
+        public bool Completed(ref ltext ltMsg)
         {
             if (m_IssueDate != null)
             {
-                if (m_MethodOfPayment_DPI != null)
+                if (m_Duration != null)
                 {
-                    if (m_Duration != null)
+                    if (m_TermsOfPayment != null)
                     {
-                        if (m_TermsOfPayment != null)
+                        if (m_MethodOfPayment_DPI != null)
                         {
-                            return true;
+                            if (m_MethodOfPayment_DPI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                            {
+                                if (m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment != null)
+                                {
+                                    return true;
+                                }
+                            }
+                            else if (m_MethodOfPayment_DPI.eType != GlobalData.ePaymentType.NOT_DEFINED)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
+            }
+            List<object> Complex_ltMsg = new List<object>();
+            if (m_IssueDate == null)
+            {
+                Complex_ltMsg.Add(lngRPM.s_IssueDate_not_defined);
+            }
+            if (m_MethodOfPayment_DPI == null)
+            {
+                Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DPI_not_defined);
+            }
+            else
+            {
+                if (m_MethodOfPayment_DPI.eType == GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER)
+                {
+                    if (m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment == null)
+                    {
+                        Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DI_BankAccount_not_defined);
+                    }
+                    if (m_Duration == null)
+                    {
+                        Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DPI_Duration_is_not_defined);
+                    }
+                }
+                else if (m_MethodOfPayment_DPI.eType == GlobalData.ePaymentType.NOT_DEFINED)
+                {
+                    Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DPI_not_defined);
+                }
+
+            }
+            if (m_TermsOfPayment == null)
+            {
+                Complex_ltMsg.Add(lngRPM.s_TermsOfPayment_are_not_defined);
+            }
+            
+            if (Complex_ltMsg.Count > 0)
+            {
+                ltMsg = new ltext(Complex_ltMsg);
             }
             return false;
         }
