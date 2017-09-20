@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LanguageControl;
 using TangentaDB;
+using DBTypes;
 
 namespace Tangenta
 {
@@ -238,7 +239,7 @@ namespace Tangenta
         {
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before mthis.m_usrc_InvoiceTable.Init(..)");
 
-            int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear);
+            int iRowsCount = this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, true, Properties.Settings.Default.FinancialYear,null);
 
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:SetDocument():before m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID)");
             if (!m_usrc_Invoice.Init(xnav, this.m_usrc_InvoiceTable.Current_Doc_ID))
@@ -269,7 +270,7 @@ namespace Tangenta
                 {
                     Properties.Settings.Default.FinancialYear = iFinancialYear;
                     Properties.Settings.Default.Save();
-                    this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear);
+                    this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
                 }
             }
         }
@@ -282,14 +283,24 @@ namespace Tangenta
         {
             splitContainer1.Panel2Collapsed = false;
             SetMode(eMode.Shops_and_InvoiceTable);
-            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,true,false, Properties.Settings.Default.FinancialYear);
+            long_v Doc_ID_to_show_v = null;
+            if (DocInvoice_id>=0)
+            {
+                Doc_ID_to_show_v = new long_v(DocInvoice_id);
+            }
+            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType,false,false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
         }
 
         private void m_usrc_Invoice_DocProformaInvoiceSaved(long DocProformaInvoice_id)
         {
             splitContainer1.Panel2Collapsed = false;
             SetMode(eMode.Shops_and_InvoiceTable);
-            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, true, false, Properties.Settings.Default.FinancialYear);
+            long_v Doc_ID_to_show_v = null;
+            if (DocProformaInvoice_id >= 0)
+            {
+                Doc_ID_to_show_v = new long_v(DocProformaInvoice_id);
+            }
+            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false, false, Properties.Settings.Default.FinancialYear, Doc_ID_to_show_v);
         }
 
         private void m_usrc_InvoiceTable_SelectedInvoiceChanged(long DocInvoice_ID,bool bInitialise)
@@ -338,7 +349,7 @@ namespace Tangenta
                     DateTime dtStart = DateTime.Now;
                     DateTime dtEnd = DateTime.Now;
                     m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
-                    m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear);
+                    m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear,null);
                 }
                 else
                 {
@@ -366,7 +377,7 @@ namespace Tangenta
                     DateTime dtStart = DateTime.Now;
                     DateTime dtEnd = DateTime.Now;
                     m_usrc_InvoiceTable.SetTimeSpanParam(usrc_InvoiceTable.eMode.All, dtStart, dtEnd);
-                    m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear);
+                    m_usrc_InvoiceTable.Init(eInvType, true, false, Properties.Settings.Default.FinancialYear,null);
 
                 }
                 else
@@ -416,7 +427,7 @@ namespace Tangenta
                                             case TangentaDB.Basket.eCopy_ShopC_Price_Item_Stock_Table_Result.OK:
                                                 Properties.Settings.Default.FinancialYear = this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear;
                                                 Properties.Settings.Default.Save();
-                                                m_usrc_InvoiceTable.Init(eInvType, true, false, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear);
+                                                m_usrc_InvoiceTable.Init(eInvType, true, false, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear,null);
                                                 cmb_FinancialYear.SelectedIndexChanged  -= Cmb_FinancialYear_SelectedIndexChanged;
                                                 GlobalData.SelectFinancialYear(cmb_FinancialYear, this.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear);
                                                 cmb_FinancialYear.SelectedIndexChanged += Cmb_FinancialYear_SelectedIndexChanged;
@@ -452,7 +463,7 @@ namespace Tangenta
             if (this.m_usrc_InvoiceTable.Visible)
             {
                 Customer_Changed = false;
-                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false,Properties.Settings.Default.FinancialYear);
+                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false,Properties.Settings.Default.FinancialYear,null);
             }
         }
 
@@ -462,13 +473,13 @@ namespace Tangenta
             if (this.m_usrc_InvoiceTable.Visible)
             {
                 Customer_Changed = false;
-                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear);
+                this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
             }
         }
 
         private void m_usrc_Invoice_Storno(bool bStorno)
         {
-            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear);
+            this.m_usrc_InvoiceTable.Init(m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
         }
 
         private void m_usrc_Invoice_Load(object sender, EventArgs e)

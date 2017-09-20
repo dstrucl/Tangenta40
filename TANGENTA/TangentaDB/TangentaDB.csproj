@@ -131,6 +131,7 @@
     <Compile Include="f_cZIP_Person.cs" />
     <Compile Include="f_doc.cs" />
     <Compile Include="f_DocInvoice.cs" />
+    <Compile Include="f_DocProformaInvoiceAddOn.cs" />
     <Compile Include="f_DocInvoiceAddOn.cs" />
     <Compile Include="f_DocInvoice_ShopC_Item.cs" />
     <Compile Include="f_DocProformaInvoice.cs" />

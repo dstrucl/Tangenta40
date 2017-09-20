@@ -35,27 +35,46 @@ namespace UniversalInvoice
 
         public List<TemplateToken> list = null;
 
-        public InvoiceToken()
+        public InvoiceToken(bool xbIsDocInvoice)
         {
-            tFiscalYear = new TemplateToken(lngToken.st_Invoice, lngToken.st_FiscalYear, null,null);
-            tInvoiceNumber = new TemplateToken(lngToken.st_Invoice, lngToken.st_Number, null,null);
-            tCashier = new TemplateToken(lngToken.st_Invoice, lngToken.st_Cashier, null, null);
-            tIssuerOfInvoice = new TemplateToken(lngToken.st_Invoice, lngToken.st_IssuerOfInvoice, null,null);
+            ltext ltDocInvoice = null;
+            if (xbIsDocInvoice)
+            {
+                ltDocInvoice = lngToken.st_Invoice;
+            }
+            else
+            {
+                ltDocInvoice = lngToken.st_ProformaInvoice;
+            }
+
+        
+            
+            tFiscalYear = new TemplateToken(ltDocInvoice, lngToken.st_FiscalYear, null,null);
+            tInvoiceNumber = new TemplateToken(ltDocInvoice, lngToken.st_Number, null,null);
+            tCashier = new TemplateToken(ltDocInvoice, lngToken.st_Cashier, null, null);
+            tIssuerOfInvoice = new TemplateToken(ltDocInvoice, lngToken.st_IssuerOfInvoice, null,null);
 
 
-            tDateOfIssue = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfIssue, null,null);
-            tDateOfMaturity = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfMaturity, null, null);
-            tPaymentType = new TemplateToken(lngToken.st_Invoice, lngToken.st_PaymentType, null, null);
-            tPaymentToBankAccount = new TemplateToken(lngToken.st_Invoice, lngToken.st_PaymentToBankAccount, null, null);
-            tPaymentToBankName = new TemplateToken(lngToken.st_Invoice, lngToken.st_PaymentToBankName, null, null);
+            tDateOfIssue = new TemplateToken(ltDocInvoice, lngToken.st_DateOfIssue, null,null);
+            tDateOfMaturity = new TemplateToken(ltDocInvoice, lngToken.st_DateOfMaturity, null, null);
+            tPaymentType = new TemplateToken(ltDocInvoice, lngToken.st_PaymentType, null, null);
+            tPaymentToBankAccount = new TemplateToken(ltDocInvoice, lngToken.st_PaymentToBankAccount, null, null);
+            tPaymentToBankName = new TemplateToken(ltDocInvoice, lngToken.st_PaymentToBankName, null, null);
 
 
-            tSumNetPrice = new TemplateToken(lngToken.st_Invoice, lngToken.st_SumNetPrice, null, null);
-            tTaxRateName = new TemplateToken(lngToken.st_Invoice, lngToken.st_TaxRateName, null, null);
-            tSumTax = new TemplateToken(lngToken.st_Invoice, lngToken.st_SumTax, null, null);
-            tTotalSum = new TemplateToken(lngToken.st_Invoice, lngToken.st_TotalSum, null, null);
+            tSumNetPrice = new TemplateToken(ltDocInvoice, lngToken.st_SumNetPrice, null, null);
+            tTaxRateName = new TemplateToken(ltDocInvoice, lngToken.st_TaxRateName, null, null);
+            tSumTax = new TemplateToken(ltDocInvoice, lngToken.st_SumTax, null, null);
+            tTotalSum = new TemplateToken(ltDocInvoice, lngToken.st_TotalSum, null, null);
 
-            tStorno = new TemplateToken(lngToken.st_Invoice, lngToken.st_Storno, null, null);
+            if (xbIsDocInvoice)
+            {
+                tStorno = new TemplateToken(lngToken.st_Invoice, lngToken.st_Storno, null, null);
+            }
+            else
+            {
+                tStorno = null;
+            }
 
             list = new List<TemplateToken>();
             list.Add(tFiscalYear);
@@ -71,7 +90,10 @@ namespace UniversalInvoice
             list.Add(tTaxRateName);
             list.Add(tSumTax);
             list.Add(tTotalSum);
-            list.Add(tStorno);
+            if (xbIsDocInvoice)
+            {
+                list.Add(tStorno);
+            }
         }
     }
 }

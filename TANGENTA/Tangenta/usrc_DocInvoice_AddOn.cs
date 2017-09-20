@@ -281,7 +281,7 @@ namespace Tangenta
             //}
         }
 
-        private void btn_Print_Click(object sender, EventArgs e)
+        private void btn_Issue_Click(object sender, EventArgs e)
         {
 
             if (m_AddOnDI.m_IssueDate == null)

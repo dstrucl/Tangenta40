@@ -20,6 +20,7 @@ using TangentaTableClass;
 using DBConnectionControl40;
 using LanguageControl;
 using TangentaDB;
+using DBTypes;
 
 namespace Tangenta
 {
@@ -150,7 +151,11 @@ namespace Tangenta
             }
         }
 
-        internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice, bool bNew,bool bInitialise_usrc_Invoice,int iFinancialYear)
+        internal int Init(usrc_Invoice.enum_Invoice xenum_Invoice,
+                          bool bNew,
+                          bool bInitialise_usrc_Invoice,
+                          int iFinancialYear,
+                          long_v Doc_ID_To_show_v)
         {
             ColorDraft = Properties.Settings.Default.ColorDraft;
             ColorStorno = Properties.Settings.Default.ColorStorno;
@@ -164,6 +169,13 @@ namespace Tangenta
             if (bNew)
             {
                 ShowOrEditSelectedRow(false);
+            }
+            else
+            {
+                if (Doc_ID_To_show_v!=null)
+                {
+                    ShowOrEditSelectedRow(Doc_ID_To_show_v);
+                }
             }
             return iRowsCount;
         }
@@ -732,6 +744,31 @@ namespace Tangenta
             }
         }
 
+
+        private void ShowOrEditSelectedRow(long_v Doc_ID_to_show_v)
+        {
+            if (Doc_ID_to_show_v != null)
+            {
+                if (IsDocInvoice)
+                {
+                    DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocInvoice_$_dinv_$$ID = " + Doc_ID_to_show_v.v.ToString());
+                    if (drs.Count() > 0)
+                    {
+                        int iRow = dt_XInvoice.Rows.IndexOf(drs[0]);
+                        dgvx_XInvoice.Rows[iRow].Selected = true;
+                    }
+                }
+                else
+                {
+                    DataRow[] drs = dt_XInvoice.Select("JOURNAL_DocProformaInvoice_$_dpinv_$$ID = " + Doc_ID_to_show_v.v.ToString());
+                    if (drs.Count() > 0)
+                    {
+                        int iRow = dt_XInvoice.Rows.IndexOf(drs[0]);
+                        dgvx_XInvoice.Rows[iRow].Selected = true;
+                    }
+                }
+                         }
+        }
         private void dgvx_XInvoice_SelectionChanged(object sender, EventArgs e)
         {
             if (!bIgnoreChangeSelectionEvent)
@@ -746,7 +783,7 @@ namespace Tangenta
             if (frm_timespan.ShowDialog()== DialogResult.OK)
             {
                 Program.Cursor_Wait();
-                Init(enum_Invoice, true,false, Properties.Settings.Default.FinancialYear);
+                Init(enum_Invoice, true,false, Properties.Settings.Default.FinancialYear,null);
                 Program.Cursor_Arrow();
             }
         }

@@ -181,6 +181,34 @@ namespace TangentaDB
             }
         }
 
+        public GlobalData.ePaymentType AddOn_MethodOfPayment_eType
+        {
+            get
+            {
+                if (IsDocInvoice)
+                {
+                    if (AddOnDI != null)
+                    {
+                        if (AddOnDI.m_MethodOfPayment_DI != null)
+                        {
+                            return AddOnDI.m_MethodOfPayment_DI.eType;
+                        }
+                    }
+                    
+                }
+                else if (IsDocProformaInvoice)
+                {
+                    if (AddOnDPI != null)
+                    {
+                        if (AddOnDPI.m_MethodOfPayment_DPI != null)
+                        {
+                            return AddOnDPI.m_MethodOfPayment_DPI.eType;
+                        }
+                    }
+                }
+                return GlobalData.ePaymentType.NOT_DEFINED;
+            }
+        }
 
         public InvoiceData(TangentaDB.ShopABC xShopABC, long xDocInvoice_ID,  string xElectronic_Device_Name)
         {
@@ -196,7 +224,7 @@ namespace TangentaDB
             NumberInFinancialYear = xNumberInFinancialYear;
             if (InvoiceToken==null)
             {
-                InvoiceToken = new UniversalInvoice.InvoiceToken();
+                InvoiceToken = new UniversalInvoice.InvoiceToken(IsDocInvoice);
             }
             InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
         }
@@ -505,9 +533,35 @@ namespace TangentaDB
 
         }
 
-        public bool SaveDocProformaInvoice(ref long docInvoice_ID, GlobalData.ePaymentType ePaymentType, long MethodOfPayment_ID, long docDuration, long docDurationType_ID, long termsOfPayment_ID, ref int xNumberInFinancialYear)
+        public void AddOn_Get()
         {
-            return m_ShopABC.m_CurrentInvoice.SaveDocProformaInvoice(ref DocInvoice_ID, ePaymentType, MethodOfPayment_ID, docDuration, docDurationType_ID, termsOfPayment_ID, ref xNumberInFinancialYear);
+            if (IsDocInvoice)
+            {
+                AddOnDI.Get(DocInvoice_ID);
+            }
+            else if (IsDocProformaInvoice)
+            {
+                AddOnDPI.Get(DocInvoice_ID);
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:InvoiceData:AddOn_Get():Document type not implemented!");
+            }
+        }
+
+        public bool SaveDocProformaInvoice(ref long docInvoice_ID)
+        {
+            int xNumberInFinancialYear = -1;
+            DateTime_v InvoiceTime_v = new DateTime_v();
+            InvoiceTime_v.v = DateTime.Now;
+            bool bRet= m_ShopABC.m_CurrentInvoice.SaveDocProformaInvoice(DocInvoice,ref DocInvoice_ID, AddOnDPI, ref xNumberInFinancialYear);
+            if (bRet)
+            {
+                docInvoice_ID = DocInvoice_ID;
+                this.Set_NumberInFinancialYear(xNumberInFinancialYear);
+                this.SetInvoiceTime(InvoiceTime_v);
+            }
+            return bRet;
         }
 
         public void Fill_Sold_ShopB_ItemsData(ltext lt_token_prefix, ref UniversalInvoice.ItemSold[] ItemsSold, int start_index, int count, bool bInvoiceStorno)
@@ -601,7 +655,7 @@ namespace TangentaDB
             int xNumberInFinancialYear = -1;
             DateTime_v InvoiceTime_v = new DateTime_v();
             InvoiceTime_v.v = DateTime.Now;
-            bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(ref DocInvoice_ID, this.AddOnDI.m_MethodOfPayment_DI.eType, this.AddOnDI.m_MethodOfPayment_DI.PaymentType, this.AddOnDI.m_MethodOfPayment_DI.m_sAmountReceived, this.AddOnDI.m_MethodOfPayment_DI.m_sToReturn, ref xNumberInFinancialYear);
+            bool bRet = m_ShopABC.m_CurrentInvoice.SaveDocInvoice(DocInvoice,ref DocInvoice_ID, this.AddOnDI, ref xNumberInFinancialYear);
             if (bRet)
             {
                 docinvoice_ID = DocInvoice_ID;
@@ -613,7 +667,18 @@ namespace TangentaDB
 
         public bool SetInvoiceTime(DateTime_v issue_time)
         {
-            if (m_ShopABC.m_CurrentInvoice.SetInvoiceTime(issue_time))
+            bool bRet = false;
+            if (IsDocInvoice)
+            {
+                bRet = m_ShopABC.m_CurrentInvoice.SetDocInvoiceTime(issue_time);
+            }
+            else
+            {
+                bRet = m_ShopABC.m_CurrentInvoice.SetDocProformaInvoiceTime(issue_time);
+
+            }
+
+            if (bRet)
             {
                 if (issue_time != null)
                 {
@@ -930,7 +995,7 @@ namespace TangentaDB
                                 aorgd_hp.HomePage,
                                 cPhoneNumber_Org.PhoneNumber,
                                 cFaxNumber_Org.FaxNumber,
-                                abo.BankName,
+                                abo.Name as BankName,
                                 aba.TRR,
                                 aoff.Name as Atom_Office_Name,
                                 aed.Name as Atom_Electronic_Device_Name,
@@ -1374,16 +1439,22 @@ namespace TangentaDB
                                     Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
                                     Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
                                 }
+                                else if (IsDocProformaInvoice)
+                                {
+                                    Fill_Sold_ShopA_ItemsData(lngToken.st_ProformaInvoice, ref ItemsSold, 0, iCountShopAItemsSold, false);
+                                    Fill_Sold_ShopB_ItemsData(lngToken.st_ProformaInvoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, false);
+                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, false);
+                                }
                                 GeneralToken = new UniversalInvoice.GeneralToken();
-                                InvoiceToken = new UniversalInvoice.InvoiceToken();
+                                InvoiceToken = new UniversalInvoice.InvoiceToken(IsDocInvoice);
 
                                 InvoiceToken.tFiscalYear.Set(FinancialYear.ToString());
                                 InvoiceToken.tInvoiceNumber.Set(NumberInFinancialYear.ToString());
                                 InvoiceToken.tCashier.Set(Electronic_Device_Name_v.v);
 
-                                InvoiceToken.tStorno.Set("");
                                 if (IsDocInvoice)
                                 {
+                                    InvoiceToken.tStorno.Set("");
                                     if (bInvoiceStorno)
                                     {
                                         InvoiceToken.tStorno.Set(lngRPM.s_STORNO.s);
@@ -1628,7 +1699,10 @@ namespace TangentaDB
             html_doc_template = InvoiceToken.tPaymentType.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tPaymentToBankAccount.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tPaymentToBankName.Replace(html_doc_template);
-            html_doc_template = InvoiceToken.tStorno.Replace(html_doc_template);
+            if (IsDocInvoice)
+            {
+                html_doc_template = InvoiceToken.tStorno.Replace(html_doc_template);
+            }
             html_doc_template = InvoiceToken.tFiscalYear.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tInvoiceNumber.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tIssuerOfInvoice.Replace(html_doc_template);
@@ -1690,13 +1764,15 @@ namespace TangentaDB
             html_doc_template = InvoiceToken.tDateOfIssue.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tDateOfMaturity.Replace(html_doc_template);
 
-            if (AddOnDI.b_FVI_SLO)
+            if (IsDocInvoice)
             {
-                html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
-                html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
-                html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+                if (AddOnDI.b_FVI_SLO)
+                {
+                    html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
+                    html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
+                    html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+                }
             }
-
             int start_index = 0;
             int iStartIndexOf_style = -1;
             int iEndIndexOf_style = -1;
@@ -1881,10 +1957,12 @@ namespace TangentaDB
                             {
                                 return "ERROR:<tr class=\"grandtotal\"> not found !";
                             }
-                            html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
-                            html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
-                            html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
-
+                            if (IsDocInvoice)
+                            {
+                                html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
+                                html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
+                                html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+                            }
                             int iStartIndexOf_InvoiceBottom = -1;
                             int iEndIndexOf_InvoiceBottom = -1;
                             if (GetHtmlElementByTagNameAndClassName(html_doc_template, ipos, ref iStartIndexOf_InvoiceBottom, ref iEndIndexOf_InvoiceBottom, "div", "invoicebottom"))

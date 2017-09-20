@@ -14,7 +14,6 @@ namespace TangentaDB
     {
 
         public static bool Get(
-                              long DocProformaInvoice_ID,
                               GlobalData.ePaymentType ePaymentType,
                               long_v Atom_BankAccount_ID_v,
                               ref long_v PaymentType_ID_v,
@@ -29,16 +28,11 @@ namespace TangentaDB
                 string Err = null;
                 DataTable dt = new DataTable();
 
-                string spar_DocProformaInvoice_ID = "@par_DocProformaInvoice_ID";
-                SQL_Parameter par_DocProformaInvoice_ID = new SQL_Parameter(spar_DocProformaInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocProformaInvoice_ID);
-                lpar.Add(par_DocProformaInvoice_ID);
-
-
                 string spar_PaymentType_ID = "@par_PaymentType";
                 SQL_Parameter par_PaymentType_ID = new SQL_Parameter(spar_PaymentType_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, PaymentType_ID_v.v);
                 lpar.Add(par_PaymentType_ID);
 
-                string sql = " select ID from MethodOfPayment_DPI where DocProformaInvoice_ID = " + spar_DocProformaInvoice_ID + " and PaymentType_ID = " + spar_PaymentType_ID;
+                string sql = " select ID from MethodOfPayment_DPI where  PaymentType_ID = " + spar_PaymentType_ID;
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
                 {
                     if (dt.Rows.Count > 0)
@@ -53,7 +47,7 @@ namespace TangentaDB
                     else
                     {
 
-                        sql = @" insert into  MethodOfPayment_DPI (DocInvoice_ID, PaymentType_ID) values (" + spar_DocProformaInvoice_ID + "," + spar_PaymentType_ID + ")";
+                        sql = @" insert into  MethodOfPayment_DPI (PaymentType_ID) values (" + spar_PaymentType_ID + ")";
                         object oret = null;
                         if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref MethodOfPayment_DPI_ID, ref oret, ref Err, "MethodOfPayment_DPI"))
                         {

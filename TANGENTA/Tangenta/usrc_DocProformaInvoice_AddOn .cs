@@ -189,69 +189,6 @@ namespace Tangenta
             
 
 
-
-
-
-        //private void btn_Print_Click(object sender, EventArgs e)
-        //{
-        //    DateTime_v DocProformaInvoiceTime = new DateTime_v();
-        //    DocProformaInvoiceTime.v = DateTime.Now;
-        //    DocDurationType = 2;
-        //    if (rdb_ValidNumberOf.Checked)
-        //    {
-        //        if (cmb_DaysOrMonths.SelectedIndex==0)
-        //        {
-        //            DocDurationType = 0;
-        //        }
-        //        else if (cmb_DaysOrMonths.SelectedIndex == 1)
-        //        {
-        //            DocDurationType = 1;
-        //        }
-        //        DocDuration = Convert.ToInt64(nmUpDn_NumberOfDaysOrMonths.Value);
-        //    }
-        //    if (rdb_BankAccountTransfer.Checked)
-        //    {
-        //        PaymentType = GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
-        //    }
-        //    else
-        //    {
-        //        PaymentType = GlobalData.ePaymentType.CASH_OR_PAYMENT_CARD;
-        //    }
-
-
-
-        //    if (f_MethodOfPayment.Get(PaymentType, ref m_MethodOfPayment_ID, ref m_MethodOfPayment))
-        //    {
-        //        DoPrint(PaymentType, MethodOfPayment_ID, DocDuration, DocDurationType, TermsOfPayment_ID, DocProformaInvoiceTime);
-        //        if (OK != null)
-        //        {
-        //            OK();
-        //        }
-        //    }
-        //}
-
-        //private void DoPrint(GlobalData.ePaymentType ePaymentType, long xMethodOfPayment_ID, long xDocDuration, long xDocDurationType, long xTermsOfPayment_ID, DateTime_v issue_time)
-        //{
-        //    long DocInvoice_ID = -1;
-        //    int xNumberInFinancialYear = -1;
-        //    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID, ePaymentType, xMethodOfPayment_ID, xDocDuration, xDocDurationType, xTermsOfPayment_ID, ref xNumberInFinancialYear))
-        //     {
-        //        m_InvoiceData.Set_NumberInFinancialYear(xNumberInFinancialYear);
-
-        //        if (m_InvoiceData.SetInvoiceTime(issue_time))
-        //        {
-        //            //Print(ePaymentType, xMethodOfPayment_ID, xDocDuration, xDocDurationType, xTermsOfPayment_ID, issue_time);
-        //        }
-        //    }
-        //}
-
-
-        //private void Print(GlobalData.ePaymentType ePaymentType, string sPaymentMethod, string sAmountReceived, string sToReturn, DateTime_v issue_time)
-        //{
-        //    Program.usrc_TangentaPrint1.Print_Receipt(m_InvoiceData, ePaymentType, sPaymentMethod, null, null, issue_time);
-        //}
-
-
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             if (Cancel != null)
@@ -354,13 +291,15 @@ namespace Tangenta
             CalculateValidUntilDate();
         }
 
-        private void btn_Print_Click(object sender, EventArgs e)
+        private void btn_Issue_Click(object sender, EventArgs e)
         {
             if (m_AddOnDPI.m_IssueDate==null)
             {
                 m_AddOnDPI.m_IssueDate = new DocProformaInvoice_AddOn.IssueDate();
             }
             m_AddOnDPI.m_IssueDate.Date = dtP_DateOfIssue.Value;
+
+
 
             if (m_AddOnDPI.m_Duration == null)
             {
@@ -394,6 +333,13 @@ namespace Tangenta
                     return;
                 }
             }
+
+            
+            if (m_AddOnDPI.m_MethodOfPayment_DPI != null)
+            {
+
+            }
+
             ltext ltMsg = null;
             if (m_AddOnDPI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref ltMsg))
             {

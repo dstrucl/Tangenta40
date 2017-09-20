@@ -236,8 +236,7 @@ namespace TangentaDB
                 }
             }
 
-            public string m_sAmountReceived { get; internal set; }
-            public string m_sToReturn { get; internal set; }
+            
 
             internal static MethodOfPayment_DI Set(object oID, object oPaymentType_Identification, object oBankName,
                                                                                  object oBank_Tax_ID,
@@ -367,6 +366,14 @@ namespace TangentaDB
                 }
             }
         }
+
+        public class CashHandling
+        {
+            public decimal m_AmountReceived = 0;
+            public decimal m_ToReturn = 0;
+        }
+
+        public CashHandling m_CashHandling = null;
 
         public bool Completed()
         {

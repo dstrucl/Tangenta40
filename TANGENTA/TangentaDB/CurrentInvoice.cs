@@ -397,52 +397,28 @@ namespace TangentaDB
             }
         }
 
-        internal bool SaveDocProformaInvoice(ref long xDocProformaInvoice_ID, GlobalData.ePaymentType ePaymentType, long MethodOfPayment_ID, long docDuration, long docDurationType, long termsOfPayment_ID, ref int xNumberInFinancialYear)
+        internal bool SaveDocProformaInvoice(string DocInvoice,ref long xDocInvoice_ID, DocProformaInvoice_AddOn xDocProformaInvoice_AddOn, ref int xNumberInFinancialYear)
         {
-            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string spar_PrintTime = "@par_PrintTime";
-            DateTime dtnow = DateTime.Now;
-            SQL_Parameter par_PrintTime = new SQL_Parameter(spar_PrintTime, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Datetime, false, dtnow);
-            lpar.Add(par_PrintTime);
-            string spar_docDuration = "@par_docDuration";
-            SQL_Parameter par_docDuration = new SQL_Parameter(spar_docDuration, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, docDuration);
-            lpar.Add(par_docDuration);
-            string spar_docDurationType = "@par_docDurationType";
-            SQL_Parameter par_docDurationType = new SQL_Parameter(spar_docDurationType, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, docDurationType);
-            lpar.Add(par_docDurationType);
-            string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
-            SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, termsOfPayment_ID);
-            lpar.Add(par_TermsOfPayment_ID);
-            string spar_MethodOfPayment_ID = "@par_MethodOfPayment_ID";
-            SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_ID);
-            lpar.Add(par_MethodOfPayment_ID);
-
-
             string sql = null;
             object ores = null;
             string Err = null;
-            if (GetNewNumberInFinancialYear())
+            if (GetNewNumberInFinancialYear(DocInvoice))
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
-                sql = @"update DocProformaInvoice set Draft =0,
-                        NumberInFinancialYear = " + NumberInFinancialYear.ToString() 
-                        + ", DocDuration = " + spar_docDuration
-                        + ", DocDurationType = " + spar_docDurationType 
-                        + ", TermsOfPayment_ID = " + spar_TermsOfPayment_ID 
-                        + ", MethodOfPayment_ID = " + spar_MethodOfPayment_ID 
-                        +"  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                sql = "update DocProformaInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
-                    xDocProformaInvoice_ID = Doc_ID;
+                    xDocInvoice_ID = Doc_ID;
                     return true;
                 }
                 else
                 {
-                    LogFile.Error.Show("ERROR:usrc_Invoice_Preview:SaveDocProformaInvoice:sql=" + sql+"\r\nErr=" + Err);
+                    LogFile.Error.Show("ERROR:CurrentInvoice:SaveDocProformaInvoice:Err=" + Err);
                 }
             }
             return false;
         }
+
 
         private bool Get_Atom_Price_Item(ref Atom_DocInvoice_ShopC_Item_Price_Stock_Data appisd)
         {
@@ -1546,21 +1522,16 @@ namespace TangentaDB
             }
         }
 
-        public bool SaveDocInvoice(ref long xDocInvoice_ID, GlobalData.ePaymentType ePaymentType, string p1, string p2, string p3, ref int xNumberInFinancialYear)
+        public bool SaveDocInvoice(string DocInvoice,ref long xDocInvoice_ID, DocInvoice_AddOn xDocInvoice_AddOn, ref int xNumberInFinancialYear)
         {
-            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-            string spar_PrintTime = "@par_PrintTime";
-            DateTime dtnow = DateTime.Now;
-            SQL_Parameter par_PrintTime = new SQL_Parameter(spar_PrintTime, DBConnectionControl40.SQL_Parameter.eSQL_Parameter.Datetime, false, dtnow);
-            lpar.Add(par_PrintTime);
             string sql = null;
             object ores = null;
             string Err = null;
-            if (GetNewNumberInFinancialYear())
+            if (GetNewNumberInFinancialYear(DocInvoice))
             {
                 xNumberInFinancialYear = NumberInFinancialYear;
                 sql = "update DocInvoice set Draft =0,NumberInFinancialYear = " + NumberInFinancialYear.ToString() + "  where ID = " + Doc_ID.ToString(); // Close Proforma Invoice
-                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
                 {
                     xDocInvoice_ID = Doc_ID;
                     return true;
@@ -1573,7 +1544,7 @@ namespace TangentaDB
             return false;
         }
 
-        private bool GetNewNumberInFinancialYear(ref int xNumberInFinancialYear)
+        private bool GetNewNumberInFinancialYear(string DocInvoice,ref int xNumberInFinancialYear)
         {
             //string cond = null;
             int iLimit = 1;
@@ -1587,7 +1558,7 @@ namespace TangentaDB
             //    cond = "Invoice_ID is null";
             //}
             //string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from DocInvoice where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " and " + cond + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
-            string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from DocInvoice where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
+            string sql = " select " + DBSync.DBSync.sTop(iLimit) + " NumberInFinancialYear from "+ DocInvoice + " where Draft = 0 and FinancialYear = " + FinancialYear.ToString() + " order by NumberInFinancialYear desc " + DBSync.DBSync.sLimit(iLimit);
             DataTable dt = new DataTable();
             string Err = null;
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -1610,9 +1581,9 @@ namespace TangentaDB
             }
         }
 
-        private bool GetNewNumberInFinancialYear()
+        private bool GetNewNumberInFinancialYear(string DocInvoice)
         {
-            return GetNewNumberInFinancialYear(ref NumberInFinancialYear);
+            return GetNewNumberInFinancialYear(DocInvoice,ref NumberInFinancialYear);
         }
 
         public bool Update_Customer_Person(string DocInvoice, long Customer_Person_ID, ref long_v xAtom_Customer_Person_ID_v)
@@ -1674,12 +1645,14 @@ namespace TangentaDB
 
 
 
-        public bool SetInvoiceTime(DateTime_v issue_time)
+        public bool SetDocInvoiceTime(DateTime_v issue_time)
         {
             if (issue_time != null)
             {
                 long Journal_DocInvoice_ID = -1;
+              
                 return f_Journal_DocInvoice.Write(this.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocInvoice_Type_definitions.InvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
+              
             }
             else
             {
@@ -1689,6 +1662,23 @@ namespace TangentaDB
             }
         }
 
+        public bool SetDocProformaInvoiceTime(DateTime_v issue_time)
+        {
+            if (issue_time != null)
+            {
+                long Journal_DocInvoice_ID = -1;
+
+                return f_Journal_DocProformaInvoice.Write(this.Doc_ID, GlobalData.Atom_WorkPeriod_ID, GlobalData.JOURNAL_DocProformaInvoice_Type_definitions.ProformaInvoiceTime.ID, issue_time, ref Journal_DocInvoice_ID);
+
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:CurrentInvoice:SetDocProformaInvoiceTime:issue_time is null");
+                return false;
+
+            }
+        }
+   
 
         public bool Storno(ref long Storno_DocInvoice_ID,  bool bStorno, string sReason,ref  DateTime retissue_time)
         {
@@ -1739,7 +1729,7 @@ namespace TangentaDB
                 int_v DocDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["DocDurationType"]);
                 long_v TermsOfPayment_ID_v = tf.set_long(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
                 int iNewNumberInFinancialYear = -1;
-                GetNewNumberInFinancialYear(ref iNewNumberInFinancialYear);
+                GetNewNumberInFinancialYear("DocInvoice",ref iNewNumberInFinancialYear);
                 int_v iNewNumberInFinancialYear_v = new int_v(iNewNumberInFinancialYear);
 
                 long_v Storno_Invoice_ID_v = new long_v(Doc_ID);

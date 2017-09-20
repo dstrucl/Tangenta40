@@ -2193,10 +2193,7 @@ do_EditMyOrganisation_Data:
                 if (IsDocInvoice)
                 {
                     this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                    if (m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType == GlobalData.ePaymentType.CASH )
-                    {
-
-                    }
+                  
                     long DocInvoice_ID = -1;
                     // save doc Invoice 
                     if (m_InvoiceData.SaveDocInvoice(ref DocInvoice_ID))
@@ -2236,11 +2233,32 @@ do_EditMyOrganisation_Data:
                 }
                 else if (IsDocProformaInvoice)
                 {
-                    if (aa_DocProformaInvoiceSaved != null)
+                    long DocInvoice_ID = -1;
+                    // save doc Invoice 
+                    if (m_InvoiceData.SaveDocProformaInvoice(ref DocInvoice_ID))
                     {
-                        aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                        m_ShopABC.m_CurrentInvoice.Doc_ID = DocInvoice_ID;
+                        // read saved doc Invoice again !
+                        if (m_InvoiceData.Read_DocInvoice())
+                        {
+
+                            if (aa_DocProformaInvoiceSaved != null)
+                            {
+                                aa_DocProformaInvoiceSaved(m_ShopABC.m_CurrentInvoice.Doc_ID);
+                            }
+
+                            Printing_DocInvoice();
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
-                    return true;
+                    else
+                    {
+                        return false;
+                    }                 
                 }
                 else
                 {
@@ -2350,6 +2368,10 @@ do_EditMyOrganisation_Data:
                                 if (!usrc_AddOn1.Check_DocProformaInvoice_AddOn(this.m_InvoiceData.AddOnDPI))
                                 {
                                     if (!usrc_AddOn1.Get_Doc_AddOn(true))
+                                    {
+                                        return;
+                                    }
+                                    if (!usrc_AddOn1.Check_DocProformaInvoice_AddOn(this.m_InvoiceData.AddOnDPI))
                                     {
                                         return;
                                     }

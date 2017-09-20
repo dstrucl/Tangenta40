@@ -52,7 +52,8 @@ namespace TangentaDB
                                          CARD,
                                          BANK_ACCOUNT_TRANSFER,
                                          CASH_OR_CARD,
-                                         ALLREADY_PAID
+                                         ALLREADY_PAID,
+                                         NOT_DEFINED
                                         };
 
         public const string const_PaymentType_ANY_TYPE = "ANY_TYPE";

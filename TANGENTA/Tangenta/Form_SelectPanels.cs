@@ -69,7 +69,7 @@ namespace Tangenta
                 if (m_usrc_InvoiceMan.Customer_Changed)
                 {
                     m_usrc_InvoiceMan.Customer_Changed = false;
-                    m_usrc_InvoiceMan.m_usrc_InvoiceTable.Init(m_usrc_InvoiceMan.m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear);
+                    m_usrc_InvoiceMan.m_usrc_InvoiceTable.Init(m_usrc_InvoiceMan.m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
                 }
             }
             Close();
@@ -84,7 +84,7 @@ namespace Tangenta
                 if (m_usrc_InvoiceMan.Customer_Changed)
                 {
                     m_usrc_InvoiceMan.Customer_Changed = false;
-                    m_usrc_InvoiceMan.m_usrc_InvoiceTable.Init(m_usrc_InvoiceMan.m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear);
+                    m_usrc_InvoiceMan.m_usrc_InvoiceTable.Init(m_usrc_InvoiceMan.m_usrc_Invoice.eInvoiceType, false,false, Properties.Settings.Default.FinancialYear,null);
                 }
             }
             Close();

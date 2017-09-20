@@ -435,8 +435,9 @@ namespace TangentaPrint
 
         private bool Match_m_MethodOfPayment(DataRow dr)
         {
-            m_InvoiceData.AddOnDI.Get(m_InvoiceData.DocInvoice_ID);
-            switch (m_InvoiceData.AddOnDI.m_MethodOfPayment_DI.eType)
+           
+            m_InvoiceData.AddOn_Get();
+            switch (m_InvoiceData.AddOn_MethodOfPayment_eType)
             {
                 case GlobalData.ePaymentType.CASH:
                     return ((bool)dr[PrintersList.dcol_InvoicePrinting_PaymentCash]);

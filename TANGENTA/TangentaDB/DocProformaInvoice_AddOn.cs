@@ -11,6 +11,8 @@ namespace TangentaDB
 {
     public class DocProformaInvoice_AddOn
     {
+        public long_v DocProformaInvoice_ID_v = null;
+        public long_v DocProformaInvoiceAddOn_ID_v = null;
 
         public class IssueDate
         {
@@ -99,15 +101,31 @@ namespace TangentaDB
                 }
 
             }
+           
 
-            internal bool Set()
+            internal bool Get(ref long_v TermsOfPayment_ID_v)
             {
-                long_v TermsOfPayment_ID_v = null;
-                if (f_TermsOfPayment.Get(Description,ref TermsOfPayment_ID_v))
+
+                if (f_TermsOfPayment.Get(Description, ref TermsOfPayment_ID_v))
                 {
                     if (TermsOfPayment_ID_v != null)
                     {
                         ID = TermsOfPayment_ID_v.v;
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            public bool SetDefault()
+            {
+                string_v description_v = null;
+                if (f_TermsOfPayment.Get(1, ref description_v))
+                {
+                    if (description_v != null)
+                    {
+                        ID = 1;
+                        Description = description_v.v;
                         return true;
                     }
                 }
@@ -256,14 +274,13 @@ namespace TangentaDB
                 return null;
             }
 
-            internal bool Set(long DocProformaInvoice_ID)
+            internal bool Get(ref long_v MethodOfPayment_DPI_ID_v)
             {
                 long_v Atom_BankAccount_ID_v = null;
                 long_v PaymentType_ID_v = null;
                 string_v PaymentType_v = null;
-                long_v MethodOfPayment_DPI_BAccount_ID_v = null;
-                long_v MethodOfPayment_DPI_v = null;
-                return false;
+                long_v MethodOfPayment_DI_BAccount_ID_v = null;
+
                 switch (eType)
                 {
                     case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
@@ -277,13 +294,12 @@ namespace TangentaDB
                         {
                             if (Atom_BankAccount_ID_v != null)
                             {
-                                if (f_MethodOfPayment_DPI.Get(DocProformaInvoice_ID,
-                                                            eType, 
-                                                            Atom_BankAccount_ID_v,
-                                                            ref PaymentType_ID_v,
-                                                            ref PaymentType_v,
-                                                            ref MethodOfPayment_DPI_BAccount_ID_v,
-                                                            ref MethodOfPayment_DPI_v))
+                                if (f_MethodOfPayment_DPI.Get(eType,
+                                                             Atom_BankAccount_ID_v,
+                                                             ref PaymentType_ID_v,
+                                                             ref PaymentType_v,
+                                                             ref MethodOfPayment_DI_BAccount_ID_v,
+                                                             ref MethodOfPayment_DPI_ID_v))
                                 {
                                     return true;
                                 }
@@ -293,23 +309,23 @@ namespace TangentaDB
                                 }
                             }
                         }
-                        return false;
-                    //default:
-                    //    if (f_MethodOfPayment_DI.Get(DocProformaInvoice_ID,
-                    //                                        eType,
-                    //                                        null,
-                    //                                        ref PaymentType_ID_v,
-                    //                                        ref PaymentType_v,
-                    //                                        ref MethodOfPayment_DPI_BAccount_ID_v,
-                    //                                        ref MethodOfPayment_DPI_v))
-                    //    {
-                    //        return true;
-                    //    }
-                    //    else
-                    //    {
-                    //        return false;
-                    //    }
+                        break;
+                    default:
+                        if (f_MethodOfPayment_DPI.Get(eType,
+                                                             null,
+                                                             ref PaymentType_ID_v,
+                                                             ref PaymentType_v,
+                                                             ref MethodOfPayment_DI_BAccount_ID_v,
+                                                             ref MethodOfPayment_DPI_ID_v))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                 }
+                return false;
             }
         }
 
@@ -402,73 +418,217 @@ namespace TangentaDB
 
         public bool Set(long DocProformaInvoice_ID, ref ltext ltMsg)
         {
-            ltMsg = null;
-            if (m_MethodOfPayment_DPI != null)
+
+            if (DocProformaInvoice_ID_v == null)
             {
-                if (m_MethodOfPayment_DPI.Set(DocProformaInvoice_ID))
+                DocProformaInvoice_ID_v = new long_v(DocProformaInvoice_ID);
+            }
+            else
+            {
+                DocProformaInvoice_ID_v.v = DocProformaInvoice_ID;
+
+            }
+
+            if (f_DocProformaInvoiceAddOn.Get(DocProformaInvoice_ID_v, ref DocProformaInvoiceAddOn_ID_v))
+            {
+                if (DocProformaInvoiceAddOn_ID_v != null)
                 {
-                    if (m_TermsOfPayment != null)
+                    return Update();
+                }
+                else
+                {
+                    return Insert();
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        private bool Insert()
+        {
+            if (DocProformaInvoice_ID_v == null)
+            {
+                LogFile.Error.Show("ERROR:TangentaDB:Insert:DocProformaInvoice_ID_v== null");
+                return false;
+            }
+            ltext ltMsg = null;
+            long_v MethodOfPayment_DPI_ID_v = null;
+            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID_v))
+            {
+                if (m_TermsOfPayment != null)
+                {
+                    long_v TermsOfPayment_ID_v = null;
+                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID_v))
                     {
-                        if (m_TermsOfPayment.Set())
+
+
+                        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                        string spar_DocProformaInvoice_ID = "@par_DocProformaInvoice_ID";
+                        SQL_Parameter par_DocProformaInvoice_ID = new SQL_Parameter(spar_DocProformaInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocProformaInvoice_ID_v.v);
+                        lpar.Add(par_DocProformaInvoice_ID);
+
+                        string spar_MethodOfPayment_DPI_ID = "@par_MethodOfPayment_DPI_ID";
+                        SQL_Parameter par_MethodOfPayment_DPI_ID = new SQL_Parameter(spar_MethodOfPayment_DPI_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DPI_ID_v.v);
+                        lpar.Add(par_MethodOfPayment_DPI_ID);
+
+                        string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
+                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_TermsOfPayment.ID);
+                        lpar.Add(par_TermsOfPayment_ID);
+
+                        string sval_DocDuration = " DocDuration = null ";
+                        string sval_DocDurationType = " DocDurationType = null ";
+                        string spar_DocDuration = " null ";
+                        string spar_DocDurationType = " null ";
+                        if (m_Duration != null)
                         {
-                            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
-                            string spar_MethodOfPayment_ID = "@par_MethodOfPayment_ID";
-                            SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_MethodOfPayment_DPI.ID);
-                            lpar.Add(par_MethodOfPayment_ID);
-                            string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
-                            SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_TermsOfPayment.ID);
-                            lpar.Add(par_TermsOfPayment_ID);
-                            string spar_DocDuration = "@par_DocDuration";
-                            SQL_Parameter par_DocDuration = new SQL_Parameter(spar_DocDuration, SQL_Parameter.eSQL_Parameter.Bigint, false, m_Duration.length);
+                            long lDocDureationLength = m_Duration.length;
+                            int iDocDureationType = m_Duration.type;
+                            spar_DocDuration = "@par_DocDuration";
+                            SQL_Parameter par_DocDuration = new SQL_Parameter(spar_DocDuration, SQL_Parameter.eSQL_Parameter.Bigint, false, lDocDureationLength);
                             lpar.Add(par_DocDuration);
-                            string spar_DocDurationType = "@par_DocDurationType";
-                            SQL_Parameter par_DocDurationType = new SQL_Parameter(spar_DocDurationType, SQL_Parameter.eSQL_Parameter.Int, false, m_Duration.type);
+                            sval_DocDuration = "DocDuration = " + spar_DocDuration;
+                            spar_DocDurationType = "@par_DocDurationType";
+                            SQL_Parameter par_DocDurationType = new SQL_Parameter(spar_DocDurationType, SQL_Parameter.eSQL_Parameter.Int, false, iDocDureationType);
                             lpar.Add(par_DocDurationType);
+                            sval_DocDurationType = "DocDurationType = " + spar_DocDuration;
+                        }
 
-                            string spar_IssueDate = "@par_IssueDate";
-                            SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
-                            lpar.Add(par_IssueDate);
 
-                            string sql = "update DocProformaInvoice set MethodOfPayment_ID = " + spar_MethodOfPayment_ID
-                                                                    + ", TermsOfPayment_ID = " + spar_TermsOfPayment_ID
-                                                                    + ", DocDuration = " + spar_DocDuration
-                                                                    + ", DocDurationType = " + spar_DocDurationType
-                                                                    + ", IssueDate = " + spar_IssueDate
-                                                                    + " where ID = " + DocProformaInvoice_ID.ToString();
-                            object ores = null;
-                            string Err = null;
 
-                            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                LogFile.Error.Show("ERROR:TangentaDB:DocProformaInvoice_AddOn:Set:sql=" + sql + "\r\nErr=" + Err);
-                                return false;
-                            }
+                        string spar_IssueDate = "@par_IssueDate";
+                        SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
+                        lpar.Add(par_IssueDate);
+
+
+
+                        string sql = @"insert into DocProformaInvoiceAddOn (DocProformaInvoice_ID,
+                                                                    IssueDate,
+                                                                    MethodOfPayment_DPI_ID,
+                                                                    TermsOfPayment_ID,
+                                                                    DocDuration,
+                                                                    DocDurationType) values
+                                                                   (" + spar_DocProformaInvoice_ID + ","
+                                                                   + spar_IssueDate + ","
+                                                                   + spar_MethodOfPayment_DPI_ID + ","
+                                                                   + spar_TermsOfPayment_ID + "," +
+                                                                   spar_DocDuration + ","+
+                                                                   spar_DocDurationType + ")";
+
+                        object ores = null;
+                        string Err = null;
+                        long ID = -1;
+                        if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql, lpar, ref ID, ref ores, ref Err, "DocProformaInvoiceAddOn"))
+                        {
+                            DocProformaInvoiceAddOn_ID_v = new long_v(ID);
+                            return true;
                         }
                         else
                         {
+                            LogFile.Error.Show("ERROR:TangentaDB:DocProformaInvoice_AddOn:Insert:sql=" + sql + "\r\nErr=" + Err);
                             return false;
                         }
                     }
                     else
                     {
-                        ltMsg = lngRPM.s_TermsOfPayment_are_not_defined;
-                        return true;
+                        return false;
                     }
                 }
                 else
                 {
-                    return false;
+                    ltMsg = lngRPM.s_TermsOfPayment_are_not_defined;
+                    return true;
                 }
             }
             else
             {
-                ltMsg = lngRPM.s_MethodOfPayment_is_not_defined;
-                return true;
+                return false;
             }
         }
+
+        private bool Update()
+        {
+            ltext ltMsg = null;
+            long_v MethodOfPayment_DPI_ID_v = null;
+            if (m_MethodOfPayment_DPI.Get(ref MethodOfPayment_DPI_ID_v))
+            {
+                if (m_TermsOfPayment != null)
+                {
+                    long_v TermsOfPayment_ID_v = null;
+                    if (m_TermsOfPayment.Get(ref TermsOfPayment_ID_v))
+                    {
+
+
+                        List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+                        string spar_MethodOfPayment_DPI_ID = "@par_MethodOfPayment_DPI_ID";
+                        SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_DPI_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DPI_ID_v.v);
+                        lpar.Add(par_MethodOfPayment_ID);
+
+                        string spar_TermsOfPayment_ID = "@par_TermsOfPayment_ID";
+                        SQL_Parameter par_TermsOfPayment_ID = new SQL_Parameter(spar_TermsOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, m_TermsOfPayment.ID);
+                        lpar.Add(par_TermsOfPayment_ID);
+
+                        string sval_DocDuration = " DocDuration = null ";
+                        string sval_DocDurationType = " DocDurationType = null ";
+                        if (m_Duration != null)
+                        {
+                            long lDocDureationLength = m_Duration.length;
+                            int iDocDureationType = m_Duration.type;
+                            string spar_DocDuration = "@par_DocDuration";
+                            SQL_Parameter par_DocDuration = new SQL_Parameter(spar_DocDuration, SQL_Parameter.eSQL_Parameter.Bigint, false, lDocDureationLength);
+                            lpar.Add(par_DocDuration);
+                            sval_DocDuration = "DocDuration = " + spar_DocDuration;
+                            string spar_DocDurationType = "@par_DocDurationType";
+                            SQL_Parameter par_DocDurationType = new SQL_Parameter(spar_DocDurationType, SQL_Parameter.eSQL_Parameter.Int, false, iDocDureationType);
+                            lpar.Add(par_DocDurationType);
+                            sval_DocDurationType = "DocDurationType = " + spar_DocDuration;
+                        }
+
+
+
+                        string spar_IssueDate = "@par_IssueDate";
+                        SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
+                        lpar.Add(par_IssueDate);
+
+
+
+                        string sql = "update DocProformaInvoiceAddOn set IssueDate = " + spar_IssueDate
+                                                                + ",MethodOfPayment_DPI_ID = " + spar_MethodOfPayment_DPI_ID
+                                                                + ",TermsOfPayment_ID = " + spar_TermsOfPayment_ID
+                                                                + "," + sval_DocDuration
+                                                                 + "," + sval_DocDurationType
+                                                                + " where ID = " + DocProformaInvoiceAddOn_ID_v.v.ToString();
+                        object ores = null;
+                        string Err = null;
+
+                        if (DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar, ref ores, ref Err))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:TangentaDB:DocProformaInvoice_AddOn:Update:sql=" + sql + "\r\nErr=" + Err);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    ltMsg = lngRPM.s_TermsOfPayment_are_not_defined;
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }
