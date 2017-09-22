@@ -62,6 +62,8 @@ namespace Tangenta
 
         private usrc_Invoice.enum_Invoice enum_Invoice;
         private int iColIndex_DocInvoice_Draft = -1;
+        private int iColIndex_DocInvoice_IssueDate = -1;
+        private int iColIndex_DocProformaInvoice_IssueDate = -1;
         private int iColIndex_DocInvoice_Invoice_Storno = -1;
         private int iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = -1;
         private int iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber = -1;
@@ -249,14 +251,15 @@ namespace Tangenta
                     sql = @"SELECT
                     JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
                     JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,
-                    JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
+                    JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
+                    diao.IssueDate as IssueDate,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
                     pt.Identification AS PaymentType_Identification,
                     pt.Name AS PaymentType_Name,
                     JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
                     JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
-                    JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
+                    JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
                     JOURNAL_DocInvoice_$_dinv.Draft AS JOURNAL_DocInvoice_$_dinv_$$Draft,
                     JOURNAL_DocInvoice_$_dinv.DraftNumber AS JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
@@ -332,18 +335,17 @@ namespace Tangenta
                 else
                 {
                     sql = @"SELECT
-                    JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
-                    JOURNAL_DocInvoice_$_dinv.Draft AS JOURNAL_DocInvoice_$_dinv_$$Draft,
-                    JOURNAL_DocInvoice_$_dinv.DraftNumber AS JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
                     JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
                     JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,
-                    JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
+                    JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
+                    diao.IssueDate as IssueDate,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn_$$FirstName,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln_$$LastName,
                     pt.Identification AS PaymentType_Identification,
                     pt.Name AS PaymentType_Name,
                     JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
                     JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
+                    JOURNAL_DocInvoice.EventTime AS JOURNAL_DocInvoice_$$EventTime,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper.GsmNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_agsmnper_$$GsmNumber,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper.PhoneNumber AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aphnnper_$$PhoneNumber,
                     JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper.Email AS JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_aemailper_$$Email,
@@ -360,6 +362,8 @@ namespace Tangenta
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                     JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
                     JOURNAL_DocInvoice_$_awperiod_$_aed.Name as JOURNAL_DocInvoice_$_awperiod_$_aed_$$Name,
+                    JOURNAL_DocInvoice_$_dinv.Draft AS JOURNAL_DocInvoice_$_dinv_$$Draft,
+                    JOURNAL_DocInvoice_$_dinv.DraftNumber AS JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
                     JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID, 
                     JOURNAL_DocInvoice_$_jpinvt.ID AS JOURNAL_DocInvoice_$_jpinvt_$$ID,
                     FROM JOURNAL_DocInvoice
@@ -410,12 +414,9 @@ namespace Tangenta
             else if (IsDocProformaInvoice)
             {
                 sql = @"SELECT
-                JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear AS JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear,
-                JOURNAL_DocProformaInvoice_$_dpinv.Draft AS JOURNAL_DocProformaInvoice_$_dpinv_$$Draft,
-                JOURNAL_DocProformaInvoice_$_dpinv.DraftNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber,
                 JOURNAL_DocProformaInvoice_$_dpinv.NumberInFinancialYear AS JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear,
                 JOURNAL_DocProformaInvoice_$_dpinv.GrossSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum,
-                JOURNAL_DocProformaInvoice.EventTime AS JOURNAL_DocProformaInvoice_$$EventTime,
+                dpiao.IssueDate as IssueDate,
                 JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn_$$FirstName,
                 JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln_$$LastName,
                 pt.Identification AS PaymentType_Identification,
@@ -435,6 +436,10 @@ namespace Tangenta
                 JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
                 JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
                 JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice.Name AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aoffice_$$Name,
+                JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear AS JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear,
+                JOURNAL_DocProformaInvoice.EventTime AS JOURNAL_DocProformaInvoice_$$EventTime,
+                JOURNAL_DocProformaInvoice_$_dpinv.Draft AS JOURNAL_DocProformaInvoice_$_dpinv_$$Draft,
+                JOURNAL_DocProformaInvoice_$_dpinv.DraftNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber,
                 JOURNAL_DocProformaInvoice_$_dpinv.ID AS JOURNAL_DocProformaInvoice_$_dpinv_$$ID, 
                 JOURNAL_DocProformaInvoice_$_jpinvt.ID AS JOURNAL_DocProformaInvoice_$_jpinvt_$$ID
                 FROM JOURNAL_DocProformaInvoice
@@ -505,6 +510,8 @@ namespace Tangenta
                 {
                     iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
                     iColIndex_DocInvoice_Invoice_Storno = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Storno");
+                    iColIndex_DocInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
+                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lngRPM.s_IssueDate.s;
                     if (Program.b_FVI_SLO)
                     {
                         iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue");
@@ -554,6 +561,8 @@ namespace Tangenta
                     iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocProformaInvoice_$_dpinv_$$Draft");
                     iColIndex_DocInvoice_PaymentType_Identification = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
                     iColIndex_DocInvoice_PaymentType_Name = dt_XInvoice.Columns.IndexOf("PaymentType_Name");
+                    iColIndex_DocProformaInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
+                    dgvx_XInvoice.Columns[iColIndex_DocProformaInvoice_IssueDate].HeaderText = lngRPM.s_IssueDate.s;
 
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
 
@@ -901,46 +910,59 @@ namespace Tangenta
             DataGridView dgv = (DataGridView)sender;
             if (e.RowIndex>=0)
             {
-                if ((iColIndex_DocInvoice_Draft >= 0) && (iColIndex_DocInvoice_Invoice_Storno>=0))
+                if (IsDocInvoice)
                 {
-                    if ((bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Draft])
+                    if ((iColIndex_DocInvoice_Draft >= 0) && (iColIndex_DocInvoice_Invoice_Storno >= 0))
                     {
-                        e.CellStyle.BackColor = ColorDraft;
-                    }
-                    bool bxstorno = false;
-                    if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno] is bool)
-                    {
-                        bxstorno = (bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno];
-                    }
-                    else if (bxstorno)
-                    {
-                        e.CellStyle.BackColor = ColorStorno;
-                    }
-                    else
-                    {
-                        if (Program.b_FVI_SLO)
+                        if ((bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Draft])
                         {
-                            if ((dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue] is string) && (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber] is string))
-                            {
-                                e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceConfirmed;
-                            }
-                            else if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue] is string)
-                            {
-                                e.CellStyle.BackColor = ColorFurs_InvoiceConfirmed;
-                            }
-                            else if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber] is string)
-                            {
-                                e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceNotConfirmed;
-                            }
-                            else
-                            {
-                                e.CellStyle.BackColor = Color.LightGray;
-                            }
+                            e.CellStyle.BackColor = ColorDraft;
+                        }
+                        bool bxstorno = false;
+                        if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno] is bool)
+                        {
+                            bxstorno = (bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Invoice_Storno];
+                        }
+                        else if (bxstorno)
+                        {
+                            e.CellStyle.BackColor = ColorStorno;
                         }
                         else
                         {
-                            e.CellStyle.BackColor = Color.White;
+                            if (Program.b_FVI_SLO)
+                            {
+                                if ((dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue] is string) && (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber] is string))
+                                {
+                                    e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceConfirmed;
+                                }
+                                else if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue] is string)
+                                {
+                                    e.CellStyle.BackColor = ColorFurs_InvoiceConfirmed;
+                                }
+                                else if (dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_FSI_SLO_SalesBookInvoice_InvoiceNumber] is string)
+                                {
+                                    e.CellStyle.BackColor = ColorFurs_SalesBookInvoiceNotConfirmed;
+                                }
+                                else
+                                {
+                                    e.CellStyle.BackColor = Color.LightGray;
+                                }
+                            }
+                            else
+                            {
+                                e.CellStyle.BackColor = Color.White;
+                            }
                         }
+                    }
+                }
+                else if (IsDocProformaInvoice)
+                {
+                    if (iColIndex_DocInvoice_Draft >= 0)
+                    {
+                        if ((bool)dt_XInvoice.Rows[e.RowIndex][iColIndex_DocInvoice_Draft])
+                        {
+                            e.CellStyle.BackColor = ColorDraft;
+                        }  
                     }
                 }
             }

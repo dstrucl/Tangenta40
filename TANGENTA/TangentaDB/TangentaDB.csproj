@@ -152,8 +152,6 @@
     <Compile Include="f_Language.cs" />
     <Compile Include="f_Logo.cs" />
     <Compile Include="f_MethodOfPayment_DPI.cs" />
-    <Compile Include="f_MethodOfPayment_DPI_BAccount .cs" />
-    <Compile Include="f_MethodOfPayment_DI_BAccount.cs" />
     <Compile Include="f_myOrganisation.cs" />
     <Compile Include="f_myOrganisation_Person.cs" />
     <Compile Include="f_Office.cs" />

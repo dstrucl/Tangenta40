@@ -185,5 +185,63 @@ namespace LanguageControl
             }
             
         }
+
+        private static string set_zero_in_front(string s,int iplaces)
+        {
+            if (s != null)
+            {
+                while (s.Length < iplaces)
+                {
+                    s = '0' + s;
+                }
+                return s;
+            }
+            else
+            {
+                return "ERR!";
+            }
+        }
+
+        public static string SetLanguageDateTimeString(DateTime datetime)
+        {
+            if (LanguageID == Slovensko_ID)
+            {
+                return datetime.Day.ToString() + "."
+                                    + datetime.Month.ToString() + "."
+                                    + datetime.Year.ToString() + " "
+                                    + datetime.Hour.ToString() + ":"
+                                    + datetime.Minute.ToString();
+            }
+            else
+            {
+                // according to ISO 8601 Data elements and interchange formats
+                return datetime.Year.ToString() + "-"
+                                    + set_zero_in_front(datetime.Month.ToString(), 2) + "-"
+                                    + set_zero_in_front(datetime.Day.ToString(), 2) + " "
+                                    + set_zero_in_front(datetime.Hour.ToString(), 2) + ":"
+                                    + set_zero_in_front(datetime.Minute.ToString(), 2);
+
+            }
+
+        }
+
+        public static string SetLanguageDateString(DateTime datetime)
+        {
+            if (LanguageID==Slovensko_ID)
+            {
+                return datetime.Day.ToString() + "."
+                                    + datetime.Month.ToString() + "."
+                                    + datetime.Year.ToString();
+            }
+            else
+            {
+                // according to ISO 8601 Data elements and interchange formats
+                return datetime.Year.ToString() + "-"
+                                    + set_zero_in_front(datetime.Month.ToString(),2) + "-"
+                                    + set_zero_in_front(datetime.Day.ToString(),2);
+
+            }
+            
+        }
     }
 }

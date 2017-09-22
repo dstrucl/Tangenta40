@@ -19,6 +19,7 @@ using DBConnectionControl40;
 using System.IO;
 using TangentaDB;
 using ShopA_dbfunc;
+using UniversalInvoice;
 
 namespace TangentaDB
 {
@@ -683,13 +684,38 @@ namespace TangentaDB
                 if (issue_time != null)
                 {
                     this.IssueDate_v = issue_time.Clone();
-                    string stime = IssueDate_v.v.Day.ToString() + "."
-                                    + IssueDate_v.v.Month.ToString() + "."
-                                    + IssueDate_v.v.Year.ToString() + " "
-                                    + IssueDate_v.v.Hour.ToString() + ":"
-                                    + IssueDate_v.v.Minute.ToString();
+                    string stime = LanguageControl.DynSettings.SetLanguageDateTimeString(IssueDate_v.v);
+
+                                
                     InvoiceToken.tDateOfIssue.Set(stime);
-                    InvoiceToken.tDateOfMaturity.Set(stime);
+                    if (IsDocInvoice)
+                    {
+                        if (InvoiceToken.tDateOfMaturity == null)
+                        {
+                            InvoiceToken.tDateOfMaturity = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfMaturity, null, null);
+                        }
+
+                        if (AddOnDI.m_PaymentDeadline != null)
+                        {
+                         
+                            stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.m_PaymentDeadline.Date);
+                            InvoiceToken.tDateOfMaturity.Set(stime);
+                        }
+                        else
+                        {
+                            InvoiceToken.tDateOfMaturity.Set("");
+                        }
+                    }
+                    if (IsDocProformaInvoice)
+                    {
+                        if (InvoiceToken.tOfferValidUntil==null)
+                        {
+                            InvoiceToken.tOfferValidUntil = new TemplateToken(lngToken.st_ProformaInvoice, lngToken.st_OfferValidUntil, null, null);
+                        }
+                        stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDPI.m_Duration.ValidUntil(IssueDate_v.v));
+                        InvoiceToken.tOfferValidUntil.Set(stime);
+                    }
+                   
                     return true;
                 }
                 else
@@ -861,8 +887,7 @@ namespace TangentaDB
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                 left join MethodOfPayment_DI mpdi on mpdi.ID = piao.MethodOfPayment_DI_ID
-                                left join MethodOfPayment_DI_BAccount mptdiba on mptdiba.MethodOfPayment_DI_ID = mpdi.ID
-                                left join Atom_BankAccount aba on mptdiba.Atom_BankAccount_ID = aba.ID
+                                left join Atom_BankAccount aba on mpdi.Atom_BankAccount_ID = aba.ID
                                 left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                                 left join Atom_Organisation abo on ab.Atom_Organisation_ID = abo.ID
                                 left join PaymentType pt on mpdi.PaymentType_ID = pt.ID
@@ -946,8 +971,7 @@ namespace TangentaDB
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                 left join MethodOfPayment_DI mpdi on mpdi.ID = piao.MethodOfPayment_DI_ID
-                                left join MethodOfPayment_DI_BAccount mptdiba on mptdiba.MethodOfPayment_DI_ID = mpdi.ID
-                                left join Atom_BankAccount aba on mptdiba.Atom_BankAccount_ID = aba.ID
+                                left join Atom_BankAccount aba on mpdi.Atom_BankAccount_ID = aba.ID
                                 left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                                 left join Atom_Organisation abo on ab.Atom_Organisation_ID = abo.ID
                                 left join PaymentType pt on mpdi.PaymentType_ID = pt.ID
@@ -1029,8 +1053,7 @@ namespace TangentaDB
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
                                 left join MethodOfPayment_DPI mptdpi on mptdpi.ID = piao.MethodOfPayment_DPI_ID
-                                left join MethodOfPayment_DPI_BAccount mptdpiba on mptdpiba.MethodOfPayment_DPI_ID = mptdpi.ID
-                                left join Atom_BankAccount aba on mptdpiba.Atom_BankAccount_ID = aba.ID
+                                left join Atom_BankAccount aba on mptdpi.Atom_BankAccount_ID = aba.ID
                                 left join Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                                 left join Atom_Organisation abo on ab.Atom_Organisation_ID = abo.ID
                                 left join PaymentType pt on mptdpi.PaymentType_ID = pt.ID
@@ -1443,7 +1466,7 @@ namespace TangentaDB
                                 {
                                     Fill_Sold_ShopA_ItemsData(lngToken.st_ProformaInvoice, ref ItemsSold, 0, iCountShopAItemsSold, false);
                                     Fill_Sold_ShopB_ItemsData(lngToken.st_ProformaInvoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, false);
-                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, false);
+                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_ProformaInvoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, false);
                                 }
                                 GeneralToken = new UniversalInvoice.GeneralToken();
                                 InvoiceToken = new UniversalInvoice.InvoiceToken(IsDocInvoice);
@@ -1463,13 +1486,25 @@ namespace TangentaDB
 
                                 if (!Draft)
                                 {
-                                    string stime = IssueDate_v.v.Day.ToString() + "."
-                                                    + IssueDate_v.v.Month.ToString() + "."
-                                                    + IssueDate_v.v.Year.ToString() + " "
-                                                    + IssueDate_v.v.Hour.ToString() + ":"
-                                                    + IssueDate_v.v.Minute.ToString();
+                                    string stime = LanguageControl.DynSettings.SetLanguageDateTimeString(IssueDate_v.v);
                                     InvoiceToken.tDateOfIssue.Set(stime);
-                                    InvoiceToken.tDateOfMaturity.Set(stime);
+                                    if (IsDocInvoice)
+                                    {
+                                        if (AddOnDI.m_PaymentDeadline != null)
+                                        {
+                                            stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.m_PaymentDeadline.Date);
+                                            InvoiceToken.tDateOfMaturity.Set(stime);
+                                        }
+                                        else
+                                        {
+                                            InvoiceToken.tDateOfMaturity.Set("");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDPI.m_Duration.ValidUntil(IssueDate_v.v));
+                                        InvoiceToken.tOfferValidUntil.Set(stime);
+                                    }
                                 }
                                 return true;
                             }
@@ -1652,13 +1687,26 @@ namespace TangentaDB
                 PrintingElement_List = new HTML_PrintingElement_List();
             }
 
-            string stime = IssueDate_v.v.Day.ToString() + "."
-                                           + IssueDate_v.v.Month.ToString() + "."
-                                           + IssueDate_v.v.Year.ToString() + " "
-                                           + IssueDate_v.v.Hour.ToString() + ":"
-                                           + IssueDate_v.v.Minute.ToString();
+            string stime = LanguageControl.DynSettings.SetLanguageDateTimeString(IssueDate_v.v); 
             InvoiceToken.tDateOfIssue.Set(stime);
-            InvoiceToken.tDateOfMaturity.Set(stime);
+            if (IsDocInvoice)
+            {
+                if (AddOnDI.m_PaymentDeadline != null)
+                {
+                    stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDI.m_PaymentDeadline.Date);
+                    InvoiceToken.tDateOfMaturity.Set(stime);
+                }
+                else
+                {
+                    InvoiceToken.tDateOfMaturity.Set("");
+                }
+            }
+            else
+            {
+                stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDPI.m_Duration.ValidUntil(IssueDate_v.v));
+                InvoiceToken.tOfferValidUntil.Set(stime);
+            }
+           
 
             sMethodOfPayment = "";
             sBankAccount = "";
@@ -1684,7 +1732,14 @@ namespace TangentaDB
             }
             if (sBankAccount!=null)
             {
-                sBankAccount = lngRPM.s_PaymentOnBankAccount.s + ": " + sBankAccount;
+                if (sBankAccount.Length > 0)
+                {
+                    sBankAccount = lngRPM.s_PaymentOnBankAccount.s + ": " + sBankAccount;
+                }
+                else
+                {
+                    sBankAccount = "";
+                }
             }
             else
             {
@@ -1693,7 +1748,15 @@ namespace TangentaDB
 
             if (sBankName != null)
             {
-                sBankName = lngRPM.s_Bank.s + ": " + sBankName;
+                if (sBankName.Length > 0)
+                {
+                    sBankName = lngRPM.s_Bank.s + ": " + sBankName;
+                }
+                else
+                {
+                    sBankName = "";
+                }
+
             }
             else
             {
@@ -1770,16 +1833,21 @@ namespace TangentaDB
             }
 
             html_doc_template = InvoiceToken.tDateOfIssue.Replace(html_doc_template);
-            html_doc_template = InvoiceToken.tDateOfMaturity.Replace(html_doc_template);
+          
 
             if (IsDocInvoice)
             {
+                html_doc_template = InvoiceToken.tDateOfMaturity.Replace(html_doc_template);
                 if (AddOnDI.b_FVI_SLO)
                 {
                     html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
                     html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
                     html_doc_template = AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
                 }
+            }
+            else
+            {
+                html_doc_template = InvoiceToken.tOfferValidUntil.Replace(html_doc_template);
             }
             int start_index = 0;
             int iStartIndexOf_style = -1;

@@ -231,7 +231,7 @@ namespace LanguageControl
         public static ltext s_FinancialYear = new ltext("Financial Year", "Poslovno leto");
         public static ltext s_NumberInFinancialYear = new ltext("Number in financial year", "Številka v obračunskem letu");
         public static ltext s_InvoiceNumber = new ltext("Invoice Number in Financial Year", "Številka računa v poslovnem letu");
-        public static ltext s_IssueDate = new ltext("Issue date", "Čas izdaje računa");
+        public static ltext s_IssueDate = new ltext("Issue date", "Čas izdaje");
         public static ltext s_GrossSum = new ltext("Total", "Znesek računa");
         public static ltext s_TaxSum = new ltext("Tax", "Davek");
         public static ltext s_NetSum = new ltext("Net sum", "Neto cena");

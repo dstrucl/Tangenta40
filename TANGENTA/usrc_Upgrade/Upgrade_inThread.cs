@@ -225,6 +225,16 @@ namespace UpgradeDB
                             return false;
                         }
 
+                        if (DBSync.DBSync.DataBase.Contains("StudioMarjetka"))
+                        {
+                            sql = "update Bank set Organisation_ID = 2 where ID = 1";
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                            {
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                return false;
+                            }
+
+                        }
                         sql = @"
                                             PRAGMA foreign_keys = OFF;
                                             DROP TABLE doc;
@@ -898,9 +908,7 @@ namespace UpgradeDB
                                                 "JOURNAL",
                                                 "PaymentType",
                                                 "MethodOfPayment_DI",
-                                                "MethodOfPayment_DPI",
-                                                "MethodOfPayment_DI_BAccount",
-                                                "MethodOfPayment_DPI_BAccount"
+                                                "MethodOfPayment_DPI"
                                                 };
 
             if (DBSync.DBSync.CreateTables(new_tables, ref Err))
@@ -916,20 +924,19 @@ namespace UpgradeDB
 
                 long_v PaymentType_ID_v = null;
                 string_v sPaymentType_v = null;
-                long_v MethodOfPayment_DI_BAccount_v = null;
                 long_v CASH_MethodOfPayment_DI_v = null;
                 long_v CARD_MethodOfPayment_DI_v = null;
                 long_v ALLREADY_PAID_MethodOfPayment_DI_v = null;
 
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH,null,ref PaymentType_ID_v,ref sPaymentType_v,ref MethodOfPayment_DI_BAccount_v,ref CASH_MethodOfPayment_DI_v))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CASH,null,ref PaymentType_ID_v,ref sPaymentType_v,ref CASH_MethodOfPayment_DI_v))
                 {
                     return false;
                 }
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CARD, null, ref PaymentType_ID_v, ref sPaymentType_v, ref MethodOfPayment_DI_BAccount_v, ref CARD_MethodOfPayment_DI_v))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.CARD, null, ref PaymentType_ID_v, ref sPaymentType_v,  ref CARD_MethodOfPayment_DI_v))
                 {
                     return false;
                 }
-                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.ALLREADY_PAID, null, ref PaymentType_ID_v, ref sPaymentType_v, ref MethodOfPayment_DI_BAccount_v, ref ALLREADY_PAID_MethodOfPayment_DI_v))
+                if (!f_MethodOfPayment_DI.Get(GlobalData.ePaymentType.ALLREADY_PAID, null, ref PaymentType_ID_v, ref sPaymentType_v, ref ALLREADY_PAID_MethodOfPayment_DI_v))
                 {
                     return false;
                 }
@@ -1549,6 +1556,7 @@ namespace UpgradeDB
                                         LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
                                         return false;
                                     }
+
                                 }
 
                                     new_tables = new string[] {"Delivery",

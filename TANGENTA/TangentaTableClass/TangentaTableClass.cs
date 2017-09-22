@@ -1847,28 +1847,19 @@ namespace TangentaTableClass
     {
         public ID ID = new ID();
         public PaymentType m_PaymentType  = new PaymentType();
-    }
-
-    public class MethodOfPayment_DI_BAccount
-    {
-        public ID ID = new ID();
-        public MethodOfPayment_DI m_MethodOfPayment_DI = new MethodOfPayment_DI();
         public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
     }
+
+ 
 
     public class MethodOfPayment_DPI
     {
         public ID ID = new ID();
         public PaymentType m_PaymentType = new PaymentType();
-    }
-
-    public class MethodOfPayment_DPI_BAccount
-    {
-        public ID ID = new ID();
-        public MethodOfPayment_DPI m_MethodOfPayment_DPI = new MethodOfPayment_DPI();
         public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
     }
 
+   
     public class Invoice_Reference_ID:DB_Int64
     {
 
@@ -1968,7 +1959,7 @@ namespace TangentaTableClass
         public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
         public IssueDate IssueDate = new IssueDate();
         public DocDuration DocDuration = new DocDuration();
-        public DocDurationType DocDurationType = new DocDurationType();
+        public DocDurationType DocDurationType = new DocDurationType(); // 0 = DocDuration is in months after IssueDate; 1,2 DocDuration is in days after IssueDate
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
         public MethodOfPayment_DPI m_MethodOfPayment_DPI = new MethodOfPayment_DPI();
         public Atom_Warranty m_Atom_Warranty = new Atom_Warranty();
@@ -3139,11 +3130,6 @@ namespace TangentaTableClass
         /* 208 */
         public MethodOfPayment_DPI m_MethodOfPayment_DPI = new MethodOfPayment_DPI();
 
-        /* 209 */
-        public MethodOfPayment_DI_BAccount m_MethodOfPayment_DI_BAccount = new MethodOfPayment_DI_BAccount();
-
-        /* 210 */
-        public MethodOfPayment_DPI_BAccount m_MethodOfPayment_DPI_BAccount = new MethodOfPayment_DPI_BAccount();
 
     }
 }

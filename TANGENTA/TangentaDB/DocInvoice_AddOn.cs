@@ -300,7 +300,6 @@ namespace TangentaDB
                                                              Atom_BankAccount_ID_v,
                                                              ref PaymentType_ID_v,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DI_BAccount_ID_v,
                                                              ref MethodOfPayment_DI_ID_v))
                                 {
                                     return true;
@@ -317,7 +316,6 @@ namespace TangentaDB
                                                              null,
                                                              ref PaymentType_ID_v,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DI_BAccount_ID_v,
                                                              ref MethodOfPayment_DI_ID_v))
                         {
                             return true;
@@ -431,7 +429,7 @@ namespace TangentaDB
                             diao.TermsOfPayment_ID,
                             mop.ID as MethodOfPayment_DI_ID,
                             diao.PaymentDeadline,
-                            mopba.Atom_BankAccount_ID,
+                            mop.Atom_BankAccount_ID,
                             top.Description as TermsOfPayment_Description,
                             mop.PaymentType_ID,
                             pt.Identification as PaymentType_Identification,
@@ -444,8 +442,7 @@ namespace TangentaDB
                             left join  TermsOfPayment top on diao.TermsOfPayment_ID = top.ID
                             left join  MethodOfPayment_DI mop on diao.MethodOfPayment_DI_ID = mop.ID
                             left join  PaymentType pt on mop.PaymentType_ID = pt.ID
-                            left join  MethodOfPayment_DI_BAccount mopba on mopba.MethodOfPayment_DI_ID = mop.ID
-                            left join  Atom_BankAccount aba on mopba.Atom_BankAccount_ID = aba.ID
+                            left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID
                             left join  Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                             left join  Atom_Organisation ao on ab.Atom_Organisation_ID = ao.ID
                             where di.ID = " + DocInvoice_ID.ToString();

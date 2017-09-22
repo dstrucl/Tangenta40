@@ -2387,17 +2387,31 @@ do_EditMyOrganisation_Data:
                         }
                         else
                         {
-                            this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
-                            if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
-                            { // print invoice if you wish
-                                if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
-                                {
-                                    m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
-                                    m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
+                            //Print existing invoice
+                            m_InvoiceData.DocInvoice_ID = m_ShopABC.m_CurrentInvoice.Doc_ID;
+                            if (IsDocInvoice)
+                            {
+                                this.m_InvoiceData.AddOnDI.b_FVI_SLO = Program.b_FVI_SLO;
+                                if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
+                                { // print invoice if you wish
+                                    if (m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v != null)
+                                    {
+                                        m_InvoiceData.AddOnDI.m_FURS.FURS_Image_QRcode = Program.usrc_FVI_SLO1.GetQRImage(m_InvoiceData.AddOnDI.m_FURS.FURS_QR_v.v);
+                                        m_InvoiceData.AddOnDI.m_FURS.Set_Invoice_Furs_Token();
+                                    }
+                                    Printing_DocInvoice();
+                                    //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
+                                    //frm_Print_Existing_invoice.ShowDialog(this);
                                 }
-                                Printing_DocInvoice();
-                                //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
-                                //frm_Print_Existing_invoice.ShowDialog(this);
+                            }
+                            else
+                            {
+                                if (m_InvoiceData.Read_DocInvoice()) // read Proforma Invoice again from DataBase
+                                {
+                                    Printing_DocInvoice();
+                                    //TangentaPrint.Form_PrintJournal frm_Print_Existing_invoice = new TangentaPrint.Form_PrintJournal(m_InvoiceData,"UNKNOWN PRINETR NAME??",Program.usrc_TangentaPrint1);
+                                    //frm_Print_Existing_invoice.ShowDialog(this);
+                                }
                             }
                         }
                     }

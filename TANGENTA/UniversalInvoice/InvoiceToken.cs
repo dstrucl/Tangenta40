@@ -23,6 +23,7 @@ namespace UniversalInvoice
         public TemplateToken tIssuerOfInvoice;
         public TemplateToken tDateOfIssue = null;
         public TemplateToken tDateOfMaturity = null;
+        public TemplateToken tOfferValidUntil = null;
         public TemplateToken tPaymentType = null;
         public TemplateToken tPaymentToBankAccount = null;
         public TemplateToken tPaymentToBankName = null;
@@ -56,7 +57,17 @@ namespace UniversalInvoice
 
 
             tDateOfIssue = new TemplateToken(ltDocInvoice, lngToken.st_DateOfIssue, null,null);
-            tDateOfMaturity = new TemplateToken(ltDocInvoice, lngToken.st_DateOfMaturity, null, null);
+            if (xbIsDocInvoice)
+            {
+                tOfferValidUntil = null;
+                tDateOfMaturity = new TemplateToken(ltDocInvoice, lngToken.st_DateOfMaturity, null, null);
+            }
+            else
+            {
+                tDateOfMaturity = null;
+                tOfferValidUntil = new TemplateToken(ltDocInvoice, lngToken.st_OfferValidUntil, null, null);
+            }
+        
             tPaymentType = new TemplateToken(ltDocInvoice, lngToken.st_PaymentType, null, null);
             tPaymentToBankAccount = new TemplateToken(ltDocInvoice, lngToken.st_PaymentToBankAccount, null, null);
             tPaymentToBankName = new TemplateToken(ltDocInvoice, lngToken.st_PaymentToBankName, null, null);
@@ -82,7 +93,7 @@ namespace UniversalInvoice
             list.Add(tCashier);
             list.Add(tIssuerOfInvoice);
             list.Add(tDateOfIssue);
-            list.Add(tDateOfMaturity);
+            
             list.Add(tPaymentType);
             list.Add(tPaymentToBankAccount);
             list.Add(tPaymentToBankName);
@@ -92,7 +103,12 @@ namespace UniversalInvoice
             list.Add(tTotalSum);
             if (xbIsDocInvoice)
             {
+                list.Add(tDateOfMaturity);
                 list.Add(tStorno);
+            }
+            else
+            {
+                list.Add(tOfferValidUntil);
             }
         }
     }

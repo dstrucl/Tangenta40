@@ -198,7 +198,7 @@ namespace UniversalInvoice
         {
             if (html_doc_template.Contains(lt.s))
             {
-                return html_doc_template.Replace(lt.s, this.replacement);
+               return html_doc_template.Replace(lt.s, this.replacement);
             }
             else
             {
@@ -223,6 +223,8 @@ namespace UniversalInvoice
                 return html_doc_template;
             }
         }
+
+        
 
         public int IndexOf(string s, ref int length)
         {

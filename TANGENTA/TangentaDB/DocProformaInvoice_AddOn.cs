@@ -68,6 +68,27 @@ namespace TangentaDB
                     return null;
                 }
             }
+
+            internal DateTime ValidUntil(DateTime v)
+            {
+                
+                switch (type)
+                {
+                    case 0:
+                        {
+                            int ilength = Convert.ToInt32(length);
+                            DateTime dt = v.AddMonths(ilength);
+                            return dt;
+                        }
+                    default: // length is in days
+                        {
+                            int ilength = Convert.ToInt32(length);
+                            DateTime dt = v.AddDays(ilength);
+                            return dt;
+                        }   
+                }
+
+            }
         }
 
         public class TermsOfPayment
@@ -249,8 +270,7 @@ namespace TangentaDB
                 long_v Atom_BankAccount_ID_v = null;
                 long_v PaymentType_ID_v = null;
                 string_v PaymentType_v = null;
-                long_v MethodOfPayment_DI_BAccount_ID_v = null;
-
+                
                 switch (eType)
                 {
                     case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
@@ -268,7 +288,6 @@ namespace TangentaDB
                                                              Atom_BankAccount_ID_v,
                                                              ref PaymentType_ID_v,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DI_BAccount_ID_v,
                                                              ref MethodOfPayment_DPI_ID_v))
                                 {
                                     return true;
@@ -285,7 +304,6 @@ namespace TangentaDB
                                                              null,
                                                              ref PaymentType_ID_v,
                                                              ref PaymentType_v,
-                                                             ref MethodOfPayment_DI_BAccount_ID_v,
                                                              ref MethodOfPayment_DPI_ID_v))
                         {
                             return true;
@@ -387,7 +405,7 @@ namespace TangentaDB
                             dpiao.DocDurationType as DocDurationType,
                             dpiao.TermsOfPayment_ID as TermsOfPayment_ID,
                             mop.ID as MethodOfPayment_DPI_ID,
-                            mopba.Atom_BankAccount_ID as Atom_BankAccount_ID,
+                            mop.Atom_BankAccount_ID as Atom_BankAccount_ID,
                             top.Description as TermsOfPayment_Description,
                             pt.Identification as PaymentType_Identification,
                             aba.TRR as TRR,
@@ -399,8 +417,7 @@ namespace TangentaDB
                             left join  TermsOfPayment top on dpiao.TermsOfPayment_ID = top.ID
                             left join  MethodOfPayment_DPI mop on dpiao.MethodOfPayment_DPI_ID = mop.ID
                             left join  PaymentType pt on mop.PaymentType_ID = pt.ID
-                            left join  MethodOfPayment_DPI_BAccount mopba on mopba.MethodOfPayment_DPI_ID = mop.ID
-                            left join  Atom_BankAccount aba on mopba.Atom_BankAccount_ID = aba.ID
+                            left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID
                             left join  Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                             left join  Atom_Organisation ao on ab.Atom_Organisation_ID = ao.ID
                             where dpi.ID = " + DocProformaInvoice_ID.ToString();
