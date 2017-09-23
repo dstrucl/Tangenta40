@@ -341,6 +341,8 @@ namespace TangentaDB
             }
         }
 
+        public string m_NoticeText = null;
+
         public class CashHandling
         {
             public decimal m_AmountReceived = 0;
@@ -435,6 +437,7 @@ namespace TangentaDB
                             pt.Identification as PaymentType_Identification,
                             aba.TRR,
                             ao.Name,
+                            an.NoticeText as NoticeText,
                             ao.Tax_ID,
                             ao.Registration_ID
                             from DocInvoice di
@@ -445,6 +448,7 @@ namespace TangentaDB
                             left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID
                             left join  Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                             left join  Atom_Organisation ao on ab.Atom_Organisation_ID = ao.ID
+                            left join  Atom_Notice an on diao.Atom_Notice_ID = an.ID
                             where di.ID = " + DocInvoice_ID.ToString();
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
@@ -464,6 +468,12 @@ namespace TangentaDB
                                                                                      dt.Rows[0]["TRR"],
                                                                                      dt.Rows[0]["Atom_BankAccount_ID"]);
                     m_PaymentDeadline = DocInvoice_AddOn.PaymentDeadline.Set(dt.Rows[0]["PaymentDeadline"]);
+                    object oNoticeText = dt.Rows[0]["NoticeText"];
+                    m_NoticeText = null;
+                    if (oNoticeText is string)
+                    {
+                        m_NoticeText = (string)oNoticeText;
+                    }
                 }
                 return true;
             }
@@ -521,9 +531,29 @@ namespace TangentaDB
                     long_v TermsOfPayment_ID_v = null;
                     if (m_TermsOfPayment.Get(ref TermsOfPayment_ID_v))
                     {
-
-
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                        long_v Atom_Notice_ID_v = null;
+                        long_v Notice_ID_v = null;
+
+                        string sval_Atom_Notice_ID = "null";
+                        if (m_NoticeText != null)
+                        {
+                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID_v))
+                            {
+                                return false;
+                            }
+                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID_v))
+                            {
+                                return false;
+                            }
+                            string notice_text = m_NoticeText;
+                            string spar_Atom_Notice_ID = "@par_Atom_Notice_ID";
+                            SQL_Parameter par_Atom_Notice_ID = new SQL_Parameter(spar_Atom_Notice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Notice_ID_v.v);
+                            lpar.Add(par_Atom_Notice_ID);
+                            sval_Atom_Notice_ID = spar_Atom_Notice_ID;
+                        }
+
                         string spar_DocInvoice_ID = "@par_DocInvoice_ID";
                         SQL_Parameter par_DocInvoice_ID = new SQL_Parameter(spar_DocInvoice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, DocInvoice_ID_v.v);
                         lpar.Add(par_DocInvoice_ID);
@@ -551,18 +581,21 @@ namespace TangentaDB
                         SQL_Parameter par_IssueDate = new SQL_Parameter(spar_IssueDate, SQL_Parameter.eSQL_Parameter.Datetime, false, m_IssueDate.Date);
                         lpar.Add(par_IssueDate);
 
+                        
 
 
                         string sql = @"insert into DocInvoiceAddOn (DocInvoice_ID,
                                                                     IssueDate,
                                                                     MethodOfPayment_DI_ID,
                                                                     TermsOfPayment_ID,
-                                                                    PaymentDeadline) values
+                                                                    PaymentDeadline,
+                                                                    Atom_Notice_ID) values
                                                                    (" + spar_DocInvoice_ID + ","
                                                                    + spar_IssueDate +","
                                                                    + spar_MethodOfPayment_DI_ID + ","
                                                                    + spar_TermsOfPayment_ID + "," +
-                                                                   sval_PaymentDeadline + ")";
+                                                                   sval_PaymentDeadline + ","+
+                                                                   sval_Atom_Notice_ID+")";
                                                               
                         object ores = null;
                         string Err = null;
@@ -606,9 +639,29 @@ namespace TangentaDB
                     long_v TermsOfPayment_ID_v = null;
                     if (m_TermsOfPayment.Get(ref TermsOfPayment_ID_v))
                     {
-
-
                         List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+                        string sval_Atom_Notice_ID = " Atom_Notice_ID = null ";
+                        long_v Atom_Notice_ID_v = null;
+                        long_v Notice_ID_v = null;
+
+                        if (m_NoticeText != null)
+                        {
+                            if (!f_Notice.Get(m_NoticeText, ref Notice_ID_v))
+                            {
+                                return false;
+                            }
+                            if (!f_Atom_Notice.Get(m_NoticeText, ref Atom_Notice_ID_v))
+                            {
+                                return false;
+                            }
+                            string notice_text = m_NoticeText;
+                            string spar_Atom_Notice_ID = "@par_Atom_Notice_ID";
+                            SQL_Parameter par_Atom_Notice_ID = new SQL_Parameter(spar_Atom_Notice_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Atom_Notice_ID_v.v);
+                            lpar.Add(par_Atom_Notice_ID);
+                            sval_Atom_Notice_ID = " Atom_Notice_ID = "+ spar_Atom_Notice_ID;
+                        }
+
                         string spar_MethodOfPayment_ID = "@par_MethodOfPayment_ID";
                         SQL_Parameter par_MethodOfPayment_ID = new SQL_Parameter(spar_MethodOfPayment_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, MethodOfPayment_DI_ID_v.v);
                         lpar.Add(par_MethodOfPayment_ID);
@@ -626,6 +679,7 @@ namespace TangentaDB
                             sval_PaymentDeadline = "PaymentDeadline = " + spar_PaymentDeadline;
                         }
 
+                     
 
 
                         string spar_IssueDate = "@par_IssueDate";
@@ -638,6 +692,7 @@ namespace TangentaDB
                                                                 + ",MethodOfPayment_DI_ID = " + spar_MethodOfPayment_ID
                                                                 + ",TermsOfPayment_ID = " + spar_TermsOfPayment_ID
                                                                 + "," + sval_PaymentDeadline
+                                                                + "," + sval_Atom_Notice_ID
                                                                 + " where ID = " + DocInvoiceAddOn_ID_v.v.ToString();
                         object ores = null;
                         string Err = null;

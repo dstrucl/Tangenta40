@@ -32,6 +32,7 @@ namespace UniversalInvoice
         public TemplateToken tSumTax = null;
         public TemplateToken tTotalSum = null;
         public TemplateToken tStorno;
+        public TemplateToken tNotice;
 
 
         public List<TemplateToken> list = null;
@@ -87,6 +88,8 @@ namespace UniversalInvoice
                 tStorno = null;
             }
 
+            tNotice = new TemplateToken(ltDocInvoice, lngToken.st_Notice, null, null);
+
             list = new List<TemplateToken>();
             list.Add(tFiscalYear);
             list.Add(tInvoiceNumber);
@@ -110,6 +113,7 @@ namespace UniversalInvoice
             {
                 list.Add(tOfferValidUntil);
             }
+            list.Add(tNotice);
         }
     }
 }

@@ -41,7 +41,7 @@
             this.m_usrc_DocProformaInvoice_AddOn.ForeColor = System.Drawing.Color.Black;
             this.m_usrc_DocProformaInvoice_AddOn.Location = new System.Drawing.Point(0, 0);
             this.m_usrc_DocProformaInvoice_AddOn.Name = "m_usrc_DocProformaInvoice_AddOn";
-            this.m_usrc_DocProformaInvoice_AddOn.Size = new System.Drawing.Size(575, 506);
+            this.m_usrc_DocProformaInvoice_AddOn.Size = new System.Drawing.Size(573, 618);
             this.m_usrc_DocProformaInvoice_AddOn.TabIndex = 0;
             this.m_usrc_DocProformaInvoice_AddOn.Cancel += new Tangenta.usrc_DocProformaInvoice_AddOn.delegate_Cancel(this.m_usrc_DocProformaInvoice_AddOn_Cancel);
             this.m_usrc_DocProformaInvoice_AddOn.OK += new Tangenta.usrc_DocProformaInvoice_AddOn.delegate_OK(this.m_usrc_DocProformaInvoice_AddOn_OK);
@@ -50,7 +50,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(575, 506);
+            this.ClientSize = new System.Drawing.Size(573, 618);
             this.Controls.Add(this.m_usrc_DocProformaInvoice_AddOn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_DocProformaInvoice_AddOn";

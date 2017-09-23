@@ -17,6 +17,7 @@ namespace LanguageControl
 {
     public static class lngRPM
     {
+        public static ltext s_SelectNotice = new ltext("Select Notice", "Izber dopis");
         public static ltext s_IssueDate_not_defined = new ltext(" Issue Date Not defined!\r\n", " Datum izdaje računa ni določen!\r\n");
         public static ltext s_MethodOfPayment_DI_not_defined = new ltext(" Method of payment is not defined!\r\n", " Način plačila ni določen!\r\n");
         public static ltext s_MethodOfPayment_DI_BankAccount_not_defined = new ltext(" Bank Account is not defined!\r\n", " Bančni račun ni določen!\r\n");

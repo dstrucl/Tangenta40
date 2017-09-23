@@ -97,6 +97,7 @@
     <Compile Include="f_Atom_Logo.cs" />
     <Compile Include="f_Atom_myOrganisation.cs" />
     <Compile Include="f_Atom_myOrganisation_Person.cs" />
+    <Compile Include="f_Atom_Notice.cs" />
     <Compile Include="f_Atom_Office.cs" />
     <Compile Include="f_Atom_Office_Data.cs" />
     <Compile Include="f_Atom_Organisation.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="f_MethodOfPayment_DPI.cs" />
     <Compile Include="f_myOrganisation.cs" />
     <Compile Include="f_myOrganisation_Person.cs" />
+    <Compile Include="f_Notice.cs" />
     <Compile Include="f_Office.cs" />
     <Compile Include="f_Office_Data.cs" />
     <Compile Include="f_Organisation.cs" />

@@ -1689,6 +1689,7 @@ namespace TangentaDB
 
             string stime = LanguageControl.DynSettings.SetLanguageDateTimeString(IssueDate_v.v); 
             InvoiceToken.tDateOfIssue.Set(stime);
+
             if (IsDocInvoice)
             {
                 if (AddOnDI.m_PaymentDeadline != null)
@@ -1700,13 +1701,30 @@ namespace TangentaDB
                 {
                     InvoiceToken.tDateOfMaturity.Set("");
                 }
+                if (AddOnDI.m_NoticeText!=null)
+                {
+                    InvoiceToken.tNotice.Set(AddOnDI.m_NoticeText);
+                }
+                else
+                {
+                    InvoiceToken.tNotice.Set("");
+                }
             }
             else
             {
                 stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDPI.m_Duration.ValidUntil(IssueDate_v.v));
                 InvoiceToken.tOfferValidUntil.Set(stime);
+                if (AddOnDPI.m_NoticeText != null)
+                {
+                    InvoiceToken.tNotice.Set(AddOnDPI.m_NoticeText);
+                }
+                else
+                {
+                    InvoiceToken.tNotice.Set("");
+                }
+
             }
-           
+
 
             sMethodOfPayment = "";
             sBankAccount = "";
@@ -1777,7 +1795,10 @@ namespace TangentaDB
             html_doc_template = InvoiceToken.tFiscalYear.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tInvoiceNumber.Replace(html_doc_template);
             html_doc_template = InvoiceToken.tIssuerOfInvoice.Replace(html_doc_template);
+
             html_doc_template = InvoiceToken.tCashier.Replace(html_doc_template);
+            html_doc_template = InvoiceToken.tNotice.Replace(html_doc_template);
+
             html_doc_template = Invoice_Author.token.tFirstName.Replace(html_doc_template);
             html_doc_template = Invoice_Author.token.tLastName.Replace(html_doc_template);
             html_doc_template = Invoice_Author.token.tTaxID.Replace(html_doc_template);

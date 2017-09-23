@@ -338,11 +338,7 @@ namespace Tangenta
                 }
             }
 
-            
-            if (m_AddOnDPI.m_MethodOfPayment_DPI != null)
-            {
-
-            }
+            m_AddOnDPI.m_NoticeText = usrc_Notice1.NoticeText;
 
             ltext ltMsg = null;
             if (m_AddOnDPI.Completed(ref ltMsg))

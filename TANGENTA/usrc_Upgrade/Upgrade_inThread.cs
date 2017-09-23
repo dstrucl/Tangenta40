@@ -880,7 +880,15 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
         {
-            string[] new_tables = new string[] {"DocInvoice",
+                string sql = "DROP TABLE Notice;";
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+                string[] new_tables = new string[] {"Notice",
+                                                "Atom_Notice",
+                                                "DocInvoice",
                                                 "DocInvoiceAddOn",
                                                 "DocProformaInvoice",
                                                 "DocProformaInvoiceAddOn",
@@ -889,8 +897,6 @@ namespace UpgradeDB
                                                 "DocInvoice_ShopB_Item",
                                                 "DocProformaInvoice_ShopB_Item",
                                                 "Doc_ImageLib",
-                                                "DocInvoiceAddOn_Notice",
-                                                "DocProformaInvoiceAddOn_Notice",
                                                 "JOURNAL_DocInvoice_Type",
                                                 "JOURNAL_DocProformaInvoice_Type",
                                                 "JOURNAL_DocInvoice",
@@ -941,7 +947,7 @@ namespace UpgradeDB
                     return false;
                 }
 
-                string sql = @"PRAGMA foreign_keys = OFF;
+                 sql = @"PRAGMA foreign_keys = OFF;
                                insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_ProformaInvoice_Type;
                                insert into JOURNAL_DocInvoice_Type (Name,Description) select Name,Description from JOURNAL_Invoice_Type;
                                update Invoice set MethodOfPayment_ID = 3 where MethodOfPayment_ID is null;

@@ -777,7 +777,7 @@ namespace TangentaTableClass
     {
     }
 
-    public class NoticeText : DB_varchar_max
+    public class NoticeText : DB_varchar_2000
     {
     }
 
@@ -1935,6 +1935,8 @@ namespace TangentaTableClass
         public PaymentDeadline PaymentDeadline = new PaymentDeadline();
         public MethodOfPayment_DI m_MethodOfPayment_DI = new MethodOfPayment_DI();
         public Atom_Warranty m_Atom_Warranty = new Atom_Warranty();
+        public Atom_Notice m_Atom_Notice = new Atom_Notice();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
     }
 
     public class DocProformaInvoice
@@ -1963,7 +1965,8 @@ namespace TangentaTableClass
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
         public MethodOfPayment_DPI m_MethodOfPayment_DPI = new MethodOfPayment_DPI();
         public Atom_Warranty m_Atom_Warranty = new Atom_Warranty();
-
+        public Atom_Notice m_Atom_Notice = new Atom_Notice();
+        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
     }
 
     public class Doc_ImageLib
@@ -1977,25 +1980,13 @@ namespace TangentaTableClass
     public class Notice
     {
         public ID ID = new ID();
-        public Name Name = new Name();
         public NoticeText NoticeText = new NoticeText();
-        public Description Description = new Description();
     }
 
-    public class DocInvoiceAddOn_Notice
+    public class Atom_Notice
     {
         public ID ID = new ID();
-        public DocInvoiceAddOn m_DocInvoiceAddOn = new DocInvoiceAddOn();
-        public Notice m_Notice = new Notice();
-        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
-    }
-
-    public class DocProformaInvoiceAddOn_Notice
-    {
-        public ID ID = new ID();
-        public DocProformaInvoiceAddOn m_DocProformaInvoiceAddOn = new DocProformaInvoiceAddOn();
-        public Notice m_Notice = new Notice();
-        public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
+        public NoticeText NoticeText = new NoticeText();
     }
 
 
@@ -2642,494 +2633,489 @@ namespace TangentaTableClass
         public DocInvoice m_DocInvoice = new DocInvoice();
 
         /* 46 */
-        public DocInvoiceAddOn_Notice m_DocInvoiceAddOn_Notice = new DocInvoiceAddOn_Notice();
-
-        /* 47 */
         public Doc_ImageLib m_Doc_ImageLib = new Doc_ImageLib();
 
-        /* 48 */
+        /* 47 */
         public DocInvoiceAddOn m_DocInvoiceAddOn = new DocInvoiceAddOn();
 
-        /* 49 */
+        /* 48 */
         public TermsOfPayment m_TermsOfPayment = new TermsOfPayment();
 
-        /* 50 */
+        /* 49 */
         public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
 
-        /* 51 */
+        /* 50 */
         public DocInvoice_ShopC_Item m_DocInvoice_ShopC_Item = new DocInvoice_ShopC_Item();
 
-        /* 52 */
+        /* 51 */
         public Atom_myOrganisation_Person m_Atom_myOrganisation_Person = new Atom_myOrganisation_Person();
 
-        /* 53 */
+        /* 52 */
         public Atom_myOrganisation m_Atom_myOrganisation = new Atom_myOrganisation();
 
-        /* 54 */
+        /* 53 */
         public Atom_Person m_BuyerAtom_Person = new Atom_Person();
 
-        /* 55 */
+        /* 54 */
         public Atom_Organisation m_Atom_Organisation = new Atom_Organisation();
 
-        /* 56 */
+        /* 55 */
         public SimpleItem_Image m_SimpleItem_Image = new SimpleItem_Image();
 
-        /* 57 */
+        /* 56 */
         public Item_Image m_Item_Image = new Item_Image();
 
-        /* 58 */
+        /* 57 */
         public Expiry m_Expiry = new Expiry();
 
-        /* 59 */
+        /* 58 */
         public Warranty m_Warranty = new Warranty();
 
-        /* 60 */
+        /* 59 */
         public Atom_Expiry m_Atom_Expiry = new Atom_Expiry();
 
-        /* 61 */
+        /* 60 */
         public Atom_Warranty m_Atom_Warranty = new Atom_Warranty();
 
-        /* 62 */
+        /* 61 */
         public Item_ParentGroup3 m_Item_ParentGroup3 = new Item_ParentGroup3();
 
-        /* 63 */
+        /* 62 */
         public Item_ParentGroup2 m_Item_ParentGroup2 = new Item_ParentGroup2();
 
-        /* 64 */
+        /* 63 */
         public Item_ParentGroup1 m_Item_ParentGroup1 = new Item_ParentGroup1();
 
-        /* 65 */
+        /* 64 */
         public Stock_AddressLevel3 m_Stock_AddressLevel3 = new Stock_AddressLevel3();
 
-        /* 66 */
+        /* 65 */
         public Stock_AddressLevel2 m_Stock_AddressLevel2 = new Stock_AddressLevel2();
 
-        /* 67 */
+        /* 66 */
         public Stock_AddressLevel1 m_Stock_AddressLevel1 = new Stock_AddressLevel1();
 
-        /* 68 */
+        /* 67 */
         public Atom_cStreetName_Person m_Atom_cStreetName_Person = new Atom_cStreetName_Person();
 
-        /* 69 */
+        /* 68 */
         public Atom_cHouseNumber_Person m_Atom_cHouseNumber_Person = new Atom_cHouseNumber_Person();
 
-        /* 70 */
+        /* 69 */
         public Atom_cCity_Person m_Atom_cCity_Person = new Atom_cCity_Person();
 
-        /* 71 */
+        /* 70 */
         public Atom_cZIP_Person m_Atom_cZIP_Person = new Atom_cZIP_Person();
 
-        /* 72 */
+        /* 71 */
         public Atom_cCountry_Person m_Atom_cCountry_Person = new Atom_cCountry_Person();
 
-        /* 73 */
+        /* 72 */
         public Atom_cState_Person m_Atom_cState_Person = new Atom_cState_Person();
 
-        /* 74 */
+        /* 73 */
         public Atom_cStreetName_Org m_Atom_cStreetName_Org = new Atom_cStreetName_Org();
 
-        /* 75 */
+        /* 74 */
         public Atom_cHouseNumber_Org m_Atom_cHouseNumber_Org = new Atom_cHouseNumber_Org();
 
-        /* 76 */
+        /* 75 */
         public Atom_cCity_Org m_Atom_cCity_Org  = new Atom_cCity_Org();
 
-        /* 77 */
+        /* 76 */
         public Atom_cZIP_Org m_Atom_cZIP_Org  = new Atom_cZIP_Org();
 
-        /* 78 */
+        /* 77 */
         public Atom_cCountry_Org m_Atom_cCountry_Org = new Atom_cCountry_Org();
 
-        /* 79 */
+        /* 78 */
         public Atom_cState_Org m_Atom_cState_Org = new Atom_cState_Org();
 
-        /* 80 */
+        /* 79 */
         public cAddress_Person m_cAddress_Person = new cAddress_Person();
 
-        /* 81 */
+        /* 80 */
         public cAddress_Org m_cAddress_Org = new cAddress_Org();
 
-        /* 82 */
+        /* 81 */
         public Atom_cAddress_Person m_Atom_cAddress_Person = new Atom_cAddress_Person();
 
-        /* 83 */
+        /* 82 */
         public Atom_cAddress_Org m_Atom_cAddress_Org = new Atom_cAddress_Org();
 
-        /* 84 */
+        /* 83 */
         public Price_Item m_Price_Item = new Price_Item();
 
-        /* 85 */
+        /* 84 */
         public Price_SimpleItem m_Price_SimpleItem = new Price_SimpleItem();
 
-        /* 86 */
+        /* 85 */
         public PriceList m_PriceList = new PriceList();
 
-        /* 87 */
+        /* 86 */
         public Currency m_Currency = new Currency();
 
-        /* 88 */
+        /* 87 */
         public BaseCurrency m_BaseCurrency = new BaseCurrency();
 
-        /* 89 */
+        /* 88 */
         public RateToBaseCurrency m_RateToBaseCurrency = new RateToBaseCurrency();
 
-        /* 90 */
+        /* 89 */
         public ExchangeRateSource m_ExchangeRateSource = new ExchangeRateSource();
 
-        /* 91 */
+        /* 90 */
         public Atom_PriceList m_Atom_PriceList = new Atom_PriceList();
 
-        /* 92 */
+        /* 91 */
         public PurchasePrice_Item m_PurchasePrice_Item = new PurchasePrice_Item();
 
-        /* 93 */
+        /* 92 */
         public Atom_Currency m_Atom_Currency = new Atom_Currency();
 
-        /* 94 */
+        /* 93 */
         public Atom_Price_Item m_Atom_Price_Item = new Atom_Price_Item();
 
-        /* 95 */
+        /* 94 */
         public DocInvoice_ShopB_Item m_DocInvoice_ShopB_Item = new DocInvoice_ShopB_Item();
 
-        /* 96 */
+        /* 95 */
         public PersonImage m_PersonImage = new PersonImage();
 
-        /* 97 */
+        /* 96 */
         public Unit m_Unit = new Unit();
 
-        /* 98 */
+        /* 97 */
         public Atom_Unit m_Atom_Unit = new Atom_Unit();
 
-        /* 99 */
+        /* 98 */
         public AccessR m_AccessR = new AccessR();
 
-        /* 100 */
+        /* 99 */
         public myOrganisation_Person_AccessR m_myOrganisation_Person_AccessR = new myOrganisation_Person_AccessR();
 
-        /* 101 */
+        /* 100 */
         public OrganisationData m_OrganisationData = new OrganisationData();
 
-        /* 102 */
+        /* 101 */
         public PurchasePrice m_PurchasePrice = new PurchasePrice();
 
-        /* 103 */
+        /* 102 */
         public Reference_Image m_Reference_Image = new Reference_Image();
 
-        /* 104 */
+        /* 103 */
         public Atom_OrganisationData m_Atom_OrganisationData = new Atom_OrganisationData();
 
-        /* 105 */
+        /* 104 */
         public Supplier m_Supplier = new Supplier();
 
-        /* 106 */
+        /* 105 */
         public Customer_Org m_Customer_Org = new Customer_Org();
 
-        /* 107 */
+        /* 106 */
         public Customer_Person m_Customer_Person = new Customer_Person();
 
-        /* 108 */
+        /* 107 */
         public Atom_Customer_Org m_Atom_Customer_Org = new Atom_Customer_Org();
 
-        /* 109 */
+        /* 108 */
         public Atom_Customer_Person m_Atom_Customer_Person = new Atom_Customer_Person();
 
-        /* 110 */
+        /* 109 */
         public PersonData m_PersonData = new PersonData();
 
-        /* 111 */
+        /* 110 */
         public PersonAccount m_PersonAccount = new PersonAccount();
 
-        /* 112 */
+        /* 111 */
         public Bank m_Bank = new Bank();
 
-        /* 113 */
+        /* 112 */
         public BankAccount m_BankAccount = new BankAccount();
 
-        /* 114 */
+        /* 113 */
         public OrganisationAccount m_OrganisationAccount = new OrganisationAccount();
 
-        /* 115 */
+        /* 114 */
         public JOURNAL_PriceList_Type m_JOURNAL_PriceList_Type = new JOURNAL_PriceList_Type();
 
-        /* 116 */
+        /* 115 */
         public JOURNAL_DocInvoice_Type m_JOURNAL_DocInvoice_Type = new JOURNAL_DocInvoice_Type();
 
-        /* 117 */
+        /* 116 */
         public JOURNAL_Item_Type m_JOURNAL_Item_Type = new JOURNAL_Item_Type();
 
-        /* 118 */
+        /* 117 */
         public JOURNAL_SimpleItem_Type m_JOURNAL_SimpleItem_Type = new JOURNAL_SimpleItem_Type();
 
-        /* 119 */
+        /* 118 */
         public JOURNAL_myOrganisation_Type m_JOURNAL_myOrganisation_Type = new JOURNAL_myOrganisation_Type();
 
-        /* 120 */
+        /* 119 */
         public JOURNAL_Person_Type m_JOURNAL_Person_Type = new JOURNAL_Person_Type();
 
-        /* 121 */
+        /* 120 */
         public JOURNAL_Customer_Person_Type m_JOURNAL_Customer_Person_Type = new JOURNAL_Customer_Person_Type();
 
-        /* 122 */
+        /* 121 */
         public JOURNAL_Customer_Org_Type m_JOURNAL_Customer_Org_Type = new JOURNAL_Customer_Org_Type();
 
-        /* 123 */
+        /* 122 */
         public JOURNAL_StockTake_Type m_JOURNAL_StockTake_Type = new JOURNAL_StockTake_Type();
 
-        /* 124 */
+        /* 123 */
         public JOURNAL_Taxation_Type m_JOURNAL_Taxation_Type = new JOURNAL_Taxation_Type();
 
-        /* 125 */
+        /* 124 */
         public JOURNAL_Stock_Type m_JOURNAL_Stock_Type = new JOURNAL_Stock_Type();
 
-        /* 126 */
+        /* 125 */
         public JOURNAL_DocInvoice m_JOURNAL_DocInvoice = new JOURNAL_DocInvoice();
 
-        /* 127 */
+        /* 126 */
         public JOURNAL_DocProformaInvoice m_JOURNAL_DocProformaInvoice = new JOURNAL_DocProformaInvoice();
 
-        /* 128 */
+        /* 127 */
         public JOURNAL_Item m_JOURNAL_Item = new JOURNAL_Item();
 
-        /* 129 */
+        /* 128 */
         public JOURNAL_SimpleItem m_JOURNAL_SimpleItem = new JOURNAL_SimpleItem();
 
-        /* 130 */
+        /* 129 */
         public JOURNAL_PriceList m_JOURNAL_PriceList = new JOURNAL_PriceList();
 
-        /* 131 */
+        /* 130 */
         public JOURNAL_myOrganisation m_JOURNAL_myOrganisation = new JOURNAL_myOrganisation();
 
-        /* 132 */
+        /* 131 */
         public JOURNAL_Person m_JOURNAL_Person = new JOURNAL_Person();
 
-        /* 133 */
+        /* 132 */
         public JOURNAL_Customer_Person m_JOURNAL_Customer_Person = new JOURNAL_Customer_Person();
 
-        /* 134 */
+        /* 133 */
         public JOURNAL_Customer_Person_Data m_JOURNAL_Customer_Person_Data = new JOURNAL_Customer_Person_Data();
 
-        /* 135 */
+        /* 134 */
         public JOURNAL_Customer_Person_Data_Image m_JOURNAL_Customer_Person_Data_Image = new JOURNAL_Customer_Person_Data_Image();
 
-        /* 136 */
+        /* 135 */
         public JOURNAL_Customer_Org m_JOURNAL_Customer_Org = new JOURNAL_Customer_Org();
 
-        /* 137 */
+        /* 136 */
         public JOURNAL_StockTake m_JOURNAL_StockTake = new JOURNAL_StockTake();
 
-        /* 138 */
+        /* 137 */
         public JOURNAL_Taxation m_JOURNAL_Taxation = new JOURNAL_Taxation();
 
-        /* 139 */
+        /* 138 */
         public JOURNAL_Stock m_JOURNAL_Stock = new JOURNAL_Stock();
 
-        /* 140 */
+        /* 139 */
         public SimpleItem_ParentGroup3 m_SimpleItem_ParentGroup3 = new SimpleItem_ParentGroup3();
 
-        /* 141 */
+        /* 140 */
         public SimpleItem_ParentGroup2 m_SimpleItem_ParentGroup2 = new SimpleItem_ParentGroup2();
 
-        /* 142 */
+        /* 141 */
         public SimpleItem_ParentGroup1 m_SimpleItem_ParentGroup1 = new SimpleItem_ParentGroup1();
 
-        /* 143 */
+        /* 142 */
         public Logo m_Logo = new Logo();
 
-        /* 144 */
+        /* 143 */
         public Atom_Logo m_Atom_Logo = new Atom_Logo();
 
-        /* 145 */
+        /* 144 */
         public Atom_cFirstName m_Atom_cFirstName = new Atom_cFirstName();
 
-        /* 146 */
+        /* 145 */
         public Atom_cLastName m_Atom_cLastName = new Atom_cLastName();
 
-        /* 147 */
+        /* 146 */
         public Atom_cCardType_Person m_Atom_cCardType_Person = new Atom_cCardType_Person();
 
-        /* 148 */
+        /* 147 */
         public Atom_cPhoneNumber_Person m_Atom_cPhoneNumber_Person = new Atom_cPhoneNumber_Person();
 
-        /* 149 */
+        /* 148 */
         public Atom_cGsmNumber_Person m_Atom_cGsmNumber_Person = new Atom_cGsmNumber_Person();
 
-        /* 150 */
+        /* 149 */
         public Atom_cEmail_Person m_Atom_cEmail_Person = new Atom_cEmail_Person();
 
-        /* 151 */
+        /* 150 */
         public Atom_PersonImage m_Atom_PersonImage = new Atom_PersonImage();
 
-        /* 152 */
+        /* 151 */
         public Office m_Office = new Office();
 
-        /* 153 */
+        /* 152 */
         public Atom_Computer m_Atom_Computer = new Atom_Computer();
 
-        /* 154 */
+        /* 153 */
         public WorkingPlace m_WorkingPlace = new WorkingPlace();
 
-        /* 155 */
+        /* 154 */
         public Atom_Office m_Atom_Office = new Atom_Office();
 
-        /* 156 */
+        /* 155 */
         public Atom_WorkingPlace m_Atom_WorkingPlace = new Atom_WorkingPlace();
 
-        /* 157 */
+        /* 156 */
         public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
 
-        /* 158 */
+        /* 157 */
         public DeliveryType m_DeliveryType = new DeliveryType();
 
-        /* 159 */
+        /* 158 */
         public Delivery m_Delivery = new Delivery();
 
-        /* 160 */
+        /* 159 */
         public JOURNAL_Delivery_Type m_JOURNAL_Delivery_Type = new JOURNAL_Delivery_Type();
 
-        /* 161 */
+        /* 160 */
         public JOURNAL_Delivery m_JOURNAL_Delivery = new JOURNAL_Delivery();
 
-        /* 162 */
+        /* 161 */
         public Office_Data m_Office_Data = new Office_Data();
 
-        /* 163 */
+        /* 162 */
         public Atom_Office_Data m_Atom_Office_Data = new Atom_Office_Data();
 
-        /* 164 */
+        /* 163 */
         public Atom_WorkPeriod_TYPE m_Atom_WorkPeriod_TYPE = new Atom_WorkPeriod_TYPE();
 
-        /* 165 */
+        /* 164 */
         public Atom_WorkPeriod_Description m_Atom_WorkPeriod_Description = new Atom_WorkPeriod_Description();
 
-        /* 166 */
+        /* 165 */
         public doc_type m_doc_type = new doc_type();
 
-        /* 167 */
+        /* 166 */
         public doc m_doc = new doc();
 
-        /* 168 */
+        /* 167 */
         public JOURNAL_doc_Type m_JOURNAL_doc_Type = new JOURNAL_doc_Type();
 
-        /* 169 */
+        /* 168 */
         public JOURNAL_doc m_JOURNAL_doc = new JOURNAL_doc();
 
-        /* 170 */
+        /* 169 */
         public Language m_Language = new Language();
 
-        /* 171 */
+        /* 170 */
         public doc_page_type m_doc_page_type = new doc_page_type();
 
-        /* 172 */
+        /* 171 */
         public FVI_SLO_RealEstateBP m_FVI_SLO_RealEstateBP = new FVI_SLO_RealEstateBP();
 
-        /* 173 */
+        /* 172 */
         public FVI_SLO_Response m_FVI_SLO_Response = new FVI_SLO_Response();
 
-        /* 174 */
+        /* 173 */
         public Atom_FVI_SLO_RealEstateBP m_Atom_FVI_SLO_RealEstateBP = new Atom_FVI_SLO_RealEstateBP();
 
-        /* 175 */
+        /* 174 */
         public Notice m_Notice = new Notice();
 
-        /* 176 */
+        /* 175 */
         public Atom_ItemShopA_Image m_Atom_ItemShopA_Image = new Atom_ItemShopA_Image();
 
-        /* 177 */
+        /* 176 */
         public Atom_ItemShopA m_Atom_ItemShopA = new Atom_ItemShopA();
 
-        /* 178 */
+        /* 177 */
         public DocInvoice_ShopA_Item m_DocInvoice_ShopA_Item = new DocInvoice_ShopA_Item();
 
-        /* 179 */
+        /* 178 */
         public FVI_SLO_SalesBookInvoice m_FVI_SLO_SalesBookInvoice = new FVI_SLO_SalesBookInvoice();
 
-        /* 180 */
+        /* 179 */
         public DocProformaInvoice m_DocProformaInvoice = new DocProformaInvoice();
 
-        /* 181 */
+        /* 180 */
         public DocProformaInvoice_ShopC_Item m_DocProformaInvoice_ShopC_Item = new DocProformaInvoice_ShopC_Item();
 
-        /* 182 */
+        /* 181 */
         public DocProformaInvoice_ShopB_Item m_DocProformaInvoice_ShopB_Item = new DocProformaInvoice_ShopB_Item();
 
-        /* 183 */
-        public DocProformaInvoiceAddOn_Notice m_DocProformaInvoiceAddOn_Notice = new DocProformaInvoiceAddOn_Notice();
-
-        /* 184 */
+        /* 182 */
         public DocProformaInvoiceAddOn m_DocProformaInvoiceAddOn = new DocProformaInvoiceAddOn();
 
-        /* 185 */
+        /* 183 */
         public DocProformaInvoice_ShopA_Item m_DocProformaInvoice_ShopA_Item = new DocProformaInvoice_ShopA_Item();
 
-        /* 186 */
+        /* 184 */
         public JOURNAL_myOrganisation_Person_AccessR_TYPE m_JOURNAL_myOrganisation_Person_AccessR_TYPE = new JOURNAL_myOrganisation_Person_AccessR_TYPE();
 
-        /* 187 */
+        /* 185 */
         public JOURNAL_myOrganisation_Person_AccessR m_JOURNAL_myOrganisation_Person_AccessR = new JOURNAL_myOrganisation_Person_AccessR();
 
-        /* 188 */
+        /* 186 */
         public JOURNAL_myOrganisation_Person_TYPE m_JOURNAL_myOrganisation_Person_TYPE = new JOURNAL_myOrganisation_Person_TYPE();
 
-        /* 189 */
+        /* 187 */
         public JOURNAL_myOrganisation_Person m_JOURNAL_myOrganisation_Person = new JOURNAL_myOrganisation_Person();
 
-        /* 190 */
+        /* 188 */
         public Atom_Bank m_Atom_Bank = new Atom_Bank();
 
-        /* 191 */
+        /* 189 */
         public Atom_BankAccount m_Atom_BankAccount = new Atom_BankAccount();
 
-        /* 192 */
+        /* 190 */
         public Atom_OrganisationAccount m_Atom_OrganisationAccount = new Atom_OrganisationAccount();
 
-        /* 193 */
+        /* 191 */
         public Atom_PersonData m_Atom_PersonData = new Atom_PersonData();
 
-        /* 194 */
+        /* 192 */
         public Atom_PersonAccount m_Atom_PersonAccount = new Atom_PersonAccount();
 
-        /* 195 */
+        /* 193 */
         public JOURNAL_Name m_JOURNAL_Name = new JOURNAL_Name();
 
-        /* 196 */
+        /* 194 */
         public JOURNAL_TableName m_JOURNAL_TableName = new JOURNAL_TableName();
 
-        /* 197 */
+        /* 195 */
         public JOURNAL_TYPE m_JOURNAL_TYPE = new JOURNAL_TYPE();
 
-        /* 198 */
+        /* 196 */
         public JOURNAL m_JOURNAL = new JOURNAL();
 
-        /* 199 */
+        /* 197 */
         public Atom_ElectronicDevice m_Atom_ElectronicDevice = new Atom_ElectronicDevice();
 
-        /* 200 */
+        /* 198 */
         public Trucking m_Trucking = new Trucking();
 
-        /* 201 */
+        /* 199 */
         public Purchase_Order m_Purchase_Order = new Purchase_Order();
 
-        /* 202 */
+        /* 200 */
         public StockTake m_StockTake = new StockTake();
 
-        /* 203 */
+        /* 201 */
         public Contact m_Contact = new Contact();
 
-        /* 204 */
+        /* 202 */
         public StockTake_AdditionalCost m_StockTake_AdditionalCost = new StockTake_AdditionalCost();
 
-        /* 205 */
+        /* 203 */
         public StockTakeCostName m_StockTakeCostName = new StockTakeCostName();
 
-        /* 206 */
+        /* 204 */
         public StockTakeCostDescription m_StockTakeCostDescription = new StockTakeCostDescription();
 
-        /* 207 */
+        /* 205 */
         public PaymentType m_PaymentType = new PaymentType();
 
-        /* 208 */
+        /* 206 */
         public MethodOfPayment_DPI m_MethodOfPayment_DPI = new MethodOfPayment_DPI();
 
-
+        /* 207 */
+        public Atom_Notice m_Atom_Notice = new Atom_Notice();
     }
 }

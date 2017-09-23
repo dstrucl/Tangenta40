@@ -308,6 +308,7 @@ namespace Tangenta
             }
 
             ltext ltMsg = null;
+            m_AddOnDI.m_NoticeText = this.usrc_Notice1.NoticeText;
             if (m_AddOnDI.Completed(ref ltMsg))
             {
                 if (m_AddOnDI.Set(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID, ref ltMsg))

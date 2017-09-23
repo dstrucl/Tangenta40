@@ -158,6 +158,11 @@ namespace Tangenta
                     txt += txtTermsOfPayment + "\r\n";
                 }
 
+                if (m_usrc_Invoice.m_InvoiceData.AddOnDI.m_NoticeText != null)
+                {
+                    txt += m_usrc_Invoice.m_InvoiceData.AddOnDI.m_NoticeText + "\r\n";
+                }
+
                 this.txt_Notice.Text = txt;
             }
             else if (IsDocProformaInvoice)
@@ -204,6 +209,11 @@ namespace Tangenta
                 {
                     string txtTermsOfPayment = lngRPM.s_TermsOfPayment.s + ":" + m_usrc_Invoice.m_InvoiceData.AddOnDPI.m_TermsOfPayment.Description;
                     txt += txtTermsOfPayment + "\r\n";
+                }
+
+                if (m_usrc_Invoice.m_InvoiceData.AddOnDPI.m_NoticeText != null)
+                {
+                    txt += m_usrc_Invoice.m_InvoiceData.AddOnDPI.m_NoticeText + "\r\n";
                 }
                 this.txt_Notice.Text = txt;
             }
