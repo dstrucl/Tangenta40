@@ -899,9 +899,8 @@ namespace TangentaDB
                                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
                                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
-                                left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
                                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
-                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = aorgd_hp.ID
                                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
                                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
@@ -983,9 +982,8 @@ namespace TangentaDB
                                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
                                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
-                                left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
                                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
-                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = aorgd_hp.ID
                                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
                                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
@@ -1065,9 +1063,8 @@ namespace TangentaDB
                                 left join Atom_cZIP_Org on acaorg.Atom_cZIP_Org_ID = Atom_cZIP_Org.ID
                                 left join Atom_cCountry_Org on acaorg.Atom_cCountry_Org_ID = Atom_cCountry_Org.ID
                                 left join Atom_cState_Org on acaorg.Atom_cState_Org_ID = Atom_cState_Org.ID
-                                left join cHomePage_Org on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
                                 left join cEmail_Org on aorgd.cEmail_Org_ID = cEmail_Org.ID
-                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = cHomePage_Org.ID
+                                left join cHomePage_Org aorgd_hp  on aorgd.cHomePage_Org_ID = aorgd_hp.ID
                                 left join cFaxNumber_Org on aorgd.cFaxNumber_Org_ID = cFaxNumber_Org.ID
                                 left join cPhoneNumber_Org on aorgd.cPhoneNumber_Org_ID = cPhoneNumber_Org.ID
                                 left join Atom_Logo on aorgd.Atom_Logo_ID = Atom_Logo.ID
