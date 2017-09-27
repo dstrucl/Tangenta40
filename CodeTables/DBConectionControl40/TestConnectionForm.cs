@@ -358,6 +358,10 @@ namespace DBConnectionControl40
             }
         }
 
-
+        private void btn_ChangeConnection_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.None;
+            this.Close();
+        }
     }
 }
