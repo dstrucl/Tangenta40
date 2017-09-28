@@ -269,8 +269,9 @@ namespace DynEditControls
             lbl.Text = lt_label.s + ":";
             SizeF size_lbl = lbl.CreateGraphics().MeasureString(lbl.Text, lbl.Font);
             SizeF size_txt = lbl.CreateGraphics().MeasureString(edit_control.Text, edit_control.Font);
-            lbl.Width = (int)Math.Ceiling(size_lbl.Width);
+            lbl.Width = (int)Math.Ceiling(size_lbl.Width)+20;
             lbl.Height = (int)Math.Ceiling(size_lbl.Height);
+            lbl.TextAlign = ContentAlignment.MiddleRight;
             if ((m_refobj is dstring_v))
             {
                 edit_control.Width = MinEditBoxWidth;

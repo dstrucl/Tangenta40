@@ -775,6 +775,9 @@ namespace TangentaDataBaseDef
             t_Organisation.AddColumn((Object)mt.m_Organisation.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Organisation name", "Ime Firme") );
             t_Organisation.AddColumn((Object)mt.m_Organisation.Tax_ID, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "TAX ID", "Davčna številka") );
             t_Organisation.AddColumn((Object)mt.m_Organisation.Registration_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "REGISTRATION ID", "Matična številka") );
+            t_Organisation.AddColumn((Object)mt.m_Organisation.TaxPayer, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.CheckBox_default_true, new ltext("Tax payer", "Davčni zavezanec"));
+            t_Organisation.AddColumn((Object)mt.m_Organisation.Comment1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 1", "Komentar 1"));
+            t_Organisation.AddColumn((Object)mt.m_Organisation.Comment2, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 2", "Komentar 2"));
             m_DBTables.items.Add(t_Organisation);
 
             /* 25 */
@@ -1058,6 +1061,9 @@ namespace TangentaDataBaseDef
             t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "Organisation name", "Ime Organizacije") );
             t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Tax_ID, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("TAX ID", "Davčna številka"));
             t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Registration_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Registration ID", "Matična Številka"));
+            t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.TaxPayer, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax payer", "Davčni zavezanec"));
+            t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Comment1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 1", "Komentar 1"));
+            t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Comment2, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 2", "Komentar 2"));
             m_DBTables.items.Add(t_Atom_Organisation);
 
          /* 55 */

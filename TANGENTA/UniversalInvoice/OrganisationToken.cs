@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,9 @@ namespace UniversalInvoice
         public TemplateToken tName = null;
         public TemplateToken tTax_ID = null;
         public TemplateToken tRegistration_ID = null;
+        public TemplateToken tTaxPayer = null;
+        public TemplateToken tComment1 = null;
+        public TemplateToken tComment2 = null;
         public TemplateToken tAtom_Office_Name = null;
         public TemplateToken tBankName = null;
         public TemplateToken tTRR = null;
@@ -35,12 +39,15 @@ namespace UniversalInvoice
         public TemplateToken tState = null;
 
         public List<TemplateToken> list = new List<TemplateToken>();
-        private ltext token_prefix_Organisation;
+       
 
         public OrganisationToken(ltext token_prefix,
                                     string _Name,
                                     string _Tax_ID,
                                     string _Registration_ID,
+                                    bool_v _TaxPayer_v,
+                                    string _Comment1,
+                                    string _Comment2,
                                     string _Atom_Office_Name,
                                     string _BankName,
                                     string _TRR,
@@ -53,6 +60,9 @@ namespace UniversalInvoice
             tName                    = new TemplateToken(token_prefix, new string[] { "Name", "Ime" }, _Name,null);
             tTax_ID                  = new TemplateToken(token_prefix, new string[] { "Tax_ID", "DavčnaŠtevilka" }, _Tax_ID, null);
             tRegistration_ID         = new TemplateToken(token_prefix, new string[] { "Regsitration_ID", "MatičnaŠtevilka" }, _Registration_ID, null);
+            tTaxPayer                = new TemplateToken(token_prefix, new string[] { "TaxPayer", "DavčniZavezanec" }, _TaxPayer_v, null);
+            tComment1                = new TemplateToken(token_prefix, new string[] { "Comment1", "Komentar1" }, _Comment1, null);
+            tComment2                = new TemplateToken(token_prefix, new string[] { "Comment2", "Komentar2" }, _Comment2, null);
             tAtom_Office_Name        = new TemplateToken(token_prefix, new string[] { "Office", "PoslovnaEnota" }, _Atom_Office_Name, null);
             tBankName                = new TemplateToken(token_prefix, new string[] { "BankName", "Banka" }, _BankName, null);
             tTRR                     = new TemplateToken(token_prefix, new string[] { "BankAccount", "Bančni račun" }, _TRR, null);
@@ -70,6 +80,9 @@ namespace UniversalInvoice
             tName = new TemplateToken(token_prefix, new string[] { "Name", "Ime" }, "", null);
             tTax_ID = new TemplateToken(token_prefix, new string[] { "Tax_ID", "DavčnaŠtevilka" }, "", null);
             tRegistration_ID = new TemplateToken(token_prefix, new string[] { "Regsitration_ID", "MatičnaŠtevilka" }, "", null);
+            tTaxPayer = new TemplateToken(token_prefix, new string[] { "TaxPayer", "DavčniZavezanec" }, "", null);
+            tComment1 = new TemplateToken(token_prefix, new string[] { "Comment1", "Komentar1" }, "", null);
+            tComment2 = new TemplateToken(token_prefix, new string[] { "Comment2", "Komentar2" }, "", null);
             tAtom_Office_Name = new TemplateToken(token_prefix, new string[] { "Office", "PoslovnaEnota" }, "", null);
             tBankName = new TemplateToken(token_prefix, new string[] { "BankName", "Banka" }, "", null);
             tTRR = new TemplateToken(token_prefix, new string[] { "BankAccount", "Bančni račun" }, "", null);
@@ -87,6 +100,9 @@ namespace UniversalInvoice
             list.Add(tName);
             list.Add(tTax_ID);
             list.Add(tRegistration_ID);
+            list.Add(tTaxPayer);
+            list.Add(tComment1);
+            list.Add(tComment2);
             list.Add(tAtom_Office_Name);
             list.Add(tBankName);
             list.Add(tTRR);

@@ -13,6 +13,9 @@ namespace TangentaDB
         public static bool Get(string BankName,
                             string Tax_ID,
                             string Registrattion_ID,
+                            bool_v TaxPayer_v,
+                            string_v Comment1_v,
+                            string_v Comment2_v,
                             bool Active,
                             string BankAccount,
                             string Description,
@@ -20,7 +23,7 @@ namespace TangentaDB
                             )
         {
             long_v Atom_Bank_ID_v = null;
-            if (f_Atom_Bank.Get(BankName, Tax_ID, Registrattion_ID, ref Atom_Bank_ID_v))
+            if (f_Atom_Bank.Get(BankName, Tax_ID, Registrattion_ID, TaxPayer_v, Comment1_v, Comment2_v, ref Atom_Bank_ID_v))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
 

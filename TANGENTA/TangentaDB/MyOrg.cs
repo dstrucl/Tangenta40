@@ -27,6 +27,9 @@ namespace TangentaDB
         public static PostAddress_v Address_v = new PostAddress_v();
         public static string_v Tax_ID_v = null;
         public static string_v Registration_ID_v = null;
+        public static bool_v TayPayer_v = null;
+        public static string_v Comment1_v = null;
+        public static string_v Comment2_v = null;
         public static string_v OrganisationTYPE_v = null;
         public static string_v PhoneNumber_v = null;
         public static string_v FaxNumber_v = null;
@@ -78,6 +81,9 @@ namespace TangentaDB
                             myOrganisation_$_orgd_$_org_$$Name,
                             myOrganisation_$_orgd_$_org_$$Tax_ID,
                             myOrganisation_$_orgd_$_org_$$Registration_ID,
+                            myOrganisation_$_orgd_$_org_$$TaxPayer,
+                            myOrganisation_$_orgd_$_org_$$Comment1,
+                            myOrganisation_$_orgd_$_org_$$Comment2,
                             myOrganisation_$_orgd_$_orgt_$$OrganisationTYPE,
                             myOrganisation_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
                             myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
@@ -106,6 +112,9 @@ namespace TangentaDB
                             myOrganisation_$_orgd_$_org_$$Name,
                             myOrganisation_$_orgd_$_org_$$Tax_ID,
                             myOrganisation_$_orgd_$_org_$$Registration_ID,
+                            myOrganisation_$_orgd_$_org_$$TaxPayer,
+                            myOrganisation_$_orgd_$_org_$$Comment1,
+                            myOrganisation_$_orgd_$_org_$$Comment2,
                             myOrganisation_$_orgd_$_orgt_$$OrganisationTYPE,
                             myOrganisation_$_orgd_$_cadrorg_$_cstrnorg_$$StreetName,
                             myOrganisation_$_orgd_$_cadrorg_$_chounorg_$$HouseNumber,
@@ -136,6 +145,9 @@ namespace TangentaDB
                     myOrg.Name_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Name"]);
                     myOrg.Tax_ID_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Tax_ID"]);
                     myOrg.Registration_ID_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Registration_ID"]);
+                    myOrg.TayPayer_v = tf.set_bool(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$TaxPayer"]);
+                    myOrg.Comment1_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Comment1"]);
+                    myOrg.Comment2_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_org_$$Comment2"]);
                     myOrg.OrganisationTYPE_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_orgt_$$OrganisationTYPE"]);
                     myOrg.PhoneNumber_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cphnnorg_$$PhoneNumber"]);
                     myOrg.FaxNumber_v = tf.set_string(dt_myOrganisation.Rows[0]["myOrganisation_$_orgd_$_cfaxnorg_$$FaxNumber"]);

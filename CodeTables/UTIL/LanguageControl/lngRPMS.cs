@@ -60,6 +60,18 @@ namespace LanguageControl
         public static ltext s_MyOrg_Registration_ID_v = new ltext("00000001", "00000001");
         public static ltext sh_MyOrg_Registration_ID = new ltext("Enter Your Organisation Registration Number", "Vpišite matično številko vaše organizacije");
 
+        public static ltext sl_MyOrg_TaxPayer = new ltext("Tax Payer", "Davčni zavezanec");
+        public static ltext s_MyOrg_TaxPayer_v = new ltext("00000001", "00000001");
+        public static ltext sh_MyOrg_TaxPayer = new ltext("Check if your organisation is tax-payer", "Odkljukajte če je vaša organizacija davčni zavezanec");
+
+        public static ltext sl_MyOrg_Comment1 = new ltext("Comment 1", "Komentar 1");
+        public static ltext s_MyOrg_Comment1_v = new ltext("VAT payer", "Davčni zavezanec za DDV");
+        public static ltext sh_MyOrg_Comment1 = new ltext("Write comment 1 about your organisation", "Vpišite komentar 1 o vaši organizaciji (primer:Davčni zavezanec za DDV)");
+
+        public static ltext sl_MyOrg_Comment2 = new ltext("Comment 2", "Komentar 2");
+        public static ltext s_MyOrg_Comment2_v = null;
+        public static ltext sh_MyOrg_Comment2 = new ltext("Write comment 2 about your organisation", "Vpišite komentar 2 o vaši organizaciji");
+
         public static ltext sl_MyOrg_OrganisationTYPE = new ltext("Type of organisation", "Tip organizacije");
         public static ltext s_MyOrg_OrganisationTYPE_v = new ltext("ltd", "d.o.o.");
         public static ltext sh_MyOrg_OrganisationTYPE = new ltext("Enter type of your organisation (ltd., gov.,)", "Vpišite vrsto vaše organizacije (d.d.,d.o.o.,javni zavod,..)");

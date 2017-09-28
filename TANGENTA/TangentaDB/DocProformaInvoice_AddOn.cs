@@ -202,6 +202,9 @@ namespace TangentaDB
             internal static MethodOfPayment_DPI Set(object oID, object oPaymentType, object oBankName,
                                                                                  object oBank_Tax_ID,
                                                                                  object oBank_Registration_ID,
+                                                                                 object oBank_TaxPayer,
+                                                                                 object oBank_Comment1,
+                                                                                 object oBank_Comment2,
                                                                                  object oBankAccount,
                                                                                  object oBankAccount_ID)
             {
@@ -237,6 +240,11 @@ namespace TangentaDB
                                         xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Registration_ID = (string)oBank_Registration_ID;
                                     }
                                 }
+
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_TaxPayer_v = tf.set_bool(oBank_TaxPayer);
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Comment1_v = tf.set_string(oBank_Comment1);
+                                xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Comment2_v = tf.set_string(oBank_Comment2);
+
                             }
                             else
                             {
@@ -277,6 +285,9 @@ namespace TangentaDB
                         if (f_Atom_BankAccount.Get(this.m_MyOrgBankAccountPayment.BankName,
                                                    this.m_MyOrgBankAccountPayment.Bank_Tax_ID,
                                                    this.m_MyOrgBankAccountPayment.Bank_Registration_ID,
+                                                   this.m_MyOrgBankAccountPayment.Bank_TaxPayer_v,
+                                                   this.m_MyOrgBankAccountPayment.Bank_Comment1_v,
+                                                   this.m_MyOrgBankAccountPayment.Bank_Comment2_v,
                                                    true,
                                                    this.m_MyOrgBankAccountPayment.BankAccount,
                                                    this.Description,
@@ -414,6 +425,9 @@ namespace TangentaDB
                             ao.Name as AtomOrganisationName,
                             ao.Tax_ID as Tax_ID,
                             ao.Registration_ID as Registration_ID,
+                            ao.TaxPayer as TaxPayer,
+                            ao.Comment1 as Comment1,
+                            ao.Comment2 as Comment2,
                             an.NoticeText as NoticeText
                             from DocProformaInvoice dpi
                             left join  DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = dpi.ID
@@ -442,6 +456,9 @@ namespace TangentaDB
                                                                                      dt.Rows[0]["AtomOrganisationName"],
                                                                                      dt.Rows[0]["Tax_ID"],
                                                                                      dt.Rows[0]["Registration_ID"],
+                                                                                     dt.Rows[0]["TaxPayer"],
+                                                                                     dt.Rows[0]["Comment1"],
+                                                                                     dt.Rows[0]["Comment2"],
                                                                                      dt.Rows[0]["TRR"],
                                                                                      dt.Rows[0]["Atom_BankAccount_ID"]);
                     object oNoticeText = dt.Rows[0]["NoticeText"];

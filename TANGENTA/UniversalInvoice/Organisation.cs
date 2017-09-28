@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBTypes;
 using LanguageControl;
 using System;
 
@@ -15,6 +16,9 @@ namespace UniversalInvoice
         public string Name = null;
         public string Tax_ID = null;
         public string Registration_ID = null;
+        public bool_v TaxPayer_v = null;
+        public string Comment1 = null;
+        public string Comment2 = null;
         public string Atom_Office_Name = null;
         public string BankName = null;
         public string TRR = null;
@@ -32,6 +36,9 @@ namespace UniversalInvoice
                             string _Name,
                             string _Tax_ID,
                             string _Registration_ID,
+                            bool_v _TaxPayer_v,
+                            string_v _Comment1_v,
+                            string_v _Comment2_v,
                             string _Atom_Office_Name,
                             string _BankName,
                             string _TRR,
@@ -53,6 +60,17 @@ namespace UniversalInvoice
             Name = _Name;
             Tax_ID =                _Tax_ID;
             Registration_ID =       _Registration_ID;
+            TaxPayer_v = _TaxPayer_v;
+            if (_Comment1_v!=null)
+            {
+                Comment1 = _Comment1_v.v;
+            }
+            if (_Comment2_v != null)
+            {
+                Comment2 = _Comment2_v.v;
+            }
+
+
             Atom_Office_Name =      _Atom_Office_Name;
             BankName =              _BankName;
             TRR =                   _TRR;
@@ -75,6 +93,9 @@ namespace UniversalInvoice
                                             Name,
                                             Tax_ID,
                                             Registration_ID,
+                                            _TaxPayer_v,
+                                            Comment1,
+                                            Comment2,
                                             Atom_Office_Name,
                                             BankName,
                                             TRR,

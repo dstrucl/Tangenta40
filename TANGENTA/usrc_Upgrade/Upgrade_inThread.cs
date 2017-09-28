@@ -618,6 +618,9 @@ namespace UpgradeDB
             string_v Organisation_Name_v = new string_v("Neznani dobavitelj");
             string_v Tax_ID_v = new string_v("neznana dav.št.");
             string_v Registration_ID_v = new string_v("neznana mat.št.");
+            bool_v TaxPayer_v = null;
+            string_v Comment1_v = null;
+            string_v Comment2_v = null;
             string_v OrganisationTYPE_v = new string_v("neznani tip organizacije");
             PostAddress_v Address_v = new PostAddress_v();
             Address_v.City_v = new dstring_v("naznano mesto");
@@ -654,6 +657,9 @@ namespace UpgradeDB
             return (f_Contact.Get(Organisation_Name_v,
                 Tax_ID_v,
                 Registration_ID_v,
+                TaxPayer_v,
+                Comment1_v,
+                Comment2_v,
                 OrganisationTYPE_v,
                 Address_v,
                 PhoneNumber_v,
@@ -721,6 +727,9 @@ namespace UpgradeDB
             string_v Organisation_Name_v = new string_v("Linde Eckstein GmbH");
             string_v Tax_ID_v = new string_v("132747963");
             string_v Registration_ID_v = new string_v("218/167/50501");
+            bool_v TaxPayer_v = new bool_v(true);
+            string_v Comment1_v = null;
+            string_v Comment2_v = null;
             string_v OrganisationTYPE_v = new string_v("Gmbh");
             PostAddress_v Address_v = new PostAddress_v();
 
@@ -762,6 +771,9 @@ namespace UpgradeDB
             if (f_Contact.Get(Organisation_Name_v,
             Tax_ID_v,
             Registration_ID_v,
+            TaxPayer_v,
+            Comment1_v,
+            Comment2_v,
             OrganisationTYPE_v,
             Address_v,
             PhoneNumber_v,
@@ -803,6 +815,9 @@ namespace UpgradeDB
             string_v Organisation_Name_v = new string_v("Bizjan d.o.o.&Co");
             string_v Tax_ID_v = new string_v("18351182");
             string_v Registration_ID_v = new string_v("1319337000");
+            bool_v TaxPayer_v = new bool_v(true);
+            string_v Comment1_v = null;
+            string_v Comment2_v = null;
             string_v OrganisationTYPE_v = new string_v("d.o.o.");
             PostAddress_v Address_v = new PostAddress_v();
 
@@ -843,6 +858,9 @@ namespace UpgradeDB
             if (f_Contact.Get(Organisation_Name_v,
             Tax_ID_v,
             Registration_ID_v,
+            TaxPayer_v,
+            Comment1_v,
+            Comment2_v,
             OrganisationTYPE_v,
             Address_v,
             PhoneNumber_v,
@@ -880,7 +898,20 @@ namespace UpgradeDB
 
         private object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
         {
-                string sql = "DROP TABLE Notice;";
+                string sql = @"DROP TABLE Notice;
+                             ALTER TABLE Organisation ADD COLUMN TaxPayer BIT NULL; 
+                             ALTER TABLE Organisation ADD COLUMN Comment1 varchar(2000) NULL;
+                             ALTER TABLE Organisation ADD COLUMN Comment2 varchar(2000) NULL;
+                             ALTER TABLE Atom_Organisation ADD COLUMN TaxPayer BIT NULL; 
+                             ALTER TABLE Atom_Organisation ADD COLUMN Comment1 varchar(2000) NULL;
+                             ALTER TABLE Atom_Organisation ADD COLUMN Comment2 varchar(2000) NULL;
+                             Update Organisation set TaxPayer = 1,
+                                                 Comment1 = 'Davčni zavezanec za DDV'
+                                                 where Tax_ID = '19300808';
+                             Update Atom_Organisation set TaxPayer = 1,
+                                                 Comment1 = 'Davčni zavezanec za DDV'
+                                                 where Tax_ID = '19300808';
+                             ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
                     LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);

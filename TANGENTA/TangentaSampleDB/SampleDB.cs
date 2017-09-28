@@ -30,6 +30,9 @@ namespace TangentaSampleDB
             dstring_v MyOrg_Name_v = new dstring_v();
             dstring_v MyOrg_Tax_ID_v = new dstring_v();
             dstring_v MyOrg_Registration_ID_v = new dstring_v();
+            dbool_v MyOrg_TaxPayer_v = new dbool_v(true);
+            dstring_v MyOrg_Comment1_v = new dstring_v();
+            dstring_v MyOrg_Comment2_v = new dstring_v();
             dstring_v MyOrg_OrganisationTYPE_v = new dstring_v();
 
             PostAddress_v MyOrg_Address_v = new PostAddress_v();
@@ -186,6 +189,11 @@ namespace TangentaSampleDB
 
                 new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Registration_ID_v, "MyOrg_Registration_ID", lngRPMS.sl_MyOrg_Registration_ID, lngRPMS.s_MyOrg_Registration_ID_v, lngRPMS.sh_MyOrg_Registration_ID);
 
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_TaxPayer_v, "MyOrg_TaxPayer", lngRPMS.sl_MyOrg_TaxPayer, lngRPMS.s_MyOrg_TaxPayer_v, lngRPMS.sh_MyOrg_TaxPayer);
+
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Comment1_v, "MyOrg_Comment1", lngRPMS.sl_MyOrg_Comment1, lngRPMS.s_MyOrg_Comment1_v, lngRPMS.sh_MyOrg_Comment1);
+
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Comment2_v, "MyOrg_Comment2", lngRPMS.sl_MyOrg_Comment2, lngRPMS.s_MyOrg_Comment2_v, lngRPMS.sh_MyOrg_Comment2);
 
                 new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_OrganisationTYPE_v, "MyOrg_OrganisationTYPE", lngRPMS.sl_MyOrg_OrganisationTYPE, lngRPMS.s_MyOrg_OrganisationTYPE_v, lngRPMS.sh_MyOrg_OrganisationTYPE);
 
@@ -341,6 +349,9 @@ namespace TangentaSampleDB
                             if (f_Organisation.Get(MyOrg_Name_v,
                                                 MyOrg_Tax_ID_v,
                                                 MyOrg_Registration_ID_v,
+                                                MyOrg_TaxPayer_v,
+                                                MyOrg_Comment1_v,
+                                                MyOrg_Comment2_v,
                                                 MyOrg_OrganisationTYPE_v,
                                                 MyOrg_Address_v,
                                                 MyOrg_PhoneNumber_v,

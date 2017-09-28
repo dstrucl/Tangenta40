@@ -21,6 +21,9 @@ namespace TangentaDB
         public static bool Get(string_v Organisation_Name_v,
                          string_v Tax_ID_v,
                          string_v Registration_ID_v,
+                         bool_v TaxPayer_v,
+                         string_v Comment1_v,
+                         string_v Comment2_v,
                          ref long_v Atom_Organisation_ID_v)
         {
             string Err = null;
@@ -72,9 +75,55 @@ namespace TangentaDB
                 sRegistration_ID_value = "null";
             }
 
+            string TaxPayer_condition = null;
+            string TaxPayer_value = null;
+            if (TaxPayer_v != null)
+            {
+                SQL_Parameter par_TaxPayer = new SQL_Parameter("@par_TaxPayer", SQL_Parameter.eSQL_Parameter.Bit, false, TaxPayer_v.v);
+                lpar.Add(par_TaxPayer);
+                TaxPayer_condition = " TaxPayer = " + par_TaxPayer.Name + " ";
+                TaxPayer_value = "@par_TaxPayer";
+            }
+            else
+            {
+                TaxPayer_condition = " TaxPayer  is null ";
+                TaxPayer_value = "null";
+            }
 
+            string Comment1_condition = null;
+            string Comment1_value = null;
+            if (Comment1_v != null)
+            {
+                SQL_Parameter par_Comment1 = new SQL_Parameter("@par_Comment1", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Comment1_v.v);
+                lpar.Add(par_Comment1);
+                Comment1_condition = " Comment1 = " + par_Comment1.Name + " ";
+                Comment1_value = "@par_Comment1";
+            }
+            else
+            {
+                Comment1_condition = " Comment1  is null ";
+                Comment1_value = "null";
+            }
+
+            string Comment2_condition = null;
+            string Comment2_value = null;
+            if (Comment2_v != null)
+            {
+                SQL_Parameter par_Comment2 = new SQL_Parameter("@par_Comment2", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Comment2_v.v);
+                lpar.Add(par_Comment2);
+                Comment2_condition = " Comment2 = " + par_Comment2.Name + " ";
+                Comment2_value = "@par_Comment2";
+            }
+            else
+            {
+                Comment2_condition = " Comment2  is null ";
+                Comment2_value = "null";
+            }
             string sql_select = "select ID from Atom_Organisation where " + Name_condition + @" and 
                                                                         " + Tax_ID_condition + @" and  
+                                                                        " + TaxPayer_condition + @" and 
+                                                                        " + Comment1_condition + @" and   
+                                                                        " + Comment2_condition + @" and
                                                                         " + Registration_ID_condition;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_select, lpar, ref Err))
@@ -90,7 +139,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    string sql_insert = " insert into Atom_Organisation  (Name,Tax_ID,Registration_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + ")";
+                    string sql_insert = " insert into Atom_Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Comment1,Comment2) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Comment1_value + "," + Comment2_value + ")";
                     object oret = null;
                     long Atom_Organisation_ID = -1;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Atom_Organisation_ID, ref oret, ref Err, "Atom_Organisation"))

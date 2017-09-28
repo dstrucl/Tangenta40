@@ -909,12 +909,29 @@ namespace TangentaTableClass
         public Image_Data Image_Data = new Image_Data();
     }
 
+    public class TaxPayer:DB_bit
+    {
+
+    }
+
+    public class Comment1 : DB_varchar_2000
+    {
+
+    }
+
+    public class Comment2 : DB_varchar_2000
+    {
+
+    }
     public class Organisation
     {
         public ID ID = new ID();
         public Name Name = new Name();
         public Tax_ID Tax_ID = new Tax_ID();
         public Registration_ID Registration_ID = new Registration_ID();
+        public TaxPayer TaxPayer = new TaxPayer();
+        public Comment1 Comment1 = new Comment1();
+        public Comment2 Comment2 = new Comment2();
     }
 
     public class OrganisationData
@@ -944,6 +961,9 @@ namespace TangentaTableClass
         public Name Name = new Name();
         public Tax_ID Tax_ID = new Tax_ID();
         public Registration_ID Registration_ID = new Registration_ID();
+        public TaxPayer TaxPayer = new TaxPayer();
+        public Comment1 Comment1 = new Comment1();
+        public Comment2 Comment2 = new Comment2();
     }
 
     public class Atom_OrganisationData

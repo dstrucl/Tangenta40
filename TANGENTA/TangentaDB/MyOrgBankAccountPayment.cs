@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,26 @@ namespace TangentaDB
             set { m_Bank_Registration_ID = value; }
         }
 
+        private bool_v m_Bank_TaxPayer_v = null;
+        public bool_v Bank_TaxPayer_v
+        {
+            get { return m_Bank_TaxPayer_v; }
+            set { m_Bank_TaxPayer_v = value; }
+        }
+
+        private string_v m_Bank_Comment1_v = null;
+        public string_v Bank_Comment1_v 
+        {
+            get { return m_Bank_Comment1_v; }
+            set { m_Bank_Comment1_v = value; }
+        }
+
+        private string_v m_Bank_Comment2_v = null;
+        public string_v Bank_Comment2_v
+        {
+            get { return m_Bank_Comment2_v; }
+            set { m_Bank_Comment2_v = value; }
+        }
         private string m_BankAccount = null;
         public string BankAccount
         {

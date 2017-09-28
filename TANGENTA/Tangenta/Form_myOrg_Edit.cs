@@ -196,7 +196,7 @@ namespace Tangenta
             OrganisationData_EditForm edt_Item_dlg = new OrganisationData_EditForm(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationData,
                                                             " OrganisationData_$_org_$$Name desc",nav);
-            edt_Item_dlg.ShowDialog();
+            edt_Item_dlg.ShowDialog(this);
             Init();
             return true;
         }
@@ -207,7 +207,7 @@ namespace Tangenta
             Form_OrganisationAccount_Edit edt_Item_dlg = new Form_OrganisationAccount_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables,
                                                                         tbl_OrganisationAccount,
                                                             " OrganisationAccount_$_org_$$Name desc",nav);
-            edt_Item_dlg.ShowDialog();
+            edt_Item_dlg.ShowDialog(this);
             Init();
             return true;
         }
@@ -234,7 +234,7 @@ namespace Tangenta
         {
             this.Cursor = Cursors.WaitCursor;
             Form_myOrg_Office frm_office = new Form_myOrg_Office(nav);
-            frm_office.ShowDialog();
+            frm_office.ShowDialog(this);
             this.Cursor = Cursors.Arrow;
         }
 

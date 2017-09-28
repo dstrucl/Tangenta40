@@ -5,6 +5,7 @@
  file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
 */
 #endregion
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -151,7 +152,25 @@ namespace UniversalInvoice
                 }
             }
 
-            if (Replacement is string)
+            if (Replacement is bool_v)
+            {
+                if (Replacement != null)
+                {
+                    if (((bool_v)Replacement).v)
+                    {
+                        replacement = lngRPM.s_Yes.s;
+                    }
+                    else
+                    {
+                        replacement = lngRPM.s_No.s;
+                    }
+                }
+                else
+                {
+                    replacement = "";
+                }
+            }            
+            else if (Replacement is string)
             {
                 replacement = (string)Replacement;
             }

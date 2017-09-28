@@ -22,6 +22,9 @@ namespace TangentaDB
         public static bool Get(string_v Organisation_Name_v,
                                  string_v Tax_ID_v,
                                  string_v Registration_ID_v,
+                                 bool_v TaxPayer_v,
+                                 string_v Comment1_v,
+                                 string_v Comment2_v,
                                  string_v OrganisationTYPE_v,
                                  PostAddress_v Address_v,
                                  string_v PhoneNumber_v,
@@ -48,6 +51,20 @@ namespace TangentaDB
             string sRegistration_ID_value = null;
 
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+            if (Tax_ID_v != null)
+            {
+                SQL_Parameter par_Tax_ID = new SQL_Parameter("@par_Tax_ID", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Tax_ID_v.v);
+                lpar.Add(par_Tax_ID);
+                Tax_ID_condition = " Tax_ID = " + par_Tax_ID.Name + " ";
+                sTaxID_value = "@par_Tax_ID";
+            }
+            else
+            {
+                Tax_ID_condition = " Tax_ID is null ";
+                sTaxID_value = "null";
+            }
+
             if (Organisation_Name_v != null)
             {
                 SQL_Parameter par_Name = new SQL_Parameter("@par_Name", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Organisation_Name_v.v);
@@ -61,19 +78,57 @@ namespace TangentaDB
                 sName_value = "null";
             }
 
-
-            if (Tax_ID_v != null)
+            string TaxPayer_condition = null;
+            string TaxPayer_value = null;
+            SQL_Parameter par_TaxPayer = null;
+            if (TaxPayer_v != null)
             {
-                SQL_Parameter par_Tax_ID = new SQL_Parameter("@par_Tax_ID", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Tax_ID_v.v);
-                lpar.Add(par_Tax_ID);
-                Tax_ID_condition = " Tax_ID = " + par_Tax_ID.Name + " ";
-                sTaxID_value = "@par_Tax_ID";
+                par_TaxPayer = new SQL_Parameter("@par_TaxPayer", SQL_Parameter.eSQL_Parameter.Bit, false, TaxPayer_v.v);
+                lpar.Add(par_TaxPayer);
+                TaxPayer_condition = " par_TaxPayer = " + par_TaxPayer.Name + " ";
+                TaxPayer_value = "@par_TaxPayer";
             }
             else
             {
-                Tax_ID_condition = " Tax_ID  is null ";
-                sTaxID_value = "null";
+                TaxPayer_condition = " TaxPayer  is null ";
+                TaxPayer_value = "null";
             }
+
+            string Comment1_condition = null;
+            string Comment1_value = null;
+            SQL_Parameter par_Comment1 = null;
+            Comment1_condition = " Comment1  is null ";
+            Comment1_value = "null";
+
+            if (Comment1_v != null)
+            {
+                if (Comment1_v.v.Length > 0)
+                {
+                    par_Comment1 = new SQL_Parameter("@par_Comment1", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Comment1_v.v);
+                    lpar.Add(par_Comment1);
+                    Comment1_condition = " par_Comment1 = " + par_Comment1.Name + " ";
+                    Comment1_value = "@par_Comment1";
+                }
+            }
+          
+
+            string Comment2_condition = null;
+            string Comment2_value = null;
+            SQL_Parameter par_Comment2  = null;
+
+            Comment2_condition = " Comment2  is null ";
+            Comment2_value = "null";
+            if (Comment2_v != null)
+            {
+                if (Comment2_v.v.Length > 0)
+                {
+                    par_Comment2 = new SQL_Parameter("@par_Comment2", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Comment2_v.v);
+                    lpar.Add(par_Comment2);
+                    Comment2_condition = " par_Comment2 = " + par_Comment2.Name + " ";
+                    Comment2_value = "@par_Comment2";
+                }
+            }
+           
             if (Registration_ID_v != null)
             {
                 SQL_Parameter par_Registration_ID = new SQL_Parameter("@par_Registration_ID", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Registration_ID_v.v);
@@ -107,9 +162,26 @@ namespace TangentaDB
                         string registration_ID = (string)oRegistration_ID;
                         if (Registration_ID_v == null)
                         {
-                            string sql = "update Organisation set Registration_ID = null  where ID = " + Organisation_ID_v.v.ToString();
+                            List<SQL_Parameter> lpar1 = new List<SQL_Parameter>();
+                            if (par_TaxPayer != null)
+                            {
+                                lpar1.Add(par_TaxPayer);
+                            }
+                            if (par_Comment1 != null)
+                            {
+                                lpar1.Add(par_Comment1);
+                            }
+                            if (par_Comment2 != null)
+                            {
+                                lpar1.Add(par_Comment2);
+                            }
+                            string sql = "update Organisation set Registration_ID = null"
+                                 +", TaxPayer = " + TaxPayer_value
+                                             + ", Comment1 = " + Comment1_value
+                                             + ", Comment2 = " + Comment2_value
+                                + " where ID = " + Organisation_ID_v.v.ToString();
                             object ores = null;
-                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref ores, ref Err))
+                            if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
                             {
                                 LogFile.Error.Show("ERROR:TangentaDB:f_Organisation:Get:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
@@ -123,7 +195,23 @@ namespace TangentaDB
                                 string spar_Registration_ID = "@par_Registration_ID";
                                 SQL_Parameter par_Registration_ID = new SQL_Parameter(spar_Registration_ID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Registration_ID_v.v);
                                 lpar1.Add(par_Registration_ID);
-                                string sql = "update Organisation set Registration_ID = " + spar_Registration_ID + " where ID = " + Organisation_ID_v.v.ToString();
+                                if  (par_TaxPayer!=null)
+                                {
+                                    lpar1.Add(par_TaxPayer);
+                                }
+                                if (par_Comment1!=null)
+                                {
+                                    lpar1.Add(par_Comment1);
+                                }
+                                if (par_Comment2 != null)
+                                {
+                                    lpar1.Add(par_Comment2);
+                                }
+                                string sql = "update Organisation set Registration_ID = " + spar_Registration_ID 
+                                             + ", TaxPayer = " + TaxPayer_value
+                                             + ", Comment1 = " + Comment1_value
+                                             + ", Comment2 = " + Comment2_value
+                                             + " where ID = " + Organisation_ID_v.v.ToString();
                                 object ores = null;
                                 if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
                                 {
@@ -141,7 +229,25 @@ namespace TangentaDB
                             string spar_Registration_ID = "@par_Registration_ID";
                             SQL_Parameter par_Registration_ID = new SQL_Parameter(spar_Registration_ID, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Registration_ID_v.v);
                             lpar1.Add(par_Registration_ID);
-                            string sql = "update Organisation set Registration_ID = " + spar_Registration_ID + " where ID = " + Organisation_ID_v.v.ToString();
+
+
+                            if (par_TaxPayer != null)
+                            {
+                                lpar1.Add(par_TaxPayer);
+                            }
+                            if (par_Comment1 != null)
+                            {
+                                lpar1.Add(par_Comment1);
+                            }
+                            if (par_Comment2 != null)
+                            {
+                                lpar1.Add(par_Comment2);
+                            }
+                            string sql = "update Organisation set Registration_ID = " + spar_Registration_ID
+                                         + ", TaxPayer = " + TaxPayer_value
+                                         + ", Comment1 = " + Comment1_value
+                                         + ", Comment2 = " + Comment2_value
+                                         + " where ID = " + Organisation_ID_v.v.ToString();
                             object ores = null;
                             if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
                             {
@@ -183,7 +289,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + ")";
+                    string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Comment1,Comment2) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Comment1_value + "," + Comment2_value + ")";
                     object oret = null;
                     long Organisation_ID = -1;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref oret, ref Err, "Organisation"))
