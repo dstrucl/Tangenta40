@@ -914,15 +914,23 @@ namespace TangentaTableClass
 
     }
 
-    public class Comment1 : DB_varchar_2000
+    public class Comment : DB_varchar_2000
     {
 
     }
 
-    public class Comment2 : DB_varchar_2000
+    public class Comment1
     {
-
+        public ID ID = new ID();
+        public Comment Comment = new Comment();
     }
+
+    public class Atom_Comment1
+    {
+        public ID ID = new ID();
+        public Comment Comment = new Comment();
+    }
+
     public class Organisation
     {
         public ID ID = new ID();
@@ -930,8 +938,7 @@ namespace TangentaTableClass
         public Tax_ID Tax_ID = new Tax_ID();
         public Registration_ID Registration_ID = new Registration_ID();
         public TaxPayer TaxPayer = new TaxPayer();
-        public Comment1 Comment1 = new Comment1();
-        public Comment2 Comment2 = new Comment2();
+        public Comment1 m_Comment1 = new Comment1();
     }
 
     public class OrganisationData
@@ -962,8 +969,7 @@ namespace TangentaTableClass
         public Tax_ID Tax_ID = new Tax_ID();
         public Registration_ID Registration_ID = new Registration_ID();
         public TaxPayer TaxPayer = new TaxPayer();
-        public Comment1 Comment1 = new Comment1();
-        public Comment2 Comment2 = new Comment2();
+        public Atom_Comment1 m_Atom_Comment1 = new Atom_Comment1();
     }
 
     public class Atom_OrganisationData
@@ -3137,5 +3143,11 @@ namespace TangentaTableClass
 
         /* 207 */
         public Atom_Notice m_Atom_Notice = new Atom_Notice();
+
+        /* 208 */
+        public Comment1 m_Comment1 = new Comment1();
+
+        /* 209 */
+        public Atom_Comment1 m_Atom_Comment1 = new Atom_Comment1();
     }
 }

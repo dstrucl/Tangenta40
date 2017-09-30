@@ -620,7 +620,6 @@ namespace UpgradeDB
             string_v Registration_ID_v = new string_v("neznana mat.št.");
             bool_v TaxPayer_v = null;
             string_v Comment1_v = null;
-            string_v Comment2_v = null;
             string_v OrganisationTYPE_v = new string_v("neznani tip organizacije");
             PostAddress_v Address_v = new PostAddress_v();
             Address_v.City_v = new dstring_v("naznano mesto");
@@ -659,7 +658,6 @@ namespace UpgradeDB
                 Registration_ID_v,
                 TaxPayer_v,
                 Comment1_v,
-                Comment2_v,
                 OrganisationTYPE_v,
                 Address_v,
                 PhoneNumber_v,
@@ -729,7 +727,6 @@ namespace UpgradeDB
             string_v Registration_ID_v = new string_v("218/167/50501");
             bool_v TaxPayer_v = new bool_v(true);
             string_v Comment1_v = null;
-            string_v Comment2_v = null;
             string_v OrganisationTYPE_v = new string_v("Gmbh");
             PostAddress_v Address_v = new PostAddress_v();
 
@@ -773,7 +770,6 @@ namespace UpgradeDB
             Registration_ID_v,
             TaxPayer_v,
             Comment1_v,
-            Comment2_v,
             OrganisationTYPE_v,
             Address_v,
             PhoneNumber_v,
@@ -817,7 +813,6 @@ namespace UpgradeDB
             string_v Registration_ID_v = new string_v("1319337000");
             bool_v TaxPayer_v = new bool_v(true);
             string_v Comment1_v = null;
-            string_v Comment2_v = null;
             string_v OrganisationTYPE_v = new string_v("d.o.o.");
             PostAddress_v Address_v = new PostAddress_v();
 
@@ -860,7 +855,6 @@ namespace UpgradeDB
             Registration_ID_v,
             TaxPayer_v,
             Comment1_v,
-            Comment2_v,
             OrganisationTYPE_v,
             Address_v,
             PhoneNumber_v,
@@ -899,18 +893,7 @@ namespace UpgradeDB
         private object UpgradeDB_1_19_to_1_20(object obj, ref string Err)
         {
                 string sql = @"DROP TABLE Notice;
-                             ALTER TABLE Organisation ADD COLUMN TaxPayer BIT NULL; 
-                             ALTER TABLE Organisation ADD COLUMN Comment1 varchar(2000) NULL;
-                             ALTER TABLE Organisation ADD COLUMN Comment2 varchar(2000) NULL;
-                             ALTER TABLE Atom_Organisation ADD COLUMN TaxPayer BIT NULL; 
-                             ALTER TABLE Atom_Organisation ADD COLUMN Comment1 varchar(2000) NULL;
-                             ALTER TABLE Atom_Organisation ADD COLUMN Comment2 varchar(2000) NULL;
-                             Update Organisation set TaxPayer = 1,
-                                                 Comment1 = 'Davčni zavezanec za DDV'
-                                                 where Tax_ID = '19300808';
-                             Update Atom_Organisation set TaxPayer = 1,
-                                                 Comment1 = 'Davčni zavezanec za DDV'
-                                                 where Tax_ID = '19300808';
+                            ;
                              ";
                 if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                 {
@@ -945,7 +928,9 @@ namespace UpgradeDB
                                                 "JOURNAL",
                                                 "PaymentType",
                                                 "MethodOfPayment_DI",
-                                                "MethodOfPayment_DPI"
+                                                "MethodOfPayment_DPI",
+                                                "Atom_Comment1",
+                                                "Comment1"
                                                 };
 
             if (DBSync.DBSync.CreateTables(new_tables, ref Err))
@@ -955,6 +940,26 @@ namespace UpgradeDB
                 {
                     return false;
                 }
+
+                sql = @"       ALTER TABLE Organisation ADD COLUMN TaxPayer BIT NULL; 
+                               ALTER TABLE Atom_Organisation ADD COLUMN TaxPayer BIT NULL; 
+                               ALTER TABLE Organisation ADD COLUMN Comment1_ID INTEGER NULL REFERENCES Comment1(ID); 
+                               ALTER TABLE Atom_Organisation ADD COLUMN Atom_Comment1_ID INTEGER NULL REFERENCES Atom_Comment1(ID); 
+                               insert into Comment1 (Comment)values('Davčni zavezanec za DDV:DA'); 
+                               insert into Atom_Comment1 (Comment)values('Davčni zavezanec za DDV:DA'); 
+                               Update Organisation set TaxPayer = 1,
+                                                 Comment1_ID = 1
+                                                 where Tax_ID = '19300808';
+                                Update Atom_Organisation set TaxPayer = 1,
+                                                    Atom_Comment1_ID = 1
+                                                    where Tax_ID = '19300808';
+                             ";
+                if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
+                {
+                    LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                    return false;
+                }
+
 
                 TermsOfPayment_definitions tmpdef = new TermsOfPayment_definitions();
                 tmpdef.InsertDefault();

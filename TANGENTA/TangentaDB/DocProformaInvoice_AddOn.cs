@@ -204,7 +204,6 @@ namespace TangentaDB
                                                                                  object oBank_Registration_ID,
                                                                                  object oBank_TaxPayer,
                                                                                  object oBank_Comment1,
-                                                                                 object oBank_Comment2,
                                                                                  object oBankAccount,
                                                                                  object oBankAccount_ID)
             {
@@ -243,7 +242,6 @@ namespace TangentaDB
 
                                 xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_TaxPayer_v = tf.set_bool(oBank_TaxPayer);
                                 xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Comment1_v = tf.set_string(oBank_Comment1);
-                                xMethodOfPayment.m_MyOrgBankAccountPayment.Bank_Comment2_v = tf.set_string(oBank_Comment2);
 
                             }
                             else
@@ -287,7 +285,6 @@ namespace TangentaDB
                                                    this.m_MyOrgBankAccountPayment.Bank_Registration_ID,
                                                    this.m_MyOrgBankAccountPayment.Bank_TaxPayer_v,
                                                    this.m_MyOrgBankAccountPayment.Bank_Comment1_v,
-                                                   this.m_MyOrgBankAccountPayment.Bank_Comment2_v,
                                                    true,
                                                    this.m_MyOrgBankAccountPayment.BankAccount,
                                                    this.Description,
@@ -426,8 +423,7 @@ namespace TangentaDB
                             ao.Tax_ID as Tax_ID,
                             ao.Registration_ID as Registration_ID,
                             ao.TaxPayer as TaxPayer,
-                            ao.Comment1 as Comment1,
-                            ao.Comment2 as Comment2,
+                            acmt1.Comment as Comment1,
                             an.NoticeText as NoticeText
                             from DocProformaInvoice dpi
                             left join  DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = dpi.ID
@@ -437,6 +433,7 @@ namespace TangentaDB
                             left join  Atom_BankAccount aba on mop.Atom_BankAccount_ID = aba.ID
                             left join  Atom_Bank ab on aba.Atom_Bank_ID = ab.ID
                             left join  Atom_Organisation ao on ab.Atom_Organisation_ID = ao.ID
+                            left join  Atom_Comment1 acmt1 on ao.Atom_Comment1_ID = acmt1.ID
                             left join  Atom_Notice an on dpiao.Atom_Notice_ID = an.ID
                             where dpi.ID = " + DocProformaInvoice_ID.ToString();
             DataTable dt = new DataTable();
@@ -458,7 +455,6 @@ namespace TangentaDB
                                                                                      dt.Rows[0]["Registration_ID"],
                                                                                      dt.Rows[0]["TaxPayer"],
                                                                                      dt.Rows[0]["Comment1"],
-                                                                                     dt.Rows[0]["Comment2"],
                                                                                      dt.Rows[0]["TRR"],
                                                                                      dt.Rows[0]["Atom_BankAccount_ID"]);
                     object oNoticeText = dt.Rows[0]["NoticeText"];

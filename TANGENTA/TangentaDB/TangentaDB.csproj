@@ -97,6 +97,7 @@
     <Compile Include="f_Atom_Logo.cs" />
     <Compile Include="f_Atom_myOrganisation.cs" />
     <Compile Include="f_Atom_myOrganisation_Person.cs" />
+    <Compile Include="f_Atom_Comment1.cs" />
     <Compile Include="f_Atom_Notice.cs" />
     <Compile Include="f_Atom_Office.cs" />
     <Compile Include="f_Atom_Office_Data.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="f_cHouseNumber_Org.cs" />
     <Compile Include="f_cHouseNumber_Person.cs" />
     <Compile Include="f_cLastName.cs" />
+    <Compile Include="f_Comment1.cs" />
     <Compile Include="f_Contact.cs" />
     <Compile Include="f_cOrgTYPE.cs" />
     <Compile Include="f_cState_Org.cs" />

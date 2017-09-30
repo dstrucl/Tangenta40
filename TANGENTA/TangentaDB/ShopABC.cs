@@ -80,24 +80,24 @@ namespace TangentaDB
                     cond = "";
                 }
                 sql_GetDraft = @"Select
-                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
-                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
-                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$$Job,
-                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$$UserName,
-                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$$Description,
-                        JOURNAL_DocInvoice_$_dinv_$$ID,
-                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$$ID,
-                        JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
-                        JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
-                        JOURNAL_DocInvoice_$_dinv_$$Draft,
-                        JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
-                        JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID,
-                        JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID,
-                        JOURNAL_DocInvoice_$_dinv_$$NetSum,
-                        JOURNAL_DocInvoice_$_dinv_$$Discount,
-                        JOURNAL_DocInvoice_$_dinv_$$EndSum,
-                        JOURNAL_DocInvoice_$_dinv_$$TaxSum,
-                        JOURNAL_DocInvoice_$_dinv_$$GrossSum,
+                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                        JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
+                        JOURNAL_DocInvoice_$_awperiod_$_amcper.Job AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$Job,
+                        JOURNAL_DocInvoice_$_awperiod_$_amcper.UserName AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$UserName,
+                        JOURNAL_DocInvoice_$_awperiod_$_amcper.Description AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$Description,
+                        JOURNAL_DocInvoice_$_dinv.ID AS JOURNAL_DocInvoice_$_dinv_$$ID,
+                        JOURNAL_DocInvoice_$_awperiod_$_amcper.ID AS JOURNAL_DocInvoice_$_awperiod_$_amcper_$$ID,
+                        JOURNAL_DocInvoice_$_dinv.FinancialYear AS JOURNAL_DocInvoice_$_dinv_$$FinancialYear,
+                        JOURNAL_DocInvoice_$_dinv.NumberInFinancialYear AS JOURNAL_DocInvoice_$_dinv_$$NumberInFinancialYear,
+                        JOURNAL_DocInvoice_$_dinv.Draft AS JOURNAL_DocInvoice_$_dinv_$$Draft,
+                        JOURNAL_DocInvoice_$_dinv.DraftNumber AS JOURNAL_DocInvoice_$_dinv_$$DraftNumber,
+                        JOURNAL_DocInvoice_$_dinv_$_acusper.ID AS JOURNAL_DocInvoice_$_dinv_$_acusper_$$ID,
+                        JOURNAL_DocInvoice_$_dinv_$_acusorg.ID AS JOURNAL_DocInvoice_$_dinv_$_acusorg_$$ID,
+                        JOURNAL_DocInvoice_$_dinv.NetSum AS JOURNAL_DocInvoice_$_dinv_$$NetSum,
+                        JOURNAL_DocInvoice_$_dinv.Discount AS JOURNAL_DocInvoice_$_dinv_$$Discount,
+                        JOURNAL_DocInvoice_$_dinv.EndSum AS JOURNAL_DocInvoice_$_dinv_$$EndSum,
+                        JOURNAL_DocInvoice_$_dinv.TaxSum AS JOURNAL_DocInvoice_$_dinv_$$TaxSum,
+                        JOURNAL_DocInvoice_$_dinv.GrossSum AS JOURNAL_DocInvoice_$_dinv_$$GrossSum,
                         diao.Atom_Warranty_ID,
                         aw.WarrantyDurationType,
                         aw.WarrantyDuration,
@@ -106,11 +106,24 @@ namespace TangentaDB
                         diao.PaymentDeadline,
                         mtpdi.ID as MethodOfPayment_DI_ID,
                         pt.Identification as PaymentType_Identification,
-                        JOURNAL_DocInvoice_$_dinv_$$Paid,
-                        JOURNAL_DocInvoice_$_dinv_$$Storno,
-                        JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID,
-                        JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type
-                        from JOURNAL_DocInvoice_VIEW 
+                        JOURNAL_DocInvoice_$_dinv.Paid AS JOURNAL_DocInvoice_$_dinv_$$Paid,
+                        JOURNAL_DocInvoice_$_dinv.Storno AS JOURNAL_DocInvoice_$_dinv_$$Storno,
+                        JOURNAL_DocInvoice_$_dinv.Invoice_Reference_ID AS JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_ID,
+                        JOURNAL_DocInvoice_$_dinv.Invoice_Reference_Type AS JOURNAL_DocInvoice_$_dinv_$$Invoice_Reference_Type
+                        FROM JOURNAL_DocInvoice
+                        INNER JOIN JOURNAL_DocInvoice_Type JOURNAL_DocInvoice_$_jpinvt ON JOURNAL_DocInvoice.JOURNAL_DocInvoice_Type_ID = JOURNAL_DocInvoice_$_jpinvt.ID
+                        LEFT JOIN DocInvoice JOURNAL_DocInvoice_$_dinv ON JOURNAL_DocInvoice.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv.ID
+                        LEFT JOIN Atom_WorkPeriod JOURNAL_DocInvoice_$_awperiod ON JOURNAL_DocInvoice.Atom_WorkPeriod_ID = JOURNAL_DocInvoice_$_awperiod.ID
+                        LEFT JOIN Atom_myOrganisation_Person JOURNAL_DocInvoice_$_awperiod_$_amcper ON JOURNAL_DocInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper.ID
+                        LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.ID
+                        LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
+                        LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
+                        LEFT JOIN Atom_Customer_Person JOURNAL_DocInvoice_$_dinv_$_acusper ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper.ID
+                        LEFT JOIN Atom_Person JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper ON JOURNAL_DocInvoice_$_dinv_$_acusper.Atom_Person_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.ID
+                        LEFT JOIN Atom_cFirstName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cFirstName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acfn.ID
+                        LEFT JOIN Atom_cLastName JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln ON JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper.Atom_cLastName_ID = JOURNAL_DocInvoice_$_dinv_$_acusper_$_aper_$_acln.ID
+                        LEFT JOIN Atom_Customer_Org JOURNAL_DocInvoice_$_dinv_$_acusorg ON JOURNAL_DocInvoice_$_dinv.Atom_Customer_Org_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg.ID
+                        LEFT JOIN Atom_Organisation JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg ON JOURNAL_DocInvoice_$_dinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocInvoice_$_dinv_$_acusorg_$_aorg.ID
 						left join DocInvoiceAddOn diao on diao.DocInvoice_ID = JOURNAL_DocInvoice_$_dinv_$$ID
                         left join TermsOfPayment top on diao.TermsOfPayment_ID = top.id
                         left join MethodOfPayment_DI mtpdi on diao.MethodOfPayment_DI_ID = mtpdi.id
@@ -134,24 +147,24 @@ namespace TangentaDB
                     cond = "";
                 }
                 sql_GetDraft = @"Select
-                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
-                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
-                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$Job,
-                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$UserName,
-                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$Description,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$ID,
-                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$ID,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$Draft,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$$ID,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$$ID,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$Discount,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$EndSum,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
-                        JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.FirstName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln.LastName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Job AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$Job,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.UserName AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$UserName,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Description AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$Description,
+                        JOURNAL_DocProformaInvoice_$_dpinv.ID AS JOURNAL_DocProformaInvoice_$_dpinv_$$ID,
+                        JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID AS JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear AS JOURNAL_DocProformaInvoice_$_dpinv_$$FinancialYear,
+                        JOURNAL_DocProformaInvoice_$_dpinv.NumberInFinancialYear AS JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear,
+                        JOURNAL_DocProformaInvoice_$_dpinv.Draft AS JOURNAL_DocProformaInvoice_$_dpinv_$$Draft,
+                        JOURNAL_DocProformaInvoice_$_dpinv.DraftNumber AS JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$_acusper.ID AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.ID AS JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$$ID,
+                        JOURNAL_DocProformaInvoice_$_dpinv.NetSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum,
+                        JOURNAL_DocProformaInvoice_$_dpinv.Discount AS JOURNAL_DocProformaInvoice_$_dpinv_$$Discount,
+                        JOURNAL_DocProformaInvoice_$_dpinv.EndSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$EndSum,
+                        JOURNAL_DocProformaInvoice_$_dpinv.TaxSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum,
+                        JOURNAL_DocProformaInvoice_$_dpinv.GrossSum AS JOURNAL_DocProformaInvoice_$_dpinv_$$GrossSum,
                         dpiao.Atom_Warranty_ID as Atom_Warranty_ID,
                         aw.WarrantyDurationType as WarrantyDurationType,
                         aw.WarrantyDuration as WarrantyDuration,
@@ -160,7 +173,20 @@ namespace TangentaDB
                         top.Description as TermsOfPayment_Description,
                         dpiao.DocDuration as DocDuration,
                         dpiao.DocDurationType as DocDurationType
-                        from JOURNAL_DocProformaInvoice_VIEW
+                        FROM JOURNAL_DocProformaInvoice
+                        INNER JOIN JOURNAL_DocProformaInvoice_Type JOURNAL_DocProformaInvoice_$_jdpinvt ON JOURNAL_DocProformaInvoice.JOURNAL_DocProformaInvoice_Type_ID = JOURNAL_DocProformaInvoice_$_jdpinvt.ID
+                        INNER JOIN DocProformaInvoice JOURNAL_DocProformaInvoice_$_dpinv ON JOURNAL_DocProformaInvoice.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv.ID
+                        INNER JOIN Atom_WorkPeriod JOURNAL_DocProformaInvoice_$_awperiod ON JOURNAL_DocProformaInvoice.Atom_WorkPeriod_ID = JOURNAL_DocProformaInvoice_$_awperiod.ID
+                        INNER JOIN Atom_myOrganisation_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_myOrganisation_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.ID
+                        INNER JOIN Atom_Person JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper.Atom_Person_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.ID
+                        INNER JOIN Atom_cFirstName JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cFirstName_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acfn.ID
+                        LEFT JOIN Atom_cLastName JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln ON JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper.Atom_cLastName_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_amcper_$_aper_$_acln.ID
+                        LEFT JOIN Atom_Customer_Person JOURNAL_DocProformaInvoice_$_dpinv_$_acusper ON JOURNAL_DocProformaInvoice_$_dpinv.Atom_Customer_Person_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper.ID
+                        LEFT JOIN Atom_Person JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper.Atom_Person_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.ID
+                        LEFT JOIN Atom_cFirstName JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cFirstName_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acfn.ID
+                        LEFT JOIN Atom_cLastName JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper.Atom_cLastName_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusper_$_aper_$_acln.ID
+                        LEFT JOIN Atom_Customer_Org JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg ON JOURNAL_DocProformaInvoice_$_dpinv.Atom_Customer_Org_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.ID
+                        LEFT JOIN Atom_Organisation JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg ON JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg.Atom_Organisation_ID = JOURNAL_DocProformaInvoice_$_dpinv_$_acusorg_$_aorg.ID
                         left join DocProformaInvoiceAddOn dpiao on dpiao.DocProformaInvoice_ID = JOURNAL_DocProformaInvoice_$_dpinv_$$ID
                         left join TermsOfPayment top on dpiao.TermsOfPayment_ID = top.ID
                         left join Atom_Warranty aw on dpiao.Atom_Warranty_ID = aw.ID

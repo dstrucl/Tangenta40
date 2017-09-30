@@ -18,7 +18,6 @@ namespace UniversalInvoice
         public string Registration_ID = null;
         public bool_v TaxPayer_v = null;
         public string Comment1 = null;
-        public string Comment2 = null;
         public string Atom_Office_Name = null;
         public string BankName = null;
         public string TRR = null;
@@ -38,7 +37,6 @@ namespace UniversalInvoice
                             string _Registration_ID,
                             bool_v _TaxPayer_v,
                             string_v _Comment1_v,
-                            string_v _Comment2_v,
                             string _Atom_Office_Name,
                             string _BankName,
                             string _TRR,
@@ -64,10 +62,6 @@ namespace UniversalInvoice
             if (_Comment1_v!=null)
             {
                 Comment1 = _Comment1_v.v;
-            }
-            if (_Comment2_v != null)
-            {
-                Comment2 = _Comment2_v.v;
             }
 
 
@@ -95,7 +89,6 @@ namespace UniversalInvoice
                                             Registration_ID,
                                             _TaxPayer_v,
                                             Comment1,
-                                            Comment2,
                                             Atom_Office_Name,
                                             BankName,
                                             TRR,

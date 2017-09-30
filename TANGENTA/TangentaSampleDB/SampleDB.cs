@@ -32,7 +32,6 @@ namespace TangentaSampleDB
             dstring_v MyOrg_Registration_ID_v = new dstring_v();
             dbool_v MyOrg_TaxPayer_v = new dbool_v(true);
             dstring_v MyOrg_Comment1_v = new dstring_v();
-            dstring_v MyOrg_Comment2_v = new dstring_v();
             dstring_v MyOrg_OrganisationTYPE_v = new dstring_v();
 
             PostAddress_v MyOrg_Address_v = new PostAddress_v();
@@ -96,6 +95,8 @@ namespace TangentaSampleDB
 
             DynGroupBox MyOrg_DynGroupBox = null;
 
+            DynGroupBox MyOrg_Comment1_DynGroupBox = null;
+
             DynGroupBox MyOrg_BankAccount_DynGroupBox = null;
 
             DynGroupBox MyOrg_BankAccount_Bank_DynGroupBox = null;
@@ -155,6 +156,8 @@ namespace TangentaSampleDB
 
                 MyOrg_DynGroupBox = m_eds.AddGroupBox("grp_MyOrg", lngRPM.s_MyOrganisation);
 
+                MyOrg_Comment1_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Comment1", lngRPM.s_Comment1);
+
                 MyOrg_BankAccount_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_BankAccount", lngRPM.s_BankAccount);
 
                 MyOrg_BankAccount_Bank_DynGroupBox = MyOrg_BankAccount_DynGroupBox.AddGroupBox("grp_MyOrg_BankAccount_Bank", lngRPM.s_Bank);
@@ -191,9 +194,7 @@ namespace TangentaSampleDB
 
                 new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_TaxPayer_v, "MyOrg_TaxPayer", lngRPMS.sl_MyOrg_TaxPayer, lngRPMS.s_MyOrg_TaxPayer_v, lngRPMS.sh_MyOrg_TaxPayer);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Comment1_v, "MyOrg_Comment1", lngRPMS.sl_MyOrg_Comment1, lngRPMS.s_MyOrg_Comment1_v, lngRPMS.sh_MyOrg_Comment1);
-
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Comment2_v, "MyOrg_Comment2", lngRPMS.sl_MyOrg_Comment2, lngRPMS.s_MyOrg_Comment2_v, lngRPMS.sh_MyOrg_Comment2);
+                new DynEditControls.EditControl(MyOrg_Comment1_DynGroupBox, MyOrg_Comment1_v, "MyOrg_Comment1", lngRPMS.sl_MyOrg_Comment1, lngRPMS.s_MyOrg_Comment1_v, lngRPMS.sh_MyOrg_Comment1);
 
                 new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_OrganisationTYPE_v, "MyOrg_OrganisationTYPE", lngRPMS.sl_MyOrg_OrganisationTYPE, lngRPMS.s_MyOrg_OrganisationTYPE_v, lngRPMS.sh_MyOrg_OrganisationTYPE);
 
@@ -351,7 +352,6 @@ namespace TangentaSampleDB
                                                 MyOrg_Registration_ID_v,
                                                 MyOrg_TaxPayer_v,
                                                 MyOrg_Comment1_v,
-                                                MyOrg_Comment2_v,
                                                 MyOrg_OrganisationTYPE_v,
                                                 MyOrg_Address_v,
                                                 MyOrg_PhoneNumber_v,

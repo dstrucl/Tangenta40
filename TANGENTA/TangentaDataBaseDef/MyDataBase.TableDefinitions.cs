@@ -609,6 +609,11 @@ namespace TangentaDataBaseDef
         /* 207 */
         public SQLTable t_Atom_Notice = null;
 
+        /* 208 */
+        public SQLTable t_Comment1 = null;
+
+        /* 209 */
+        public SQLTable t_Atom_Comment1 = null;
 
         public void Define_SQL_Database_Tables() // constructor;
         {
@@ -776,8 +781,7 @@ namespace TangentaDataBaseDef
             t_Organisation.AddColumn((Object)mt.m_Organisation.Tax_ID, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "TAX ID", "Davčna številka") );
             t_Organisation.AddColumn((Object)mt.m_Organisation.Registration_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext( "REGISTRATION ID", "Matična številka") );
             t_Organisation.AddColumn((Object)mt.m_Organisation.TaxPayer, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.CheckBox_default_true, new ltext("Tax payer", "Davčni zavezanec"));
-            t_Organisation.AddColumn((Object)mt.m_Organisation.Comment1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 1", "Komentar 1"));
-            t_Organisation.AddColumn((Object)mt.m_Organisation.Comment2, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 2", "Komentar 2"));
+            t_Organisation.AddColumn((Object)mt.m_Organisation.m_Comment1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 1 ID", "Komentar 1 ID"));
             m_DBTables.items.Add(t_Organisation);
 
             /* 25 */
@@ -1062,8 +1066,7 @@ namespace TangentaDataBaseDef
             t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Tax_ID, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("TAX ID", "Davčna številka"));
             t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Registration_ID, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Registration ID", "Matična Številka"));
             t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.TaxPayer, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Tax payer", "Davčni zavezanec"));
-            t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Comment1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 1", "Komentar 1"));
-            t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.Comment2, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 2", "Komentar 2"));
+            t_Atom_Organisation.AddColumn((Object)mt.m_Atom_Organisation.m_Atom_Comment1, Column.nullTYPE.NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment 1 archive ID", "Komentar 1 arhiv ID"));
             m_DBTables.items.Add(t_Atom_Organisation);
 
          /* 55 */
@@ -2373,6 +2376,17 @@ namespace TangentaDataBaseDef
             t_Atom_Notice.AddColumn((Object)mt.m_Notice.NoticeText, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Notice text", "Dopis"));
             m_DBTables.items.Add(t_Atom_Notice);
 
+            /* 208 */
+            t_Comment1 = new SQLTable((Object)new Comment1(), "cmt1", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Comment1);
+            t_Comment1.AddColumn((Object)mt.m_Comment1.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Comment1.AddColumn((Object)mt.m_Comment1.Comment, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment", "Komentar"));
+            m_DBTables.items.Add(t_Comment1);
+
+            /* 209 */
+            t_Atom_Comment1 = new SQLTable((Object)new Atom_Comment1(), "acmt1", Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_t_Atom_Comment1);
+            t_Atom_Comment1.AddColumn((Object)mt.m_Atom_Comment1.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new ltext("ID", "ID"));
+            t_Atom_Comment1.AddColumn((Object)mt.m_Atom_Comment1.Comment, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new ltext("Comment", "Komentar"));
+            m_DBTables.items.Add(t_Atom_Comment1);
 
         }
     }

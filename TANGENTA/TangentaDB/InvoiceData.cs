@@ -832,8 +832,7 @@ namespace TangentaDB
                                 ao.Tax_ID,
                                 ao.Registration_ID,  
                                 ao.TaxPayer,
-                                ao.Comment1,
-                                ao.Comment2,
+                                acmt1.Comment as Comment1,
                                 Atom_cStreetName_Org.StreetName,
                                 Atom_cHouseNumber_Org.HouseNumber,
                                 Atom_cCity_Org.City,
@@ -883,6 +882,7 @@ namespace TangentaDB
                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                left join Atom_Comment1 acmt1 on ao.Atom_Comment1_ID = acmt1.ID
                                 left join DocInvoiceAddOn piao on piao.DocInvoice_ID = pi.ID
                                 LEFT JOIN FVI_SLO_Response JOURNAL_DocInvoice_$_dinv_$_fvisres ON JOURNAL_DocInvoice_$_dinv_$_fvisres.DocInvoice_ID = pi.ID 
                                 LEFT JOIN FVI_SLO_SalesBookInvoice JOURNAL_DocInvoice_$_dinv_$_fvisbi ON JOURNAL_DocInvoice_$_dinv_$_fvisbi.DocInvoice_ID = pi.ID 
@@ -926,8 +926,7 @@ namespace TangentaDB
                                 ao.Tax_ID,
                                 ao.Registration_ID,
                                 ao.TaxPayer,
-                                ao.Comment1,
-                                ao.Comment2,
+                                acmt1.Comment as Comment1,
                                 Atom_cStreetName_Org.StreetName,
                                 Atom_cHouseNumber_Org.HouseNumber,
                                 Atom_cCity_Org.City,
@@ -970,6 +969,7 @@ namespace TangentaDB
                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                left join Atom_Comment1 acmt1 on ao.Atom_Comment1_ID = acmt1.ID
                                 left join DocInvoiceAddOn piao on piao.DocInvoice_ID = pi.ID
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
@@ -1012,8 +1012,7 @@ namespace TangentaDB
                                 ao.Tax_ID,
                                 ao.Registration_ID,
                                 ao.TaxPayer,
-                                ao.Comment1,
-                                ao.Comment2,
+                                acmt1.Comment as Comment1,
                                 Atom_cStreetName_Org.StreetName,
                                 Atom_cHouseNumber_Org.HouseNumber,
                                 Atom_cCity_Org.City,
@@ -1053,6 +1052,7 @@ namespace TangentaDB
                                 inner join Atom_myOrganisation amc on aoff.Atom_myOrganisation_ID = amc.ID
                                 inner join Atom_OrganisationData aorgd on  amc.Atom_OrganisationData_ID = aorgd.ID
                                 inner join Atom_Organisation ao on aorgd.Atom_Organisation_ID = ao.ID
+                                left join Atom_Comment1 acmt1 on ao.Atom_Comment1_ID = acmt1.ID
                                 left join DocProformaInvoiceAddOn piao on piao.DocProformaInvoice_ID = pi.ID
                                 left join Atom_cFirstName apfn on ap.Atom_cFirstName_ID = apfn.ID 
                                 left join Atom_cLastName apln on ap.Atom_cLastName_ID = apln.ID 
@@ -1305,7 +1305,6 @@ namespace TangentaDB
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Registration_ID"]),
                                                                    DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["TaxPayer"]),
                                                                    DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Comment1"]),
-                                                                   DBTypes.tf.set_string(dt_DocInvoice.Rows[0]["Comment2"]),
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Atom_Office_Name"]),
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["BankName"]),
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["TRR"]),
@@ -1620,7 +1619,6 @@ namespace TangentaDB
             }
 
             UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(lngToken.st_Customer,
-                                                       null,
                                                        null,
                                                        null,
                                                        null,

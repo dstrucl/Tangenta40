@@ -15,7 +15,6 @@ namespace TangentaDB
                                string Registrattion_ID,
                                bool_v TaxPayer_v,
                                string_v Comment1_v,
-                               string_v Comment2_v,
                                ref long_v AtomBank_ID_v
                                )
         {
@@ -24,7 +23,7 @@ namespace TangentaDB
             string_v Tax_ID_v = DBTypes.string_v.Set(Tax_ID);
             string_v Registrattion_ID_v = DBTypes.string_v.Set(Registrattion_ID);
             long_v Atom_Organisation_ID_v = null;
-            if (f_Atom_Organisation.Get(OrganisationName_v, Tax_ID_v, Registrattion_ID_v, TaxPayer_v, Comment1_v, Comment2_v,ref Atom_Organisation_ID_v))
+            if (f_Atom_Organisation.Get(OrganisationName_v, Tax_ID_v, Registrattion_ID_v, TaxPayer_v, Comment1_v, ref Atom_Organisation_ID_v))
             {
                 List<SQL_Parameter> lpar = new List<SQL_Parameter>();
                 string scond_Atom_Organisation_ID = " Atom_Organisation_ID is null ";

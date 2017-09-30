@@ -24,7 +24,6 @@ namespace TangentaDB
                                  string_v Registration_ID_v,
                                  bool_v TaxPayer_v,
                                  string_v Comment1_v,
-                                 string_v Comment2_v,
                                  string_v OrganisationTYPE_v,
                                  PostAddress_v Address_v,
                                  string_v PhoneNumber_v,
@@ -85,7 +84,7 @@ namespace TangentaDB
             {
                 par_TaxPayer = new SQL_Parameter("@par_TaxPayer", SQL_Parameter.eSQL_Parameter.Bit, false, TaxPayer_v.v);
                 lpar.Add(par_TaxPayer);
-                TaxPayer_condition = " par_TaxPayer = " + par_TaxPayer.Name + " ";
+                TaxPayer_condition = " TaxPayer = " + par_TaxPayer.Name + " ";
                 TaxPayer_value = "@par_TaxPayer";
             }
             else
@@ -94,38 +93,22 @@ namespace TangentaDB
                 TaxPayer_value = "null";
             }
 
-            string Comment1_condition = null;
-            string Comment1_value = null;
-            SQL_Parameter par_Comment1 = null;
-            Comment1_condition = " Comment1  is null ";
-            Comment1_value = "null";
-
+            long_v Comment1_ID_v = null;
+            string Comment1_ID_condition = " Comment1_ID  is null ";
+            string Comment1_ID_value = "null";
+            SQL_Parameter par_Comment1_ID = null;
             if (Comment1_v != null)
             {
-                if (Comment1_v.v.Length > 0)
+                if (f_Comment1.Get(Comment1_v.v, ref Comment1_ID_v))
                 {
-                    par_Comment1 = new SQL_Parameter("@par_Comment1", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Comment1_v.v);
-                    lpar.Add(par_Comment1);
-                    Comment1_condition = " par_Comment1 = " + par_Comment1.Name + " ";
-                    Comment1_value = "@par_Comment1";
+                    par_Comment1_ID = new SQL_Parameter("@par_Comment1_ID", SQL_Parameter.eSQL_Parameter.Bigint, false, Comment1_ID_v.v);
+                    lpar.Add(par_Comment1_ID);
+                    Comment1_ID_condition = " Comment1_ID = " + par_Comment1_ID.Name + " ";
+                    Comment1_ID_value = "@par_Comment1_ID";
                 }
-            }
-          
-
-            string Comment2_condition = null;
-            string Comment2_value = null;
-            SQL_Parameter par_Comment2  = null;
-
-            Comment2_condition = " Comment2  is null ";
-            Comment2_value = "null";
-            if (Comment2_v != null)
-            {
-                if (Comment2_v.v.Length > 0)
+                else
                 {
-                    par_Comment2 = new SQL_Parameter("@par_Comment2", SQL_Parameter.eSQL_Parameter.Nvarchar, false, Comment2_v.v);
-                    lpar.Add(par_Comment2);
-                    Comment2_condition = " par_Comment2 = " + par_Comment2.Name + " ";
-                    Comment2_value = "@par_Comment2";
+                    return false;
                 }
             }
            
@@ -144,7 +127,9 @@ namespace TangentaDB
 
 
             string sql_select = "select ID,Registration_ID from Organisation where " + Name_condition + @" and 
-                                                                                   " + Tax_ID_condition ;
+                                                                                   " + Tax_ID_condition + @" and 
+                                                                                   " + TaxPayer_condition + @" and 
+                                                                                   " + Comment1_ID_condition;
             DataTable dt = new DataTable();
             if (DBSync.DBSync.ReadDataTable(ref dt, sql_select, lpar, ref Err))
             {
@@ -167,18 +152,13 @@ namespace TangentaDB
                             {
                                 lpar1.Add(par_TaxPayer);
                             }
-                            if (par_Comment1 != null)
+                            if (par_Comment1_ID != null)
                             {
-                                lpar1.Add(par_Comment1);
-                            }
-                            if (par_Comment2 != null)
-                            {
-                                lpar1.Add(par_Comment2);
+                                lpar1.Add(par_Comment1_ID);
                             }
                             string sql = "update Organisation set Registration_ID = null"
                                  +", TaxPayer = " + TaxPayer_value
-                                             + ", Comment1 = " + Comment1_value
-                                             + ", Comment2 = " + Comment2_value
+                                             + ", Comment1_ID = " + Comment1_ID_value
                                 + " where ID = " + Organisation_ID_v.v.ToString();
                             object ores = null;
                             if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
@@ -199,18 +179,13 @@ namespace TangentaDB
                                 {
                                     lpar1.Add(par_TaxPayer);
                                 }
-                                if (par_Comment1!=null)
+                                if (par_Comment1_ID!=null)
                                 {
-                                    lpar1.Add(par_Comment1);
-                                }
-                                if (par_Comment2 != null)
-                                {
-                                    lpar1.Add(par_Comment2);
+                                    lpar1.Add(par_Comment1_ID);
                                 }
                                 string sql = "update Organisation set Registration_ID = " + spar_Registration_ID 
                                              + ", TaxPayer = " + TaxPayer_value
-                                             + ", Comment1 = " + Comment1_value
-                                             + ", Comment2 = " + Comment2_value
+                                             + ", Comment1_ID = " + Comment1_ID_value
                                              + " where ID = " + Organisation_ID_v.v.ToString();
                                 object ores = null;
                                 if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
@@ -235,18 +210,13 @@ namespace TangentaDB
                             {
                                 lpar1.Add(par_TaxPayer);
                             }
-                            if (par_Comment1 != null)
+                            if (par_Comment1_ID != null)
                             {
-                                lpar1.Add(par_Comment1);
-                            }
-                            if (par_Comment2 != null)
-                            {
-                                lpar1.Add(par_Comment2);
+                                lpar1.Add(par_Comment1_ID);
                             }
                             string sql = "update Organisation set Registration_ID = " + spar_Registration_ID
                                          + ", TaxPayer = " + TaxPayer_value
-                                         + ", Comment1 = " + Comment1_value
-                                         + ", Comment2 = " + Comment2_value
+                                         + ", Comment1_ID = " + Comment1_ID_value
                                          + " where ID = " + Organisation_ID_v.v.ToString();
                             object ores = null;
                             if (!DBSync.DBSync.ExecuteNonQuerySQL(sql, lpar1, ref ores, ref Err))
@@ -289,7 +259,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Comment1,Comment2) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Comment1_value + "," + Comment2_value + ")";
+                    string sql_insert = " insert into Organisation  (Name,Tax_ID,Registration_ID,TaxPayer,Comment1_ID) values (" + sName_value + "," + sTaxID_value + "," + sRegistration_ID_value + "," + TaxPayer_value + "," + Comment1_ID_value +")";
                     object oret = null;
                     long Organisation_ID = -1;
                     if (DBSync.DBSync.ExecuteNonQuerySQLReturnID(sql_insert, lpar, ref Organisation_ID, ref oret, ref Err, "Organisation"))

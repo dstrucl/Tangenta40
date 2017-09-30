@@ -15,6 +15,9 @@ namespace LanguageControl
     public static class lngTName
     {
 
+        public static ltext lngt_t_Atom_Comment1 = new ltext("Comment 1 archive", "Komentar 1 arhiv");
+        public static ltext lngt_t_Comment1 = new ltext("Comment 1", "Komentar 1");
+
         public static ltext lngt_t_MethodOfPayment_DI = new ltext("Invoice method of payment", "Račun način plačila");
         public static ltext lngt_t_MethodOfPayment_DPI = new ltext("Proforma Invoice method of payment", "Predračun način plačila");
         public static ltext lngt_t_MethodOfPayment_DI_BAccount = new ltext("Invoice bank account payment", "Račun plačilo na bančni račun");

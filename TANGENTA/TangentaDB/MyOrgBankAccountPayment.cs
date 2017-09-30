@@ -50,12 +50,6 @@ namespace TangentaDB
             set { m_Bank_Comment1_v = value; }
         }
 
-        private string_v m_Bank_Comment2_v = null;
-        public string_v Bank_Comment2_v
-        {
-            get { return m_Bank_Comment2_v; }
-            set { m_Bank_Comment2_v = value; }
-        }
         private string m_BankAccount = null;
         public string BankAccount
         {
