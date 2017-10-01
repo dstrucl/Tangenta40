@@ -271,7 +271,7 @@ namespace TangentaPrint
         private void SaveTemaplate()
         {
             //long Doc_ID = -1;
-            //switch (f_doc.Exists(m_usrc_SelectPrintTemplate.f_doc_TemplateName,GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID,ref Doc_ID))
+            //switch (f_doc.Exists(m_usrc_SelectPrintTemplate.f_doc_TemplateName, GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID, ref Doc_ID))
             //{
             //    case f_doc.ExistsResult.EXISTS:
             //        if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -304,7 +304,7 @@ namespace TangentaPrint
             //                doc_type_ID_v = GlobalData.doc_type_definitions.HTMLPrintTemplate_Proforma_Invoice_doc_type_ID;
             //            }
 
-            //            if (doc_type_ID_v!=null)
+            //            if (doc_type_ID_v != null)
             //            {
             //                //switch (m_usrc_SelectPrintTemplate.f_doc_PageOrientation)
             //                //{

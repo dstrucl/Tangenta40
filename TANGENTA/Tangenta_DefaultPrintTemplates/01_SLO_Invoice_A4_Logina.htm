@@ -62,7 +62,7 @@
         #project span {
             color: black;
             text-align: right;
-            width: 52px;
+            width: 62px;
             margin-right: 0.5cm;
             display: inline-block;
             font-size: 1em;
@@ -70,7 +70,7 @@
 
     #company {
         float: right;
-        text-align: right;
+        text-align: left;
     }
 
         #project div,
@@ -130,7 +130,7 @@
     }
 
     .myORG_Logo {
-        padding-left: 50px;
+        padding-left: 282px;
         height: 80px;
         width: 160px;
         ;
@@ -163,7 +163,7 @@
             <table id="customer_company">
                 <thead>
                     <tr>
-                        <th>NASLOVU</th>
+                        <th>NASLOVU:</th>
                         <th>IZDAJATELJ:</th>
                     </tr>
                 </thead>
@@ -171,27 +171,26 @@
                     <tr>
                         <td>
                             <div id="project">
-                                <div><span>NASLOVU</span>(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)</div>
-                                <div><span></span>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
-                                <div><span></span>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
-                                <div><span>E-POŠTA</span> <a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)">(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)</a></div>
+                                <div>(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)</div>
+                                <div>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
+                                <div>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
                                 <div><span><b>Datum rač.:</b></span>(@@Račun_Datum_izdaje_računa@@)</div>
                                 <div><span><b>Datum zapadlosti:</b></span>(@@Račun_Datum_zapadlosti_računa@@)</div>
                             </div>
                         </td>
                         <td>
                             <div id="company" class="clearfix">
-                                <div>IZDAJATELJ:(@@Moja_Organizacija_Ime@@)</div>
+                                <div>(@@Moja_Organizacija_Ime@@)</div>
                                 <div>(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)</div>
                                 <div>(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)</div>
                                 <div>Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) </div>
                                 <div>Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) </div>
-                                <div>Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) </div>
-                                <div>Oznaka blagajne:(@@Račun_OznakaBlagajne@@) </div>
-                                <div>Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)</div>
-                                <div><a href="email:(@@Moja_Organizacija_Email@@)">E-Pošta:(@@Moja_Organizacija_Email@@)</a></div>
-                                <div><a href="http:(@@Moja_Organizacija_DomačaStran@@)">Domača stran:(@@Moja_Organizacija_DomačaStran@@)</a></div>
-                            </div>
+                                <div>
+                                    (@@Moja_Organizacija_Komentar1@@)
+                                    <div>Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)</div>
+                                    <div><a href="email:(@@Moja_Organizacija_Email@@)">E-Pošta:(@@Moja_Organizacija_Email@@)</a></div>
+                                    <div><a href="http:(@@Moja_Organizacija_DomačaStran@@)">Domača stran:(@@Moja_Organizacija_DomačaStran@@)</a></div>
+                                </div>
                         </td>
                     </tr>
                 </tbody>
@@ -246,12 +245,7 @@
                 <b>(@@Račun_PlačiloNaBančniRačun@@) (@@Račun_PlačiloNaBanko@@)</b>
             </div>
             <div class="notice">(@@Račun_Dopis@@)</div>
-            </div>
-            <div id="FURS">
-                <div>FURS unikatna številka sporočila:"(@@Račun_FURS_UnikatnaŠtevilkaSporočila@@)"</div>
-                <div>FURS unikatna številka računa:"(@@Račun_FURS_UnikatnaŠtevilkaRačuna@@)"</div>
-                <img class="QRImage" alt="Embedded Image" src="data:image/png;base64,(@@Račun_FURS_QR_koda@@)" />
-            </div>
+        </div>
         </div>
     </page>
 </body>

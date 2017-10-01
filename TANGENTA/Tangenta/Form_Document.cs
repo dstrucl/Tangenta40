@@ -511,6 +511,7 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():before m_startup.Execute!");
 
+
             if (m_startup.Execute(Program.bFirstTimeInstallation, ref Err))
             {
                 LogFile.LogFile.WriteDEBUG("** Form_Document:Form_Document_Shown():after m_startup.Execute!");

@@ -47,6 +47,7 @@ namespace TangentaDB
 
         public static bool Get(long myOrg_id)
         {
+            string Err = null;
 
             DataTable dt_myOrganisation = new DataTable();
             myOrg.ID_v = null;
@@ -132,7 +133,7 @@ namespace TangentaDB
                             from myOrganisation_VIEW";
 
             }
-            string Err = null;
+
             dt_myOrganisation.Clear();
             if (DBSync.DBSync.ReadDataTable(ref dt_myOrganisation, sql, ref Err))
             {
