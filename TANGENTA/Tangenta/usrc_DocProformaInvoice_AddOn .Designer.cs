@@ -60,7 +60,7 @@
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.ForeColor = System.Drawing.Color.Black;
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.Location = new System.Drawing.Point(9, 64);
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.Name = "rdb_Payment_by_cash_or_credit_card_on_delivery";
-            this.rdb_Payment_by_cash_or_credit_card_on_delivery.Size = new System.Drawing.Size(321, 24);
+            this.rdb_Payment_by_cash_or_credit_card_on_delivery.Size = new System.Drawing.Size(399, 29);
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.TabIndex = 0;
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.Text = "Payment by cash or credit card on delivery";
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.UseVisualStyleBackColor = true;
@@ -86,7 +86,7 @@
             this.rdb_BankAccountTransfer.ForeColor = System.Drawing.Color.Black;
             this.rdb_BankAccountTransfer.Location = new System.Drawing.Point(9, 25);
             this.rdb_BankAccountTransfer.Name = "rdb_BankAccountTransfer";
-            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(211, 24);
+            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(259, 29);
             this.rdb_BankAccountTransfer.TabIndex = 10;
             this.rdb_BankAccountTransfer.Text = "Payment on bank account";
             this.rdb_BankAccountTransfer.UseVisualStyleBackColor = true;
@@ -128,7 +128,7 @@
             this.txt_BankAccount.Location = new System.Drawing.Point(250, 25);
             this.txt_BankAccount.Name = "txt_BankAccount";
             this.txt_BankAccount.ReadOnly = true;
-            this.txt_BankAccount.Size = new System.Drawing.Size(261, 22);
+            this.txt_BankAccount.Size = new System.Drawing.Size(261, 26);
             this.txt_BankAccount.TabIndex = 11;
             // 
             // grp_ValidityOfTheTender
@@ -160,7 +160,7 @@
             this.cmb_DaysOrMonths.ReadOnly = false;
             this.cmb_DaysOrMonths.RecentItemsFileName = null;
             this.cmb_DaysOrMonths.RecentItemsFolder = "";
-            this.cmb_DaysOrMonths.Size = new System.Drawing.Size(166, 27);
+            this.cmb_DaysOrMonths.Size = new System.Drawing.Size(166, 31);
             this.cmb_DaysOrMonths.TabIndex = 5;
             this.cmb_DaysOrMonths.SelectedIndexChanged += new System.EventHandler(this.cmb_DaysOrMonths_SelectedIndexChanged);
             // 
@@ -170,7 +170,7 @@
             this.dtP_TenderValidUntil.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_TenderValidUntil.Location = new System.Drawing.Point(281, 76);
             this.dtP_TenderValidUntil.Name = "dtP_TenderValidUntil";
-            this.dtP_TenderValidUntil.Size = new System.Drawing.Size(253, 26);
+            this.dtP_TenderValidUntil.Size = new System.Drawing.Size(253, 30);
             this.dtP_TenderValidUntil.TabIndex = 4;
             this.dtP_TenderValidUntil.ValueChanged += new System.EventHandler(this.dtP_TenderValidUntil_ValueChanged);
             // 
@@ -181,7 +181,7 @@
             this.rdb_Valid_Tender_Until.ForeColor = System.Drawing.Color.Black;
             this.rdb_Valid_Tender_Until.Location = new System.Drawing.Point(17, 78);
             this.rdb_Valid_Tender_Until.Name = "rdb_Valid_Tender_Until";
-            this.rdb_Valid_Tender_Until.Size = new System.Drawing.Size(95, 24);
+            this.rdb_Valid_Tender_Until.Size = new System.Drawing.Size(117, 29);
             this.rdb_Valid_Tender_Until.TabIndex = 3;
             this.rdb_Valid_Tender_Until.TabStop = true;
             this.rdb_Valid_Tender_Until.Text = "Valid until";
@@ -194,7 +194,7 @@
             this.rdb_ValidNumberOf.ForeColor = System.Drawing.Color.Black;
             this.rdb_ValidNumberOf.Location = new System.Drawing.Point(17, 30);
             this.rdb_ValidNumberOf.Name = "rdb_ValidNumberOf";
-            this.rdb_ValidNumberOf.Size = new System.Drawing.Size(101, 24);
+            this.rdb_ValidNumberOf.Size = new System.Drawing.Size(123, 29);
             this.rdb_ValidNumberOf.TabIndex = 2;
             this.rdb_ValidNumberOf.TabStop = true;
             this.rdb_ValidNumberOf.Text = "Number of";
@@ -205,7 +205,7 @@
             this.nmUpDn_NumberOfDaysOrMonths.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.nmUpDn_NumberOfDaysOrMonths.Location = new System.Drawing.Point(350, 30);
             this.nmUpDn_NumberOfDaysOrMonths.Name = "nmUpDn_NumberOfDaysOrMonths";
-            this.nmUpDn_NumberOfDaysOrMonths.Size = new System.Drawing.Size(184, 26);
+            this.nmUpDn_NumberOfDaysOrMonths.Size = new System.Drawing.Size(184, 30);
             this.nmUpDn_NumberOfDaysOrMonths.TabIndex = 1;
             this.nmUpDn_NumberOfDaysOrMonths.ValueChanged += new System.EventHandler(this.nmUpDn_NumberOfDaysOrMonths_ValueChanged);
             // 
@@ -264,7 +264,7 @@
             this.dtP_DateOfIssue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_DateOfIssue.Location = new System.Drawing.Point(258, 3);
             this.dtP_DateOfIssue.Name = "dtP_DateOfIssue";
-            this.dtP_DateOfIssue.Size = new System.Drawing.Size(253, 26);
+            this.dtP_DateOfIssue.Size = new System.Drawing.Size(253, 30);
             this.dtP_DateOfIssue.TabIndex = 6;
             // 
             // lbl_DateOfIssue
@@ -282,13 +282,15 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_Notice1.Location = new System.Drawing.Point(12, 429);
+            this.usrc_Notice1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_Notice1.Name = "usrc_Notice1";
             this.usrc_Notice1.Size = new System.Drawing.Size(568, 121);
             this.usrc_Notice1.TabIndex = 17;
             // 
             // usrc_DocProformaInvoice_AddOn
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.usrc_Notice1);
             this.Controls.Add(this.lbl_DateOfIssue);

@@ -75,6 +75,10 @@ namespace TangentaSampleDB
                         DialogResult = DialogResult.OK;
                         this.Close();
                     }
+                    else
+                    {
+                        nav.eExitResult = NavigationButtons.Navigation.eEvent.NOTHING;
+                    }
                 }
             }
         }
