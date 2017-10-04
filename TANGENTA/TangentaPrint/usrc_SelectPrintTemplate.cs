@@ -337,14 +337,17 @@ namespace TangentaPrint
 
         private void AddHandlers()
         {
+            this.cmb_SelectPrintTemplate.SelectedValueChanged += Cmb_SelectPrintTemplate_SelectedValueChanged;
             this.cmb_Language.SelectedValueChanged += new System.EventHandler(this.cmb_Language_SelectedValueChanged);
             this.btn_EditTemplates.Click += new System.EventHandler(this.btn_EditTemplates_Click);
             this.cmb_SelectPrinter.TextChanged += new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
             this.btn_SelectPrinter.Click += new System.EventHandler(this.btn_SelectPrinter_Click);
         }
 
+  
         private void RemoveHandlers()
         {
+            this.cmb_SelectPrintTemplate.SelectedValueChanged -= Cmb_SelectPrintTemplate_SelectedValueChanged;
             this.cmb_Language.SelectedValueChanged -= new System.EventHandler(this.cmb_Language_SelectedValueChanged);
             this.btn_EditTemplates.Click -= new System.EventHandler(this.btn_EditTemplates_Click);
             this.cmb_SelectPrinter.TextChanged -= new System.EventHandler(this.cmb_SelectPrinter_TextChanged);
@@ -623,7 +626,8 @@ namespace TangentaPrint
             }
         }
 
-        private void cmb_SelectPrintTemplate_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void Cmb_SelectPrintTemplate_SelectedValueChanged(object sender, EventArgs e)
         {
             Init();
             if (SettingsChanged != null)

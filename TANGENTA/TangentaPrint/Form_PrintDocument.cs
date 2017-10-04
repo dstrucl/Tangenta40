@@ -161,6 +161,7 @@ namespace TangentaPrint
             Init();
         }
 
+  
         private void Init()
         {
             usrc_SelectPrintTemplate_Init();
