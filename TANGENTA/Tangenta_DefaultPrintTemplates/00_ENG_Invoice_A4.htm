@@ -1,4 +1,8 @@
 ﻿<style>
+    html {
+        background-color: gray;
+    }
+
     body {
         background-color: gray;
         margin: 0;
@@ -11,16 +15,15 @@
         margin-bottom: 0.5cm;
         margin-left: 0.5cm;
         box-shadow: 0 0 0.1cm rgba(0,0,0,0.5);
-width: 21cm;
+        width: 21cm;
         height: 29.7cm;
         overflow: hidden;
         background-color: white;
-        padding-left:1cm;
-        padding-right:1cm;
-     }
+        padding-left: 1cm;
+        padding-right: 1cm;
+    }
 
-    div.pagenumbers
-    {
+    div.pagenumbers {
         font-size: 0.3cm;
     }
 
@@ -39,126 +42,143 @@ width: 21cm;
         }
 
     h1 {
-        border-top: 1cm #5D6975;
         border-bottom: 0.1cm solid #5D6975;
         color: #5D6975;
-        font-size: 2.4em;
+        font-size: 2em;
         line-height: 1.4em;
         font-weight: normal;
-        text-align: center;
-        margin: 0 0 1cm 0;
-        background: url(dimension.png);
+        text-align: left;
+        margin: 0.3cm 0 0.2cm 0;
+    }
+
+    #customer_company td {
+        vertical-align: top;
     }
 
     #project {
         float: left;
-        border-color: green;
-        border-style: solid;
     }
 
-    #project span {
-        color: #5D6975;
-        text-align: right;
-        width: 52px;
-        margin-right: 0.5cm;
-        display: inline-block;
-        font-size: 0.8em;
-    }
+        #project span {
+            color: black;
+            text-align: right;
+            width: 52px;
+            margin-right: 0.5cm;
+            display: inline-block;
+            font-size: 1em;
+        }
 
     #company {
         float: right;
         text-align: right;
-        border-color: red;
-        border-style: solid;
     }
 
-    #project div,
-    #company div {
-        white-space: nowrap;
-    }
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
 
     .tableitems {
         width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0.5cm;
+        border-spacing: 0.01cm;
+        font-size: 0.2cm;
         margin-bottom: 1cm;
     }
 
 
         .tableitems th,
-        .tableitems td
-{
-    text-align: center;
-}
+        .tableitems td {
+            text-align: left;
+        }
 
-        .tableitems th
-{
-    padding: 0.3cm 1cm;
-    color: #5D6975;
-            border-bottom: 0.05cm solid #C1CED9;
-            white-space: nowrap;
-    font-weight: normal;
-}
+        .tableitems th {
+            color: black;
+            padding: 0.1cm;
+            border-bottom: 0.05cm solid black;
+            white-space: wrap;
+            word-wrap: wrap;
+            font-weight: normal;
+            text-align: left;
+            font-size: 0.2cm;
+        }
+
 
         .tableitems.service,
         .tableitems.desc {
             text-align: left;
         }
 
-        .tableitems td
-{
-    padding: 1cm;
-    text-align: right;
-}
+        .tableitems td {
+            padding: 0.1cm;
+            text-align: right;
+            font-size: 0.25cm;
+        }
 
-# tableitems td.service,
-# tableitems td.desc {
-vertical-align: top;
+    # tableitems td.service,
+    # tableitems td.desc {
+        vertical-align: top;
     }
 
-    .tableitems td.unit,
-    .tableitems td.qty,
-    .tableitems td.total {
-    font - size: 0.3cm;
-}
 
-    .tableitems td.grand
-{
-    border-top: 0.1cm solid #5D6975;
+    .tableitems td.grand {
+        border-top: 0.1cm solid #5D6975;
     }
 
-# notices .notice {
-color: #5D6975;
+    # notices .notice {
+        color: #5D6975;
         font-size: 0.8cm;
     }
 
-    
-</style>
+    .myORG_Logo {
+        padding-left: 50px;
+        height: 80px;
+        width: 160px;
+        ;
+    }
 
+    .methodofpayment {
+        padding: 0.2cm;
+    }
+
+    .paymenttobankaccount {
+        padding: 0.2cm;
+    }
+
+    .QRImage {
+        width: 128px;
+        height: 128px;
+    }
+</style>
 
 <html>
 <body>
     <page>
-                <div class="pagenumbers">page 1 of 3</div>
-                <h1>INVOICE 3-2-1</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>BUYER</th>
-                            <th>SELLER</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div id = "project" >
-                                    < div >< span > PROJECT </ span > Website development</div>
-                                    <div><span>CLIENT</span> John Doe</div>
-                                    <div><span>ADDRESS</span> 796 Silver Harbour, TX 79273, US</div>
-                                    <div><span>EMAIL</span> <a href = "mailto:john@example.com" > john@example.com</a></div>
-                                    <div><span>DATE</span> August 17, 2015</div>
-                                    <div><span>DUE DATE</span> September 17, 2015</div>
-                                </div>
+                <div class="pagenumbers">page (@@PageNumber@@) of (@@NumberOfPages@@)</div>
+                <div class="invoicetop">
+                    <h1>
+                       Invoice:(@@My_Organisation_Office@@)-(@@Invoice_Cashier@@)-(@@Invoice_Number@@) (@@Invoice_Storno@@)
+                        <img class="myORG_Logo" alt="Embedded Image" src="data:image/png;base64,(@@Customer_Organisation_Logo@@)" />
+                    </h1>
+                    <table id="customer_company">
+                        <thead>
+                            <tr>
+                                <th>BUYER</th>
+                                <th>SELLER</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div id="project">
+                                        <div>(@@Customer_Organisation_Name@@)(@@Customer_Person_FirstName@@) (@@Customer_Person_LastName@@)</div>
+                                        <div>(@@Customer_Organisation_Address_Street@@)(@@Customer_Person_Address_Street@@) (@@Customer_Organisation_Address_HouseNumber@@)(@@Customer_Person_Address_HouseNumber@@)</div>
+                                        <div>(@@Customer_Organisation_Address_ZIP@@)(@@Customer_Person_Address_ZIP@@) (@@Customer_Organisation_Address_City@@)(@@Customer_Person_Address_City@@)</div>
+                                        <div><a href="mailto:(@@Customer_Organisation_Email@@)(@@Customer_Person_Email@@)">(@@Customer_Organisation_Email@@)(@@Customer_Person_Email@@)</a></div>
+                                        <div><b>Invoice time.:</b></span>(@@Invoice_DateOfIssue@@)</div>
+                                        <div><b>Payment deadline:</b></span>(@@Invoice_DateOfMaturity@@)</div>
+                                    </div>
+                                  
+</div>
                             </td>
                             <td>
                                 <div id = "company" class="clearfix">

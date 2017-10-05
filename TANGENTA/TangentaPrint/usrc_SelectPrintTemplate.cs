@@ -27,18 +27,21 @@ namespace TangentaPrint
 
     public partial class usrc_SelectPrintTemplate : UserControl
     {
-        object dataSource;
-        string displayMember, valueMember;
+      
 
         public delegate void delagate_SettingsChanged();
         public event delagate_SettingsChanged SettingsChanged = null;
-        public byte_array_v Doc_v = null;
-        private Printer m_SelectedPrinter = null;
 
-        string_v Page_Name_v = null;
-        string_v Page_Description_v = null;
-        decimal_v Page_Width_v = null;
-        decimal_v Page_Height_v = null;
+#region PUBLIC PROPERTIES
+
+        public byte_array_v Doc_v
+        {
+            get { return m_doc_v; }
+            set
+            {
+                m_doc_v = value;
+            }
+        }
 
 
         public Printer SelectedPrinter
@@ -50,45 +53,15 @@ namespace TangentaPrint
             }
         }
 
-        private Printer GetPrinter(string printer_name)
-        {
-            return new Printer(printer_name);
-        }
-
-        public DataTable dtTemplates = null;
-
-        public InvoiceData m_InvoiceData = null;
-
-
-
-
-
         public string f_doc_TemplateName
         {
             get { return cmb_SelectPrintTemplate.Text; }
-            set { string sname = value;
-                  cmb_SelectPrintTemplate.Text = sname;
-                }
-        }
-        public long_v Doc_Type_ID_v { get
+            set
             {
-              if (m_InvoiceData.IsDocInvoice)
-                {
-                    return GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID;
-                }
-               else if (m_InvoiceData.IsDocProformaInvoice)
-                {
-                    return GlobalData.doc_type_definitions.HTMLPrintTemplate_Proforma_Invoice_doc_type_ID;
-                }
-              else
-                {
-                    LogFile.Error.Show("ERROR:TangentaPrint:usrc_SelectprintTemplate:Default_DocType_ID_v:Unknown doc type!");
-                    return null;
-                }
+                string sname = value;
+                cmb_SelectPrintTemplate.Text = sname;
             }
         }
-
-        private long_v m_Doc_Page_Type_ID_v = null;
 
         public long_v Doc_Page_Type_ID_v
         {
@@ -98,7 +71,67 @@ namespace TangentaPrint
             }
         }
 
-        public long_v Default_Language_ID_v {
+        public long_v Doc_Type_ID_v
+        {
+            get
+            {
+                if (m_InvoiceData.IsDocInvoice)
+                {
+                    return GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID;
+                }
+                else if (m_InvoiceData.IsDocProformaInvoice)
+                {
+                    return GlobalData.doc_type_definitions.HTMLPrintTemplate_Proforma_Invoice_doc_type_ID;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:TangentaPrint:usrc_SelectprintTemplate:Default_DocType_ID_v:Unknown doc type!");
+                    return null;
+                }
+            }
+        }
+
+        public string f_doc_xDocument_Hash
+        {
+            get
+            {
+                return m_f_doc_xDocument_Hash;
+            }
+            set
+            {
+                m_f_doc_xDocument_Hash = value;
+            }
+        }
+
+        public string_v f_doc_TemplateDescription
+        {
+            get
+            {
+                if (this.txt_Description.Text.Length == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return new string_v(this.txt_Description.Text);
+                }
+            }
+            set
+            {
+                string_v desc_v = value;
+                if (desc_v != null)
+                {
+                    this.txt_Description.Text = desc_v.v;
+                }
+                else
+                {
+                    this.txt_Description.Text = "";
+                }
+            }
+        }
+
+        public long_v Default_Language_ID_v
+        {
             get
             {
                 return GlobalData.language_definitions.Language_ID_v;
@@ -115,68 +148,30 @@ namespace TangentaPrint
 
         }
 
-    
-        private string m_f_doc_xDocument_Hash = null;
-        public string f_doc_xDocument_Hash
+        public bool f_doc_bActive
         {
-            get
-            {
-                return m_f_doc_xDocument_Hash;
-            }
-            set
-            {
-                m_f_doc_xDocument_Hash = value;
-            }
+            get { return m_bActive; }
+            set { m_bActive = value; }
         }
-
-        public string_v f_doc_TemplateDescription {
-            get
-              {
-                if (this.txt_Description.Text.Length == 0)
-                {
-                    return null;
-                }
-                else
-                {
-                    return new string_v(this.txt_Description.Text);
-                }
-              }
-            set
-            {
-                string_v desc_v = value;
-                if (desc_v != null)
-                {
-                    this.txt_Description.Text = desc_v.v;
-                }
-                else
-                {
-                    this.txt_Description.Text = "";
-                }
-            }
-        }
-
-        private bool m_bActive = false;
-
-        public bool f_doc_bActive {
-             get { return m_bActive; }
-             set { m_bActive = value; }
-        }
-
-        private bool m_bCompressed = false;
 
         public bool f_doc_bCompressed
         {
             get { return m_bCompressed; }
-            set { m_bCompressed = value;
-                 }
+            set
+            {
+                m_bCompressed = value;
+            }
         }
 
-        public bool f_doc_bDefault { get
+        public bool f_doc_bDefault
+        {
+            get
             {
                 return chk_Default.Checked;
             }
             set { chk_Default.Checked = value; }
         }
+
 
         public string f_doc_LastTemplateName
         {
@@ -195,7 +190,7 @@ namespace TangentaPrint
                 }
                 else if (m_InvoiceData.IsDocProformaInvoice)
                 {
-                    if (Properties.Settings.Default.DocProformaInvoicePrintTemplate.Length>0)
+                    if (Properties.Settings.Default.DocProformaInvoicePrintTemplate.Length > 0)
                     {
                         return Properties.Settings.Default.DocProformaInvoicePrintTemplate;
                     }
@@ -212,6 +207,33 @@ namespace TangentaPrint
 
             }
         }
+        #endregion
+
+
+        private byte_array_v m_doc_v = null;
+        private string m_f_doc_xDocument_Hash = null;
+        private Printer m_SelectedPrinter = null;
+
+        string_v Page_Name_v = null;
+        string_v Page_Description_v = null;
+        decimal_v Page_Width_v = null;
+        decimal_v Page_Height_v = null;
+
+        private DataTable dtTemplates = null;
+
+        private InvoiceData m_InvoiceData = null;
+
+        object dataSource;
+        string displayMember, valueMember;
+        private Printer GetPrinter(string printer_name)
+        {
+            return new Printer(printer_name);
+        }
+
+
+        private long_v m_Doc_Page_Type_ID_v = null;
+        private bool m_bActive = false;
+        private bool m_bCompressed = false;
 
         public long_v f_doc_DocType_ID_v { get; internal set; }
 
@@ -354,12 +376,8 @@ namespace TangentaPrint
             this.btn_SelectPrinter.Click -= new System.EventHandler(this.btn_SelectPrinter_Click);
         }
 
-        private void SetValues(DataRow dr)
+        private bool ReadPrintDocumentTemplate(long doc_ID)
         {
-            f_doc_bDefault = (bool)dr["bDefault"];
-            f_doc_TemplateName = (string)dr["Name"];
-            f_doc_TemplateDescription = tf.set_string(dr["Description"]);
-            long doc_ID = (long)dr["ID"];
             string_v Name_v = null;
             string_v Description_v = null;
             byte_array_v xDoc_v = null;
@@ -368,7 +386,7 @@ namespace TangentaPrint
             long_v doc_page_type_ID_v = null;
             long_v Language_ID_v = null;
             bool_v Compressed_v = null;
-            switch (f_doc.GetTemplate(doc_ID,ref Name_v,ref Description_v, ref xDoc_v, ref xDoc_Hash_v, ref DocType_ID_v, ref doc_page_type_ID_v, ref Language_ID_v, ref Compressed_v))
+            switch (f_doc.GetTemplate(doc_ID, ref Name_v, ref Description_v, ref xDoc_v, ref xDoc_Hash_v, ref DocType_ID_v, ref doc_page_type_ID_v, ref Language_ID_v, ref Compressed_v))
             {
                 case f_doc.eGetPrintDocumentTemplateResult.OK:
                     //f_doc_DocType_ID_v = DocType_ID_v;
@@ -384,9 +402,9 @@ namespace TangentaPrint
                         f_doc_bCompressed = false;
                     }
                     Doc_v = xDoc_v;
-                    if (doc_page_type_ID_v!=null)
+                    if (doc_page_type_ID_v != null)
                     {
-                        if (f_doc_page_type.Get(doc_page_type_ID_v.v,ref Page_Name_v,ref Page_Description_v,ref Page_Width_v,ref Page_Height_v))
+                        if (f_doc_page_type.Get(doc_page_type_ID_v.v, ref Page_Name_v, ref Page_Description_v, ref Page_Width_v, ref Page_Height_v))
                         {
                             if (Page_Description_v != null)
                             {
@@ -395,11 +413,11 @@ namespace TangentaPrint
                         }
                     }
 
-                    if (Description_v!=null)
+                    if (Description_v != null)
                     {
                         this.txt_Description.Text = Description_v.v;
                     }
-                    break;
+                    return true;
 
                 default:
                     Doc_v = null;
@@ -408,8 +426,18 @@ namespace TangentaPrint
                     f_doc_xDocument_Hash = null;
                     f_doc_bCompressed = false;
                     //f_doc_Language_ID_v = null;
-                    break;
+                    return false;
             }
+        }
+
+        private void SetValues(DataRow dr)
+        {
+            f_doc_bDefault = (bool)dr["bDefault"];
+            f_doc_TemplateName = (string)dr["Name"];
+            f_doc_TemplateDescription = tf.set_string(dr["Description"]);
+            long doc_ID = (long)dr["ID"];
+            ReadPrintDocumentTemplate(doc_ID);
+
         }
 
 
@@ -629,10 +657,16 @@ namespace TangentaPrint
 
         private void Cmb_SelectPrintTemplate_SelectedValueChanged(object sender, EventArgs e)
         {
-            Init();
-            if (SettingsChanged != null)
+            long doc_ID = (long)this.cmb_SelectPrintTemplate.SelectedValue;
+            if (doc_ID >= 0)
             {
-                SettingsChanged();
+                if (ReadPrintDocumentTemplate(doc_ID))
+                {
+                    if (SettingsChanged != null)
+                    {
+                        SettingsChanged();
+                    }
+                }
             }
         }
 

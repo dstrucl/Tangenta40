@@ -39,6 +39,7 @@ namespace TangentaPrint
         private long durationType;
         private long duration;
         private Image m_image_for_btn_exit = null;
+
         public Form_PrintDocument(InvoiceData xInvoiceData,Image image_for_btn_exit)
         {
             InitializeComponent();
@@ -80,6 +81,18 @@ namespace TangentaPrint
                 lngRPM.ss_Exit.Text(btn_Exit);
             }
 
+        }
+
+
+        private void Form_SelectTemplate_Load(object sender, EventArgs e)
+        {
+            Init();
+        }
+
+
+        private void Init()
+        {
+            usrc_SelectPrintTemplate_Init();
         }
 
         private void Chk_EditTemplate_CheckedChanged(object sender, EventArgs e)
@@ -156,16 +169,7 @@ namespace TangentaPrint
         }
 
 
-        private void Form_SelectTemplate_Load(object sender, EventArgs e)
-        {
-            Init();
-        }
 
-  
-        private void Init()
-        {
-            usrc_SelectPrintTemplate_Init();
-        }
 
         private void usrc_SelectPrintTemplate_Init()
         {
@@ -236,7 +240,8 @@ namespace TangentaPrint
 
         private void M_usrc_SelectPrintTemplate_SettingsChanged()
         {
-            //usrc_SelectPrintTemplate_Init();
+            m_usrc_Invoice_Preview.Init(m_usrc_SelectPrintTemplate.Doc_v.v, m_usrc_SelectPrintTemplate.SelectedPrinter, m_InvoiceData, paymentType, sPaymentMethod, sAmountReceived, sToReturn, issue_time);
+            this.textEditorControl1.Text = m_usrc_Invoice_Preview.html_doc_template_text;
         }
 
         private void m_usrc_Invoice_Preview_Exit()
