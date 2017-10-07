@@ -100,10 +100,11 @@ namespace TangentaPrint
                 {
                     try
                     {
+                        bool bError = false;
                         char[] chars2 = Encoding.Unicode.GetChars(m_Doc);
                         string shtml_doc_text = new string(chars2);
                         HTML_PrintingElement_List HTML_RollPaperPrintingOutput = null;
-                        string s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_RollPaperPrintingOutput);
+                        string s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_RollPaperPrintingOutput, ref bError);
                         this.htmlPanel1.Text = s;
                         return s;
                     }
@@ -122,13 +123,14 @@ namespace TangentaPrint
             {
                 try
                 {
+                    bool bError = false;
                     HTML_PrintingElement_List HTML_RollPaperPrintingOutput = null;
                     string shtml_doc_text = value;
                     string s = null;
                     if (m_InvoiceData != null)
                     {
 
-                        s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text,ref HTML_RollPaperPrintingOutput);
+                        s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text,ref HTML_RollPaperPrintingOutput, ref bError);
                     }
                     else
                     {
@@ -183,24 +185,27 @@ namespace TangentaPrint
 
                     if (m_InvoiceData != null)
                     {
-                        s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_Printing_ElementList);
-
-                        TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
-
-                        // now get roll paper layout
-                        this.htmlPanel1.GetPages(s, ref pglayout);
-
-                        // set layout of elements
-                        HTML_Printing_ElementList.SetLayout(pglayout);
-
-                        if (pglayout.OnePageSize(xPageHeight, 0, 0))
+                        bool bError = false;
+                        s = m_InvoiceData.CreateHTML_PrintingElementList(ref shtml_doc_text, ref HTML_Printing_ElementList, ref bError);
+                        if (!bError)
                         {
-                            s = m_InvoiceData.InsertPageNumbers(s);
-                        }
-                        else
-                        {
-                            s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_Printing_ElementList, xPageHeight);
-                            s = m_InvoiceData.InsertPageNumbers(s);
+                            TheArtOfDev.HtmlRenderer.Core.PageLayout pglayout = null;
+
+                            // now get roll paper layout
+                            this.htmlPanel1.GetPages(s, ref pglayout);
+
+                            // set layout of elements
+                            HTML_Printing_ElementList.SetLayout(pglayout);
+
+                            if (pglayout.OnePageSize(xPageHeight, 0, 0))
+                            {
+                                s = m_InvoiceData.InsertPageNumbers(s);
+                            }
+                            else
+                            {
+                                s = m_InvoiceData.CreateHTML_PagePaperPrintingOutput(HTML_Printing_ElementList, xPageHeight);
+                                s = m_InvoiceData.InsertPageNumbers(s);
+                            }
                         }
                         this.htmlPanel1.Text = s;
                         return true;

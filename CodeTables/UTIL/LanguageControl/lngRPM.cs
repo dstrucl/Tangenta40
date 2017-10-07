@@ -297,7 +297,7 @@ namespace LanguageControl
         public static ltext s_Shops_In_Use = new ltext("Shops in use", "Prodajalne v uporabi");
 
         public static ltext s_chk_A_in_use =  new ltext("Shop A in use", "Prodajalna A v uporabi");
-        public static ltext s_chk_B_in_use =  new ltext("Shop C in use", "Prodajalna B v uporabi");
+        public static ltext s_chk_B_in_use =  new ltext("Shop B in use", "Prodajalna B v uporabi");
         public static ltext s_chk_C_in_use =  new ltext("Shop C in use", "Prodajalna C v uporabi");
 
         public static ltext s_lbl_ShopA_Name = new ltext("Shop A Name", "Ime prodajalne A");

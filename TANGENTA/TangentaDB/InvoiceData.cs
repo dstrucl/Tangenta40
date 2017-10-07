@@ -1687,8 +1687,9 @@ namespace TangentaDB
         }
 
 
-        public string CreateHTML_PrintingElementList(ref string html_doc_template, ref HTML_PrintingElement_List PrintingElement_List)
+        public string CreateHTML_PrintingElementList(ref string html_doc_template, ref HTML_PrintingElement_List PrintingElement_List, ref bool bError)
         {
+            bError = false;
             if (PrintingElement_List == null)
             {
                 PrintingElement_List = new HTML_PrintingElement_List();
@@ -1888,7 +1889,8 @@ namespace TangentaDB
             }
             else
             {
-                return "ERROR:<style> not found !";
+                bError = true;
+                return "ERROR:&lt;style&gt; not found !";
             }
 
 
@@ -1910,7 +1912,8 @@ namespace TangentaDB
             }
             else
             {
-                return "ERROR:<div class=\"invoicetop\"> not found !";
+                bError = true;
+                return "ERROR:&lt;div class=\"invoicetop\"&gt; not found !";
             }
 
 
@@ -1928,7 +1931,8 @@ namespace TangentaDB
                 }
                 else
                 {
-                    return "ERROR:<thead> not found for <table class = \"tableitems\">!";
+                    bError = true;
+                    return "ERROR:&lt;thead&gt; not found for &ltable class = \"tableitems\"&gt;!";
                 }
                 int iStartIndexOf_tr = -1;
                 int iEndIndexOf_tr = -1;
@@ -2014,7 +2018,8 @@ namespace TangentaDB
                     }
                     else
                     {
-                        return "ERROR:<tr class=\"totalneto\"> not found !";
+                        bError = true;
+                        return "ERROR:&lt;tr class=\"totalneto\"&gt; not found !";
                     }
 
 
@@ -2059,13 +2064,17 @@ namespace TangentaDB
                             }
                             else
                             {
-                                return "ERROR:<tr class=\"grandtotal\"> not found !";
+                                bError = true;
+                                return "ERROR:&lt;tr class=\"grandtotal\"&gt; not found !";
                             }
                             if (IsDocInvoice)
                             {
-                                html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
-                                html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
-                                html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+                                if (AddOnDI.b_FVI_SLO)
+                                {
+                                    html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Replace(html_doc_template);
+                                    html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueMessageID.Replace(html_doc_template);
+                                    html_doc_template = this.AddOnDI.m_FURS.Invoice_FURS_Token.tQR.Replace(html_doc_template);
+                                }
                             }
                             int iStartIndexOf_InvoiceBottom = -1;
                             int iEndIndexOf_InvoiceBottom = -1;
@@ -2079,28 +2088,33 @@ namespace TangentaDB
                             }
                             else
                             {
-                                return "ERROR:<div class=\"invoicebottom\"> not found !";
+                                bError = true;
+                                return "ERROR:&lt;div class=\"invoicebottom\"&gt; not found !";
                             }
                             return html_doc_template;
                         }
                         else
                         {
-                            return "ERROR:itr_taxsum_end <= 0";
+                            bError = true;
+                            return "ERROR:itr_taxsum_end &lt;= 0";
                         }
                     }
                     else
                     {
-                        return "ERROR:itr_taxsum_start <= 0";
+                        bError = true;
+                        return "ERROR:itr_taxsum_start &lt;= 0";
                     }
                 }
                 else
                 {
-                    return "ERROR:<tr class=\"row\"> not found !";
+                    bError = true;
+                    return "ERROR:&lt;tr class=\"row\"&gt; not found !";
                 }
             }
             else
             {
-                return "ERROR:<table class=\"tableitems\"> not found !";
+                bError = true;
+                return "ERROR:&lt;table class=\"tableitems\"&gt; not found !";
             }
         }
 

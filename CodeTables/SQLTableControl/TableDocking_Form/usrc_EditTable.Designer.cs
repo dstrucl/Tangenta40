@@ -65,6 +65,7 @@
             this.usrc_EditRow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usrc_EditRow.GetRandomData = true;
             this.usrc_EditRow.Location = new System.Drawing.Point(0, 0);
+            this.usrc_EditRow.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_EditRow.Name = "usrc_EditRow";
             this.usrc_EditRow.SelectionButtonVisible = true;
             this.usrc_EditRow.Size = new System.Drawing.Size(450, 622);
@@ -103,8 +104,7 @@
             // 
             // usrc_EditTable
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.splitContainer1);
             this.Name = "usrc_EditTable";
             this.Size = new System.Drawing.Size(943, 626);
