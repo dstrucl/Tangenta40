@@ -123,8 +123,8 @@ namespace TangentaPrint
             this.m_usrc_SelectPrintTemplate.f_doc_bActive = false;
             this.m_usrc_SelectPrintTemplate.f_doc_bCompressed = false;
             this.m_usrc_SelectPrintTemplate.f_doc_bDefault = false;
-            this.m_usrc_SelectPrintTemplate.f_doc_TemplateDescription = null;
-            this.m_usrc_SelectPrintTemplate.f_doc_TemplateName = "";
+            this.m_usrc_SelectPrintTemplate.doc_TemplateDescription = null;
+            this.m_usrc_SelectPrintTemplate.doc_TemplateName = "";
             this.m_usrc_SelectPrintTemplate.f_doc_xDocument_Hash = null;
             this.m_usrc_SelectPrintTemplate.Location = new System.Drawing.Point(2, 2);
             this.m_usrc_SelectPrintTemplate.Name = "m_usrc_SelectPrintTemplate";

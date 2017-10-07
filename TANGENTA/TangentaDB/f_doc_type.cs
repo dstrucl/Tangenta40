@@ -84,14 +84,46 @@ namespace TangentaDB
                     }
                     else
                     {
-                        LogFile.Error.Show("ERROR:f_doc_page_type:Get:sql=" + sql + "\r\nErr=" + Err);
+                        LogFile.Error.Show("ERROR:f_doc_type:Get:sql=" + sql + "\r\nErr=" + Err);
                         return false;
                     }
                 }
             }
             else
             {
-                LogFile.Error.Show("ERROR:f_doc_page_type:Get:sql=" + sql + "\r\nErr=" + Err);
+                LogFile.Error.Show("ERROR:f_doc_type:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+        public static bool Get(long doc_type_ID,ref string_v Name_v, ref string_v Description_v)
+        {
+            string Err = null;
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+            //Table doc_page_type
+
+
+            string spar_doc_type_ID = "@par_doc_type_ID";
+            SQL_Parameter par_doc_type_ID = new SQL_Parameter(spar_doc_type_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, doc_type_ID);
+            lpar.Add(par_doc_type_ID);
+
+
+            string sql = "select Name,Description from doc_type where ID = " + spar_doc_type_ID;
+
+            Name_v = null;
+            Description_v = null;
+            DataTable dt = new DataTable();
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    Name_v = tf.set_string(dt.Rows[0]["Name"]);
+                    Description_v = tf.set_string(dt.Rows[0]["Description"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_doc_type:Get:sql=" + sql + "\r\nErr=" + Err);
                 return false;
             }
         }

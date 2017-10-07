@@ -107,6 +107,9 @@ namespace TangentaPrint
                     {
                         splitContainer1.Panel2Collapsed = false;
                         m_usrc_Invoice_Preview.btn_Tokens.Visible = true;
+                        btn_SaveTemplate.Visible = true;
+                        btn_Refresh.Visible = true;
+
                     }
                     else
                     {
@@ -114,6 +117,8 @@ namespace TangentaPrint
                         chk_EditTemplate.Checked = false;
                         splitContainer1.Panel2Collapsed = true;
                         chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
+                        btn_SaveTemplate.Visible = false;
+                        btn_Refresh.Visible = false;
                     }
                 }
                 else
@@ -122,11 +127,16 @@ namespace TangentaPrint
                     chk_EditTemplate.Checked = false;
                     splitContainer1.Panel2Collapsed = true;
                     chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
+                    btn_SaveTemplate.Visible = false;
+                    btn_Refresh.Visible = false;
+
                 }
             }
             else
             {
                 splitContainer1.Panel2Collapsed = true;
+                btn_SaveTemplate.Visible = false;
+                btn_Refresh.Visible = false;
             }
         }
 
@@ -227,7 +237,7 @@ namespace TangentaPrint
 
                     XMessage.Box.Show(this, lMsg, "\r\n" + sMsg_paper + ",\r\n" + sDocMsg + ",\r\n" + sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                     m_usrc_Invoice_Preview.Init(m_InvoiceData);
-                    m_usrc_SelectPrintTemplate.f_doc_TemplateName = "";
+                    m_usrc_SelectPrintTemplate.doc_TemplateName = "";
                     break;
 
                 case f_doc.eGetPrintDocumentTemplateResult.ERROR:
@@ -261,8 +271,6 @@ namespace TangentaPrint
 
         private void textEditorControl1_DocumentChanged(object sender, DigitalRune.Windows.TextEditor.Document.DocumentEventArgs e)
         {
-            btn_SaveTemplate.Visible = true;
-            btn_Refresh.Visible = true;
 
         }
 
@@ -276,64 +284,116 @@ namespace TangentaPrint
 
         private void SaveTemaplate()
         {
-            //long Doc_ID = -1;
-            //switch (f_doc.Exists(m_usrc_SelectPrintTemplate.f_doc_TemplateName, GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID, ref Doc_ID))
-            //{
-            //    case f_doc.ExistsResult.EXISTS:
-            //        if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            //        {
-            //            this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
-            //            m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
-            //            f_doc.Update(Doc_ID,
-            //                         m_usrc_SelectPrintTemplate.f_doc_TemplateName,
-            //                         m_usrc_SelectPrintTemplate.f_doc_TemplateDescription,
-            //                         m_usrc_SelectPrintTemplate.Doc_v.v,
-            //                         m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v,
-            //                         m_usrc_SelectPrintTemplate.f_doc_page_type_ID_v,
-            //                         m_usrc_SelectPrintTemplate.f_doc_Language_ID_v,
-            //                         m_usrc_SelectPrintTemplate.f_doc_bCompressed,
-            //                         m_usrc_SelectPrintTemplate.f_doc_bActive,
-            //                         m_usrc_SelectPrintTemplate.f_doc_bDefault);
+            long Doc_ID = -1;
+            string_v desc_v = m_usrc_SelectPrintTemplate.doc_TemplateDescription;
+            string template_description = "";
+            if (desc_v!=null)
+            {
+                template_description = desc_v.v;
+            }
+            string s_Msg = "\r\n\r\n" + lngRPM.s_doc_TemplateName.s + ":" + m_usrc_SelectPrintTemplate.doc_TemplateName + "\r\n" +
+                                  lngRPM.s_doc_TemplateDescription.s + ":" + template_description + "\r\n" +
+                                  lngRPM.s_doc_Type + ":" + Get_doc_Type_Name(this.m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v) + "\r\n" +
+                                  lngRPM.s_doc_Page_Type + ":" + Get_doc_Page_Type(this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID_v) + "\r\n" +
+                                  lngRPM.s_doc_TemplateLanguage.s + ":" + Get_doc_TemplateLanguage(this.m_usrc_SelectPrintTemplate.Language_ID_v);
 
-            //        }
-            //        break;
-            //    case f_doc.ExistsResult.NOT_FOUND:
-            //        if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_SaveYesNo, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            //        {
-            //            long_v doc_type_ID_v = null;
-            //            if (m_InvoiceData.IsDocInvoice)
-            //            {
-            //                doc_type_ID_v = GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID;
-            //            }
-            //            else if (m_InvoiceData.IsDocInvoice)
-            //            {
-            //                doc_type_ID_v = GlobalData.doc_type_definitions.HTMLPrintTemplate_Proforma_Invoice_doc_type_ID;
-            //            }
+            switch (f_doc.Exists(m_usrc_SelectPrintTemplate.doc_TemplateName, GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID, ref Doc_ID))
+            {
+                case f_doc.ExistsResult.EXISTS:
 
-            //            if (doc_type_ID_v != null)
-            //            {
-            //                //switch (m_usrc_SelectPrintTemplate.f_doc_PageOrientation)
-            //                //{
-            //                //    case f_doc.PageOreintation.PORTRAIT:
-            //                //        break;
-            //                //    case f_doc.PageOreintation.LANDSCAPE:
-            //                //        break;
-            //                //}
-            //                //f_doc.Get(m_usrc_SelectPrintTemplate.TemplateName,)
-            //            }
-            //            else
-            //            {
-            //                LogFile.Error.Show("ERROR:TangentaPrint:Form_PrintDocument:SaveTemaplate:doc_type_ID_v==null");
-            //                return;
-            //            }
+                   
 
+                    if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo,s_Msg, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
+                        m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
+                        f_doc.Update(Doc_ID,
+                                     m_usrc_SelectPrintTemplate.doc_TemplateName,
+                                     m_usrc_SelectPrintTemplate.doc_TemplateDescription,
+                                     m_usrc_SelectPrintTemplate.Doc_v.v,
+                                     m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v,
+                                     this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID_v,
+                                     this.m_usrc_SelectPrintTemplate.Language_ID_v,
+                                     m_usrc_SelectPrintTemplate.f_doc_bCompressed,
+                                     m_usrc_SelectPrintTemplate.f_doc_bActive,
+                                     m_usrc_SelectPrintTemplate.f_doc_bDefault);
 
+                    }
+                    break;
+                case f_doc.ExistsResult.NOT_FOUND:
+                    if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_SaveYesNo, s_Msg,"?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
+                        m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
+                        if (f_doc.Get(m_usrc_SelectPrintTemplate.doc_TemplateName,
+                                        m_usrc_SelectPrintTemplate.doc_TemplateDescription,
+                                        m_usrc_SelectPrintTemplate.Doc_v.v,
+                                        m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v,
+                                        this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID_v,
+                                        this.m_usrc_SelectPrintTemplate.Language_ID_v,
+                                        m_usrc_SelectPrintTemplate.f_doc_bCompressed,
+                                        m_usrc_SelectPrintTemplate.f_doc_bActive,
+                                        m_usrc_SelectPrintTemplate.f_doc_bDefault,
+                                        true,
+                                        ref Doc_ID))
+                        {
+                            m_usrc_SelectPrintTemplate.Init();
+                        }
+                    }
+                    break;
+            
+            }
+        }
 
-            //            //f_doc.Get(m_usrc_SelectPrintTemplate.TemplateName,)
-            //        }
-            //        break;
+        private string Get_doc_TemplateLanguage(long_v language_ID_v)
+        {
+            string template_language_name = "?";
+            string_v Name_v = null;
+            string_v Description_v = null;
+            int_v Index_v = null;
+            if (language_ID_v != null)
+            {
+                if (f_Language.Get(language_ID_v.v,ref Name_v, ref Description_v,ref Index_v))
+                {
+                    template_language_name = Name_v.v;
+                }
+            }
+            return template_language_name;
+        }
 
-            //}
+        private string Get_doc_Page_Type(long_v doc_Page_Type_ID_v)
+        {
+            string_v Name_v = null;
+            string doc_page_type_name = "?";
+            string_v Description_v = null;
+            decimal_v Width_v = null;
+            decimal_v Height_v = null;
+            if (doc_Page_Type_ID_v != null)
+            {
+                if (f_doc_page_type.Get(doc_Page_Type_ID_v.v,ref Name_v,ref Description_v,ref Width_v,ref Height_v))
+                {
+                    if (Name_v!=null)
+                    {
+                        doc_page_type_name = Name_v.v;
+                    }
+                }
+            }
+            return doc_page_type_name;
+        }
+
+        private string Get_doc_Type_Name(long_v f_doc_DocType_ID_v)
+        {
+            string_v Name_v = null;
+            string doc_type_name = "?";
+            string_v Description_v = null;
+            if (f_doc_DocType_ID_v != null)
+            {
+                if (f_doc_type.Get(f_doc_DocType_ID_v.v,ref Name_v,ref Description_v))
+                {
+                    doc_type_name = Name_v.v;
+                }
+            }
+            return doc_type_name;
         }
 
         private void Form_PrintDocument_Shown(object sender, EventArgs e)

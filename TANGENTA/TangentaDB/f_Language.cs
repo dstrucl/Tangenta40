@@ -72,12 +72,43 @@ namespace TangentaDB
                 return false;
             }
         }
+ 
+        public static bool Get(long Language_ID, ref string_v Name_v,ref string_v Description_v,ref int_v LanguageIndex_v)
+        {
+            List<SQL_Parameter> lpar = new List<SQL_Parameter>();
+
+            //Table Language
+            string spar_Language_ID = "@par_Language_ID";
+            SQL_Parameter par_Language_ID = new SQL_Parameter(spar_Language_ID, SQL_Parameter.eSQL_Parameter.Bigint, false, Language_ID);
+            lpar.Add(par_Language_ID);
+
+
+            string sql = "select Name,Description,LanguageIndex from Language where ID = " + spar_Language_ID;
+            DataTable dt = new DataTable();
+            string Err = null;
+            if (DBSync.DBSync.ReadDataTable(ref dt, sql, lpar, ref Err))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    Name_v = tf.set_string(dt.Rows[0]["Name"]);
+                    Description_v = tf.set_string(dt.Rows[0]["Description"]);
+                    LanguageIndex_v = tf.set_int(dt.Rows[0]["LanguageIndex"]);
+                }
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:f_Language:Get:sql=" + sql + "\r\nErr=" + Err);
+                return false;
+            }
+        }
+
         public static bool SetDefault(long Language_ID)
         {
             object oret = null;
             string Err = null;
             string sql = "update Language set bDefault = 0";
-            if (DBSync.DBSync.ExecuteNonQuerySQL(sql,null, ref oret, ref Err))
+            if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
             {
                 sql = "update Language set bDefault = 1 where ID = " + Language_ID.ToString();
                 if (DBSync.DBSync.ExecuteNonQuerySQL(sql, null, ref oret, ref Err))
@@ -96,6 +127,7 @@ namespace TangentaDB
                 return false;
             }
         }
+
         public static bool SetDefault(int LanguageIndex)
         {
             object oret = null;

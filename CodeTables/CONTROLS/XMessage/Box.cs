@@ -62,7 +62,7 @@ namespace XMessage
             return dlg.ShowDialog();
         }
 
-        public static DialogResult Show(IWin32Window owner, ltext xltext,string stext, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+        public static DialogResult Show(IWin32Window owner, ltext xltext,string stext, string caption, MessageBoxButtons buttons, object icon, MessageBoxDefaultButton defaultButton)
         {
             Form_Box dlg = new Form_Box(owner, xltext, stext, caption, buttons, icon, defaultButton);
             checkTopMost(owner, dlg);
