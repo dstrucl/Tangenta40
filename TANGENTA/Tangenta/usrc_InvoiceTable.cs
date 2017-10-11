@@ -483,7 +483,7 @@ namespace Tangenta
                 INNER JOIN Atom_WorkingPlace JOURNAL_DocProformaInvoice_$_awperiod_$_awplace ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkingPlace_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awplace.ID
                 INNER JOIN Atom_Computer JOURNAL_DocProformaInvoice_$_awperiod_$_acomp ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_Computer_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_acomp.ID
                 LEFT JOIN Atom_WorkPeriod_TYPE JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt ON JOURNAL_DocProformaInvoice_$_awperiod.Atom_WorkPeriod_TYPE_ID = JOURNAL_DocProformaInvoice_$_awperiod_$_awperiodt.ID
-                " + cond + " and (JOURNAL_DocProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime + ") order by JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear desc,JOURNAL_DocProformaInvoice_$_dpinv_$$Draft desc, JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear desc, JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber desc";
+                " + cond + " and (JOURNAL_DocProformaInvoice_$_jpinvt.ID = " + s_JOURNAL_DocInvoice_Type_ID_ProformaInvoiceDraftTime + ") order by JOURNAL_DocProformaInvoice_$_dpinv.FinancialYear desc,JOURNAL_DocProformaInvoice_$_dpinv.Draft desc, JOURNAL_DocProformaInvoice_$_dpinv_$$NumberInFinancialYear desc, JOURNAL_DocProformaInvoice_$_dpinv_$$DraftNumber desc";
             }
             bIgnoreChangeSelectionEvent = true;
             dt_XInvoice.Clear();

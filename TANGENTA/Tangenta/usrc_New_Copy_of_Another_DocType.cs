@@ -29,7 +29,15 @@ namespace Tangenta
 
         private int GetFiancialYear()
         {
-            return 0;
+            System.Data.DataRowView drv = (System.Data.DataRowView)cmb_FinancialYear.SelectedItem;
+            if (drv["FinancialYear"] is int)
+            {
+                return (int)drv["FinancialYear"];
+            }
+            else
+            {
+                return -1;
+            }
         }
 
         public bool IsDocInvoice

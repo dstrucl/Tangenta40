@@ -38,9 +38,10 @@
             this.btn_New_Copy_To_Another_DocType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_New_Copy_To_Another_DocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btn_New_Copy_To_Another_DocType.Location = new System.Drawing.Point(3, 1);
+            this.btn_New_Copy_To_Another_DocType.Location = new System.Drawing.Point(4, 1);
+            this.btn_New_Copy_To_Another_DocType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_New_Copy_To_Another_DocType.Name = "btn_New_Copy_To_Another_DocType";
-            this.btn_New_Copy_To_Another_DocType.Size = new System.Drawing.Size(479, 94);
+            this.btn_New_Copy_To_Another_DocType.Size = new System.Drawing.Size(639, 116);
             this.btn_New_Copy_To_Another_DocType.TabIndex = 5;
             this.btn_New_Copy_To_Another_DocType.Text = "btn_New_Copy_To_Another_DocType";
             this.btn_New_Copy_To_Another_DocType.UseVisualStyleBackColor = true;
@@ -49,9 +50,10 @@
             // lbl_FinancialYear
             // 
             this.lbl_FinancialYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lbl_FinancialYear.Location = new System.Drawing.Point(68, 105);
+            this.lbl_FinancialYear.Location = new System.Drawing.Point(91, 129);
+            this.lbl_FinancialYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_FinancialYear.Name = "lbl_FinancialYear";
-            this.lbl_FinancialYear.Size = new System.Drawing.Size(146, 20);
+            this.lbl_FinancialYear.Size = new System.Drawing.Size(195, 25);
             this.lbl_FinancialYear.TabIndex = 32;
             this.lbl_FinancialYear.Text = "Leto";
             this.lbl_FinancialYear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -60,22 +62,24 @@
             // 
             this.cmb_FinancialYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmb_FinancialYear.FormattingEnabled = true;
-            this.cmb_FinancialYear.Location = new System.Drawing.Point(222, 101);
+            this.cmb_FinancialYear.Location = new System.Drawing.Point(296, 124);
+            this.cmb_FinancialYear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmb_FinancialYear.Name = "cmb_FinancialYear";
-            this.cmb_FinancialYear.Size = new System.Drawing.Size(115, 28);
+            this.cmb_FinancialYear.Size = new System.Drawing.Size(152, 33);
             this.cmb_FinancialYear.TabIndex = 31;
             this.cmb_FinancialYear.SelectedIndexChanged += new System.EventHandler(this.cmb_FinancialYear_SelectedIndexChanged);
             // 
             // usrc_New_Copy_of_Another_DocType
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.Controls.Add(this.lbl_FinancialYear);
             this.Controls.Add(this.cmb_FinancialYear);
             this.Controls.Add(this.btn_New_Copy_To_Another_DocType);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "usrc_New_Copy_of_Another_DocType";
-            this.Size = new System.Drawing.Size(482, 134);
+            this.Size = new System.Drawing.Size(643, 165);
             this.ResumeLayout(false);
 
         }

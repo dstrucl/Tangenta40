@@ -50,7 +50,7 @@
             // btn_Cancel
             // 
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(215, 426);
+            this.btn_Cancel.Location = new System.Drawing.Point(209, 509);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(91, 36);
             this.btn_Cancel.TabIndex = 36;
@@ -60,9 +60,10 @@
             // usrc_New_Copy_of_Another_DocType1
             // 
             this.usrc_New_Copy_of_Another_DocType1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.usrc_New_Copy_of_Another_DocType1.Location = new System.Drawing.Point(1, 259);
+            this.usrc_New_Copy_of_Another_DocType1.Location = new System.Drawing.Point(1, 307);
+            this.usrc_New_Copy_of_Another_DocType1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_New_Copy_of_Another_DocType1.Name = "usrc_New_Copy_of_Another_DocType1";
-            this.usrc_New_Copy_of_Another_DocType1.Size = new System.Drawing.Size(519, 138);
+            this.usrc_New_Copy_of_Another_DocType1.Size = new System.Drawing.Size(519, 182);
             this.usrc_New_Copy_of_Another_DocType1.TabIndex = 38;
             this.usrc_New_Copy_of_Another_DocType1.Set_New_Copy_of_Another_DocType += new Tangenta.usrc_New_Copy_of_Another_DocType.delegate_Set_New_Copy_of_Another_DocType(this.usrc_New_Copy_of_Another_DocType1_Set_New_Copy_of_Another_DocType);
             // 
@@ -72,15 +73,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usrc_New_Copy_of_Same_DocType1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.usrc_New_Copy_of_Same_DocType1.Location = new System.Drawing.Point(1, 118);
+            this.usrc_New_Copy_of_Same_DocType1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usrc_New_Copy_of_Same_DocType1.Name = "usrc_New_Copy_of_Same_DocType1";
-            this.usrc_New_Copy_of_Same_DocType1.Size = new System.Drawing.Size(519, 135);
+            this.usrc_New_Copy_of_Same_DocType1.Size = new System.Drawing.Size(519, 181);
             this.usrc_New_Copy_of_Same_DocType1.TabIndex = 37;
             this.usrc_New_Copy_of_Same_DocType1.Set_New_Copy_of_Same_DocType += new Tangenta.usrc_New_Copy_of_Same_DocType.delegate_Set_New_Copy_of_Same_DocType(this.usrc_New_Copy_of_Same_DocType1_Set_New_Copy_of_Same_DocType);
             // 
             // Form_NewDocument
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(523, 498);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(523, 555);
             this.Controls.Add(this.usrc_New_Copy_of_Another_DocType1);
             this.Controls.Add(this.usrc_New_Copy_of_Same_DocType1);
             this.Controls.Add(this.btn_Cancel);

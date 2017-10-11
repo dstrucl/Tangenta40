@@ -379,6 +379,7 @@ namespace ShopC
             decimal dQuantityToTakeFromStock = dStockQuantity;
             string UnitSymbol = null;
             string Item_UniqueName = "";
+            xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List = new List<Stock_Data>();
             if (dt_ShopC_Item_in_Stock.Rows.Count > 0)
             {
                 if (dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"] is string)
@@ -403,7 +404,7 @@ namespace ShopC
 
                 }
 
-                xShopC_Data_Item.m_ShopShelf_Source.Stock_Data_List = new List<Stock_Data>();
+
                 foreach (DataRow dr in dt_ShopC_Item_in_Stock.Rows)
                 {
                     if (dr["TakeFromStock"] is decimal)

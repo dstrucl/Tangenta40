@@ -36,7 +36,7 @@ namespace TangentaDB
                                     OrganisationData_$_org_$$Tax_ID, 
                                     OrganisationData_$_org_$$Registration_ID,
                                     OrganisationData_$_org_$$TaxPayer,
-                                    OrganisationData_$_org_$_acmt1_$$Comment,
+                                    OrganisationData_$_org_$_cmt1_$$Comment,
                                     OrganisationData_$_orgt_$$OrganisationTYPE,
                                     OrganisationData_$_cadrorg_$_cstrnorg_$$StreetName,
                                     OrganisationData_$_cadrorg_$_chounorg_$$HouseNumber,
@@ -63,7 +63,7 @@ namespace TangentaDB
                             string_v Tax_ID_v = tf.set_string(dt.Rows[0]["OrganisationData_$_org_$$Tax_ID"]);
                             string_v Registration_ID_v = tf.set_string(dt.Rows[0]["OrganisationData_$_org_$$Registration_ID"]);
                             bool_v TaxPayer_v = tf.set_bool(dt.Rows[0]["OrganisationData_$_org_$$TaxPayer"]);
-                            string_v Comment1_v = tf.set_string(dt.Rows[0]["OrganisationData_$_org_$_acmt_$$Comment"]);
+                            string_v Comment1_v = tf.set_string(dt.Rows[0]["OrganisationData_$_org_$_cmt1_$$Comment"]);
                             string_v OrganisationTYPE_v = tf.set_string(dt.Rows[0]["OrganisationData_$_orgt_$$OrganisationTYPE"]);
                             PostAddress_v Address_v = new PostAddress_v();
                             Address_v.StreetName_v = tf.set_dstring(dt.Rows[0]["OrganisationData_$_cadrorg_$_cstrnorg_$$StreetName"]);

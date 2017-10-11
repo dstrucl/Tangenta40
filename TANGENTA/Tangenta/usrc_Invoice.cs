@@ -1957,7 +1957,7 @@ do_EditMyOrganisation_Data:
 
         }
 
-        public void SetNewDraft(enum_Invoice eInvType, int FinancialYear)
+        public void SetNewDraft(enum_Invoice eInvType, int xFinancialYear)
         {
             switch (eInvoiceType)
             {
@@ -1967,7 +1967,7 @@ do_EditMyOrganisation_Data:
                     {
                         m_ShopABC = new ShopABC(DBtcn);
                     }
-                    if (SetNewInvoiceDraft(FinancialYear))
+                    if (SetNewInvoiceDraft(xFinancialYear))
                     {
                         SetMode(emode.edit_eInvoiceType);
                     }
@@ -2087,8 +2087,7 @@ do_EditMyOrganisation_Data:
             dsum_TaxSum += dsum_TaxSum_Basket;
             dsum_NetSum += dsum_NetSum_Basket;
 
-            //dsum_NetSum += appisd.Get.v;
-
+  
             if (dsum_GrossSum > 0)
             {
                 btn_Issue.Visible = true;
