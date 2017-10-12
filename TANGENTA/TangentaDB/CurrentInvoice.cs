@@ -1697,19 +1697,19 @@ namespace TangentaDB
                         GrossSum,
                         Atom_Customer_Person_ID,
                         Atom_Customer_Org_ID,
-                        WarrantyExist,
-                        WarrantyConditions,
-                        WarrantyDurationType,
-                        WarrantyDuration,
-                        DocDuration,
-                        DocDurationType,
-                        TermsOfPayment_ID,
-                        PaymentDeadline,
-                        MethodOfPayment_ID
+                        aw.WarrantyConditions,
+                        aw.WarrantyDurationType,
+                        aw.WarrantyDuration,
+                        diao.TermsOfPayment_ID,
+                        diao.PaymentDeadline,
+                        diao.MethodOfPayment_DI_ID
                         Paid,
                         Storno,
                         Invoice_Reference_ID,
-                        Invoice_Reference_Type from DocInvoice where DocInvoice.ID  = " + Doc_ID.ToString();
+                        Invoice_Reference_Type from DocInvoice di
+					    inner join 	DocInvoiceAddOn diao on diao.DocInvoice_ID = di.ID
+						left join Atom_Warranty aw on diao.Atom_Warranty_ID = aw.ID
+						where di.ID = " + Doc_ID.ToString();
             if (DBSync.DBSync.ReadDataTable(ref dt_ProfInv, sql, ref Err))
             {
                 int_v DraftNumber_v = tf.set_int(dt_ProfInv.Rows[0]["DraftNumber"]);
@@ -1721,12 +1721,10 @@ namespace TangentaDB
                 decimal_v GrossSum_v = tf.set_decimal(dt_ProfInv.Rows[0]["GrossSum"]);
                 long_v Atom_Customer_Person_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Customer_Person_ID"]);
                 long_v Atom_Customer_Org_ID_v = tf.set_long(dt_ProfInv.Rows[0]["Atom_Customer_Org_ID"]);
-                bool_v WarrantyExist_v = tf.set_bool(dt_ProfInv.Rows[0]["WarrantyExist"]);
+              
                 string_v WarrantyConditions_v = tf.set_string(dt_ProfInv.Rows[0]["WarrantyConditions"]);
                 int_v WarrantyDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDurationType"]);
                 int_v WarrantyDuration_v = tf.set_int(dt_ProfInv.Rows[0]["WarrantyDuration"]);
-                long_v DocDuration_v = tf.set_long(dt_ProfInv.Rows[0]["DocDuration"]);
-                int_v DocDurationType_v = tf.set_int(dt_ProfInv.Rows[0]["DocDurationType"]);
                 long_v TermsOfPayment_ID_v = tf.set_long(dt_ProfInv.Rows[0]["TermsOfPayment_ID"]);
                 int iNewNumberInFinancialYear = -1;
                 GetNewNumberInFinancialYear("DocInvoice",ref iNewNumberInFinancialYear);
@@ -1751,13 +1749,6 @@ namespace TangentaDB
                                                 GrossSum,
                                                 Atom_Customer_Person_ID,
                                                 Atom_Customer_Org_ID,
-                                                WarrantyExist,
-                                                WarrantyConditions,
-                                                WarrantyDurationType,
-                                                WarrantyDuration,
-                                                DocDuration,
-                                                DocDurationType,
-                                                TermsOfPayment_ID,
                                                 Invoice_Reference_ID,
                                                 Storno,
                                                 Invoice_Reference_Type
@@ -1775,13 +1766,6 @@ namespace TangentaDB
                                                             + GetParam("GrossSum", ref lpar, GrossSum_v) + ","
                                                             + GetParam("Atom_Customer_Person_ID", ref lpar, Atom_Customer_Person_ID_v) + ","
                                                             + GetParam("Atom_Customer_Org_ID", ref lpar, Atom_Customer_Org_ID_v) + ","
-                                                            + GetParam("WarrantyExist", ref lpar, WarrantyExist_v) + ","
-                                                            + GetParam("WarrantyConditions", ref lpar, WarrantyConditions_v) + ","
-                                                            + GetParam("WarrantyDurationType", ref lpar, WarrantyDurationType_v) + ","
-                                                            + GetParam("WarrantyDuration", ref lpar, WarrantyDuration_v) + ","
-                                                            + GetParam("DocDuration", ref lpar, DocDuration_v) + ","
-                                                            + GetParam("DocDurationType", ref lpar, DocDurationType_v) + ","
-                                                            + GetParam("TermsOfPayment_ID", ref lpar, TermsOfPayment_ID_v) + ","
                                                             + GetParam("Invoice_Reference_ID", ref lpar, Storno_Invoice_ID_v) + @",
                                                             1,
                                                             'STORNO'

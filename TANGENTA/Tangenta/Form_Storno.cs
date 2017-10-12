@@ -50,7 +50,7 @@ namespace Tangenta
                                   from JOURNAL_DocInvoice jpi 
                                   inner join JOURNAL_DocInvoice_Type jpit on jpit.ID = jpi.JOURNAL_DocInvoice_Type_id and jpit.Name = 'InvoiceTime'
                                   inner join DocInvoice pi on pi.ID=jpi.DocInvoice_ID 
-                                  where pi.Invoice_ID = " + m_Invoice_ID.ToString();
+                                  where pi.ID = " + m_Invoice_ID.ToString();
 
             DataTable dt = new DataTable();
             string Err = null;

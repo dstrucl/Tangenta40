@@ -346,5 +346,10 @@ namespace Tangenta
                    LogFile.Error.Show("ERROR:Form_SelectPanels:m_usrc_Invoice.m_eShopsMode illegal Mode! Properties.Settings.Default.eShopsMode =" + Properties.Settings.Default.eShopsMode);
             }
         }
+
+        private void rdb_A_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

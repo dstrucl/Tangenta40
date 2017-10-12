@@ -50,9 +50,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(2, 196);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(2, 237);
+            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(549, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(549, 82);
             this.usrc_NavigationButtons1.TabIndex = 0;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -69,9 +70,9 @@
             this.chk_FVI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chk_FVI.AutoSize = true;
             this.chk_FVI.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.chk_FVI.Location = new System.Drawing.Point(41, 155);
+            this.chk_FVI.Location = new System.Drawing.Point(39, 193);
             this.chk_FVI.Name = "chk_FVI";
-            this.chk_FVI.Size = new System.Drawing.Size(166, 35);
+            this.chk_FVI.Size = new System.Drawing.Size(206, 43);
             this.chk_FVI.TabIndex = 1;
             this.chk_FVI.Text = "checkBox1";
             this.chk_FVI.UseVisualStyleBackColor = true;
@@ -84,14 +85,15 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label1.Location = new System.Drawing.Point(-1, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(552, 125);
+            this.label1.Size = new System.Drawing.Size(552, 171);
             this.label1.TabIndex = 2;
             this.label1.Text = "label1";
             // 
             // Form_FVI_check
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(554, 261);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(554, 321);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chk_FVI);

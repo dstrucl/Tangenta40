@@ -54,7 +54,7 @@
             this.rdb_WritePredefinedDefaultDataInDataBase.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_WritePredefinedDefaultDataInDataBase.Location = new System.Drawing.Point(24, 126);
             this.rdb_WritePredefinedDefaultDataInDataBase.Name = "rdb_WritePredefinedDefaultDataInDataBase";
-            this.rdb_WritePredefinedDefaultDataInDataBase.Size = new System.Drawing.Size(321, 22);
+            this.rdb_WritePredefinedDefaultDataInDataBase.Size = new System.Drawing.Size(406, 27);
             this.rdb_WritePredefinedDefaultDataInDataBase.TabIndex = 2;
             this.rdb_WritePredefinedDefaultDataInDataBase.TabStop = true;
             this.rdb_WritePredefinedDefaultDataInDataBase.Text = "Write predefined data into a new database";
@@ -66,7 +66,7 @@
             this.rdb_Enter_data_into_a_new_database_table.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_Enter_data_into_a_new_database_table.Location = new System.Drawing.Point(21, 263);
             this.rdb_Enter_data_into_a_new_database_table.Name = "rdb_Enter_data_into_a_new_database_table";
-            this.rdb_Enter_data_into_a_new_database_table.Size = new System.Drawing.Size(310, 22);
+            this.rdb_Enter_data_into_a_new_database_table.Size = new System.Drawing.Size(386, 27);
             this.rdb_Enter_data_into_a_new_database_table.TabIndex = 3;
             this.rdb_Enter_data_into_a_new_database_table.TabStop = true;
             this.rdb_Enter_data_into_a_new_database_table.Text = "Enter_data_into_a_new_database_table";
@@ -93,6 +93,7 @@
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;
@@ -100,9 +101,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(12, 297);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(8, 297);
+            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(620, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(620, 78);
             this.usrc_NavigationButtons1.TabIndex = 6;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -116,8 +118,9 @@
             // 
             // Form_CheckInsertSampleData
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(640, 371);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(640, 388);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.lbl_Message2);
             this.Controls.Add(this.rdb_Enter_data_into_a_new_database_table);

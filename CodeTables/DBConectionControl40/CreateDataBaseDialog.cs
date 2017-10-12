@@ -190,9 +190,9 @@ namespace DBConnectionControl40
             // button_Cancel
             // 
             this.button_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_Cancel.Location = new System.Drawing.Point(467, 307);
+            this.button_Cancel.Location = new System.Drawing.Point(560, 302);
             this.button_Cancel.Name = "button_Cancel";
-            this.button_Cancel.Size = new System.Drawing.Size(75, 22);
+            this.button_Cancel.Size = new System.Drawing.Size(90, 26);
             this.button_Cancel.TabIndex = 6;
             this.button_Cancel.Text = "&Cancel";
             this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
@@ -200,9 +200,9 @@ namespace DBConnectionControl40
             // btn_CreateDatabase
             // 
             this.btn_CreateDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_CreateDatabase.Location = new System.Drawing.Point(372, 307);
+            this.btn_CreateDatabase.Location = new System.Drawing.Point(446, 302);
             this.btn_CreateDatabase.Name = "btn_CreateDatabase";
-            this.btn_CreateDatabase.Size = new System.Drawing.Size(75, 22);
+            this.btn_CreateDatabase.Size = new System.Drawing.Size(90, 26);
             this.btn_CreateDatabase.TabIndex = 5;
             this.btn_CreateDatabase.Text = "&OK";
             this.btn_CreateDatabase.Click += new System.EventHandler(this.btn_CreateDatabase_Click);
@@ -213,10 +213,10 @@ namespace DBConnectionControl40
             this.tabControl_CreateDialog.Controls.Add(this.tabDataFile);
             this.tabControl_CreateDialog.Controls.Add(this.tabLogFile);
             this.tabControl_CreateDialog.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl_CreateDialog.Location = new System.Drawing.Point(2, 10);
+            this.tabControl_CreateDialog.Location = new System.Drawing.Point(2, 12);
             this.tabControl_CreateDialog.Name = "tabControl_CreateDialog";
             this.tabControl_CreateDialog.SelectedIndex = 0;
-            this.tabControl_CreateDialog.Size = new System.Drawing.Size(540, 237);
+            this.tabControl_CreateDialog.Size = new System.Drawing.Size(648, 273);
             this.tabControl_CreateDialog.TabIndex = 4;
             this.tabControl_CreateDialog.Visible = false;
             // 
@@ -224,26 +224,26 @@ namespace DBConnectionControl40
             // 
             this.tabGeneral.Controls.Add(this.lbl_DataBase_name);
             this.tabGeneral.Controls.Add(this.textBox_DataBaseName);
-            this.tabGeneral.Location = new System.Drawing.Point(4, 26);
+            this.tabGeneral.Location = new System.Drawing.Point(4, 29);
             this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Size = new System.Drawing.Size(532, 207);
+            this.tabGeneral.Size = new System.Drawing.Size(640, 240);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
             // lbl_DataBase_name
             // 
-            this.lbl_DataBase_name.Location = new System.Drawing.Point(117, 40);
+            this.lbl_DataBase_name.Location = new System.Drawing.Point(140, 46);
             this.lbl_DataBase_name.Name = "lbl_DataBase_name";
-            this.lbl_DataBase_name.Size = new System.Drawing.Size(115, 24);
+            this.lbl_DataBase_name.Size = new System.Drawing.Size(138, 28);
             this.lbl_DataBase_name.TabIndex = 1;
             this.lbl_DataBase_name.Text = "DatabaseName";
             // 
             // textBox_DataBaseName
             // 
-            this.textBox_DataBaseName.Location = new System.Drawing.Point(237, 40);
+            this.textBox_DataBaseName.Location = new System.Drawing.Point(284, 46);
             this.textBox_DataBaseName.Name = "textBox_DataBaseName";
-            this.textBox_DataBaseName.Size = new System.Drawing.Size(167, 23);
+            this.textBox_DataBaseName.Size = new System.Drawing.Size(201, 27);
             this.textBox_DataBaseName.TabIndex = 0;
             this.textBox_DataBaseName.Text = "DB_EVLICENCE";
             this.textBox_DataBaseName.TextChanged += new System.EventHandler(this.textBox_DataBaseName_TextChanged);
@@ -253,9 +253,9 @@ namespace DBConnectionControl40
             this.tabDataFile.Controls.Add(this.groupBox1);
             this.tabDataFile.Controls.Add(this.textBox_DataBaseFilePath);
             this.tabDataFile.Controls.Add(this.button1);
-            this.tabDataFile.Location = new System.Drawing.Point(4, 26);
+            this.tabDataFile.Location = new System.Drawing.Point(4, 29);
             this.tabDataFile.Name = "tabDataFile";
-            this.tabDataFile.Size = new System.Drawing.Size(532, 207);
+            this.tabDataFile.Size = new System.Drawing.Size(640, 240);
             this.tabDataFile.TabIndex = 1;
             this.tabDataFile.Text = "Data file";
             this.tabDataFile.UseVisualStyleBackColor = true;
@@ -268,18 +268,18 @@ namespace DBConnectionControl40
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.grpMaxDataBaseFileSize);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox1.Location = new System.Drawing.Point(2, 38);
+            this.groupBox1.Location = new System.Drawing.Point(2, 44);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(546, 176);
+            this.groupBox1.Size = new System.Drawing.Size(656, 203);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File properties";
             // 
             // nupdn_InitialFileSizeInMB
             // 
-            this.nupdn_InitialFileSizeInMB.Location = new System.Drawing.Point(221, 36);
+            this.nupdn_InitialFileSizeInMB.Location = new System.Drawing.Point(265, 42);
             this.nupdn_InitialFileSizeInMB.Name = "nupdn_InitialFileSizeInMB";
-            this.nupdn_InitialFileSizeInMB.Size = new System.Drawing.Size(68, 23);
+            this.nupdn_InitialFileSizeInMB.Size = new System.Drawing.Size(82, 27);
             this.nupdn_InitialFileSizeInMB.TabIndex = 13;
             this.nupdn_InitialFileSizeInMB.Value = new decimal(new int[] {
             5,
@@ -287,12 +287,12 @@ namespace DBConnectionControl40
             0,
             0});
             // 
-            // lblFileSizeAtInitCountry
+            // lblFileSizeAtInitState
             // 
             this.lblFileSizeAtInitState.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblFileSizeAtInitState.Location = new System.Drawing.Point(13, 39);
-            this.lblFileSizeAtInitState.Name = "lblFileSizeAtInitCountry";
-            this.lblFileSizeAtInitState.Size = new System.Drawing.Size(196, 16);
+            this.lblFileSizeAtInitState.Location = new System.Drawing.Point(16, 45);
+            this.lblFileSizeAtInitState.Name = "lblFileSizeAtInitState";
+            this.lblFileSizeAtInitState.Size = new System.Drawing.Size(235, 18);
             this.lblFileSizeAtInitState.TabIndex = 8;
             this.lblFileSizeAtInitState.Text = "File Size At Init state in MB:";
             // 
@@ -302,18 +302,18 @@ namespace DBConnectionControl40
             this.groupBox2.Controls.Add(this.nupdn_FileGrowthInMB);
             this.groupBox2.Controls.Add(this.rdb_FileGrowthByPercent);
             this.groupBox2.Controls.Add(this.rdb_FileGrowthInMB);
-            this.groupBox2.Location = new System.Drawing.Point(8, 72);
+            this.groupBox2.Location = new System.Drawing.Point(10, 83);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(228, 96);
+            this.groupBox2.Size = new System.Drawing.Size(273, 111);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File growth";
             // 
             // nupdn_FileGrowthByPercent
             // 
-            this.nupdn_FileGrowthByPercent.Location = new System.Drawing.Point(132, 59);
+            this.nupdn_FileGrowthByPercent.Location = new System.Drawing.Point(158, 68);
             this.nupdn_FileGrowthByPercent.Name = "nupdn_FileGrowthByPercent";
-            this.nupdn_FileGrowthByPercent.Size = new System.Drawing.Size(78, 23);
+            this.nupdn_FileGrowthByPercent.Size = new System.Drawing.Size(94, 27);
             this.nupdn_FileGrowthByPercent.TabIndex = 8;
             this.nupdn_FileGrowthByPercent.Value = new decimal(new int[] {
             10,
@@ -323,9 +323,9 @@ namespace DBConnectionControl40
             // 
             // nupdn_FileGrowthInMB
             // 
-            this.nupdn_FileGrowthInMB.Location = new System.Drawing.Point(132, 23);
+            this.nupdn_FileGrowthInMB.Location = new System.Drawing.Point(158, 27);
             this.nupdn_FileGrowthInMB.Name = "nupdn_FileGrowthInMB";
-            this.nupdn_FileGrowthInMB.Size = new System.Drawing.Size(78, 23);
+            this.nupdn_FileGrowthInMB.Size = new System.Drawing.Size(94, 27);
             this.nupdn_FileGrowthInMB.TabIndex = 7;
             this.nupdn_FileGrowthInMB.Value = new decimal(new int[] {
             1,
@@ -337,9 +337,9 @@ namespace DBConnectionControl40
             // 
             this.rdb_FileGrowthByPercent.Checked = true;
             this.rdb_FileGrowthByPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_FileGrowthByPercent.Location = new System.Drawing.Point(16, 57);
+            this.rdb_FileGrowthByPercent.Location = new System.Drawing.Point(19, 66);
             this.rdb_FileGrowthByPercent.Name = "rdb_FileGrowthByPercent";
-            this.rdb_FileGrowthByPercent.Size = new System.Drawing.Size(104, 24);
+            this.rdb_FileGrowthByPercent.Size = new System.Drawing.Size(125, 27);
             this.rdb_FileGrowthByPercent.TabIndex = 1;
             this.rdb_FileGrowthByPercent.TabStop = true;
             this.rdb_FileGrowthByPercent.Text = "By percent";
@@ -348,9 +348,9 @@ namespace DBConnectionControl40
             // rdb_FileGrowthInMB
             // 
             this.rdb_FileGrowthInMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.rdb_FileGrowthInMB.Location = new System.Drawing.Point(16, 22);
+            this.rdb_FileGrowthInMB.Location = new System.Drawing.Point(19, 25);
             this.rdb_FileGrowthInMB.Name = "rdb_FileGrowthInMB";
-            this.rdb_FileGrowthInMB.Size = new System.Drawing.Size(126, 24);
+            this.rdb_FileGrowthInMB.Size = new System.Drawing.Size(151, 28);
             this.rdb_FileGrowthInMB.TabIndex = 0;
             this.rdb_FileGrowthInMB.Text = "in megabytes";
             this.rdb_FileGrowthInMB.CheckedChanged += new System.EventHandler(this.rdb_FileGrowthInMB_CheckedChanged);
@@ -361,18 +361,18 @@ namespace DBConnectionControl40
             this.grpMaxDataBaseFileSize.Controls.Add(this.rdbMaxDataBaseFileSizeUNLIMITED);
             this.grpMaxDataBaseFileSize.Controls.Add(this.rdbMaxDataBaseFileSizeInGB);
             this.grpMaxDataBaseFileSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.grpMaxDataBaseFileSize.Location = new System.Drawing.Point(270, 82);
+            this.grpMaxDataBaseFileSize.Location = new System.Drawing.Point(324, 95);
             this.grpMaxDataBaseFileSize.Name = "grpMaxDataBaseFileSize";
-            this.grpMaxDataBaseFileSize.Size = new System.Drawing.Size(271, 72);
+            this.grpMaxDataBaseFileSize.Size = new System.Drawing.Size(325, 83);
             this.grpMaxDataBaseFileSize.TabIndex = 12;
             this.grpMaxDataBaseFileSize.TabStop = false;
             this.grpMaxDataBaseFileSize.Text = "Max DataBase File Size";
             // 
             // nupdn_MaxDataBaseFileSizeInGB
             // 
-            this.nupdn_MaxDataBaseFileSizeInGB.Location = new System.Drawing.Point(180, 34);
+            this.nupdn_MaxDataBaseFileSizeInGB.Location = new System.Drawing.Point(216, 39);
             this.nupdn_MaxDataBaseFileSizeInGB.Name = "nupdn_MaxDataBaseFileSizeInGB";
-            this.nupdn_MaxDataBaseFileSizeInGB.Size = new System.Drawing.Size(78, 23);
+            this.nupdn_MaxDataBaseFileSizeInGB.Size = new System.Drawing.Size(94, 27);
             this.nupdn_MaxDataBaseFileSizeInGB.TabIndex = 9;
             this.nupdn_MaxDataBaseFileSizeInGB.Value = new decimal(new int[] {
             10,
@@ -383,9 +383,9 @@ namespace DBConnectionControl40
             // rdbMaxDataBaseFileSizeUNLIMITED
             // 
             this.rdbMaxDataBaseFileSizeUNLIMITED.AutoSize = true;
-            this.rdbMaxDataBaseFileSizeUNLIMITED.Location = new System.Drawing.Point(8, 34);
+            this.rdbMaxDataBaseFileSizeUNLIMITED.Location = new System.Drawing.Point(10, 39);
             this.rdbMaxDataBaseFileSizeUNLIMITED.Name = "rdbMaxDataBaseFileSizeUNLIMITED";
-            this.rdbMaxDataBaseFileSizeUNLIMITED.Size = new System.Drawing.Size(99, 21);
+            this.rdbMaxDataBaseFileSizeUNLIMITED.Size = new System.Drawing.Size(120, 24);
             this.rdbMaxDataBaseFileSizeUNLIMITED.TabIndex = 18;
             this.rdbMaxDataBaseFileSizeUNLIMITED.TabStop = true;
             this.rdbMaxDataBaseFileSizeUNLIMITED.Text = "UNLIMITED";
@@ -395,9 +395,9 @@ namespace DBConnectionControl40
             // rdbMaxDataBaseFileSizeInGB
             // 
             this.rdbMaxDataBaseFileSizeInGB.AutoSize = true;
-            this.rdbMaxDataBaseFileSizeInGB.Location = new System.Drawing.Point(111, 36);
+            this.rdbMaxDataBaseFileSizeInGB.Location = new System.Drawing.Point(133, 42);
             this.rdbMaxDataBaseFileSizeInGB.Name = "rdbMaxDataBaseFileSizeInGB";
-            this.rdbMaxDataBaseFileSizeInGB.Size = new System.Drawing.Size(65, 21);
+            this.rdbMaxDataBaseFileSizeInGB.Size = new System.Drawing.Size(78, 24);
             this.rdbMaxDataBaseFileSizeInGB.TabIndex = 17;
             this.rdbMaxDataBaseFileSizeInGB.TabStop = true;
             this.rdbMaxDataBaseFileSizeInGB.Text = "in GB:";
@@ -407,9 +407,9 @@ namespace DBConnectionControl40
             // textBox_DataBaseFilePath
             // 
             this.textBox_DataBaseFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox_DataBaseFilePath.Location = new System.Drawing.Point(17, 14);
+            this.textBox_DataBaseFilePath.Location = new System.Drawing.Point(20, 16);
             this.textBox_DataBaseFilePath.Name = "textBox_DataBaseFilePath";
-            this.textBox_DataBaseFilePath.Size = new System.Drawing.Size(200, 23);
+            this.textBox_DataBaseFilePath.Size = new System.Drawing.Size(240, 27);
             this.textBox_DataBaseFilePath.TabIndex = 1;
             this.textBox_DataBaseFilePath.Text = "D:\\DB_EVLICENCE.mdf";
             this.textBox_DataBaseFilePath.TextChanged += new System.EventHandler(this.textBox_DataBaseFilePath_TextChanged);
@@ -417,9 +417,9 @@ namespace DBConnectionControl40
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(290, 15);
+            this.button1.Location = new System.Drawing.Point(348, 17);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 22);
+            this.button1.Size = new System.Drawing.Size(90, 26);
             this.button1.TabIndex = 0;
             this.button1.Text = "Browse...";
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -427,9 +427,9 @@ namespace DBConnectionControl40
             // tabLogFile
             // 
             this.tabLogFile.Controls.Add(this.groupBox4);
-            this.tabLogFile.Location = new System.Drawing.Point(4, 26);
+            this.tabLogFile.Location = new System.Drawing.Point(4, 29);
             this.tabLogFile.Name = "tabLogFile";
-            this.tabLogFile.Size = new System.Drawing.Size(532, 207);
+            this.tabLogFile.Size = new System.Drawing.Size(640, 240);
             this.tabLogFile.TabIndex = 2;
             this.tabLogFile.Text = "Log file";
             this.tabLogFile.UseVisualStyleBackColor = true;
@@ -446,7 +446,7 @@ namespace DBConnectionControl40
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(2, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(544, 204);
+            this.groupBox4.Size = new System.Drawing.Size(653, 236);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Log File properties";
@@ -454,9 +454,9 @@ namespace DBConnectionControl40
             // nupdn_InitialLogFileSizeInMB
             // 
             this.nupdn_InitialLogFileSizeInMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nupdn_InitialLogFileSizeInMB.Location = new System.Drawing.Point(195, 65);
+            this.nupdn_InitialLogFileSizeInMB.Location = new System.Drawing.Point(234, 75);
             this.nupdn_InitialLogFileSizeInMB.Name = "nupdn_InitialLogFileSizeInMB";
-            this.nupdn_InitialLogFileSizeInMB.Size = new System.Drawing.Size(58, 23);
+            this.nupdn_InitialLogFileSizeInMB.Size = new System.Drawing.Size(70, 27);
             this.nupdn_InitialLogFileSizeInMB.TabIndex = 16;
             this.nupdn_InitialLogFileSizeInMB.Value = new decimal(new int[] {
             1,
@@ -467,9 +467,9 @@ namespace DBConnectionControl40
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(459, 23);
+            this.button4.Location = new System.Drawing.Point(551, 27);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 22);
+            this.button4.Size = new System.Drawing.Size(90, 25);
             this.button4.TabIndex = 4;
             this.button4.Text = "Browse...";
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -477,9 +477,9 @@ namespace DBConnectionControl40
             // textBox_DataBaseLogFilePath
             // 
             this.textBox_DataBaseLogFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_DataBaseLogFilePath.Location = new System.Drawing.Point(12, 23);
+            this.textBox_DataBaseLogFilePath.Location = new System.Drawing.Point(14, 27);
             this.textBox_DataBaseLogFilePath.Name = "textBox_DataBaseLogFilePath";
-            this.textBox_DataBaseLogFilePath.Size = new System.Drawing.Size(442, 23);
+            this.textBox_DataBaseLogFilePath.Size = new System.Drawing.Size(531, 27);
             this.textBox_DataBaseLogFilePath.TabIndex = 5;
             this.textBox_DataBaseLogFilePath.TextChanged += new System.EventHandler(this.textBox_DataBaseLogFilePath_TextChanged);
             // 
@@ -489,9 +489,9 @@ namespace DBConnectionControl40
             this.grpMaxLogFileSize.Controls.Add(this.rdbMaxLogFileSizeUNLIMITED);
             this.grpMaxLogFileSize.Controls.Add(this.rdbMaxLogFileSizeInMB);
             this.grpMaxLogFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpMaxLogFileSize.Location = new System.Drawing.Point(283, 120);
+            this.grpMaxLogFileSize.Location = new System.Drawing.Point(340, 138);
             this.grpMaxLogFileSize.Name = "grpMaxLogFileSize";
-            this.grpMaxLogFileSize.Size = new System.Drawing.Size(251, 63);
+            this.grpMaxLogFileSize.Size = new System.Drawing.Size(301, 73);
             this.grpMaxLogFileSize.TabIndex = 15;
             this.grpMaxLogFileSize.TabStop = false;
             this.grpMaxLogFileSize.Text = "Max Log File Size";
@@ -499,9 +499,9 @@ namespace DBConnectionControl40
             // nupdn_MaxLogFileSizeInMB
             // 
             this.nupdn_MaxLogFileSizeInMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nupdn_MaxLogFileSizeInMB.Location = new System.Drawing.Point(176, 28);
+            this.nupdn_MaxLogFileSizeInMB.Location = new System.Drawing.Point(211, 32);
             this.nupdn_MaxLogFileSizeInMB.Name = "nupdn_MaxLogFileSizeInMB";
-            this.nupdn_MaxLogFileSizeInMB.Size = new System.Drawing.Size(67, 23);
+            this.nupdn_MaxLogFileSizeInMB.Size = new System.Drawing.Size(81, 27);
             this.nupdn_MaxLogFileSizeInMB.TabIndex = 17;
             this.nupdn_MaxLogFileSizeInMB.Value = new decimal(new int[] {
             50,
@@ -513,9 +513,9 @@ namespace DBConnectionControl40
             // 
             this.rdbMaxLogFileSizeUNLIMITED.AutoSize = true;
             this.rdbMaxLogFileSizeUNLIMITED.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbMaxLogFileSizeUNLIMITED.Location = new System.Drawing.Point(14, 28);
+            this.rdbMaxLogFileSizeUNLIMITED.Location = new System.Drawing.Point(17, 32);
             this.rdbMaxLogFileSizeUNLIMITED.Name = "rdbMaxLogFileSizeUNLIMITED";
-            this.rdbMaxLogFileSizeUNLIMITED.Size = new System.Drawing.Size(99, 21);
+            this.rdbMaxLogFileSizeUNLIMITED.Size = new System.Drawing.Size(120, 24);
             this.rdbMaxLogFileSizeUNLIMITED.TabIndex = 16;
             this.rdbMaxLogFileSizeUNLIMITED.TabStop = true;
             this.rdbMaxLogFileSizeUNLIMITED.Text = "UNLIMITED";
@@ -526,9 +526,9 @@ namespace DBConnectionControl40
             // 
             this.rdbMaxLogFileSizeInMB.AutoSize = true;
             this.rdbMaxLogFileSizeInMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbMaxLogFileSizeInMB.Location = new System.Drawing.Point(117, 28);
+            this.rdbMaxLogFileSizeInMB.Location = new System.Drawing.Point(140, 32);
             this.rdbMaxLogFileSizeInMB.Name = "rdbMaxLogFileSizeInMB";
-            this.rdbMaxLogFileSizeInMB.Size = new System.Drawing.Size(65, 21);
+            this.rdbMaxLogFileSizeInMB.Size = new System.Drawing.Size(79, 24);
             this.rdbMaxLogFileSizeInMB.TabIndex = 15;
             this.rdbMaxLogFileSizeInMB.TabStop = true;
             this.rdbMaxLogFileSizeInMB.Text = "in MB:";
@@ -537,9 +537,9 @@ namespace DBConnectionControl40
             // lbl_InitialLogFileSize
             // 
             this.lbl_InitialLogFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_InitialLogFileSize.Location = new System.Drawing.Point(17, 65);
+            this.lbl_InitialLogFileSize.Location = new System.Drawing.Point(20, 75);
             this.lbl_InitialLogFileSize.Name = "lbl_InitialLogFileSize";
-            this.lbl_InitialLogFileSize.Size = new System.Drawing.Size(206, 16);
+            this.lbl_InitialLogFileSize.Size = new System.Drawing.Size(248, 18);
             this.lbl_InitialLogFileSize.TabIndex = 11;
             this.lbl_InitialLogFileSize.Text = "Initial Log File Size in MB";
             this.lbl_InitialLogFileSize.Click += new System.EventHandler(this.lbl_InitialLogFileSize_Click);
@@ -551,9 +551,9 @@ namespace DBConnectionControl40
             this.groupBox6.Controls.Add(this.rdb_LogFileGrowthByPercent);
             this.groupBox6.Controls.Add(this.rdb_LogFileGrowthInMB);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(5, 105);
+            this.groupBox6.Location = new System.Drawing.Point(6, 121);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(248, 88);
+            this.groupBox6.Size = new System.Drawing.Size(298, 102);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "File growth";
@@ -561,9 +561,9 @@ namespace DBConnectionControl40
             // nupdn_LogFileGrowthByPercent
             // 
             this.nupdn_LogFileGrowthByPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nupdn_LogFileGrowthByPercent.Location = new System.Drawing.Point(140, 62);
+            this.nupdn_LogFileGrowthByPercent.Location = new System.Drawing.Point(168, 72);
             this.nupdn_LogFileGrowthByPercent.Name = "nupdn_LogFileGrowthByPercent";
-            this.nupdn_LogFileGrowthByPercent.Size = new System.Drawing.Size(92, 23);
+            this.nupdn_LogFileGrowthByPercent.Size = new System.Drawing.Size(110, 27);
             this.nupdn_LogFileGrowthByPercent.TabIndex = 3;
             this.nupdn_LogFileGrowthByPercent.Value = new decimal(new int[] {
             10,
@@ -574,9 +574,9 @@ namespace DBConnectionControl40
             // nupdn_LogFileGrowthInMB
             // 
             this.nupdn_LogFileGrowthInMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nupdn_LogFileGrowthInMB.Location = new System.Drawing.Point(138, 29);
+            this.nupdn_LogFileGrowthInMB.Location = new System.Drawing.Point(166, 33);
             this.nupdn_LogFileGrowthInMB.Name = "nupdn_LogFileGrowthInMB";
-            this.nupdn_LogFileGrowthInMB.Size = new System.Drawing.Size(94, 23);
+            this.nupdn_LogFileGrowthInMB.Size = new System.Drawing.Size(112, 27);
             this.nupdn_LogFileGrowthInMB.TabIndex = 2;
             this.nupdn_LogFileGrowthInMB.Value = new decimal(new int[] {
             1,
@@ -586,9 +586,9 @@ namespace DBConnectionControl40
             // 
             // rdb_LogFileGrowthByPercent
             // 
-            this.rdb_LogFileGrowthByPercent.Location = new System.Drawing.Point(16, 62);
+            this.rdb_LogFileGrowthByPercent.Location = new System.Drawing.Point(19, 72);
             this.rdb_LogFileGrowthByPercent.Name = "rdb_LogFileGrowthByPercent";
-            this.rdb_LogFileGrowthByPercent.Size = new System.Drawing.Size(119, 21);
+            this.rdb_LogFileGrowthByPercent.Size = new System.Drawing.Size(143, 24);
             this.rdb_LogFileGrowthByPercent.TabIndex = 4;
             this.rdb_LogFileGrowthByPercent.Text = "In Percentage";
             this.rdb_LogFileGrowthByPercent.CheckedChanged += new System.EventHandler(this.rdb_LogFileGrowthByPercent_CheckedChanged);
@@ -596,9 +596,9 @@ namespace DBConnectionControl40
             // rdb_LogFileGrowthInMB
             // 
             this.rdb_LogFileGrowthInMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdb_LogFileGrowthInMB.Location = new System.Drawing.Point(17, 28);
+            this.rdb_LogFileGrowthInMB.Location = new System.Drawing.Point(20, 32);
             this.rdb_LogFileGrowthInMB.Name = "rdb_LogFileGrowthInMB";
-            this.rdb_LogFileGrowthInMB.Size = new System.Drawing.Size(118, 24);
+            this.rdb_LogFileGrowthInMB.Size = new System.Drawing.Size(142, 28);
             this.rdb_LogFileGrowthInMB.TabIndex = 0;
             this.rdb_LogFileGrowthInMB.Text = "in megabytes";
             this.rdb_LogFileGrowthInMB.CheckedChanged += new System.EventHandler(this.rdb_FileGrowthInMegaBytes_CheckedChanged);
@@ -607,16 +607,16 @@ namespace DBConnectionControl40
             // 
             this.dataGridView_Permissions.AllowUserToAddRows = false;
             this.dataGridView_Permissions.AllowUserToDeleteRows = false;
-            this.dataGridView_Permissions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_Permissions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_Permissions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_Permissions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_Permissions.Location = new System.Drawing.Point(2, 26);
+            this.dataGridView_Permissions.Location = new System.Drawing.Point(2, 30);
             this.dataGridView_Permissions.Name = "dataGridView_Permissions";
             this.dataGridView_Permissions.ReadOnly = true;
             this.dataGridView_Permissions.RowTemplate.Height = 24;
-            this.dataGridView_Permissions.Size = new System.Drawing.Size(652, 266);
+            this.dataGridView_Permissions.Size = new System.Drawing.Size(649, 255);
             this.dataGridView_Permissions.TabIndex = 8;
             this.dataGridView_Permissions.Visible = false;
             // 
@@ -628,15 +628,15 @@ namespace DBConnectionControl40
             // 
             this.lbl_Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Message.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lbl_Message.Location = new System.Drawing.Point(21, 250);
+            this.lbl_Message.Location = new System.Drawing.Point(25, 288);
             this.lbl_Message.Name = "lbl_Message";
-            this.lbl_Message.Size = new System.Drawing.Size(142, 32);
+            this.lbl_Message.Size = new System.Drawing.Size(171, 37);
             this.lbl_Message.TabIndex = 9;
             this.lbl_Message.Text = "label1";
             // 
             // CreateDataBase_Form
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
             this.ClientSize = new System.Drawing.Size(669, 340);
             this.Controls.Add(this.lbl_Message);
             this.Controls.Add(this.button_Cancel);

@@ -41,9 +41,10 @@
             this.panel_Help.AutoScroll = true;
             this.panel_Help.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panel_Help.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel_Help.Location = new System.Drawing.Point(4, 2);
+            this.panel_Help.Location = new System.Drawing.Point(5, 2);
+            this.panel_Help.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel_Help.Name = "panel_Help";
-            this.panel_Help.Size = new System.Drawing.Size(574, 351);
+            this.panel_Help.Size = new System.Drawing.Size(764, 508);
             this.panel_Help.TabIndex = 2;
             // 
             // usrc_NavigationButtons1
@@ -54,6 +55,7 @@
             this.usrc_NavigationButtons1.btn1_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn2_ToolTip_Text = "";
             this.usrc_NavigationButtons1.btn3_ToolTip_Text = "";
+            this.usrc_NavigationButtons1.Button_NEXT_Enabled = true;
             this.usrc_NavigationButtons1.Buttons = NavigationButtons.Navigation.eButtons.OkCancel;
             this.usrc_NavigationButtons1.ExitQuestion = "Exit Program?";
             this.usrc_NavigationButtons1.Image_Cancel = null;
@@ -61,9 +63,10 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(4, 357);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(5, 516);
+            this.usrc_NavigationButtons1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(570, 62);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(760, 87);
             this.usrc_NavigationButtons1.TabIndex = 3;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -77,13 +80,14 @@
             // 
             // CommandLineHelp_Form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(578, 429);
+            this.ClientSize = new System.Drawing.Size(771, 605);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.panel_Help);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "CommandLineHelp_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CommandLineHelp_Form";
