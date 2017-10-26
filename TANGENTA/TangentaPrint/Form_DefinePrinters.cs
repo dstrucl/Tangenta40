@@ -134,7 +134,6 @@ namespace TangentaPrint
                                           ((usrc_Printer)ctrl).bPrinting_ProformaInvoices,
                                           ((usrc_Printer)ctrl).bPrinting_Reports
                                           );
-                        break;
                     }
                 }
             }
@@ -153,15 +152,15 @@ namespace TangentaPrint
             {
                 case NavigationButtons.Navigation.eEvent.NEXT:
                     m_nav.eExitResult = NavigationButtons.Navigation.eEvent.NEXT;
+                    SaveIfChanged();
                     this.Close();
                     DialogResult = DialogResult.OK;
-                    SaveIfChanged();
                     break;
                 case NavigationButtons.Navigation.eEvent.OK:
                     m_nav.eExitResult = NavigationButtons.Navigation.eEvent.OK;
+                    SaveIfChanged();
                     this.Close();
                     DialogResult = DialogResult.OK;
-                    SaveIfChanged();
                     break;
                 case NavigationButtons.Navigation.eEvent.CANCEL:
                     m_nav.eExitResult = NavigationButtons.Navigation.eEvent.CANCEL;
