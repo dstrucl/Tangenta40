@@ -122,6 +122,8 @@ namespace DBConnectionControl40
             m_conData_SQLITE.m_DataBaseFileName = this.cmbR_FileName.Text;
             if (m_conData_SQLITE.IsValidDataBaseFile())
             {
+                this.cmbR_FilePath.Set(cmbR_FilePath.Text);
+                this.cmbR_FileName.Set(cmbR_FileName.Text);
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }

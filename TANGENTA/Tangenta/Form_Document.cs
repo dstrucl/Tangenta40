@@ -68,16 +68,6 @@ namespace Tangenta
                 this.FormBorderStyle = FormBorderStyle.Sizable;
             }
 
-            if (Get_RecentItemsFolder(ref RecentItemsFolder))
-            {
-
-                LogFile.LogFile.WriteRELEASE("MESSAGE:Main_Form:Form_Document:Recent items folder = " + RecentItemsFolder);
-
-            }
-            else
-            {
-                LogFile.Error.Show("ERROR:Get_RecentItemsFolder(ref rfolder) failed!");
-            }
 
             // Properties.Settings.Default.SplitterPositions =
             this.Text = lngRPM.s_Tangenta.s;
@@ -271,54 +261,6 @@ namespace Tangenta
         }
 
 
-        private bool Get_RecentItemsFolder(ref string xRecentItemsFolder)
-        {
-            const string sRecentComboBoxItemsFolder = "\\RecentComboBoxItemsFolder";
-            string rfolder = Properties.Settings.Default.RecentItemsFolder; 
-            if (HasFolderReadWriteDeleteAccess(rfolder))
-            {
-                xRecentItemsFolder = rfolder;
-                return true;
-            }
-            else
-            {
-                rfolder = Application.StartupPath + sRecentComboBoxItemsFolder;
-                if (CanUseFolder(rfolder))
-                {
-                    RecentItemsFolder = rfolder;
-                    Properties.Settings.Default.RecentItemsFolder = RecentItemsFolder;
-                    Properties.Settings.Default.Save(); 
-                    return true;
-                }
-                else
-                {
-                    for (; ; )
-                    {
-                        FolderBrowserDialog fbd = new FolderBrowserDialog();
-                        fbd.Description = lngRPM.s_select_folder_for_recent_combobox_data.s;
-                        if (fbd.ShowDialog() == DialogResult.OK)
-                        {
-                            rfolder = fbd.SelectedPath;
-                            if (CanUseFolder(rfolder))
-                            {
-                                xRecentItemsFolder = rfolder;
-                                Properties.Settings.Default.RecentItemsFolder = RecentItemsFolder;
-                                Properties.Settings.Default.Save(); 
-                                return true;
-                            }
-                            else
-                            {
-                                MessageBox.Show(lngRPM.s_CanNotWriteOrDeleteFileInFolder.s + rfolder + "\r\n" + lngRPM.s_SelectAnotherFolder);
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
 
 
         void Main_Form_KeyUp(object sender, KeyEventArgs e)

@@ -268,47 +268,32 @@ namespace TangentaPrint
 
     private void btn_Print_Click(object sender, EventArgs e)
         {
-            //PrintDialog pdlg = new PrintDialog();
-            //pdlg.Document = pd;
-            //DialogResult dlgRes = pdlg.ShowDialog();
-            //if (dlgRes == DialogResult.OK)
-            //{
+            pd.PrinterSettings.PrinterName = m_Printer.PrinterName;
+            config.PageSize = PageSize.A4;
+            config.SetMargins(20);
 
-                pd.PrinterSettings.PrinterName = m_Printer.PrinterName;
-                config.PageSize = PageSize.A4;
-                config.SetMargins(20);
+            XSize orgPageSize = PageSizeConverter.ToSize(config.PageSize);
+            orgPageSize = new Size(Convert.ToInt32(orgPageSize.Width), Convert.ToInt32(orgPageSize.Height));
+            pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
 
-                XSize orgPageSize = PageSizeConverter.ToSize(config.PageSize);
-                orgPageSize = new Size(Convert.ToInt32(orgPageSize.Width), Convert.ToInt32(orgPageSize.Height));
-                pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
+            hc.SetHtml(htmlPanel1.Text);
+            hc.Location = new PointF(config.MarginLeft, config.MarginTop);
+            hc.MaxSize = new Size(Convert.ToInt32(pageSize.Width), 0);
 
-                hc.SetHtml(htmlPanel1.Text);
-                hc.Location = new PointF(config.MarginLeft, config.MarginTop);
-                hc.MaxSize = new Size(Convert.ToInt32(pageSize.Width), 0);
+            string shtml = htmlPanel1.Text;
 
-                string shtml = htmlPanel1.Text;
-
-                hc.SetHtml(shtml);
+            hc.SetHtml(shtml);
 
 
-                scrollOffset = 0;
+            scrollOffset = 0;
 
-                hc.UseGdiPlusTextRendering = true;
-                hc.ScrollOffset = new Point(0, 0);
+            hc.UseGdiPlusTextRendering = true;
+            hc.ScrollOffset = new Point(0, 0);
 
-                //SizeF szf = new SizeF(pd.DefaultPageSettings.PaperSize.Width, pd.DefaultPageSettings.PaperSize.Height);
-                //hc.MaxSize = szf;
-                iPage = 0;
-                bFirstPagePrinting = true;
-                pd.Print();
+            iPage = 0;
+            bFirstPagePrinting = true;
+            pd.Print();
 
-                //hc.SetHtml(htmlPanel1.Text);
-                //hc.UseGdiPlusTextRendering = true;
-                //scrollOffset = 0;
-                //bFirstPagePrinting = true;
-                //pd.Print();
-
-            //}
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
@@ -345,44 +330,10 @@ namespace TangentaPrint
             }
             else
             {
-                //    hc.PerformPrint(e.Graphics, 0);
-                //    e.HasMorePages = false;
-                //}
-                XSize e_Graphics_XSize = new XSize(Convert.ToDouble(e.PageSettings.PrintableArea.Width), Convert.ToDouble(e.PageSettings.PrintableArea.Height));
-                e.Graphics.IntersectClip(new RectangleF(config.MarginLeft, config.MarginTop, pageSize.Width, pageSize.Height));
-                hc.ScrollOffset = new Point(0, Convert.ToInt32(scrollOffset));
+                hc.ScrollOffset = new Point(0, 0);
                 hc.PerformPaint(e.Graphics);
-                scrollOffset -= pageSize.Height;
-                if (scrollOffset > -hc.ActualSize.Height)
-                {
-                    e.HasMorePages = true;
-                }
-                else
-                {
-                    e.HasMorePages = false;
-                }
+                e.HasMorePages = false;
             }
-
-
-
-            //if (bFirstPagePrinting)
-            //{
-            //    bFirstPagePrinting = false;
-            //    hc.PerformLayout(e.Graphics);
-            //}
-
-            //e.Graphics.IntersectClip(new RectangleF(e.PageSettings.PrintableArea.Left, e.PageSettings.PrintableArea.Top, e.PageSettings.PrintableArea.Width, e.PageSettings.PrintableArea.Height));
-            //hc.ScrollOffset = new Point(0, scrollOffset);
-            //hc.PerformPaint(e.Graphics);
-            //scrollOffset -= Convert.ToInt32(e.PageSettings.PrintableArea.Height);
-            //if (scrollOffset > -hc.ActualSize.Height)
-            //{
-            //    e.HasMorePages = true;
-            //}
-            //else
-            //{
-            //    e.HasMorePages = false;
-            //}
         }
 
         private void btn_SaveAs_Click(object sender, EventArgs e)

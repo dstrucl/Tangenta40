@@ -15,6 +15,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Drawing;
 using System.Diagnostics;
+using System.Reflection;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace ComboBox_Recent
 {
@@ -24,6 +27,7 @@ namespace ComboBox_Recent
     public class ComboBox_RecentList : ComboBox
     {
 
+        public const string RECENT_ITEMS_SUB_FOLDER = "\\RecentComboBoxItems";
         public delegate void delagate_EnterPressed(object sender);
         public event delagate_EnterPressed EnterPressed = null;
 
@@ -65,6 +69,16 @@ namespace ComboBox_Recent
                     base.Enabled = true;
                 }
 
+                }
+        }
+
+        private bool bAskToCreateRecentItemsFolder = false;
+
+        public bool AskToCreateRecentItemsFolder
+        { 
+            get { return bAskToCreateRecentItemsFolder; }
+            set {
+                    bAskToCreateRecentItemsFolder = value;
                 }
         }
 
@@ -128,9 +142,9 @@ namespace ComboBox_Recent
         {
             try
             {
-                if (File.Exists(FileName))
+                if (File.Exists(RecentItemsFile))
                 {
-                    File.Delete(FileName);
+                    File.Delete(RecentItemsFile);
                     base.Items.Clear();
                     dtRecentFiles.Clear();
                 }
@@ -187,8 +201,25 @@ namespace ComboBox_Recent
 
         private void ShowRecentListTable(object sender, EventArgs e)
         {
-            ShowRecentListTable_Form srlt = new ShowRecentListTable_Form(dtRecentFiles, FileName);
-            srlt.ShowDialog();
+            Form ParentForm = null;
+            ShowRecentListTable_Form srlt = new ShowRecentListTable_Form(dtRecentFiles, RecentItemsFile);
+            srlt.TopMost = OnTopMostForm(ref ParentForm); 
+            srlt.ShowDialog(ParentForm);
+        }
+
+        private bool OnTopMostForm(ref Form ParentForm)
+        {
+            Control parent = this.Parent;
+            while (parent != null)
+            {
+                if (parent is Form)
+                {
+                    ParentForm = (Form)parent;
+                    return ((Form)this.Parent).TopMost;
+                }
+                parent = parent.Parent;
+            }
+            return false;
         }
 
         private void ComboBox_RecentList_DrawItem(object sender, DrawItemEventArgs e)
@@ -270,34 +301,15 @@ namespace ComboBox_Recent
             try
             {
                 int icount_ComboBox_Items = this.Items.Count;
-
-                int icount_dtRecentFiles_rows_count = dtRecentFiles.Rows.Count;
-
-                while (icount_dtRecentFiles_rows_count < icount_ComboBox_Items)
+                dtRecentFiles.Clear();
+                for (int i = 0; i < icount_ComboBox_Items; i++)
                 {
                     DataRow dr = dtRecentFiles.NewRow();
-                    dr[m_Key] = null;
-                    dr[m_KeyTime] = DateTime.MinValue;
+                    myIteM mitm = (myIteM)this.Items[i];
+                    dr[m_Key] = mitm.item; 
+                    dr[m_KeyTime] = mitm.time; 
                     dtRecentFiles.Rows.Add(dr);
-                    icount_dtRecentFiles_rows_count = dtRecentFiles.Rows.Count;
                 }
-
-                int i;
-                for (i = 0; i < icount_dtRecentFiles_rows_count; i++)
-                {
-                    if (i < icount_ComboBox_Items)
-                    {
-                        myIteM mitm = (myIteM)this.Items[i];
-                        dtRecentFiles.Rows[i][m_Key] = mitm.item;
-                        dtRecentFiles.Rows[i][m_KeyTime] = mitm.time;
-                    }
-                    else
-                    {
-                        dtRecentFiles.Rows[i][Key] = null;
-                        dtRecentFiles.Rows[i][m_KeyTime] = DateTime.MinValue;
-                    }
-                }
-
                 dtRecentFiles.WriteXml(RecentItemsFile, XmlWriteMode.WriteSchema);
                 return true;
             }
@@ -377,6 +389,30 @@ namespace ComboBox_Recent
             return -1;
         }
 
+
+        private static void GrantFolderAccess(string Folder)
+        {
+            bool exists = System.IO.Directory.Exists(Folder);
+            if (!exists)
+            {
+                try
+                {
+
+                    DirectoryInfo di = System.IO.Directory.CreateDirectory(Folder);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Can not create folder:" + Folder + "\r\nException:" + ex.Message);
+                }
+
+            }
+            DirectoryInfo dInfo = new DirectoryInfo(Folder);
+            DirectorySecurity dSecurity = dInfo.GetAccessControl();
+            dSecurity.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+            dInfo.SetAccessControl(dSecurity);
+
+        }
+
         private bool Init()
         {
             try
@@ -386,6 +422,15 @@ namespace ComboBox_Recent
                 {
                     return false;
                 }
+
+                if (FolderName.Length == 0)
+                {
+                    //FolderName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    FolderName = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)+ RECENT_ITEMS_SUB_FOLDER;
+                    GrantFolderAccess(FolderName);
+                }
+
+                dtRecentFiles.Clear();
                 XmlReadMode xrmode = dtRecentFiles.ReadXml(RecentItemsFile);
                 if (dtRecentFiles.Columns.Contains(Key))
                 {
@@ -404,25 +449,25 @@ namespace ComboBox_Recent
                     {
                         if (!File.Exists(RecentItemsFile))
                         {
-                            if (MessageBox.Show("Recent Items Xml File: \"" + RecentItemsFile + "\" does not exists.\r\n Create \"" + RecentItemsFile + "\"?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                            if (bAskToCreateRecentItemsFolder)
                             {
-                                dtRecentFiles.Clear();
-                                dtRecentFiles.Columns.Clear();
-                                dtRecentFiles.Columns.Add(m_Key, typeof(string));
-                                dtRecentFiles.Columns.Add(m_KeyTime, typeof(DateTime));
-                                base.Items.Clear();
-                                try
+                                if (MessageBox.Show("Recent Items Xml File: \"" + RecentItemsFile + "\" does not exists.\r\n Create \"" + RecentItemsFile + "\"?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                                 {
-                                    dtRecentFiles.WriteXml(RecentItemsFile, XmlWriteMode.WriteSchema);
-                                }
-                                catch (Exception ex2)
-                                {
-                                    MessageBox.Show("Error can not write " + RecentItemsFile + " !" + " Exception =" + ex2);
                                     return false;
                                 }
                             }
-                            else
+                            dtRecentFiles.Clear();
+                            dtRecentFiles.Columns.Clear();
+                            dtRecentFiles.Columns.Add(m_Key, typeof(string));
+                            dtRecentFiles.Columns.Add(m_KeyTime, typeof(DateTime));
+                            base.Items.Clear();
+                            try
                             {
+                                dtRecentFiles.WriteXml(RecentItemsFile, XmlWriteMode.WriteSchema);
+                            }
+                            catch (Exception ex2)
+                            {
+                                MessageBox.Show("Error can not write " + RecentItemsFile + " !" + " Exception =" + ex2);
                                 return false;
                             }
                         }
@@ -465,19 +510,7 @@ namespace ComboBox_Recent
             return true;
         }
 
-        //public bool Init(string filename, string sKey)
-        //{
-        //    if (sKey != null)
-        //    {
-        //        Key = sKey;
-        //    }
-        //    if (filename != null)
-        //    {
-        //        RecentItemsFile = filename;
-        //    }
-        //    return Init();
-        //}
-    }
+            }
     public class myIteM
     {
        public string item;
