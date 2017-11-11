@@ -280,7 +280,7 @@ namespace TangentaDB
 
                 if (shtml != null)
                 {
-                    if (bottom >= xPageHeight)
+                    if (bottom >= xPageHeight- xPageHeight / (7.5))
                     {
                         //new page
                         StartBuildHtmlElementsOnNewPage(pel, hTML_RollPaperPrintingOutput,ref shtml, ref html);

@@ -52,9 +52,8 @@ namespace Tangenta
 
         private void Form_DocProformaInvoice_Payment_Load(object sender, EventArgs e)
         {
-            if (this.m_usrc_DocProformaInvoice_AddOn.Init(m_AddOnDPI, m_bPrint, m_usrc_AddOn))
+            if (this.usrc_DocProformaInvoice_AddOn1.Init(m_AddOnDPI, m_bPrint, m_usrc_AddOn))
             {
-                //splitContainer1.Panel1Collapsed = true;
                 return;
             }
             else
@@ -62,27 +61,16 @@ namespace Tangenta
                 this.Close();
                 DialogResult = DialogResult.Abort;
             }
-
-            //if (Program.usrc_TangentaPrint1.Init(m_AddOnDPI))
-            //{
-            //    if ((m_InvoiceData.m_ShopABC.m_CurrentInvoice.bDraft))
-            //    {
-            //    }
-            //    else
-            //    {
-            //        LogFile.Error.Show("ERROR:Form_Payment:Not Draft!");
-            //    }
-            //}
         }
 
 
-        private void m_usrc_DocProformaInvoice_AddOn_OK()
+        private void usrc_DocProformaInvoice_AddOn1_OK()
         {
             this.Close();
             DialogResult = DialogResult.OK;
         }
 
-        private void m_usrc_DocProformaInvoice_AddOn_Cancel()
+        private void usrc_DocProformaInvoice_AddOn1_Cancel()
         {
             this.Close();
             DialogResult = DialogResult.Cancel;

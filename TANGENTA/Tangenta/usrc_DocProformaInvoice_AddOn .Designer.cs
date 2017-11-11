@@ -58,9 +58,10 @@
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.AutoSize = true;
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.ForeColor = System.Drawing.Color.Black;
-            this.rdb_Payment_by_cash_or_credit_card_on_delivery.Location = new System.Drawing.Point(9, 64);
+            this.rdb_Payment_by_cash_or_credit_card_on_delivery.Location = new System.Drawing.Point(7, 51);
+            this.rdb_Payment_by_cash_or_credit_card_on_delivery.Margin = new System.Windows.Forms.Padding(2);
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.Name = "rdb_Payment_by_cash_or_credit_card_on_delivery";
-            this.rdb_Payment_by_cash_or_credit_card_on_delivery.Size = new System.Drawing.Size(399, 29);
+            this.rdb_Payment_by_cash_or_credit_card_on_delivery.Size = new System.Drawing.Size(321, 24);
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.TabIndex = 0;
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.Text = "Payment by cash or credit card on delivery";
             this.rdb_Payment_by_cash_or_credit_card_on_delivery.UseVisualStyleBackColor = true;
@@ -71,9 +72,10 @@
             this.btn_ProformaInvoice_Issue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_ProformaInvoice_Issue.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_ProformaInvoice_Issue.ForeColor = System.Drawing.Color.Black;
-            this.btn_ProformaInvoice_Issue.Location = new System.Drawing.Point(12, 552);
+            this.btn_ProformaInvoice_Issue.Location = new System.Drawing.Point(10, 442);
+            this.btn_ProformaInvoice_Issue.Margin = new System.Windows.Forms.Padding(2);
             this.btn_ProformaInvoice_Issue.Name = "btn_ProformaInvoice_Issue";
-            this.btn_ProformaInvoice_Issue.Size = new System.Drawing.Size(197, 55);
+            this.btn_ProformaInvoice_Issue.Size = new System.Drawing.Size(158, 44);
             this.btn_ProformaInvoice_Issue.TabIndex = 7;
             this.btn_ProformaInvoice_Issue.Text = "Issue";
             this.btn_ProformaInvoice_Issue.UseVisualStyleBackColor = true;
@@ -84,9 +86,10 @@
             this.rdb_BankAccountTransfer.AutoSize = true;
             this.rdb_BankAccountTransfer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_BankAccountTransfer.ForeColor = System.Drawing.Color.Black;
-            this.rdb_BankAccountTransfer.Location = new System.Drawing.Point(9, 25);
+            this.rdb_BankAccountTransfer.Location = new System.Drawing.Point(7, 20);
+            this.rdb_BankAccountTransfer.Margin = new System.Windows.Forms.Padding(2);
             this.rdb_BankAccountTransfer.Name = "rdb_BankAccountTransfer";
-            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(259, 29);
+            this.rdb_BankAccountTransfer.Size = new System.Drawing.Size(211, 24);
             this.rdb_BankAccountTransfer.TabIndex = 10;
             this.rdb_BankAccountTransfer.Text = "Payment on bank account";
             this.rdb_BankAccountTransfer.UseVisualStyleBackColor = true;
@@ -101,9 +104,11 @@
             this.grp_MtehodOfPaymentType.Controls.Add(this.rdb_BankAccountTransfer);
             this.grp_MtehodOfPaymentType.Controls.Add(this.rdb_Payment_by_cash_or_credit_card_on_delivery);
             this.grp_MtehodOfPaymentType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.grp_MtehodOfPaymentType.Location = new System.Drawing.Point(3, 40);
+            this.grp_MtehodOfPaymentType.Location = new System.Drawing.Point(2, 32);
+            this.grp_MtehodOfPaymentType.Margin = new System.Windows.Forms.Padding(2);
             this.grp_MtehodOfPaymentType.Name = "grp_MtehodOfPaymentType";
-            this.grp_MtehodOfPaymentType.Size = new System.Drawing.Size(572, 125);
+            this.grp_MtehodOfPaymentType.Padding = new System.Windows.Forms.Padding(2);
+            this.grp_MtehodOfPaymentType.Size = new System.Drawing.Size(458, 100);
             this.grp_MtehodOfPaymentType.TabIndex = 13;
             this.grp_MtehodOfPaymentType.TabStop = false;
             this.grp_MtehodOfPaymentType.Text = "Method of Payment";
@@ -113,9 +118,10 @@
             this.btn_Select_BankAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Select_BankAccount.ForeColor = System.Drawing.Color.Black;
             this.btn_Select_BankAccount.Image = global::Tangenta.Properties.Resources.SelectRow;
-            this.btn_Select_BankAccount.Location = new System.Drawing.Point(519, 25);
+            this.btn_Select_BankAccount.Location = new System.Drawing.Point(415, 20);
+            this.btn_Select_BankAccount.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Select_BankAccount.Name = "btn_Select_BankAccount";
-            this.btn_Select_BankAccount.Size = new System.Drawing.Size(40, 25);
+            this.btn_Select_BankAccount.Size = new System.Drawing.Size(32, 20);
             this.btn_Select_BankAccount.TabIndex = 12;
             this.btn_Select_BankAccount.UseVisualStyleBackColor = true;
             this.btn_Select_BankAccount.Click += new System.EventHandler(this.btn_Select_BankAccount_Click);
@@ -125,10 +131,11 @@
             this.txt_BankAccount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_BankAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txt_BankAccount.Location = new System.Drawing.Point(250, 25);
+            this.txt_BankAccount.Location = new System.Drawing.Point(222, 20);
+            this.txt_BankAccount.Margin = new System.Windows.Forms.Padding(2);
             this.txt_BankAccount.Name = "txt_BankAccount";
             this.txt_BankAccount.ReadOnly = true;
-            this.txt_BankAccount.Size = new System.Drawing.Size(261, 26);
+            this.txt_BankAccount.Size = new System.Drawing.Size(188, 22);
             this.txt_BankAccount.TabIndex = 11;
             // 
             // grp_ValidityOfTheTender
@@ -139,28 +146,32 @@
             this.grp_ValidityOfTheTender.Controls.Add(this.rdb_ValidNumberOf);
             this.grp_ValidityOfTheTender.Controls.Add(this.nmUpDn_NumberOfDaysOrMonths);
             this.grp_ValidityOfTheTender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.grp_ValidityOfTheTender.Location = new System.Drawing.Point(12, 309);
+            this.grp_ValidityOfTheTender.Location = new System.Drawing.Point(10, 247);
+            this.grp_ValidityOfTheTender.Margin = new System.Windows.Forms.Padding(2);
             this.grp_ValidityOfTheTender.Name = "grp_ValidityOfTheTender";
-            this.grp_ValidityOfTheTender.Size = new System.Drawing.Size(563, 113);
+            this.grp_ValidityOfTheTender.Padding = new System.Windows.Forms.Padding(2);
+            this.grp_ValidityOfTheTender.Size = new System.Drawing.Size(450, 90);
             this.grp_ValidityOfTheTender.TabIndex = 14;
             this.grp_ValidityOfTheTender.TabStop = false;
             this.grp_ValidityOfTheTender.Text = "Validity of the tender";
             // 
             // cmb_DaysOrMonths
             // 
+            this.cmb_DaysOrMonths.AskToCreateRecentItemsFolder = false;
             this.cmb_DaysOrMonths.DisplayMember = "text";
             this.cmb_DaysOrMonths.DisplayTime = true;
             this.cmb_DaysOrMonths.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmb_DaysOrMonths.FormattingEnabled = true;
             this.cmb_DaysOrMonths.InsertOnKeyPress = true;
             this.cmb_DaysOrMonths.Key = null;
-            this.cmb_DaysOrMonths.Location = new System.Drawing.Point(143, 29);
+            this.cmb_DaysOrMonths.Location = new System.Drawing.Point(114, 23);
+            this.cmb_DaysOrMonths.Margin = new System.Windows.Forms.Padding(2);
             this.cmb_DaysOrMonths.MaxRecentCount = 10;
             this.cmb_DaysOrMonths.Name = "cmb_DaysOrMonths";
             this.cmb_DaysOrMonths.ReadOnly = false;
             this.cmb_DaysOrMonths.RecentItemsFileName = null;
             this.cmb_DaysOrMonths.RecentItemsFolder = "";
-            this.cmb_DaysOrMonths.Size = new System.Drawing.Size(166, 31);
+            this.cmb_DaysOrMonths.Size = new System.Drawing.Size(134, 27);
             this.cmb_DaysOrMonths.TabIndex = 5;
             this.cmb_DaysOrMonths.SelectedIndexChanged += new System.EventHandler(this.cmb_DaysOrMonths_SelectedIndexChanged);
             // 
@@ -168,9 +179,10 @@
             // 
             this.dtP_TenderValidUntil.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_TenderValidUntil.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dtP_TenderValidUntil.Location = new System.Drawing.Point(281, 76);
+            this.dtP_TenderValidUntil.Location = new System.Drawing.Point(225, 61);
+            this.dtP_TenderValidUntil.Margin = new System.Windows.Forms.Padding(2);
             this.dtP_TenderValidUntil.Name = "dtP_TenderValidUntil";
-            this.dtP_TenderValidUntil.Size = new System.Drawing.Size(253, 30);
+            this.dtP_TenderValidUntil.Size = new System.Drawing.Size(203, 26);
             this.dtP_TenderValidUntil.TabIndex = 4;
             this.dtP_TenderValidUntil.ValueChanged += new System.EventHandler(this.dtP_TenderValidUntil_ValueChanged);
             // 
@@ -179,9 +191,10 @@
             this.rdb_Valid_Tender_Until.AutoSize = true;
             this.rdb_Valid_Tender_Until.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_Valid_Tender_Until.ForeColor = System.Drawing.Color.Black;
-            this.rdb_Valid_Tender_Until.Location = new System.Drawing.Point(17, 78);
+            this.rdb_Valid_Tender_Until.Location = new System.Drawing.Point(14, 62);
+            this.rdb_Valid_Tender_Until.Margin = new System.Windows.Forms.Padding(2);
             this.rdb_Valid_Tender_Until.Name = "rdb_Valid_Tender_Until";
-            this.rdb_Valid_Tender_Until.Size = new System.Drawing.Size(117, 29);
+            this.rdb_Valid_Tender_Until.Size = new System.Drawing.Size(95, 24);
             this.rdb_Valid_Tender_Until.TabIndex = 3;
             this.rdb_Valid_Tender_Until.TabStop = true;
             this.rdb_Valid_Tender_Until.Text = "Valid until";
@@ -192,9 +205,10 @@
             this.rdb_ValidNumberOf.AutoSize = true;
             this.rdb_ValidNumberOf.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rdb_ValidNumberOf.ForeColor = System.Drawing.Color.Black;
-            this.rdb_ValidNumberOf.Location = new System.Drawing.Point(17, 30);
+            this.rdb_ValidNumberOf.Location = new System.Drawing.Point(14, 24);
+            this.rdb_ValidNumberOf.Margin = new System.Windows.Forms.Padding(2);
             this.rdb_ValidNumberOf.Name = "rdb_ValidNumberOf";
-            this.rdb_ValidNumberOf.Size = new System.Drawing.Size(123, 29);
+            this.rdb_ValidNumberOf.Size = new System.Drawing.Size(101, 24);
             this.rdb_ValidNumberOf.TabIndex = 2;
             this.rdb_ValidNumberOf.TabStop = true;
             this.rdb_ValidNumberOf.Text = "Number of";
@@ -203,9 +217,10 @@
             // nmUpDn_NumberOfDaysOrMonths
             // 
             this.nmUpDn_NumberOfDaysOrMonths.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nmUpDn_NumberOfDaysOrMonths.Location = new System.Drawing.Point(350, 30);
+            this.nmUpDn_NumberOfDaysOrMonths.Location = new System.Drawing.Point(280, 24);
+            this.nmUpDn_NumberOfDaysOrMonths.Margin = new System.Windows.Forms.Padding(2);
             this.nmUpDn_NumberOfDaysOrMonths.Name = "nmUpDn_NumberOfDaysOrMonths";
-            this.nmUpDn_NumberOfDaysOrMonths.Size = new System.Drawing.Size(184, 30);
+            this.nmUpDn_NumberOfDaysOrMonths.Size = new System.Drawing.Size(147, 26);
             this.nmUpDn_NumberOfDaysOrMonths.TabIndex = 1;
             this.nmUpDn_NumberOfDaysOrMonths.ValueChanged += new System.EventHandler(this.nmUpDn_NumberOfDaysOrMonths_ValueChanged);
             // 
@@ -216,9 +231,11 @@
             this.grp_TermsOfPayment.Controls.Add(this.btn_Select_Terms_of_Payment);
             this.grp_TermsOfPayment.Controls.Add(this.txt_PaymantConditionsDescription);
             this.grp_TermsOfPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.grp_TermsOfPayment.Location = new System.Drawing.Point(6, 169);
+            this.grp_TermsOfPayment.Location = new System.Drawing.Point(5, 135);
+            this.grp_TermsOfPayment.Margin = new System.Windows.Forms.Padding(2);
             this.grp_TermsOfPayment.Name = "grp_TermsOfPayment";
-            this.grp_TermsOfPayment.Size = new System.Drawing.Size(569, 134);
+            this.grp_TermsOfPayment.Padding = new System.Windows.Forms.Padding(2);
+            this.grp_TermsOfPayment.Size = new System.Drawing.Size(455, 107);
             this.grp_TermsOfPayment.TabIndex = 15;
             this.grp_TermsOfPayment.TabStop = false;
             this.grp_TermsOfPayment.Text = "Terms of Payment";
@@ -227,9 +244,10 @@
             // 
             this.btn_Select_Terms_of_Payment.ForeColor = System.Drawing.Color.Black;
             this.btn_Select_Terms_of_Payment.Image = global::Tangenta.Properties.Resources.SelectRow;
-            this.btn_Select_Terms_of_Payment.Location = new System.Drawing.Point(162, 13);
+            this.btn_Select_Terms_of_Payment.Location = new System.Drawing.Point(201, 1);
+            this.btn_Select_Terms_of_Payment.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Select_Terms_of_Payment.Name = "btn_Select_Terms_of_Payment";
-            this.btn_Select_Terms_of_Payment.Size = new System.Drawing.Size(55, 26);
+            this.btn_Select_Terms_of_Payment.Size = new System.Drawing.Size(44, 21);
             this.btn_Select_Terms_of_Payment.TabIndex = 14;
             this.btn_Select_Terms_of_Payment.UseVisualStyleBackColor = true;
             this.btn_Select_Terms_of_Payment.Click += new System.EventHandler(this.btn_Select_Terms_of_Payment_Click);
@@ -238,11 +256,12 @@
             // 
             this.txt_PaymantConditionsDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_PaymantConditionsDescription.Location = new System.Drawing.Point(16, 45);
+            this.txt_PaymantConditionsDescription.Location = new System.Drawing.Point(13, 36);
+            this.txt_PaymantConditionsDescription.Margin = new System.Windows.Forms.Padding(2);
             this.txt_PaymantConditionsDescription.Multiline = true;
             this.txt_PaymantConditionsDescription.Name = "txt_PaymantConditionsDescription";
             this.txt_PaymantConditionsDescription.ReadOnly = true;
-            this.txt_PaymantConditionsDescription.Size = new System.Drawing.Size(543, 72);
+            this.txt_PaymantConditionsDescription.Size = new System.Drawing.Size(435, 58);
             this.txt_PaymantConditionsDescription.TabIndex = 13;
             // 
             // btn_Cancel
@@ -251,9 +270,10 @@
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
             this.btn_Cancel.Image = global::Tangenta.Properties.Resources.Exit;
-            this.btn_Cancel.Location = new System.Drawing.Point(438, 555);
+            this.btn_Cancel.Location = new System.Drawing.Point(350, 444);
+            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(115, 52);
+            this.btn_Cancel.Size = new System.Drawing.Size(92, 42);
             this.btn_Cancel.TabIndex = 12;
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
@@ -262,16 +282,18 @@
             // 
             this.dtP_DateOfIssue.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dtP_DateOfIssue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.dtP_DateOfIssue.Location = new System.Drawing.Point(258, 3);
+            this.dtP_DateOfIssue.Location = new System.Drawing.Point(206, 2);
+            this.dtP_DateOfIssue.Margin = new System.Windows.Forms.Padding(2);
             this.dtP_DateOfIssue.Name = "dtP_DateOfIssue";
-            this.dtP_DateOfIssue.Size = new System.Drawing.Size(253, 30);
+            this.dtP_DateOfIssue.Size = new System.Drawing.Size(203, 26);
             this.dtP_DateOfIssue.TabIndex = 6;
             // 
             // lbl_DateOfIssue
             // 
-            this.lbl_DateOfIssue.Location = new System.Drawing.Point(5, 3);
+            this.lbl_DateOfIssue.Location = new System.Drawing.Point(4, 2);
+            this.lbl_DateOfIssue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_DateOfIssue.Name = "lbl_DateOfIssue";
-            this.lbl_DateOfIssue.Size = new System.Drawing.Size(247, 25);
+            this.lbl_DateOfIssue.Size = new System.Drawing.Size(198, 20);
             this.lbl_DateOfIssue.TabIndex = 16;
             this.lbl_DateOfIssue.Text = "Date of issue";
             this.lbl_DateOfIssue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -281,15 +303,14 @@
             this.usrc_Notice1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.usrc_Notice1.Location = new System.Drawing.Point(12, 429);
-            this.usrc_Notice1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_Notice1.Location = new System.Drawing.Point(10, 343);
             this.usrc_Notice1.Name = "usrc_Notice1";
-            this.usrc_Notice1.Size = new System.Drawing.Size(568, 121);
+            this.usrc_Notice1.Size = new System.Drawing.Size(454, 97);
             this.usrc_Notice1.TabIndex = 17;
             // 
             // usrc_DocProformaInvoice_AddOn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.usrc_Notice1);
@@ -302,8 +323,9 @@
             this.Controls.Add(this.btn_ProformaInvoice_Issue);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ForeColor = System.Drawing.Color.Black;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "usrc_DocProformaInvoice_AddOn";
-            this.Size = new System.Drawing.Size(580, 613);
+            this.Size = new System.Drawing.Size(464, 490);
             this.grp_MtehodOfPaymentType.ResumeLayout(false);
             this.grp_MtehodOfPaymentType.PerformLayout();
             this.grp_ValidityOfTheTender.ResumeLayout(false);

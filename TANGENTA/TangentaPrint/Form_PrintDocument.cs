@@ -269,6 +269,9 @@ namespace TangentaPrint
             this.Cursor = curs;
         }
 
+
+
+
         private void textEditorControl1_DocumentChanged(object sender, DigitalRune.Windows.TextEditor.Document.DocumentEventArgs e)
         {
 

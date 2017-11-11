@@ -29,32 +29,30 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DocProformaInvoice_AddOn));
-            this.m_usrc_DocProformaInvoice_AddOn = new Tangenta.usrc_DocProformaInvoice_AddOn();
+            this.usrc_DocProformaInvoice_AddOn1 = new Tangenta.usrc_DocProformaInvoice_AddOn();
             this.SuspendLayout();
             // 
-            // m_usrc_DocProformaInvoice_AddOn
+            // usrc_DocProformaInvoice_AddOn1
             // 
-            this.m_usrc_DocProformaInvoice_AddOn.AutoScroll = true;
-            this.m_usrc_DocProformaInvoice_AddOn.BackColor = System.Drawing.SystemColors.Control;
-            this.m_usrc_DocProformaInvoice_AddOn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_usrc_DocProformaInvoice_AddOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.m_usrc_DocProformaInvoice_AddOn.ForeColor = System.Drawing.Color.Black;
-            this.m_usrc_DocProformaInvoice_AddOn.Location = new System.Drawing.Point(0, 0);
-            this.m_usrc_DocProformaInvoice_AddOn.Margin = new System.Windows.Forms.Padding(4);
-            this.m_usrc_DocProformaInvoice_AddOn.Name = "m_usrc_DocProformaInvoice_AddOn";
-            this.m_usrc_DocProformaInvoice_AddOn.Size = new System.Drawing.Size(710, 772);
-            this.m_usrc_DocProformaInvoice_AddOn.TabIndex = 0;
-            this.m_usrc_DocProformaInvoice_AddOn.Cancel += new Tangenta.usrc_DocProformaInvoice_AddOn.delegate_Cancel(this.m_usrc_DocProformaInvoice_AddOn_Cancel);
-            this.m_usrc_DocProformaInvoice_AddOn.OK += new Tangenta.usrc_DocProformaInvoice_AddOn.delegate_OK(this.m_usrc_DocProformaInvoice_AddOn_OK);
+            this.usrc_DocProformaInvoice_AddOn1.BackColor = System.Drawing.SystemColors.Control;
+            this.usrc_DocProformaInvoice_AddOn1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usrc_DocProformaInvoice_AddOn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.usrc_DocProformaInvoice_AddOn1.ForeColor = System.Drawing.Color.Black;
+            this.usrc_DocProformaInvoice_AddOn1.Location = new System.Drawing.Point(0, 0);
+            this.usrc_DocProformaInvoice_AddOn1.Margin = new System.Windows.Forms.Padding(2);
+            this.usrc_DocProformaInvoice_AddOn1.Name = "usrc_DocProformaInvoice_AddOn1";
+            this.usrc_DocProformaInvoice_AddOn1.Size = new System.Drawing.Size(656, 618);
+            this.usrc_DocProformaInvoice_AddOn1.TabIndex = 0;
+            this.usrc_DocProformaInvoice_AddOn1.Cancel += new Tangenta.usrc_DocProformaInvoice_AddOn.delegate_Cancel(this.usrc_DocProformaInvoice_AddOn1_Cancel);
+            this.usrc_DocProformaInvoice_AddOn1.OK += new Tangenta.usrc_DocProformaInvoice_AddOn.delegate_OK(this.usrc_DocProformaInvoice_AddOn1_OK);
             // 
             // Form_DocProformaInvoice_AddOn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(710, 772);
-            this.Controls.Add(this.m_usrc_DocProformaInvoice_AddOn);
+            this.ClientSize = new System.Drawing.Size(656, 618);
+            this.Controls.Add(this.usrc_DocProformaInvoice_AddOn1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_DocProformaInvoice_AddOn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Receipt_Preview_Form";
@@ -65,6 +63,6 @@
 
         #endregion
 
-        private usrc_DocProformaInvoice_AddOn m_usrc_DocProformaInvoice_AddOn;
+        private usrc_DocProformaInvoice_AddOn usrc_DocProformaInvoice_AddOn1;
     }
 }

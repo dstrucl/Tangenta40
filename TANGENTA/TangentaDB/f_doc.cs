@@ -436,7 +436,7 @@ namespace TangentaDB
                                 {
                                     long doc_id = (long)dt.Rows[0]["ID"];
 
-                                    if (Update(doc_ID,
+                                    if (Update(doc_id,
                                            Name,
                                            Description_v,
                                            xDocument,
@@ -447,6 +447,7 @@ namespace TangentaDB
                                            Active,
                                            Default))
                                     {
+                                        doc_ID = doc_id;
                                         return true;
                                     }
                                     else

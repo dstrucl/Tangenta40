@@ -217,7 +217,7 @@ namespace UniversalInvoice
         {
             if (html_doc_template.Contains(lt.s))
             {
-               return html_doc_template.Replace(lt.s, this.replacement);
+               return XReplace(ref html_doc_template,lt.s, this.replacement);
             }
             else
             {
@@ -235,7 +235,7 @@ namespace UniversalInvoice
                     {
                         if (html_doc_template.Contains(sx))
                         {
-                            return html_doc_template.Replace(sx, this.replacement);
+                            return XReplace(ref html_doc_template,sx, this.replacement);
                         }
                     }
                 }
@@ -243,7 +243,105 @@ namespace UniversalInvoice
             }
         }
 
-        
+        private string XReplace(ref string html_doc_template, string sx, string replacement)
+        {
+            if (replacement == null)
+            {
+                return "";
+            }
+            if (replacement.Length == 0)
+            {
+                if (sx.Contains("(@@@"))
+                {
+                    string StartTag = "";
+                    int isx = html_doc_template.IndexOf(sx);
+                    int iStartTagEnd = FindStartTag(ref html_doc_template, ref StartTag, isx);
+                    int iEndTagStart = 0;
+                    if (iStartTagEnd >= 0)
+                    {
+                        iEndTagStart = FindEndTag(isx, ref html_doc_template, StartTag);
+                        if (iEndTagStart > 0)
+                        {
+                            string FirstPart = html_doc_template.Substring(0, iStartTagEnd);
+                            string SecondPart = html_doc_template.Substring(iEndTagStart);
+                            string sAll = FirstPart + SecondPart;
+                            return FirstPart + SecondPart;
+                        }
+                    }
+                }
+                else
+                {
+                    return html_doc_template.Replace(sx, replacement);
+                }
+            }
+            return html_doc_template.Replace(sx, replacement);
+        }
+
+        private int FindEndTag(int isx,ref string html_doc_template, string StartTag)
+        {
+            string EndTag = "</"+StartTag.Substring(1);
+            int iTag = isx + 1;
+            int iTagEnd = -1;
+            iTag = html_doc_template.IndexOf(EndTag, iTag);
+            if (iTag > 0)
+            {
+                iTagEnd = html_doc_template.IndexOf('>', iTag);
+                if (iTagEnd>0)
+                {
+                    iTagEnd = iTagEnd + 1;
+                }
+
+            }
+            return iTagEnd;
+            
+        }
+
+        private int FindStartTag(ref string html_doc_template,ref string StartTag,int isx)
+        {
+            while (isx > 0)
+            {
+                isx--;
+                if (html_doc_template[isx] == '>')
+                {
+                    StartTag = GetBackStartTag(ref html_doc_template,ref isx);
+                    if (StartTag.Contains("<b")
+                        || StartTag.Contains("<span")
+                        || StartTag.Contains("<br")
+                        || StartTag.Contains("<a")
+                        )
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        int idelimiter = StartTag.IndexOfAny(new char[] { ' ', '>' });
+                        if (idelimiter > 0)
+                        {
+                            StartTag = StartTag.Substring(0, idelimiter);
+                        }
+                        return isx;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        private string GetBackStartTag(ref string html_doc_template, ref int isx)
+        {
+            int iEndStartTag = isx;
+            int iStartStartTag = isx;
+            while (isx > 0)
+            {
+                isx--;
+                if (html_doc_template[isx] == '<')
+                {
+                    iStartStartTag = isx;
+                    string sStartTag = html_doc_template.Substring(iStartStartTag, iEndStartTag - iStartStartTag);
+                    return sStartTag;
+                }
+            }
+            return null;
+        }
 
         public int IndexOf(string s, ref int length)
         {

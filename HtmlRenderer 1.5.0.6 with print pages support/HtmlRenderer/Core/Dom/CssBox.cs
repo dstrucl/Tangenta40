@@ -1443,109 +1443,11 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 rp.X = -this.Location.X;
                 HtmlContainer.ScrollOffset = rp;
                 PaintImp(g);
-                //if (Display != CssConstants.None && (Display != CssConstants.TableCell || EmptyCells != CssConstants.Hide || !IsSpaceOrEmpty))
-                //{
-                //    var clipped = RenderUtils.ClipGraphicsByOverflow(g, this);
-
-                //    var areas = Rectangles.Count == 0 ? new List<RRect>(new[] { Bounds }) : new List<RRect>(Rectangles.Values);
-
-                //    RRect[] rects = areas.ToArray();
-                //    RPoint offset = HtmlContainer.ScrollOffset;
-
-                //    for (int i = 0; i < rects.Length; i++)
-                //    {
-                //        var actualRect = rects[i];
-                //        actualRect.Offset(offset);
-
-                //        PaintBackground(g, actualRect, i == 0, i == rects.Length - 1);
-                //        BordersDrawHandler.DrawBoxBorders(g, this, actualRect, i == 0, i == rects.Length - 1);
-                //    }
-
-
-
-
-                //    PaintWords(g, offset);
-
-                //    for (int i = 0; i < rects.Length; i++)
-                //    {
-                //        var actualRect = rects[i];
-                //        actualRect.Offset(offset);
-                //        PaintDecoration(g, actualRect, i == 0, i == rects.Length - 1);
-                //    }
-
-                //    // split paint to handle z-order
-                //    foreach (CssBox b in Boxes)
-                //    {
-                //        if (b.Position != CssConstants.Absolute)
-                //            b.Print(g, iPage, pagelist); ;
-                //    }
-                //    foreach (CssBox b in Boxes)
-                //    {
-                //        if (b.Position == CssConstants.Absolute)
-                //            b.Print(g, iPage, pagelist);
-                //    }
-
-                //    if (clipped)
-                //        g.PopClip();
-
-                //    if (_listItemBox != null)
-                //    {
-                //        _listItemBox.Print(g, iPage, pagelist);
-                //    }
-                //}
+ 
             }
             else
             {
-                //if (Display != CssConstants.None && (Display != CssConstants.TableCell || EmptyCells != CssConstants.Hide || !IsSpaceOrEmpty))
-                //{
-
-                //    var clipped = RenderUtils.ClipGraphicsByOverflow(g, this);
-
-                //    var areas = Rectangles.Count == 0 ? new List<RRect>(new[] { Bounds }) : new List<RRect>(Rectangles.Values);
-
-                //    RRect[] rects = areas.ToArray();
-                //    RPoint offset = HtmlContainer.ScrollOffset;
-
-                //    //for (int i = 0; i < rects.Length; i++)
-                //    //{
-                //    //    var actualRect = rects[i];
-                //    //    actualRect.Offset(offset);
-
-                //    //    PaintBackground(g, actualRect, i == 0, i == rects.Length - 1);
-                //    //    BordersDrawHandler.DrawBoxBorders(g, this, actualRect, i == 0, i == rects.Length - 1);
-                //    //}
-
-                //    //PaintWords(g, offset);
-
-                //    //for (int i = 0; i < rects.Length; i++)
-                //    //{
-                //    //    var actualRect = rects[i];
-                //    //    actualRect.Offset(offset);
-                //    //    PaintDecoration(g, actualRect, i == 0, i == rects.Length - 1);
-                //    //}
-
-                //    // split paint to handle z-order
-                //    foreach (CssBox b in Boxes)
-                //    {
-                //        if (b.Position != CssConstants.Absolute)
-                //            b.Print(g, iPage, pagelist);
-                //    }
-                //    foreach (CssBox b in Boxes)
-                //    {
-                //        if (b.Position == CssConstants.Absolute)
-                //            b.Print(g, iPage, pagelist);
-                //    }
-
-                //    if (clipped)
-                //        g.PopClip();
-
-                //    if (_listItemBox != null)
-                //    {
-                //        _listItemBox.Print(g, iPage, pagelist);
-                //    }
-                //}
-
-
+ 
                 if (Display != CssConstants.None && (Display != CssConstants.TableCell || EmptyCells != CssConstants.Hide || !IsSpaceOrEmpty))
                 {
                     var clipped = RenderUtils.ClipGraphicsByOverflow(g, this);
@@ -1555,14 +1457,14 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                     RRect[] rects = areas.ToArray();
                     RPoint offset = HtmlContainer.ScrollOffset;
 
-                    for (int i = 0; i < rects.Length; i++)
-                    {
-                        var actualRect = rects[i];
-                        actualRect.Offset(offset);
-
-                        PaintBackground(g, actualRect, i == 0, i == rects.Length - 1);
-                        BordersDrawHandler.DrawBoxBorders(g, this, actualRect, i == 0, i == rects.Length - 1);
-                    }
+                    // DO NOT PAINT BACKROUND
+                    //for (int i = 0; i < rects.Length; i++)
+                    //{
+                    //    var actualRect = rects[i];
+                    //    actualRect.Offset(offset);
+                    //    //PaintBackground(g, actualRect, i == 0, i == rects.Length - 1);
+                    //    //BordersDrawHandler.DrawBoxBorders(g, this, actualRect, i == 0, i == rects.Length - 1);
+                    //}
 
 
 

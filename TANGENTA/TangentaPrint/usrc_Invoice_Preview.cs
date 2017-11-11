@@ -169,19 +169,33 @@ namespace TangentaPrint
             return -1;
         }
 
+        private void ShowErrList(List<string> m_ErrList)
+        {
+            string sErrorReport = "Number of Errors = " + m_ErrList.Count.ToString() + "\r\n";
+            int i = 0;
+            foreach (string s in m_ErrList)
+            {
+                i++;
+                sErrorReport += i.ToString() + ":" + s + "\r\n\r\n";
+            }
+            ltext xltext = new ltext();
+            xltext.s = sErrorReport;
+
+            XMessage.Box.Show(this, false, xltext);
+        }
+
         public bool ShowPreview(Printer printer, string shtml_doc_text)
         {
             if (printer != null)
             {
                 try
                 {
+                    List<string> m_ErrList = new List<string>();
                     m_Printer = printer;
                     HTML_PrintingElement_List HTML_Printing_ElementList = null;
                     string s = null;
-                    double xPageHeight = 1122.51;
                     PrinterSettings psettings = new PrinterSettings();
                     psettings.PrinterName = printer.PrinterName;
-                    xPageHeight = psettings.DefaultPageSettings.PaperSize.Height;
 
                     if (m_InvoiceData != null)
                     {
@@ -197,7 +211,10 @@ namespace TangentaPrint
                             // set layout of elements
                             HTML_Printing_ElementList.SetLayout(pglayout);
 
-                            if (pglayout.OnePageSize(xPageHeight, 0, 0))
+                            //double xPageHeight = psettings.DefaultPageSettings.PaperSize.Height;
+
+                            double xPageHeight = 1122.51;
+                            if (pglayout.OnePageSize(xPageHeight, xPageHeight/40, xPageHeight / 7.5))
                             {
                                 s = m_InvoiceData.InsertPageNumbers(s);
                             }
@@ -208,12 +225,25 @@ namespace TangentaPrint
                             }
                         }
                         this.htmlPanel1.Text = s;
+                        HtmlDoc.HtmlDoc html_doc = new HtmlDoc.HtmlDoc(s);
+                        html_doc.Parse(ref m_ErrList);
+                        if (m_ErrList.Count > 0)
+                        {
+                            ShowErrList(m_ErrList);
+                        }
+
                         return true;
                     }
                     else
                     {
                         s = shtml_doc_text;
                         this.htmlPanel1.Text = s;
+                        HtmlDoc.HtmlDoc html_doc = new HtmlDoc.HtmlDoc(s);
+                        html_doc.Parse(ref m_ErrList);
+                        if (m_ErrList.Count > 0)
+                        {
+                            ShowErrList(m_ErrList);
+                        }
                         return true;
                     }
                 }
@@ -268,22 +298,15 @@ namespace TangentaPrint
 
     private void btn_Print_Click(object sender, EventArgs e)
         {
-            pd.PrinterSettings.PrinterName = m_Printer.PrinterName;
+            pd.PrinterSettings.PrinterName = m_Printer.PrinterName;          
             config.PageSize = PageSize.A4;
             config.SetMargins(20);
 
             XSize orgPageSize = PageSizeConverter.ToSize(config.PageSize);
             orgPageSize = new Size(Convert.ToInt32(orgPageSize.Width), Convert.ToInt32(orgPageSize.Height));
-            pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
+            //            pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
 
-            hc.SetHtml(htmlPanel1.Text);
-            hc.Location = new PointF(config.MarginLeft, config.MarginTop);
-            hc.MaxSize = new Size(Convert.ToInt32(pageSize.Width), 0);
-
-            string shtml = htmlPanel1.Text;
-
-            hc.SetHtml(shtml);
-
+            pageSize = new Size(Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Width), Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Height));
 
             scrollOffset = 0;
 
@@ -301,9 +324,16 @@ namespace TangentaPrint
 
             if (bFirstPagePrinting)
             {
+                string shtml = htmlPanel1.Text;
+                hc.SetHtml(shtml);
                 bFirstPagePrinting = false;
                 hc.PerformLayout(e.Graphics);
                 hc.GetPages();
+                if (hc.PageListCount > 0)
+                {
+                    //hc.Location = new PointF(config.MarginLeft, config.MarginTop);
+                    hc.MaxSize = new Size(Convert.ToInt32(pageSize.Width), 0);
+                }
             }
 
             if (hc.PageListCount > 0)
