@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowRecentListTable_Form));
             this.dgv_RecentItems = new System.Windows.Forms.DataGridView();
             this.btn_OK = new System.Windows.Forms.Button();
             this.txt_XmlFile = new System.Windows.Forms.TextBox();
@@ -39,9 +40,9 @@
             // 
             this.dgv_RecentItems.AllowUserToAddRows = false;
             this.dgv_RecentItems.AllowUserToDeleteRows = false;
-            this.dgv_RecentItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgv_RecentItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_RecentItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgv_RecentItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_RecentItems.Location = new System.Drawing.Point(3, 35);
@@ -87,6 +88,7 @@
             this.Controls.Add(this.txt_XmlFile);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.dgv_RecentItems);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ShowRecentListTable_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Recent List Table";

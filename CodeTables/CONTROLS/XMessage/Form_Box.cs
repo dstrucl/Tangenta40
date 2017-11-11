@@ -30,6 +30,7 @@ namespace XMessage
         public Form_Box()
         {
             InitializeComponent();
+            this.Icon = SystemIcons.Information;
         }
 
         public Icon SetIcon(MessageBoxIcon icon)
