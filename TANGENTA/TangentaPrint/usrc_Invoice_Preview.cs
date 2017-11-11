@@ -210,10 +210,16 @@ namespace TangentaPrint
 
                             // set layout of elements
                             HTML_Printing_ElementList.SetLayout(pglayout);
+                            double xPageHeight = 0;
 
-                            //double xPageHeight = psettings.DefaultPageSettings.PaperSize.Height;
-
-                            double xPageHeight = 1122.51;
+                            if (psettings.DefaultPageSettings.PaperSize.Height > 1122.51 * 2)
+                            {
+                                xPageHeight = psettings.DefaultPageSettings.PaperSize.Height;
+                            }
+                            else
+                            {
+                                xPageHeight = 1122.51;
+                            }
                             if (pglayout.OnePageSize(xPageHeight, xPageHeight/40, xPageHeight / 7.5))
                             {
                                 s = m_InvoiceData.InsertPageNumbers(s);
