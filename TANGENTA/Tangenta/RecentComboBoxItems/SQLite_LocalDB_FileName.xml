@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="RecentItems" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="RecentItems">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="FileName" type="xs:string" minOccurs="0" />
+                <xs:element name="FileName_Time" type="xs:dateTime" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <RecentItems>
+    <FileName>StudioMarjetka.sqlite</FileName>
+    <FileName_Time>2017-11-12T23:53:47.1823333+01:00</FileName_Time>
+  </RecentItems>
+</NewDataSet>

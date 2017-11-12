@@ -1,0 +1,12 @@
+<#Log>:12:11:2017:23:53:29:219|L1|Form_Document()before InitializeComponent()!
+<#Log>:12:11:2017:23:53:35:367|L1|Opozorilo:Datoteka=D:\Tangenta_Xml.xml: ne obstaja!
+<#Log>:12:11:2017:23:54:10:036|E1|WARNING:TangentaDB.cs:fs.Init_Currency_Table:Currency_table_Rows_Count != xCurrencyList.m_CurrencyList.Count!
+Currency_table_Rows_Count = 32 xCurrencyList.m_CurrencyList.Count = 155
+<#Log>:12:11:2017:23:54:23:731|E1|ERROR:TangentaDB:f_cCountry_Org:Get(string_v state_v, string_v state_ISO_3166_a2_v, string_v state_ISO_3166_a3_v, short_v state_ISO_3166_num_v, ref long_v atom_cCountry_Org_ID_v)
+sql=insert into cCountry_Org (Country,Country_ISO_3166_a2,Country_ISO_3166_a3,Country_ISO_3166_num) values (@par_state_v,@par_state_ISO_3166_a2_v,@par_state_ISO_3166_a3_v,@par_state_ISO_3166_num_v)
+Err=constraint failed
+UNIQUE constraint failed: cCountry_Org.Country_ISO_3166_num
+<#Log>:12:11:2017:23:54:25:908|E1|
+<#Log>:12:11:2017:23:54:40:558|L1|Form_Document()before InitializeComponent()!
+<#Log>:12:11:2017:23:54:41:164|L1|Opozorilo:Datoteka=D:\Tangenta_Xml.xml: ne obstaja!
+<#Log>:12:11:2017:23:55:06:356|E1|Napaka v komunikaciji z davčno upravo:Opozorilo! Datoteka ne obstaja ali pa še ni določena!:
