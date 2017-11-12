@@ -25,7 +25,6 @@ namespace UniversalInvoice
         public string State = null;
 
         public AddressToken token = null;
-        private ltext token_prefix_Organisation;
 
         public Address(ltext token_prefix,
                        string _StreetName,

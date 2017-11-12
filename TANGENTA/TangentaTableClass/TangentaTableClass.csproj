@@ -76,6 +76,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DynEditControls\DynEditControls.csproj">
+      <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
+      <Name>DynEditControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\Password\Password.csproj">
+      <Project>{203bc7cd-1f84-4727-b03a-5b4f695b21fc}</Project>
+      <Name>Password</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>

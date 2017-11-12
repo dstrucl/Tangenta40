@@ -29,7 +29,6 @@ namespace UniversalInvoice
 
         public Address Address = null;
         public OrganisationToken token = null;
-        private ltext st_Customer;
 
         public Organisation(ltext token_prefix,
                             string _Name,

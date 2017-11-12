@@ -24,7 +24,6 @@ namespace UniversalInvoice
         public TemplateToken tCountry= null;
         public TemplateToken tState = null;
         public List<TemplateToken> list = new List<TemplateToken>();
-        private ltext ltAddress_prefix;
 
         public AddressToken(ltext token_prefix,
                             string Street,

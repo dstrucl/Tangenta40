@@ -29,7 +29,6 @@ namespace UniversalInvoice
         public TemplateToken tCardType;
 
         public List<TemplateToken> list = new List<TemplateToken>();
-        private ltext token_prefix_Person;
 
         public PersonToken(ltext token_prefix,
                                 bool Gender,
