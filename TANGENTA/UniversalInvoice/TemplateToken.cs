@@ -217,7 +217,7 @@ namespace UniversalInvoice
         {
             if (html_doc_template.Contains(lt.s))
             {
-               return XReplace(ref html_doc_template,lt.s, this.replacement);
+               return html_doc_template.Replace(lt.s, this.replacement);
             }
             else
             {
@@ -235,7 +235,7 @@ namespace UniversalInvoice
                     {
                         if (html_doc_template.Contains(sx))
                         {
-                            return XReplace(ref html_doc_template,sx, this.replacement);
+                            return html_doc_template.Replace(sx, this.replacement);
                         }
                     }
                 }
@@ -245,11 +245,12 @@ namespace UniversalInvoice
 
         private string XReplace(ref string html_doc_template, string sx, string replacement)
         {
-            if (replacement == null)
+            string xreplacement = replacement;
+            if (xreplacement == null)
             {
-                return "";
+                xreplacement = "";
             }
-            if (replacement.Length == 0)
+            if (xreplacement.Length == 0)
             {
                 if (sx.Contains("(@@@"))
                 {
@@ -271,10 +272,10 @@ namespace UniversalInvoice
                 }
                 else
                 {
-                    return html_doc_template.Replace(sx, replacement);
+                    return html_doc_template.Replace(sx, xreplacement);
                 }
             }
-            return html_doc_template.Replace(sx, replacement);
+            return html_doc_template.Replace(sx, xreplacement);
         }
 
         private int FindEndTag(int isx,ref string html_doc_template, string StartTag)
