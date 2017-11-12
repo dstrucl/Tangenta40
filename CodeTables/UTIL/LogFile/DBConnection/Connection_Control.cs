@@ -47,7 +47,7 @@ namespace LogFile
         private void btn_ConnectionDialog_Click(object sender, EventArgs e)
         {
             string Err = null;
-            bool bNewDB = false;
+
             if (m_con.SetNewConnection((Form)this.Parent, m_con.DB_Param))
             {
                 if (m_con.DB_Param.GetType() == typeof(Log_LocalDB_data))

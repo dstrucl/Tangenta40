@@ -11,7 +11,6 @@ namespace NavigationButtons
         public int NextButtonPressedInMiliSeconds = 1000;
         public List<CheckBox> CheckBoxTrue_list = null;
         public List<RadioButton> RadioButtonTrue_list = null;
-        private int v;
 
         public Auto_NEXT(int PressNextInMiliseconds)
         {

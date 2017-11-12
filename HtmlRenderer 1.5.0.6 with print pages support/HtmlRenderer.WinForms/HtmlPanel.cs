@@ -378,7 +378,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms
             _htmlContainer.GetLayout(ref pglayut);
         }
 
-        public void Refresh()
+        public override void Refresh()
         {
             if (!IsDisposed)
             {

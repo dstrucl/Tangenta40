@@ -281,7 +281,7 @@ namespace TangentaDB
                 long_v Atom_BankAccount_ID_v = null;
                 long_v PaymentType_ID_v = null;
                 string_v PaymentType_v = null;
-                long_v MethodOfPayment_DI_BAccount_ID_v = null;
+
                 
                 switch (eType)
                 {

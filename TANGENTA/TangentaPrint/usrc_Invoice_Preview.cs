@@ -32,7 +32,6 @@ namespace TangentaPrint
         Size pageSize = new Size();
 
         PrintDocument pd = new PrintDocument();
-        int scrollOffset = 0;
         int iPage = 0;
         bool bFirstPagePrinting = false;
         Printer m_Printer = null;
@@ -314,7 +313,6 @@ namespace TangentaPrint
 
             pageSize = new Size(Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Width), Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Height));
 
-            scrollOffset = 0;
 
             hc.UseGdiPlusTextRendering = true;
             hc.ScrollOffset = new Point(0, 0);

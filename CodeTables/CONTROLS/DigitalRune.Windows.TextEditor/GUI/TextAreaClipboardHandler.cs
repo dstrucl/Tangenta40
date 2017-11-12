@@ -45,24 +45,23 @@ namespace DigitalRune.Windows.TextEditor
     /// </returns>
     public delegate bool ClipboardContainsTextDelegate();
 
-    /// <summary>
-    /// Is called when <see cref="EnablePaste"/> is queried and checks whether the clipboards 
-    /// contains text. If this property is <c>null</c> (the default value), the text editor uses
-    /// <see cref="Clipboard.ContainsText()"/>.
-    /// </summary>
-    /// <remarks>
-    /// This property is useful if you want to prevent the default <see cref="Clipboard.ContainsText()"/> 
-    /// behaviour that waits for the clipboard to be available - the clipboard might never become 
-    /// available if it is owned by a process that is paused by the debugger.
-    /// </remarks>
-    public static ClipboardContainsTextDelegate GetClipboardContainsText;
-		
+        /// <summary>
+        /// Is called when <see cref="EnablePaste"/> is queried and checks whether the clipboards 
+        /// contains text. If this property is <c>null</c> (the default value), the text editor uses
+        /// <see cref="Clipboard.ContainsText()"/>.
+        /// </summary>
+        /// <remarks>
+        /// This property is useful if you want to prevent the default <see cref="Clipboard.ContainsText()"/> 
+        /// behaviour that waits for the clipboard to be available - the clipboard might never become 
+        /// available if it is owned by a process that is paused by the debugger.
+        /// </remarks>
+     public static ClipboardContainsTextDelegate GetClipboardContainsText;
 
-    /// <summary>
-    /// Gets a value indicating whether Paste is enabled (i.e. something is in the clipboard).
-    /// </summary>
-    /// <value><c>true</c> if Paste is enabled; otherwise, <c>false</c>.</value>
-    public bool EnablePaste
+        /// <summary>
+        /// Gets a value indicating whether Paste is enabled (i.e. something is in the clipboard).
+        /// </summary>
+        /// <value><c>true</c> if Paste is enabled; otherwise, <c>false</c>.</value>
+        public bool EnablePaste
     {
       get
       {

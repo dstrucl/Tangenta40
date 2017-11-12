@@ -54,7 +54,7 @@ namespace Tangenta
             this.txt_Buyer.Visible = false;
         }
 
-        public string Text
+        public new string Text
         {
             get {return this.txt_Buyer.Text;}
             set

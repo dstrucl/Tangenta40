@@ -37,7 +37,7 @@ namespace ShopB
         DataTable dt_ShopBItem = new DataTable();
         DataTable dt_Price_ShopBItem_Group = new DataTable();
         public enum eLayout {NONE,DRAFT,VIEW }
-        private eLayout Layout = eLayout.NONE;
+        private  new eLayout Layout = eLayout.NONE;
 
         DataTable dt_Price_ShopBItem = new DataTable();
 

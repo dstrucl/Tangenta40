@@ -217,7 +217,7 @@ namespace DynEditControls
         {
             int i;
             int iCount = Controls.Count;
-            bool bRes = true;
+
             for (i = 0; i < iCount; i++)
             {
                 object octrl = Controls[i];

@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -17,9 +17,9 @@ using System.IO;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using SqlBuilder.Forms;
+using LogFile_SqlBuilder.Forms;
 
-namespace SqlBuilder
+namespace LogFile_SqlBuilder
 {
 	/// <summary>
 	/// The stupid Windows Recycle Bin needs 30 seconds to move ONE file 

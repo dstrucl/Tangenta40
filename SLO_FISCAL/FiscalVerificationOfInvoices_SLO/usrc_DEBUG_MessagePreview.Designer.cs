@@ -173,7 +173,6 @@
         private System.Windows.Forms.Label lbl_MessageType;
         private System.Windows.Forms.Label lbl_MessageID;
         private System.Windows.Forms.TextBox txt_MessageID;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label lbl_XML_Response;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_MessageXml;

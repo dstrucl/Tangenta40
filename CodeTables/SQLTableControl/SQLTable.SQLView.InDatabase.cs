@@ -166,7 +166,7 @@ namespace CodeTables
         {
             string alias_table_name = PreAliasTableName + SQLTable.VIEW_TableName_SEPARATOR + this.TableName_Abbreviation;
             Join_for_SQLView_InDataBase join = new Join_for_SQLView_InDataBase(null, TableName,TableName_Abbreviation, alias_table_name, PreAliasTableName + "." + this.TableName + "_ID", alias_table_name + ".ID", nulltype);
-            Join_for_SQLView_InDataBase RefJoin = null;
+
             join.tbl = this;
             pParentTable.jList.items.Add(join);
             

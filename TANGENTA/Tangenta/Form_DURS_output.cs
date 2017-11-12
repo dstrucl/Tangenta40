@@ -27,8 +27,6 @@ namespace Tangenta
         usrc_InvoiceTable m_usrc_InvoiceTable = null;
         public string filename_DURS_IZPIS_RACUNI_GLAVE_TXT = "IZPIS RAČUNI GLAVE.TXT";
         public string filename_DURS_IZPIS_RACUNI_POSTAVKE_TXT = "IZPIS RAČUNI POSTAVKE.TXT";
-        string DURS_IZPIS_RACUNI_GLAVE_TXT = "";
-        string DURS_IZPIS_RACUNI_POSTAVKE_TXT = "";
         DataTable dt_DURS_Invoices = new DataTable();
         string Postavke = null;
         string Glava = null;

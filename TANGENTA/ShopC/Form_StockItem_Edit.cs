@@ -26,7 +26,6 @@ namespace ShopC
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
         bool bclose = false;
-        bool bInitData = false;
         TangentaDB.Item_Data m_Item_Data = null;
         long_v PurchasePrice_Item_ID = null;
         private bool m_bChanged = false;

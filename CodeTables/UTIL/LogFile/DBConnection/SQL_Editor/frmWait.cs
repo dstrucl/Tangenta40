@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -17,9 +17,9 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using SqlBuilder.Controls;
+using LogFile_SqlBuilder.Controls;
 
-namespace SqlBuilder.Forms
+namespace LogFile_SqlBuilder.Forms
 {
 	/// <summary>
 	/// Creates a wait window which appears only for SQL command which need more than 1 second to execute

@@ -107,7 +107,7 @@
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.usrc_EditTable);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form_Customer_Org_Edit";
+            this.Customer_Name = "Form_Customer_Org_Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Item_EditForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Item_EditForm_FormClosing);

@@ -90,7 +90,7 @@ namespace DBTypes
             }
         }
 
-        public dbool_v Clone()
+        public new dbool_v Clone()
         {
             dbool_v o_v = new dbool_v();
             o_v.v = this.v;
@@ -187,7 +187,7 @@ namespace DBTypes
             }
         }
 
-        public dushort_v Clone()
+        public new dushort_v Clone()
         {
             dushort_v o_v = new dushort_v();
             
@@ -288,7 +288,7 @@ namespace DBTypes
             }
         }
 
-        public dshort_v Clone()
+        public new dshort_v Clone()
         {
             dshort_v o_v = new dshort_v();
 
@@ -529,7 +529,7 @@ namespace DBTypes
             }
         }
 
-        public ddecimal_v Clone()
+        public new ddecimal_v Clone()
         {
             ddecimal_v o_v = new ddecimal_v();
             o_v.v = this.v;
@@ -630,7 +630,7 @@ namespace DBTypes
             }
         }
 
-        public dstring_v Clone()
+        public new dstring_v Clone()
         {
             dstring_v o_v = new dstring_v();
             o_v.v = this.v;
@@ -709,7 +709,7 @@ namespace DBTypes
             }
         }
 
-        public dbyte_array_v Clone()
+        public new dbyte_array_v Clone()
         {
             dbyte_array_v o_v = new dbyte_array_v();
 
@@ -786,7 +786,7 @@ namespace DBTypes
             }
         }
 
-        public dDateTime_v Clone()
+        public new dDateTime_v Clone()
         {
             dDateTime_v o_v = new dDateTime_v();
             o_v.v = this.v;

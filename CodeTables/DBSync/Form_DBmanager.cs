@@ -33,7 +33,7 @@ namespace DBSync
         private bool m_bReset = false;
         private string m_sDataBaseVersion = null;
         private NavigationButtons.Navigation nav = null;
-        private Form ChildForm = null;
+
 
         public Form_DBmanager(Form xparent_form,bool bxReset, string xm_XmlFileName, string xIniFileFolder, string xDataBaseType, string xBackupFolder, string sDataBaseVersion, NavigationButtons.Navigation xnav)
         {

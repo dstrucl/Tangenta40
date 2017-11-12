@@ -37,7 +37,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -510,7 +510,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -752,7 +752,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -994,7 +994,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -1236,7 +1236,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -1478,7 +1478,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -1720,7 +1720,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -1962,7 +1962,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -2589,7 +2589,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -3062,7 +3062,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -3304,7 +3304,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -3546,7 +3546,7 @@ namespace LogFile_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -4003,7 +4003,7 @@ namespace LogFile_DataSet
         public const string tablename_const = "Log_VIEW";
         public selection select;
         public WHERE where;
-        public int RowsCount
+        public new int RowsCount
         {
             get {return RowsCount();}
         }
@@ -4890,7 +4890,7 @@ namespace LogFile_DataSet
         public const string tablename_const = "LogFile_VIEW";
         public selection select;
         public WHERE where;
-        public int RowsCount
+        public new int RowsCount
         {
             get { return RowsCount(); }
         }
@@ -5659,7 +5659,7 @@ namespace LogFile_DataSet
         public const string tablename_const = "LogFile_Attachment_VIEW";
         public selection select;
         public WHERE where;
-        public int RowsCount
+        public new int RowsCount
         {
             get { return RowsCount(); }
         }

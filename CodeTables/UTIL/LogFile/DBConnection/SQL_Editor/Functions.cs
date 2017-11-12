@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -25,10 +25,10 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
-using SqlBuilder.Forms;
-using SqlBuilder.Controls;
+using LogFile_SqlBuilder.Forms;
+using LogFile_SqlBuilder.Controls;
 
-namespace SqlBuilder
+namespace LogFile_SqlBuilder
 {
 	public class Functions
 	{
@@ -39,7 +39,7 @@ namespace SqlBuilder
 			WorkCountry, // write in MainKey\WorkDirs\DirectoryName\WorkCountrys\Filename
 		}
 
-		const  string ms_RegistryRoot = @"Software\ElmueSoft\SqlBuilder";
+		const  string ms_RegistryRoot = @"Software\ElmueSoft\LogFile_SqlBuilder";
 		static string ms_NullColor    = Functions.GetHtmlColor(Defaults.GridForeColor(typeof(DBNull)));
 		
 		public static string ExePath; // Directory where this exe runs
@@ -284,10 +284,10 @@ namespace SqlBuilder
             //bool b_Created = (int)RegistryRead(eReg.Main, "ShortcutsCreated", 0) == 1;
 
             //string s_Quick = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-            //               + @"\Microsoft\Internet Explorer\Quick Launch\SqlBuilder.lnk";
+            //               + @"\Microsoft\Internet Explorer\Quick Launch\LogFile_SqlBuilder.lnk";
 
             //string s_Progs = Environment.GetFolderPath(Environment.SpecialFolder.Programs) 
-            //               + @"\SqlBuilder.lnk";
+            //               + @"\LogFile_SqlBuilder.lnk";
 
             //// If the shortcuts already exist -> update them. 
             //// (Maybe the user has moved the Exe to another place on his harddisk)
@@ -301,13 +301,13 @@ namespace SqlBuilder
 		}
 
 		/// <summary>
-		/// If there is no yet any program associated with SQL files -> set SqlBuilder as handler for SQL files (create s_NewKey)
-		/// If there is already  a program associated with SQL files -> add menu entry "Open with SqlBuilder" to Explorer context menu
+		/// If there is no yet any program associated with SQL files -> set LogFile_SqlBuilder as handler for SQL files (create s_NewKey)
+		/// If there is already  a program associated with SQL files -> add menu entry "Open with LogFile_SqlBuilder" to Explorer context menu
 		/// s_Ext     = "sql"
-		/// s_Menu    = "Open with SqlBuilder"
-		/// s_App     = Path to SqlBuilder.exe
+		/// s_Menu    = "Open with LogFile_SqlBuilder"
+		/// s_App     = Path to LogFile_SqlBuilder.exe
 		/// s_CmdLine = "/print" (optional)
-		/// s_NewKey  = "SqlBuilder.Editor" = name of new Registry key if required
+		/// s_NewKey  = "LogFile_SqlBuilder.Editor" = name of new Registry key if required
 		/// </summary>
 //		public static bool RegisterFileExtension(string s_Ext, string s_Menu, string s_App, string s_CmdLine, string s_NewKey)
 //		{
@@ -315,7 +315,7 @@ namespace SqlBuilder
             //if (i_Ext == null)
             //    return false;
 
-            //// open existing handler (e.g. "sqlfile.7.1") or create new Handler (e.g. "SqlBuilder.Editor")
+            //// open existing handler (e.g. "sqlfile.7.1") or create new Handler (e.g. "LogFile_SqlBuilder.Editor")
             //string s_Handler = ToStr(i_Ext.GetValue(""));
             //if (s_Handler.Length == 0)
             //{
@@ -327,7 +327,7 @@ namespace SqlBuilder
             //}
 
             //if (string.Compare(s_Handler, s_NewKey, true) == 0)
-            //    s_Menu = "open"; // Open SQL files on doubleclick with SqlBuilder
+            //    s_Menu = "open"; // Open SQL files on doubleclick with LogFile_SqlBuilder
 
             //RegistryKey i_Handler = Registry.CurrentUser.CreateSubKey(@"Software\Classes\" + s_Handler);
             //if (i_Handler == null) // failed
@@ -1383,7 +1383,7 @@ namespace SqlBuilder
 		public static Icon ReadEmbeddedIconResource(String s_IconName)
 		{
 			Assembly i_Ass  = Assembly.GetExecutingAssembly();
-			Stream   i_Strm = i_Ass.GetManifestResourceStream("SqlBuilder.Resources." + s_IconName);
+			Stream   i_Strm = i_Ass.GetManifestResourceStream("LogFile_SqlBuilder.Resources." + s_IconName);
 			return new Icon(i_Strm);
 		}
 
@@ -1394,7 +1394,7 @@ namespace SqlBuilder
 		public static String ReadStringResource(String s_ResourceName)
 		{
 			Assembly     i_Ass  = Assembly.GetExecutingAssembly();
-			Stream       i_Strm = i_Ass.GetManifestResourceStream("SqlBuilder.Resources." + s_ResourceName);
+			Stream       i_Strm = i_Ass.GetManifestResourceStream("LogFile_SqlBuilder.Resources." + s_ResourceName);
 			StreamReader i_Read = new StreamReader(i_Strm);
 			return       i_Read.ReadToEnd();
 		}

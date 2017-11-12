@@ -7,15 +7,15 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
 using System.Windows.Forms;
 
-namespace SqlBuilder.Controls
+namespace LogFile_SqlBuilder.Controls
 {
 	/// <summary>
 	/// A RichTextBoxEx with an own RTF parser

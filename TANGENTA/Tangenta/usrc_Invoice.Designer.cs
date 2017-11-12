@@ -387,6 +387,5 @@
         private System.Windows.Forms.Label lbl_MyOrganisation;
         private System.Windows.Forms.Button btn_MyOrganisation;
         public System.Windows.Forms.Label lbl_Sum;
-        private usrc_MethodOfPayment_Data usrc_Payment_Data1;
     }
 }

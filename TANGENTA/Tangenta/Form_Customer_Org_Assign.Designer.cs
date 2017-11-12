@@ -105,7 +105,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form_Customer_Assign";
+            this.Customer_Name = "Form_Customer_Assign";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Customer_Add";
             this.Load += new System.EventHandler(this.Form_Customer_Assign_Load);

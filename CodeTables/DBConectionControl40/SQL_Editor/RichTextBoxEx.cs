@@ -13,22 +13,20 @@
 // -------------------------------------------------------
 
 using System;
-using System.Text;
-using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using SqlBuilder.Forms;
 
 using FindCallback = SqlBuilder.Forms.frmFind.delFindReplace;
-using FindParam    = SqlBuilder.Forms.frmFind.cParam;
+using FindParam = SqlBuilder.Forms.frmFind.cParam;
 
 namespace SqlBuilder.Controls
 {
-	/// <summary>
-	/// Adds functionality to RichTextBox which Microsoft has forgotten to implement
-	/// </summary>
-	public class RichTextBoxEx : RichTextBox
+    /// <summary>
+    /// Adds functionality to RichTextBox which Microsoft has forgotten to implement
+    /// </summary>
+    public class RichTextBoxEx : RichTextBox
 	{
 		#region class UndoBuffer
 

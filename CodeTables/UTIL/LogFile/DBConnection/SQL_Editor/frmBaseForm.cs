@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -17,7 +17,7 @@ using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SqlBuilder.Forms
+namespace LogFile_SqlBuilder.Forms
 {
 	/// <summary>
 	/// The base for all forms which store their window position in the Registry

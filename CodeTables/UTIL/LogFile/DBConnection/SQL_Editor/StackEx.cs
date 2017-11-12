@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -23,7 +23,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 
-namespace SqlBuilder
+namespace LogFile_SqlBuilder
 {
 	/// <summary>
 	/// This is a base class for serializable data objects to be stored in StackEx

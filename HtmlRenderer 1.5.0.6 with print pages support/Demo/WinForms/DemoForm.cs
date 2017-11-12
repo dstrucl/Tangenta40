@@ -29,10 +29,8 @@ namespace TheArtOfDev.HtmlRenderer.Demo.WinForms
     public partial class DemoForm : Form
     {
         PdfGenerateConfig config = new PdfGenerateConfig();
-        Size orgPageSize = new Size();
         Size pageSize = new Size();
 
-        double scrollOffset = 0;
         int iPage = 0;
         private bool bFirstPagePrinting = false;
 
@@ -263,12 +261,9 @@ namespace TheArtOfDev.HtmlRenderer.Demo.WinForms
                 string shtml =_mainControl._htmlPanel.Text;
                 hc.SetHtml(shtml);
 
-                scrollOffset = 0;
 
                 hc.UseGdiPlusTextRendering = true;
 
-                //SizeF szf = new SizeF(pd.DefaultPageSettings.PaperSize.Width, pd.DefaultPageSettings.PaperSize.Height);
-                //hc.MaxSize = szf;
                 iPage = 0;
                 bFirstPagePrinting = true;
                 pd.Print();

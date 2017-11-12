@@ -21,7 +21,6 @@ namespace LogFile
     {
         public string m_Result;
         private string m_sMessageResultMayNotBeEmpty;
-        private bool m_bResultMayNotBeEmpty;
 
         public TextBoxDialog_Form(string Title, string slabel, string default_text, string sMessageResultMayNotBeEmpty, bool bResultMayNotBeEmpty)
         {
@@ -46,16 +45,9 @@ namespace LogFile
             }
             else
             {
-                if (m_bResultMayNotBeEmpty)
-                {
-                    MessageBox.Show(m_sMessageResultMayNotBeEmpty, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else 
-                {
-                    m_Result = txtDataBaseFile.Text;
-                     DialogResult = DialogResult.OK;
-                     Close();
-                }
+                m_Result = txtDataBaseFile.Text;
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
     }

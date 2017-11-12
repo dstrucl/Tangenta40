@@ -81,10 +81,6 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        internal usrc_Invoice_Preview usrc_Invoice_Preview;
-        private System.Windows.Forms.Button btn_Cancel;
-        private usrc_PrintExistingInvoice m_usrc_PrintExistingInvoice;
         private usrc_PrintExistingInvoice usrc_PrintExistingInvoice1;
         private System.Windows.Forms.Label lbl_Printer;
         private System.Windows.Forms.Label lbl_PrinterNameValue;

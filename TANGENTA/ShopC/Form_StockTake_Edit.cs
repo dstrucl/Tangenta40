@@ -25,7 +25,6 @@ namespace ShopC
             get { return m_Changed; }
         }
 
-        private string m_StockTakeName = "";
 
         private int StockTake_Draft_column_index = -1;
 

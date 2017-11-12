@@ -26,7 +26,6 @@ namespace ShopC
         DataTable dt_Stock = new DataTable();
         CodeTables.DBTableControl dbTables = null;
         SQLTable tbl = null;
-        bool bclose = false;
         bool m_bChanged = false;
         NavigationButtons.Navigation nav = null;
         string ColumnToOrderBy = null;

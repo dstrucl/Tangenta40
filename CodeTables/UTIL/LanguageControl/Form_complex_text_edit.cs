@@ -19,7 +19,7 @@ namespace LanguageControl
     public partial class Form_complex_text_edit : Form
     {
         ltext m_ltext = null;
-        bool bclose = false;
+
         const int ITEM_HEIGHT = 24;
         const int BTN_HEIGHT = ITEM_HEIGHT;
         const int BTN_WIDTH = 48;
@@ -77,11 +77,6 @@ namespace LanguageControl
                    y += ITEM_HEIGHT + CTRL_DISTANCE;
                 }
             }
-            else
-            {
-                bclose = true;
-            }
-
         }
 
         void btn_Click(object sender, EventArgs e)

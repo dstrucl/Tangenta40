@@ -23,8 +23,7 @@ namespace CodeTables
 {
     partial class SQLTable
     {
-        private SQLTable rfTable;
-        private string p;
+
         public delegate void delegate_FillTable(SQLTable tbl);
         public delegate void delegate_mySetInputControlProperties(Column col, object obj);
 

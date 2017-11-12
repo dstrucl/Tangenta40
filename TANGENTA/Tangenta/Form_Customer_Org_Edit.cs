@@ -26,9 +26,8 @@ namespace Tangenta
     public partial class Form_Customer_Org_Edit : Form
     {
         public enum eCustomer_Org_EditMode { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
-        private eCustomer_Org_EditMode Customer_Org_EditMode = eCustomer_Org_EditMode.SELECT_VALID;
 
-        internal string Name = null;
+        internal string Customer_Name = null;
         internal string Tax_ID = null;
         internal string Registration_ID = null;
         internal string FaxNumber = null;
@@ -93,7 +92,7 @@ namespace Tangenta
                     Customer_Org_$_orgd_$_chomepgorg_$$HomePage
             ";
 
-            Customer_Org_EditMode = eCustomer_Org_EditMode.SELECT_ALL;
+            //Customer_Org_EditMode = eCustomer_Org_EditMode.SELECT_ALL;
             string sWhereCondition = "";
             return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
 
@@ -129,7 +128,7 @@ namespace Tangenta
                 Form_Customer_Org_Assign Customer_Assign_Org_dlg = new Form_Customer_Org_Assign(usrc_EditTable.Identity);
                 if (Customer_Assign_Org_dlg.ShowDialog() == DialogResult.Yes)
                 {
-                    this.Name = Customer_Assign_Org_dlg.Name;
+                    this.Customer_Name = Customer_Assign_Org_dlg.Customer_Name;
                     this.Tax_ID = Customer_Assign_Org_dlg.Tax_ID;
                     this.Registration_ID = Customer_Assign_Org_dlg.Registration_ID;
                     this.FaxNumber = Customer_Assign_Org_dlg.FaxNumber;

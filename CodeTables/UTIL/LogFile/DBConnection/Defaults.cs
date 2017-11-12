@@ -7,16 +7,16 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
 using System.Drawing;
 using System.Collections;
 
-namespace SqlBuilder
+namespace LogFile_SqlBuilder
 {
 	/// <summary>
 	/// Default settings for your company
@@ -72,7 +72,7 @@ namespace SqlBuilder
 		public const string BackupDir  = "DatabaseBackup\\";
 
 		// The files which are generated in the Script directory
-		public const string XmlSettings    = "SqlBuilder.xml";
+		public const string XmlSettings    = "LogFile_SqlBuilder.xml";
 		public const string CompoundScript = "CompoundScript.sql";
 
 		// The files which are generated in the Backup directory
@@ -80,7 +80,7 @@ namespace SqlBuilder
 
 		// URL where to download the latest version in the format "4.1" from a text file
 		public const string UpdateUrl      = "http://netcult.ch/elmue/UpdateSqlBuilder.txt"; // "" --> disabled
-		public const string DownloadUrl    = "http://electronix.ch/ptbsync/SqlBuilder.zip";  // "" --> disabled
+		public const string DownloadUrl    = "http://electronix.ch/ptbsync/LogFile_SqlBuilder.zip";  // "" --> disabled
 		// Check for new versions on the server every X days
 		public const int    UpdateInterval = 1;
 

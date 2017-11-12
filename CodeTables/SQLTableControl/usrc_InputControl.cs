@@ -1556,7 +1556,7 @@ namespace CodeTables
             return slabel;
         }
 
-        public void Show()
+        public new void  Show()
         {
             //this.Height = usrc_InputControl_Height;
             
@@ -1699,7 +1699,7 @@ namespace CodeTables
 
         }
 
-        internal void Hide()
+        internal new void Hide()
         {
             usrc_lbl.Visible = false;
             this.Visible = false;

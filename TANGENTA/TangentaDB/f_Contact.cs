@@ -125,7 +125,6 @@ namespace TangentaDB
                     LogFile.Error.Show("ERROR:TangentaDB:f_Contact:Get: sql=" + sql_select + "\r\nErr=" + Err);
                     return false;
                 }
-                return true;
             }
             else
             {

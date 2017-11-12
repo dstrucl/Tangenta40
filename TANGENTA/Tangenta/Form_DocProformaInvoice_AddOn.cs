@@ -23,7 +23,6 @@ namespace Tangenta
 {
     public partial class Form_DocProformaInvoice_AddOn : Form
     {
-        private string m_DocInvoice = null;
         public DocProformaInvoice_AddOn m_AddOnDPI = null;
         public GlobalData.ePaymentType m_ePaymentType = GlobalData.ePaymentType.ANY_TYPE;
         public string m_sPaymentMethod = null;

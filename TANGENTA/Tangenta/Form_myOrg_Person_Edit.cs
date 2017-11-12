@@ -25,8 +25,6 @@ namespace Tangenta
     public partial class Form_myOrg_Person_Edit : Form
     {
         bool bclose = false;
-        SQLTable tbl = null;
-        long_v ID_v = null;
         private long m_Office_ID;
         private SQLTable tbl_myOrganisation_Person;
         private string ColumnToOrderBy = "myOrganisation_Person_$_per_$_cln_$$LastName asc";

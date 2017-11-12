@@ -134,7 +134,7 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        public void Text(ltext xltext)
+        public new void Text(ltext xltext)
         {
             usrc_EditRow.Text(xltext);
         }

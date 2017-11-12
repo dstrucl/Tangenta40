@@ -7,18 +7,18 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using SqlBuilder.Controls;
+using LogFile_SqlBuilder.Controls;
 
 
-namespace SqlBuilder.Forms
+namespace LogFile_SqlBuilder.Forms
 {
 	/// <summary>
 	/// The stupid Windows XP messagebox is centered to the screen instead of to the owner window!
@@ -43,7 +43,7 @@ namespace SqlBuilder.Forms
 		/// </summary>
 		public static void Err(Form i_Owner, string s_Text)
 		{
-			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "SqlBuilder", eIcon.Error, MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);
+			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "LogFile_SqlBuilder", eIcon.Error, MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);
 			i_Box.ShowDialog(i_Owner);
 		}
 		/// <summary>
@@ -51,7 +51,7 @@ namespace SqlBuilder.Forms
 		/// </summary>
 		public static void Info(Form i_Owner, string s_Text)
 		{
-			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "SqlBuilder", eIcon.Info, MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);
+			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "LogFile_SqlBuilder", eIcon.Info, MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);
 			i_Box.ShowDialog(i_Owner);
 		}
 		/// <summary>
@@ -59,7 +59,7 @@ namespace SqlBuilder.Forms
 		/// </summary>
 		public static void Warn(Form i_Owner, string s_Text)
 		{
-			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "SqlBuilder", eIcon.Warning, MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);
+			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "LogFile_SqlBuilder", eIcon.Warning, MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);
 			i_Box.ShowDialog(i_Owner);
 		}
 		/// <summary>
@@ -67,7 +67,7 @@ namespace SqlBuilder.Forms
 		/// </summary>
 		public static void Alarm(Form i_Owner, string s_Text)
 		{
-			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "SqlBuilder", eIcon.Alarm, MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);
+			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "LogFile_SqlBuilder", eIcon.Alarm, MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);
 			i_Box.ShowDialog(i_Owner);
 		}
 		/// <summary>
@@ -75,7 +75,7 @@ namespace SqlBuilder.Forms
 		/// </summary>
 		public static bool Ask(Form i_Owner, string s_Text)
 		{
-			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "SqlBuilder", eIcon.Question, MessageBoxButtons.YesNo, MessageBoxDefaultButton.Button2);
+			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "LogFile_SqlBuilder", eIcon.Question, MessageBoxButtons.YesNo, MessageBoxDefaultButton.Button2);
 			return (i_Box.ShowDialog(i_Owner) == DialogResult.Yes);
 		}
 		/// <summary>
@@ -83,7 +83,7 @@ namespace SqlBuilder.Forms
 		/// </summary>
 		public static bool AskAlarm(Form i_Owner, string s_Text)
 		{
-			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "SqlBuilder", eIcon.Alarm, MessageBoxButtons.YesNo, MessageBoxDefaultButton.Button2);
+			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "LogFile_SqlBuilder", eIcon.Alarm, MessageBoxButtons.YesNo, MessageBoxDefaultButton.Button2);
 			return (i_Box.ShowDialog(i_Owner) == DialogResult.Yes);
 		}
 		/// <summary>
@@ -91,7 +91,7 @@ namespace SqlBuilder.Forms
 		/// </summary>
 		public static DialogResult Ask3(Form i_Owner, string s_Text)
 		{
-			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "SqlBuilder", eIcon.Question, MessageBoxButtons.YesNoCancel, MessageBoxDefaultButton.Button3);
+			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "LogFile_SqlBuilder", eIcon.Question, MessageBoxButtons.YesNoCancel, MessageBoxDefaultButton.Button3);
 			return i_Box.ShowDialog(i_Owner);
 		}
 		/// <summary>
@@ -99,7 +99,7 @@ namespace SqlBuilder.Forms
 		/// </summary>
 		public static DialogResult Ask3Alarm(Form i_Owner, string s_Text)
 		{
-			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "SqlBuilder", eIcon.Alarm, MessageBoxButtons.YesNoCancel, MessageBoxDefaultButton.Button3);
+			frmMsgBox i_Box = new frmMsgBox(i_Owner, s_Text, "LogFile_SqlBuilder", eIcon.Alarm, MessageBoxButtons.YesNoCancel, MessageBoxDefaultButton.Button3);
 			return i_Box.ShowDialog(i_Owner);
 		}
 
@@ -315,7 +315,7 @@ namespace SqlBuilder.Forms
 			this.btnLeft = new System.Windows.Forms.Button();
 			this.lblMessage = new System.Windows.Forms.Label();
 			this.btnRight = new System.Windows.Forms.Button();
-			this.picIcon = new SqlBuilder.Controls.PictureBoxEx();
+			this.picIcon = new LogFile_SqlBuilder.Controls.PictureBoxEx();
 			this.btnMid = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 

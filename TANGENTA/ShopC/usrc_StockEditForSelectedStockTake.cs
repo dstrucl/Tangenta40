@@ -444,7 +444,7 @@ namespace ShopC
                         pprice = Convert.ToDecimal(sValue);
                         bPPriceDefined = true;
                     }
-                    catch (Exception ex)
+                    catch 
                     {
                         XMessage.Box.ShowTopMost(this, lngRPM.s_InvalidPurchasePrice, lngRPM.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
                     }
@@ -524,7 +524,7 @@ namespace ShopC
 
                 for (int i = 0; i < dt_Stock_Of_Current_StockTake.Rows.Count; i++)
                 {
-                    ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Visible = false;
+                    ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).visible = false;
                     ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Enabled = false;
                     ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Style.BackColor = Color.White;
                     if (aDoc_ShopC_Item[i] != null)
@@ -533,7 +533,7 @@ namespace ShopC
                         {
                             if (aDoc_ShopC_Item[i].adata.Length > 0)
                             {
-                                ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Visible = true;
+                                ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).visible = true;
                                 ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Enabled = true;
                                 ((DataGridViewDisableButtonCell.DataGridViewDisableButtonCell)dgvx_StockTakeItemsAndPrices.Rows[i].Cells[0]).Style.BackColor = Color.LightPink;
                             }
@@ -789,7 +789,7 @@ namespace ShopC
                         pprice = Convert.ToDecimal(sValue);
                         bPPriceDefined = true;
                     }
-                    catch (Exception ex)
+                    catch 
                     {
                         XMessage.Box.ShowTopMost(this, lngRPM.s_InvalidPurchasePrice, lngRPM.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
                     }

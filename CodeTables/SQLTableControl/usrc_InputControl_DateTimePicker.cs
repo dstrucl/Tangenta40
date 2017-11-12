@@ -21,7 +21,7 @@ namespace CodeTables
         public delegate void delegate_ValueChanged(object sender, EventArgs e);
         public delegate void delegate_GotFocus(object sender, EventArgs e);
         public event delegate_ValueChanged ValueChanged;
-        public event delegate_GotFocus GotFocus;
+        public new event delegate_GotFocus GotFocus;
         private bool readOnly;
         private TextBox txt_DateTimeReadOnly = null;
 

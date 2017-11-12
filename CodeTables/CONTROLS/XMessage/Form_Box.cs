@@ -24,7 +24,6 @@ namespace XMessage
         private string text;
         private string caption;
         private MessageBoxButtons m_buttons;
-        private MessageBoxIcon icon;
         private MessageBoxDefaultButton defaultButton;
 
         public Form_Box()

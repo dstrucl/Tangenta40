@@ -32,8 +32,8 @@ namespace Tangenta
         //string XML_IZPIS_RACUNI_GLAVE_TXT = "";
         //string XML_IZPIS_RACUNI_POSTAVKE_TXT = "";
         DataTable dt_XML_Invoices = new DataTable();
-        string Postavke = null;
-        string Glava = null;
+        //string Postavke = null;
+        //string Glava = null;
         DataTable dt_IZPIS_RACUNI_GLAVE = null;
         DataTable dt_IZPIS_RACUNI_POSTAVKE = null;
 
@@ -145,8 +145,8 @@ namespace Tangenta
             this.Cursor = Cursors.WaitCursor;
 
             // write XML_IZPIS_RACUNI_GLAVE_TXT
-            Postavke = "Dav št;Rac st;Rac dat;PE id;Blag id;Post st;Post id;Post opis;Post kol;Pos+t em;Post znesek;Post 9,5 % DDV;Post 22 % DDV;Sprem st;Rac opombe\r\n";
-            Glava = "Dav št;Rac st;Rac dat;Rac ura;PE id;Blag id;Kupec;IŠ za DDV;Rac znesek;Rac 9,5 % DDV;Rac 22 % DDV;Plac got;Plac kart;Plac ostalo;Sprem dat;Sprem ura;Sprem st;Sprem id;Sprem razlog;Sprem upor;Sprem oseba;Rac opombe\r\n";
+            //Postavke = "Dav št;Rac st;Rac dat;PE id;Blag id;Post st;Post id;Post opis;Post kol;Pos+t em;Post znesek;Post 9,5 % DDV;Post 22 % DDV;Sprem st;Rac opombe\r\n";
+            //Glava = "Dav št;Rac st;Rac dat;Rac ura;PE id;Blag id;Kupec;IŠ za DDV;Rac znesek;Rac 9,5 % DDV;Rac 22 % DDV;Plac got;Plac kart;Plac ostalo;Sprem dat;Sprem ura;Sprem st;Sprem id;Sprem razlog;Sprem upor;Sprem oseba;Rac opombe\r\n";
 
             string DestinationFullFileNamePath_XML_IZPIS_RACUNI_GLAVE = XML_Destination_Folder + filename_XML_IZPIS_RACUNI_GLAVE_TXT;
             string DestinationFullFileNamePath_XML_IZPIS_RACUNI_POSTAVKE_TXT = XML_Destination_Folder + filename_XML_IZPIS_RACUNI_POSTAVKE_TXT;

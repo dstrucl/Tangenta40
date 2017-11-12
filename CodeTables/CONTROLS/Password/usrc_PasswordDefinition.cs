@@ -12,8 +12,8 @@ namespace Password
 {
     public partial class usrc_PasswordDefinition : UserControl
     {
-        public event EventHandler TextChanged = null;
-        public event EventHandler GotFocus = null;
+        public new event EventHandler TextChanged = null;
+        public new event EventHandler GotFocus = null;
 
         public bool m_Locked = true;
 
@@ -39,7 +39,7 @@ namespace Password
                 txt_Password_Retyped.MaxLength = m_MaxLength;
                 }
         }
-        public string Text
+        public new string Text
         {
             get { if (this.txt_Password.Text.Length>= m_MinPasswordLength)
                   {

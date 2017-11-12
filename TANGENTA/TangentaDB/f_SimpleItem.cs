@@ -121,7 +121,7 @@ namespace TangentaDB
             SimpleItem_ID_v = null;
             DataTable dt = new DataTable();
             string sql = null;
-            object oret = null;
+
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             string spar_Name = "@par_Name";
             SQL_Parameter par_Name = new SQL_Parameter(spar_Name, SQL_Parameter.eSQL_Parameter.Nvarchar, false, Name);

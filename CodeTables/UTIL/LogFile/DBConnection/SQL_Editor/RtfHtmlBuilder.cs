@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -17,7 +17,7 @@ using System.Text;
 using System.Drawing;
 using System.Collections;
 
-namespace SqlBuilder
+namespace LogFile_SqlBuilder
 {
 	/// <summary>
 	/// Builds cleanly formatted SQL code as RTF, Html and Plain Text

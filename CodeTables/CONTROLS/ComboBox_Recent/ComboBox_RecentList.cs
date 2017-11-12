@@ -36,7 +36,7 @@ namespace ComboBox_Recent
         private bool bDisplayTime = true;
         private bool Insert_on_KeyPress = true;
         private char KeyToInsert = '\r';
-        DataTable dt;
+
         private int max_count = 10;
         //public string[] my_items = new string[max_count];
 
@@ -272,11 +272,7 @@ namespace ComboBox_Recent
 
         }
 
-        private bool DisplayMember
-        {
-            get { return true; }
-        }
-
+       
 
 
         public ComboBox_RecentList()

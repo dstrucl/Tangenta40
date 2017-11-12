@@ -2697,7 +2697,7 @@ namespace LogFile
         private void PreviewSQLCommand(string sql, List<Log_SQL_Parameter> lSQL_Parameter, ref string OutString, ref bool bChanged, string Title)
         {
             bChanged = false;
-            SqlBuilder.Forms.frmEditor frmEditor = new SqlBuilder.Forms.frmEditor(sql,lSQL_Parameter, Title);
+            LogFile_SqlBuilder.Forms.frmEditor frmEditor = new LogFile_SqlBuilder.Forms.frmEditor(sql,lSQL_Parameter, Title);
             if (frmEditor.ShowDialog()==DialogResult.OK)
             {
                 bChanged = true;
@@ -2709,7 +2709,7 @@ namespace LogFile
         {
             if (m_ShowDBErrorMessages)
             {
-                SqlBuilder.Forms.frmEditor frmEditor = new SqlBuilder.Forms.frmEditor(ErrorMsg, lSQL_Parameter, Title);
+                LogFile_SqlBuilder.Forms.frmEditor frmEditor = new LogFile_SqlBuilder.Forms.frmEditor(ErrorMsg, lSQL_Parameter, Title);
                 if (frmEditor.ShowDialog() == DialogResult.OK)
                 {
                 }

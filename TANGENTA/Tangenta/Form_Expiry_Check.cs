@@ -29,7 +29,6 @@ namespace Tangenta
         string m_sNoDiscardBeforeExpiryDateInDays = null;
         DataTable dt_ExpiryCheck = null;
         int iSaleBeforeExpiryDateInDays_COUNT = 0;
-        int iDiscardBeforeExpiryDateInDays_Count = 0;
         public Form_Expiry_Check()
         {
             InitializeComponent();

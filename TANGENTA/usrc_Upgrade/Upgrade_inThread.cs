@@ -399,7 +399,6 @@ namespace UpgradeDB
                                                 }
 
                                                 long_v Supplier_ID_v = new long_v();
-                                                long_v Unknown_Contact_ID_v = null;
                                                 if (SupplierName != null)
                                                 {
                                                     if (SupplierName.Contains("Eckstein"))
@@ -4815,7 +4814,6 @@ namespace UpgradeDB
             string sql_insert_values = null;
             List<SQL_Parameter> lpar = new List<SQL_Parameter>();
             bool bDocInvoiceTime = false;
-            bool bFirstPrintTime = false;
             bool bPaid = false;
             bool bStorno = false;
             foreach (DataRow dr in dt.Rows)
@@ -4880,7 +4878,7 @@ namespace UpgradeDB
 
                             if (dcol.ColumnName.ToLower().Equals("firstprinttime"))
                             {
-                                bFirstPrintTime = true;
+                                //bFirstPrintTime = true;
                             }
                             else if (dcol.ColumnName.ToLower().Equals("docinvoicetime"))
                             {

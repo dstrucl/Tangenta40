@@ -103,8 +103,6 @@ namespace Tangenta
         public delegate void delegate_Customer_Org_Changed(long Customer_Org_ID);
         public event delegate_Customer_Org_Changed aa_Customer_Org_Changed = null;
 
-        public delegate void delegate_PriceListChanged();
-        public event delegate_PriceListChanged aa_PriceListChanged = null;
 
 
         public long Last_myOrganisation_id = 1;

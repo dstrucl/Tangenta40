@@ -26,7 +26,6 @@ namespace Tangenta
     public partial class Form_Customer_Person_Edit : Form
     {
         public enum eCustomer_Person_EditMode { SELECT_VALID, SELECT_UNVALID, SELECT_ALL };
-        private eCustomer_Person_EditMode Customer_Person_EditMode = eCustomer_Person_EditMode.SELECT_VALID;
 
         internal string FirstName = null;
         internal string LastName = null;
@@ -93,8 +92,6 @@ namespace Tangenta
                                   PersonData_$_cadrper_$_ccouper_$$State,
                                   PersonData_$_cadrper_$_cstper_$$Country
             ";
-
-            Customer_Person_EditMode = eCustomer_Person_EditMode.SELECT_ALL;
             string sWhereCondition = "";
             return usrc_EditTable.Init(dbTables, tbl, selection, ColumnOrderBy, false, sWhereCondition, ID_v, false,nav);
 

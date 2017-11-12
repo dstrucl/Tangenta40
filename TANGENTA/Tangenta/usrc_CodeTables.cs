@@ -50,7 +50,7 @@ namespace Tangenta
         private void btn_Taxation_Click(object sender, EventArgs e)
         {
             SQLTable tbl_Taxation = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Taxation)));
-            Form_Taxation_Edit tax_dlg = new Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc",nav);
+            Tangenta.Form_Taxation_Edit tax_dlg = new Tangenta.Form_Taxation_Edit(DBSync.DBSync.DB_for_Tangenta.m_DBTables, tbl_Taxation, "ID asc",nav);
             if (tax_dlg.ShowDialog() == DialogResult.OK)
             {
                 bChanged = tax_dlg.Changed;

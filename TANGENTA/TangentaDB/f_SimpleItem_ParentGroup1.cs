@@ -118,7 +118,7 @@ namespace TangentaDB
         public static bool Get(long SimpleItem_ParentGroup1_ID, ref string_v Name_ParentGroup1_v, ref string_v Name_ParentGroup2_v, ref string_v Name_ParentGroup3_v)
         {
             DataTable dt = new DataTable();
-            string Err = null;
+
             Name_ParentGroup1_v = null;
             Name_ParentGroup2_v = null;
             Name_ParentGroup3_v = null;

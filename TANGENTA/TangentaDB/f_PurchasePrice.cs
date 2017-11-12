@@ -9,7 +9,6 @@ namespace TangentaDB
 {
     public static class f_PurchasePrice
     {
-        private static DataTable dtPurchasePrice = null;
 
         public static bool Get(decimal PricePerUnit,long ID_Taxation,long ID_Currency, ref long PurchasePrice_ID)
         {

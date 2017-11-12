@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -17,9 +17,9 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using SqlBuilder.Controls;
+using LogFile_SqlBuilder.Controls;
 
-namespace SqlBuilder.Forms
+namespace LogFile_SqlBuilder.Forms
 {
 	/// <summary>
 	/// Find or Goto operation
@@ -185,7 +185,7 @@ namespace SqlBuilder.Forms
 
 		#region Windows Form Designer generated code
 
-		private SqlBuilder.Controls.StatusInfo lblStatus;
+		private LogFile_SqlBuilder.Controls.StatusInfo lblStatus;
 		private System.Windows.Forms.TextBox txtInput;
 		private System.Windows.Forms.Label lblHeading;
 		private System.Windows.Forms.Button btnExecute;
@@ -217,7 +217,7 @@ namespace SqlBuilder.Forms
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFind));
-            this.lblStatus = new SqlBuilder.Controls.StatusInfo();
+            this.lblStatus = new LogFile_SqlBuilder.Controls.StatusInfo();
             this.txtInput = new System.Windows.Forms.TextBox();
             this.lblHeading = new System.Windows.Forms.Label();
             this.btnExecute = new System.Windows.Forms.Button();
@@ -344,7 +344,7 @@ namespace SqlBuilder.Forms
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = " SqlBuilder";
+            this.Text = " LogFile_SqlBuilder";
             this.ResumeLayout(false);
             this.PerformLayout();
 

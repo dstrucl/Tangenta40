@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -18,12 +18,12 @@ using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using SqlBuilder.Forms;
+using LogFile_SqlBuilder.Forms;
 
-using FindCallback = SqlBuilder.Forms.frmFind.delFindReplace;
-using FindParam    = SqlBuilder.Forms.frmFind.cParam;
+using FindCallback = LogFile_SqlBuilder.Forms.frmFind.delFindReplace;
+using FindParam    = LogFile_SqlBuilder.Forms.frmFind.cParam;
 
-namespace SqlBuilder.Controls
+namespace LogFile_SqlBuilder.Controls
 {
 	/// <summary>
 	/// Adds functionality to RichTextBox which Microsoft has forgotten to implement

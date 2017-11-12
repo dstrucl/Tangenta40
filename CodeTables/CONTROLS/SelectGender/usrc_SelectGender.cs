@@ -39,7 +39,6 @@ namespace SelectGender
             }
         }
 
-        private bool m_Selection = false;
 
         public bool Checked
         {

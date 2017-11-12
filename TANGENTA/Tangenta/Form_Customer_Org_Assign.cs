@@ -21,7 +21,7 @@ namespace Tangenta
 {
     public partial class Form_Customer_Org_Assign : Form
     {
-        internal string Name = null;
+        internal string Customer_Name = null;
         internal string Tax_ID = null;
         internal string Registration_ID = null;
         internal string PhoneNumber = null;
@@ -77,7 +77,7 @@ namespace Tangenta
             {
                 if (dt.Rows.Count>0)
                 {
-                    this.Name = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_org_$$Name"]);
+                    this.Customer_Name = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_org_$$Name"]);
                     this.Tax_ID = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_org_$$Tax_ID"]);
                     this.Registration_ID = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_org_$$Registration_ID"]);
                     this.PhoneNumber = DBTypes.tf._set_string(dt.Rows[0]["Customer_Org_$_orgd_$_cphnnorg_$$PhoneNumber"]);
@@ -92,9 +92,9 @@ namespace Tangenta
                     OrganisationData_ID = (long)dt.Rows[0]["Customer_Org_$_orgd_$$ID"];
 
                     lbl_Org.Text = "";
-                    if (this.Name != null)
+                    if (this.Customer_Name != null)
                     {
-                        lbl_Org.Text += this.Name;
+                        lbl_Org.Text += this.Customer_Name;
                     }
 
                     if (StreetName != null)

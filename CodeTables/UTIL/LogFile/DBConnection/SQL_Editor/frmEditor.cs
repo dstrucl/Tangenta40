@@ -7,9 +7,9 @@
 #endregion
 
 // -------------------------------------------------------
-// SqlBuilder by ElmüSoft
+// LogFile_SqlBuilder by ElmüSoft
 // www.netcult.ch/elmue
-// www.codeproject.com/KB/database/SqlBuilder.aspx
+// www.codeproject.com/KB/database/LogFile_SqlBuilder.aspx
 // -------------------------------------------------------
 
 using System;
@@ -18,11 +18,11 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using SqlBuilder.Controls;
+using LogFile_SqlBuilder.Controls;
 using LogFile;
 using System.Collections.Generic;
 
-namespace SqlBuilder.Forms
+namespace LogFile_SqlBuilder.Forms
 {
     /// <summary>
     /// Summary description for frmSqlEditor.
@@ -204,8 +204,8 @@ namespace SqlBuilder.Forms
 
         #region Windows Form Designer generated code
 
-        private SqlBuilder.Controls.RichTextBoxParser rtfBox;
-        private SqlBuilder.Controls.StatusInfo lblStatus;
+        private LogFile_SqlBuilder.Controls.RichTextBoxParser rtfBox;
+        private LogFile_SqlBuilder.Controls.StatusInfo lblStatus;
         private System.Windows.Forms.Button btnHelp;
         private System.ComponentModel.Container components = null;
 
@@ -217,8 +217,8 @@ namespace SqlBuilder.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEditor));
-            this.rtfBox = new SqlBuilder.Controls.RichTextBoxParser();
-            this.lblStatus = new SqlBuilder.Controls.StatusInfo();
+            this.rtfBox = new LogFile_SqlBuilder.Controls.RichTextBoxParser();
+            this.lblStatus = new LogFile_SqlBuilder.Controls.StatusInfo();
             this.btnHelp = new System.Windows.Forms.Button();
             this.btn_Execute_SQL = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();

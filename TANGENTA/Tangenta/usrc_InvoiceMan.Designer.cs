@@ -129,7 +129,6 @@
             this.m_usrc_Invoice.aa_DocProformaInvoiceSaved += new Tangenta.usrc_Invoice.delegate_DocProformaInvoiceSaved(this.m_usrc_Invoice_DocProformaInvoiceSaved);
             this.m_usrc_Invoice.aa_Customer_Person_Changed += new Tangenta.usrc_Invoice.delegate_Customer_Person_Changed(this.m_usrc_Invoice_Customer_Person_Changed);
             this.m_usrc_Invoice.aa_Customer_Org_Changed += new Tangenta.usrc_Invoice.delegate_Customer_Org_Changed(this.m_usrc_Invoice_aa_Customer_Org_Changed);
-            this.m_usrc_Invoice.aa_PriceListChanged += new Tangenta.usrc_Invoice.delegate_PriceListChanged(this.m_usrc_Invoice_PriceListChanged);
             this.m_usrc_Invoice.Load += new System.EventHandler(this.m_usrc_Invoice_Load);
             // 
             // m_usrc_InvoiceTable

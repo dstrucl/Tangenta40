@@ -1088,7 +1088,7 @@ public class XView
 
     public bool read(int Limit,ref string csError)
     {
-        bool bRead = true;
+
         dt.Clear();
         List<Log_SQL_Parameter> lPar = new List<Log_SQL_Parameter>();
         string sql_select = "SELECT ";
@@ -1192,7 +1192,6 @@ public class XView
         if (bRes)
         {
         }
-        bRead = false;
         return bRes;
     }
 }
@@ -1296,7 +1295,7 @@ public class XTableFunction
 
     public bool read(int Limit,ref string csError)
     {
-        bool bRead = true;
+
         dt.Clear();
         List<Log_SQL_Parameter> lPar = new List<Log_SQL_Parameter>();
         string sql_select = "SELECT ";
@@ -1415,7 +1414,6 @@ public class XTableFunction
         if (bRes)
         {
         }
-        bRead = false;
         return bRes;
     }
 }

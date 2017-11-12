@@ -94,7 +94,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
                             case Thread_FVI_Message.eMessage.POST_ECHO:
                                 rv = taxService.Send(fvi_message.XML_Data);  
-                                xml_returned = prettyXml(rv.originalMessage);
+                                xml_returned = prettyXml(rv.OriginalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_ECHO, xml_returned);
                                 xusrc_FVI_SLO_Message.Success = rv.Success;
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
@@ -102,7 +102,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
                             case Thread_FVI_Message.eMessage.POST_SINGLE_INVOICE:
                                 rv = taxService.Send(fvi_message.XML_Data);  
-                                xml_returned = prettyXml(rv.originalMessage);
+                                xml_returned = prettyXml(rv.OriginalMessage);
                                 if (rv.BarCodes!=null)
                                 {
                                     string BarCodeValue = rv.BarCodes.BarCodeValue;
@@ -151,7 +151,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
                             case Thread_FVI_Message.eMessage.POST_BUSINESSPREMISE:
                                 rv = taxService.Send(fvi_message.XML_Data);  
-                                xml_returned = prettyXml(rv.originalMessage);
+                                xml_returned = prettyXml(rv.OriginalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_PP, xml_returned);
                                 xusrc_FVI_SLO_Message.Success = rv.Success;
                                 xusrc_FVI_SLO_Message.ErrorMessage  = rv.ErrorMessage;
@@ -160,7 +160,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
                             case Thread_FVI_Message.eMessage.POST_MANY_INVOICES:
                                 rv = taxService.Send(fvi_message.XML_Data);   
-                                xml_returned = prettyXml(rv.originalMessage);
+                                xml_returned = prettyXml(rv.OriginalMessage);
                                 xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.FVI_RESPONSE_SINGLE_INVOICE, xml_returned);
                                 xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                                 break;

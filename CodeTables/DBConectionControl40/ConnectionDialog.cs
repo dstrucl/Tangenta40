@@ -42,7 +42,7 @@ namespace DBConnectionControl40
         DBConnection m_con = null;
 
         internal bool m_bNewDataBase = false;
-        internal Navigation.eEvent eEventExit;
+
         private bool bDataBaseConnectionChecked = false;
 
         public ConnectionDialog(ConnectionDialog_enum ConnectionConnectionDialog_type, DBConnection con, string sTitle, NavigationButtons.Navigation xnav)

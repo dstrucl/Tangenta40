@@ -60,7 +60,7 @@ namespace CodeTables.TableDocking_Form
         public MyTabControl m_TabControl;
         Random rand = null;
         public delegate void delegate_Update(bool res, long ID,string Err);
-        public event delegate_Update Update = null;
+        public new event delegate_Update Update = null;
 
 
 
@@ -144,7 +144,7 @@ namespace CodeTables.TableDocking_Form
             }
         }
 
-        public void Text(ltext xltext)
+        public new void Text(ltext xltext)
         {
             xltext.Text(lbl_Title);
         }

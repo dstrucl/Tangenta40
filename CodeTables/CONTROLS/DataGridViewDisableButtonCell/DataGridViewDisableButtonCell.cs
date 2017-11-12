@@ -26,7 +26,7 @@ namespace DataGridViewDisableButtonCell
 
         private bool visibleValue;
 
-        public bool Visible
+        public bool visible
         {
             get { return visibleValue; }
             set

@@ -14,4 +14,3 @@ using System.Security.Permissions;
 [assembly: AssemblyVersion("1.3.0.0")]
 [assembly: AssemblyFileVersion("1.3.0.0")]
 [assembly: CLSCompliant(true)]
-[assembly: SecurityPermission(SecurityAction.RequestRefuse)]

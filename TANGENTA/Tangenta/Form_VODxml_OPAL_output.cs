@@ -801,17 +801,22 @@ namespace Tangenta
         }
         public string s_period()
         {
-            string s = lngRPM.s_from.s + " " + m_usrc_InvoiceTable.dtStartTime.Day.ToString() + "." + m_usrc_InvoiceTable.dtStartTime.Month.ToString() + "." + m_usrc_InvoiceTable.dtStartTime.Year.ToString() + " " 
-                       +lngRPM.s_to.s + " " + m_usrc_InvoiceTable.dtEndTime.Day.ToString() + "." + m_usrc_InvoiceTable.dtEndTime.Month.ToString() + "." + m_usrc_InvoiceTable.dtEndTime.Year.ToString();
+            DateTime xdtStartTime = m_usrc_InvoiceTable.dtStartTime;
+            DateTime xdtEndTime = m_usrc_InvoiceTable.dtEndTime;
+            string s = lngRPM.s_from.s + " " + xdtStartTime.Day.ToString() + "." + xdtStartTime.Month.ToString() + "." + xdtStartTime.Year.ToString() + " " 
+                       +lngRPM.s_to.s + " " + xdtEndTime.Day.ToString() + "." + xdtEndTime.Month.ToString() + "." + xdtEndTime.Year.ToString();
             return s;
 
         }
         private bool CheckOneMonthPeriod()
         {
-            int iStartYear = m_usrc_InvoiceTable.dtStartTime.Year;
-            int iStartMonth = m_usrc_InvoiceTable.dtStartTime.Month;
-            int iEndMonth = m_usrc_InvoiceTable.dtEndTime.Month;
-            int iEndDay = m_usrc_InvoiceTable.dtEndTime.Day;
+            DateTime xdtStartTime = m_usrc_InvoiceTable.dtStartTime;
+            DateTime xdtEndTime = m_usrc_InvoiceTable.dtEndTime;
+
+            int iStartYear = xdtStartTime.Year;
+            int iStartMonth = xdtStartTime.Month;
+            int iEndMonth = xdtEndTime.Month;
+            int iEndDay = xdtEndTime.Day;
             DateTime dtnow = DateTime.Now;
             if (iStartYear==dtnow.Year)
             {

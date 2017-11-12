@@ -42,7 +42,7 @@ namespace TextBoxRecent
             }
         }
 
-        public void Clear()
+        public new void Clear()
         {
             string sNewText = base.Text;
             if (sNewText != null)

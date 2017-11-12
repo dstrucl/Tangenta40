@@ -28,7 +28,6 @@ namespace Tangenta
 {
     public partial class usrc_Document : UserControl
     {
-        private string LockedPassword = null;
 
         Form Main_Form = null;
         public delegate void delegate_Exit_Click();
@@ -617,9 +616,6 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                     return false;
 
             }
-
-            myStartup.eNextStep = startup_step.eStep.Cancel;
-            return false;
         }
 
     public bool GetWorkPeriod(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)

@@ -62,7 +62,7 @@ namespace MNet.SLOTaxService.Messages
       }
 
       this.MessageType = message.MessageType;
-      this.originalMessage = message.Message;
+      this.OriginalMessage = message.Message;
       this.MessageSendToFurs = (step >= SendingStep.SoapEnvelopeGenerated) ? message.MessageSendToFurs : null;
       this.MessageReceivedFromFurs = (step >= SendingStep.MessageSend) ? message.MessageReceivedFromFurs : null;
 
@@ -94,7 +94,7 @@ namespace MNet.SLOTaxService.Messages
 
     private void processSend()
     {
-      this.getProtectedID(this.originalMessage);
+      this.getProtectedID(this.OriginalMessage);
       if (this.MessageReceivedFromFurs == null)
       {
         this.Success = false;
@@ -126,6 +126,11 @@ namespace MNet.SLOTaxService.Messages
 
         //TANGENTA dodano
         //private XmlDocument originalMessage;
-        public XmlDocument originalMessage;
+        private XmlDocument originalMessage;
+        public XmlDocument OriginalMessage
+        {
+            get { return this.originalMessage; }
+            set { this.originalMessage = value; }
+        }
     }
 }
