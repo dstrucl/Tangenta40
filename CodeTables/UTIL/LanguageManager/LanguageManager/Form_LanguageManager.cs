@@ -9,19 +9,15 @@ using System.Windows.Forms;
 using System.IO;
 using DataGridView_2xls;
 
-
-namespace SolutionExplorer
+namespace LanguageManager
 {
-    public partial class Form_SolutionExplorer : Form
+    public partial class Form_LanguageManager : Form
     {
-        internal Form_NSIS_Setup Form_NSIS = null;
-        internal Form_INNO_Setup Form_INNO = null;
         string[] SelectedProjects = null;
 
-        public Form_SolutionExplorer()
+        public Form_LanguageManager()
         {
             InitializeComponent();
-
             string SolutionFileName = null;
             string SolutionPath = null;
 
@@ -31,10 +27,8 @@ namespace SolutionExplorer
             usrc_SelectFile1.Path = SolutionPath;
         }
 
-
         public void ParseSelectedProjects()
         {
-            dgvx_ExternalDLLReferences.DataSource = null;
             dgvx_Libraries.DataSource = null;
             string sout = null;
             string Err = null;
@@ -42,7 +36,7 @@ namespace SolutionExplorer
             {
                 txt_Projects.Text = sout;
                 dgvx_Libraries.DataSource = Parser.dtLibraries;
-                dgvx_ExternalDLLReferences.DataSource = Parser.dtExternalDll;
+                //dgvx_ExternalDLLReferences.DataSource = Parser.dtExternalDll;
             }
             else
             {
@@ -51,7 +45,7 @@ namespace SolutionExplorer
         }
 
 
-    private void AddPlatform(string platform)
+        private void AddPlatform(string platform)
         {
             if (cmb_Platform_Items_Find(platform) < 0)
             {
@@ -172,34 +166,17 @@ namespace SolutionExplorer
             }
         }
 
-        private void btn_NSIS_Click(object sender, EventArgs e)
+        private void lbl_ConfigurationName_Click(object sender, EventArgs e)
         {
-            if (Form_NSIS == null)
-            {
-                Form_NSIS = new Form_NSIS_Setup(this);
-                Form_NSIS.Show();
-            }
-            else
-            {
-                Form_NSIS.Show();
-            }
-        }
-
-        private void btn_INNO_Installer_Click(object sender, EventArgs e)
-        {
-            if(Form_INNO == null)
-            {
-                Form_INNO = new Form_INNO_Setup(this);
-                Form_INNO.Show();
-            }
-            else
-            {
-                Form_INNO.Show();
-            }
 
         }
 
-        private void Form_SolutionExplorer_Load(object sender, EventArgs e)
+        private void splitContainer3_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Form_LanguageManager_Load(object sender, EventArgs e)
         {
             usrc_SelectFile1.FireEvent_ExistingFileChanged();
             SelectedProjects = Properties.Settings.Default.SelectedProjects.Split(';');
@@ -208,9 +185,9 @@ namespace SolutionExplorer
                 bool bEmpty = true;
                 foreach (string s in SelectedProjects)
                 {
-                    if (s!=null)
+                    if (s != null)
                     {
-                        if (s.Length>0)
+                        if (s.Length > 0)
                         {
                             bEmpty = false;
                         }
@@ -220,13 +197,9 @@ namespace SolutionExplorer
                 {
                     Parser.SelectProjects(SelectedProjects);
                     ParseSelectedProjects();
+                    AllSourceFiles();
                 }
             }
-        }
-
-        private void dgvx_SelectedExecutablesInSolution_CellValidated(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void dgvx_SelectedExecutablesInSolution_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -245,6 +218,55 @@ namespace SolutionExplorer
             {
                 dgvx_SelectedExecutablesInSolution.EndEdit();
             }
+        }
+
+        private void dgvx_Libraries_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                Microsoft.Build.Evaluation.Project proj = (Microsoft.Build.Evaluation.Project)Parser.dtLibraries.Rows[e.RowIndex][Parser.dcol_Project];
+                if (Parser.dtSourceFiles != null)
+                {
+                    Parser.dtSourceFiles.Clear();
+                }
+                dgvx_SourceFiles.DataSource = null;
+                Parser.ParseProjectSourceFiles(proj);
+                dgvx_SourceFiles.DataSource = Parser.dtSourceFiles;
+                lbl_SourceFiles.Text = "Source files for:" + proj.FullPath;
+            }
+
+        }
+
+        private void AllSourceFiles()
+        {
+            if (Parser.dtSourceFiles != null)
+            {
+                Parser.dtSourceFiles.Clear();
+            }
+            dgvx_SourceFiles.DataSource = null;
+            foreach (DataRow dr in Parser.dtLibraries.Rows)
+            {
+                Microsoft.Build.Evaluation.Project proj = (Microsoft.Build.Evaluation.Project)dr[Parser.dcol_Project];
+                Parser.ParseProjectSourceFiles(proj);
+            }
+            dgvx_SourceFiles.DataSource = Parser.dtSourceFiles;
+            lbl_SourceFiles.Text = "Source files for all solution";
+
+            // disable cell selection
+            foreach (DataGridViewCell cell in this.dgvx_SourceFiles.SelectedCells)
+                cell.Selected = false;
+            // disable row selection
+            foreach (DataGridViewRow row in this.dgvx_SourceFiles.SelectedRows)
+                row.Selected = false;
+            // disable column selection
+            foreach (DataGridViewColumn col in this.dgvx_SourceFiles.SelectedColumns)
+                col.Selected = false;
+
+        }
+
+        private void btn_AllSourceFiles_Click(object sender, EventArgs e)
+        {
+            AllSourceFiles();
         }
     }
 }

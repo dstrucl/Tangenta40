@@ -9,12 +9,13 @@ using System.Windows.Forms;
 using Microsoft.Build.Construction;
 using Microsoft.Build.Evaluation;
 
-namespace SolutionExplorer
+namespace LanguageManager
 {
     public static class Parser
     {
         public static string dcln_select = "Select";
         public static string dcln_ProjectPath = "ProjectPath";
+        public static string dcln_ProjectObject = "ProjectObject";
         public static string dcln_AssemblyName = "AssemblyName";
         public static string dcln_NETVersion = "NETVersion";
         public static string dcln_GUID = "GUID";
@@ -23,6 +24,22 @@ namespace SolutionExplorer
         public static string dcln_ExternalDll_absolute_path = "Absolute Path";
         public static string dcln_ExternalDll_ref_assembly = "Referencing assembly";
 
+        public static string dcln_SourceFile = "SourceFile";
+        public static string dcln_SourceFileBaseDirectory = "SourceFileBaseDirectory";
+        public static string dcln_SourceFileName= "SourceFileName";
+        public static string dcln_SourceFileProject = "Project";
+
+        public static DataColumn dcol_ProjectPath = null;
+        public static DataColumn dcol_ProjectObject = null;
+        public static DataColumn dcol_AssemblyName = null;
+        public static DataColumn dcol_NET_Version = null;
+        public static DataColumn dcol_GUID = null;
+        public static DataColumn dcol_Project = null;
+
+        public static DataColumn dcol_SourceFile = null;
+        public static DataColumn dcol_SourceFileBaseDirectory = null;
+        public static DataColumn dcol_SourceFileName = null;
+        public static DataColumn dcol_SourceFileProject = null;
 
         public static string SolutionFile = "";
 
@@ -37,6 +54,8 @@ namespace SolutionExplorer
         public static DataTable dtSelectExecutablesInSolution = null;
 
         public static DataTable dtLibraries = null;
+
+        public static DataTable dtSourceFiles = null;
 
         public static DataTable dtExternalDll = null;
 
@@ -156,11 +175,12 @@ namespace SolutionExplorer
             if (dtLibraries == null)
             {
                 dtLibraries = new DataTable();
-                DataColumn dcol_ProjectPath = new DataColumn(dcln_ProjectPath, typeof(string));
-                DataColumn dcol_AssemblyName = new DataColumn(dcln_AssemblyName, typeof(string));
-                DataColumn dcol_NET_Version = new DataColumn(dcln_NETVersion, typeof(string));
-                DataColumn dcol_GUID = new DataColumn(dcln_GUID, typeof(string));
-                DataColumn dcol_Project = new DataColumn(dcln_Project, typeof(object));
+                dcol_ProjectPath = new DataColumn(dcln_ProjectPath, typeof(string));
+                dcol_AssemblyName = new DataColumn(dcln_AssemblyName, typeof(string));
+                dcol_NET_Version = new DataColumn(dcln_NETVersion, typeof(string));
+                dcol_GUID = new DataColumn(dcln_GUID, typeof(string));
+                dcol_Project = new DataColumn(dcln_Project, typeof(object));
+
                 dtLibraries.Columns.Add(dcol_AssemblyName);
                 dtLibraries.Columns.Add(dcol_NET_Version);
                 dtLibraries.Columns.Add(dcol_ProjectPath);
@@ -407,6 +427,39 @@ namespace SolutionExplorer
             }
             return true;
         }
+
+        internal static void ParseProjectSourceFiles(Project proj)
+        {
+            foreach (ProjectItem pitm in proj.AllEvaluatedItems)
+            {
+                string sitem_type = pitm.ItemType;
+                if (sitem_type.Equals("Compile"))
+                {
+                    if (dtSourceFiles == null)
+                    {
+                        dtSourceFiles = new DataTable();
+                        dcol_SourceFileName = new DataColumn(dcln_SourceFileName, typeof(string));
+                        dcol_SourceFileBaseDirectory = new DataColumn(dcln_SourceFileBaseDirectory, typeof(string));
+                        dcol_SourceFile = new DataColumn(dcln_SourceFile, typeof(string));
+                        dcol_SourceFileProject = new DataColumn(dcln_SourceFileProject, typeof(string));
+                        dtSourceFiles.Columns.Add(dcol_SourceFileProject);
+                        dtSourceFiles.Columns.Add(dcol_SourceFileName);
+                        dtSourceFiles.Columns.Add(dcln_SourceFileBaseDirectory);
+                        dtSourceFiles.Columns.Add(dcol_SourceFile);
+                        
+                    }
+                    string source_file = proj.DirectoryPath+"\\"+ pitm.EvaluatedInclude;
+                    DataRow dr = dtSourceFiles.NewRow();
+                    dr[dcln_SourceFileProject] = Path.GetFileName(proj.FullPath);
+                    dr[dcln_SourceFileName] = pitm.EvaluatedInclude;
+                    dr[dcln_SourceFileBaseDirectory] = Path.GetDirectoryName(proj.FullPath);
+                    dr[dcln_SourceFile] = source_file;
+                    dtSourceFiles.Rows.Add(dr);
+                }
+            }
+        }
+
+      
 
         internal static string ProjectsSeclected()
         {
