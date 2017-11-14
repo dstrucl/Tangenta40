@@ -26,8 +26,16 @@ namespace LanguageManager
 
         public static string dcln_SourceFile = "SourceFile";
         public static string dcln_SourceFileBaseDirectory = "SourceFileBaseDirectory";
-        public static string dcln_SourceFileName= "SourceFileName";
+        public static string dcln_SourceFileName = "SourceFileName";
         public static string dcln_SourceFileProject = "Project";
+
+        public static string dcln_class_Name = "class_Name";
+        public static string dcln_ltext_Name = "ltext_Name";
+        public static string dcln_ltext_Initialisation = "Initialisation";
+
+        public static DataColumn dcol_class_Name = null;
+        public static DataColumn dcol_ltext_Name = null;
+        public static DataColumn dcol_ltext_Initialisation = null;
 
         public static DataColumn dcol_ProjectPath = null;
         public static DataColumn dcol_ProjectObject = null;
@@ -57,6 +65,8 @@ namespace LanguageManager
 
         public static DataTable dtSourceFiles = null;
 
+        public static DataTable dtDictionary = null;
+
         public static DataTable dtExternalDll = null;
 
 
@@ -82,7 +92,7 @@ namespace LanguageManager
             }
             else
             {
-                SolutionFilePath  = "";
+                SolutionFilePath = "";
             }
         }
 
@@ -159,7 +169,7 @@ namespace LanguageManager
 
                 if (ref_pr != null)
                 {
-                    GetProjectDependencies( iTabLevel + 1, ref_pr);
+                    GetProjectDependencies(iTabLevel + 1, ref_pr);
                 }
                 else
                 {
@@ -168,7 +178,7 @@ namespace LanguageManager
             }
         }
 
-        public static bool GetSelectedProjectDependencies(ref string TextOutput,ref string Err)
+        public static bool GetSelectedProjectDependencies(ref string TextOutput, ref string Err)
         {
             TextOutput = "";
 
@@ -219,7 +229,7 @@ namespace LanguageManager
 
                 {
 
-                    Parser.GetProjectDependencies( 0, (Microsoft.Build.Evaluation.Project)dr[dcln_Project]);
+                    Parser.GetProjectDependencies(0, (Microsoft.Build.Evaluation.Project)dr[dcln_Project]);
 
                 }
 
@@ -323,10 +333,10 @@ namespace LanguageManager
 
                 var outputPath = GetOutputPath(proj);
 
-                if (outputPath==null)
+                if (outputPath == null)
                 {
-                    Err = "Output path not found for Configuration=\"" + ConfigurationName + "\" Platform = " + Platform +"\r\n"
-                          + "Hint: May be you don't have such configuration defined in project:"+ proj.FullPath + ".\r\n Try to change Configuration and Platform." ;
+                    Err = "Output path not found for Configuration=\"" + ConfigurationName + "\" Platform = " + Platform + "\r\n"
+                          + "Hint: May be you don't have such configuration defined in project:" + proj.FullPath + ".\r\n Try to change Configuration and Platform.";
                     return false;
                 }
 
@@ -427,6 +437,346 @@ namespace LanguageManager
             }
             return true;
         }
+
+        internal static void ParseProjectLanguageControlSourceFiles()
+        {
+           
+            
+            foreach (DataRow dr in dtSourceFiles.Rows)
+            {
+                string source_file = (string)dr[dcol_SourceFile];
+                ParseProjectLanguageControlSource(source_file);
+            }
+        }
+
+        private static void ParseProjectLanguageControlSource(string source_file)
+        {
+            string[] SourceLines = null;
+            try
+            {
+                SourceLines = File.ReadAllLines(source_file);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can not read " + source_file + "\r\nExecption=" + ex.Message);
+                return;
+            }
+            if (SourceLines != null)
+            {
+                int inext_token_line = 0;
+                int inext_token_start_col = 0;
+                string next_token = null;
+               
+                GetLanguageClassMembersAs_dtDictionary(source_file, ref SourceLines, ref inext_token_line, ref inext_token_start_col, ref next_token);
+    
+            }
+
+        }
+
+        private static bool GetLanguageClassMembersAs_dtDictionary(string source_file,ref string[] sourceLines, ref int inext_token_line, ref int inext_token_start_col, ref string next_token)
+        {
+            string[] tokens = new string[] { "lngConn", "lngRPM", "lngRPMS", "lngTName", "lngToken" };
+            bool bFound = false;
+            foreach (string token in tokens)
+            {
+                int xinext_token_line = 0;
+                int xinext_token_start_col = 0;
+                string[] tk_identifiers = new string[] { "public", "static", "class", token };
+                int itk = 0;
+                if (find_next_token(tk_identifiers,itk,ref sourceLines, ref xinext_token_line, ref xinext_token_start_col, ref next_token))
+                {
+                    
+                    inext_token_line = xinext_token_line;
+                    inext_token_start_col = xinext_token_start_col;
+                    while (xinext_token_line < sourceLines.Count() - 1)
+                    {
+                        tk_identifiers = new string[] { "public", "static", "ltext" };
+                        string var_name_of_ltext = null;
+                        if (find_next_token(tk_identifiers, itk, ref sourceLines, ref xinext_token_line, ref xinext_token_start_col, ref var_name_of_ltext))
+                        {
+
+                            tk_identifiers = new string[] { "=", "new" };
+                            if (find_next_token(tk_identifiers, itk, ref sourceLines, ref xinext_token_line, ref xinext_token_start_col, ref next_token))
+                            {
+                                string constructor_call = null;
+                                if (Get_ltext_constructor_call(sourceLines, ref xinext_token_line, ref xinext_token_start_col, ref constructor_call))
+                                {
+                                    bFound = true;
+                                    if (dtDictionary==null)
+                                    {
+                                        dtDictionary = new DataTable();
+                                        dcol_class_Name = new DataColumn(dcln_class_Name,typeof(string));
+                                        dcol_ltext_Name = new DataColumn(dcln_ltext_Name, typeof(string));
+                                        dcol_ltext_Initialisation = new DataColumn(dcln_ltext_Initialisation, typeof(string));
+                                        dtDictionary.Columns.Add(dcol_class_Name);
+                                        dtDictionary.Columns.Add(dcol_ltext_Name);
+                                        dtDictionary.Columns.Add(dcol_ltext_Initialisation);
+                                    }
+                                    DataRow dr = dtDictionary.NewRow();
+                                    dr[dcln_class_Name] = token;
+                                    dr[dcln_ltext_Name] = var_name_of_ltext;
+                                    dr[dcln_ltext_Initialisation] = constructor_call;
+                                    dtDictionary.Rows.Add(dr);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return bFound;
+        }
+
+        private static bool Get_ltext_constructor_call(string[] sourceLines, ref int xinext_token_line, ref int xinext_token_start_col, ref string constructor_call)
+        {
+            char[] delimiters = new char[] { ')', ';' };
+            int yinext_token_line = xinext_token_line;
+            int yinext_token_start_col = xinext_token_start_col;
+            int itk = 0;
+            if (GetDelimiters(delimiters, itk, ref sourceLines, ref yinext_token_line,ref yinext_token_start_col))
+            {
+                int iline = xinext_token_line;
+                int icol = xinext_token_start_col;
+                string cons_call = sourceLines[iline].Substring(icol);
+                while (iline <= yinext_token_line)
+                {
+
+                    
+                    if (iline < yinext_token_line)
+                    {
+                        iline++;
+                        
+                        if (iline == yinext_token_line)
+                        {
+                            cons_call += "\r\n" + sourceLines[iline].Substring(0, yinext_token_start_col);
+                        }
+                        else
+                        {
+                            cons_call += "\r\n" + sourceLines[iline];
+                        }
+                    }
+                    else
+                    {
+                        
+                        break;
+                    }
+
+                }
+                constructor_call = cons_call;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool GetDelimiters(char[] delimiters,int itk, ref string[] sourceLines, ref int yinext_token_line, ref int yinext_token_start_col)
+        {
+            if (itk< delimiters.Length)
+            {
+                int idelimiter = sourceLines[yinext_token_line].IndexOf(delimiters[itk], yinext_token_start_col);
+                if (idelimiter >= 0)
+                {
+                    itk++;
+                    if (itk == delimiters.Length)
+                    {
+                        yinext_token_start_col = idelimiter;
+                        return true;
+                    }
+                    else
+                    {
+                        if (GetDelimiters(delimiters, itk, ref sourceLines, ref yinext_token_line, ref yinext_token_start_col))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            if (yinext_token_line < sourceLines.Length - 1)
+                            {
+                                yinext_token_line++;
+                                yinext_token_start_col = 0;
+                                return GetDelimiters(delimiters, itk, ref sourceLines, ref yinext_token_line, ref yinext_token_start_col);
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    if (yinext_token_line < sourceLines.Length - 1)
+                    {
+                        yinext_token_line++;
+                        yinext_token_start_col = 0;
+                        return GetDelimiters(delimiters, itk, ref sourceLines, ref yinext_token_line, ref yinext_token_start_col);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+
+        private static bool find_next_token(string[] tk_identifiers, int itk, ref string[] sourceLines, ref int inext_token_line, ref int inext_token_start_col, ref string next_token)
+        {
+
+
+            string sline = sourceLines[inext_token_line];
+            string tk = tk_identifiers[itk];
+            int index = sline.IndexOf(tk, inext_token_start_col);
+            if (index >= 0)
+            {
+                if (index + tk.Length < sline.Length)
+                {
+                    if (!IsDelimiter(sline[index + tk.Length]))
+                    {
+                        index = -1;
+                    }
+                }
+            }
+            if (index >= 0)
+            {
+                inext_token_start_col = index + tk.Length;
+                while (itk < tk_identifiers.Count() - 1)
+                {
+                    itk++;
+                    if (find_next_token(tk_identifiers, itk, ref sourceLines, ref inext_token_line, ref inext_token_start_col, ref next_token))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        inext_token_line++;
+                        while (inext_token_line < sourceLines.Count() - 1)
+                        {
+                            inext_token_start_col = 0;
+                            if (find_next_token(tk_identifiers, itk, ref sourceLines, ref inext_token_line, ref inext_token_start_col, ref next_token))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                inext_token_line++;
+                                continue;
+                            }
+                        }
+                        return false;
+                    }
+
+                }
+                // all tokens found here
+                // now get next token whatever it is;
+                return GetNextToken(ref sourceLines, ref inext_token_line, ref inext_token_start_col, ref next_token);
+            }
+            else
+            {
+                // search in next line
+                inext_token_line++;
+                while (inext_token_line < sourceLines.Count() - 1)
+                {
+                    inext_token_start_col = 0;
+                    if (find_next_token(tk_identifiers, itk, ref sourceLines, ref inext_token_line, ref inext_token_start_col, ref next_token))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        inext_token_line++;
+                        continue;
+                    }                   
+                }
+                return false;
+            }
+        }
+
+        private static bool IsDelimiter(char c)
+        {
+            return ((c == ' ') || (c == '{') || (c == '\r') || (c == '\n') || (c == '\t'));
+        }
+
+
+        // get next token what ever it is
+        private static bool GetNextToken(ref string[] sourceLines, ref int inext_token_line, ref int inext_token_start_col, ref string next_token)
+        {
+
+           while (inext_token_line< sourceLines.Count()-1)
+            {
+                int i = inext_token_start_col;
+                while (i< sourceLines[inext_token_line].Length)
+                {
+                    char ch = sourceLines[inext_token_line][i];
+                    if (ch == ' '|| ch == '\t' || ch == '\r' || ch == '\n')
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        // here new token starts
+                        inext_token_start_col = i;
+                        next_token = GetToken(ref sourceLines, inext_token_line, inext_token_start_col);
+                        return true;
+                    }
+                }
+                inext_token_line++;
+                inext_token_start_col = 0;
+            }
+            return false;
+        }
+
+        private static string GetToken(ref string[] sourceLines, int inext_token_line, int inext_token_start_col)
+        {
+            string token = "";
+            int i = inext_token_start_col;
+            while (i < sourceLines[inext_token_line].Length)
+            {
+                char ch = sourceLines[inext_token_line][i];
+                if (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n')
+                {
+                    return token;
+                }
+                else
+                {
+                    token += ch;
+                    i++;
+                }
+            }
+            return token;
+        }
+
+        internal static Project FindLanguageControlProject()
+        {
+            if (dtLibraries != null)
+            {
+                foreach (DataRow dr in dtLibraries.Rows)
+                {
+                    Project proj = (Project)dr[dcol_Project];
+                    if (proj.FullPath.ToLower().Contains("languagecontrol"))
+                    {
+                        return proj;
+                   
+                    }
+
+                }
+                MessageBox.Show("LanguageControl not found!");
+               
+            }
+            else
+            {
+                MessageBox.Show("There are no libraries!");
+            }
+            return null;
+        }
+
 
         internal static void ParseProjectSourceFiles(Project proj)
         {

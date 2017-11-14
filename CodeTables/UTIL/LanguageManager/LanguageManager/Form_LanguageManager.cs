@@ -198,9 +198,35 @@ namespace LanguageManager
                     Parser.SelectProjects(SelectedProjects);
                     ParseSelectedProjects();
                     AllSourceFiles();
+                    CreateLanguageDictionary();
                 }
             }
         }
+
+        private void CreateLanguageDictionary()
+        {
+            Microsoft.Build.Evaluation.Project LanguageControlProject = Parser.FindLanguageControlProject();
+            if (LanguageControlProject != null)
+            {
+                if (Parser.dtSourceFiles != null)
+                {
+                    Parser.dtSourceFiles.Clear();
+                }
+                dgvx_SourceFiles.DataSource = null;
+                Parser.ParseProjectSourceFiles(LanguageControlProject);
+                dgvx_SourceFiles.DataSource = Parser.dtSourceFiles;
+                if (Parser.dtDictionary != null)
+                {
+                    Parser.dtDictionary.Clear();
+                }
+                dgvx_ltext.DataSource = null;
+                Parser.ParseProjectLanguageControlSourceFiles();
+                dgvx_ltext.DataSource = Parser.dtDictionary;
+            }
+
+        }
+
+  
 
         private void dgvx_SelectedExecutablesInSolution_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -267,6 +293,11 @@ namespace LanguageManager
         private void btn_AllSourceFiles_Click(object sender, EventArgs e)
         {
             AllSourceFiles();
+        }
+
+        private void dgvx_ltext_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
