@@ -299,5 +299,13 @@ namespace LanguageManager
         {
 
         }
+
+        private void btn_GetAllReferences_Click(object sender, EventArgs e)
+        {
+            Form_ViewGetingReferencesProgress frm_progr = new Form_ViewGetingReferencesProgress();
+            frm_progr.ShowDialog(this);
+            
+
+        }
     }
 }

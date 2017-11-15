@@ -38,33 +38,34 @@ namespace LanguageManager
             this.lbl_Solution_File = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbl_ExecutablesInSolution = new System.Windows.Forms.Label();
+            this.dgvx_SelectedExecutablesInSolution = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btn_AllSourceFiles = new System.Windows.Forms.Button();
             this.lbl_ProjectLibraries = new System.Windows.Forms.Label();
+            this.dgvx_Libraries = new DataGridView_2xls.DataGridView2xls();
             this.lbl_SourceFiles = new System.Windows.Forms.Label();
+            this.dgvx_SourceFiles = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.lbl_LngDictionary = new System.Windows.Forms.Label();
-            this.txt_Projects = new System.Windows.Forms.TextBox();
-            this.dgvx_SelectedExecutablesInSolution = new DataGridView_2xls.DataGridView2xls();
-            this.dgvx_Libraries = new DataGridView_2xls.DataGridView2xls();
-            this.dgvx_SourceFiles = new DataGridView_2xls.DataGridView2xls();
             this.dgvx_ltext = new DataGridView_2xls.DataGridView2xls();
+            this.txt_Projects = new System.Windows.Forms.TextBox();
             this.usrc_SelectFile1 = new LanguageManager.usrc_SelectFile();
+            this.btn_GetAllReferences = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_SelectedExecutablesInSolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_Libraries)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_SourceFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_SelectedExecutablesInSolution)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_Libraries)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_SourceFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ltext)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,6 +157,26 @@ namespace LanguageManager
             this.lbl_ExecutablesInSolution.TabIndex = 11;
             this.lbl_ExecutablesInSolution.Text = "Executables in Solution";
             // 
+            // dgvx_SelectedExecutablesInSolution
+            // 
+            this.dgvx_SelectedExecutablesInSolution.AllowUserToAddRows = false;
+            this.dgvx_SelectedExecutablesInSolution.AllowUserToDeleteRows = false;
+            this.dgvx_SelectedExecutablesInSolution.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_SelectedExecutablesInSolution.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvx_SelectedExecutablesInSolution.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_SelectedExecutablesInSolution.DataGridViewWithRowNumber = true;
+            this.dgvx_SelectedExecutablesInSolution.Location = new System.Drawing.Point(3, 28);
+            this.dgvx_SelectedExecutablesInSolution.MultiSelect = false;
+            this.dgvx_SelectedExecutablesInSolution.Name = "dgvx_SelectedExecutablesInSolution";
+            this.dgvx_SelectedExecutablesInSolution.RowTemplate.Height = 24;
+            this.dgvx_SelectedExecutablesInSolution.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_SelectedExecutablesInSolution.Size = new System.Drawing.Size(873, 67);
+            this.dgvx_SelectedExecutablesInSolution.TabIndex = 0;
+            this.dgvx_SelectedExecutablesInSolution.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_SelectedExecutablesInSolution_CellEndEdit);
+            this.dgvx_SelectedExecutablesInSolution.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_SelectedExecutablesInSolution_CellMouseUp);
+            // 
             // splitContainer2
             // 
             this.splitContainer2.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -200,6 +221,24 @@ namespace LanguageManager
             this.lbl_ProjectLibraries.TabIndex = 12;
             this.lbl_ProjectLibraries.Text = "Library (DLL)  Projects";
             // 
+            // dgvx_Libraries
+            // 
+            this.dgvx_Libraries.AllowUserToAddRows = false;
+            this.dgvx_Libraries.AllowUserToDeleteRows = false;
+            this.dgvx_Libraries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_Libraries.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvx_Libraries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_Libraries.DataGridViewWithRowNumber = true;
+            this.dgvx_Libraries.Location = new System.Drawing.Point(3, 33);
+            this.dgvx_Libraries.Name = "dgvx_Libraries";
+            this.dgvx_Libraries.RowTemplate.Height = 24;
+            this.dgvx_Libraries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_Libraries.Size = new System.Drawing.Size(373, 148);
+            this.dgvx_Libraries.TabIndex = 0;
+            this.dgvx_Libraries.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_Libraries_CellMouseUp);
+            // 
             // lbl_SourceFiles
             // 
             this.lbl_SourceFiles.AutoSize = true;
@@ -210,6 +249,24 @@ namespace LanguageManager
             this.lbl_SourceFiles.Size = new System.Drawing.Size(98, 20);
             this.lbl_SourceFiles.TabIndex = 13;
             this.lbl_SourceFiles.Text = "Source files";
+            // 
+            // dgvx_SourceFiles
+            // 
+            this.dgvx_SourceFiles.AllowUserToAddRows = false;
+            this.dgvx_SourceFiles.AllowUserToDeleteRows = false;
+            this.dgvx_SourceFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvx_SourceFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvx_SourceFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvx_SourceFiles.DataGridViewWithRowNumber = true;
+            this.dgvx_SourceFiles.Location = new System.Drawing.Point(3, 27);
+            this.dgvx_SourceFiles.Name = "dgvx_SourceFiles";
+            this.dgvx_SourceFiles.ReadOnly = true;
+            this.dgvx_SourceFiles.RowTemplate.Height = 24;
+            this.dgvx_SourceFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvx_SourceFiles.Size = new System.Drawing.Size(490, 154);
+            this.dgvx_SourceFiles.TabIndex = 1;
             // 
             // splitContainer3
             // 
@@ -229,6 +286,7 @@ namespace LanguageManager
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Menu;
+            this.splitContainer3.Panel2.Controls.Add(this.btn_GetAllReferences);
             this.splitContainer3.Panel2.Controls.Add(this.lbl_LngDictionary);
             this.splitContainer3.Panel2.Controls.Add(this.dgvx_ltext);
             this.splitContainer3.Size = new System.Drawing.Size(879, 497);
@@ -245,73 +303,6 @@ namespace LanguageManager
             this.lbl_LngDictionary.Size = new System.Drawing.Size(159, 20);
             this.lbl_LngDictionary.TabIndex = 13;
             this.lbl_LngDictionary.Text = "Language dictionary";
-            // 
-            // txt_Projects
-            // 
-            this.txt_Projects.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_Projects.Location = new System.Drawing.Point(8, 598);
-            this.txt_Projects.Margin = new System.Windows.Forms.Padding(4);
-            this.txt_Projects.Multiline = true;
-            this.txt_Projects.Name = "txt_Projects";
-            this.txt_Projects.Size = new System.Drawing.Size(869, 49);
-            this.txt_Projects.TabIndex = 17;
-            // 
-            // dgvx_SelectedExecutablesInSolution
-            // 
-            this.dgvx_SelectedExecutablesInSolution.AllowUserToAddRows = false;
-            this.dgvx_SelectedExecutablesInSolution.AllowUserToDeleteRows = false;
-            this.dgvx_SelectedExecutablesInSolution.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_SelectedExecutablesInSolution.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgvx_SelectedExecutablesInSolution.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_SelectedExecutablesInSolution.DataGridViewWithRowNumber = true;
-            this.dgvx_SelectedExecutablesInSolution.Location = new System.Drawing.Point(3, 28);
-            this.dgvx_SelectedExecutablesInSolution.MultiSelect = false;
-            this.dgvx_SelectedExecutablesInSolution.Name = "dgvx_SelectedExecutablesInSolution";
-            this.dgvx_SelectedExecutablesInSolution.RowTemplate.Height = 24;
-            this.dgvx_SelectedExecutablesInSolution.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_SelectedExecutablesInSolution.Size = new System.Drawing.Size(873, 67);
-            this.dgvx_SelectedExecutablesInSolution.TabIndex = 0;
-            this.dgvx_SelectedExecutablesInSolution.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_SelectedExecutablesInSolution_CellEndEdit);
-            this.dgvx_SelectedExecutablesInSolution.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_SelectedExecutablesInSolution_CellMouseUp);
-            // 
-            // dgvx_Libraries
-            // 
-            this.dgvx_Libraries.AllowUserToAddRows = false;
-            this.dgvx_Libraries.AllowUserToDeleteRows = false;
-            this.dgvx_Libraries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_Libraries.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgvx_Libraries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_Libraries.DataGridViewWithRowNumber = true;
-            this.dgvx_Libraries.Location = new System.Drawing.Point(3, 33);
-            this.dgvx_Libraries.Name = "dgvx_Libraries";
-            this.dgvx_Libraries.RowTemplate.Height = 24;
-            this.dgvx_Libraries.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_Libraries.Size = new System.Drawing.Size(373, 148);
-            this.dgvx_Libraries.TabIndex = 0;
-            this.dgvx_Libraries.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvx_Libraries_CellMouseUp);
-            // 
-            // dgvx_SourceFiles
-            // 
-            this.dgvx_SourceFiles.AllowUserToAddRows = false;
-            this.dgvx_SourceFiles.AllowUserToDeleteRows = false;
-            this.dgvx_SourceFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_SourceFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dgvx_SourceFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvx_SourceFiles.DataGridViewWithRowNumber = true;
-            this.dgvx_SourceFiles.Location = new System.Drawing.Point(3, 27);
-            this.dgvx_SourceFiles.Name = "dgvx_SourceFiles";
-            this.dgvx_SourceFiles.ReadOnly = true;
-            this.dgvx_SourceFiles.RowTemplate.Height = 24;
-            this.dgvx_SourceFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvx_SourceFiles.Size = new System.Drawing.Size(490, 154);
-            this.dgvx_SourceFiles.TabIndex = 1;
             // 
             // dgvx_ltext
             // 
@@ -337,6 +328,17 @@ namespace LanguageManager
             this.dgvx_ltext.TabIndex = 0;
             this.dgvx_ltext.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_ltext_CellContentClick);
             // 
+            // txt_Projects
+            // 
+            this.txt_Projects.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Projects.Location = new System.Drawing.Point(8, 598);
+            this.txt_Projects.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_Projects.Multiline = true;
+            this.txt_Projects.Name = "txt_Projects";
+            this.txt_Projects.Size = new System.Drawing.Size(869, 49);
+            this.txt_Projects.TabIndex = 17;
+            // 
             // usrc_SelectFile1
             // 
             this.usrc_SelectFile1.DefaultExtension = "sln";
@@ -349,6 +351,16 @@ namespace LanguageManager
             this.usrc_SelectFile1.Size = new System.Drawing.Size(678, 39);
             this.usrc_SelectFile1.TabIndex = 18;
             this.usrc_SelectFile1.ExistingFileChanged += new LanguageManager.usrc_SelectFile.delegate_ExistingFileChanged(this.usrc_SelectFile1_ExistingFileChanged);
+            // 
+            // btn_GetAllReferences
+            // 
+            this.btn_GetAllReferences.Location = new System.Drawing.Point(213, 2);
+            this.btn_GetAllReferences.Name = "btn_GetAllReferences";
+            this.btn_GetAllReferences.Size = new System.Drawing.Size(146, 23);
+            this.btn_GetAllReferences.TabIndex = 14;
+            this.btn_GetAllReferences.Text = "Get all references";
+            this.btn_GetAllReferences.UseVisualStyleBackColor = true;
+            this.btn_GetAllReferences.Click += new System.EventHandler(this.btn_GetAllReferences_Click);
             // 
             // Form_LanguageManager
             // 
@@ -368,20 +380,20 @@ namespace LanguageManager
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_SelectedExecutablesInSolution)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_Libraries)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvx_SourceFiles)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             this.splitContainer3.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_SelectedExecutablesInSolution)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_Libraries)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvx_SourceFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvx_ltext)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -410,6 +422,7 @@ namespace LanguageManager
         private DataGridView_2xls.DataGridView2xls dgvx_ltext;
         private TextBox txt_Projects;
         private Button btn_AllSourceFiles;
+        private Button btn_GetAllReferences;
     }
 }
 
