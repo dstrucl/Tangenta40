@@ -354,10 +354,10 @@ namespace LanguageManager
             // 
             // btn_GetAllReferences
             // 
-            this.btn_GetAllReferences.Location = new System.Drawing.Point(213, 2);
+            this.btn_GetAllReferences.Location = new System.Drawing.Point(188, 1);
             this.btn_GetAllReferences.Name = "btn_GetAllReferences";
             this.btn_GetAllReferences.Size = new System.Drawing.Size(146, 23);
-            this.btn_GetAllReferences.TabIndex = 14;
+            this.btn_GetAllReferences.TabIndex = 16;
             this.btn_GetAllReferences.Text = "Get all references";
             this.btn_GetAllReferences.UseVisualStyleBackColor = true;
             this.btn_GetAllReferences.Click += new System.EventHandler(this.btn_GetAllReferences_Click);

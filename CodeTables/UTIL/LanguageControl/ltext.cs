@@ -87,6 +87,8 @@ namespace LanguageControl
 
         public List<object> complex_text_list = null;
         Control m_ctrl = null;
+        private string[] v;
+
         public string s
         {
             get
@@ -220,6 +222,18 @@ namespace LanguageControl
             m_sText[1] = Lang2;
         }
 
+        public ltext(string[] v)
+        {
+            int ivLen = v.Length;
+            int i_ms_Text_Len = m_sText.Length;
+            if (ivLen<= i_ms_Text_Len)
+            {
+                for (int i=0;i< ivLen;i++)
+                {
+                    m_sText[i] = v[i];
+                }
+            }
+        }
         public ltext(List<object> complex_text)
         {
             // TODO: Complete member initialization
@@ -230,6 +244,8 @@ namespace LanguageControl
         {
             // TODO: Complete member initialization
         }
+
+     
 
         internal bool Edit(ref ltext xltext)
         {
@@ -355,9 +371,9 @@ namespace LanguageControl
         {
             for (int i = 0; i < DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
             {
-                if (dataRow[i + 1] is string)
+                if (dataRow[i + 2] is string)
                 {
-                    m_sText[i] = (string)dataRow[i + 1];
+                    m_sText[i] = (string)dataRow[i + 2];
                 }
                 else
                 {

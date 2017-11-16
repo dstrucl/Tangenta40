@@ -13,7 +13,7 @@ namespace LanguageManager
 {
     public static class Parser
     {
-        public delegate void delegate_find_reference_progress(string comment,ltext_var_reference lvar,string Result);
+        public delegate void delegate_find_reference_progress(string comment, ltext_project_reference lvar, string Result);
         public static string dcln_select = "Select";
         public static string dcln_ProjectPath = "ProjectPath";
         public static string dcln_ProjectObject = "ProjectObject";
@@ -44,6 +44,9 @@ namespace LanguageManager
         public static DataColumn dcol_ProjectObject = null;
         public static DataColumn dcol_AssemblyName = null;
         public static DataColumn dcol_NET_Version = null;
+
+      
+
         public static DataColumn dcol_GUID = null;
         public static DataColumn dcol_Project = null;
 
@@ -70,7 +73,8 @@ namespace LanguageManager
 
         public static DataTable dtDictionary = null;
 
-        public static List<ltext_var_reference> ltext_var_reference_list= new List<ltext_var_reference>();
+        public static ltext_project_reference_List lText_project_reference_List = new ltext_project_reference_List();
+
 
         public static DataTable dtExternalDll = null;
 
@@ -447,43 +451,41 @@ namespace LanguageManager
             return true;
         }
 
-        internal static void GetAllReferences(delegate_find_reference_progress lvar_Progress)
+        internal static string GetAllReferences(delegate_find_reference_progress Show_Progress)
         {
+            string sResult = "";
             string Error = null;
             if (dtDictionary != null)
             {
                 if (dtLibraries != null)
                 {
-                    int iCountInDictionary = dtDictionary.Rows.Count;
-                    int iRowInDictionary = 0;
-                    for (iRowInDictionary = 0; iRowInDictionary < iCountInDictionary; iRowInDictionary++)
+
+
+                    //lvar_Progress(iRowInDictionary.ToString()+" Start:", lvar,"");
+
+                    int iCountLibraries = dtLibraries.Rows.Count;
+                    int iRowInLibraries = 0;
+                    int iLib = 1;
+                    if (iCountLibraries > 0)
                     {
-                        DataRow drDic = dtDictionary.Rows[iRowInDictionary];
-                        string sClassName = (string)drDic[dcln_class_Name];
-                        string sVarName = (string)drDic[dcln_ltext_Name];
-                        ltext_var_reference lvar = new ltext_var_reference();
-                        lvar.Class_name = sClassName;
-                        lvar.Var_name = sVarName;
-                        ltext_var_reference_list.Add(lvar);
-
-                        //lvar_Progress(iRowInDictionary.ToString()+" Start:", lvar,"");
-
-                        int iCountLibraries = dtLibraries.Rows.Count;
-                        int iRowInLibraries = 0;
-                        for (iRowInLibraries = 0; iRowInLibraries < iCountLibraries; iRowInLibraries++)
+                        for (iRowInLibraries = iCountLibraries-1; iRowInLibraries >=0; iRowInLibraries--)
                         {
                             DataRow drLib = dtLibraries.Rows[iRowInLibraries];
-                            string project_file = (string)drLib[dcln_ProjectPath];                               
+                            string project_file = (string)drLib[dcln_ProjectPath];
                             Microsoft.Build.Evaluation.Project proj = (Microsoft.Build.Evaluation.Project)drLib[Parser.dcol_Project];
-                            if (dtSourceFiles!=null)
+                            if (dtSourceFiles != null)
                             {
                                 dtSourceFiles.Clear();
                             }
+
+                            ltext_project_reference lt_proj = lText_project_reference_List.GetProject(project_file);
                             ParseProjectSourceFiles(proj);
                             //lvar_Progress("  Start:"+ project_file+":", lvar);
+                            int iSourceFilesCount_in_a_Project = dtSourceFiles.Rows.Count;
+                            int isf = 1;
                             foreach (DataRow drSourceFile in dtSourceFiles.Rows)
                             {
-                               
+
                                 string xsource_file = (string)drSourceFile[dcln_SourceFile];
                                 if (Ignore(xsource_file, new string[] { "lngConn.cs", "lngRPM.cs", "lngRPMS.cs", "lngTName.cs", "lngToken.cs" }))
                                 {
@@ -491,100 +493,123 @@ namespace LanguageManager
                                 }
                                 else
                                 {
-                                    GetVariableReference(lvar, project_file, xsource_file, ref Error);
+                                    GetVariableReference(project_file, xsource_file, lt_proj, ref Error);
                                 }
-                              
+                                Show_Progress("Searched: Library:" + iLib.ToString() + " of " + iCountLibraries.ToString() + " : " + project_file + " SOURCE FILES: " + isf.ToString() + " of " + iSourceFilesCount_in_a_Project.ToString() + "\r\n", lt_proj, " : " + xsource_file);
+                                isf++;
                             }
-                            //lvar_Progress("  End:" + project_file + ":", lvar);
-                        }
-                        int iProjects = lvar.project_reference_list.Count();
-                        string sProjects = null;
-                        int iSourceFiles = 0;
-                        int iReferences = 0;
-                        if (iProjects > 0)
-                        {
-                            foreach (project_reference projref in lvar.project_reference_list)
-                            {
-                              
-                                string sSourceFiles = null;
-                                iSourceFiles += projref.source_file_reference_list.Count();
-                                foreach (source_file_reference sf in projref.source_file_reference_list)
-                                {
-                                    if (sSourceFiles==null)
-                                    {
-                                        sSourceFiles = "\r\n  SOURCE FILES:\r\n         " + sf.Source_file + " Positions:"; ;
-                                    }
-                                    else
-                                    {
-                                        sSourceFiles += "\r\n         " + sf.Source_file;
-                                    }
-                                    string spositions = null;
-                                    iReferences += sf.Positions.Count;
-                                    foreach (int ixpos in sf.Positions)
-                                    {
-                                        if (spositions==null)
-                                        {
-                                            spositions = ixpos.ToString();
-                                                }
-                                        else
-                                        {
-                                            spositions += " , " + ixpos.ToString();
-                                        }
-                                    }
-                                    sSourceFiles += spositions;
-                                }
 
-                                if (sProjects == null)
+                            iLib++;
+
+                            if (iLib>1)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    string sProject = null;
+                    int iProject = 0;
+                    int iProjectsCount = 0;
+
+                    int iReferences = 0;
+                    iProjectsCount = lText_project_reference_List.project_reference_list.Count();
+
+                    for (iProject = 0; iProject < iProjectsCount; iProject++)
+                    {
+                        ltext_project_reference projref = lText_project_reference_List.project_reference_list[iProject];
+                        int iproj = iProject + 1;
+                        if (sProject == null)
+                        {
+                            sProject = iproj.ToString() + "   PROJECT:\r\n    " + projref.Project_name;
+                        }
+                        else
+                        {
+                            sProject = "\r\n" + iproj.ToString() + "   PROJECT:\r\n    " + projref.Project_name;
+                        }
+
+                        
+                        string sSourceFile = null;
+
+                        foreach (ltext_source_file_reference sf in projref.source_file_reference_list)
+                        {
+                            if (sSourceFile == null)
+                            {
+                                sSourceFile = "\r\n    SOURCE FILES:\r\n           " + sf.Source_file;
+                            }
+                            else
+                            {
+                                sSourceFile += "\r\n           " + sf.Source_file;
+                            }
+
+                            string slvr = "";
+                            foreach (ltext_var_reference lvr in sf.var_ltext_reference_List)
+                            {
+                                if (slvr.Length == 0)
                                 {
-                                    sProjects = "\r\n   PROJECT:\r\n    "+projref.Project_name + sSourceFiles;
+                                    slvr = "\r\n    ltext variables:\r\n           " + lvr.Class_and_Var;
                                 }
                                 else
                                 {
-                                    sProjects += "\r\n    " + projref.Project_name + sSourceFiles;
+                                    slvr += "\r\n                    " + lvr.Class_and_Var;
                                 }
+                                string spositions = null;
+                                iReferences += lvr.Positions.Count;
+                                foreach (int ixpos in lvr.Positions)
+                                {
+                                    if (spositions == null)
+                                    {
+                                        spositions = " -> "+ ixpos.ToString();
+                                    }
+                                    else
+                                    {
+                                        spositions += " , " + ixpos.ToString();
+                                    }
+                                }
+                                slvr += spositions;
                             }
+                            sSourceFile += slvr;
                         }
+                        sProject += sSourceFile;
+                        sResult += sProject;
+                    }
+                               
 
-                        int iVar = iRowInDictionary + 1;
-                        string sresult = " Projects=" + iProjects.ToString() + " SourceFiles=" + iSourceFiles.ToString() + " References =" + iReferences.ToString() + " : \r\n" + sProjects;
-                        lvar_Progress(iVar.ToString()+" -> ", lvar, sresult);
-                    }
-                    //show results
-                    if (Error != null)
-                    {
-                        MessageBox.Show(Error);
-                    }
                 }
                 else
                 {
-                    MessageBox.Show("Can not get references because dtLibraries is not created! ");
+                    sResult = "Can not get references because dtLibraries is not created! ";
                 }
             }
             else
             {
-                MessageBox.Show("Can not get references because dtDictionary is not created! ");
+                sResult = "Can not get references because dtDictionary is not created! ";
             }
-
-
-
-
-
-          
+            return sResult;
         }
 
-        private static void GetVariableReference(ltext_var_reference lvar, string project_file, string xsource_file, ref string Error)
+        private static void GetVariableReference(string project_file, string xsource_file, ltext_project_reference lt_proj, ref string Error)
         {
             try
             {
                 string sSourceText = File.ReadAllText(xsource_file);
-                int iCurrentPos = 0;
-                int iWordPos = 0;
-                while (GetWholeWordPos(lvar.Class_and_Var,ref iCurrentPos, ref iWordPos, ref sSourceText))
+                ltext_source_file_reference lt_sfr = lt_proj.GetSourceFile(xsource_file);
+                int iCountInDictionary = dtDictionary.Rows.Count;
+                int iRowInDictionary = 0;
+                for (iRowInDictionary = 0; iRowInDictionary < iCountInDictionary; iRowInDictionary++)
                 {
-                    project_reference proj_reference = lvar.GetProject(project_file);
-                    source_file_reference source_f_ref = proj_reference.GetSourceFile(xsource_file);
-                    source_f_ref.Positions.Add(iWordPos);
+                    DataRow drDic = dtDictionary.Rows[iRowInDictionary];
+                    string sClassName = (string)drDic[dcln_class_Name];
+                    string sVarName = (string)drDic[dcln_ltext_Name];
+                    string sConstructor_Call = (string)drDic[dcln_ltext_Initialisation];
+                    int iCurrentPos = 0;
+                    int iWordPos = 0;
+                    while (GetWholeWordPos(sClassName+"."+ sVarName, ref iCurrentPos, ref iWordPos, ref sSourceText))
+                    {
+                        ltext_var_reference lvar = lt_sfr.Get_ltext_var_reference(sClassName, sVarName, sConstructor_Call);
+                        lvar.Positions.Add(iWordPos);
+                    }
                 }
+               
 
             }
             catch (Exception ex)
@@ -1440,5 +1465,77 @@ namespace LanguageManager
 
         }
 
+        internal static void Write_lng_files()
+        {
+            foreach (ltext_project_reference lt_proj in lText_project_reference_List.project_reference_list)
+            {
+
+                if (lt_proj.LanguageTextCount > 0)
+                {
+                    string s_AssemblyName = Path.GetFileNameWithoutExtension(lt_proj.Project_name);
+                    string slngfile_path = Path.GetDirectoryName(lt_proj.Project_name);
+                    string slngfile = slngfile_path + "\\lng.cs";
+                    string slngs = null;
+                    try
+                    {
+                        List<Ordered_ltext_position> lordered_List = new List<Ordered_ltext_position>();
+                        foreach (ltext_source_file_reference lsf in lt_proj.source_file_reference_list)
+                        {
+                            if (lsf.var_ltext_reference_List.Count > 0)
+                            {
+                                if (slngs == null)
+                                {
+                                    slngs = Properties.Resources.lng_Header;
+                                    slngs = slngs.Replace("/*LanguageControl*/", s_AssemblyName);
+                                }
+
+                                lordered_List.Clear();
+                                foreach (ltext_var_reference lvr in lsf.var_ltext_reference_List)
+                                {
+                                    slngs += lvr.Static_ltext_Definition() + "   // referenced in " + lsf.Source_file + "\r\n";
+                                    lvr.AddPositions(lordered_List);
+                                }
+
+                                ReplaceInSourceFile(lsf.Source_file, lordered_List);
+                            }
+                        }
+                        slngs += "\r\n  }\r\n}\r\n";
+                        File.WriteAllText(slngfile, slngs);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Can not write " + slngfile_path + "\r\nExcpetion=" + ex.Message);
+                    }
+                }
+            }
+        }
+            
+
+        internal static void ReplaceInSourceFile(string source_file, List<Ordered_ltext_position> lordered_List)
+        {
+            try
+            {
+                string src = File.ReadAllText(source_file);
+              
+
+                int iCount = lordered_List.Count;
+                if (iCount > 0)
+                {
+                    for (int i = iCount - 1; i >= 0; i--)
+                    {
+                        Ordered_ltext_position op = lordered_List[i];
+                        int iPos = op.iPos;
+                        int iLenClassAndVar = op.Class_and_Var.Length;
+                        src = src.Substring(0, iPos) + "lng." + op.Var_name + src.Substring(iPos + iLenClassAndVar);
+                    }
+                }
+                File.WriteAllText(source_file, src);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can not read or write " + source_file + "\r\nException ex =" + ex.Message);
+            }
+        }
     }
 }

@@ -19,6 +19,8 @@ namespace LanguageControl
 {
     public static class DynSettings
     {
+        internal const string MODULE_NAME = "ModuleName";
+        internal const string VARIABLE_NAME = "variable_name";
         public const int NotDefined_ID = -1;
         public const int English_ID = 0;
         public const int Slovensko_ID = 1;
@@ -29,6 +31,24 @@ namespace LanguageControl
 
 
         public static bool AllowToEditText = false;
+        private static DataTable dt_Languages = null;
+
+        internal static List<language_library> LanguageLibraryList = new List<language_library>();
+
+        public static void AddLanguageLibrary(FieldInfo[] xFields, string xModuleName)
+        {
+            foreach(language_library lng_lib in LanguageLibraryList)
+            {
+                if (lng_lib.ModuleName.Equals(xModuleName))
+                {
+                    lng_lib.Fields = xFields;
+                    return;
+                }
+            }
+            language_library xlng_lib = new language_library(xModuleName, xFields);
+            LanguageLibraryList.Add(xlng_lib);
+
+        }
 
         public static string LanguagePrefix
         { get
@@ -66,35 +86,37 @@ namespace LanguageControl
                 {
                     dt_Languages.ReadXml(lngRPM_XML_file);
                     dt_Languages.CaseSensitive = true;
-                    Type myType = typeof(lngRPM);
-                    FieldInfo[] fields = myType.GetFields();
+                   
                     string sErr = "";
-                    foreach (FieldInfo fi in fields)
+                    foreach (language_library xlng_lib in LanguageLibraryList)
                     {
-                        if (fi.FieldType.Name.Equals("ltext"))
+                        foreach (FieldInfo fi in xlng_lib.Fields)
                         {
-                            ltext lt = (ltext)fi.GetValue(null);
-                            string sname = fi.Name;
-                            DataRow[] drs = dt_Languages.Select("variable_name = '" + sname + "'");
-                            if (drs.Count() == 1)
+                            if (fi.FieldType.Name.Equals("ltext"))
                             {
-                                lt.SetTextFromDataRow(drs[0]);
-                            }
-                            else
-                            {
-                                if (drs.Count() > 1)
+                                ltext lt = (ltext)fi.GetValue(null);
+                                string sname = fi.Name;
+                                DataRow[] drs = dt_Languages.Select(MODULE_NAME +  " = '" + xlng_lib.ModuleName + "' and "+ VARIABLE_NAME + " = '" + sname + "'");
+                                if (drs.Count() == 1)
                                 {
-                                    MessageBox.Show("ERROR:LoadLanguages:More than one definition for language varibale:" + sname);
+                                    lt.SetTextFromDataRow(drs[0]);
                                 }
                                 else
                                 {
-                                    if (sErr.Length == 0)
+                                    if (drs.Count() > 1)
                                     {
-                                        sErr += "ERROR:LoadLanguages:No definition for language variables:'" + sname + "'";
+                                        MessageBox.Show("ERROR:LoadLanguages:More than one definition for language varibale:" + sname);
                                     }
                                     else
                                     {
-                                        sErr += ",'" + sname + "'";
+                                        if (sErr.Length == 0)
+                                        {
+                                            sErr += "ERROR:LoadLanguages:No definition for language variables:'" + sname + "'";
+                                        }
+                                        else
+                                        {
+                                            sErr += ",'" + sname + "'";
+                                        }
                                     }
                                 }
                             }
@@ -133,33 +155,14 @@ namespace LanguageControl
         {
             try
             {
-                dt_Languages.Clear();
-                dt_Languages.Columns.Clear();
-
-                Type myType = typeof(lngRPM);
-                FieldInfo[] fields = myType.GetFields();
-                dt_Languages.TableName = TableName;
-                dt_Languages.Columns.Add("variable_name", typeof(string));
-                for (int i = 0; i < DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
+                if (dt_Languages != null)
                 {
-                    string sLanguageName = "language_" + i.ToString();
-                    dt_Languages.Columns.Add(sLanguageName, typeof(string));
+                    dt_Languages.Clear();
+                    dt_Languages.Columns.Clear();
                 }
-                foreach (FieldInfo fi in fields)
+                foreach (language_library xlng_lib in LanguageLibraryList)
                 {
-                    if (fi.FieldType.Name.Equals("ltext"))
-                    {
-                        ltext lt = (ltext)fi.GetValue(null);
-                        string sname = fi.Name;
-                        DataRow dr = dt_Languages.NewRow();
-                        dr["variable_name"] = sname;
-                        for (int i = 0; i < DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
-                        {
-                            string sLanguageName = "language_" + i.ToString();
-                            dr[sLanguageName] = lt.GetText(i);
-                        }
-                        dt_Languages.Rows.Add(dr);
-                    }
+                    FillLanguages(xlng_lib.Fields, xlng_lib.ModuleName);
                 }
 
                 dt_Languages.WriteXml(lngRPM_XML_file, XmlWriteMode.WriteSchema);
@@ -169,6 +172,40 @@ namespace LanguageControl
             {
                 MessageBox.Show("ERROR:DynSettings:SaveLanguages:Exception=" + ex.Message + "\r\nStackTrace=" + ex.StackTrace);
                 return false;
+            }
+        }
+
+        public static void FillLanguages(FieldInfo[] fields,string ModuleName)
+        {
+            
+            if (dt_Languages == null)
+            {
+                dt_Languages.Columns.Add(MODULE_NAME, typeof(string));
+                dt_Languages.Columns.Add(VARIABLE_NAME, typeof(string));
+                for (int i = 0; i < DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
+                {
+                    string sLanguageName = "language_" + i.ToString();
+                    dt_Languages.Columns.Add(sLanguageName, typeof(string));
+                }
+
+            }
+           
+            foreach (FieldInfo fi in fields)
+            {
+                if (fi.FieldType.Name.Equals("ltext"))
+                {
+                    ltext lt = (ltext)fi.GetValue(null);
+                    string sname = fi.Name;
+                    DataRow dr = dt_Languages.NewRow();
+                    dr[MODULE_NAME] = ModuleName;
+                    dr[VARIABLE_NAME] = sname;
+                    for (int i = 0; i<DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
+                    {
+                        string sLanguageName = "language_" + i.ToString();
+                        dr[sLanguageName] = lt.GetText(i);
+                    }
+                    dt_Languages.Rows.Add(dr);
+                }
             }
         }
 

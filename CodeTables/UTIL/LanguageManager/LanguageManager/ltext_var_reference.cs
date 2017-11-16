@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LanguageManager
 {
@@ -10,6 +12,7 @@ namespace LanguageManager
     {
         private string class_name = "";
         private string var_name = "";
+        private string constructor_call = "";
 
         public string Class_name
         {
@@ -26,24 +29,70 @@ namespace LanguageManager
             get { return Class_name + "." + Var_name; }
         }
 
-        public List<project_reference> project_reference_list = new List<project_reference>();
-       
-
-        internal project_reference GetProject(string project_file)
+        public string Constructor_call
         {
-           foreach(project_reference projref in project_reference_list)
+            get { return constructor_call; }
+            set { constructor_call = value; }
+        }
+        public List<int> Positions = new List<int>();
+
+        public string Static_ltext_Definition()
+        {
+            return "\r\n public static ltext " + var_name + " = new ltext( new string[]{"+GetArgument()+"});";
+        }
+
+        private string GetArgument()
+        {
+            int istart = constructor_call.IndexOf('(');
+            int iend = constructor_call.LastIndexOf(')');
+            if ((istart>0) &&(iend > istart))
             {
-                if (projref.Project_name.Equals(project_file))
+                string s = constructor_call.Substring(istart+1, iend - istart-1);
+                return s;
+            }
+            else
+            {
+                return "/* CONSTRUCTOR PARAMS NOT FOUND for "+ Class_and_Var + " !!!! */";
+            }
+
+
+        }
+
+      
+
+        internal void AddPositions(List<Ordered_ltext_position> lordered_List)
+        {
+            foreach (int ipos in Positions)
+            {
+                if (lordered_List.Count > 0)
                 {
-                    return projref;
+                    foreach (Ordered_ltext_position olp in lordered_List)
+                    {
+                        if (ipos < olp.iPos)
+                        {
+                            Ordered_ltext_position op = new Ordered_ltext_position();
+                            op.Var_name = this.Var_name;
+                            op.Class_name = this.Class_name;
+                            op.iPos = ipos;
+                            lordered_List.Insert(0, op);
+                            break;
+                        }
+                    }
+                    Ordered_ltext_position xop = new Ordered_ltext_position();
+                    xop.Var_name = this.Var_name;
+                    xop.Class_name = this.Class_name;
+                    xop.iPos = ipos;
+                    lordered_List.Add(xop);
+                }
+                else
+                {
+                    Ordered_ltext_position op = new Ordered_ltext_position();
+                    op.Var_name = this.Var_name;
+                    op.Class_name = this.Class_name;
+                    op.iPos = ipos;
+                    lordered_List.Add(op);
                 }
             }
-            // now project_reference found
-            project_reference xprojref = new project_reference();
-            xprojref.Project_name = project_file;
-            project_reference_list.Add(xprojref);
-            return xprojref;
-
         }
     }
 }

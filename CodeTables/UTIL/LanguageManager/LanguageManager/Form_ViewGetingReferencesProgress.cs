@@ -20,25 +20,18 @@ namespace LanguageManager
             InitializeComponent();
         }
 
-        private void ShowProgress(string comment,ltext_var_reference lvar,string Result)
+        private void ShowProgress(string comment, ltext_project_reference lvar,string Result)
         {
-            string s = comment + lvar.Class_and_Var + " : " + Result;
+            
 
-            this.txt_output.Text = s + "\r\n\r\n" + this.txt_output.Text;
+            this.txt_output.Text = comment + lvar.Project_name + " : " + Result; 
             this.txt_output.Refresh();
             Application.DoEvents();
-            SaveLoginaReferences(sFile);           
+               
         }
 
         private void Form_ViewGetingReferencesProgress_Shown(object sender, EventArgs e)
         {
-            sselected_executable_path = Parser.SelectedExecutableSolutionPath();
-            sFile = sselected_executable_path + "\\LanguageReferences.txt";
-            Parser.GetAllReferences(ShowProgress);
-            if (SaveLoginaReferences(sFile))
-            {
-                MessageBox.Show(this, "Language references are saved to " + sFile+ " OK.");
-            }
            
         }
 
@@ -55,6 +48,23 @@ namespace LanguageManager
                 MessageBox.Show(this, "Can not save " + sFile + "\r\n Exception =" + ex.Message);
                 return false;
             }
+        }
+
+        private void btn_GetAllReferences_Click(object sender, EventArgs e)
+        {
+
+            sselected_executable_path = Parser.SelectedExecutableSolutionPath();
+            sFile = sselected_executable_path + "\\LanguageReferences.txt";
+            this.txt_output.Text = Parser.GetAllReferences(ShowProgress);
+            if (SaveLoginaReferences(sFile))
+            {
+                MessageBox.Show(this, "Language references are saved to " + sFile + " OK.");
+            }
+        }
+
+        private void btn_write_lng_files_Click(object sender, EventArgs e)
+        {
+            Parser.Write_lng_files();
         }
     }
 }
