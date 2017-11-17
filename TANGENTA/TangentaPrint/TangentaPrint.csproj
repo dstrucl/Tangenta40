@@ -50,15 +50,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Crom.Controls, Version=2.0.5.21, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\Crom.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="DigitalRune.Windows.TextEditor, Version=1.3.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Debug\DigitalRune.Windows.TextEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfSharp, Version=1.32.2602.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -153,6 +144,10 @@
       <Project>{3A0F6691-D8D0-4005-902A-215DA5F671B4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DigitalRune.Windows.TextEditor\DigitalRune.Windows.TextEditor.csproj">
+      <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
+      <Name>DigitalRune.Windows.TextEditor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\ListControls-master\Source\EWSListControls.csproj">
       <Project>{8b77e8dd-a857-4a6e-bca3-93ac56b80f57}</Project>
       <Name>EWSListControls</Name>
@@ -224,6 +219,10 @@
     <ProjectReference Include="..\..\HtmlRenderer 1.5.0.6 with print pages support\HtmlRenderer\HtmlRenderer.csproj">
       <Project>{fe611685-391f-4e3e-b27e-d3150e51e49b}</Project>
       <Name>HtmlRenderer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PDFsharp-MigraDocFoundation-1_50-beta4\PDFsharp\src\PdfSharp\PdfSharp.csproj">
+      <Project>{5a6055bc-bf86-4fdd-9f62-0109db7a303b}</Project>
+      <Name>PdfSharp</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopC\ShopC.csproj">
       <Project>{3d077dc4-bdab-414f-8907-c902b91fcb0e}</Project>
