@@ -19,21 +19,26 @@ namespace Excell_Export
 {
     public static class lng
     {
- public static ltext s_ErrorStartExecuteExcel = new ltext( new string[]{"Error opening file:", "Napaka pri odpiranju datoteke:"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Export2Excell.cs
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
 
- public static ltext s_ErrorInExportToExcel = new ltext( new string[]{"Error in export", "Napaka pri izvozu"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Export2Excell.cs
+        public static ltext s_ErrorStartExecuteExcel = new ltext( new string[]{"Error opening file:", "Napaka pri odpiranju datoteke:"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Export2Excell.cs
 
- public static ltext s_ThereAreNoSelectedRowsToExport = new ltext( new string[]{"You didn't select rows to export into  \"Excel\"(.xls) file.", "Niste izbrali vrstic za izvoz v \"Excel\" datoteko?"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Export2Excell.cs
+        public static ltext s_ErrorInExportToExcel = new ltext(new string[] { "Error in export", "Napaka pri izvozu" });   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Export2Excell.cs
 
- public static ltext s_Columns = new ltext( new string[]{"Columns", "Število stolpcev"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
+        public static ltext s_ThereAreNoSelectedRowsToExport = new ltext(new string[] { "You didn't select rows to export into  \"Excel\"(.xls) file.", "Niste izbrali vrstic za izvoz v \"Excel\" datoteko?" });   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Export2Excell.cs
 
- public static ltext s_Rows = new ltext( new string[]{"Rows", "Število vrstic"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
+        public static ltext s_Columns = new ltext(new string[] { "Columns", "Število stolpcev" });   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
 
- public static ltext s_ExportToFile = new ltext( new string[]{" Export to file", "Izvoz v datoke"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
+        public static ltext s_Rows = new ltext(new string[] { "Rows", "Število vrstic" });   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
 
- public static ltext s_ExportDoneInXprocent = new ltext( new string[]{" Export", "Izvoženo"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
+        public static ltext s_ExportToFile = new ltext(new string[] { " Export to file", "Izvoz v datoke" });   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
 
- public static ltext s_Error = new ltext (new string[] { "Error", "Napaka" });
+        public static ltext s_ExportDoneInXprocent = new ltext(new string[] { " Export", "Izvoženo" });   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
+
+        public static ltext s_Error = new ltext(new string[] { "Error", "Napaka" });
 
     }
 }

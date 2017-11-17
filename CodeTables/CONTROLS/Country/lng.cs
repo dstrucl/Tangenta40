@@ -19,14 +19,19 @@ namespace Country_ISO_3166
 {
     public static class lng
     {
- public static ltext s_Form_Select_Country_ISO_3166_Title = new ltext( new string[]{"Select State", "Izberite Državo"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
 
- public static ltext s_Number = new ltext( new string[]{"Number", "Številka"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
+        public static ltext s_Form_Select_Country_ISO_3166_Title = new ltext( new string[]{"Select State", "Izberite Državo"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
 
- public static ltext ss_Abbreviation = new ltext( new string[]{"Abbreviation","Okrajšava"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
+        public static ltext s_Number = new ltext(new string[] { "Number", "Številka" });   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
 
- public static ltext s_Country = new ltext( new string[]{"Country",
+        public static ltext ss_Abbreviation = new ltext(new string[] { "Abbreviation", "Okrajšava" });   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
+
+        public static ltext s_Country = new ltext(new string[]{"Country",
                                          "Država"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\Country\Form_Select_Country_ISO_3166.cs
 
-  }
+    }
 }

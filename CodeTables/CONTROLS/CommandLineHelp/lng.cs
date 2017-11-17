@@ -19,13 +19,18 @@ namespace CommandLineHelp
 {
     public static class lng
     {
- public static ltext s_CommandLineHelp = new ltext( new string[]{"Command Line Help", "Pomoč za komandno vrstico"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
 
- public static ltext s_OK = new ltext( new string[]{"OK",
-                                                 "V redu"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+        public static ltext s_CommandLineHelp = new ltext( new string[]{"Command Line Help", "Pomoč za komandno vrstico"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
 
- public static ltext s_Cancel = new ltext( new string[]{"Cancel",
-                                          "Prekini"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+        public static ltext s_OK = new ltext( new string[]{"OK",
+                                                         "V redu"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
 
+        public static ltext s_Cancel = new ltext( new string[]{"Cancel",
+                                                  "Prekini"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\CommandLineHelp\CommandLineHelp_Control.cs
+   
   }
 }

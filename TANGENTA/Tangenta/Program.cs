@@ -461,6 +461,8 @@ namespace Tangenta
 
                     LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
 
+                    SetAllModulesLanguages();
+                    
                     LanguageControl.DynSettings.LoadLanguages(Reset2FactorySettings.LangugaControl_DLL);
                     LanguageControl.DynSettings.AllowToEditText = Properties.Settings.Default.AllowToEditLanguageText;
 
@@ -539,6 +541,12 @@ namespace Tangenta
                 }
                 rpc.End();
             }
+        }
+
+        private static void SetAllModulesLanguages()
+        {
+            lng.SetDictionary();
+
         }
 
         private static void SelectLanguage(ref bool bLanguageSelectDialogShown,ref bool bLanguageSelected,ref bool bExitBeforeLogFileInitialised)

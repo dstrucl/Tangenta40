@@ -19,7 +19,12 @@ namespace TextBoxRecent
 {
     public static class lng
     {
- public static ltext s_RecentText = new ltext( new string[]{"Recent Text", "Nedavni tekst"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\TextBoxRecent\Form_SelectRecentText.cs
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
+
+        public static ltext s_RecentText = new ltext( new string[]{"Recent Text", "Nedavni tekst"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\TextBoxRecent\Form_SelectRecentText.cs
 
   }
 }

@@ -87,7 +87,7 @@ namespace LanguageControl
 
         public List<object> complex_text_list = null;
         Control m_ctrl = null;
-        private string[] v;
+
 
         public string s
         {

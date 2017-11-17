@@ -19,21 +19,26 @@ namespace XMessage
 {
     public static class lng
     {
- public static ltext s_Abort = new ltext( new string[]{"Abort", "Prekini"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
 
- public static ltext s_Retry = new ltext( new string[]{"Retry", "Ponovi"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
+        public static ltext s_Abort = new ltext( new string[]{"Abort", "Prekini"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
 
- public static ltext s_Ignore = new ltext( new string[]{"Ignore", "Ignoriraj"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
+        public static ltext s_Retry = new ltext(new string[] { "Retry", "Ponovi" });   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
 
- public static ltext s_Yes = new ltext( new string[]{"Yes", "Da"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
+        public static ltext s_Ignore = new ltext(new string[] { "Ignore", "Ignoriraj" });   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
 
- public static ltext s_No = new ltext( new string[]{"No", "Ne"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
+        public static ltext s_Yes = new ltext(new string[] { "Yes", "Da" });   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
 
- public static ltext s_OK = new ltext( new string[]{"OK",
+        public static ltext s_No = new ltext(new string[] { "No", "Ne" });   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
+
+        public static ltext s_OK = new ltext(new string[]{"OK",
                                                  "V redu"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
 
- public static ltext s_Cancel = new ltext( new string[]{"Cancel",
+        public static ltext s_Cancel = new ltext(new string[]{"Cancel",
                                           "Prekini"});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\XMessage\Form_Box.cs
 
-  }
+    }
 }

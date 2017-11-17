@@ -19,13 +19,20 @@ namespace ProgressForm
 {
     public static class lng
     {
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
+
         public static ltext s_Cancel = new ltext( new string[]{"Cancel",
                                           "Prekini"});   // referenced in C:\Tangenta40\CodeTables\UTIL\ProgressForm\Progress_Form.cs
         public static ltext s_ExportToFile = new ltext(new string[] { " Export to file",
                                            "Izvoz v datoke" });
 
         public static ltext s_Columns = new ltext(new string[] { "Columns", "Število stolpcev" });
+
         public static ltext s_Rows = new ltext(new string[] { "Rows", "Število vrstic" });
+
         public static ltext s_ExportDoneInXprocent = new ltext(new string[] { " Export", "Izvoženo" });
     }
 }

@@ -19,6 +19,7 @@ namespace LanguageControl
 {
     public static class DynSettings
     {
+        internal const string DICTIONARY = "lng_Dictionary";
         internal const string MODULE_NAME = "ModuleName";
         internal const string VARIABLE_NAME = "variable_name";
         public const int NotDefined_ID = -1;
@@ -31,7 +32,7 @@ namespace LanguageControl
 
 
         public static bool AllowToEditText = false;
-        private static DataTable dt_Languages = null;
+
 
         internal static List<language_library> LanguageLibraryList = new List<language_library>();
 
@@ -68,8 +69,8 @@ namespace LanguageControl
 
         public static void LoadLanguages(bool bReset2FactorySettings)
         {
-            DataTable dt_Languages = new DataTable();
-            string TableName = "lngRPM";
+            DataTable dt_Languages = null;
+            string TableName = DICTIONARY;
             string sAppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             if (sAppDataFolder[sAppDataFolder.Length - 1] != '\\')
             {
@@ -84,6 +85,12 @@ namespace LanguageControl
                 }
                 else
                 {
+
+                    if (dt_Languages == null)
+                    {
+                        Create_dt_Language(ref dt_Languages);
+
+                    }
                     dt_Languages.ReadXml(lngRPM_XML_file);
                     dt_Languages.CaseSensitive = true;
                    
@@ -139,8 +146,9 @@ namespace LanguageControl
 
         public static void LanguageTextSave()
         {
-            DataTable dt_Languages = new DataTable();
-            string TableName = "lngRPM";
+            DataTable dt_Languages = null;
+            string TableName = DICTIONARY;
+           
             string sAppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             if (sAppDataFolder[sAppDataFolder.Length - 1] != '\\')
             {
@@ -155,14 +163,18 @@ namespace LanguageControl
         {
             try
             {
-                if (dt_Languages != null)
+                if (dt_Languages == null)
+                {
+                    Create_dt_Language(ref dt_Languages);
+
+                }
+                else
                 {
                     dt_Languages.Clear();
-                    dt_Languages.Columns.Clear();
                 }
                 foreach (language_library xlng_lib in LanguageLibraryList)
                 {
-                    FillLanguages(xlng_lib.Fields, xlng_lib.ModuleName);
+                    FillLanguages(ref dt_Languages,xlng_lib.Fields, xlng_lib.ModuleName);
                 }
 
                 dt_Languages.WriteXml(lngRPM_XML_file, XmlWriteMode.WriteSchema);
@@ -175,20 +187,23 @@ namespace LanguageControl
             }
         }
 
-        public static void FillLanguages(FieldInfo[] fields,string ModuleName)
+        private static void Create_dt_Language(ref DataTable dt_Languages)
+        {
+            dt_Languages = new DataTable();
+            dt_Languages.TableName = DICTIONARY;
+            dt_Languages.Columns.Add(MODULE_NAME, typeof(string));
+            dt_Languages.Columns.Add(VARIABLE_NAME, typeof(string));
+            for (int i = 0; i < DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
+            {
+                string sLanguageName = "language_" + i.ToString();
+                dt_Languages.Columns.Add(sLanguageName, typeof(string));
+            }
+        }
+
+        public static void FillLanguages(ref DataTable dt_Languages,FieldInfo[] fields,string ModuleName)
         {
             
-            if (dt_Languages == null)
-            {
-                dt_Languages.Columns.Add(MODULE_NAME, typeof(string));
-                dt_Languages.Columns.Add(VARIABLE_NAME, typeof(string));
-                for (int i = 0; i < DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
-                {
-                    string sLanguageName = "language_" + i.ToString();
-                    dt_Languages.Columns.Add(sLanguageName, typeof(string));
-                }
-
-            }
+           
            
             foreach (FieldInfo fi in fields)
             {

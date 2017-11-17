@@ -19,10 +19,15 @@ namespace LanguageControl
 {
     public static class lng
     {
- public static ltext s_Text_in_language = new ltext( new string[]{"Text in Language","Prevod v jeziku"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_ltext_Edit.cs
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
 
- public static ltext s_Language = new ltext( new string[]{"Language",
+        public static ltext s_Text_in_language = new ltext(new string[] { "Text in Language", "Prevod v jeziku" });   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_ltext_Edit.cs
+
+        public static ltext s_Language = new ltext(new string[]{"Language",
                                                    "Jezik"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_ltext_Edit.cs
 
-  }
+    }
 }

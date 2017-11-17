@@ -19,7 +19,12 @@ namespace usrc_Item_Group_Handler
 {
     public static class lng
     {
- public static ltext s_Other = new ltext( new string[]{"...", "..."});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\usrc_Group_Handler\Group.cs
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
+
+        public static ltext s_Other = new ltext( new string[]{"...", "..."});   // referenced in C:\Tangenta40\CodeTables\CONTROLS\usrc_Group_Handler\Group.cs
 
   }
 }
