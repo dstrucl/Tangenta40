@@ -78,6 +78,7 @@
     <Compile Include="Form_Navigate.Designer.cs">
       <DependentUpon>Form_Navigate.cs</DependentUpon>
     </Compile>
+    <Compile Include="lng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

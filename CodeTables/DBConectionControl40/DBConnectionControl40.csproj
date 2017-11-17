@@ -125,6 +125,7 @@
     <Compile Include="Form_Backup_SQLite.Designer.cs">
       <DependentUpon>Form_Backup_SQLite.cs</DependentUpon>
     </Compile>
+    <Compile Include="lng.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -37,12 +37,12 @@ namespace ShopC
         public usrc_Atom_Item()
         {
             InitializeComponent();
-            this.lbl_RetailPriceText.Text = lngRPM.s_RetailPrice.s;
-            this.lbl_DiscountText.Text = lngRPM.s_Discount.s;
-            this.lbl_Quantity.Text = lngRPM.s_Quantity.s;
-            this.lbl_WithoutTaxPrice.Text = lngRPM.s_WithoutTaxPrice.s;
-            this.lbl_TaxPrice.Text = lngRPM.s_TaxPrice.s;
-            this.lbl_RetailPriceWithDiscount.Text = lngRPM.s_RetailPriceWithDiscount.s;
+            this.lbl_RetailPriceText.Text = lng.s_RetailPrice.s;
+            this.lbl_DiscountText.Text = lng.s_Discount.s;
+            this.lbl_Quantity.Text = lng.s_Quantity.s;
+            this.lbl_WithoutTaxPrice.Text = lng.s_WithoutTaxPrice.s;
+            this.lbl_TaxPrice.Text = lng.s_TaxPrice.s;
+            this.lbl_RetailPriceWithDiscount.Text = lng.s_RetailPriceWithDiscount.s;
             ctrla = new Control[this.Controls.Count];
             ctrla_left= new int[this.Controls.Count];
             info_ctrls = new Control[] { lbl_Quantity, lbl_RetailPriceText, lbl_DiscountText, lbl_Quantity_Value, lbl_RetailPriceValue, lbl_DiscountValue, lbl_WithoutTaxPrice, lbl_TaxPrice, lbl_RetailPriceWithDiscount, txt_NetPrice, txt_TaxPrice, txt_RetailSimpleItemPriceWithDiscount };

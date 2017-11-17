@@ -73,15 +73,15 @@ namespace CodeTables
             try
             {
                 m_tbl = tbl;
-                this.btn_CreateImportExportTemplate.Text = lngRPM.s_ExportTemplateToolStripMenuItem.s;
+                this.btn_CreateImportExportTemplate.Text = lng.s_ExportTemplateToolStripMenuItem.s;
 
                 if (m_Mode == DataTable_Form_ENUM.EDIT_OR_DELETE)
                 {
                     lbl_Instruction.Visible = false;
-                    //btn_DeleteRows.Text = lngRPM.s_DeleteRows.s;
-                    //btn_Create.Text = lngRPM.s_Create.s;
-                    //btn_Edit.Text = lngRPM.s_Edit.s;
-                    //btn_Delete.Text = lngRPM.s_Delete.s;
+                    //btn_DeleteRows.Text = lng.s_DeleteRows.s;
+                    //btn_Create.Text = lng.s_Create.s;
+                    //btn_Edit.Text = lng.s_Edit.s;
+                    //btn_Delete.Text = lng.s_Delete.s;
                     //dataGridView_Table.DataSource = m_dt;
                     //dataGridView_Table.Visible = true;
                     //dataGridView_Table.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
@@ -109,14 +109,14 @@ namespace CodeTables
                 else
                 {
                     lbl_Instruction.Visible = true;
-                    lbl_Instruction.Text = lngRPM.s_CreateTableInstruction.s + "'" + m_dt.TableName + "'.";
+                    lbl_Instruction.Text = lng.s_CreateTableInstruction.s + "'" + m_dt.TableName + "'.";
                     //btn_DeleteRows.Enabled = false;
                     //btn_Create.Enabled = true;
                     //btn_Edit.Enabled = false;
                     //btn_Delete.Enabled = false;
-                    //btn_Create.Text = lngRPM.s_Create.s;
-                    //btn_Edit.Text = lngRPM.s_Edit.s;
-                    //btn_Delete.Text = lngRPM.s_Delete.s;
+                    //btn_Create.Text = lng.s_Create.s;
+                    //btn_Edit.Text = lng.s_Edit.s;
+                    //btn_Delete.Text = lng.s_Delete.s;
                     dataGridView_Table.Visible = false;
 
                 }
@@ -124,7 +124,7 @@ namespace CodeTables
             }
             catch (Exception ex)
             {
-                MessageBox.Show(lngRPM.s_Err_TableNameDoesNotExist.s + m_dt.TableName + "\n\"Exception\"=" + ex.Message);
+                MessageBox.Show(lng.s_Err_TableNameDoesNotExist.s + m_dt.TableName + "\n\"Exception\"=" + ex.Message);
             }
         }
 

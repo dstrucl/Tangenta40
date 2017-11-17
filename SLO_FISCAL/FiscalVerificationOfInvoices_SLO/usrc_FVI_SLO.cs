@@ -599,7 +599,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 {
                     if (FormFURSCommunication.ErrorMessage.Contains(FormFURSCommunication_ErrorMessage_BUSSINES_PREMISE_NOT_DEFINED))
                     {
-                        Form_BussinesPremisse frm_BP = new Form_BussinesPremisse(this,this.FursTESTEnvironment,FormFURSCommunication.ErrorMessage + "\r\n" + lngRPM.s_SignUpYourBussinesBremise.s);
+                        Form_BussinesPremisse frm_BP = new Form_BussinesPremisse(this,this.FursTESTEnvironment,FormFURSCommunication.ErrorMessage + "\r\n" + lng.s_SignUpYourBussinesBremise.s);
                         if (frm_BP.ShowDialog(this)==DialogResult.OK)
                         {
                             if (frm_BP.FURS_BussinesPremiseData_SignedUp)
@@ -685,7 +685,7 @@ namespace FiscalVerificationOfInvoices_SLO
                         case usrc_FVI_SLO_Message.eMessage.ERROR:
                             btn_FVI.Enabled = true;
                             bRun = false;
-                            LogFile.Error.Show(lngRPM.s_FVI_SLO_Error.s+":"+message.ErrorMessage);
+                            LogFile.Error.Show(lng.s_FVI_SLO_Error.s+":"+message.ErrorMessage);
                             break;
 
                         case usrc_FVI_SLO_Message.eMessage.Thread_FVI_START:
@@ -809,7 +809,7 @@ namespace FiscalVerificationOfInvoices_SLO
 
         public void Settings_Reset(Control ctrl_owner)
         {
-            if (MessageBox.Show(ctrl_owner, lngRPM.s_DoYouRealyWantToResetSettingsFor_FiscalVerificationOfInvoices.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show(ctrl_owner, lng.s_DoYouRealyWantToResetSettingsFor_FiscalVerificationOfInvoices.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 Properties.Settings.Default.Reset();
             }

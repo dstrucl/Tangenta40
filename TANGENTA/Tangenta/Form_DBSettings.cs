@@ -24,10 +24,10 @@ namespace Tangenta
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
-            lngRPM.s_DataBaseVersion.Text(lbl_DataBaseVersion, MyDataBase_Tangenta.VERSION);
-            lngRPM.s_Administrator_password.Text(lbl_Administrator_Password);
-            lngRPM.s_MultiuserOperationWithLogin.Text(chk_MultiUserOperation);
-            lngRPM.s_StockCheckAtStartup.Text(chk_StockCheckAtStartup);
+            lng.s_DataBaseVersion.Text(lbl_DataBaseVersion, MyDataBase_Tangenta.VERSION);
+            lng.s_Administrator_password.Text(lbl_Administrator_Password);
+            lng.s_MultiuserOperationWithLogin.Text(chk_MultiUserOperation);
+            lng.s_StockCheckAtStartup.Text(chk_StockCheckAtStartup);
             if (AdministratorLockedPassword == null)
             {
                 this.usrc_Password1.Text =Password.Password.LockPassword("12345");
@@ -114,7 +114,7 @@ namespace Tangenta
             }
             else
             {
-                MessageBox.Show(this, lngRPM.s_Password_does_not_match.s);
+                MessageBox.Show(this, lng.s_Password_does_not_match.s);
             }
             return false;
         }

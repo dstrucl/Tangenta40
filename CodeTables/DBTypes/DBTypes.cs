@@ -2001,7 +2001,7 @@ namespace DBTypes
                             return true;
                         }
 
-                        csError = lngRPM.s_ErrorNoImage.s;
+                        csError = lng.s_ErrorNoImage.s;
                         return false;
                     }
                     else
@@ -2014,8 +2014,8 @@ namespace DBTypes
                         else
                         {
                             xDB_varbinary_max.val = null;
-                            //sTxt.ShowParseError(lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            csError = lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s;
+                            //sTxt.ShowParseError(lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            csError = lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s;
                             return false;
                         }
                     }
@@ -2110,7 +2110,7 @@ namespace DBTypes
                             return true;
                         }
 
-                        csError = lngRPM.s_ErrorNoImage.s;
+                        csError = lng.s_ErrorNoImage.s;
                         return false;
                     }
                     else
@@ -2123,8 +2123,8 @@ namespace DBTypes
                         else
                         {
                             xDB_Document.val = null;
-                            //sTxt.ShowParseError(lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            csError = lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s;
+                            //sTxt.ShowParseError(lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            csError = lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s;
                             return false;
                         }
                     }
@@ -2141,7 +2141,7 @@ namespace DBTypes
                             return true;
                         }
 
-                        csError = lngRPM.s_ErrorNoImage.s;
+                        csError = lng.s_ErrorNoImage.s;
                         return false;
                     }
                     else
@@ -2161,8 +2161,8 @@ namespace DBTypes
                             else
                             {
                                 xDB_Image.val = null;
-                                //sTxt.ShowParseError(lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                csError = lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s;
+                                //sTxt.ShowParseError(lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                csError = lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s;
                                 return false;
                             }
                         }
@@ -2171,15 +2171,15 @@ namespace DBTypes
 
                 else
                 {
-                    //sTxt.ShowParseError(lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    csError = lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value;
+                    //sTxt.ShowParseError(lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    csError = lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value;
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                //sTxt.ShowParseError(lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                csError = lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message;
+                //sTxt.ShowParseError(lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                csError = lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message;
                 return false;
             }
 
@@ -2203,7 +2203,7 @@ namespace DBTypes
                     img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 else if (img.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.MemoryBmp.Guid)
                 {
-                    if (MessageBox.Show(lngRPM.s_MemoryBmpPictureFormatNotAllowed_SaveInJpg.s, lngRPM.s_SaveInJpgQuestion.s, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (MessageBox.Show(lng.s_MemoryBmpPictureFormatNotAllowed_SaveInJpg.s, lng.s_SaveInJpgQuestion.s, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                         return true;
@@ -2221,7 +2221,7 @@ namespace DBTypes
                     img.Save(ms, System.Drawing.Imaging.ImageFormat.Wmf);
                 else
                 {
-                    if (MessageBox.Show(lngRPM.s_UnknownPictureFormatSaveInJpg.s, lngRPM.s_SaveInJpgQuestion.s, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (MessageBox.Show(lng.s_UnknownPictureFormatSaveInJpg.s, lng.s_SaveInJpgQuestion.s, System.Windows.Forms.MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                         return true;
@@ -2386,8 +2386,8 @@ namespace DBTypes
                     }
                     else
                     {
-                        //sTxt.ShowParseError(lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        csError = lngRPM.s_UnsuportedType.s + " " + col_obj.GetType().ToString() + " : " + Value;
+                        //sTxt.ShowParseError(lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        csError = lng.s_UnsuportedType.s + " " + col_obj.GetType().ToString() + " : " + Value;
                         return false;
                     }
                 }
@@ -2396,7 +2396,7 @@ namespace DBTypes
             {
 
 
-                //sTxt.ShowParseError(lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //sTxt.ShowParseError(lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (Value.GetType() == typeof(DBNull))
                 {
                     try
@@ -2409,7 +2409,7 @@ namespace DBTypes
                     }
                     return true;
                 }
-                csError = lngRPM.s_Illegal_format_for.s + " : " + Value + "\r\n " + ex.Message;
+                csError = lng.s_Illegal_format_for.s + " : " + Value + "\r\n " + ex.Message;
                 return false;
             }
 
@@ -4608,7 +4608,7 @@ namespace DBTypes
     //                        return true;
     //                    }
 
-    //                    csError = lngRPM.s_ErrorNoImage.s;
+    //                    csError = lng.s_ErrorNoImage.s;
     //                    return false;
     //                }
     //                else
@@ -4621,8 +4621,8 @@ namespace DBTypes
     //                    else
     //                    {
     //                        xDB_varbinary_max.val = null;
-    //                        //sTxt.ShowParseError(lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-    //                        csError = lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s;
+    //                        //sTxt.ShowParseError(lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+    //                        csError = lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s;
     //                        return false;
     //                    }
     //                }
@@ -4693,15 +4693,15 @@ namespace DBTypes
     //            }
     //            else
     //            {
-    //                //sTxt.ShowParseError(lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-    //                csError = lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value;
+    //                //sTxt.ShowParseError(lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+    //                csError = lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value;
     //                return false;
     //            }
     //        }
     //        catch (Exception ex)
     //        {
-    //            //sTxt.ShowParseError(lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-    //            csError = lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message;
+    //            //sTxt.ShowParseError(lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+    //            csError = lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message;
     //            return false;
     //        }
 
@@ -4800,15 +4800,15 @@ namespace DBTypes
     //            }
     //            else
     //            {
-    //                //sTxt.ShowParseError(lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-    //                csError = lngRPM.s_UnsuportedType.s + " " + col_obj.GetType().ToString() + " : " + Value;
+    //                //sTxt.ShowParseError(lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+    //                csError = lng.s_UnsuportedType.s + " " + col_obj.GetType().ToString() + " : " + Value;
     //                return false;
     //            }
     //        }
     //        catch (Exception ex)
     //        {
-    //            //sTxt.ShowParseError(lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-    //            csError = lngRPM.s_Illegal_format_for.s + " : " + Value + "\r\n " + ex.Message;
+    //            //sTxt.ShowParseError(lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+    //            csError = lng.s_Illegal_format_for.s + " : " + Value + "\r\n " + ex.Message;
     //            return false;
     //        }
 

@@ -1,4 +1,4 @@
-﻿#region LICENSE 
+#region LICENSE 
 /*
  This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
  If a copy of the Tangenta Public License (TPL) was not distributed with this 
@@ -37,7 +37,7 @@ namespace CommandLineHelp
         public CommandLineHelp_Control()
         {
             InitializeComponent();
-            btn_CommandLineHelp.Text = lngRPM.s_CommandLineHelp.s;
+            btn_CommandLineHelp.Text = lng.s_CommandLineHelp.s;
         }
 
         public void Attach(List<CommandLineHelp> xCommandLineHelpList)
@@ -53,10 +53,10 @@ namespace CommandLineHelp
             CommandLineHelpNav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
             CommandLineHelpNav.btn1_Visible = false;
             CommandLineHelpNav.btn2_Image = null;
-            CommandLineHelpNav.btn2_Text = lngRPM.s_OK.s;
+            CommandLineHelpNav.btn2_Text = lng.s_OK.s;
             CommandLineHelpNav.btn2_Visible = true;
             CommandLineHelpNav.btn3_Image = null;
-            CommandLineHelpNav.btn3_Text = lngRPM.s_Cancel.s;
+            CommandLineHelpNav.btn3_Text = lng.s_Cancel.s;
             CommandLineHelpNav.btn3_Visible = false;
             CommandLineHelpNav.btn2_ToolTip_Text = "";
             CommandLineHelpNav.btn3_ToolTip_Text = "";

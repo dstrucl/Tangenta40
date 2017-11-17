@@ -500,11 +500,6 @@ namespace LanguageManager
                             }
 
                             iLib++;
-
-                            if (iLib>1)
-                            {
-                                break;
-                            }
                         }
                     }
                     string sProject = null;

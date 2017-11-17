@@ -53,11 +53,11 @@ namespace PriseLists
         public usrc_PriceList_Edit()
         {
             InitializeComponent();
-            this.rdb_OnlyValid.Text = lngRPM.s_OnlyValidPriceList.s;
-            this.rdb_All.Text = lngRPM.s_AllPriceList.s;
-            this.rdb_OnlyUnvalid.Text = lngRPM.s_OnlyUnvalid.s;
+            this.rdb_OnlyValid.Text = lng.s_OnlyValidPriceList.s;
+            this.rdb_All.Text = lng.s_AllPriceList.s;
+            this.rdb_OnlyUnvalid.Text = lng.s_OnlyUnvalid.s;
             rdb_OnlyValid.Checked = true;
-            this.usrc_EditTable_PriceList.Title = lngRPM.s_Manage_PriceLists.s;
+            this.usrc_EditTable_PriceList.Title = lng.s_Manage_PriceLists.s;
         }
 
         public bool Init(SQLTable xtbl_PriceList, bool xbEditUndefined,  eShopType xeShopType,Navigation xnav)
@@ -73,11 +73,11 @@ namespace PriseLists
                 {
                     if (m_eShopType == eShopType.ShopB)
                     {
-                        usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_B.s;
+                        usrc_EditTable_Shop_Prices.Title = lng.s_PriceList.s + " " + lng.s_Shop_B.s;
                     }
                     else
                     {
-                        usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_C.s;
+                        usrc_EditTable_Shop_Prices.Title = lng.s_PriceList.s + " " + lng.s_Shop_C.s;
                     }
                 }
                 else
@@ -94,11 +94,11 @@ namespace PriseLists
             {
                 if (m_eShopType == eShopType.ShopB)
                 {
-                    usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_B.s;
+                    usrc_EditTable_Shop_Prices.Title = lng.s_PriceList.s + " " + lng.s_Shop_B.s;
                 }
                 else
                 {
-                    usrc_EditTable_Shop_Prices.Title = lngRPM.s_PriceList.s + " " + lngRPM.s_Shop_C.s;
+                    usrc_EditTable_Shop_Prices.Title = lng.s_PriceList.s + " " + lng.s_Shop_C.s;
                 }
             }
 
@@ -533,10 +533,10 @@ namespace PriseLists
                             {
                                 string staxname = (string)dt.Rows[0]["Name"];
                                 List<object> complex_text = new List<object>();
-                                complex_text.Add(lngRPM.s_Tax_with_name);
+                                complex_text.Add(lng.s_Tax_with_name);
                                 complex_text.Add("\""+staxname +"\"");
-                                complex_text.Add(lngRPM.s_belongs_to_many_other_trade_items_and_services);
-                                complex_text.Add(lngRPM.s_If_you_want_to_change_the_tax_only_to_the_selected_article___);
+                                complex_text.Add(lng.s_belongs_to_many_other_trade_items_and_services);
+                                complex_text.Add(lng.s_If_you_want_to_change_the_tax_only_to_the_selected_article___);
 
                                 if (Instruction == null)
                                 {

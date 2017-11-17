@@ -53,14 +53,14 @@ namespace DynEditControls
             this.numericUpDown_TargetHeight.Value = m_NewHeight;
             chkBox_KeepAspectRatio.Checked = Properties.Settings.Default.KeepAspectRatio;
             WriteSourceDimensions();
-            this.lblDestinationWidth.Text = lngRPM.s_Width.s + "=";
-            this.lblDestinationHeight.Text = lngRPM.s_Height.s + "=";
-            this.chkBox_KeepAspectRatio.Text = lngRPM.s_KeepAspectRation.s;
-            this.Text = lngRPM.s_ResizeImage.s;
-            this.btnChangeSize.Text = "> "+lngRPM.s_ResizeImage.s + " >";
+            this.lblDestinationWidth.Text = lng.s_Width.s + "=";
+            this.lblDestinationHeight.Text = lng.s_Height.s + "=";
+            this.chkBox_KeepAspectRatio.Text = lng.s_KeepAspectRation.s;
+            this.Text = lng.s_ResizeImage.s;
+            this.btnChangeSize.Text = "> "+lng.s_ResizeImage.s + " >";
             this.pictureBox_Source.Image = OrgImage;
-            this.btnOK.Text = lngRPM.s_OK.s;
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
+            this.btnOK.Text = lng.s_OK.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
             if (chkBox_KeepAspectRatio.Checked)
             {
                 m_NewImage = PutImageInBoundaries(m_OrgImage, m_NewWidth, m_NewHeight, OrgImage.RawFormat);
@@ -77,8 +77,8 @@ namespace DynEditControls
 
         private void WriteSourceDimensions()
         {
-            this.lblSourceWidth.Text = lngRPM.s_Width.s + " = " + m_OrgImage.Width.ToString();
-            this.lblSourceHeight.Text = lngRPM.s_Height.s + " = " + m_OrgImage.Height.ToString();
+            this.lblSourceWidth.Text = lng.s_Width.s + " = " + m_OrgImage.Width.ToString();
+            this.lblSourceHeight.Text = lng.s_Height.s + " = " + m_OrgImage.Height.ToString();
         }
 
         private void WriteDestinationDimensions()
@@ -89,9 +89,9 @@ namespace DynEditControls
 
         private void WriteSize()
         {
-            this.lbl_SourceSize.Text = lngRPM.s_Format.s + "=" + GetImageFormatName(m_OrgImage) + ", " + lngRPM.s_Size.s + "=" + DBTypes.DBtypesFunc.GetObjectSize(m_OrgImage).ToString("n") + " " + lngRPM.s_Bytes.s;
-            this.lbl_DestinationSize.Text = lngRPM.s_Size.s + "=" + DBTypes.DBtypesFunc.GetObjectSize(m_NewImage).ToString("n") + " " + lngRPM.s_Bytes.s;
-            this.lbl_Format.Text = lngRPM.s_Format.s + ":";
+            this.lbl_SourceSize.Text = lng.s_Format.s + "=" + GetImageFormatName(m_OrgImage) + ", " + lng.s_Size.s + "=" + DBTypes.DBtypesFunc.GetObjectSize(m_OrgImage).ToString("n") + " " + lng.s_Bytes.s;
+            this.lbl_DestinationSize.Text = lng.s_Size.s + "=" + DBTypes.DBtypesFunc.GetObjectSize(m_NewImage).ToString("n") + " " + lng.s_Bytes.s;
+            this.lbl_Format.Text = lng.s_Format.s + ":";
             this.cmbBoxPictureFormat.Text = GetImageFormatName(m_NewImage);
         }
 
@@ -364,7 +364,7 @@ namespace DynEditControls
             }
             else
             {
-                if (MessageBox.Show(lngRPM.s_UnknownPictureFormatSaveInJpg.s, lngRPM.s_SaveInJpgQuestion.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(lng.s_UnknownPictureFormatSaveInJpg.s, lng.s_SaveInJpgQuestion.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     imFormat = System.Drawing.Imaging.ImageFormat.Jpeg;
                 }

@@ -37,7 +37,7 @@ namespace FiscalVerificationOfInvoices_SLO
             if (Test)
             {
                 m_usrc_FVI_SLO.SetTestCertificate();
-                lngRPM.s_Furs_Test_Environment.Text(this.lbl_Environment);
+                lng.s_Furs_Test_Environment.Text(this.lbl_Environment);
                 this.lbl_Environment.ForeColor = Color.HotPink;
                 this.txt_CertificateFile.Text = Properties.Settings.Default.furscertificateFileName_TEST;
                 this.txt_CertificatePassword.Text = Properties.Settings.Default.fursCertPass_TEST;
@@ -47,7 +47,7 @@ namespace FiscalVerificationOfInvoices_SLO
             }
             else
             {
-                lngRPM.s_Furs_Environment.Text(this.lbl_Environment);
+                lng.s_Furs_Environment.Text(this.lbl_Environment);
                 this.lbl_Environment.ForeColor = Color.DarkBlue;
                 this.txt_CertificateFile.Text = Properties.Settings.Default.furscertificateFileName;
                 this.txt_CertificatePassword.Text = Properties.Settings.Default.fursCertPass;
@@ -61,7 +61,7 @@ namespace FiscalVerificationOfInvoices_SLO
         private void btn_BrowseCertificateFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog opnf = new OpenFileDialog();
-            opnf.Title = lngRPM.s_SelectCertificate.s;
+            opnf.Title = lng.s_SelectCertificate.s;
 
             if (opnf.ShowDialog() == DialogResult.OK)
             {

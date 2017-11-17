@@ -76,6 +76,7 @@
     <Compile Include="Form_Tool_SelectItem.Designer.cs">
       <DependentUpon>Form_Tool_SelectItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="lng.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

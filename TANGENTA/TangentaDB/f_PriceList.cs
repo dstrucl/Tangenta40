@@ -204,7 +204,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (MessageBox.Show(parent_ctrl, lngRPM.s_PriceListIsNotUpdatedBecauseYouDidnotSelect.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
+                    if (MessageBox.Show(parent_ctrl, lng.s_PriceListIsNotUpdatedBecauseYouDidnotSelect.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
                     {
                         return false;
                     }
@@ -247,7 +247,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    if (MessageBox.Show(parent_ctrl, lngRPM.s_PriceListIsNotUpdatedBecauseYouDidnotSelect.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
+                    if (MessageBox.Show(parent_ctrl, lng.s_PriceListIsNotUpdatedBecauseYouDidnotSelect.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
                     {
                         return false;
                     }
@@ -476,7 +476,7 @@ namespace TangentaDB
             {
                 if (dt_Price_Item_VIEW.Rows.Count > 0)
                 {
-                    //uwpf_GUI.Price_Undefined_Window piu_w = new uwpf_GUI.Price_Undefined_Window(lngRPM.s_ItemPriceUndefined.s, dt_Price_Item_VIEW, xdbTables);
+                    //uwpf_GUI.Price_Undefined_Window piu_w = new uwpf_GUI.Price_Undefined_Window(lng.s_ItemPriceUndefined.s, dt_Price_Item_VIEW, xdbTables);
                     //bEdit = (bool) piu_w.ShowDialog();
                     bEdit = true;
                 }

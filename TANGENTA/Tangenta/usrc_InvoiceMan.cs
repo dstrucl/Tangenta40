@@ -65,8 +65,8 @@ namespace Tangenta
         public usrc_InvoiceMan()
         {
             InitializeComponent();
-            lngRPM.s_btn_New.Text(btn_New);
-            lngRPM.s_Year.Text(lbl_FinancialYear);
+            lng.s_btn_New.Text(btn_New);
+            lng.s_Year.Text(lbl_FinancialYear);
         }
 
         public void SetInitialMode()
@@ -179,12 +179,12 @@ namespace Tangenta
 
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType!");
 
-            InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.TaxInvoice);
+            InvoiceType_DocInvoice = new Tangenta.usrc_Invoice.InvoiceType(lng.s_Invoice.s, Tangenta.usrc_Invoice.enum_Invoice.TaxInvoice);
 
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before List_InvoiceType.Add(InvoiceType_DocInvoice)");
             List_InvoiceType.Add(InvoiceType_DocInvoice);
 
-            InvoiceType_DocProformaInvoice = new Tangenta.usrc_Invoice.InvoiceType(lngRPM.s_DocProformaInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
+            InvoiceType_DocProformaInvoice = new Tangenta.usrc_Invoice.InvoiceType(lng.s_DocProformaInvoice.s, Tangenta.usrc_Invoice.enum_Invoice.ProformaInvoice);
 
             LogFile.LogFile.WriteDEBUG("usrc_InvoiceMan.cs:Init():before List_InvoiceType.Add(InvoiceType_DocProformaInvoice);");
 

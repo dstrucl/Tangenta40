@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -252,13 +252,13 @@ namespace Excell_Export
                         }
                         catch (Exception Ex)
                         {
-                            MessageBox.Show(lngRPM.s_ErrorStartExecuteExcel.s + ":" + FileName + "," + lngRPM.s_Error.s + " = " +Ex.Message);
+                            MessageBox.Show(lng.s_ErrorStartExecuteExcel.s + ":" + FileName + "," + lngRPM.s_Error.s + " = " +Ex.Message);
                         }
 
                     }
                     catch (Exception Ex)
                     {
-                        MessageBox.Show(lngRPM.s_ErrorInExportToExcel.s + ":" + Ex.Message);
+                        MessageBox.Show(lng.s_ErrorInExportToExcel.s + ":" + Ex.Message);
                         m_Progress_Thread.End();
                     }
                     
@@ -271,7 +271,7 @@ namespace Excell_Export
             }
             else
             {
-                MessageBox.Show(lngRPM.s_ThereAreNoSelectedRowsToExport.s);
+                MessageBox.Show(lng.s_ThereAreNoSelectedRowsToExport.s);
                 return false;
             }
         }

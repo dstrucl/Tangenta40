@@ -1195,25 +1195,25 @@ namespace TangentaDB
             }
         }
 
-        public void Set_dgv_selected_ShopB_Items_Columns(DataGridView dgv_SelectedShopB_Items)
+        public void Set_dgv_selected_ShopB_Items_Columns(DataGridView lng)
         {
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemName].HeaderText = lngRPM.s_Shop_B.s;
-            //this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemName].MinimumWidth = 120;
-            //this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemName].Width = 120;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceWithoutTax].HeaderText = lngRPM.s_PriceWithoutTax.s;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceTax].HeaderText = lngRPM.s_Tax.s;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPrice].HeaderText = lngRPM.s_EndPrice.s; 
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_Count].HeaderText = lngRPM.s_Quantity.s;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = false;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ShopBItem_ID].Visible = false;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_Selected_Atom_Price_ShopBItem_ID].Visible = false;
-            //dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index].Visible = false;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = false;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].Visible = true;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].HeaderText = lngRPM.s_RetailPricePerUnit.s;
+            lng.Columns[DBtcn.column_SelectedShopBItemName].HeaderText = lngRPM.s_Shop_B.s;
+            //this.lng.Columns[DBtcn.column_SelectedShopBItemName].MinimumWidth = 120;
+            //this.lng.Columns[DBtcn.column_SelectedShopBItemName].Width = 120;
+            lng.Columns[DBtcn.column_SelectedShopBItemPriceWithoutTax].HeaderText = lngRPM.s_PriceWithoutTax.s;
+            lng.Columns[DBtcn.column_SelectedShopBItemPriceTax].HeaderText = lngRPM.s_Tax.s;
+            lng.Columns[DBtcn.column_SelectedShopBItemPrice].HeaderText = lngRPM.s_EndPrice.s; 
+            lng.Columns[DBtcn.column_SelectedShopBItem_Count].HeaderText = lngRPM.s_Quantity.s;
+            lng.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = false;
+            lng.Columns[DBtcn.column_SelectedShopBItem_ShopBItem_ID].Visible = false;
+            lng.Columns[DBtcn.column_Selected_Atom_Price_ShopBItem_ID].Visible = false;
+            //lng.Columns[DBtcn.column_SelectedShopBItem_dt_ShopBItem_Index].Visible = false;
+            lng.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = false;
+            lng.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].Visible = true;
+            lng.Columns[DBtcn.column_SelectedShopBItemRetailPricePerUnit].HeaderText = lngRPM.s_RetailPricePerUnit.s;
 
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_TaxName].Visible = false;
-            dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_TaxRate].Visible = false;
+            lng.Columns[DBtcn.column_SelectedShopBItem_TaxName].Visible = false;
+            lng.Columns[DBtcn.column_SelectedShopBItem_TaxRate].Visible = false;
         }
 
         private int FindRowIndex_In_dtDraft_Atom_SimpleItem(long DocInvoice_ShopB_Item_ID)

@@ -47,7 +47,7 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             InitializeComponent();
             m_usrc_FVI_SLO = xusrc_FVI_SLO;
-            lngRPM.s_SalesBookInvoice.Text(this);
+            lng.s_SalesBookInvoice.Text(this);
             m_SerialNumber = xSerialNaumber;
             m_eMode = xEmode;
             switch (m_eMode)
@@ -85,7 +85,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 set_number++;
                 if (set_number > Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber)
                 {
-                    MessageBox.Show(lngRPM.s_LastSetNumberIsMoreThan_MAX_SalesBookInvoice_SetNumber.s+"\r\n" + lngRPM.s_TakeNewSalesBookInvoiceAndWriteItsSerialNumberFirst.s);
+                    MessageBox.Show(lng.s_LastSetNumberIsMoreThan_MAX_SalesBookInvoice_SetNumber.s+"\r\n" + lng.s_TakeNewSalesBookInvoiceAndWriteItsSerialNumberFirst.s);
                     txt_SerialNumber.Text = "";
                     txt_SerialNumber.Focus();
                     return 1;
@@ -138,7 +138,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    MessageBox.Show(this, lngRPM.s_SalesBookInvoice_SetNumber_GraterThanAllSetsDefinedInSettings.s);
+                    MessageBox.Show(this, lng.s_SalesBookInvoice_SetNumber_GraterThanAllSetsDefinedInSettings.s);
                     return false;
                 }
                 
@@ -146,7 +146,7 @@ namespace FiscalVerificationOfInvoices_SLO
             else
             {
                 m_SetNumber = "";
-                MessageBox.Show(this, lngRPM.s_SalesBookInvoice_SetNumber_Not_OK.s);
+                MessageBox.Show(this, lng.s_SalesBookInvoice_SetNumber_Not_OK.s);
             }
             return false;
         }
@@ -163,7 +163,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    if (MessageBox.Show(this,lngRPM.sSalesBookInvoice_SerialNumber_does_not_match_patern.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
+                    if (MessageBox.Show(this,lng.sSalesBookInvoice_SerialNumber_does_not_match_patern.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2)==DialogResult.Yes)
                     {
                         m_SerialNumber = txt_SerialNumber.Text;
                         return true;

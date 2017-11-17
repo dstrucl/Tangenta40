@@ -22,15 +22,15 @@ namespace Tangenta
         public Form_Reset_Properties_Settings_Default()
         {
             InitializeComponent();
-            lngRPM.s_AreYouSure_ToResetSettingsToInitialvalues.Text(label1);
+            lng.s_AreYouSure_ToResetSettingsToInitialvalues.Text(label1);
             this.chk_Tangenta_EXE.Checked = true;
             this.chk_DBConnectionControl_DLL.Checked = true;
             this.chk_LanguageControl_DLL.Checked = true;
             this.chk_TangentaPrint_DLL.Checked = true;
             this.chk_FiscalVerifiaction.Checked = false;
             this.chk_LogFile_DLL.Checked = true; 
-            lngRPM.s_Yes.Text(btn_Yes);
-            lngRPM.s_No.Text(btn_No);
+            lng.s_Yes.Text(btn_Yes);
+            lng.s_No.Text(btn_No);
         }
 
         private void btn_Yes_Click(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace Tangenta
         public Form_Select_Notice()
         {
             InitializeComponent();
-            lngRPM.s_SelectNotice.Text(this);
+            lng.s_SelectNotice.Text(this);
         }
 
         private void Form_Select_Notice_Load(object sender, EventArgs e)

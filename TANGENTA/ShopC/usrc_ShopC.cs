@@ -91,10 +91,10 @@ namespace ShopC
         public usrc_ShopC()
         {
             InitializeComponent();
-            lngRPM.s_lbl_Stock.Text(lbl_Stock);
-            lngRPM.s_lbl_Items.Text(lbl_Items);
+            lng.s_lbl_Stock.Text(lbl_Stock);
+            lng.s_lbl_Items.Text(lbl_Items);
             usrc_ItemList.Init(this.usrc_Atom_ItemsList);
-            lngRPM.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
+            lng.s_AutomaticSelectionOfItemFromStock.Text(chk_AutomaticSelectionOfItemFromStock);
 
         }
 
@@ -122,7 +122,7 @@ namespace ShopC
                 DBtcn = new DBTablesAndColumnNames();
             }
 
-            lngRPM.s_Shop_C.Text(lbl_ShopC_Name);
+            lng.s_Shop_C.Text(lbl_ShopC_Name);
 
             this.usrc_Atom_ItemsList.Init(usrc_ItemList, xm_InvoiceDB, xDBtcn);
             this.usrc_ItemList.Init(xm_InvoiceDB, xDBtcn,this);
@@ -241,7 +241,7 @@ namespace ShopC
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouCanNotEditStockUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouCanNotEditStockUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                 }
 
             }
@@ -312,7 +312,7 @@ namespace ShopC
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouCanNotEditItemsUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouCanNotEditItemsUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                 }
 
             }
@@ -389,8 +389,8 @@ namespace ShopC
                 this.m_InvoiceDB.m_CurrentInvoice.m_Basket.AutomaticSelectItems(dt_ShopC_Item_in_Stock, dStockQuantity, ref dQuantitySelectedFromStock, ref UnitSymbol);
                 if (dQuantitySelectedFromStock != dStockQuantity)
                 {
-                    string smsg = Item_UniqueName + ":" + lngRPM.s_Stock_dQuantity.s + " = " + dQuantitySelectedFromStock.ToString() + " " + UnitSymbol;
-                    if (XMessage.Box.Show(this, lngRPM.s_NotEnoughItemsInStock_DoIgnoreStockQuestion, smsg, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    string smsg = Item_UniqueName + ":" + lng.s_Stock_dQuantity.s + " = " + dQuantitySelectedFromStock.ToString() + " " + UnitSymbol;
+                    if (XMessage.Box.Show(this, lng.s_NotEnoughItemsInStock_DoIgnoreStockQuestion, smsg, lng.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         dFromFactoryQuantity += dStockQuantity - dQuantitySelectedFromStock;
                     }
@@ -465,8 +465,8 @@ namespace ShopC
 
         public void proc_Item_Not_In_Offer(ShopC_Item shopC_Item)
         {
-            string s = "\r\n " + lngRPM.s_Item.s + ":" + shopC_Item.UniqueName_v.v;
-            XMessage.Box.Show(this, lngRPM.s_Item_Not_In_Offer, s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            string s = "\r\n " + lng.s_Item.s + ":" + shopC_Item.UniqueName_v.v;
+            XMessage.Box.Show(this, lng.s_Item_Not_In_Offer, s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
         }
     }
 }

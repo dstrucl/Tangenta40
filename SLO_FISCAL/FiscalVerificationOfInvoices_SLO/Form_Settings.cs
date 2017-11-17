@@ -50,8 +50,8 @@ namespace FiscalVerificationOfInvoices_SLO
             Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber = SetValue(nmUpDn_SalesBookInvoice_NumberOfAllSetsWithinOneBook, Properties.Settings.Default.MAX_SalesBookInvoice_SetNumber);
             Properties.Settings.Default.Save();
 
-            lngRPM.s_Furs_Environment.Text(rdb_FURS_Environment);
-            lngRPM.s_Furs_Test_Environment.Text(rdb_FURS_TEST_Environment);
+            lng.s_Furs_Environment.Text(rdb_FURS_Environment);
+            lng.s_Furs_Test_Environment.Text(rdb_FURS_TEST_Environment);
 
             this.rdb_FURS_TEST_Environment.Checked = false;
             this.rdb_FURS_Environment.Checked = false;

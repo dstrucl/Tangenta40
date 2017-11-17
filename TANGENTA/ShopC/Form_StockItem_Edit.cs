@@ -36,11 +36,11 @@ namespace ShopC
             InitializeComponent();
             nav = xnav;
             m_Item_Data = x_Item_Data;
-            lngRPM.s_lbl_Item_Stock.Text(lbl_Item_Stock);
+            lng.s_lbl_Item_Stock.Text(lbl_Item_Stock);
             this.lbl_Item.Text = m_Item_Data.Item_UniqueName.v;
             dbTables = xdbTables;
             tbl = xtbl;
-            this.Text = lngRPM.s_Stock.s;
+            this.Text = lng.s_Stock.s;
             string selection = @"Stock_$_ppi_$_i_$$UniqueName,Stock_$$dQuantity,Stock_$$ExpiryDate, Stock_$_ppi_$_pp_$$PurchasePricePerUnit,Stock_$$ImportTime,Stock_$_ppi_$_i_$$Description,Stock_$_ppi_$_st_$_sup_$_c_$_orgd_$_org_$$Name,Stock_$_ppi_$_i_$$Code,Stock_$_ppi_$_i_$_u_$$Name,Stock_$_ppi_$_i_$_u_$$Symbol,Stock_$_ppi_$_i_$_u_$$DecimalPlaces,Stock_$_ppi_$_i_$_u_$$StorageOption,Stock_$_ppi_$_i_$_exp_$$ExpectedShelfLifeInDays,Stock_$_ppi_$_i_$_exp_$$SaleBeforeExpiryDateInDays,Stock_$_ppi_$_i_$_exp_$$DiscardBeforeExpiryDateInDays,Stock_$_ppi_$_i_$_wrty_$$WarrantyDuration, Stock_$_ppi_$_i_$_wrty_$$WarrantyDurationType,Stock_$_ppi_$_i_$_wrty_$$WarrantyConditions,Stock_$_ppi_$_i_$_iimg_$$Image_Data,ID";
             if (m_usrc_EditTable.Init(dbTables, tbl, selection,ColumnToOrderBy,false,where_condition,null,false,nav))
             {
@@ -104,7 +104,7 @@ namespace ShopC
         {
             if (m_usrc_EditTable.Changed)
             {
-                if (XMessage.Box.Show(this, lngRPM.s_YouHaveEnteredOrChangedDataButNotSavedThem_Save_YesNo, "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouHaveEnteredOrChangedDataButNotSavedThem_Save_YesNo, "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     m_usrc_EditTable.Save();
                 }

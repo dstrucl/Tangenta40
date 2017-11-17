@@ -91,16 +91,16 @@ namespace LogFile
         private void SetTextBoxes()
         {
 
-            lbl_Server.Text = lngConn.s_Server.s;
-            lbl_DataBase.Text = lngConn.s_DataBase.s;
-            lbl_UserName.Text = lngConn.s_UserName.s;
-            lbl_Password.Text = lngConn.s_Password.s;
-            btn_Browse_servers.Text = lngConn.s_Browse__.s;
-            btn_Browse_Databases_onServer.Text = lngConn.s_Browse__.s;
-            button_end.Text = lngConn.s_Cancel.s;
-            btn_Action.Text = lngConn.s_ConnectWithDatabase.s;
-            rdb_UseWindowsAuthentication.Text = lngConn.s_WindowsAuthentication.s;
-            rdb_SQL_Server_Authentication.Text = lngConn.s_SQLServerAuthentication.s;
+            lbl_Server.Text = lng.s_Server.s;
+            lbl_DataBase.Text = lng.s_DataBase.s;
+            lbl_UserName.Text = lng.s_UserName.s;
+            lbl_Password.Text = lng.s_Password.s;
+            btn_Browse_servers.Text = lng.s_Browse__.s;
+            btn_Browse_Databases_onServer.Text = lng.s_Browse__.s;
+            button_end.Text = lng.s_Cancel.s;
+            btn_Action.Text = lng.s_ConnectWithDatabase.s;
+            rdb_UseWindowsAuthentication.Text = lng.s_WindowsAuthentication.s;
+            rdb_SQL_Server_Authentication.Text = lng.s_SQLServerAuthentication.s;
 
 
             this.Text = GetTitle();
@@ -150,7 +150,7 @@ namespace LogFile
             }
             else
             {
-                return lngConn.s_ConnectWithDatabase.s;   
+                return lng.s_ConnectWithDatabase.s;   
             }
         }
 
@@ -190,7 +190,7 @@ namespace LogFile
 
                 case ConnectionDialog_enum.EditLoginAndPassword:
                     this.Text = GetTitle(); // "Poveži se z bazo podatkov";
-                    this.btn_Action.Text = lngConn.s_ConnectWithDatabase.s;  //"Poveži se z bazo podatkov";
+                    this.btn_Action.Text = lng.s_ConnectWithDatabase.s;  //"Poveži se z bazo podatkov";
                     this.lbl_Instruction.ForeColor = Color.Blue;
 
                     this.cmb_ServerName.ReadOnly = false;
@@ -198,22 +198,22 @@ namespace LogFile
                     this.cmb_UserName.ReadOnly = false;
                     if (rdb_SQL_Server_Authentication.Checked)
                     {
-                        this.lbl_Instruction.Text = lngConn.s_Enter_UsernName_and_Password_then_press_button.s; //"Vnesite uporabniško ime in geslo. Nato pritisnite gumb poveži se z bazo podatkov.";
+                        this.lbl_Instruction.Text = lng.s_Enter_UsernName_and_Password_then_press_button.s; //"Vnesite uporabniško ime in geslo. Nato pritisnite gumb poveži se z bazo podatkov.";
                         this.txt_Password.Visible = true;
                         this.lbl_Password.Visible = true;
                         this.txt_Password.Focus();
                     }
                     else
                     {
-                        this.lbl_Instruction.Text = lngConn.s_Try_Width_Different_Windows_Log_on_Or_Select_SQL_Authenticatio_UserName_AndPassword.s; //"Vnesite uporabniško ime in geslo. Nato pritisnite gumb poveži se z bazo podatkov.";
+                        this.lbl_Instruction.Text = lng.s_Try_Width_Different_Windows_Log_on_Or_Select_SQL_Authenticatio_UserName_AndPassword.s; //"Vnesite uporabniško ime in geslo. Nato pritisnite gumb poveži se z bazo podatkov.";
                     }
                     this.btn_Action.ForeColor = Color.Blue;
                     break;
 
                 case ConnectionDialog_enum.EditAll:
                     this.Text =  GetTitle(); //"Poveži se z bazo podatkov";
-                    this.btn_Action.Text = lngConn.s_ConnectWithDatabase.s; //"Poveži se z bazo podatkov";
-                    this.lbl_Instruction.Text = lngConn.s_Connection_with_database_was_not_done_yet.s; // "Povezava z bazo podatkov o ambulantnih čakalnih vrstah še ni bila vzpostavljena. Gre za začetno (prvo) vzpostavitev povezave z bazo. Vnesite ime ali IP naslov strežnika, ime podatkovne baze, uporabniško ime in geslo. Nato pritisnite gumb poveži se z bazo podatkov.";
+                    this.btn_Action.Text = lng.s_ConnectWithDatabase.s; //"Poveži se z bazo podatkov";
+                    this.lbl_Instruction.Text = lng.s_Connection_with_database_was_not_done_yet.s; // "Povezava z bazo podatkov o ambulantnih čakalnih vrstah še ni bila vzpostavljena. Gre za začetno (prvo) vzpostavitev povezave z bazo. Vnesite ime ali IP naslov strežnika, ime podatkovne baze, uporabniško ime in geslo. Nato pritisnite gumb poveži se z bazo podatkov.";
                     this.lbl_Instruction.ForeColor = Color.Blue;
                     this.cmb_ServerName.ReadOnly = false;
                     this.cmb_DataBaseName.ReadOnly = false;
@@ -231,9 +231,9 @@ namespace LogFile
                     break;
 
                 case ConnectionDialog_enum.TryAgain_EditAll:
-                    this.Text = lngConn.s_Connection_with_database_not_succeeded_Try_again.s; // "Povezava na bazo podatkov ni uspela, poizkusite znova.";
-                    this.btn_Action.Text = lngConn.s_ConnectWithDatabase.s; //"Poveži se z bazo podatkov";
-                    this.lbl_Instruction.Text = lngConn.s_Connecting_with_database_was_not_successful_Enter_UserName_And_Password_Again_Then_Press_Connect_withDatabase.s; //"Povezavanje z bazo podatkov o ambulantnih čakalnih vrstah ni bilo uspešno. Ponovno preverite in vpišite ime ali IP naslov strežnika, ime podatkovne baze, uporabniško ime ter geslo. Nato pritisnite gumb \"Poveži se z bazo podatkov.\"";
+                    this.Text = lng.s_Connection_with_database_not_succeeded_Try_again.s; // "Povezava na bazo podatkov ni uspela, poizkusite znova.";
+                    this.btn_Action.Text = lng.s_ConnectWithDatabase.s; //"Poveži se z bazo podatkov";
+                    this.lbl_Instruction.Text = lng.s_Connecting_with_database_was_not_successful_Enter_UserName_And_Password_Again_Then_Press_Connect_withDatabase.s; //"Povezavanje z bazo podatkov o ambulantnih čakalnih vrstah ni bilo uspešno. Ponovno preverite in vpišite ime ali IP naslov strežnika, ime podatkovne baze, uporabniško ime ter geslo. Nato pritisnite gumb \"Poveži se z bazo podatkov.\"";
                     this.lbl_Instruction.ForeColor = Color.Red;
                     this.cmb_ServerName.ReadOnly = false;
                     this.cmb_DataBaseName.ReadOnly = false;
@@ -248,10 +248,10 @@ namespace LogFile
                     break;
 
                 case ConnectionDialog_enum.SaveConnectionData:
-                    this.Text = lngConn.s_Save_database_connection_data.s;// "Shrani podatke za povezavo z bazo podatkov ?";
-                    this.lbl_Instruction.Text = lngConn.s_Connection_is_OK_Click_on_button_Save_to_save_connection_data___.s; //"Povezava z bazo je uspela. S klikom na gumb Shrani shranite podatke za povezavo z bazo podatkov, da vam jih nasldenjič (razen gesla) ne bo potrebno znova vpisovati.";
+                    this.Text = lng.s_Save_database_connection_data.s;// "Shrani podatke za povezavo z bazo podatkov ?";
+                    this.lbl_Instruction.Text = lng.s_Connection_is_OK_Click_on_button_Save_to_save_connection_data___.s; //"Povezava z bazo je uspela. S klikom na gumb Shrani shranite podatke za povezavo z bazo podatkov, da vam jih nasldenjič (razen gesla) ne bo potrebno znova vpisovati.";
                     this.lbl_Instruction.ForeColor = Color.Blue;
-                    this.btn_Action.Text = lngConn.s_Save.s; //"Shrani";
+                    this.btn_Action.Text = lng.s_Save.s; //"Shrani";
                     this.cmb_ServerName.ReadOnly = true;
                     this.cmb_DataBaseName.ReadOnly = true;
                     this.cmb_UserName.ReadOnly = true;
@@ -440,7 +440,7 @@ namespace LogFile
                     }
                     else
                     {
-                        MessageBox.Show(lngConn.s_CanNotMakeServerOnlyConnection.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(lng.s_CanNotMakeServerOnlyConnection.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     break;
                 case Log_DBConnection.eDBType.MSSQL:
@@ -494,7 +494,7 @@ namespace LogFile
                     }
                     else
                     {
-                        MessageBox.Show(lngConn.s_CanNotMakeServerOnlyConnection.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(lng.s_CanNotMakeServerOnlyConnection.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     break;
             }

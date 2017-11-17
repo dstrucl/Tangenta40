@@ -46,8 +46,8 @@ namespace CodeTables
                     y += x_usrc_RowReferencedFromTable.Height + 2;
                 }
             }
-            this.btn_Yes.Text = lngRPM.s_Yes.s;
-            this.btn_No.Text = lngRPM.s_No.s;
+            this.btn_Yes.Text = lng.s_Yes.s;
+            this.btn_No.Text = lng.s_No.s;
         }
 
         private void btn_No_Click(object sender, EventArgs e)
@@ -64,7 +64,7 @@ namespace CodeTables
 
         private void usrc_RowReferencedFromTable_List_Dialog_Load(object sender, EventArgs e)
         {
-            this.Text = lngRPM.s_Warning.s;
+            this.Text = lng.s_Warning.s;
             if (Instruction!=null)
             {
                 Instruction.Text(this.lbl_Message);
@@ -72,17 +72,17 @@ namespace CodeTables
             else
             { 
                 List<object> ltext_obj_list = new List<object>();
-                ltext_obj_list.Add(lngRPM.s_RowWithID);
+                ltext_obj_list.Add(lng.s_RowWithID);
                 ltext_obj_list.Add(id.ToString());
-                ltext_obj_list.Add(lngRPM.s_InTable);
+                ltext_obj_list.Add(lng.s_InTable);
                 ltext_obj_list.Add(m_tbl.lngTableName.s);
-                ltext_obj_list.Add(lngRPM.s_IsReferencedSeveralTimes);
+                ltext_obj_list.Add(lng.s_IsReferencedSeveralTimes);
                 ltext_obj_list.Add("!\r\n");
-                ltext_obj_list.Add(lngRPM.s_IfYouChangeThisRowThisWillAffectAllRowsThatAreReferencingIt);
+                ltext_obj_list.Add(lng.s_IfYouChangeThisRowThisWillAffectAllRowsThatAreReferencingIt);
                 ltext_obj_list.Add("\r\n");
-                ltext_obj_list.Add(lngRPM.s_BellowIsTheListOfTableReferences);
+                ltext_obj_list.Add(lng.s_BellowIsTheListOfTableReferences);
                 ltext_obj_list.Add("\r\n");
-                ltext_obj_list.Add(lngRPM.s_ChangeThisRowQuestion);
+                ltext_obj_list.Add(lng.s_ChangeThisRowQuestion);
                 ltext xInstruction = new ltext(ltext_obj_list);
                 xInstruction.Text(lbl_Message);
             }

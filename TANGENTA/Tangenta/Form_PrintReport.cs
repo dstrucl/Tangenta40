@@ -30,9 +30,9 @@ namespace Tangenta
             m_usrc_InvoiceTable = xusrc_InvoiceTable;
             this.lbl_From_To.Text = xusrc_InvoiceTable.lbl_From_To.Text;
             this.Text = "";
-            btn_DURS_output.Text = lngRPM.s_DURS_output.s;
-            this.btn_XML_export.Text = lngRPM.s_XML_export.s;
-            this.btn_VOD_xml_OPAL_export.Text = lngRPM.s_VODxml_OPAL_export.s;
+            btn_DURS_output.Text = lng.s_DURS_output.s;
+            this.btn_XML_export.Text = lng.s_XML_export.s;
+            this.btn_VOD_xml_OPAL_export.Text = lng.s_VODxml_OPAL_export.s;
         }
 
         private void Form_PrintReport_Load(object sender, EventArgs e)

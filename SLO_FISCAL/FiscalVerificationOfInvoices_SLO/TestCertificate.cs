@@ -137,15 +137,15 @@ BBRcHGW4NPpzQ7I9OIz4hopjurrM6AICBAA=";
                     {
                         if (u8_Data[i]!= CertificateData[i])
                         {
-                            MessageBox.Show(lngRPM.s_CertificateNotEqualToBuiltInTestCertificate.s);
+                            MessageBox.Show(lng.s_CertificateNotEqualToBuiltInTestCertificate.s);
                             return false;
                         }
                     }
-                    MessageBox.Show(lngRPM.s_CertificateIsEqualToBuiltInTestCertificate.s);
+                    MessageBox.Show(lng.s_CertificateIsEqualToBuiltInTestCertificate.s);
                 }
                 else
                 {
-                    MessageBox.Show(lngRPM.s_CertificateNotEqualToBuiltInTestCertificate.s +"\r\n "+ lngRPM.ss_Length.s + ":" + iCount.ToString() + "!=" + CertificateData.Length.ToString());
+                    MessageBox.Show(lng.s_CertificateNotEqualToBuiltInTestCertificate.s +"\r\n "+ lng.ss_Length.s + ":" + iCount.ToString() + "!=" + CertificateData.Length.ToString());
                     return false;
                 }
                 TestCertPath = CertificateFullPath;

@@ -207,17 +207,17 @@ namespace TangentaDB
             switch (xePaymentType)
             {
                 case GlobalData.ePaymentType.CASH:
-                    return lngRPM.s_PaymentType_CASH;
+                    return lng.s_PaymentType_CASH;
                 case GlobalData.ePaymentType.CASH_OR_CARD:
-                    return lngRPM.s_PaymentType_CASH_OR_PAYMENT_CARD;
+                    return lng.s_PaymentType_CASH_OR_PAYMENT_CARD;
                 case GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER:
-                    return lngRPM.s_PaymentType_BANK_ACCOUNT_TRANSFER;
+                    return lng.s_PaymentType_BANK_ACCOUNT_TRANSFER;
                 case GlobalData.ePaymentType.ALLREADY_PAID:
-                    return lngRPM.s_PaymentType_ALLREADY_PAID;
+                    return lng.s_PaymentType_ALLREADY_PAID;
                 case GlobalData.ePaymentType.CARD:
-                    return lngRPM.s_PaymentType_PAYMENT_CARD;
+                    return lng.s_PaymentType_PAYMENT_CARD;
                 case GlobalData.ePaymentType.ANY_TYPE:
-                    return lngRPM.s_PaymentType_ANY_TYPE;
+                    return lng.s_PaymentType_ANY_TYPE;
                 default:
                     LogFile.Error.Show("ERROR:TangentaDB:f_MethodOfPayment:Get:ePaymentType == " +xePaymentType.ToString() + "!");
                     return null;
@@ -228,23 +228,23 @@ namespace TangentaDB
         {
             if (s!=null)
             {
-                if (s.ToLower().Equals(lngRPM.s_PaymentType_CASH.s.ToLower()))
+                if (s.ToLower().Equals(lng.s_PaymentType_CASH.s.ToLower()))
                 {
                     return GlobalData.ePaymentType.CASH;
                 }
-                else if (s.ToLower().Equals(lngRPM.s_PaymentType_CASH_OR_PAYMENT_CARD.s.ToLower()))
+                else if (s.ToLower().Equals(lng.s_PaymentType_CASH_OR_PAYMENT_CARD.s.ToLower()))
                 {
                     return GlobalData.ePaymentType.CASH_OR_CARD;
                 }
-                else if (s.ToLower().Equals(lngRPM.s_PaymentType_PAYMENT_CARD.s.ToLower()))
+                else if (s.ToLower().Equals(lng.s_PaymentType_PAYMENT_CARD.s.ToLower()))
                 {
                     return GlobalData.ePaymentType.CARD;
                 }
-                else if (s.ToLower().Equals(lngRPM.s_PaymentType_BANK_ACCOUNT_TRANSFER.s.ToLower()))
+                else if (s.ToLower().Equals(lng.s_PaymentType_BANK_ACCOUNT_TRANSFER.s.ToLower()))
                 {
                     return GlobalData.ePaymentType.BANK_ACCOUNT_TRANSFER;
                 }
-                else if (s.ToLower().Equals(lngRPM.s_PaymentType_ALLREADY_PAID.s.ToLower()))
+                else if (s.ToLower().Equals(lng.s_PaymentType_ALLREADY_PAID.s.ToLower()))
                 {
                     return GlobalData.ePaymentType.ALLREADY_PAID;
                 }

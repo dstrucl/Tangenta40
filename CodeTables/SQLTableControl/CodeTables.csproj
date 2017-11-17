@@ -123,6 +123,7 @@
     <Compile Include="InputControl_Document.Designer.cs">
       <DependentUpon>InputControl_Document.cs</DependentUpon>
     </Compile>
+    <Compile Include="lng.cs" />
     <Compile Include="pic_Changed.cs">
       <SubType>Component</SubType>
     </Compile>

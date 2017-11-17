@@ -36,11 +36,11 @@ namespace Password
         public usrc_Password()
         {
             InitializeComponent();
-            lngRPM.s_Enter_Administrator_Password.Text(lbl_EnterAdministratorPasword);
-            lngRPM.s_Wrong_Password.Text(lbl_WrongPassword);
-            lngRPM.s_OK.Text(btn_OK);
-            lngRPM.s_Cancel.Text(btn_Cancel);
-            lngRPM.s_RememberPasswordForSession.Text(chk_RememberPasswordInSession);
+            lng.s_Enter_Administrator_Password.Text(lbl_EnterAdministratorPasword);
+            lng.s_Wrong_Password.Text(lbl_WrongPassword);
+            lng.s_OK.Text(btn_OK);
+            lng.s_Cancel.Text(btn_Cancel);
+            lng.s_RememberPasswordForSession.Text(chk_RememberPasswordInSession);
             this.Text = "";
             lbl_WrongPassword.Visible = false;
         }

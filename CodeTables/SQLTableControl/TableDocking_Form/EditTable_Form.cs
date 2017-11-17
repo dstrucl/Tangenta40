@@ -33,7 +33,7 @@ namespace CodeTables
             m_TableDockingForm = dtF;
             this.Icon = Properties.Resources.SmallEditIcon;
             InitializeComponent();
-            this.Text = lngRPM.s_EditTable.s + tbl.lngTableName.s + " (" + tbl.TableName + ")";
+            this.Text = lng.s_EditTable.s + tbl.lngTableName.s + " (" + tbl.TableName + ")";
             usrc_EditRow.Init(dbTables, tbl, xSetControls, bReadOnly,xnav);
         }
 

@@ -326,7 +326,7 @@ namespace CodeTables
                                     }
                                     else
                                     {
-                                        Error.Show(lngRPM.s_Error_Table_DoesNotHavePrimary_ID.s);
+                                        Error.Show(lng.s_Error_Table_DoesNotHavePrimary_ID.s);
                                         return false;
                                     }
                                     object oResult = null;
@@ -527,7 +527,7 @@ namespace CodeTables
             //                }
             //                else
             //                {
-            //                    Error.Show(lngRPM.s_Error_Table_DoesNotHavePrimary_ID.s);
+            //                    Error.Show(lng.s_Error_Table_DoesNotHavePrimary_ID.s);
             //                    bRes = false;
             //                }
 
@@ -933,11 +933,11 @@ namespace CodeTables
                             string sValue = GetString(value);
                             if (sValue!=null)
                             {
-                                MessageBox.Show(lngRPM.s_Data_in_Column.s + ":" + col.Name_in_language.s + " (" + col.Name + ") " + lngRPM.s_In_Table.s + " " + this.lngTableName.s + " (" + this.TableName + ") " + lngRPM.s_MustBeUnique.s + ".\r\n" + lngRPM.s_Value.s + ":" + sValue + " " + lngRPM.s_AllreadyExistForTable.s + " " +this.lngTableName.s + " (" + this.TableName + ") ");
+                                MessageBox.Show(lng.s_Data_in_Column.s + ":" + col.Name_in_language.s + " (" + col.Name + ") " + lng.s_In_Table.s + " " + this.lngTableName.s + " (" + this.TableName + ") " + lng.s_MustBeUnique.s + ".\r\n" + lng.s_Value.s + ":" + sValue + " " + lng.s_AllreadyExistForTable.s + " " +this.lngTableName.s + " (" + this.TableName + ") ");
                             }
                             else
                             {
-                                MessageBox.Show(lngRPM.s_Data_in_Column.s + ":" + col.Name_in_language.s + " (" + col.Name + ") " + " " + lngRPM.s_In_Table.s +" " + this.lngTableName.s + " (" + this.TableName + ") " + lngRPM.s_MustBeUnique.s);
+                                MessageBox.Show(lng.s_Data_in_Column.s + ":" + col.Name_in_language.s + " (" + col.Name + ") " + " " + lng.s_In_Table.s +" " + this.lngTableName.s + " (" + this.TableName + ") " + lng.s_MustBeUnique.s);
                             }
                         }
                         return false;

@@ -19,7 +19,7 @@ using TangentaTableClass;
 using LanguageControl;
 using DBConnectionControl40;
 using TangentaDB;
-using FormDiscount;
+using Form_Discount;
 using PriseLists;
 
 namespace ShopB
@@ -78,8 +78,8 @@ namespace ShopB
         {
             InitializeComponent();
             idgv_ShopB_Items_Width_default = this.dgv_ShopB_Items.Width;
-            lngRPM.s_lbl_SelectedSimpleItems.Text(lbl_ShopB_Name);
-            lngRPM.s_lbl_SimpleItems.Text(lbl_ShopB_Items);
+            lng.s_lbl_SelectedSimpleItems.Text(lbl_ShopB_Name);
+            lng.s_lbl_SimpleItems.Text(lbl_ShopB_Items);
         }
 
         public delegate void delegate_ItemUpdated(long ID,DataTable dt_SelectedShopBItem);
@@ -97,7 +97,7 @@ namespace ShopB
 
         public void Init(ShopABC x_InvoiceDB, DBTablesAndColumnNames xDBtcn, string shops_in_use, NavigationButtons.Navigation xnav)
         {
-            lngRPM.s_Shop_B.Text(lbl_ShopB_Name);
+            lng.s_Shop_B.Text(lbl_ShopB_Name);
 
             Layout = eLayout.NONE;
             m_InvoiceDB = x_InvoiceDB;
@@ -141,7 +141,7 @@ namespace ShopB
             dt_SelectedShopBItem.Columns.Add(DBtcn.column_SelectedShopBItem_ExtraDiscount, DBtcn.column_SelectedShopBItem_ExtraDiscount_TYPE);
             string Err = null;
             this.usrc_PriceList1.Init(GlobalData.BaseCurrency.ID, usrc_PriceList_Edit.eShopType.ShopB, shops_in_use,xnav, ref Err);
-            this.m_usrc_Item_Group_Handler.ShopName = lngRPM.s_Shop_B.s;
+            this.m_usrc_Item_Group_Handler.ShopName = lng.s_Shop_B.s;
         }
 
         public void SetMode(eMode mode)
@@ -397,7 +397,7 @@ namespace ShopB
             {
                 ExtraDiscount = (decimal)dt_SelectedShopBItem.Rows[iSelectedShopBItemRow][DBtcn.column_SelectedShopBItem_ExtraDiscount];
             }
-            Form_Discount discount_frm = new Form_Discount(RetailPricePerUnit, null,ExtraDiscount, ShopBItem_Name);
+            Form_Discount.Form_Discount discount_frm = new Form_Discount.Form_Discount(RetailPricePerUnit, null,ExtraDiscount, ShopBItem_Name);
             if (discount_frm.ShowDialog() == DialogResult.OK)
             {
                 ExtraDiscount = discount_frm.ExtraDiscount;
@@ -706,21 +706,21 @@ namespace ShopB
                 {
                     dgv_total_discount_column = new DataGridViewTextBoxColumn();
                     dgv_total_discount_column.Name = column_total_discount;
-                    dgv_total_discount_column.HeaderText = lngRPM.s_TotalDiscount.s;
+                    dgv_total_discount_column.HeaderText = lng.s_TotalDiscount.s;
                     this.dgv_SelectedShopB_Items.Columns.Add(dgv_total_discount_column);
                 }
                 this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].Visible = true;
                 this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].Visible = true;
 
-                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].HeaderText = lngRPM.s_PriceListDiscount.s;
-                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].HeaderText = lngRPM.s_ExtraDiscount.s;
-                this.dgv_SelectedShopB_Items.Columns[column_total_discount].HeaderText = lngRPM.s_TotalDiscount.s;
+                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItemPriceDiscount].HeaderText = lng.s_PriceListDiscount.s;
+                this.dgv_SelectedShopB_Items.Columns[DBtcn.column_SelectedShopBItem_ExtraDiscount].HeaderText = lng.s_ExtraDiscount.s;
+                this.dgv_SelectedShopB_Items.Columns[column_total_discount].HeaderText = lng.s_TotalDiscount.s;
                 Layout = eLayout.VIEW;
             }
             if (col_Discount == null)
             { 
                 col_Discount = new DataGridViewTextBoxColumn();
-                col_Discount.HeaderText = lngRPM.s_Discount.s;
+                col_Discount.HeaderText = lng.s_Discount.s;
                 col_Discount.Name = column_SelectedShopBItem_btn_discount;
                 col_Discount.Width = 32;
                 this.dgv_SelectedShopB_Items.Columns.Insert(4, col_Discount);
@@ -966,18 +966,18 @@ namespace ShopB
                 dgv_ShopB_Items.Columns[DBtcn.colShopBItem_ID].Visible = false;
                 dgv_ShopB_Items.Columns[DBtcn.colShopBItem_ShopBItem_Image_Image_Hash].Visible = false;
 
-                dgv_ShopB_Items.Columns["SimpleItem_Abbreviation"].HeaderText = lngRPM.s_dgv_SimpleItems_column_SimpleItem_Abbreviation.s;
-                dgv_ShopB_Items.Columns["RetailSimpleItemPrice"].HeaderText = lngRPM.s_dgv_SimpleItems_column_RetailSimpleItemPrice.s;
-                dgv_ShopB_Items.Columns["SimpleItem_Name"].HeaderText = lngRPM.s_dgv_SimpleItems_column_SimpleItem_Name.s;
-                dgv_ShopB_Items.Columns["Discount"].HeaderText = lngRPM.s_dgv_SimpleItems_column_Discount.s;
-                dgv_ShopB_Items.Columns["PriceList_Name"].HeaderText = lngRPM.s_dgv_SimpleItems_column_PriceList_Name.s;
-                dgv_ShopB_Items.Columns["Taxation_Name"].HeaderText = lngRPM.s_dgv_SimpleItems_column_Taxation_Name.s;
-                dgv_ShopB_Items.Columns["Taxation_Rate"].HeaderText = lngRPM.s_dgv_SimpleItems_column_Taxation_Rate.s;
-                dgv_ShopB_Items.Columns["SimpleItem_Code"].HeaderText = lngRPM.s_dgv_SimpleItems_column_SimpleItem_Code.s;
-                dgv_ShopB_Items.Columns["SimpleItem_Image_Image_Data"].HeaderText = lngRPM.s_dgv_SimpleItems_column_SimpleItem_Image_Image_Data.s;
-                dgv_ShopB_Items.Columns["s1_name"].HeaderText = lngRPM.s_dgv_SimpleItems_column_s1_name.s;
-                dgv_ShopB_Items.Columns["s2_name"].HeaderText = lngRPM.s_dgv_SimpleItems_column_s2_name.s;
-                dgv_ShopB_Items.Columns["s3_name"].HeaderText = lngRPM.s_dgv_SimpleItems_column_s3_name.s;
+                dgv_ShopB_Items.Columns["SimpleItem_Abbreviation"].HeaderText = lng.s_dgv_SimpleItems_column_SimpleItem_Abbreviation.s;
+                dgv_ShopB_Items.Columns["RetailSimpleItemPrice"].HeaderText = lng.s_dgv_SimpleItems_column_RetailSimpleItemPrice.s;
+                dgv_ShopB_Items.Columns["SimpleItem_Name"].HeaderText = lng.s_dgv_SimpleItems_column_SimpleItem_Name.s;
+                dgv_ShopB_Items.Columns["Discount"].HeaderText = lng.s_dgv_SimpleItems_column_Discount.s;
+                dgv_ShopB_Items.Columns["PriceList_Name"].HeaderText = lng.s_dgv_SimpleItems_column_PriceList_Name.s;
+                dgv_ShopB_Items.Columns["Taxation_Name"].HeaderText = lng.s_dgv_SimpleItems_column_Taxation_Name.s;
+                dgv_ShopB_Items.Columns["Taxation_Rate"].HeaderText = lng.s_dgv_SimpleItems_column_Taxation_Rate.s;
+                dgv_ShopB_Items.Columns["SimpleItem_Code"].HeaderText = lng.s_dgv_SimpleItems_column_SimpleItem_Code.s;
+                dgv_ShopB_Items.Columns["SimpleItem_Image_Image_Data"].HeaderText = lng.s_dgv_SimpleItems_column_SimpleItem_Image_Image_Data.s;
+                dgv_ShopB_Items.Columns["s1_name"].HeaderText = lng.s_dgv_SimpleItems_column_s1_name.s;
+                dgv_ShopB_Items.Columns["s2_name"].HeaderText = lng.s_dgv_SimpleItems_column_s2_name.s;
+                dgv_ShopB_Items.Columns["s3_name"].HeaderText = lng.s_dgv_SimpleItems_column_s3_name.s;
 
 
                 if (No_btn_Select_column(dgv_ShopB_Items))

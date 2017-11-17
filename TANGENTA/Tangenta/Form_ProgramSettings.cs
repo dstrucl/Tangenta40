@@ -36,12 +36,12 @@ namespace Tangenta
             InitializeComponent();
             nav = xnav;
             this.usrc_NavigationButtons1.Init(nav);
-            lngRPM.sProgramSettings.Text(this);
-            lngRPM.s_LogFile.Text(btn_LogFile);
-            lngRPM.s_Language.Text(lbl_Language);
-            lngRPM.s_FullScreen.Text(chk_FullScreen);
-            lngRPM.s_chk_AllowToEditText.Text(chk_AllowToEditText);
-            lngRPM.s_ElectronicDevice_ID.Text(lbL_ElectronicDevice_ID);
+            lng.sProgramSettings.Text(this);
+            lng.s_LogFile.Text(btn_LogFile);
+            lng.s_Language.Text(lbl_Language);
+            lng.s_FullScreen.Text(chk_FullScreen);
+            lng.s_chk_AllowToEditText.Text(chk_AllowToEditText);
+            lng.s_ElectronicDevice_ID.Text(lbL_ElectronicDevice_ID);
             default_language_ID = DynSettings.LanguageID;
             newLanguage = default_language_ID;
             cmb_Language.DataSource = DynSettings.s_language.sTextArr;
@@ -129,7 +129,7 @@ namespace Tangenta
                 {
                     bChanged = true;
                     Properties.Settings.Default.LanguageID = newLanguage;
-                    XMessage.Box.Show(this, lngRPM.s_YouHaveChangedLanguageYouMustRestartProgramToUseNewLanguage, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouHaveChangedLanguageYouMustRestartProgramToUseNewLanguage, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
                 }
                 if (bChanged)
                 {
@@ -138,7 +138,7 @@ namespace Tangenta
                 }
                 if (LogManager_dlg != null)
                 {
-                    XMessage.Box.Show(this, lngRPM.s_CloseLogManagerDialog, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_CloseLogManagerDialog, "", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
                     LogManager_dlg.Show();
                     LogManager_dlg.Focus();
                     return false;

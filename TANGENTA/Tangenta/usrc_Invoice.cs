@@ -549,21 +549,21 @@ namespace Tangenta
             InitializeComponent();
             usrc_AddOn1.Init(this);
             m_mode = emode.view_eInvoiceType;
-            lngRPM.s_Show_Shops.Text(btn_Show_Shops);
-            lngRPM.s_Issuer.Text(lbl_MyOrganisation);
-            lngRPM.s_Number.Text(lbl_Number);
-            lngRPM.s_Currency.Text(lbl_Currency);
-            //btn_BuyerSelect.Text = lngRPM.s_BuyerSelect.s;
-            lngRPM.s_Issue.Text(btn_Issue);
-            lngRPM.s_chk_Storno.Text(chk_Storno);
+            lng.s_Show_Shops.Text(btn_Show_Shops);
+            lng.s_Issuer.Text(lbl_MyOrganisation);
+            lng.s_Number.Text(lbl_Number);
+            lng.s_Currency.Text(lbl_Currency);
+            //btn_BuyerSelect.Text = lng.s_BuyerSelect.s;
+            lng.s_Issue.Text(btn_Issue);
+            lng.s_chk_Storno.Text(chk_Storno);
 
-            lngRPM.s_Shop_AB = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_B.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_B.sText(1));
-            lngRPM.s_Shop_BC = new ltext(lngRPM.s_Shop_B.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_B.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
-            lngRPM.s_Shop_AC = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
-            lngRPM.s_Shop_ABC = new ltext(lngRPM.s_Shop_A.sText(0) + " && " + lngRPM.s_Shop_B.sText(0) + " && " + lngRPM.s_Shop_C.sText(0), lngRPM.s_Shop_A.sText(1) + " && " + lngRPM.s_Shop_B.sText(1) + " && " + lngRPM.s_Shop_C.sText(1));
+            lng.s_Shop_AB = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_B.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_B.sText(1));
+            lng.s_Shop_BC = new ltext(lng.s_Shop_B.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_B.sText(1) + " && " + lng.s_Shop_C.sText(1));
+            lng.s_Shop_AC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_C.sText(1));
+            lng.s_Shop_ABC = new ltext(lng.s_Shop_A.sText(0) + " && " + lng.s_Shop_B.sText(0) + " && " + lng.s_Shop_C.sText(0), lng.s_Shop_A.sText(1) + " && " + lng.s_Shop_B.sText(1) + " && " + lng.s_Shop_C.sText(1));
 
-            lngRPM.s_MyOrganisation.Text(lbl_MyOrganisation);
-            lngRPM.s_Total.Text(this.lbl_Sum);
+            lng.s_MyOrganisation.Text(lbl_MyOrganisation);
+            lng.s_Total.Text(this.lbl_Sum);
 
             //SetMode(m_mode);
 
@@ -592,11 +592,11 @@ namespace Tangenta
             if (mode == emode.view_eInvoiceType)
             {
                 chk_Storno.Visible = true;
-                lngRPM.s_Print.Text(btn_Issue);
+                lng.s_Print.Text(btn_Issue);
             }
             else
             {
-                lngRPM.s_Issue.Text(btn_Issue);
+                lng.s_Issue.Text(btn_Issue);
                 chk_Storno.Visible = false;
             }
 
@@ -707,7 +707,7 @@ namespace Tangenta
         public bool Initialise(usrc_InvoiceMan xusrc_InvoiceMan)
         {
             m_usrc_InvoiceMan = xusrc_InvoiceMan;
-            lngRPM.s_Head.Text(chk_Head);
+            lng.s_Head.Text(chk_Head);
             chk_Head.Checked = Properties.Settings.Default.InvoiceHeaderChecked;
             chk_Head.CheckedChanged += chk_Head_CheckedChanged;
             splitContainer2.Panel1Collapsed = !chk_Head.Checked;
@@ -1191,7 +1191,7 @@ namespace Tangenta
                 {
                     if (Program.Shops_in_use.Contains("B"))
                     {
-                        //if (MessageBox.Show(this, lngRPM.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        //if (MessageBox.Show(this, lng.s_NoSimpleItemData_EnterSimpleItemDataQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         //{
                             this.m_usrc_ShopB.EditShopBItem(xnav);
                             if (this.m_usrc_ShopB.GetShopBItemData(ref iCountSimpleItemData))
@@ -1232,7 +1232,7 @@ namespace Tangenta
                 {
                     if (Program.Shops_in_use.Contains("C"))
                     {
-                        MessageBox.Show(this, lngRPM.s_No_ShopC_Items_or_no_prices_for_those_items.s);
+                        MessageBox.Show(this, lng.s_No_ShopC_Items_or_no_prices_for_those_items.s);
                         return true;
                     }
                     else
@@ -1349,7 +1349,7 @@ do_EditMyOrganisation_Data:
                         //x_usrc_Main.Get_shops_in_use(false);
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_OrganisationData.s);
+                            MessageBox.Show(lng.s_No_OrganisationData.s);
                         }
                         if (EditMyOrganisation_Data(true, xnav))
                         {
@@ -1378,7 +1378,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_MyOrganisation_Tax_ID.s);
+                            MessageBox.Show(lng.s_No_MyOrganisation_Tax_ID.s);
                         }
                         if (EditMyOrganisation_Data(false,xnav))
                         {
@@ -1408,7 +1408,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_MyOrganisation_StreetName.s);
+                            MessageBox.Show(lng.s_No_MyOrganisation_StreetName.s);
                         }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
@@ -1438,7 +1438,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_MyOrganisation_HouseNumber.s);
+                            MessageBox.Show(lng.s_No_MyOrganisation_HouseNumber.s);
                         }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
@@ -1468,7 +1468,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_MyOrganisation_ZIP.s);
+                            MessageBox.Show(lng.s_No_MyOrganisation_ZIP.s);
                         }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
@@ -1497,7 +1497,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_MyOrganisation_City.s);
+                            MessageBox.Show(lng.s_No_MyOrganisation_City.s);
                         }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
@@ -1527,7 +1527,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_MyOrganisation_Country.s);
+                            MessageBox.Show(lng.s_No_MyOrganisation_Country.s);
                         }
                         if (EditMyOrganisation_Data(false, xnav))
                         {
@@ -1563,7 +1563,7 @@ do_EditMyOrganisation_Data:
                         {
                             if (!Program.bFirstTimeInstallation)
                             {
-                                MessageBox.Show(lngRPM.s_No_Office_Data.s);
+                                MessageBox.Show(lng.s_No_Office_Data.s);
                             }
                             if (Edit_myOrg_Office_Data(xnav))
                             {
@@ -1602,7 +1602,7 @@ do_EditMyOrganisation_Data:
                                 {
                                     if (!Program.bFirstTimeInstallation)
                                     {
-                                        MessageBox.Show(lngRPM.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
+                                        MessageBox.Show(lng.s_No_Office_Data_FVI_SLO_RealEstateBP.s);
                                     }
                                     if (Edit_myOrg_Office_Data_FVI_SLO_RealEstateBP(xnav))
                                     {
@@ -1621,7 +1621,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_Office.s);
+                            MessageBox.Show(lng.s_No_Office.s);
                         }
 
                         if (Edit_myOrg_Office(xnav))
@@ -1653,7 +1653,7 @@ do_EditMyOrganisation_Data:
                     {
                         if (!Program.bFirstTimeInstallation)
                         {
-                            MessageBox.Show(lngRPM.s_No_MyOrganisation_Person.s);
+                            MessageBox.Show(lng.s_No_MyOrganisation_Person.s);
                         }
                         if (EditMyOrganisation_Person_Data(0,xnav))
                         {
@@ -2017,9 +2017,9 @@ do_EditMyOrganisation_Data:
             string Err = null;
             NavigationButtons.Navigation xnav = new NavigationButtons.Navigation();
             xnav.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            xnav.btn1_Text = lngRPM.s_OK.s;
+            xnav.btn1_Text = lng.s_OK.s;
             xnav.btn1_Image = null;
-            xnav.btn2_Text = lngRPM.s_Cancel.s; ;
+            xnav.btn2_Text = lng.s_Cancel.s; ;
             xnav.btn2_Image = null;
             xnav.btn1_Visible = true;
             xnav.btn2_Visible = true;
@@ -2491,7 +2491,7 @@ do_EditMyOrganisation_Data:
                 {
                     if (chk_Storno.Checked)
                     {
-                        if (MessageBox.Show(this, lngRPM.s_Invoice.s + ": " + txt_Number.Text + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show(this, lng.s_Invoice.s + ": " + txt_Number.Text + "\r\n" + lng.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             Form_Storno frm_storno_dlg = new Form_Storno(m_ShopABC.m_CurrentInvoice.Doc_ID);
 
@@ -2500,7 +2500,7 @@ do_EditMyOrganisation_Data:
                                 stornoReferenceInvoiceNumber = m_ShopABC.m_CurrentInvoice.NumberInFinancialYear.ToString();
                                 stornoReferenceInvoiceIssueDateTime = frm_storno_dlg.m_InvoiceTime;
                                 string sInvoiceToStorno = frm_storno_dlg.m_sInvoiceToStorno;
-                                if (MessageBox.Show(this,sInvoiceToStorno + "\r\n" + lngRPM.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                                if (MessageBox.Show(this,sInvoiceToStorno + "\r\n" + lng.s_AreYouSureToStornoThisInvoice.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                                 {
     
                                     long Storno_DocInvoice_ID = -1;
@@ -2565,7 +2565,7 @@ do_EditMyOrganisation_Data:
                     }
                     else
                     {
-                        MessageBox.Show(this, lngRPM.s_YouCanNotCnacelInvoiceStorno.s);
+                        MessageBox.Show(this, lng.s_YouCanNotCnacelInvoiceStorno.s);
                         chk_Storno_CanBe_ManualyChanged = false;
                         chk_Storno.Checked = true;
                         chk_Storno_CanBe_ManualyChanged = true;

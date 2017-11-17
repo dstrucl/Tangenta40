@@ -33,8 +33,8 @@ namespace Tangenta
             usrc_NavigationButtons1.Init(nav);
             m_Office_Data_ID = xOffice_Data_ID;
             tbl_FVI_SLO_RealEstateBP = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(FVI_SLO_RealEstateBP)));
-            this.Text = lngRPM.s_Edit_Office_Data_FVI_SLO_RealEstateBP.s;
-            this.usrc_EditTable1.Title = lngRPM.s_Edit_Office_Data_FVI_SLO_RealEstateBP.s;
+            this.Text = lng.s_Edit_Office_Data_FVI_SLO_RealEstateBP.s;
+            this.usrc_EditTable1.Title = lng.s_Edit_Office_Data_FVI_SLO_RealEstateBP.s;
             string selection =    @"FVI_SLO_RealEstateBP_$_officed_$_office_$$Name,
                                     FVI_SLO_RealEstateBP_$_officed_$_office_$$ShortName,
                                     FVI_SLO_RealEstateBP_$$BuildingNumber,
@@ -175,7 +175,7 @@ namespace Tangenta
                     }
                     else if (col.Name.Equals("Community"))
                     {
-                        col.InputControl.SetValue(lngRPMS.s_Community1.s);
+                        col.InputControl.SetValue(lng.s_Community1.s);
                     }
                     else if (col.Name.Equals("CadastralNumber"))
                     {

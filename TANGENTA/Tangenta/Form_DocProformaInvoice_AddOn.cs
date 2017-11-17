@@ -37,7 +37,7 @@ namespace Tangenta
             m_AddOnDPI = x_AddOnDPI;
             m_bPrint = bxPrint;
             m_usrc_AddOn = xusrc_AddOn;
-            this.Text = lngRPM.s_PaymentOfProformaInvoiceAndPrint.s;
+            this.Text = lng.s_PaymentOfProformaInvoiceAndPrint.s;
 
         }
 

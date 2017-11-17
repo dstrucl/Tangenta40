@@ -42,7 +42,7 @@ namespace ShopC
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnToOrderBy = xColumnToOrderBy;
-            this.Text = lngRPM.s_Stock.s;
+            this.Text = lng.s_Stock.s;
 
         }
 

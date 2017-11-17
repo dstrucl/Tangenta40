@@ -63,21 +63,21 @@ namespace Tangenta
             string s_time_extension = dt.Year.ToString() + "-" + dt.Month.ToString() + "-" + dt.Day.ToString() + "_" + dt.Hour.ToString() + "-" + dt.Minute.ToString() + "-" + dt.Second.ToString() + "-" + dt.Millisecond.ToString();
             lbl_FileNames.Text =  filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n";
             XML_Destination_Folder = Properties.Settings.Default.XML_output_folder;
-            this.lbl_VOD_xml_shema.Text = lngRPM.s_VOD_xml_shema_file_path.s;
+            this.lbl_VOD_xml_shema.Text = lng.s_VOD_xml_shema_file_path.s;
             this.cmbR_FilePath.Text = XML_Destination_Folder;
 
-            this.btn_Save.Text = lngRPM.s_Save.s;
-            this.lbl_Folder.Text = lngRPM.s_Folder.s;
-            this.Text = lngRPM.s_Export_to_VOD_XML.s;
-            this.btn_View.Text = lngRPM.s_View.s;
+            this.btn_Save.Text = lng.s_Save.s;
+            this.lbl_Folder.Text = lng.s_Folder.s;
+            this.Text = lng.s_Export_to_VOD_XML.s;
+            this.btn_View.Text = lng.s_View.s;
 
 
-            this.lbl_Konto_Price_with_tax_for_cash.Text = lngRPM.s_Konto_Price_with_tax_for_cash.s;
-            this.lbl_Konto_Price_with_tax_for_payment_cards.Text = lngRPM.s_Konto_Price_with_tax_for_payment_cards.s;
-            this.lbl_Konto_Net_price.Text = lngRPM.s_Konto_Net_price.s;
-            this.lbl_Konto_VAT_general_rate.Text = lngRPM.s_Konto_VAT_general_rate.s;
-            this.lbl_End_Customers_Code.Text = lngRPM.s_End_Customers_Code.s;
-            this.lbl_End_Customes_Name.Text = lngRPM.s_End_Customes_Name.s;
+            this.lbl_Konto_Price_with_tax_for_cash.Text = lng.s_Konto_Price_with_tax_for_cash.s;
+            this.lbl_Konto_Price_with_tax_for_payment_cards.Text = lng.s_Konto_Price_with_tax_for_payment_cards.s;
+            this.lbl_Konto_Net_price.Text = lng.s_Konto_Net_price.s;
+            this.lbl_Konto_VAT_general_rate.Text = lng.s_Konto_VAT_general_rate.s;
+            this.lbl_End_Customers_Code.Text = lng.s_End_Customers_Code.s;
+            this.lbl_End_Customes_Name.Text = lng.s_End_Customes_Name.s;
 
 
             //dt_IZPIS_RACUNI_GLAVE = new DataTable();
@@ -169,7 +169,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        string sMsg = lngRPM.s_Can_not_read_VOD_shema_file_Do_you_want_to_exit.s;
+                        string sMsg = lng.s_Can_not_read_VOD_shema_file_Do_you_want_to_exit.s;
                         sMsg.Replace("%%SHEMAFILE", VOD_xsd_shema_file);
 
                         if (MessageBox.Show(this, sMsg, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -181,7 +181,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    if (MessageBox.Show(this, lngRPM.s_YouDidnot_select_VOD_shema_file_Do_you_want_to_exit.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (MessageBox.Show(this, lng.s_YouDidnot_select_VOD_shema_file_Do_you_want_to_exit.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         return false;
                     }
@@ -684,17 +684,17 @@ namespace Tangenta
                         catch (Exception ex)
                         {
                             res = false;
-                            MessageBox.Show(lngRPM.s_Err_Write_File.s + this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n" + lngRPM.s_Error.s + "=" + ex.Message);
+                            MessageBox.Show(lng.s_Err_Write_File.s + this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n" + lng.s_Error.s + "=" + ex.Message);
                         }
 
-                        MessageBox.Show(this, lngRPM.s_VOD_XML_File.s + ":\r\n    " + this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n    ");
+                        MessageBox.Show(this, lng.s_VOD_XML_File.s + ":\r\n    " + this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n    ");
                         this.Cursor = Cursors.Arrow;
                         this.btn_View.Visible = true;
                         return res;
                     }
                     else
                     {
-                        MessageBox.Show(lngRPM.s_NoInvoicesData.s);
+                        MessageBox.Show(lng.s_NoInvoicesData.s);
                         this.Cursor = Cursors.Arrow;
                         return false;
                     }
@@ -803,8 +803,8 @@ namespace Tangenta
         {
             DateTime xdtStartTime = m_usrc_InvoiceTable.dtStartTime;
             DateTime xdtEndTime = m_usrc_InvoiceTable.dtEndTime;
-            string s = lngRPM.s_from.s + " " + xdtStartTime.Day.ToString() + "." + xdtStartTime.Month.ToString() + "." + xdtStartTime.Year.ToString() + " " 
-                       +lngRPM.s_to.s + " " + xdtEndTime.Day.ToString() + "." + xdtEndTime.Month.ToString() + "." + xdtEndTime.Year.ToString();
+            string s = lng.s_from.s + " " + xdtStartTime.Day.ToString() + "." + xdtStartTime.Month.ToString() + "." + xdtStartTime.Year.ToString() + " " 
+                       +lng.s_to.s + " " + xdtEndTime.Day.ToString() + "." + xdtEndTime.Month.ToString() + "." + xdtEndTime.Year.ToString();
             return s;
 
         }
@@ -822,7 +822,7 @@ namespace Tangenta
             {
                 if (iStartMonth == dtnow.Month )
                 {
-                    MessageBox.Show(lngRPM.s_VODxml_export_for.s + s_period()+"\r\n"+lngRPM.s_you_can_do_VODxml_Output_just_for_past_month.s);
+                    MessageBox.Show(lng.s_VODxml_export_for.s + s_period()+"\r\n"+lng.s_you_can_do_VODxml_Output_just_for_past_month.s);
                     return false;
                 }
             }
@@ -848,7 +848,7 @@ namespace Tangenta
                     }
                 }
             }
-            MessageBox.Show(lngRPM.s_VODxml_export_for.s + s_period() + "\r\n" + lngRPM.s_you_must_have_select_one_month_period_to_do_VODxml_Output.s);
+            MessageBox.Show(lng.s_VODxml_export_for.s + s_period() + "\r\n" + lng.s_you_must_have_select_one_month_period_to_do_VODxml_Output.s);
             return false;
         }
 

@@ -21,12 +21,12 @@ namespace ShopC
             InitializeComponent();
             dt_ShopC_Item_in_Stock = xdt_ShopC_Item_in_Stock;
             dQuantity = xdQuantity;
-            lngRPM.s_OK.Text(btn_OK);
-            lngRPM.s_Cancel.Text(btn_Cancel);
+            lng.s_OK.Text(btn_OK);
+            lng.s_Cancel.Text(btn_Cancel);
             this.Icon = Properties.Resources.StockOutReference;
-            lngRPM.s_Select.Text(lbl_Select);
+            lng.s_Select.Text(lbl_Select);
             lbl_Quantity.Text = dQuantity.ToString() + " " + (string)dt_ShopC_Item_in_Stock.Rows[0]["UnitSymbol"] + " " + (string)dt_ShopC_Item_in_Stock.Rows[0]["Item_UniqueName"];
-            lngRPM.s_Form_SelectItemFromStock.Text(this);
+            lng.s_Form_SelectItemFromStock.Text(this);
 
             dgvx_Item_From_Stock.DataSource = dt_ShopC_Item_in_Stock;
 
@@ -34,17 +34,17 @@ namespace ShopC
             {
                 dgvcol.Visible = false;
             }
-            dgvx_Item_From_Stock.Columns["Stock_dQuantity"].HeaderText = lngRPM.s_Quantity.s;
+            dgvx_Item_From_Stock.Columns["Stock_dQuantity"].HeaderText = lng.s_Quantity.s;
             dgvx_Item_From_Stock.Columns["Stock_dQuantity"].Visible = true;
             dgvx_Item_From_Stock.Columns["Stock_dQuantity"].DisplayIndex = 0;
             dgvx_Item_From_Stock.Columns["Stock_dQuantity"].ReadOnly = true;
 
-            dgvx_Item_From_Stock.Columns["Stock_Expiry_Date"].HeaderText = lngRPM.s_ExpiryDate.s;
+            dgvx_Item_From_Stock.Columns["Stock_Expiry_Date"].HeaderText = lng.s_ExpiryDate.s;
             dgvx_Item_From_Stock.Columns["Stock_Expiry_Date"].Visible = true;
             dgvx_Item_From_Stock.Columns["Stock_Expiry_Date"].DisplayIndex = 1;
             dgvx_Item_From_Stock.Columns["Stock_Expiry_Date"].ReadOnly = true;
 
-            dgvx_Item_From_Stock.Columns["TakeFromStock"].HeaderText = lngRPM.s_QuantityTakenFromStock.s;
+            dgvx_Item_From_Stock.Columns["TakeFromStock"].HeaderText = lng.s_QuantityTakenFromStock.s;
             dgvx_Item_From_Stock.Columns["TakeFromStock"].Visible = true;
             dgvx_Item_From_Stock.Columns["TakeFromStock"].DisplayIndex = 2;
             dgvx_Item_From_Stock.Columns["TakeFromStock"].ReadOnly = false;
@@ -68,22 +68,22 @@ namespace ShopC
             dgvbc_minus.DisplayIndex = 3;
             dgvbc_plus.DisplayIndex = 4;
 
-            dgvx_Item_From_Stock.Columns["StockTake_Name"].HeaderText = lngRPM.s_StockTakeName.s;
+            dgvx_Item_From_Stock.Columns["StockTake_Name"].HeaderText = lng.s_StockTakeName.s;
             dgvx_Item_From_Stock.Columns["StockTake_Name"].Visible = true;
             dgvx_Item_From_Stock.Columns["StockTake_Name"].DisplayIndex = 5;
             dgvx_Item_From_Stock.Columns["StockTake_Name"].ReadOnly = true;
 
-            dgvx_Item_From_Stock.Columns["StockTake_Date"].HeaderText = lngRPM.s_StockTakeDate.s;
+            dgvx_Item_From_Stock.Columns["StockTake_Date"].HeaderText = lng.s_StockTakeDate.s;
             dgvx_Item_From_Stock.Columns["StockTake_Date"].Visible = true;
             dgvx_Item_From_Stock.Columns["StockTake_Date"].DisplayIndex = 6;
             dgvx_Item_From_Stock.Columns["StockTake_Date"].ReadOnly = true;
 
-            dgvx_Item_From_Stock.Columns["Supplier"].HeaderText = lngRPM.s_Supplier.s;
+            dgvx_Item_From_Stock.Columns["Supplier"].HeaderText = lng.s_Supplier.s;
             dgvx_Item_From_Stock.Columns["Supplier"].Visible = true;
             dgvx_Item_From_Stock.Columns["Supplier"].DisplayIndex = 7;
             dgvx_Item_From_Stock.Columns["Supplier"].ReadOnly = true;
 
-            dgvx_Item_From_Stock.Columns["Stock_ImportTime"].HeaderText = lngRPM.s_ImportTime.s;
+            dgvx_Item_From_Stock.Columns["Stock_ImportTime"].HeaderText = lng.s_ImportTime.s;
             dgvx_Item_From_Stock.Columns["Stock_ImportTime"].Visible = true;
             dgvx_Item_From_Stock.Columns["Stock_ImportTime"].DisplayIndex = 8;
             dgvx_Item_From_Stock.Columns["Stock_ImportTime"].ReadOnly = true;
@@ -137,7 +137,7 @@ namespace ShopC
             {
                 dQuantitySelected += (decimal)dr["TakeFromStock"];
             }
-            lngRPM.s_SelectedQuantity.Text(lbl_Select, " " + dQuantitySelected.ToString() + " " + UnitSymbol);
+            lng.s_SelectedQuantity.Text(lbl_Select, " " + dQuantitySelected.ToString() + " " + UnitSymbol);
             if (dQuantitySelected == dQuantity)
             {
                 lbl_Select.ForeColor = Color.DarkGreen;
@@ -154,7 +154,7 @@ namespace ShopC
             ShowSelected();
             if (dQuantitySelected != dQuantity)
             {
-                if (XMessage.Box.Show(this, lngRPM.s_YourSelectedQuantityIsNotEqualTo, lngRPM.s_Warning.s, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                if (XMessage.Box.Show(this, lng.s_YourSelectedQuantityIsNotEqualTo, lng.s_Warning.s, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     this.DialogResult = DialogResult.OK;
                     this.Close();

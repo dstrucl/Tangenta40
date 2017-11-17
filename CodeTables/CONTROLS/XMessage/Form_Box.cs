@@ -81,53 +81,53 @@ namespace XMessage
                 case MessageBoxButtons.AbortRetryIgnore:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Abort;
-                    lngRPM.s_Abort.Text(button1);
+                    lng.s_Abort.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Retry;
-                    lngRPM.s_Retry.Text(button2);
+                    lng.s_Retry.Text(button2);
                     button3.Visible = true;
                     button3.Tag = DialogResult.Ignore;
-                    lngRPM.s_Ignore.Text(button3);
+                    lng.s_Ignore.Text(button3);
                     break;
                 case MessageBoxButtons.OK:
                     button2.Visible = true;
                     button2.Tag = DialogResult.OK;
-                    lngRPM.s_OK.Text(button2);
+                    lng.s_OK.Text(button2);
                     break;
                 case MessageBoxButtons.OKCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.OK;
-                    lngRPM.s_OK.Text(button1);
+                    lng.s_OK.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button2);
+                    lng.s_Cancel.Text(button2);
                     break;
                 case MessageBoxButtons.RetryCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Retry;
-                    lngRPM.s_Retry.Text(button1);
+                    lng.s_Retry.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button2);
+                    lng.s_Cancel.Text(button2);
                     break;
                 case MessageBoxButtons.YesNo:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Yes;
-                    lngRPM.s_Yes.Text(button1);
+                    lng.s_Yes.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.No;
-                    lngRPM.s_No.Text(button2);
+                    lng.s_No.Text(button2);
                     break;
                 case MessageBoxButtons.YesNoCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Yes;
-                    lngRPM.s_Yes.Text(button1);
+                    lng.s_Yes.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.No;
-                    lngRPM.s_No.Text(button2);
+                    lng.s_No.Text(button2);
                     button3.Visible = true;
                     button3.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button3);
+                    lng.s_Cancel.Text(button3);
                     break;
             }
             switch (defaultButton)
@@ -158,7 +158,7 @@ namespace XMessage
             button2.Visible = true;
             button3.Visible = false;
             button2.Tag = DialogResult.OK;
-            lngRPM.s_OK.Text(button2);
+            lng.s_OK.Text(button2);
             button2.Focus();
         }
 
@@ -195,53 +195,53 @@ namespace XMessage
                 case MessageBoxButtons.AbortRetryIgnore:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Abort;
-                    lngRPM.s_Abort.Text(button1);
+                    lng.s_Abort.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Retry;
-                    lngRPM.s_Retry.Text(button2);
+                    lng.s_Retry.Text(button2);
                     button3.Visible = true;
                     button3.Tag = DialogResult.Ignore;
-                    lngRPM.s_Ignore.Text(button3);
+                    lng.s_Ignore.Text(button3);
                     break;
                 case MessageBoxButtons.OK:
                     button2.Visible = true;
                     button2.Tag = DialogResult.OK;
-                    lngRPM.s_OK.Text(button2);
+                    lng.s_OK.Text(button2);
                     break;
                 case MessageBoxButtons.OKCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.OK;
-                    lngRPM.s_OK.Text(button1);
+                    lng.s_OK.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button2);
+                    lng.s_Cancel.Text(button2);
                     break;
                 case MessageBoxButtons.RetryCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Retry;
-                    lngRPM.s_Retry.Text(button1);
+                    lng.s_Retry.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button2);
+                    lng.s_Cancel.Text(button2);
                     break;
                 case MessageBoxButtons.YesNo:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Yes;
-                    lngRPM.s_Yes.Text(button1);
+                    lng.s_Yes.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.No;
-                    lngRPM.s_No.Text(button2);
+                    lng.s_No.Text(button2);
                     break;
                 case MessageBoxButtons.YesNoCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Yes;
-                    lngRPM.s_Yes.Text(button1);
+                    lng.s_Yes.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.No;
-                    lngRPM.s_No.Text(button2);
+                    lng.s_No.Text(button2);
                     button3.Visible = true;
                     button3.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button3);
+                    lng.s_Cancel.Text(button3);
                     break;
             }
             switch (defaultButton)
@@ -290,53 +290,53 @@ namespace XMessage
                 case MessageBoxButtons.AbortRetryIgnore:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Abort;
-                    lngRPM.s_Abort.Text(button1);
+                    lng.s_Abort.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Retry;
-                    lngRPM.s_Retry.Text(button2);
+                    lng.s_Retry.Text(button2);
                     button3.Visible = true;
                     button3.Tag = DialogResult.Ignore;
-                    lngRPM.s_Ignore.Text(button3);
+                    lng.s_Ignore.Text(button3);
                     break;
                 case MessageBoxButtons.OK:
                     button2.Visible = true;
                     button2.Tag = DialogResult.OK;
-                    lngRPM.s_OK.Text(button2);
+                    lng.s_OK.Text(button2);
                     break;
                 case MessageBoxButtons.OKCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.OK;
-                    lngRPM.s_OK.Text(button1);
+                    lng.s_OK.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button2);
+                    lng.s_Cancel.Text(button2);
                     break;
                 case MessageBoxButtons.RetryCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Retry;
-                    lngRPM.s_Retry.Text(button1);
+                    lng.s_Retry.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button2);
+                    lng.s_Cancel.Text(button2);
                     break;
                 case MessageBoxButtons.YesNo:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Yes;
-                    lngRPM.s_Yes.Text(button1);
+                    lng.s_Yes.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.No;
-                    lngRPM.s_No.Text(button2);
+                    lng.s_No.Text(button2);
                     break;
                 case MessageBoxButtons.YesNoCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Yes;
-                    lngRPM.s_Yes.Text(button1);
+                    lng.s_Yes.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.No;
-                    lngRPM.s_No.Text(button2);
+                    lng.s_No.Text(button2);
                     button3.Visible = true;
                     button3.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button3);
+                    lng.s_Cancel.Text(button3);
                     break;
 
             }
@@ -387,53 +387,53 @@ namespace XMessage
                 case MessageBoxButtons.AbortRetryIgnore:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Abort;
-                    lngRPM.s_Abort.Text(button1);
+                    lng.s_Abort.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Retry;
-                    lngRPM.s_Retry.Text(button2);
+                    lng.s_Retry.Text(button2);
                     button3.Visible = true;
                     button3.Tag = DialogResult.Ignore;
-                    lngRPM.s_Ignore.Text(button3);
+                    lng.s_Ignore.Text(button3);
                     break;
                 case MessageBoxButtons.OK:
                     button2.Visible = true;
                     button2.Tag = DialogResult.OK;
-                    lngRPM.s_OK.Text(button2);
+                    lng.s_OK.Text(button2);
                     break;
                 case MessageBoxButtons.OKCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.OK;
-                    lngRPM.s_OK.Text(button1);
+                    lng.s_OK.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button2);
+                    lng.s_Cancel.Text(button2);
                     break;
                 case MessageBoxButtons.RetryCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Retry;
-                    lngRPM.s_Retry.Text(button1);
+                    lng.s_Retry.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button2);
+                    lng.s_Cancel.Text(button2);
                     break;
                 case MessageBoxButtons.YesNo:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Yes;
-                    lngRPM.s_Yes.Text(button1);
+                    lng.s_Yes.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.No;
-                    lngRPM.s_No.Text(button2);
+                    lng.s_No.Text(button2);
                     break;
                 case MessageBoxButtons.YesNoCancel:
                     button1.Visible = true;
                     button1.Tag = DialogResult.Yes;
-                    lngRPM.s_Yes.Text(button1);
+                    lng.s_Yes.Text(button1);
                     button2.Visible = true;
                     button2.Tag = DialogResult.No;
-                    lngRPM.s_No.Text(button2);
+                    lng.s_No.Text(button2);
                     button3.Visible = true;
                     button3.Tag = DialogResult.Cancel;
-                    lngRPM.s_Cancel.Text(button3);
+                    lng.s_Cancel.Text(button3);
                     break;
 
             }

@@ -29,17 +29,17 @@ namespace DBConnectionControl40
 
         private void View_AccessR_Form_Load(object sender, EventArgs e)
         {
-            this.Text = lngConn.s_DataBaseResult_Form_Title.s;
+            this.Text = lng.s_DataBaseResult_Form_Title.s;
 
             if (m_con.WindowsAuthentication)
             {
 
-                lbl_Success.Text = lngConn.s_Connection_to_Database.s + "\"" + m_con.DataSource + "\"" + lngConn.s_with_Windows_authentication_is_OK.s + "\"" + m_con.WindowsAuthentication_UserName + "\"" + lngConn.s_are.s;
+                lbl_Success.Text = lng.s_Connection_to_Database.s + "\"" + m_con.DataSource + "\"" + lng.s_with_Windows_authentication_is_OK.s + "\"" + m_con.WindowsAuthentication_UserName + "\"" + lng.s_are.s;
             }
             else
             {
 
-                lbl_Success.Text = lngConn.s_Connection_to_Database.s + "\"" + m_con.DataSource + "\"" + lngConn.s_with_SQL_authentication_is_OK.s + "\"" + m_con.UserName + "\"" + lngConn.s_are.s; ;
+                lbl_Success.Text = lng.s_Connection_to_Database.s + "\"" + m_con.DataSource + "\"" + lng.s_with_SQL_authentication_is_OK.s + "\"" + m_con.UserName + "\"" + lng.s_are.s; ;
             }
 
             switch (m_con.DBType)

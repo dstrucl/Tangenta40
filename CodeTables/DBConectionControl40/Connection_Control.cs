@@ -32,17 +32,17 @@ namespace DBConnectionControl40
             switch (m_con.DBType)
             {
                 case DBConnection.eDBType.SQLITE:
-                    this.lbl_ServerType.Text = m_con.ConnectionName+":" + lngConn.s_ServerType.s + " = SQLITE";
+                    this.lbl_ServerType.Text = m_con.ConnectionName+":" + lng.s_ServerType.s + " = SQLITE";
                     this.lbl_DataSourceAndDatabase.Text = m_con.DataBase;
                     break;
                 case DBConnection.eDBType.MSSQL:
-                    this.lbl_ServerType.Text = m_con.ConnectionName + ":" + lngConn.s_ServerType.s + " = MSSQL";
-                    this.lbl_DataSourceAndDatabase.Text = lngConn.s_Server.s + " = " + m_con.DataSource + ", " + lngConn.s_DataBase.s + " = " + m_con.DataBase;
+                    this.lbl_ServerType.Text = m_con.ConnectionName + ":" + lng.s_ServerType.s + " = MSSQL";
+                    this.lbl_DataSourceAndDatabase.Text = lng.s_Server.s + " = " + m_con.DataSource + ", " + lng.s_DataBase.s + " = " + m_con.DataBase;
                     break;
 
                 case DBConnection.eDBType.MYSQL:
-                    this.lbl_ServerType.Text = m_con.ConnectionName + ":" + lngConn.s_ServerType.s + " = MYSQL";
-                    this.lbl_DataSourceAndDatabase.Text = lngConn.s_Server.s + " = " + m_con.DataSource + ", " + lngConn.s_DataBase.s + " = " + m_con.DataBase;
+                    this.lbl_ServerType.Text = m_con.ConnectionName + ":" + lng.s_ServerType.s + " = MYSQL";
+                    this.lbl_DataSourceAndDatabase.Text = lng.s_Server.s + " = " + m_con.DataSource + ", " + lng.s_DataBase.s + " = " + m_con.DataBase;
                     break;
             }
             this.Width = this.lbl_DataSourceAndDatabase.Left + this.lbl_DataSourceAndDatabase.Width + 10;

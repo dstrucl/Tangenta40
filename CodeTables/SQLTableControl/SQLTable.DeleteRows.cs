@@ -322,7 +322,7 @@ namespace CodeTables
             //                        }
             //                        else
             //                        {
-            //                            Error.Show(lngRPM.s_Error_Table_DoesNotHavePrimary_ID.s);
+            //                            Error.Show(lng.s_Error_Table_DoesNotHavePrimary_ID.s);
             //                            return false;
             //                        }
 

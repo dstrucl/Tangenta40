@@ -201,7 +201,7 @@ namespace ShopA
 
     private void btn_Discount_Click(object sender, EventArgs e)
         {
-            FormDiscount.Form_Discount fdiscount = new FormDiscount.Form_Discount(usrc_Edit_Item_Price1.Price, null, 0, usrc_Edit_Item_Name1.ItemName);
+            Form_Discount.Form_Discount fdiscount = new Form_Discount.Form_Discount(usrc_Edit_Item_Price1.Price, null, 0, usrc_Edit_Item_Name1.ItemName);
             if (fdiscount.ShowDialog(this)==DialogResult.OK)
             {
                 Discount = fdiscount.ExtraDiscount;

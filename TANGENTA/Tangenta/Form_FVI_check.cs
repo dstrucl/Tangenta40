@@ -20,8 +20,8 @@ namespace Tangenta
             nav = xnav;
             chk_FVI.Checked = Program.b_FVI_SLO;
             usrc_NavigationButtons1.Init(nav);
-            lngRPM.s_FVI_instruction.Text(label1);
-            lngRPM.s_FVI_Check.Text(chk_FVI);
+            lng.s_FVI_instruction.Text(label1);
+            lng.s_FVI_Check.Text(chk_FVI);
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)

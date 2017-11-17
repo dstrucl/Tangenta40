@@ -247,7 +247,7 @@ namespace CodeTables
                 this.Controls.Add(pic_Unique);
 
                 System.Windows.Forms.ToolTip ToolTip_uinique = new System.Windows.Forms.ToolTip();
-                ToolTip_uinique.SetToolTip(this.pic_Unique, lngRPM.s_ValueMustBeUnique.s);
+                ToolTip_uinique.SetToolTip(this.pic_Unique, lng.s_ValueMustBeUnique.s);
                 
             }
             if (m_col.nulltype == Column.nullTYPE.NULL)
@@ -258,13 +258,13 @@ namespace CodeTables
                 rdb_null.AutoSize = true;
                 rdb_null.Top = y;
                 rdb_null.Height = this.Height - 4;
-                rdb_null.Text = lngRPM.s_null.s;
+                rdb_null.Text = lng.s_null.s;
                 rdb_null.BackColor = Color.Transparent;
                 rdb_null.Visible = true;
                 rdb_null.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
                 rdb_null.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
                 System.Windows.Forms.ToolTip ToolTip_null_means_no_data = new System.Windows.Forms.ToolTip();
-                ToolTip_null_means_no_data.SetToolTip(this.rdb_null, lngRPM.s_null_means_nod_data.s);
+                ToolTip_null_means_no_data.SetToolTip(this.rdb_null, lng.s_null_means_nod_data.s);
 
                 this.Controls.Add(rdb_null);
 

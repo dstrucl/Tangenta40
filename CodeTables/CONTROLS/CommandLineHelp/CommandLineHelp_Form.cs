@@ -1,4 +1,4 @@
-﻿#region LICENSE 
+#region LICENSE 
 /*
  This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
  If a copy of the Tangenta Public License (TPL) was not distributed with this 
@@ -82,7 +82,7 @@ namespace CommandLineHelp
                 helpctrl_last.Left = 10;
                 y = helpctrl_last.Bottom + 10;
             }
-            this.Text = lngRPM.s_CommandLineHelp.s;
+            this.Text = lng.s_CommandLineHelp.s;
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)

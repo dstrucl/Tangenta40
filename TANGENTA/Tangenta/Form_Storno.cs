@@ -37,7 +37,7 @@ namespace Tangenta
         {
             InitializeComponent();
             m_Invoice_ID = Invoice_ID;
-            this.Text = lngRPM.s_Storno.s;
+            this.Text = lng.s_Storno.s;
             
         }
 
@@ -71,11 +71,11 @@ namespace Tangenta
                                                     + fs.GetString(InvoiceTime.Minute , 2) + ":"
                                                     + fs.GetString(InvoiceTime.Second , 2);
 
-                    m_sInvoiceToStorno = lngRPM.s_Invoice.s + ":" + InvoiceNumber + " " + lngRPM.s_Invoice.s + " " + lngRPM.s_Time.s + " = " + fs.DateTime2String(InvoiceTime) + "," + lngRPM.s_Price.s + " = " + s_GrossSum;
-                    lbl_StornoMessage.Text = m_sInvoiceToStorno+ "\r\n" + lngRPM.s_Storno_Instruction.s;
+                    m_sInvoiceToStorno = lng.s_Invoice.s + ":" + InvoiceNumber + " " + lng.s_Invoice.s + " " + lng.s_Time.s + " = " + fs.DateTime2String(InvoiceTime) + "," + lng.s_Price.s + " = " + s_GrossSum;
+                    lbl_StornoMessage.Text = m_sInvoiceToStorno+ "\r\n" + lng.s_Storno_Instruction.s;
                     sql = @"select Name,Description from journal_invoice_type jit where jit.Name='" + const_Storno_with_description + "'";
-                    lbl_SelectExistingReason.Text = lngRPM.s_SelectObligatoryWriteReasonForStorno.s + ":";
-                    lbl_WriteReason.Text = lngRPM.s_ObligatoryWriteReasonForStorno.s + ":";
+                    lbl_SelectExistingReason.Text = lng.s_SelectObligatoryWriteReasonForStorno.s + ":";
+                    lbl_WriteReason.Text = lng.s_ObligatoryWriteReasonForStorno.s + ":";
                     if (DBSync.DBSync.ReadDataTable(ref dt_journal_invoice_type,sql,ref Err))
                     {
                         if (dt_journal_invoice_type.Rows.Count>0)
@@ -112,7 +112,7 @@ namespace Tangenta
             }
             else
             {
-                MessageBox.Show(this, lngRPM.s_WriteReasonForStorno.s, "!",MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(this, lng.s_WriteReasonForStorno.s, "!",MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
         }
 

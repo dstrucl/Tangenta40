@@ -36,7 +36,7 @@ namespace TangentaPrint
         public usrc_PrintExistingInvoice()
         {
             InitializeComponent();
-            lbl_Invoice.Text = lngRPM.s_Journal_InvoicePrint.s;
+            lbl_Invoice.Text = lng.s_Journal_InvoicePrint.s;
 
         }
 
@@ -48,7 +48,7 @@ namespace TangentaPrint
             m_InvoiceData = xInvoiceData;
             DocInvoice_ID = m_InvoiceData.m_ShopABC.m_CurrentInvoice.Doc_ID;
             lbl_Invoice_value.Text = InvoiceNumber;
-            btn_Print.Text = lngRPM.s_Print.s;
+            btn_Print.Text = lng.s_Print.s;
             return ShowJournal();
         }
 
@@ -76,8 +76,8 @@ namespace TangentaPrint
                 dgvx_Journal_InvoicePrint.DataSource = dt;
                 CodeTables.SQLTable tbl = new CodeTables.SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(JOURNAL_DocInvoice)));
                 tbl.SetVIEW_DataGridViewImageColumns_Headers(dgvx_Journal_InvoicePrint, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
-                dgvx_Journal_InvoicePrint.Columns["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"].HeaderText = lngRPM.s_FirstNameOfPersonThatPrintedInvoice.s;
-                dgvx_Journal_InvoicePrint.Columns["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"].HeaderText = lngRPM.s_LastNameOfPersonThatPrintedInvoice.s;
+                dgvx_Journal_InvoicePrint.Columns["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acfn_$$FirstName"].HeaderText = lng.s_FirstNameOfPersonThatPrintedInvoice.s;
+                dgvx_Journal_InvoicePrint.Columns["JOURNAL_DocInvoice_$_awperiod_$_amcper_$_aper_$_acln_$$LastName"].HeaderText = lng.s_LastNameOfPersonThatPrintedInvoice.s;
                 if (dt.Rows.Count>0)
                 {
                     if (dt.Rows[0]["JOURNAL_DocInvoice_$$EventTime"] is DateTime)

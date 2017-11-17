@@ -40,9 +40,9 @@ namespace Tangenta
         public usrc_Customer()
         {
             InitializeComponent();
-            lbl_Buyer.Text = lngRPM.s_Buyer.s + ":";
-            lbl_CardNumber.Text = lngRPM.s_CardNumber.s + ":";
-            lbl_TypeOfBuyerCard.Text = lngRPM.s_Type.s + ":";
+            lbl_Buyer.Text = lng.s_Buyer.s + ":";
+            lbl_CardNumber.Text = lng.s_CardNumber.s + ":";
+            lbl_TypeOfBuyerCard.Text = lng.s_Type.s + ":";
             this.btn_BuyerSelect.Image = CodeTables.Globals.Image_SelectRow;
             CustomerItemType_List = new List<CustomerItem>();
             CustomerItemType_List.Add(new CustomerItem(CustomerItem.eCustomerType.PERSON));
@@ -280,11 +280,11 @@ namespace Tangenta
                 get {
                         if (m_eCustomerType == eCustomerType.PERSON)
                         {
-                            return lngRPM.s_Person.s;
+                            return lng.s_Person.s;
                         }
                         else
                         {
-                            return lngRPM.s_Organisation.s;
+                            return lng.s_Organisation.s;
                         }
                     }
             }
@@ -495,12 +495,12 @@ namespace Tangenta
 
                         if (Tax_ID_v != null)
                         {
-                            slbl += "," + lngRPM.s_Tax_ID.s + ":" + Tax_ID_v.vs;
+                            slbl += "," + lng.s_Tax_ID.s + ":" + Tax_ID_v.vs;
                         }
 
                         if (StreetName_v != null)
                         {
-                            slbl += "," + lngRPM.s_Address.s + ":" + StreetName_v.vs;
+                            slbl += "," + lng.s_Address.s + ":" + StreetName_v.vs;
                         }
                         if (HouseNumber_v != null)
                         {

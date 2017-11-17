@@ -332,13 +332,13 @@ namespace CodeTables
                             }
                             else
                             {
-                                MessageBox.Show(lngRPM.s_Illegal_end_table_XML_command_expected.s + ": </" + sqlTbl.TableName + ">\n", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(lng.s_Illegal_end_table_XML_command_expected.s + ": </" + sqlTbl.TableName + ">\n", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 //Source_Txt.CloseText();
                             }
                         }
                         else
                         {
-                            MessageBox.Show(lngRPM.s_Illegal_end_table_XML_command_expected.s + ": </" + sqlTbl.TableName + ">\n", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(lng.s_Illegal_end_table_XML_command_expected.s + ": </" + sqlTbl.TableName + ">\n", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             //                                Source_Txt.CloseText();
                         }
                     }
@@ -371,8 +371,8 @@ namespace CodeTables
                         }
                         else
                         {
-                            //Source_Txt.ShowParseError(lngRPM.s_File.s + ":" + FileName + "\n" + lngRPM.s_Comma_is_missing_to_separate_cells_column_name_from_cell_value_in_line.s + ":" + Source_Txt.iLine.ToString(), lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            MessageBox.Show(lngRPM.s_File.s + lngRPM.s_Comma_is_missing_to_separate_cells_column_name_from_cell_value_in_line.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //Source_Txt.ShowParseError(lng.s_File.s + ":" + FileName + "\n" + lng.s_Comma_is_missing_to_separate_cells_column_name_from_cell_value_in_line.s + ":" + Source_Txt.iLine.ToString(), lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(lng.s_File.s + lng.s_Comma_is_missing_to_separate_cells_column_name_from_cell_value_in_line.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                             //Source_Txt.CloseText();
                             return false;
                         }
@@ -396,16 +396,16 @@ namespace CodeTables
                         }
                         else
                         {
-                            //Source_Txt.ShowParseError(lngRPM.s_TableNameIsExpectedToBeBeforeDataLines.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            MessageBox.Show(lngRPM.s_TableNameIsExpectedToBeBeforeDataLines.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            //Source_Txt.ShowParseError(lng.s_TableNameIsExpectedToBeBeforeDataLines.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            MessageBox.Show(lng.s_TableNameIsExpectedToBeBeforeDataLines.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             return false;
                         }
 
                     }
                     else
                     {
-                        //Source_Txt.ShowParseError(lngRPM.s_TableNameIsExpectedToBeBeforeDataLines.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        MessageBox.Show(lngRPM.s_TableNameIsExpectedToBeBeforeDataLines.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        //Source_Txt.ShowParseError(lng.s_TableNameIsExpectedToBeBeforeDataLines.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show(lng.s_TableNameIsExpectedToBeBeforeDataLines.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return false;
                     }
                 }

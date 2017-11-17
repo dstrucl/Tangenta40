@@ -36,7 +36,7 @@ namespace Tangenta
             dbTables = xdbTables;
             tbl = xtbl;
             usrc_EditRow.AllowUserToAddNew = bAllowNew;
-            lngRPM.s_Edit_Offices.Text(btn_Office);
+            lng.s_Edit_Offices.Text(btn_Office);
         }
 
         private bool InitDataTable(long ID)
@@ -95,8 +95,8 @@ namespace Tangenta
 
         private void MyOrganisationData_EditForm_Load(object sender, EventArgs e)
         {
-            this.btn_BankAccounts.Text = lngRPM.s_BankAccounts.s;
-            this.Text = lngRPM.s_MyOrganisation.s;
+            this.btn_BankAccounts.Text = lng.s_BankAccounts.s;
+            this.Text = lng.s_MyOrganisation.s;
             if (!Init())
             {
                 Close();
@@ -117,7 +117,7 @@ namespace Tangenta
         {
             if (usrc_EditRow.Changed)
             {
-                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1)== DialogResult.Yes)
                 {
                     if (usrc_EditRow.Save())
                     {
@@ -127,7 +127,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        if (XMessage.Box.Show(this, lngRPM.s_DataNotSavedEndYesNo, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        if (XMessage.Box.Show(this, lng.s_DataNotSavedEndYesNo, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
                             this.Close();
                             DialogResult = DialogResult.OK;
@@ -163,7 +163,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOrganisationData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOrganisationData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }
@@ -180,7 +180,7 @@ namespace Tangenta
             }
             else
             {
-                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotEnterYourOrganisationData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouDidNotEnterYourOrganisationData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     Close();
                     DialogResult = DialogResult.Cancel;

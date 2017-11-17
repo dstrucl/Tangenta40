@@ -76,7 +76,7 @@ namespace ShopC
             dt_Where_stock_item_was_sold_or_reserved.Columns.Add(dcol_StockTakeDate);
 
 
-            lngRPM.s_Form_Show_Documents_Where_stock_item_was_sold_or_reserved.Text(this);
+            lng.s_Form_Show_Documents_Where_stock_item_was_sold_or_reserved.Text(this);
         }
 
         private void Form_Show_Documents_Where_stock_item_was_sold_or_reserved_Load(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace ShopC
                 {
 
                     dr[dcol_DocumentType.ColumnName] = true;
-                    dr[dcol_DocumentTypeName.ColumnName] = lngRPM.s_DocInvoice.s;
+                    dr[dcol_DocumentTypeName.ColumnName] = lng.s_DocInvoice.s;
                     if (f_DocInvoice.Get(data.DocInvoice_ID, data.DocInvoice_ShopC_Item_ID, ref DocInvoice_data))
                     {
                         dr[dcol_Draft.ColumnName] = DocInvoice_data.bDraft;
@@ -108,7 +108,7 @@ namespace ShopC
                 else
                 {
                     dr[dcol_DocumentType.ColumnName] = false;
-                    dr[dcol_DocumentTypeName.ColumnName] = lngRPM.s_DocProformaInvoice.s;
+                    dr[dcol_DocumentTypeName.ColumnName] = lng.s_DocProformaInvoice.s;
                     if (f_DocProformaInvoice.Get(data.DocProformaInvoice_ID, data.DocProformaInvoice_ShopC_Item_ID, ref DocProformaInvoice_data))
                     {
                         dr[dcol_Draft.ColumnName] = DocProformaInvoice_data.bDraft;
@@ -127,17 +127,17 @@ namespace ShopC
             }
             dgvx_Stock_Item_OnDocument.DataSource = dt_Where_stock_item_was_sold_or_reserved;
 
-            dgvx_Stock_Item_OnDocument.Columns[dcol_DocumentType.ColumnName].HeaderText = lngRPM.s_Document_Type.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_Draft.ColumnName].HeaderText = lngRPM.s_Draft.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_DraftNumber.ColumnName].HeaderText = lngRPM.s_DraftNumber.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_FinancialYear.ColumnName].HeaderText = lngRPM.s_FinancialYear.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_NumberInFinancialYear.ColumnName].HeaderText = lngRPM.s_NumberInFinancialYear.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_QuantityTakenFromStock.ColumnName].HeaderText = lngRPM.s_QuantityTakenFromStock.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_ExpiryDate.ColumnName].HeaderText = lngRPM.s_ExpiryDate.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_Item_UniqueName.ColumnName].HeaderText = lngRPM.s_ItemUniqueName.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_StockTakeName.ColumnName].HeaderText = lngRPM.s_StockTakeName.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_StockTakeDate.ColumnName].HeaderText = lngRPM.s_StockTakeDate.s;
-            dgvx_Stock_Item_OnDocument.Columns[dcol_Addressee.ColumnName].HeaderText = lngRPM.s_Addressee.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_DocumentType.ColumnName].HeaderText = lng.s_Document_Type.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_Draft.ColumnName].HeaderText = lng.s_Draft.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_DraftNumber.ColumnName].HeaderText = lng.s_DraftNumber.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_FinancialYear.ColumnName].HeaderText = lng.s_FinancialYear.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_NumberInFinancialYear.ColumnName].HeaderText = lng.s_NumberInFinancialYear.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_QuantityTakenFromStock.ColumnName].HeaderText = lng.s_QuantityTakenFromStock.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_ExpiryDate.ColumnName].HeaderText = lng.s_ExpiryDate.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_Item_UniqueName.ColumnName].HeaderText = lng.s_ItemUniqueName.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_StockTakeName.ColumnName].HeaderText = lng.s_StockTakeName.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_StockTakeDate.ColumnName].HeaderText = lng.s_StockTakeDate.s;
+            dgvx_Stock_Item_OnDocument.Columns[dcol_Addressee.ColumnName].HeaderText = lng.s_Addressee.s;
             dgvx_Stock_Item_OnDocument.Columns[dcol_DocumentType.ColumnName].Visible = false;
         }
 

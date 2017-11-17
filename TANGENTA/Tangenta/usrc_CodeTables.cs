@@ -33,18 +33,18 @@ namespace Tangenta
         public usrc_CodeTables()
         {
             InitializeComponent();
-            lngRPM.s_btn_Taxation.Text(btn_Taxation);
-            lngRPM.s_btn_Currency.Text(btn_Currency);
-            lngRPM.s_btn_Units.Text(btn_Units);
-            lngRPM.s_btn_WorkingPlace.Text(btn_WorkingPlace);
-            lngRPM.s_btn_SimpleItem_Groups.Text(btn_SimpleItem_Groups);
-            lngRPM.s_btn_ItemGroups.Text(btn_ItemGroups);
-            lngRPM.s_btn_Logo.Text(btn_Logo);
-            lngRPM.s_btn_DBSettings.Text(btn_DBSettings);
-            lngRPM.s_btn_Stock_Address.Text(btn_Stock_Address);
-            lngRPM.s_btn_TermsOfPayment.Text(btn_TermsOfPayment);
-            lngRPM.s_btn_Warranty.Text(btn_Warranty);
-            lngRPM.s_btn_Expiry.Text(btn_Expiry);
+            lng.s_btn_Taxation.Text(btn_Taxation);
+            lng.s_btn_Currency.Text(btn_Currency);
+            lng.s_btn_Units.Text(btn_Units);
+            lng.s_btn_WorkingPlace.Text(btn_WorkingPlace);
+            lng.s_btn_SimpleItem_Groups.Text(btn_SimpleItem_Groups);
+            lng.s_btn_ItemGroups.Text(btn_ItemGroups);
+            lng.s_btn_Logo.Text(btn_Logo);
+            lng.s_btn_DBSettings.Text(btn_DBSettings);
+            lng.s_btn_Stock_Address.Text(btn_Stock_Address);
+            lng.s_btn_TermsOfPayment.Text(btn_TermsOfPayment);
+            lng.s_btn_Warranty.Text(btn_Warranty);
+            lng.s_btn_Expiry.Text(btn_Expiry);
         }
 
         private void btn_Taxation_Click(object sender, EventArgs e)

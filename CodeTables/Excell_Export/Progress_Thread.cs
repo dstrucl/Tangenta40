@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,7 +42,7 @@ namespace Excell_Export
                     }
                     if (m_Message != null)
                     {
-                        dlg_Progress_Form.lbl_PercentDone.Text = lngRPM.s_ExportDoneInXprocent.s + ":%" + m_Message;
+                        dlg_Progress_Form.lbl_PercentDone.Text = lng.s_ExportDoneInXprocent.s + ":%" + m_Message;
                         int iValue = Convert.ToInt32(m_Message);
                         dlg_Progress_Form.progressBar.Value = iValue;
                         m_Message = null;

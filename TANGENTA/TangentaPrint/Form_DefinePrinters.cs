@@ -26,8 +26,8 @@ namespace TangentaPrint
             bChanged = false;
             this.usrc_NavigationButtons1.Init(xnav);
             this.m_usrc_TangentaPrint = xusrc_TangentaPrint;
-            lngRPM.s_Form_DefinePrinters.Text(this);
-            lngRPM.s_Add_Printer.Text(btn_AddPrinter);
+            lng.s_Form_DefinePrinters.Text(this);
+            lng.s_Add_Printer.Text(btn_AddPrinter);
             if (m_dt.Rows.Count > 0)
             {
                 for (int i = 0; i < m_dt.Rows.Count; i++)
@@ -84,7 +84,7 @@ namespace TangentaPrint
             {
                 if (PrintersList.Contains(prn.PrinterName))
                 {
-                    XMessage.Box.ShowTopMost(this, lngRPM.s_PrinterIsAllreadyOnTheList, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.ShowTopMost(this, lng.s_PrinterIsAllreadyOnTheList, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                 }
                 else
                 {
@@ -139,7 +139,7 @@ namespace TangentaPrint
             }
             if (xbChanged || bChanged)
             {
-                if (XMessage.Box.ShowTopMost(this, lngRPM.sPrinterListDataChanged_Save, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (XMessage.Box.ShowTopMost(this, lng.sPrinterListDataChanged_Save, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     PrintersList.Save();
                 }

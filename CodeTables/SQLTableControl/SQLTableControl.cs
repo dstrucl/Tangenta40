@@ -734,13 +734,13 @@ namespace CodeTables
                                 }
                                 else
                                 {
-                                    Source_Txt.ShowParseError(lngRPM.s_Illegal_end_table_XML_command_expected.s + ": </" + sqlTbl.TableName + ">\n", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    Source_Txt.ShowParseError(lng.s_Illegal_end_table_XML_command_expected.s + ": </" + sqlTbl.TableName + ">\n", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     Source_Txt.CloseText();
                                 }
                             }
                             else
                             {
-                                Source_Txt.ShowParseError(lngRPM.s_Illegal_end_table_XML_command_expected.s + ": </" + sqlTbl.TableName + ">\n", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Source_Txt.ShowParseError(lng.s_Illegal_end_table_XML_command_expected.s + ": </" + sqlTbl.TableName + ">\n", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 Source_Txt.CloseText();
                             }
                         }
@@ -772,7 +772,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                Source_Txt.ShowParseError(lngRPM.s_File.s + ":" + FileName + "\n" + lngRPM.s_Comma_is_missing_to_separate_cells_column_name_from_cell_value_in_line.s + ":" + Source_Txt.iLine.ToString(), lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Source_Txt.ShowParseError(lng.s_File.s + ":" + FileName + "\n" + lng.s_Comma_is_missing_to_separate_cells_column_name_from_cell_value_in_line.s + ":" + Source_Txt.iLine.ToString(), lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 Source_Txt.CloseText();
                                 return false;
                             }
@@ -795,14 +795,14 @@ namespace CodeTables
                             }
                             else
                             {
-                                Source_Txt.ShowParseError(lngRPM.s_TableNameIsExpectedToBeBeforeDataLines.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                Source_Txt.ShowParseError(lng.s_TableNameIsExpectedToBeBeforeDataLines.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 return false;
                             }
 
                         }
                         else
                         {
-                            Source_Txt.ShowParseError(lngRPM.s_TableNameIsExpectedToBeBeforeDataLines.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            Source_Txt.ShowParseError(lng.s_TableNameIsExpectedToBeBeforeDataLines.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             return false;
                         }
                     }
@@ -825,7 +825,7 @@ namespace CodeTables
         {
             if (bAsk)
             { 
-                DialogResult dRes = MessageBox.Show(m_ParentForm, lngRPM.s_CreateTablesInDataBaseQuestion.s + this.m_con.DataSource + " ?", lngRPM.s_Warning.s, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                DialogResult dRes = MessageBox.Show(m_ParentForm, lng.s_CreateTablesInDataBaseQuestion.s + this.m_con.DataSource + " ?", lng.s_Warning.s, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if ((dRes == DialogResult.No) || (dRes == DialogResult.Cancel))
                 {
                     return false;
@@ -886,19 +886,19 @@ namespace CodeTables
                     else
                     {
                         xCreateTables_WindowsForm_Thread.End();
-                        Error.Show(m_ParentForm, lngRPM.s_ErrorView.s + " " + dbv.ViewName + "\n\nException = " + csErrorMsg, lngRPM.s_Error.s);
+                        Error.Show(m_ParentForm, lng.s_ErrorView.s + " " + dbv.ViewName + "\n\nException = " + csErrorMsg, lng.s_Error.s);
                         return false;
                     }
                 }
 
                 xCreateTables_WindowsForm_Thread.End();
-                //MessageBox.Show(m_ParentForm, lngRPM.s_AllTablesCreatedOK.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show(m_ParentForm, lng.s_AllTablesCreatedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
             else
             {
                 xCreateTables_WindowsForm_Thread.End();
-                Error.Show(m_ParentForm, lngRPM.s_err_AllTablesCreated.s + "\n\nException = " + csErrorMsg, lngRPM.s_Error.s);
+                Error.Show(m_ParentForm, lng.s_err_AllTablesCreated.s + "\n\nException = " + csErrorMsg, lng.s_Error.s);
                 return false;
             }
         }
@@ -999,13 +999,13 @@ namespace CodeTables
                                      return false;
                                  }
                              }
-                             MessageBox.Show(m_ParentForm, lngRPM.s_AllTablesDropedOK.s, lngConn.s_DataBase.s + " SQLite " + lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                             MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lngConn.s_DataBase.s + " SQLite " + lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                              return true;
                          }
                          else
                          {
                              // Empty data base
-                             MessageBox.Show(m_ParentForm, lngRPM.s_DataBaseHasNoTablesItIsEmpty.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                             MessageBox.Show(m_ParentForm, lng.s_DataBaseHasNoTablesItIsEmpty.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                              return true;
                          }
                      }
@@ -1149,13 +1149,13 @@ namespace CodeTables
                         }
                         else
                         {
-                            LogFile.Error.Show(lngRPM.s_err_AllTablesDroped.s + "\n\nException = " + serr);
+                            LogFile.Error.Show(lng.s_err_AllTablesDroped.s + "\n\nException = " + serr);
                             return false;
                         }
                     }
                     catch (Exception EX)
                     {
-                        LogFile.Error.Show(lngRPM.s_err_AllTablesDroped.s + "\n\nException = " + EX.Message);
+                        LogFile.Error.Show(lng.s_err_AllTablesDroped.s + "\n\nException = " + EX.Message);
                         return false;
                     }
                 }
@@ -1168,18 +1168,18 @@ namespace CodeTables
                 object oResult = null;
                 if (this.m_con.ExecuteNonQuerySQL(sql_DropAllTables, null,ref oResult, ref csErrorMsg))
                 {
-                    MessageBox.Show(m_ParentForm, lngRPM.s_AllTablesDropedOK.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
                 }
                 else
                 {
-                    LogFile.Error.Show(lngRPM.s_err_AllTablesDroped.s + "\n\nException = " + csErrorMsg);
+                    LogFile.Error.Show(lng.s_err_AllTablesDroped.s + "\n\nException = " + csErrorMsg);
                     return false;
                 }
             }
             else
             {
-                LogFile.Error.Show(lngRPM.s_DropAllTablesNotSupported_for_data_base_type.s + m_con.ServerType);
+                LogFile.Error.Show(lng.s_DropAllTablesNotSupported_for_data_base_type.s + m_con.ServerType);
                 return false;
             }
 
@@ -1199,7 +1199,7 @@ namespace CodeTables
                 }
                 else
                 {
-                    LogFile.Error.Show(lngRPM.s_err_CreateViews.s +"\r\nsql="+sql+ "\r\nException = " + csErrorMsg);
+                    LogFile.Error.Show(lng.s_err_CreateViews.s +"\r\nsql="+sql+ "\r\nException = " + csErrorMsg);
                     return false;
                 }
             }
@@ -1231,7 +1231,7 @@ namespace CodeTables
             }
             else
             {
-                Err = lngRPM.s_err_AllTablesDroped.s + "\n\nException = " + csErrorMsg;
+                Err = lng.s_err_AllTablesDroped.s + "\n\nException = " + csErrorMsg;
                 LogFile.Error.Show(Err);
                 return false;
             }
@@ -1239,7 +1239,7 @@ namespace CodeTables
 
         public bool DropTables()
         {
-            DialogResult dRes = MessageBox.Show(m_ParentForm, lngRPM.s_DropTablesInDataBaseQuestion.s + this.m_con.DataBase + " ?", lngRPM.s_Warning.s, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            DialogResult dRes = MessageBox.Show(m_ParentForm, lng.s_DropTablesInDataBaseQuestion.s + this.m_con.DataBase + " ?", lng.s_Warning.s, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if ((dRes == DialogResult.No) || (dRes == DialogResult.Cancel))
             {
                 return false;
@@ -1250,12 +1250,12 @@ namespace CodeTables
             object oResult = null;
             if (this.m_con.ExecuteNonQuerySQL(m_strSQLDrop.ToString(), null,ref oResult, ref csErrorMsg))
             {
-                MessageBox.Show(m_ParentForm, lngRPM.s_AllTablesDropedOK.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
             else
             {
-                MessageBox.Show(m_ParentForm, lngRPM.s_err_AllTablesDroped.s + "\n\nException = " + csErrorMsg, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(m_ParentForm, lng.s_err_AllTablesDroped.s + "\n\nException = " + csErrorMsg, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }

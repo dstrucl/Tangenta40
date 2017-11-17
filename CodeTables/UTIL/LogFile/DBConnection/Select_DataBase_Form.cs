@@ -69,7 +69,7 @@ namespace LogFile
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, lngConn.s_Error_Can_not_get_Databases_on_Server.s + txt_ServerName.Text + "\n" + lngConn.s_Execption.s + " = " + ex.Message + "\"", lngConn.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, lng.s_Error_Can_not_get_Databases_on_Server.s + txt_ServerName.Text + "\n" + lng.s_Execption.s + " = " + ex.Message + "\"", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -109,7 +109,7 @@ namespace LogFile
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, lngConn.s_Error_Can_not_get_Databases_on_Server.s + txt_ServerName.Text + "\n" + lngConn.s_Execption.s + " = " + ex.Message + "\"", lngConn.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, lng.s_Error_Can_not_get_Databases_on_Server.s + txt_ServerName.Text + "\n" + lng.s_Execption.s + " = " + ex.Message + "\"", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -122,27 +122,27 @@ namespace LogFile
                 this.Text = m_Title;
             }
 
-            lbl_Server.Text = lngConn.s_Server.s;
-            lbl_UserName.Text = lngConn.s_UserName.s;
-            lbl_Password.Text = lngConn.s_Password.s;
-            lbl_Database.Text = lngConn.s_DataBase.s;
+            lbl_Server.Text = lng.s_Server.s;
+            lbl_UserName.Text = lng.s_UserName.s;
+            lbl_Password.Text = lng.s_Password.s;
+            lbl_Database.Text = lng.s_DataBase.s;
             listBox_DataBaseNames.Enabled = false;
 
-            this.btn_Cancel.Text = lngConn.s_Cancel.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
 
-            grpbox_LogOnToTheServer.Text = lngConn.s_LogOnToTheServer.s;
-            grpbox_ConnectToDatabaseName.Text = lngConn.s_ConnectToDatabaseName.s;
+            grpbox_LogOnToTheServer.Text = lng.s_LogOnToTheServer.s;
+            grpbox_ConnectToDatabaseName.Text = lng.s_ConnectToDatabaseName.s;
 
-            Btn_TestConnection.Text = lngConn.s_GetConnection.s;
-            btn_CreateNewDatabase.Text = lngConn.s_CreateNewDatabase.s;
-            btn_ViewRights.Text = lngConn.s_ViewPermissions.s;
+            Btn_TestConnection.Text = lng.s_GetConnection.s;
+            btn_CreateNewDatabase.Text = lng.s_CreateNewDatabase.s;
+            btn_ViewRights.Text = lng.s_ViewPermissions.s;
 
             this.txt_ServerName.Text = m_SQL_Connection.DataSource;
             txt_ServerName.Visible = true;
 
             this.txt_DataBaseName.Text = m_SQL_Connection.DataBase;
 
-            btn_GetDataBaseList.Text =lngConn.s_GetDataBaseList.s + " "+ m_SQL_Connection.DataSource;
+            btn_GetDataBaseList.Text =lng.s_GetDataBaseList.s + " "+ m_SQL_Connection.DataSource;
 
             switch (m_SQL_Connection.DBType)
             {
@@ -163,7 +163,7 @@ namespace LogFile
                             listBox_DataBaseNames.Enabled = true;
                             if (!bAllreadyExist)
                             {
-                                MessageBox.Show(lngConn.s_DataBase_e.s + " " + this.txt_DataBaseName.Text + lngConn.s_Can_Not_Be_Found_On_server.s + " " + m_SQL_Connection.DataSource, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show(lng.s_DataBase_e.s + " " + this.txt_DataBaseName.Text + lng.s_Can_Not_Be_Found_On_server.s + " " + m_SQL_Connection.DataSource, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                     }
@@ -205,7 +205,7 @@ namespace LogFile
                             listBox_DataBaseNames.Enabled = true;
                             if (!bAllreadyExist)
                             {
-                                MessageBox.Show(lngConn.s_DataBase_e.s + " " + this.txt_DataBaseName.Text + lngConn.s_Can_Not_Be_Found_On_server.s + " " + m_SQL_Connection.DataSource, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show(lng.s_DataBase_e.s + " " + this.txt_DataBaseName.Text + lng.s_Can_Not_Be_Found_On_server.s + " " + m_SQL_Connection.DataSource, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                     }
@@ -280,7 +280,7 @@ namespace LogFile
             TestConnectionForm tConForm = new TestConnectionForm(m_ParentForm,m_SQL_Connection,  false, true, m_Title);
             if (tConForm.ShowDialog() == DialogResult.OK)
             {
-//                MessageBox.Show(this, lngConn.s_ConnectionOK.s, "OK");
+//                MessageBox.Show(this, lng.s_ConnectionOK.s, "OK");
             }
             else
             {
@@ -325,7 +325,7 @@ namespace LogFile
                 }
                 else
                 {
-                    if (MessageBox.Show(this, lngConn.s_CanNotMakeAConnection.s + "\r\n\r\n+\""+csError+"\"" , lngConn.s_Warning.s, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
+                    if (MessageBox.Show(this, lng.s_CanNotMakeAConnection.s + "\r\n\r\n+\""+csError+"\"" , lng.s_Warning.s, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
                     {
                         this.DialogResult = DialogResult.Cancel;
                         Close();
@@ -335,7 +335,7 @@ namespace LogFile
             }
             else
             {
-                if (MessageBox.Show(this, lngConn.s_DatabaseNotDefined.s, lngConn.s_Warning.s, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
+                if (MessageBox.Show(this, lng.s_DatabaseNotDefined.s, lng.s_Warning.s, MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
                 {
                     this.DialogResult = DialogResult.Cancel;
                     Close();
@@ -356,7 +356,7 @@ namespace LogFile
                         listBox_DataBaseNames.Enabled = true;
                         if (bAllreadyExist)
                         {
-                            MessageBox.Show(lngConn.s_DataBase.s + this.txt_DataBaseName.Text + lngConn.s_Already_exist.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show(lng.s_DataBase.s + this.txt_DataBaseName.Text + lng.s_Already_exist.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
@@ -378,7 +378,7 @@ namespace LogFile
                     }
                     else
                     {
-                        System.Windows.Forms.MessageBox.Show(lngConn.s_Not_EnoughPermissions_To_List_Databases.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        System.Windows.Forms.MessageBox.Show(lng.s_Not_EnoughPermissions_To_List_Databases.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     break;
 
@@ -388,7 +388,7 @@ namespace LogFile
                         listBox_DataBaseNames.Enabled = true;
                         if (bAllreadyExist)
                         {
-                            MessageBox.Show(lngConn.s_DataBase.s + this.txt_DataBaseName.Text + lngConn.s_Already_exist.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show(lng.s_DataBase.s + this.txt_DataBaseName.Text + lng.s_Already_exist.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
@@ -423,11 +423,11 @@ namespace LogFile
                                 {
                                     if (txt_UserName.Text.Length == 0)
                                     {
-                                        System.Windows.Forms.MessageBox.Show(lngConn.s_User_name_is_missing_Enter_User_Name.s, lngConn.s_Warning.s, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                                        System.Windows.Forms.MessageBox.Show(lng.s_User_name_is_missing_Enter_User_Name.s, lng.s_Warning.s, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
                                     }
                                     else if (txt_Password.Text.Length == 0)
                                     {
-                                        System.Windows.Forms.MessageBox.Show(lngConn.s_Password_is_missing_Enter_Password.s, lngConn.s_Warning.s, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                                        System.Windows.Forms.MessageBox.Show(lng.s_Password_is_missing_Enter_Password.s, lng.s_Warning.s, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
                                     }
                                 }
                             }
@@ -435,7 +435,7 @@ namespace LogFile
                     }
                     else
                     {
-                        System.Windows.Forms.MessageBox.Show(lngConn.s_Not_EnoughPermissions_To_List_Databases.s, lngConn.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        System.Windows.Forms.MessageBox.Show(lng.s_Not_EnoughPermissions_To_List_Databases.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     break;
             }

@@ -34,7 +34,7 @@ namespace Tangenta
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            lngRPM.s_Warrantys.Text(this);
+            lng.s_Warrantys.Text(this);
         }
 
         private void Form_Warranty_Edit_Load(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace Tangenta
             {
                 if (Err == null)
                 {
-                    if (MessageBox.Show(this, lngRPM.s_WarrantyTableHasNoData_YouMustEnterData_close_anyway.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)== DialogResult.No)
+                    if (MessageBox.Show(this, lng.s_WarrantyTableHasNoData_YouMustEnterData_close_anyway.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)== DialogResult.No)
                     {
                         e.Cancel = true;
                     }

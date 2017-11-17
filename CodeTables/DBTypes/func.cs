@@ -29,11 +29,11 @@ namespace DBTypes
         {
             if (gender)
             {
-                return LanguageControl.lngRPM.s_Man.s;
+                return lng.s_Man.s;
             }
             else
             {
-                return LanguageControl.lngRPM.s_Woman.s;
+                return lng.s_Woman.s;
             }
         }
 

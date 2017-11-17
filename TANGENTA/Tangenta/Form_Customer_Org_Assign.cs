@@ -46,11 +46,11 @@ namespace Tangenta
             // TODO: Complete member initialization
             InitializeComponent();
             this.CustomerOrganisationData_ID = xCustomer_OrganisationData_ID;
-            this.lbl_Instruction_part1.Text = lngRPM.s_DoYouWantCustomer.s;
-            this.lbl_Instruction_part2.Text = lngRPM.s_WriteOnYourAccount.s;
-            this.btn_Yes.Text = lngRPM.s_Yes.s;
-            this.btn_No.Text = lngRPM.s_No.s;
-            this.Text = lngRPM.s_Add_Customer_to_invoice.s;
+            this.lbl_Instruction_part1.Text = lng.s_DoYouWantCustomer.s;
+            this.lbl_Instruction_part2.Text = lng.s_WriteOnYourAccount.s;
+            this.btn_Yes.Text = lng.s_Yes.s;
+            this.btn_No.Text = lng.s_No.s;
+            this.Text = lng.s_Add_Customer_to_invoice.s;
 
         }
 
@@ -99,7 +99,7 @@ namespace Tangenta
 
                     if (StreetName != null)
                     {
-                        lbl_Org.Text += "\r\n" +lngRPM.s_Address.s +":"+ StreetName;
+                        lbl_Org.Text += "\r\n" +lng.s_Address.s +":"+ StreetName;
                     }
                     if (HouseNumber != null)
                     {
@@ -107,19 +107,19 @@ namespace Tangenta
                     }
                     if (ZIP != null)
                     {
-                        lbl_Org.Text += "\r\n    " + lngRPM.s_ZIP.s + ":" + ZIP;
+                        lbl_Org.Text += "\r\n    " + lng.s_ZIP.s + ":" + ZIP;
                     }
                     if (City != null)
                     {
-                        lbl_Org.Text += "\r\n     " + lngRPM.s_City.s + ":" + City;
+                        lbl_Org.Text += "\r\n     " + lng.s_City.s + ":" + City;
                     }
                     if (State != null)
                     {
-                        lbl_Org.Text += "\r\n     " + lngRPM.s_State.s + ":" + State;
+                        lbl_Org.Text += "\r\n     " + lng.s_State.s + ":" + State;
                     }
                     if (Country!= null)
                     {
-                        lbl_Org.Text += "\r\n     " + lngRPM.s_Country.s + ":" + Country;
+                        lbl_Org.Text += "\r\n     " + lng.s_Country.s + ":" + Country;
                     }
                     if (FaxNumber != null)
                     {

@@ -28,8 +28,8 @@ namespace DBConnectionControl40
             lbl_Instruction.Text = slabel;
             this.Text = Title;
             txtDataBaseFile.Text = default_text;
-            btn_OK.Text = lngConn.s_Ok.s;
-            btn_Cancel.Text = lngConn.s_Cancel.s;
+            btn_OK.Text = lng.s_Ok.s;
+            btn_Cancel.Text = lng.s_Cancel.s;
             m_Result = "";
             m_sMessageResultMayNotBeEmpty = sMessageResultMayNotBeEmpty;
         }

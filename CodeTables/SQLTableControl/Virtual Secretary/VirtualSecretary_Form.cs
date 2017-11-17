@@ -44,7 +44,7 @@ namespace CodeTables
             if (!bStart)
             {
                 bStart = true;
-                btnStartPause.Text = lngRPM.s_Pause.s;
+                btnStartPause.Text = lng.s_Pause.s;
                 this.pictureBox_Secretary.Image = Properties.Resources.jim_carrey_typing_grande;
                 timer_EnterData.Enabled = true;
                 iEntryCount = Convert.ToInt32(nmUpDown_Entries.Value);
@@ -52,7 +52,7 @@ namespace CodeTables
             else
             {
                 bStart = false;
-                btnStartPause.Text = lngRPM.s_Start.s;
+                btnStartPause.Text = lng.s_Start.s;
                 this.pictureBox_Secretary.Image = Properties.Resources.JimCarreyWaits2;
                 timer_EnterData.Enabled = false;
             }
@@ -70,7 +70,7 @@ namespace CodeTables
             else
             {
                 bStart = false;
-                btnStartPause.Text = lngRPM.s_Start.s;
+                btnStartPause.Text = lng.s_Start.s;
                 this.pictureBox_Secretary.Image = Properties.Resources.JimCarreySleeps;
                 System.IntPtr wparam = new IntPtr(this.Handle.ToInt32());
                 System.IntPtr lparam = new IntPtr(iEntryCount);
@@ -80,11 +80,11 @@ namespace CodeTables
 
         private void VirtualSecretary_Form_Load(object sender, EventArgs e)
         {
-            lbl_NumberOfEntries.Text = lngRPM.s_NumberOfEntries.s;
+            lbl_NumberOfEntries.Text = lng.s_NumberOfEntries.s;
             this.pictureBox_Secretary.Image = Properties.Resources.JimCarreyWaits2;
-            btnStartPause.Text = lngRPM.s_Start.s;
-            this.btnSettings.Text = lngRPM.sRandomDataSettings.s;
-            this.btnCancel.Text = lngRPM.s_Cancel.s;
+            btnStartPause.Text = lng.s_Start.s;
+            this.btnSettings.Text = lng.sRandomDataSettings.s;
+            this.btnCancel.Text = lng.s_Cancel.s;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

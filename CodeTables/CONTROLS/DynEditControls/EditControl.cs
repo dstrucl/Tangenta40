@@ -210,8 +210,8 @@ namespace DynEditControls
                 {
                     edit_control = new usrc_SelectGender();
                     ((usrc_SelectGender)edit_control).RadioButton1IsTrue = true;
-                    ((usrc_SelectGender)edit_control).RadioButton1_Text = lngRPM.s_Male.s;
-                    ((usrc_SelectGender)edit_control).RadioButton2_Text = lngRPM.s_Female.s;
+                    ((usrc_SelectGender)edit_control).RadioButton1_Text = lng.s_Male.s;
+                    ((usrc_SelectGender)edit_control).RadioButton2_Text = lng.s_Female.s;
                     if (((dbool_v)m_refobj).defined)
                     {
                         ((usrc_SelectGender)edit_control).Checked = ((dbool_v)m_refobj).v;

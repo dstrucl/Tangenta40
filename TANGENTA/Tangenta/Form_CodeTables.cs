@@ -24,7 +24,7 @@ namespace Tangenta
         public Form_CodeTables()
         {
             InitializeComponent();
-            lngRPM.s_CodeTables.Text(this);
+            lng.s_CodeTables.Text(this);
         }
 
         private void usrc_CodeTables1_OK_Click()

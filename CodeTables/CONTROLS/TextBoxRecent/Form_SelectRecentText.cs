@@ -1,4 +1,4 @@
-﻿using LanguageControl;
+using LanguageControl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,8 +21,8 @@ namespace TextBoxRecent
             InitializeComponent();
             this.Left = xpos;
             this.Top = ypos;
-            string stext = lngRPM.s_RecentText.s;
-            lngRPM.s_RecentText.Text(this);
+            string stext = lng.s_RecentText.s;
+            lng.s_RecentText.Text(this);
             m_TextList = xTextList;
             DataColumn dcol = new DataColumn("Text", typeof(string));
             dt.Columns.Add(dcol);

@@ -32,7 +32,7 @@ namespace Tangenta
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
             bResetShopsInUse = xbResetShopsInUse;
-            lngRPM.s_Shops_In_Use.Text(this);
+            lng.s_Shops_In_Use.Text(this);
            
             wb1.DocumentText = Properties.Resources.SLO_Help_Shops_in_use;
           

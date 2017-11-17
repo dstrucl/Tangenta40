@@ -243,12 +243,12 @@ namespace CodeTables.TableDocking_Form
 
             SetControls = xSetControls;
 
-            this.BtnCallSecretaryToWork.Text = lngRPM.sBtnCallSecretaryToWork.s;
+            this.BtnCallSecretaryToWork.Text = lng.sBtnCallSecretaryToWork.s;
 
-            this.btn_Insert.Text = lngRPM.sInsertData.s;
-            this.btn_Update.Text = lngRPM.sUpdate.s;
+            this.btn_Insert.Text = lng.sInsertData.s;
+            this.btn_Update.Text = lng.sUpdate.s;
             this.btn_Update.Visible = false;
-            this.btn_New.Text = lngRPM.sNew.s;
+            this.btn_New.Text = lng.sNew.s;
             m_DBTables = dbTables;
             m_tbl = tbl;
             m_tbl.SelectionButtonVisible = m_SelectionButtonVisible;
@@ -443,7 +443,7 @@ namespace CodeTables.TableDocking_Form
             }
             else
             {
-                MessageBox.Show(lngRPM.s_YouCanNotStartVirtualSecretaryUntilRandomDataParentAreSet.s);
+                MessageBox.Show(lng.s_YouCanNotStartVirtualSecretaryUntilRandomDataParentAreSet.s);
             }
         }
 
@@ -505,7 +505,7 @@ namespace CodeTables.TableDocking_Form
                     //bRes = Globals.InsertInDataBase_WithImportText(SetControls, m_tbl, m_DBTables, sDataBaseused, false);
                     //if (bRes)
                     //{
-                    //    MessageBox.Show(this, lngRPM.s_DataInsertedIntoDataBaseOK.s, lngRPM.s_Info.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //    MessageBox.Show(this, lng.s_DataInsertedIntoDataBaseOK.s, lng.s_Info.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     //}
                     long ID = -1;
                     bRes = m_tbl.Insert(ref ID, m_DBTables);

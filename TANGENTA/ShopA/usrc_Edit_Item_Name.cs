@@ -45,7 +45,7 @@ namespace ShopA
             }
             else
             {
-                MessageBox.Show(this, lngRPM.s_Item_name_must_be_defined.s);
+                MessageBox.Show(this, lng.s_Item_name_must_be_defined.s);
                 return false;
             }
         }

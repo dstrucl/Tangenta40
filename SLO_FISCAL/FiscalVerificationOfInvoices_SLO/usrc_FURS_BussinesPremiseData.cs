@@ -39,23 +39,23 @@ namespace FiscalVerificationOfInvoices_SLO
         public usrc_FURS_BussinesPremiseData()
         {
             InitializeComponent();
-            lngRPM.s_fursBuildingNumber.Text(lbl_BuildingNumber);
-            lngRPM.s_lbl_FURS_BussinesData.Text(lbl_FURS_BussinesData);
-            lngRPM.s_lbl_BuildingSectionNumber.Text(lbl_BuildingSectionNumber);
-            lngRPM.s_lbl_Community.Text(lbl_Community);
-            lngRPM.s_lbl_CadastralNumber.Text(lbl_CadastralNumber);
-            lngRPM.s_lbl_ValidityDate.Text(lbl_ValidityDate);
-            lngRPM.s_lbl_SoftwareSupplier_TaxNumber.Text(lbl_SoftwareSupplier_TaxNumber);
-            lngRPM.s_lbl_PremiseType.Text(lbl_PremiseType);
-            lngRPM.s_lbl_MyOrganisation_TaxID.Text(lbl_MyOrganisation_TaxID);
-            lngRPM.s_lbl_BussinesPremiseID.Text(lbl_BussinesPremiseID);
-            lngRPM.s_lbl_InvoiceAuthor_TaxID.Text(lbl_InvoiceAuthor_TaxID);
-            // lngRPM.s_btn_ImportFromDataBase.Text(btn_ImportFromDataBase);
+            lng.s_fursBuildingNumber.Text(lbl_BuildingNumber);
+            lng.s_lbl_FURS_BussinesData.Text(lbl_FURS_BussinesData);
+            lng.s_lbl_BuildingSectionNumber.Text(lbl_BuildingSectionNumber);
+            lng.s_lbl_Community.Text(lbl_Community);
+            lng.s_lbl_CadastralNumber.Text(lbl_CadastralNumber);
+            lng.s_lbl_ValidityDate.Text(lbl_ValidityDate);
+            lng.s_lbl_SoftwareSupplier_TaxNumber.Text(lbl_SoftwareSupplier_TaxNumber);
+            lng.s_lbl_PremiseType.Text(lbl_PremiseType);
+            lng.s_lbl_MyOrganisation_TaxID.Text(lbl_MyOrganisation_TaxID);
+            lng.s_lbl_BussinesPremiseID.Text(lbl_BussinesPremiseID);
+            lng.s_lbl_InvoiceAuthor_TaxID.Text(lbl_InvoiceAuthor_TaxID);
+            // lng.s_btn_ImportFromDataBase.Text(btn_ImportFromDataBase);
 
-            lngRPM.s_lbl_StreetName.Text(lbl_StreetName);
-            lngRPM.s_lbl_Street_Number.Text(lbl_Street_Number);
-            lngRPM.s_lbl_Post.Text(lbl_Post);
-            lngRPM.s_lbl_City.Text(lbl_City);
+            lng.s_lbl_StreetName.Text(lbl_StreetName);
+            lng.s_lbl_Street_Number.Text(lbl_Street_Number);
+            lng.s_lbl_Post.Text(lbl_Post);
+            lng.s_lbl_City.Text(lbl_City);
 
 
 

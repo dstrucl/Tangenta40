@@ -43,7 +43,7 @@ namespace LogFile
         {
             m_con = con;
             InitializeComponent();
-            this.lbl_SelectedServer.Text = lngConn.s_Select_Server.s + ":";
+            this.lbl_SelectedServer.Text = lng.s_Select_Server.s + ":";
 
         }
 
@@ -88,7 +88,7 @@ namespace LogFile
             {
                 dataGridView_SELECT_SERVER.Visible = false;
                 lbl_Progress.Font = new Font("Arial", 10, FontStyle.Bold);
-                lbl_Progress.Text = lngConn.s_Error_browse_DataBase_servers_Error_Exception.s + ex.Message;
+                lbl_Progress.Text = lng.s_Error_browse_DataBase_servers_Error_Exception.s + ex.Message;
                 lbl_Select_server_and_press_ok.Visible = false;
             }
         }
@@ -98,13 +98,13 @@ namespace LogFile
             switch (this.m_con.DBType)
             {
                 case Log_DBConnection.eDBType.MYSQL:
-                    this.Text = lngConn.s_Select.s + " MySQL " + lngConn.s_Server.s;
+                    this.Text = lng.s_Select.s + " MySQL " + lng.s_Server.s;
                     this.searchLocalNetwork.Enabled = true;
                     this.searchLocalNetwork.Visible = true;
-                    lbl_Progress.Text = lngConn.s_Please_wait_while_browsing_local_network_for_database_servers.s;
-                    lbl_Select_server_and_press_ok.Text = lngConn.s_Select_server_and_press_ok.s;
+                    lbl_Progress.Text = lng.s_Please_wait_while_browsing_local_network_for_database_servers.s;
+                    lbl_Select_server_and_press_ok.Text = lng.s_Select_server_and_press_ok.s;
                     lbl_Select_server_and_press_ok.Visible = false;
-                    btn_CANCEL.Text = lngConn.s_Cancel.s;
+                    btn_CANCEL.Text = lng.s_Cancel.s;
                     this.Timer_ShowServers.Enabled = true;
                     this.btn_OK.Enabled = false;
                     this.rdbHostName.Enabled = true;
@@ -115,13 +115,13 @@ namespace LogFile
                     break;
 
                 case Log_DBConnection.eDBType.MSSQL:
-                    this.Text = lngConn.s_Select.s + " Microsoft SQL " + lngConn.s_Server.s;
+                    this.Text = lng.s_Select.s + " Microsoft SQL " + lng.s_Server.s;
                     this.searchLocalNetwork.Enabled = false;
                     this.searchLocalNetwork.Visible = false;
-                    lbl_Progress.Text = lngConn.s_Please_wait_while_browsing_local_network_for_database_servers.s;
-                    lbl_Select_server_and_press_ok.Text = lngConn.s_Select_server_and_press_ok.s;
+                    lbl_Progress.Text = lng.s_Please_wait_while_browsing_local_network_for_database_servers.s;
+                    lbl_Select_server_and_press_ok.Text = lng.s_Select_server_and_press_ok.s;
                     lbl_Select_server_and_press_ok.Visible = false;
-                    btn_CANCEL.Text = lngConn.s_Cancel.s;
+                    btn_CANCEL.Text = lng.s_Cancel.s;
                     this.Timer_ShowServers.Enabled = true;
                     this.btn_OK.Enabled = false;
                     this.rdbHostName.Enabled = false;
@@ -188,7 +188,7 @@ namespace LogFile
             }
             else
             {
-                MessageBox.Show(this, lngConn.s_No_server_selected_Please_select_server.s, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, lng.s_No_server_selected_Please_select_server.s, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

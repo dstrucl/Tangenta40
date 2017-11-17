@@ -349,17 +349,17 @@ namespace CodeTables
                         m_TableView_Form[i].Visible = true;
                     }
                 }
-                //this.tsmi_View.Text = lngRPM.s_View.s;
-                //this.tsmi_Primary_Table.Text = lngRPM.s_PrimaryTable.s;
-                //this.tsmi_Table_View_1.Text = lngRPM.s_Table_View_1.s;
-                //this.tsmi_Table_View_2.Text = lngRPM.s_Table_View_2.s;
-                //this.tsmi_Table_View_3.Text = lngRPM.s_Table_View_3.s;
-                //this.tsmi_Table_View_4.Text = lngRPM.s_Table_View_4.s;
-                this.tsmi_Data_Editor.Text = lngRPM.s_DataEditor.s;
+                //this.tsmi_View.Text = lng.s_View.s;
+                //this.tsmi_Primary_Table.Text = lng.s_PrimaryTable.s;
+                //this.tsmi_Table_View_1.Text = lng.s_Table_View_1.s;
+                //this.tsmi_Table_View_2.Text = lng.s_Table_View_2.s;
+                //this.tsmi_Table_View_3.Text = lng.s_Table_View_3.s;
+                //this.tsmi_Table_View_4.Text = lng.s_Table_View_4.s;
+                this.tsmi_Data_Editor.Text = lng.s_DataEditor.s;
                 this.tsmi_Data_Editor.Visible = true;
-                this.tsmi_View_Manager.Text = lngRPM.s_ViewManager.s;
-                this.tsmi_SaveWindowConfiguration.Text = lngRPM.s_SaveWindowConfiguration.s;
-                this.tsmi_Edit_XML_configuration.Text = lngRPM.s_Edit_XML_Configuration.s;
+                this.tsmi_View_Manager.Text = lng.s_ViewManager.s;
+                this.tsmi_SaveWindowConfiguration.Text = lng.s_SaveWindowConfiguration.s;
+                this.tsmi_Edit_XML_configuration.Text = lng.s_Edit_XML_Configuration.s;
             }
         }
 
@@ -418,7 +418,7 @@ namespace CodeTables
 
         private void tsmi_SaveWindowConfiguration_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, lngRPM.s_SaveWindowsConfiguration.s, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show(this, lng.s_SaveWindowsConfiguration.s, lng.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 SaveWindowConfigruarion();
             }

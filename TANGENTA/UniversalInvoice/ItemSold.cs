@@ -66,7 +66,7 @@ namespace UniversalInvoice
             NetPrice = _NetPrice;
             TaxPrice = _TaxPrice;
             PriceWithTax = _PriceWithTax;
-            ltext token_ItemSold = token_prefix.AddAtTheEnd(lngToken.st_Item);
+            ltext token_ItemSold = token_prefix.AddAtTheEnd(lng.st_Item);
             token = new ItemSoldToken(token_ItemSold,
                                      lt_StoreDivision,
                                     _Item_Name,

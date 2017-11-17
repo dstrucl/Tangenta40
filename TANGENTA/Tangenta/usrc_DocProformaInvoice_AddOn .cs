@@ -40,16 +40,16 @@ namespace Tangenta
         public usrc_DocProformaInvoice_AddOn()
         {
             InitializeComponent();
-            lngRPM.s_MethodOfPayment.Text(this.grp_MtehodOfPaymentType);
-            lngRPM.s_Payment_on_bank_account.Text(rdb_BankAccountTransfer);
-            lngRPM.s_Payment_by_cash_or_card_on_delivery.Text(rdb_Payment_by_cash_or_credit_card_on_delivery);
-            lngRPM.s_TermsOfPayment.Text(grp_TermsOfPayment);
-            lngRPM.s_grp_ValidityOfTheTender.Text(grp_ValidityOfTheTender);
-            lngRPM.s_rbtn_NumberOf.Text(rdb_ValidNumberOf);
-            lngRPM.s_rdb_Valid_Tender_Until.Text(rdb_Valid_Tender_Until);
-            lngRPM.s_lbl_DateOfProformaInvoiceIssue.Text(lbl_DateOfIssue);
-            lngRPM.s_Invoice_Issue.Text(btn_ProformaInvoice_Issue);
-            //lngRPM.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
+            lng.s_MethodOfPayment.Text(this.grp_MtehodOfPaymentType);
+            lng.s_Payment_on_bank_account.Text(rdb_BankAccountTransfer);
+            lng.s_Payment_by_cash_or_card_on_delivery.Text(rdb_Payment_by_cash_or_credit_card_on_delivery);
+            lng.s_TermsOfPayment.Text(grp_TermsOfPayment);
+            lng.s_grp_ValidityOfTheTender.Text(grp_ValidityOfTheTender);
+            lng.s_rbtn_NumberOf.Text(rdb_ValidNumberOf);
+            lng.s_rdb_Valid_Tender_Until.Text(rdb_Valid_Tender_Until);
+            lng.s_lbl_DateOfProformaInvoiceIssue.Text(lbl_DateOfIssue);
+            lng.s_Invoice_Issue.Text(btn_ProformaInvoice_Issue);
+            //lng.s_btn_Select_BankAccount.Text(btn_Select_BankAccount);
 
             rdb_BankAccountTransfer.CheckedChanged += Rdb_BankAccountTransfer_CheckedChanged;
             rdb_BankAccountTransfer.Checked = true;
@@ -58,8 +58,8 @@ namespace Tangenta
             rdb_Valid_Tender_Until.CheckedChanged += Rdb_Valid_Tender_Until_CheckedChanged;
             rdb_ValidNumberOf.CheckedChanged += Rdb_ValidNumberOf_CheckedChanged;
             rdb_ValidNumberOf.Checked = true;
-            cmb_DaysOrMonths.Items.Add(lngRPM.s_Number_Of_Months.s);
-            cmb_DaysOrMonths.Items.Add(lngRPM.s_Number_Of_Days.s);
+            cmb_DaysOrMonths.Items.Add(lng.s_Number_Of_Months.s);
+            cmb_DaysOrMonths.Items.Add(lng.s_Number_Of_Days.s);
             cmb_DaysOrMonths.SelectedIndex = 0;
             nmUpDn_NumberOfDaysOrMonths.Value = 1;
             CalculateValidUntilDate();
@@ -122,11 +122,11 @@ namespace Tangenta
             m_usrc_AddOn = x_usrc_AddOn;
             if (m_bPrint)
             {
-                lngRPM.s_ProformaInvoice_Issue.Text(this.btn_ProformaInvoice_Issue);
+                lng.s_ProformaInvoice_Issue.Text(this.btn_ProformaInvoice_Issue);
             }
             else
             {
-                lngRPM.s_OK.Text(this.btn_ProformaInvoice_Issue);
+                lng.s_OK.Text(this.btn_ProformaInvoice_Issue);
             }
 
             if (m_AddOnDPI.Get(m_usrc_AddOn.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.Doc_ID))
@@ -333,7 +333,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    XMessage.Box.Show(this,false,lngRPM.s_DocProformaInvoice_ValidToDate_must_be_later_than_IssueDay);
+                    XMessage.Box.Show(this,false,lng.s_DocProformaInvoice_ValidToDate_must_be_later_than_IssueDay);
                     return;
                 }
             }

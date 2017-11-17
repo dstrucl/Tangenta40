@@ -42,11 +42,11 @@ namespace CodeTables.TableDocking_Form
             m_TableDockingFormXml = xTableDockingFormXml;
             m_ControlCollection = cCol;
             InitializeComponent();
-            this.Text = lngRPM.s_SaveViewForTable.s + m_tbl.lngTableName.s;
-            this.btn_Save.Text = lngRPM.s_Save.s;
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
-            this.chkBoxSetAsDefault.Text = lngRPM.s_SelectAsDefaultView.s;
-            lnlViewName.Text = lngRPM.s_ViewToSave.s;
+            this.Text = lng.s_SaveViewForTable.s + m_tbl.lngTableName.s;
+            this.btn_Save.Text = lng.s_Save.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
+            this.chkBoxSetAsDefault.Text = lng.s_SelectAsDefaultView.s;
+            lnlViewName.Text = lng.s_ViewToSave.s;
             m_bLimit = bLimit;
             m_iLimitNumber = iLimitNumber;
             m_bOrder_by_id_desc = bOrder_by_id_desc;
@@ -116,7 +116,7 @@ namespace CodeTables.TableDocking_Form
             }
             else
             {
-                MessageBox.Show(lngRPM.s_CanNotSaveViewWithNoColumn.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(lng.s_CanNotSaveViewWithNoColumn.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }
@@ -125,7 +125,7 @@ namespace CodeTables.TableDocking_Form
 
         private void SaveView_Form_Load(object sender, EventArgs e)
         {
-            //this.txtViewName.Text = UniqueNames.GetName(m_TableDockingFormXml.m_ViewXml,lngRPM.s_View.s + m_tbl.TableName[ASet.LanguageID]);
+            //this.txtViewName.Text = UniqueNames.GetName(m_TableDockingFormXml.m_ViewXml,lng.s_View.s + m_tbl.TableName[ASet.LanguageID]);
 
             //ViewXml new_ViewXml = CreateNewView();
             //if (new_ViewXml != null)
@@ -152,8 +152,8 @@ namespace CodeTables.TableDocking_Form
                 ViewXml xViewXml_ToFind = null;
                 if (UniqueNames.AlreadyExistInUniqueConstraintNameList(m_TableDockingFormXml.m_ViewXml, this.txtViewName.Text, ref xViewXml_ToFind))
                 {
-                    //Error.Show(lngRPM.s_ViewWithName.s + txtViewName.Text + lngRPM.s_AllreadyExistForTable.s + m_tbl.TableName);
-                    if (MessageBox.Show(this, lngRPM.s_OverWriteExistingView.s + ":" + this.txtViewName.Text + "?", lngRPM.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    //Error.Show(lng.s_ViewWithName.s + txtViewName.Text + lng.s_AllreadyExistForTable.s + m_tbl.TableName);
+                    if (MessageBox.Show(this, lng.s_OverWriteExistingView.s + ":" + this.txtViewName.Text + "?", lng.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {
                         Close();
                         return;
@@ -172,7 +172,7 @@ namespace CodeTables.TableDocking_Form
 
                     if (m_xml.Save())
                     {
-                        MessageBox.Show(lngRPM.s_CurrentViewIsSuccesfulySavedUnderName.s +  m_CurrentViewXml.m_ViewXml.Name,lngRPM.s_Info.s,MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        MessageBox.Show(lng.s_CurrentViewIsSuccesfulySavedUnderName.s +  m_CurrentViewXml.m_ViewXml.Name,lng.s_Info.s,MessageBoxButtons.OK,MessageBoxIcon.Information);
                         Close();
                         DialogResult = DialogResult.OK;
                         m_CreateView_Form.DynamicCreateControls(m_CurrentViewXml.m_ViewXml);
@@ -181,7 +181,7 @@ namespace CodeTables.TableDocking_Form
             }
             else
             {
-                Error.Show(lngRPM.s_YouMustDefineViewNameOrCancel.s);
+                Error.Show(lng.s_YouMustDefineViewNameOrCancel.s);
             }
         }
 

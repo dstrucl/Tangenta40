@@ -103,8 +103,8 @@ namespace ShopC
             InitializeComponent();
             this.nav = xnav;
             dbTables = xdbTables;
-            this.Text = lngRPM.s_EditStockTakeItems.s;
-            usrc_EditTable1.Text(lngRPM.s_EditStockTake);
+            this.Text = lng.s_EditStockTakeItems.s;
+            usrc_EditTable1.Text(lng.s_EditStockTake);
         }
 
 

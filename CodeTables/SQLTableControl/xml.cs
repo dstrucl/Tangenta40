@@ -524,7 +524,7 @@ namespace CodeTables
                 }
                 else
                 {
-                    MessageBox.Show(lngRPM.s_Error.s +":"+ lngRPM.s_File.s+ "=" + StaticXml.m_XMLFile + ":" +lngRPM.s_XmlIlegalNode.s+" \"" +  node1.Name +"\"." + lngRPM.s_Expected.s +" :\"" + const_CreateViewForm +"," + const_EditTableForm+ lngRPM.s_Or.s + const_DataTableForm +"\" " ,lngRPM.s_Error.s,MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show(lng.s_Error.s +":"+ lng.s_File.s+ "=" + StaticXml.m_XMLFile + ":" +lng.s_XmlIlegalNode.s+" \"" +  node1.Name +"\"." + lng.s_Expected.s +" :\"" + const_CreateViewForm +"," + const_EditTableForm+ lng.s_Or.s + const_DataTableForm +"\" " ,lng.s_Error.s,MessageBoxButtons.OK,MessageBoxIcon.Error);
                     bRes = false;
                 }
             }
@@ -625,7 +625,7 @@ namespace CodeTables
             else
             {
                 StaticXml.m_XMLFile = null;
-                MessageBox.Show(lngRPM.s_XMLFolderIsNotDefined.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(lng.s_XMLFolderIsNotDefined.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -671,33 +671,33 @@ namespace CodeTables
                                     }
                                     else
                                     {
-                                        csError = lngRPM.s_Error.s + ":" + lngRPM.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lngRPM.s_XmlIlegalNode.s + " \"" + node.Name + "\"." + lngRPM.s_Expected.s + "=\"" + const_TableDockingForm + "\"";
+                                        csError = lng.s_Error.s + ":" + lng.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lng.s_XmlIlegalNode.s + " \"" + node.Name + "\"." + lng.s_Expected.s + "=\"" + const_TableDockingForm + "\"";
                                         bRes = false;
                                     }
                                 }
                             }
                             else
                             {
-                                csError = lngRPM.s_Error.s + ":" + lngRPM.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lngRPM.s_XmlNodeNotFound.s + " \"" + const_TableDockingForm + "\"";
+                                csError = lng.s_Error.s + ":" + lng.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lng.s_XmlNodeNotFound.s + " \"" + const_TableDockingForm + "\"";
                                 bRes = false;
                             }
                         }
                         else
                         {
-                            csError = lngRPM.s_Error.s + ":" + lngRPM.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lngRPM.s_XmlRootNotFound.s + lngRPM.s_Expected.s + "\"" + const_Root + "\"";
+                            csError = lng.s_Error.s + ":" + lng.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lng.s_XmlRootNotFound.s + lng.s_Expected.s + "\"" + const_Root + "\"";
                             bRes = false;
                         }
                     }
                 }
                 else
                 {
-                    csError = lngRPM.s_Error.s + ":" + lngRPM.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lngRPM.s_XmlFileNotLoadedInXmlDocument.s;
+                    csError = lng.s_Error.s + ":" + lng.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lng.s_XmlFileNotLoadedInXmlDocument.s;
                     bRes = false;
                 }
             }
             else
             {
-                csError = lngRPM.s_Warning.s + ":" + lngRPM.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lngRPM.s_DoesNotExist.s;
+                csError = lng.s_Warning.s + ":" + lng.s_File.s + "=" + StaticXml.m_XMLFile + ":" + lng.s_DoesNotExist.s;
                 bRes = false;
             }
             return bRes;
@@ -732,7 +732,7 @@ namespace CodeTables
             }
             catch (Exception ex)
             {
-                MessageBox.Show(lngRPM.s_Error_Saving_XMLFile.s + " Exception = " + ex.Message);
+                MessageBox.Show(lng.s_Error_Saving_XMLFile.s + " Exception = " + ex.Message);
                 return false;
             }
         }

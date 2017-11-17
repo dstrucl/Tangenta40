@@ -28,10 +28,10 @@ namespace ShopC
         public Form_Stock_AvoidStock_Edit(DateTime_v xExpiryDate, string Item_UniqueName)
         {
             InitializeComponent();
-            lngRPM.s_ExpiryDateFormText.Text(this);
-            lngRPM.s_PleaseDefineExpiryDateForItem.Text(this.lbl_ExpiryDate,":"+ Item_UniqueName);
-            lngRPM.s_Cancel.Text(btn_Cancel);
-            lngRPM.s_OK.Text(this.btn_OK);
+            lng.s_ExpiryDateFormText.Text(this);
+            lng.s_PleaseDefineExpiryDateForItem.Text(this.lbl_ExpiryDate,":"+ Item_UniqueName);
+            lng.s_Cancel.Text(btn_Cancel);
+            lng.s_OK.Text(this.btn_OK);
             ExpiryDate = xExpiryDate;
             if (ExpiryDate != null)
             {

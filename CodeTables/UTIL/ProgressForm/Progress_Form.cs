@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,7 +24,7 @@ namespace ProgressForm
             progressBar.Maximum = 100;
             progressBar.Minimum = 0;
             progressBar.Value = 0;
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)

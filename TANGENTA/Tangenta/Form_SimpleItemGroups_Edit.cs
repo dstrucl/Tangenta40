@@ -35,7 +35,7 @@ namespace Tangenta
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            lngRPM.s_SimpleItemGroups.Text(this);
+            lng.s_SimpleItemGroups.Text(this);
         }
 
         private void Form_SimpleItemGroups_Edit_Load(object sender, EventArgs e)

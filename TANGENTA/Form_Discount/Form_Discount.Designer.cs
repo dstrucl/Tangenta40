@@ -1,4 +1,4 @@
-﻿namespace FormDiscount
+﻿namespace Form_Discount
 {
     partial class Form_Discount
     {

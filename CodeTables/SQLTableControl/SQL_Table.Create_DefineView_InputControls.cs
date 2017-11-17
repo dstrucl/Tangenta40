@@ -101,7 +101,7 @@ namespace CodeTables
 
         internal string GetFirstViewName()
         {
-            return lngRPM.s_View.s + lngTableName.s + "1";
+            return lng.s_View.s + lngTableName.s + "1";
         }
 
         internal void ClearFilterDataOf_DefineView_InputControl()
@@ -637,7 +637,7 @@ namespace CodeTables
                         if (col.InputControl.IsNotDefined())
                         {
                             col.InputControl.MarkAsUndefined();
-                            string s = col.Name_in_language.s + lngRPM.s_CanNotBeNull.s;
+                            string s = col.Name_in_language.s + lng.s_CanNotBeNull.s;
                             if (mymsg == null)
                             {
                                 mymsg = s;
@@ -660,7 +660,7 @@ namespace CodeTables
                                     if (!col.fKey.fTable.myGroupBox.Get_ID(ref id_v))
                                     {
                                         col.fKey.fTable.myGroupBox.MarkAsUndefined_Index();
-                                        //string s = col.Name_in_language[LanguageControl.DynSettings.LanguageID] + lngRPM.s_CanNotBeNull.s;
+                                        //string s = col.Name_in_language[LanguageControl.DynSettings.LanguageID] + lng.s_CanNotBeNull.s;
                                         //if (mymsg == null)
                                         //{
                                         //    mymsg = s;
@@ -686,7 +686,7 @@ namespace CodeTables
                             if (col.InputControl.IsNotDefined())
                             {
                                 col.InputControl.MarkAsUndefined();
-                                string s = col.Name_in_language.s + lngRPM.s_CanNotBeNull.s;
+                                string s = col.Name_in_language.s + lng.s_CanNotBeNull.s;
                                 if (mymsg == null)
                                 {
                                     mymsg = s;

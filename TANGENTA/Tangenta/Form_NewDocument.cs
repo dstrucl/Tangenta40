@@ -28,23 +28,23 @@ namespace Tangenta
             int ItemsCount = m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.ItemsCount(m_usrc_InvoiceMan.DocInvoice);
             if (m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.bDraft)
             {
-                sdraft = lngRPM.s_Draft.s;
+                sdraft = lng.s_Draft.s;
                 sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "-"+ m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.DraftNumber.ToString()
-                                   + " " + lngRPM.s_Total.s + " = " + m_usrc_InvoiceMan.m_usrc_Invoice.lbl_Sum.Text + ")";
+                                   + " " + lng.s_Total.s + " = " + m_usrc_InvoiceMan.m_usrc_Invoice.lbl_Sum.Text + ")";
             }
             else
             {
                 sInvoiceNumber = "(" + sdraft + " št.:" + m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.FinancialYear.ToString() + "-" + m_usrc_InvoiceMan.m_usrc_Invoice.m_ShopABC.m_CurrentInvoice.NumberInFinancialYear.ToString()
-                +" " +lngRPM.s_Total.s + " = " + m_usrc_InvoiceMan.m_usrc_Invoice.lbl_Sum.Text + ")";
+                +" " +lng.s_Total.s + " = " + m_usrc_InvoiceMan.m_usrc_Invoice.lbl_Sum.Text + ")";
             }
 
             if (m_usrc_InvoiceMan.IsDocInvoice)
             {
-                lngRPM.s_New_Empty_Invoice.Text(this.btn_New_Empty);
+                lng.s_New_Empty_Invoice.Text(this.btn_New_Empty);
             }
             else if (m_usrc_InvoiceMan.IsDocProformaInvoice)
             {
-                lngRPM.s_New_Empty_ProformaInvoice.Text(this.btn_New_Empty);
+                lng.s_New_Empty_ProformaInvoice.Text(this.btn_New_Empty);
             }
             else
             {

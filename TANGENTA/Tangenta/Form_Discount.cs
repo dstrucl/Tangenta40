@@ -40,9 +40,9 @@ namespace Tangenta
             {
                 btn_PurchasePriceInfo.Visible = false;
             }
-            lngRPM.s_rdb_CustomDiscount.Text(rdb_Custom);
-            lngRPM.s_rdb_EndPrice.Text(rdb_EndPrice);
-            lngRPM.s_btn_PurchasePriceInfo.Text(btn_PurchasePriceInfo);
+            lng.s_rdb_CustomDiscount.Text(rdb_Custom);
+            lng.s_rdb_EndPrice.Text(rdb_EndPrice);
+            lng.s_btn_PurchasePriceInfo.Text(btn_PurchasePriceInfo);
             ExtraDiscount = xDiscount;
             SetCurrentDiscount(xDiscount);
             RetailPrice = xRetailPrice;
@@ -64,7 +64,7 @@ namespace Tangenta
             DialogResult = DialogResult.Cancel;
 
             string s_RetailPrice = fs.Decimal2String(RetailPrice, GlobalData.BaseCurrency.DecimalPlaces) + " " + GlobalData.BaseCurrency.Abbreviation;
-            lngRPM.s_Price.Text(sItemName+", ", this, " = " +s_RetailPrice);
+            lng.s_Price.Text(sItemName+", ", this, " = " +s_RetailPrice);
 
         }
 
@@ -228,7 +228,7 @@ namespace Tangenta
                 decimal RetailPrice_with_discount = RetailPrice - RetailPrice * ExtraDiscount;
                 if (RetailPrice_with_discount <= PurchasePrice_v.v)
                 {
-                    string sMsg = lngRPM.s_ExtraDiscountMakesLowerPriceThan_PurchasePrice.s;
+                    string sMsg = lng.s_ExtraDiscountMakesLowerPriceThan_PurchasePrice.s;
                     string sRetailPrice = fs.Decimal2String(RetailPrice, 2) + " " + GlobalData.BaseCurrency.Abbreviation;
                     string sDiscount = fs.Decimal2String(ExtraDiscount * 100, 2) + "%";
                     string sRetailPrice_with_discount = fs.Decimal2String(RetailPrice_with_discount, 2) + " " + GlobalData.BaseCurrency.Abbreviation;
@@ -237,7 +237,7 @@ namespace Tangenta
                     sMsg = sMsg.Replace("%s2", sDiscount);
                     sMsg = sMsg.Replace("%s3", sRetailPrice_with_discount);
                     sMsg = sMsg.Replace("%s4", sPurchasePrice);
-                    if (XMessage.Box.Show(this, lngRPM.s_ExtraDiscountMakesLowerPriceThan_PurchasePrice, sMsg, "!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    if (XMessage.Box.Show(this, lng.s_ExtraDiscountMakesLowerPriceThan_PurchasePrice, sMsg, "!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {
                         return;
                     }
@@ -250,11 +250,11 @@ namespace Tangenta
 
         private void btn_PurchasePriceInfo_Click(object sender, EventArgs e)
         {
-            string sMsg = lngRPM.s_PurchasePriceInfoText.s;
+            string sMsg = lng.s_PurchasePriceInfoText.s;
             string sPurchasePrice = fs.Decimal2String(PurchasePrice_v.v, 2) + " " + GlobalData.BaseCurrency.Abbreviation;
             sMsg = sMsg.Replace("%s1", sItemName);
             sMsg = sMsg.Replace("%s2", sPurchasePrice);
-            XMessage.Box.Show(this, lngRPM.s_PurchasePriceInfoText, sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            XMessage.Box.Show(this, lng.s_PurchasePriceInfoText, sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
     }
 }

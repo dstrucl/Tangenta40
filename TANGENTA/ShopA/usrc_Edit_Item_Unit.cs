@@ -307,7 +307,7 @@ namespace ShopA
             dPriceSum_v.v = nm_PricePerUnit.Value * nm_dQuantity.Value;
             dQuantity_v.v = nm_dQuantity.Value;
             dPricePerUnit_v.v = nm_PricePerUnit.Value;
-            //lngRPM.s_Price_for.Text(lbl_Price, dQuantity_v.v.ToString() + " " + cmb_Unit.Text + " = " + dPriceSum_v.v.ToString() +" "+ GlobalData.BaseCurrency.Symbol);
+            //lng.s_Price_for.Text(lbl_Price, dQuantity_v.v.ToString() + " " + cmb_Unit.Text + " = " + dPriceSum_v.v.ToString() +" "+ GlobalData.BaseCurrency.Symbol);
         }
 
         private void cmb_Unit_SelectedValueChanged(object sender, EventArgs e)

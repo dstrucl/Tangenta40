@@ -25,9 +25,9 @@ namespace LogFile
         {
             InitializeComponent();
             m_con = xConn;
-            this.Text = lngConn.s_CreateDataBaseDialog_Form_Title.s;
+            this.Text = lng.s_CreateDataBaseDialog_Form_Title.s;
             this.Icon = Properties.Resources.CreateDataBase;
-            this.lbl_CreateDatabase.Text = lngConn.s_CreateNewDatabase.s;
+            this.lbl_CreateDatabase.Text = lng.s_CreateNewDatabase.s;
             this.txtDataBaseName.Text = m_con.DataBase;
         }
 
@@ -40,7 +40,7 @@ namespace LogFile
                 if (this.m_con.CreateMySQLDatabase(SqlCreateDatabase,ref csError))
                 {
                     m_con.DataBase = this.txtDataBaseName.Text;
-                    MessageBox.Show(lngConn.s_DataBase.s + " " + m_con.DataBase + " " + LanguageControl.lngRPM.s_Created.s, lngRPM.s_Info.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(lng.s_DataBase.s + " " + m_con.DataBase + " " + LanguageControl.lngRPM.s_Created.s, lngRPM.s_Info.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
                     Close();
                 }
@@ -51,7 +51,7 @@ namespace LogFile
             }
             else
             {
-                MessageBox.Show(lngConn.s_DatabaseNotDefined.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(lng.s_DatabaseNotDefined.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

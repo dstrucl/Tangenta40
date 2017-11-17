@@ -1,4 +1,4 @@
-﻿#region LICENSE 
+#region LICENSE 
 /*
  This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
  If a copy of the Tangenta Public License (TPL) was not distributed with this 
@@ -42,7 +42,7 @@ namespace UniversalInvoice
             City = _City;
             Country= _Country;
             State = _State;
-            ltext ltAddress_prefix = token_prefix.AddAtTheEnd(lngToken.st_Address);
+            ltext ltAddress_prefix = token_prefix.AddAtTheEnd(lng.st_Address);
             token = new AddressToken(ltAddress_prefix,
                                     StreetName,
                                     HouseNumber,
@@ -63,7 +63,7 @@ namespace UniversalInvoice
             City = "";
             Country= "";
             State = "";
-            ltext ltAddress_prefix = token_prefix.AddAtTheEnd(lngToken.st_Address);
+            ltext ltAddress_prefix = token_prefix.AddAtTheEnd(lng.st_Address);
             token = new AddressToken(ltAddress_prefix);
         }
     }

@@ -250,14 +250,14 @@ namespace TangentaPrint
         public usrc_SelectPrintTemplate()
         {
             InitializeComponent();
-            lngRPM.s_Printer.Text(lbl_printer);
-            lngRPM.s_SelectPrinter.Text(btn_SelectPrinter);
+            lng.s_Printer.Text(lbl_printer);
+            lng.s_SelectPrinter.Text(btn_SelectPrinter);
 
-            lngRPM.s_Language.Text(lbl_Language);
-            lngRPM.s_PaperSize.Text(lbl_PaperSize);
-            lngRPM.s_Template.Text(lbl_Template, ":");
-            lngRPM.s_Description.Text(lbl_Description);
-            lngRPM.s_Default.Text(chk_Default);
+            lng.s_Language.Text(lbl_Language);
+            lng.s_PaperSize.Text(lbl_PaperSize);
+            lng.s_Template.Text(lbl_Template, ":");
+            lng.s_Description.Text(lbl_Description);
+            lng.s_Default.Text(chk_Default);
            
         }
 

@@ -37,7 +37,7 @@ namespace CodeTables
             m_MyGroupBox = mygrpbox;
             m_tbl = tbl;
             InitializeComponent();
-            btn_Cancel.Text = lngRPM.s_Cancel.s;
+            btn_Cancel.Text = lng.s_Cancel.s;
             this.Text = tbl.lngTableName.s + " (" + tbl.TableName + ")";
             string csError="";
             FillDataTable(ref csError);

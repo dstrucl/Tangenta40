@@ -1,4 +1,4 @@
-﻿<Window x:Class="uwpf_GUI.Price_Undefined_Window"
+﻿<Window x:Class="uwpfGUI.Price_Undefined_Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Price_Item_Undefined" Height="504" Width="634" WindowStartupLocation="CenterScreen">

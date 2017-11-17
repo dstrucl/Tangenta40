@@ -29,9 +29,9 @@ namespace TangentaDB
         {
 
             //Proforma Invoice
-            ProformaInvoiceDraftTime = new journaltype("ProformaInvoiceDraftTime", lngRPM.s_ProformaInvoiceDraftTime_description.s); ;
+            ProformaInvoiceDraftTime = new journaltype("ProformaInvoiceDraftTime", lng.s_ProformaInvoiceDraftTime_description.s); ;
             journaltype_list.Add(ProformaInvoiceDraftTime);
-            ProformaInvoiceTime = new journaltype("ProformaInvoiceTime", lngRPM.s_ProformaInvoiceTime_description.s);
+            ProformaInvoiceTime = new journaltype("ProformaInvoiceTime", lng.s_ProformaInvoiceTime_description.s);
             journaltype_list.Add(ProformaInvoiceTime);
 
         }

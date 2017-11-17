@@ -30,13 +30,13 @@ namespace TangentaDB
         public JOURNAL_DocInvoice_Type_definitions()
         {
             //Tax Invoice
-            InvoiceDraftTime = new journaltype("InvoiceDraftTime", lngRPM.s_InvoiceDraftTime_description.s); ;
+            InvoiceDraftTime = new journaltype("InvoiceDraftTime", lng.s_InvoiceDraftTime_description.s); ;
             journaltype_list.Add(InvoiceDraftTime);
-            InvoiceTime = new journaltype("InvoiceTime", lngRPM.s_InvoiceTime_description.s);
+            InvoiceTime = new journaltype("InvoiceTime", lng.s_InvoiceTime_description.s);
             journaltype_list.Add(InvoiceTime);
-            InvoicePaidTime = new journaltype("InvoicePaidTime", lngRPM.s_InvoicePaidTime_description.s); ;
+            InvoicePaidTime = new journaltype("InvoicePaidTime", lng.s_InvoicePaidTime_description.s); ;
             journaltype_list.Add(InvoicePaidTime);
-            InvoiceStornoTime = new journaltype("InvoiceStornoTime", lngRPM.s_InvoiceStornoTime_description.s); ;
+            InvoiceStornoTime = new journaltype("InvoiceStornoTime", lng.s_InvoiceStornoTime_description.s); ;
             journaltype_list.Add(InvoiceStornoTime);
 
         }

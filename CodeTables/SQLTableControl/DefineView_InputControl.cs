@@ -234,7 +234,7 @@ namespace CodeTables
                         if (m_txtSQLFilter == null)
                         {
                             m_chkUseFiler = new CheckBox();
-                            m_chkUseFiler.Text = lngRPM.s_UseFilter.s;
+                            m_chkUseFiler.Text = lng.s_UseFilter.s;
                             m_chkUseFiler.Left = 48;
                             m_chkUseFiler.Top = 30;
                             m_chkUseFiler.Visible = true;

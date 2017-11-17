@@ -1,4 +1,4 @@
-﻿#region LICENSE 
+#region LICENSE 
 /*
  This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
  If a copy of the Tangenta Public License (TPL) was not distributed with this 
@@ -90,7 +90,7 @@ namespace DataGridView_2xls
             {
                 if ((e.RowIndex == -1) && (e.ColumnIndex == -1))
                 {
-                    if (MessageBox.Show(lngRPM.s_SaveSelectedRowsToExcelFile.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (MessageBox.Show(lng.s_SaveSelectedRowsToExcelFile.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         Excell excell = new Excell();
                         string FileName = "Table";
@@ -101,7 +101,7 @@ namespace DataGridView_2xls
                 {
                     if (e.ColumnIndex == -1)
                     {
-                        if (MessageBox.Show(lngRPM.s_ShowRowNumbers.s + "?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show(lng.s_ShowRowNumbers.s+ "?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             if (!DataGridViewWithRowNumber)
                             {

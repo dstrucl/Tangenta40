@@ -33,7 +33,7 @@ namespace Tangenta
         public usrc_PurchasePrice_Edit()
         {
             InitializeComponent();
-            this.usrc_EditTable_PurchaseItem.Title = lngRPM.s_PurchasePrice_Items.s;
+            this.usrc_EditTable_PurchaseItem.Title = lng.s_PurchasePrice_Items.s;
             this.usrc_EditTable_PurchasePriceList.Title = "";
         }
 

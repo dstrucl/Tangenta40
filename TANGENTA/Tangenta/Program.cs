@@ -231,7 +231,7 @@ namespace Tangenta
             string sNumber = null;
             if (bDraft)
             {
-                sNumber = FinancialYear.ToString() + "/" + lngRPM.s_Draft.s + " " + DraftNumber.ToString();
+                sNumber = FinancialYear.ToString() + "/" + lng.s_Draft.s + " " + DraftNumber.ToString();
             }
             else
             {
@@ -296,7 +296,7 @@ namespace Tangenta
                                 Auto_NEXT_in_miliseconds = fs.GetFirstIntParamFromString(s.Substring(iAutoNext));
                                 if (Auto_NEXT_in_miliseconds<=0)
                                 {
-                                    MessageBox.Show(lngRPM.s_AUTONEXT_missing_parameter.s);
+                                    MessageBox.Show(lng.s_AUTONEXT_missing_parameter.s);
                                     Auto_NEXT_in_miliseconds = 10;
                                 }
                             }
@@ -313,13 +313,13 @@ namespace Tangenta
                                                                bool bLanguageSelectDialogShown,
                                                                ref bool bExitBeforeLogFileInitialised)
         {
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCINVOICE, lngRPM.s_commandline_DOCINVOICE.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCPROFORMAINVOICE, lngRPM.s_commandline_DOCPROFORMAINVOICE.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lngRPM.s_commandline_CHANGE_CONNECTION.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lngRPM.s_commandline_RESETNEW.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lngRPM.s_commandline_RS232MONITOR.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lngRPM.s_const_command_DIAGNOSTIC.s));
-            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lngRPM.s_commandline_AUTONEXT.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCINVOICE, lng.s_commandline_DOCINVOICE.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DOCPROFORMAINVOICE, lng.s_commandline_DOCPROFORMAINVOICE.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_CHANGE_CONNECTION, lng.s_commandline_CHANGE_CONNECTION.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RESETNEW, lng.s_commandline_RESETNEW.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_RS232MONITOR, lng.s_commandline_RS232MONITOR.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_DIAGNOSTIC, lng.s_const_command_DIAGNOSTIC.s));
+            command_line_help.Add(new CommandLineHelp.CommandLineHelp(const_command_AUTONEXT, lng.s_commandline_AUTONEXT.s));
 
             NavigationButtons.Navigation CommandLineHelpNav = new NavigationButtons.Navigation();
             if (Auto_NEXT)
@@ -337,16 +337,16 @@ namespace Tangenta
             {
                 CommandLineHelpNav.btn1_Visible = false;
             }
-            CommandLineHelpNav.btn1_Text = lngRPM.s_Previous.s;
+            CommandLineHelpNav.btn1_Text = lng.s_Previous.s;
             CommandLineHelpNav.btn2_Image = Properties.Resources.Next;
-            CommandLineHelpNav.btn2_Text = lngRPM.s_Next.s;
+            CommandLineHelpNav.btn2_Text = lng.s_Next.s;
             CommandLineHelpNav.btn2_Visible = true;
             CommandLineHelpNav.btn3_Image = Properties.Resources.Exit_Program;
             CommandLineHelpNav.btn3_Text = "";
             CommandLineHelpNav.btn3_Visible = true;
             CommandLineHelpNav.btn2_ToolTip_Text = "Press to go to next step";
             CommandLineHelpNav.btn3_ToolTip_Text = "Exit program Tangenta";
-            CommandLineHelpNav.ExitProgramQuestionInLanguage = lngRPM.s_RealyWantToExitProgram.s;
+            CommandLineHelpNav.ExitProgramQuestionInLanguage = lng.s_RealyWantToExitProgram.s;
 
             CommandLineHelp.CommandLineHelp_Form hlp_frm = new CommandLineHelp.CommandLineHelp_Form(command_line_help, CommandLineHelpNav, Properties.Resources.Tangenta_Question);
             CommandLineHelpNav.ChildDialog = hlp_frm;
@@ -413,8 +413,8 @@ namespace Tangenta
                     }
 
                     NavigationButtons.lngRPM_strings.LanguagePrefix = LanguageControl.DynSettings.LanguagePrefix;
-                    NavigationButtons.lngRPM_strings.s_OK = LanguageControl.lngRPM.s_OK.s;
-                    NavigationButtons.lngRPM_strings.s_Cancel = LanguageControl.lngRPM.s_Cancel.s;
+                    NavigationButtons.lngRPM_strings.s_OK = lng.s_OK.s;
+                    NavigationButtons.lngRPM_strings.s_Cancel = lng.s_Cancel.s;
 
                     if (bResetNew)
                     {
@@ -468,7 +468,7 @@ namespace Tangenta
                     if (System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Length > 1)
                     {
                         LogFile.LogFile.Write(1, "Another instance is allready running !");
-                        MessageBox.Show(lngRPM.s_Another_instance_is_running.s);
+                        MessageBox.Show(lng.s_Another_instance_is_running.s);
                         rpc.End();
                         return;
                     }

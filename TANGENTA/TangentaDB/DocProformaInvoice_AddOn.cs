@@ -355,11 +355,11 @@ namespace TangentaDB
             List<object> Complex_ltMsg = new List<object>();
             if (m_IssueDate == null)
             {
-                Complex_ltMsg.Add(lngRPM.s_IssueDate_not_defined);
+                Complex_ltMsg.Add(lng.s_IssueDate_not_defined);
             }
             if (m_MethodOfPayment_DPI == null)
             {
-                Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DPI_not_defined);
+                Complex_ltMsg.Add(lng.s_MethodOfPayment_DPI_not_defined);
             }
             else
             {
@@ -367,22 +367,22 @@ namespace TangentaDB
                 {
                     if (m_MethodOfPayment_DPI.m_MyOrgBankAccountPayment == null)
                     {
-                        Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DI_BankAccount_not_defined);
+                        Complex_ltMsg.Add(lng.s_MethodOfPayment_DI_BankAccount_not_defined);
                     }
                     if (m_Duration == null)
                     {
-                        Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DPI_Duration_is_not_defined);
+                        Complex_ltMsg.Add(lng.s_MethodOfPayment_DPI_Duration_is_not_defined);
                     }
                 }
                 else if (m_MethodOfPayment_DPI.eType == GlobalData.ePaymentType.NOT_DEFINED)
                 {
-                    Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DPI_not_defined);
+                    Complex_ltMsg.Add(lng.s_MethodOfPayment_DPI_not_defined);
                 }
 
             }
             if (m_TermsOfPayment == null)
             {
-                Complex_ltMsg.Add(lngRPM.s_TermsOfPayment_are_not_defined);
+                Complex_ltMsg.Add(lng.s_TermsOfPayment_are_not_defined);
             }
             
             if (Complex_ltMsg.Count > 0)
@@ -620,7 +620,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    ltMsg = lngRPM.s_TermsOfPayment_are_not_defined;
+                    ltMsg = lng.s_TermsOfPayment_are_not_defined;
                     return true;
                 }
             }
@@ -725,7 +725,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    ltMsg = lngRPM.s_TermsOfPayment_are_not_defined;
+                    ltMsg = lng.s_TermsOfPayment_are_not_defined;
                     return true;
                 }
             }

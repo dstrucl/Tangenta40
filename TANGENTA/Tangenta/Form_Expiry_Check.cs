@@ -41,17 +41,17 @@ namespace Tangenta
             // TODO: Complete member initialization
             this.dt_ExpiryCheck = dt_ExpiryCheck;
             this.Owner = GetForm(ctrl);
-            lngRPM.s_Legend.Text(this.lbl_Legend);
+            lng.s_Legend.Text(this.lbl_Legend);
             lbl_Color_Items_for_discount.BackColor = Color.Cyan;
             lbl_Color_ItemsToDestroy.BackColor = Color.Pink;
             lbl_Color_ItemsWithNoExpiryData.BackColor = Color.Gray;
             lbl_Items_for_discount.BackColor = Color.Cyan;
             lbl_ItemsToDestroy.BackColor = Color.Pink;
             lbl_Items_WithNoExpiryData.BackColor = Color.Gray;
-            lngRPM.s_ItemsToDiscart.Text(lbl_ItemsToDestroy);
-            lngRPM.s_ItemsToSale.Text(lbl_Items_for_discount);
-            lngRPM.s_ItemsWithNoExpiryData.Text(lbl_Items_WithNoExpiryData);
-            lngRPM.s_ExpiryStockCheck.Text(this);
+            lng.s_ItemsToDiscart.Text(lbl_ItemsToDestroy);
+            lng.s_ItemsToSale.Text(lbl_Items_for_discount);
+            lng.s_ItemsWithNoExpiryData.Text(lbl_Items_WithNoExpiryData);
+            lng.s_ExpiryStockCheck.Text(this);
 
             m_sNoExpiryDate = sNoExpiryDate;
             m_sNoSaleBeforeExpiryDateInDays = sNoSaleBeforeExpiryDateInDays;

@@ -43,11 +43,11 @@ namespace TangentaPrint
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            this.Text = lngRPM.s_Items.s;
+            this.Text = lng.s_Items.s;
             rdb_OnlyInOffer.Checked = true;
-            this.rdb_OnlyInOffer.Text = lngRPM.s_OnlyInOffer.s;
-            this.rdb_All.Text = lngRPM.s_AllItems.s;
-            this.rdb_OnlyNotInOffer.Text = lngRPM.s_OnlyNotInOffer.s;
+            this.rdb_OnlyInOffer.Text = lng.s_OnlyInOffer.s;
+            this.rdb_All.Text = lng.s_AllItems.s;
+            this.rdb_OnlyNotInOffer.Text = lng.s_OnlyNotInOffer.s;
 
         }
 
@@ -59,11 +59,11 @@ namespace TangentaPrint
             ColumnOrderBy = xColumnOrderBy;
             ID_v = new long_v();
             ID_v.v = ID;
-            this.Text = lngRPM.s_Items.s;
+            this.Text = lng.s_Items.s;
             rdb_OnlyInOffer.Checked = true;
-            this.rdb_OnlyInOffer.Text = lngRPM.s_OnlyInOffer.s;
-            this.rdb_All.Text = lngRPM.s_AllItems.s;
-            this.rdb_OnlyNotInOffer.Text = lngRPM.s_OnlyNotInOffer.s;
+            this.rdb_OnlyInOffer.Text = lng.s_OnlyInOffer.s;
+            this.rdb_All.Text = lng.s_AllItems.s;
+            this.rdb_OnlyNotInOffer.Text = lng.s_OnlyNotInOffer.s;
 
         }
 
@@ -117,7 +117,7 @@ namespace TangentaPrint
 
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     usrc_EditTable.Save();
                 }
@@ -141,7 +141,7 @@ namespace TangentaPrint
         {
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     usrc_EditTable.Save();
                 }

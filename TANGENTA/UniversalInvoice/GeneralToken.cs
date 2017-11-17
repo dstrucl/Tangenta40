@@ -18,10 +18,10 @@ namespace UniversalInvoice
 
         public GeneralToken()
         {
-            tPageNumber = new TemplateToken(null,lngToken.st_PageNumber, null, null);
-            tNumberOfPages = new TemplateToken(null, lngToken.st_NumberOfPages, null, null);
-            tNotice = new TemplateToken(null, lngToken.st_Notice, null, null);
-            tFooter = new TemplateToken(null, lngToken.st_Footer, null, null);
+            tPageNumber = new TemplateToken(null,lng.st_PageNumber, null, null);
+            tNumberOfPages = new TemplateToken(null, lng.st_NumberOfPages, null, null);
+            tNotice = new TemplateToken(null, lng.st_Notice, null, null);
+            tFooter = new TemplateToken(null, lng.st_Footer, null, null);
             list = new List<TemplateToken>();
             list.Add(tPageNumber);
             list.Add(tNumberOfPages);

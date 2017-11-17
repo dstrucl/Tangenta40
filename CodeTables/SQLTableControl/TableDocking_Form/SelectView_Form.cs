@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using LanguageControl;
 using LogFile;
 using System.Runtime.InteropServices;
+using CodeTables;
 
 
 namespace CodeTables.TableDocking_Form
@@ -53,20 +54,20 @@ namespace CodeTables.TableDocking_Form
            
             if (m_mode == FormMode.SELECT)
             {
-                this.Text = lngRPM.s_SelectViewForTable.s + m_tbl.lngTableName.s;
+                this.Text = lng.s_SelectViewForTable.s + m_tbl.lngTableName.s;
                 chkBoxSetAsDefault.Visible = true;
-                this.btn_Select.Text = lngRPM.s_Select.s;
-                this.btn_Cancel.Text = lngRPM.s_Cancel.s;
+                this.btn_Select.Text = lng.s_Select.s;
+                this.btn_Cancel.Text = lng.s_Cancel.s;
             }
             else
             {
-                this.Text = lngRPM.s_DeleteViewForTable.s + m_tbl.lngTableName.s;
+                this.Text = lng.s_DeleteViewForTable.s + m_tbl.lngTableName.s;
                 chkBoxSetAsDefault.Visible = false;
-                this.btn_Select.Text = lngRPM.s_Delete.s;
-                this.btn_Cancel.Text = lngRPM.s_Close.s;
+                this.btn_Select.Text = lng.s_Delete.s;
+                this.btn_Cancel.Text = lng.s_Close.s;
             }
-            this.chkBoxSetAsDefault.Text = lngRPM.s_SelectAsDefaultView.s;
-            lnlViewName.Text = lngRPM.s_SelectedView.s;
+            this.chkBoxSetAsDefault.Text = lng.s_SelectAsDefaultView.s;
+            lnlViewName.Text = lng.s_SelectedView.s;
             foreach (ViewXml xViewXml in m_TableDockingFormXml.m_ViewXml)
             {
                 this.rdblist_Views.Items.Add(xViewXml);
@@ -141,13 +142,13 @@ namespace CodeTables.TableDocking_Form
                     }
                     else
                     {
-                        //Error.Show(lngRPM.s_ViewWithName.s + txtViewName.Text + lngRPM.s_AllreadyExistForTable.s + m_tbl.TableName);
-                        MessageBox.Show(lngRPM.s_TableView.s + " " + txtViewName.Text + " " + lngRPM.s_DoesNotExist.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //Error.Show(lng.s_ViewWithName.s + txtViewName.Text + lng.s_AllreadyExistForTable.s + m_tbl.TableName);
+                        MessageBox.Show(lng.s_TableView.s + " " + txtViewName.Text + " " + lng.s_DoesNotExist.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else
                 {
-                    Error.Show(lngRPM.s_YouMustDefineViewNameOrCancel.s);
+                    Error.Show(lng.s_YouMustDefineViewNameOrCancel.s);
                 }
             }
             else
@@ -158,8 +159,8 @@ namespace CodeTables.TableDocking_Form
                     if (rdblist_Views.Items[i].GetType() == typeof(ViewXml))
                     {
                         ViewXml xViewXml = (ViewXml)rdblist_Views.Items[i];
-                        string sQuest = lngRPM.s_AreYouSureToDeleteView.s + ":" + xViewXml.Name + " ?";
-                        if (MessageBox.Show(this, sQuest, lngRPM.s_DeleteViewTitle.s, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        string sQuest = lng.s_AreYouSureToDeleteView.s + ":" + xViewXml.Name + " ?";
+                        if (MessageBox.Show(this, sQuest, lng.s_DeleteViewTitle.s, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             int Index = -1;
                             if (FindView(ref Index, xViewXml))

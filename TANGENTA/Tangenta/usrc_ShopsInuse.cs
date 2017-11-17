@@ -15,16 +15,16 @@ namespace Tangenta
         public usrc_ShopsInuse()
         {
             InitializeComponent();
-            lngRPM.s_chk_A_in_use.Text(chk_A_in_use);
-            lngRPM.s_chk_B_in_use.Text(chk_B_in_use);
-            lngRPM.s_chk_C_in_use.Text(chk_C_in_use);
-            lngRPM.s_lbl_ShopA_Name.Text(lbl_ShopA_Name);
-            lngRPM.s_lbl_ShopB_Name.Text(lbl_ShopB_Name);
-            lngRPM.s_lbl_ShopC_Name.Text(lbl_ShopC_Name);
+            lng.s_chk_A_in_use.Text(chk_A_in_use);
+            lng.s_chk_B_in_use.Text(chk_B_in_use);
+            lng.s_chk_C_in_use.Text(chk_C_in_use);
+            lng.s_lbl_ShopA_Name.Text(lbl_ShopA_Name);
+            lng.s_lbl_ShopB_Name.Text(lbl_ShopB_Name);
+            lng.s_lbl_ShopC_Name.Text(lbl_ShopC_Name);
             string shinuse = Program.Shops_in_use;
-            lngRPM.s_Shop_A.Text(txt_ShopA_Name);
-            lngRPM.s_Shop_B.Text(txt_ShopB_Name);
-            lngRPM.s_Shop_C.Text(txt_ShopC_Name);
+            lng.s_Shop_A.Text(txt_ShopA_Name);
+            lng.s_Shop_B.Text(txt_ShopB_Name);
+            lng.s_Shop_C.Text(txt_ShopC_Name);
             chk_A_in_use.Checked = false;
             chk_B_in_use.Checked = false;
             chk_C_in_use.Checked = false;
@@ -59,12 +59,12 @@ namespace Tangenta
             }
             if (shinuse.Length == 0)
             {
-                MessageBox.Show(this, lngRPM.s_YouMustSelectAtLeastOneShop.s, lngRPM.s_Warning.s,  MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                MessageBox.Show(this, lng.s_YouMustSelectAtLeastOneShop.s, lng.s_Warning.s,  MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                 return false;
             }
-            lngRPM.s_Shop_A.sText(DynSettings.LanguageID, txt_ShopA_Name.Text);
-            lngRPM.s_Shop_B.sText(DynSettings.LanguageID, txt_ShopB_Name.Text);
-            lngRPM.s_Shop_C.sText(DynSettings.LanguageID, txt_ShopC_Name.Text);
+            lng.s_Shop_A.sText(DynSettings.LanguageID, txt_ShopA_Name.Text);
+            lng.s_Shop_B.sText(DynSettings.LanguageID, txt_ShopB_Name.Text);
+            lng.s_Shop_C.sText(DynSettings.LanguageID, txt_ShopC_Name.Text);
             DynSettings.LanguageTextSave();
             Properties.Settings.Default.eShopsInUse = shinuse;
             Properties.Settings.Default.Save();

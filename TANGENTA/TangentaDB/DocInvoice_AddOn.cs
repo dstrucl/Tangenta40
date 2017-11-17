@@ -382,11 +382,11 @@ namespace TangentaDB
             List<object> Complex_ltMsg = new List<object>();
             if (m_IssueDate == null)
             {
-                Complex_ltMsg.Add(lngRPM.s_IssueDate_not_defined);
+                Complex_ltMsg.Add(lng.s_IssueDate_not_defined);
             }
             if (m_MethodOfPayment_DI == null)
             {
-                Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DI_not_defined);
+                Complex_ltMsg.Add(lng.s_MethodOfPayment_DI_not_defined);
             }
             else
             {
@@ -394,17 +394,17 @@ namespace TangentaDB
                 {
                     if (m_MethodOfPayment_DI.m_MyOrgBankAccountPayment == null)
                     {
-                        Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DI_BankAccount_not_defined);
+                        Complex_ltMsg.Add(lng.s_MethodOfPayment_DI_BankAccount_not_defined);
                     }
                     if (m_PaymentDeadline == null)
                     {
-                        Complex_ltMsg.Add(lngRPM.s_MethodOfPayment_DI_PaymentDeadline_not_defined);
+                        Complex_ltMsg.Add(lng.s_MethodOfPayment_DI_PaymentDeadline_not_defined);
                     }
                 }
             }
             if (m_TermsOfPayment == null)
             {
-                Complex_ltMsg.Add(lngRPM.s_TermsOfPayment_are_not_defined);
+                Complex_ltMsg.Add(lng.s_TermsOfPayment_are_not_defined);
             }
             if (Complex_ltMsg.Count>0)
             {
@@ -629,7 +629,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    ltMsg = lngRPM.s_TermsOfPayment_are_not_defined;
+                    ltMsg = lng.s_TermsOfPayment_are_not_defined;
                     return true;
                 }
             }
@@ -725,7 +725,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    ltMsg = lngRPM.s_TermsOfPayment_are_not_defined;
+                    ltMsg = lng.s_TermsOfPayment_are_not_defined;
                     return true;
                 }
             }
@@ -830,7 +830,7 @@ namespace TangentaDB
                     {
                         if (this.FURS_TestEnvironment_v.v)
                         {
-                            sFURS_ZOI = this.FURS_ZOI_v.v + " " + lngRPM.s_FVI_done_in_test_environment.s;
+                            sFURS_ZOI = this.FURS_ZOI_v.v + " " + lng.s_FVI_done_in_test_environment.s;
                         }
 
                     }
@@ -842,7 +842,7 @@ namespace TangentaDB
                     {
                         if (this.FURS_TestEnvironment_v.v)
                         {
-                            sFURS_EOR = this.FURS_EOR_v.v + " " + lngRPM.s_FVI_done_in_test_environment.s;
+                            sFURS_EOR = this.FURS_EOR_v.v + " " + lng.s_FVI_done_in_test_environment.s;
                         }
                     }
                 }
@@ -871,8 +871,8 @@ namespace TangentaDB
                 string sql = "select MessageID,UniqueInvoiceID,BarCodeValue from fvi_slo_response where DocInvoice_ID = " + DocInvoice_ID.ToString();
                 string Err = null;
                 DataTable dt = new DataTable();
-                sFURS_ZOI = lngRPM.s_FVI_not_done.s;
-                sFURS_EOR = lngRPM.s_FVI_not_done.s;
+                sFURS_ZOI = lng.s_FVI_not_done.s;
+                sFURS_EOR = lng.s_FVI_not_done.s;
                 if (DBSync.DBSync.ReadDataTable(ref dt, sql, ref Err))
                 {
                     if (dt.Rows.Count > 0)
@@ -893,7 +893,7 @@ namespace TangentaDB
                             {
                                 if (FURS_TestEnvironment_v.v)
                                 {
-                                    sFURS_ZOI = this.FURS_ZOI_v.v + lngRPM.s_FVI_done_in_test_environment.s;
+                                    sFURS_ZOI = this.FURS_ZOI_v.v + lng.s_FVI_done_in_test_environment.s;
                                 }
                             }
                         }
@@ -904,7 +904,7 @@ namespace TangentaDB
                             {
                                 if (FURS_TestEnvironment_v.v)
                                 {
-                                    sFURS_EOR = this.FURS_EOR_v.v + lngRPM.s_FVI_done_in_test_environment.s;
+                                    sFURS_EOR = this.FURS_EOR_v.v + lng.s_FVI_done_in_test_environment.s;
                                 }
                             }
                         }

@@ -794,9 +794,9 @@ namespace LogFile
             textBox_DataBaseLogFilePath.Text = m_SelectedPath + textBox_DataBaseName.Text + "_LOG.log"; ;
 
 
-            this.tabGeneral.Text = lngConn.s_General.s;
-            this.Text = lngConn.s_CreateDataBaseDialog_Form_Title.s;
-            lbl_DataBase_name.Text = lngConn.s_DataBaseName.s;
+            this.tabGeneral.Text = lng.s_General.s;
+            this.Text = lng.s_CreateDataBaseDialog_Form_Title.s;
+            lbl_DataBase_name.Text = lng.s_DataBaseName.s;
             this.m_Process_CreateDatabase_Timer = new Process_CreateDatabase_Timer(this);
             timer1.Enabled = true;
         }
@@ -821,7 +821,7 @@ namespace LogFile
                     eSelectDataBaseFileTYPE eRes;
                     if (thisComputerName.Equals(xComputerName))
                     {
-                        DialogResult dWarningResult = MessageBox.Show(lngConn.s_OnServerDatabaseConstructionFileInstructions.s,lngConn.s_Warning.s,MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
+                        DialogResult dWarningResult = MessageBox.Show(lng.s_OnServerDatabaseConstructionFileInstructions.s,lng.s_Warning.s,MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
                         switch (dWarningResult)
                         {
                             case DialogResult.Yes:
@@ -834,7 +834,7 @@ namespace LogFile
                     }
                     else
                     {
-                        DialogResult dWarningResult = MessageBox.Show(lngConn.s_OnLocalComputerDatabaseConstructionFileInstructions.s,lngConn.s_Warning.s,MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
+                        DialogResult dWarningResult = MessageBox.Show(lng.s_OnLocalComputerDatabaseConstructionFileInstructions.s,lng.s_Warning.s,MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
                         switch (dWarningResult)
                         {
                             case DialogResult.Yes:
@@ -872,7 +872,7 @@ namespace LogFile
                     }
                     if (eRes == eSelectDataBaseFileTYPE.E_SELECT_WITH_TEXT_BOX_ONLY)
                     {
-                        TextBoxDialog_Form txtBoxDlg = new TextBoxDialog_Form(lngConn.s_EnterDataBaseFileOnServer.s,lngConn.s_EnterDataBaseFileOnServerIfYouKnowDrivesAndFoldersOnServer.s,textBox_DataBaseName.Text,lngConn.s_DataBaseFileNameCanNotBeEmpty.s,true);
+                        TextBoxDialog_Form txtBoxDlg = new TextBoxDialog_Form(lng.s_EnterDataBaseFileOnServer.s,lng.s_EnterDataBaseFileOnServerIfYouKnowDrivesAndFoldersOnServer.s,textBox_DataBaseName.Text,lng.s_DataBaseFileNameCanNotBeEmpty.s,true);
                         if (txtBoxDlg.ShowDialog()== DialogResult.OK)
                         {
                             m_SelectedPath = Path.GetPathRoot(txtBoxDlg.m_Result);

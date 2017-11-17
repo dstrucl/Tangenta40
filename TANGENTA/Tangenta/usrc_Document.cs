@@ -404,14 +404,14 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             }
             else
             {
-                if (MessageBox.Show(this.Main_Form, lngRPM.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lngRPM.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n"+lngRPM.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(this.Main_Form, lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue + "\r\n"+lng.s_DoYouWantToUpgradeDBToLatestVersion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     myStartup.bUpgradeDone = m_UpgradeDB.UpgradeDB(myStartup.CurrentDataBaseVersionTextValue, DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue, ref Err);
                     return GetDBSettings_And_JOURNAL_DocInvoice_Type(myStartup, ref Err);
                 }
                 else
                 {
-                    Err = lngRPM.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n"+ lngRPM.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
+                    Err = lng.s_Database_Version_is.s + myStartup.CurrentDataBaseVersionTextValue + "\r\n"+ lng.s_ThisProgramWorksOnlyWithDatabase_Version.s + ":" + DBSync.DBSync.DB_for_Tangenta.Settings.Version.TextValue;
                     myStartup.eNextStep = startup_step.eStep.Cancel;
                     return false;
                 }
@@ -420,7 +420,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
 
         private bool GetMissingDBSettings(string name)
         {
-            MessageBox.Show(this, lngRPM.s_No_DB_Settings_for.s + " " + name);
+            MessageBox.Show(this, lng.s_No_DB_Settings_for.s + " " + name);
             NavigationButtons.Navigation nav_FormDBSettings = new Navigation();
             nav_FormDBSettings.bDoModal = true;
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
@@ -437,7 +437,7 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             }
             else
             {
-                if (MessageBox.Show(this, lngRPM.s_WithoutDatabaseSettingsProgramCanNotRun_ExitOKOrCancel.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                if (MessageBox.Show(this, lng.s_WithoutDatabaseSettingsProgramCanNotRun_ExitOKOrCancel.s, "?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     goto repeat_Form_DBSettings;
                 }

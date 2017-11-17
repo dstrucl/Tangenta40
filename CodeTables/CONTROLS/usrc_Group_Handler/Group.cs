@@ -1,4 +1,4 @@
-﻿#region LICENSE 
+#region LICENSE 
 /*
  This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
  If a copy of the Tangenta Public License (TPL) was not distributed with this 
@@ -104,7 +104,7 @@ namespace usrc_Item_Group_Handler
             m_Name = xName;
             if (xName == null)
             {
-               m_Name_In_Language += " " + lngRPM.s_Other.s;
+               m_Name_In_Language += " " + lng.s_Other.s;
             }
             else
             {

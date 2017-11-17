@@ -270,7 +270,7 @@ namespace TangentaPrint
         public usrc_Invoice_Preview()
         {
             InitializeComponent();
-            lngRPM.s_btn_Tokens.Text(btn_Tokens);
+            lng.s_btn_Tokens.Text(btn_Tokens);
             pd.PrintPage += Pd_PrintPage;
             //string html_doc = Properties.Resources.html_doc;
 

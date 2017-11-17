@@ -22,7 +22,7 @@ namespace TangentaSampleDB
         public Form_EditMyOrgSampleData(SampleDB smd, NavigationButtons.Navigation xnav,Icon xoIcon)
         {
             InitializeComponent();
-            lngRPM.s_Form_EditMyOrgSampleData.Text(this);
+            lng.s_Form_EditMyOrgSampleData.Text(this);
             oIcon = xoIcon;
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
@@ -69,7 +69,7 @@ namespace TangentaSampleDB
                 }
                 else
                 {
-                    if (XMessage.Box.Show(this, lngRPM.s_YouHaveChangedSomeDataButNotAllSampleData_YouShouldChangeAllSampleDataToYourRealData, "?", MessageBoxButtons.OKCancel, Icon, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
+                    if (XMessage.Box.Show(this, lng.s_YouHaveChangedSomeDataButNotAllSampleData_YouShouldChangeAllSampleDataToYourRealData, "?", MessageBoxButtons.OKCancel, Icon, MessageBoxDefaultButton.Button1) == DialogResult.Cancel)
                     {
                         m_usrc_SampleDataEdit.Fill(EnumControlCallback_Fill);
                         DialogResult = DialogResult.OK;

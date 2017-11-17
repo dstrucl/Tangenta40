@@ -32,11 +32,11 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             InitializeComponent();
             m_usrc_FVI_SLO = xusrc_FVI_SLO;
-            lngRPM.s_FURS_WWW_btn_Check_invoice.Text(btn_CheckInvoice);
-            lngRPM.s_FVI_for_cash_payment.Text(chk_FVI_CASH_PAYMENT);
-            lngRPM.s_FVI_for_card_payment.Text(chk_FVI_CARD_PAYMENT);
-            lngRPM.s_FVI_for_payment_on_bankaccount.Text(chk_FVI_PAYMENT_ON_BANK_ACCOUNT);
-            lngRPM.s_FVI_Edit_DocType_Settings.Text(chk_Edit_DocType_Settings);
+            lng.s_FURS_WWW_btn_Check_invoice.Text(btn_CheckInvoice);
+            lng.s_FVI_for_cash_payment.Text(chk_FVI_CASH_PAYMENT);
+            lng.s_FVI_for_card_payment.Text(chk_FVI_CARD_PAYMENT);
+            lng.s_FVI_for_payment_on_bankaccount.Text(chk_FVI_PAYMENT_ON_BANK_ACCOUNT);
+            lng.s_FVI_Edit_DocType_Settings.Text(chk_Edit_DocType_Settings);
             chk_Edit_DocType_Settings.Enabled = true;
             chk_Edit_DocType_Settings.Checked = false;
             chk_Edit_DocType_Settings.CheckedChanged += Chk_Edit_DocType_Settings_CheckedChanged;
@@ -50,7 +50,7 @@ namespace FiscalVerificationOfInvoices_SLO
             else
             {
                 this.btn_Exit.Image = null;
-                this.btn_Exit.Text = lngRPM.ss_Exit.s;
+                this.btn_Exit.Text = lng.ss_Exit.s;
             }
             Init();
         }
@@ -87,11 +87,11 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (m_usrc_FVI_SLO.FursTESTEnvironment)
             {
-                this.Text = lngRPM.s_FVI_Check.s + " " + lngRPM.s_Furs_Test_Environment.s;
+                this.Text = lng.s_FVI_Check.s + " " + lng.s_Furs_Test_Environment.s;
             }
             else
             {
-                this.Text = lngRPM.s_FVI_Check.s;
+                this.Text = lng.s_FVI_Check.s;
             }
             chk_FVI_CASH_PAYMENT.Checked = Properties.Settings.Default.FVI_for_cash_payment;
             chk_FVI_CARD_PAYMENT.Checked = Properties.Settings.Default.FVI_for_card_payment;

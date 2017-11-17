@@ -35,19 +35,19 @@ namespace Tangenta
             this.m_usrc_InvoiceTable = xusrc_InvoiceTable;
 
 
-            this.Text = lngRPM.s_SelectTimeSpan.s;
-            this.rdb_All.Text = lngRPM.s_all.s;
-            this.rdb_CurrentDay.Text = lngRPM.s_Today.s;
-            this.rdb_TimeSpan.Text = lngRPM.s_TimeSpan.s;
-            this.rdb_LastYear.Text = lngRPM.s_LastYear.s;
-            this.rdb_ThisYear.Text= lngRPM.s_ThisYear.s;  
-            this.rdb_LastMonth.Text = lngRPM.s_LastMonth.s;
-            this.rdb_ThisMonth.Text = lngRPM.s_ThisMonth.s;
-            this.rdb_LastWeek.Text= lngRPM.s_LastWeek.s; 
-            this.rdb_ThisWeek.Text= lngRPM.s_ThisWeek.s;
-            lbl_From.Text = lngRPM.ss_From.s;
-            lbl_To.Text = lngRPM.ss_To.s;
-            btn_OK.Text = lngRPM.ss_OK.s;
+            this.Text = lng.s_SelectTimeSpan.s;
+            this.rdb_All.Text = lng.s_all.s;
+            this.rdb_CurrentDay.Text = lng.s_Today.s;
+            this.rdb_TimeSpan.Text = lng.s_TimeSpan.s;
+            this.rdb_LastYear.Text = lng.s_LastYear.s;
+            this.rdb_ThisYear.Text= lng.s_ThisYear.s;  
+            this.rdb_LastMonth.Text = lng.s_LastMonth.s;
+            this.rdb_ThisMonth.Text = lng.s_ThisMonth.s;
+            this.rdb_LastWeek.Text= lng.s_LastWeek.s; 
+            this.rdb_ThisWeek.Text= lng.s_ThisWeek.s;
+            lbl_From.Text = lng.ss_From.s;
+            lbl_To.Text = lng.ss_To.s;
+            btn_OK.Text = lng.ss_OK.s;
             Org_Mode = m_usrc_InvoiceTable.Mode;
             Org_dtStartTime = m_usrc_InvoiceTable.dtStartTime;
             Org_dtEndTime = m_usrc_InvoiceTable.dtEndTime;
@@ -77,7 +77,7 @@ namespace Tangenta
                     this.rdb_ThisYear.Checked = true;
                     break;
                 case usrc_InvoiceTable.eMode.LastYear:
-                    this.rdb_LastYear.Text = lngRPM.s_LastYear.s;
+                    this.rdb_LastYear.Text = lng.s_LastYear.s;
                     break;
                 case usrc_InvoiceTable.eMode.TimeSpan:
                     this.rdb_TimeSpan.Checked = true;
@@ -142,7 +142,7 @@ namespace Tangenta
             {
                 m_usrc_InvoiceTable.lpar_ExtraCondition = null;
                 m_usrc_InvoiceTable.ExtraCondition = null;
-                m_usrc_InvoiceTable.SetMode(usrc_InvoiceTable.eMode.All, lngRPM.s_AllData.s);
+                m_usrc_InvoiceTable.SetMode(usrc_InvoiceTable.eMode.All, lng.s_AllData.s);
             }
         }
 

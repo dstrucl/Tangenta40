@@ -64,7 +64,7 @@ namespace UniversalInvoice
             CardNumber = _CardNumber;
             CardType = _CardType;
             PersonImage = _PersonImage;
-            ltext token_prefix_Person = token_prefix.AddAtTheEnd(lngToken.st_Person);
+            ltext token_prefix_Person = token_prefix.AddAtTheEnd(lng.st_Person);
             Address = new Address(token_prefix_Person, _StreetName,
                                            _HouseNumber,
                                            _ZIP,
@@ -100,7 +100,7 @@ namespace UniversalInvoice
             CardNumber = "";
             CardType = "";
             PersonImage = null;
-            ltext token_prefix_Person = token_prefix.AddAtTheEnd(lngToken.st_Person);
+            ltext token_prefix_Person = token_prefix.AddAtTheEnd(lng.st_Person);
             Address = new Address(token_prefix_Person);
 
             token = new PersonToken(token_prefix_Person);

@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using uwpf_GUI;
+using uwpfGUI;
 
 namespace UpgradeDB
 {
@@ -25,7 +25,7 @@ namespace UpgradeDB
         private List<string> MessageBox = new List<string>();
         private void Run(object param)
         {
-            uwpf_GUI.Upgrade_Progress_Window piu_w = new uwpf_GUI.Upgrade_Progress_Window();
+            uwpfGUI.Upgrade_Progress_Window piu_w = new uwpfGUI.Upgrade_Progress_Window();
             piu_w.Show();
             for (; ; )
             {

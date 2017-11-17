@@ -1,0 +1,28 @@
+#region LICENSE 
+/*
+ This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
+ If a copy of the Tangenta Public License (TPL) was not distributed with this 
+ file, You can obtain one at  https://github.com/dstrucl/Tangenta40/wiki/LICENCE 
+*/
+#endregion
+using System;
+using System.Collections.Generic;
+
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Reflection;
+
+
+namespace LanguageControl
+{
+    public static class lng
+    {
+ public static ltext s_Text_in_language = new ltext( new string[]{"Text in Language","Prevod v jeziku"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_ltext_Edit.cs
+
+ public static ltext s_Language = new ltext( new string[]{"Language",
+                                                   "Jezik"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_ltext_Edit.cs
+
+  }
+}

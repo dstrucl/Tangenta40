@@ -1,4 +1,4 @@
-﻿#region LICENSE 
+#region LICENSE 
 /*
  This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
  If a copy of the Tangenta Public License (TPL) was not distributed with this 
@@ -29,8 +29,8 @@ namespace LanguageControl
             this.ltext = xltext;
             m_sText = sText;
             dt_Translations.Columns.Add("ID", typeof(int));
-            dt_Translations.Columns.Add(lngRPM.s_Language.s, typeof(string));
-            dt_Translations.Columns.Add(lngRPM.s_Text_in_language.s, typeof(string));
+            dt_Translations.Columns.Add(lng.s_Language.s,typeof(string));
+            dt_Translations.Columns.Add(lng.s_Text_in_language.s, typeof(string));
             int icount = m_sText.Count();
             for (int i =0;i<icount;i++)
             {

@@ -57,22 +57,22 @@ namespace ShopC
                     }
                     dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].Visible = true;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].DisplayIndex = 0;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].HeaderText = lngRPM.s_Stock_ID.s;
+                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_ID"].HeaderText = lng.s_Stock_ID.s;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].Visible = true;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].DisplayIndex = 1;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].HeaderText = lngRPM.s_Quantity.s;
+                    dgv_DocInvoice_Atom_Item_Stock.Columns["dQuantity"].HeaderText = lng.s_Quantity.s;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].Visible = true;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].DisplayIndex = 2;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].HeaderText = lngRPM.s_ExpiryDate.s;
+                    dgv_DocInvoice_Atom_Item_Stock.Columns["ExpiryDate"].HeaderText = lng.s_ExpiryDate.s;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].Visible = true;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].DisplayIndex = 3;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].HeaderText = lngRPM.s_Stock_dQuantity.s;
+                    dgv_DocInvoice_Atom_Item_Stock.Columns["Stock_dQuantity"].HeaderText = lng.s_Stock_dQuantity.s;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].Visible = true;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].DisplayIndex = 4;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].HeaderText = lngRPM.s_PurchasePricePerUnit.s;
+                    dgv_DocInvoice_Atom_Item_Stock.Columns["PurchasePricePerUnit"].HeaderText = lng.s_PurchasePricePerUnit.s;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].Visible = true;
                     dgv_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].DisplayIndex = 5;
-                    dgv_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].HeaderText = lngRPM.s_RetailPricePerUnit.s;
+                    dgv_DocInvoice_Atom_Item_Stock.Columns["RetailPricePerUnit"].HeaderText = lng.s_RetailPricePerUnit.s;
 
                     int iCol_Stock_ExpiryDate =dt_DocInvoice_Atom_Item_Stock_view.Columns.IndexOf("Stock_ExpiryDate");
                     int iCol_ExpiryDate = dt_DocInvoice_Atom_Item_Stock_view.Columns.IndexOf("ExpiryDate");

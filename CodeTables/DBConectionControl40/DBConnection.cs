@@ -948,7 +948,7 @@ namespace DBConnectionControl40
         public bool CheckConnection(Object DB_Param)
         {
             SetConnectionData(DB_Param);
-            return CheckDataBaseConnection(null, LanguageControl.lngConn.s_TestConnection.s);
+            return CheckDataBaseConnection(null, lng.s_TestConnection.s);
         }
 
         public bool CreateNewDataBaseConnection(Object DB_Param, NavigationButtons.Navigation xnav, ref bool bCanceled)
@@ -1137,7 +1137,7 @@ namespace DBConnectionControl40
                     }
                 }
             }
-            if (CheckDataBaseConnection(pParentForm, LanguageControl.lngConn.s_TestConnection.s))
+            if (CheckDataBaseConnection(pParentForm, lng.s_TestConnection.s))
             {
                 //if (DB_Param.GetType() == typeof(RemoteDB_data))
                 //{
@@ -3819,9 +3819,9 @@ namespace DBConnectionControl40
 
             string csError = null;
 
-            string sLastQuestion = lngConn.s_AreYouSureToDeleteDataBase.s + " " +this.DataBase + " on server:" +this.DataSource+ "?";
+            string sLastQuestion = lng.s_AreYouSureToDeleteDataBase.s + " " +this.DataBase + " on server:" +this.DataSource+ "?";
 
-            if (MessageBox.Show(sLastQuestion, lngConn.s_Question.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show(sLastQuestion, lng.s_Question.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 if (this.ExecuteNonQuerySQL_NoMultiTrans(sqlDropDBQuery, null, ref csError))
                 {
@@ -4154,7 +4154,7 @@ namespace DBConnectionControl40
                     }
                     else
                     {
-                        csError = lngConn.s_Error.s + ": " + lngConn.sTableIsMissing.s + ":" + TableName;
+                        csError = lng.s_Error.s + ": " + lng.sTableIsMissing.s + ":" + TableName;
                         return false;
                     }
                 }

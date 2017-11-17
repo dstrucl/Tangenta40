@@ -62,18 +62,18 @@ namespace Tangenta
             sInvoiceNumber = xsInvoiceNumber;
             if (IsDocInvoice)
             {
-                lngRPM.s_New_Copy_ThisInvoice_ToNewProformaInvoice.Text(this.btn_New_Copy_To_Another_DocType);
+                lng.s_New_Copy_ThisInvoice_ToNewProformaInvoice.Text(this.btn_New_Copy_To_Another_DocType);
             }
             else if (IsDocProformaInvoice)
             {
-                lngRPM.s_New_Copy_ThisProformaInvoice_ToInvoice.Text(this.btn_New_Copy_To_Another_DocType);
+                lng.s_New_Copy_ThisProformaInvoice_ToInvoice.Text(this.btn_New_Copy_To_Another_DocType);
             }
             else
             {
                 LogFile.Error.Show("ERROR:Tangenta:Form_NewDocument.cs:Form_NewDocument: Unknown DocInvoice type!");
             }
             btn_New_Copy_To_Another_DocType.Text = btn_New_Copy_To_Another_DocType.Text.Replace("%s", sInvoiceNumber);
-            lngRPM.s_IntoFinancialYear.Text(lbl_FinancialYear);
+            lng.s_IntoFinancialYear.Text(lbl_FinancialYear);
             cmb_FinancialYear.SelectedIndexChanged -= cmb_FinancialYear_SelectedIndexChanged;
             int Default_FinancialYear = DateTime.Now.Year;
             if (GlobalData.SetFinancialYears(cmb_FinancialYear, ref m_dt_FiancialYear, IsDocInvoice, IsDocProformaInvoice, ref Default_FinancialYear))

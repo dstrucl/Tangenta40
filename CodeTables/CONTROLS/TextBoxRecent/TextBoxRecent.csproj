@@ -67,6 +67,7 @@
     <Compile Include="Form_SelectRecentText.Designer.cs">
       <DependentUpon>Form_SelectRecentText.cs</DependentUpon>
     </Compile>
+    <Compile Include="lng.cs" />
     <Compile Include="TextBoxR.cs">
       <SubType>Component</SubType>
     </Compile>

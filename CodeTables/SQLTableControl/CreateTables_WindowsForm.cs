@@ -22,10 +22,10 @@ namespace CodeTables
         public CreateTables_WindowsForm(int Tables_Count)
         {
             InitializeComponent();
-            this.Text = lngRPM.s_WaitToCreate_Tables.s;
-            this.lbl_CopyRight.Text = lngRPM.s_Copyright_Tangenta.s;
+            this.Text = lng.s_WaitToCreate_Tables.s;
+            this.lbl_CopyRight.Text = lng.s_Copyright_Tangenta.s;
             this.lbl_CopyRight.BackColor = Color.Transparent;
-            this.lbl_Info.Text = lngRPM.s_NumberOfTabelsToCreate.s + Tables_Count.ToString();
+            this.lbl_Info.Text = lng.s_NumberOfTabelsToCreate.s + Tables_Count.ToString();
         }
     }
 }

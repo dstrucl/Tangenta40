@@ -56,7 +56,7 @@ namespace Tangenta
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            this.Text = lngRPM.s_Customers_org.s;
+            this.Text = lng.s_Customers_org.s;
 
         }
 
@@ -69,7 +69,7 @@ namespace Tangenta
             ColumnOrderBy = xColumnOrderBy;
             ID_v = new long_v();
             ID_v.v = ID;
-            this.Text = lngRPM.s_Customers_org.s;
+            this.Text = lng.s_Customers_org.s;
 
         }
 
@@ -99,8 +99,8 @@ namespace Tangenta
         }
         private void Form_Customer_Person_Edit_Load(object sender, EventArgs e)
         {
-            this.btn_BankAccounts.Text = lngRPM.s_BankAccounts.s;
-            this.btn_OrganisationData.Text = lngRPM.s_OrganisationData.s;
+            this.btn_BankAccounts.Text = lng.s_BankAccounts.s;
+            this.btn_OrganisationData.Text = lng.s_OrganisationData.s;
             if (Init())
             {
                 List_of_Inserted_Items_ID = new List<long>();
@@ -117,7 +117,7 @@ namespace Tangenta
         {
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     usrc_EditTable.Save();
                 }
@@ -158,7 +158,7 @@ namespace Tangenta
         {
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     usrc_EditTable.Save();
                 }

@@ -32,7 +32,7 @@ namespace PriseLists
         public usrc_PriceList()
         {
             InitializeComponent();
-            lbl_PriceList.Text = lngRPM.s_PriceList.s + ":";
+            lbl_PriceList.Text = lng.s_PriceList.s + ":";
         }
 
         public long ID
@@ -99,7 +99,7 @@ namespace PriseLists
                         }
                         else
                         {
-                            bDialogResult = XMessage.Box.ShowTopMost(this, lngRPM.s_NoPriceList_AskToCreatePriceList, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes;
+                            bDialogResult = XMessage.Box.ShowTopMost(this, lng.s_NoPriceList_AskToCreatePriceList, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes;
                         }
                         if (bDialogResult)
                         {

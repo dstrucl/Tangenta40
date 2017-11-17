@@ -13,7 +13,7 @@ using System.Windows.Controls;
 using System.Data;
 using CodeTables;
 
-namespace uwpf_GUI
+namespace uwpfGUI
 {
     public static class DataGridView_Headers
     {

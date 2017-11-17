@@ -55,10 +55,10 @@ namespace Tangenta
             lbl_FileNames.Text = filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n" + filename_XML_IZPIS_RACUNI_POSTAVKE_TXT;
             XML_Destination_Folder = Properties.Settings.Default.XML_output_folder;
             this.cmbR_FilePath.Text = XML_Destination_Folder;
-            this.btn_Save.Text = lngRPM.s_Save.s;
-            this.lbl_Folder.Text = lngRPM.s_Folder.s;
-            this.Text = lngRPM.s_XML_Files.s;
-            this.btn_View.Text = lngRPM.s_View.s;
+            this.btn_Save.Text = lng.s_Save.s;
+            this.lbl_Folder.Text = lng.s_Folder.s;
+            this.Text = lng.s_XML_Files.s;
+            this.btn_View.Text = lng.s_View.s;
             dt_IZPIS_RACUNI_GLAVE = new DataTable();
 
 
@@ -433,7 +433,7 @@ namespace Tangenta
                         catch (Exception ex)
                         {
                             res = false;
-                            MessageBox.Show(lngRPM.s_Err_Write_File.s + this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n" + lngRPM.s_Error.s + "=" + ex.Message);
+                            MessageBox.Show(lng.s_Err_Write_File.s + this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_GLAVE_TXT + "\r\n" + lng.s_Error.s + "=" + ex.Message);
                         }
 
                         try
@@ -443,16 +443,16 @@ namespace Tangenta
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(lngRPM.s_Err_Write_File.s + this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_POSTAVKE_TXT + "\r\n" + lngRPM.s_Error.s + "=" + ex.Message);
+                            MessageBox.Show(lng.s_Err_Write_File.s + this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_POSTAVKE_TXT + "\r\n" + lng.s_Error.s + "=" + ex.Message);
                         }
-                        MessageBox.Show(this,lngRPM.s_XML_Files.s+":\r\n    "+this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_GLAVE_TXT+"\r\n    "+this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_POSTAVKE_TXT +"\r\n"+lngRPM.s_XML_files_Saved_OK.s);
+                        MessageBox.Show(this,lng.s_XML_Files.s+":\r\n    "+this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_GLAVE_TXT+"\r\n    "+this.cmbR_FilePath.Text + filename_XML_IZPIS_RACUNI_POSTAVKE_TXT +"\r\n"+lng.s_XML_files_Saved_OK.s);
                         this.Cursor = Cursors.Arrow;
                         this.btn_View.Visible = true;
                         return res;
                     }
                     else
                     {
-                        MessageBox.Show(lngRPM.s_NoInvoicesData.s);
+                        MessageBox.Show(lng.s_NoInvoicesData.s);
                         this.Cursor = Cursors.Arrow;
                         return false;
                     }

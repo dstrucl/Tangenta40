@@ -22,7 +22,7 @@ namespace Startup
         {
             InitializeComponent();
             m_startup = xstartup;
-            lngRPM.s_StartupProgram.Text(lbl_StartUp);
+            lng.s_StartupProgram.Text(lbl_StartUp);
             Visible = true;
             Dock = DockStyle.Fill;
             m_startup.m_parent_form.Controls.Add(this);

@@ -22,8 +22,8 @@ namespace DBSync
         public Form_StartupWindow()
         {
             InitializeComponent();
-            this.Text = lngRPM.s_Startup_title.s;
-            this.lbl_CopyRight.Text = lngRPM.s_Copyright_KIG.s;
+            this.Text = lng.s_Startup_title.s;
+            this.lbl_CopyRight.Text = lng.s_Copyright_KIG.s;
             this.lbl_CopyRight.BackColor = Color.Transparent;
         }
     }

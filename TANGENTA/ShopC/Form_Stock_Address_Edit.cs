@@ -33,7 +33,7 @@ namespace ShopC
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            lngRPM.s_StockAddresss.Text(this);
+            lng.s_StockAddresss.Text(this);
         }
 
         private void Form_StockAddress_Edit_Load(object sender, EventArgs e)
@@ -89,7 +89,7 @@ namespace ShopC
             {
                 if (Err == null)
                 {
-                    if (MessageBox.Show(this, lngRPM.s_StockAddressTableHasNoData_YouMustEnterData_close_anyway.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)== DialogResult.No)
+                    if (MessageBox.Show(this, lng.s_StockAddressTableHasNoData_YouMustEnterData_close_anyway.s,"?",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)== DialogResult.No)
                     {
                         e.Cancel = true;
                     }

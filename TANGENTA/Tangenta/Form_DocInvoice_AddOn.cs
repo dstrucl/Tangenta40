@@ -36,7 +36,7 @@ namespace Tangenta
             this.m_AddOnDI = x_DocInvoice_AddOn;
             m_usrc_AddOn = x_usrc_AddOn;
             m_bPrint = x_bPrint;
-            this.Text = lngRPM.s_PaymentOfInvoiceAndPrint.s;
+            this.Text = lng.s_PaymentOfInvoiceAndPrint.s;
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)

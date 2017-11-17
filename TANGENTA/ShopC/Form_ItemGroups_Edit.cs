@@ -33,7 +33,7 @@ namespace ShopC
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            lngRPM.s_ItemGroups.Text(this);
+            lng.s_ItemGroups.Text(this);
         }
 
         private void Form_ItemGroups_Edit_Load(object sender, EventArgs e)

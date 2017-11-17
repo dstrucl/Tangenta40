@@ -32,13 +32,13 @@ namespace ShopC
             InitializeComponent();
             StockTake_ID = xStockTake_ID;
             StockTake_Name = xStockTake_Name;
-            lngRPM.s_AddtionalCost_for_StockTake.Text(this, " : " + StockTake_Name);
-            lngRPM.s_Add.Text(btn_Add);
-            lngRPM.s_btn_Remove.Text(btn_Remove);
-            lngRPM.s_Update.Text(btn_Update);
-            lngRPM.s_lbl_StocTakeCostName.Text(lbl_StocTakeCostName);
-            lngRPM.s_lbl_Cost.Text(lbl_Cost);
-            lngRPM.s_lbl_Description.Text(lbl_StockTakeCostDescription);
+            lng.s_AddtionalCost_for_StockTake.Text(this, " : " + StockTake_Name);
+            lng.s_Add.Text(btn_Add);
+            lng.s_btn_Remove.Text(btn_Remove);
+            lng.s_Update.Text(btn_Update);
+            lng.s_lbl_StocTakeCostName.Text(lbl_StocTakeCostName);
+            lng.s_lbl_Cost.Text(lbl_Cost);
+            lng.s_lbl_Description.Text(lbl_StockTakeCostDescription);
             m_Changed = false;
 
         }
@@ -60,9 +60,9 @@ namespace ShopC
                 if (TangentaDB.f_StockTake_AdditionalCost.ReadDataTable(ref dtStockTake_AdditionalCost, xStockTake_ID))
                 {
                     dgvx_StockTakeAdditionalCost.DataSource = dtStockTake_AdditionalCost;
-                    dgvx_StockTakeAdditionalCost.Columns["Name"].HeaderText = lngRPM.s_CostName.s;
-                    dgvx_StockTakeAdditionalCost.Columns["Cost"].HeaderText = lngRPM.s_CostPrice.s;
-                    dgvx_StockTakeAdditionalCost.Columns["Description"].HeaderText = lngRPM.s_CostDescription.s;
+                    dgvx_StockTakeAdditionalCost.Columns["Name"].HeaderText = lng.s_CostName.s;
+                    dgvx_StockTakeAdditionalCost.Columns["Cost"].HeaderText = lng.s_CostPrice.s;
+                    dgvx_StockTakeAdditionalCost.Columns["Description"].HeaderText = lng.s_CostDescription.s;
                     dgvx_StockTakeAdditionalCost.Columns["ID"].Visible = false;
                     dgvx_StockTakeAdditionalCost.Columns["StockTakeCostName_ID"].Visible = false;
                     dgvx_StockTakeAdditionalCost.Columns["StockTake_Name"].Visible = false;
@@ -122,7 +122,7 @@ namespace ShopC
             }
             else
             {
-                XMessage.Box.Show(this,true, lngRPM.s_StockTake_Cost_Name_must_be_defined);
+                XMessage.Box.Show(this,true, lng.s_StockTake_Cost_Name_must_be_defined);
 
             }
         }

@@ -28,7 +28,7 @@ namespace TangentaPrint
             InitializeComponent();
             m_InvoiceData = xInvoiceData;
 
-            lngRPM.s_Form_TemplateTokens_Caption.Text(this);
+            lng.s_Form_TemplateTokens_Caption.Text(this);
             this.txt_Tokens.Text = m_InvoiceData.GetAllTokens();
         }
 

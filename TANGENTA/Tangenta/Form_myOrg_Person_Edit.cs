@@ -37,9 +37,9 @@ namespace Tangenta
             usrc_NavigationButtons1.Init(nav);
             m_Office_ID = xOffice_ID;
             tbl_myOrganisation_Person = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(myOrganisation_Person)));
-            lngRPM.s_myOrganisation_Person_Data.Text(this);
+            lng.s_myOrganisation_Person_Data.Text(this);
             this.Icon = Properties.Resources.Person;
-            this.usrc_EditTable1.Title = lngRPM.s_Edit_Office_Data.s;
+            this.usrc_EditTable1.Title = lng.s_Edit_Office_Data.s;
             string selection = @"  myOrganisation_Person_$_per_$_cfn_$$FirstName,
                                     myOrganisation_Person_$_per_$_cln_$$LastName,
                                     myOrganisation_Person_$_per_$$DateOfBirth,
@@ -78,7 +78,7 @@ namespace Tangenta
         {
             if (usrc_EditTable1.Changed)
             {
-                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     if (usrc_EditTable1.Save())
                     {
@@ -88,7 +88,7 @@ namespace Tangenta
                     }
                     else
                     {
-                        if (XMessage.Box.Show(this, lngRPM.s_DataNotSavedEndYesNo, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                        if (XMessage.Box.Show(this, lng.s_DataNotSavedEndYesNo, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                         {
                             this.Close();
                             DialogResult = DialogResult.OK;
@@ -118,7 +118,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOfficePersonData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOfficePersonData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }
@@ -135,7 +135,7 @@ namespace Tangenta
             //}
             //else
             //{
-            //    if (XMessage.Box.Show(this, lngRPM.s_YouDidNotEnterYourOrganisationPersonData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            //    if (XMessage.Box.Show(this, lng.s_YouDidNotEnterYourOrganisationPersonData, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             //    {
             //        Close();
             //        DialogResult = DialogResult.Cancel;

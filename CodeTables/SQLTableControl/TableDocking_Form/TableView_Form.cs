@@ -45,13 +45,13 @@ namespace CodeTables.TableDocking_Form
 
             dataGridView_Table.ReadOnly = true;
 
-            tsmi_Select_View.Text = lngRPM.s_SelectView.s;
-            this.Text = lngRPM.s_View.s + " " + m_Index.ToString() + "   " + m_tbl.lngTableName.s;
-            //            this.Text = m_tbl.lngTableName.s + " " + lngRPM.s_View.s + ":" + m_ViewXml.Name;
+            tsmi_Select_View.Text = lng.s_SelectView.s;
+            this.Text = lng.s_View.s + " " + m_Index.ToString() + "   " + m_tbl.lngTableName.s;
+            //            this.Text = m_tbl.lngTableName.s + " " + lng.s_View.s + ":" + m_ViewXml.Name;
             string csError = "";
-            this.label_PrimaryView.Text = lngRPM.s_PrimaryView.s;
-            this.label_ViewName.Text = lngRPM.s_View.s;
-            chkBox_BindWith_EditTable_Form.Text = lngRPM.s_ConnectWithEditTableForm.s;
+            this.label_PrimaryView.Text = lng.s_PrimaryView.s;
+            this.label_ViewName.Text = lng.s_View.s;
+            chkBox_BindWith_EditTable_Form.Text = lng.s_ConnectWithEditTableForm.s;
             FillDataTable(ref csError);
 
         }
@@ -86,18 +86,18 @@ namespace CodeTables.TableDocking_Form
                     dataGridView_Table.AllowUserToResizeColumns = true;
                     dataGridView_Table.Visible = true;
                     dataGridView_Table.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
-                    this.lbl_Rows_Count.Text = lngRPM.sRowsCount.s + m_dt.Rows.Count.ToString();
+                    this.lbl_Rows_Count.Text = lng.sRowsCount.s + m_dt.Rows.Count.ToString();
                     return true;
                 }
                 else
                 {
-                    this.lbl_Rows_Count.Text = lngRPM.sRowsCount.s + "0";
+                    this.lbl_Rows_Count.Text = lng.sRowsCount.s + "0";
                     return false;
                 }
             }
             else
             {
-                this.lbl_Rows_Count.Text = lngRPM.sRowsCount.s + "0";
+                this.lbl_Rows_Count.Text = lng.sRowsCount.s + "0";
                 return false;
             }
         }

@@ -22,10 +22,10 @@ namespace Tangenta
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
-            lngRPM.s_DataBaseIsEmpty_InsertInitialData.Text(this.lbl_Message1);
-            lngRPM.s_DataBaseIsEmpty_EnterData.Text(this.lbl_Message2);
-            lngRPM.s_Write_predefined_data_into_a_new_database.Text(this.rdb_WritePredefinedDefaultDataInDataBase);
-            lngRPM.s_Enter_your_data_manually.Text(this.rdb_Enter_data_into_a_new_database_table);
+            lng.s_DataBaseIsEmpty_InsertInitialData.Text(this.lbl_Message1);
+            lng.s_DataBaseIsEmpty_EnterData.Text(this.lbl_Message2);
+            lng.s_Write_predefined_data_into_a_new_database.Text(this.rdb_WritePredefinedDefaultDataInDataBase);
+            lng.s_Enter_your_data_manually.Text(this.rdb_Enter_data_into_a_new_database_table);
             this.rdb_Enter_data_into_a_new_database_table.Checked = false;
             this.rdb_WritePredefinedDefaultDataInDataBase.Checked = true;
             this.myStartup = xmyStartup;

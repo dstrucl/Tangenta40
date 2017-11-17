@@ -56,17 +56,17 @@ namespace TangentaDB
                     data.Addressee = "";
                     if (!(dt.Rows[0]["Atom_Person_ID"] is System.DBNull))
                     {
-                        data.Addressee = lngRPM.s_PhisycalPerson.s + ":";
+                        data.Addressee = lng.s_PhisycalPerson.s + ":";
                         bool Gender = DBTypes.tf._set_bool(dt.Rows[0]["Gender"]);
                         string sFirstName = DBTypes.tf._set_string(dt.Rows[0]["FirstName"]);
                         string sLastName = DBTypes.tf._set_string(dt.Rows[0]["LastName"]);
                         if (Gender)
                         {
-                            data.Addressee += lngRPM.s_Man.s;
+                            data.Addressee += lng.s_Man.s;
                         }
                         else
                         {
-                            data.Addressee +=  lngRPM.s_Woman.s;
+                            data.Addressee +=  lng.s_Woman.s;
                         }
 
                         data.Addressee += ":" + sFirstName + " " + sLastName;
@@ -74,8 +74,8 @@ namespace TangentaDB
                     else if (!(dt.Rows[0]["Atom_Organisation_ID"] is System.DBNull))
                     {
                         string s_organisation_name =
-                        data.Addressee = lngRPM.s_Organisation.s + ":" + DBTypes.tf._set_string(dt.Rows[0]["Organisation_Name"])+" "+
-                                   lngRPM.s_Tax_ID.s + ":" + DBTypes.tf._set_string(dt.Rows[0]["Organisation_Tax_ID"]);
+                        data.Addressee = lng.s_Organisation.s + ":" + DBTypes.tf._set_string(dt.Rows[0]["Organisation_Name"])+" "+
+                                   lng.s_Tax_ID.s + ":" + DBTypes.tf._set_string(dt.Rows[0]["Organisation_Tax_ID"]);
                     }
                     if (f_DocProformaInvoice_ShopC_Item.Get(docInvoice_ShopC_Item_ID,
                                                 ref data.ShopC_Item_Data

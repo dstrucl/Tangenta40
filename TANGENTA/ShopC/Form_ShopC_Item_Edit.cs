@@ -52,11 +52,11 @@ namespace ShopC
             tbl = xtbl;
             usrc_NavigationButtons1.Init(nav);
             ColumnOrderBy = xColumnOrderBy;
-            lngRPM.s_Items.Text(this, " "+lngRPM.s_Shop_C.s);
+            lng.s_Items.Text(this, " "+lng.s_Shop_C.s);
             rdb_OnlyInOffer.Checked = true;
-            lngRPM.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
-            lngRPM.s_AllItems.Text(this.rdb_All);
-            lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
+            lng.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
+            lng.s_AllItems.Text(this.rdb_All);
+            lng.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
         }
 
         public Form_ShopC_Item_Edit(CodeTables.DBTableControl xdbTables, SQLTable xtbl, string xColumnOrderBy, long ID, Control xParentControl)
@@ -75,11 +75,11 @@ namespace ShopC
                     m_usrc_StockEditForSelectedStockTake = (usrc_StockEditForSelectedStockTake)ParentControl;
                 }
             }
-            this.Text = lngRPM.s_Items.s;
+            this.Text = lng.s_Items.s;
             rdb_OnlyInOffer.Checked = true;
-            lngRPM.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
-            lngRPM.s_AllItems.Text(this.rdb_All);
-            lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
+            lng.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
+            lng.s_AllItems.Text(this.rdb_All);
+            lng.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
             if (nav==null)
             {
                 nav = new NavigationButtons.Navigation();
@@ -146,7 +146,7 @@ namespace ShopC
         {
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     usrc_EditTable.Save();
                 }
@@ -170,7 +170,7 @@ namespace ShopC
         {
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(this,lngRPM.s_DataChangedDoYouWantToCloseYesNo.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(this,lng.s_DataChangedDoYouWantToCloseYesNo.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     this.Close();
                     DialogResult = DialogResult.No;

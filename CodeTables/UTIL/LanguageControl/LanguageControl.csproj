@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="Language.cs" />
     <Compile Include="language_library.cs" />
+    <Compile Include="lng.cs" />
     <Compile Include="lngRPMS.cs" />
     <Compile Include="lngToken.cs" />
     <Compile Include="ltext.cs" />

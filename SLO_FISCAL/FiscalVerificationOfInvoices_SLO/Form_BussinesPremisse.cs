@@ -19,16 +19,16 @@ namespace FiscalVerificationOfInvoices_SLO
             InitializeComponent();
             m_usrc_FVI_SLO = xusrc_FVI_SLO;
             this.usrc_FURS_BussinesPremiseData1.Init(bTest, m_usrc_FVI_SLO);
-            lngRPM.s_SignUpBussinesPremisse.Text(this);
+            lng.s_SignUpBussinesPremisse.Text(this);
             if (bTest)
             {
-                lbl_msg.Text = lngRPM.s_Warning.s+":"+ lngRPM.s_Furs_Test_Environment.s+"\r\n"+msg;
+                lbl_msg.Text = lng.s_Warning.s+":"+ lng.s_Furs_Test_Environment.s+"\r\n"+msg;
             }
             else
             {
                 lbl_msg.Text = msg;
             }
-            btn_Exit.Text = lngRPM.ss_Exit.s;
+            btn_Exit.Text = lng.ss_Exit.s;
         }
 
         private void usrc_FURS_BussinesPremiseData1_FURS_BussinesPremiseData_SignedUp(bool bResult)

@@ -70,7 +70,7 @@ namespace FiscalVerificationOfInvoices_SLO
                 }
                 else
                 {
-                    xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.ERROR,null, lngRPM.sFileDoesNotExist.s + ":" + thdata.certificateFileName,MessageType.Unknown,null,false,null,null,null);
+                    xusrc_FVI_SLO_Message.Set(fvi_message.Message_ID, usrc_FVI_SLO_Message.eMessage.ERROR,null, lng.sFileDoesNotExist.s + ":" + thdata.certificateFileName,MessageType.Unknown,null,false,null,null,null);
                     xusrc_FVI_SLO_MessageBox.Post(xusrc_FVI_SLO_Message);
                     return;
                 }

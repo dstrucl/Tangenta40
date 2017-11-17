@@ -34,7 +34,7 @@ namespace ShopA
             InitializeComponent();
             m_Atom_ItemShopA = xAtom_ItemShopA;
             m_usrc_Editor = xusrc_Editor;
-            lngRPM.s_Select_ShopA_Item.Text(this);
+            lng.s_Select_ShopA_Item.Text(this);
             t_Atom_ItemShopA = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Atom_ItemShopA)));
         }
 

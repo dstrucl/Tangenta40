@@ -512,7 +512,7 @@ namespace TangentaDB
                     dEndPriceWithDiscountAndTax = dEndPriceWithDiscountAndTax * -1;
                 }
 
-                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lng.s_Shop_B,
                                                              DBTypes.tf._set_string(dr[DocInvoice+"_ShopA_Item_$_aisha_$$Name"]),
                                                              DBTypes.tf._set_decimal(dr[DocInvoice+"_ShopA_Item_$$PricePerUnit"]),
                                                              sUnitName, 
@@ -628,7 +628,7 @@ namespace TangentaDB
                     dEndPriceWithDiscountAndTax = dEndPriceWithDiscountAndTax * -1;
                 }
 
-                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lng.s_Shop_B,
                                                              DBTypes.tf._set_string(dr["Name"]),
                                                              DBTypes.tf._set_decimal(dr["RetailSimpleItemPrice"]),
                                                              "", // no unit
@@ -787,7 +787,7 @@ namespace TangentaDB
                 }
 
 
-                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lngRPM.s_Shop_B,
+                ItemsSold[i] = new UniversalInvoice.ItemSold(lt_token_prefix, lng.s_Shop_B,
                                                              DBTypes.tf._set_string(appisd.Atom_Item_UniqueName.v),
                                                              DBTypes.tf._set_decimal(appisd.RetailPricePerUnit.v),
                                                              DBTypes.tf._set_string(appisd.Atom_Unit_Name.v),
@@ -1324,7 +1324,7 @@ namespace TangentaDB
                         FinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["FinancialYear"]);
                         NumberInFinancialYear = DBTypes.tf._set_int(dt_DocInvoice.Rows[0]["NumberInFinancialYear"]);
 
-                        sFiscalVerificationOfInvoicesNotDone = lngRPM.s_FVI_not_done.s;
+                        sFiscalVerificationOfInvoicesNotDone = lng.s_FVI_not_done.s;
                         if (IsDocInvoice)
                         {
                             if (AddOnDI.b_FVI_SLO)
@@ -1360,7 +1360,7 @@ namespace TangentaDB
                                         {
                                             if (AddOnDI.m_FURS.FURS_TestEnvironment_v.v)
                                             {
-                                                sFiscalVerification_ZOI = AddOnDI.m_FURS.FURS_ZOI_v.v + " "+lngRPM.s_Furs_Test_Environment.s+"!";
+                                                sFiscalVerification_ZOI = AddOnDI.m_FURS.FURS_ZOI_v.v + " "+lng.s_Furs_Test_Environment.s+"!";
                                             }
                                         }
                                         
@@ -1378,7 +1378,7 @@ namespace TangentaDB
                                         {
                                             if (AddOnDI.m_FURS.FURS_TestEnvironment_v.v)
                                             {
-                                                sFiscalVerification_EOR = AddOnDI.m_FURS.FURS_EOR_v.v + " " + lngRPM.s_Furs_Test_Environment.s + "!";
+                                                sFiscalVerification_EOR = AddOnDI.m_FURS.FURS_EOR_v.v + " " + lng.s_Furs_Test_Environment.s + "!";
                                             }
                                         }
                                         AddOnDI.m_FURS.Invoice_FURS_Token.tUniqueInvoiceID.Set(sFiscalVerification_EOR);
@@ -1485,7 +1485,7 @@ namespace TangentaDB
                                     InvoiceToken.tStorno.Set("");
                                     if (bInvoiceStorno)
                                     {
-                                        InvoiceToken.tStorno.Set(lngRPM.s_STORNO.s);
+                                        InvoiceToken.tStorno.Set(lng.s_STORNO.s);
                                     }
                                 }
 
@@ -1760,7 +1760,7 @@ namespace TangentaDB
             {
                 if (sBankAccount.Length > 0)
                 {
-                    sBankAccount = lngRPM.s_PaymentOnBankAccount.s + ": " + sBankAccount;
+                    sBankAccount = lng.s_PaymentOnBankAccount.s + ": " + sBankAccount;
                 }
                 else
                 {
@@ -1776,7 +1776,7 @@ namespace TangentaDB
             {
                 if (sBankName.Length > 0)
                 {
-                    sBankName = lngRPM.s_Bank.s + ": " + sBankName;
+                    sBankName = lng.s_Bank.s + ": " + sBankName;
                 }
                 else
                 {
@@ -2002,7 +2002,7 @@ namespace TangentaDB
                     html_doc_template = InvoiceToken.tSumNetPrice.Replace(html_doc_template);
 
 
-                    //string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
+                    //string s_journal_invoice_type = lng.s_journal_invoice_type_Print.s;
                     //string s_journal_invoice_description = Program.ReceiptPrinter.PrinterName;
                     //long journal_docinvoice_id = -1;
                     //f_Journal_DocProformaInvoice.Write(m_usrc_Print.DocProformaInvoice_ID, Program.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);

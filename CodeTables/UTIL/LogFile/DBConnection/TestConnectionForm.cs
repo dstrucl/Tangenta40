@@ -102,10 +102,10 @@ namespace LogFile
             }
             lbl_ERROR.Visible = false;
             btn_OK.Visible = false;
-            lblDataSource.Text = lngConn.s_Server.s;
-            lblDataBase.Text = lngConn.s_DataBase.s;
-            lblUserName.Text = lngConn.s_UserName.s;
-            this.chkBoxWindowsLogon.Text = lngConn.s_WindowsAuthentication.s;
+            lblDataSource.Text = lng.s_Server.s;
+            lblDataBase.Text = lng.s_DataBase.s;
+            lblUserName.Text = lng.s_UserName.s;
+            this.chkBoxWindowsLogon.Text = lng.s_WindowsAuthentication.s;
 
             this.lblDataSource.BackColor = Color.Transparent;
             this.lblDataBase.BackColor = Color.Transparent;
@@ -224,7 +224,7 @@ namespace LogFile
         {
             timerFollow_CheckConnection.Enabled = false;
             lbl_ERROR.Visible = true;
-            lbl_ERROR.Text = sqlConn.DataBase +"\r\n\r\n" + lngConn.s_ConnectionOK.s;
+            lbl_ERROR.Text = sqlConn.DataBase +"\r\n\r\n" + lng.s_ConnectionOK.s;
             lbl_ERROR.ForeColor = Color.Blue;
             btn_OK.Visible = true;
             this.lblDataBase.Visible = false;

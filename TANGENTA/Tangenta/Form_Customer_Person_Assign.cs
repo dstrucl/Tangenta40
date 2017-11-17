@@ -47,11 +47,11 @@ namespace Tangenta
             // TODO: Complete member initialization
             InitializeComponent();
             this.PersonData_ID = xPersonData_ID;
-            this.lbl_Instruction_part1.Text = lngRPM.s_DoYouWantCustomer.s;
-            this.lbl_Instruction_part2.Text = lngRPM.s_WriteOnYourAccount.s;
-            this.btn_Yes.Text = lngRPM.s_Yes.s;
-            this.btn_No.Text = lngRPM.s_No.s;
-            this.Text = lngRPM.s_Add_Customer_to_invoice.s;
+            this.lbl_Instruction_part1.Text = lng.s_DoYouWantCustomer.s;
+            this.lbl_Instruction_part2.Text = lng.s_WriteOnYourAccount.s;
+            this.btn_Yes.Text = lng.s_Yes.s;
+            this.btn_No.Text = lng.s_No.s;
+            this.Text = lng.s_Add_Customer_to_invoice.s;
 
         }
 
@@ -151,12 +151,12 @@ namespace Tangenta
                     }
                     if (DateOfBirth > DateTime.MinValue)
                     {
-                        lbl_Person.Text += "\r\n"+lngRPM.s_DateOfBirth.s+":" + DateOfBirth.Day.ToString() + "." + DateOfBirth.Month.ToString() + "." + DateOfBirth.Year.ToString();
+                        lbl_Person.Text += "\r\n"+lng.s_DateOfBirth.s+":" + DateOfBirth.Day.ToString() + "." + DateOfBirth.Month.ToString() + "." + DateOfBirth.Year.ToString();
                     }
 
                     if (StreetName != null)
                     {
-                        lbl_Person.Text += "\r\n" +lngRPM.s_Address.s +":"+ StreetName;
+                        lbl_Person.Text += "\r\n" +lng.s_Address.s +":"+ StreetName;
                     }
                     if (HouseNumber != null)
                     {
@@ -164,19 +164,19 @@ namespace Tangenta
                     }
                     if (ZIP != null)
                     {
-                        lbl_Person.Text += "\r\n    " + lngRPM.s_ZIP.s + ":" + ZIP;
+                        lbl_Person.Text += "\r\n    " + lng.s_ZIP.s + ":" + ZIP;
                     }
                     if (City != null)
                     {
-                        lbl_Person.Text += "\r\n     " + lngRPM.s_City.s + ":" + City;
+                        lbl_Person.Text += "\r\n     " + lng.s_City.s + ":" + City;
                     }
                     if (State != null)
                     {
-                        lbl_Person.Text += "\r\n     " + lngRPM.s_State.s + ":" + State;
+                        lbl_Person.Text += "\r\n     " + lng.s_State.s + ":" + State;
                     }
                     if (Country!= null)
                     {
-                        lbl_Person.Text += "\r\n     " + lngRPM.s_Country.s + ":" + Country;
+                        lbl_Person.Text += "\r\n     " + lng.s_Country.s + ":" + Country;
                     }
                 }
             }

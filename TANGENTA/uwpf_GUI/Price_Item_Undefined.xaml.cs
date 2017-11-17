@@ -1,4 +1,4 @@
-﻿#region LICENSE 
+#region LICENSE 
 /*
  This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
  If a copy of the Tangenta Public License (TPL) was not distributed with this 
@@ -22,7 +22,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace uwpf_GUI
+namespace uwpfGUI
 {
     /// <summary>
     /// Interaction logic for Price_Item_Undefined.xaml
@@ -36,8 +36,8 @@ namespace uwpf_GUI
         {
             InitializeComponent();
             this.Title = sTitle;
-            this.btn_Edit.Content = lngRPM.s_EditPriceList.s;
-            this.btn_Cancel.Content = lngRPM.s_Cancel.s;
+            this.btn_Edit.Content = lng.s_EditPriceList.s;
+            this.btn_Cancel.Content = lng.s_Cancel.s;
             dt_price_Item_view = xdt_price_Item_view;
             dbTables = xdbTables;
             this.dgvx_PriceUndefinedItem.ItemsSource = dt_price_Item_view.AsDataView();

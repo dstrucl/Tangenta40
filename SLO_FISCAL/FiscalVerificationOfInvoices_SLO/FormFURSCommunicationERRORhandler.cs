@@ -23,12 +23,12 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             InitializeComponent();
             this.errorMessage = errorMessage;
-            lngRPM.s_CheckInternetConnection.Text(btn_CheckInternetConnection);
-            lngRPM.s_Error.Text(this.lbl_ErrorMessage,":"+errorMessage);
-            lngRPM.s_InvoiceNotSentOK.Text(this);
-            lngRPM.s_TryToSendFURSDataAgain.Text(this.btn_TryAagin);
-            lngRPM.s_GoToSalesBookInvoice.Text(this.btn_Cancel);
-            lngRPM.s_InstructionToTryToSendFURSDataAgain.Text(this.lbl_Message);
+            lng.s_CheckInternetConnection.Text(btn_CheckInternetConnection);
+            lng.s_Error.Text(this.lbl_ErrorMessage,":"+errorMessage);
+            lng.s_InvoiceNotSentOK.Text(this);
+            lng.s_TryToSendFURSDataAgain.Text(this.btn_TryAagin);
+            lng.s_GoToSalesBookInvoice.Text(this.btn_Cancel);
+            lng.s_InstructionToTryToSendFURSDataAgain.Text(this.lbl_Message);
         }
 
         private void btn_TryAagin_Click(object sender, EventArgs e)
@@ -47,11 +47,11 @@ namespace FiscalVerificationOfInvoices_SLO
         {
             if (LogFile.LogFile.CheckForInternetConnection())
             {
-                MessageBox.Show(lngRPM.s_InternetConnectionISOK_maybe_FURS_server_is_not_online.s);
+                MessageBox.Show(lng.s_InternetConnectionISOK_maybe_FURS_server_is_not_online.s);
             }
             else
             {
-                MessageBox.Show(lngRPM.s_NoInternetConnection.s);
+                MessageBox.Show(lng.s_NoInternetConnection.s);
             }
         }
 

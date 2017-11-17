@@ -41,12 +41,12 @@ namespace ShopB
             dbTables = xdbTables;
             nav = xnav;
             tbl = xtbl;
-            lngRPM.s_Items.Text(this, " "+lngRPM.s_Shop_B.s);
+            lng.s_Items.Text(this, " "+lng.s_Shop_B.s);
             List_of_Inserted_Items_ID = new List<long>();
             rdb_OnlyInOffer.Checked = true;
-            lngRPM.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
-            lngRPM.s_AllItems.Text(this.rdb_All);
-            lngRPM.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
+            lng.s_OnlyInOffer.Text(this.rdb_OnlyInOffer);
+            lng.s_AllItems.Text(this.rdb_All);
+            lng.s_OnlyNotInOffer.Text(this.rdb_OnlyNotInOffer);
             usrc_NavigationButtons1.Init(xnav);
             string selection = " SimpleItem_$$Name,SimpleItem_$$Abbreviation,SimpleItem_$_siimg_$$Image_Data,SimpleItem_$_sipg1_$$Name,SimpleItem_$_sipg1_$_sipg2_$$Name,SimpleItem_$_sipg1_$_sipg2_$_sipg3_$$Name,SimpleItem_$$ToOffer,ID ";
             if (!usrc_EditTable.Init(dbTables, tbl, selection, ColumnToOrderBy,false,null,null,false,nav))
@@ -83,7 +83,7 @@ namespace ShopB
         {
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(lngRPM.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (MessageBox.Show(lng.s_DataChangedSaveYourData.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     usrc_EditTable.Save();
                 }
@@ -97,7 +97,7 @@ namespace ShopB
         {
             if (usrc_EditTable.Changed)
             {
-                if (MessageBox.Show(lngRPM.s_DataChangedDoYouWantToCloseYesNo.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(lng.s_DataChangedDoYouWantToCloseYesNo.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     this.Close();
                     DialogResult = DialogResult.No;

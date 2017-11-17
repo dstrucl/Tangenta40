@@ -44,7 +44,7 @@ namespace Tangenta
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, lngRPM.s_Error.s + ":" + ex.Message);
+                MessageBox.Show(this, lng.s_Error.s + ":" + ex.Message);
             }
         }
     }

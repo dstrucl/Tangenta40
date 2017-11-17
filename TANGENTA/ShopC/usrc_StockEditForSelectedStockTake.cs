@@ -167,7 +167,7 @@ namespace ShopC
         internal void SetItem(long ID,string xUniqueName)
         {
             CurrentItem_ID = ID;
-            lngRPM.s_Item.Text(this.grp_Item, ":" + xUniqueName);
+            lng.s_Item.Text(this.grp_Item, ":" + xUniqueName);
         }
 
         private void btn_SelectItem_Click(object sender, EventArgs e)
@@ -203,7 +203,7 @@ namespace ShopC
                         if (((TangentaTableClass.UniqueName)ovalue).defined)
                         {
                             string Item_UniqueName = ((TangentaTableClass.UniqueName)ovalue).val;
-                            lngRPM.s_Item.Text(grp_Item, ":" + Item_UniqueName);
+                            lng.s_Item.Text(grp_Item, ":" + Item_UniqueName);
                             CurrentItem_ID = iD;
                         }
                     }
@@ -304,20 +304,20 @@ namespace ShopC
 
             if (!DesignMode)
             {
-                lngRPM.s_SelectedItem.Text(btn_SelectItem);
-                lngRPM.s_Add.Text(btn_Add);
-                lngRPM.s_Remove.Text(btn_Remove);
-                lngRPM.s_Update.Text(this.btn_Update);
-                lngRPM.s_Quantity.Text(lbl_Quantity);
-                lngRPM.s_PurchasePricePerUnit.Text(lbl_PurchasePrice);
-                lngRPM.s_Taxation.Text(lbl_Taxation);
-                lngRPM.s_Currency.Text(lbl_Currency);
-                lngRPM.s_ExpiryDate.Text(chk_ExpiryCheck);
-                lngRPM.s_ImportTime.Text(lbl_ImportTime);
-                lngRPM.s_Stock_Description.Text(lbl_Stock_Description);
-                lngRPM.s_btn_CloseStockTake.Text(btn_CloseStockTake);
-                lngRPM.s_btn_AdditionalCost.Text(btn_AdditionalCost);
-                lngRPM.s_lbl_StockTakeTotalPrice.Text(this.lbl_TotalPrice);
+                lng.s_SelectedItem.Text(btn_SelectItem);
+                lng.s_Add.Text(btn_Add);
+                lng.s_Remove.Text(btn_Remove);
+                lng.s_Update.Text(this.btn_Update);
+                lng.s_Quantity.Text(lbl_Quantity);
+                lng.s_PurchasePricePerUnit.Text(lbl_PurchasePrice);
+                lng.s_Taxation.Text(lbl_Taxation);
+                lng.s_Currency.Text(lbl_Currency);
+                lng.s_ExpiryDate.Text(chk_ExpiryCheck);
+                lng.s_ImportTime.Text(lbl_ImportTime);
+                lng.s_Stock_Description.Text(lbl_Stock_Description);
+                lng.s_btn_CloseStockTake.Text(btn_CloseStockTake);
+                lng.s_btn_AdditionalCost.Text(btn_AdditionalCost);
+                lng.s_lbl_StockTakeTotalPrice.Text(this.lbl_TotalPrice);
 
                 btn_Add.Visible = false;
                 btn_Remove.Visible = false;
@@ -367,7 +367,7 @@ namespace ShopC
            else
             {
                 bool bTopmost = edt_Item_dlg != null;
-                XMessage.Box.Show(bTopmost, this, lngRPM.s_ItemIsNotDefined, "?", MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
+                XMessage.Box.Show(bTopmost, this, lng.s_ItemIsNotDefined, "?", MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
                 return false;
             }
         }
@@ -378,7 +378,7 @@ namespace ShopC
             if (dquantity == 0)
             {
                 bool bTopmost = edt_Item_dlg != null;
-                if (XMessage.Box.Show(bTopmost,this, lngRPM.s_dQuantityEqualsZero_InsertItemInStock,"?",MessageBoxButtons.YesNo,null,MessageBoxDefaultButton.Button2)== DialogResult.Yes)
+                if (XMessage.Box.Show(bTopmost,this, lng.s_dQuantityEqualsZero_InsertItemInStock,"?",MessageBoxButtons.YesNo,null,MessageBoxDefaultButton.Button2)== DialogResult.Yes)
                 {
                     return true;
                 }
@@ -403,12 +403,12 @@ namespace ShopC
             }
             catch
             {
-                XMessage.Box.Show(bTopmost, this, lngRPM.s_PurchasePricePerUnitIsNotDefined, "?", MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
+                XMessage.Box.Show(bTopmost, this, lng.s_PurchasePricePerUnitIsNotDefined, "?", MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
                 return false;
             }
              if (d == 0)
             {
-                if (XMessage.Box.Show(bTopmost, this, lngRPM.s_PurchasePriceIsZeroAreYouSure, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (XMessage.Box.Show(bTopmost, this, lng.s_PurchasePriceIsZeroAreYouSure, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     return true;
                 }
@@ -446,7 +446,7 @@ namespace ShopC
                     }
                     catch 
                     {
-                        XMessage.Box.ShowTopMost(this, lngRPM.s_InvalidPurchasePrice, lngRPM.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
+                        XMessage.Box.ShowTopMost(this, lng.s_InvalidPurchasePrice, lng.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
                     }
                 }
             }
@@ -598,19 +598,19 @@ namespace ShopC
 
         private void Set_StockTakeItems_Table_headers()
         {
-            dgvx_StockTakeItemsAndPrices.Columns["UniqueName"].HeaderText = lngRPM.s_UniqueName.s;
+            dgvx_StockTakeItemsAndPrices.Columns["UniqueName"].HeaderText = lng.s_UniqueName.s;
             dgvx_StockTakeItemsAndPrices.Columns["UniqueName"].DisplayIndex = 0;
-            dgvx_StockTakeItemsAndPrices.Columns["dInitialQuantity"].HeaderText = lngRPM.s_Stock_dInitialQuantity.s;
+            dgvx_StockTakeItemsAndPrices.Columns["dInitialQuantity"].HeaderText = lng.s_Stock_dInitialQuantity.s;
             dgvx_StockTakeItemsAndPrices.Columns["dInitialQuantity"].DisplayIndex = 1;
-            dgvx_StockTakeItemsAndPrices.Columns["dQuantity"].HeaderText = lngRPM.s_Stock_dQuantity.s;
+            dgvx_StockTakeItemsAndPrices.Columns["dQuantity"].HeaderText = lng.s_Stock_dQuantity.s;
             dgvx_StockTakeItemsAndPrices.Columns["dQuantity"].DisplayIndex = 2;
-            dgvx_StockTakeItemsAndPrices.Columns["ImportTime"].HeaderText = lngRPM.s_ImportTime.s;
-            dgvx_StockTakeItemsAndPrices.Columns["ExpiryDate"].HeaderText = lngRPM.s_ExpiryDate.s;
-            dgvx_StockTakeItemsAndPrices.Columns["PurchasePricePerUnit"].HeaderText = lngRPM.s_PurchasePricePerUnit.s;
-            dgvx_StockTakeItemsAndPrices.Columns["Symbol"].HeaderText = lngRPM.s_Currency.s;
-            dgvx_StockTakeItemsAndPrices.Columns["Supplier"].HeaderText = lngRPM.s_Supplier.s;
-            dgvx_StockTakeItemsAndPrices.Columns["TaxationName"].HeaderText = lngRPM.s_Taxation.s;
-            dgvx_StockTakeItemsAndPrices.Columns["TruckingOrganisation"].HeaderText = lngRPM.s_TruckingOrganisation.s;
+            dgvx_StockTakeItemsAndPrices.Columns["ImportTime"].HeaderText = lng.s_ImportTime.s;
+            dgvx_StockTakeItemsAndPrices.Columns["ExpiryDate"].HeaderText = lng.s_ExpiryDate.s;
+            dgvx_StockTakeItemsAndPrices.Columns["PurchasePricePerUnit"].HeaderText = lng.s_PurchasePricePerUnit.s;
+            dgvx_StockTakeItemsAndPrices.Columns["Symbol"].HeaderText = lng.s_Currency.s;
+            dgvx_StockTakeItemsAndPrices.Columns["Supplier"].HeaderText = lng.s_Supplier.s;
+            dgvx_StockTakeItemsAndPrices.Columns["TaxationName"].HeaderText = lng.s_Taxation.s;
+            dgvx_StockTakeItemsAndPrices.Columns["TruckingOrganisation"].HeaderText = lng.s_TruckingOrganisation.s;
             dgvx_StockTakeItemsAndPrices.Columns["Supplier_Tax_ID"].Visible = false;
             dgvx_StockTakeItemsAndPrices.Columns["StockTakePriceTotal"].Visible = false;
             dgvx_StockTakeItemsAndPrices.Columns["TruckingCost"].Visible = false;
@@ -622,10 +622,10 @@ namespace ShopC
 
         private void FillControls()
         {
-            lngRPM.s_lbl_StockTakeName.Text(lbl_StockTakeName, " : " + StockTakeName);
+            lng.s_lbl_StockTakeName.Text(lbl_StockTakeName, " : " + StockTakeName);
             if (fs.IDisValid(CurrentStock_ID))
             {
-                lngRPM.s_Item.Text(grp_Item, ":" + ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UniqueName"]));
+                lng.s_Item.Text(grp_Item, ":" + ((string)dt_Stock_Of_Current_StockTake.Rows[current_index]["UniqueName"]));
 
                 nmUpDn_Quantity.Value = ((decimal)dt_Stock_Of_Current_StockTake.Rows[current_index]["dQuantity"]);
                 tPick_ImportTime.Value = ((DateTime)dt_Stock_Of_Current_StockTake.Rows[current_index]["ImportTime"]);
@@ -652,7 +652,7 @@ namespace ShopC
             }
             else
             {
-                lngRPM.s_Item.Text(grp_Item, ":");
+                lng.s_Item.Text(grp_Item, ":");
                 cmb_PurchasePrice.Text = "";
                 nmUpDn_Quantity.Value = 0;
                 chk_ExpiryCheck.Checked = false;
@@ -674,14 +674,14 @@ namespace ShopC
             {
                 if (CalculateDifference() == 0)
                 {
-                    if (XMessage.Box.Show(this, lngRPM.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (XMessage.Box.Show(this, lng.s_AreYouSureToLock_StockTake, "?", MessageBoxButtons.YesNo, null, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         f_StockTake.Lock(StockTake_ID);
                     }
                 }
                 else
                 {
-                    XMessage.Box.Show(this, false, lngRPM.s_YouCanNotLock_StockTakeIfSumNotMatch);
+                    XMessage.Box.Show(this, false, lng.s_YouCanNotLock_StockTakeIfSumNotMatch);
                 }
             }
         }
@@ -791,7 +791,7 @@ namespace ShopC
                     }
                     catch 
                     {
-                        XMessage.Box.ShowTopMost(this, lngRPM.s_InvalidPurchasePrice, lngRPM.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
+                        XMessage.Box.ShowTopMost(this, lng.s_InvalidPurchasePrice, lng.s_Warning.s, MessageBoxButtons.OK, null, MessageBoxDefaultButton.Button1);
                     }
                 }
             }

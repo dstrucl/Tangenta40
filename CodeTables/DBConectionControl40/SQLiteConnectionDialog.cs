@@ -84,11 +84,11 @@ namespace DBConnectionControl40
                 cmbR_FileName.Text = DatabaseFileName;
             }
 
-            this.lbl_FileName.Text = lngConn.s_FileName.s + ":";
-            this.btn_SelectFile.Text = lngConn.s_FileName.s;
-            this.btn_SelectFolder.Text = lngConn.s_Folder.s;
-            this.lbl_Folder.Text = lngConn.s_Folder.s + ":";
-            this.Text = lngConn.s_SelectSQLiteDataBaseFileName.s;
+            this.lbl_FileName.Text = lng.s_FileName.s + ":";
+            this.btn_SelectFile.Text = lng.s_FileName.s;
+            this.btn_SelectFolder.Text = lng.s_Folder.s;
+            this.lbl_Folder.Text = lng.s_Folder.s + ":";
+            this.Text = lng.s_SelectSQLiteDataBaseFileName.s;
         }
 
 
@@ -129,7 +129,7 @@ namespace DBConnectionControl40
             }
             else
             {
-                MessageBox.Show(lngConn.s_Error.s + ":" + lngConn.s_FileName.s + ":" + m_conData_SQLITE.DataBaseFile + " " + lngConn.s_IsNotValid.s + ".");
+                MessageBox.Show(lng.s_Error.s + ":" + lng.s_FileName.s + ":" + m_conData_SQLITE.DataBaseFile + " " + lng.s_IsNotValid.s + ".");
             }
         }
 

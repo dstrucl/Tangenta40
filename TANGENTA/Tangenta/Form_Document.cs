@@ -47,16 +47,16 @@ namespace Tangenta
             Program.nav.btn1_Image = Properties.Resources.Prev;
             Program.nav.btn2_Image = Properties.Resources.Next;
             Program.nav.btn3_Image = Properties.Resources.Exit_Program;
-            Program.nav.btn1_Text = lngRPM.s_Previous.s;
-            Program.nav.btn1_ToolTip_Text = lngRPMS.s_GoToPreviousStartupStep.s;
-            Program.nav.btn2_Text = lngRPM.s_Next.s; ;
-            Program.nav.btn2_ToolTip_Text = lngRPMS.s_GoToNextStartupStep.s;
+            Program.nav.btn1_Text = lng.s_Previous.s;
+            Program.nav.btn1_ToolTip_Text = lng.s_GoToPreviousStartupStep.s;
+            Program.nav.btn2_Text = lng.s_Next.s; ;
+            Program.nav.btn2_ToolTip_Text = lng.s_GoToNextStartupStep.s;
             Program.nav.btn3_Text = "";
-            Program.nav.btn3_ToolTip_Text = lngRPMS.s_GoToExitProgram.s;
+            Program.nav.btn3_ToolTip_Text = lng.s_GoToExitProgram.s;
             Program.nav.btn1_Visible = true;
             Program.nav.btn2_Visible = true;
             Program.nav.btn3_Visible = true;
-            Program.nav.ExitProgramQuestionInLanguage = lngRPM.s_RealyWantToExitProgram.s;
+            Program.nav.ExitProgramQuestionInLanguage = lng.s_RealyWantToExitProgram.s;
 
 
             if (Properties.Settings.Default.FullScreen)
@@ -70,7 +70,7 @@ namespace Tangenta
 
 
             // Properties.Settings.Default.SplitterPositions =
-            this.Text = lngRPM.s_Tangenta.s;
+            this.Text = lng.s_Tangenta.s;
             if (Program.bDemo)
             {
                 this.Text += " DEMO";
@@ -100,29 +100,29 @@ namespace Tangenta
             StartupStep = new startup_step[]
             {
                 // CHECK DATABASE
-                new startup_step(lngRPM.s_Startup_Check_DataBase.s,Startup_Check_DataBase,startup_step.eStep.Check_DataBase,startup_step_index++),
+                new startup_step(lng.s_Startup_Check_DataBase.s,Startup_Check_DataBase,startup_step.eStep.Check_DataBase,startup_step_index++),
                 // READ DB SETTINGS
-                new startup_step(lngRPM.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
+                new startup_step(lng.s_Startup_Read_DBSettings.s,this.m_usrc_Main.m_UpgradeDB.Read_DBSettings_Version,startup_step.eStep.Read_DBSettings_Version,startup_step_index++),
                 // CHECK DB AND INSERT SAMPLE DATA IF DATABASE EMPTY
-                new startup_step(lngRPM.s_Startup_CheckDBVersion.s,this.m_usrc_Main.CheckDBVersion,startup_step.eStep.CheckDBVersion,startup_step_index++),
+                new startup_step(lng.s_Startup_CheckDBVersion.s,this.m_usrc_Main.CheckDBVersion,startup_step.eStep.CheckDBVersion,startup_step_index++),
                 // GET ORGANISATION DATA
-                new startup_step(lngRPM.s_Startup_GetOrganisationData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData,startup_step_index++),
+                new startup_step(lng.s_Startup_GetOrganisationData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetOrganisationData,startup_step.eStep.GetOrganisationData,startup_step_index++),
                 // GET BASE CURRENCY
-                new startup_step(lngRPM.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency,startup_step_index++),
+                new startup_step(lng.s_Startup_GetBaseCurrency.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_BaseCurrency,startup_step.eStep.GetBaseCurrency,startup_step_index++),
                 // GET TAXATION
-                new startup_step(lngRPM.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation,startup_step_index++),
+                new startup_step(lng.s_Startup_GetTaxation.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.GetTaxation,startup_step.eStep.GetTaxation,startup_step_index++),
                 // GET SHOPS IN USE
-                new startup_step(lngRPM.s_Startup_Get_ProgramSettings.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings,startup_step_index++),
+                new startup_step(lng.s_Startup_Get_ProgramSettings.s,this.m_usrc_Main.Get_ProgramSettings,startup_step.eStep.Get_ProgramSettings,startup_step_index++),
                 // GET PROGRAM SETTINGS
-                new startup_step(lngRPM.s_SetShopsPricelists.s,this.m_usrc_Main.SetShopsPricelists,startup_step.eStep.SetShopsPricelists,startup_step_index++),
+                new startup_step(lng.s_SetShopsPricelists.s,this.m_usrc_Main.SetShopsPricelists,startup_step.eStep.SetShopsPricelists,startup_step_index++),
                 // GET SHOPB Item Data
-                new startup_step(lngRPM.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopB_ItemData,startup_step.eStep.GetSimpleItemData,startup_step_index++),
+                new startup_step(lng.s_Startup_GetSimpleItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopB_ItemData,startup_step.eStep.GetSimpleItemData,startup_step_index++),
                 // GET SHOPC Item Data
-                new startup_step(lngRPM.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopC_ItemData,startup_step.eStep.GetItemData,startup_step_index++),
+                new startup_step(lng.s_Startup_GetItemData.s,this.m_usrc_Main.m_usrc_InvoiceMan.m_usrc_Invoice.Get_ShopC_ItemData,startup_step.eStep.GetItemData,startup_step_index++),
                 // GET Printer
-                new startup_step(lngRPM.s_Startup_GetPrinter.s,this.m_usrc_Main.Get_Printer,startup_step.eStep.GetPrinter,startup_step_index++),
+                new startup_step(lng.s_Startup_GetPrinter.s,this.m_usrc_Main.Get_Printer,startup_step.eStep.GetPrinter,startup_step_index++),
                 // LOGIN
-                new startup_step(lngRPM.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod,startup_step_index++),
+                new startup_step(lng.s_Startup_Login.s,this.m_usrc_Main.GetWorkPeriod,startup_step.eStep.GetWorkPeriod,startup_step_index++),
              };
 
 
@@ -402,7 +402,7 @@ namespace Tangenta
             }
             else
             {
-                if (XMessage.Box.Show(Program.bStartup,this, lngRPM.s_RealyWantToExitProgram, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (XMessage.Box.Show(Program.bStartup,this, lng.s_RealyWantToExitProgram, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     return true;
                 }

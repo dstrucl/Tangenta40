@@ -1,4 +1,4 @@
-﻿using DBTypes;
+using DBTypes;
 using LanguageControl;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace TangentaDB
                     object oDescription = dr["Description"];
                     if (oDescription is string)
                     {
-                        if (lngRPM.s_TermsOfPayment_Default_100PercentInAdvance.s.Equals((string)oDescription))
+                        if (lng.s_TermsOfPayment_Default_100PercentInAdvance.s.Equals((string)oDescription))
                         {
                             Advanced_100PercentPayment_ID_v = tf.set_long(dr["ID"]);
                         }
@@ -49,7 +49,7 @@ namespace TangentaDB
         public bool InsertDefault()
         {
             
-            if (f_TermsOfPayment.Get(lngRPM.s_TermsOfPayment_Default_100PercentInAdvance.s,ref Advanced_100PercentPayment_ID_v))
+            if (f_TermsOfPayment.Get(lng.s_TermsOfPayment_Default_100PercentInAdvance.s,ref Advanced_100PercentPayment_ID_v))
             {
                 return true;
             }

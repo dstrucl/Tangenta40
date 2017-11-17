@@ -119,16 +119,16 @@ namespace CodeTables
 
                 bFormCreated = true;
             }
-            this.Text = lngRPM.s_DataView_Form.s + m_tbl.lngTableName.s + " (" + m_tbl.TableName + ")";
-            tsmi_CreateNew.Text = lngRPM.s_CreateNewView.s;
-            tsmi_Select_View.Text = lngRPM.s_SelectView.s;
-            tsmi_DeleteView.Text = lngRPM.s_DeleteView.s;
-            tsmi_Save.Text =  lngRPM.s_Save.s;
-            tsmi_Show.Text = lngRPM.s_Show.s;
-            label_PrimaryView.Text = lngRPM.s_PrimaryView.s;
-            chk_Limit.Text = lngRPM.s_Limit.s;
-            chk_Descending.Text = lngRPM.s_Descending.s;
-            grb_ShowLimits.Text = lngRPM.s_View.s;
+            this.Text = lng.s_DataView_Form.s + m_tbl.lngTableName.s + " (" + m_tbl.TableName + ")";
+            tsmi_CreateNew.Text = lng.s_CreateNewView.s;
+            tsmi_Select_View.Text = lng.s_SelectView.s;
+            tsmi_DeleteView.Text = lng.s_DeleteView.s;
+            tsmi_Save.Text =  lng.s_Save.s;
+            tsmi_Show.Text = lng.s_Show.s;
+            label_PrimaryView.Text = lng.s_PrimaryView.s;
+            chk_Limit.Text = lng.s_Limit.s;
+            chk_Descending.Text = lng.s_Descending.s;
+            grb_ShowLimits.Text = lng.s_View.s;
 
             
         }
@@ -221,7 +221,7 @@ namespace CodeTables
 
             m_CurViewXml = new CurViewXml(xViewXml, m_tbl, flowLayoutPanel1, flowLayoutPanel2, _items, m_DBTables, this.m_pTableDockingFormXml.m_ViewXml);
 
-            this.label_ViewName.Text = lngRPM.s_View.s + " : ";
+            this.label_ViewName.Text = lng.s_View.s + " : ";
 
             lblViewName.Text = m_CurViewXml.m_ViewXml.Name;
 
@@ -319,7 +319,7 @@ namespace CodeTables
             }
             else
             {
-                MessageBox.Show(this, lngRPM.s_SelectColumnsBeforeShow.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(this, lng.s_SelectColumnsBeforeShow.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }
@@ -344,7 +344,7 @@ namespace CodeTables
         {
             //if (flowLayoutPanel1.Controls.Count > 0)
             //{
-                if (MessageBox.Show(this, lngRPM.s_CreateNewViewQuestion.s, lngRPM.s_Question.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show(this, lng.s_CreateNewViewQuestion.s, lng.s_Question.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     return;
                 }
@@ -352,7 +352,7 @@ namespace CodeTables
             m_CurViewXml.m_ViewXml = null;
             //m_CurViewXml.State= CurViewXml.ViewXmlState.NEW_VIEW;
             //TableDockingFormXml xTableDockingFormXml = m_DBTables.m_xml.GetTableDockingFormXml(m_tbl.TableName);
-            //m_CurViewXml.m_ViewXml.Name = UniqueNames.GetName(xTableDockingFormXml.m_ViewXml, lngRPM.s_View.s+"1");
+            //m_CurViewXml.m_ViewXml.Name = UniqueNames.GetName(xTableDockingFormXml.m_ViewXml, lng.s_View.s+"1");
             m_tbl.ClearFilterDataOf_DefineView_InputControl();
             DynamicCreateControls(m_CurViewXml.m_ViewXml);
         }

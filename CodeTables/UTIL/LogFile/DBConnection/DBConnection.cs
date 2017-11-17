@@ -774,7 +774,7 @@ namespace LogFile
         public bool CheckConnection(Object DB_Param)
         {
             SetConnectionData(DB_Param);
-            return CheckDataBaseConnection(null, LanguageControl.lngConn.s_TestConnection.s);
+            return CheckDataBaseConnection(null, lng.s_TestConnection.s);
         }
 
         public bool CreateNewDataBaseConnection(Form pParentForm, Object DB_Param)
@@ -941,7 +941,7 @@ namespace LogFile
                     }
                 }
             }
-            if (CheckDataBaseConnection(pParentForm, LanguageControl.lngConn.s_TestConnection.s))
+            if (CheckDataBaseConnection(pParentForm, lng.s_TestConnection.s))
             {
                 //if (DB_Param.GetType() == typeof(Log_RemoteDB_data))
                 //{
@@ -3375,9 +3375,9 @@ namespace LogFile
 
             string csError = null;
 
-            string sLastQuestion = lngConn.s_AreYouSureToDeleteDataBase.s + " " +this.DataBase + " on server:" +this.DataSource+ "?";
+            string sLastQuestion = lng.s_AreYouSureToDeleteDataBase.s + " " +this.DataBase + " on server:" +this.DataSource+ "?";
 
-            if (MessageBox.Show(sLastQuestion, lngConn.s_Question.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show(sLastQuestion, lng.s_Question.s, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 if (this.ExecuteNonQuerySQL_NoMultiTrans(sqlDropDBQuery, null, ref csError))
                 {

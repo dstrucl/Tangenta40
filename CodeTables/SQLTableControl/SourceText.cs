@@ -59,7 +59,7 @@ namespace CodeTables
             }
             else
             {
-                MessageBox.Show(lngRPM.s_File_Not_Opened.s + ":" + FileName + "\n", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(lng.s_File_Not_Opened.s + ":" + FileName + "\n", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }
@@ -75,13 +75,13 @@ namespace CodeTables
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(lngRPM.s_File_Not_Opened.s + ":" + FileName + "\n" + ex.Message, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(lng.s_File_Not_Opened.s + ":" + FileName + "\n" + ex.Message, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
             }
             else
             {
-                MessageBox.Show(lngRPM.s_File_allready_Opened.s + ":" + FileName, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(lng.s_File_allready_Opened.s + ":" + FileName, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }
@@ -114,7 +114,7 @@ namespace CodeTables
             }
             else
             {
-                MessageBox.Show(lngRPM.s_File_Not_Opened.s + ":" + FileName + "\n", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(lng.s_File_Not_Opened.s + ":" + FileName + "\n", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return true;
             }
         }

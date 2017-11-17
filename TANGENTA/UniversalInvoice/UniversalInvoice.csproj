@@ -68,6 +68,7 @@
     <Compile Include="InvoiceToken.cs" />
     <Compile Include="Invoice_FURS_Token.cs" />
     <Compile Include="ItemSoldToken.cs" />
+    <Compile Include="lng.cs" />
     <Compile Include="Organisation.cs" />
     <Compile Include="OrganisationToken.cs" />
     <Compile Include="Person.cs" />

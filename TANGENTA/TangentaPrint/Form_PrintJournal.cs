@@ -34,8 +34,8 @@ namespace TangentaPrint
             InitializeComponent();
             m_usrc_TangentaPrint = xusrc_TangentaPrint;
             m_InvoiceData = xInvoiceData;
-            this.Text = lngRPM.s_PaymentOfInvoiceAndPrint.s;
-            lngRPM.s_Printer.Text(lbl_Printer);
+            this.Text = lng.s_PaymentOfInvoiceAndPrint.s;
+            lng.s_Printer.Text(lbl_Printer);
             this.lbl_PrinterNameValue.Text = PrinterName;
             this.usrc_PrintExistingInvoice1.Init(xInvoiceData, xInvoiceData.NumberInFinancialYear.ToString(), m_usrc_TangentaPrint);
         }

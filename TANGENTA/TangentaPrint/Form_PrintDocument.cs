@@ -52,7 +52,7 @@ namespace TangentaPrint
                 this.sAmountReceived = m_InvoiceData.AddOnDI.sCash_AmountReceived;
                 this.sToReturn = m_InvoiceData.AddOnDI.sCash_ToReturn;
                 this.issue_time = new DateTime_v(m_InvoiceData.AddOnDI.m_IssueDate.Date);
-                lngRPM.s_Print_DocInvoice.Text(this);
+                lng.s_Print_DocInvoice.Text(this);
             }
             else if (m_InvoiceData.IsDocProformaInvoice)
             {
@@ -61,13 +61,13 @@ namespace TangentaPrint
                 this.issue_time = new DateTime_v(m_InvoiceData.AddOnDPI.m_IssueDate.Date);
                 this.durationType = m_InvoiceData.AddOnDPI.m_Duration.type;
                 this.duration = m_InvoiceData.AddOnDPI.m_Duration.length;
-                lngRPM.s_Print_DocProformaInvoice.Text(this);
+                lng.s_Print_DocProformaInvoice.Text(this);
             }
             btn_SaveTemplate.Visible = false;
             btn_Refresh.Visible = false;
-            lngRPM.s_btn_Refresh.Text(btn_Refresh);
-            lngRPM.s_btn_SaveHtmlTemplate.Text(btn_SaveTemplate);
-            lngRPM.s_chk_Edit_PrintTemplate.Text(chk_EditTemplate);
+            lng.s_btn_Refresh.Text(btn_Refresh);
+            lng.s_btn_SaveHtmlTemplate.Text(btn_SaveTemplate);
+            lng.s_chk_Edit_PrintTemplate.Text(chk_EditTemplate);
             splitContainer1.Panel2Collapsed = true;
             chk_EditTemplate.Checked = false;
             chk_EditTemplate.CheckedChanged += Chk_EditTemplate_CheckedChanged;
@@ -78,7 +78,7 @@ namespace TangentaPrint
             }
             else
             {
-                lngRPM.ss_Exit.Text(btn_Exit);
+                lng.ss_Exit.Text(btn_Exit);
             }
 
         }
@@ -196,21 +196,21 @@ namespace TangentaPrint
                 case f_doc.eGetPrintDocumentTemplateResult.NO_DOCUMENT_TEMPLATE:
                     btn_SaveTemplate.Visible = false;
                     btn_Refresh.Visible = false;
-                    ltext lMsg = lngRPM.s_YouHaveNoDocumentTemplateFor;
+                    ltext lMsg = lng.s_YouHaveNoDocumentTemplateFor;
                     string sMsg_paper = "";
                     //switch (m_usrc_SelectPrintTemplate.f_doc_PageType)
                     //{
                     //    case f_doc.StandardPages.A4:
-                    //        sMsg_paper = lngRPM.s_Paper_A4.s;
+                    //        sMsg_paper = lng.s_Paper_A4.s;
                     //        break;
                     //    case f_doc.StandardPages.ROLL_58:
-                    //        sMsg_paper = lngRPM.s_Paper_Roll58.s;
+                    //        sMsg_paper = lng.s_Paper_Roll58.s;
                     //        break;
                     //    case f_doc.StandardPages.ROLL_80:
-                    //        sMsg_paper = lngRPM.s_Paper_Roll80.s;
+                    //        sMsg_paper = lng.s_Paper_Roll80.s;
                     //        break;
                     //    default:
-                    //        sMsg_paper = lngRPM.s_PageType_NotDefined.s;
+                    //        sMsg_paper = lng.s_PageType_NotDefined.s;
                     //        break;
 
                     //}
@@ -218,21 +218,21 @@ namespace TangentaPrint
                     //switch (m_usrc_SelectPrintTemplate.f_doc_PageOrientation)
                     //{
                     //    case f_doc.PageOreintation.PORTRAIT:
-                    //        sMsg = lngRPM.s_PageOrientation_PORTRAIT.s;
+                    //        sMsg = lng.s_PageOrientation_PORTRAIT.s;
                     //        break;
                     //    case f_doc.PageOreintation.LANDSCAPE:
-                    //        sMsg = lngRPM.s_PageOrientation_LANDSCAPE.s;
+                    //        sMsg = lng.s_PageOrientation_LANDSCAPE.s;
                     //        break;
                     //}
 
                     string sDocMsg = "";
                     if (m_InvoiceData.DocInvoice.Equals("DocInvoice"))
                     {
-                        sDocMsg = lngRPM.s_DocInvoice.s;
+                        sDocMsg = lng.s_DocInvoice.s;
                     }
                     else if (m_InvoiceData.DocInvoice.Equals("DocProformaInvoice"))
                     {
-                        sDocMsg = lngRPM.s_DocProformaInvoice.s;
+                        sDocMsg = lng.s_DocProformaInvoice.s;
                     }
 
                     XMessage.Box.Show(this, lMsg, "\r\n" + sMsg_paper + ",\r\n" + sDocMsg + ",\r\n" + sMsg, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
@@ -294,11 +294,11 @@ namespace TangentaPrint
             {
                 template_description = desc_v.v;
             }
-            string s_Msg = "\r\n\r\n" + lngRPM.s_doc_TemplateName.s + ":" + m_usrc_SelectPrintTemplate.doc_TemplateName + "\r\n" +
-                                  lngRPM.s_doc_TemplateDescription.s + ":" + template_description + "\r\n" +
-                                  lngRPM.s_doc_Type + ":" + Get_doc_Type_Name(this.m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v) + "\r\n" +
-                                  lngRPM.s_doc_Page_Type + ":" + Get_doc_Page_Type(this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID_v) + "\r\n" +
-                                  lngRPM.s_doc_TemplateLanguage.s + ":" + Get_doc_TemplateLanguage(this.m_usrc_SelectPrintTemplate.Language_ID_v);
+            string s_Msg = "\r\n\r\n" + lng.s_doc_TemplateName.s + ":" + m_usrc_SelectPrintTemplate.doc_TemplateName + "\r\n" +
+                                  lng.s_doc_TemplateDescription.s + ":" + template_description + "\r\n" +
+                                  lng.s_doc_Type + ":" + Get_doc_Type_Name(this.m_usrc_SelectPrintTemplate.f_doc_DocType_ID_v) + "\r\n" +
+                                  lng.s_doc_Page_Type + ":" + Get_doc_Page_Type(this.m_usrc_SelectPrintTemplate.Doc_Page_Type_ID_v) + "\r\n" +
+                                  lng.s_doc_TemplateLanguage.s + ":" + Get_doc_TemplateLanguage(this.m_usrc_SelectPrintTemplate.Language_ID_v);
 
             switch (f_doc.Exists(m_usrc_SelectPrintTemplate.doc_TemplateName, GlobalData.doc_type_definitions.HTMLPrintTemplate_Invoice_doc_type_ID, ref Doc_ID))
             {
@@ -306,7 +306,7 @@ namespace TangentaPrint
 
                    
 
-                    if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo,s_Msg, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (XMessage.Box.Show(this, lng.s_HTML_PrintDocument_Template_DocInvoice_Allready_Exists_SaveYesNo,s_Msg, "?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
                         m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);
@@ -324,7 +324,7 @@ namespace TangentaPrint
                     }
                     break;
                 case f_doc.ExistsResult.NOT_FOUND:
-                    if (XMessage.Box.Show(this, lngRPM.s_HTML_PrintDocument_SaveYesNo, s_Msg,"?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    if (XMessage.Box.Show(this, lng.s_HTML_PrintDocument_SaveYesNo, s_Msg,"?", MessageBoxButtons.YesNo, SystemIcons.Question.Handle, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
                         this.m_usrc_Invoice_Preview.html_doc_template_text = this.textEditorControl1.Text;
                         m_usrc_SelectPrintTemplate.Doc_v.v = fs.ConvertToByteArray(this.m_usrc_Invoice_Preview.html_doc_template_text);

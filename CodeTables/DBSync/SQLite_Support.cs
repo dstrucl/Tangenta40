@@ -85,7 +85,7 @@ namespace DBSync
                     }
                     else
                     {
-                        Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                        Err = lng.s_ConnectionToLocalDatabaseFailed.s;
                     }
                     return false;
                 }
@@ -108,7 +108,7 @@ namespace DBSync
                     }
                     else
                     {
-                        Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                        Err = lng.s_ConnectionToLocalDatabaseFailed.s;
                     }
                     return false;
                 }

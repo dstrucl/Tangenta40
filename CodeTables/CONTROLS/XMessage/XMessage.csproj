@@ -68,6 +68,7 @@
     <Compile Include="Form_Box.Designer.cs">
       <DependentUpon>Form_Box.cs</DependentUpon>
     </Compile>
+    <Compile Include="lng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

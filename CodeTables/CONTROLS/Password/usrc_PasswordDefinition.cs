@@ -102,13 +102,13 @@ namespace Password
                 }
                 else
                 {
-                    MessageBox.Show(this, lngRPM.s_Password_does_not_match.s + MinPasswordLength.ToString());
+                    MessageBox.Show(this, lng.s_Password_does_not_match.s + MinPasswordLength.ToString());
                     return false;
                 }
             }
             else
             {
-                MessageBox.Show(this, lngRPM.s_Minimum_Password_Length_is.s + MinPasswordLength.ToString());
+                MessageBox.Show(this, lng.s_Minimum_Password_Length_is.s + MinPasswordLength.ToString());
                 return false;
             }
         }
@@ -125,13 +125,13 @@ namespace Password
                 }
                 else
                 {
-                    MessageBox.Show(this, lngRPM.s_Password_does_not_match.s + MinPasswordLength.ToString());
+                    MessageBox.Show(this, lng.s_Password_does_not_match.s + MinPasswordLength.ToString());
                     return false;
                 }
             }
             else
             {
-                MessageBox.Show(this, lngRPM.s_Minimum_Password_Length_is.s + MinPasswordLength.ToString());
+                MessageBox.Show(this, lng.s_Minimum_Password_Length_is.s + MinPasswordLength.ToString());
                 return false;
             }
         }
@@ -139,7 +139,7 @@ namespace Password
         public usrc_PasswordDefinition()
         {
             InitializeComponent();
-            lbl_Retype_Password.Text = lngRPM.s_RetypePassword.s;
+            lbl_Retype_Password.Text = lng.s_RetypePassword.s;
             txt_Password.Text = ""; 
             txt_Password.GotFocus += Txt_Password_GotFocus;
         }

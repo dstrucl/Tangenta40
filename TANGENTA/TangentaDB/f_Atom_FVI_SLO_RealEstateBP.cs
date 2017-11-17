@@ -1,4 +1,4 @@
-﻿#region LICENSE 
+#region LICENSE 
 /*
  This Source Code Form is subject to the terms of the Tangenta Public License, v. 1.0. 
  If a copy of the Tangenta Public License (TPL) was not distributed with this 
@@ -199,7 +199,7 @@ namespace TangentaDB
                 }
                 else
                 {
-                    XMessage.Box.Show(main_Form, lngRPM.s_FVI_SLO_RealEstateBP_has_no_Data, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(main_Form, lng.s_FVI_SLO_RealEstateBP_has_no_Data, "!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }

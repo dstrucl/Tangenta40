@@ -103,6 +103,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="lng.cs" />
     <Compile Include="tf.cs" />
     <Compile Include="type_v_classes.cs" />
     <Compile Include="DBTypes.cs" />

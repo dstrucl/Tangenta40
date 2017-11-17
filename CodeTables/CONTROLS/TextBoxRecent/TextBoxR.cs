@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -19,7 +19,7 @@ namespace TextBoxRecent
         public TextBoxR():base()
         {
             menuitem = new ToolStripMenuItem();
-            menuitem.Text = lngRPM.s_RecentText.s;
+            menuitem.Text = lng.s_RecentText.s;
             menuitem.Click += Menuitem_Click;
             ContextMenuStrip myContextMenuStrip = base.ContextMenuStrip;
             if (myContextMenuStrip == null)

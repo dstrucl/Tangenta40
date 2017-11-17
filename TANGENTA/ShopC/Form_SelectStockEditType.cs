@@ -24,9 +24,9 @@ namespace ShopC
         {
             InitializeComponent();
             this.nav = xnav;
-            lngRPM.s_btn_EditItemsInStock.Text(btn_EditItemsInStock);
-            lngRPM.s_EditStockTakeItems.Text(btn_EditStockTakeItems);
-            this.Text = lngRPM.s_Select_StockEdit_Type.s;
+            lng.s_btn_EditItemsInStock.Text(btn_EditItemsInStock);
+            lng.s_EditStockTakeItems.Text(btn_EditStockTakeItems);
+            this.Text = lng.s_Select_StockEdit_Type.s;
         }
 
         internal bool Do_Form_Stock_Edit()

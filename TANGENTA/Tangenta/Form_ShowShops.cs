@@ -26,14 +26,14 @@ namespace Tangenta
         {
             InitializeComponent();
             m_usrc_Invoice = x_usrc_Invoice;
-            lngRPM.s_Show_Shops.Text(this);
-            lngRPM.s_Shop_A.Text(rdb_A);
-            lngRPM.s_Shop_B.Text(rdb_B);
-            lngRPM.s_Shop_C.Text(rdb_C);
-            lngRPM.s_Shop_AB.Text(rdb_AB);
-            lngRPM.s_Shop_BC.Text(rdb_BC);
-            lngRPM.s_Shop_AC.Text(rdb_AC);
-            lngRPM.s_Shop_ABC.Text(rdb_ABC);
+            lng.s_Show_Shops.Text(this);
+            lng.s_Shop_A.Text(rdb_A);
+            lng.s_Shop_B.Text(rdb_B);
+            lng.s_Shop_C.Text(rdb_C);
+            lng.s_Shop_AB.Text(rdb_AB);
+            lng.s_Shop_BC.Text(rdb_BC);
+            lng.s_Shop_AC.Text(rdb_AC);
+            lng.s_Shop_ABC.Text(rdb_ABC);
 
 
             rdb_A.Checked = false;

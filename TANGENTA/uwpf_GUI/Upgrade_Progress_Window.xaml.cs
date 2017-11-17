@@ -19,7 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace uwpf_GUI
+namespace uwpfGUI
 {
     /// <summary>
     /// Interaction logic for Upgrade_Progress_Window.xaml

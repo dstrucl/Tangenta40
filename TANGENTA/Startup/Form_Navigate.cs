@@ -18,7 +18,7 @@ namespace Startup
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
-            lngRPM.s_Select.Text(this);
+            lng.s_Select.Text(this);
         }
 
         private void do_OK()

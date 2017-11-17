@@ -40,11 +40,11 @@ namespace Tangenta
             InitializeComponent();
             GrossSum = xGrossSum;
             SetText("0");
-            lngRPM.s_ToReturn.Text(lbl_ToReturn);
-            lngRPM.s_Amount.Text(lbl_Amount, ":");
-            lngRPM.s_AmountReceived.Text(lbl_AmountReceived, ":");
-            btn_Amount.Text = lngRPM.s_EndPrice.s + ":" + GrossSum.ToString();
-            this.Text = lngRPM.s_AcceptedCashAmount.s;
+            lng.s_ToReturn.Text(lbl_ToReturn);
+            lng.s_Amount.Text(lbl_Amount, ":");
+            lng.s_AmountReceived.Text(lbl_AmountReceived, ":");
+            btn_Amount.Text = lng.s_EndPrice.s + ":" + GrossSum.ToString();
+            this.Text = lng.s_AcceptedCashAmount.s;
         }
         private void CheckAmount()
         {

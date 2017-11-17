@@ -36,8 +36,8 @@ namespace Tangenta
             usrc_NavigationButtons1.Init(nav);
             DefaultCurrency_ID = xDefaultCurrency_ID;
             m_xCurrency = xxCurrency;
-            this.Text = lngRPM.s_SelectDefaultCurrency.s;
-            lbl_SelectedCurrency.Text = lngRPM.s_SelectedCurrency.s;
+            this.Text = lng.s_SelectDefaultCurrency.s;
+            lbl_SelectedCurrency.Text = lng.s_SelectedCurrency.s;
         }
 
 

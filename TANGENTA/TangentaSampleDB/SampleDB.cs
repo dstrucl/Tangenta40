@@ -154,29 +154,29 @@ namespace TangentaSampleDB
                 Image img = Properties.Resources.Logo;
                 MyOrg_Image_Data_v.v = Func.imageToByteArray(img, img.RawFormat);
 
-                MyOrg_DynGroupBox = m_eds.AddGroupBox("grp_MyOrg", lngRPM.s_MyOrganisation);
+                MyOrg_DynGroupBox = m_eds.AddGroupBox("grp_MyOrg", lng.s_MyOrganisation);
 
-                MyOrg_Comment1_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Comment1", lngRPM.s_Comment1);
+                MyOrg_Comment1_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Comment1", lng.s_Comment1);
 
-                MyOrg_BankAccount_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_BankAccount", lngRPM.s_BankAccount);
+                MyOrg_BankAccount_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_BankAccount", lng.s_BankAccount);
 
-                MyOrg_BankAccount_Bank_DynGroupBox = MyOrg_BankAccount_DynGroupBox.AddGroupBox("grp_MyOrg_BankAccount_Bank", lngRPM.s_Bank);
+                MyOrg_BankAccount_Bank_DynGroupBox = MyOrg_BankAccount_DynGroupBox.AddGroupBox("grp_MyOrg_BankAccount_Bank", lng.s_Bank);
 
-                MyOrg_Address_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Address", lngRPM.s_Address);
+                MyOrg_Address_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Address", lng.s_Address);
 
-                MyOrg_Address_Country_DynGroupBox = MyOrg_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Address_Country", lngRPM.s_Country);
+                MyOrg_Address_Country_DynGroupBox = MyOrg_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Address_Country", lng.s_Country);
 
-                MyOrg_Office_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Office", lngRPM.s_Office);
+                MyOrg_Office_DynGroupBox = MyOrg_DynGroupBox.AddGroupBox("grp_MyOrg_Office", lng.s_Office);
 
-                MyOrg_Office_Address_DynGroupBox = MyOrg_Office_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Address", lngRPM.s_Address);
+                MyOrg_Office_Address_DynGroupBox = MyOrg_Office_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Address", lng.s_Address);
 
-                MyOrg_Office_Address_Country_DynGroupBox = MyOrg_Office_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Address_Country", lngRPM.s_Country);
+                MyOrg_Office_Address_Country_DynGroupBox = MyOrg_Office_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Address_Country", lng.s_Country);
 
-                MyOrg_Office_Person_DynGroupBox = MyOrg_Office_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person", lngRPM.s_Person);
+                MyOrg_Office_Person_DynGroupBox = MyOrg_Office_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person", lng.s_Person);
 
-                MyOrg_Office_Person_Address_DynGroupBox = MyOrg_Office_Person_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person_Address", lngRPM.s_Address);
+                MyOrg_Office_Person_Address_DynGroupBox = MyOrg_Office_Person_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person_Address", lng.s_Address);
 
-                MyOrg_Office_Person_Address_Country_DynGroupBox = MyOrg_Office_Person_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person_Address_Country", lngRPM.s_Country);
+                MyOrg_Office_Person_Address_Country_DynGroupBox = MyOrg_Office_Person_Address_DynGroupBox.AddGroupBox("grp_MyOrg_Office_Person_Address_Country", lng.s_Country);
 
                 MyOrg_DynGroupBox.Visible = true;
                 MyOrg_Address_DynGroupBox.Visible = true;
@@ -574,7 +574,7 @@ select_country:
             DataTable dt_Taxation = TangentaDB.f_Taxation.GetTable(false);
             if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
             {
-                xnav.ChildDialog = new Form_Items_Samples(xnav, lngRPM.s_Shop_B.s);
+                xnav.ChildDialog = new Form_Items_Samples(xnav, lng.s_Shop_B.s);
                 xnav.bDoModal = false;
                 xnav.ShowDialog();
                 if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
@@ -1240,7 +1240,7 @@ select_country:
             if (f_Currency.Get(myOrg.Default_Currency_ID, ref Currency_Abbreviation, ref Currency_Name, ref Currency_Symbol, ref Currency_Code, ref Currency_DecimalPlaces))
             {
 
-                xnav.ChildDialog = new Form_Items_Samples(xnav, lngRPM.s_Shop_C.s);
+                xnav.ChildDialog = new Form_Items_Samples(xnav, lng.s_Shop_C.s);
                 xnav.bDoModal = false;
                 xnav.ShowDialog();
                 if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.NEXT)
@@ -1307,7 +1307,7 @@ select_country:
                                                                            true,
                                                                            null,
                                                                            null,
-                                                                           lngRPM.s_Description.s,
+                                                                           lng.s_Description.s,
                                                                            180,
                                                                            60,
                                                                            10,
@@ -1365,7 +1365,7 @@ select_country:
                                                                        true,
                                                                        null,
                                                                        null,
-                                                                       lngRPM.s_Description.s,
+                                                                       lng.s_Description.s,
                                                                        180,
                                                                        60,
                                                                        10,
@@ -1423,7 +1423,7 @@ select_country:
                                                                                                                true,
                                                                                                                null,
                                                                                                                null,
-                                                                                                               lngRPM.s_Description.s,
+                                                                                                               lng.s_Description.s,
                                                                                                                180,
                                                                                                                60,
                                                                                                                10,
@@ -1479,7 +1479,7 @@ select_country:
                                                                                                            true,
                                                                                                            null,
                                                                                                            null,
-                                                                                                           lngRPM.s_Description.s,
+                                                                                                           lng.s_Description.s,
                                                                                                            180,
                                                                                                            60,
                                                                                                            10,
@@ -1543,7 +1543,7 @@ select_country:
                                                                        true,
                                                                        null,
                                                                        null,
-                                                                       lngRPM.s_Description.s,
+                                                                       lng.s_Description.s,
                                                                        180,
                                                                        60,
                                                                        10,
@@ -1604,7 +1604,7 @@ select_country:
                                                                    true,
                                                                    null,
                                                                    null,
-                                                                   lngRPM.s_Description.s,
+                                                                   lng.s_Description.s,
                                                                    180,
                                                                    60,
                                                                    10,
@@ -1663,7 +1663,7 @@ select_country:
                                                                true,
                                                                null,
                                                                null,
-                                                               lngRPM.s_Description.s,
+                                                               lng.s_Description.s,
                                                                180,
                                                                60,
                                                                10,
@@ -1726,7 +1726,7 @@ select_country:
                                                                                                   true,
                                                                                                   null,
                                                                                                   null,
-                                                                                                  lngRPM.s_Description.s,
+                                                                                                  lng.s_Description.s,
                                                                                                   180,
                                                                                                   60,
                                                                                                   10,
@@ -1785,7 +1785,7 @@ select_country:
                                                                                               true,
                                                                                               null,
                                                                                               null,
-                                                                                              lngRPM.s_Description.s,
+                                                                                              lng.s_Description.s,
                                                                                               180,
                                                                                               60,
                                                                                               10,
@@ -1845,7 +1845,7 @@ select_country:
                                                                                                                              true,
                                                                                                                              null,
                                                                                                                              null,
-                                                                                                                             lngRPM.s_Description.s,
+                                                                                                                             lng.s_Description.s,
                                                                                                                              180,
                                                                                                                              60,
                                                                                                                              10,

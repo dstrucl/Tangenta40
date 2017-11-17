@@ -27,24 +27,24 @@ namespace PriseLists
             m_chShop = xchShop;
             m_dt_Item = dt_Item;
             //this.Parent = pparent_ctrl;
-            this.Text = lngRPM.s_Pricelist_is_not_complete.s;
-            btn_Cancel.Text = lngRPM.s_Cancel.s;
-            btn_OK.Text = lngRPM.s_OK.s;
+            this.Text = lng.s_Pricelist_is_not_complete.s;
+            btn_Cancel.Text = lng.s_Cancel.s;
+            btn_OK.Text = lng.s_OK.s;
             if (dt_Item.Rows.Count > 0)
             {
                 if (m_chShop == 'B')
                 {
                     this.dgvx_Item_Not_in_Pricelist.DataSource = m_dt_Item;
-                    this.dgvx_Item_Not_in_Pricelist.Columns["PriceList"].HeaderText = lngRPM.s_PriceList.s;
-                    this.dgvx_Item_Not_in_Pricelist.Columns["Name"].HeaderText = lngRPM.s_Name.s;
-                    lbl_Item_Not_in_PriceList.Text = lngRPM.s_SimpleItem_Not_in_PriceList.s;
+                    this.dgvx_Item_Not_in_Pricelist.Columns["PriceList"].HeaderText = lng.s_PriceList.s;
+                    this.dgvx_Item_Not_in_Pricelist.Columns["Name"].HeaderText = lng.s_Name.s;
+                    lbl_Item_Not_in_PriceList.Text = lng.s_SimpleItem_Not_in_PriceList.s;
                 }
                 else if (m_chShop == 'C')
                 {
                     this.dgvx_Item_Not_in_Pricelist.DataSource = m_dt_Item;
-                    this.dgvx_Item_Not_in_Pricelist.Columns["PriceList"].HeaderText = lngRPM.s_PriceList.s;
-                    this.dgvx_Item_Not_in_Pricelist.Columns["UniqueName"].HeaderText = lngRPM.s_UniqueName.s;
-                    lbl_Item_Not_in_PriceList.Text = lngRPM.s_Item_Not_in_PriceList.s;
+                    this.dgvx_Item_Not_in_Pricelist.Columns["PriceList"].HeaderText = lng.s_PriceList.s;
+                    this.dgvx_Item_Not_in_Pricelist.Columns["UniqueName"].HeaderText = lng.s_UniqueName.s;
+                    lbl_Item_Not_in_PriceList.Text = lng.s_Item_Not_in_PriceList.s;
                 }
             }
         }

@@ -443,7 +443,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                sTxt.ShowParseError(lngRPM.s_CanNotFindColumnName.s + ":" + sForeignKey + "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                sTxt.ShowParseError(lng.s_CanNotFindColumnName.s + ":" + sForeignKey + "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return false;
 
                             }
@@ -451,15 +451,15 @@ namespace CodeTables
                         }
                         else 
                         {
-                            sTxt.ShowParseError(lngRPM.s_CanNotFindForeignKey.s + ":" + sForeignKey + " " + lngRPM.s_In_Table.s + ":" + this.TableName + " !\r\n" + lngRPM.s_ForeignKeysAre.s + ":" + s_GetForeignKeyList(), 
-                                                lngRPM.s_Error.s, 
+                            sTxt.ShowParseError(lng.s_CanNotFindForeignKey.s + ":" + sForeignKey + " " + lng.s_In_Table.s + ":" + this.TableName + " !\r\n" + lng.s_ForeignKeysAre.s + ":" + s_GetForeignKeyList(), 
+                                                lng.s_Error.s, 
                                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
                     else 
                     {
-                       sTxt.ShowParseError(lngRPM.s_NoColumnName .s +  "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                       sTxt.ShowParseError(lng.s_NoColumnName .s +  "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                        return false;
                     }
                 }
@@ -481,14 +481,14 @@ namespace CodeTables
                     }
                     else
                     {
-                        sTxt.ShowParseError(lngRPM.s_No_Table_or_Column_Name_in_Line.s + ":" + sTxt.iLine.ToString() + "!  " + lngRPM.s_Table.s + "\"" + this.TableName + "\" " + lngRPM.s_Columns_Are.s+":" + s_GetColumnList(), lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        sTxt.ShowParseError(lng.s_No_Table_or_Column_Name_in_Line.s + ":" + sTxt.iLine.ToString() + "!  " + lng.s_Table.s + "\"" + this.TableName + "\" " + lng.s_Columns_Are.s+":" + s_GetColumnList(), lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
             }
             else
             {
-                sTxt.ShowParseError(lngRPM.s_No_Table_or_Column_Name_in_Line.s + ":" + sTxt.iLine.ToString() + "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                sTxt.ShowParseError(lng.s_No_Table_or_Column_Name_in_Line.s + ":" + sTxt.iLine.ToString() + "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -528,8 +528,8 @@ namespace CodeTables
                             }
                             else
                             {
-                                //sTxt.ShowParseError(lngRPM.s_CanNotFindColumnName.s + ":" + sForeignKey + "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                MessageBox.Show(lngRPM.s_CanNotFindColumnName.s + ":" + sForeignKey + "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //sTxt.ShowParseError(lng.s_CanNotFindColumnName.s + ":" + sForeignKey + "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(lng.s_CanNotFindColumnName.s + ":" + sForeignKey + "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return false;
 
                             }
@@ -537,19 +537,19 @@ namespace CodeTables
                         }
                         else
                         {
-                            //sTxt.ShowParseError(lngRPM.s_CanNotFindForeignKey.s + ":" + sForeignKey + " " + lngRPM.s_In_Table.s + ":" + this.TableName + " !\r\n" + lngRPM.s_ForeignKeysAre.s + ":" + s_GetForeignKeyList(),
-                                                //lngRPM.s_Error.s,
+                            //sTxt.ShowParseError(lng.s_CanNotFindForeignKey.s + ":" + sForeignKey + " " + lng.s_In_Table.s + ":" + this.TableName + " !\r\n" + lng.s_ForeignKeysAre.s + ":" + s_GetForeignKeyList(),
+                                                //lng.s_Error.s,
                             //MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            MessageBox.Show(lngRPM.s_CanNotFindForeignKey.s + ":" + sForeignKey + " " + lngRPM.s_In_Table.s + ":" + this.TableName + " !\r\n" + lngRPM.s_ForeignKeysAre.s + ":" + s_GetForeignKeyList(),
-                                                lngRPM.s_Error.s,
+                            MessageBox.Show(lng.s_CanNotFindForeignKey.s + ":" + sForeignKey + " " + lng.s_In_Table.s + ":" + this.TableName + " !\r\n" + lng.s_ForeignKeysAre.s + ":" + s_GetForeignKeyList(),
+                                                lng.s_Error.s,
                                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
                     }
                     else
                     {
-                        //sTxt.ShowParseError(lngRPM.s_NoColumnName.s + "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        MessageBox.Show(lngRPM.s_NoColumnName.s + "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //sTxt.ShowParseError(lng.s_NoColumnName.s + "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(lng.s_NoColumnName.s + "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -570,16 +570,16 @@ namespace CodeTables
                     }
                     else
                     {
-                        //sTxt.ShowParseError(lngRPM.s_No_Table_or_Column_Name_in_Line.s + ":" + sTxt.iLine.ToString() + "!  " + lngRPM.s_Table.s + "\"" + this.TableName + "\" " + lngRPM.s_Columns_Are.s + ":" + s_GetColumnList(), lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        MessageBox.Show(lngRPM.s_No_Table_or_Column_Name_in_Line.s +  "!  " + lngRPM.s_Table.s + "\"" + this.TableName + "\" " + lngRPM.s_Columns_Are.s + ":" + s_GetColumnList(), lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //sTxt.ShowParseError(lng.s_No_Table_or_Column_Name_in_Line.s + ":" + sTxt.iLine.ToString() + "!  " + lng.s_Table.s + "\"" + this.TableName + "\" " + lng.s_Columns_Are.s + ":" + s_GetColumnList(), lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(lng.s_No_Table_or_Column_Name_in_Line.s +  "!  " + lng.s_Table.s + "\"" + this.TableName + "\" " + lng.s_Columns_Are.s + ":" + s_GetColumnList(), lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
             }
             else
             {
-                //sTxt.ShowParseError(lngRPM.s_No_Table_or_Column_Name_in_Line.s + ":" + sTxt.iLine.ToString() + "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MessageBox.Show(lngRPM.s_No_Table_or_Column_Name_in_Line.s + "!", lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //sTxt.ShowParseError(lng.s_No_Table_or_Column_Name_in_Line.s + ":" + sTxt.iLine.ToString() + "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(lng.s_No_Table_or_Column_Name_in_Line.s + "!", lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -1178,7 +1178,7 @@ namespace CodeTables
                     sInsertTo = sInsertTo + "ELSE\n";
                     sInsertTo = sInsertTo + "BEGIN\n";
                     sInsertTo = sInsertTo + @" DECLARE @ErrorVariable NVARCHAR(1000);
-                                                SET @ErrorVariable = N'" + lngRPM.s_Error_Insert_Unique.s + sWhere_Condition_Error_Report + lngRPM.s_Error_Insert_Unique_the_same_allready_exists_at_id.s+ @"';
+                                                SET @ErrorVariable = N'" + lng.s_Error_Insert_Unique.s + sWhere_Condition_Error_Report + lng.s_Error_Insert_Unique_the_same_allready_exists_at_id.s+ @"';
                                                 RAISERROR (@ErrorVariable, -- Message text.
                                                 11, -- Severity,
                                                  1, -- Country
@@ -1572,7 +1572,7 @@ namespace CodeTables
             }
             else
             {
-                MessageBox.Show(lngRPM.s_ErrorNoData.s);
+                MessageBox.Show(lng.s_ErrorNoData.s);
             }
             return Line;
         }

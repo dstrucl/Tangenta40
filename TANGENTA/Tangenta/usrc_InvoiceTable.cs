@@ -128,11 +128,11 @@ namespace Tangenta
             ExtensionMethods.DoubleBuffered(this.dgvx_XInvoice, true);
             dtStartTime = DateTime.Now;
             dtEndTime = DateTime.Now;
-            lbl_From_To.Text = lngRPM.s_AllData.s;
-            lngRPM.s_Sum_All.Text(this.lbl_Sum_All);
-            lngRPM.s_Sum_Tax.Text(this.lbl_Sum_Tax);
-            lngRPM.s_Sum_WithoutTax.Text(this.lbl_Sum_WithoutTax);
-            lngRPM.s_from.Text(this.lbl_From_To);
+            lbl_From_To.Text = lng.s_AllData.s;
+            lng.s_Sum_All.Text(this.lbl_Sum_All);
+            lng.s_Sum_Tax.Text(this.lbl_Sum_Tax);
+            lng.s_Sum_WithoutTax.Text(this.lbl_Sum_WithoutTax);
+            lng.s_from.Text(this.lbl_From_To);
         }
 
         internal void Activate_dgvx_XInvoice_SelectionChanged()
@@ -511,7 +511,7 @@ namespace Tangenta
                     iColIndex_DocInvoice_Draft = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Draft");
                     iColIndex_DocInvoice_Invoice_Storno = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$$Storno");
                     iColIndex_DocInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
-                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lngRPM.s_IssueDate.s;
+                    dgvx_XInvoice.Columns[iColIndex_DocInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
                     if (Program.b_FVI_SLO)
                     {
                         iColIndex_DocInvoice_FSI_SLO_Response_BarCodeValue = dt_XInvoice.Columns.IndexOf("JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue");
@@ -528,7 +528,7 @@ namespace Tangenta
                     tbl.SetVIEW_DataGridViewImageColumns_Headers((DataGridView)dgvx_XInvoice, DBSync.DBSync.DB_for_Tangenta.m_DBTables);
                     if (Program.b_FVI_SLO)
                     {
-                        dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"].HeaderText = lngRPM.s_FURS_BarCode.s;
+                        dgvx_XInvoice.Columns["JOURNAL_DocInvoice_$_dinv_$_fvisbi_$$BarCodeValue"].HeaderText = lng.s_FURS_BarCode.s;
                     }
                     iRowsCount = dt_XInvoice.Rows.Count;
                     if (!bNew)
@@ -562,7 +562,7 @@ namespace Tangenta
                     iColIndex_DocInvoice_PaymentType_Identification = dt_XInvoice.Columns.IndexOf("PaymentType_Identification");
                     iColIndex_DocInvoice_PaymentType_Name = dt_XInvoice.Columns.IndexOf("PaymentType_Name");
                     iColIndex_DocProformaInvoice_IssueDate = dt_XInvoice.Columns.IndexOf("IssueDate");
-                    dgvx_XInvoice.Columns[iColIndex_DocProformaInvoice_IssueDate].HeaderText = lngRPM.s_IssueDate.s;
+                    dgvx_XInvoice.Columns[iColIndex_DocProformaInvoice_IssueDate].HeaderText = lng.s_IssueDate.s;
 
                     dgvx_XInvoice.Columns[iColIndex_DocInvoice_PaymentType_Identification].Visible = false;
 
@@ -701,9 +701,9 @@ namespace Tangenta
                     net_sum = Sum("JOURNAL_DocProformaInvoice_$_dpinv_$$NetSum");
                     tax_sum = Sum("JOURNAL_DocProformaInvoice_$_dpinv_$$TaxSum");
                 }
-                lbl_Sum_All.Text = lngRPM.s_Sum_All.s + gross_sum.ToString() + " " + currency_symbol;
-                lbl_Sum_Tax.Text = lngRPM.s_Sum_Tax.s + tax_sum.ToString() + " " + currency_symbol; ;
-                lbl_Sum_WithoutTax.Text = lngRPM.s_Sum_WithoutTax.s + net_sum.ToString() + " " + currency_symbol; 
+                lbl_Sum_All.Text = lng.s_Sum_All.s + gross_sum.ToString() + " " + currency_symbol;
+                lbl_Sum_Tax.Text = lng.s_Sum_Tax.s + tax_sum.ToString() + " " + currency_symbol; ;
+                lbl_Sum_WithoutTax.Text = lng.s_Sum_WithoutTax.s + net_sum.ToString() + " " + currency_symbol; 
 
             }
             else
@@ -806,7 +806,7 @@ namespace Tangenta
 
         private string sTimeSpan()
         {
-            return " " + lngRPM.s_from.s + " " + sDate(dtStartTime) + " " + lngRPM.s_to.s +" "+ sDate(DayMinus(dtEndTime)) ;
+            return " " + lng.s_from.s + " " + sDate(dtStartTime) + " " + lng.s_to.s +" "+ sDate(DayMinus(dtEndTime)) ;
         }
 
         private string sTimeSpan_Suffix()
@@ -857,7 +857,7 @@ namespace Tangenta
             Mode = eMode;
             if (eMode == usrc_InvoiceTable.eMode.All)
             {
-                lbl_From_To.Text = lngRPM.s_ShowAll.s;
+                lbl_From_To.Text = lng.s_ShowAll.s;
                 sFromTo_Suffix = "";
                 ExtraCondition = null;
                 lpar_ExtraCondition = null;
@@ -868,36 +868,36 @@ namespace Tangenta
                 switch (eMode)
                 {
                     case usrc_InvoiceTable.eMode.Today:
-                        lbl_From_To.Text = lngRPM.s_Today.s + " " + sDate(dtStartTime);
+                        lbl_From_To.Text = lng.s_Today.s + " " + sDate(dtStartTime);
                         sFromTo_Suffix = sDate_Suffix(dtStartTime);
                         break;
                     case usrc_InvoiceTable.eMode.ThisWeek:
-                        lbl_From_To.Text = lngRPM.s_ThisWeek.s + sTimeSpan();
+                        lbl_From_To.Text = lng.s_ThisWeek.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
 
                     case usrc_InvoiceTable.eMode.LastWeek:
-                        lbl_From_To.Text = lngRPM.s_LastWeek.s + sTimeSpan();
+                        lbl_From_To.Text = lng.s_LastWeek.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
                     case usrc_InvoiceTable.eMode.ThisMonth:
-                        lbl_From_To.Text = lngRPM.s_ThisMonth.s + sTimeSpan();
+                        lbl_From_To.Text = lng.s_ThisMonth.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
                     case usrc_InvoiceTable.eMode.LastMonth:
-                        lbl_From_To.Text = lngRPM.s_LastMonth.s + sTimeSpan();
+                        lbl_From_To.Text = lng.s_LastMonth.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
                     case usrc_InvoiceTable.eMode.ThisYear:
-                        lbl_From_To.Text = lngRPM.s_ThisYear.s + sTimeSpan();
+                        lbl_From_To.Text = lng.s_ThisYear.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
                     case usrc_InvoiceTable.eMode.LastYear:
-                        lbl_From_To.Text = lngRPM.s_LastYear.s + sTimeSpan();
+                        lbl_From_To.Text = lng.s_LastYear.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
                     case usrc_InvoiceTable.eMode.TimeSpan:
-                        lbl_From_To.Text = lngRPM.s_TimeSpan.s + sTimeSpan();
+                        lbl_From_To.Text = lng.s_TimeSpan.s + sTimeSpan();
                         sFromTo_Suffix = sTimeSpan_Suffix();
                         break;
                 }

@@ -52,10 +52,10 @@ namespace DBSync
         private void Init()
         {
             btn_Backup.Visible = false;
-            lngRPM.s_Database.Text(this);
-            lngRPM.s_SelectDatabase.Text(btn_Change);
-            string database_info = "\r\n" + DBSync.ServerType + "\r\n" + lngConn.s_Server.s + ":" + DBSync.DataSource + "\r\n" + lngConn.s_DataBase.s + ":" + DBSync.DataBase +"\r\n"+ lngRPM.s_DataBaseVersion.s +":" + m_sDataBaseVersion;
-            lngRPM.s_DatabaseInfo.Text(lbl_DataBaseInfo, database_info);
+            lng.s_Database.Text(this);
+            lng.s_SelectDatabase.Text(btn_Change);
+            string database_info = "\r\n" + DBSync.ServerType + "\r\n" + lngConn.s_Server.s + ":" + DBSync.DataSource + "\r\n" + lngConn.s_DataBase.s + ":" + DBSync.DataBase +"\r\n"+ lng.s_DataBaseVersion.s +":" + m_sDataBaseVersion;
+            lng.s_DatabaseInfo.Text(lbl_DataBaseInfo, database_info);
             if (m_DataBaseType != null)
             {
                 if (m_DataBaseType.Equals("SQLITE"))

@@ -36,7 +36,7 @@ namespace DBSync
             nav.ShowHelp(this.GetType().ToString());
             m_eButtons = nav.m_eButtons;
             usrc_NavigationButtons1.Init(nav);
-            lngRPM.s_SelectDatabase.Text(lbl_SelectDataBase);
+            lng.s_SelectDatabase.Text(lbl_SelectDataBase);
             if (sdbtype != null)
             {
                 if (sdbtype.Equals("SQLITE"))

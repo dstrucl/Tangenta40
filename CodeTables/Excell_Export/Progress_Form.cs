@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,9 +18,9 @@ namespace Excell_Export
         {
             InitializeComponent();
             m_Progress_Thread = progr_thread;
-            lbl_Export_To_File.Text = lngRPM.s_ExportToFile.s + ":" + m_Progress_Thread.m_FileName;
-            lbl_Rows_Columns.Text = lngRPM.s_Rows.s + "=" + m_Progress_Thread.m_rows.ToString() + " , " + lngRPM.s_Columns.s + " = " + m_Progress_Thread.m_columns.ToString();
-            lbl_PercentDone.Text = lngRPM.s_ExportDoneInXprocent.s + ": %0";
+            lbl_Export_To_File.Text = lng.s_ExportToFile.s+ ":" + m_Progress_Thread.m_FileName;
+            lbl_Rows_Columns.Text = lng.s_Rows.s + m_Progress_Thread.m_rows.ToString() + " , " + lng.s_Columns.s+" = " + m_Progress_Thread.m_columns.ToString();
+            lbl_PercentDone.Text = lng.s_ExportDoneInXprocent.s + ": %0";
             progressBar.Maximum = 100;
             progressBar.Minimum = 0;
             progressBar.Value = 0;

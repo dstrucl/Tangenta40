@@ -19,7 +19,7 @@ using DBTypes;
 using CodeTables;
 using LanguageControl;
 using TangentaDB;
-using FormDiscount;
+using Form_Discount;
 
 namespace ShopC
 {
@@ -550,7 +550,7 @@ namespace ShopC
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouCanNotEditStockUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouCanNotEditStockUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                 }
             }
         }
@@ -578,7 +578,7 @@ namespace ShopC
             decimal_v AveragePruchasePricePerUnit = Get_AveragePurchasePricePerUnit();
             if (m_Item_Data.RetailPricePerUnit != null)
             {
-                Form_Discount discount_frm = new Form_Discount(m_Item_Data.RetailPricePerUnit.v, AveragePruchasePricePerUnit, ExtraDiscount, m_Item_Data.Item_UniqueName.v);
+                Form_Discount.Form_Discount discount_frm = new Form_Discount.Form_Discount(m_Item_Data.RetailPricePerUnit.v, AveragePruchasePricePerUnit, ExtraDiscount, m_Item_Data.Item_UniqueName.v);
                 discount_frm.ShowDialog();
                 ExtraDiscount = discount_frm.ExtraDiscount;
                 m_Item_Data.ExtraDiscount = ExtraDiscount;
@@ -691,7 +691,7 @@ namespace ShopC
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouCanNotEditItemsUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouCanNotEditItemsUntilAllBasketsAreEmpty, "", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                 }
             }
 

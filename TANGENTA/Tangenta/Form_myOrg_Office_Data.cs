@@ -29,11 +29,11 @@ namespace Tangenta
             InitializeComponent();
             nav = xnav;
             usrc_NavigationButtons1.Init(nav);
-            lngRPM.s_Edit_Office_Data_FVI_SLO_RealEstateBP.Text(this.btn_FVI_SLO_RealEstateBP);
+            lng.s_Edit_Office_Data_FVI_SLO_RealEstateBP.Text(this.btn_FVI_SLO_RealEstateBP);
             m_Office_ID = xOffice_ID;
             tbl_Office_Data = new SQLTable(DBSync.DBSync.DB_for_Tangenta.m_DBTables.GetTable(typeof(Office_Data)));
-            this.Text = lngRPM.s_Edit_Office_Data.s;
-            this.usrc_EditTable1.Title = lngRPM.s_Edit_Office_Data.s;
+            this.Text = lng.s_Edit_Office_Data.s;
+            this.usrc_EditTable1.Title = lng.s_Edit_Office_Data.s;
             string selection = @" Office_Data_$_office_$_mo_$_orgd_$_org_$$Name,
                                     Office_Data_$_office_$$Name,
                                     Office_Data_$_office_$$ShortName,
@@ -121,7 +121,7 @@ namespace Tangenta
         {
             if (usrc_EditTable1.Changed)
             {
-                if (XMessage.Box.Show(this, lngRPM.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lngRPM.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (XMessage.Box.Show(this, lng.s_YouDidNotWriteDataToDB_SaveData_YesOrNo, lng.s_Warning.s, MessageBoxButtons.YesNo, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
                     usrc_EditTable1.Save();
                     Close();
@@ -145,7 +145,7 @@ namespace Tangenta
                 }
                 else
                 {
-                    XMessage.Box.Show(this, lngRPM.s_YouMustEnterYourOfficeAddressData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
+                    XMessage.Box.Show(this, lng.s_YouMustEnterYourOfficeAddressData, "", MessageBoxButtons.OK, Properties.Resources.Tangenta_Question, MessageBoxDefaultButton.Button1);
                     return false;
                 }
             }

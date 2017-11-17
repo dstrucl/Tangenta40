@@ -64,8 +64,8 @@ namespace TangentaDB
         {
 
             //Proforma Invoice
-            HTMLPrintTemplate_Invoice = new doc_type("HTML Print Template Invoice", lngRPM.s_HTML_Print_template_DocInvoice.s);
-            HTMLPrintTemplate_ProformaInvoice = new doc_type("HTML Print Template Proforma Invoice", lngRPM.s_HTML_Print_template_DocProformaInvoice.s);
+            HTMLPrintTemplate_Invoice = new doc_type("HTML Print Template Invoice", lng.s_HTML_Print_template_DocInvoice.s);
+            HTMLPrintTemplate_ProformaInvoice = new doc_type("HTML Print Template Proforma Invoice", lng.s_HTML_Print_template_DocProformaInvoice.s);
 
             doc_type_list.Add(HTMLPrintTemplate_Invoice);
             doc_type_list.Add(HTMLPrintTemplate_ProformaInvoice);

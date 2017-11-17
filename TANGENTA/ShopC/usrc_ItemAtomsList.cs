@@ -240,7 +240,7 @@ namespace ShopC
 
         private void btn_ClearAll_Click(object sender, EventArgs e)
         {
-            if (XMessage.Box.Show(this, lngRPM.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (XMessage.Box.Show(this, lng.s_Are_Sure_To_Remove_All_From_Basket, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.Cursor = Cursors.WaitCursor;
                 m_ShopBC.m_CurrentInvoice.m_Basket.Empty(DocInvoice,m_ShopBC.m_CurrentInvoice.m_ShopShelf);

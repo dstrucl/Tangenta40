@@ -99,7 +99,7 @@ start_init:
 
             if (DBSync.m_DBType == DBConnection.eDBType.SQLITE)
             {
-                my_StartupWindowThread.Message(lngRPM.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
+                my_StartupWindowThread.Message(lng.s_CheckLocalDatabase.s + m_SQLite_Support.sGetLocalDB());
                 bool bGet = m_SQLite_Support.Get(bReset, ref Err, ref IniFileFolder, IniFileFolder, "TangentaDB", bChangeConnection, ref bNewDatabaseCreated, xnav, ref bCanceled);
                 if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
                 {
@@ -109,24 +109,24 @@ start_init:
                 }
                 if (bGet)
                 {
-                    my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
+                    my_StartupWindowThread.Message(lng.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
                 }
                 else
                 {
                     if (!bCanceled)
                     {
-                        LogFile.Error.Show(lngRPM.s_CanNotReadDataBaseFile.s + " Err=" + Err);
+                        LogFile.Error.Show(lng.s_CanNotReadDataBaseFile.s + " Err=" + Err);
                     }
                     return false;
                 }
             }
             else
             {
-                my_StartupWindowThread.Message(lngRPM.s_DataBaseFile.s);
+                my_StartupWindowThread.Message(lng.s_DataBaseFile.s);
                 if (Get(xnav.parentForm,bReset, ref Err, ref IniFileFolder, "TangentaDB",ref bNewDatabaseCreated, xnav, ref bCanceled))
                 {
-                    my_StartupWindowThread.Message(lngRPM.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
+                    my_StartupWindowThread.Message(lng.s_LocalDatabase_OK.s + m_SQLite_Support.sGetLocalDB());
                     return true;
                 }
                 else
@@ -322,7 +322,7 @@ start_init:
                 }
                 else
                 {
-                    Err = lngRPM.s_ConnectionToLocalDatabaseFailed.s;
+                    Err = lng.s_ConnectionToLocalDatabaseFailed.s;
                     LogFile.Error.Show(Err);
                     return false;
                 }

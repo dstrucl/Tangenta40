@@ -192,6 +192,7 @@
     </Compile>
     <Compile Include="GetDotNetVersion.cs" />
     <Compile Include="Language.cs" />
+    <Compile Include="lng.cs" />
     <Compile Include="Log2DB_Form.cs">
       <SubType>Form</SubType>
     </Compile>

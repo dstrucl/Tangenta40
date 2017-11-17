@@ -58,7 +58,7 @@ namespace CodeTables
             //this.Owner = m_Form;
             this.CenterToScreen();
             this.Visible = true;
-            this.lbl_WaitRandomDataParamSettingsDialogIsClosed.Text = lngRPM.s_WaitUntilRandomParamSettingDialogIsClosed.s;
+            this.lbl_WaitRandomDataParamSettingsDialogIsClosed.Text = lng.s_WaitUntilRandomParamSettingDialogIsClosed.s;
             System.IntPtr wparam = new IntPtr(this.Handle.ToInt32());
             System.IntPtr lparam = new IntPtr(0);
             PostMessage(m_iParentFormHandle, Func.WM_DO_RANDOM_PARAM_SETTINGS_DIALOG, wparam, lparam);

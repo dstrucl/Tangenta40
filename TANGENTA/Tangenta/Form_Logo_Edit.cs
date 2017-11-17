@@ -34,7 +34,7 @@ namespace Tangenta
             dbTables = xdbTables;
             tbl = xtbl;
             ColumnOrderBy = xColumnOrderBy;
-            lngRPM.s_Logos.Text(this);
+            lng.s_Logos.Text(this);
         }
 
         private void Form_Logo_Edit_Load(object sender, EventArgs e)

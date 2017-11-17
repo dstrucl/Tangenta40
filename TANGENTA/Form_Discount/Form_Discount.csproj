@@ -67,6 +67,7 @@
     <Compile Include="Form_Discount.Designer.cs">
       <DependentUpon>Form_Discount.cs</DependentUpon>
     </Compile>
+    <Compile Include="lng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

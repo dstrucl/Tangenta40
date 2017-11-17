@@ -73,7 +73,7 @@ namespace UniversalInvoice
             FaxNumber =             _FaxNumber;
             Logo_Data =             _Logo_Data;
 
-            ltext token_prefix_Organisation = token_prefix.AddAtTheEnd(lngToken.st_Organisation);
+            ltext token_prefix_Organisation = token_prefix.AddAtTheEnd(lng.st_Organisation);
             Address = new Address(token_prefix_Organisation,
                                     _StreetName,
                                     _HouseNumber,
@@ -112,7 +112,7 @@ namespace UniversalInvoice
             PhoneNumber ="";
             FaxNumber = "";
             Logo_Data = null;
-            ltext token_prefix_Organisation = token_prefix.AddAtTheEnd(lngToken.st_Organisation);
+            ltext token_prefix_Organisation = token_prefix.AddAtTheEnd(lng.st_Organisation);
             Address = new Address(token_prefix_Organisation);
             token = new OrganisationToken(token_prefix_Organisation);
         }

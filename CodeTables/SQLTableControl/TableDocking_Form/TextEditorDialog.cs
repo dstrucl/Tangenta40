@@ -100,7 +100,7 @@ namespace CodeTables
 
         private void saveASToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult dRes = MessageBox.Show(lngRPM.s_File.s + ":\"" + m_FileName + "\"" + lngRPM.s_save.s + "?", lngRPM.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            DialogResult dRes = MessageBox.Show(lng.s_File.s + ":\"" + m_FileName + "\"" + lng.s_save.s + "?", lng.s_Warning.s, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (dRes == DialogResult.Yes)
             {
                 this.textEditorControl.SaveFile(m_FileName);

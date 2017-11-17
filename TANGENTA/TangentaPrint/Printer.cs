@@ -355,7 +355,7 @@ namespace TangentaPrint
                         else
                         {
                             print_ESC_POS_device = null;
-                        //string s= lngRPM.s_PrinterNotSuported.s;
+                        //string s= lng.s_PrinterNotSuported.s;
                         //string sMsg = s.Replace("%%%",pname);
                         //MessageBox.Show(sMsg);
                         }
@@ -546,7 +546,7 @@ namespace TangentaPrint
 //            }
 //            if ((PrinterName == null)||(page_settings==null))
 //            {
-//  //              MessageBox.Show(frm, lngRPM.s_Printer.s + ":" + Properties.Settings.Default.Printer1_PrinterName + lngRPM.s_NotInPrinterList.s + "\r\n" + lngRPM.s_SelectReceiptPrinter.s);
+//  //              MessageBox.Show(frm, lng.s_Printer.s + ":" + Properties.Settings.Default.Printer1_PrinterName + lng.s_NotInPrinterList.s + "\r\n" + lng.s_SelectReceiptPrinter.s);
 //                if (Select(frm))
 //                {
 //                     return DefinePage(frm);
@@ -1273,13 +1273,13 @@ namespace TangentaPrint
                 }
 
 
-                string s_journal_invoice_type = lngRPM.s_journal_invoice_type_Print.s;
+                string s_journal_invoice_type = lng.s_journal_invoice_type_Print.s;
                 string s_journal_invoice_description = PrinterName;
                 f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
             }
             catch (Exception ex)
             {
-                string s_journal_invoice_type = lngRPM.s_journal_invoice_type_PrintError.s + PrinterName + "\nErr=" + ex.Message;
+                string s_journal_invoice_type = lng.s_journal_invoice_type_PrintError.s + PrinterName + "\nErr=" + ex.Message;
                 string s_journal_invoice_description = PrinterName;
                 f_Journal_DocInvoice.Write(xInvoiceData.DocInvoice_ID, GlobalData.Atom_WorkPeriod_ID, s_journal_invoice_type, s_journal_invoice_description, null, ref journal_docinvoice_id);
             }
@@ -1288,9 +1288,9 @@ namespace TangentaPrint
         public bool Init(InvoiceData x_InvoiceData)
         {
             m_InvoiceData = x_InvoiceData;
-            //lbl_PrinterName.Text = lngRPM.s_Printer.s;
+            //lbl_PrinterName.Text = lng.s_Printer.s;
             PrinterName = printer_settings.PrinterName;
-            //lbl_PaperName.Text = lngRPM.s_PaperName.s + ":";
+            //lbl_PaperName.Text = lng.s_PaperName.s + ":";
             if (page_settings != null)
             {
                 PaperName = page_settings.PaperSize.PaperName;
@@ -1299,7 +1299,7 @@ namespace TangentaPrint
             {
                 PaperName = "??";
             }
-            //chk_PrintAll.Text = lngRPM.s_chk_PrintAll.s;
+            //chk_PrintAll.Text = lng.s_chk_PrintAll.s;
             //this.chk_PrintAll.CheckedChanged -= new System.EventHandler(this.chk_PrintAll_CheckedChanged);
             //chk_PrintAll.Checked = Properties.Settings.Default.PrintAtOnce;
             //ReceiptPrinter.PrintInBuffer = chk_PrintAll.Checked;

@@ -44,7 +44,7 @@ namespace ShopA
                 }
                 else
                 {
-                    //MessageBox.Show(this, lngRPM.s_TaxRate_must_be_defined.s);
+                    //MessageBox.Show(this, lng.s_TaxRate_must_be_defined.s);
                     return null;
                 }
             }
@@ -83,7 +83,7 @@ namespace ShopA
                 xTaxation.ID.set(null);
                 xTaxation.Name.set(null);
                 xTaxation.Rate.set(null);
-                //MessageBox.Show(this, lngRPM.s_TaxRate_must_be_defined.s);
+                //MessageBox.Show(this, lng.s_TaxRate_must_be_defined.s);
                 return false;
             }
         }

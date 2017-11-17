@@ -35,17 +35,17 @@ namespace Country_ISO_3166
             DefaultCountry = xDefaultCountry;
             this.dt_ISO_3166 = dt_ISO_3166;
             dgvx_ISO_3166.DataSource = this.dt_ISO_3166;
-            dgvx_ISO_3166.Columns["Country"].HeaderText = lngRPM.s_Country.s;
-            dgvx_ISO_3166.Columns["a2"].HeaderText = lngRPM.ss_Abbreviation.s + " a2";
-            dgvx_ISO_3166.Columns["a3"].HeaderText = lngRPM.ss_Abbreviation.s + " a3";
-            dgvx_ISO_3166.Columns["num"].HeaderText = lngRPM.s_Number.s;
+            dgvx_ISO_3166.Columns["Country"].HeaderText = lng.s_Country.s;
+            dgvx_ISO_3166.Columns["a2"].HeaderText = lng.ss_Abbreviation.s + " a2";
+            dgvx_ISO_3166.Columns["a3"].HeaderText = lng.ss_Abbreviation.s + " a3";
+            dgvx_ISO_3166.Columns["num"].HeaderText = lng.s_Number.s;
             if (xTitle != null)
             {
                 this.Text = xTitle;
             }
             else
             {
-                this.Text = lngRPM.s_Form_Select_Country_ISO_3166_Title.s;
+                this.Text = lng.s_Form_Select_Country_ISO_3166_Title.s;
             }
             usrc_NavigationButtons1.Init(nav);
         }

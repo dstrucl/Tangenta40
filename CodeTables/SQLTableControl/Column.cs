@@ -537,7 +537,7 @@ namespace CodeTables
             }
             else
             {
-                sTxt.ShowParseError(csError, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                sTxt.ShowParseError(csError, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -635,7 +635,7 @@ namespace CodeTables
         //                else
         //                {
         //                    xDB_varbinary_max.val = null;
-        //                    sTxt.ShowParseError(lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                    sTxt.ShowParseError(lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
         //                    return false;
         //                }
         //            }
@@ -706,13 +706,13 @@ namespace CodeTables
         //        }
         //        else
         //        {
-        //            sTxt.ShowParseError(lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            sTxt.ShowParseError(lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
         //            return false;
         //        }
         //    }
         //    catch (Exception ex)
         //    {
-        //        sTxt.ShowParseError(lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        sTxt.ShowParseError(lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
         //        return false;
         //    }
         //}
@@ -793,7 +793,7 @@ namespace CodeTables
         //                    return true;
         //                }
 
-        //                MessageBox.Show(lngRPM.s_ErrorNoImage.s);
+        //                MessageBox.Show(lng.s_ErrorNoImage.s);
         //                return false;
         //            }
         //            else
@@ -806,8 +806,8 @@ namespace CodeTables
         //                else
         //                {
         //                    xDB_varbinary_max.val = null;
-        //                    //sTxt.ShowParseError(lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //                    MessageBox.Show(lngRPM.s_File.s + ":\"" + Value + "\"" + lngRPM.s_File_does_not_exist.s, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                    //sTxt.ShowParseError(lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                    MessageBox.Show(lng.s_File.s + ":\"" + Value + "\"" + lng.s_File_does_not_exist.s, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
         //                    return false;
         //                }
         //            }
@@ -879,15 +879,15 @@ namespace CodeTables
         //        }
         //        else
         //        {
-        //            //sTxt.ShowParseError(lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            MessageBox.Show(lngRPM.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            //sTxt.ShowParseError(lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            MessageBox.Show(lng.s_UnsuportedType.s + " " + obj.GetType().ToString() + " : " + Value, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
         //            return false;
         //        }
         //    }
         //    catch (Exception ex)
         //    {
-        //        //sTxt.ShowParseError(lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        MessageBox.Show(lngRPM.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lngRPM.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        //sTxt.ShowParseError(lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        MessageBox.Show(lng.s_Illegal_format_for.s + " " + sAction + ": " + Value + "\r\n " + ex.Message, lng.s_Error.s, MessageBoxButtons.OK, MessageBoxIcon.Error);
         //        return false;
         //    }
         //}

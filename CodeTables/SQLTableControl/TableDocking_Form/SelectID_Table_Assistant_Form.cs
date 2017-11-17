@@ -37,7 +37,7 @@ namespace CodeTables
             string csError="";
             ColumnToView = xsCoumnsToView;
             FillDataTable(ref csError);
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
             
         }
 
@@ -52,7 +52,7 @@ namespace CodeTables
             string csError = "";
             ColumnToView = xsCoumnsToView;
             FillDataTable(ref csError);
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
 
         }
 
