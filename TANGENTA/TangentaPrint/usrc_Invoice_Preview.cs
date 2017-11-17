@@ -21,8 +21,8 @@ using DBTypes;
 using TangentaDB;
 using System.Drawing.Printing;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
-using PdfSharp;
 using PdfSharp.Drawing;
+using PdfSharp;
 
 namespace TangentaPrint
 {
@@ -307,8 +307,8 @@ namespace TangentaPrint
             config.PageSize = PageSize.A4;
             config.SetMargins(20);
 
-            XSize orgPageSize = PageSizeConverter.ToSize(config.PageSize);
-            orgPageSize = new Size(Convert.ToInt32(orgPageSize.Width), Convert.ToInt32(orgPageSize.Height));
+            XSize xorgPageSize = PageSizeConverter.ToSize(config.PageSize);
+            Size orgPageSize = new Size(Convert.ToInt32(xorgPageSize.Width), Convert.ToInt32(xorgPageSize.Height));
             //            pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
 
             pageSize = new Size(Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Width), Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Height));

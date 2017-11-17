@@ -1153,7 +1153,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir)bin\NetRevisionTool.exe" /restore "$(ProjectDir)Properties"
-del $(SolutionDir)\Release\*.pdb
+del $(ProjectDir)bin\Release\*.pdb
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
