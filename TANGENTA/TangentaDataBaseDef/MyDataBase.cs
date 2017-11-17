@@ -157,7 +157,7 @@ namespace TangentaDataBaseDef
         //    tbl_DBm_Image_ComputerUserName.AddColumn((Object)mt_DB.m_DBm_Image_ComputerUserName.Image_ComputerUserName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new string[] { "Computer user source of Image ", "Izvorni računalniški uporabnik slike" });
         //    m_DBTables.items.Add(tbl_DBm_Image_ComputerUserName);
 
-        //    SQLTable tbl_DBm_Image = new SQLTable((Object)new DBm_Image(), Column.Flags.FILTER_AND_UNIQUE, lngTName.lngt_DBm_Image);
+        //    SQLTable tbl_DBm_Image = new SQLTable((Object)new DBm_Image(), Column.Flags.FILTER_AND_UNIQUE, lng.lngt_DBm_Image);
         //    tbl_DBm_Image.AddColumn((Object)mt_DB.m_DBm_Image.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new string[] { "ID", "ID" });
         //    tbl_DBm_Image.AddColumn((Object)mt_DB.m_DBm_Image.m_DBm_Image_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new string[] { "Image Name ID", "Ime slike ID" });
         //    tbl_DBm_Image.AddColumn((Object)mt_DB.m_DBm_Image.m_DBm_Image_Author, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new string[] { "Image Author ID", "Ime avtorja posnetka ID" });
@@ -212,7 +212,7 @@ namespace TangentaDataBaseDef
         //    tbl_DBm_Document_ComputerUserName.AddColumn((Object)mt_DB.m_DBm_Document_ComputerUserName.Document_ComputerUserName, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER_AND_UNIQUE, Column.eStyle.TextBox_ReadOnly, new string[] { "Computer user source of Document ", "Izvorni računalniški uporabnik dokumenta" });
         //    m_DBTables.items.Add(tbl_DBm_Document_ComputerUserName);
 
-        //    SQLTable tbl_DBm_Document = new SQLTable((Object)new DBm_Document(), Column.Flags.UNIQUE, lngTName.lngt_DBm_Document);
+        //    SQLTable tbl_DBm_Document = new SQLTable((Object)new DBm_Document(), Column.Flags.UNIQUE, lng.lngt_DBm_Document);
         //    tbl_DBm_Document.AddColumn((Object)mt_DB.m_DBm_Document.ID, Column.nullTYPE.NOT_NULL, Column.Flags.UNIQUE, Column.eStyle.none, new string[] { "ID", "ID" });
         //    tbl_DBm_Document.AddColumn((Object)mt_DB.m_DBm_Document.m_DBm_Document_Name, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new string[] { "Document Name ID", "Ime slike ID" });
         //    tbl_DBm_Document.AddColumn((Object)mt_DB.m_DBm_Document.m_DBm_Document_Author, Column.nullTYPE.NOT_NULL, Column.Flags.FILTER, Column.eStyle.none, new string[] { "Document Author ID", "Ime avtorja slike ID" });

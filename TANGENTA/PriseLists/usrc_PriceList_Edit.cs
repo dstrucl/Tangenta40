@@ -640,7 +640,7 @@ namespace PriseLists
                 {
                     if (col.Name.Equals("Name"))
                     {
-                        col.InputControl.SetValue(lngRPMS.PriceList_Name.s);
+                        col.InputControl.SetValue(lng.PriceList_Name.s);
                     }
                     if (col.Name.Equals("Valid"))
                     {

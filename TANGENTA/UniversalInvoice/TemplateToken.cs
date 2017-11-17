@@ -158,11 +158,11 @@ namespace UniversalInvoice
                 {
                     if (((bool_v)Replacement).v)
                     {
-                        replacement = lngRPM.s_Yes.s;
+                        replacement = lng.s_Yes.s;
                     }
                     else
                     {
-                        replacement = lngRPM.s_No.s;
+                        replacement = lng.s_No.s;
                     }
                 }
                 else

@@ -252,7 +252,7 @@ namespace Excell_Export
                         }
                         catch (Exception Ex)
                         {
-                            MessageBox.Show(lng.s_ErrorStartExecuteExcel.s + ":" + FileName + "," + lngRPM.s_Error.s + " = " +Ex.Message);
+                            MessageBox.Show(lng.s_ErrorStartExecuteExcel.s + ":" + FileName + "," + lng.s_Error.s + " = " +Ex.Message);
                         }
 
                     }

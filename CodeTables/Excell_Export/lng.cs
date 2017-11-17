@@ -33,6 +33,7 @@ namespace Excell_Export
 
  public static ltext s_ExportDoneInXprocent = new ltext( new string[]{" Export", "Izvoženo"});   // referenced in C:\Tangenta40\CodeTables\Excell_Export\Progress_Form.cs
 
+ public static ltext s_Error = new ltext (new string[] { "Error", "Napaka" });
 
-  }
+    }
 }

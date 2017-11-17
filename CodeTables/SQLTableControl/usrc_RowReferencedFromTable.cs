@@ -27,8 +27,8 @@ namespace CodeTables
         public usrc_RowReferencedFromTable()
         {
             InitializeComponent();
-            this.lbl_TableName.Text = lngRPM.s_Table.s;
-            this.lbl_ReferencedTableRow.Text = lngRPM.s_ReferencedTableRow.s;
+            this.lbl_TableName.Text = lng.s_Table.s;
+            this.lbl_ReferencedTableRow.Text = lng.s_ReferencedTableRow.s;
         }
 
         public void Init(SQLTable x_tbl, SQLTable x_tbl_referenced, long x_tbl_referenced_ID, DataTable x_dt)

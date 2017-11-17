@@ -28,27 +28,27 @@ namespace LogFile
             InitializeComponent();
             iAttachmentNumber = xiAttachmentNumber;
             this.rdb_Picture.Checked = true;
-            this.txt_AttachmentDescription.Text = LanguageControl.lngRPM.s_Attachment.s + "_" + iAttachmentNumber.ToString() + "_" + LanguageControl.lngRPM.s_Picture.s;
-            rdb_Picture.Text = LanguageControl.lngRPM.s_Picture.s;
-            rdb_File.Text = LanguageControl.lngRPM.s_File.s;
-            this.Text = LanguageControl.lngRPM.s_AddAttachment.s;
-            lbl_Attachment_Description.Text = LanguageControl.lngRPM.s_Description.s + ":";
-            this.btn_Add.Text = LanguageControl.lngRPM.s_Add.s;
-            this.btn_Cancel.Text = LanguageControl.lngRPM.s_Cancel.s;
+            this.txt_AttachmentDescription.Text = lng.s_Attachment.s + "_" + iAttachmentNumber.ToString() + "_" + lng.s_Picture.s;
+            rdb_Picture.Text = lng.s_Picture.s;
+            rdb_File.Text = lng.s_File.s;
+            this.Text = lng.s_AddAttachment.s;
+            lbl_Attachment_Description.Text = lng.s_Description.s + ":";
+            this.btn_Add.Text = lng.s_Add.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
         }
 
         private void rdb_Picture_CheckedChanged(object sender, EventArgs e)
         {
             if (rdb_Picture.Checked)
             {
-                this.btn_PasteOrSelect.Text = LanguageControl.lngRPM.s_Paste.s;
-                lbl_Attachment_Description.Text = LanguageControl.lngRPM.s_Description.s + ":";
+                this.btn_PasteOrSelect.Text = lng.s_Paste.s;
+                lbl_Attachment_Description.Text = lng.s_Description.s + ":";
                 bImage = true;
             }
             else
             {
-                this.btn_PasteOrSelect.Text = LanguageControl.lngRPM.s_Select.s;
-                lbl_Attachment_Description.Text = LanguageControl.lngRPM.s_File.s + ":";
+                this.btn_PasteOrSelect.Text = lng.s_Select.s;
+                lbl_Attachment_Description.Text = lng.s_File.s + ":";
                 bImage = false;
             }
         }

@@ -692,7 +692,7 @@ namespace TangentaDB
                     {
                         if (InvoiceToken.tDateOfMaturity == null)
                         {
-                            InvoiceToken.tDateOfMaturity = new TemplateToken(lngToken.st_Invoice, lngToken.st_DateOfMaturity, null, null);
+                            InvoiceToken.tDateOfMaturity = new TemplateToken(lng.st_Invoice, lng.st_DateOfMaturity, null, null);
                         }
 
                         if (AddOnDI.m_PaymentDeadline != null)
@@ -710,7 +710,7 @@ namespace TangentaDB
                     {
                         if (InvoiceToken.tOfferValidUntil==null)
                         {
-                            InvoiceToken.tOfferValidUntil = new TemplateToken(lngToken.st_ProformaInvoice, lngToken.st_OfferValidUntil, null, null);
+                            InvoiceToken.tOfferValidUntil = new TemplateToken(lng.st_ProformaInvoice, lng.st_OfferValidUntil, null, null);
                         }
                         stime = LanguageControl.DynSettings.SetLanguageDateString(AddOnDPI.m_Duration.ValidUntil(IssueDate_v.v));
                         InvoiceToken.tOfferValidUntil.Set(stime);
@@ -1286,7 +1286,7 @@ namespace TangentaDB
                             if (AddOnDI.b_FVI_SLO)
                             {
 
-                                //this.FVI_SLO_RealEstateBP = new UniversalInvoice.FVI_SLO_RealEstateBP(lngToken.st_Invoice,
+                                //this.FVI_SLO_RealEstateBP = new UniversalInvoice.FVI_SLO_RealEstateBP(lng.st_Invoice,
                                 //                                                                             DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["BuildingNumber"]),
                                 //                                                                             DBTypes.tf._set_int(dt_DocProformaInvoice.Rows[0]["BuildingSectionNumber"]),
                                 //                                                                             DBTypes.tf._set_string(dt_DocProformaInvoice.Rows[0]["Community"]),
@@ -1300,7 +1300,7 @@ namespace TangentaDB
                         }
 
                         //byte[] barr_logoData = (byte[])dt_DocProformaInvoice.Rows[0]["Logo_Data"];
-                        MyOrganisation = new UniversalInvoice.Organisation(lngToken.st_My, DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Name"]),
+                        MyOrganisation = new UniversalInvoice.Organisation(lng.st_My, DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Name"]),
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Tax_ID"]),
                                                                    DBTypes.tf._set_string(dt_DocInvoice.Rows[0]["Registration_ID"]),
                                                                    DBTypes.tf.set_bool(dt_DocInvoice.Rows[0]["TaxPayer"]),
@@ -1400,29 +1400,29 @@ namespace TangentaDB
                         if (oAtom_MyOrganisation_Person_ID is long)
                         {
                             long Atom_MyOrganisation_Person_ID = (long)oAtom_MyOrganisation_Person_ID;
-                            Invoice_Author = f_Atom_Person.GetData(lngToken.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
+                            Invoice_Author = f_Atom_Person.GetData(lng.st_IssuerOfInvoice, Atom_MyOrganisation_Person_ID);
                         }
 
                         object oAtom_Customer_Org_ID = dt_DocInvoice.Rows[0]["Atom_Customer_Org_ID"];
                         if (oAtom_Customer_Org_ID is long)
                         {
                             long Atom_Customer_Org_ID = (long)oAtom_Customer_Org_ID;
-                            CustomerOrganisation = f_Atom_Customer_Org.GetData(lngToken.st_Customer, Atom_Customer_Org_ID);
+                            CustomerOrganisation = f_Atom_Customer_Org.GetData(lng.st_Customer, Atom_Customer_Org_ID);
                         }
                         else
                         {
-                            CustomerOrganisation = new UniversalInvoice.Organisation(lngToken.st_Customer);
+                            CustomerOrganisation = new UniversalInvoice.Organisation(lng.st_Customer);
                         }
 
 
                         if (dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"] is long)
                         {
                             long Atom_Customer_Person_ID = (long)dt_DocInvoice.Rows[0]["Atom_Customer_Person_ID"];
-                            CustomerPerson = f_Atom_Customer_Person.GetData(lngToken.st_Customer, Atom_Customer_Person_ID);
+                            CustomerPerson = f_Atom_Customer_Person.GetData(lng.st_Customer, Atom_Customer_Person_ID);
                         }
                         else
                         {
-                            CustomerPerson = new UniversalInvoice.Person(lngToken.st_Customer);
+                            CustomerPerson = new UniversalInvoice.Person(lng.st_Customer);
                         }
 
                         long xDoc_ID = DocInvoice_ID;
@@ -1463,15 +1463,15 @@ namespace TangentaDB
 
                                 if (IsDocInvoice)
                                 {
-                                    Fill_Sold_ShopA_ItemsData(lngToken.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
-                                    Fill_Sold_ShopB_ItemsData(lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
-                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
+                                    Fill_Sold_ShopA_ItemsData(lng.st_Invoice, ref ItemsSold, 0, iCountShopAItemsSold, bInvoiceStorno);
+                                    Fill_Sold_ShopB_ItemsData(lng.st_Invoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, bInvoiceStorno);
+                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lng.st_Invoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, bInvoiceStorno);
                                 }
                                 else if (IsDocProformaInvoice)
                                 {
-                                    Fill_Sold_ShopA_ItemsData(lngToken.st_ProformaInvoice, ref ItemsSold, 0, iCountShopAItemsSold, false);
-                                    Fill_Sold_ShopB_ItemsData(lngToken.st_ProformaInvoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, false);
-                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lngToken.st_ProformaInvoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, false);
+                                    Fill_Sold_ShopA_ItemsData(lng.st_ProformaInvoice, ref ItemsSold, 0, iCountShopAItemsSold, false);
+                                    Fill_Sold_ShopB_ItemsData(lng.st_ProformaInvoice, ref ItemsSold, iCountShopAItemsSold, iCountShopBItemsSold, false);
+                                    Fill_Sold_ShopC_ItemsData(xDocProformaInvoice_ShopC_Item_Data_LIST, lng.st_ProformaInvoice, ref ItemsSold, iCountShopAItemsSold + iCountShopBItemsSold, iCountShopCItemsSold, false);
                                 }
                                 GeneralToken = new UniversalInvoice.GeneralToken();
                                 InvoiceToken = new UniversalInvoice.InvoiceToken(IsDocInvoice);
@@ -1618,7 +1618,7 @@ namespace TangentaDB
                 }
             }
 
-            UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(lngToken.st_Customer,
+            UniversalInvoice.Organisation xCustomerOrganisation = new UniversalInvoice.Organisation(lng.st_Customer,
                                                        null,
                                                        null,
                                                        null,
@@ -1648,7 +1648,7 @@ namespace TangentaDB
                 s += "\r\n" + tt.lt.s;
             }
 
-            UniversalInvoice.Person xCustomerPerson = new UniversalInvoice.Person(lngToken.st_Customer, false,
+            UniversalInvoice.Person xCustomerPerson = new UniversalInvoice.Person(lng.st_Customer, false,
                                                        null,
                                                        null,
                                                        DateTime.MinValue,

@@ -267,5 +267,8 @@ namespace LogFile
 
  public static ltext s_Save = new ltext(new string[]{"Save",
                                                 "Shrani" });
+
+ public static ltext s_Add = new ltext(new string[] { "Add", "Dodaj" });
+
     }
 }

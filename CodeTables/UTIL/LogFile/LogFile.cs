@@ -405,7 +405,7 @@ namespace LogFile
                     }
                     for (;;)
                     {
-                        MessageBox.Show(lngRPM.s_LogFile.s + ":" + lngRPM.s_Error.s + ":" + lngRPM.s_CanNotWriteOrDeleteFileInFolder.s + ":\"" + Log_File + "\"");
+                        MessageBox.Show(lng.s_LogFile.s + ":" + lng.s_Error.s + ":" + lng.s_CanNotWriteOrDeleteFileInFolder.s + ":\"" + Log_File + "\"");
                         ManageLogs_Form mng_log = new ManageLogs_Form(Image_Cancel);
                         if (mng_log.ShowDialog()==DialogResult.OK)
                         {
@@ -497,7 +497,7 @@ namespace LogFile
                     m_LogDB_con = new Log_DBConnection(recent_items_folder);
                 }
 
-                Log_RemoteDB_data_ProgramSettings = new Log_RemoteDB_data(const_inifile_prefix, 1, Log_DBConnection.eDBType.MSSQL, LanguageControl.lngRPM.s_Connection_To_LogTables_defualt_ProgramSettings.s);
+                Log_RemoteDB_data_ProgramSettings = new Log_RemoteDB_data(const_inifile_prefix, 1, Log_DBConnection.eDBType.MSSQL, lng.s_Connection_To_LogTables_defualt_ProgramSettings.s);
 
                 return GetConnection(ParentForm, Log_RemoteDB_data_ProgramSettings, bChangeConnection);
             }

@@ -33,15 +33,15 @@ namespace LogFile
             LogFilePath = LogFile.LogFolder + LogFile.LogFileName;
             this.txtLogFile.Text = LogFilePath;
             this.txt_ConnectionString.Text = LogFile.m_LogDB_con.ConnectionString;
-            this.Text = LanguageControl.lngRPM.s_ImportLogFileToDatabase.s;
-            this.btn_View.Text = LanguageControl.lngRPM.s_View.s;
-            this.lbl_Description.Text = LanguageControl.lngRPM.s_Description.s;
-            this.lbl_LogFile.Text = LanguageControl.lngRPM.s_LogFile.s;
-            this.lbl_LogFile_Lines.Text = LanguageControl.lngRPM.s_LogFile_Lines.s;
-            this.lbl_ConnectionString.Text = LanguageControl.lngRPM.s_ConnectionToLogFileDataBase.s;
-            this.btn_Write2DB.Text = LanguageControl.lngRPM.s_Write2DB.s;
-            this.btn_Cancel.Text = LanguageControl.lngRPM.s_Cancel.s;
-            this.btn_Attachment.Text = LanguageControl.lngRPM.s_Add_Picture.s;
+            this.Text = lng.s_ImportLogFileToDatabase.s;
+            this.btn_View.Text = lng.s_View.s;
+            this.lbl_Description.Text = lng.s_Description.s;
+            this.lbl_LogFile.Text = lng.s_LogFile.s;
+            this.lbl_LogFile_Lines.Text = lng.s_LogFile_Lines.s;
+            this.lbl_ConnectionString.Text = lng.s_ConnectionToLogFileDataBase.s;
+            this.btn_Write2DB.Text = lng.s_Write2DB.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
+            this.btn_Attachment.Text = lng.s_Add_Picture.s;
 
 
             DataColumn dcol_select = new DataColumn(col_select, typeof(bool));
@@ -216,7 +216,7 @@ namespace LogFile
                 else
                 {
                     this.txt_NumberOfLines.Text = "0";
-                    MessageBox.Show(LanguageControl.lngRPM.s_LogFile.s + "\"" + txtLogFile.Text + "\" " + LanguageControl.lngRPM.s_DoesNotExistOrWasDeleted.s);
+                    MessageBox.Show(lng.s_LogFile.s + "\"" + txtLogFile.Text + "\" " + lng.s_DoesNotExistOrWasDeleted.s);
                 }
 
             }

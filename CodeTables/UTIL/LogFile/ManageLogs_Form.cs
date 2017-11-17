@@ -151,7 +151,7 @@ namespace LogFile
                 }
                 else
                 {
-                    MessageBox.Show(LanguageControl.lngRPM.s_LogFile.s + "\"" + txtLogFile.Text + "\" " + LanguageControl.lngRPM.s_DoesNotExistOrWasDeleted.s);
+                    MessageBox.Show(lng.s_LogFile.s + "\"" + txtLogFile.Text + "\" " + lng.s_DoesNotExistOrWasDeleted.s);
                 }
             }
             catch (Exception e1)
@@ -209,7 +209,7 @@ namespace LogFile
             switch (iLevel)
             {
                 case 0:
-                    lst_ActiveLogLevels.Items.Add(LanguageControl.lngRPM.s_DontWriteLogs.s);
+                    lst_ActiveLogLevels.Items.Add(lng.s_DontWriteLogs.s);
                     break;
 
                 case 1:

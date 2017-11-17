@@ -60,5 +60,7 @@ namespace PriseLists
 
  public static ltext s_Manage_PriceLists = new ltext( new string[]{"Manage PRICE LISTS", "UREJANJE CENIKOV"});   // referenced in C:\Tangenta40\TANGENTA\PriseLists\usrc_PriceList_Edit.cs
 
-  }
+ public static ltext PriceList_Name = new ltext(new string[] { "PRICE LIST CUSTOMERS", "CENIK STRANKE" });
+
+    }
 }

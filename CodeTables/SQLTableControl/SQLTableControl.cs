@@ -467,7 +467,7 @@ namespace CodeTables
                     }
                     else
                     {
-                        csError = lngConn.s_Error.s + ": " + lngConn.sTableIsMissing.s + ":" + tbl.TableName;
+                        csError = lng.s_Error.s + ": " + lng.sTableIsMissing.s + ":" + tbl.TableName;
                         return false;
                     }
                 }
@@ -500,7 +500,7 @@ namespace CodeTables
                         }
                         else
                         {
-                            csError = lngConn.s_Error.s + ": " + lngConn.sTableIsMissing.s + ":" + tbl.TableName;
+                            csError = lng.s_Error.s + ": " + lng.sTableIsMissing.s + ":" + tbl.TableName;
                             return false;
                         }
                     }
@@ -999,7 +999,7 @@ namespace CodeTables
                                      return false;
                                  }
                              }
-                             MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lngConn.s_DataBase.s + " SQLite " + lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                             MessageBox.Show(m_ParentForm, lng.s_AllTablesDropedOK.s, lng.s_DataBase.s + " SQLite " + lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                              return true;
                          }
                          else
@@ -1034,7 +1034,7 @@ namespace CodeTables
         {
 
             bCancel = false;
-            DialogResult dres = MessageBox.Show(pParentForm, lngConn.s_AreYouShureToDeleteAllTablesAndCreateNewOnes.s, "?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            DialogResult dres = MessageBox.Show(pParentForm, lng.s_AreYouShureToDeleteAllTablesAndCreateNewOnes.s, "?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             switch (dres)
             {
                 case DialogResult.Cancel:
@@ -1143,7 +1143,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                LogFile.Error.Show(lngConn.s_CanNotMakeAConnection.s + "\n\nException = " + serr);
+                                LogFile.Error.Show(lng.s_CanNotMakeAConnection.s + "\n\nException = " + serr);
                                 return false;
                             }
                         }
@@ -1321,7 +1321,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                if (MessageBox.Show(xnav.parentForm, lngConn.s_Error_Creating_Tables_in_SQLITE.s, lngConn.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                                if (MessageBox.Show(xnav.parentForm, lng.s_Error_Creating_Tables_in_SQLITE.s, lng.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                                 {
                                     return false;
                                 }
@@ -1339,7 +1339,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                if (MessageBox.Show(xnav.parentForm, lngConn.s_Error_Creating_Tables_in_SQLITE.s, lngConn.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                                if (MessageBox.Show(xnav.parentForm, lng.s_Error_Creating_Tables_in_SQLITE.s, lng.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                                 {
                                     return false;
                                 }
@@ -1364,7 +1364,7 @@ namespace CodeTables
                         case enumDataBaseCheckResult.PRIMARY_KEY_MISSING:
                             LogFile.Error.Show(csError);
                             DialogResult dres = MessageBox.Show(xnav.parentForm,
-                                                                   lngConn.s_DeleteAllTablesAndCreateNewOnes.s,
+                                                                   lng.s_DeleteAllTablesAndCreateNewOnes.s,
                                                                    "?",
                                                                    MessageBoxButtons.YesNoCancel,
                                                                    MessageBoxIcon.Question);
@@ -1415,7 +1415,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                if (MessageBox.Show(pParentForm, lngConn.s_Error_Creating_Tables_in_SQLITE.s, lngConn.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                                if (MessageBox.Show(pParentForm, lng.s_Error_Creating_Tables_in_SQLITE.s, lng.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                                 {
                                     return false;
                                 }
@@ -1434,7 +1434,7 @@ namespace CodeTables
                             }
                             else
                             {
-                                if (MessageBox.Show(pParentForm, lngConn.s_Error_Creating_Tables_in_SQLITE.s, lngConn.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                                if (MessageBox.Show(pParentForm, lng.s_Error_Creating_Tables_in_SQLITE.s, lng.s_Error.s, MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                                 {
                                     return false;
                                 }
@@ -1459,7 +1459,7 @@ namespace CodeTables
                         case enumDataBaseCheckResult.PRIMARY_KEY_MISSING:
                             LogFile.Error.Show(csError);
                             DialogResult dres =MessageBox.Show(pParentForm, 
-                                                                   lngConn.s_DeleteAllTablesAndCreateNewOnes.s, 
+                                                                   lng.s_DeleteAllTablesAndCreateNewOnes.s, 
                                                                    "?", 
                                                                    MessageBoxButtons.YesNoCancel, 
                                                                    MessageBoxIcon.Question);

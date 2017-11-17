@@ -40,7 +40,7 @@ namespace LogFile
                 if (this.m_con.CreateMySQLDatabase(SqlCreateDatabase,ref csError))
                 {
                     m_con.DataBase = this.txtDataBaseName.Text;
-                    MessageBox.Show(lng.s_DataBase.s + " " + m_con.DataBase + " " + LanguageControl.lngRPM.s_Created.s, lngRPM.s_Info.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(lng.s_DataBase.s + " " + m_con.DataBase + " " + lng.s_Created.s, lng.s_Info.s, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
                     Close();
                 }
@@ -51,7 +51,7 @@ namespace LogFile
             }
             else
             {
-                MessageBox.Show(lng.s_DatabaseNotDefined.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(lng.s_DatabaseNotDefined.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="lng.cs" />
     <Compile Include="MyDataBase.cs" />
     <Compile Include="MyDataBase.TableDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

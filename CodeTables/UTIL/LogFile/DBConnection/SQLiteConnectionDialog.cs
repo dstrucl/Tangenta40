@@ -48,7 +48,7 @@ namespace LogFile
                 {
                     if (!m_conData_SQLITE.SQLite_AllwaysCreateNew)
                     {
-                        MessageBox.Show(lngRPM.s_File_does_not_exist.s + m_conData_SQLITE.DataBaseFile);
+                        MessageBox.Show(lng.s_File_does_not_exist.s + m_conData_SQLITE.DataBaseFile);
                     }
                 }
             }

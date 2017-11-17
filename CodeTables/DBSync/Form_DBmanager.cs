@@ -54,7 +54,7 @@ namespace DBSync
             btn_Backup.Visible = false;
             lng.s_Database.Text(this);
             lng.s_SelectDatabase.Text(btn_Change);
-            string database_info = "\r\n" + DBSync.ServerType + "\r\n" + lngConn.s_Server.s + ":" + DBSync.DataSource + "\r\n" + lngConn.s_DataBase.s + ":" + DBSync.DataBase +"\r\n"+ lng.s_DataBaseVersion.s +":" + m_sDataBaseVersion;
+            string database_info = "\r\n" + DBSync.ServerType + "\r\n" + lng.s_Server.s + ":" + DBSync.DataSource + "\r\n" + lng.s_DataBase.s + ":" + DBSync.DataBase +"\r\n"+ lng.s_DataBaseVersion.s +":" + m_sDataBaseVersion;
             lng.s_DatabaseInfo.Text(lbl_DataBaseInfo, database_info);
             if (m_DataBaseType != null)
             {

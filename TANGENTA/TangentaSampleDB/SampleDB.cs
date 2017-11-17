@@ -186,72 +186,72 @@ namespace TangentaSampleDB
                 MyOrg_Office_Person_Address_DynGroupBox.Visible = true;
 
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Name_v, "MyOrg_Name", lngRPMS.sl_MyOrg_Name, lngRPMS.s_MyOrg_Name_v, lngRPMS.sh_MyOrg_Name);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Name_v, "MyOrg_Name", lng.sl_MyOrg_Name, lng.s_MyOrg_Name_v, lng.sh_MyOrg_Name);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Tax_ID_v, "MyOrg_Tax_ID", lngRPMS.sl_MyOrg_Tax_ID, lngRPMS.s_MyOrg_Tax_ID_v, lngRPMS.sh_MyOrg_Tax_ID);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Tax_ID_v, "MyOrg_Tax_ID", lng.sl_MyOrg_Tax_ID, lng.s_MyOrg_Tax_ID_v, lng.sh_MyOrg_Tax_ID);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Registration_ID_v, "MyOrg_Registration_ID", lngRPMS.sl_MyOrg_Registration_ID, lngRPMS.s_MyOrg_Registration_ID_v, lngRPMS.sh_MyOrg_Registration_ID);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Registration_ID_v, "MyOrg_Registration_ID", lng.sl_MyOrg_Registration_ID, lng.s_MyOrg_Registration_ID_v, lng.sh_MyOrg_Registration_ID);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_TaxPayer_v, "MyOrg_TaxPayer", lngRPMS.sl_MyOrg_TaxPayer, lngRPMS.s_MyOrg_TaxPayer_v, lngRPMS.sh_MyOrg_TaxPayer);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_TaxPayer_v, "MyOrg_TaxPayer", lng.sl_MyOrg_TaxPayer, lng.s_MyOrg_TaxPayer_v, lng.sh_MyOrg_TaxPayer);
 
-                new DynEditControls.EditControl(MyOrg_Comment1_DynGroupBox, MyOrg_Comment1_v, "MyOrg_Comment1", lngRPMS.sl_MyOrg_Comment1, lngRPMS.s_MyOrg_Comment1_v, lngRPMS.sh_MyOrg_Comment1);
+                new DynEditControls.EditControl(MyOrg_Comment1_DynGroupBox, MyOrg_Comment1_v, "MyOrg_Comment1", lng.sl_MyOrg_Comment1, lng.s_MyOrg_Comment1_v, lng.sh_MyOrg_Comment1);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_OrganisationTYPE_v, "MyOrg_OrganisationTYPE", lngRPMS.sl_MyOrg_OrganisationTYPE, lngRPMS.s_MyOrg_OrganisationTYPE_v, lngRPMS.sh_MyOrg_OrganisationTYPE);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_OrganisationTYPE_v, "MyOrg_OrganisationTYPE", lng.sl_MyOrg_OrganisationTYPE, lng.s_MyOrg_OrganisationTYPE_v, lng.sh_MyOrg_OrganisationTYPE);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_PhoneNumber_v, "MyOrg_PhoneNumber", lngRPMS.sl_MyOrg_PhoneNumber, lngRPMS.s_MyOrg_PhoneNumber_v, lngRPMS.sh_MyOrg_PhoneNumber);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_PhoneNumber_v, "MyOrg_PhoneNumber", lng.sl_MyOrg_PhoneNumber, lng.s_MyOrg_PhoneNumber_v, lng.sh_MyOrg_PhoneNumber);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_FaxNumber_v, "MyOrg_FaxNumber", lngRPMS.sl_MyOrg_FaxNumber, lngRPMS.s_MyOrg_FaxNumber_v, lngRPMS.sh_MyOrg_FaxNumber);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_FaxNumber_v, "MyOrg_FaxNumber", lng.sl_MyOrg_FaxNumber, lng.s_MyOrg_FaxNumber_v, lng.sh_MyOrg_FaxNumber);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Email_v, "MyOrg_Email", lngRPMS.sl_MyOrg_Email, lngRPMS.s_MyOrg_Email_v, lngRPMS.sh_MyOrg_Email);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Email_v, "MyOrg_Email", lng.sl_MyOrg_Email, lng.s_MyOrg_Email_v, lng.sh_MyOrg_Email);
 
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_HomePage_v, "MyOrg_HomePage", lngRPMS.sl_MyOrg_HomePage, lngRPMS.s_MyOrg_HomePage_v, lngRPMS.sh_MyOrg_HomePage);
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_HomePage_v, "MyOrg_HomePage", lng.sl_MyOrg_HomePage, lng.s_MyOrg_HomePage_v, lng.sh_MyOrg_HomePage);
 
-                new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_TRR_v, "MyOrg_BankAccount_TRR", lngRPMS.sl_MyOrg_TRR, lngRPMS.s_MyOrg_TRR_v, lngRPMS.sh_MyOrg_TRR);
+                new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_TRR_v, "MyOrg_BankAccount_TRR", lng.sl_MyOrg_TRR, lng.s_MyOrg_TRR_v, lng.sh_MyOrg_TRR);
 
-                new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_Description_v, "MyOrg_BankAccount_Description", lngRPMS.sl_MyOrg_TRR_Description, lngRPMS.s_MyOrg_TRR_Description_v, lngRPMS.sh_MyOrg_TRR_Description);
+                new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_Description_v, "MyOrg_BankAccount_Description", lng.sl_MyOrg_TRR_Description, lng.s_MyOrg_TRR_Description_v, lng.sh_MyOrg_TRR_Description);
 
-                new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_Active_v, "MyOrg_BankAccount_Active", lngRPMS.sl_MyOrg_TRR_Active, lngRPMS.s_MyOrg_TRR_Active_v, lngRPMS.sh_MyOrg_TRR_Active);
+                new DynEditControls.EditControl(MyOrg_BankAccount_DynGroupBox, MyOrg_BankAccount_Active_v, "MyOrg_BankAccount_Active", lng.sl_MyOrg_TRR_Active, lng.s_MyOrg_TRR_Active_v, lng.sh_MyOrg_TRR_Active);
 
-                new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Name_v, "MyOrg_Bank_Name", lngRPMS.sl_MyOrg_Bank_Name, lngRPMS.s_MyOrg_Bank_Name_v, lngRPMS.sh_MyOrg_Bank_Name);
+                new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Name_v, "MyOrg_Bank_Name", lng.sl_MyOrg_Bank_Name, lng.s_MyOrg_Bank_Name_v, lng.sh_MyOrg_Bank_Name);
 
-                new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Tax_ID_v, "MyOrg_Bank_Tax_ID", lngRPMS.sl_MyOrg_Bank_Tax_ID, lngRPMS.s_MyOrg_Bank_Tax_ID_v, lngRPMS.sh_MyOrg_Bank_Tax_ID);
+                new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Tax_ID_v, "MyOrg_Bank_Tax_ID", lng.sl_MyOrg_Bank_Tax_ID, lng.s_MyOrg_Bank_Tax_ID_v, lng.sh_MyOrg_Bank_Tax_ID);
 
-                new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Registration_ID_v, "MyOrg_Bank_Registration_ID", lngRPMS.sl_MyOrg_Bank_Registration_ID, lngRPMS.s_MyOrg_Bank_Registration_ID_v, lngRPMS.sh_MyOrg_Bank_Registration_ID);
-
-
-
-                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Image_Data_v, "MyOrg_Logo", lngRPMS.sl_MyOrg_Logo, lngRPMS.s_MyOrg_Logo_v, lngRPMS.sh_MyOrg_Logo);
-
-                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.StreetName_v, "MyOrg_Address_StreetName", lngRPMS.sl_MyOrg_Address_StreetName, lngRPMS.s_MyOrg_Address_StreetName_v, lngRPMS.sh_MyOrg_Address_StreetName);
-                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.HouseNumber_v, "MyOrg_Address_HouseNumber", lngRPMS.sl_MyOrg_Address_HouseNumber, lngRPMS.s_MyOrg_Address_HouseNumber_v, lngRPMS.sh_MyOrg_Address_HouseNumber);
-                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.ZIP_v, "MyOrg_Address_ZIP", lngRPMS.sl_MyOrg_Address_ZIP, lngRPMS.s_MyOrg_Address_ZIP_v, lngRPMS.sh_MyOrg_Address_ZIP);
-                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.City_v, "MyOrg_Address_ZIP", lngRPMS.sl_MyOrg_Address_City, lngRPMS.s_MyOrg_Address_City_v, lngRPMS.sh_MyOrg_Address_City);
-                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.State_v, "MyOrg_Address_State", lngRPMS.sl_MyOrg_Address_State, lngRPMS.s_MyOrg_Address_State_v, lngRPMS.sh_MyOrg_Address_State);
-                new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Address_Country, lngRPMS.s_MyOrg_Address_Country_v, lngRPMS.sh_MyOrg_Address_Country);
-                new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a2_v, "MyOrg_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_a2);
-                new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a3_v, "MyOrg_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_a3);
-                new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_num_v, "MyOrg_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Address_Country_ISO_3166_num);
-
-
-                new DynEditControls.EditControl(MyOrg_Office_DynGroupBox, MyOrg_Office_Name_v, "MyOrg_OfficeName", lngRPMS.sl_MyOrg_OfficeName, lngRPMS.s_MyOrg_OfficeName_v, lngRPMS.sh_MyOrg_OfficeName);
-                new DynEditControls.EditControl(MyOrg_Office_DynGroupBox, MyOrg_Office_ShortName_v, "MyOrg_OfficeShortName", lngRPMS.sl_MyOrg_OfficeShortName, lngRPMS.s_MyOrg_OfficeShortName_v, lngRPMS.sh_MyOrg_OfficeShortName);
-
-                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.StreetName_v, "MyOrg_Office_Address_StreetName", lngRPMS.sl_MyOrg_Office_Address_StreetName, lngRPMS.s_MyOrg_Office_Address_StreetName_v, lngRPMS.sh_MyOrg_Office_Address_StreetName);
-                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.HouseNumber_v, "MyOrg_Office_Address_HouseNumber", lngRPMS.sl_MyOrg_Office_Address_HouseNumber, lngRPMS.s_MyOrg_Office_Address_HouseNumber_v, lngRPMS.sh_MyOrg_Office_Address_HouseNumber);
-                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.ZIP_v, "MyOrg_Office_Address_ZIP", lngRPMS.sl_MyOrg_Office_Address_ZIP, lngRPMS.s_MyOrg_Office_Address_ZIP_v, lngRPMS.sh_MyOrg_Office_Address_ZIP);
-                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.City_v, "MyOrg_Office_Address_ZIP", lngRPMS.sl_MyOrg_Office_Address_City, lngRPMS.s_MyOrg_Office_Address_City_v, lngRPMS.sh_MyOrg_Office_Address_City);
-                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.State_v, "MyOrg_Office_Address_State", lngRPMS.sl_MyOrg_Office_Address_State, lngRPMS.s_MyOrg_Office_Address_State_v, lngRPMS.sh_MyOrg_Office_Address_State);
-                new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_v, "MyOrg_Addres_Country", lngRPMS.sl_MyOrg_Address_Country, lngRPMS.s_MyOrg_Office_Address_Country_v, lngRPMS.sh_MyOrg_Office_Address_Country);
-                new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_a2);
-                new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_a3);
-                new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Office_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Office_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Office_Address_Country_ISO_3166_num);
+                new DynEditControls.EditControl(MyOrg_BankAccount_Bank_DynGroupBox, MyOrg_Bank_Registration_ID_v, "MyOrg_Bank_Registration_ID", lng.sl_MyOrg_Bank_Registration_ID, lng.s_MyOrg_Bank_Registration_ID_v, lng.sh_MyOrg_Bank_Registration_ID);
 
 
 
+                new DynEditControls.EditControl(MyOrg_DynGroupBox, MyOrg_Image_Data_v, "MyOrg_Logo", lng.sl_MyOrg_Logo, lng.s_MyOrg_Logo_v, lng.sh_MyOrg_Logo);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_FirstName_v, "MyOrg_Person_FirstName", lngRPMS.sl_MyOrg_Person_FirstName, lngRPMS.s_MyOrg_Person_FirstName_v, lngRPMS.sh_MyOrg_Person_FirstName);
+                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.StreetName_v, "MyOrg_Address_StreetName", lng.sl_MyOrg_Address_StreetName, lng.s_MyOrg_Address_StreetName_v, lng.sh_MyOrg_Address_StreetName);
+                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.HouseNumber_v, "MyOrg_Address_HouseNumber", lng.sl_MyOrg_Address_HouseNumber, lng.s_MyOrg_Address_HouseNumber_v, lng.sh_MyOrg_Address_HouseNumber);
+                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.ZIP_v, "MyOrg_Address_ZIP", lng.sl_MyOrg_Address_ZIP, lng.s_MyOrg_Address_ZIP_v, lng.sh_MyOrg_Address_ZIP);
+                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.City_v, "MyOrg_Address_ZIP", lng.sl_MyOrg_Address_City, lng.s_MyOrg_Address_City_v, lng.sh_MyOrg_Address_City);
+                new DynEditControls.EditControl(MyOrg_Address_DynGroupBox, MyOrg_Address_v.State_v, "MyOrg_Address_State", lng.sl_MyOrg_Address_State, lng.s_MyOrg_Address_State_v, lng.sh_MyOrg_Address_State);
+                new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_v, "MyOrg_Addres_Country", lng.sl_MyOrg_Address_Country, lng.s_MyOrg_Address_Country_v, lng.sh_MyOrg_Address_Country);
+                new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a2_v, "MyOrg_Address_Country_ISO_3166_a2", lng.sl_MyOrg_Address_Country_ISO_3166_a2, lng.s_MyOrg_Address_Country_ISO_3166_a2_v, lng.sh_MyOrg_Address_Country_ISO_3166_a2);
+                new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_a3_v, "MyOrg_Address_Country_ISO_3166_a3", lng.sl_MyOrg_Address_Country_ISO_3166_a3, lng.s_MyOrg_Address_Country_ISO_3166_a3_v, lng.sh_MyOrg_Address_Country_ISO_3166_a3);
+                new DynEditControls.EditControl(MyOrg_Address_Country_DynGroupBox, MyOrg_Address_v.Country_ISO_3166_num_v, "MyOrg_Address_Country_ISO_3166_num", lng.sl_MyOrg_Address_Country_ISO_3166_num, lng.s_MyOrg_Address_Country_ISO_3166_num_v, lng.sh_MyOrg_Address_Country_ISO_3166_num);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_LastName_v, "MyOrg_Person_LastName", lngRPMS.sl_MyOrg_Person_LastName, lngRPMS.s_MyOrg_Person_LastName_v, lngRPMS.sh_MyOrg_Person_LastName);
+
+                new DynEditControls.EditControl(MyOrg_Office_DynGroupBox, MyOrg_Office_Name_v, "MyOrg_OfficeName", lng.sl_MyOrg_OfficeName, lng.s_MyOrg_OfficeName_v, lng.sh_MyOrg_OfficeName);
+                new DynEditControls.EditControl(MyOrg_Office_DynGroupBox, MyOrg_Office_ShortName_v, "MyOrg_OfficeShortName", lng.sl_MyOrg_OfficeShortName, lng.s_MyOrg_OfficeShortName_v, lng.sh_MyOrg_OfficeShortName);
+
+                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.StreetName_v, "MyOrg_Office_Address_StreetName", lng.sl_MyOrg_Office_Address_StreetName, lng.s_MyOrg_Office_Address_StreetName_v, lng.sh_MyOrg_Office_Address_StreetName);
+                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.HouseNumber_v, "MyOrg_Office_Address_HouseNumber", lng.sl_MyOrg_Office_Address_HouseNumber, lng.s_MyOrg_Office_Address_HouseNumber_v, lng.sh_MyOrg_Office_Address_HouseNumber);
+                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.ZIP_v, "MyOrg_Office_Address_ZIP", lng.sl_MyOrg_Office_Address_ZIP, lng.s_MyOrg_Office_Address_ZIP_v, lng.sh_MyOrg_Office_Address_ZIP);
+                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.City_v, "MyOrg_Office_Address_ZIP", lng.sl_MyOrg_Office_Address_City, lng.s_MyOrg_Office_Address_City_v, lng.sh_MyOrg_Office_Address_City);
+                new DynEditControls.EditControl(MyOrg_Office_Address_DynGroupBox, MyOrg_Office_Address_v.State_v, "MyOrg_Office_Address_State", lng.sl_MyOrg_Office_Address_State, lng.s_MyOrg_Office_Address_State_v, lng.sh_MyOrg_Office_Address_State);
+                new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_v, "MyOrg_Addres_Country", lng.sl_MyOrg_Address_Country, lng.s_MyOrg_Office_Address_Country_v, lng.sh_MyOrg_Office_Address_Country);
+                new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Address_Country_ISO_3166_a2", lng.sl_MyOrg_Office_Address_Country_ISO_3166_a2, lng.s_MyOrg_Office_Address_Country_ISO_3166_a2_v, lng.sh_MyOrg_Office_Address_Country_ISO_3166_a2);
+                new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Address_Country_ISO_3166_a3", lng.sl_MyOrg_Office_Address_Country_ISO_3166_a3, lng.s_MyOrg_Office_Address_Country_ISO_3166_a3_v, lng.sh_MyOrg_Office_Address_Country_ISO_3166_a3);
+                new DynEditControls.EditControl(MyOrg_Office_Address_Country_DynGroupBox, MyOrg_Office_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Address_Country_ISO_3166_num", lng.sl_MyOrg_Office_Address_Country_ISO_3166_num, lng.s_MyOrg_Office_Address_Country_ISO_3166_num_v, lng.sh_MyOrg_Office_Address_Country_ISO_3166_num);
+
+
+
+
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_FirstName_v, "MyOrg_Person_FirstName", lng.sl_MyOrg_Person_FirstName, lng.s_MyOrg_Person_FirstName_v, lng.sh_MyOrg_Person_FirstName);
+
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_LastName_v, "MyOrg_Person_LastName", lng.sl_MyOrg_Person_LastName, lng.s_MyOrg_Person_LastName_v, lng.sh_MyOrg_Person_LastName);
 
                 if (LanguageControl.DynSettings.LanguageID == DynSettings.Slovensko_ID)
                 {
@@ -262,44 +262,44 @@ namespace TangentaSampleDB
                     MyOrg_Person_Gender_v.v = true;
                 }
                 MyOrg_Person_Gender_v.defined = true;
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Gender_v, "MyOrg_Person_Gender", lngRPMS.sl_MyOrg_Person_Gender, lngRPMS.s_MyOrg_Person_Gender_v, lngRPMS.sh_MyOrg_Person_Gender);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Gender_v, "MyOrg_Person_Gender", lng.sl_MyOrg_Person_Gender, lng.s_MyOrg_Person_Gender_v, lng.sh_MyOrg_Person_Gender);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_DateOfBirth_v, "MyOrg_Person_DateOfBirth", lngRPMS.sl_MyOrg_Person_DateOfBirth, lngRPMS.s_MyOrg_Person_DateOfBirth_v, lngRPMS.sh_MyOrg_Person_DateOfBirth);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_DateOfBirth_v, "MyOrg_Person_DateOfBirth", lng.sl_MyOrg_Person_DateOfBirth, lng.s_MyOrg_Person_DateOfBirth_v, lng.sh_MyOrg_Person_DateOfBirth);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_UserName_v, "MyOrg_Person_UserName", lngRPMS.sl_MyOrg_Person_UserName, lngRPMS.s_MyOrg_Person_UserName_v, lngRPMS.sh_MyOrg_Person_UserName);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_UserName_v, "MyOrg_Person_UserName", lng.sl_MyOrg_Person_UserName, lng.s_MyOrg_Person_UserName_v, lng.sh_MyOrg_Person_UserName);
 
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Password_v, "MyOrg_Person_Password", lngRPMS.sl_MyOrg_Person_Password, lngRPMS.s_MyOrg_Person_Password_v, lngRPMS.sh_MyOrg_Person_Password);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Password_v, "MyOrg_Person_Password", lng.sl_MyOrg_Person_Password, lng.s_MyOrg_Person_Password_v, lng.sh_MyOrg_Person_Password);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Job_v, "MyOrg_Person_Job", lngRPMS.sl_MyOrg_Person_Job, lngRPMS.s_MyOrg_Person_Job_v, lngRPMS.sh_MyOrg_Person_Job);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Job_v, "MyOrg_Person_Job", lng.sl_MyOrg_Person_Job, lng.s_MyOrg_Person_Job_v, lng.sh_MyOrg_Person_Job);
 
                 MyOrg_Person_Active_v = new dbool_v(true);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Description_v, " MyOrg_Person_Description", lngRPMS.sl_MyOrg_Person_Description, lngRPMS.s_MyOrg_Person_Description_v, lngRPMS.sh_MyOrg_Person_Description);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Description_v, " MyOrg_Person_Description", lng.sl_MyOrg_Person_Description, lng.s_MyOrg_Person_Description_v, lng.sh_MyOrg_Person_Description);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Tax_ID_v, "MyOrg_Person_Tax_ID", lngRPMS.sl_MyOrg_Person_Tax_ID, lngRPMS.s_MyOrg_Person_Tax_ID_v, lngRPMS.sh_MyOrg_Person_Tax_ID);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Tax_ID_v, "MyOrg_Person_Tax_ID", lng.sl_MyOrg_Person_Tax_ID, lng.s_MyOrg_Person_Tax_ID_v, lng.sh_MyOrg_Person_Tax_ID);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Registration_ID_v, "MyOrg_Person_Registration_ID", lngRPMS.sl_MyOrg_Person_Registration_ID, lngRPMS.s_MyOrg_Person_Registration_ID_v, lngRPMS.sh_MyOrg_Person_Registration_ID);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Registration_ID_v, "MyOrg_Person_Registration_ID", lng.sl_MyOrg_Person_Registration_ID, lng.s_MyOrg_Person_Registration_ID_v, lng.sh_MyOrg_Person_Registration_ID);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_GsmNumber_v, "MyOrg_Person_GsmNumber", lngRPMS.sl_MyOrg_Person_GsmNumber, lngRPMS.s_MyOrg_Person_GsmNumber_v, lngRPMS.sh_MyOrg_Person_GsmNumber);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_GsmNumber_v, "MyOrg_Person_GsmNumber", lng.sl_MyOrg_Person_GsmNumber, lng.s_MyOrg_Person_GsmNumber_v, lng.sh_MyOrg_Person_GsmNumber);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_PhoneNumber_v, "MyOrg_Person_PhoneNumber", lngRPMS.sl_MyOrg_Person_PhoneNumber, lngRPMS.s_MyOrg_Person_PhoneNumber_v, lngRPMS.sh_MyOrg_Person_PhoneNumber);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_PhoneNumber_v, "MyOrg_Person_PhoneNumber", lng.sl_MyOrg_Person_PhoneNumber, lng.s_MyOrg_Person_PhoneNumber_v, lng.sh_MyOrg_Person_PhoneNumber);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Email_v, "MyOrg_Person_Email", lngRPMS.sl_MyOrg_Person_Email, lngRPMS.s_MyOrg_Person_Email_v, lngRPMS.sh_MyOrg_Person_Email);
+                new DynEditControls.EditControl(MyOrg_Office_Person_DynGroupBox, MyOrg_Person_Email_v, "MyOrg_Person_Email", lng.sl_MyOrg_Person_Email, lng.s_MyOrg_Person_Email_v, lng.sh_MyOrg_Person_Email);
 
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.StreetName_v, "MyOrg_Office_Person_Address_StreetName", lngRPMS.sl_MyOrg_Office_Person_Address_StreetName, lngRPMS.s_MyOrg_Office_Person_Address_StreetName_v, lngRPMS.sh_MyOrg_Office_Person_Address_StreetName);
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.HouseNumber_v, "MyOrg_Office_Person_Address_HouseNumber", lngRPMS.sl_MyOrg_Office_Person_Address_HouseNumber, lngRPMS.s_MyOrg_Office_Person_Address_HouseNumber_v, lngRPMS.sh_MyOrg_Office_Person_Address_HouseNumber);
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.ZIP_v, "MyOrg_Office_Person_Address_ZIP", lngRPMS.sl_MyOrg_Office_Person_Address_ZIP, lngRPMS.s_MyOrg_Office_Person_Address_ZIP_v, lngRPMS.sh_MyOrg_Office_Person_Address_ZIP);
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.City_v, "MyOrg_Office_Person_Address_ZIP", lngRPMS.sl_MyOrg_Office_Person_Address_City, lngRPMS.s_MyOrg_Office_Person_Address_City_v, lngRPMS.sh_MyOrg_Office_Person_Address_City);
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.State_v, "MyOrg_Office_Person_Address_State", lngRPMS.sl_MyOrg_Office_Person_Address_State, lngRPMS.s_MyOrg_Office_Person_Address_State_v, lngRPMS.sh_MyOrg_Office_Person_Address_State);
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_v, "MyOrg_Office_Person_Address_Country", lngRPMS.sl_MyOrg_Address_Country, lngRPMS.s_MyOrg_Office_Person_Address_Country_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country);
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a2", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a2, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_a2_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a2);
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a3", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a3, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_a3_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a3);
-                new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Person_Address_Country_ISO_3166_num", lngRPMS.sl_MyOrg_Office_Person_Address_Country_ISO_3166_num, lngRPMS.s_MyOrg_Office_Person_Address_Country_ISO_3166_num_v, lngRPMS.sh_MyOrg_Office_Person_Address_Country_ISO_3166_num);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.StreetName_v, "MyOrg_Office_Person_Address_StreetName", lng.sl_MyOrg_Office_Person_Address_StreetName, lng.s_MyOrg_Office_Person_Address_StreetName_v, lng.sh_MyOrg_Office_Person_Address_StreetName);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.HouseNumber_v, "MyOrg_Office_Person_Address_HouseNumber", lng.sl_MyOrg_Office_Person_Address_HouseNumber, lng.s_MyOrg_Office_Person_Address_HouseNumber_v, lng.sh_MyOrg_Office_Person_Address_HouseNumber);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.ZIP_v, "MyOrg_Office_Person_Address_ZIP", lng.sl_MyOrg_Office_Person_Address_ZIP, lng.s_MyOrg_Office_Person_Address_ZIP_v, lng.sh_MyOrg_Office_Person_Address_ZIP);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.City_v, "MyOrg_Office_Person_Address_ZIP", lng.sl_MyOrg_Office_Person_Address_City, lng.s_MyOrg_Office_Person_Address_City_v, lng.sh_MyOrg_Office_Person_Address_City);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_DynGroupBox, MyOrg_Office_Person_Address_v.State_v, "MyOrg_Office_Person_Address_State", lng.sl_MyOrg_Office_Person_Address_State, lng.s_MyOrg_Office_Person_Address_State_v, lng.sh_MyOrg_Office_Person_Address_State);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_v, "MyOrg_Office_Person_Address_Country", lng.sl_MyOrg_Address_Country, lng.s_MyOrg_Office_Person_Address_Country_v, lng.sh_MyOrg_Office_Person_Address_Country);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a2_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a2", lng.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a2, lng.s_MyOrg_Office_Person_Address_Country_ISO_3166_a2_v, lng.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a2);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_a3_v, "MyOrg_Office_Person_Address_Country_ISO_3166_a3", lng.sl_MyOrg_Office_Person_Address_Country_ISO_3166_a3, lng.s_MyOrg_Office_Person_Address_Country_ISO_3166_a3_v, lng.sh_MyOrg_Office_Person_Address_Country_ISO_3166_a3);
+                new DynEditControls.EditControl(MyOrg_Office_Person_Address_Country_DynGroupBox, MyOrg_Office_Person_Address_v.Country_ISO_3166_num_v, "MyOrg_Office_Person_Address_Country_ISO_3166_num", lng.sl_MyOrg_Office_Person_Address_Country_ISO_3166_num, lng.s_MyOrg_Office_Person_Address_Country_ISO_3166_num_v, lng.sh_MyOrg_Office_Person_Address_Country_ISO_3166_num);
 
 
-                //MyOrg_Office_Name_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeName_v.s);
-                //MyOrg_Office_ShortName_v = new DBTypes.dstring_v(lngRPMS.s_MyOrg_OfficeShortName_v.s);
+                //MyOrg_Office_Name_v = new DBTypes.dstring_v(lng.s_MyOrg_OfficeName_v.s);
+                //MyOrg_Office_ShortName_v = new DBTypes.dstring_v(lng.s_MyOrg_OfficeShortName_v.s);
 
                 MyOrg_Address_Country_DynGroupBox.ReadOnly = true;
                 MyOrg_Office_Address_Country_DynGroupBox.ReadOnly = true;
@@ -461,7 +461,7 @@ namespace TangentaSampleDB
                     DefaultCountry = "Slovenija";
                 }
 select_country:
-                Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lngRPMS.s_SelectCountryWhereYouPayTaxes.s, xnav);
+                Country_ISO_3166.Form_Select_Country_ISO_3166 frmsel_country = new Country_ISO_3166.Form_Select_Country_ISO_3166(myISO_3166_Table.dt_ISO_3166, DefaultCountry, lng.s_SelectCountryWhereYouPayTaxes.s, xnav);
                 xnav.ChildDialog = frmsel_country;
                 xnav.ShowDialog();
                 if (xnav.eExitResult == NavigationButtons.Navigation.eEvent.PREV)
@@ -637,12 +637,12 @@ select_country:
                                                                     sl1,
                                                                     sl2,
                                                                     sl3,
-                                                                    lngRPMS.PriceList_Name.s,
+                                                                    lng.PriceList_Name.s,
                                                                     true,
                                                                     null,
                                                                     null,
                                                                     new DateTime_v(DateTime.Now),
-                                                                    lngRPMS.PriceList_Description.s,
+                                                                    lng.PriceList_Description.s,
                                                                     Currency_Abbreviation,
                                                                     Currency_Name,
                                                                     Currency_Symbol,
@@ -679,12 +679,12 @@ select_country:
                                                                 sl2,
                                                                 sl3,
                                                                 null,
-                                                                lngRPMS.PriceList_Name.s,
+                                                                lng.PriceList_Name.s,
                                                                 true,
                                                                 null,
                                                                 null,
                                                                 new DateTime_v(DateTime.Now),
-                                                                lngRPMS.PriceList_Description.s,
+                                                                lng.PriceList_Description.s,
                                                                 Currency_Abbreviation,
                                                                 Currency_Name,
                                                                 Currency_Symbol,
@@ -721,12 +721,12 @@ select_country:
                                                         sl3,
                                                         null,
                                                         null,
-                                                        lngRPMS.PriceList_Name.s,
+                                                        lng.PriceList_Name.s,
                                                         true,
                                                         null,
                                                         null,
                                                         new DateTime_v(DateTime.Now),
-                                                        lngRPMS.PriceList_Description.s,
+                                                        lng.PriceList_Description.s,
                                                         Currency_Abbreviation,
                                                         Currency_Name,
                                                         Currency_Symbol,
@@ -762,12 +762,12 @@ select_country:
                                                         null,
                                                         null,
                                                         null,
-                                                        lngRPMS.PriceList_Name.s,
+                                                        lng.PriceList_Name.s,
                                                         true,
                                                         null,
                                                         null,
                                                         new DateTime_v(DateTime.Now),
-                                                        lngRPMS.PriceList_Description.s,
+                                                        lng.PriceList_Description.s,
                                                         Currency_Abbreviation,
                                                         Currency_Name,
                                                         Currency_Symbol,
@@ -811,12 +811,12 @@ select_country:
                                                                 sl1,
                                                                 sl2,
                                                                 null,
-                                                                lngRPMS.PriceList_Name.s,
+                                                                lng.PriceList_Name.s,
                                                                 true,
                                                                 null,
                                                                 null,
                                                                 new DateTime_v(DateTime.Now),
-                                                                lngRPMS.PriceList_Description.s,
+                                                                lng.PriceList_Description.s,
                                                                 Currency_Abbreviation,
                                                                 Currency_Name,
                                                                 Currency_Symbol,
@@ -856,12 +856,12 @@ select_country:
                                                             sl2,
                                                             null,
                                                             null,
-                                                            lngRPMS.PriceList_Name.s,
+                                                            lng.PriceList_Name.s,
                                                             true,
                                                             null,
                                                             null,
                                                             new DateTime_v(DateTime.Now),
-                                                            lngRPMS.PriceList_Description.s,
+                                                            lng.PriceList_Description.s,
                                                             Currency_Abbreviation,
                                                             Currency_Name,
                                                             Currency_Symbol,
@@ -898,12 +898,12 @@ select_country:
                                                         null,
                                                         null,
                                                         null,
-                                                        lngRPMS.PriceList_Name.s,
+                                                        lng.PriceList_Name.s,
                                                         true,
                                                         null,
                                                         null,
                                                         new DateTime_v(DateTime.Now),
-                                                        lngRPMS.PriceList_Description.s,
+                                                        lng.PriceList_Description.s,
                                                         Currency_Abbreviation,
                                                         Currency_Name,
                                                         Currency_Symbol,
@@ -944,12 +944,12 @@ select_country:
                                                             sl1,
                                                             null,
                                                             null,
-                                                            lngRPMS.PriceList_Name.s,
+                                                            lng.PriceList_Name.s,
                                                             true,
                                                             null,
                                                             null,
                                                             new DateTime_v(DateTime.Now),
-                                                            lngRPMS.PriceList_Description.s,
+                                                            lng.PriceList_Description.s,
                                                             Currency_Abbreviation,
                                                             Currency_Name,
                                                             Currency_Symbol,
@@ -986,12 +986,12 @@ select_country:
                                                         null,
                                                         null,
                                                         null,
-                                                        lngRPMS.PriceList_Name.s,
+                                                        lng.PriceList_Name.s,
                                                         true,
                                                         null,
                                                         null,
                                                         new DateTime_v(DateTime.Now),
-                                                        lngRPMS.PriceList_Description.s,
+                                                        lng.PriceList_Description.s,
                                                         Currency_Abbreviation,
                                                         Currency_Name,
                                                         Currency_Symbol,
@@ -1030,12 +1030,12 @@ select_country:
                                                         null,
                                                         null,
                                                         null,
-                                                        lngRPMS.PriceList_Name.s,
+                                                        lng.PriceList_Name.s,
                                                         true,
                                                         null,
                                                         null,
                                                         new DateTime_v(DateTime.Now),
-                                                        lngRPMS.PriceList_Description.s,
+                                                        lng.PriceList_Description.s,
                                                         Currency_Abbreviation,
                                                         Currency_Name,
                                                         Currency_Symbol,
@@ -1056,7 +1056,7 @@ select_country:
                         int k = 0;
                         int SampleDB_Price_ShopB_Item_List_Count = SampleDB_Price_ShopB_Item_List.Count();
                         ProgressForm.Progress_Thread progress = new ProgressForm.Progress_Thread();
-                        progress.sLabel1 = lngRPMS.s_WriteItemsToDatabase.s + SampleDB_Price_ShopB_Item_List_Count.ToString();
+                        progress.sLabel1 = lng.s_WriteItemsToDatabase.s + SampleDB_Price_ShopB_Item_List_Count.ToString();
                         progress.Start();
                         for (k=0;k<SampleDB_Price_ShopB_Item_List_Count;k++)
                         {
@@ -1096,7 +1096,7 @@ select_country:
                                             {
                                                 GC.Collect();
                                                 int iPercent = ((int)(k * 100) / SampleDB_Price_ShopB_Item_List_Count);
-                                                progress.Message(null, lngRPMS.s_ItemsWrittenToDB.s+" "+ k.ToString(),lngRPMS.s_JobInPercentDone.s + " " + iPercent.ToString()+"%", iPercent);
+                                                progress.Message(null, lng.s_ItemsWrittenToDB.s+" "+ k.ToString(),lng.s_JobInPercentDone.s + " " + iPercent.ToString()+"%", iPercent);
                                             }
                                             if (progress.bCancel|| progress.bEnd)
                                             {
@@ -1202,25 +1202,25 @@ select_country:
         private string SetBAbbreviation(ref int iItem, int ig, string sufix)
         {
             iItem++;
-            return lngRPMS.ShopB_Item_Abbreviation_SB.s + iItem.ToString() + "    " + ig.ToString() + sufix;
+            return lng.ShopB_Item_Abbreviation_SB.s + iItem.ToString() + "    " + ig.ToString() + sufix;
         }
 
         private string SetBName(ref int iItem, int ig, string sufix)
         {
             iItem++;
-            return lngRPMS.ShopB_Item_Name_Item.s + iItem.ToString() + "    " + ig.ToString() + sufix;
+            return lng.ShopB_Item_Name_Item.s + iItem.ToString() + "    " + ig.ToString() + sufix;
         }
 
         private string SetCAbbreviation(ref int iItem, int ig, string sufix)
         {
             iItem++;
-            return lngRPMS.ShopC_Item_Abbreviation_SB.s + iItem.ToString() + "    " + ig.ToString() + sufix;
+            return lng.ShopC_Item_Abbreviation_SB.s + iItem.ToString() + "    " + ig.ToString() + sufix;
         }
 
         private string SetCName(ref int iItem, int ig, string sufix)
         {
             iItem++;
-            return lngRPMS.ShopC_Item_Name_Item.s + iItem.ToString() + "    " + ig.ToString() + sufix;
+            return lng.ShopC_Item_Name_Item.s + iItem.ToString() + "    " + ig.ToString() + sufix;
         }
 
         public bool Write_ShopC_Items(NavigationButtons.Navigation xnav)
@@ -1301,8 +1301,8 @@ select_country:
                                                                            sl1,
                                                                            sl2,
                                                                            sl3,
-                                                                           lngRPMS.s_Piece.s,
-                                                                           lngRPMS.s_PieceAbr.s,
+                                                                           lng.s_Piece.s,
+                                                                           lng.s_PieceAbr.s,
                                                                            0,
                                                                            true,
                                                                            null,
@@ -1317,7 +1317,7 @@ select_country:
                                                                            null,
                                                                            null,
                                                                            true,
-                                                                           lngRPMS.PriceList_Name.s,
+                                                                           lng.PriceList_Name.s,
                                                                            true,
                                                                            Currency_Abbreviation,
                                                                            Currency_Name,
@@ -1359,8 +1359,8 @@ select_country:
                                                                        sl2,
                                                                        sl3,
                                                                        null,
-                                                                       lngRPMS.s_Piece.s,
-                                                                       lngRPMS.s_PieceAbr.s,
+                                                                       lng.s_Piece.s,
+                                                                       lng.s_PieceAbr.s,
                                                                        0,
                                                                        true,
                                                                        null,
@@ -1375,7 +1375,7 @@ select_country:
                                                                        null,
                                                                        null,
                                                                        true,
-                                                                       lngRPMS.PriceList_Name.s,
+                                                                       lng.PriceList_Name.s,
                                                                        true,
                                                                        Currency_Abbreviation,
                                                                        Currency_Name,
@@ -1417,8 +1417,8 @@ select_country:
                                                                                                                sl3,
                                                                                                                null,
                                                                                                                null,
-                                                                                                               lngRPMS.s_Piece.s,
-                                                                                                               lngRPMS.s_PieceAbr.s,
+                                                                                                               lng.s_Piece.s,
+                                                                                                               lng.s_PieceAbr.s,
                                                                                                                0,
                                                                                                                true,
                                                                                                                null,
@@ -1433,7 +1433,7 @@ select_country:
                                                                                                                null,
                                                                                                                null,
                                                                                                                true,
-                                                                                                               lngRPMS.PriceList_Name.s,
+                                                                                                               lng.PriceList_Name.s,
                                                                                                                true,
                                                                                                                Currency_Abbreviation,
                                                                                                                Currency_Name,
@@ -1473,8 +1473,8 @@ select_country:
                                                                                                            null,
                                                                                                            null,
                                                                                                            null,
-                                                                                                           lngRPMS.s_Piece.s,
-                                                                                                           lngRPMS.s_PieceAbr.s,
+                                                                                                           lng.s_Piece.s,
+                                                                                                           lng.s_PieceAbr.s,
                                                                                                            0,
                                                                                                            true,
                                                                                                            null,
@@ -1489,7 +1489,7 @@ select_country:
                                                                                                            null,
                                                                                                            null,
                                                                                                            true,
-                                                                                                           lngRPMS.PriceList_Name.s,
+                                                                                                           lng.PriceList_Name.s,
                                                                                                            true,
                                                                                                            Currency_Abbreviation,
                                                                                                            Currency_Name,
@@ -1537,8 +1537,8 @@ select_country:
                                                                        sl1,
                                                                        sl2,
                                                                        null,
-                                                                       lngRPMS.s_Piece.s,
-                                                                       lngRPMS.s_PieceAbr.s,
+                                                                       lng.s_Piece.s,
+                                                                       lng.s_PieceAbr.s,
                                                                        0,
                                                                        true,
                                                                        null,
@@ -1553,7 +1553,7 @@ select_country:
                                                                        null,
                                                                        null,
                                                                        true,
-                                                                       lngRPMS.PriceList_Name.s,
+                                                                       lng.PriceList_Name.s,
                                                                        true,
                                                                        Currency_Abbreviation,
                                                                        Currency_Name,
@@ -1598,8 +1598,8 @@ select_country:
                                                                    sl2,
                                                                    null,
                                                                    null,
-                                                                   lngRPMS.s_Piece.s,
-                                                                   lngRPMS.s_PieceAbr.s,
+                                                                   lng.s_Piece.s,
+                                                                   lng.s_PieceAbr.s,
                                                                    0,
                                                                    true,
                                                                    null,
@@ -1614,7 +1614,7 @@ select_country:
                                                                    null,
                                                                    null,
                                                                    true,
-                                                                   lngRPMS.PriceList_Name.s,
+                                                                   lng.PriceList_Name.s,
                                                                    true,
                                                                    Currency_Abbreviation,
                                                                    Currency_Name,
@@ -1657,8 +1657,8 @@ select_country:
                                                                null,
                                                                null,
                                                                null,
-                                                               lngRPMS.s_Piece.s,
-                                                               lngRPMS.s_PieceAbr.s,
+                                                               lng.s_Piece.s,
+                                                               lng.s_PieceAbr.s,
                                                                0,
                                                                true,
                                                                null,
@@ -1673,7 +1673,7 @@ select_country:
                                                                null,
                                                                null,
                                                                true,
-                                                               lngRPMS.PriceList_Name.s,
+                                                               lng.PriceList_Name.s,
                                                                true,
                                                                Currency_Abbreviation,
                                                                Currency_Name,
@@ -1720,8 +1720,8 @@ select_country:
                                                                                                   sl1,
                                                                                                   null,
                                                                                                   null,
-                                                                                                  lngRPMS.s_Piece.s,
-                                                                                                  lngRPMS.s_PieceAbr.s,
+                                                                                                  lng.s_Piece.s,
+                                                                                                  lng.s_PieceAbr.s,
                                                                                                   0,
                                                                                                   true,
                                                                                                   null,
@@ -1736,7 +1736,7 @@ select_country:
                                                                                                   null,
                                                                                                   null,
                                                                                                   true,
-                                                                                                  lngRPMS.PriceList_Name.s,
+                                                                                                  lng.PriceList_Name.s,
                                                                                                   true,
                                                                                                   Currency_Abbreviation,
                                                                                                   Currency_Name,
@@ -1779,8 +1779,8 @@ select_country:
                                                                                               null,
                                                                                               null,
                                                                                               null,
-                                                                                              lngRPMS.s_Piece.s,
-                                                                                              lngRPMS.s_PieceAbr.s,
+                                                                                              lng.s_Piece.s,
+                                                                                              lng.s_PieceAbr.s,
                                                                                               0,
                                                                                               true,
                                                                                               null,
@@ -1795,7 +1795,7 @@ select_country:
                                                                                               null,
                                                                                               null,
                                                                                               true,
-                                                                                              lngRPMS.PriceList_Name.s,
+                                                                                              lng.PriceList_Name.s,
                                                                                               true,
                                                                                               Currency_Abbreviation,
                                                                                               Currency_Name,
@@ -1839,8 +1839,8 @@ select_country:
                                                                                                                              null,
                                                                                                                              null,
                                                                                                                              null,
-                                                                                                                             lngRPMS.s_Piece.s,
-                                                                                                                             lngRPMS.s_PieceAbr.s,
+                                                                                                                             lng.s_Piece.s,
+                                                                                                                             lng.s_PieceAbr.s,
                                                                                                                              0,
                                                                                                                              true,
                                                                                                                              null,
@@ -1855,7 +1855,7 @@ select_country:
                                                                                                                              null,
                                                                                                                              null,
                                                                                                                              true,
-                                                                                                                             lngRPMS.PriceList_Name.s,
+                                                                                                                             lng.PriceList_Name.s,
                                                                                                                              true,
                                                                                                                              Currency_Abbreviation,
                                                                                                                              Currency_Name,
@@ -1881,7 +1881,7 @@ select_country:
                         int k = 0;
                         int SampleDB_Price_ShopC_Item_List_Count = SampleDB_Price_ShopC_Item_List.Count();
                         ProgressForm.Progress_Thread progress = new ProgressForm.Progress_Thread();
-                        progress.sLabel1 = lngRPMS.s_WriteItemsToDatabase.s + SampleDB_Price_ShopC_Item_List_Count.ToString();
+                        progress.sLabel1 = lng.s_WriteItemsToDatabase.s + SampleDB_Price_ShopC_Item_List_Count.ToString();
                         progress.Start();
                         f_Expiry.Expiry_v expiry_v = new f_Expiry.Expiry_v();
                         f_Warranty.Warranty_v warranty_v = new f_Warranty.Warranty_v();
@@ -1957,7 +1957,7 @@ select_country:
                                             {
                                                 GC.Collect();
                                                 int iPercent = ((int)(k * 100) / SampleDB_Price_ShopC_Item_List_Count);
-                                                progress.Message(null, lngRPMS.s_ItemsWrittenToDB.s + " " + k.ToString(), lngRPMS.s_JobInPercentDone.s + " " + iPercent.ToString() +"%", iPercent);
+                                                progress.Message(null, lng.s_ItemsWrittenToDB.s + " " + k.ToString(), lng.s_JobInPercentDone.s + " " + iPercent.ToString() +"%", iPercent);
                                             }
                                             if (progress.bCancel || progress.bEnd)
                                             {

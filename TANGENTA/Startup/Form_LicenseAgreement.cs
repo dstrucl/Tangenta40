@@ -18,10 +18,10 @@ namespace Startup
         {
             InitializeComponent();
             nav = xnav;
-            lngRPMS.s_License_agreement.Text(this);
+            lng.s_License_agreement.Text(this);
             this.usrc_NavigationButtons1.Init(nav);
-            lngRPMS.s_I_accept_the_terms_in_the_license_agreement.Text(rdb_AcceptLicenseAgreement);
-            lngRPMS.s_I_do_not_accept_the_terms_in_the_license_agreement.Text(rdb_NotAcceptLicenseAgreement);
+            lng.s_I_accept_the_terms_in_the_license_agreement.Text(rdb_AcceptLicenseAgreement);
+            lng.s_I_do_not_accept_the_terms_in_the_license_agreement.Text(rdb_NotAcceptLicenseAgreement);
             lng.s_Print.Text(btn_Print);
             rdb_AcceptLicenseAgreement.Checked = false;
             rdb_NotAcceptLicenseAgreement.Checked = true;

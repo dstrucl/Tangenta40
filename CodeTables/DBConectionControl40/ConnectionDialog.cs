@@ -638,7 +638,7 @@ namespace DBConnectionControl40
                             }
                             else
                             {
-                                MessageBox.Show(this, lngRPM.s_NoConnectionToDatabase_You_must_set_Database_connection_to_go_next_step.s);
+                                MessageBox.Show(this, lng.s_NoConnectionToDatabase_You_must_set_Database_connection_to_go_next_step.s);
                             }
                             return;
                         case Navigation.eEvent.EXIT:
