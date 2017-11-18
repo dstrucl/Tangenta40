@@ -29,5 +29,16 @@ namespace LanguageControl
         public static ltext s_Language = new ltext(new string[]{"Language",
                                                    "Jezik"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_ltext_Edit.cs
 
+        public static ltext s_EditTitle = new ltext(new string[]{"Edit Control Text",
+                                                   "Uredi napis kontrole"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_ltext_Edit.cs
+
+        public static ltext s_Dictonary_of_controls_text = new ltext(new string[]{"Dictionary of all Control's Text",
+                                                                                  "Slovar vseh napisov na kontrolah"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_Language_Dictionary.cs
+
+        public static ltext s_ModuleName = new ltext(new string[]{"Program or library Name",
+                                                                  "Ime programa ali modula"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_Language_Dictionary.cs
+
+        public static ltext s_Variable = new ltext(new string[]{"Variable Name",
+                                                               "Ime spremeljivke"});   // referenced in C:\Tangenta40\CodeTables\UTIL\LanguageControl\Form_Language_Dictionary.cs
     }
 }

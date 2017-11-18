@@ -140,6 +140,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\ComboBox_Recent\ComboBox_Recent.csproj">
+      <Project>{0f0afe83-5e47-49cf-888a-79a03fa71321}</Project>
+      <Name>ComboBox_Recent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3A0F6691-D8D0-4005-902A-215DA5F671B4}</Project>
       <Name>DataGridView_2xls</Name>

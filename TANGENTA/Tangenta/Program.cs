@@ -461,6 +461,7 @@ namespace Tangenta
 
                     LogFile.LogFile.Write(LogFile.LogFile.LOG_LEVEL_DEBUG_RELEASE, "ProgramStart !");
 
+                    LanguageControl.DynSettings.Init();
                     SetAllModulesLanguages();
                     
                     LanguageControl.DynSettings.LoadLanguages(Reset2FactorySettings.LangugaControl_DLL);

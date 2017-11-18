@@ -26,6 +26,9 @@ namespace LanguageControl
         {
             // TODO: Complete member initialization
             InitializeComponent();
+
+            lng.s_EditTitle.Text(this);
+            lng.s_Dictonary_of_controls_text.Text(btn_Dictionary);
             this.ltext = xltext;
             m_sText = sText;
             dt_Translations.Columns.Add("ID", typeof(int));
@@ -78,5 +81,11 @@ namespace LanguageControl
             return;
         }
 
+        private void btn_Dictionary_Click(object sender, EventArgs e)
+        {
+            Form_Language_Dictionary frld = new Form_Language_Dictionary();
+            frld.ShowDialog(this);
+            frld.Dispose();
+        }
     }
 }

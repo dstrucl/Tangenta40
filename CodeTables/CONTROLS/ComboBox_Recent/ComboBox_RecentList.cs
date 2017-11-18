@@ -386,7 +386,7 @@ namespace ComboBox_Recent
         }
 
 
-        private static void GrantFolderAccess(string Folder)
+        public static void GrantFolderAccess(string Folder)
         {
             bool exists = System.IO.Directory.Exists(Folder);
             if (!exists)

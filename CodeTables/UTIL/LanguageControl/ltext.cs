@@ -307,14 +307,16 @@ namespace LanguageControl
 
         private void save_changes()
         {
-            DataTable dt_Languages = new DataTable();
-            string TableName = "lngRPM";
-            string sAppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            DataTable dt_Languages = null;
+            DynSettings.Create_dt_Language(ref dt_Languages);
+            string sAppDataFolder = DynSettings.LanguageSettingsFolderName;
+
             if (sAppDataFolder[sAppDataFolder.Length - 1] != '\\')
             {
                 sAppDataFolder += "\\";
             }
-            string lngRPM_XML_file = sAppDataFolder + TableName;
+            string lngRPM_XML_file = sAppDataFolder + DynSettings.DICTIONARY;
+            string TableName = DynSettings.DICTIONARY;
             DynSettings.SaveLanguages(ref dt_Languages, lngRPM_XML_file, TableName);
         }
 

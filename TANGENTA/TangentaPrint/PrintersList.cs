@@ -4,15 +4,23 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace TangentaPrint
 {
     public static class PrintersList
     {
+        public const string PRNTERS_SETTINGS_SUB_FOLDER = "\\Settings";
+        
         public static DataTable dt = new DataTable();
-        public static string PrinterListFile = "TangentaPrinterList.xml";
+        public static string PrinterListFileName = "TangentaPrinterList.xml";
+        public static string PrinterSettingsFolderName = "";
 
+        public static string PrinterListFile
+        {
+            get { return PrinterSettingsFolderName + "\\" + PrinterListFileName; }
+        }
         public static DataColumn dcol_PrinterName = null;
         public static DataColumn dcol_InvoicePrinting = null;
         public static DataColumn dcol_InvoicePrinting_PaymentCash = null;
@@ -72,6 +80,10 @@ namespace TangentaPrint
 
         public static void Init()
         {
+
+            PrinterSettingsFolderName = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + PRNTERS_SETTINGS_SUB_FOLDER;
+            ComboBox_Recent.ComboBox_RecentList.GrantFolderAccess(PrinterSettingsFolderName);
+
             dcol_PrinterName = new DataColumn("PrinterName",typeof(string));
             dcol_InvoicePrinting = new DataColumn("InvoicePrinting", typeof(bool)); ;
             dcol_InvoicePrinting_PaymentCash = new DataColumn("InvoicePrinting_PaymentCash", typeof(bool)); ; ;
@@ -149,7 +161,7 @@ namespace TangentaPrint
         {
             try
             {
-                dt.WriteXml(PrinterListFile,XmlWriteMode.WriteSchema);
+                dt.WriteXml(PrinterListFile, XmlWriteMode.WriteSchema);
                 return true;
             }
             catch (Exception ex)

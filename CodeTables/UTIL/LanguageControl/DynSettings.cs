@@ -19,12 +19,16 @@ namespace LanguageControl
 {
     public static class DynSettings
     {
-        internal const string DICTIONARY = "lng_Dictionary";
+        public const string LANGUAGE_SETTINGS_SUB_FOLDER = "\\Settings";
+        public const string LANGUAGE_COLUMN_PREFIX = "language_";
+        internal const string DICTIONARY = "LanguageDictionary";
         internal const string MODULE_NAME = "ModuleName";
         internal const string VARIABLE_NAME = "variable_name";
         public const int NotDefined_ID = -1;
         public const int English_ID = 0;
         public const int Slovensko_ID = 1;
+
+        internal static string LanguageSettingsFolderName = "";
 
         public static int MAX_NUMBER_OF_LANGUAGES = 20;
         public static int LanguageID = 0;
@@ -35,6 +39,16 @@ namespace LanguageControl
 
 
         internal static List<language_library> LanguageLibraryList = new List<language_library>();
+
+        public static void Init()
+        {
+            LanguageSettingsFolderName = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + LANGUAGE_SETTINGS_SUB_FOLDER;
+            if (!Directory.Exists(LanguageSettingsFolderName))
+            {
+                Directory.CreateDirectory(LanguageSettingsFolderName);
+            }
+            ComboBox_Recent.ComboBox_RecentList.GrantFolderAccess(LanguageSettingsFolderName);
+        }
 
         public static void AddLanguageLibrary(FieldInfo[] xFields, string xModuleName)
         {
@@ -70,8 +84,16 @@ namespace LanguageControl
         public static void LoadLanguages(bool bReset2FactorySettings)
         {
             DataTable dt_Languages = null;
+            LoadLanguages(ref dt_Languages, bReset2FactorySettings);
+        }
+
+        public static void LoadLanguages(ref DataTable dt_Languages,bool bReset2FactorySettings)
+        {
             string TableName = DICTIONARY;
-            string sAppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+
+            string sAppDataFolder = LanguageSettingsFolderName;
+
             if (sAppDataFolder[sAppDataFolder.Length - 1] != '\\')
             {
                 sAppDataFolder += "\\";
@@ -93,7 +115,7 @@ namespace LanguageControl
                     }
                     dt_Languages.ReadXml(lngRPM_XML_file);
                     dt_Languages.CaseSensitive = true;
-                   
+
                     string sErr = "";
                     foreach (language_library xlng_lib in LanguageLibraryList)
                     {
@@ -103,7 +125,7 @@ namespace LanguageControl
                             {
                                 ltext lt = (ltext)fi.GetValue(null);
                                 string sname = fi.Name;
-                                DataRow[] drs = dt_Languages.Select(MODULE_NAME +  " = '" + xlng_lib.ModuleName + "' and "+ VARIABLE_NAME + " = '" + sname + "'");
+                                DataRow[] drs = dt_Languages.Select(MODULE_NAME + " = '" + xlng_lib.ModuleName + "' and " + VARIABLE_NAME + " = '" + sname + "'");
                                 if (drs.Count() == 1)
                                 {
                                     lt.SetTextFromDataRow(drs[0]);
@@ -141,8 +163,8 @@ namespace LanguageControl
             {
                 SaveLanguages(ref dt_Languages, lngRPM_XML_file, TableName);
             }
-
         }
+
 
         public static void LanguageTextSave()
         {
@@ -187,7 +209,7 @@ namespace LanguageControl
             }
         }
 
-        private static void Create_dt_Language(ref DataTable dt_Languages)
+        internal static void Create_dt_Language(ref DataTable dt_Languages)
         {
             dt_Languages = new DataTable();
             dt_Languages.TableName = DICTIONARY;
@@ -195,7 +217,7 @@ namespace LanguageControl
             dt_Languages.Columns.Add(VARIABLE_NAME, typeof(string));
             for (int i = 0; i < DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
             {
-                string sLanguageName = "language_" + i.ToString();
+                string sLanguageName = LANGUAGE_COLUMN_PREFIX + i.ToString();
                 dt_Languages.Columns.Add(sLanguageName, typeof(string));
             }
         }
