@@ -151,46 +151,47 @@
     }
 </style>
 
+
 <html>
 <body>
     <page>
-        <div class="pagenumbers">stran (@@PageNumber@@) od (@@NumberOfPages@@)</div>
+        <div class="pagenumbers">stran (@@ŠtevilkaStrani@@) od (@@ŠteviloStrani@@)</div>
         <div class="invoicetop">
             <h1>
-                Offer Nr.:(@@My_Organisation_Office@@)-(@@ProformaInvoice_Cashier@@)-(@@ProformaInvoice_Number@@)-(@@ProformaInvoice_FiscalYear@@)
-                <img class="myORG_Logo" alt="Embedded Image" src="data:image/png;base64,(@@My_Organisation_Logo@@)" />
+                PONUDBA št.:(@@Moja_Organizacija_PoslovnaEnota@@)-(@@Predračun_OznakaBlagajne@@)-(@@Predračun_Številka@@)
+                <img class="myORG_Logo" alt="Embedded Image" src="data:image/png;base64,(@@Moja_Organizacija_Logo@@)" />
             </h1>
             <table id="customer_company">
                 <thead>
                     <tr>
-                        <th>CUSTOMER</th>
-                        <th>COMPANY</th>
+                        <th>NASLOVU</th>
+                        <th>IZDAJATELJ:</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
                             <div id="project">
-                                <div><span>CUSTOMER</span>(@@Customer_Organisation_Name@@)(@@Customer_Person_FirstName@@) (@@Customer_Person_LastName@@)</div>
-                                <div><span></span>(@@Customer_Organisation_Address_Street@@)(@@Customer_Person_Address_Street@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
-                                <div><span></span>(@@Customer_Organisation_Address_ZIP@@)(@@Customer_Person_Address_ZIP@@) (@@Customer_Organisation_Address_City@@)(@@Customer_Person_Address_ZIP@@)</div>
-                                <div><span>Email:</span>(@@Customer_Organisation_Email@@)(@@Customer_Person_Email@@)</div>
-                                <div><span><b>Offer date:</b></span>(@@ProformaInvoice_DateOfIssue@@)</div>
-                                <div><span><b>Offer valid until:</b></span>(@@ProformaInvoice_OfferValidUntil@@)</div>
+                                <div><span>NASLOVU</span>(@@Stranka_Organizacija_Ime@@)(@@Stranka_Oseba_Ime@@) (@@Stranka_Oseba_Priimek@@)</div>
+                                <div><span></span>(@@Stranka_Organizacija_Naslov_Cesta@@)(@@Stranka_Oseba_Naslov_Cesta@@) (@@Stranka_Organizacija_Naslov_HišnaŠtevilka@@)(@@Stranka_Oseba_Naslov_HišnaŠtevilka@@)</div>
+                                <div><span></span>(@@Stranka_Organizacija_Naslov_Pošta@@)(@@Stranka_Oseba_Naslov_Pošta@@) (@@Stranka_Organizacija_Naslov_Kraj@@)(@@Stranka_Oseba_Naslov_Kraj@@)</div>
+                                <div><span>E-POŠTA</span> <a href="mailto:(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)">(@@Stranka_Organizacija_Email@@)(@@Stranka_Oseba_Email@@)</a></div>
+                                <div><span><b>Datum rač.:</b></span>(@@Predračun_Datum_izdaje_računa@@)</div>
+                                <div><span><b>Ponudba velja do:</b></span>(@@Predračun_Ponudba_velja_do@@)</div>
                             </div>
                         </td>
                         <td>
                             <div id="company" class="clearfix">
-                                <div>(@@My_Organisation_Name@@)</div>
-                                <div>(@@My_Organisation_Address_Street@@) (@@My_Organisation_Address_HouseNumber@@)</div>
-                                <div>(@@My_Organisation_Address_ZIP@@) (@@My_Organisation_Address_City@@)</div>
-                                <div>TAX ID:(@@My_Organisation_Tax_ID@@) </div>
-                                <div>REGISTRATION ID:(@@My_Organisation_Regsitration_ID@@) </div>
-                                <div>Office:(@@My_Organisation_Office@@) </div>
-                                <div>Cashier:(@@ProformaInvoice_Cashier@@) </div>
-                                <div>Issuer:(@@IssuerOfInvoice_Person_FirstName@@) (@@IssuerOfInvoice_Person_LastName@@) DŠ:(@@IssuerOfInvoice_Person_Tax_ID@@)</div>
-                                <div><a href="email:(@@My_Organisation_Email@@)">Email:(@@My_Organisation_Email@@)</a></div>
-                                <div><a href="http:(@@My_Organisation_HomePage@@)">Homepage:(@@My_Organisation_HomePage@@)</a></div>
+                                <div>IZDAJATELJ:(@@Moja_Organizacija_Ime@@)</div>
+                                <div>(@@Moja_Organizacija_Naslov_Cesta@@) (@@Moja_Organizacija_Naslov_HišnaŠtevilka@@)</div>
+                                <div>(@@Moja_Organizacija_Naslov_Pošta@@) (@@Moja_Organizacija_Naslov_Kraj@@)</div>
+                                <div>Davčna številka:(@@Moja_Organizacija_DavčnaŠtevilka@@) </div>
+                                <div>Matična številka:(@@Moja_Organizacija_MatičnaŠtevilka@@) </div>
+                                <div>Poslovna enota:(@@Moja_Organizacija_PoslovnaEnota@@) </div>
+                                <div>Oznaka blagajne:(@@Predračun_OznakaBlagajne@@) </div>
+                                <div>Oseba izdajatelja:(@@OsebaKiJeIzdalaRačun_Oseba_Ime@@) (@@OsebaKiJeIzdalaRačun_Oseba_Priimek@@) DŠ:(@@OsebaKiJeIzdalaRačun_Oseba_DavčnaŠtevilka@@)</div>
+                                <div><a href="email:(@@Moja_Organizacija_Email@@)">E-Pošta:(@@Moja_Organizacija_Email@@)</a></div>
+                                <div><a href="http:(@@Moja_Organizacija_DomačaStran@@)">Domača stran:(@@Moja_Organizacija_DomačaStran@@)</a></div>
                             </div>
                         </td>
                     </tr>
@@ -200,52 +201,52 @@
         <table class="tableitems">
             <thead>
                 <tr>
-                    <th style="width:5cm">Item or service</th>
-                    <th style="width:2cm">Price per unit</th>
-                    <th>Discount</th>
-                    <th style="width:1.2cm">Unit</th>
-                    <th style="width:1.0cm">Quantity</th>
-                    <th style="width:1.5cm">Tax rate</th>
-                    <th style="width:2.5cm">Net price</th>
-                    <th>TAX</th>
-                    <th>TOTAL</th>
+                    <th style="width:5cm">Artikel ali storitev</th>
+                    <th style="width:2cm">Cena na enoto</th>
+                    <th>Popust</th>
+                    <th style="width:0.8cm">Merska Enota</th>
+                    <th style="width:1.0cm">Kol.</th>
+                    <th style="width:2.0cm">Davčna stopnja</th>
+                    <th style="width:2.5cm">Cena brez DDV</th>
+                    <th>Davek DDV</th>
+                    <th>Cena z DDV</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="item">
-                    <td class="service">(@@ProformaInvoice_Item_Name@@)</td>
-                    <td class="priceperunit">(@@ProformaInvoice_Item_PricePerUnit@@) (@@ProformaInvoice_Item_Currency@@)</td>
-                    <td class="discount">(@@ProformaInvoice_Item_TotalDiscount@@)</td>
-                    <td class="unit">(@@ProformaInvoice_Item_Unit@@)</td>
-                    <td class="qty">(@@ProformaInvoice_Item_Quantity@@)</td>
-                    <td class="taxrate">(@@ProformaInvoice_Item_Quantity@@)</td>
-                    <td class="price_neto">(@@ProformaInvoice_Item_NetPrice@@) (@@ProformaInvoice_Item_Currency@@)</td>
-                    <td class="tax">(@@ProformaInvoice_Item_Tax@@) (@@ProformaInvoice_Item_Currency@@)</td>
-                    <td class="price_with_tax">(@@ProformaInvoice_Item_PriceWithTax@@) (@@ProformaInvoice_Item_Currency@@)</td>
+                    <td class="service">(@@Predračun_StoritevAliArtikel_Ime@@)</td>
+                    <td class="priceperunit">(@@Predračun_StoritevAliArtikel_CenaNaEnoto@@) (@@Predračun_StoritevAliArtikel_Valuta@@)</td>
+                    <td class="discount">(@@Predračun_StoritevAliArtikel_CelotenPopust@@)</td>
+                    <td class="unit">(@@Predračun_StoritevAliArtikel_MerskaEnota@@)</td>
+                    <td class="qty">(@@Predračun_StoritevAliArtikel_Količina@@)</td>
+                    <td class="taxrate">(@@Predračun_StoritevAliArtikel_DavčnaStopnjaVProcentih@@)</td>
+                    <td class="price_neto">(@@Predračun_StoritevAliArtikel_Cena_Brez_DDV@@) (@@Predračun_StoritevAliArtikel_Valuta@@)</td>
+                    <td class="tax">(@@Predračun_StoritevAliArtikel_Davek@@) (@@Predračun_StoritevAliArtikel_Valuta@@)</td>
+                    <td class="price_with_tax">(@@Predračun_StoritevAliArtikel_Cena_z_DDV@@) (@@Predračun_StoritevAliArtikel_Valuta@@)</td>
                 </tr>
 
                 <tr class="totalneto">
-                    <td colspan="4">NET PRICE</td>
-                    <td colspan="5">(@@ProformaInvoice_SumNetPrice@@) (@@ProformaInvoice_Item_Currency@@)</td>
+                    <td colspan="4">SKUPAJ BREZ DAVKA</td>
+                    <td colspan="5">(@@Predračun_CenaSkupajBrezDavka@@) (@@Predračun_StoritevAliArtikel_Valuta@@)</td>
                 </tr>
                 <tr class="taxsum">
-                    <td colspan="4">(@@ProformaInvoice_TaxRateName@@)</td>
-                    <td colspan="5" class="tax_95">(@@ProformaInvoice_SumTax@@) (@@ProformaInvoice_Item_Currency@@)</td>
+                    <td colspan="4">(@@Predračun_ImeDavčneStopnje@@)</td>
+                    <td colspan="5" class="tax_95">(@@Predračun_DavekSkupaj@@) (@@Predračun_StoritevAliArtikel_Valuta@@)</td>
                 </tr>
                 <tr class="grandtotal">
-                    <td colspan="4">TOTAL</td>
-                    <td colspan="5">(@@ProformaInvoice_TotalSum@@) (@@ProformaInvoice_Item_Currency@@)</td>
+                    <td colspan="4">Končna cena z davkom</td>
+                    <td colspan="5">(@@Predračun_KončnaCenaZDavkom@@) (@@Predračun_StoritevAliArtikel_Valuta@@)</td>
                 </tr>
             </tbody>
         </table>
         <div class="invoicebottom">
             <div class="methodofpayment">
-                Payment type:(@@ProformaInvoice_PaymentType@@)
+                Način plačila:(@@Predračun_NačinPlačila@@)
             </div>
             <div class="paymenttobankaccount">
-                <b>(@@ProformaInvoice_PaymentToBankAccount@@) (@@ProformaInvoice_PaymentToBankName@@)</b>
+                <b>(@@Predračun_PlačiloNaBančniRačun@@) (@@Predračun_PlačiloNaBanko@@)</b>
             </div>
-            <div class="notice">(@@ProformaInvoice_Notice@@)</div>
+            <div class="notice">(@@Predračun_Dopis@@)</div>
         </div>
     </page>
 </body>
