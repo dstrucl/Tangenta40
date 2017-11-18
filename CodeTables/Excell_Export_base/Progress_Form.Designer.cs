@@ -1,4 +1,4 @@
-﻿namespace Excell_Export
+﻿namespace Excell_Export_base
 {
     partial class Progress_Form
     {

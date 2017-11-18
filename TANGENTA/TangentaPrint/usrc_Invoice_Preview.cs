@@ -21,14 +21,13 @@ using DBTypes;
 using TangentaDB;
 using System.Drawing.Printing;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
-using PdfSharp.Drawing;
-using PdfSharp;
+
 
 namespace TangentaPrint
 {
     public partial class usrc_Invoice_Preview : UserControl
     {
-        PdfGenerateConfig config = new PdfGenerateConfig();
+//        PdfGenerateConfig config = new PdfGenerateConfig();
         Size pageSize = new Size();
 
         PrintDocument pd = new PrintDocument();
@@ -304,11 +303,11 @@ namespace TangentaPrint
     private void btn_Print_Click(object sender, EventArgs e)
         {
             pd.PrinterSettings.PrinterName = m_Printer.PrinterName;          
-            config.PageSize = PageSize.A4;
-            config.SetMargins(20);
+            //config.PageSize = PageSize.A4;
+            //config.SetMargins(20);
 
-            XSize xorgPageSize = PageSizeConverter.ToSize(config.PageSize);
-            Size orgPageSize = new Size(Convert.ToInt32(xorgPageSize.Width), Convert.ToInt32(xorgPageSize.Height));
+            //XSize xorgPageSize = PageSizeConverter.ToSize(config.PageSize);
+            //Size orgPageSize = new Size(Convert.ToInt32(xorgPageSize.Width), Convert.ToInt32(xorgPageSize.Height));
             //            pageSize = new Size(Convert.ToInt32(orgPageSize.Width - config.MarginLeft - config.MarginRight), Convert.ToInt32(orgPageSize.Height - config.MarginTop - config.MarginBottom));
 
             pageSize = new Size(Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Width), Convert.ToInt32(pd.PrinterSettings.DefaultPageSettings.PrintableArea.Size.Height));

@@ -204,6 +204,10 @@
       <Project>{86e2d927-2c40-4488-a51a-0a1104478886}</Project>
       <Name>StaticLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\HtmlRenderer 1.5.0.6 with print pages support\Demo\Common\HtmlRenderer.Demo.Common.csproj">
       <Project>{2390b71f-9400-47f4-b23a-7f2649c87d35}</Project>
       <Name>HtmlRenderer.Demo.Common</Name>
@@ -223,10 +227,6 @@
     <ProjectReference Include="..\..\HtmlRenderer 1.5.0.6 with print pages support\HtmlRenderer\HtmlRenderer.csproj">
       <Project>{fe611685-391f-4e3e-b27e-d3150e51e49b}</Project>
       <Name>HtmlRenderer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\PDFsharp-MigraDocFoundation-1_50-beta4\PDFsharp\src\PdfSharp\PdfSharp.csproj">
-      <Project>{5a6055bc-bf86-4fdd-9f62-0109db7a303b}</Project>
-      <Name>PdfSharp</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShopC\ShopC.csproj">
       <Project>{3d077dc4-bdab-414f-8907-c902b91fcb0e}</Project>

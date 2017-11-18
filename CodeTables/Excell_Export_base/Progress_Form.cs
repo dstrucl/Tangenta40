@@ -6,9 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using LanguageControl;
 
-namespace Excell_Export
+namespace Excell_Export_base
 {
     public partial class Progress_Form : Form
     {
@@ -18,9 +17,9 @@ namespace Excell_Export
         {
             InitializeComponent();
             m_Progress_Thread = progr_thread;
-            lbl_Export_To_File.Text = lng.s_ExportToFile.s+ ":" + m_Progress_Thread.m_FileName;
-            lbl_Rows_Columns.Text = lng.s_Rows.s + m_Progress_Thread.m_rows.ToString() + " , " + lng.s_Columns.s+" = " + m_Progress_Thread.m_columns.ToString();
-            lbl_PercentDone.Text = lng.s_ExportDoneInXprocent.s + ": %0";
+            lbl_Export_To_File.Text = static_lng_text.lng_s_ExportToFile_s+ ":" + m_Progress_Thread.m_FileName;
+            lbl_Rows_Columns.Text = static_lng_text.lng_s_Rows_s + m_Progress_Thread.m_rows.ToString() + " , " + static_lng_text.lng_s_Columns_s+" = " + m_Progress_Thread.m_columns.ToString();
+            lbl_PercentDone.Text = static_lng_text.lng_s_ExportDoneInXprocent_s + ": %0";
             progressBar.Maximum = 100;
             progressBar.Minimum = 0;
             progressBar.Value = 0;

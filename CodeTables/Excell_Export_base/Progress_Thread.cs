@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LanguageControl;
 using System.Threading;
 using System.Windows.Forms;
-namespace Excell_Export
+namespace Excell_Export_base
 {
     public class Progress_Thread
     {
@@ -42,7 +41,7 @@ namespace Excell_Export
                     }
                     if (m_Message != null)
                     {
-                        dlg_Progress_Form.lbl_PercentDone.Text = lng.s_ExportDoneInXprocent.s + ":%" + m_Message;
+                        dlg_Progress_Form.lbl_PercentDone.Text = static_lng_text.lng_s_ExportDoneInXprocent_s + ":%" + m_Message;
                         int iValue = Convert.ToInt32(m_Message);
                         dlg_Progress_Form.progressBar.Value = iValue;
                         m_Message = null;

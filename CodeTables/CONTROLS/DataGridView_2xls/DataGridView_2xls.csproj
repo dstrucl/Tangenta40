@@ -85,9 +85,17 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Excell_Export\Excell_Export.csproj">
       <Project>{5f7e6571-ac5e-44bc-a805-a0726d99b82c}</Project>
       <Name>Excell_Export</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Excell_Export_base\Excell_Export_base.csproj">
+      <Project>{fa97fa6a-58c9-4922-9c5a-f28c276bf731}</Project>
+      <Name>Excell_Export_base</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>

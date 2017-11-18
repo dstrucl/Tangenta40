@@ -31,7 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Language_Dictionary));
             this.btn_OK = new System.Windows.Forms.Button();
-            this.dataGridView2xls1 = new DataGridView_2xls.DataGridView2xls();
+            this.dataGridView2xls1 = new DataGridView_2xls_base.DataGridView2xls_base();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2xls1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,6 +91,6 @@
         #endregion
 
         private System.Windows.Forms.Button btn_OK;
-        private DataGridView_2xls.DataGridView2xls dataGridView2xls1;
+        private DataGridView_2xls_base.DataGridView2xls_base dataGridView2xls1;
     }
 }
