@@ -58,11 +58,12 @@
             // 
             // Form_TemplateTokens
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(586, 564);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.txt_Tokens);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Form_TemplateTokens";
             this.Text = "Form_TemplateTokens";
             this.ResumeLayout(false);
