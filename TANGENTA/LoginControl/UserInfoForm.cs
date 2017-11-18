@@ -18,14 +18,14 @@ namespace LoginControl
             InitializeComponent();
             try
             {
-                this.Text = lngRPM.s_UserInfo.s;
-                lbl_Roles.Text = lngRPM.s_Roles.s;
+                this.Text = lng.s_UserInfo.s;
+                lbl_Roles.Text = lng.s_Roles.s;
                 login_control = logctrl;
-                lbl_UserName.Text = lngRPM.s_UserName.s;
-                lbl_first_name.Text = lngRPM.s_FirstName.s;
-                lbl_last_name.Text = lngRPM.s_LastName.s;
-                lbl_Identity.Text = lngRPM.s_IdentityNumber.s;
-                lbl_Contact.Text = lngRPM.s_Contact.s;
+                lbl_UserName.Text = lng.s_UserName.s;
+                lbl_first_name.Text = lng.s_FirstName.s;
+                lbl_last_name.Text = lng.s_LastName.s;
+                lbl_Identity.Text = lng.s_IdentityNumber.s;
+                lbl_Contact.Text = lng.s_Contact.s;
                 txt_UserName.Text = login_control.UserName;
                 txt_first_name.Text = login_control.FirstName;
                 txt_last_name.Text = login_control.LastName;
@@ -39,7 +39,7 @@ namespace LoginControl
                 if (!login_control.PasswordNeverExpires)
                 {
                     lbl_Password_expires_on.Visible = true;
-                    lbl_Password_expires_on.Text = lngRPM.s_PasswordExpiresAfter.s + login_control.NumberOfDaysAfterPasswordExpires.ToString();
+                    lbl_Password_expires_on.Text = lng.s_PasswordExpiresAfter.s + login_control.NumberOfDaysAfterPasswordExpires.ToString();
                     txt_NumberOfDays.Visible = true;
                 }
                 else
@@ -47,7 +47,7 @@ namespace LoginControl
                     lbl_Password_expires_on.Visible = false;
                     txt_NumberOfDays.Visible = false;
                 }
-                btn_LoginHistory.Text = lngRPM.s_LoginHistoryAndActiveUsers.s;
+                btn_LoginHistory.Text = lng.s_LoginHistoryAndActiveUsers.s;
                 
             }
             catch (Exception Ex)

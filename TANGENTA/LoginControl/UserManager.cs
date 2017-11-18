@@ -27,7 +27,7 @@ namespace LoginControl
         private Form myParent;
         private string m_DataBaseFile;
         private DateTime m_DataBaseFileCreationTime;
-        DBConnectionControl35.DBConnection Login_con;
+        DBConnectionControl40.DBConnection Login_con;
 
         LoginDB_DataSet.LoginUsers LoginUsers = null;
         LoginDB_DataSet.LoginRoles LoginRoles = null;
@@ -49,32 +49,32 @@ namespace LoginControl
 
             myParent = pParent;
 
-            this.txt_ComputerName_DataBaseFile_DataBaseFileCreationTime.Text = LanguageControl.lngRPM.s_ComputerName.s + SystemInformation.ComputerName + "  ; " + lngRPM.s_DataBaseFile.s + m_DataBaseFile + " ; " + lngRPM.s_DataBaseFileCreationTime.s + m_DataBaseFileCreationTime.ToString();
+            this.txt_ComputerName_DataBaseFile_DataBaseFileCreationTime.Text = lng.s_ComputerName.s + SystemInformation.ComputerName + "  ; " + lng.s_DataBaseFile.s + m_DataBaseFile + " ; " + lng.s_DataBaseFileCreationTime.s + m_DataBaseFileCreationTime.ToString();
 
 
 
 
-            lbl_Max_Password_Age.Text = lngRPM.s_Max_Password_Age.s;
-            chk_ChangePasswordOnFirstLogIn.Text = lngRPM.s_chk_ChangePasswordOnFirstLogIn.s;
-            rdb_PaswordExpires_Never.Text = lngRPM.s_chk_PasswordNeverExpires.s;
-            rdb_DeactivateAfterNumberOfDays.Text = lngRPM.s_rdb_DeactivateAfterNumberOfDays.s;
-            rdb_AfterNumberOfDays.Text = lngRPM.s_rdb_AfterNumberOfDays.s;
-            lbl_UserFirstName.Text = lngRPM.s_FirstName.s;
-            lbl_UserLastName.Text = lngRPM.s_LastName.s;
-            lbl_UserIdentity.Text = lngRPM.s_IdentityNumber.s;
-            lbl_Contact.Text = lngRPM.s_Contact.s;
+            lbl_Max_Password_Age.Text = lng.s_Max_Password_Age.s;
+            chk_ChangePasswordOnFirstLogIn.Text = lng.s_chk_ChangePasswordOnFirstLogIn.s;
+            rdb_PaswordExpires_Never.Text = lng.s_chk_PasswordNeverExpires.s;
+            rdb_DeactivateAfterNumberOfDays.Text = lng.s_rdb_DeactivateAfterNumberOfDays.s;
+            rdb_AfterNumberOfDays.Text = lng.s_rdb_AfterNumberOfDays.s;
+            lbl_UserFirstName.Text = lng.s_FirstName.s;
+            lbl_UserLastName.Text = lng.s_LastName.s;
+            lbl_UserIdentity.Text = lng.s_IdentityNumber.s;
+            lbl_Contact.Text = lng.s_Contact.s;
 
            
-            this.lbl_UserName.Text = lngRPM.s_lblUserName_UserManager.s;
-            this.lblPassword.Text = lngRPM.s_lblPassword_UserManager.s;
-            this.lbl_ConfirmPasword.Text = lngRPM.s_lblConfirmPassword_UserManager.s;
-            this.btnAddUser.Text = lngRPM.s_btnAddUser_UserManager.s;
-            this.btnDeleteUser.Text = lngRPM.s_btn_DeleteUser.s;
-            this.btnChangeData.Text = lngRPM.s_btnChangeData_UserManager.s;
-            this.btnOK.Text = lngRPM.s_btnOK_UserManager.s;
-            this.btnCancel.Text = lngRPM.s_btnCancel_UserManager.s;
+            this.lbl_UserName.Text = lng.s_lblUserName_UserManager.s;
+            this.lblPassword.Text = lng.s_lblPassword_UserManager.s;
+            this.lbl_ConfirmPasword.Text = lng.s_lblConfirmPassword_UserManager.s;
+            this.btnAddUser.Text = lng.s_btnAddUser_UserManager.s;
+            this.btnDeleteUser.Text = lng.s_btn_DeleteUser.s;
+            this.btnChangeData.Text = lng.s_btnChangeData_UserManager.s;
+            this.btnOK.Text = lng.s_btnOK_UserManager.s;
+            this.btnCancel.Text = lng.s_btnCancel_UserManager.s;
             this.txtUserName.Tag = null;
-            this.grp_PasswordExpires.Text = lngRPM.s_PasswordExpires.s;
+            this.grp_PasswordExpires.Text = lng.s_PasswordExpires.s;
             btnDeleteUser.Enabled = false;
             this.lbl_ConfirmPasword.Enabled = false;
             this.lblPassword.Enabled = false;
@@ -83,14 +83,14 @@ namespace LoginControl
             this.btnAddUser.Enabled = false;
             this.btnChangeData.Enabled = false;
             this.Icon = Properties.Resources.user;
-            this.Text = lngRPM.s_ManageUSers.s;
-            lbl_ManageRoles.Text = lngRPM.s_lbl_ManageRoles.s;
-            btn_ManageRoles.Text = lngRPM.s_btn_ManageRoles.s;
+            this.Text = lng.s_ManageUSers.s;
+            lbl_ManageRoles.Text = lng.s_lbl_ManageRoles.s;
+            btn_ManageRoles.Text = lng.s_btn_ManageRoles.s;
 
-            chk_Active.Text = lngRPM.s_Active.s;
+            chk_Active.Text = lng.s_Active.s;
 
   
-            this.Text = lngRPM.s_ManageUSers.s + " " + lngRPM.s_OnComputer.s + " " + SystemInformation.ComputerName;
+            this.Text = lng.s_ManageUSers.s + " " + lng.s_OnComputer.s + " " + SystemInformation.ComputerName;
 
             if (Index_OfDefaultUserName >= 0)
             {
@@ -131,7 +131,7 @@ namespace LoginControl
                 this.lblPassword.Enabled = true;
                 this.txtPassword.Enabled = true;
                 this.btnAddUser.Enabled = true;
-                this.btnAddUser.Text = lngRPM.s_AddUser.s;
+                this.btnAddUser.Text = lng.s_AddUser.s;
             }
             else
             {
@@ -229,12 +229,12 @@ namespace LoginControl
 
                 if (txtUserName.Text.Length == 0)
                 {
-                    MessageBox.Show(lngRPM.s_UserNameIsNotWritten.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(lng.s_UserNameIsNotWritten.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
                 if (!txtPassword.Text.Equals(txtConfirmPassword.Text))
                 {
-                    MessageBox.Show(lngRPM.s_Password_does_not_match.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(lng.s_Password_does_not_match.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
 
@@ -245,7 +245,7 @@ namespace LoginControl
                     this.txtUserName.Tag = iRow;
                     btnDeleteUser.Enabled = true;
                     this.btnChangeData.Enabled = true;
-                    btnAddUser.Text = lngRPM.s_NewUser.s;
+                    btnAddUser.Text = lng.s_NewUser.s;
                     txtUserName.ReadOnly = true;
                 }
 
@@ -347,7 +347,7 @@ namespace LoginControl
                     if ((iRowIndex >= 0) && (iRowIndex < LoginUsers.dt.Rows.Count))
                     {
                         btnDeleteUser.Enabled = true;
-                        btnAddUser.Text = lngRPM.s_NewUser.s;
+                        btnAddUser.Text = lng.s_NewUser.s;
                         this.txtUserName.Enabled = true;
                         this.txtUserName.Tag = iRowIndex;
                         btnChangeData.Enabled = true;
@@ -540,7 +540,7 @@ namespace LoginControl
                     dgv_LoginUsers.CurrentCell = dgv_LoginUsers[0, iRowIndex];
                     txtUserName.Tag = iRowIndex;
                     btnDeleteUser.Enabled = true;
-                    btnAddUser.Text = lngRPM.s_NewUser.s;
+                    btnAddUser.Text = lng.s_NewUser.s;
                     this.txtUserName.Enabled = true;
                     this.txtUserName.Tag = iRowIndex;
                     btnChangeData.Enabled = true;
@@ -564,7 +564,7 @@ namespace LoginControl
                     txtUserName.Text = "";
                     this.txtPassword.Text = "";
                     this.txtConfirmPassword.Text = "";
-                    this.btnAddUser.Text = lngRPM.s_AddUser.s;
+                    this.btnAddUser.Text = lng.s_AddUser.s;
                     txtUserName.Focus();
                 }
             }
@@ -620,7 +620,7 @@ namespace LoginControl
                     {
                         if (Func_ChangeData(userdata, bActive,  ref csError))
                         {
-                            MessageBox.Show(lngRPM.sUserDataAreChanged.s);
+                            MessageBox.Show(lng.sUserDataAreChanged.s);
                             return true;
                         }
                         else
@@ -637,7 +637,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    MessageBox.Show(lngRPM.s_Password_does_not_match.s);
+                    MessageBox.Show(lng.s_Password_does_not_match.s);
                 }
             }
             return false;
@@ -717,7 +717,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    MessageBox.Show(lngRPM.s_UserNameIsNotWritten.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(lng.s_UserNameIsNotWritten.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 e.Handled = true;
             }
@@ -742,7 +742,7 @@ namespace LoginControl
                                    }
                 else
                 {
-                    MessageBox.Show(lngRPM.s_Password_does_not_match.s, lngRPM.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(lng.s_Password_does_not_match.s, lng.s_Warning.s, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     e.Handled = true;
                 }
             }
@@ -879,7 +879,7 @@ namespace LoginControl
                 DataGridViewCell dgvcell = new DataGridViewTextBoxCell();
                 DataGridViewColumn dgvcol = new DataGridViewColumn(dgvcell);
                 dgvcol.Name = "Password";
-                dgvcol.HeaderText = lngConn.s_Password.s;
+                dgvcol.HeaderText = lng.s_Password.s;
                 dgv_LoginUsers.Columns.Insert(dgv_LoginUsers.Columns[LoginDB_DataSet.LoginUsers.password.name].Index, dgvcol);
                 if (!LoginRolesReload(LoginUsers.m_bs_dt.Position, ref Err))
                 {
@@ -987,18 +987,18 @@ namespace LoginControl
 
                         if ((LoginUsers.o_password.password_ == null) && ((userdata.password.Length < login_control.MinPasswordLength)))
                         {
-                            MessageBox.Show(lngRPM.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s
+                            MessageBox.Show(lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers1.s
                                             + login_control.MinPasswordLength.ToString() +
-                                            lngRPM.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
+                                            lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
                             return false;
                         }
                         else
                         {
                             if ((LoginUsers.o_password.password_ != null) && ((userdata.password.Length < login_control.MinPasswordLength)) && ((userdata.password.Length > 0)))
                             {
-                                MessageBox.Show(lngRPM.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers3.s
+                                MessageBox.Show(lng.s_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers3.s
                                               + login_control.MinPasswordLength.ToString() +
-                                              lngRPM.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
+                                              lng.s_PasswordIsNotDefined_YouMustDefinePasswordThatHasAtLeastXCharactersOrNumbers2.s);
                                 return false;
                             }
                         }

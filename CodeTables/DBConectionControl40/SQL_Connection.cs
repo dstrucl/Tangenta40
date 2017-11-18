@@ -141,6 +141,54 @@ namespace DBConnectionControl40
     
         }
 
+        public static eSQL_Parameter Get_eSQL_Parameter(string m_Type)
+        {
+            if (m_Type.ToLower().Equals("int"))
+            {
+                return eSQL_Parameter.Int;
+            }
+            else if(m_Type.ToLower().Equals("decimal"))
+            {
+                return eSQL_Parameter.Decimal;
+            }
+            else if (m_Type.ToLower().Equals("float"))
+            {
+                return eSQL_Parameter.Float;
+            }
+            else if (m_Type.ToLower().Equals("bit"))
+            {
+                return eSQL_Parameter.Bit;
+            }
+            else if (m_Type.ToLower().Equals("datetime"))
+            {
+                return eSQL_Parameter.Datetime;
+            }
+            else if (m_Type.ToLower().Equals("varchar"))
+            {
+                return eSQL_Parameter.Varchar;
+            }
+            else if (m_Type.ToLower().Equals("nchar"))
+            {
+                return eSQL_Parameter.Nchar;
+            }
+            else if (m_Type.ToLower().Equals("bigint"))
+            {
+                return eSQL_Parameter.Bigint;
+            }
+            else if (m_Type.ToLower().Equals("smallint"))
+            {
+                return eSQL_Parameter.Smallint;
+            }
+            else if (m_Type.ToLower().Equals("varbinary"))
+            {
+                return eSQL_Parameter.Varbinary;
+            }
+            else
+            {
+                MessageBox.Show("ERROR:DBConnectionControl40:SQL_Parameter:Get_eSQL_Parameter(string m_Type) m_Type " + m_Type + " NOT IMPLEMENTED!");
+                return eSQL_Parameter.Bit;
+            }
+        }
     }
 
 

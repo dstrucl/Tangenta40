@@ -19,7 +19,7 @@ namespace LoginControl
         {
             InitializeComponent();
             login_control = logctrl;
-            this.Text = lngRPM.s_RoleManagerForm.s;
+            this.Text = lng.s_RoleManagerForm.s;
         }
 
         private void RoleManager_Load(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace LoginControl
         {
             if (LoginRoles.bModified)
             {
-                if (MessageBox.Show(this, lngRPM.s_RolesDataTableIsChanged_Question_SAVE.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(this, lng.s_RolesDataTableIsChanged_Question_SAVE.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     string Err = null;
                     if (LoginRoles.update(ref Err))

@@ -15,7 +15,7 @@ namespace LoginControl
         public LoginSuperAdministratorForm()
         {
             InitializeComponent();
-            this.lbl_LoginAsSuperadministrator.Text = lngRPM.s_LoginSuperAdministrator.s;
+            this.lbl_LoginAsSuperadministrator.Text = lng.s_LoginSuperAdministrator.s;
         }
 
         private void btn_OK_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace LoginControl
             }
             else
             {
-                MessageBox.Show(LanguageControl.lngRPM.s_Password_Wrong.s);
+                MessageBox.Show(lng.s_Password_Wrong.s);
             }
         }
 

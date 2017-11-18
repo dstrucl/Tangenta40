@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DBConnectionControl35;
+using DBConnectionControl40;
 using LanguageControl;
 using LogFile;
 using System.Security.Cryptography;
@@ -155,7 +155,7 @@ namespace LoginControl
             set {m_MinPasswordLength = value;
                     if (m_MinPasswordLength < 3)
                     {
-                        MessageBox.Show(lngRPM.s_YouCanNotSetMinumumPasswordLengthLessThan3.s);
+                        MessageBox.Show(lng.s_YouCanNotSetMinumumPasswordLengthLessThan3.s);
                     }
                 }
         }
@@ -166,7 +166,7 @@ namespace LoginControl
         }
         public bool CheckConnection(Form pParentForm)
         {
-            return Login_con.CheckDataBaseConnection(pParentForm, lngRPM.s_LoginConnection.s);
+            return Login_con.CheckDataBaseConnection(pParentForm, lng.s_LoginConnection.s);
         }
 
 
@@ -192,7 +192,7 @@ namespace LoginControl
                 switch (m_eDataTableCreationMode)
                 {
                     case eDataTableCreationMode.NONE:
-                        if (MessageBox.Show(lngRPM.s_CreateLoginTablesQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (MessageBox.Show(lng.s_CreateLoginTablesQuestion.s, "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             if (CreateTables())
                             {
@@ -1769,7 +1769,7 @@ namespace LoginControl
 
         }
 
-        public bool Init(Form pParentForm, DBConnection con,object DBParam,int Language_id, ref string Err )
+        public bool Init(Form pParentForm, DBConnection con,object DBParam,int Language_id, NavigationButtons.Navigation xnav,ref bool bCancel, ref string Err )
         {
             LoginDB_DataSet.DynSettings.LanguageID = Language_id;
             Login_con = con;
@@ -1794,7 +1794,7 @@ namespace LoginControl
             }
             else
             {
-                if (Login_con.MakeDataBaseConnection(pParentForm, DBParam))
+                if (Login_con.MakeDataBaseConnection(pParentForm, DBParam,xnav, ref bCancel))
                 {
                     return GetTables(ref Err);
                 }
@@ -2034,7 +2034,7 @@ namespace LoginControl
             m_LoginData.m_NotActiveAfterPasswordExpires = LoginUsers.o_NotActiveAfterPasswordExpires.NotActiveAfterPasswordExpires_;
             m_LoginData.NumberOfDaysAfterPasswordExpires = LoginUsers.o_Maximum_password_age_in_days.Maximum_password_age_in_days_;
 
-            lbl_username.Text = lngRPM.s_UserName.s + ":" + m_LoginData.m_UserName;
+            lbl_username.Text = lng.s_UserName.s + ":" + m_LoginData.m_UserName;
 
             try
             {

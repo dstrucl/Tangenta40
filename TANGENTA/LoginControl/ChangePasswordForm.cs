@@ -21,9 +21,9 @@ namespace LoginControl
             InitializeComponent();
             login_control = loginctrl;
             LoginUsers = login_users;
-            this.Text = lngRPM.s_UserThatChangesPassword.s + login_control.UserName;
-            lbl_New_Password.Text = lngRPM.s_New_Password.s;
-            lbl_Confirm_New_Pasword.Text = lngRPM.s_Confirm_New_Password.s;
+            this.Text = lng.s_UserThatChangesPassword.s + login_control.UserName;
+            lbl_New_Password.Text = lng.s_New_Password.s;
+            lbl_Confirm_New_Pasword.Text = lng.s_Confirm_New_Password.s;
             lbl_Instruction.Text = sInstruction;
         }
 
@@ -49,7 +49,7 @@ namespace LoginControl
                 }
                 else
                 {
-                    MessageBox.Show(lngRPM.s_Password_does_not_match.s);
+                    MessageBox.Show(lng.s_Password_does_not_match.s);
                 }
             }
         }

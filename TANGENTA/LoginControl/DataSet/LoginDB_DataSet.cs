@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using DBConnectionControl35;
+using DBConnectionControl40;
 using LoginaDatasetCommonClasses;
 namespace LoginDB_DataSet
 {
@@ -73,7 +73,7 @@ namespace LoginDB_DataSet
            }
            public ComputerName o_ComputerName = new ComputerName();
 
-        public LoginComputer(DBConnectionControl35.DBConnection xcon)
+        public LoginComputer(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -163,7 +163,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginComputer.o_id.Where.AddParameter(par);
                     }
@@ -180,7 +180,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void ComputerName_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void ComputerName_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginComputer.o_ComputerName.Where.AddParameter(par);
                     }
@@ -315,7 +315,7 @@ namespace LoginDB_DataSet
            }
            public ComputerUserName o_ComputerUserName = new ComputerUserName();
 
-        public LoginComputerUser(DBConnectionControl35.DBConnection xcon)
+        public LoginComputerUser(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -405,7 +405,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginComputerUser.o_id.Where.AddParameter(par);
                     }
@@ -422,7 +422,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void ComputerUserName_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void ComputerUserName_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginComputerUser.o_ComputerUserName.Where.AddParameter(par);
                     }
@@ -617,7 +617,7 @@ namespace LoginDB_DataSet
            }
            public LoginComputerUser_id o_LoginComputerUser_id = new LoginComputerUser_id();
 
-        public LoginFailed(DBConnectionControl35.DBConnection xcon)
+        public LoginFailed(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -817,7 +817,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginFailed.o_id.Where.AddParameter(par);
                     }
@@ -834,7 +834,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void username_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void username_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginFailed.o_username.Where.AddParameter(par);
                     }
@@ -851,7 +851,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void AttemptTime_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void AttemptTime_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginFailed.o_AttemptTime.Where.AddParameter(par);
                     }
@@ -868,7 +868,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void username_does_not_exist_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void username_does_not_exist_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginFailed.o_username_does_not_exist.Where.AddParameter(par);
                     }
@@ -885,7 +885,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void password_wrong_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void password_wrong_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginFailed.o_password_wrong.Where.AddParameter(par);
                     }
@@ -902,7 +902,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginComputer_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginComputer_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginFailed.o_LoginComputer_id.Where.AddParameter(par);
                     }
@@ -919,7 +919,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginComputerUser_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginComputerUser_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginFailed.o_LoginComputerUser_id.Where.AddParameter(par);
                     }
@@ -1184,7 +1184,7 @@ namespace LoginDB_DataSet
            }
            public Name o_Name = new Name();
 
-        public LoginManagerEvent(DBConnectionControl35.DBConnection xcon)
+        public LoginManagerEvent(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -1274,7 +1274,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerEvent.o_id.Where.AddParameter(par);
                     }
@@ -1291,7 +1291,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerEvent.o_Name.Where.AddParameter(par);
                     }
@@ -1450,7 +1450,7 @@ namespace LoginDB_DataSet
            }
            public Time o_Time = new Time();
 
-        public LoginManagerJournal(DBConnectionControl35.DBConnection xcon)
+        public LoginManagerJournal(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -1584,7 +1584,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal.o_id.Where.AddParameter(par);
                     }
@@ -1601,7 +1601,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginUsers_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginUsers_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal.o_LoginUsers_id.Where.AddParameter(par);
                     }
@@ -1618,7 +1618,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginManagerEvent_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginManagerEvent_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal.o_LoginManagerEvent_id.Where.AddParameter(par);
                     }
@@ -1635,7 +1635,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Time_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Time_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal.o_Time.Where.AddParameter(par);
                     }
@@ -1846,7 +1846,7 @@ namespace LoginDB_DataSet
            }
            public description o_description = new description();
 
-        public LoginRoles(DBConnectionControl35.DBConnection xcon)
+        public LoginRoles(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -1980,7 +1980,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginRoles.o_id.Where.AddParameter(par);
                     }
@@ -1997,7 +1997,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginRoles.o_Name.Where.AddParameter(par);
                     }
@@ -2014,7 +2014,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void PrivilegesLevel_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void PrivilegesLevel_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginRoles.o_PrivilegesLevel.Where.AddParameter(par);
                     }
@@ -2031,7 +2031,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void description_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void description_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginRoles.o_description.Where.AddParameter(par);
                     }
@@ -2266,7 +2266,7 @@ namespace LoginDB_DataSet
            }
            public LoginComputerUser_id o_LoginComputerUser_id = new LoginComputerUser_id();
 
-        public LoginSession(DBConnectionControl35.DBConnection xcon)
+        public LoginSession(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -2444,7 +2444,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession.o_id.Where.AddParameter(par);
                     }
@@ -2461,7 +2461,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginUsers_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginUsers_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession.o_LoginUsers_id.Where.AddParameter(par);
                     }
@@ -2478,7 +2478,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Login_time_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Login_time_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession.o_Login_time.Where.AddParameter(par);
                     }
@@ -2495,7 +2495,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Logout_time_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Logout_time_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession.o_Logout_time.Where.AddParameter(par);
                     }
@@ -2512,7 +2512,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginComputer_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginComputer_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession.o_LoginComputer_id.Where.AddParameter(par);
                     }
@@ -2529,7 +2529,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginComputerUser_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginComputerUser_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession.o_LoginComputerUser_id.Where.AddParameter(par);
                     }
@@ -2936,7 +2936,7 @@ namespace LoginDB_DataSet
            }
            public NotActiveAfterPasswordExpires o_NotActiveAfterPasswordExpires = new NotActiveAfterPasswordExpires();
 
-        public LoginUsers(DBConnectionControl35.DBConnection xcon)
+        public LoginUsers(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -3334,7 +3334,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_id.Where.AddParameter(par);
                     }
@@ -3351,7 +3351,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void first_name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void first_name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_first_name.Where.AddParameter(par);
                     }
@@ -3368,7 +3368,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void last_name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void last_name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_last_name.Where.AddParameter(par);
                     }
@@ -3385,7 +3385,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Identity_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Identity_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_Identity.Where.AddParameter(par);
                     }
@@ -3402,7 +3402,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Contact_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Contact_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_Contact.Where.AddParameter(par);
                     }
@@ -3419,7 +3419,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void username_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void username_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_username.Where.AddParameter(par);
                     }
@@ -3436,7 +3436,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void password_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void password_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_password.Where.AddParameter(par);
                     }
@@ -3453,7 +3453,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void enabled_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void enabled_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_enabled.Where.AddParameter(par);
                     }
@@ -3470,7 +3470,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void ChangePasswordOnFirstLogin_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void ChangePasswordOnFirstLogin_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_ChangePasswordOnFirstLogin.Where.AddParameter(par);
                     }
@@ -3487,7 +3487,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Time_When_AdministratorSetsPassword_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Time_When_AdministratorSetsPassword_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_Time_When_AdministratorSetsPassword.Where.AddParameter(par);
                     }
@@ -3504,7 +3504,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Administrator_LoginUsers_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Administrator_LoginUsers_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_Administrator_LoginUsers_id.Where.AddParameter(par);
                     }
@@ -3521,7 +3521,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Time_When_UserSetsItsOwnPassword_FirstTime_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Time_When_UserSetsItsOwnPassword_FirstTime_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_Time_When_UserSetsItsOwnPassword_FirstTime.Where.AddParameter(par);
                     }
@@ -3538,7 +3538,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Time_When_UserSetsItsOwnPassword_LastTime_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Time_When_UserSetsItsOwnPassword_LastTime_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_Time_When_UserSetsItsOwnPassword_LastTime.Where.AddParameter(par);
                     }
@@ -3555,7 +3555,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void PasswordNeverExpires_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void PasswordNeverExpires_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_PasswordNeverExpires.Where.AddParameter(par);
                     }
@@ -3572,7 +3572,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Maximum_password_age_in_days_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Maximum_password_age_in_days_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_Maximum_password_age_in_days.Where.AddParameter(par);
                     }
@@ -3589,7 +3589,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void NotActiveAfterPasswordExpires_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void NotActiveAfterPasswordExpires_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsers.o_NotActiveAfterPasswordExpires.Where.AddParameter(par);
                     }
@@ -4100,7 +4100,7 @@ namespace LoginDB_DataSet
            }
            public LoginRoles_id o_LoginRoles_id = new LoginRoles_id();
 
-        public LoginUsersAndLoginRoles(DBConnectionControl35.DBConnection xcon)
+        public LoginUsersAndLoginRoles(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -4212,7 +4212,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsersAndLoginRoles.o_id.Where.AddParameter(par);
                     }
@@ -4229,7 +4229,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginUsers_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginUsers_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsersAndLoginRoles.o_LoginUsers_id.Where.AddParameter(par);
                     }
@@ -4246,7 +4246,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginRoles_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginRoles_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginUsersAndLoginRoles.o_LoginRoles_id.Where.AddParameter(par);
                     }
@@ -4565,7 +4565,7 @@ namespace LoginDB_DataSet
            }
            public Role_description o_Role_description = new Role_description();
 
-        public Login_VIEW(DBConnectionControl35.DBConnection xcon)
+        public Login_VIEW(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -4935,7 +4935,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Users_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Users_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_LoginUsers_id.Where.AddParameter(par);
                     }
@@ -4952,7 +4952,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void first_name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void first_name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_first_name.Where.AddParameter(par);
                     }
@@ -4969,7 +4969,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void last_name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void last_name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_last_name.Where.AddParameter(par);
                     }
@@ -4986,7 +4986,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Identity_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Identity_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Identity.Where.AddParameter(par);
                     }
@@ -5003,7 +5003,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Contact_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Contact_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Contact.Where.AddParameter(par);
                     }
@@ -5020,7 +5020,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void username_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void username_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_username.Where.AddParameter(par);
                     }
@@ -5037,7 +5037,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void password_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void password_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_password.Where.AddParameter(par);
                     }
@@ -5054,7 +5054,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void PasswordNeverExpires_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void PasswordNeverExpires_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_PasswordNeverExpires.Where.AddParameter(par);
                     }
@@ -5071,7 +5071,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void enabled_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void enabled_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_enabled.Where.AddParameter(par);
                     }
@@ -5088,7 +5088,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Maximum_password_age_in_days_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Maximum_password_age_in_days_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Maximum_password_age_in_days.Where.AddParameter(par);
                     }
@@ -5105,7 +5105,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void NotActiveAfterPasswordExpires_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void NotActiveAfterPasswordExpires_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_NotActiveAfterPasswordExpires.Where.AddParameter(par);
                     }
@@ -5122,7 +5122,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Time_When_UserSetsItsOwnPassword_FirstTime_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Time_When_UserSetsItsOwnPassword_FirstTime_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Time_When_UserSetsItsOwnPassword_FirstTime.Where.AddParameter(par);
                     }
@@ -5139,7 +5139,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Time_When_UserSetsItsOwnPassword_LastTime_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Time_When_UserSetsItsOwnPassword_LastTime_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Time_When_UserSetsItsOwnPassword_LastTime.Where.AddParameter(par);
                     }
@@ -5156,7 +5156,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void ChangePasswordOnFirstLogin_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void ChangePasswordOnFirstLogin_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_ChangePasswordOnFirstLogin.Where.AddParameter(par);
                     }
@@ -5173,7 +5173,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Role_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Role_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Role_id.Where.AddParameter(par);
                     }
@@ -5190,7 +5190,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Role_Name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Role_Name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Role_Name.Where.AddParameter(par);
                     }
@@ -5207,7 +5207,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Role_PrivilegesLevel_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Role_PrivilegesLevel_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Role_PrivilegesLevel.Where.AddParameter(par);
                     }
@@ -5224,7 +5224,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Role_description_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Role_description_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_Login_VIEW.o_Role_description.Where.AddParameter(par);
                     }
@@ -5538,7 +5538,7 @@ namespace LoginDB_DataSet
            }
            public username o_username = new username();
 
-        public LoginManagerJournal_VIEW(DBConnectionControl35.DBConnection xcon)
+        public LoginManagerJournal_VIEW(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -5674,7 +5674,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Time_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Time_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal_VIEW.o_Time.Where.AddParameter(par);
                     }
@@ -5691,7 +5691,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginManagerEvent_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginManagerEvent_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal_VIEW.o_LoginManagerEvent_id.Where.AddParameter(par);
                     }
@@ -5708,7 +5708,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginManagerEvent_Message_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginManagerEvent_Message_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal_VIEW.o_LoginManagerEvent_Message.Where.AddParameter(par);
                     }
@@ -5725,7 +5725,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginUsers_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginUsers_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal_VIEW.o_LoginUsers_id.Where.AddParameter(par);
                     }
@@ -5742,7 +5742,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void username_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void username_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginManagerJournal_VIEW.o_username.Where.AddParameter(par);
                     }
@@ -5988,7 +5988,7 @@ namespace LoginDB_DataSet
            }
            public ComputerUserName o_ComputerUserName = new ComputerUserName();
 
-        public LoginSession_VIEW(DBConnectionControl35.DBConnection xcon)
+        public LoginSession_VIEW(DBConnectionControl40.DBConnection xcon)
            {
                 select = new selection(this);
                 where  = new WHERE(this);
@@ -6268,7 +6268,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginSession_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginSession_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_LoginSession_id.Where.AddParameter(par);
                     }
@@ -6285,7 +6285,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginUsers_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginUsers_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_LoginUsers_id.Where.AddParameter(par);
                     }
@@ -6302,7 +6302,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void username_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void username_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_username.Where.AddParameter(par);
                     }
@@ -6319,7 +6319,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void first_name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void first_name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_first_name.Where.AddParameter(par);
                     }
@@ -6336,7 +6336,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void last_name_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void last_name_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_last_name.Where.AddParameter(par);
                     }
@@ -6353,7 +6353,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Identity_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Identity_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_Identity.Where.AddParameter(par);
                     }
@@ -6370,7 +6370,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Contact_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Contact_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_Contact.Where.AddParameter(par);
                     }
@@ -6387,7 +6387,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Login_time_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Login_time_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_Login_time.Where.AddParameter(par);
                     }
@@ -6404,7 +6404,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void Logout_time_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void Logout_time_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_Logout_time.Where.AddParameter(par);
                     }
@@ -6421,7 +6421,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginComputer_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginComputer_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_LoginComputer_id.Where.AddParameter(par);
                     }
@@ -6438,7 +6438,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void ComputerName_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void ComputerName_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_ComputerName.Where.AddParameter(par);
                     }
@@ -6455,7 +6455,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void LoginComputerUser_id_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void LoginComputerUser_id_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_LoginComputerUser_id.Where.AddParameter(par);
                     }
@@ -6472,7 +6472,7 @@ namespace LoginDB_DataSet
                     }
                     
 
-                    public void ComputerUserName_AddParameter(DBConnectionControl35.SQL_Parameter par)
+                    public void ComputerUserName_AddParameter(DBConnectionControl40.SQL_Parameter par)
                     {
                         m_LoginSession_VIEW.o_ComputerUserName.Where.AddParameter(par);
                     }
@@ -6691,7 +6691,7 @@ namespace LoginDB_DataSet
               return (bool)Result;
             }
             
-                public LoginDB_DataSet_ScalarFunctions(DBConnectionControl35.DBConnection xcon)
+                public LoginDB_DataSet_ScalarFunctions(DBConnectionControl40.DBConnection xcon)
                 {
                         m_con = xcon;
         
@@ -7492,7 +7492,7 @@ Res = (string) ProcParamValue("@Par_LoginUsers_Administrator_AddUser_Res");
                       }
                     }
                 
-                public LoginDB_DataSet_Procedures(DBConnectionControl35.DBConnection xcon)
+                public LoginDB_DataSet_Procedures(DBConnectionControl40.DBConnection xcon)
                 {
                         m_con = xcon;
         

@@ -45,26 +45,26 @@ public class bEnabled
 public class Where : bEnabled
 {
     private string m_expression = null;
-    public List<DBConnectionControl35.SQL_Parameter> m_expression_parameters = null;
+    public List<DBConnectionControl40.SQL_Parameter> m_expression_parameters = null;
     public string expression
     {
         get { return m_expression; }
         set { m_expression = value; }
     }
-    public void AddParameter(DBConnectionControl35.SQL_Parameter par)
+    public void AddParameter(DBConnectionControl40.SQL_Parameter par)
     {
         if (m_expression_parameters == null)
         {
-            m_expression_parameters = new List<DBConnectionControl35.SQL_Parameter>();
+            m_expression_parameters = new List<DBConnectionControl40.SQL_Parameter>();
         }
         m_expression_parameters.Add(par);
     }
 
-    internal void Add_lPar(List<DBConnectionControl35.SQL_Parameter> lPar)
+    internal void Add_lPar(List<DBConnectionControl40.SQL_Parameter> lPar)
     {
         if (m_expression_parameters != null)
         {
-            foreach (DBConnectionControl35.SQL_Parameter par in m_expression_parameters)
+            foreach (DBConnectionControl40.SQL_Parameter par in m_expression_parameters)
             {
                 lPar.Add(par);
             }
@@ -163,11 +163,11 @@ public class XTable
     private string m_sql_UpdateAll = "";
     private List<Command> Commands = new List<Command>();
     public bool bModified = false;
-    private List<DBConnectionControl35.SQL_Parameter> m_UpdateAllPar = new List<DBConnectionControl35.SQL_Parameter>();
+    private List<DBConnectionControl40.SQL_Parameter> m_UpdateAllPar = new List<DBConnectionControl40.SQL_Parameter>();
     public delegate void delegate_UpdateObjects(DataRow dr);
     protected delegate_UpdateObjects myUpdateObjects = null;
     protected string tablename;
-    public DBConnectionControl35.DBConnection m_con;
+    public DBConnectionControl40.DBConnection m_con;
     public List<ValSet> Columns = new List<ValSet>();
 
     public int Cursor
@@ -686,7 +686,8 @@ WHERE id = " + GetIDValue(Columns);
     private string AddParam(ValSet valSet, object obj_new)
     {
         string sParName = "@par" + m_UpdateAllPar.Count.ToString() + "_" + Func.CleanName(valSet.col_name);
-        m_UpdateAllPar.Add(new DBConnectionControl35.SQL_Parameter(sParName, valSet.col_type.m_Type, false, obj_new));
+            DBConnectionControl40.SQL_Parameter.eSQL_Parameter epar = DBConnectionControl40.SQL_Parameter.Get_eSQL_Parameter(valSet.col_type.m_Type);
+        m_UpdateAllPar.Add(new DBConnectionControl40.SQL_Parameter(sParName, DBConnectionControl40.SQL_Parameter.Get_eSQL_Parameter(valSet.col_type.m_Type),  false, obj_new));
         return sParName;
     }
 
@@ -859,7 +860,7 @@ WHERE id = " + GetIDValue(Columns);
     {
         bRead = true;
         dt.Clear();
-        List<DBConnectionControl35.SQL_Parameter> lPar = new List<DBConnectionControl35.SQL_Parameter>();
+        List<DBConnectionControl40.SQL_Parameter> lPar = new List<DBConnectionControl40.SQL_Parameter>();
         string sql_select = "SELECT ";
         int i;
         int iColumns = Columns.Count;
@@ -911,13 +912,13 @@ WHERE id = " + GetIDValue(Columns);
                     if (!bFirstFound)
                     {
                         sql_select += " WHERE ([" + colvs.col_name + "] = @par_" + GetParamName(colvs.col_name) + ")";
-                        lPar.Add(new DBConnectionControl35.SQL_Parameter("@par_" + GetParamName(colvs.col_name), colvs.col_type.m_Type, false, colvs.obj));
+                        lPar.Add(new DBConnectionControl40.SQL_Parameter("@par_" + GetParamName(colvs.col_name), DBConnectionControl40.SQL_Parameter.Get_eSQL_Parameter(colvs.col_type.m_Type), false, colvs.obj));
                         bFirstFound = true;
                     }
                     else
                     {
                         sql_select += " AND ([" + colvs.col_name + "] = @par_" + GetParamName(colvs.col_name) + ")";
-                        lPar.Add(new DBConnectionControl35.SQL_Parameter("@par_" + GetParamName(colvs.col_name), colvs.col_type.m_Type, false, colvs.obj));
+                        lPar.Add(new DBConnectionControl40.SQL_Parameter("@par_" + GetParamName(colvs.col_name), DBConnectionControl40.SQL_Parameter.Get_eSQL_Parameter(colvs.col_type.m_Type), false, colvs.obj));
                     }
                 }
                 else
@@ -974,7 +975,7 @@ public class XView
     private List<Command> Commands = new List<Command>();
 
     protected string tablename;
-    public DBConnectionControl35.DBConnection m_con;
+    public DBConnectionControl40.DBConnection m_con;
     public List<ValSet> Columns = new List<ValSet>();
 
     public int Cursor
@@ -1067,7 +1068,7 @@ public class XView
     {
         bRead = true;
         dt.Clear();
-        List<DBConnectionControl35.SQL_Parameter> lPar = new List<DBConnectionControl35.SQL_Parameter>();
+        List<DBConnectionControl40.SQL_Parameter> lPar = new List<DBConnectionControl40.SQL_Parameter>();
         string sql_select = "SELECT ";
         int i;
         int iColumns = Columns.Count;
@@ -1119,13 +1120,13 @@ public class XView
                     if (!bFirstFound)
                     {
                         sql_select += " WHERE ([" + Columns[i].col_name + "] = @par_" + Func.CleanName(Columns[i].col_name) + ")";
-                        lPar.Add(new DBConnectionControl35.SQL_Parameter("@par_" + Func.CleanName(Columns[i].col_name), Columns[i].col_type.m_Type, false, Columns[i].obj));
+                        lPar.Add(new DBConnectionControl40.SQL_Parameter("@par_" + Func.CleanName(Columns[i].col_name), DBConnectionControl40.SQL_Parameter.Get_eSQL_Parameter(Columns[i].col_type.m_Type), false, Columns[i].obj));
                         bFirstFound = true;
                     }
                     else
                     {
                         sql_select += " AND ([" + Columns[i].col_name + "] = @par_" + Func.CleanName(Columns[i].col_name) + ")";
-                        lPar.Add(new DBConnectionControl35.SQL_Parameter("@par_" + Func.CleanName(Columns[i].col_name), Columns[i].col_type.m_Type, false, Columns[i].obj));
+                        lPar.Add(new DBConnectionControl40.SQL_Parameter("@par_" + Func.CleanName(Columns[i].col_name), DBConnectionControl40.SQL_Parameter.Get_eSQL_Parameter(Columns[i].col_type.m_Type), false, Columns[i].obj));
                     }
                 }
                 else
@@ -1178,10 +1179,10 @@ public class XTableFunction
     private List<Command> Commands = new List<Command>();
 
     protected string tablefunctionname;
-    public DBConnectionControl35.DBConnection m_con;
+    public DBConnectionControl40.DBConnection m_con;
     public List<ValSet> Columns = new List<ValSet>();
 
-    public List<DBConnectionControl35.SQL_Parameter> FuncParams = new List<DBConnectionControl35.SQL_Parameter>();
+    public List<DBConnectionControl40.SQL_Parameter> FuncParams = new List<DBConnectionControl40.SQL_Parameter>();
 
     public int Cursor
     {
@@ -1272,7 +1273,7 @@ public class XTableFunction
     {
         bRead = true;
         dt.Clear();
-        List<DBConnectionControl35.SQL_Parameter> lPar = new List<DBConnectionControl35.SQL_Parameter>();
+        List<DBConnectionControl40.SQL_Parameter> lPar = new List<DBConnectionControl40.SQL_Parameter>();
         string sql_select = "SELECT ";
         int i;
         int iColumns = Columns.Count;
@@ -1314,7 +1315,7 @@ public class XTableFunction
 
         // Parameters part
         string sql_args = "";
-        foreach (DBConnectionControl35.SQL_Parameter par in FuncParams)
+        foreach (DBConnectionControl40.SQL_Parameter par in FuncParams)
         {
             lPar.Add(par);
             if (sql_args.Length == 0)
@@ -1340,13 +1341,13 @@ public class XTableFunction
                     if (!bFirstFound)
                     {
                         sql_select += " WHERE ([" + Columns[i].col_name + "] = @par_" + Func.CleanName(Columns[i].col_name) + ")";
-                        lPar.Add(new DBConnectionControl35.SQL_Parameter("@par_" + Func.CleanName(Columns[i].col_name), Columns[i].col_type.m_Type, false, Columns[i].obj));
+                        lPar.Add(new DBConnectionControl40.SQL_Parameter("@par_" + Func.CleanName(Columns[i].col_name), DBConnectionControl40.SQL_Parameter.Get_eSQL_Parameter(Columns[i].col_type.m_Type), false, Columns[i].obj));
                         bFirstFound = true;
                     }
                     else
                     {
                         sql_select += " AND ([" + Columns[i].col_name + "] = @par_" + Func.CleanName(Columns[i].col_name) + ")";
-                        lPar.Add(new DBConnectionControl35.SQL_Parameter("@par_" + Func.CleanName(Columns[i].col_name), Columns[i].col_type.m_Type, false, Columns[i].obj));
+                        lPar.Add(new DBConnectionControl40.SQL_Parameter("@par_" + Func.CleanName(Columns[i].col_name), DBConnectionControl40.SQL_Parameter.Get_eSQL_Parameter(Columns[i].col_type.m_Type), false, Columns[i].obj));
                     }
                 }
                 else
@@ -1394,9 +1395,9 @@ public class XTableFunction
 public class XFunction
 {
     protected string scalarfunctionname;
-    public DBConnectionControl35.DBConnection m_con;
+    public DBConnectionControl40.DBConnection m_con;
 
-    public List<DBConnectionControl35.SQL_Parameter> FuncParams = new List<DBConnectionControl35.SQL_Parameter>();
+    public List<DBConnectionControl40.SQL_Parameter> FuncParams = new List<DBConnectionControl40.SQL_Parameter>();
 
 
 
@@ -1407,10 +1408,10 @@ public class XFunction
 
     public object exec(string sFunctionName, ref string csError)
     {
-        List<DBConnectionControl35.SQL_Parameter> lPar = new List<DBConnectionControl35.SQL_Parameter>();
+        List<DBConnectionControl40.SQL_Parameter> lPar = new List<DBConnectionControl40.SQL_Parameter>();
         string sql_args = "";
         string Result_par = null;
-        foreach (DBConnectionControl35.SQL_Parameter par in FuncParams)
+        foreach (DBConnectionControl40.SQL_Parameter par in FuncParams)
         {
             lPar.Add(par);
             if (!par.IsOutputParameter)
@@ -1460,9 +1461,9 @@ public class XProcedure
 {
     public const string string_const_par_return = "Ret_code_CopyRight_Logina_AuthorDamjanStrucl";
     protected string scalarfunctionname;
-    public DBConnectionControl35.DBConnection m_con;
+    public DBConnectionControl40.DBConnection m_con;
 
-    public List<DBConnectionControl35.SQL_Parameter> ProcParams = new List<DBConnectionControl35.SQL_Parameter>();
+    public List<DBConnectionControl40.SQL_Parameter> ProcParams = new List<DBConnectionControl40.SQL_Parameter>();
 
 
 
@@ -1476,7 +1477,7 @@ public class XProcedure
         int iParCount = ProcParams.Count;
         for (iPar = 1; iPar < iParCount; iPar++)
         {
-            DBConnectionControl35.SQL_Parameter par = ProcParams[iPar];
+            DBConnectionControl40.SQL_Parameter par = ProcParams[iPar];
             if (par.Name.Equals(name))
             {
                 if (par.MS_SqlSqlParameter != null)
@@ -1491,7 +1492,7 @@ public class XProcedure
 
     public object exec(string sProcedureName, string[] sArgs, ref string csError)
     {
-        List<DBConnectionControl35.SQL_Parameter> lPar = new List<DBConnectionControl35.SQL_Parameter>();
+        List<DBConnectionControl40.SQL_Parameter> lPar = new List<DBConnectionControl40.SQL_Parameter>();
         string sql_args = "";
         int iArg = 0;
         int iPar;
@@ -1499,7 +1500,7 @@ public class XProcedure
         lPar.Add(ProcParams[0]); // add param Ret_code_CopyRight_Logina_AuthorDamjanStrucl !
         for (iPar = 1; iPar < iParCount; iPar++)
         {
-            DBConnectionControl35.SQL_Parameter par = ProcParams[iPar];
+            DBConnectionControl40.SQL_Parameter par = ProcParams[iPar];
             string sOutput = "";
             if (par.IsOutputParameter)
             {

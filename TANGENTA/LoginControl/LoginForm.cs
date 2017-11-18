@@ -22,11 +22,11 @@ namespace LoginControl
             InitializeComponent();
             login_control = logctrl;
             cmbR_UserName.RecentItemsFolder = login_control.RecentItemsFolder;
-            this.Text = lngRPM.s_Login.s;
-            this.btn_OK.Text = lngRPM.s_OK.s;
-            this.btn_Cancel.Text = lngRPM.s_Cancel.s;
-            lbl_UserName.Text = lngRPM.s_UserName.s;
-            lbl_Password.Text = lngRPM.s_Password.s;
+            this.Text = lng.s_Login.s;
+            this.btn_OK.Text = lng.s_OK.s;
+            this.btn_Cancel.Text = lng.s_Cancel.s;
+            lbl_UserName.Text = lng.s_UserName.s;
+            lbl_Password.Text = lng.s_Password.s;
         }
 
         private void DoLogin()
@@ -64,7 +64,7 @@ namespace LoginControl
                             {
                                 if (Login_Start(LoginUsers))
                                 {
-                                    ChangePasswordForm change_pass_form = new ChangePasswordForm(login_control, LoginUsers, lngRPM.s_AdministratorRequestForNewPassword.s);
+                                    ChangePasswordForm change_pass_form = new ChangePasswordForm(login_control, LoginUsers, lng.s_AdministratorRequestForNewPassword.s);
                                     if (change_pass_form.ShowDialog() == DialogResult.OK)
                                     {
                                         string sql_change_enabled = "UPDATE " + LoginDB_DataSet.LoginUsers.tablename_const + " SET " + LoginDB_DataSet.LoginUsers.ChangePasswordOnFirstLogin.name + " = 0 where " + LoginDB_DataSet.LoginUsers.id.name + " = " + LoginUsers.o_id.id_.ToString();
@@ -95,7 +95,7 @@ namespace LoginControl
                                         {
                                             LogFile.Error.Show("Error:LoginForm:" + sql_change_enabled + ":Err=" + Err);
                                         }
-                                        MessageBox.Show(lngRPM.s_YourUsernameHasExpired.s);
+                                        MessageBox.Show(lng.s_YourUsernameHasExpired.s);
 
                                     }
                                     else
@@ -103,7 +103,7 @@ namespace LoginControl
                                         // change password dialog
                                         if (Login_Start(LoginUsers))
                                         {
-                                            ChangePasswordForm change_pass_form = new ChangePasswordForm(login_control, LoginUsers, lngRPM.s_PasswordExpiredSetNewPassword.s);
+                                            ChangePasswordForm change_pass_form = new ChangePasswordForm(login_control, LoginUsers, lng.s_PasswordExpiredSetNewPassword.s);
                                             if (change_pass_form.ShowDialog() == DialogResult.OK)
                                             {
                                                 DialogResult = DialogResult.OK;
@@ -126,17 +126,17 @@ namespace LoginControl
                         }
                         else
                         {
-                            MessageBox.Show(lngRPM.s_Password_does_not_match.s);
+                            MessageBox.Show(lng.s_Password_does_not_match.s);
                         }
                     }
                     else
                     {
-                        MessageBox.Show(lngRPM.s_YourUsernameIsDisabled.s);
+                        MessageBox.Show(lng.s_YourUsernameIsDisabled.s);
                     }
                 }
                 else
                 {
-                    MessageBox.Show(lngRPM.s_UserNameNotFound.s);
+                    MessageBox.Show(lng.s_UserNameNotFound.s);
                 }
             }
             else

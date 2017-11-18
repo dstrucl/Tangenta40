@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DBConnectionControl35;
+using DBConnectionControl40;
 
 namespace LoginControl
 {
