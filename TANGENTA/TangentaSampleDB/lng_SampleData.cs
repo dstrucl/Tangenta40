@@ -9,7 +9,7 @@ namespace TangentaSampleDB
     public static class lng_SampleData
     {
         public static ltext sl_MyOrg_Name = new ltext("Organisation name", "Ime organizacije");
-        public static ltext s_MyOrg_Name_v = new ltext("Organisation1", "Podjetje1");
+        public static ltext s_MyOrg_Name_v = new ltext("OrganisationX", "PodjetjeX");
         public static ltext sh_MyOrg_Name = new ltext("Enter your organisation name", "Vpišite ime vaše organizacije");
 
         public static ltext sl_MyOrg_Tax_ID = new ltext("Organisation VAT number", "Davčna številka");
@@ -45,15 +45,15 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_FaxNumber = new ltext("Enter your organisation fax number", "Vpišite številko fax-a vaše organizacije");
 
         public static ltext sl_MyOrg_Email = new ltext("Organisation email", "Elektronski naslov vaše organizacije");
-        public static ltext s_MyOrg_Email_v = new ltext("Organisation1@email.com", "Podjetje1@email.com");
+        public static ltext s_MyOrg_Email_v = new ltext("OrganisationX@email.com", "PodjetjeX@email.com");
         public static ltext sh_MyOrg_Email = new ltext("Enter your organisation email", "Vpišite elektronski naslov (email) vaše organizacije");
 
         public static ltext sl_MyOrg_HomePage = new ltext("Organisation homepage", "Domači naslov vaše organizacije");
-        public static ltext s_MyOrg_HomePage_v = new ltext("www.Organisation1.com", "www.Podjetje1.si");
+        public static ltext s_MyOrg_HomePage_v = new ltext("www.OrganisationX.com", "www.PodjetjeX.si");
         public static ltext sh_MyOrg_HomePage = new ltext("Enter your organisation homepage", "Vpišite domači naslov (homepage) vaše organizacije");
 
         public static ltext sl_MyOrg_Bank_Name = new ltext("The name of bank of your organisation bank account", "Ime banke vašega TRR računa vaše organizacije");
-        public static ltext s_MyOrg_Bank_Name_v = new ltext("Bank1", "Banka1");
+        public static ltext s_MyOrg_Bank_Name_v = new ltext("XBank", "XBanka");
         public static ltext sh_MyOrg_Bank_Name = new ltext("Enter the name of bank of your organisation bank account", "Vpišite ime banke vašega TRR računa vaše organizacije");
 
         public static ltext sl_MyOrg_Bank_Tax_ID = new ltext("Bank VAT number", "Davčna številka banke");
@@ -88,7 +88,7 @@ namespace TangentaSampleDB
 
 
         public static ltext sl_MyOrg_Address_StreetName = new ltext("Street", "Cesta");
-        public static ltext s_MyOrg_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
+        public static ltext s_MyOrg_Address_StreetName_v = new ltext("XStreet", "CestaX");
         public static ltext sh_MyOrg_Address_StreetName = new ltext("Enter street name", "Vpišite ime ceste");
 
         public static ltext sl_MyOrg_Address_HouseNumber = new ltext("House number", "Hišna številka");
@@ -96,11 +96,11 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_Address_HouseNumber = new ltext("Enter house number", "Vpišite hišno številko");
 
         public static ltext sl_MyOrg_Address_ZIP = new ltext("ZIP", "Številka pošte");
-        public static ltext s_MyOrg_Address_ZIP_v = new ltext("Zip1", "ŠP1");
+        public static ltext s_MyOrg_Address_ZIP_v = new ltext("1111", "1111");
         public static ltext sh_MyOrg_Address_ZIP = new ltext("Enter ZIP", "Vpišite številko pošte");
 
         public static ltext sl_MyOrg_Address_City = new ltext("City", "Mesto");
-        public static ltext s_MyOrg_Address_City_v = new ltext("City1", "Mesto1");
+        public static ltext s_MyOrg_Address_City_v = new ltext("CityX", "MestoX");
         public static ltext sh_MyOrg_Address_City = new ltext("Enter city", "Vpišite mesto");
 
         public static ltext sl_MyOrg_Address_State = new ltext("State", "Dežela");
@@ -126,7 +126,7 @@ namespace TangentaSampleDB
 
 
         public static ltext sl_MyOrg_Office_Address_StreetName = new ltext("Street", "Cesta");
-        public static ltext s_MyOrg_Office_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
+        public static ltext s_MyOrg_Office_Address_StreetName_v = new ltext("StreetX", "CestaX");
         public static ltext sh_MyOrg_Office_Address_StreetName = new ltext("Enter street name", "Vpišite ime ceste");
 
         public static ltext sl_MyOrg_Office_Address_HouseNumber = new ltext("House number", "Hišna številka");
@@ -134,11 +134,11 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_Office_Address_HouseNumber = new ltext("Enter house number", "Vpišite hišno številko");
 
         public static ltext sl_MyOrg_Office_Address_ZIP = new ltext("ZIP", "Številka pošte");
-        public static ltext s_MyOrg_Office_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
+        public static ltext s_MyOrg_Office_Address_ZIP_v = new ltext("1111", "1111");
         public static ltext sh_MyOrg_Office_Address_ZIP = new ltext("Enter ZIP", "Vpišite številko pošte");
 
         public static ltext sl_MyOrg_Office_Address_City = new ltext("City", "Mesto");
-        public static ltext s_MyOrg_Office_Address_City_v = new ltext("City1", "Mesto1");
+        public static ltext s_MyOrg_Office_Address_City_v = new ltext("CityX", "MestoX");
         public static ltext sh_MyOrg_Office_Address_City = new ltext("Enter city", "Vpišite mesto");
 
         public static ltext sl_MyOrg_Office_Address_State = new ltext("State", "Dežela");
@@ -163,11 +163,11 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_Office_Address_Country_ISO_3166_num = new ltext("Enter country iso code number", "Vpišite kodno ISO 3166 številko države");
 
         public static ltext sl_MyOrg_OfficeName = new ltext("Office name", "Ime poslovne enote");
-        public static ltext s_MyOrg_OfficeName_v = new ltext("Office1", "Pisarna1");
+        public static ltext s_MyOrg_OfficeName_v = new ltext("OfficeX", "PisarnaX");
         public static ltext sh_MyOrg_OfficeName = new ltext("Enter office name", "Vpišite ime poslovne enote");
 
         public static ltext sl_MyOrg_OfficeShortName = new ltext("Office short name", "Skrajšano ime poslovne enote");
-        public static ltext s_MyOrg_OfficeShortName_v = new ltext("Off1", "Pis1");
+        public static ltext s_MyOrg_OfficeShortName_v = new ltext("OffX", "PisX");
         public static ltext sh_MyOrg_OfficeShortName = new ltext("Enter office short name", "Vpišite skrajšano ime poslovne enote");
 
 
@@ -178,7 +178,7 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_Person_FirstName = new ltext("Enter organisation administrator First Name", "Vpišite ime glavnega administratorja, ki bo imel vse uporabniške pravice");
 
         public static ltext sl_MyOrg_Person_LastName = new ltext("Organisation administrator Last Name", "Priimek glavnega administratorja v podjetju");
-        public static ltext s_MyOrg_Person_LastName_v = new ltext("Organisation1Person1LastName", "PrimekOsebe1Podjetja1");
+        public static ltext s_MyOrg_Person_LastName_v = new ltext("PersonXLastName", "OsebaXPriimek");
         public static ltext sh_MyOrg_Person_LastName = new ltext("Enter organisation administrator Lasst Name who gets all user rights", "Vpišite priimek glavnega administratorja, ki bo imel vse uporabniške pravice");
 
         public static ltext sl_MyOrg_Person_Gender = new ltext("Administrator gender", "Spol glavnega administratorja v podjetju");
@@ -202,11 +202,11 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_Person_Password = new ltext("Enter administrator password", "Vpišite geslo glavnega administratorja");
 
         public static ltext sl_MyOrg_Person_Job = new ltext("Administrator Job Title", "Delovno mesto glavnega administratorja");
-        public static ltext s_MyOrg_Person_Job_v = new ltext("Organisation1Person1Job", "DelovnoMestoOsebe1Podjetja1");
+        public static ltext s_MyOrg_Person_Job_v = new ltext("OrganisationXPersonXJob", "DelovnoMestoOsebaXPodjetjeX");
         public static ltext sh_MyOrg_Person_Job = new ltext("Organisation1Person1Job", "DelovnoMestoOsebe1Podjetja1");
 
         public static ltext sl_MyOrg_Person_Description = new ltext("Administrator description", "Glavni administrator opis");
-        public static ltext s_MyOrg_Person_Description_v = new ltext("Organisation1Person1Description", "Osebe1Podjetja1Opis");
+        public static ltext s_MyOrg_Person_Description_v = new ltext("OrganisationXPersonXDescription", "OsebeXPodjetjeXOpis");
         public static ltext sh_MyOrg_Person_Description = new ltext("Enter job description of administrator", "Vpišite opis dela glavnega administratorja");
 
 
@@ -227,11 +227,11 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_Person_PhoneNumber = new ltext("Enter administrator's phone naumber", "Vpišite telefon glavnega administratorja");
 
         public static ltext sl_MyOrg_Person_Email = new ltext("Administrator's email", "Email administratorja");
-        public static ltext s_MyOrg_Person_Email_v = new ltext("Person1@mail.com", "Person1@mail.com");
+        public static ltext s_MyOrg_Person_Email_v = new ltext("PersonX@mail.com", "PersonX@mail.com");
         public static ltext sh_MyOrg_Person_Email = new ltext("Enter Administrator's email", "Vpišite email administratorja");
 
         public static ltext sl_MyOrg_Office_Person_Address_StreetName = new ltext("Street", "Cesta");
-        public static ltext s_MyOrg_Office_Person_Address_StreetName_v = new ltext("MyStreet1", "Cesta1");
+        public static ltext s_MyOrg_Office_Person_Address_StreetName_v = new ltext("MyStreetY", "CestaY");
         public static ltext sh_MyOrg_Office_Person_Address_StreetName = new ltext("Enter street name", "Vpišite ime ceste");
 
         public static ltext sl_MyOrg_Office_Person_Address_HouseNumber = new ltext("House number", "Hišna številka");
@@ -239,11 +239,11 @@ namespace TangentaSampleDB
         public static ltext sh_MyOrg_Office_Person_Address_HouseNumber = new ltext("Enter house number", "Vpišite hišno številko");
 
         public static ltext sl_MyOrg_Office_Person_Address_ZIP = new ltext("ZIP", "Številka pošte");
-        public static ltext s_MyOrg_Office_Person_Address_ZIP_v = new ltext("Zip1", "ŠtevilkaPošte1");
+        public static ltext s_MyOrg_Office_Person_Address_ZIP_v = new ltext("2222", "2222");
         public static ltext sh_MyOrg_Office_Person_Address_ZIP = new ltext("Enter ZIP", "Vpišite številko pošte");
 
         public static ltext sl_MyOrg_Office_Person_Address_City = new ltext("City", "Mesto");
-        public static ltext s_MyOrg_Office_Person_Address_City_v = new ltext("City1", "Mesto1");
+        public static ltext s_MyOrg_Office_Person_Address_City_v = new ltext("CityX", "MestoX");
         public static ltext sh_MyOrg_Office_Person_Address_City = new ltext("Enter city", "Vpišite mesto");
 
         public static ltext sl_MyOrg_Office_Person_Address_State = new ltext("State", "Dežela");
