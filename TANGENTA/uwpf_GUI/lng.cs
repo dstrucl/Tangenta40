@@ -19,10 +19,14 @@ namespace uwpfGUI
 {
     public static class lng
     {
- public static ltext s_EditPriceList = new ltext( new string[]{"Edit Price List", "Urejanje Cenikov"});   // referenced in C:\Tangenta40\TANGENTA\uwpf_GUI\Price_Item_Undefined.xaml.cs
+        public static void SetDictionary()
+        {
+            LanguageControl.DynSettings.AddLanguageLibrary(typeof(lng).GetFields(), System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+        }
 
- public static ltext s_Cancel = new ltext( new string[]{"Cancel",
+        public static ltext s_EditPriceList = new ltext(new string[] { "Edit Price List", "Urejanje Cenikov" });   // referenced in C:\Tangenta40\TANGENTA\uwpf_GUI\Price_Item_Undefined.xaml.cs
+
+        public static ltext s_Cancel = new ltext(new string[]{"Cancel",
                                           "Prekini"});   // referenced in C:\Tangenta40\TANGENTA\uwpf_GUI\Price_Item_Undefined.xaml.cs
-
-  }
+    }
 }

@@ -36,6 +36,7 @@ namespace LanguageManager
         public static string dcln_ltext_Name = "ltext_Name";
         public static string dcln_ltext_Initialisation = "Initialisation";
 
+        public static DataColumn dcol_dtDictionary_SourceFile = null;
         public static DataColumn dcol_class_Name = null;
         public static DataColumn dcol_ltext_Name = null;
         public static DataColumn dcol_ltext_Initialisation = null;
@@ -189,6 +190,48 @@ namespace LanguageManager
                     MessageBox.Show("Project " + refprojfullpath + " not found in Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection.LoadedProjects!");
                 }
             }
+        }
+
+        internal static List<Project> FindLanguageControledProjects()
+        {
+            List<Project> lprojects_with_lng_cs_file = new List<Project>();
+            if (dtLibraries != null)
+            {
+                foreach (DataRow dr in dtLibraries.Rows)
+                {
+                    Project proj = (Project)dr[dcol_Project];
+                    Parser.ParseProjectSourceFiles(proj);
+                    int iSourceFilesCount_in_a_Project = dtSourceFiles.Rows.Count;
+                    int isf = 1;
+                    bool bFound = false;
+                    foreach (DataRow drSourceFile in dtSourceFiles.Rows)
+                    {
+
+                        string xsource_file = (string)drSourceFile[dcln_SourceFile];
+                        if (xsource_file.IndexOf("lng.cs") > 0)
+                        {
+                            bFound = true;
+                            break;
+                        }
+                        isf++;
+                    }
+                    if (bFound)
+                    {
+                        lprojects_with_lng_cs_file.Add(proj);
+                    }
+                }
+                if (lprojects_with_lng_cs_file.Count == 0)
+                {
+                    MessageBox.Show("LanguageControl not found!");
+                }
+                return lprojects_with_lng_cs_file;
+            }
+            else
+            {
+                MessageBox.Show("There are no libraries!");
+            }
+            return null;
+
         }
 
         public static bool GetSelectedProjectDependencies(ref string TextOutput, ref string Err)
@@ -668,9 +711,7 @@ namespace LanguageManager
             return false;
         }
         internal static void ParseProjectLanguageControlSourceFiles()
-        {
-           
-            
+        { 
             foreach (DataRow dr in dtSourceFiles.Rows)
             {
                 string source_file = (string)dr[dcol_SourceFile];
@@ -681,26 +722,37 @@ namespace LanguageManager
         private static void ParseProjectLanguageControlSource(string source_file)
         {
             string[] SourceLines = null;
-            try
+            if (source_file != null)
             {
-                SourceLines = File.ReadAllLines(source_file);
-                Parser.RemoveComments(ref SourceLines);
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Can not read " + source_file + "\r\nExecption=" + ex.Message);
+                if (source_file.ToLower().IndexOf("lng.cs") >= 0)
+                {
+                    try
+                    {
+                        SourceLines = File.ReadAllLines(source_file);
+                        Parser.RemoveComments(ref SourceLines);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Can not read " + source_file + "\r\nExecption=" + ex.Message);
+                        return;
+                    }
+                    if (SourceLines != null)
+                    {
+                        int inext_token_line = 0;
+                        int inext_token_start_col = 0;
+                        string next_token = null;
+
+                        GetLanguageClassMembersAs_dtDictionary(source_file, ref SourceLines, ref inext_token_line, ref inext_token_start_col, ref next_token);
+
+                    }
+                    return;
+                }
+                MessageBox.Show("ERROR:ParseProjectLanguageControlSource(string source_file):Not a valid Source file name :" + source_file + "\r\nLanguage definition source file must be lng.cs");
                 return;
-            }
-            if (SourceLines != null)
-            {
-                int inext_token_line = 0;
-                int inext_token_start_col = 0;
-                string next_token = null;
-               
-                GetLanguageClassMembersAs_dtDictionary(source_file, ref SourceLines, ref inext_token_line, ref inext_token_start_col, ref next_token);
-    
-            }
+              }
+            MessageBox.Show("ERROR:ParseProjectLanguageControlSource(string source_file):Not a valid Source file name is null!");
+            return;
 
         }
 
@@ -752,7 +804,7 @@ namespace LanguageManager
 
         private static bool GetLanguageClassMembersAs_dtDictionary(string source_file,ref string[] sourceLines, ref int inext_token_line, ref int inext_token_start_col, ref string next_token)
         {
-            string[] tokens = new string[] { "lngConn", "lngRPM", "lngRPMS", "lngTName", "lngToken" };
+            string[] tokens = new string[] { "lng" };
             bool bFound = false;
             foreach (string token in tokens)
             {
@@ -782,14 +834,17 @@ namespace LanguageManager
                                     if (dtDictionary==null)
                                     {
                                         dtDictionary = new DataTable();
+                                        dcol_dtDictionary_SourceFile = new DataColumn(dcln_SourceFile,typeof(string));
                                         dcol_class_Name = new DataColumn(dcln_class_Name,typeof(string));
                                         dcol_ltext_Name = new DataColumn(dcln_ltext_Name, typeof(string));
                                         dcol_ltext_Initialisation = new DataColumn(dcln_ltext_Initialisation, typeof(string));
+                                        dtDictionary.Columns.Add(dcol_dtDictionary_SourceFile);
                                         dtDictionary.Columns.Add(dcol_class_Name);
                                         dtDictionary.Columns.Add(dcol_ltext_Name);
                                         dtDictionary.Columns.Add(dcol_ltext_Initialisation);
                                     }
                                     DataRow dr = dtDictionary.NewRow();
+                                    dr[dcln_SourceFile] = source_file;
                                     dr[dcln_class_Name] = token;
                                     dr[dcln_ltext_Name] = var_name_of_ltext;
                                     dr[dcln_ltext_Initialisation] = constructor_call;
@@ -1030,31 +1085,6 @@ namespace LanguageManager
             return token;
         }
 
-        internal static Project FindLanguageControlProject()
-        {
-            if (dtLibraries != null)
-            {
-                foreach (DataRow dr in dtLibraries.Rows)
-                {
-                    Project proj = (Project)dr[dcol_Project];
-                    if (proj.FullPath.ToLower().Contains("languagecontrol"))
-                    {
-                        return proj;
-                   
-                    }
-
-                }
-                MessageBox.Show("LanguageControl not found!");
-               
-            }
-            else
-            {
-                MessageBox.Show("There are no libraries!");
-            }
-            return null;
-        }
-
-
         internal static void ParseProjectSourceFiles(Project proj)
         {
             foreach (ProjectItem pitm in proj.AllEvaluatedItems)
@@ -1073,15 +1103,53 @@ namespace LanguageManager
                         dtSourceFiles.Columns.Add(dcol_SourceFileName);
                         dtSourceFiles.Columns.Add(dcln_SourceFileBaseDirectory);
                         dtSourceFiles.Columns.Add(dcol_SourceFile);
-                        
+
                     }
-                    string source_file = proj.DirectoryPath+"\\"+ pitm.EvaluatedInclude;
+                    string source_file = proj.DirectoryPath + "\\" + pitm.EvaluatedInclude;
                     DataRow dr = dtSourceFiles.NewRow();
                     dr[dcln_SourceFileProject] = Path.GetFileName(proj.FullPath);
                     dr[dcln_SourceFileName] = pitm.EvaluatedInclude;
                     dr[dcln_SourceFileBaseDirectory] = Path.GetDirectoryName(proj.FullPath);
                     dr[dcln_SourceFile] = source_file;
                     dtSourceFiles.Rows.Add(dr);
+                }
+            }
+            
+        }
+        internal static void ParseProjectListSourceFiles(List<Project> projlist)
+        {
+            foreach (Project proj in projlist)
+            {
+                foreach (ProjectItem pitm in proj.AllEvaluatedItems)
+                {
+                    string sitem_type = pitm.ItemType;
+                    if (sitem_type.Equals("Compile"))
+                    {
+                        string file_name = pitm.EvaluatedInclude;
+                        if (file_name.ToLower().IndexOf("lng.cs")>=0)
+                        {
+                            if (dtSourceFiles == null)
+                            {
+                                dtSourceFiles = new DataTable();
+                                dcol_SourceFileName = new DataColumn(dcln_SourceFileName, typeof(string));
+                                dcol_SourceFileBaseDirectory = new DataColumn(dcln_SourceFileBaseDirectory, typeof(string));
+                                dcol_SourceFile = new DataColumn(dcln_SourceFile, typeof(string));
+                                dcol_SourceFileProject = new DataColumn(dcln_SourceFileProject, typeof(string));
+                                dtSourceFiles.Columns.Add(dcol_SourceFileProject);
+                                dtSourceFiles.Columns.Add(dcol_SourceFileName);
+                                dtSourceFiles.Columns.Add(dcln_SourceFileBaseDirectory);
+                                dtSourceFiles.Columns.Add(dcol_SourceFile);
+
+                            }
+                            string source_file = proj.DirectoryPath + "\\" + pitm.EvaluatedInclude;
+                            DataRow dr = dtSourceFiles.NewRow();
+                            dr[dcln_SourceFileProject] = Path.GetFileName(proj.FullPath);
+                            dr[dcln_SourceFileName] = pitm.EvaluatedInclude;
+                            dr[dcln_SourceFileBaseDirectory] = Path.GetDirectoryName(proj.FullPath);
+                            dr[dcln_SourceFile] = source_file;
+                            dtSourceFiles.Rows.Add(dr);
+                        }
+                    }
                 }
             }
         }

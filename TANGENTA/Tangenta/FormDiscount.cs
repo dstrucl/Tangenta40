@@ -20,14 +20,14 @@ using TangentaDB;
 
 namespace Tangenta
 {
-    public partial class Form_Discount : Form
+    public partial class FormDiscount : Form
     {
         public decimal ExtraDiscount;
         decimal RetailPrice;
         decimal_v PurchasePrice_v = null;
         string sItemName = null;
 
-        public Form_Discount(decimal xRetailPrice, decimal_v xPurchasePrice_v, decimal xDiscount, string xsItemName)
+        public FormDiscount(decimal xRetailPrice, decimal_v xPurchasePrice_v, decimal xDiscount, string xsItemName)
         {
             InitializeComponent();
             PurchasePrice_v = xPurchasePrice_v;

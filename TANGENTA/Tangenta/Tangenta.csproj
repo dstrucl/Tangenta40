@@ -513,11 +513,11 @@
       <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="Employees.cs" />
-    <Compile Include="Form_Discount.cs">
+    <Compile Include="FormDiscount.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Discount.Designer.cs">
-      <DependentUpon>Form_Discount.cs</DependentUpon>
+    <Compile Include="FormDiscount.Designer.cs">
+      <DependentUpon>FormDiscount.cs</DependentUpon>
     </Compile>
     <Compile Include="SampleDB_Data.cs" />
     <Compile Include="Form_ProgramSettings.cs">
@@ -732,8 +732,8 @@
     <EmbeddedResource Include="Form_Taxation_Edit.resx">
       <DependentUpon>Form_Taxation_Edit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Discount.resx">
-      <DependentUpon>Form_Discount.cs</DependentUpon>
+    <EmbeddedResource Include="FormDiscount.resx">
+      <DependentUpon>FormDiscount.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ProgramSettings.resx">
@@ -806,6 +806,10 @@
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DynEditControls\DynEditControls.csproj">
+      <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
+      <Name>DynEditControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
@@ -850,6 +854,10 @@
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\Excell_Export\Excell_Export.csproj">
+      <Project>{5f7e6571-ac5e-44bc-a805-a0726d99b82c}</Project>
+      <Name>Excell_Export</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\SQLTableControl\CodeTables.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>CodeTables</Name>
@@ -869,6 +877,10 @@
     <ProjectReference Include="..\..\CodeTables\UTIL\ProgramDiagnostic\ProgramDiagnostic.csproj">
       <Project>{88f14aad-b6bc-415a-9195-c3314addea6f}</Project>
       <Name>ProgramDiagnostic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\UTIL\ProgressForm\ProgressForm.csproj">
+      <Project>{041cb223-4f4d-40bc-aafd-3001cc2178a3}</Project>
+      <Name>ProgressForm</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\UTIL\RPC\RPC.csproj">
       <Project>{57c5d942-3c95-4cc7-9f9c-731595f71e5f}</Project>

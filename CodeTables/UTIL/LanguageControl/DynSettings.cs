@@ -202,25 +202,41 @@ namespace LanguageControl
 
         public static void FillLanguages(ref DataTable dt_Languages,FieldInfo[] fields,string ModuleName)
         {
-            
-           
-           
+
+
+            string sErr = "";
             foreach (FieldInfo fi in fields)
             {
                 if (fi.FieldType.Name.Equals("ltext"))
                 {
                     ltext lt = (ltext)fi.GetValue(null);
-                    string sname = fi.Name;
-                    DataRow dr = dt_Languages.NewRow();
-                    dr[MODULE_NAME] = ModuleName;
-                    dr[VARIABLE_NAME] = sname;
-                    for (int i = 0; i<DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
+                    if (lt != null)
                     {
-                        string sLanguageName = "language_" + i.ToString();
-                        dr[sLanguageName] = lt.GetText(i);
+                        string sname = fi.Name;
+                        DataRow dr = dt_Languages.NewRow();
+                        dr[MODULE_NAME] = ModuleName;
+                        dr[VARIABLE_NAME] = sname;
+                        for (int i = 0; i < DynSettings.MAX_NUMBER_OF_LANGUAGES; i++)
+                        {
+                            string sLanguageName = "language_" + i.ToString();
+                            dr[sLanguageName] = lt.GetText(i);
+                        }
+                        dt_Languages.Rows.Add(dr);
                     }
-                    dt_Languages.Rows.Add(dr);
+                    else
+                    {
+                        string xsname = fi.Name;
+                        if (xsname==null)
+                        {
+                            xsname = "/*Name not defined !*/";
+                        }
+                        sErr += "\r\nModule:"+ ModuleName + " Variable " + xsname + " of ltext type is null";
+                    }
                 }
+            }
+            if (sErr.Length>0)
+            {
+                MessageBox.Show(sErr);
             }
         }
 

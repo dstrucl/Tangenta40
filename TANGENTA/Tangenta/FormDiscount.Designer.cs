@@ -1,6 +1,6 @@
 ﻿namespace Tangenta
 {
-    partial class Form_Discount
+    partial class FormDiscount
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Discount));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDiscount));
             this.rdb_0 = new System.Windows.Forms.RadioButton();
             this.rdb_2 = new System.Windows.Forms.RadioButton();
             this.rdb_3 = new System.Windows.Forms.RadioButton();

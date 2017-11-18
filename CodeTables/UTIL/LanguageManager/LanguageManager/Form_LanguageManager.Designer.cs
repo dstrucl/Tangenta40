@@ -46,11 +46,11 @@ namespace LanguageManager
             this.lbl_SourceFiles = new System.Windows.Forms.Label();
             this.dgvx_SourceFiles = new DataGridView_2xls.DataGridView2xls();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.btn_GetAllReferences = new System.Windows.Forms.Button();
             this.lbl_LngDictionary = new System.Windows.Forms.Label();
             this.dgvx_ltext = new DataGridView_2xls.DataGridView2xls();
             this.txt_Projects = new System.Windows.Forms.TextBox();
             this.usrc_SelectFile1 = new LanguageManager.usrc_SelectFile();
-            this.btn_GetAllReferences = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -76,7 +76,7 @@ namespace LanguageManager
             this.cmb_Platform.Location = new System.Drawing.Point(584, 54);
             this.cmb_Platform.Margin = new System.Windows.Forms.Padding(4);
             this.cmb_Platform.Name = "cmb_Platform";
-            this.cmb_Platform.Size = new System.Drawing.Size(204, 33);
+            this.cmb_Platform.Size = new System.Drawing.Size(204, 28);
             this.cmb_Platform.TabIndex = 13;
             this.cmb_Platform.SelectedIndexChanged += new System.EventHandler(this.cmb_Platform_SelectedIndexChanged);
             // 
@@ -87,7 +87,7 @@ namespace LanguageManager
             this.lbl_Platform.Location = new System.Drawing.Point(476, 57);
             this.lbl_Platform.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Platform.Name = "lbl_Platform";
-            this.lbl_Platform.Size = new System.Drawing.Size(89, 25);
+            this.lbl_Platform.Size = new System.Drawing.Size(72, 20);
             this.lbl_Platform.TabIndex = 12;
             this.lbl_Platform.Text = "Platform:";
             // 
@@ -98,7 +98,7 @@ namespace LanguageManager
             this.cmb_Configuration.Location = new System.Drawing.Point(236, 49);
             this.cmb_Configuration.Margin = new System.Windows.Forms.Padding(4);
             this.cmb_Configuration.Name = "cmb_Configuration";
-            this.cmb_Configuration.Size = new System.Drawing.Size(209, 33);
+            this.cmb_Configuration.Size = new System.Drawing.Size(209, 28);
             this.cmb_Configuration.TabIndex = 11;
             this.cmb_Configuration.SelectedIndexChanged += new System.EventHandler(this.cmb_Configuration_SelectedIndexChanged);
             // 
@@ -109,7 +109,7 @@ namespace LanguageManager
             this.lbl_ConfigurationName.Location = new System.Drawing.Point(22, 52);
             this.lbl_ConfigurationName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_ConfigurationName.Name = "lbl_ConfigurationName";
-            this.lbl_ConfigurationName.Size = new System.Drawing.Size(191, 25);
+            this.lbl_ConfigurationName.Size = new System.Drawing.Size(154, 20);
             this.lbl_ConfigurationName.TabIndex = 10;
             this.lbl_ConfigurationName.Text = "Configuration Name:";
             this.lbl_ConfigurationName.Click += new System.EventHandler(this.lbl_ConfigurationName_Click);
@@ -121,7 +121,7 @@ namespace LanguageManager
             this.lbl_Solution_File.Location = new System.Drawing.Point(19, 8);
             this.lbl_Solution_File.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Solution_File.Name = "lbl_Solution_File";
-            this.lbl_Solution_File.Size = new System.Drawing.Size(125, 25);
+            this.lbl_Solution_File.Size = new System.Drawing.Size(100, 20);
             this.lbl_Solution_File.TabIndex = 9;
             this.lbl_Solution_File.Text = "Solution File:";
             // 
@@ -153,7 +153,7 @@ namespace LanguageManager
             this.lbl_ExecutablesInSolution.Location = new System.Drawing.Point(1, 5);
             this.lbl_ExecutablesInSolution.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_ExecutablesInSolution.Name = "lbl_ExecutablesInSolution";
-            this.lbl_ExecutablesInSolution.Size = new System.Drawing.Size(183, 20);
+            this.lbl_ExecutablesInSolution.Size = new System.Drawing.Size(154, 17);
             this.lbl_ExecutablesInSolution.TabIndex = 11;
             this.lbl_ExecutablesInSolution.Text = "Executables in Solution";
             // 
@@ -217,7 +217,7 @@ namespace LanguageManager
             this.lbl_ProjectLibraries.Location = new System.Drawing.Point(5, 4);
             this.lbl_ProjectLibraries.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_ProjectLibraries.Name = "lbl_ProjectLibraries";
-            this.lbl_ProjectLibraries.Size = new System.Drawing.Size(183, 20);
+            this.lbl_ProjectLibraries.Size = new System.Drawing.Size(151, 17);
             this.lbl_ProjectLibraries.TabIndex = 12;
             this.lbl_ProjectLibraries.Text = "Library (DLL)  Projects";
             // 
@@ -246,7 +246,7 @@ namespace LanguageManager
             this.lbl_SourceFiles.Location = new System.Drawing.Point(4, 4);
             this.lbl_SourceFiles.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_SourceFiles.Name = "lbl_SourceFiles";
-            this.lbl_SourceFiles.Size = new System.Drawing.Size(98, 20);
+            this.lbl_SourceFiles.Size = new System.Drawing.Size(82, 17);
             this.lbl_SourceFiles.TabIndex = 13;
             this.lbl_SourceFiles.Text = "Source files";
             // 
@@ -293,6 +293,16 @@ namespace LanguageManager
             this.splitContainer3.SplitterDistance = 284;
             this.splitContainer3.TabIndex = 16;
             // 
+            // btn_GetAllReferences
+            // 
+            this.btn_GetAllReferences.Location = new System.Drawing.Point(188, 1);
+            this.btn_GetAllReferences.Name = "btn_GetAllReferences";
+            this.btn_GetAllReferences.Size = new System.Drawing.Size(146, 23);
+            this.btn_GetAllReferences.TabIndex = 16;
+            this.btn_GetAllReferences.Text = "Get all references";
+            this.btn_GetAllReferences.UseVisualStyleBackColor = true;
+            this.btn_GetAllReferences.Click += new System.EventHandler(this.btn_GetAllReferences_Click);
+            // 
             // lbl_LngDictionary
             // 
             this.lbl_LngDictionary.AutoSize = true;
@@ -300,16 +310,19 @@ namespace LanguageManager
             this.lbl_LngDictionary.Location = new System.Drawing.Point(8, 4);
             this.lbl_LngDictionary.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_LngDictionary.Name = "lbl_LngDictionary";
-            this.lbl_LngDictionary.Size = new System.Drawing.Size(159, 20);
+            this.lbl_LngDictionary.Size = new System.Drawing.Size(137, 17);
             this.lbl_LngDictionary.TabIndex = 13;
             this.lbl_LngDictionary.Text = "Language dictionary";
             // 
             // dgvx_ltext
             // 
+            this.dgvx_ltext.AllowUserToAddRows = false;
+            this.dgvx_ltext.AllowUserToDeleteRows = false;
+            this.dgvx_ltext.AllowUserToOrderColumns = true;
             this.dgvx_ltext.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvx_ltext.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvx_ltext.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvx_ltext.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvx_ltext.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvx_ltext.DataGridViewWithRowNumber = true;
@@ -323,7 +336,9 @@ namespace LanguageManager
             this.dgvx_ltext.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvx_ltext.Location = new System.Drawing.Point(5, 27);
             this.dgvx_ltext.Name = "dgvx_ltext";
+            this.dgvx_ltext.ReadOnly = true;
             this.dgvx_ltext.RowTemplate.Height = 24;
+            this.dgvx_ltext.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvx_ltext.Size = new System.Drawing.Size(871, 179);
             this.dgvx_ltext.TabIndex = 0;
             this.dgvx_ltext.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvx_ltext_CellContentClick);
@@ -345,22 +360,12 @@ namespace LanguageManager
             this.usrc_SelectFile1.Extension = "";
             this.usrc_SelectFile1.FileName = "";
             this.usrc_SelectFile1.Location = new System.Drawing.Point(187, 7);
-            this.usrc_SelectFile1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.usrc_SelectFile1.Margin = new System.Windows.Forms.Padding(4);
             this.usrc_SelectFile1.Name = "usrc_SelectFile1";
             this.usrc_SelectFile1.Path = "";
             this.usrc_SelectFile1.Size = new System.Drawing.Size(678, 39);
             this.usrc_SelectFile1.TabIndex = 18;
             this.usrc_SelectFile1.ExistingFileChanged += new LanguageManager.usrc_SelectFile.delegate_ExistingFileChanged(this.usrc_SelectFile1_ExistingFileChanged);
-            // 
-            // btn_GetAllReferences
-            // 
-            this.btn_GetAllReferences.Location = new System.Drawing.Point(188, 1);
-            this.btn_GetAllReferences.Name = "btn_GetAllReferences";
-            this.btn_GetAllReferences.Size = new System.Drawing.Size(146, 23);
-            this.btn_GetAllReferences.TabIndex = 16;
-            this.btn_GetAllReferences.Text = "Get all references";
-            this.btn_GetAllReferences.UseVisualStyleBackColor = true;
-            this.btn_GetAllReferences.Click += new System.EventHandler(this.btn_GetAllReferences_Click);
             // 
             // Form_LanguageManager
             // 

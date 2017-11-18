@@ -546,7 +546,36 @@ namespace Tangenta
         private static void SetAllModulesLanguages()
         {
             lng.SetDictionary();
-
+            LanguageControl.lng.SetDictionary();
+            CommandLineHelp.lng.SetDictionary();
+            Country_ISO_3166.lng.SetDictionary();
+            CodeTables.lng.SetDictionary();
+            DataGridView_2xls.lng.SetDictionary();
+            Excell_Export.lng.SetDictionary();
+            DynEditControls.lng.SetDictionary();
+            DBTypes.lng.SetDictionary();
+            DBConnectionControl40.lng.SetDictionary();
+            LogFile.lng.SetDictionary();
+            Password.lng.SetDictionary();
+            TextBoxRecent.lng.SetDictionary();
+            usrc_Item_Group_Handler.lng.SetDictionary();
+            XMessage.lng.SetDictionary();
+            DBSync.lng.SetDictionary();
+            TangentaDataBaseDef.lng.SetDictionary();
+            FiscalVerificationOfInvoices_SLO.lng.SetDictionary();
+            TangentaDB.lng.SetDictionary();
+            UniversalInvoice.lng.SetDictionary();
+            Form_Discount.lng.SetDictionary();
+            PriseLists.lng.SetDictionary();
+            ShopA.lng.SetDictionary();
+            ShopB.lng.SetDictionary();
+            ShopC.lng.SetDictionary();
+            Startup.lng.SetDictionary();
+            TangentaSampleDB.lng.SetDictionary();
+            ProgressForm.lng.SetDictionary();
+            TangentaPrint.lng.SetDictionary();
+            UpgradeDB.lng.SetDictionary();
+            uwpfGUI.lng.SetDictionary();
         }
 
         private static void SelectLanguage(ref bool bLanguageSelectDialogShown,ref bool bLanguageSelected,ref bool bExitBeforeLogFileInitialised)

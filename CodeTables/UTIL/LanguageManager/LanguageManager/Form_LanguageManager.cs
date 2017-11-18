@@ -205,15 +205,15 @@ namespace LanguageManager
 
         private void CreateLanguageDictionary()
         {
-            Microsoft.Build.Evaluation.Project LanguageControlProject = Parser.FindLanguageControlProject();
-            if (LanguageControlProject != null)
+            List<Microsoft.Build.Evaluation.Project> LanguageControlProject_List = Parser.FindLanguageControledProjects();
+            if (LanguageControlProject_List.Count != null)
             {
                 if (Parser.dtSourceFiles != null)
                 {
                     Parser.dtSourceFiles.Clear();
                 }
                 dgvx_SourceFiles.DataSource = null;
-                Parser.ParseProjectSourceFiles(LanguageControlProject);
+                Parser.ParseProjectListSourceFiles(LanguageControlProject_List);
                 dgvx_SourceFiles.DataSource = Parser.dtSourceFiles;
                 if (Parser.dtDictionary != null)
                 {
