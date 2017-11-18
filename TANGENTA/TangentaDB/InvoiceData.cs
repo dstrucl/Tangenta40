@@ -2245,6 +2245,7 @@ namespace TangentaDB
             {
                 if (GetEndOfHtmlElement(html,StartIndexOfElementInString,ref EndIndexOfElementInString,htmltagname))
                 {
+                    string xs = html.Substring(StartIndexOfElementInString, EndIndexOfElementInString + htmltagname.Length + 3 - StartIndexOfElementInString);
                     return true;
                 }
             }
