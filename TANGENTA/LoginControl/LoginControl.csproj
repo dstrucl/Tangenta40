@@ -80,6 +80,8 @@
     <Compile Include="ChangePasswordForm.Designer.cs">
       <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="STAND_ALONE_MSSQL_CreateTables.cs" />
+    <Compile Include="STAND_ALONE_MSSQL_commands.cs" />
     <Compile Include="DataSet\LoginaDatasetCommonClasses.cs" />
     <Compile Include="DataSet\LoginDB_DataSet.cs" />
     <Compile Include="DataSet\LoginDB_Languages.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="RoleManager.Designer.cs">
       <DependentUpon>RoleManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="STAND_ALONE_MSSQL.cs" />
     <Compile Include="UserInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
