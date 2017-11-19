@@ -171,6 +171,10 @@
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\CONTROLS\NavigationButtons\NavigationButtons.csproj">
       <Project>{ca3ed1b3-c281-48c3-b799-e2853e0c4c1f}</Project>
       <Name>NavigationButtons</Name>
@@ -187,6 +191,14 @@
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\Excell_Export\Excell_Export.csproj">
+      <Project>{5f7e6571-ac5e-44bc-a805-a0726d99b82c}</Project>
+      <Name>Excell_Export</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CodeTables\Excell_Export_base\Excell_Export_base.csproj">
+      <Project>{fa97fa6a-58c9-4922-9c5a-f28c276bf731}</Project>
+      <Name>Excell_Export_base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CodeTables\SQLTableControl\CodeTables.csproj">
       <Project>{9e74dcdb-34e6-41cb-b677-c9a0d6c4c10d}</Project>
       <Name>CodeTables</Name>
@@ -198,10 +210,6 @@
     <ProjectReference Include="..\..\CodeTables\UTIL\LogFile\LogFile.csproj">
       <Project>{6b46e1f3-1818-4af1-b63f-19e31c6b6170}</Project>
       <Name>LogFile</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
-      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
-      <Name>DataGridView_2xls_base</Name>
     </ProjectReference>
     <ProjectReference Include="..\Form_Discount\Form_Discount.csproj">
       <Project>{4ac81b7e-a501-40ba-9a29-ed8004430eab}</Project>

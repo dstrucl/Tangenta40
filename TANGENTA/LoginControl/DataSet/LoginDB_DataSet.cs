@@ -30,9 +30,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -272,9 +272,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -514,9 +514,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -1141,9 +1141,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -1383,9 +1383,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -1779,9 +1779,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -2175,9 +2175,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -2725,9 +2725,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -4045,9 +4045,9 @@ namespace LoginDB_DataSet
         }
 
 
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -4348,9 +4348,9 @@ namespace LoginDB_DataSet
         public const string tablename_const = "Login_VIEW";
         public selection select;
         public WHERE where;
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -5464,9 +5464,9 @@ namespace LoginDB_DataSet
         public const string tablename_const = "LoginManagerJournal_VIEW";
         public selection select;
         public WHERE where;
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {
@@ -5826,9 +5826,9 @@ namespace LoginDB_DataSet
         public const string tablename_const = "LoginSession_VIEW";
         public selection select;
         public WHERE where;
-        public int RowsCount
+        public new int RowsCount
         {
-            get {return RowsCount();}
+            get {return base.RowsCount();}
         }
         public void Clear()
         {

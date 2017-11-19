@@ -336,10 +336,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
-      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
-      <Name>DataGridView_2xls_base</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CONTROLS\Crom.Controls\Crom.Controls.csproj">
       <Project>{F2999C1D-BED3-4D47-A8AC-8027334ECDC1}</Project>
       <Name>Crom.Controls</Name>
@@ -347,6 +343,10 @@
     <ProjectReference Include="..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CONTROLS\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
     </ProjectReference>
     <ProjectReference Include="..\CONTROLS\DynEditControls\DynEditControls.csproj">
       <Project>{f3e6177c-42ce-4a38-a638-829dcee259e4}</Project>
@@ -371,6 +371,10 @@
     <ProjectReference Include="..\DBTypes\DBTypes.csproj">
       <Project>{3c726999-1ad1-4321-8d63-d1136a3f071c}</Project>
       <Name>DBTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Excell_Export_base\Excell_Export_base.csproj">
+      <Project>{fa97fa6a-58c9-4922-9c5a-f28c276bf731}</Project>
+      <Name>Excell_Export_base</Name>
     </ProjectReference>
     <ProjectReference Include="..\UTIL\LanguageControl\LanguageControl.csproj">
       <Project>{949968F4-DD18-406E-93A5-9EA7BEFCD0B0}</Project>
