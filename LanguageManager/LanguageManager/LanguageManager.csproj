@@ -4,16 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{66ABBF74-CE85-4009-825C-426CE3B79B48}</ProjectGuid>
+    <ProjectGuid>{E7D1D2AF-1FCB-4FA1-B93D-EE28D12ADA2B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SolutionExplorer</RootNamespace>
-    <AssemblyName>SolutionExplorer</AssemblyName>
+    <RootNamespace>LanguageManager</RootNamespace>
+    <AssemblyName>LanguageManager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -33,13 +35,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build">
-      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\MSBuild\v14.0\Microsoft.Build.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\MSBuild\v14.0\Microsoft.Build.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -48,52 +49,60 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form_INNO_Setup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_INNO_Setup.Designer.cs">
-      <DependentUpon>Form_INNO_Setup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form_NSIS_Setup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_NSIS_Setup.Designer.cs">
-      <DependentUpon>Form_NSIS_Setup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="INNOScriptTemplateParser.cs" />
-    <Compile Include="NSISScriptTemplateParser.cs" />
-    <Compile Include="PlatformList.cs" />
-    <Compile Include="Platform.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ConfigurationList.cs" />
-    <Compile Include="Form_SolutionExplorer.cs">
+    <Compile Include="ExternalDLLReference.cs" />
+    <Compile Include="ExternalDllReferenceList.cs" />
+    <Compile Include="Form_LanguageManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_SolutionExplorer.Designer.cs">
-      <DependentUpon>Form_SolutionExplorer.cs</DependentUpon>
+    <Compile Include="Form_LanguageManager.Designer.cs">
+      <DependentUpon>Form_LanguageManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_ViewGetingReferencesProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_ViewGetingReferencesProgress.Designer.cs">
+      <DependentUpon>Form_ViewGetingReferencesProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ltext_project_reference_List.cs" />
+    <Compile Include="Ordered_ltext_position.cs" />
     <Compile Include="Parser.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Platform.cs" />
+    <Compile Include="PlatformList.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectReference.cs" />
+    <Compile Include="ProjectReferencesList.cs" />
+    <Compile Include="ltext_project_reference.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ltext_source_file_reference.cs" />
     <Compile Include="usrc_SelectFile.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="usrc_SelectFile.Designer.cs">
       <DependentUpon>usrc_SelectFile.cs</DependentUpon>
     </Compile>
-    <None Include="app.config" />
+    <Compile Include="ltext_var_reference.cs" />
+    <EmbeddedResource Include="Form_LanguageManager.resx">
+      <DependentUpon>Form_LanguageManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="usrc_SelectFile.resx">
+      <DependentUpon>usrc_SelectFile.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="ExternalDLLReference.cs" />
-    <Compile Include="ExternalDllReferenceList.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="ProjectReference.cs" />
-    <Compile Include="ProjectReferencesList.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -101,37 +110,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form_INNO_Setup.resx">
-      <DependentUpon>Form_INNO_Setup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_NSIS_Setup.resx">
-      <DependentUpon>Form_NSIS_Setup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form_SolutionExplorer.resx">
-      <DependentUpon>Form_SolutionExplorer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usrc_SelectFile.resx">
-      <DependentUpon>usrc_SelectFile.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SolutionExplorerIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\NSIS_Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls\DataGridView_2xls.csproj">
       <Project>{3a0f6691-d8d0-4005-902a-215da5f671b4}</Project>
       <Name>DataGridView_2xls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\CONTROLS\DigitalRune.Windows.TextEditor\DigitalRune.Windows.TextEditor.csproj">
-      <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
-      <Name>DigitalRune.Windows.TextEditor</Name>
+    <ProjectReference Include="..\..\CodeTables\CONTROLS\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

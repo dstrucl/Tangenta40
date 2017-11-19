@@ -51,7 +51,7 @@
     <None Include="DataGridView_2xls.licenseheader" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeTables\Excell_Export_base\Excell_Export_base.csproj">
+    <ProjectReference Include="..\..\Excell_Export_base\Excell_Export_base.csproj">
       <Project>{fa97fa6a-58c9-4922-9c5a-f28c276bf731}</Project>
       <Name>Excell_Export_base</Name>
     </ProjectReference>

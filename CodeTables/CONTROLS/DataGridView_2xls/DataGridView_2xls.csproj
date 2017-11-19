@@ -85,10 +85,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
-      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
-      <Name>DataGridView_2xls_base</Name>
-    </ProjectReference>
+    <None Include="DataGridView_2xls.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Excell_Export\Excell_Export.csproj">
       <Project>{5f7e6571-ac5e-44bc-a805-a0726d99b82c}</Project>
       <Name>Excell_Export</Name>
@@ -101,9 +100,10 @@
       <Project>{949968f4-dd18-406e-93a5-9ea7befcd0b0}</Project>
       <Name>LanguageControl</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DataGridView_2xls.licenseheader" />
+    <ProjectReference Include="..\DataGridView_2xls_base\DataGridView_2xls_base.csproj">
+      <Project>{1f20972e-563b-495d-a881-c04db9ab0af6}</Project>
+      <Name>DataGridView_2xls_base</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
