@@ -106,9 +106,9 @@
     <Compile Include="HtmlToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Utilities\ClipboardHelper.cs" />
-    <Compile Include="Utilities\Utils.cs" />
-    <Compile Include="Utilities\Win32Utils.cs" />
+    <Compile Include="Adapters\Utilities\ClipboardHelper.cs" />
+    <Compile Include="Adapters\Utilities\Utils.cs" />
+    <Compile Include="Adapters\Utilities\Win32Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -57,7 +57,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -1177,8 +1177,14 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir)bin\NetRevisionTool.exe" /restore "$(ProjectDir)Properties"
+IF EXIST "$(ProjectDir)bin\Release\" (GOTO purge_release)
+GOTO md_release
+:purge_release
 del $(ProjectDir)bin\Release\*.pdb
-</PostBuildEvent>
+GOTO End_batch
+:md_release
+md $(ProjectDir)bin\Release\
+:End_batch</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
