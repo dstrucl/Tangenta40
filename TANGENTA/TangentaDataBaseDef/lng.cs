@@ -464,5 +464,19 @@ namespace TangentaDataBaseDef
 
         public static ltext lngt_t_JOURNAL_myOrganisation_Person_AccessRights = new ltext(new string[] { "myOrganisation Person AccessRights event", "Dogodek pravic osebe moje organizacije" });
 
+        public static ltext lngt_t_LoginUsers = new ltext(new string[] { "Users", "Uporabniki" });
+
+        public static ltext lngt_t_LoginRoles = new ltext(new string[] { "User rights", "Pravice uporabnikov" });
+
+        public static ltext lngt_t_LoginUsersAndLoginRoles = new ltext(new string[] { "Users and Access rights", "Uporabniki in pravice dostopa" });
+
+        public static ltext lngt_t_LoginSession = new ltext(new string[] { "Login session", "Dnevnik prijav" });
+
+        public static ltext lngt_t_LoginFailed = new ltext(new string[] { "Login failed", "Neuspešne prijave" });
+
+        public static ltext lngt_t_LoginManagerEvent = new ltext(new string[] { "Login Manager Event", "Dogodek urejanja uporabnikov" });
+
+        public static ltext lngt_t_LoginManagerJournal = new ltext(new string[] { "Login Manager Event JOURNAL", "Dnevnik dogodkov urejanja uporabnikov" });
+
     }
 }

@@ -230,7 +230,7 @@ namespace UpgradeDB
                             sql = "update Bank set Organisation_ID = 2 where ID = 1";
                             if (!DBSync.DBSync.ExecuteNonQuerySQL_NoMultiTrans(sql, null, ref Err))
                             {
-                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_19_to_1_20:sql=" + sql + "\r\nErr=" + Err);
+                                LogFile.Error.Show("ERROR:usrc_Update:UpgradeDB_1_20_to_1_21:sql=" + sql + "\r\nErr=" + Err);
                                 return false;
                             }
 
@@ -267,7 +267,15 @@ namespace UpgradeDB
 
                         new_tables = new string[] {"doc_type",
                                                     "doc_page_type",
-                                                    "doc"};
+                                                    "doc",
+                                                    "LoginUsers",
+                                                    "LoginRoles",
+                                                    "LoginUsersAndLoginRoles",
+                                                    "LoginSession",
+                                                    "LoginFailed",
+                                                    "LoginManagerEvent",
+                                                    "LoginManagerJournal"    };
+
                         if (DBSync.DBSync.CreateTables(new_tables, ref Err))
                         {
                             if (DBSync.DBSync.Create_VIEWs())

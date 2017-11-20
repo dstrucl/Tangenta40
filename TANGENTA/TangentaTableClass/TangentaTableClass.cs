@@ -2539,6 +2539,81 @@ namespace TangentaTableClass
         public StockTake m_StockTake = new StockTake();
     }
 
+    public class ChangePasswordOnFirstLogin:DB_bit {    }
+    public class Time_When_AdministratorSetsPassword : DB_DateTime { }
+    public class Administrator_LoginUsers_ID : DB_Int64 { } // reference to administrator who added the user
+    public class Time_When_UserSetsItsOwnPassword_FirstTime: DB_DateTime { }
+    public class Time_When_UserSetsItsOwnPassword_LastTime : DB_DateTime { }
+    public class PasswordNeverExpires : DB_bit { }
+    public class Maximum_password_age_in_days : DB_Int32 { }
+    public class NotActiveAfterPasswordExpires : DB_bit { }
+    public class PrivilegesLevel : DB_Int32 { }
+    public class Logout_Type : DB_Int32 { }
+    public class AttemptTime : DB_DateTime { }
+    public class Username_does_not_exist : DB_bit { }
+    public class Password_wrong : DB_bit { }
+
+    public class LoginUsers
+    {
+        public ID ID = new ID();
+        public myOrganisation_Person m_myOrganisation_Person = new myOrganisation_Person();
+        public ChangePasswordOnFirstLogin ChangePasswordOnFirstLogin = new ChangePasswordOnFirstLogin();
+        public Time_When_AdministratorSetsPassword Time_When_AdministratorSetsPassword = new Time_When_AdministratorSetsPassword();
+        public Administrator_LoginUsers_ID Administrator_LoginUsers_ID = new Administrator_LoginUsers_ID();
+        public Time_When_UserSetsItsOwnPassword_FirstTime Time_When_UserSetsItsOwnPassword_FirstTime = new Time_When_UserSetsItsOwnPassword_FirstTime();
+        public Time_When_UserSetsItsOwnPassword_LastTime Time_When_UserSetsItsOwnPassword_LastTime = new Time_When_UserSetsItsOwnPassword_LastTime();
+        public PasswordNeverExpires PasswordNeverExpires = new PasswordNeverExpires();
+        public Maximum_password_age_in_days Maximum_password_age_in_days = new Maximum_password_age_in_days();
+        public NotActiveAfterPasswordExpires NotActiveAfterPasswordExpires = new NotActiveAfterPasswordExpires();
+    }
+
+    public class LoginRoles
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+        public PrivilegesLevel PrivilegesLevel = new PrivilegesLevel();
+    }
+
+    public class LoginUsersAndLoginRoles
+    {
+        public ID ID = new ID();
+        public LoginUsers m_LoginUsers = new LoginUsers();
+        public LoginRoles m_LoginRoles = new LoginRoles();
+    }
+
+
+    public class LoginSession
+    {
+        public ID ID = new ID();
+        public Atom_WorkPeriod m_Atom_WorkPeriod = new Atom_WorkPeriod();
+        public Logout_Type Logout_Type = new Logout_Type();
+    }
+
+    public class LoginFailed
+    {
+        public ID ID = new ID();
+        public UserName UserName = new UserName();
+        public AttemptTime AttemptTime = new AttemptTime();
+        public Username_does_not_exist Username_does_not_exist = new Username_does_not_exist();
+        public Password_wrong Password_wrong = new Password_wrong();
+        public Atom_Computer m_Atom_Computer = new Atom_Computer();
+    }
+
+    public class LoginManagerEvent
+    {
+        public ID ID = new ID();
+        public Name Name = new Name();
+    }
+
+    public class LoginManagerJournal
+    {
+        public ID ID = new ID();
+        public LoginUsers m_LoginUsers = new LoginUsers();
+        public LoginManagerEvent m_LoginManagerEvent = new LoginManagerEvent();
+        public EventTime EventTime = new EventTime();
+    }
+
+
     public class SQL_Database_Tables_Definition
     {
 
@@ -3149,5 +3224,27 @@ namespace TangentaTableClass
 
         /* 209 */
         public Atom_Comment1 m_Atom_Comment1 = new Atom_Comment1();
+
+        /* 210 */
+        public LoginUsers m_LoginUsers = new LoginUsers();
+
+        /* 211 */
+        public LoginRoles m_LoginRoles = new LoginRoles();
+
+        /* 212 */
+        public LoginUsersAndLoginRoles m_LoginUsersAndLoginRoles = new LoginUsersAndLoginRoles();
+
+        /* 213 */
+        public LoginSession m_LoginSession = new LoginSession();
+
+        /* 214 */
+        public LoginFailed m_LoginFailed = new LoginFailed();
+
+        /* 215 */
+        public LoginManagerEvent m_LoginManagerEvent = new LoginManagerEvent();
+
+        /* 216 */
+        public LoginManagerJournal m_LoginManagerJournal = new LoginManagerJournal();
+
     }
 }

@@ -577,6 +577,7 @@ namespace Tangenta
             TangentaPrint.lng.SetDictionary();
             UpgradeDB.lng.SetDictionary();
             uwpfGUI.lng.SetDictionary();
+            LoginControl.lng.SetDictionary();
         }
 
         private static void SelectLanguage(ref bool bLanguageSelectDialogShown,ref bool bLanguageSelected,ref bool bExitBeforeLogFileInitialised)
