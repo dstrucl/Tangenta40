@@ -72,12 +72,36 @@
       <DependentUpon>Form_Upgrade.cs</DependentUpon>
     </Compile>
     <Compile Include="lng.cs" />
+    <Compile Include="Old_tables_1_04_to_1_05.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TableDataItem.cs" />
+    <Compile Include="Upgrade_1_00_to_1_01.cs" />
+    <Compile Include="Upgrade_1_01_to_1_02.cs" />
+    <Compile Include="Upgrade_1_02_to_1_03.cs" />
+    <Compile Include="Upgrade_1_03_to_1_04.cs" />
+    <Compile Include="Upgrade_1_04_to_1_05.cs" />
+    <Compile Include="Upgrade_1_05_to_1_06.cs" />
+    <Compile Include="Upgrade_1_06_to_1_07.cs" />
+    <Compile Include="Upgrade_1_07_to_1_08.cs" />
+    <Compile Include="Upgrade_1_08_to_1_09.cs" />
+    <Compile Include="Upgrade_1_09_to_1_10.cs" />
+    <Compile Include="Upgrade_1_10_to_1_11.cs" />
+    <Compile Include="Upgrade_1_11_to_1_12.cs" />
+    <Compile Include="Upgrade_1_12_to_1_13.cs" />
+    <Compile Include="Upgrade_1_13_to_1_14.cs" />
+    <Compile Include="Upgrade_1_14_to_1_15.cs" />
+    <Compile Include="Upgrade_1_15_to_1_16.cs" />
+    <Compile Include="Upgrade_1_16_to_1_17.cs" />
+    <Compile Include="Upgrade_1_17_to_1_18.cs" />
+    <Compile Include="Upgrade_1_18_to_1_19.cs" />
+    <Compile Include="Upgrade_1_19_to_1_20.cs" />
+    <Compile Include="Upgrade_1_20_to_1_21.cs" />
+    <Compile Include="Upgrade_1_21_to_1_22.cs" />
     <Compile Include="Upgrade_inThread.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -537,7 +537,7 @@ namespace LoginControl
             m_LoginData.m_FirstName = LoginUsers.o_first_name.first_name_;
             m_LoginData.m_LastName = LoginUsers.o_last_name.last_name_;
             m_LoginData.m_Identity = LoginUsers.o_Identity.Identity_;
-            m_LoginData.m_Contact = m_LoginData.m_Contact;
+
 
             m_LoginData.m_PasswordNeverExpires = LoginUsers.o_PasswordNeverExpires.PasswordNeverExpires_;
             m_LoginData.m_NotActiveAfterPasswordExpires = LoginUsers.o_NotActiveAfterPasswordExpires.NotActiveAfterPasswordExpires_;
