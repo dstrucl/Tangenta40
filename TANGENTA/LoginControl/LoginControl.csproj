@@ -128,18 +128,25 @@
     <Compile Include="RoleManager.Designer.cs">
       <DependentUpon>RoleManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="STAND_ALONE_MSSQL.cs" />
+    <Compile Include="AWP_func.cs" />
+    <Compile Include="STD_MSSQL.cs" />
+    <Compile Include="AWP_UserManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AWP_UserManager.designer.cs">
+      <DependentUpon>AWP_UserManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserInfoForm.Designer.cs">
       <DependentUpon>UserInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserManager.cs">
+    <Compile Include="STD_UserManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserManager.designer.cs">
-      <DependentUpon>UserManager.cs</DependentUpon>
+    <Compile Include="STD_UserManager.designer.cs">
+      <DependentUpon>STD_UserManager.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -177,12 +184,16 @@
       <DependentUpon>RoleManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="AWP_UserManager.resx">
+      <DependentUpon>AWP_UserManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInfoForm.resx">
       <DependentUpon>UserInfoForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserManager.resx">
-      <DependentUpon>UserManager.cs</DependentUpon>
+    <EmbeddedResource Include="STD_UserManager.resx">
+      <DependentUpon>STD_UserManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

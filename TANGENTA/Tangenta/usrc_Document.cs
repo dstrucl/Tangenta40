@@ -642,20 +642,32 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
     {
         if (Program.OperationMode.MultiUser)
         {
-            if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+            bool bCancel = false;
+            this.loginControl1.InitAWPMode((Form)this.Parent, DBSync.DBSync.DB_for_Tangenta.m_DBTables.m_con,  LanguageControl.DynSettings.LanguageID, ref bCancel, ref Err);
+            if (this.loginControl1.AWP_Login(xnav))
             {
-                myStartup.eNextStep++;
-                return true;
+
+                if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                {
+                    myStartup.eNextStep++;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    return false;
+                }
             }
             else
             {
-                LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
                 myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
                 return false;
             }
         }
         else // Single user
         {
+            this.loginControl1.Visible = false;
             if (Program.bFirstTimeInstallation)
             {
 

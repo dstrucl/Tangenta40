@@ -6,7 +6,7 @@ using System.Text;
 
 namespace LoginControl
 {
-    public static class STAND_ALONE_MSSQL
+    public static class STD_MSSQL
     {
         internal static bool Read_Login_VIEW(ref LoginDB_DataSet.Login_VIEW m_Login_VIEW,DBConnection Login_con, ref string Err)
         {

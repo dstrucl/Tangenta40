@@ -1,6 +1,6 @@
 namespace LoginControl
 {
-    partial class UserManager
+    partial class STD_UserManager
     {
         /// <summary>
         /// Required designer variable.

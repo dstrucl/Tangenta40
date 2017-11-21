@@ -13,7 +13,7 @@ using LanguageControl;
 namespace LoginControl
 {
 
-    public partial class UserManager : Form
+    public partial class STD_UserManager : Form
     {
 
         bool bLoginUsers_Read = false;
@@ -38,7 +38,7 @@ namespace LoginControl
         LoginControl login_control;
 
 
-        public UserManager(Form pParent,LoginControl xlogin_control)
+        public STD_UserManager(Form pParent,LoginControl xlogin_control)
         {
             login_control = xlogin_control;
             InitializeComponent();

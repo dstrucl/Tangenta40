@@ -15,9 +15,11 @@ namespace LoginControl
 {
     public partial class LoginControl : UserControl
     {
-        public enum eDataTableCreationMode { STAND_ALONE, Atom_WorkPeriod};
+        public enum eDataTableCreationMode {/*STAND_ALONE*/STD,/*Atom_WorkPeriod*/ AWP };
 
         LoginDB_DataSet.Login_VIEW m_Login_VIEW = null;
+        DataTable AWP_dtLoginView = null;
+
         LoginDB_DataSet.LoginDB_DataSet_Procedures m_LoginDB_DataSet_Procedures = null;
 
         internal LoginData m_LoginData = new LoginData();
@@ -25,7 +27,7 @@ namespace LoginControl
 
         internal int m_MinPasswordLength = 3;
 
-        private eDataTableCreationMode m_eDataTableCreationMode = eDataTableCreationMode.STAND_ALONE; 
+        private eDataTableCreationMode m_eDataTableCreationMode = eDataTableCreationMode.STD; 
 
         public eDataTableCreationMode DataTableCreationMode
         {
@@ -192,7 +194,7 @@ namespace LoginControl
             {
                 switch (m_eDataTableCreationMode)
                 {
-                    case eDataTableCreationMode.STAND_ALONE:
+                    case eDataTableCreationMode.STD:
                         {
                             if (CreateTables(xeDataTableCreationMode, Login_con))
                             {
@@ -225,7 +227,7 @@ namespace LoginControl
         {
             switch (xeDataTableCreationMode)
             {
-                case eDataTableCreationMode.STAND_ALONE:
+                case eDataTableCreationMode.STD:
                     switch (Login_con.DBType)
                     {
                         case DBConnection.eDBType.MSSQL:
@@ -239,7 +241,7 @@ namespace LoginControl
                     }
                     return false;
 
-                case eDataTableCreationMode.Atom_WorkPeriod:
+                case eDataTableCreationMode.AWP:
                     switch (Login_con.DBType)
                     {
                         case DBConnection.eDBType.MSSQL:
@@ -264,11 +266,11 @@ namespace LoginControl
         {
             switch (xeDataTableCreationMode)
             {
-                case eDataTableCreationMode.STAND_ALONE:
+                case eDataTableCreationMode.STD:
                     switch (Login_con.DBType)
                     {
                         case DBConnection.eDBType.MSSQL:
-                            return STAND_ALONE_MSSQL.Read_Login_VIEW(ref m_Login_VIEW, Login_con, ref Err);
+                            return STD_MSSQL.Read_Login_VIEW(ref m_Login_VIEW, Login_con, ref Err);
                         case DBConnection.eDBType.MYSQL:
                             LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
                             return false;
@@ -279,18 +281,17 @@ namespace LoginControl
                     LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
                     return false;
 
-                case eDataTableCreationMode.Atom_WorkPeriod:
+                case eDataTableCreationMode.AWP:
                     switch (Login_con.DBType)
                     {
                         case DBConnection.eDBType.MSSQL:
-                            LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
-                            return false;
+                            return AWP_func.Read_Login_VIEW(Login_con, ref AWP_dtLoginView, ref Err);
+
                         case DBConnection.eDBType.MYSQL:
                             LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
                             return false;
                         case DBConnection.eDBType.SQLITE:
-                            LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
-                            return false;
+                            return AWP_func.Read_Login_VIEW(Login_con, ref AWP_dtLoginView, ref Err);
                     }
                     LogFile.Error.Show("ERROR:Read_Login_VIEW: Not implemented for " + xeDataTableCreationMode.ToString() + " and " + Login_con.DBType.ToString());
                     return false;
@@ -300,13 +301,14 @@ namespace LoginControl
             return false;
         }
 
-        public bool Init(Form pParentForm, DBConnection con,object DBParam,int Language_id, NavigationButtons.Navigation xnav,ref bool bCancel, eDataTableCreationMode xeDataTableCreationMode, ref string Err )
+        public bool InitSTDMode(Form pParentForm, DBConnection con,object DBParam,int Language_id,ref bool bCancel, ref string Err )
         {
+            m_eDataTableCreationMode = eDataTableCreationMode.STD;
             LoginDB_DataSet.DynSettings.LanguageID = Language_id;
             Login_con = con;
             if (CheckConnection(pParentForm))
             {
-                    return GetTables(xeDataTableCreationMode, Login_con, ref Err);
+                    return GetTables(m_eDataTableCreationMode, Login_con, ref Err);
             }
             else
             {
@@ -315,7 +317,14 @@ namespace LoginControl
             }
         }
 
-        public bool Login()
+        public void InitAWPMode(Form pParentForm, DBConnection con, int Language_id, ref bool bCancel, ref string Err)
+        {
+            m_eDataTableCreationMode = eDataTableCreationMode.AWP;
+            LoginDB_DataSet.DynSettings.LanguageID = Language_id;
+            Login_con = con;
+        }
+
+        public bool STD_Login()
         {
             string Err = null;
             if (Read_Login_VIEW(m_eDataTableCreationMode,this.Login_con,ref Err))
@@ -335,12 +344,12 @@ namespace LoginControl
                         {
                             m_LoginData.m_LoginUsers_id = (int) dr[0][LoginDB_DataSet.Login_VIEW.Users_id.name];
 
-                            UserManager edtLogin = new UserManager(null,this);
+                            STD_UserManager edtLogin = new STD_UserManager(null,this);
                             if (edtLogin.ShowDialog() == DialogResult.OK)
                             {
                                 if (Read_Login_VIEW(m_eDataTableCreationMode, this.Login_con,ref Err))
                                 {
-                                    if (dtLogin_Vaild(ref Err))
+                                    if (STD_dtLogin_Vaild(ref Err))
                                     {
                                         return DoLogin();
                                     }
@@ -372,7 +381,71 @@ namespace LoginControl
             }
         }
 
+        public bool AWP_Login(NavigationButtons.Navigation xnav)
+        {
+            string Err = null;
+            if (Read_Login_VIEW(m_eDataTableCreationMode, this.Login_con, ref Err))
+            {
+                if (dtLogin_Vaild(ref Err))
+                {
+                    return DoLogin();
+                }
+                else
+                {
+                    // Login as SuperAdministrator to edit Login Tables !
+                    DataRow[] dr = AWP_dtLoginView.Select("username = 'Administrator'");
+                    if (dr != null)
+                    {
+                        m_LoginData.m_LoginUsers_id = (int)dr[0][LoginDB_DataSet.Login_VIEW.Users_id.name];
 
+                        STD_UserManager edtLogin = new STD_UserManager(null, this);
+                        if (edtLogin.ShowDialog() == DialogResult.OK)
+                        {
+                            if (Read_Login_VIEW(m_eDataTableCreationMode, this.Login_con, ref Err))
+                            {
+                                if (STD_dtLogin_Vaild(ref Err))
+                                {
+                                    return DoLogin();
+                                }
+                                else
+                                {
+                                    LogFile.Error.Show("ERROR:LoginControl:Login: Read Login data Tables are not valid:" + Err);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                LogFile.Error.Show("ERROR:LoginControl:Login: Read Login_VIEW Err=:" + Err);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return false;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR LOGIN !: Read Login Tables :" + Err);
+                return false;
+            }
+        }
+
+        private bool dtLogin_Vaild(ref string err)
+        {
+            switch (m_eDataTableCreationMode)
+            {
+                case eDataTableCreationMode.STD:
+                    return STD_dtLogin_Vaild(ref err);
+                case eDataTableCreationMode.AWP:
+                    return AWP_dtLogin_Vaild(ref err);
+            }
+            LogFile.Error.Show("ERROR:LoginControl:dtLogin_Vaild:m_eDataTableCreationMode = " + m_eDataTableCreationMode.ToString() + " not implemented!");
+            return false;
+        }
 
         private bool DoLogin()
         {
@@ -419,7 +492,7 @@ namespace LoginControl
             return false;
         }
 
-        private bool dtLogin_Vaild(ref string Err)
+        private bool STD_dtLogin_Vaild(ref string Err)
         {
 
             if (m_Login_VIEW.dt.Rows.Count > 0)
@@ -436,6 +509,26 @@ namespace LoginControl
             else
             {
                 Err = "Error : dtLogin Table is empty (dtLogin.Rows.Count = 0)!";
+                return false;
+            }
+        }
+        private bool AWP_dtLogin_Vaild(ref string Err)
+        {
+
+            if (AWP_dtLoginView.Rows.Count > 0)
+            {
+                if (AWP_dtLoginView.Rows[0]["password"].GetType() != typeof(DBNull))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                Err = "Error : AWP_dtLoginView Table is empty (AWP_dtLoginView.Rows.Count = 0)!";
                 return false;
             }
         }
@@ -520,7 +613,7 @@ namespace LoginControl
 
         private void btn_UserManager_Click(object sender, EventArgs e)
         {
-            UserManager usr_mangaer = new UserManager(this.ParentForm, this);
+            STD_UserManager usr_mangaer = new STD_UserManager(this.ParentForm, this);
             usr_mangaer.ShowDialog();
         }
 
