@@ -20,6 +20,7 @@ namespace Password
         public Form_AskForPassword(Form parent,Icon form_icon,string Password)
         {
             InitializeComponent();
+            this.Text = "";
             this.usrc_Password1.MyPassword = Password;
         }
 

@@ -16,7 +16,8 @@ namespace Tangenta
     {
         NavigationButtons.Navigation nav = null;
         public string AdministratorLockedPassword { get { return this.usrc_Password1.Text; } }
-        public bool MultiuserOperationWithLogin { get { return chk_MultiUserOperation.Checked; } }
+        public bool MultiuserOperationWithLogin { get { return rdb_MultiUserOperation.Checked; } }
+        public bool SingleUserLoginAsAdministrator { get { return chk_SingleUserLoginAsAdministrator.Checked; } }
         public bool StockCheckAtStartup { get {return chk_StockCheckAtStartup.Checked; } }
 
         public Form_DBSettings(NavigationButtons.Navigation xnav,string AdministratorLockedPassword, bool bMultiuserOperation,bool bStockCheckAtStartup)
@@ -26,7 +27,7 @@ namespace Tangenta
             usrc_NavigationButtons1.Init(nav);
             lng.s_DataBaseVersion.Text(lbl_DataBaseVersion, MyDataBase_Tangenta.VERSION);
             lng.s_Administrator_password.Text(lbl_Administrator_Password);
-            lng.s_MultiuserOperationWithLogin.Text(chk_MultiUserOperation);
+            lng.s_MultiuserOperationWithLogin.Text(rdb_MultiUserOperation);
             lng.s_StockCheckAtStartup.Text(chk_StockCheckAtStartup);
             if (AdministratorLockedPassword == null)
             {
@@ -36,8 +37,26 @@ namespace Tangenta
             {
                 this.usrc_Password1.Text = AdministratorLockedPassword;
             }
-            chk_MultiUserOperation.Checked = bMultiuserOperation;
+            rdb_MultiUserOperation.Checked = bMultiuserOperation;
             chk_StockCheckAtStartup.Checked = bStockCheckAtStartup;
+
+            lng.s_grp_OperationMode.Text(grp_OperationMode);
+            lng.s_rdb_MultiUser.Text(rdb_MultiUserOperation);
+            lng.s_rdb_SingleUser.Text(rdb_SingleUser);
+            lng.s_chk_LoginAsAdministrator.Text(chk_SingleUserLoginAsAdministrator);
+
+            rdb_MultiUserOperation.Checked = Program.OperationMode.MultiUser;
+            rdb_SingleUser.Checked = !Program.OperationMode.MultiUser;
+            chk_SingleUserLoginAsAdministrator.Checked = Program.OperationMode.SingleUserLoginAsAdministrator;
+
+            if (rdb_SingleUser.Checked)
+            {
+                chk_SingleUserLoginAsAdministrator.Enabled = true;
+            }
+            else
+            {
+                chk_SingleUserLoginAsAdministrator.Enabled = false;
+            }
         }
 
         private void usrc_NavigationButtons1_ButtonPressed(NavigationButtons.Navigation.eEvent evt)
@@ -93,7 +112,9 @@ namespace Tangenta
                 {
                     string sbMutiuserOperation = "0";
                     string sbStockCheckAtStartup = "0";
-                    if (chk_MultiUserOperation.Checked)
+                    string sbSingleUserLoginAsAdministrator = "0";
+
+                    if (rdb_MultiUserOperation.Checked)
                     {
                         sbMutiuserOperation = "1";
                     }
@@ -101,13 +122,22 @@ namespace Tangenta
                     {
                         sbStockCheckAtStartup = "1";
                     }
+
+                    if (chk_SingleUserLoginAsAdministrator.Checked)
+                    {
+                        sbSingleUserLoginAsAdministrator = "1";
+                    }
+
                     if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, sbMutiuserOperation, "0", ref DBSettings_ID))
                     {
-                        if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, sbStockCheckAtStartup, "0", ref DBSettings_ID))
+                        if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, sbStockCheckAtStartup, "0", ref DBSettings_ID))
                         {
-                            Close();
-                            DialogResult = DialogResult.OK;
-                            return true;
+                            if (fs.WriteDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, sbSingleUserLoginAsAdministrator, "0", ref DBSettings_ID))
+                            {
+                                Close();
+                                DialogResult = DialogResult.OK;
+                                return true;
+                            }
                         }
                     }
                 }
@@ -122,6 +152,18 @@ namespace Tangenta
         {
             Close();
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void rdb_MultiUserOperation_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdb_MultiUserOperation.Checked)
+            {
+                chk_SingleUserLoginAsAdministrator.Enabled = false;
+            }
+            else
+            {
+                chk_SingleUserLoginAsAdministrator.Enabled = true;
+            }
         }
     }
 }

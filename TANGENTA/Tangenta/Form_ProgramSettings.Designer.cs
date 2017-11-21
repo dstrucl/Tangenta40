@@ -36,8 +36,9 @@
             this.btn_LogFile = new System.Windows.Forms.Button();
             this.lbL_ElectronicDevice_ID = new System.Windows.Forms.Label();
             this.txt_ElectronicDevice_ID = new System.Windows.Forms.TextBox();
-            this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInuse();
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
+            this.usrc_ShopsInuse1 = new Tangenta.usrc_ShopsInuse();
+            this.btn_DBSettings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chk_AllowToEditText
@@ -79,9 +80,9 @@
             // 
             // btn_LogFile
             // 
-            this.btn_LogFile.Location = new System.Drawing.Point(392, 41);
+            this.btn_LogFile.Location = new System.Drawing.Point(437, 41);
             this.btn_LogFile.Name = "btn_LogFile";
-            this.btn_LogFile.Size = new System.Drawing.Size(174, 34);
+            this.btn_LogFile.Size = new System.Drawing.Size(129, 43);
             this.btn_LogFile.TabIndex = 16;
             this.btn_LogFile.Text = "LOG DATOTEKA";
             this.btn_LogFile.UseVisualStyleBackColor = true;
@@ -105,13 +106,6 @@
             this.txt_ElectronicDevice_ID.TabIndex = 37;
             this.txt_ElectronicDevice_ID.WordWrap = false;
             // 
-            // usrc_ShopsInuse1
-            // 
-            this.usrc_ShopsInuse1.Location = new System.Drawing.Point(6, 82);
-            this.usrc_ShopsInuse1.Name = "usrc_ShopsInuse1";
-            this.usrc_ShopsInuse1.Size = new System.Drawing.Size(574, 133);
-            this.usrc_ShopsInuse1.TabIndex = 38;
-            // 
             // usrc_NavigationButtons1
             // 
             this.usrc_NavigationButtons1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -128,7 +122,7 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(12, 216);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(12, 224);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
             this.usrc_NavigationButtons1.Size = new System.Drawing.Size(561, 62);
             this.usrc_NavigationButtons1.TabIndex = 39;
@@ -142,11 +136,29 @@
             this.usrc_NavigationButtons1.Visible_PREV = true;
             this.usrc_NavigationButtons1.ButtonPressed += new NavigationButtons.usrc_NavigationButtons.delegate_button_pressed(this.usrc_NavigationButtons1_ButtonPressed);
             // 
+            // usrc_ShopsInuse1
+            // 
+            this.usrc_ShopsInuse1.Location = new System.Drawing.Point(3, 90);
+            this.usrc_ShopsInuse1.Name = "usrc_ShopsInuse1";
+            this.usrc_ShopsInuse1.Size = new System.Drawing.Size(570, 133);
+            this.usrc_ShopsInuse1.TabIndex = 38;
+            // 
+            // btn_DBSettings
+            // 
+            this.btn_DBSettings.Image = global::Tangenta.Properties.Resources.DBSettings;
+            this.btn_DBSettings.Location = new System.Drawing.Point(380, 41);
+            this.btn_DBSettings.Name = "btn_DBSettings";
+            this.btn_DBSettings.Size = new System.Drawing.Size(51, 43);
+            this.btn_DBSettings.TabIndex = 40;
+            this.btn_DBSettings.UseVisualStyleBackColor = true;
+            this.btn_DBSettings.Click += new System.EventHandler(this.btn_DBSettings_Click);
+            // 
             // Form_ProgramSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(574, 282);
+            this.ClientSize = new System.Drawing.Size(574, 307);
+            this.Controls.Add(this.btn_DBSettings);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.usrc_ShopsInuse1);
             this.Controls.Add(this.txt_ElectronicDevice_ID);
@@ -176,5 +188,6 @@
         private System.Windows.Forms.TextBox txt_ElectronicDevice_ID;
         private usrc_ShopsInuse usrc_ShopsInuse1;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
+        private System.Windows.Forms.Button btn_DBSettings;
     }
 }

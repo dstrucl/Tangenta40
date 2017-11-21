@@ -18,7 +18,7 @@ using CodeTables;
 using TangentaTableClass;
 using LanguageControl;
 using TangentaDB;
-
+using NavigationButtons;
 
 namespace Tangenta
 {
@@ -204,6 +204,23 @@ namespace Tangenta
                             return;
                     }
                     break;
+            }
+        }
+
+        private void btn_DBSettings_Click(object sender, EventArgs e)
+        {
+            NavigationButtons.Navigation nav_FormDBSettings = new Navigation();
+            nav_FormDBSettings.bDoModal = true;
+            nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
+            nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
+            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword, Program.OperationMode.MultiUser, Program.OperationMode.StockCheckAtStartup);
+            nav_FormDBSettings.ShowDialog();
+            if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
+            {
+                Program.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
+                Program.OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
+                Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;
+                Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
             }
         }
     }

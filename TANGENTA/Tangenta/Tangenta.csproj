@@ -1138,6 +1138,7 @@
     <None Include="Resources\SimpleItemGroups.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\DBSettings.png" />
     <EmbeddedResource Include="00_ENG_Invoice_A4.htm" />
     <Content Include="Blagajna_Icon.ico" />
     <None Include="Resources\PaymentIcon.ico" />
@@ -1159,7 +1160,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

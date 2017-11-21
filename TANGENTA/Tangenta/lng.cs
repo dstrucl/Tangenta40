@@ -626,5 +626,13 @@ namespace Tangenta
         public static ltext s_No_Office = new ltext(new string[] { "There is no office of your organisation. You must have at least one office in your organisation!",
                                                  "Vaše podjetje nima poslovnih enot,\nVpisati morate vsaj eno poslovno enoto!" });
 
+        public static ltext s_grp_OperationMode = new ltext(new string[] { "Operation Mode", "Način delovanja" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DBSettings.cs
+
+        public static ltext s_rdb_MultiUser = new ltext(new string[] { "Multi user", "Več uporabnikov" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DBSettings.cs
+
+        public static ltext s_rdb_SingleUser = new ltext(new string[] { "Single user", "En sam uporabnik" }); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DBSettings.cs
+
+        public static ltext s_chk_LoginAsAdministrator = new ltext(new string[] { "Login as Administrator", "Prijava z skrbniškim geslom"}); // referenced in C:\Tangenta40\TANGENTA\Tangenta\Form_DBSettings.cs
+
     }
 }

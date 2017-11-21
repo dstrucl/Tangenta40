@@ -35,7 +35,7 @@
             // 
             this.usrc_Password1.Location = new System.Drawing.Point(-2, 0);
             this.usrc_Password1.Name = "usrc_Password1";
-            this.usrc_Password1.Size = new System.Drawing.Size(342, 140);
+            this.usrc_Password1.Size = new System.Drawing.Size(355, 140);
             this.usrc_Password1.TabIndex = 0;
             this.usrc_Password1.exit_OK += new usrc_Password.delegate_Password_OK(this.usrc_Password1_exit_OK);
             this.usrc_Password1.exit_Cancel += new usrc_Password.delegate_Cancel(this.usrc_Password1_exit_Cancel);
@@ -44,7 +44,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(342, 143);
+            this.ClientSize = new System.Drawing.Size(358, 143);
             this.Controls.Add(this.usrc_Password1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form_AskForPassword";

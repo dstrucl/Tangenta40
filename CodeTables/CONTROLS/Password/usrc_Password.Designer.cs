@@ -44,7 +44,7 @@
             // 
             this.btn_PasswordView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_PasswordView.Image = ((System.Drawing.Image)(resources.GetObject("btn_PasswordView.Image")));
-            this.btn_PasswordView.Location = new System.Drawing.Point(297, 22);
+            this.btn_PasswordView.Location = new System.Drawing.Point(306, 22);
             this.btn_PasswordView.Name = "btn_PasswordView";
             this.btn_PasswordView.Size = new System.Drawing.Size(35, 21);
             this.btn_PasswordView.TabIndex = 13;
@@ -54,7 +54,7 @@
             // chk_RememberPasswordInSession
             // 
             this.chk_RememberPasswordInSession.AutoSize = true;
-            this.chk_RememberPasswordInSession.Location = new System.Drawing.Point(6, 68);
+            this.chk_RememberPasswordInSession.Location = new System.Drawing.Point(12, 68);
             this.chk_RememberPasswordInSession.Name = "chk_RememberPasswordInSession";
             this.chk_RememberPasswordInSession.Size = new System.Drawing.Size(80, 17);
             this.chk_RememberPasswordInSession.TabIndex = 12;
@@ -65,7 +65,7 @@
             // 
             this.lbl_WrongPassword.AutoSize = true;
             this.lbl_WrongPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lbl_WrongPassword.Location = new System.Drawing.Point(13, 52);
+            this.lbl_WrongPassword.Location = new System.Drawing.Point(12, 52);
             this.lbl_WrongPassword.Name = "lbl_WrongPassword";
             this.lbl_WrongPassword.Size = new System.Drawing.Size(88, 13);
             this.lbl_WrongPassword.TabIndex = 11;
@@ -73,7 +73,7 @@
             // 
             // txt_Password
             // 
-            this.txt_Password.Location = new System.Drawing.Point(3, 23);
+            this.txt_Password.Location = new System.Drawing.Point(10, 23);
             this.txt_Password.Name = "txt_Password";
             this.txt_Password.Size = new System.Drawing.Size(288, 20);
             this.txt_Password.TabIndex = 10;
@@ -82,7 +82,7 @@
             // lbl_EnterAdministratorPasword
             // 
             this.lbl_EnterAdministratorPasword.AutoSize = true;
-            this.lbl_EnterAdministratorPasword.Location = new System.Drawing.Point(3, 7);
+            this.lbl_EnterAdministratorPasword.Location = new System.Drawing.Point(10, 7);
             this.lbl_EnterAdministratorPasword.Name = "lbl_EnterAdministratorPasword";
             this.lbl_EnterAdministratorPasword.Size = new System.Drawing.Size(144, 13);
             this.lbl_EnterAdministratorPasword.TabIndex = 9;
@@ -123,7 +123,7 @@
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_OK);
             this.Name = "usrc_Password";
-            this.Size = new System.Drawing.Size(338, 140);
+            this.Size = new System.Drawing.Size(347, 140);
             this.ResumeLayout(false);
             this.PerformLayout();
 

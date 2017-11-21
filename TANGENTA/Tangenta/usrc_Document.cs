@@ -340,12 +340,31 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                     switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.MultiUserOperation.Name, ref MultiuserOperationWithLogin, ref bReadOnly, ref Err))
                     {
                         case fs.enum_GetDBSettings.DBSettings_OK:
-                            Program.MultiuserOperationWithLogin = MultiuserOperationWithLogin.Equals("1");
+                            Program.OperationMode.MultiUser = MultiuserOperationWithLogin.Equals("1");
                             string StockCheckAtStartup = null;
                             switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name, ref StockCheckAtStartup, ref bReadOnly, ref Err))
                             {
                                 case fs.enum_GetDBSettings.DBSettings_OK:
-                                    Program.StockCheckAtStartup = StockCheckAtStartup.Equals("1");
+                                    Program.OperationMode.StockCheckAtStartup = StockCheckAtStartup.Equals("1");
+                                    string sSingleUserLoginAsAdministrator = null;
+                                    switch (fs.GetDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.SingleUserLoginAsAdministrator.Name, ref sSingleUserLoginAsAdministrator, ref bReadOnly, ref Err))
+                                    {
+                                        case fs.enum_GetDBSettings.DBSettings_OK:
+                                            Program.OperationMode.SingleUserLoginAsAdministrator = sSingleUserLoginAsAdministrator.Equals("1");
+                                            break;
+
+                                        case fs.enum_GetDBSettings.No_TextValue:
+                                        case fs.enum_GetDBSettings.No_Data_Rows:
+                                            if (!GetMissingDBSettings(DBSync.DBSync.DB_for_Tangenta.Settings.StockCheckAtStartup.Name))
+                                            {
+                                                myStartup.eNextStep = startup_step.eStep.Cancel;
+                                                return false;
+                                            }
+                                            break;
+                                        case fs.enum_GetDBSettings.Error_Load_DBSettings:
+                                            myStartup.eNextStep = startup_step.eStep.Cancel;
+                                            return false;
+                                    }
                                     break;
 
                                 case fs.enum_GetDBSettings.No_ReadOnly:
@@ -426,13 +445,14 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
             nav_FormDBSettings.m_eButtons = Navigation.eButtons.OkCancel;
             nav_FormDBSettings.eExitResult = Navigation.eEvent.NOTHING;
             repeat_Form_DBSettings:
-            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword, Program.MultiuserOperationWithLogin, Program.StockCheckAtStartup);
+            nav_FormDBSettings.ChildDialog = new Form_DBSettings(nav_FormDBSettings, Program.AdministratorLockedPassword, Program.OperationMode.MultiUser, Program.OperationMode.StockCheckAtStartup);
             nav_FormDBSettings.ShowDialog();
             if (nav_FormDBSettings.eExitResult == Navigation.eEvent.OK)
             {
                 Program.AdministratorLockedPassword = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).AdministratorLockedPassword;
-                Program.MultiuserOperationWithLogin = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
-                Program.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
+                Program.OperationMode.MultiUser = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).MultiuserOperationWithLogin;
+                Program.OperationMode.SingleUserLoginAsAdministrator = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).SingleUserLoginAsAdministrator;
+                Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)nav_FormDBSettings.ChildDialog).StockCheckAtStartup;
                 return true;
             }
             else
@@ -563,11 +583,11 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
                     //No CheckDataBaseVersion is needed because Database was allready created and its version has not been written to DBSettings table
  do_Form_DBSettings:
 
-                    xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword, Program.MultiuserOperationWithLogin, Program.StockCheckAtStartup);
+                    xnav.ChildDialog = new Form_DBSettings(xnav, Program.AdministratorLockedPassword, Program.OperationMode.MultiUser, Program.OperationMode.StockCheckAtStartup);
                     xnav.ShowDialog();
                     Program.AdministratorLockedPassword = ((Form_DBSettings)xnav.ChildDialog).AdministratorLockedPassword;
-                    Program.MultiuserOperationWithLogin = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
-                    Program.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
+                    Program.OperationMode.MultiUser = ((Form_DBSettings)xnav.ChildDialog).MultiuserOperationWithLogin;
+                    Program.OperationMode.StockCheckAtStartup = ((Form_DBSettings)xnav.ChildDialog).StockCheckAtStartup;
                     switch (xnav.eExitResult)
                     {
                         case Navigation.eEvent.NEXT:
@@ -620,21 +640,81 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
 
     public bool GetWorkPeriod(startup myStartup,object oData, NavigationButtons.Navigation xnav, ref string Err)
     {
-        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht",Properties.Settings.Default.ElectronicDevice_ID,null, DateTime.Now, null, ref Err))
+        if (Program.OperationMode.MultiUser)
         {
+            if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+            {
                 myStartup.eNextStep++;
-            return true;
-        }
-        else
-        {
-            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                return true;
+            }
+            else
+            {
+                LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
                 myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
-            return false;
+                return false;
+            }
         }
-    }
+        else // Single user
+        {
+            if (Program.bFirstTimeInstallation)
+            {
+
+                if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                {
+                    myStartup.eNextStep++;
+                    return true;
+                }
+                else
+                {
+                    LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                    myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                    return false;
+                }
+            }
+            else
+            {
+                if (Program.OperationMode.SingleUserLoginAsAdministrator)
+                {
+                    if (Program.DoLoginAsAdministrator((Form)this.Parent))
+                    {
+                        if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                        {
+                            myStartup.eNextStep++;
+                            return true;
+                        }
+                        else
+                        {
+                            LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                            myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (GlobalData.GetWorkPeriod(f_Atom_WorkPeriod.sWorkPeriod, "Šiht", Properties.Settings.Default.ElectronicDevice_ID, null, DateTime.Now, null, ref Err))
+                    {
+                        myStartup.eNextStep++;
+                        return true;
+                    }
+                    else
+                    {
+                        LogFile.Error.Show("ERROR:usrc_Main:GlobalData.GetWorkPeriod:Err=" + Err);
+                        myStartup.eNextStep = Startup.startup_step.eStep.Cancel;
+                        return false;
+                    }
+                }
+            }
+        }
+      }
 
 
-    private void btn_Exit_Click(object sender, EventArgs e)
+        private void btn_Exit_Click(object sender, EventArgs e)
         {
             if (Exit_Click!=null)
             {
@@ -660,12 +740,15 @@ Do_Form_myOrg_Office_Data_FVI_SLO_RealEstateBP:
 
         private void btn_Settings_Click(object sender, EventArgs e)
         {
-            NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation();
-            nav_Form_ProgramSettings.bDoModal = true;
-            nav_Form_ProgramSettings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
-            Form_ProgramSettings edt_Form = new Form_ProgramSettings(this, nav_Form_ProgramSettings);
-            edt_Form.ShowDialog();
-            edt_Form.Dispose();
+            if (Program.DoLoginAsAdministrator((Form)this.Parent))
+            {
+                NavigationButtons.Navigation nav_Form_ProgramSettings = new NavigationButtons.Navigation();
+                nav_Form_ProgramSettings.bDoModal = true;
+                nav_Form_ProgramSettings.m_eButtons = NavigationButtons.Navigation.eButtons.OkCancel;
+                Form_ProgramSettings edt_Form = new Form_ProgramSettings(this, nav_Form_ProgramSettings);
+                edt_Form.ShowDialog();
+                edt_Form.Dispose();
+            }
         }
 
         private void btn_Backup_Click(object sender, EventArgs e)

@@ -33,8 +33,12 @@
             this.usrc_NavigationButtons1 = new NavigationButtons.usrc_NavigationButtons();
             this.usrc_Password1 = new Password.usrc_PasswordDefinition();
             this.chk_StockCheckAtStartup = new System.Windows.Forms.CheckBox();
-            this.chk_MultiUserOperation = new System.Windows.Forms.CheckBox();
+            this.rdb_MultiUserOperation = new System.Windows.Forms.RadioButton();
             this.lbl_DataBaseVersion = new System.Windows.Forms.Label();
+            this.grp_OperationMode = new System.Windows.Forms.GroupBox();
+            this.chk_SingleUserLoginAsAdministrator = new System.Windows.Forms.CheckBox();
+            this.rdb_SingleUser = new System.Windows.Forms.RadioButton();
+            this.grp_OperationMode.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_Administrator_Password
@@ -62,9 +66,9 @@
             this.usrc_NavigationButtons1.Image_NEXT = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_NEXT")));
             this.usrc_NavigationButtons1.Image_OK = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_OK")));
             this.usrc_NavigationButtons1.Image_PREV = ((System.Drawing.Image)(resources.GetObject("usrc_NavigationButtons1.Image_PREV")));
-            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 170);
+            this.usrc_NavigationButtons1.Location = new System.Drawing.Point(3, 228);
             this.usrc_NavigationButtons1.Name = "usrc_NavigationButtons1";
-            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(280, 63);
+            this.usrc_NavigationButtons1.Size = new System.Drawing.Size(385, 63);
             this.usrc_NavigationButtons1.TabIndex = 2;
             this.usrc_NavigationButtons1.Text_Cancel = "Exit";
             this.usrc_NavigationButtons1.Text_EXIT = "Exit";
@@ -80,33 +84,34 @@
             // 
             this.usrc_Password1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.usrc_Password1.Location = new System.Drawing.Point(12, 49);
-            this.usrc_Password1.MaxLength = 5;
+            this.usrc_Password1.MaxLength = 32;
             this.usrc_Password1.MinPasswordLength = 5;
             this.usrc_Password1.Name = "usrc_Password1";
             this.usrc_Password1.PasswordLocked = true;
             this.usrc_Password1.ReadOnly = false;
-            this.usrc_Password1.Size = new System.Drawing.Size(245, 67);
+            this.usrc_Password1.Size = new System.Drawing.Size(261, 67);
             this.usrc_Password1.TabIndex = 0;
             // 
             // chk_StockCheckAtStartup
             // 
             this.chk_StockCheckAtStartup.AutoSize = true;
-            this.chk_StockCheckAtStartup.Location = new System.Drawing.Point(17, 145);
+            this.chk_StockCheckAtStartup.Location = new System.Drawing.Point(12, 205);
             this.chk_StockCheckAtStartup.Name = "chk_StockCheckAtStartup";
             this.chk_StockCheckAtStartup.Size = new System.Drawing.Size(138, 17);
             this.chk_StockCheckAtStartup.TabIndex = 3;
             this.chk_StockCheckAtStartup.Text = "Stock Check At Startup";
             this.chk_StockCheckAtStartup.UseVisualStyleBackColor = true;
             // 
-            // chk_MultiUserOperation
+            // rdb_MultiUserOperation
             // 
-            this.chk_MultiUserOperation.AutoSize = true;
-            this.chk_MultiUserOperation.Location = new System.Drawing.Point(17, 122);
-            this.chk_MultiUserOperation.Name = "chk_MultiUserOperation";
-            this.chk_MultiUserOperation.Size = new System.Drawing.Size(118, 17);
-            this.chk_MultiUserOperation.TabIndex = 4;
-            this.chk_MultiUserOperation.Text = "Multi user operation";
-            this.chk_MultiUserOperation.UseVisualStyleBackColor = true;
+            this.rdb_MultiUserOperation.AutoSize = true;
+            this.rdb_MultiUserOperation.Location = new System.Drawing.Point(6, 19);
+            this.rdb_MultiUserOperation.Name = "rdb_MultiUserOperation";
+            this.rdb_MultiUserOperation.Size = new System.Drawing.Size(70, 17);
+            this.rdb_MultiUserOperation.TabIndex = 4;
+            this.rdb_MultiUserOperation.Text = "Multi user";
+            this.rdb_MultiUserOperation.UseVisualStyleBackColor = true;
+            this.rdb_MultiUserOperation.CheckedChanged += new System.EventHandler(this.rdb_MultiUserOperation_CheckedChanged);
             // 
             // lbl_DataBaseVersion
             // 
@@ -117,13 +122,45 @@
             this.lbl_DataBaseVersion.TabIndex = 5;
             this.lbl_DataBaseVersion.Text = "Data Base Version";
             // 
+            // grp_OperationMode
+            // 
+            this.grp_OperationMode.Controls.Add(this.chk_SingleUserLoginAsAdministrator);
+            this.grp_OperationMode.Controls.Add(this.rdb_SingleUser);
+            this.grp_OperationMode.Controls.Add(this.rdb_MultiUserOperation);
+            this.grp_OperationMode.Location = new System.Drawing.Point(12, 123);
+            this.grp_OperationMode.Name = "grp_OperationMode";
+            this.grp_OperationMode.Size = new System.Drawing.Size(375, 71);
+            this.grp_OperationMode.TabIndex = 6;
+            this.grp_OperationMode.TabStop = false;
+            this.grp_OperationMode.Text = "Operation Mode";
+            // 
+            // chk_SingleUserLoginAsAdministrator
+            // 
+            this.chk_SingleUserLoginAsAdministrator.AutoSize = true;
+            this.chk_SingleUserLoginAsAdministrator.Location = new System.Drawing.Point(194, 43);
+            this.chk_SingleUserLoginAsAdministrator.Name = "chk_SingleUserLoginAsAdministrator";
+            this.chk_SingleUserLoginAsAdministrator.Size = new System.Drawing.Size(129, 17);
+            this.chk_SingleUserLoginAsAdministrator.TabIndex = 6;
+            this.chk_SingleUserLoginAsAdministrator.Text = "Login as Administrator";
+            this.chk_SingleUserLoginAsAdministrator.UseVisualStyleBackColor = true;
+            // 
+            // rdb_SingleUser
+            // 
+            this.rdb_SingleUser.AutoSize = true;
+            this.rdb_SingleUser.Location = new System.Drawing.Point(7, 42);
+            this.rdb_SingleUser.Name = "rdb_SingleUser";
+            this.rdb_SingleUser.Size = new System.Drawing.Size(77, 17);
+            this.rdb_SingleUser.TabIndex = 5;
+            this.rdb_SingleUser.Text = "Single user";
+            this.rdb_SingleUser.UseVisualStyleBackColor = true;
+            // 
             // Form_DBSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(288, 233);
+            this.ClientSize = new System.Drawing.Size(393, 291);
+            this.Controls.Add(this.grp_OperationMode);
             this.Controls.Add(this.lbl_DataBaseVersion);
-            this.Controls.Add(this.chk_MultiUserOperation);
             this.Controls.Add(this.chk_StockCheckAtStartup);
             this.Controls.Add(this.usrc_NavigationButtons1);
             this.Controls.Add(this.lbl_Administrator_Password);
@@ -132,6 +169,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_DBSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.grp_OperationMode.ResumeLayout(false);
+            this.grp_OperationMode.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,7 +182,10 @@
         private System.Windows.Forms.Label lbl_Administrator_Password;
         private NavigationButtons.usrc_NavigationButtons usrc_NavigationButtons1;
         private System.Windows.Forms.CheckBox chk_StockCheckAtStartup;
-        private System.Windows.Forms.CheckBox chk_MultiUserOperation;
+        private System.Windows.Forms.RadioButton rdb_MultiUserOperation;
         private System.Windows.Forms.Label lbl_DataBaseVersion;
+        private System.Windows.Forms.GroupBox grp_OperationMode;
+        private System.Windows.Forms.CheckBox chk_SingleUserLoginAsAdministrator;
+        private System.Windows.Forms.RadioButton rdb_SingleUser;
     }
 }

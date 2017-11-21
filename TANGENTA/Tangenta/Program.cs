@@ -46,8 +46,14 @@ namespace Tangenta
 
         #region Variables
         internal static string AdministratorLockedPassword = "dhlpt"; //"dhlpt" is Locked password for "12345"
-        internal static bool MultiuserOperationWithLogin = true;
-        internal static bool StockCheckAtStartup = true;
+
+        internal static class OperationMode
+        {
+            internal static bool MultiUser = true;
+            internal static bool SingleUserLoginAsAdministrator = false;
+            internal static bool StockCheckAtStartup = true;
+        }
+
         private static string m_RunAs = null;
 
         internal static RPC.RPC rpc = null;
@@ -637,6 +643,19 @@ namespace Tangenta
                 Reset2FactorySettings.TangentaPrint_DLL = false;
                 Reset2FactorySettings.FiscalVerification_DLL = false;
             }
+        }
+
+        internal static bool DoLoginAsAdministrator(Form frm)
+        {
+            string AdministratorLockedPassword = null;
+            if (fs.GetAdministratorPassword(ref AdministratorLockedPassword))
+            {
+                if (Password.Password.Check(frm, null, AdministratorLockedPassword))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
